@@ -1,0 +1,9 @@
+beautifulsoup4
+markdownify
+jsonschema
+requests
+lxml
+pyyaml
+spicelib
+PyLTSpice
+numpy
