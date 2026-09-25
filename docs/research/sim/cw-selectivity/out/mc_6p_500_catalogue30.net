@@ -1,0 +1,101 @@
+* 6-pole crystal ladder, butterworth 0.1 dB, B=660.0 Hz, Monte Carlo 200 runs
+* nominal crystal fs=9000000.0 Hz Cm=20.000 fF Rs=15.0 ohm C0=4.50 pF Lm=15.6360 mH Qu=58946
+* design k=[1.1688, 0.605, 0.5176, 0.605, 1.1688] q1=0.5176 qn=0.5176 Qend_loaded=7059 R1=110.26 Rn=110.26
+* Ck=[233.35, 450.79, 526.87, 450.79, 233.35] pF  Ct=[450.79, None, 418.85, 418.85, None, 450.79] pF  f_mesh=9000585.3 Hz
+.param fs0=9000000 cm0=2e-14 c00=4.5e-12
+.param tolf=3e-05 truncf=0
+.param cmsig=0.03 cmtr=0.1
+.param rsmin=8 rsmax=30 c0min=3.5e-12 c0max=5.5e-12
+.param captol=0.02 restol=0.01
+.param ef1={flat(tolf)}
+.param ec1={limit(gauss(cmsig),-cmtr,cmtr)}
+.param cm1={cm0*(1+ec1)}
+.param fs1={fs0*(1+ef1)}
+.param lm1={1/(pow(2*pi*fs1,2)*cm1)}
+.param rs1={rsmin+(rsmax-rsmin)*(0.5+flat(0.5))}
+.param c0_1={c0min+(c0max-c0min)*(0.5+flat(0.5))}
+.param ef2={flat(tolf)}
+.param ec2={limit(gauss(cmsig),-cmtr,cmtr)}
+.param cm2={cm0*(1+ec2)}
+.param fs2={fs0*(1+ef2)}
+.param lm2={1/(pow(2*pi*fs2,2)*cm2)}
+.param rs2={rsmin+(rsmax-rsmin)*(0.5+flat(0.5))}
+.param c0_2={c0min+(c0max-c0min)*(0.5+flat(0.5))}
+.param ef3={flat(tolf)}
+.param ec3={limit(gauss(cmsig),-cmtr,cmtr)}
+.param cm3={cm0*(1+ec3)}
+.param fs3={fs0*(1+ef3)}
+.param lm3={1/(pow(2*pi*fs3,2)*cm3)}
+.param rs3={rsmin+(rsmax-rsmin)*(0.5+flat(0.5))}
+.param c0_3={c0min+(c0max-c0min)*(0.5+flat(0.5))}
+.param ef4={flat(tolf)}
+.param ec4={limit(gauss(cmsig),-cmtr,cmtr)}
+.param cm4={cm0*(1+ec4)}
+.param fs4={fs0*(1+ef4)}
+.param lm4={1/(pow(2*pi*fs4,2)*cm4)}
+.param rs4={rsmin+(rsmax-rsmin)*(0.5+flat(0.5))}
+.param c0_4={c0min+(c0max-c0min)*(0.5+flat(0.5))}
+.param ef5={flat(tolf)}
+.param ec5={limit(gauss(cmsig),-cmtr,cmtr)}
+.param cm5={cm0*(1+ec5)}
+.param fs5={fs0*(1+ef5)}
+.param lm5={1/(pow(2*pi*fs5,2)*cm5)}
+.param rs5={rsmin+(rsmax-rsmin)*(0.5+flat(0.5))}
+.param c0_5={c0min+(c0max-c0min)*(0.5+flat(0.5))}
+.param ef6={flat(tolf)}
+.param ec6={limit(gauss(cmsig),-cmtr,cmtr)}
+.param cm6={cm0*(1+ec6)}
+.param fs6={fs0*(1+ef6)}
+.param lm6={1/(pow(2*pi*fs6,2)*cm6)}
+.param rs6={rsmin+(rsmax-rsmin)*(0.5+flat(0.5))}
+.param c0_6={c0min+(c0max-c0min)*(0.5+flat(0.5))}
+.param ck1={2.33345367e-10*(1+flat(captol))}
+.param ck2={4.50788632e-10*(1+flat(captol))}
+.param ck3={5.26868633e-10*(1+flat(captol))}
+.param ck4={4.50788632e-10*(1+flat(captol))}
+.param ck5={2.33345367e-10*(1+flat(captol))}
+.param ct1={4.50788632e-10*(1+flat(captol))}
+.param ct3={4.18850457e-10*(1+flat(captol))}
+.param ct4={4.18850457e-10*(1+flat(captol))}
+.param ct6={4.50788632e-10*(1+flat(captol))}
+.param r1={110.263005*(1+flat(restol))} rn={110.263005*(1+flat(restol))}
+V1 in 0 AC 1
+R1 in n1 {r1}
+Ct1 n1 t1 {ct1}
+L1 t1 m1a {lm1}
+Cm1 m1a m1b {cm1}
+Rs1 m1b n2 {rs1}
+C0_1 t1 n2 {c0_1}
+Ck1 n2 0 {ck1}
+L2 n2 m2a {lm2}
+Cm2 m2a m2b {cm2}
+Rs2 m2b n3 {rs2}
+C0_2 n2 n3 {c0_2}
+Ck2 n3 0 {ck2}
+Ct3 n3 t3 {ct3}
+L3 t3 m3a {lm3}
+Cm3 m3a m3b {cm3}
+Rs3 m3b n4 {rs3}
+C0_3 t3 n4 {c0_3}
+Ck3 n4 0 {ck3}
+Ct4 n4 t4 {ct4}
+L4 t4 m4a {lm4}
+Cm4 m4a m4b {cm4}
+Rs4 m4b n5 {rs4}
+C0_4 t4 n5 {c0_4}
+Ck4 n5 0 {ck4}
+L5 n5 m5a {lm5}
+Cm5 m5a m5b {cm5}
+Rs5 m5b n6 {rs5}
+C0_5 n5 n6 {c0_5}
+Ck5 n6 0 {ck5}
+Ct6 n6 t6 {ct6}
+L6 t6 m6a {lm6}
+Cm6 m6a m6b {cm6}
+Rs6 m6b out {rs6}
+C0_6 t6 out {c0_6}
+Rn out 0 {rn}
+.ac lin 6001 8994585.33 9006585.33
+.step param run 1 200 1
+.save V(out) V(in)
+.end

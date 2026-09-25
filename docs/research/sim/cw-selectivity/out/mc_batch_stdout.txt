@@ -1,0 +1,485 @@
+=== batch start Fri Sep 25 11:59:25 CDT 2026 design_bw4=540 design_bw6=660 runs=200 ===
+--- --case mc_4p_500_catalogue30 --poles 4 --bw 540 --bw-target 500 --f-ppm 30 --f-dist flat --runs 200 --cm-sigma-pct 3 --cm-trunc-pct 10 --rs-min 8 --rs-max 30 --c0-min-pf 3.5 --c0-max-pf 5.5 --cap-pct 2 --res-pct 1 --rs 15 --fspan 6000 --points 6001 ---
+  "fs_hz": 9000000.0,
+  "cm_f": 2e-14,
+  "rs_ohm": 15.0,
+  "c0_f": 4.5e-12
+  "n": 4,
+  "bw_hz": 540.0,
+  "proto": "butterworth",
+  "ripple_db": 0.1,
+  "k": [
+   0.8408964152537146,
+   0.541196100146197,
+   0.8408964152537144
+  ],
+  "q1": 0.7653668647301796,
+  "qn": 0.7653668647301798,
+  "ck_f": [
+   3.9640237166757363e-10,
+   6.159196883408578e-10,
+   3.964023716675738e-10
+  ],
+  "ct_f": [
+   6.159196883408578e-10,
+   0.0,
+   0.0,
+   6.159196883408574e-10
+  ],
+  "r1_ohm": 54.31531810695927,
+  "rn_ohm": 54.31531810695925,
+  "q_end_loaded": 12756.114412169658,
+  "qu": 58946.27521922051,
+  "f_mesh_hz": 9000373.157243252
+
+LTspice 26.0.2 for MacOS | mc_4p_500_catalogue30: 200 runs in 9.7 s
+  il_db          min      5.42  p5      7.23  p50      9.73  p95     13.58  max     17.96  nan 0
+  bw3_hz         min    293.60  p5    383.61  p50    476.41  p95    630.17  max    793.54  nan 0
+  bw6_hz         min    510.36  p5    571.78  p50    642.19  p95    792.42  max    925.25  nan 0
+  bw60_hz        min   3240.26  p5   3393.59  p50   3670.96  p95   4098.75  max   4629.73  nan 0
+  shape_60_6     min      4.70  p5      4.99  p50      5.72  p95      6.35  max      7.07  nan 0
+  fc_err_hz      min   -246.15  p5   -153.41  p50     -0.85  p95    130.47  max    172.09  nan 0
+  ripple_db      min      2.92  p5      2.95  p50      2.98  p95      3.00  max      3.00  nan 0
+  ripple_nom_db  min      0.34  p5      1.22  p50      2.65  p95      4.00  max      4.61  nan 0
+  ripple_pv_db   min      0.00  p5      0.00  p50      0.00  p95      0.34  max      1.62  nan 0
+  att_p1k        min     32.51  p5     36.13  p50     40.86  p95     43.89  max     45.96  nan 0
+  att_m1k        min     29.74  p5     33.16  p50     37.52  p95     40.88  max     43.19  nan 0
+  att_p2k        min     59.34  p5     62.49  p50     66.83  p95     69.85  max     71.46  nan 0
+  att_m2k        min     51.99  p5     55.71  p50     59.88  p95     62.84  max     64.79  nan 0
+  att_p5k        min     98.73  p5    101.15  p50    105.16  p95    108.60  max    110.18  nan 0
+  att_m5k        min     78.81  p5     83.44  p50     87.43  p95     89.94  max     91.83  nan 0
+  yield (BW3 within +/-20 % of 500 Hz, ripple_pv <= 1 dB, IL <= 8 dB): 14.5 %   relaxed (+/-30 %, 2 dB, 10 dB): 51.0 %
+  plot: /Users/robinonsay/rust/cwht/docs/research/figures/cw-selectivity/mc_4p_500_catalogue30.png
+--- --case mc_6p_500_catalogue30 --poles 6 --bw 660 --bw-target 500 --f-ppm 30 --f-dist flat --runs 200 --cm-sigma-pct 3 --cm-trunc-pct 10 --rs-min 8 --rs-max 30 --c0-min-pf 3.5 --c0-max-pf 5.5 --cap-pct 2 --res-pct 1 --rs 15 --fspan 6000 --points 6001 ---
+  "fs_hz": 9000000.0,
+  "cm_f": 2e-14,
+  "rs_ohm": 15.0,
+  "c0_f": 4.5e-12
+  "n": 6,
+  "bw_hz": 660.0,
+  "proto": "butterworth",
+  "ripple_db": 0.1,
+  "k": [
+   1.1687708944803679,
+   0.6050003337060555,
+   0.5176380902050415,
+   0.6050003337060555,
+   1.168770894480367
+  ],
+  "q1": 0.5176380902050415,
+  "qn": 0.517638090205042,
+  "ck_f": [
+   2.333453665001869e-10,
+   4.5078863189483716e-10,
+   5.2686863252131e-10,
+   4.5078863189483716e-10,
+   2.3334536650018707e-10
+  ],
+  "ct_f": [
+   4.507886318948373e-10,
+   0.0,
+   4.188504571364711e-10,
+   4.188504571364711e-10,
+   0.0,
+   4.5078863189483674e-10
+  ],
+  "r1_ohm": 110.26300511513452,
+  "rn_ohm": 110.26300511513438,
+  "q_end_loaded": 7058.7012300687475,
+  "qu": 58946.27521922051,
+  "f_mesh_hz": 9000585.32547164
+
+LTspice 26.0.2 for MacOS | mc_6p_500_catalogue30: 200 runs in 9.9 s
+  il_db          min      8.00  p5      9.28  p50     12.30  p95     15.66  max     19.40  nan 0
+  bw3_hz         min    230.71  p5    377.06  p50    476.55  p95    633.81  max    749.83  nan 0
+  bw6_hz         min    517.51  p5    579.91  p50    645.63  p95    783.84  max    845.64  nan 0
+  bw60_hz        min   2203.89  p5   2296.95  p50   2446.66  p95   2635.54  max   2789.96  nan 0
+  shape_60_6     min      3.01  p5      3.24  p50      3.76  p95      4.19  max      4.76  nan 0
+  fc_err_hz      min   -239.54  p5   -177.66  p50    -30.70  p95    122.60  max    192.66  nan 0
+  ripple_db      min      2.94  p5      2.95  p50      2.98  p95      3.00  max      3.00  nan 0
+  ripple_nom_db  min      0.93  p5      2.08  p50      3.95  p95      5.09  max      6.16  nan 0
+  ripple_pv_db   min      0.00  p5      0.00  p50      0.00  p95      0.35  max      2.24  nan 0
+  att_p1k        min     42.47  p5     45.53  p50     51.54  p95     57.74  max     60.16  nan 0
+  att_m1k        min     39.14  p5     42.16  p50     48.52  p95     53.11  max     56.05  nan 0
+  att_p2k        min     83.57  p5     86.49  p50     90.84  p95     95.93  max     97.04  nan 0
+  att_m2k        min     74.27  p5     76.47  p50     81.30  p95     84.60  max     86.70  nan 0
+  att_p5k        min    141.02  p5    144.04  p50    148.79  p95    153.54  max    155.53  nan 0
+  att_m5k        min    115.04  p5    117.73  p50    121.83  p95    125.11  max    126.84  nan 0
+  yield (BW3 within +/-20 % of 500 Hz, ripple_pv <= 1 dB, IL <= 8 dB): 0.0 %   relaxed (+/-30 %, 2 dB, 10 dB): 11.5 %
+  plot: /Users/robinonsay/rust/cwht/docs/research/figures/cw-selectivity/mc_6p_500_catalogue30.png
+--- --case mc_4p_500_tight10 --poles 4 --bw 540 --bw-target 500 --f-ppm 10 --f-dist flat --runs 200 --cm-sigma-pct 3 --cm-trunc-pct 10 --rs-min 8 --rs-max 30 --c0-min-pf 3.5 --c0-max-pf 5.5 --cap-pct 2 --res-pct 1 --rs 15 --fspan 6000 --points 6001 ---
+  "fs_hz": 9000000.0,
+  "cm_f": 2e-14,
+  "rs_ohm": 15.0,
+  "c0_f": 4.5e-12
+  "n": 4,
+  "bw_hz": 540.0,
+  "proto": "butterworth",
+  "ripple_db": 0.1,
+  "k": [
+   0.8408964152537146,
+   0.541196100146197,
+   0.8408964152537144
+  ],
+  "q1": 0.7653668647301796,
+  "qn": 0.7653668647301798,
+  "ck_f": [
+   3.9640237166757363e-10,
+   6.159196883408578e-10,
+   3.964023716675738e-10
+  ],
+  "ct_f": [
+   6.159196883408578e-10,
+   0.0,
+   0.0,
+   6.159196883408574e-10
+  ],
+  "r1_ohm": 54.31531810695927,
+  "rn_ohm": 54.31531810695925,
+  "q_end_loaded": 12756.114412169658,
+  "qu": 58946.27521922051,
+  "f_mesh_hz": 9000373.157243252
+
+LTspice 26.0.2 for MacOS | mc_4p_500_tight10: 200 runs in 9.6 s
+  il_db          min      5.16  p5      6.01  p50      8.34  p95     10.62  max     12.45  nan 0
+  bw3_hz         min    437.42  p5    448.82  p50    478.38  p95    514.36  max    542.82  nan 0
+  bw6_hz         min    575.80  p5    583.39  p50    614.13  p95    645.55  max    667.63  nan 0
+  bw60_hz        min   3216.50  p5   3274.81  p50   3519.25  p95   3802.40  max   3992.32  nan 0
+  shape_60_6     min      5.14  p5      5.36  p50      5.76  p95      6.05  max      6.34  nan 0
+  fc_err_hz      min    -94.24  p5    -60.83  p50    -11.70  p95     32.62  max     47.56  nan 0
+  ripple_db      min      2.93  p5      2.95  p50      2.98  p95      3.00  max      3.00  nan 0
+  ripple_nom_db  min      1.43  p5      1.82  p50      2.39  p95      2.90  max      3.23  nan 0
+  ripple_pv_db   min      0.00  p5      0.00  p50      0.00  p95      0.00  max      0.00  nan 0
+  att_p1k        min     38.69  p5     39.70  p50     42.32  p95     44.64  max     45.80  nan 0
+  att_m1k        min     35.14  p5     36.75  p50     39.32  p95     41.55  max     42.64  nan 0
+  att_p2k        min     64.33  p5     65.63  p50     68.28  p95     70.72  max     72.14  nan 0
+  att_m2k        min     56.96  p5     58.73  p50     61.55  p95     63.69  max     64.52  nan 0
+  att_p5k        min    101.85  p5    103.87  p50    106.55  p95    109.41  max    112.00  nan 0
+  att_m5k        min     84.01  p5     86.03  p50     88.77  p95     91.25  max     92.11  nan 0
+  yield (BW3 within +/-20 % of 500 Hz, ripple_pv <= 1 dB, IL <= 8 dB): 41.5 %   relaxed (+/-30 %, 2 dB, 10 dB): 83.0 %
+  plot: /Users/robinonsay/rust/cwht/docs/research/figures/cw-selectivity/mc_4p_500_tight10.png
+--- --case mc_6p_500_tight10 --poles 6 --bw 660 --bw-target 500 --f-ppm 10 --f-dist flat --runs 200 --cm-sigma-pct 3 --cm-trunc-pct 10 --rs-min 8 --rs-max 30 --c0-min-pf 3.5 --c0-max-pf 5.5 --cap-pct 2 --res-pct 1 --rs 15 --fspan 6000 --points 6001 ---
+  "fs_hz": 9000000.0,
+  "cm_f": 2e-14,
+  "rs_ohm": 15.0,
+  "c0_f": 4.5e-12
+  "n": 6,
+  "bw_hz": 660.0,
+  "proto": "butterworth",
+  "ripple_db": 0.1,
+  "k": [
+   1.1687708944803679,
+   0.6050003337060555,
+   0.5176380902050415,
+   0.6050003337060555,
+   1.168770894480367
+  ],
+  "q1": 0.5176380902050415,
+  "qn": 0.517638090205042,
+  "ck_f": [
+   2.333453665001869e-10,
+   4.5078863189483716e-10,
+   5.2686863252131e-10,
+   4.5078863189483716e-10,
+   2.3334536650018707e-10
+  ],
+  "ct_f": [
+   4.507886318948373e-10,
+   0.0,
+   4.188504571364711e-10,
+   4.188504571364711e-10,
+   0.0,
+   4.5078863189483674e-10
+  ],
+  "r1_ohm": 110.26300511513452,
+  "rn_ohm": 110.26300511513438,
+  "q_end_loaded": 7058.7012300687475,
+  "qu": 58946.27521922051,
+  "f_mesh_hz": 9000585.32547164
+
+LTspice 26.0.2 for MacOS | mc_6p_500_tight10: 200 runs in 10.0 s
+  il_db          min      7.29  p5      8.08  p50     10.37  p95     12.97  max     15.05  nan 0
+  bw3_hz         min    426.95  p5    463.65  p50    493.94  p95    536.15  max    561.59  nan 0
+  bw6_hz         min    592.83  p5    607.10  p50    635.04  p95    668.66  max    688.85  nan 0
+  bw60_hz        min   2174.63  p5   2232.61  p50   2350.44  p95   2483.06  max   2580.47  nan 0
+  shape_60_6     min      3.37  p5      3.48  p50      3.70  p95      3.91  max      4.01  nan 0
+  fc_err_hz      min   -100.12  p5    -77.55  p50    -30.26  p95     22.82  max     47.54  nan 0
+  ripple_db      min      2.94  p5      2.95  p50      2.98  p95      3.00  max      3.00  nan 0
+  ripple_nom_db  min      2.51  p5      2.97  p50      3.69  p95      4.26  max      4.84  nan 0
+  ripple_pv_db   min      0.00  p5      0.00  p50      0.00  p95      0.00  max      0.00  nan 0
+  att_p1k        min     49.56  p5     50.78  p50     54.10  p95     57.26  max     58.68  nan 0
+  att_m1k        min     44.84  p5     46.55  p50     49.94  p95     52.93  max     54.11  nan 0
+  att_p2k        min     87.90  p5     89.76  p50     93.15  p95     96.02  max     97.80  nan 0
+  att_m2k        min     78.15  p5     79.80  p50     82.82  p95     85.50  max     86.60  nan 0
+  att_p5k        min    143.96  p5    147.20  p50    150.86  p95    154.26  max    156.82  nan 0
+  att_m5k        min    119.14  p5    120.34  p50    123.50  p95    126.21  max    126.85  nan 0
+  yield (BW3 within +/-20 % of 500 Hz, ripple_pv <= 1 dB, IL <= 8 dB): 4.0 %   relaxed (+/-30 %, 2 dB, 10 dB): 39.5 %
+  plot: /Users/robinonsay/rust/cwht/docs/research/figures/cw-selectivity/mc_6p_500_tight10.png
+--- --case mc_4p_500_samelot4 --poles 4 --bw 540 --bw-target 500 --f-ppm 4 --f-dist gauss --f-trunc-ppm 15 --runs 200 --cm-sigma-pct 3 --cm-trunc-pct 10 --rs-min 8 --rs-max 30 --c0-min-pf 3.5 --c0-max-pf 5.5 --cap-pct 2 --res-pct 1 --rs 15 --fspan 6000 --points 6001 ---
+  "fs_hz": 9000000.0,
+  "cm_f": 2e-14,
+  "rs_ohm": 15.0,
+  "c0_f": 4.5e-12
+  "n": 4,
+  "bw_hz": 540.0,
+  "proto": "butterworth",
+  "ripple_db": 0.1,
+  "k": [
+   0.8408964152537146,
+   0.541196100146197,
+   0.8408964152537144
+  ],
+  "q1": 0.7653668647301796,
+  "qn": 0.7653668647301798,
+  "ck_f": [
+   3.9640237166757363e-10,
+   6.159196883408578e-10,
+   3.964023716675738e-10
+  ],
+  "ct_f": [
+   6.159196883408578e-10,
+   0.0,
+   0.0,
+   6.159196883408574e-10
+  ],
+  "r1_ohm": 54.31531810695927,
+  "rn_ohm": 54.31531810695925,
+  "q_end_loaded": 12756.114412169658,
+  "qu": 58946.27521922051,
+  "f_mesh_hz": 9000373.157243252
+
+LTspice 26.0.2 for MacOS | mc_4p_500_samelot4: 200 runs in 9.6 s
+  il_db          min      4.30  p5      6.24  p50      8.38  p95     10.76  max     11.95  nan 0
+  bw3_hz         min    434.76  p5    453.88  p50    476.44  p95    504.54  max    511.67  nan 0
+  bw6_hz         min    566.41  p5    589.52  p50    614.37  p95    641.85  max    651.32  nan 0
+  bw60_hz        min   3199.45  p5   3292.51  p50   3526.14  p95   3787.40  max   4010.40  nan 0
+  shape_60_6     min      5.19  p5      5.41  p50      5.76  p95      6.12  max      6.25  nan 0
+  fc_err_hz      min    -79.96  p5    -46.44  p50    -13.97  p95     13.55  max     64.44  nan 0
+  ripple_db      min      2.93  p5      2.94  p50      2.98  p95      3.00  max      3.00  nan 0
+  ripple_nom_db  min      1.68  p5      1.98  p50      2.35  p95      2.71  max      3.07  nan 0
+  ripple_pv_db   min      0.00  p5      0.00  p50      0.00  p95      0.00  max      0.00  nan 0
+  att_p1k        min     37.38  p5     39.80  p50     42.36  p95     44.62  max     45.82  nan 0
+  att_m1k        min     35.73  p5     36.99  p50     39.23  p95     41.36  max     42.93  nan 0
+  att_p2k        min     63.26  p5     65.41  p50     68.22  p95     70.57  max     72.09  nan 0
+  att_m2k        min     57.44  p5     59.03  p50     61.42  p95     63.55  max     64.96  nan 0
+  att_p5k        min    101.44  p5    103.32  p50    106.46  p95    109.03  max    112.09  nan 0
+  att_m5k        min     84.56  p5     86.21  p50     88.61  p95     90.86  max     91.88  nan 0
+  yield (BW3 within +/-20 % of 500 Hz, ripple_pv <= 1 dB, IL <= 8 dB): 42.0 %   relaxed (+/-30 %, 2 dB, 10 dB): 85.5 %
+  plot: /Users/robinonsay/rust/cwht/docs/research/figures/cw-selectivity/mc_4p_500_samelot4.png
+--- --case mc_6p_500_samelot4 --poles 6 --bw 660 --bw-target 500 --f-ppm 4 --f-dist gauss --f-trunc-ppm 15 --runs 200 --cm-sigma-pct 3 --cm-trunc-pct 10 --rs-min 8 --rs-max 30 --c0-min-pf 3.5 --c0-max-pf 5.5 --cap-pct 2 --res-pct 1 --rs 15 --fspan 6000 --points 6001 ---
+  "fs_hz": 9000000.0,
+  "cm_f": 2e-14,
+  "rs_ohm": 15.0,
+  "c0_f": 4.5e-12
+  "n": 6,
+  "bw_hz": 660.0,
+  "proto": "butterworth",
+  "ripple_db": 0.1,
+  "k": [
+   1.1687708944803679,
+   0.6050003337060555,
+   0.5176380902050415,
+   0.6050003337060555,
+   1.168770894480367
+  ],
+  "q1": 0.5176380902050415,
+  "qn": 0.517638090205042,
+  "ck_f": [
+   2.333453665001869e-10,
+   4.5078863189483716e-10,
+   5.2686863252131e-10,
+   4.5078863189483716e-10,
+   2.3334536650018707e-10
+  ],
+  "ct_f": [
+   4.507886318948373e-10,
+   0.0,
+   4.188504571364711e-10,
+   4.188504571364711e-10,
+   0.0,
+   4.5078863189483674e-10
+  ],
+  "r1_ohm": 110.26300511513452,
+  "rn_ohm": 110.26300511513438,
+  "q_end_loaded": 7058.7012300687475,
+  "qu": 58946.27521922051,
+  "f_mesh_hz": 9000585.32547164
+
+LTspice 26.0.2 for MacOS | mc_6p_500_samelot4: 200 runs in 9.9 s
+  il_db          min      6.95  p5      8.08  p50     10.32  p95     12.50  max     14.44  nan 0
+  bw3_hz         min    442.21  p5    465.93  p50    492.26  p95    524.47  max    540.10  nan 0
+  bw6_hz         min    580.45  p5    606.31  p50    634.14  p95    660.16  max    675.70  nan 0
+  bw60_hz        min   2197.21  p5   2231.38  p50   2350.33  p95   2454.83  max   2507.00  nan 0
+  shape_60_6     min      3.36  p5      3.49  p50      3.71  p95      3.93  max      3.99  nan 0
+  fc_err_hz      min    -83.85  p5    -62.99  p50    -22.87  p95     10.82  max     33.87  nan 0
+  ripple_db      min      2.93  p5      2.95  p50      2.98  p95      3.00  max      3.00  nan 0
+  ripple_nom_db  min      2.91  p5      3.09  p50      3.67  p95      4.23  max      4.71  nan 0
+  ripple_pv_db   min      0.00  p5      0.00  p50      0.00  p95      0.00  max      0.00  nan 0
+  att_p1k        min     50.25  p5     51.26  p50     54.11  p95     56.83  max     58.44  nan 0
+  att_m1k        min     46.04  p5     47.71  p50     50.00  p95     52.26  max     54.41  nan 0
+  att_p2k        min     88.80  p5     90.35  p50     92.91  p95     95.73  max     97.38  nan 0
+  att_m2k        min     79.33  p5     80.65  p50     82.93  p95     85.23  max     86.92  nan 0
+  att_p5k        min    145.83  p5    147.45  p50    150.49  p95    154.09  max    156.07  nan 0
+  att_m5k        min    119.77  p5    121.09  p50    123.54  p95    126.19  max    127.54  nan 0
+  yield (BW3 within +/-20 % of 500 Hz, ripple_pv <= 1 dB, IL <= 8 dB): 4.0 %   relaxed (+/-30 %, 2 dB, 10 dB): 41.0 %
+  plot: /Users/robinonsay/rust/cwht/docs/research/figures/cw-selectivity/mc_6p_500_samelot4.png
+--- --case mc_4p_2400_catalogue30 --poles 4 --bw 2400 --bw-target 2400 --proto chebyshev --ripple 0.1 --f-ppm 30 --f-dist flat --runs 200 --cm-sigma-pct 3 --cm-trunc-pct 10 --rs-min 8 --rs-max 30 --c0-min-pf 3.5 --c0-max-pf 5.5 --cap-pct 2 --res-pct 1 --rs 15 --fspan 15000 --points 6001 ---
+  "fs_hz": 9000000.0,
+  "cm_f": 2e-14,
+  "rs_ohm": 15.0,
+  "c0_f": 4.5e-12
+  "n": 4,
+  "bw_hz": 2400.0,
+  "proto": "chebyshev",
+  "ripple_db": 0.1,
+  "k": [
+   0.8309386398613278,
+   0.6576048213669747,
+   0.8309386398613279
+  ],
+  "q1": 1.1088122655091426,
+  "qn": 1.108812265509143,
+  "ck_f": [
+   9.025937223537524e-11,
+   1.1405025870110893e-10,
+   9.025937223537523e-11
+  ],
+  "ct_f": [
+   1.1405025870110892e-10,
+   0.0,
+   0.0,
+   1.1405025870110895e-10
+  ],
+  "r1_ohm": 197.64654821311402,
+  "rn_ohm": 197.64654821311393,
+  "q_end_loaded": 4158.045995659285,
+  "qu": 58946.27521922051,
+  "f_mesh_hz": 9001786.074927714
+
+LTspice 26.0.2 for MacOS | mc_4p_2400_catalogue30: 200 runs in 9.6 s
+  il_db          min      1.37  p5      1.59  p50      2.21  p95      2.83  max      3.60  nan 0
+  bw3_hz         min   1964.82  p5   2242.79  p50   2365.07  p95   2473.32  max   2580.01  nan 0
+  bw6_hz         min   2508.90  p5   2567.06  p50   2674.49  p95   2766.00  max   2841.41  nan 0
+  bw60_hz        min  11967.67  p5  12220.24  p50  12632.18  p95  13048.72  max  13276.51  nan 0
+  shape_60_6     min      4.50  p5      4.57  p50      4.72  p95      4.93  max      5.03  nan 0
+  fc_err_hz      min   -494.47  p5   -389.15  p50   -243.04  p95   -104.84  max    -61.15  nan 0
+  ripple_db      min      2.91  p5      2.94  p50      2.98  p95      3.00  max      3.00  nan 0
+  ripple_nom_db  min      0.35  p5      0.68  p50      1.19  p95      1.89  max      3.42  nan 0
+  ripple_pv_db   min      0.00  p5      0.00  p50      0.00  p95      0.12  max      0.33  nan 0
+  att_p1k        min      0.27  p5      0.74  p50      1.32  p95      2.10  max      3.70  nan 0
+  att_m1k        min      0.34  p5      0.66  p50      1.13  p95      1.71  max      2.34  nan 0
+  att_p2k        min     21.24  p5     21.77  p50     23.82  p95     25.36  max     26.56  nan 0
+  att_m2k        min     17.31  p5     18.20  p50     19.27  p95     20.36  max     21.78  nan 0
+  att_p5k        min     62.09  p5     63.21  p50     65.42  p95     68.03  max     69.98  nan 0
+  att_m5k        min     45.84  p5     46.32  p50     47.31  p95     48.37  max     48.84  nan 0
+  yield (BW3 within +/-20 % of 2400 Hz, ripple_pv <= 1 dB, IL <= 8 dB): 100.0 %   relaxed (+/-30 %, 2 dB, 10 dB): 100.0 %
+  plot: /Users/robinonsay/rust/cwht/docs/research/figures/cw-selectivity/mc_4p_2400_catalogue30.png
+--- --case mc_6p_2400_catalogue30 --poles 6 --bw 2400 --bw-target 2400 --proto chebyshev --ripple 0.1 --f-ppm 30 --f-dist flat --runs 200 --cm-sigma-pct 3 --cm-trunc-pct 10 --rs-min 8 --rs-max 30 --c0-min-pf 3.5 --c0-max-pf 5.5 --cap-pct 2 --res-pct 1 --rs 15 --fspan 15000 --points 6001 ---
+  "fs_hz": 9000000.0,
+  "cm_f": 2e-14,
+  "rs_ohm": 15.0,
+  "c0_f": 4.5e-12
+  "n": 6,
+  "bw_hz": 2400.0,
+  "proto": "chebyshev",
+  "ripple_db": 0.1,
+  "k": [
+   0.7808630020057781,
+   0.588552398351835,
+   0.5661848206057671,
+   0.588552398351835,
+   0.7808630020057777
+  ],
+  "q1": 1.1681356977007933,
+  "qn": 1.1681356977007953,
+  "ck_f": [
+   9.604757788158726e-11,
+   1.2743130468931537e-10,
+   1.3246557885419235e-10,
+   1.2743130468931537e-10,
+   9.60475778815873e-11
+  ],
+  "ct_f": [
+   1.2743130468931537e-10,
+   0.0,
+   3.4936014228782826e-10,
+   3.4936014228782826e-10,
+   0.0,
+   1.2743130468931532e-10
+  ],
+  "r1_ohm": 186.8473550127531,
+  "rn_ohm": 186.84735501275276,
+  "q_end_loaded": 4380.508866377975,
+  "qu": 58946.27521922051,
+  "f_mesh_hz": 9001643.148483932
+
+LTspice 26.0.2 for MacOS | mc_6p_2400_catalogue30: 200 runs in 9.8 s
+  il_db          min      2.76  p5      3.04  p50      3.87  p95      4.79  max      6.11  nan 0
+  bw3_hz         min   1602.16  p5   1764.01  p50   1964.82  p95   2099.96  max   2196.45  nan 0
+  bw6_hz         min   2017.29  p5   2147.74  p50   2242.75  p95   2329.43  max   2375.63  nan 0
+  bw60_hz        min   5359.50  p5   5438.42  p50   5613.59  p95   5787.57  max   5920.40  nan 0
+  shape_60_6     min      2.36  p5      2.41  p50      2.50  p95      2.61  max      2.74  nan 0
+  fc_err_hz      min   -425.80  p5   -347.24  p50   -221.41  p95    -91.72  max    -50.90  nan 0
+  ripple_db      min      2.93  p5      2.94  p50      2.98  p95      3.00  max      3.00  nan 0
+  ripple_nom_db  min      1.36  p5      1.97  p50      2.86  p95      4.26  max      5.45  nan 0
+  ripple_pv_db   min      0.00  p5      0.00  p50      0.00  p95      0.25  max      1.14  nan 0
+  att_p1k        min      1.63  p5      2.40  p50      3.40  p95      4.80  max      5.84  nan 0
+  att_m1k        min      1.39  p5      2.00  p50      2.97  p95      4.20  max      5.83  nan 0
+  att_p2k        min     41.23  p5     42.66  p50     45.56  p95     48.18  max     49.19  nan 0
+  att_m2k        min     34.62  p5     36.13  p50     37.96  p95     40.10  max     41.25  nan 0
+  att_p5k        min    103.21  p5    105.24  p50    108.08  p95    111.17  max    112.84  nan 0
+  att_m5k        min     78.57  p5     79.07  p50     80.55  p95     82.12  max     82.63  nan 0
+  yield (BW3 within +/-20 % of 2400 Hz, ripple_pv <= 1 dB, IL <= 8 dB): 66.5 %   relaxed (+/-30 %, 2 dB, 10 dB): 98.5 %
+  plot: /Users/robinonsay/rust/cwht/docs/research/figures/cw-selectivity/mc_6p_2400_catalogue30.png
+--- --case mc_4p_1000_catalogue30 --poles 4 --bw 1060 --bw-target 1000 --f-ppm 30 --f-dist flat --runs 200 --cm-sigma-pct 3 --cm-trunc-pct 10 --rs-min 8 --rs-max 30 --c0-min-pf 3.5 --c0-max-pf 5.5 --cap-pct 2 --res-pct 1 --rs 15 --fspan 8000 --points 6001 ---
+  "fs_hz": 9000000.0,
+  "cm_f": 2e-14,
+  "rs_ohm": 15.0,
+  "c0_f": 4.5e-12
+  "n": 4,
+  "bw_hz": 1060.0,
+  "proto": "butterworth",
+  "ripple_db": 0.1,
+  "k": [
+   0.8408964152537146,
+   0.541196100146197,
+   0.8408964152537144
+  ],
+  "q1": 0.7653668647301796,
+  "qn": 0.7653668647301798,
+  "ck_f": [
+   2.0194083084951865e-10,
+   3.1377040726798416e-10,
+   2.019408308495187e-10
+  ],
+  "ct_f": [
+   3.1377040726798416e-10,
+   0.0,
+   0.0,
+   3.1377040726798406e-10
+  ],
+  "r1_ohm": 121.06340220995708,
+  "rn_ohm": 121.06340220995705,
+  "q_end_loaded": 6498.39790808643,
+  "qu": 58946.27521922051,
+  "f_mesh_hz": 9000732.479226174
+
+LTspice 26.0.2 for MacOS | mc_4p_1000_catalogue30: 200 runs in 9.5 s
+  il_db          min      2.73  p5      3.47  p50      4.81  p95      6.56  max      9.14  nan 0
+  bw3_hz         min    768.84  p5    845.93  p50    936.66  p95   1069.20  max   1175.32  nan 0
+  bw6_hz         min   1041.42  p5   1100.58  p50   1164.09  p95   1271.21  max   1359.32  nan 0
+  bw60_hz        min   5924.77  p5   6056.10  p50   6361.19  p95   6753.67  max   7154.83  nan 0
+  shape_60_6     min      4.94  p5      5.17  p50      5.49  p95      5.74  max      5.95  nan 0
+  fc_err_hz      min   -285.59  p5   -186.43  p50    -37.37  p95     98.80  max    141.84  nan 0
+  ripple_db      min      2.95  p5      2.96  p50      2.98  p95      3.00  max      3.00  nan 0
+  ripple_nom_db  min      0.84  p5      1.19  p50      2.44  p95      3.32  max      3.86  nan 0
+  ripple_pv_db   min      0.00  p5      0.00  p50      0.00  p95      0.02  max      0.94  nan 0
+  att_p1k        min     17.43  p5     19.44  p50     22.40  p95     24.52  max     25.70  nan 0
+  att_m1k        min     16.51  p5     17.49  p50     19.99  p95     22.03  max     24.03  nan 0
+  att_p2k        min     43.73  p5     45.75  p50     48.35  p95     50.28  max     51.69  nan 0
+  att_m2k        min     37.89  p5     39.40  p50     41.55  p95     43.58  max     44.79  nan 0
+  att_p5k        min     82.41  p5     84.18  p50     86.79  p95     89.11  max     91.28  nan 0
+  att_m5k        min     64.38  p5     66.68  p50     68.75  p95     70.47  max     71.35  nan 0
+  yield (BW3 within +/-20 % of 1000 Hz, ripple_pv <= 1 dB, IL <= 8 dB): 98.5 %   relaxed (+/-30 %, 2 dB, 10 dB): 100.0 %
+  plot: /Users/robinonsay/rust/cwht/docs/research/figures/cw-selectivity/mc_4p_1000_catalogue30.png
+=== batch end Fri Sep 25 12:00:58 CDT 2026 ===

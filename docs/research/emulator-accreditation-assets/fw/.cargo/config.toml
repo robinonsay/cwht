@@ -1,0 +1,10 @@
+# Copied approach from rustos templates/pico2/.cargo/config.toml (read-only source).
+[build]
+target = "thumbv8m.main-none-eabihf"
+
+[target.thumbv8m.main-none-eabihf]
+rustflags = [
+    "-C", "link-arg=-Tlink.ld",
+    "-C", "link-arg=--print-memory-usage",
+    "-C", "link-arg=-Map=firmware.map",
+]
