@@ -26,3 +26,7 @@ docs/references/*.pdf
 
 # slide toolchain (npm, reinstall with: cd tools/slides && npm install)
 tools/slides/node_modules/
+
+# retained V&V evidence must not be dropped by the *.log / *.raw rules above
+!docs/vv/**/*.log
+!docs/vv/**/*.raw
