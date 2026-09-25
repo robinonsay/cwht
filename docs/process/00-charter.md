@@ -43,7 +43,7 @@ Entrance and success criteria for SRR, PDR, CDR, TRR and SAR are tailored from N
 ## 4. Review conduct, RFAs and RIDs
 
 1. **Package.** Before a review, Claude assembles `docs/reviews/<REVIEW>/package.md`: agenda, entrance-criteria checklist with evidence links, product summaries, rendered figures (schematics, layouts, CAD renders, plots), TPM status, risk status, open TBD/TBR list, RFA/RID burndown from prior reviews, proposed tailoring. Every claim links to an artifact in the repo.
-2. **Presentation.** Claude presents the package in conversation, section by section, and answers questions.
+2. **Presentation (owner directive 2026-09-25).** Every gate review (SRR, PDR, CDR, TRR and each delta TRR, SAR) is a presented review, not a document drop. Claude prepares a slide deck as a controlled review product, `docs/reviews/<REVIEW>/slides/<review>.adoc` (AsciiDoc source, converted with asciidoctor-revealjs from `tools/slides/` to `slides/<review>.html`), renders every slide headlessly to `slides/png/slide-NN.png` with the Chromium headless shell and inspects each render before the review (rule 3 of §11), then presents the deck in conversation **slide by slide**: one slide per message with the rendered slide and the speaker narrative, pausing for the owner's questions, RFAs and RIDs before advancing. Minimum slide set: title and agenda; purpose, scope and entrance-criteria status; products with evidence links and counts; requirements and traceability status; hazards and safety; risks and TPMs; TBD/TBR and open decisions with recommendations; RFA/RID trend from prior reviews; proposed tailoring and liens; requested disposition. The package (`package.md`) remains the record of evidence; the deck cites it and never introduces a claim the package lacks.
 3. **Disposition.** The owner records one of: *Approved*, *Approved with liens* (open items with closure plan and dates), or *Not approved* (re-review required). The owner may raise:
    - **RFA** (Request for Action): a question, analysis or plan the owner wants performed; ID `RFA-<REVIEW>-NNN`; severity Blocking (closed before the decision memo is signed) or Routine.
    - **RID** (Review Item Discrepancy): a specific defect in a reviewed product; ID `RID-<REVIEW>-NNN`; carries severity (Major = blocks baseline; Minor = fix before next review).
@@ -74,6 +74,7 @@ Entrance and success criteria for SRR, PDR, CDR, TRR and SAR are tailored from N
 | Configuration Management Plan (App. M) | `docs/process/05-configuration-and-data-management.md` |
 | Software Development / Management Plan (NPR 7150.2D Ch. 6) | `docs/process/07-software-engineering-plan.md` |
 | Review packages, RFA/RID logs, decision memos | `docs/reviews/<REVIEW>/` |
+| Review slide decks (AsciiDoc source, reveal.js HTML, per-slide PNG renders) | `docs/reviews/<REVIEW>/slides/{<review>.adoc, <review>.html, png/slide-NN.png}`; converter and theme in `tools/slides/` |
 | TPMs and leading indicators | `docs/plan/tpm.json` + plots |
 | Version description documents | `firmware/releases/VDD-<version>.md` |
 | Nonconformance reports | `docs/vv/ncr/NCR-NNN.md` |

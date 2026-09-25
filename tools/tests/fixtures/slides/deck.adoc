@@ -1,0 +1,28 @@
+= Fixture deck for render_deck.py
+Claude (lead SE)
+:revealjs_theme: black
+:revealjs_width: 1920
+:revealjs_height: 1080
+
+== Agenda
+
+. One
+. Two
+
+== Table
+
+[cols="2,1,2",options="header"]
+|===
+| Criterion | Status | Evidence
+| Baselined SEMP | Met | docs/plan/semp.md
+|===
+
+== Bullets
+
+* alpha
+* beta
+
+[.notes]
+--
+Speaker notes must not appear on the slide.
+--

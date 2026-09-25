@@ -1,0 +1,28 @@
+# Rust
+target/
+# KiCad
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*-backups/
+fp-info-cache
+*.lck
+_autosave-*
+# LTspice
+*.raw
+*.log
+*.op.raw
+*.fft
+# OpenSCAD / build outputs
+*.stl
+*.3mf
+build/
+# Python
+.venv/
+__pycache__/
+# macOS
+.DS_Store
+# large reference documents: see docs/references/README.md for sources
+docs/references/*.pdf
+
+# slide toolchain (npm, reinstall with: cd tools/slides && npm install)
+tools/slides/node_modules/
