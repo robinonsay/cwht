@@ -134,7 +134,7 @@ Detailed in `docs/process/07-software-engineering-plan.md`. Non-negotiables: rec
 
 ## 11. Working rules for Claude and every agent
 
-1. **Search before reading.** Use the Claude Context vector index over the repo and `docs/references/md/` to retrieve exact guidance; cite it as `SE HB §x.y`, `NPR 7123.1D App. G Table G-6`, `SWE-134`, `SE-39`.
+1. **Search first (HARD RULE, owner directive 2026-09-25).** Before any manual search of the repository or the corpus (grep, rg, find, glob, `ls` used as a search, or the Grep/Glob tools), Claude and every agent run the Claude Context vector search (`mcp__claude-context__search_code`, path `/Users/robinonsay/rust/cwht`) over the repo and `docs/references/md/`. Manual search is permitted only afterwards, to pin the exact line a semantic hit pointed at, or when the search tool is unavailable and the agent says so in its return. Reading a file at a known path is not a search. Cite retrieved guidance as `SE HB §x.y`, `NPR 7123.1D App. G Table G-6`, `SWE-134`, `SE-39`. A brief, workflow prompt or agent that skips this step is non-compliant and the product is returned for rework.
 2. **Evidence, not assertion.** A review claim without a linked artifact is not a claim.
 3. **Visual closure.** Every visual product (schematic, layout, CAD, plot) is rendered to an image and inspected before it is called done; the render is attached to the review package.
 4. **Independence.** Author, reviewer and test author are different agent invocations; reviewers use the checklist for the product type.
