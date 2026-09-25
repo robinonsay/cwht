@@ -102,7 +102,7 @@ Entrance and success criteria for SRR, PDR, CDR, TRR and SAR are tailored from N
 
 ## 9. Verification and validation philosophy
 
-- Every requirement is verified by **Test, Analysis, Inspection or Demonstration**, chosen when the requirement is written. Pre-power-on evidence classes: *Analysis* (LTspice, budgets, S-parameter models, Python checks), *HostUnit* (cargo test with mocked HAL), *Emulation* (whole-binary scenarios on an RP2350 emulator), *Inspection* (ERC/DRC, schema and traceability checks, rendered-image review). Post-build classes: *Bench* (owner's NanoVNA, dummy load, bench supply, multimeter) and *OnAir* demonstration.
+- Every requirement is verified by **Test, Analysis, Inspection or Demonstration**, chosen when the requirement is written. Pre-power-on evidence classes: *Analysis* (LTspice, budgets, S-parameter models, Python checks), *HostUnit* (cargo test of application logic running on a host implementation of the rustos `api` traits with injected device models; the primary software evidence per SI-026), *Emulation* (optional, secondary: whole-binary scenarios on an RP2350 emulator for event ordering only, never timing), *Inspection* (ERC/DRC, schema and traceability checks, rendered-image review, and driver-to-datasheet traceability: every register access in a rustos driver cites the RP2350 datasheet or Cortex-M33 documentation section it implements). Post-build classes: *Bench* (owner's NanoVNA, tinySA Ultra with attenuator, dummy load, bench supply, multimeter, Pico-based logic capture) and *OnAir* demonstration. Hardware integration is verified on real hardware.
 - "Run for the record" verification is performed on the delivered unit; pre-build analyses reduce risk but do not by themselves close a requirement unless the method is Analysis.
 - Validation is against the ConOps scenarios and MOEs, with the owner as the user (SE HB §5.4).
 - The V&V plan is baselined at PDR (SE-68) and updated at CDR; a TRR precedes bench testing; a nonconformance report is opened for any discrepancy (severity levels per SWE-202).
@@ -126,6 +126,7 @@ Detailed in `docs/process/07-software-engineering-plan.md`. Non-negotiables: rec
 
 | Area | Disposition | Rationale |
 |---|---|---|
+| Assembly model (SI-031) | Customized | PCBWay assembles surface-mount parts; the owner hand-solders through-hole parts and modules with exposed pads (Pico 2 castellations, 18650 holders, jacks, encoder, RF module if one is chosen). The product baseline states which parts are in each category. |
 | Contracted-effort requirements (NPR 7123.1D SE-24 … SE-31) | Not applicable | No contracts; vendors (PCBWay, DigiKey) supply catalog services under standard terms. Vendor deliverables are received and inspected under the Product Implementation process. |
 | CMMI rating (SWE-032), IV&V (SWE-141, 131, 178, 179), Center repositories and reporting (SWE-006, 091, 092, 094, 142, 144, 174) | Not applicable | Presuppose NASA institutions. Intent preserved by independent agent review and a repo-local measurements file. |
 | Software cost estimation (SWE-015, 151) | Tailored | Replaced by a labor-free cost model: BOM, fabrication, assembly, enclosure and shipping estimates with contingency, updated at each review. |

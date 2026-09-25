@@ -31,3 +31,13 @@ entries by `SI-NNN`. Entries are never edited after the fact; clarifications get
 | SI-023 | 2026-09-25 | Battery: two 18650 Li-ion cells (2S) in a holder so cells are user-replaceable. |
 | SI-024 | 2026-09-25 | Frequency coverage: the full US 2 m band, 144.000 to 148.000 MHz. |
 | SI-025 | 2026-09-25 | The project is open source under the MIT license at https://github.com/robinonsay/cwht; anyone may use it. |
+| SI-026 | 2026-09-25 | Software verification approach: layer the software with dependency injection on the rustos api traits so the same application code runs on a macOS/Linux host implementation and on the Cortex-M33; test application logic on the host; test hardware integration on real hardware. Drivers are traced to the RP2350 datasheet and Cortex-M33 documentation as the hardware ICD. Emulation is optional, not the primary evidence. |
+| SI-027 | 2026-09-25 | LTspice telemetry opt-out (CaptureAnalytics=false in the LTspice settings) ratified by the owner. |
+| SI-028 | 2026-09-25 | Power amplifier device must be readily sourced from DigiKey, Mouser or PCBWay's turnkey distributors; no bespoke or consignment-only parts. |
+| SI-029 | 2026-09-25 | Synthesizer choice: perform a cost and performance trade; if costs are similar, choose the best-performing synthesizer for this application. |
+| SI-030 | 2026-09-25 | All operators (owner and friends) hold at least a Technician license; controlled/occupational RF exposure limits apply to operators; bystander (general population) limits still apply to non-operators nearby. |
+| SI-031 | 2026-09-25 | Kit assembly model accepted: PCBWay assembles all surface-mount parts; the owner is willing to hand-solder through-hole components and simple pads (no BGA/QFN or other hidden-pad packages). |
+| SI-032 | 2026-09-25 | FreeCAD installation via Homebrew approved for headless OpenSCAD-to-STEP export. |
+| SI-033 | 2026-09-25 | Keyer speed range 5 to 50 WPM accepted. New peripheral drivers are developed upstream in rustos (the owner's OS), not in a cwht-local crate. |
+| SI-034 | 2026-09-25 | Owner's straight key and paddle both use standard 3.5 mm TRS (aux) plugs; brands unknown. Battery-life target accepted: 8 h at a 1:9 transmit-to-receive ratio. Owner will purchase a tinySA Ultra spectrum analyzer. |
+| SI-035 | 2026-09-25 | Open: full QSK versus semi break-in awaits the owner's understanding of the trade (explained 2026-09-25); build quantity recommendation (5 bare boards, 3 assembled, at most 5 complete units) stands unless the owner objects. |
