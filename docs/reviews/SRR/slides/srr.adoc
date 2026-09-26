@@ -1,4 +1,4 @@
-= SRR pre-review session: cwht, SRR combined with MCR, package revision 5
+= SRR pre-review session: cwht, SRR combined with MCR, package revision 6
 :revealjs_theme: white
 :revealjs_width: 1920
 :revealjs_height: 1080
@@ -16,23 +16,24 @@
 [.lead]
 Pocket 2 m true-CW (A1A) 5 W handheld transceiver, 144.000 to 148.000 MHz
 
-Package `docs/reviews/SRR/package.md`, revision 5 of [.nw]##2026-09-26##, written at HEAD [.nw]##`d7fdf25`##, where every cited product is committed; revision 5, the review records and this deck are committed together under item R12. Revision 3 is at [.nw]##`adcfe09`##.
+Package `docs/reviews/SRR/package.md`, revision 6 of [.nw]##2026-09-26##, written at HEAD [.nw]##`5f647f2`##, where every cited product and record is committed; revision 6 is committed at [.nw]##`30a6905`##. Revision 5, with the records and the previous deck, is at [.nw]##`d4cce27`##.
 
 Chair, Decision Authority, ETA and SMA TA: Robin. Presenter: Claude (lead systems engineer).
 
 [.callout.warn]
-Pre-review session: the SRR gate review is not convened. The readiness declaration cannot be made: Hard rows S3 and 20 are Not met, S1 awaits your confirmation, and 15 Hard rows are Partially met (package section 4).
+Pre-review session: the SRR gate review is not convened. The readiness declaration cannot be made: Hard rows S3 and 20 are Not met, S1 awaits your confirmation, and 12 Hard rows are Partially met (package section 4).
 
 The minutes record this session as a pre-review session, not as the gate review.
 
 [.notes]
 --
 Robin, this is a pre-review session of the cwht System Requirements Review, which also serves as the Mission Concept Review.
-Package revision 5 of 2026-09-26 was written against HEAD d7fdf25: every product it cites is committed there, and 26 of the 29 review records name the committed file versions; the revision itself, the review records and this deck are committed together as routine CM records under item R12.
-The gate review is not convened, because Hard rows S3 and 20 are Not met, S1 waits for your confirmation and 15 Hard rows are Partially met.
+Package revision 6 of 2026-09-26 was written against HEAD 5f647f2: every product and record it cites is committed there, and 28 of the 30 review records name the committed file versions; the revision itself is committed at 30a6905 as a routine CM record.
+Revision 6 records the Claude and reviewer work since revision 5: the paired assurance record INSP-030, the 16 author self-checks, 17 record re-issues and the three hazard status edits; 24 of the 30 records are now APPROVED.
+The gate review is not convened, because Hard rows S3 and 20 are Not met, S1 waits for your confirmation and 12 Hard rows are Partially met.
 What this session can produce is your rulings on the 17 key decisions and the consent agenda, the owner actions, starting with the FW-B0 flash, and your adoption or rejection of the candidate RIDs.
 I present slide by slide and pause after each one for your questions, RFAs and RIDs; the top right of every slide names the package section it summarizes.
-This deck replaces the committed deck, whose title named package revision 3 when its commit carried revision 2 (candidate item 58).
+This deck is the revision 5 deck of d4cce27 updated for revision 6 under item R19; its record INSP-029 verifies the update at iteration 3.
 Evidence: docs/reviews/SRR/package.md (readiness declaration, header table, sections 4 and 21); docs/process/01-lifecycle-and-reviews.md sections 3.4 and 4.2.
 Question for Robin: shall we start with the FW-B0 flash on slide 3 while the Pico 2 is at hand?
 --
@@ -56,7 +57,7 @@ Question for Robin: shall we start with the FW-B0 flash on slide 3 while the Pic
 The package agenda has 15 items; I grouped them into seven blocks and moved two things for this session.
 The FW-B0 flash comes first, because owner actions OA-1 and OA-2 are planned for the start of the session and are the only hands-on steps that entrance row 20 needs from you.
 The owner actions and the liens move to the end, next to the requested disposition, so that the session closes on what you do after it.
-The decision block follows the package split of revision 5: 17 key decisions ruled one or two per slide on slides 21 to 32, then a consent agenda of 67 decisions on three slides that you may adopt as a block.
+The decision block follows the package split of revision 6: 17 key decisions ruled one or two per slide on slides 21 to 32, then a consent agenda of 64 decisions on three slides that you may adopt as a block.
 The success criteria for this gate are review process section 4.4 plus the standing criteria of section 3.3.
 Evidence: package section 1 and its slide map in section 1.1; package section 2.2; docs/process/01-lifecycle-and-reviews.md sections 3.3, 3.4 and 4.4.
 Question for Robin: do you confirm this agenda and these success criteria? Entrance criterion S1 is Met only when you do.
@@ -88,17 +89,17 @@ Question for Robin: is the Pico 2 at hand, and shall we do OA-1 and OA-2 now?
 
 * *Purpose:* confirm the requirements respond to your NGOs, MOEs and ConOps and can be achieved, the concept is feasible, and the plans suffice to begin preliminary design
 * *Scope:* SRR absorbs the MCR; your disposition at the gate review is followed by the tag [.nw]##`baseline/srr`## (§21)
-* *Readiness:* not declarable at revision 5; the goal state, in which only your items remain, is not yet reached
-* *Tools:* every gate tool exits 0 at [.nw]##`d7fdf25`##, 392 tool tests pass; the runs stay developer evidence until accreditation (K15)
+* *Readiness:* not declarable at revision 6; the goal state, in which only your items remain, is not yet reached: R17 to R19, then R15
+* *Tools:* at [.nw]##`5f647f2`## `validate_docs.py` and 1 of 392 tool tests fail on one cause, the [.nw]##INSP-008## drift (R17); every other gate tool exits 0; developer evidence until accreditation (K15)
 * *This session:* rulings on K1 to K17 and the consent agenda, owner actions, adoption of candidate RIDs
 * *At the gate review:* Approved, Approved with liens or Not approved; never a lien: an unmet Hard row or an open Major RID
 
 [.notes]
 --
 The SRR decides whether the requirements and the concept are good enough to baseline and whether the plans are good enough to start preliminary design; because it absorbs the MCR, the stakeholder expectations, the concept and the MOEs are entrance products too.
-Revision 4 re-evaluated the readiness items, the remaining work and the entrance rows against the records and the products at HEAD d7fdf25; revision 5 applies the independent readiness review of revision 4 and counts 29 records, INSP-029 being this deck's record.
-Every tool of the gate list exits 0: validate_docs 48 passed, traceability PASS with 0 violations and 3 warnings, the risk check with the hazard cross-check, the RMM and compliance checks, and 392 tool tests.
-The goal of revision 4 was a package in which only your rulings, OA-1, OA-2 and your readiness confirmation remain; that is not reached, because author self-checks, the paired assurance record of the CM plan, four record re-issues, three hazard status edits and a repeat readiness review are still Claude and reviewer work.
+Revision 6 re-reads the readiness items, the remaining work and the entrance rows from the 30 records and the products at HEAD 5f647f2, after the paired 05 assurance record, the 16 author self-checks, 17 record re-issues and the three hazard status edits of items R6 to R9.
+Two gate tools exit 1 on one cause: the R9 status edit changed the two hazard files that the APPROVED record INSP-008 names, so validate_docs reports 48 passed and 1 failed and the tool suite passes 391 of 392 tests; traceability PASS with 0 violations and 3 warnings, the risk check with the hazard cross-check and the RMM and compliance checks exit 0. No product or record content is wrong.
+The goal state, in which only your rulings, OA-1, OA-2 and your readiness confirmation remain, is still not reached: the INSP-008 delta re-issue (R17), the validator heuristic that holds INSP-002 (R18), this deck's update with the INSP-029 and INSP-030 re-issues (R19) and then the repeat readiness review (R15) are Claude and reviewer work.
 Under the lead SE convergence rule of 2026-09-26, every Minor finding is a lien to fix before PDR, so only Major findings held products in this round.
 Evidence: package readiness declaration and sections 1, 2, 2.1 and 21; docs/process/01-lifecycle-and-reviews.md sections 4.1, 4.2 and 12.2.
 Question for Robin: none on this slide.
@@ -109,14 +110,14 @@ Question for Robin: none on this slide.
 ++++
 <div class="board">
 <div class="lane nm w12"><div class="lane-head"><span>Open</span><span>8</span></div>
-<div class="brow gap"><span class="bid">H1</span><span class="blab">Records: 5 open Major on rulings; 1 missing; 16 self-checks; 4 re-issues</span></div>
-<div class="brow gap"><span class="bid">H3</span><span class="blab">This deck: INSP-029 re-issue on revision 5 (S11)</span></div>
+<div class="brow gap"><span class="bid">H1</span><span class="blab">Records: 5 open Major on rulings; <span class="nw">INSP-008</span> (R17), 002 (R18), 029, 030 (R19)</span></div>
+<div class="brow gap"><span class="bid">H3</span><span class="blab">This deck: revision 6 update; <span class="nw">INSP-029</span> iteration 3 (R19)</span></div>
 <div class="brow gap"><span class="bid">H5</span><span class="blab">TS-001 approved; ADR part on decisions 106 and 47</span></div>
 <div class="brow gap"><span class="bid">H7</span><span class="blab">9 SRR hazard questions Open: 8 on rulings, <span class="nw">OQ-SAF-006</span> after them</span></div>
 <div class="brow gap"><span class="bid">H12</span><span class="blab">FW-B0 Blocked: decisions 108 to 110, OA-1, then R16</span></div>
-<div class="brow gap"><span class="bid">H14</span><span class="blab">07 and TS-002 records: self-checks, re-issue; decision 107</span></div>
-<div class="brow gap"><span class="bid">H15</span><span class="blab">Row 25: INSP-004 re-issue; decisions 104, 112, 30</span></div>
-<div class="brow gap"><span class="bid">H17</span><span class="blab">Committed; three records re-issue on the blobs (R8)</span></div>
+<div class="brow gap"><span class="bid">H14</span><span class="blab">07 and TS-002 records APPROVED; decision 107 only</span></div>
+<div class="brow gap"><span class="bid">H15</span><span class="blab">Row 25: <span class="nw">INSP-004</span> APPROVED; decisions 104, 112, 30</span></div>
+<div class="brow gap"><span class="bid">H17</span><span class="blab">28 of 30 records on the blobs; <span class="nw">INSP-008</span> (R17), 029 (R19)</span></div>
 </div>
 <div class="lane pm"><div class="lane-head"><span>Closed; your ruling left</span><span>5</span></div>
 <div class="brow gap"><span class="bid">H4</span><span class="blab">10 stakeholders listed; decision 103</span></div>
@@ -137,9 +138,9 @@ Question for Robin: none on this slide.
 
 [.notes]
 --
-Revision 2 listed 17 Hard shortfalls and items due before the declaration; revision 5 re-rates each one against the 29 records and the products at d7fdf25.
-Eight are open; H1 is the largest: 5 open Major findings in three records, each closing only on your ruling, one record not yet filed (the paired software assurance record for the CM plan 05, unless you rule the coverage alternative, decision 118), 16 author self-checks, and the re-issues of INSP-003, INSP-004, INSP-013 and this deck's record INSP-029.
-H5 now stands only on your rulings: INSP-013 approved TS-001 on the committed blob, and the ADR part closes with decisions 106 and 47.
+Revision 2 listed 17 Hard shortfalls and items due before the declaration; revision 6 re-rates each one against the 30 records and the products at 5f647f2.
+Eight are open; H1 is the largest: 5 open Major findings in three records, each closing only on your ruling, then four record actions that need no ruling: the INSP-008 delta re-issue after the hazard status edit (R17), INSP-002 held by a validator heuristic (R18), and this deck's record INSP-029 and the 05 assurance record INSP-030 (R19).
+H5, H14 and H15 now stand only on your rulings: INSP-013, the 07 records INSP-010 and INSP-018 and the row 25 records INSP-004 and INSP-026 are APPROVED with liens; H7 has nine SRR-due hazard questions open, eight on your rulings, and OQ-SAF-007, 025 and 026 are Closed by the R9 edit.
 Five items are closed on the product side and wait only for your ruling: the stakeholder representation rule, the ConOps items D5, D7 and D18, the three hardware backstops, the concurrence of decision 9, and decisions 10 and 103.
 Four are fully closed, among them H10, the seven package figures that the fixed generator re-rendered, and H11, the ICD stubs, whose record INSP-012 is APPROVED with liens.
 Evidence: package section 2 table H1 to H17 with its evidence and commit column; section 2.4.
@@ -151,48 +152,47 @@ Question for Robin: none on this slide; the remaining work is on the next slide.
 [cols="20,52,18,10",options="header"]
 |===
 | Group | Items (package section 2.1) | Owner | State
-| Your rulings | R1: K1, K2, K9 to K12, K14 to K17 and the rest of section 13.1 | Robin | Open
+| Your rulings | R1: K1, K2, K7, K9 to K12, K14 to K17 and the rest of section 13.1 | Robin | Open
 | Your hands-on | R2: FW-B0 steps 11 and 12 and the picotool verify ([.nw]##OA-1##, [.nw]##OA-2##) | Robin; Claude runs commands | Open
-| Records | R6 the paired 05 assurance record (or decision 118); R7 16 author self-checks (or K17); R8 re-issue of [.nw]##INSP-003##, 004, 013, 029 | Claude; reviewers | Open
-| Products | R9 [.nw]##OQ-SAF-007##, 025, 026 to Closed | Claude; reviewer | Open
-| Last step | R15 repeat readiness review | Reviewer | Open
+| Records, tools | R17 [.nw]##INSP-008## delta re-issue; R18 `validate_docs.py` heuristic, then [.nw]##INSP-002## re-issue; R19 this deck, [.nw]##INSP-029## iteration 3, [.nw]##INSP-030## re-issue | Claude; reviewers | Open
+| Last step | R15 repeat readiness review | Reviewer | After R17 to R19
 | After the rulings | R16: installs, gate to exit 0, run 3, [.nw]##INSP-016## iteration 4; requirement, ConOps and ADR edits | Claude; reviewers | Waits on R1, R2
-| Done | R3 gate scripts; R4 test-author review; R5 TV re-runs; R10 this deck and its review; R11 figures; R12 commits; R13 delta checks; R14 ConOps statuses | | Done
+| Done | R3 to R5; R6 [.nw]##INSP-030##; R7 16 self-checks; R8 17 re-issues; R9 hazard statuses; R10 to R14 | | Done
 |===
 
 [.notes]
 --
-Package section 2.1 is the complete list, R1 to R16, grouped here by owner.
-Your part is R1 and R2: the rulings and the flash you may already have done on slide 3.
-The Claude and reviewer part that does not depend on any ruling is R6 to R9 and R15; when it is done, the only open items that do not wait on a ruling are yours.
+Package section 2.1 is the complete list, R1 to R19, grouped here by owner.
+Your part is R1 and R2: the rulings, which since revision 6 include K7 for decisions 73 and 74, and the flash you may already have done on slide 3.
+R6 to R9 are done: INSP-030 is filed, the 16 author self-checks are filed, 17 records are re-issued and OQ-SAF-007, 025 and 026 are Closed.
+The Claude and reviewer part that still depends on no ruling is R17 to R19 and then R15; R17 and R18 were exposed by R8 and R9 themselves. When they are done, the only open items that do not wait on a ruling are yours.
 R16 follows your rulings: after decisions 109 and 110 I install the approved toolchains, apply the rustos SAFETY-comment work item, re-run tools/sw_gate.sh to exit 0 and file run 3, and after the other rulings the authors make the requirement, ConOps and ADR edits each ruling triggers.
 R16 precedes the declaration, because Hard rows 14, 15 and 20 close only through it.
-Commits of work products are routine CM records that I make under the CM plan, not an owner action, and revision 5 is committed with the records and this deck (R12); OA-8 covers only the gate disposition and the baseline tag.
-Evidence: package section 2.1 items R1 to R16 and the goal-state paragraph; section 2.2 OA-8.
-Question for Robin: do you agree that R7 goes ahead as self-checks, as recommended in K17, rather than by waiver?
+Commits of work products are routine CM records that I make under the CM plan, not an owner action; revision 6 is committed at 30a6905 and this deck update by its own commit; OA-8 covers only the gate disposition and the baseline tag.
+Evidence: package section 2.1 items R1 to R19 and the goal-state paragraph; section 2.2 OA-8.
+Question for Robin: none on this slide; R17 to R19 need no ruling.
 --
 
-== Review records: 29 records at revision 5 [.src]#§2.4, §3#
+== Review records: 30 records at revision 6 [.src]#§2.4, §3#
 
 ++++
 <div class="board">
-<div class="lane ok"><div class="lane-head"><span>APPROVED</span><span>10</span></div>
-<div class="brow"><span class="bid">005</span><span class="blab">SEMP</span></div>
-<div class="brow"><span class="bid">007</span><span class="blab">06, risk register</span></div>
-<div class="brow"><span class="bid">008</span><span class="blab">Hazard analysis</span></div>
-<div class="brow"><span class="bid">009</span><span class="blab">03 and RMM</span></div>
-<div class="brow"><span class="bid">012</span><span class="blab">ICD stubs</span></div>
-<div class="brow"><span class="bid">015</span><span class="blab">TV-001 to 010</span></div>
-<div class="brow"><span class="bid">017</span><span class="blab">03 assurance</span></div>
-<div class="brow"><span class="bid">025</span><span class="blab">TC-SYS cases</span></div>
-<div class="brow"><span class="bid">027</span><span class="blab">TS-002 assurance</span></div>
-<div class="brow"><span class="bid">028</span><span class="blab">FW-B0 test files</span></div>
-</div>
-<div class="lane pm w12"><div class="lane-head"><span>Self-check only</span><span>12</span></div>
+<div class="lane ok"><div class="lane-head"><span>APPROVED</span><span>24</span></div>
 <div class="brow"><span class="bid">001</span><span class="blab">Expectations</span></div>
-<div class="brow"><span class="bid">002</span><span class="blab">ConOps, concept</span></div>
+<div class="brow"><span class="bid">004</span><span class="blab">TX, SW-KEYER</span></div>
+<div class="brow"><span class="bid">005</span><span class="blab">SEMP</span></div>
+<div class="brow"><span class="bid">006</span><span class="blab">CM plan 05</span></div>
+<div class="brow"><span class="bid">007</span><span class="blab">06, risk register</span></div>
+<div class="brow"><span class="bid">008</span><span class="blab">Hazards: drift, R17</span></div>
+<div class="brow"><span class="bid">009</span><span class="blab">03 and RMM</span></div>
 <div class="brow"><span class="bid">010</span><span class="blab">07 software plan</span></div>
+<div class="brow"><span class="bid">012</span><span class="blab">ICD stubs</span></div>
+<div class="brow"><span class="bid">013</span><span class="blab">TS-001, TS-002</span></div>
 <div class="brow"><span class="bid">014</span><span class="blab">Technology assessment</span></div>
+<div class="brow"><span class="bid">015</span><span class="blab">TV-001 to 010</span></div>
+</div>
+<div class="lane ok"><div class="lane-head"><span>APPROVED, continued</span><span></span></div>
+<div class="brow"><span class="bid">017</span><span class="blab">03 assurance</span></div>
 <div class="brow"><span class="bid">018</span><span class="blab">07 assurance</span></div>
 <div class="brow"><span class="bid">019</span><span class="blab">01 and templates</span></div>
 <div class="brow"><span class="bid">020</span><span class="blab">02 requirements process</span></div>
@@ -200,31 +200,34 @@ Question for Robin: do you agree that R7 goes ahead as self-checks, as recommend
 <div class="brow"><span class="bid">022</span><span class="blab">08 agent briefing</span></div>
 <div class="brow"><span class="bid">023</span><span class="blab">Schedule, cost estimate</span></div>
 <div class="brow"><span class="bid">024</span><span class="blab">Compliance matrix</span></div>
+<div class="brow"><span class="bid">025</span><span class="blab">TC-SYS cases</span></div>
 <div class="brow"><span class="bid">026</span><span class="blab">SW-KEYER assurance</span></div>
+<div class="brow"><span class="bid">027</span><span class="blab">TS-002 assurance</span></div>
+<div class="brow"><span class="bid">028</span><span class="blab">FW-B0 test files</span></div>
 </div>
-<div class="lane nt"><div class="lane-head"><span>Pairing or re-issue</span><span>4</span></div>
-<div class="brow gap"><span class="bid">004</span><span class="blab">TX, SW-KEYER: re-issue on INSP-026, drift, self-check</span></div>
-<div class="brow gap"><span class="bid">006</span><span class="blab">CM plan 05: assurance record missing, self-check</span></div>
-<div class="brow gap"><span class="bid">013</span><span class="blab">TS-001, TS-002: re-issue on INSP-027</span></div>
-<div class="brow gap"><span class="bid">029</span><span class="blab">This deck: delta re-issue on revision 5</span></div>
+<div class="lane nt"><div class="lane-head"><span>Re-issue, no ruling</span><span>3</span></div>
+<div class="brow gap"><span class="bid">002</span><span class="blab">ConOps, concept: validator heuristic (R18)</span></div>
+<div class="brow gap"><span class="bid">029</span><span class="blab">This deck: iteration 3 on revision 6 (R19)</span></div>
+<div class="brow gap"><span class="bid">030</span><span class="blab">05 assurance: readiness R3 answered (R19)</span></div>
 </div>
 <div class="lane nm"><div class="lane-head"><span>Open Major</span><span>3</span></div>
 <div class="brow gap"><span class="bid">003</span><span class="blab">L1: finding-6 (decision 30)</span></div>
 <div class="brow gap"><span class="bid">011</span><span class="blab">ADRs: F-01 (106), F-04 (47)</span></div>
-<div class="brow gap"><span class="bid">016</span><span class="blab">FW-B0: F-01 (109, 110, OA-1), F-02 (108)</span></div>
+<div class="brow gap"><span class="bid">016</span><span class="blab">FW-B0: F-01 (109, 110, <span class="nw">OA-1</span>), F-02 (108)</span></div>
 </div>
 </div>
-<p class="board-note">Record numbers are INSP-NNN. Every Minor finding of every record is dispositioned "Lien: fix before PDR": 120 findings plus erratum E-10, carried as lien L-6.</p>
+<p class="board-note">Record numbers are INSP-NNN. INSP-008 is APPROVED but fails the record drift rule after the R9 status edit until its re-issue (R17). Every Minor finding of every record is dispositioned "Lien: fix before PDR": 122 findings plus erratum E-10, carried as lien L-6.</p>
 ++++
 
 [.notes]
 --
-All 29 records are filed as their front matter reads: 10 APPROVED and 19 NEEDS CHANGES.
-Twelve of the NEEDS CHANGES records are held only by the author self-check against the checklist, readiness R3 or R4; none has an open Major finding and every Minor finding is a lien. Ten of the twelve carry reviewer verdict APPROVED with liens; INSP-001 and INSP-002 carry reviewer verdict NEEDS CHANGES, on readiness only (package section 2.4).
-Four are held by a pairing or a re-issue: INSP-004 and INSP-013 wait for the software lead to re-issue them on the assurance records INSP-026 and INSP-027, INSP-004 also verifies the SW-KEYER files changed at f2e02aa, INSP-006 waits for the paired software assurance record of the CM plan that 07 section 2.1.1 now requires, and INSP-029, this deck's record, is re-issued when its reviewer has verified the slides revision 5 changed on the committed blobs.
+All 30 records are filed as their front matter reads: 24 APPROVED and 6 NEEDS CHANGES.
+Since revision 5 the 16 author self-checks were filed and 17 records re-issued without a further product review; 14 moved to APPROVED, among them INSP-004 and INSP-013 on their paired assurance records INSP-026 and INSP-027, and INSP-006 with the new paired record INSP-030.
+Three NEEDS CHANGES records are held by Claude and reviewer work only: INSP-002, whose reviewer verdict is APPROVED with liens, by the open-Major heuristic of validate_docs.py that reads historical count lines as open findings (R18); INSP-029, this deck's record, by its iteration 3 on this update; and INSP-030, whose readiness R3 the 05 self-check at 8ef95d3 answers (R19).
 Three are held by the five open Major findings, which close only on your rulings; no record is held by a finding that a product change of this round must fix.
-Evidence: package sections 2.4 (record table and totals) and 3; docs/reviews/SRR/checklists/*.md front matter; section 20.2.
-Question for Robin: none on this slide; the waiver alternative is K17.
+INSP-008 stays APPROVED, but the R9 status edit changed the hazard files it names, so the validator fails it until its reviewer verifies that status-only delta and re-issues it (R17).
+Evidence: package sections 2.4 (record table and totals), 2.3 and 3; docs/reviews/SRR/checklists/*.md front matter; section 20.2.
+Question for Robin: none on this slide; the only ruling left in K17 is decision 115 (b).
 --
 
 == Open Major findings and the product-blob check [.src]#§2.3, §2.4, §15#
@@ -239,32 +242,32 @@ Question for Robin: none on this slide; the waiver alternative is K17.
 | [.nw]##INSP-016## | finding-2: target-only decision without an approved deviation | Decision 108 (CR-001) | K10
 |===
 
-* Blob check at [.nw]##`d7fdf25`##: 26 of 29 records name exactly the committed blobs; candidate item 57 (Major) is Closed
-* Three drifts, all on NEEDS CHANGES records: [.nw]##INSP-003## (TC-SYS, fixed at [.nw]##`0f5a529`##, reviewed by [.nw]##INSP-025##), [.nw]##INSP-004## ([.nw]##SW-KEYER##, fixed at [.nw]##`f2e02aa`##, reviewed by [.nw]##INSP-026##) and [.nw]##INSP-029## (this deck, changed for revision 5); each records the current blobs at re-issue (R8)
+* Blob check at [.nw]##`5f647f2`##: 28 of 30 records name exactly the committed blobs; candidate item 57 (Major) stays Closed
+* Two drifts: [.nw]##INSP-008## (APPROVED; hazard files changed by the R9 status edit at [.nw]##`ade0e09`##; validator FAIL until R17) and [.nw]##INSP-029## (this deck; iteration 3 on this update, R19)
 
 [.notes]
 --
-These are the only open Major findings in the 29 records, and each closes on a ruling of yours; none can be a lien.
+These are the only open Major findings in the 30 records, and each closes on a ruling of yours; none can be a lien.
 Decision 30 is itself the item (g) record that INSP-003 finding-6 asks for, now extended to ten regulatory requirements, three of them REQ-TX.
 INSP-011 F-02 and F-03 are Closed on the ADR correction the lead SE applied for your approval under decision 105; F-01 needs decision 106 and F-04 needs decision 47, because 05 Table 4-1 row 13 forbids editing ADR-010's decision section.
 INSP-016 finding-1 also needs the post-ruling work R16 and your flash, and finding-2 closes when you approve CR-001.
-The product-blob check compared every product file a record lists with git rev-parse HEAD:<path>; the revision 3 finding that all 18 records then named versions absent from the object store is Closed.
-Evidence: package sections 2.3 and 2.4; section 15 items 27, 46, 52, 53 and 57; docs/reviews/SRR/checklists/requirements-sys.md, adrs-001-to-025.md, fw-b0-toolchain-proof.md.
+The product-blob check compared every product file a record lists with git rev-parse HEAD:<path>: the revision 5 drifts of INSP-003 and INSP-004 closed at their re-issue at 5f647f2, and the two drifts left, INSP-008 and INSP-029, are items R17 and R19 and hide no content change.
+Evidence: package sections 2.3 and 2.4; section 15 items 27, 46, 52, 53, 57 and 67; docs/reviews/SRR/checklists/requirements-sys.md, adrs-001-to-025.md, fw-b0-toolchain-proof.md.
 Question for Robin: none here; you rule these through K10, K11, K12 and K16.
 --
 
 == Entrance-criteria checklist [.src]#§4, §7#
 
-image::../figures/entrance-checklist.png[alt="Entrance criteria board: Not met 4, Partially met 16, Met 19",width=1760]
+image::../figures/entrance-checklist.png[alt="Entrance criteria board: Not met 4, Partially met 13, Met 22",width=1760]
 
 [.notes]
 --
-The board shows all 39 entrance criteria, the eleven standing criteria S1 to S11 and the 28 SRR rows, under the single rating rule of package section 4: Met 19, Partially met 16, Not met 4.
-Revision 5 re-rated S11 Partially met, because this deck is rendered, inspected and reviewed (INSP-029, reviewer verdict APPROVED with liens) and only its record re-issue remains; revision 4 re-rated rows 11 and 17 Met, because INSP-007 and INSP-012 are APPROVED with liens and the Red plan approval is granted at the gate itself.
-The Hard rows not Met each block the declaration: S1 waits for you, S3 and 20 are Not met, and 15 Hard rows are Partially met.
-Of the Partially met rows, 14, 15 and 22 wait on your rulings only; 5, 7 and 8 on rulings plus a self-check or re-issue; 1 to 4, 10, 12 and 23 on Claude and reviewer work or the decision 115 waiver; S11 on the INSP-029 re-issue; row 25 on both.
+The board shows all 39 entrance criteria, the eleven standing criteria S1 to S11 and the 28 SRR rows, under the single rating rule of package section 4: Met 22, Partially met 13, Not met 4.
+Revision 6 re-rated rows 1, 2 and 3 Met, because INSP-001 is APPROVED on the committed blobs and no ruling holds their content; revision 5 had re-rated S11 Partially met, and its count line of 15 and 5 was corrected to the 16 and 4 of its table (candidate item 70).
+The Hard rows not Met each block the declaration: S1 waits for you, S3 and 20 are Not met, and 12 Hard rows are Partially met.
+Of the Partially met rows, 7, 8, 15, 22, 23 and 25 wait on your rulings only; 5 on rulings for the ADR part; 14 on rulings plus the INSP-008 re-issue (R17); 4 and 10 on the INSP-002 re-issue (R18), row 10 also on decisions 36 and 37; 12 and S11 on R19.
 The Soft rows S8 and S10 are the only shortfalls proposed as liens, L-2 and L-3; the dagger on S4, 8 and 24 marks evidence from tool runs whose TV records are not yet accredited.
-Evidence: package section 4 table and counts line; figure docs/reviews/SRR/figures/entrance-checklist.png, generated by tools/render_review_figures.py (blob 6f3018fd) and opened 2026-09-26 (package section 7).
+Evidence: package section 4 table and counts line; figure docs/reviews/SRR/figures/entrance-checklist.png, generated by tools/render_review_figures.py (blob 6f3018fd) from revision 6 and opened 2026-09-26 (package section 7).
 Question for Robin: none on this slide.
 --
 
@@ -273,12 +276,12 @@ Question for Robin: none on this slide.
 [cols="31,40,29",options="header"]
 |===
 | Product and path | Counts | Record
-| Expectations ([.nw]##SE-35##, [.nw]##SE-37##) `l0-stakeholder/` | 36 SI, 10 stakeholders, 30 NGO, 13 MOE, 28 CON | [.nw]##INSP-001##: self-check only
-| ConOps and concept ([.nw]##SE-36##) `docs/conops/`, `concept.md` | 9 modes, 22 scenarios, B01 to B22, 10 descopes | [.nw]##INSP-002##: self-check only
+| Expectations ([.nw]##SE-35##, [.nw]##SE-37##) `l0-stakeholder/` | 36 SI, 10 stakeholders, 30 NGO, 13 MOE, 28 CON | [.nw]##INSP-001## APPROVED
+| ConOps and concept ([.nw]##SE-36##) `docs/conops/`, `concept.md` | 9 modes, 22 scenarios, B01 to B22, 10 descopes | [.nw]##INSP-002##: validator heuristic (R18)
 | L1 ([.nw]##SE-39##) `sys/requirements.json` | 183 [.nw]##REQ-SYS## (181 Draft, 2 retired), 18 KDR, 115 TBR | [.nw]##INSP-003##: 1 open Major
-| L2 and cases `tx/`, `sw-keyer/`, `docs/test_cases/` | 16 [.nw]##REQ-TX##, 39 [.nw]##REQ-SW-KEYER##; 170 cases | [.nw]##INSP-004## re-issue; [.nw]##INSP-025##, 026
-| Hazards, risks `docs/safety/`, `docs/risk/` | 15 hazards, 118 controls; 65 risks (Red 32) | [.nw]##INSP-008##, [.nw]##INSP-007##: APPROVED
-| SEMP ([.nw]##SE-38##, [.nw]##SE-66##), plans 01 to 08, RMM, matrix | 100 RMM rows; 62 compliance rows | [.nw]##INSP-005##, 009, 017 APPROVED; the rest self-check
+| L2 and cases `tx/`, `sw-keyer/`, `docs/test_cases/` | 16 [.nw]##REQ-TX##, 39 [.nw]##REQ-SW-KEYER##; 170 cases | [.nw]##INSP-004##, 025, 026 APPROVED
+| Hazards, risks `docs/safety/`, `docs/risk/` | 15 hazards, 118 controls; 65 risks (Red 32) | [.nw]##INSP-008## (R17), [.nw]##INSP-007##: APPROVED
+| SEMP ([.nw]##SE-38##, [.nw]##SE-66##), plans 01 to 08, RMM, matrix | 100 RMM rows; 62 compliance rows | All APPROVED; [.nw]##INSP-030## re-issue (R19)
 | ADRs, trade studies, ICD stubs `docs/decisions/`, `docs/icd/` | 26 ADRs (4 Proposed); [.nw]##TS-001##, [.nw]##TS-002##; 5 stubs | [.nw]##INSP-011##: 2 open Major; [.nw]##INSP-012## APPROVED
 | TPMs, tools, cost `docs/plan/`, `docs/cm/` | 20 MOPs, 20 TPMs; [.nw]##TV-001## to 013; USD 276 to 548 per unit | [.nw]##INSP-015## APPROVED; [.nw]##INSP-016##: 2 open Major
 |===
@@ -288,7 +291,7 @@ Question for Robin: none on this slide.
 This is the product list with evidence paths, counts and the record of each product, as the charter minimum slide set requires.
 The key numbers of the expectations are MOE-001 5.0 km open-ground contact at 5 W, MOE-004 8 h at 1:9 and MOE-006 spurious 60 dBc target.
 The L1 file has 183 requirements, 181 Draft and 2 retired, with 115 open TBRs; the L2 files add 16 REQ-TX and 39 REQ-SW-KEYER requirements, REQ-SW-KEYER-039 having been added at f2e02aa for INSP-026 finding-1.
-Among the plans, the SEMP, 03 with its assurance record and 06 are APPROVED with liens; 01, 02, 04, 07 and 08 are held only by readiness, and 05 also waits for its paired assurance record.
+Every plan record is APPROVED with liens after the re-issues of 2026-09-26, the CM plan 05 with its new paired assurance record INSP-030, whose assurance verdict is APPROVED and whose own record re-issue is item R19.
 The cost model of 2026-09-26 gives a unit budget of USD 828 to 1644 for three radios, about USD 276 to 548 per unit.
 Evidence: package sections 6.1 to 6.16 and the commit column of section 4; section 2.4.
 Question for Robin: none on this slide.
@@ -302,7 +305,7 @@ image::../figures/conops-modes-scenarios.png[alt="ConOps modes and the 22 operat
 --
 The ConOps defines nine modes with allowed and forbidden transitions, flags and inhibit classes; this figure is a simplified view drawn from ConOps section 3.4, and the full transition table stays in the ConOps.
 On the right are the 22 scenarios: twelve nominal, OPS-001 to 012, and ten off-nominal, OPS-013 to 022.
-Entrance row 10 is Partially met: INSP-002 is held by the author self-check only, with all four of its Major findings Verified and liens finding-19 to 22.
+Entrance row 10 is Partially met: INSP-002 meets readiness and its reviewer verdict is APPROVED with liens finding-19 to 22, but the open-Major heuristic of validate_docs.py holds its record verdict until item R18.
 Appendix D items D5, D7 and D18 close with your rulings on decisions 36 and 37, and OPS-013 is edited after decisions 37, 38 and 41 (OQ-SAF-006).
 Evidence: docs/conops/conops.md sections 3.4 and 6 and appendix D; package sections 6.2, 7 and 4 row 10; figure docs/reviews/SRR/figures/conops-modes-scenarios.png, generated by tools/render_review_figures.py and opened 2026-09-26.
 Question for Robin: do the scenarios cover how you and your friends will use the radio?
@@ -327,13 +330,13 @@ Question for Robin: none on this slide.
 * No technology below TRL 6; design maturity tracked apart as DML (SEMP section 6.0); [.nw]##INSP-014## F-02 Closed at [.nw]##`4fe6f28`##
 * [.nw]##TS-001##: single-conversion superhet; selectivity A and B a closely ranked pair, A the planning baseline; PA P1, then P3, P4
 * [.nw]##TS-002## ([.nw]##SWE-033##): rustos, option A0, 400 of 500, robust against three alternatives
-* [.nw]##INSP-013## reviewer APPROVED both on the committed blobs, [.nw]##INSP-027## the [.nw]##TS-002## assurance; [.nw]##INSP-013## re-issue (R8)
+* [.nw]##INSP-013## APPROVED both on the committed blobs, paired with [.nw]##INSP-027##, the [.nw]##TS-002## assurance; re-issued at [.nw]##`fdd3391`##
 * Ten descope options ordered by value lost (row 6 Met); six PDR trade studies defined in the concept
 * No RF breadboard before procurement: hardware TRL 3, a residual of [.nw]##RSK-008## (decision 11, K4)
 
 [.notes]
 --
-The technology assessment finds nothing below TRL 6, so no Technology Development Plan is needed; INSP-014 is held by readiness only.
+The technology assessment finds nothing below TRL 6, so no Technology Development Plan is needed; INSP-014 is APPROVED with liens F-09 to F-12.
 TS-001 recommends the single-conversion superhet, carries selectivity candidates A and B as a closely ranked pair with A as the planning baseline, and ranks PA device P1 first with P3 then P4 as fallback; its interim rulings are key decision K8.
 TS-002 recommends your rustos as option A0 with 400 of 500 points, robust against rp235x-hal, Embassy and RTIC; its approval is key decision K9.
 INSP-013 approved both trade studies on the committed blobs 2a0c40a8 and 574cee3d and INSP-027 approved the TS-002 software assurance, so the trade-study part of row 5 is done; row 5 stays Partially met on the ADR part, INSP-011 F-01 and F-04.
@@ -359,7 +362,7 @@ Question for Robin: none on this slide.
 
 == Traceability and verification planning [.src]#§6.5, §8#
 
-* Report of [.nw]##2026-09-26## at [.nw]##`d7fdf25`##: PASS, 0 violations, 3 warnings; 238 requirements, 170 cases, all Draft
+* Report re-run [.nw]##2026-09-26## at [.nw]##`5f647f2`##, byte-identical: PASS, 0 violations, 3 warnings; 238 requirements, 170 cases, all Draft
 * Warnings: [.nw]##T-18## [.nw]##REQ-SYS-125##, 148 unallocated; [.nw]##HAZARD_INVERSE## [.nw]##REQ-SW-KEYER-039## (lien)
 * Cases: [.nw]##TC-SYS## 110, [.nw]##TC-TX## 16, [.nw]##TC-SW-KEYER## 43, [.nw]##TC-SW-TOOL## 1; Bench 96, HostUnit 35, Simulation 27, Inspection 12
 * Every non-retired requirement has a case; `allocation.json` allocates 179 ids; [.nw]##T-21## stakeholders passes
@@ -368,7 +371,7 @@ Question for Robin: none on this slide.
 
 [.notes]
 --
-The frozen traceability report re-written by revision 4 passes with no violations and three warnings.
+The frozen traceability report, re-run for revision 6 at 5f647f2 and byte-identical to the committed copy, passes with no violations and three warnings.
 Two warnings are the T-18 allocation gaps of REQ-SYS-125 and REQ-SYS-148, confirmed by the L1 reviewer in V6; the third is HZ-004 not yet listing REQ-SW-KEYER-039, INSP-026 finding-5, which is a lien.
 All 170 cases are Draft, and the two FW-B0 reports carry credit false, so evidence-class coverage by credited report is zero in every class, as expected before design.
 The one open Major finding against the methods is INSP-003 finding-6: decision 30 now names all ten regulatory requirements not verified by Test in the three files, REQ-SYS-001, 014, 015, 121, 122, 125 and 177 and REQ-TX-001, 005 and 006.
@@ -389,7 +392,7 @@ image::../figures/hazard-matrix.png[alt="Hazards in the severity by likelihood m
 --
 * 15 hazards: initial High 5, Serious 8, Medium 2; residual Low 10, Medium 3, Serious 2
 * 118 controls; every control case is Draft
-* 19 questions due at SRR: 6 Closed, 4 Answered, 9 Open; 8 close on your rulings
+* 19 questions due at SRR: 9 Closed, 1 Answered, 9 Open; 8 close on your rulings
 * Safety-critical: keying, PA enable, safe state, charging, thermal, audio, scheduler
 * Proposed: frequency control and the override path (decision{nbsp}9)
 * SPF rows 3, 4, 8: [.nw]##REQ-SYS-180##, 182, 181 (K2)
@@ -397,12 +400,12 @@ image::../figures/hazard-matrix.png[alt="Hazards in the severity by likelihood m
 
 [.notes]
 --
-The hazard analysis at 0.4.2-pha has fifteen hazards, unchanged in severity, likelihood and residual since 0.4.0-pha; INSP-008 is APPROVED with liens finding-14 to 16.
+The hazard analysis at 0.4.3-pha has fifteen hazards, unchanged in severity, likelihood and residual since 0.4.0-pha; INSP-008 is APPROVED with liens finding-14 to 16 on 0.4.2-pha, and its reviewer verifies the status-only 0.4.3-pha delta and re-issues it (R17).
 Five hazards start High; with the allocated controls none remains High, and two stay Serious: HZ-002 overcharge and HZ-015 owner hand assembly, both Catastrophic-D.
 The 118 controls are 104 Proposed and 14 Requirement pending; no control is verified yet.
-Of the 19 questions due at SRR, nine are open: eight close on your rulings in K1 and K2 and decision 9, and OQ-SAF-006 closes with the OPS-013 edit after the rulings; OQ-SAF-007, 025 and 026 were verified by INSP-008 and only their status edit remains (R9).
+Of the 19 questions due at SRR, nine are Closed, OQ-SAF-022 is Answered and nine are open: eight close on your rulings in K1 and K2 and decision 9, and OQ-SAF-006 closes with the OPS-013 edit after the rulings; OQ-SAF-007, 025 and 026 were set Closed by the R9 status edit at ade0e09.
 The single point failure rows 3, 4 and 8 have the requirements REQ-SYS-180, 182 and 181, which you adopt or decline in K2; the RF exposure evaluation is a PDR product resting on decisions 22, 23, 31 and 32.
-Evidence: docs/safety/hazards.json 0.4.2-pha and hazard-analysis.md sections 6 and 8; package sections 6.6, 9 and 18.1; figure docs/reviews/SRR/figures/hazard-matrix.png, generated by tools/render_review_figures.py and opened 2026-09-26.
+Evidence: docs/safety/hazards.json 0.4.3-pha and hazard-analysis.md sections 6 and 8; package sections 6.6, 9 and 18.1; figure docs/reviews/SRR/figures/hazard-matrix.png, generated by tools/render_review_figures.py and opened 2026-09-26.
 Question for Robin: do you accept this hazard list as complete for the preliminary analysis, or is a hazard missing?
 --
 
@@ -441,7 +444,7 @@ Question for Robin: none here; the plan approvals are K4 on slide 24.
 [cols="23,20,29,28",options="header"]
 |===
 | Milestone | Planned | Status | Recovery
-| SRR package ready | [.nw]##2026-09-26## morning | Revision 4 assembled; not ready (section 2.1) | This session for rulings and [.nw]##OA-1##; [.nw]##self-checks##, re-issues, deck; repeat readiness review
+| SRR package ready | [.nw]##2026-09-26## morning | Revision 6 assembled; not ready (section 2.1) | This session for rulings and [.nw]##OA-1##; R17 to R19 re-issues and deck; repeat readiness review
 | PDR | [.nw]##2026-09-26## evening | Pending; SRR not yet held | Six trade studies, L2 specifications, ICDs, V&V plan
 | CDR and procurement release | [.nw]##2026-09-27## evening and night | Pending; [.nw]##RSK-014## Red | Lien rule of [.nw]##RSK-014## S2
 | Vendor delivery, TRR | 2 to 4 weeks after the order | Pending; [.nw]##RSK-053## closure [.nw]##2026-10-01## to [.nw]##10-04## | Alternates in the BOM at CDR
@@ -453,8 +456,8 @@ Question for Robin: none here; the plan approvals are K4 on slide 24.
 [.notes]
 --
 The schedule plans SRR on Saturday morning, PDR on Saturday evening and CDR with procurement release on Sunday evening and night.
-The SRR milestone is not met: revision 5 is assembled and committed, but the owner items R1 and R2 and the Claude and reviewer items R6 to R9, R15 and then R16 remain.
-The recovery is this session for your rulings and OA-1, then the self-checks and re-issues, the deck record and the repeat readiness review.
+The SRR milestone is not met: revision 6 is assembled and committed, but the owner items R1 and R2, the Claude and reviewer items R17 to R19 and R15, and then R16 remain.
+The recovery is this session for your rulings and OA-1, then the INSP-008 delta re-issue, the validator fix with the INSP-002 re-issue, this deck's record and the INSP-030 re-issue, and the repeat readiness review.
 The expedited schedule itself is RSK-014, Red and owned by you, whose lien rule keeps an order from being released against unreviewed products.
 Vendor holidays from 2026-10-01 to 10-04 threaten the delivery window, and three rail parts showed zero distributor stock, so alternates must be in the BOM at CDR.
 Evidence: docs/plan/schedule.md; package section 12; docs/risk/register.json RSK-014, RSK-038, RSK-053.
@@ -472,26 +475,27 @@ Question for Robin: do you keep the planned dates, knowing the SRR package is no
 | Hazard-control TBRs | 17 | PDR analyses
 |===
 
-* 118 numbered decisions: 17 key decisions covering 49, ruled one or two per slide (slides 21 to 32)
-* Consent agenda of 67 in themes A to P: adopt as a block, for example "except decisions 22 and 97" (slides 33 to 35)
+* 118 numbered decisions: 17 key decisions covering 52, ruled one or two per slide (slides 21 to 32)
+* Consent agenda of 64 in themes A to P: adopt as a block, for example "except decisions 22 and 97" (slides 33 to 35)
 * 2 need no ruling (5 withdrawn, 12 done); an unanswered item keeps the assumption the package states
-* Revision 5 moved decision 25, the band-edge guard, to K12 and added decision 118 to K17; revision 4 moved 47 to K16 and 115 to K17
+* Revision 6 re-checked every consent row (tests T1 to T3): 42 to K1, 73 and 74 to K7; revision 5 moved 25 to K12 and added 118 to K17
 
 [.notes]
 --
 No TBD remains in anything to be baselined, and every TBR has an owner, a closure plan and a close-by event, which entrance criterion S5 checks.
 Fourteen L1 TBRs close in the SRR memo, each ratified by a decision: REQ-SYS-042, 043 and 047 by decision 50, 045 by 46, 050 by 49, 057 by 79, 090 by 71, 104 by 80, 157 and 173 by 69, 171 by 33, and 180, 181 and 182 by 38, 39 and 40.
 The other 101 L1 TBRs, the 25 L2 TBRs, four TPM TBRs and the 17 hazard-control TBRs are lien L-1 to PDR; TPM-014, the unit cost ceiling, is ruled here.
-A key decision has a real trade-off, a safety, regulatory or cost consequence, a contested recommendation or a capacity only you hold; revision 4 moved decision 47 to K16, because it alone closes INSP-011 F-04, and decision 115 to K17, the readiness waivers; revision 5 moved decision 25 to K12, because the 1 kHz guard no longer holds the -60 dB keying sidebands in band, and added decision 118, the coverage alternative for the 05 assurance record, to K17.
+A key decision has a real trade-off, a safety, regulatory or cost consequence, a contested recommendation or a capacity only you hold; revision 4 moved decision 47 to K16 and decision 115 to K17; revision 5 moved decision 25 to K12, because the 1 kHz guard no longer holds the -60 dB keying sidebands in band, and added decision 118 to K17.
+Revision 6 re-checked every consent row against three tests, a conflict with a reviewed product or another recommendation, a pending control of a Catastrophic hazard, and a default that leaves a Hard item open or moves the cost ceiling: decision 42 moved to K1 and decisions 73 and 74 to K7, and no other row meets a test.
 If you leave an item, the products keep the assumption stated in the package's last column, which is recorded in the SRR memo as your ruling only if you say so.
-Evidence: package section 13 (TBR tables) and section 13.1 (count, index); docs/reviews/SRR/decisions-for-owner.md revision 5.
+Evidence: package section 13 (TBR tables), section 13.1 (count, index) and the re-check preamble of section 13.1.2; docs/reviews/SRR/decisions-for-owner.md revision 6.
 Question for Robin: do you accept these TBR closure plans, with the PDR items carried as lien L-1?
 --
 
 == Key decision K1: stuck-key and transmit time bounds [.src]#§13.1.1 K1#
 
 [.why]
-*Why key:* safety (HZ-001, HZ-004, HZ-006); the recommendation for 37 differs from REQ-SYS-054 as written; decision 41 closes OQ-SAF-016, a Hard H7 question.
+*Why key:* safety (HZ-001, HZ-004, HZ-006); 37 differs from REQ-SYS-054 as written; 41 closes OQ-SAF-016, a Hard H7 question; 42 conflicts with 41 and 37 (test T1).
 
 [.key,cols="7,37,29,27",options="header"]
 |===
@@ -499,6 +503,7 @@ Question for Robin: do you accept these TBR closure plans, with the PDR items ca
 | 36 | Tune and cutoff window: (a) tune at 0.5 W ending 5 s {pm}0.5 s, cutoff [.nw]##T_max## 10 s (7.5 to 13 s); (b) 10 s tune, cutoff window above 11 s | (a), with the 74LVC1G123 and a capacitor chosen from its DC-bias curve | (a), as [.nw]##REQ-SYS-020## is written
 | 37 | Stuck-key limits: 5 s manual timeout; paddle watchdog 128 or 10 s, 128 or 30 s, or the no-gap form (no 7-dit or 500 ms gap for 30 s, 2 s squeeze) | 5 s including the Bug dah; the no-gap watchdog with the 2 s squeeze limit | [.nw]##REQ-SYS-053##, 054 as written; [.nw]##OQ-SAF-001##, 002 stay open as RIDs
 | 41 | Bench test-mode guard: forced 0.5 W, 120 s timeout, exit on reset, not persistent | Adopt | [.nw]##REQ-SYS-179## without the forced step and timeout
+| 42 | ConOps 3.4 mode classes, PRACTICE flag, bench-test limits (60 s per keyed activation): (a) classes and flag; limits as 41 and 37 rule; (b) 60 s, 41 at 60 s; (c) limits to PDR | (a), ruled after 37 and 41 | 60 s and the [.nw]##REQ-SYS-054## values; conflict with 41 open
 |===
 
 [.notes]
@@ -507,9 +512,10 @@ K1 sets the time bounds that stop a stuck or runaway key-down; it is safety, HZ-
 For decision 36 I recommend option a, a tune carrier that ends at 5 s, below the 7.5 s floor of the hardware cutoff, so that the hardware bound never cuts a tune; option b keeps a 10 s tune but moves the cutoff above 11 s and re-derives the 13 s bound of MOE-012.
 For decision 37 I recommend the no-gap paddle watchdog of HZ-004 K4, because it also bounds a toggling stream; that differs from REQ-SYS-054 as written, which the requirements author then rewords (OQ-SAF-001 and 002).
 Decision 41 closes OQ-SAF-016: without it the bench test mode has no forced 0.5 W step and no 120 s timeout.
-The rulings also settle ConOps items D5, D7 and D18 and trigger the OPS-013 edit of OQ-SAF-006.
-Evidence: package section 13.1.1 K1; section 18.1 (OQ-SAF-001, 002, 005, 016); docs/safety/hazards.json HZ-004 K4 and K13; REQ-SYS-020, 053, 054, 179.
-Question for Robin: do you rule 36 option a, 37 as recommended, and adopt 41, or another option for any of them?
+Decision 42 moved here from consent theme C in revision 6: the ConOps caps a keyed bench test at 60 s against the 120 s of decision 41, and its Table 3.4-4 row 3 carries the REQ-SYS-054 values that decision 37 replaces; I recommend option a, ruled after 37 and 41, because 60 s leaves no margin over the about 60 s element-timing measurement at 5 WPM, while 120 s stays below the 150 to 180 s backstop of decision 38.
+The rulings also settle ConOps items D5, D7 and D18 and trigger the OPS-013 edit of OQ-SAF-006 and the ConOps section 3.4 alignment (R16).
+Evidence: package section 13.1.1 K1 and section 13.1.2 re-check; section 18.1 (OQ-SAF-001, 002, 005, 016); docs/safety/hazards.json HZ-004 K4 and K13; REQ-SYS-020, 053, 054, 179; ConOps section 3.4 and appendix C.
+Question for Robin: do you rule 36 option a, 37 as recommended, adopt 41, and 42 option a, or another option for any of them?
 --
 
 == Key decision K2: hardware backstops and frequency control [.src]#§13.1.1 K2#
@@ -640,13 +646,15 @@ Question for Robin: do you rule 63 and 64 option a, a USD 610 ceiling, and five 
 == Key decision K7: battery safety architecture [.src]#§13.1.1 K7#
 
 [.why]
-*Why key:* Catastrophic hazards [.nw]##HZ-002## and [.nw]##HZ-007##, and [.nw]##HZ-011## (charging while transmitting); the charger, protector layers and charging rule fix the PDR power tree.
+*Why key:* Catastrophic [.nw]##HZ-002##, [.nw]##HZ-007##; [.nw]##HZ-011## (charging while transmitting); fixes the PDR power tree; 73, 74 are [.nw]##HZ-007## pending decisions.
 
 [.key,cols="7,41,27,25",options="header"]
 |===
 | No. | Decision and options | Recommendation | If no answer
 | 70 | Charger IC: BQ25887, MP2672A or BQ25792 | BQ25887 | BQ25887 as PDR baseline
 | 72 | Protection: S-8252 with dual N-FET plus BQ29209, S-82C2B with sense resistor, or protected cells | S-8252 plus BQ29209; add the 4.30 V and Kelvin requirements | As recommended; [.nw]##OQ-SAF-008##, 009 open
+| 73 | Cell holders: two Keystone 1043P, one dual holder, or an owner-installed sled | Two 1043P | Two 1043P
+| 74 | 5 V bus: synchronous buck with SYNC; mechanical switch on buck enable and PA rail, or soft power | Buck with SYNC; mechanical switch | As recommended
 | 75 | While charging: receive with charge paused and hardware TX inhibit, both concurrent, or no operation | Receive, charge paused, TX inhibited; by ADR | As recommended
 | 76 | 6 h at 1:4; 3.20 V per cell TX inhibit, 3.00 V per cell power-down, 60 C cell power-down (TBR) | Adopt | Adopted as TBR
 | 85 | Environment: operate -10 to +45 C, charge 0 to 45 C, store -20 to +60 C, 1.0 m drop, IPX2 | Adopt (TBR); [.nw]##RSK-059## carries the lack of qualification testing | Adopted as TBR
@@ -656,10 +664,11 @@ Question for Robin: do you rule 63 and 64 option a, a USD 610 ceiling, and five 
 --
 K7 is the lithium-ion safety architecture, which carries two of the three Catastrophic hazards, HZ-002 and HZ-007, and the Marginal hazard HZ-011, charging while transmitting.
 I recommend the TI BQ25887 charger, the ABLIC S-8252 protector with a dual N-FET plus a BQ29209 second over-voltage layer, and two added requirements, a 4.30 V third layer and a Kelvin sense constraint, which close OQ-SAF-008 and 009.
+Decisions 73 and 74 moved here from consent theme H in revision 6: HZ-007 lists the cell holders and the power switch among its pending decisions, and the mechanical switch of decision 74 is the firmware-independent control HZ-004 K11 and HZ-007 K6 through REQ-SYS-101; I recommend two single 1043P holders and a synchronous buck with SYNC behind a mechanical switch, with charger and protector always live.
 Decision 75 allows receive while charging, with charging paused and transmit inhibited in hardware; the node of that inhibit is a PDR item.
 Decisions 76 and 85 ratify the discharge-side cell limits of HZ-007 and the 0 to 45 C charge range that HZ-002 rests on; the 8 h at 1:9 is already fixed by SI-034.
 RSK-059 carries the absence of qualification testing at the environmental extremes.
-Evidence: package section 13.1.1 K7; docs/research/power-tree-and-charging.md D-PWR-01, D-PWR-03, D-PWR-07; docs/safety/hazards.json HZ-002, HZ-007, HZ-011; ConOps section 4.
+Evidence: package section 13.1.1 K7 and section 13.1.2 re-check; docs/research/power-tree-and-charging.md D-PWR-01, D-PWR-03, D-PWR-04, D-PWR-06 to D-PWR-08; docs/safety/hazards.json HZ-002, HZ-007, HZ-011; REQ-SYS-101; ConOps section 4.
 Question for Robin: do you adopt the battery architecture 70 to 85 as recommended?
 --
 
@@ -766,27 +775,27 @@ Question for Robin: do you accept 30 for all ten, approve 113, adopt 29 with V-5
 == Key decisions K14 and K17: row 25, readiness waivers, 05 assurance [.src]#§13.1.1 K14, K17#
 
 [.why]
-*Why key:* Hard row 25 and [.nw]##SWE-050##; concurrence on self-derived safety requirements, any readiness waiver and an assurance coverage ruling are yours alone.
+*Why key:* Hard row 25 and [.nw]##SWE-050##; concurrence on self-derived safety requirements and any readiness waiver are yours alone; in K17 only 115 (b) still asks for a ruling.
 
 [.key,cols="7,43,26,24",options="header"]
 |===
 | No. | Decision and options | Recommendation | If no answer
-| 104 | Close row 25 and H15 on the Draft L2 files once [.nw]##INSP-004## is re-issued APPROVED | Yes; option (b) lapses | Row 25 Partially met; declaration blocked
+| 104 | Close row 25 and H15 on the Draft L2 files; [.nw]##INSP-004## re-issued APPROVED at [.nw]##`5f647f2`## | Yes; option (b) lapses | Row 25 Partially met; declaration blocked
 | 112 | Concur with self-derived [.nw]##REQ-SW-KEYER-034##, 035, 036, 038 and 039 | Concur with all five | The five retired before the baseline
-| 115 | (a) waive the author self-check of 16 records; (b) waive [.nw]##INSP-016## readiness R3 (design unit Active) for FW-B0 | (a) no waiver, file the self-checks (R7); (b) waive for FW-B0 only | (a) records stay NEEDS CHANGES; (b) row 20 cannot be Met at SRR
-| 118 | 05 assurance pairing (07 section 22): (a) Claude files the paired record (R6); (b) you rule 05 covered by [.nw]##INSP-018## SA-013-1 | (a); rule (b) only if the record is not filed in time | (a): [.nw]##INSP-006## held; row 12 Partially met
+| 115 | (a) waive the author self-check of 16 records: all 16 filed (R7), no waiver needed; (b) waive [.nw]##INSP-016## readiness R3 (design unit Active) for FW-B0 | (a) done; (b) waive for FW-B0 only | (a) none needed; (b) row 20 cannot be Met at SRR
+| 118 | 05 assurance pairing (07 section 22): (a) paired record, done: [.nw]##INSP-030## at [.nw]##`898d582`##; (b) your coverage ruling, not needed | (a), done; no ruling | (a) stands; nothing transcribed
 |===
 
 [.notes]
 --
-K14: decision 104 closes row 25 and H15 on the Draft TX and SW-KEYER files once INSP-004 is re-issued APPROVED with its delta verification of the SW-KEYER blob 4d22b399; INSP-004 and its assurance record INSP-026 have no open Major finding.
+K14: decision 104 closes row 25 and H15 on the Draft TX and SW-KEYER files; INSP-004 was re-issued APPROVED at 5f647f2 with its delta verification of the SW-KEYER blobs 4d22b399 and d3c0c236, paired with its assurance record INSP-026, also APPROVED.
 Decision 112 is your concurrence with five self-derived keyer requirements; revision 4 adds REQ-SW-KEYER-039, the distinct operator events for an override, written for INSP-026 finding-1, and without concurrence the override path of 07 section 14.2 row d loses its keyer requirement again.
-K17, decision 115, moved here from consent theme P: sixteen records are held only or partly by a missing author self-check, and for twelve of them that is the only hold.
-I recommend no waiver for part a: I file each self-check against its checklist and the reviewers re-issue without a further product review.
-Part b is different: INSP-016 readiness R3 requires the design unit to be Active, which cannot happen before the CDR software design, so the FW-B0 record can never be APPROVED at SRR without your waiver.
-Decision 118 is new in revision 5: 07 section 22 lets the pairing of the CM plan 05 close either by a paired assurance record, which I dispatch, or by your ruling as SMA TA that the INSP-018 result already covers 05; I recommend the record, and the ruling only as a fallback.
-Evidence: package section 13.1.1 K14 and K17; section 2.4; INSP-004, INSP-026 (docs/reviews/SRR/checklists/requirements-tx-and-sw-keyer.md, requirements-sw-keyer-software-assurance.md); 02 section 2.3.
-Question for Robin: do you say yes to 104, concur on 112 for all five, rule 115 as recommended (no waiver for a, waiver for b), and leave 118 on option a?
+K17, decision 115, moved here from consent theme P in revision 4, when sixteen records were held only or partly by a missing author self-check.
+Part a needs no waiver any more: all sixteen self-checks are filed and every one of the sixteen records reads readiness met after its re-issue.
+Part b is the only ruling left: INSP-016 readiness R3 requires the design unit to be Active, which cannot happen before the CDR software design, so the FW-B0 record can never be APPROVED at SRR without your waiver.
+Decision 118, the coverage alternative for the CM plan 05 pairing, is closed by route a: INSP-030 is the paired assurance record, assurance verdict APPROVED with liens, and INSP-006 is re-issued APPROVED with it; K17 stays on the agenda so that you see both closures.
+Evidence: package section 13.1.1 K14 and K17; section 2.4; INSP-004, INSP-026 (docs/reviews/SRR/checklists/requirements-tx-and-sw-keyer.md, requirements-sw-keyer-software-assurance.md); INSP-030 (checklists/cm-plan-05-software-assurance.md); 02 section 2.3.
+Question for Robin: do you say yes to 104, concur on 112 for all five, and waive INSP-016 readiness R3 for FW-B0 only under 115 (b)?
 --
 
 == Consent agenda 1 of 3: themes A to C [.src]#§13.1.2#
@@ -796,17 +805,17 @@ Question for Robin: do you say yes to 104, concur on 112 for all five, rule 115 
 | Theme | Decisions | Adopting the block rules
 | A Governance, plans, tailoring | 1, 2, 4, 10, 13, 15, 16 | Each plan approved as its record turns APPROVED with no open Major; HSI as SEMP 7.3.1; [.nw]##SE-51##, 52, 55, 56 deviation; charter Log items; TRL and DML method; branch protection before `baseline/srr`, signing before PDR; rustos path dependency, binaries committed
 | B Operator model, limits, exposure | 21 to 24, 26 to 28, 31, 34, 35 | No automatic ID or memories; steps 0.5, 1, 2, 5 W {pm}1 dB; 1 W default with a 5 W confirmation; 5.0 W {pm}1 dB, 6.3 W ceiling; full band with presets; 208HA1A; [.nw]##REQ-SYS-014## envelope; posture P1; engraved legend; corpus gaps before PDR
-| C Stuck-key and transmit safety | 42 | Ratify ConOps Table 3.4-4 inhibit and latched classes, the PRACTICE flag and the bench-test limits
+| C Stuck-key and transmit safety | none | Empty since revision 6: decision 42 moved to K1 (test T1); the letter is kept
 |===
 
 [.notes]
 --
-The consent agenda holds the 67 decisions whose recommendation can be adopted as a block; you may say adopt the consent agenda, optionally with exceptions named by decision number, and each excepted item is then discussed like a key decision.
-Theme A approves each plan for the functional baseline only when its record is APPROVED with no open Major finding: the SEMP, 03 and 06 are already APPROVED with liens, the others are held by readiness only and 05 also by its paired assurance record; the charter is approved by name and commit.
+The consent agenda holds the 64 decisions whose recommendation can be adopted as a block, re-checked row by row in revision 6 against the three tests of slide 20; you may say adopt the consent agenda, optionally with exceptions named by decision number, and each excepted item is then discussed like a key decision.
+Theme A approves each plan for the functional baseline only when its record is APPROVED with no open Major finding: after the re-issues of 2026-09-26 every plan record is APPROVED with liens, and the 05 assurance record INSP-030 waits only on its own re-issue (R19); the charter is approved by name and commit.
 Theme B carries the operating limits: the four power steps, the 1 W default, the 5 W rating with its 6.3 W ceiling at which the spurious evaluation is made, the full band without a lock, and the engraved legend; decision 25, the band-edge guard, left this theme for K12 in revision 5.
-Theme C ratifies the inhibit and latched fault classes of the ConOps.
+Theme C is empty: decision 42 moved to K1 because its 60 s bench-test limit conflicts with decision 41; the letter is kept so the theme letters of the deck and the decision memo stay stable.
 Every item keeps its recommendation and its if-no-answer assumption in the package tables.
-Evidence: package section 13.1.2 themes A, B and C; docs/reviews/SRR/decisions-for-owner.md revision 5.
+Evidence: package section 13.1.2 re-check preamble and themes A, B and C; docs/reviews/SRR/decisions-for-owner.md revision 6.
 Question for Robin: do you adopt themes A to C, or which items do you except?
 --
 
@@ -819,7 +828,7 @@ Question for Robin: do you adopt themes A to C, or which items do you except?
 | E Receiver, frequency generation | 56, 57 | USD 15 band for "costs are similar"; TX owns frequency generation; 144.010 MHz start, +27 dBm survival with a limiter
 | F Transmitter, T/R, PA | 59 to 62 | Gate-bias ALC from the pack; SWR fold-back decided at PDR; relay, LPF after the T/R node; transmit fault values ratified
 | G Audio | 65 to 69 | PWM with a DNP I2S footprint; shutdown with indicator, keyer live; no dose accumulator; TPA6132A2; mute and fade values ratified
-| H Power | 71, 73, 74 | 500 mA USB default, deviation accepted; two 1043P holders; synchronous buck, mechanical switch
+| H Power | 71 | 500 mA USB default, deviation accepted; decisions 73 and 74 moved to K7 (test T2)
 | I Display, controls, HSI | 77 to 79 | LS013B7DH03, no light in build 1; PEC11R encoders, B3F buttons, SJ1-3535N jacks; interface values ratified
 |===
 
@@ -828,9 +837,9 @@ Question for Robin: do you adopt themes A to C, or which items do you except?
 Themes D to I are the product choices that the research reports recommend and the L1 requirements already assume.
 Theme D is the keyer: all five modes with Iambic A as default, 15 WPM, a 600 Hz sidetone locked to the receive offset, and the keyer timing values of decision 50, whose debounce stays TBR until the bench capture of your own key and paddle; the semi break-in hang, decision 47, left this theme for K16.
 Themes E and F fix the receiver range start and overload survival, the gate-bias ALC loop, the relay T/R element and the transmit fault responses; SWR fold-back waits for the PA device at PDR.
-Theme G keeps PWM audio with a do-not-populate I2S footprint and no sound-dose accumulator in revision A, and theme H accepts drawing up to 500 mA from USB without enumeration, with a handbook note.
+Theme G keeps PWM audio with a do-not-populate I2S footprint and no sound-dose accumulator in revision A, and theme H accepts drawing up to 500 mA from USB without enumeration, with a handbook note; the cell holders and the power switch, decisions 73 and 74, left theme H for K7 in revision 6.
 Theme I adopts the Sharp memory LCD without a front light in build 1 and the encoder, button and jack parts.
-Evidence: package section 13.1.2 themes D to I; docs/reviews/SRR/decisions-for-owner.md revision 5.
+Evidence: package section 13.1.2 themes D to I; docs/reviews/SRR/decisions-for-owner.md revision 6.
 Question for Robin: do you adopt themes D to I, or which items do you except?
 --
 
@@ -854,7 +863,7 @@ Theme K sets the board rules, full turnkey assembly of surface-mount parts, func
 Theme L records the emulator selection, the firmware design rules and the installation of the pinned analysis tools, confirmed by ADRs at PDR; theme M adds MOE-013 for pocket carry and the mass and envelope allocations as TBR.
 Theme N lists the purchases and correspondence only you can do; their timing is on the owner-actions slide.
 Theme O keeps the stakeholder name keys; theme P keeps the hazard questions dated SRR, OQ-SAF-017 and 020 being Closed already, and accepts the INSP-015 item set as the tool-validation checklist for SRR; decision 115 left theme P for K17.
-Evidence: package section 13.1.2 themes J to P; docs/reviews/SRR/decisions-for-owner.md revision 5.
+Evidence: package section 13.1.2 themes J to P; docs/reviews/SRR/decisions-for-owner.md revision 6.
 Question for Robin: do you adopt themes J to P, or which items do you except?
 --
 
@@ -867,21 +876,21 @@ Prior trend: no prior review; the SRR log is empty; [.nw]##TPM-003## Green (0 ra
 |===
 | Handling | Section 15 items | Carried by
 | Open Major, closes on a ruling (never a lien) | 27, 46, 52, 53 | K12; K11, K16; K9, K10
-| Major, Closed | 5, 9, 26, 28, 44, 50, 51, 57, 62, 63 | none (62, 63 in revision 5)
-| Major, carried by R items before the declaration | 61 | R6 to R9, R15
-| Minor, Closed | 1, 4, 6, 12 to 21, 24, 31 to 33, 35, 36, 39, 56, 59, 64 | none
+| Major, Closed | 5, 9, 26, 28, 44, 50, 51, 57, 62, 63, 69 | none (69 in revision 6)
+| Major, carried by R items before the declaration | 61, 67, 68 | R15, R17 to R19
+| Minor, Closed | 1, 4, 6, 12 to 22, 24, 30 to 33, 35, 36, 39, 56, 59, 64, 65, 70 | none
 | Ruled by a decision | 7 and ConOps D5, D7, D18 of item 10 | K1 (36, 37)
-| Minor, record liens | 22, 23, 25, 29, 30, 34, 37, 40 to 43, 45, 47 to 49, 54, 60 | L-6
-| Minor, package level | 2, 3, 8, 11, 38, 55, 58, 65, 66; Minor ConOps D items | L-4 (55, 66 in L-5)
+| Minor, record liens | 23, 25, 29, 34, 37, 40 to 43, 45, 47 to 49, 54, 60 | L-6
+| Minor, package level | 2, 3, 8, 11, 38, 55, 58, 66, 71; Minor ConOps D items | L-4 (55, 66 in L-5)
 |===
 
 [.notes]
 --
 This is the first gate, so there is no trend to report: the SRR log is empty, and the review-trend TPM computed at 2026-09-26 is Green.
 During the review you can raise an RFA, which asks for an answer, an analysis or a plan, or a RID, which names a defect in a product; I log each one in rfa-rid-log.json and in the minutes against the slide.
-Package section 15 offers 66 candidate items, items 61 to 66 being the findings of the independent readiness review of revision 4; none is a RID until you adopt it, and this slide accounts for every one of them by its handling.
-The four open Major items are the five open Major findings of slide 8; every other Major item is Closed, including item 57, the records not tied to the committed products.
-Every Minor item is either Closed or a lien to fix before PDR under the convergence rule: the record liens are L-6 and the package-level items L-4; item 58, the mislabelled revision on the committed deck, is corrected by this deck.
+Package section 15 offers 71 candidate items, items 61 to 66 being the findings of the independent readiness review of revision 4 and items 67 to 71 those found at the assembly of revision 6; none is a RID until you adopt it, and this slide accounts for every one of them by its handling.
+The four open Major items are the five open Major findings of slide 8; three Major items are carried by the remaining Claude and reviewer work: item 61, the readiness finding F-01, and items 67 and 68, the INSP-008 drift and the validator heuristic, closed by R17 to R19 and verified by R15; every other Major item is Closed, including item 69, the consent re-check that moved decisions 42, 73 and 74.
+Every Minor item is either Closed or a lien to fix before PDR under the convergence rule: the record liens are L-6 and the package-level items L-4, now with item 71, the stale default of decision 94; item 58, the mislabelled revision on an earlier deck, is corrected by this deck.
 Evidence: package sections 14 and 15 (open Major sentence and item table) and section 20.1; docs/reviews/SRR/rfa-rid-log.json; docs/process/01-lifecycle-and-reviews.md section 10.
 Question for Robin: do you adopt the four open Major items as Major RIDs, and the package-level Minor items as Minor RIDs carried by L-4?
 --
@@ -893,10 +902,10 @@ Question for Robin: do you adopt the four open Major items as Major RIDs, and th
 | SWE | Product | Status
 | 020, 176, 205 | Classification (Class A elected); safety-critical determination | [.met]#Done#: [.nw]##INSP-009##, 017 APPROVED; decision 9
 | 125, 139 | RMM, 100 rows (FC 75, T 17, NA 8) | [.met]#Done#; approval K3 (decision 6)
-| 013 | Software plans (07) with the security section | [.partial]#Content done#: [.nw]##INSP-010##, 018 held by R3
-| 033 | [.nw]##TS-002## make/buy | [.partial]#Pending#: [.nw]##INSP-013## re-issue; decision 107
-| 050 | [.nw]##SW-KEYER##, 39 requirements | [.partial]#Content done#: [.nw]##INSP-026## finding-1 Verified; [.nw]##INSP-004## re-issue
-| 079, 081 | CM plan 05 and CI list | [.partial]#Content done#: paired assurance record not filed (R6) or decision 118
+| 013 | Software plans (07) with the security section | [.met]#Done#: [.nw]##INSP-010##, 018 APPROVED
+| 033 | [.nw]##TS-002## make/buy | [.partial]#Pending#: [.nw]##INSP-013##, 027 APPROVED; decision 107
+| 050 | [.nw]##SW-KEYER##, 39 requirements | [.partial]#Content done#: [.nw]##INSP-004##, 026 APPROVED; decisions 104, 112
+| 079, 081 | CM plan 05 and CI list | [.met]#Done#: [.nw]##INSP-006## APPROVED with [.nw]##INSP-030## (re-issue, R19)
 | 136 | Lock, [.nw]##TV-001## to [.nw]##TV-013## | [.partial]#Partial#: [.nw]##INSP-015## APPROVED; accreditation K15
 | FW-B0 | [.nw]##TC-SW-TOOL-001-r2## | [.notmet]#Blocked#: gate exit 1, 2 FAIL, 5 MISSING; [.nw]##OA-1##
 |===
@@ -904,10 +913,10 @@ Question for Robin: do you adopt the four open Major items as Major RIDs, and th
 [.notes]
 --
 You elected Class A software rigor, and the classification record says honestly that the letter of NPR 7150.2D would put a hobby radio in Class D or E.
-The classification records INSP-009 and INSP-017 are APPROVED with liens; the software plan records INSP-010 and INSP-018 have reviewer and assurance verdicts APPROVED with liens and are held only by readiness R3.
-The SW-KEYER assurance record INSP-026 found that the override path of 07 section 14.2 row d had no keyer requirement; REQ-SW-KEYER-039 fixed it at f2e02aa and the finding is Verified; the TS-002 assurance record INSP-027 is APPROVED with liens.
-The only assurance review not yet run is the paired review of the CM plan 05, item R6, unless you rule the coverage alternative, decision 118.
-The FW-B0 proof is Blocked at run 2 until your rulings K9 and K10, OA-1 and the post-ruling work R16; firmware metrics are 10 of 10 host tests and 100 percent line and region coverage of the host crates as developer evidence, and no open nonconformance.
+The classification records INSP-009 and INSP-017 are APPROVED with liens, and since the re-issues of 2026-09-26 so are the software plan records INSP-010 and INSP-018.
+The SW-KEYER assurance record INSP-026 found that the override path of 07 section 14.2 row d had no keyer requirement; REQ-SW-KEYER-039 fixed it at f2e02aa, the finding is Verified, and INSP-004 with INSP-026 is APPROVED; the TS-002 assurance record INSP-027 is APPROVED with liens.
+The paired assurance review of the CM plan 05 is now filed: INSP-030, 0 Major, assurance verdict APPROVED with liens finding-1 to 4; its record verdict waits only on its re-issue (R19), and decision 118 needs no ruling.
+The FW-B0 proof is Blocked at run 2 until your rulings K9 and K10, OA-1 and the post-ruling work R16; firmware metrics are 10 of 10 host tests and 100 percent line and region coverage of the host crates as developer evidence, the tool suite passes 391 of 392 until R17, and no nonconformance is open.
 Evidence: package sections 16 and 16.1; docs/process/03-software-classification-and-rmm.md; docs/process/07-software-engineering-plan.md; docs/vv/reports/TC-SW-TOOL-001-r2.md.
 Question for Robin: none on this slide; the software rulings are K2, K3, K9, K10, K14, K15 and K17.
 --
@@ -947,20 +956,20 @@ Question for Robin: do you approve these rows as proposed, through K3 and consen
 <div class="brow gap"><span class="bid">C1</span><span class="blab">Gate criteria met or on accepted liens</span></div>
 <div class="brow gap"><span class="bid">C5</span><span class="blab">Software life-cycle criteria</span></div>
 </div>
-<div class="lane pm"><div class="lane-head"><span>Partially met</span><span>6</span></div>
+<div class="lane pm"><div class="lane-head"><span>Partially met</span><span>5</span></div>
 <div class="brow gap"><span class="bid">4.4-1</span><span class="blab">L1 responds to NGOs, MOEs, ConOps; finding-6</span></div>
 <div class="brow gap"><span class="bid">4.4-5</span><span class="blab">V&amp;V approach for every requirement; decision 30</span></div>
 <div class="brow gap"><span class="bid">4.4-7</span><span class="blab">Objectives clear; concept feasible</span></div>
 <div class="brow gap"><span class="bid">4.4-8</span><span class="blab">Evaluation criteria; existing assets</span></div>
 <div class="brow gap"><span class="bid">4.4-11</span><span class="blab">Fault tolerance; decisions 38 to 40</span></div>
-<div class="brow gap"><span class="bid">C2</span><span class="blab">Charter, SEMP, RMM compliance</span></div>
 </div>
-<div class="lane ok"><div class="lane-head"><span>Met</span><span>8</span></div>
+<div class="lane ok"><div class="lane-head"><span>Met</span><span>9</span></div>
 <div class="brow gap"><span class="bid">4.4-3</span><span class="blab">Allocation and control process</span></div>
 <div class="brow gap"><span class="bid">4.4-4</span><span class="blab">Interfaces, incl. USB and key input</span></div>
 <div class="brow gap"><span class="bid">4.4-6</span><span class="blab">Major risks and mitigations</span></div>
 <div class="brow gap"><span class="bid">4.4-9</span><span class="blab">Technical planning for Phase B</span></div>
 <div class="brow gap"><span class="bid">4.4-10</span><span class="blab">HSI aspects for the next phase</span></div>
+<div class="brow gap"><span class="bid">C2</span><span class="blab">Charter, SEMP, RMM compliance</span></div>
 <div class="brow gap"><span class="bid">C3</span><span class="blab">TBD and TBR plans</span></div>
 <div class="brow gap"><span class="bid">C4</span><span class="blab">Proposed tailoring recorded</span></div>
 <div class="brow gap"><span class="bid">C6</span><span class="blab">Risks with accepted residual</span></div>
@@ -972,9 +981,9 @@ Question for Robin: do you approve these rows as proposed, through K3 and consen
 [.notes]
 --
 This is my self-assessment of the twelve SRR success criteria of review process section 4.4 and the six standing criteria C1 to C6, under the single rating rule of package section 20; you rule each one at the gate review.
-Revision 4 re-rated 4.4-4, 4.4-6, 4.4-9, 4.4-10, C4 and C6 Met, because their records are APPROVED with liens and what remained was an approval the gate itself grants.
+Revision 6 re-rated C2 Met, because the compliance matrix record INSP-024 is APPROVED with seven liens at 119cb36; revision 4 re-rated 4.4-4, 4.4-6, 4.4-9, 4.4-10, C4 and C6 Met, because their records are APPROVED with liens and what remained was an approval the gate itself grants.
 Four are Not met: maturity for Phase B until the SRR-due TBRs and key decisions are ruled, the software criteria because FW-B0 is Blocked, and the two roll-up criteria C1 and C5.
-Six are Partially met, mostly for pending rulings or record re-issues; 4.4-11 stays Partially met on decisions 38 to 40.
+Five are Partially met, mostly for pending rulings, and 4.4-7 for the INSP-002 re-issue (R18); 4.4-11 stays Partially met on decisions 38 to 40.
 I drew this board in the deck because the footer of the generated board still says an owner approval counts as pending, which section 20 no longer does (a cross item for the tool owner); the counts are the same.
 Evidence: package section 20; docs/process/01-lifecycle-and-reviews.md sections 3.3, 4.4 and 12.2; the generated board docs/reviews/SRR/figures/success-criteria.png (package section 7).
 Question for Robin: do you want to rule the criteria now, or at the gate review once the Hard items close?
@@ -987,10 +996,10 @@ Question for Robin: do you want to rule the criteria now, or at the gate review 
 | Lien | Shortfall and closure plan | Owner | Due
 | [.nw]##L-1## | 101 L1, 25 L2, 4 TPM and 17 hazard-control TBRs, each by its own plan; the 14 SRR TBRs and [.nw]##TPM-014## are ruled here | Robin decides; Claude | PDR (L2 by CDR at the latest)
 | [.nw]##L-2## | S8: [.nw]##TPM-001##, [.nw]##TPM-016## have no estimate; bottom-up estimates in `budgets.md` | Claude | PDR readiness declaration
-| [.nw]##L-3## | S10: `docs/lessons-learned.md` absent; create it with the nine entries of section 19 | Claude | PDR readiness declaration
-| [.nw]##L-4## | Package-level Minor items 2, 3, 8, 11, 38, 55, 58, 65 and the open Minor ConOps D items | Claude or author | PDR readiness declaration
+| [.nw]##L-3## | S10: `docs/lessons-learned.md` absent; create it with the ten entries of section 19 | Claude | PDR readiness declaration
+| [.nw]##L-4## | Package-level Minor items 2, 3, 8, 11, 38, 55, 58, 71 and the open Minor ConOps D items | Claude or author | PDR readiness declaration
 | [.nw]##L-5## | Cross-document items due at PDR (03 X9, X10; 04 A11; SEMP F-06, F-15; OQ-SAF due PDR; tool pins; `docs/vv` traceability copy) | Claude | PDR readiness declaration
-| [.nw]##L-6## | Every Minor finding of the 29 records: 120 findings plus erratum E-10, "fix before PDR" | Each record's owner | PDR readiness declaration
+| [.nw]##L-6## | Every Minor finding of the 30 records: 122 findings plus erratum E-10, "fix before PDR" | Each record's owner | PDR readiness declaration
 | [.nw]##L-7## | Package-level Routine items from revision 3: ADR citations in `source_ids`, tool rows, hazard-line stamps | Claude | PDR readiness declaration
 |===
 
@@ -999,7 +1008,7 @@ Question for Robin: do you want to rule the criteria now, or at the gate review 
 Only Soft entrance shortfalls, Minor RIDs, Routine RFAs and TBRs with owner, plan and close-by may be liens; the Hard items of section 2 close before the declaration and are not proposed as liens.
 Lien L-1 carries only the TBRs whose plans close at PDR or later; the 14 L1 TBRs due at SRR and TPM-014 are ruled in the SRR memo through the key decisions and the consent agenda.
 The Soft shortfalls S8 and S10 are liens L-2 and L-3, and L-4 and L-5 carry the package-level Minor items and the cross-document items.
-L-6 is new in revision 4: under the lead SE convergence rule, every Minor finding of every record, 120 findings in revision 5 and the INSP-011 erratum E-10, is a lien to fix before PDR, and the reviewer of the owning record verifies each fix at its next iteration.
+L-6 is new in revision 4: under the lead SE convergence rule, every Minor finding of every record, 122 findings in revision 6 and the INSP-011 erratum E-10, is a lien to fix before PDR, and the reviewer of the owning record verifies each fix at its next iteration; five findings were Verified at the re-issues and seven are new, four of them in INSP-030.
 Each accepted lien becomes a Routine RFA raised by you, and a TBR lien keeps its requirement id.
 Evidence: package sections 20.1 and 20.2 (record-by-record lien table); docs/process/01-lifecycle-and-reviews.md section 12.2.
 Question for Robin: do you accept liens L-1 to L-7 as the plan for the later request?
@@ -1039,9 +1048,9 @@ Question for Robin: which of OA-3 to OA-7 and OA-9 can you do today?
 Requested now: no disposition; the gate review is not convened (review process section 4.2).
 
 * *This session:* your rulings on K1 to K17 and the consent agenda, OA-1, OA-2 and OA-9, and your decisions on the candidate RIDs
-* *Then (Claude and reviewers):* R6 to R9 and R15; after your rulings, R16
+* *Then (Claude and reviewers):* R17 to R19 and R15; after your rulings, R16
 * *Then (you):* confirm readiness (S1); the gate review is convened
-* *At the gate review:* the request is *Approved with liens* L-1 to L-7 (L-6 is the 120 record liens)
+* *At the gate review:* the request is *Approved with liens* L-1 to L-7 (L-6 is the 122 record liens)
 * *After your disposition:* the decision memo is written and committed, then Claude creates and pushes [.nw]##`baseline/srr`## ([.nw]##OA-8##)
 * *Logged:* every RFA or RID you raise today goes to `rfa-rid-log.json` and the minutes
 
@@ -1049,7 +1058,7 @@ Requested now: no disposition; the gate review is not convened (review process s
 --
 I am not asking you to approve, approve with liens or reject the SRR today, because the gate review is not convened and review process section 12.2 forbids carrying a Hard shortfall or a Major finding as a lien.
 What I ask of this session is your rulings on K1 to K17 and the consent agenda, the owner actions that fall today, and your decisions on the candidate RIDs.
-After the session, the reviewers and I finish R6 to R9 and R15, and the post-ruling work R16, which Hard rows 14, 15 and 20 close through; then you confirm readiness and I present the gate review.
+After the session, the reviewers and I finish R17 to R19 and R15, and the post-ruling work R16, which Hard rows 14, 15 and 20 close through; then you confirm readiness and I present the gate review.
 At the gate review I will request Approved with liens, with the seven liens of the previous slide; nothing is baselined until your disposition is transcribed into the decision memo and committed, and only then do I create the baseline/srr tag.
 Evidence: package sections 2.1, 20.1 and 21; docs/process/01-lifecycle-and-reviews.md sections 4.2 and 12.2.
 Question for Robin: do you agree that no disposition is recorded in this session, and that the gate review follows the repeat readiness review and your confirmation?
