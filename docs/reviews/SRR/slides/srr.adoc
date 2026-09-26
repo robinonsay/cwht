@@ -207,7 +207,7 @@ Question for Robin: none on this slide; R17 to R19 need no ruling.
 </div>
 <div class="lane nt"><div class="lane-head"><span>Re-issue, no ruling</span><span>3</span></div>
 <div class="brow gap"><span class="bid">002</span><span class="blab">ConOps, concept: validator heuristic (R18)</span></div>
-<div class="brow gap"><span class="bid">029</span><span class="blab">This deck: iteration 3 on revision 6 (R19)</span></div>
+<div class="brow gap"><span class="bid">029</span><span class="blab">This deck: iteration 3 done, re-issue (R19)</span></div>
 <div class="brow gap"><span class="bid">030</span><span class="blab">05 assurance: readiness R3 answered (R19)</span></div>
 </div>
 <div class="lane nm"><div class="lane-head"><span>Open Major</span><span>3</span></div>
@@ -216,14 +216,14 @@ Question for Robin: none on this slide; R17 to R19 need no ruling.
 <div class="brow gap"><span class="bid">016</span><span class="blab">FW-B0: F-01 (109, 110, <span class="nw">OA-1</span>), F-02 (108)</span></div>
 </div>
 </div>
-<p class="board-note">Record numbers are INSP-NNN. INSP-008 is APPROVED but fails the record drift rule after the R9 status edit until its re-issue (R17). Every Minor finding of every record is dispositioned "Lien: fix before PDR": 122 findings plus erratum E-10, carried as lien L-6.</p>
+<p class="board-note">Record numbers are INSP-NNN. INSP-008 is APPROVED but fails the record drift rule after the R9 status edit until its re-issue (R17). Every Minor finding of every record is dispositioned "Lien: fix before PDR": 120 findings plus erratum E-10, carried as lien L-6.</p>
 ++++
 
 [.notes]
 --
 All 30 records are filed as their front matter reads: 24 APPROVED and 6 NEEDS CHANGES.
 Since revision 5 the 16 author self-checks were filed and 17 records re-issued without a further product review; 14 moved to APPROVED, among them INSP-004 and INSP-013 on their paired assurance records INSP-026 and INSP-027, and INSP-006 with the new paired record INSP-030.
-Three NEEDS CHANGES records are held by Claude and reviewer work only: INSP-002, whose reviewer verdict is APPROVED with liens, by the open-Major heuristic of validate_docs.py that reads historical count lines as open findings (R18); INSP-029, this deck's record, by its iteration 3 on this update; and INSP-030, whose readiness R3 the 05 self-check at 8ef95d3 answers (R19).
+Three NEEDS CHANGES records are held by Claude and reviewer work only: INSP-002, whose reviewer verdict is APPROVED with liens, by the open-Major heuristic of validate_docs.py that reads historical count lines as open findings (R18); INSP-029, this deck's record, whose iteration 3 found no new finding and Verified finding-2 and finding-4, held by readiness R1 (the INSP-008 drift) until its re-issue; and INSP-030, whose readiness R3 the 05 self-check at 8ef95d3 answers (R19).
 Three are held by the five open Major findings, which close only on your rulings; no record is held by a finding that a product change of this round must fix.
 INSP-008 stays APPROVED, but the R9 status edit changed the hazard files it names, so the validator fails it until its reviewer verifies that status-only delta and re-issues it (R17).
 Evidence: package sections 2.4 (record table and totals), 2.3 and 3; docs/reviews/SRR/checklists/*.md front matter; section 20.2.
@@ -999,7 +999,7 @@ Question for Robin: do you want to rule the criteria now, or at the gate review 
 | [.nw]##L-3## | S10: `docs/lessons-learned.md` absent; create it with the ten entries of section 19 | Claude | PDR readiness declaration
 | [.nw]##L-4## | Package-level Minor items 2, 3, 8, 11, 38, 55, 58, 71 and the open Minor ConOps D items | Claude or author | PDR readiness declaration
 | [.nw]##L-5## | Cross-document items due at PDR (03 X9, X10; 04 A11; SEMP F-06, F-15; OQ-SAF due PDR; tool pins; `docs/vv` traceability copy) | Claude | PDR readiness declaration
-| [.nw]##L-6## | Every Minor finding of the 30 records: 122 findings plus erratum E-10, "fix before PDR" | Each record's owner | PDR readiness declaration
+| [.nw]##L-6## | Every Minor finding of the 30 records: 120 findings plus erratum E-10, "fix before PDR" | Each record's owner | PDR readiness declaration
 | [.nw]##L-7## | Package-level Routine items from revision 3: ADR citations in `source_ids`, tool rows, hazard-line stamps | Claude | PDR readiness declaration
 |===
 
@@ -1008,7 +1008,7 @@ Question for Robin: do you want to rule the criteria now, or at the gate review 
 Only Soft entrance shortfalls, Minor RIDs, Routine RFAs and TBRs with owner, plan and close-by may be liens; the Hard items of section 2 close before the declaration and are not proposed as liens.
 Lien L-1 carries only the TBRs whose plans close at PDR or later; the 14 L1 TBRs due at SRR and TPM-014 are ruled in the SRR memo through the key decisions and the consent agenda.
 The Soft shortfalls S8 and S10 are liens L-2 and L-3, and L-4 and L-5 carry the package-level Minor items and the cross-document items.
-L-6 is new in revision 4: under the lead SE convergence rule, every Minor finding of every record, 122 findings in revision 6 and the INSP-011 erratum E-10, is a lien to fix before PDR, and the reviewer of the owning record verifies each fix at its next iteration; five findings were Verified at the re-issues and seven are new, four of them in INSP-030.
+L-6 is new in revision 4: under the lead SE convergence rule, every Minor finding of every record, 120 findings in revision 7 and the INSP-011 erratum E-10, is a lien to fix before PDR, and the reviewer of the owning record verifies each fix at its next iteration; since revision 5, seven findings were Verified (five at the re-issues, finding-2 and finding-4 of INSP-029 at its iteration 3) and seven are new, four of them in INSP-030.
 Each accepted lien becomes a Routine RFA raised by you, and a TBR lien keeps its requirement id.
 Evidence: package sections 20.1 and 20.2 (record-by-record lien table); docs/process/01-lifecycle-and-reviews.md section 12.2.
 Question for Robin: do you accept liens L-1 to L-7 as the plan for the later request?
@@ -1050,7 +1050,7 @@ Requested now: no disposition; the gate review is not convened (review process s
 * *This session:* your rulings on K1 to K17 and the consent agenda, OA-1, OA-2 and OA-9, and your decisions on the candidate RIDs
 * *Then (Claude and reviewers):* R17 to R19 and R15; after your rulings, R16
 * *Then (you):* confirm readiness (S1); the gate review is convened
-* *At the gate review:* the request is *Approved with liens* L-1 to L-7 (L-6 is the 122 record liens)
+* *At the gate review:* the request is *Approved with liens* L-1 to L-7 (L-6 is the 120 record liens)
 * *After your disposition:* the decision memo is written and committed, then Claude creates and pushes [.nw]##`baseline/srr`## ([.nw]##OA-8##)
 * *Logged:* every RFA or RID you raise today goes to `rfa-rid-log.json` and the minutes
 
