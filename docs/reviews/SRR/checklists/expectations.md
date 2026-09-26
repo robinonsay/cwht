@@ -286,3 +286,54 @@ Iteration 3: no finding is Open and no Major finding remains; finding-11 and fin
 
 
 Iteration 2: finding-1 and finding-2 are Verified; the verdict stays NEEDS CHANGES only for the open Minor findings and readiness R3 (see "Closure (iteration 2)"). Iteration 1 text follows. The verdict is NEEDS CHANGES while finding-1 and finding-2 are Open (charter section 4 item 3: a Major finding blocks the baseline). Re-review (iteration 2) after the author's revision; the Minor findings are fixed in the same revision or deferred with an owner decision reference.
+
+## Author self-check (readiness R3; finding-11; package item R7; filed 2026-09-26)
+
+**Written by the expectations author, not the reviewer.** Author: `author:expectations` (Claude in the requirements author role of 08 section 3.1, for the expectations product of commit 28e49e6). This section is the author's return that readiness R3 of `docs/templates/peer-review-checklist-requirements.md` revision C asks for ("The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria"). It is filed in this record because 01 section 13 says no record lives only in conversation and 07 section 10.2 (Readiness criteria row) says the brief's acceptance criteria are listed in the review record. Every other section, the front matter, the R3 answer, finding-11 and `readiness_met` belong to the reviewer and are unchanged; the reviewer answers R3 again when it re-issues the record (package item R8). No product file was changed (convergence rule, charter section 4 item 3).
+
+**Product state checked.** HEAD `5b1f2cf`. `git hash-object` of `expectations.json` (`59e7efba`), `expectations.md` (`3ac5617d`) and `stakeholder-inputs.md` (`bcc2ec9f`) equals both the HEAD blob and the blob named in `product_files`, so the self-check applies to the blobs the reviewer read at iteration 3.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: where an author self-check and readiness R3 are recorded; decision 115 and the self-check location). `grep -n` and Python scans on known paths followed, only to pin lines.
+
+**Method.** A Python scan (scratchpad script, not a repository file) over `expectations.json`: `shall` count; the WR-07 group B word list of 02 section 4.2 applied to every `statement`; `rationale` and `source_ids` present; every `SI-NNN` resolves in `stakeholder-inputs.md` and every SI row is cited by at least one L0 entry; the Need, Goal and Objective parent structure; MOE `ngo_ids` and `ops_ids` resolve (NGO ids in the file, OPS ids in `docs/conops/conops.md`); Regulatory constraints cite a `47CFR` clause and SI-014; TBR entries; em dashes; statuses. Judgment items were answered by re-reading the entries the scan or the findings named.
+
+### Brief's acceptance criteria
+
+The authoring brief of commit 28e49e6 is not on record. The acceptance criteria below are the ones the expectations row of the 08 section 3.1 author role block names as governing: 02 section 3.2 (entry definitions and rules 1 to 5) and section 3.0 (stakeholders), `docs/requirements/l0-stakeholder/schema.json`, SE HB App. S, and the checklist product-type row for expectations.
+
+| AC | Acceptance criterion | Source | Result | Evidence |
+|---|---|---|---|---|
+| AC-1 | The file validates against `l0-stakeholder/schema.json` | 02 section 3.2 Produces | Met | `tools/validate_docs.py`: `PASS docs/requirements/l0-stakeholder/expectations.json` |
+| AC-2 | No expectation statement contains `shall` | 02 section 3.2 rule 1 | Met | Scan: 0 of 71 entries |
+| AC-3 | Every NGO cites at least one `SI-NNN`; every MOE cites at least one NGO and at least one `OPS-NNN`, all resolving | 02 section 3.2 rule 2 | Met | Scan: 30 of 30 NGOs cite an SI; 13 of 13 MOEs have resolving `ngo_ids` and `ops_ids`; all 36 SI rows are cited |
+| AC-4 | Exactly one Need; every Goal's parent is the Need; every Objective's parent is a Goal | 02 section 3.2 rule 3 | Met | Need NGO-001; Goals NGO-002 to 008 parent NGO-001; 22 Objectives each parented to a Goal; every Need and Goal has a child |
+| AC-5 | Regulatory constraints cite the 47 CFR clause in `47CFR<part>.<section>` form together with SI-014 | 02 section 3.2 rule 4 | Met with exception | Every Regulatory constraint cites a `47CFR` clause. CON-006 (sources `47CFR97.7` ... , SI-019, SI-030) and CON-007 (`47CFR97.313(a)`, `(b)`, SI-003) do not also cite SI-014. New Minor discrepancy (author exception E-1 below) |
+| AC-6 | Every entry is Draft; the file is baselined only by the SRR memo | 02 section 3.2 rule 5; 08 section 3.1 Status | Met | Every status `Draft`; `baseline` null |
+| AC-7 | `stakeholders` names every group with a role and SI sources | 02 section 3.0 | Met | 10 stakeholders (customer, user, 2 guest operator, 2 public, regulator, 2 vendor, supplier), each with `source_ids` (finding-9 Verified) |
+| AC-8 | No TBD; each TBR has owner, plan and close_by, one plan per TBR | charter section 7; readiness R4 | Met with lien | No TBD; TBR in NGO-012, NGO-015, NGO-026, MOE-010 carries all three fields (CON-020 names the policy). NGO-026's plan differs from the L1 `tbr.plan` of REQ-SYS-116 and 117 (finding-12, lien) |
+| AC-9 | No em dash | 08 section 1 writing rules | Met | Scan: 0 |
+
+### Self-check against the checklist sections for expectations (A3, A4, A5, A7, A8; B1 to B3; E4; F1 to F3)
+
+| Item | Author answer | Evidence |
+|---|---|---|
+| CK-REQ-A3 | Yes | Objectives and MOE success criteria carry number, unit and bound (for example NGO-009 5.0 km at 5 W and 2.0 km at 2 W; MOE-001 at most one character error in 20); finding-7 Verified |
+| CK-REQ-A4 | Yes | The group B scan hits only NGO-001 ("safe", "small group") and CON-023 ("small LCD"). NGO-001 is the Need, the single problem statement that 02 section 3.2 defines as not a solution and not measured; its terms are made measurable by the Objectives (NGO-021 hardware cutoff, NGO-017 emission limits) and by CON-001 (the group is the licensed friends). CON-023 is a quoted owner constraint on the control set, not a criterion; the display is sized by L1. Neither entry is an Objective or MOE criterion, which the item governs |
+| CK-REQ-A5 | Yes | Part numbers and topologies appear only in rationales; the independence properties of NGO-016, NGO-021 and NGO-026 are owner-level (reviewer answer re-read) |
+| CK-REQ-A7 | Yes, with exception E-1 | Every entry has a rationale citing its SI source; finding-1, 5 and 8 Verified. E-1 (CON-006, CON-007 without SI-014) |
+| CK-REQ-A8 | Yes | "straight key" and "iambic paddle" as in SI-018 and L1; `expectations.md` render current (`tools/traceability.py --report-only`: no `RENDER_STALE`) |
+| CK-REQ-B1 | Yes | AC-3, AC-4 |
+| CK-REQ-B2 | Yes | No Objective duplicates another; each supports its Goal (reviewer answer re-read) |
+| CK-REQ-B3 | Yes | AC-4 and AC-7; every Goal has an Objective |
+| CK-REQ-E4 | Yes | Every MOE `success_criterion` contains a measurable pass condition (scan: 13 of 13 contain a number); subjective ratings have named raters (finding-7 Verified) |
+| CK-REQ-F1 | No (lien) | finding-12: NGO-026 TBR plan versus REQ-SYS-116 and 117 `tbr.plan`. Fix before PDR as the lien table assigns |
+| CK-REQ-F2 | Yes | finding-2 Verified ("pitch offset" split) |
+| CK-REQ-F3 | Yes | No L0 entry holds product-level design detail beyond labelled proposals |
+
+The other items are N/A for this product type (checklist product-type row): A1, A2, A6, B4 to B7, C, D, E1 to E3, E5, E6, F4 and G.
+
+**Author exception E-1 (new, Minor, for the reviewer to disposition).** 02 section 3.2 rule 4 asks a constraint derived from 47 CFR to cite SI-014 with its clause; CON-006 and CON-007 cite the clauses and other SI rows but not SI-014. Proposed fix (before PDR, under the convergence rule): add SI-014 to both `source_ids`. No product change is made in this run.
+
+### Author's statement
+
+The self-check agrees with the reviewer's iteration 3 answers item for item and disputes no finding. It adds one Minor discrepancy (E-1). finding-12 is a lien the author fixes before the PDR readiness declaration. Commands: `tools/validate_docs.py` before this section: exit 1, 47 passed, 1 failed, 48 checked; the one failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (record drift against the hazard files committed at `ade0e09`), outside this record and present before the edit. `tools/traceability.py --report-only` (output to the scratchpad): exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings, none naming an NGO, MOE, CON or stakeholder id.

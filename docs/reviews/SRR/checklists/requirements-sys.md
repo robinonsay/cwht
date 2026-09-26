@@ -553,3 +553,77 @@ ITERATION 3 PRE-CHECK (integrator, 2026-09-26, superseded): VERDICT: NEEDS CHANG
 ```
 ITERATION 3 (independent reviewer, 2026-09-26, HEAD adcfe09): VERDICT: NEEDS CHANGES. Open Major 1 (finding-6: owner ruling on package decision 30). Liens 5 (fix before PDR: finding-12 regressed, finding-17, finding-21, new finding-25, new finding-26). Closed 20, including finding-4, 9, 23, 24. No new Major finding.
 ```
+
+## Author self-check (readiness R3; finding-21; package item R7; filed 2026-09-26)
+
+**Written by the L1 requirements author, not the reviewer.** Author: `author:requirements-sys` (Claude in the requirements author role of 08 section 3.1; `allocation.json` by the same author; the TC-SYS cases belong to the independent test author and are not self-checked here). This section is the author's return that readiness R3 of `docs/templates/peer-review-checklist-requirements.md` revision C asks for ("The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria"). It is filed in this record because 01 section 13 says no record lives only in conversation and 07 section 10.2 (Readiness criteria row) says the brief's acceptance criteria are listed in the review record. Every other section, the front matter, the R3 answer, finding-21 and `readiness_met` belong to the reviewer and are unchanged; the reviewer answers R3 again when it re-issues the record (package item R8). No product file was changed (convergence rule, charter section 4 item 3).
+
+**Product state checked.** HEAD `5b1f2cf`. `git hash-object` equals the HEAD blob for `sys/requirements.json` (`0da73012`), `sys/requirements.md` (`95cdc465`) and `allocation.json` (`3526c8ee`), the blobs named in `product_files`. `test_cases/sys/test_cases.json` is at `de113d6a` (the record names `4dd2bc3c`; the TC-SYS-060 change of `0f5a529` is reviewed by INSP-025, package section 2.3); its cases were used here only as the targets of `verification_note` references.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: where an author self-check and readiness R3 are recorded; decision 115 and the self-check location; the requirements author brief). `grep -n` and Python scans on known paths followed, only to pin lines.
+
+**Method.** A Python scan (scratchpad script, not a repository file) over all 183 entries (181 live, 2 retired): the WR-01, WR-07 (group A and group B lists of 02 section 4.2, whole-word matching), WR-08, WR-12 and WR-14 tests; `title` form and length; id pattern; rationale first label and the 120-word limit of 02 section 4.3 (whitespace count); `source_ids` present with an `OPS-` or `MOE-` validation path; parents and `REQ-` sources resolve; `hazard_ids` against `docs/safety/hazards.json` 0.4.3-pha in both directions; `safety` and `regulatory` tags; method and note present; the Analysis-accepted rule of 04 section 3 for non-Test hazard controls (the named `RSK-NNN` carries the hazard in `docs/risk/register.json`); every `TC-` id in a note exists and cites the requirement; `priority` set and no `should` in a description; `(TBR)` if and only if a complete `tbr` object; status Draft; retired form (02 section 11.3); duplicate descriptions; CamelCase terms in descriptions. Judgment items were answered by re-reading the requirements the scan or the findings named, and the values listed under C1.
+
+### Brief's acceptance criteria
+
+The authoring brief of the L1 set is not on record. The acceptance criteria below are the ones the requirements row of the 08 section 3.1 author role block names as governing (02, `docs/requirements/schema.json`, checklist sections A to F), with 02 section 12 (V1 to V6 of every L1 requirement before SRR) and NPR 7123.1D App. G Table G-4 entrance 5.1 (requirements ready to baseline, preliminary allocation performed).
+
+| AC | Acceptance criterion | Source | Result | Evidence |
+|---|---|---|---|---|
+| AC-1 | The file validates against the requirement schema | 08 section 3.1 | Met | `tools/validate_docs.py`: `PASS docs/requirements/sys/requirements.json` |
+| AC-2 | `tools/traceability.py` reports no violation for the SYS ids | readiness R2 | Met | `--report-only` exit 0: 0 violations; 2 SYS warnings `SYS_UNALLOCATED` REQ-SYS-125, 148 (confirmed at V6, finding-20 Verified) |
+| AC-3 | Writing rules WR-01 to WR-14 hold for every live requirement | 02 section 4.2 | Met with liens | Scan: one `shall` and no group A word in 181 of 181; at most 25 words; no `shall not`; titles clean; ids match. Group B hit: REQ-SYS-130 `title` "Safe state first on reset..." (the state name, not a criterion; the description names the outputs). Rationale length: 12 above 120 words (008, 009, 010, 017, 018, 054, 055, 083, 121, 130, 180, 183), which is finding-12 (lien) |
+| AC-4 | Every requirement traces to L0 through `source_ids` with an `OPS-` or `MOE-` validation path; self-derivation stated | 02 section 2.3 | Met | Scan: 181 of 181 have an `OPS-` or `MOE-` source; no unresolved `REQ-` source (finding-8 Verified) |
+| AC-5 | Hazard links hold in both directions; hazard controls carry `safety`; regulatory sources carry `regulatory`; security coverage tagged | charter section 7; 02 rule T-08; 02 section 2.3 | Met | Scan: 104 `safety` requirements, each with `hazard_ids`; no one-sided link against 0.4.3-pha (finding-23 Verified); every `47CFR` source is tagged `regulatory`; REQ-SYS-132 and 134 tagged `security` (finding-22 Verified) |
+| AC-6 | Verification method and note assigned at definition; closing case exists and cites the requirement | 02 section 4.4; WR-11 | Met, except finding-6 | Scan: every note names its closing `TC-SYS` id, each exists and cites the requirement; no `TC pending`. finding-6 (Major, open on owner decision 30): seven `regulatory` requirements are not Test on the Bench without a class 1 record. finding-17 (lien): four methods should be Inspection |
+| AC-7 | A non-Test hazard control is admitted only with a note beginning `Analysis accepted per RSK-NNN` whose risk carries the hazard | 04 section 3; CK-REQ-E3 | Met | Scan: 22 Analysis-closed hazard controls, each with the prefix and a risk whose `related.hazard_ids` carries the hazard (finding-7 Verified) |
+| AC-8 | TBR policy: `(TBR)` if and only if `tbr` with owner, plan and close_by at PDR; no TBD | charter section 7; WR-12 | Met | Scan: 115 TBRs, all complete; no mismatch; no TBD (finding-16 Verified) |
+| AC-9 | Every requirement Draft; retirements in 02 section 11.3 form | 08 section 3.1 Status; 02 section 11.3 | Met | 181 Draft; REQ-SYS-016 and 123 `Closed`, tag `retired`, rationale `Retired by ` |
+| AC-10 | Preliminary allocation to L2 performed | Table G-4 entrance 5.1; 02 T-18 | Met | `allocation.json` validates; T-18 gaps are only REQ-SYS-125, 148 (system-level Inspection) |
+| AC-11 | No em dash | 08 section 1 | Met | Scan: 0 |
+
+### Self-check against checklist sections A to G
+
+| Item | Author answer | Evidence |
+|---|---|---|
+| CK-REQ-A1 | Yes | AC-3 |
+| CK-REQ-A2 | Yes | AC-3; no compound statement found on re-reading the finding-12 set |
+| CK-REQ-A3 | No (lien) | finding-25: ten TC-SYS cases supply tolerances that REQ-SYS-014, 044, 045, 048, 053, 054, 077, 087, 088, 093, 161, 162, 166, 167 do not state. Fix before PDR |
+| CK-REQ-A4 | Yes | AC-3 |
+| CK-REQ-A5 | Yes | CamelCase scan: only "DigiKey" (REQ-SYS-140), admitted by WR-05 as constraint CON-014 |
+| CK-REQ-A6 | Yes | AC-3, AC-9 |
+| CK-REQ-A7 | No (liens) | finding-12 (twelve rationales above 120 words) and finding-26 (8.1 item 5 cited for controls of Critical hazards). Fix before PDR |
+| CK-REQ-A8 | Yes | "straight key", "iambic paddle" and the ConOps mode names used as spelled in the ConOps |
+| CK-REQ-B1 | Yes | AC-4; L1 parents are L0 sources (`parent_id` null by 02 section 2.3) |
+| CK-REQ-B2 | Yes | Retirements of REQ-SYS-016 and 123 confirmed (finding-10, 11) |
+| CK-REQ-B3 | Yes | AC-10 |
+| CK-REQ-B4 | Yes | Scan: every `OPS-NNN` in `docs/conops/conops.md` is cited by at least one L1 requirement; both key types have their own requirement (REQ-SYS-038 straight key, REQ-SYS-039 iambic paddle) |
+| CK-REQ-B5 | Yes | AC-5 |
+| CK-REQ-B6 | Yes | AC-5 |
+| CK-REQ-B7 | N/A | Not a CR |
+| CK-REQ-C1 | Yes | REQ-SYS-008 and 009: 144.001 to 147.999 MHz (TBR); REQ-SYS-042 +/-1 percent or +/-0.5 ms against dot = 1200/WPM ms; REQ-SYS-055 7.5 to 13 s, 10 s nominal; REQ-SYS-010 +/-2.5 ppm, as ADR-016, ADR-023 and the reviewer's number table give |
+| CK-REQ-C2 | Yes | Scan: all 16 `interface`-tagged requirements name an ICD in `design_refs`; values agree with the ICD stubs (reviewer C2 answer re-read) |
+| CK-REQ-C3 | Yes | Hardware controls independent of firmware are their own requirements (for example REQ-SYS-055, 180, 181, each with a `Fault tolerance:` item naming the firmware layer it backs up); operator procedures are allocated to the handbook (REQ-SYS-122); the software layers are separate requirements |
+| CK-REQ-C4 | N/A | `SW-SAFE` only |
+| CK-REQ-C5 | Yes | No state name outside the ConOps and architecture list in any description (CamelCase scan); finding-5, 24 Verified |
+| CK-REQ-C6 | Yes | Undesired events have responses: stuck key and paddle (REQ-SYS-053, 054, 055, 180), corrupted configuration (134) and image (132), firmware hang and watchdog (131), resets and panics (130), PA over-temperature (118) |
+| CK-REQ-C7 | Yes | REQ-SYS-132, 134 (AC-5) |
+| CK-REQ-C8 | Yes | REQ-SYS-132 (image) and REQ-SYS-134 (configuration) |
+| CK-REQ-D1 | Yes | Scan for sub-millisecond values: only the +/-0.5 ms timing tolerance of REQ-SYS-042, which is a measurement bound, not a response time; the shortest L1 latency is REQ-SYS-043 3 ms (1 ms sampling plus the 2 ms make filter) |
+| CK-REQ-D2, D3 | N/A | No L1 flash, RAM or crate value |
+| CK-REQ-D4 | No (lien) | finding-25 |
+| CK-REQ-E1 | No | finding-6 (Major, owner ruling on decision 30) and finding-17 (lien) |
+| CK-REQ-E2 | Yes | AC-6; every note names pre-build and post-build classes |
+| CK-REQ-E3 | Yes | AC-7 |
+| CK-REQ-E4 | Yes | Statements name antenna-port, audio, display or test-point observables (finding-1 Verified) |
+| CK-REQ-E5 | Yes | Bench notes name 04 section 6.1 instruments (finding-15 Verified) |
+| CK-REQ-E6 | Yes | AC-6 |
+| CK-REQ-F1 | Yes | No duplicate description (scan); finding-5, 24 Verified |
+| CK-REQ-F2 | Yes | Enum spellings as in the ConOps |
+| CK-REQ-F3 | Yes | finding-19 Verified |
+| CK-REQ-F4 | Yes | `priority` set on 181 (Baseline 158, KDR 18, Goal 5); no `should` in a description |
+| CK-REQ-G1 to G8 | N/A | Not a plan |
+
+### Author's statement
+
+The self-check agrees with the reviewer's iteration 3 answers item for item and disputes no finding; it found no defect the record does not already hold. finding-6 is the one open Major finding and closes only by the owner's ruling on package decision 30 (and, if the ruling is Test, by the R16 requirement edits), not by an author edit in this run. finding-12, 17, 25 and 26 are liens the author fixes before the PDR readiness declaration; finding-21 is answered by this section. Commands: `tools/validate_docs.py` before this section: exit 1, 47 passed, 1 failed, 48 checked; the one failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (record drift against the hazard files committed at `ade0e09`), outside this record and present before the edit. `tools/traceability.py --report-only` (output to the scratchpad): exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings (REQ-SYS-125, 148 `SYS_UNALLOCATED`; REQ-SW-KEYER-039 `HAZARD_INVERSE`).

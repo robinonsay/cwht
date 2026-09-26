@@ -393,3 +393,74 @@ ITERATION 3 (2026-09-26): reviewer verdict APPROVED with liens; record verdict N
 FINDINGS: finding-1 to finding-16 Closed; liens finding-17, finding-18, finding-19 (Minor, fix before PDR); open Major 0
 MEASUREMENTS: size=54 requirements, 59 cases; rows=54; verified=16; liens=3; major_open=0; minor_open=0; iteration=3; turns=25; minutes=40
 ```
+
+## Author self-check (readiness R3; finding-19; package item R7; filed 2026-09-26)
+
+**Written by the L2 requirements author, not the reviewer.** Author: `author:requirements-l2` (Claude in the requirements author role of 08 section 3.1, for REQ-TX and REQ-SW-KEYER; the TC-TX and TC-SW-KEYER cases belong to the independent test author and are not self-checked here). This section is the author's return that readiness R3 of `docs/templates/peer-review-checklist-requirements.md` revision C asks for ("The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria"). It is filed in this record because 01 section 13 says no record lives only in conversation and 07 section 10.2 (Readiness criteria row) says the brief's acceptance criteria are listed in the review record. Every other section, the front matter, the R3 answer, finding-19 and `readiness_met` belong to the reviewer and are unchanged; the reviewer answers R3 again when it re-issues the record (package item R8). No product file was changed (convergence rule, charter section 4 item 3).
+
+**Product state checked.** HEAD `5b1f2cf`. `git hash-object` equals the HEAD blob for `tx/requirements.json` (`ef206c83`, as named in `product_files`) and `sw/sw-keyer/requirements.json` (`4d22b399`). The record names SW-KEYER `db2de344`; `4d22b399` is the `f2e02aa` fix of INSP-026 finding-1 (REQ-SW-KEYER-024, 029, new 039), which this self-check covers and which the R8 delta verification of this record will read.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: where an author self-check and readiness R3 are recorded; decision 115 and the self-check location; the requirements author brief). `grep -n` and Python scans on known paths followed, only to pin lines.
+
+**Method.** A Python scan (scratchpad script, not a repository file) over the 16 REQ-TX and 39 REQ-SW-KEYER entries: the WR-01, WR-07 (group A and group B lists of 02 section 4.2, whole-word matching), WR-08, WR-12 and WR-14 tests; `title` form and length; id pattern; rationale first label and the 120-word limit of 02 section 4.3 (whitespace count); parents resolve or `Self-derived:` leads; `hazard_ids` against `docs/safety/hazards.json` 0.4.3-pha in both directions; `safety`, `regulatory` and `interface` tags; `Depends on:` and `Fault tolerance:` on every `safety` software requirement; method and note present; the Analysis-accepted rule of 04 section 3; every `TC-` id in a note exists and cites the requirement; the evidence classes of the cases citing each hazard control; `priority`; `(TBR)` if and only if a complete `tbr` object; status Draft; duplicate descriptions; CamelCase terms in descriptions; `REQ-SW-SAFE` references. Judgment items were answered by re-reading the requirements the scan or the findings named.
+
+### Brief's acceptance criteria
+
+The authoring brief of the two L2 files is not on record. The acceptance criteria below are the ones the requirements row of the 08 section 3.1 author role block names as governing (02, `docs/requirements/schema.json`, checklist sections A to F), with 07 section 14.2 (SW-KEYER row, SWE-134 items), 04 section 5.2 (credit rows) and SRR entrance row 25 (L2 files at Draft, package H15).
+
+| AC | Acceptance criterion | Source | Result | Evidence |
+|---|---|---|---|---|
+| AC-1 | Both files validate against the requirement schema | 08 section 3.1 | Met | `tools/validate_docs.py`: both PASS |
+| AC-2 | No `tools/traceability.py` violation for the ids | readiness R2 | Met, one warning | 0 violations; `HAZARD_INVERSE` REQ-SW-KEYER-039 (HZ-004 does not list it; INSP-026 finding-5, lien; the hazard file is not this author's product) |
+| AC-3 | Writing rules WR-01 to WR-14 hold | 02 section 4.2 | Met with liens and exception E-1 | Scan: one `shall`, no group A or B word, at most 25 words, titles clean, ids match, in 55 of 55. Rationale length: REQ-TX-006 (127) and REQ-TX-007 (122) are in finding-18 (lien); REQ-SW-KEYER-024 (198), 029 (160) and 039 (215) exceed 120 words (E-1, new) |
+| AC-4 | Every requirement has an L1 parent or a `Self-derived:` rationale | 02 section 2.3 | Met | Every REQ-TX has a parent; REQ-SW-KEYER-034, 035, 036, 038, 039 lead with `Self-derived:` (owner concurrence is package decision 112) |
+| AC-5 | Hazard links in both directions; `safety` on every hazard control; SWE-184 items on safety software requirements | charter section 7; 02 T-08; 02 section 4.3 items 4, 5 | Met, except the 039 inverse link | 14 REQ-TX and 19 REQ-SW-KEYER carry `hazard_ids` and `safety`; each `safety` SW-KEYER rationale has `Depends on:` and `Fault tolerance:`; the only one-sided link is AC-2 |
+| AC-6 | Interface pairing (02 section 3.5) | WR-13 | Met | REQ-TX-003, 007, 008, 012, 014, 016 and REQ-SW-KEYER-001 tagged `interface`, each naming its ICD (finding-3 Verified) |
+| AC-7 | Verification assigned at definition: method, note with classes and closing case; timing requirements do not close on Emulation | WR-11; 02 section 4.4; ADR-011 | Met | Every note names its closing case, which exists and cites the requirement. REQ-SW-KEYER-001, 002 and 013 also name TC-SYS supporting cases that cite the L1 parents, not the L2 id (supporting, not closing). All 39 SW-KEYER are Test |
+| AC-8 | Hazard controls are Test, or Analysis accepted per a risk that carries the hazard | 04 section 3; SWE-192 | Met | REQ-TX-005, 006: `Analysis accepted per RSK-011`, which carries HZ-008; all other hazard controls are Test with a Bench case |
+| AC-9 | SWE-134 items of the 07 section 14.2 SW-KEYER row present as requirements | 07 section 14.2; CK-REQ-C4 | Met with liens | finding-2 Verified. INSP-026 finding-2 (no `REQ-SW-SAFE-NNN` reference; scan: 0) and finding-4 (item f for the key-input mode) are liens |
+| AC-10 | TBR policy; no TBD | charter section 7; WR-12 | Met | 14 REQ-TX and 11 REQ-SW-KEYER TBRs, each complete with `close_by: PDR`; no TBD |
+| AC-11 | Every requirement Draft | 08 section 3.1 Status | Met | 55 of 55 |
+| AC-12 | No em dash | 08 section 1 | Met | Scan: 0 |
+
+### Self-check against checklist sections A to G
+
+| Item | Author answer | Evidence |
+|---|---|---|
+| CK-REQ-A1, A2, A4, A6 | Yes | AC-3 |
+| CK-REQ-A3 | Yes | finding-15 Verified; REQ-SW-KEYER-039 "300 ms (TBR)" is bounded (its wording is INSP-026 finding-6, lien) |
+| CK-REQ-A5 | Yes | CamelCase scan: no part, module or algorithm name in a description |
+| CK-REQ-A7 | No (liens and E-1) | finding-18 (label outside 02 section 4.3 order; REQ-TX-006 length), E-1 |
+| CK-REQ-A8 | Yes | finding-11 Verified (no "KeyClosed") |
+| CK-REQ-B1 | Yes | AC-4 |
+| CK-REQ-B2 | Yes | No redundant requirement (no duplicate description) |
+| CK-REQ-B3 | Yes | finding-6, 7 Verified |
+| CK-REQ-B4 | Yes | Both key types: REQ-SW-KEYER-001 (straight key) and the paddle requirements |
+| CK-REQ-B5 | Yes, except AC-2 | AC-5 |
+| CK-REQ-B6 | Yes | AC-5; every `47CFR` source tagged `regulatory` |
+| CK-REQ-B7 | N/A | Not a CR |
+| CK-REQ-C1 | Yes | finding-1 Verified (REQ-TX-006 sideband limit); keyer timing on dot = 1200/WPM ms |
+| CK-REQ-C2 | Yes | AC-6 |
+| CK-REQ-C3 | Yes | AC-5 (`Depends on:`) |
+| CK-REQ-C4 | Yes, with liens | AC-9 |
+| CK-REQ-C5 | Yes, with lien | No state name outside the architecture and ConOps list (scan); mode change during key-down is INSP-026 finding-3 (lien) |
+| CK-REQ-C6 | Yes | Stuck key (REQ-SW-KEYER-026), corrupted state (030, 034), keyer error (031), closure without plug (036), out-of-range settings (037) |
+| CK-REQ-C7 | Yes | REQ-SW-KEYER-038: no command path on the key line |
+| CK-REQ-C8 | N/A | No configuration record held by TX or SW-KEYER |
+| CK-REQ-D1 | Yes | REQ-SW-KEYER-019 samples at 1.000 ms +/-0.010 ms, the 1 kHz sampling of 07 section 5 |
+| CK-REQ-D2, D3 | N/A | No flash, RAM or crate value |
+| CK-REQ-D4 | Yes | finding-10, 15 Verified; finding-17 (open reference points in 016, 017, 026) is a lien on V5 |
+| CK-REQ-E1, E2, E3, E6 | Yes | AC-7, AC-8 |
+| CK-REQ-E4 | Yes | Descriptions name the key line, keyer test point, antenna port or display |
+| CK-REQ-E5 | Yes | finding-12 Verified |
+| CK-REQ-F1, F2, F3 | Yes | No duplicate description; ConOps spellings; no requirement of another module |
+| CK-REQ-F4 | Yes | `priority` set on 55 of 55 (REQ-TX: Baseline 13, KDR 2, Goal 1; REQ-SW-KEYER: Baseline 37, KDR 2); no `should` in a description |
+| CK-REQ-G1 to G8 | N/A | Not a plan |
+
+**Author exception E-1 (new, Minor, for the reviewer to disposition).** 02 section 4.3 limits `rationale` to 120 words. The `f2e02aa` fix of INSP-026 finding-1 lengthened REQ-SW-KEYER-024 to 198 words and 029 to 160, and added 039 with 215 (at `db2de344` no SW-KEYER rationale exceeded 120). Proposed fix before PDR, under the convergence rule: move the menu-validation detail into one rationale and cite it from the other two, or record the reason for the length. No product change in this run.
+
+**Author observation O-1 (for the reviewer's evidence, not a product defect).** REQ-SW-KEYER-019 names a supporting HostUnit check of the sampling schedule in its note, but no HostUnit case cites it; its closing case TC-SW-KEYER-019 is Bench (T-SW-TARGET), which satisfies SWE-192 and E3. INSP-026 SA-192-1 (iteration 2) says each of the 19 hazard controls has "a HostUnit and a Bench case"; 18 do.
+
+### Author's statement
+
+The self-check agrees with the reviewer's iteration 3 answers and disputes no finding. It adds one Minor discrepancy (E-1) and one evidence observation (O-1). finding-17 and finding-18 are liens the author fixes before the PDR readiness declaration; finding-19 is answered by this section. Commands: `tools/validate_docs.py` before this section: exit 1, 47 passed, 1 failed, 48 checked; the one failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (record drift against the hazard files committed at `ade0e09`), outside this record and present before the edit. `tools/traceability.py --report-only` (output to the scratchpad): exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings.
