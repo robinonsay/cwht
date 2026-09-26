@@ -573,7 +573,7 @@
             "$ref": "#/definitions/req_id"
           },
           "uniqueItems": true,
-          "description": "Requirements implementing this control (REQ-SYS constraint-level controls at SRR, L2 at PDR); may be empty only when status is Requirement pending"
+          "description": "Requirements implementing this control: the REQ-SYS constraint-level controls, and every L2 or software requirement whose hazard_ids names this hazard for this control, whenever that requirement exists (04 section 7.3 rule 6; SWE-052 bidirectional traceability); may be empty only when status is Requirement pending"
         },
         "status": {
           "type": "string",
