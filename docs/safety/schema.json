@@ -1,0 +1,1839 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cwht Hazard List",
+  "description": "Schema for docs/safety/hazards.json, the hazard list of the cwht hazard analysis (docs/safety/hazard-analysis.md; SEMP section 7.1; charter sections 5 and 6). IDs use HZ-NNN and are never reused. Severity (Catastrophic, Critical, Marginal, Negligible) and likelihood (A to E) use the operational scales of hazard-analysis.md section 3; initial_risk and residual_risk.level are fixed by the risk matrix of section 3.4 and this schema enforces the mapping. Each hazard carries the SWE-205 firmware role (NASA-STD-8739.8B para 3.2 criteria a to e as reproduced in docs/references/md/swehb/7-02-classification-and-safety-criticality.md), the SWE-134 items that apply, its controls (control_req_ids filled by the requirements author) and requirement_ids, the field tools/traceability.py reads for the SWE-052 hazard trace. Requests to other authors (missing control requirements, corrections) are carried in open_questions (OQ-SAF-NNN). tools/traceability.py collects every object whose id matches HZ-NNN; nested cause, control and open-question ids use other prefixes so they are not mistaken for hazards.",
+  "type": "object",
+  "required": [
+    "version",
+    "updated",
+    "baseline",
+    "phase",
+    "scales",
+    "hazards",
+    "open_questions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Hazard list version; bumped at every review baseline (e.g. 0.1.0-pha, 1.0.0-srr)"
+    },
+    "updated": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "Date (YYYY-MM-DD) of the last edit to any hazard"
+    },
+    "baseline": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^baseline/[a-z]+$",
+      "description": "Git tag of the baseline under which this file was last approved; null before SRR"
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "PHA",
+        "PDR",
+        "CDR",
+        "TRR",
+        "SAR",
+        "Ops"
+      ],
+      "description": "Hazard analysis phase (SWEHB 5.24 safety phases: PHA = Phase 0 and 1 combined; PDR and CDR = Phase 2, controls and verification methods approved; TRR and SAR = Phase 3, verifications performed)"
+    },
+    "scales": {
+      "type": "object",
+      "description": "Machine-readable copy of the operational scales of hazard-analysis.md section 3; the prose there is normative, this copy lets tools render them",
+      "required": [
+        "severity",
+        "likelihood",
+        "risk_matrix",
+        "response"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "severity": {
+          "type": "object",
+          "required": [
+            "Catastrophic",
+            "Critical",
+            "Marginal",
+            "Negligible"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "Catastrophic": {
+              "type": "string",
+              "minLength": 20
+            },
+            "Critical": {
+              "type": "string",
+              "minLength": 20
+            },
+            "Marginal": {
+              "type": "string",
+              "minLength": 20
+            },
+            "Negligible": {
+              "type": "string",
+              "minLength": 20
+            }
+          }
+        },
+        "likelihood": {
+          "type": "object",
+          "required": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "A": {
+              "type": "string",
+              "minLength": 20
+            },
+            "B": {
+              "type": "string",
+              "minLength": 20
+            },
+            "C": {
+              "type": "string",
+              "minLength": 20
+            },
+            "D": {
+              "type": "string",
+              "minLength": 20
+            },
+            "E": {
+              "type": "string",
+              "minLength": 20
+            }
+          }
+        },
+        "risk_matrix": {
+          "type": "object",
+          "required": [
+            "Catastrophic",
+            "Critical",
+            "Marginal",
+            "Negligible"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "Catastrophic": {
+              "type": "object",
+              "required": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "A": {
+                  "const": "High"
+                },
+                "B": {
+                  "const": "High"
+                },
+                "C": {
+                  "const": "High"
+                },
+                "D": {
+                  "const": "Serious"
+                },
+                "E": {
+                  "const": "Medium"
+                }
+              }
+            },
+            "Critical": {
+              "type": "object",
+              "required": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "A": {
+                  "const": "High"
+                },
+                "B": {
+                  "const": "High"
+                },
+                "C": {
+                  "const": "Serious"
+                },
+                "D": {
+                  "const": "Medium"
+                },
+                "E": {
+                  "const": "Low"
+                }
+              }
+            },
+            "Marginal": {
+              "type": "object",
+              "required": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "A": {
+                  "const": "Serious"
+                },
+                "B": {
+                  "const": "Serious"
+                },
+                "C": {
+                  "const": "Medium"
+                },
+                "D": {
+                  "const": "Low"
+                },
+                "E": {
+                  "const": "Low"
+                }
+              }
+            },
+            "Negligible": {
+              "type": "object",
+              "required": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "A": {
+                  "const": "Medium"
+                },
+                "B": {
+                  "const": "Medium"
+                },
+                "C": {
+                  "const": "Low"
+                },
+                "D": {
+                  "const": "Low"
+                },
+                "E": {
+                  "const": "Low"
+                }
+              }
+            }
+          }
+        },
+        "response": {
+          "type": "object",
+          "required": [
+            "High",
+            "Serious",
+            "Medium",
+            "Low"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "High": {
+              "type": "string",
+              "minLength": 20
+            },
+            "Serious": {
+              "type": "string",
+              "minLength": 20
+            },
+            "Medium": {
+              "type": "string",
+              "minLength": 20
+            },
+            "Low": {
+              "type": "string",
+              "minLength": 20
+            }
+          }
+        }
+      }
+    },
+    "hazards": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/hazard"
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "description": "Requests from the hazard analysis to other authors (requirements, ConOps, risk register, process documents, ADRs, research, corpus): every missing control requirement, every requirement that a control needs corrected, and every cross-document correction the analysis depends on. Ids use the charter section 6 scheme OQ-<AREA>-NNN with area SAF and are never reused",
+      "items": {
+        "$ref": "#/definitions/open_question"
+      }
+    }
+  },
+  "definitions": {
+    "open_question": {
+      "type": "object",
+      "required": [
+        "id",
+        "raised",
+        "addressee",
+        "hazard_ids",
+        "subject",
+        "request",
+        "status",
+        "close_by"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^OQ-SAF-[0-9]{3}$"
+        },
+        "raised": {
+          "$ref": "#/definitions/date"
+        },
+        "addressee": {
+          "type": "string",
+          "minLength": 5,
+          "description": "Role or product author who must act (requirements author, ConOps author, risk manager, lead SE, owner)"
+        },
+        "hazard_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^HZ-[0-9]{3}$"
+          }
+        },
+        "control_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^HZ-[0-9]{3} K[0-9]{1,2}$"
+          },
+          "description": "Controls whose status or text depends on the answer"
+        },
+        "targets": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 3
+          },
+          "description": "Documents, sections or requirement ids the request asks to change"
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 120
+        },
+        "request": {
+          "type": "string",
+          "minLength": 40,
+          "description": "What is asked, with proposed wording where a requirement is missing"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Open",
+            "Answered",
+            "Closed",
+            "Withdrawn"
+          ]
+        },
+        "close_by": {
+          "$ref": "#/definitions/gate"
+        },
+        "resolution": {
+          "type": "string",
+          "minLength": 10
+        }
+      }
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "Catastrophic",
+        "Critical",
+        "Marginal",
+        "Negligible"
+      ]
+    },
+    "likelihood": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "description": "A Frequent, B Probable, C Occasional, D Remote, E Improbable (hazard-analysis.md section 3.3)"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "High",
+        "Serious",
+        "Medium",
+        "Low"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "review_point": {
+      "type": "string",
+      "enum": [
+        "Pre-SRR",
+        "SRR",
+        "PDR",
+        "CDR",
+        "TRR",
+        "SAR",
+        "Ops"
+      ]
+    },
+    "gate": {
+      "type": "string",
+      "enum": [
+        "SRR",
+        "PDR",
+        "CDR",
+        "TRR",
+        "SAR"
+      ]
+    },
+    "criterion": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "description": "NASA-STD-8739.8B para 3.2 criteria: a causes or contributes to a hazardous condition; b controls a function identified in a hazard; c provides mitigation; d mitigates damage; e detects, reports and takes corrective action"
+    },
+    "swe134_item": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l"
+      ]
+    },
+    "req_id": {
+      "type": "string",
+      "pattern": "^REQ-[A-Z][A-Z0-9]*(-[A-Z][A-Z0-9]*)*-[0-9]{3}$"
+    },
+    "cause": {
+      "type": "object",
+      "required": [
+        "id",
+        "cause",
+        "class"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^C[0-9]{1,2}$"
+        },
+        "cause": {
+          "type": "string",
+          "minLength": 15
+        },
+        "class": {
+          "type": "string",
+          "enum": [
+            "Hardware",
+            "Software",
+            "Operator",
+            "Environment",
+            "Design",
+            "Interface",
+            "Process"
+          ],
+          "description": "Initiating domain; Interface = a foreign device or plug at a jack; Process = a configuration-management or procedure lapse"
+        }
+      }
+    },
+    "tbr": {
+      "type": "object",
+      "description": "A number in the control text that may change; mirrors the requirements schema tbr object (docs/process/02-requirements-and-traceability.md TBR policy)",
+      "required": [
+        "item",
+        "owner",
+        "plan",
+        "close_by"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "item": {
+          "type": "string",
+          "minLength": 5
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 5
+        },
+        "plan": {
+          "type": "string",
+          "minLength": 20
+        },
+        "close_by": {
+          "$ref": "#/definitions/gate"
+        }
+      }
+    },
+    "control": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "allocation",
+        "independent_of_firmware",
+        "text",
+        "control_req_ids",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^K[0-9]{1,2}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Design",
+            "Hardware interlock",
+            "Software",
+            "Operator procedure",
+            "Warning or label",
+            "Documentation",
+            "Process"
+          ]
+        },
+        "allocation": {
+          "type": "string",
+          "enum": [
+            "SYS",
+            "RX",
+            "TX",
+            "PWR",
+            "CTL",
+            "ME",
+            "SW",
+            "OPS",
+            "DOC",
+            "VV",
+            "CM"
+          ],
+          "description": "Module or product the control is allocated to: L2 modules of charter section 5, OPS = ConOps and operator procedures, DOC = operations handbook, VV = verification planning, CM = configuration management"
+        },
+        "independent_of_firmware": {
+          "type": "boolean",
+          "description": "true when the control acts with no firmware involvement (SWE-134 i evidence)"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 20
+        },
+        "control_req_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/req_id"
+          },
+          "uniqueItems": true,
+          "description": "Requirements implementing this control (REQ-SYS constraint-level controls at SRR, L2 at PDR); may be empty only when status is Requirement pending"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Proposed",
+            "Requirement pending",
+            "Allocated",
+            "Verified",
+            "Dropped"
+          ],
+          "description": "Proposed = hazard analysis proposal traced to existing requirements, owner decision may be pending; Requirement pending = at least one element of the control has no implementing requirement yet, the missing requirement is requested in open_questions and control_req_ids lists only the requirements that already implement part of the control (such a control does not count toward residual_risk, hazard-analysis.md section 3.5); Allocated = every element traced to a requirement baselined at SRR or later; Verified = every control requirement Verified; Dropped = removed with rationale in text"
+        },
+        "tbr": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tbr"
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "description": "Residual assessment reachable when every control that has an implementing requirement is verified; controls in status Requirement pending do not count, and the condition states the level expected once they are allocated and verified (hazard-analysis.md section 3.5); level must equal risk_matrix[severity][likelihood]",
+      "required": [
+        "severity",
+        "likelihood",
+        "level",
+        "condition"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "severity": {
+          "$ref": "#/definitions/severity"
+        },
+        "likelihood": {
+          "$ref": "#/definitions/likelihood"
+        },
+        "level": {
+          "$ref": "#/definitions/risk_level"
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 20,
+          "description": "What must be true (verified controls, owner acceptance) for the residual level to hold"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "A"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "B"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "C"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "D"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Serious"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "E"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "A"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "B"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "C"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Serious"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "D"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "E"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "A"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Serious"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "B"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Serious"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "C"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "D"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "E"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "A"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "B"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "C"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "D"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "E"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "level": {
+                "const": "Low"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "history_entry": {
+      "type": "object",
+      "required": [
+        "date",
+        "review",
+        "severity",
+        "likelihood",
+        "risk",
+        "status",
+        "note"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "$ref": "#/definitions/date"
+        },
+        "review": {
+          "$ref": "#/definitions/review_point"
+        },
+        "severity": {
+          "$ref": "#/definitions/severity"
+        },
+        "likelihood": {
+          "$ref": "#/definitions/likelihood"
+        },
+        "risk": {
+          "$ref": "#/definitions/risk_level"
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 5
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Identified",
+        "Controls proposed",
+        "Controls allocated",
+        "Controls verified",
+        "Accepted",
+        "Retired"
+      ],
+      "description": "Identified = hazard written, controls not yet proposed; Controls proposed = PHA state (this file at SRR); Controls allocated = every control has control_req_ids (PDR); Controls verified = every control requirement Verified (SAR); Accepted = owner accepted the residual in a decision memo; Retired = hazard no longer applies, rationale kept"
+    },
+    "hazard": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "description",
+        "exposed",
+        "phases",
+        "causes",
+        "effects",
+        "severity",
+        "likelihood",
+        "initial_risk",
+        "rationale",
+        "firmware_role",
+        "swe134_items",
+        "controls",
+        "requirement_ids",
+        "residual_risk",
+        "verification_note",
+        "single_point_failures",
+        "fault_tolerance",
+        "status",
+        "related_risk_ids",
+        "stakeholder_input_ids",
+        "decisions_pending",
+        "sources",
+        "history"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^HZ-[0-9]{3}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Short noun phrase naming the hazard (the condition, not the accident)"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 60,
+          "description": "Scenario: the hazardous condition, the energy or agent, the exposure geometry and the thresholds or modes that matter (SWEHB 5.24 item 1)"
+        },
+        "exposed": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "Operator",
+              "Guest",
+              "Bystander",
+              "Household member",
+              "Other radio service",
+              "Test operator",
+              "Property"
+            ]
+          },
+          "description": "Who or what is harmed. Operator = the operating licensee (occupational tier, SI-030); Guest = an unlicensed person handling or keying the unit as a third party; Bystander = any other nearby person (general population); Other radio service = users of a victim service"
+        },
+        "phases": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "Transmit",
+              "Tune",
+              "Receive",
+              "Charging",
+              "Firmware load",
+              "Handling",
+              "Storage",
+              "Assembly",
+              "Bench test"
+            ]
+          }
+        },
+        "causes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/cause"
+          }
+        },
+        "effects": {
+          "type": "string",
+          "minLength": 40,
+          "description": "Worst credible consequence with the quantities that set the severity"
+        },
+        "severity": {
+          "$ref": "#/definitions/severity"
+        },
+        "likelihood": {
+          "$ref": "#/definitions/likelihood",
+          "description": "Likelihood in the uncontrolled state (baseline architecture without the listed controls), against the fleet horizon of section 3.3"
+        },
+        "initial_risk": {
+          "$ref": "#/definitions/risk_level",
+          "description": "risk_matrix[severity][likelihood]; enforced by this schema"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 60,
+          "description": "Why this severity and this likelihood, naming the evidence and its confidence"
+        },
+        "firmware_role": {
+          "type": "object",
+          "description": "SWE-205 determination input for this hazard",
+          "required": [
+            "criteria",
+            "statement",
+            "safety_critical",
+            "components"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "criteria": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/definitions/criterion"
+              },
+              "description": "Empty when firmware plays no safety role in this hazard"
+            },
+            "statement": {
+              "type": "string",
+              "minLength": 5
+            },
+            "safety_critical": {
+              "type": "boolean",
+              "description": "true when criteria is non-empty and the named components are therefore safety-critical for this hazard"
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 3
+              },
+              "description": "Firmware components (docs/process/03-software-classification-and-rmm.md section 4.3 names; mission-critical components marked as such)"
+            }
+          }
+        },
+        "swe134_items": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/swe134_item"
+          },
+          "description": "SWE-134 items a to l that the firmware controls of this hazard implement (empty when no firmware role)"
+        },
+        "controls": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/control"
+          }
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/req_id"
+          },
+          "uniqueItems": true,
+          "description": "Every requirement that controls this hazard (the union of control_req_ids); the field tools/traceability.py cross-checks against hazard_ids in the requirements (HAZARD_INVERSE, HAZARD_UNRESOLVED)"
+        },
+        "residual_risk": {
+          "$ref": "#/definitions/assessment"
+        },
+        "verification_note": {
+          "type": "string",
+          "minLength": 60,
+          "description": "The evidence class that closes or supports each control (Simulation, HostUnit, Emulation, Inspection, Bench, OnAir; charter section 9; Emulation for event ordering only); the verification method (Test, Analysis, Inspection, Demonstration) stays in the requirement and is named here only where it is an accepted exception; software controls close by Test (SWE-192)"
+        },
+        "single_point_failures": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 20
+          },
+          "description": "Single point failure candidates among the controls (01 section 4 row 15, PDR row 11); empty when none"
+        },
+        "fault_tolerance": {
+          "type": "string",
+          "minLength": 20,
+          "description": "Fault tolerance achieved against the hazard with the controls in place"
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "related_risk_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^RSK-[0-9]{3}$"
+          },
+          "description": "Risks in docs/risk/register.json carrying this hazard under the hazard link rule (06 section 1); empty means a register entry is still needed"
+        },
+        "stakeholder_input_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^SI-[0-9]{3}$"
+          }
+        },
+        "decisions_pending": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 10
+          },
+          "description": "Owner decisions the hazard's controls depend on, by the research decision ids where they exist"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 5
+          },
+          "description": "Research reports (docs/research/<file>.md F<n>), regulatory clauses (47 CFR ..., eCFR 2026-09-23), process documents"
+        },
+        "history": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/history_entry"
+          },
+          "description": "Append-only assessment log; the last entry equals the current severity, likelihood, initial_risk and status"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "A"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "B"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "C"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "D"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Serious"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Catastrophic"
+              },
+              "likelihood": {
+                "const": "E"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "A"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "B"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "High"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "C"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Serious"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "D"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Critical"
+              },
+              "likelihood": {
+                "const": "E"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "A"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Serious"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "B"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Serious"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "C"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "D"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Marginal"
+              },
+              "likelihood": {
+                "const": "E"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "A"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "B"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Medium"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "C"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "D"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Low"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "severity",
+              "likelihood"
+            ],
+            "properties": {
+              "severity": {
+                "const": "Negligible"
+              },
+              "likelihood": {
+                "const": "E"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "initial_risk": {
+                "const": "Low"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

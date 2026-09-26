@@ -372,7 +372,20 @@
       "reporting_review": ["SRR", "PDR", "CDR", "TRR", "SAR"],
       "moe_ids": ["MOE-004"],
       "requirement_ids": [],
-      "history": []
+      "history": [
+        {
+          "review": "SRR",
+          "date": "2026-09-25",
+          "cbe": -189,
+          "status": "red",
+          "evidence": "docs/research/power-tree-and-charging.md F23",
+          "credit": false,
+          "note": "Concept-level estimate from the research budget (expected build: LMX2571, 60 mA LNA, 20 mA display light; 90 % buck efficiency at 7.2 V; PA quiescent 250 mA through the transmit period). Receive 1.44 W against the 0.5 W allocation (-189 %), transmit key-down 12.6 W against 10.0 W (-26 %), key-up 3.24 W against 1.5 W (-116 %); the reported value is the minimum over modes. With the PD54008L-E line-up of docs/research/pa-turnkey-candidates-followup.md F5 (1.20 A at 5 W, 7.2 V) key-down is about 10.1 W (-1 %). The provisional allocations of planned_value_text (and their 18 h claim) are inconsistent with the research budget; re-allocation is RSK-058 step S1 (TBR close_by PDR). Red opens RSK-058 per conventions.reporting_interval.",
+          "rx_W": 1.44,
+          "tx_keydown_W": 12.6,
+          "tx_keyup_W": 3.24
+        }
+      ]
     },
     {
       "id": "TPM-003",
@@ -401,7 +414,26 @@
       "reporting_review": ["SRR", "PDR", "CDR", "TRR", "TRR-Dn", "SAR"],
       "moe_ids": [],
       "requirement_ids": [],
-      "history": []
+      "history": [
+        {
+          "review": "SRR",
+          "date": "2026-09-25",
+          "cbe": null,
+          "status": "green",
+          "evidence": "docs/reviews/SRR/figures/review-trend.png",
+          "credit": false,
+          "note": "SRR log docs/reviews/SRR/rfa-rid-log.json: closure fraction at T; zone reasons: overdue 0 and no Major RID or Blocking RFA open from a dispositioned review; tools/review_trend.py (process indicator, credit not applicable)",
+          "log_review": "SRR",
+          "raised": 0,
+          "open": 0,
+          "verified_pending": 0,
+          "closed": 0,
+          "withdrawn": 0,
+          "overdue": 0,
+          "closure_fraction_at_gate": null,
+          "zone": "Green"
+        }
+      ]
     },
     {
       "id": "TPM-004",
@@ -431,7 +463,17 @@
       "reporting_review": ["PDR", "CDR", "SAR"],
       "moe_ids": ["MOE-004"],
       "requirement_ids": [],
-      "history": []
+      "history": [
+        {
+          "review": "SRR",
+          "date": "2026-09-25",
+          "cbe": 58,
+          "status": "yellow",
+          "evidence": "docs/research/pa-turnkey-candidates-followup.md F5",
+          "credit": false,
+          "note": "Initial value: STEVAL-TDR003V1 (PD54008L-E final) drain efficiency at 5 W, 145 MHz, 7.2 V, graph read of the vendor curve; not a cwht simulation. SRR has no margin_policy phase for this TPM; status evaluated against the first phase (PDR, >= 60 %)."
+        }
+      ]
     },
     {
       "id": "TPM-005",
@@ -525,7 +567,17 @@
       "reporting_review": ["PDR", "CDR", "SAR"],
       "moe_ids": ["MOE-006"],
       "requirement_ids": [],
-      "history": []
+      "history": [
+        {
+          "review": "SRR",
+          "date": "2026-09-25",
+          "cbe": 17,
+          "status": "green",
+          "evidence": "docs/research/pa-turnkey-candidates-followup.md F5",
+          "credit": false,
+          "note": "Initial value: STEVAL-TDR003V1 system-level harmonics -70 dBc maximum at 5 W with ST's 7-element elliptic LPF (70 - 53 = 17 dB); vendor board data, not a cwht analysis. Status evaluated against the first phase (PDR, >= 10 dB by analysis)."
+        }
+      ]
     },
     {
       "id": "TPM-008",
@@ -555,7 +607,18 @@
       "reporting_review": ["PDR", "CDR", "SAR"],
       "moe_ids": ["MOE-004"],
       "requirement_ids": [],
-      "history": []
+      "history": [
+        {
+          "review": "SRR",
+          "date": "2026-09-25",
+          "cbe": 9.5,
+          "status": "yellow",
+          "evidence": "docs/research/power-tree-and-charging.md F23",
+          "credit": false,
+          "note": "Initial value from the research battery-life model for the expected build (45 % key-down, 3000 mAh at 90 % usable, 7.2 V nominal); low-current build 13.0 h, high-current build 6.4 h (below the 8 h floor). 1:4 expected 7.3 h. Status evaluated against the first phase (PDR, >= 9.6 h at 1:9); RSK-058 carries the shortfall risk.",
+          "h_1_to_4": 7.3
+        }
+      ]
     },
     {
       "id": "TPM-009",
@@ -745,7 +808,18 @@
       "reporting_review": ["SRR", "PDR", "CDR", "SAR"],
       "moe_ids": ["MOE-007"],
       "requirement_ids": [],
-      "history": []
+      "history": [
+        {
+          "review": "SRR",
+          "date": "2026-09-25",
+          "cbe": 557,
+          "status": "yellow",
+          "evidence": "docs/plan/cost-estimate.md",
+          "credit": false,
+          "note": "Upper bound of the cost-model envelope without the tinySA Ultra line (USD 850 to 1670 for three radios with 20 % contingency; USD 283 to 557 per unit); no quotes. The budget ceiling is the owner's SRR decision (tbr close_by SRR); against the REQ-SYS-147 proposal of USD 610 per unit (TBR) the margin is 8.7 % and the status becomes green once the owner states that budget.",
+          "cbe_low_usd": 283
+        }
+      ]
     },
     {
       "id": "TPM-015",
@@ -900,7 +974,18 @@
       "reporting_review": ["PDR", "CDR", "TRR", "TRR-Dn", "SAR"],
       "moe_ids": [],
       "requirement_ids": [],
-      "history": []
+      "history": [
+        {
+          "review": "SRR",
+          "date": "2026-09-25",
+          "cbe": 0,
+          "status": "green",
+          "evidence": "docs/vv/traceability-report.md",
+          "credit": false,
+          "note": "No NCR exists (docs/vv/ncr/ empty; traceability report: 0 nonconformance reports). Initial value; every_review policy met.",
+          "open_s1_s2": 0
+        }
+      ]
     },
     {
       "id": "TPM-020",
@@ -930,7 +1015,21 @@
       "reporting_review": ["PDR", "CDR"],
       "moe_ids": [],
       "requirement_ids": [],
-      "history": []
+      "history": [
+        {
+          "review": "SRR",
+          "date": "2026-09-25",
+          "cbe": 0,
+          "status": "yellow",
+          "evidence": "docs/design/concept.md",
+          "credit": false,
+          "note": "Initial value: 18 ICDs identified in docs/design/concept.md section 9 (6 external stubs due before SRR, 12 internal at PDR); docs/icd/ holds no file, so 0 are baselined and no TBR or TBD count exists. SRR has no margin_policy phase; status evaluated against the first phase (PDR, 100 %), not red because the 80 % red threshold applies at PDR.",
+          "identified": 18,
+          "baselined": 0,
+          "tbr_open": 0,
+          "tbd_count": 0
+        }
+      ]
     }
   ]
 }

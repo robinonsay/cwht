@@ -1,0 +1,33 @@
+%%{init: {"flowchart": {"nodeSpacing": 30, "rankSpacing": 140, "curve": "basis"}, "themeVariables": {"fontSize": "15px"}}}%%
+%% cwht ConOps section 1.3.1, Figure 1.3-1: system context (App. S 1.2.1 overview pictorial).
+%% Source of conops-context.png; render: mmdc -i conops-context.mmd -o conops-context.png -b white -s 2
+flowchart LR
+    OP["Operating licensee<br/>(occupational tier)"]
+    GU["Guest, unlicensed<br/>(listens; keys only supervised)"]
+    BY["Bystander<br/>(general population)"]
+    OW["Owner as maintainer"]
+    UNIT["<b>cwht revision A unit</b><br/>receiving, transmitting<br/>keying, audio, energy<br/>control and display<br/>protection and safety<br/>enclosure, firmware"]
+    HP["Headphones<br/>ICD-CTL-PHONES"]
+    KP["Straight key or paddle<br/>ICD-CTL-KEY"]
+    ANT["Antenna and RF environment<br/>other 2 m stations; 2f, 3f, 7f services<br/>ICD-TX-ANT"]
+    HOST["USB host computer<br/>ICD-SW-HOST, ICD-CTL-USB"]
+    PSU["USB power source<br/>ICD-CTL-USB"]
+    CELL["Two 18650 cells<br/>ICD-PWR-CELL"]
+    ENV["Pocket, hand, table, rain,<br/>drop, sun, -10 to +45 C"]
+    OP -->|"knobs, buttons, display"| UNIT
+    GU -->|"listens; guest lock set"| UNIT
+    OW -->|"charges, loads firmware, tests"| UNIT
+    BY -.-|"0.6 m while keying, 1.0 m during tune"| UNIT
+    UNIT -->|"receive audio, sidetone"| HP
+    KP -->|"tip, ring, sleeve contacts"| UNIT
+    UNIT <-->|"A1A carrier 0.5 to 5 W / 144 to 148 MHz signals"| ANT
+    UNIT <-->|"UF2 image, serial telemetry"| HOST
+    PSU -->|"5 V, 500 mA"| UNIT
+    CELL -->|"6.0 to 8.4 V"| UNIT
+    ENV -.-|"handling, weather"| UNIT
+    classDef unit fill:#eef3fb,stroke:#3b5b8c,color:#111;
+    classDef ext fill:#f4f4f4,stroke:#666,color:#111;
+    classDef ppl fill:#f3f9ee,stroke:#4b7a33,color:#111;
+    class UNIT unit;
+    class HP,KP,ANT,HOST,PSU,CELL,ENV ext;
+    class OP,GU,BY,OW ppl;

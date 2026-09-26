@@ -1,0 +1,764 @@
+{
+  "baseline": null,
+  "stakeholders": [
+    {
+      "name": "Robin (customer)",
+      "role": "customer",
+      "interests": "A pocket true-CW 2 m radio for contacts among friends, accepted at SAR; the evidence that it works at first power-on.",
+      "represented_by": "Robin, per docs/process/02-requirements-and-traceability.md section 3.0, confirmed or changed in docs/reviews/SRR/decision-memo.md",
+      "source_ids": ["SI-001", "SI-010", "SI-015"]
+    },
+    {
+      "name": "Robin (operator)",
+      "role": "user",
+      "interests": "Operates his unit as his own station with a straight key or paddles and headphones.",
+      "represented_by": "Robin, per docs/process/02-requirements-and-traceability.md section 3.0, confirmed or changed in docs/reviews/SRR/decision-memo.md",
+      "source_ids": ["SI-005", "SI-014", "SI-018"]
+    },
+    {
+      "name": "Friends who receive and operate units",
+      "role": "guest operator",
+      "interests": "Operate a unit as their own station; usability from the handbook; safety.",
+      "represented_by": "Robin, under the representation rule of docs/process/02-requirements-and-traceability.md section 3.0, confirmed or changed in docs/reviews/SRR/decision-memo.md",
+      "source_ids": ["SI-019", "SI-030"],
+      "note": "Every friend who operates a unit holds at least a Technician license (SI-030). A friend who later reviews the handbook directly is logged as a new SI entry and, after SRR, added here by CR (02 section 3.0)."
+    },
+    {
+      "name": "Federal Communications Commission (47 CFR Parts 1, 2, 15 and 97)",
+      "role": "regulator",
+      "interests": "Emission limits, power, station identification, RF exposure.",
+      "represented_by": "The verbatim regulatory corpus, read clause by clause by the reviewer in V3; Robin as licensee in V2",
+      "source_ids": ["SI-014", "SI-030"]
+    },
+    {
+      "name": "PCBWay",
+      "role": "vendor",
+      "interests": "Fabrication, SMT assembly and CNC machining within its published capabilities.",
+      "represented_by": "Its published design rules and DFM feedback, checked in V4",
+      "source_ids": ["SI-008", "SI-009", "SI-031"]
+    },
+    {
+      "name": "DigiKey and the turnkey distributors",
+      "role": "vendor",
+      "interests": "Stocked parts.",
+      "represented_by": "Catalog availability, checked in V4",
+      "source_ids": ["SI-009", "SI-028"]
+    },
+    {
+      "name": "Claude",
+      "role": "supplier",
+      "interests": "Requirements it can design to and verify.",
+      "represented_by": "Not a V2 voice (author of the requirements)",
+      "source_ids": ["SI-011"],
+      "note": "Listed so that the supplier role is identified; its expectations are not used to validate the requirements it writes."
+    },
+    {
+      "name": "Open-source reusers and bystanders",
+      "role": "public",
+      "interests": "Reuse under the MIT license; RF exposure of non-operators near a transmitting unit.",
+      "represented_by": "Robin in V2; bystander exposure through HZ-006 and 47 CFR 1.1310",
+      "source_ids": ["SI-025", "SI-030"]
+    }
+  ],
+  "ngos": [
+    {
+      "id": "NGO-001",
+      "kind": "Need",
+      "parent_id": null,
+      "title": "Pocket true-CW 2 m handheld for Morse contacts among friends",
+      "statement": "The owner and a small group of licensed friends need a pocket-sized handheld radio for the 2 m amateur band that lets them talk to each other by true CW (A1A) over simplex paths, using either a straight key or iambic paddles with headphones, that is lawful and safe to operate under 47 CFR Part 97, and that works at first power-on because every risk has been closed before the boards are built.",
+      "rationale": "The problem is social and technical at once: the owner wants to play radio with friends by Morse (SI-019) on a band where CW gives a propagation advantage over tone-modulated FM handhelds (SI-004), in a form factor that goes in a pocket (SI-001). No commercial product offers a pocket 2 m true-CW transceiver with a built-in keyer for both key types (SI-018), so the owner designs and builds one. Assumptions: the owner and every friend hold at least a Technician license (SI-030); the radios are built in a run of at most five units and are never marketed (SI-035, 47 CFR 15.23 context in docs/research/part97-regulatory-basis.md F9).",
+      "source_ids": ["SI-001", "SI-003", "SI-004", "SI-005", "SI-010", "SI-014", "SI-018", "SI-019", "SI-030"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-002",
+      "kind": "Goal",
+      "parent_id": "NGO-001",
+      "title": "Reliable simplex CW contacts over useful ranges at 5 W",
+      "statement": "Two radios in the hands of two friends complete CW contacts over open ground at several kilometres and from a hilltop to the horizon, anywhere in the US 2 m band, using the pocket antennas the radios ship with.",
+      "rationale": "SI-003 chose 5 W for useful simplex range; SI-024 asked for the full 144.000 to 148.000 MHz band. docs/research/antenna-and-erp.md F11 shows that at 5 W over open flat ground the CW link is horizon-limited (10.1 km at 1.5 m antenna heights) for every realistic whip except a bare quarter-wave on a table, and that a line-of-sight hilltop path has 38 to 59 dB of margin; the antenna and clutter, not power, set the range. Assumes the reference antennas of docs/research/antenna-and-erp.md ANT-05 (a quarter-wave flexible whip with a 48 cm counterpoise as the pocket reference; an end-fed half-wave as the range reference).",
+      "source_ids": ["SI-003", "SI-004", "SI-019", "SI-024"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-003",
+      "kind": "Goal",
+      "parent_id": "NGO-001",
+      "title": "Natural CW operation with either key type, headphones and minimal controls",
+      "statement": "An operator plugs in headphones and a straight key or an iambic paddle, tunes with a knob, and sends and receives Morse with the feel of a good keyer: correct element timing, a clean sidetone, semi break-in that returns to receive after an adjustable hang time, and nothing to configure beyond speed and pitch.",
+      "rationale": "SI-005 and SI-006 define the operating picture (headphones, key, tuning knob, volume, small LCD); SI-018 makes both key types the core requirement; SI-033 fixes 5 to 50 WPM; SI-036 chooses semi break-in only. The keyer conventions (iambic A and B, PARIS timing, sidetone locked to the receive offset) come from docs/research/keyer-and-key-interfaces.md F3 to F9 and docs/research/keyer-verification-and-key-input-network.md F14. Assumes a rotary encoder in place of a potentiometer for tuning (SI-006).",
+      "source_ids": ["SI-005", "SI-006", "SI-018", "SI-033", "SI-034", "SI-036"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-004",
+      "kind": "Goal",
+      "parent_id": "NGO-001",
+      "title": "Lawful under Part 97 and safe for operators, bystanders, ears and cells",
+      "statement": "Every transmission from a cwht unit meets 47 CFR Part 97 emission, bandwidth, identification and control-operator rules, the RF exposure of operators and bystanders is evaluated and bounded, the headphone level cannot injure hearing, the Li-ion pack is protected, and no fault can leave the transmitter keyed.",
+      "rationale": "SI-014 places the project under Part 97 as the owner is a General-class licensee; SI-030 states that all operators are licensed and that occupational exposure limits apply to operators while general-population limits apply to bystanders. The regulatory basis is docs/research/part97-regulatory-basis.md F1 to F11 and docs/research/regulatory-corpus-and-operators.md F2 to F9; the exposure analysis is docs/research/rf-exposure-evaluation.md F1 to F9; the hearing norm is docs/research/audio-output-and-hearing-safety.md F19 to F25; the stuck-key controls are docs/research/keyer-verification-and-key-input-network.md F13; the battery provisions are docs/research/power-tree-and-charging.md F24. The charter elects Class A software rigor for exactly these safety functions.",
+      "source_ids": ["SI-014", "SI-030", "SI-019", "SI-015"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-005",
+      "kind": "Goal",
+      "parent_id": "NGO-001",
+      "title": "Works at first power-on",
+      "statement": "The first assembled board powers up, receives, keys and transmits within its budgets on the owner's bench without a second board spin, because analysis, host tests and inspection closed every design risk before procurement release.",
+      "rationale": "SI-010 is the owner's stated expectation; SI-026 sets the software method (host-first through rustos api traits with dependency injection, emulation optional and never for timing); SI-016 requires every visual product to be rendered and inspected. RSK-008 (first power-on fails) is the top project risk and its mitigations (design for debug, staged bring-up, independent review) are how this goal is pursued. Assumes the staged first-power-on procedure of docs/process/04-verification-and-validation.md section 11.2. Supersession: SI-026 relaxes SI-010's clause that firmware emulation is done beforehand; emulation is optional and never primary evidence, while SI-010's first-power-on expectation and its SPICE-analysis and host-test clauses still bind.",
+      "source_ids": ["SI-010", "SI-026", "SI-016", "SI-011"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-006",
+      "kind": "Goal",
+      "parent_id": "NGO-001",
+      "title": "Pocket portability and a day of field endurance",
+      "statement": "The radio fits a jacket pocket in an aluminum enclosure with the antenna on one end, runs for a day of casual operating on two user-replaceable 18650 cells, and charges from any USB port through the controller module's own connector.",
+      "rationale": "SI-001 (handy-talkie form factor), SI-008 (aluminum enclosure, antenna on one end), SI-022 (single micro-USB for charging and firmware), SI-023 (2S 18650 in holders) and SI-034 (8 h at 1:9 TX:RX) define this goal. docs/research/power-tree-and-charging.md F23 predicts 6.4 to 13.0 h at 1:9 depending on the receiver build and F3 predicts about 10 h to charge at the 500 mA USB budget.",
+      "source_ids": ["SI-001", "SI-008", "SI-022", "SI-023", "SI-034"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-007",
+      "kind": "Goal",
+      "parent_id": "NGO-001",
+      "title": "Buildable with the owner's means, reproducible by anyone, open source",
+      "statement": "The radio is built from catalog parts by PCBWay turnkey assembly plus the owner's hand soldering of through-hole parts, in a PCBWay CNC enclosure from OpenSCAD, in a run of at most five units, and the whole design and process are published under the MIT license so anyone can build one.",
+      "rationale": "SI-008, SI-009 and SI-031 fix the fabrication and kit assembly model; SI-028 forbids consignment-only parts; SI-011 places all design work on Claude with the owner reviewing; SI-012 makes printed knobs, facade and fit-check parts available; SI-025 sets the MIT license; SI-035 fixes the build quantity. docs/research/pcbway-fabrication-and-assembly.md F17 to F22 and docs/research/enclosure-cnc-and-openscad-pipeline.md A1 to A11 supply the vendor constraints. Supersession: SI-031 replaces SI-009's 'no hand soldering' with the kit model (PCBWay places the surface-mount parts, the owner hand-solders through-hole parts and simple pads); SI-009's turnkey fabrication and DigiKey-class sourcing still bind.",
+      "source_ids": ["SI-008", "SI-009", "SI-011", "SI-012", "SI-025", "SI-028", "SI-031", "SI-032", "SI-035"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-008",
+      "kind": "Goal",
+      "parent_id": "NGO-001",
+      "title": "A path to 70 cm in a later revision",
+      "statement": "Revision A serves the 2 m band only, and its architecture, controls and enclosure leave room for a 70 cm band in a later revision without redesigning the controller, power, keyer or user interface.",
+      "rationale": "SI-002 defers 70 cm but asks to keep the path open; SI-006 reserves a band control for the future. This goal constrains the architecture at PDR (band-agnostic controller and keyer, a reserved control position, a T/R and filter partition that a second band can join) and is a descope option for SRR entrance criterion 6. No MOE measures this goal: it is judged by Inspection of the architecture at PDR through its Objective NGO-030 (REQ-SYS-145, REQ-SYS-146).",
+      "source_ids": ["SI-002", "SI-006"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-009",
+      "kind": "Objective",
+      "parent_id": "NGO-002",
+      "title": "Open-ground contact at 5.0 km at 5 W",
+      "statement": "Two cwht units, each with the range reference antenna at 1.5 m above open, flat, unobstructed ground, complete a two-way CW exchange at 5.0 km at the 5 W step; with the pocket reference antenna and counterpoise they complete a two-way exchange at 2.0 km at the 2 W step.",
+      "rationale": "Proposed, owner decision pending at SRR. Numbers from docs/research/antenna-and-erp.md F11 (two-ray model, -4 to -6.4 dBd half-wave, rural or residential noise, NF 7 dB: 6 to 10 dB margin against the fading case with a 10 dB clutter allowance; horizon 10.1 km) and its MOE-RANGE-1 and MOE-RANGE-3 candidates. The 2 km pocket case is included so the goal is judged with the antenna the radio carries, not only with the best whip.",
+      "source_ids": ["SI-003", "SI-019", "SI-024"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-010",
+      "kind": "Objective",
+      "parent_id": "NGO-002",
+      "title": "Hilltop contact at 30 km line of sight",
+      "statement": "With one station at least 100 m above the intervening terrain and a line-of-sight path, two cwht units complete a two-way CW exchange at 30 km at the 5 W step and repeat it at the 0.5 W step.",
+      "rationale": "Proposed, owner decision pending at SRR. docs/research/antenna-and-erp.md F11 hilltop table: 46 km radio horizon at 100 m, free-space loss 109 dB, margin 48 to 55 dB at 5 W; even 0.5 W or a bare quarter-wave at one end leaves over 20 dB. The repeat at 0.5 W is what makes the objective a test of the receiver's strong-signal behaviour and of the minimum-power duty of 47 CFR 97.313(a) rather than of transmitter power.",
+      "source_ids": ["SI-003", "SI-019"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-011",
+      "kind": "Objective",
+      "parent_id": "NGO-002",
+      "title": "Full US 2 m band with a band-edge guard",
+      "statement": "The operator tunes and listens anywhere from 144.000 to 148.000 MHz, and the transmitted carrier can be placed anywhere from 144.001 to 147.999 MHz so that the keyed emission stays inside the band.",
+      "rationale": "SI-024 asks for the full band. The 1 kHz guard and the carrier accuracy that goes with it (+/-2.5 ppm reference, +/-370 Hz at 148 MHz) come from docs/research/regulatory-corpus-and-operators.md F7 and F8: with 5 ms raised-cosine keying the 26 dB bandwidth is 226 to 292 Hz at 50 WPM, so a 1 kHz guard keeps every sideband above -60 dB relative to mean power inside the band (47 CFR 97.307(b)). Proposed value, owner decision pending at SRR (regulatory report DECISION-9 recommends option a).",
+      "source_ids": ["SI-024", "SI-014"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-012",
+      "kind": "Objective",
+      "parent_id": "NGO-002",
+      "title": "Receiver hears a weak friend through a 500 Hz CW passband",
+      "statement": "The receiver copies a CW signal at -140 dBm or weaker in a 500 Hz passband (target -142 dBm), rejects a -60 dBm signal 2 kHz away without audible gain pumping, and lets the operator set the receive pitch offset over +/-500 Hz in 10 Hz steps.",
+      "rationale": "Proposed, owner decision pending at SRR; the selectivity set is carried as TBR to the PDR selectivity trade (candidates A and B of docs/research/cw-selectivity-options.md implication 12). Numbers: MDS -140 dBm (NF 7 dB, FT-290R class) with -142 dBm target from docs/research/cw-selectivity-options.md F1 and docs/research/2m-cw-transceiver-reference-designs.md F14; -6 dB bandwidth 500 Hz +100/-50 Hz, -60 dB bandwidth at most 2.5 kHz, at least 60 dB at +/-2 kHz, ultimate at least 80 dB, ripple at most 2 dB, and the -60 dBm adjacent-signal case (a friend at 5 km is -53 dBm) from the same report's implications 1 to 4. docs/research/antenna-and-erp.md F10 shows the -144 dBm stretch buys about 1 dB with a handheld whip in residential noise, so -140 dBm is the objective and -142 dBm the target. The synthesizer chosen by the SI-029 cost-performance trade (CON-028: the best performer wins when costs are similar) bounds the close-in rejection through reciprocal mixing (85 dB at 10 kHz for a -112 dBc/Hz LO, 106 dB for -133 dBc/Hz).",
+      "source_ids": ["SI-004", "SI-005", "SI-019", "SI-029"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-013",
+      "kind": "Objective",
+      "parent_id": "NGO-003",
+      "title": "Keyer modes, speed range and element timing",
+      "statement": "The keyer offers Straight, Iambic A (default), Iambic B, Ultimatic and Bug modes at 5 to 50 WPM in 1 WPM steps (default 15 WPM), with every element and space within +/-1 percent of nominal or +/-0.5 ms whichever is larger, and a paddle-to-element latency of at most 3 ms.",
+      "rationale": "SI-018 (core requirement, both key types), SI-033 (5 to 50 WPM). Mode set, default A and default speed are proposals from docs/research/keyer-verification-and-key-input-network.md F14 (owner decisions D-KN1 and D-KN10 pending at SRR); timing tolerance and latency from its F8 (1 kHz sampling plus a 2 ms make filter). PARIS timing (dit = 1200/WPM ms, dah 3 dits, spaces 1, 3 and 7 dits) per ITU-R M.1677-1 as cited in docs/research/keyer-and-key-interfaces.md F4.",
+      "source_ids": ["SI-018", "SI-033", "SI-034"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-014",
+      "kind": "Objective",
+      "parent_id": "NGO-003",
+      "title": "Semi break-in with adjustable hang and a locked sidetone",
+      "statement": "The operator hears their own sidetone while sending and the radio returns to receive after a hang time that defaults to 8 dits at the set speed and is adjustable; the sidetone defaults to 600 Hz, is adjustable from 300 to 1000 Hz in 10 Hz steps, and equals the receiver's CW pitch offset so that zero-beating a station means netting to it.",
+      "rationale": "SI-036 fixes semi break-in only and explicitly excludes full QSK. Hang default 8 dits (6.1 dits or 50 to 2500 ms selectable), sidetone 600 Hz locked to the receive offset and onset within 1 ms of key-down are proposals from docs/research/keyer-verification-and-key-input-network.md F11 and F14 and docs/research/keyer-and-key-interfaces.md F8 and F9 (owner decisions D-KN4 and D-KN5 pending at SRR). The relay-class T/R switch this permits has a first-element lead-in of 8 to 12 ms (relay operate time plus contact bounce, 5 ms plus 3 ms maximum for the HF3 class; docs/research/tr-switch-candidates.md F4, F7; its TR-08 caps the lead-in at 12 ms) that the objective accepts.",
+      "source_ids": ["SI-036", "SI-005", "SI-018"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-015",
+      "kind": "Objective",
+      "parent_id": "NGO-003",
+      "title": "Two knobs, two buttons, daylight display, operable from the handbook",
+      "statement": "All normal operation uses a tuning knob with detents and speed-dependent step, a volume knob, two buttons and a small reflective display readable in daylight that always shows frequency, power step, key mode and speed, battery state and transmit state; a Technician-class friend given the radio and the handbook completes a first contact without help.",
+      "rationale": "SI-006 (minimal controls, small LCD, knob tuning by encoder), SI-019 (friends operate the radios), SI-030 (Technician or higher). The two-encoder, two-button, reflective memory-LCD baseline and the daylight-readability finding are docs/research/display-and-ui-parts.md F2, F12, F16 and its baseline table; no backlight in revision A is an owner decision recorded in the SRR brief, with night readability as an accepted limitation (RISK-candidate R-UI-03). Proposed, owner decision pending at SRR for the control assignment (D-UI-03, D-UI-04, D-UI-07). The transmit state names the reason whenever transmit is not armed (guest lock, practice, USB power, low battery, key, heat, band guard or the Fault-safe cause; ConOps section 3.4); the stored call sign is shown at every Self-test and on the menu's station page and is not part of the always-visible set (REQ-SYS-060).",
+      "source_ids": ["SI-006", "SI-019", "SI-030", "SI-012"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-016",
+      "kind": "Objective",
+      "parent_id": "NGO-003",
+      "title": "Headphone audio that is comfortable and cannot injure hearing",
+      "statement": "The headphone output is limited by hardware to 100 mVrms for a full-scale sine into 32 ohm (at most 150 mVrms for any signal), starts at a 30 mVrms cap that the operator can unlock with an acknowledgment, mutes and unmutes with raised-cosine ramps at every transmit transition, and shuts the amplifier down when no headphones are plugged in.",
+      "rationale": "Proposed, owner decision pending at SRR (docs/research/audio-output-and-hearing-safety.md D2 and D4). SI-005 makes headphones the only audio output. The 100 mVrms ceiling bounds the sound pressure at about 100 dB(A) even with the most sensitive earbuds measured (121.6 dB/V), the consumer maximum of EN 50332 and IEC 62368-1 adopted voluntarily; 30 mVrms is the 85 dB(A) class default; the values, the fade behaviour and the no-headphones shutdown are the audio report's F19 to F28 and its SYS-AUD-02, SW-AUD-01 and SW-AUD-03 candidates. Unrestricted headphone amplifiers reach 113 to 126 dB SPL (F25), which is why the ceiling is a hardware property.",
+      "source_ids": ["SI-005", "SI-019"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-017",
+      "kind": "Objective",
+      "parent_id": "NGO-004",
+      "title": "Spurious emissions within 47 CFR 97.307(e) with margin",
+      "statement": "At every power step and across the band, every spurious emission at the antenna port is at most 25 microwatts and at least 40 dB below the carrier, which at 5 W means at least 53 dB below the carrier; the design targets 60 dB.",
+      "rationale": "47 CFR 97.307(e) (eCFR 2026-09-23) for a transmitter of 25 W or less; the arithmetic (53.0 dB at 5.0 W, 53.8 dB at 6.0 W) is docs/research/part97-regulatory-basis.md F2. The 60 dB target (about 7 dB margin) is that report's DECISION-4 and the PA report's low-pass filter goals of 40 dB at 288 MHz and 35 dB at 432 MHz with at most 0.5 dB insertion loss (docs/research/pa-device-candidates.md F16 and F17). The victims at each harmonic (2f military fixed and mobile, 3f 70 cm amateurs and Federal radiolocation, 7f aeronautical radionavigation) are docs/research/regulatory-corpus-and-operators.md F9. Owner bought a tinySA Ultra (SI-034), so this is measured, not only analyzed (RSK-011).",
+      "source_ids": ["SI-014", "SI-003", "SI-034", "SI-021"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-018",
+      "kind": "Objective",
+      "parent_id": "NGO-004",
+      "title": "A1A only, with a shaped keying envelope and a stable carrier",
+      "statement": "The transmitter emits an on-off keyed unmodulated carrier only (A1A, documented necessary bandwidth 208HA1A at 50 WPM), with a raised-cosine envelope of 5 ms 10-to-90 percent (configurable 3 to 8 ms) so that the measured 26 dB bandwidth is at most 350 Hz, and with a carrier frequency error of at most +/-2.5 ppm over the operating temperature range and one year.",
+      "rationale": "47 CFR 97.305(a) permits CW on any authorized frequency and 144.000 to 144.100 MHz is CW-only, so the sidetone is audio-only and never modulates the carrier (docs/research/part97-regulatory-basis.md F1 and RF-03). 47 CFR 97.307(a) and (b) forbid excess bandwidth and keyclicks; the 5 ms raised-cosine default, 3 to 8 ms range, 350 Hz 26 dB bandwidth and 208HA1A designator are docs/research/regulatory-corpus-and-operators.md F6, F7 and DECISION-8 and docs/research/keyer-verification-and-key-input-network.md F12 (convention: 5 ms is the 10-to-90 percent time, 8.5 ms full ramp). The +/-2.5 ppm reference is the regulatory report's RF-09. Proposed values, owner decision pending at SRR.",
+      "source_ids": ["SI-014", "SI-004", "SI-024"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-019",
+      "kind": "Objective",
+      "parent_id": "NGO-004",
+      "title": "RF exposure bounded by power steps, defaults, tune limits and separation rules",
+      "statement": "The operator selects 0.5, 1, 2 or 5 W (each within +/-1 dB), a new or reset unit starts at 1 W and 5 W takes a deliberate action, a tune carrier runs at 0.5 W by default and ends by itself 5 s +/-0.5 s after it starts, before the independent key-down cutoff can act, the manual carries the exposure information that puts each operating licensee in the occupational tier, and the operating rule keeps anyone who is not the operator at least 0.6 m from the antenna while keying and 1.0 m during a tune carrier.",
+      "rationale": "SI-030: operators are licensees in the occupational tier, bystanders are general population. No exemption exists for a 5 W handheld below 239 MHz used within 20 cm of a person, so an evaluation per OET 65 Supplement B is mandatory and is presented by Analysis (docs/research/rf-exposure-evaluation.md F1, F8; 47 CFR 97.13(c)). The step set, 1 W default and 5 W deliberate action are that report's RFX-10 and RFX-11 (decisions RFX-D1 and RFX-D2 pending at SRR). The tune default of 0.5 W is RFX-12(a); its duration is a joint owner decision at SRR on RFX-D3 and D-KN2 (ConOps Appendix C): RFX-12(a) proposed 10 s +/-1 s, which overlaps the 7.5 to 13 s window of the independent cutoff that docs/research/keyer-verification-and-key-input-network.md F13 items 2 and 4 sized for a 3 to 5 s tune, so the ConOps proposes 5 s +/-0.5 s (option a), which only lowers the exposure figures; option b keeps 10 s and raises the cutoff window. the 0.6 m and 1.0 m rules are its F7 (0 dBd whip, 2.56 reflection factor, 5 W continuous CW 0.58 m, 5 W carrier 0.91 m). SAR by analogy at 0.35 W/kg per W (F6) puts the licensee at 17.5 percent of the 8 W/kg limit at 5 W continuous CW; a non-licensee holding a keyed 5 W unit is the case the defaults are sized against (F7), and ConOps OPS-022 covers the unit held at the face (posture P4, RFX-D5).",
+      "source_ids": ["SI-030", "SI-014", "SI-019", "SI-003"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-020",
+      "kind": "Objective",
+      "parent_id": "NGO-004",
+      "title": "Each unit is its holder's station, with a receive-only guest lock",
+      "statement": "Each unit stores and shows the call sign of the licensee operating it, reminds the operator to identify 10 minutes after the first transmission since the previous reminder, and offers a receive-only guest lock that a licensee sets and releases by a deliberate two-step action, so that a unit left with an unlicensed guest cannot transmit by accident.",
+      "rationale": "Operator model OPS-A (docs/research/regulatory-corpus-and-operators.md F5, DECISION-6 recommended): under 47 CFR 97.5(c) and 97.103(b) a licensee operating a borrowed radio operates their own station and identifies with their own call sign; 47 CFR 97.119(a) sets the 10 minute identification. Revision A sends no automatic identification (ConOps sections 3.5.1 item 6 and 3.5.4; REQ-SYS-007); CON-005 caps any later automatic identifier at 20 WPM (97.119(b)(1)). The guest lock is that report's FW-03 (DECISION-7 recommended) and closes the accidental pathway of RSK-028 (research REG-4); 47 CFR 97.115(b)(1) allows a guest to key only with a licensee present and continuously supervising. The release is a deliberate action documented in the public handbook, not a credential, so the lock prevents transmission by accident, not by intent; a deliberate release by a guest is an operator-rule violation governed by the rules card and is recorded as an accepted operator-rule dependency of HZ-006 (ConOps Appendix D item D9). A credential-protected release (stored call sign or a PIN) is the alternative in ConOps Appendix C. Proposed, owner decision pending at SRR.",
+      "source_ids": ["SI-030", "SI-019", "SI-014"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-021",
+      "kind": "Objective",
+      "parent_id": "NGO-004",
+      "title": "No fault leaves the transmitter keyed",
+      "statement": "A key or paddle input closed at power-on or after a reset blocks transmit until both inputs have been open for 500 ms; a straight key held longer than 5 s or a paddle producing 128 identical elements or 30 s of identical elements unkeys the transmitter with an alert; and a hardware cutoff independent of firmware removes power-amplifier enable after 10 s (7.5 to 13 s) of continuous key-down from any cause.",
+      "rationale": "Mono plugs ground the ring, headphones in the key jack read as a closed key, and keys stick: all documented occurrences of unintended continuous transmission (docs/research/keyer-and-key-interfaces.md F1). The layered controls and their numbers are docs/research/keyer-verification-and-key-input-network.md F13 (decisions D-KN2, D-KN3 and D-KN8 pending at SRR): firmware limits act first (the 5 s straight-key timeout, the paddle watchdog and the tune timeout of at most 5.5 s all end before the 7.5 s minimum of the independent cutoff), and the independent cutoff bounds any fault to 13 s, which the PA thermal budget tolerates. The key causes are self-clearing transmit inhibits and the protection having acted is a latched fault (ConOps section 3.4, Table 3.4-4). These are SWE-134 safety-critical functions under the charter's Class A election.",
+      "source_ids": ["SI-018", "SI-034", "SI-019", "SI-015"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-022",
+      "kind": "Objective",
+      "parent_id": "NGO-004",
+      "title": "Protected 2S pack, safe charging, no transmit while charging",
+      "statement": "The two cells are protected against over-voltage, under-voltage, over-current and short circuit independently of the charger, charging follows a temperature-windowed profile at a 500 mA USB budget by default, the transmitter is inhibited by hardware whenever USB power is present, receive is allowed while USB power is present with charging paused, and a user-operated control removes power from every load except the cell protection and the charger input.",
+      "rationale": "SI-022 (charge through the module's micro-USB) and SI-023 (user-replaceable 2S 18650) create the hazards: user-mixed cells, reversed insertion, an unrated module connector path, and a boost charger whose ripple would appear on the PA rail. The layered provisions are docs/research/power-tree-and-charging.md F11, F12, F22 and F24 and its decisions D-PWR-01 to D-PWR-08 (proposed, owner decision pending at SRR); the 500 mA default is the USB 2.0 configured budget (F1) and gives about 10 h to full charge (F3). RSK-007 (cell thermal event) is the register's safety-override red risk. The mechanical power switch is the D-PWR-08 proposal (pending at SRR); the statement names the function it provides (REQ-SYS-101).",
+      "source_ids": ["SI-022", "SI-023", "SI-019", "SI-034"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-023",
+      "kind": "Objective",
+      "parent_id": "NGO-005",
+      "title": "Every requirement closed before procurement release, bring-up without a respin",
+      "statement": "At CDR every L1 and L2 requirement that can be verified before build has passed by Analysis, HostUnit or Inspection with linked evidence, and the first assembled board passes stages 0 to 8 of the staged first-power-on procedure with no change beyond firmware and BOM alternates.",
+      "rationale": "SI-010 in measurable form. The staged procedure (receipt inspection, cold checks, passive RF, rails, firmware load, receive, keying without RF, transmit at reduced then full supply) is docs/process/04-verification-and-validation.md section 11.2; the evidence classes are the charter's section 9. The five child risks of RSK-008 (PA instability, emulator gaps, assembly defects, thermal path, keyer usability) are what the pre-build evidence must retire.",
+      "source_ids": ["SI-010", "SI-016", "SI-015"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-024",
+      "kind": "Objective",
+      "parent_id": "NGO-005",
+      "title": "Host-first software evidence, emulation for event ordering only",
+      "statement": "All application logic, including the keyer, sequencer, audio chain, power management and user interface, is verified by repeatable host tests against injected device models on the rustos api traits, with measured coverage and 100 percent MC/DC on safety-critical components; the emulator is used, if at all, under accreditation ACC-EMU-001 for event ordering and never for timing.",
+      "rationale": "SI-026 (host-first through dependency injection, emulation optional and never primary) and SI-033 (drivers developed upstream in rustos). The emulator accreditation scope and its known-answer tests are docs/research/emulator-accreditation-and-timer-irq.md F13: cycles are consistent, seconds are not, GPIO edge interrupts and NVIC priorities are not modelled, which is why the firmware design rules are a single NVIC priority, PWM slices 0 to 7 only and GPIO through SIO. RSK-003 and RSK-010 track the emulator and MC/DC tooling gaps.",
+      "source_ids": ["SI-026", "SI-033", "SI-007", "SI-015"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-025",
+      "kind": "Objective",
+      "parent_id": "NGO-006",
+      "title": "Eight hours at 1:9 and six hours at 1:4 on one charge",
+      "statement": "A fresh pair of 3000 mAh cells gives at least 8 h of operation at a 1:9 transmit-to-receive ratio and at least 6 h at 1:4, and recharges from a standard 500 mA USB port in about 10 h.",
+      "rationale": "SI-034 accepted 8 h at 1:9; the 6 h at 1:4 floor and the charge time are docs/research/power-tree-and-charging.md F23 and F3 (expected receiver build 9.5 h at 1:9 and 7.3 h at 1:4; 500 mA USB gives about 280 mA of charge current). Proposed, owner decision pending at SRR for the 1:4 floor. docs/plan/tpm.json TPM-008 defines the measurement cycle: repeating 10 minute cycles of 1 minute in transmit at the 5 W step, keyed at 50 percent key-down within the transmit minute, and 9 minutes in receive with the display and audio on, run to the low-battery transmit cutoff (1:4: 2 minutes in 10); MOP-010 carries the 8 h and 6 h thresholds and MOP-011 the warning lead time.",
+      "source_ids": ["SI-034", "SI-023", "SI-022"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-026",
+      "kind": "Objective",
+      "parent_id": "NGO-006",
+      "title": "Pocket form, rugged antenna port, outdoor temperature range",
+      "statement": "The enclosure is sized by the two cells and the controller module, carries the antenna on one end through a jack retained by the enclosure so that the circuit board carries no antenna bending load, survives pocket carry and a 1.0 m drop onto a hard floor with the antenna fitted, tolerates light rain when upright with plugs inserted, operates from -10 to +45 C and charges from 0 to 45 C.",
+      "rationale": "SI-001 and SI-008. The antenna moment analysis (a 10 N push on a 40 cm whip yields 4 N.m, at the yield moment of a brass SMA neck) and the bulkhead-retained SMA jack with a boss at least 2.5 mm thick are docs/research/antenna-and-erp.md F8 and ANT-02. Temperature limits are proposals (owner decision pending at SRR) bounded by the parts research: reflective LCD -10 to +60 C storage on the conservative datasheet (docs/research/display-and-ui-parts.md F2, RISK-candidate R-UI-04), encoders -30 to +70 C (F12), TCXO specified -10 to +50 C (docs/research/regulatory-corpus-and-operators.md RF-09), charger JEITA windows 0 to 45 C (docs/research/power-tree-and-charging.md F5). The drop height and rain statement are proposals with no research basis yet; the enclosure analysis at PDR sizes them. docs/plan/tpm.json TPM-006 carries the -10 to +45 C operating span pending the owner's ratification. MOE-013 judges this objective (pocket carry, drop, rain and temperature; MOP-001 and MOP-002 to be re-parented to it).",
+      "source_ids": ["SI-001", "SI-008", "SI-023", "SI-012"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-027",
+      "kind": "Objective",
+      "parent_id": "NGO-007",
+      "title": "Kit assembly from stocked catalog parts in a five-board run",
+      "statement": "PCBWay fabricates five boards and assembles all surface-mount parts on three to five of them from parts stocked at DigiKey, Mouser or PCBWay's turnkey distributors; the owner hand-solders the through-hole parts and modules with exposed pads; at most five complete units are built; no part is consignment-only or hidden-pad for the owner.",
+      "rationale": "SI-009, SI-028, SI-031 and SI-035 verbatim; the panelization and overage rules are docs/research/pcbway-fabrication-and-assembly.md F17 to F22 and its PCB-FAB and PCB-ASM candidates. The 4-layer stack-up, 1.0 mm board thickness and Type VII via fill under the PA and QFN pads are D-PCB-01 proposals pending the enclosure boss layout (PDR). The PA device must satisfy SI-028, which docs/research/pa-device-candidates.md flags as the main sourcing risk (its implications 5, 6 and 9).",
+      "source_ids": ["SI-009", "SI-028", "SI-031", "SI-035", "SI-007"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-028",
+      "kind": "Objective",
+      "parent_id": "NGO-007",
+      "title": "Unit cost within the labor-free cost model",
+      "statement": "The delivered cost per complete unit, including amortized fabrication, assembly setup, enclosure, parts, shipping and contingency and excluding instruments and labor, stays within the owner-approved budget of the cost model at every gate, with the SRR estimate of USD 970 to 1830 for three radios as the starting envelope.",
+      "rationale": "Proposed, owner decision pending at SRR: the owner has not yet approved a per-unit budget. docs/plan/cost-estimate.md gives USD 970 to 1830 for three radios with 20 percent contingency; TPM-014 tracks cost per unit against the approved budget with the margin policy of docs/plan/tpm.json. PCBWay component pricing includes shipping, customs and attrition and may run 1.5 to 2 times distributor list (docs/research/pcbway-fabrication-and-assembly.md RISK-candidate R-PCB-05).",
+      "source_ids": ["SI-009", "SI-035", "SI-011"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-029",
+      "kind": "Objective",
+      "parent_id": "NGO-007",
+      "title": "Complete open-source design and process record",
+      "statement": "The public repository holds every design and process artifact needed to reproduce a unit and its evidence: requirements, ConOps, schematics, layout, enclosure source and STEP, firmware, simulation decks with checkers, test procedures and reports, under the MIT license.",
+      "rationale": "SI-025 (MIT at github.com/robinonsay/cwht). The charter's document tree (section 5) and the configuration items of section 8 define what a complete record is. Vendor data that cannot be redistributed (datasheets) is cited, not copied; the regulatory corpus is public-domain US Government text. No MOE measures this objective: it is judged by Inspection through REQ-SYS-148 at SAR, with the repository completeness check of the SAR configuration audit.",
+      "source_ids": ["SI-025", "SI-015"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-030",
+      "kind": "Objective",
+      "parent_id": "NGO-008",
+      "title": "70 cm added in revision B without a controller, power or enclosure redesign",
+      "statement": "The revision A architecture assigns the band-dependent functions (synthesizer range, front-end filter, PA match, harmonic filter, T/R element) to identifiable blocks, reserves a band control position and a display field, and keeps the controller, power, keyer, audio and enclosure interfaces band-agnostic, so that a 70 cm revision changes only those blocks.",
+      "rationale": "SI-002 and SI-006. Assessable at PDR from the architecture and allocation (docs/design/architecture.md); no revision A performance is spent on it beyond the reserved control and the partition. The third harmonic of 2 m falls in 70 cm (docs/research/regulatory-corpus-and-operators.md F9), which a dual-band revision must also treat. No MOE measures this objective: it is judged by Inspection of the architecture partition at PDR through REQ-SYS-145 and REQ-SYS-146.",
+      "source_ids": ["SI-002", "SI-006"],
+      "status": "Draft"
+    }
+  ],
+  "moes": [
+    {
+      "id": "MOE-001",
+      "title": "Contact range over open ground",
+      "statement": "The owner and a friend, each holding a cwht unit with its shipped antenna, can hold a CW conversation across open ground at the distances they walk or cycle to, without a hilltop.",
+      "success_criterion": "Two units at 1.5 m above open, flat ground each complete a two-way exchange (both call signs, a signal report and a 20-character text copied with at most one character error) at 5.0 km at the 5 W step with the range reference antenna, and at 2.0 km at the 2 W step with the pocket reference antenna and its 48 cm counterpoise; positions, power step, antenna and copy quality are logged. Target values per NGO-009; MOPs MOP-004 (carrier power), MOP-006 (receiver MDS) and MOP-008 (frequency accuracy) in docs/plan/tpm.json.",
+      "rationale": "This is the everyday use case of SI-019 and the reason for 5 W (SI-003). docs/research/antenna-and-erp.md F11 predicts the open-ground link is horizon-limited at 5 W for every realistic whip, so meeting 5.0 km with 6 to 10 dB margin demonstrates that the antenna port, receiver noise figure and keying all work as designed. Proposed, owner decision pending at SRR.",
+      "ngo_ids": ["NGO-009", "NGO-002"],
+      "ops_ids": ["OPS-004", "OPS-005"],
+      "source_ids": ["SI-003", "SI-019", "SI-004"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-002",
+      "title": "Contact range from a hilltop",
+      "statement": "From a hilltop the owner can work a friend on the plain below at tens of kilometres, at 5 W and at the lowest power step.",
+      "success_criterion": "With one unit at least 100 m above the intervening terrain and a line-of-sight path, two units complete the two-way exchange of MOE-001 at 30 km at the 5 W step and repeat it at the 0.5 W step; the receiving operator reports no distortion or gain pumping on the strong signal. Target values per NGO-010.",
+      "rationale": "SI-004 promised a propagation advantage over FM handhelds; docs/research/antenna-and-erp.md F11 shows a 46 km horizon and 48 to 55 dB of margin at 100 m, so the hilltop case tests the horizon and the receiver's strong-signal behaviour rather than transmitter power, and the 0.5 W repeat exercises the minimum-power duty of 47 CFR 97.313(a). Proposed, owner decision pending at SRR.",
+      "ngo_ids": ["NGO-010", "NGO-002"],
+      "ops_ids": ["OPS-004"],
+      "source_ids": ["SI-003", "SI-004", "SI-019"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-003",
+      "title": "First-power-on success",
+      "statement": "The first board works when the owner powers it up, and every later unit passes its acceptance test the first time.",
+      "success_criterion": "Unit CWHT-A-001 passes stages 0 to 8 of the staged first-power-on procedure (docs/process/04-verification-and-validation.md section 11.2) with no nonconformance requiring a board respin or rework beyond firmware changes and approved BOM alternates; each subsequent unit passes its acceptance test procedure at the first attempt with no open S1 or S2 nonconformance at hand-over.",
+      "rationale": "SI-010 is the owner's core process expectation and the reason for the Class A election (SI-015). RSK-008 scores this as the top risk (likelihood 4, consequence 5); a second spin costs USD 300 to 800 and 6 to 12 weeks. Judged by the owner at TRR, SAR and each hand-over.",
+      "ngo_ids": ["NGO-023", "NGO-005", "NGO-024"],
+      "ops_ids": ["OPS-001", "OPS-012"],
+      "source_ids": ["SI-010", "SI-016", "SI-026"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-004",
+      "title": "Battery life for a day out",
+      "statement": "A charged radio lasts through a day of casual operating with friends, and a low battery announces itself in time to finish the conversation.",
+      "success_criterion": "On a fresh pair of 3000 mAh cells, on the TPM-008 cycle (repeating 10 minute cycles of 1 minute in transmit at the 5 W step into the dummy load, keyed at 50 percent key-down within the transmit minute, and 9 minutes in receive with the display and audio on), the unit runs at least 8 h before the 6.4 V low-battery transmit cutoff (REQ-SYS-097); on the 1:4 variant (2 minutes in transmit in every 10) it runs at least 6 h to the same cutoff; the low-battery warning appears at least 15 minutes before that cutoff on the 1:9 cycle; a full recharge from a standard 500 mA USB port completes in at most 12 h with the radio off; charging pauses while the radio receives; and the transmitter cannot be keyed while USB power is present. MOPs: MOP-003, MOP-005, MOP-010 and MOP-011.",
+      "rationale": "SI-034 accepted 8 h at 1:9; the 1:4 floor, the 15 minute warning and the 12 h charge bound (about 10 h predicted) are proposals (owner decision pending at SRR). docs/research/power-tree-and-charging.md F23 gives 9.5 h at 1:9 and 7.3 h at 1:4 for the expected receiver build, so the floor has margin only if the receiver current stays near 260 mA on the 5 V bus, which the PDR selectivity and synthesizer trades decide.",
+      "ngo_ids": ["NGO-025", "NGO-022", "NGO-006"],
+      "ops_ids": ["OPS-002", "OPS-003", "OPS-004", "OPS-009", "OPS-016"],
+      "source_ids": ["SI-034", "SI-023"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-005",
+      "title": "Keying feel and timing with both key types",
+      "statement": "Sending with the paddle or the straight key feels like sending on a good keyer: no missed or added elements, no sluggishness, a sidetone that follows the hand, and a semi break-in hang that fits the operator's rhythm.",
+      "success_criterion": "The owner and at least one friend each send a PARIS string and a 2 minute conversational text with the paddle in Iambic A and B and with the straight key at 15 and 25 WPM; the logic capture shows every element and space within +/-1 percent or +/-0.5 ms of nominal, paddle-to-element latency at most 3 ms, no dropped or extra element in 500 elements, including one PARIS run keyed at 5 W into the pocket reference antenna with 1.5 m headphone and paddle leads attached (OPS-017); each operator rates the feel as no worse than their reference keyer and the default hang as acceptable without adjustment. Targets per NGO-013 and NGO-014; TPM-013 carries the timing.",
+      "rationale": "SI-018 is the core requirement and RSK-012 (keying wrong or unusable) is red; docs/research/keyer-verification-and-key-input-network.md F7 and F8 define the golden vectors and tolerance, and its RISK-candidate R-KN4 notes that switchpoint and debounce defaults are feel-dependent, so the MOE includes the subjective rating alongside the measurement. Proposed, owner decision pending at SRR for the speeds and the acceptance wording.",
+      "ngo_ids": ["NGO-013", "NGO-014", "NGO-003"],
+      "ops_ids": ["OPS-004", "OPS-005", "OPS-017"],
+      "source_ids": ["SI-018", "SI-033", "SI-036", "SI-034"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-006",
+      "title": "Spurious emission compliance with margin",
+      "statement": "The owner can show, with a measurement on their own bench, that every unit meets the Part 97 spurious emission limit with margin before it goes on the air.",
+      "success_criterion": "Measured with the tinySA Ultra through a calibrated attenuator into 50 ohm at 144.05, 146.00 and 147.95 MHz and at each power step: every spurious emission within the instrument's accredited span (ADR-021 names 9 kHz to 1.5 GHz; the tinySA tool-validation record confirms or raises the lower limit, and any band below the accredited range is covered by Analysis) is at most 25 microwatts and at least 40 dB below the carrier (at least 53 dB at 5 W), with 2f, 3f and 7f reported individually; the design target of 60 dB below carrier is met at 5 W, giving at least 7 dB margin (TPM-007, MOP-009). Band edge: with the carrier at the guard limits 144.001 and 147.999 MHz keyed with continuous dits at 50 WPM, the tinySA at its narrowest RBW shows every part of the emission at or above -26 dB relative to mean power (the 47 CFR 97.3(a)(8) bandwidth level) inside 144.000 to 148.000 MHz, and Analysis of the keying envelope shows the -60 dB design level and the close-in spectrum inside the band (ADR-021 item 2). Judged before the OnAir authorization and again at each unit's acceptance.",
+      "rationale": "47 CFR 97.307(e) (eCFR 2026-09-23) and docs/research/part97-regulatory-basis.md F2; the harmonic victims of docs/research/regulatory-corpus-and-operators.md F9 make the 60 dB target more than a margin policy. SI-034 records the owner's tinySA Ultra purchase, which supersedes SI-013's 'no spectrum analyzer' and closes SI-021, converting RSK-011 from an analysis-only closure to a measurement. The band-edge clause measures NGO-011 (docs/research/regulatory-corpus-and-operators.md F7, F8).",
+      "ngo_ids": ["NGO-017", "NGO-018", "NGO-011", "NGO-004"],
+      "ops_ids": ["OPS-008", "OPS-012", "OPS-015", "OPS-020"],
+      "source_ids": ["SI-014", "SI-034", "SI-021", "SI-013"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-007",
+      "title": "Cost per unit",
+      "statement": "Each finished radio costs what a serious hobby radio should cost, and the owner is not surprised by the invoices.",
+      "success_criterion": "The actual delivered cost per complete unit (parts, fabrication, assembly, enclosure, printed parts, shipping and duties, divided by the units built) is within the owner-approved budget of docs/plan/cost-estimate.md at SAR; the SRR envelope is USD 323 to 610 per unit for three units (USD 970 to 1830 total) and the owner fixes the budget number at SRR (TPM-014).",
+      "rationale": "Proposed, owner decision pending at SRR: the owner approves the budget, not the estimate. The tailored cost model (charter section 12) replaces software cost estimation; it is labor-free and excludes the tinySA Ultra. Judged at CDR (quotes) and SAR (actuals).",
+      "ngo_ids": ["NGO-028", "NGO-027", "NGO-007"],
+      "ops_ids": ["OPS-012"],
+      "source_ids": ["SI-009", "SI-035", "SI-011"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-008",
+      "title": "Usability by a Technician-class friend",
+      "statement": "A friend with a Technician license picks up a unit and the handbook and is on the air correctly within half an hour, without calling the owner.",
+      "success_criterion": "A Technician-class friend who has not used the radio before, given one unit, headphones, their own key or paddle, a USB cable and the handbook, completes within 30 minutes and without help: power-on and self-test, tuning to a named frequency, a CW contact under their own call sign with correct identification, changing the power step, engaging and releasing the guest lock, and starting a charge; and, as a separate task with a host computer, updates the firmware from the handbook within 10 minutes (OPS-011); the observer records no unlawful or unsafe action and at most two handbook look-ups that the friend calls confusing.",
+      "rationale": "SI-019 and SI-030: friends operate as their own stations (operator model OPS-A). The handbook is the only training (SEMP section 7.3.1); this MOE is the SEMP's hand-over validation stated as a pass criterion. MOP-017 carries the time. Proposed, owner decision pending at SRR for the time limits and the look-up count.",
+      "ngo_ids": ["NGO-015", "NGO-020", "NGO-003"],
+      "ops_ids": ["OPS-001", "OPS-002", "OPS-006", "OPS-011"],
+      "source_ids": ["SI-019", "SI-030", "SI-006"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-009",
+      "title": "Lawful and safe operation by every operator",
+      "statement": "Every transmission is made by a licensee identifying with their own call sign, nobody is exposed above the RF limits that apply to them, and a unit left with an unlicensed guest cannot transmit by accident.",
+      "success_criterion": "The RF exposure evaluation (OET 65 Supplement B method with the SAR analogy documented, including the at-face posture P4) is on record before the first OnAir transmission and reproduced in the handbook with a one-page station evaluation form; the operator rules card is in every unit's handbook; in a group operating session observed by the owner, every transmitting unit is held by its operating licensee, the 0.6 m keying and 1.0 m tune separations are kept, every unit left with an unlicensed person without continuous supervision is in guest lock, supervised keying by a guest happens only at the 0.5 W or 1 W step, and no transmission goes unidentified for more than 10 minutes. MOP-004 and MOP-018 in docs/plan/tpm.json.",
+      "rationale": "47 CFR 97.13(c), 97.7, 97.103, 97.115(b), 97.119 (eCFR 2026-09-23) and SI-030. docs/research/rf-exposure-evaluation.md F7 gives the separation rules and F8 states what can and cannot be closed before first on-air; docs/research/regulatory-corpus-and-operators.md F4 and F5 give the guest and operator-model rules; the guest lock prevents transmission by accident, while a deliberate release is an operator-rule matter (NGO-020). Supervised third-party keying under 47 CFR 97.115(b)(1) is lawful, which is why the criterion concerns units left without supervision. Failure of this MOE is a regulatory violation, which the owner as licensee cannot accept.",
+      "ngo_ids": ["NGO-019", "NGO-020", "NGO-004"],
+      "ops_ids": ["OPS-006", "OPS-007", "OPS-008", "OPS-018", "OPS-019", "OPS-022"],
+      "source_ids": ["SI-014", "SI-030", "SI-019"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-010",
+      "title": "Hearing a weak friend next to a strong one",
+      "statement": "The receiver pulls a weak CW signal out of the noise through a narrow passband and does not lose it when another station a couple of kilohertz away is strong.",
+      "success_criterion": "On the bench the owner copies a CW signal 3 dB above the -140 dBm MDS in the 500 Hz passband, and copy of a -130 dBm signal is not degraded by more than 3 dB nor disturbed by audible gain pumping when a -60 dBm signal is added at +/-2 kHz; on the air the owner nets to a friend by zero-beating the sidetone and copies them at the noise floor. The selectivity set is TBR until the PDR trade (NGO-012). The bench part is TBR (close by PDR): docs/process/04-verification-and-validation.md section 6 adopts no calibrated source (the tinySA Ultra generator is not a level reference under ADR-021), so the -137 dBm and -130 dBm sources and their shielding (for example the tinySA generator through a measured step attenuator in a shielded setup, which needs a superseding ADR and a tool-validation record) are an open question for 04 section 6.3 (ConOps Appendix D item D17); until it closes the bench part is judged by Analysis (MOP-006, MOP-007) and the on-air part stands.",
+      "rationale": "SI-004 (narrow-band CW advantage) and SI-005 (tune and chat). docs/research/cw-selectivity-options.md F1 frames the numbers (a friend at 5 km arrives at -53 dBm; reciprocal mixing bounds rejection at 85 dB with the cheaper synthesizer) and its implications 1 to 4 propose the set. The two-signal bench case needs the tinySA Ultra generator plus a second source, which docs/process/04-verification-and-validation.md section 6.2 does not yet list; until then the adjacent-signal part is judged OnAir. Proposed, owner decision pending at SRR.",
+      "ngo_ids": ["NGO-012", "NGO-002"],
+      "ops_ids": ["OPS-003"],
+      "source_ids": ["SI-004", "SI-005", "SI-013"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-011",
+      "title": "Audio comfort and hearing safety",
+      "statement": "Listening is comfortable for hours, transmit transitions are silent, and the radio cannot be turned up to a level that hurts.",
+      "success_criterion": "The owner and a friend each operate for one hour on their own earbuds at the default level cap and report no fatigue and no audible click, thump or pop at any key-down, key-up, hang expiry, plug insertion or power-on; the bench measurement across 32 ohm reads at most 100 mVrms +/-10 percent for a full-scale 700 Hz test tone and at most 150 mVrms for any test pattern with the cap unlocked, and at most 30 mVrms with the default cap.",
+      "rationale": "SI-005 (headphones) and the hearing hazard of docs/research/audio-output-and-hearing-safety.md F19 to F25 (100 mVrms bounds the SPL near 100 dB(A) with the most sensitive earbuds measured; unrestricted amplifiers reach 113 to 126 dB SPL). Click-free transitions are the SEMP HSI audio row. Proposed, owner decision pending at SRR (audio report D2).",
+      "ngo_ids": ["NGO-016", "NGO-003"],
+      "ops_ids": ["OPS-003", "OPS-017"],
+      "source_ids": ["SI-005", "SI-019"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-012",
+      "title": "No unintended transmission",
+      "statement": "Whatever gets plugged in, stuck, dropped or reset, the radio never transmits on its own for longer than a few seconds, and it tells the operator why.",
+      "success_criterion": "In the fault scenarios (mono plug at power-on and after boot, headphones in the key jack, straight key held down, paddle held down, reset during transmit, firmware hang) the transmitter is never keyed for more than 13 s without operator intent, the firmware limits act first in every case where the firmware is alive (5 s straight key, 128 elements or 30 s paddle, and the tune timeout of at most 5.5 s), the display shows the specific alert, each key cause clears by itself once the contact opens (ConOps Table 3.4-4), and in 100 hours of logged group operation no unintended transmission is recorded.",
+      "rationale": "The hazard is documented in the field (docs/research/keyer-and-key-interfaces.md F1) and the layered controls with their coverage table are docs/research/keyer-verification-and-key-input-network.md F13; these are SWE-134 safety-critical functions under the Class A election (SI-015). An unintended transmission is an FCC violation for the licensee and a PA thermal event, so the owner treats this MOE as pass or fail.",
+      "ngo_ids": ["NGO-021", "NGO-004"],
+      "ops_ids": ["OPS-013", "OPS-014", "OPS-019", "OPS-021"],
+      "source_ids": ["SI-018", "SI-014", "SI-015"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-013",
+      "title": "Pocket carry and field ruggedness",
+      "statement": "The radio goes in a jacket pocket like a phone, is no burden on a walk, and takes the knocks, drizzle and temperatures of a day outdoors without losing a function.",
+      "success_criterion": "The owner and a friend each carry a unit in a jacket pocket through an outing (OPS-004, OPS-010) and report that it fits and is no burden; the unit mass without antenna is within MOP-001 (threshold 350 g, target 300 g) and its envelope within the MOP-002 allocation; on acceptance evidence the unit meets its requirements after a 1.0 m drop onto a hard floor on each face with the antenna fitted (REQ-SYS-116), after light rain when upright with plugs inserted (REQ-SYS-117), across -10 to +45 C (REQ-SYS-114, TPM-006), and after a 4.0 N.m side load at the antenna port (REQ-SYS-105).",
+      "rationale": "SI-001 (handy-talkie form factor) and SI-008 (aluminum enclosure, antenna on one end) state the portability goal NGO-006, and NGO-026 gives its targets; without this MOE the form factor had no owner-side measure and docs/plan/tpm.json parented MOP-001 (mass) and MOP-002 (envelope) to MOE-001 (contact range). The tpm.json MOP-001 note records decision OQ-SE-005: the owner decides at SRR whether MOE-013 is added, and on approval MOP-001 and MOP-002 (with TPM-001 and TPM-016) re-parent to it. The drop, rain and temperature values are proposals (ConOps section 4). Proposed, owner decision pending at SRR (OQ-SE-005).",
+      "ngo_ids": ["NGO-026", "NGO-006"],
+      "ops_ids": ["OPS-004", "OPS-010"],
+      "source_ids": ["SI-001", "SI-008", "SI-023"],
+      "status": "Draft"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "CON-001",
+      "kind": "Regulatory",
+      "title": "47 CFR Part 97 applies; every operator holds Technician class or higher",
+      "statement": "The radio is an amateur station transmitter operated under 47 CFR Part 97 by control operators who hold at least a Technician-class license, with 2 m privileges of 144.000 to 148.000 MHz in ITU Region 2.",
+      "rationale": "Imposed by the FCC; the owner is a General-class licensee (SI-014) and states that all friends are licensed (SI-030). 47 CFR 97.301(a) grants 144 to 148 MHz to Technician and above (docs/research/part97-regulatory-basis.md F4). No relief is possible; a non-licensee may only listen or key as a supervised third party (CON-006).",
+      "source_ids": ["SI-014", "SI-030", "47CFR97.301(a)", "47CFR97.7"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-002",
+      "kind": "Regulatory",
+      "title": "Spurious emission limit of 47 CFR 97.307(e)",
+      "statement": "For a transmitter of 25 W or less transmitting between 30 and 225 MHz, every spurious emission supplied to the antenna transmission line has a mean power of at most 25 microwatts and at least 40 dB below the mean power of the fundamental, but need not be reduced below 10 microwatts; at 5 W this is 53 dB of suppression, at 6 W 53.8 dB.",
+      "rationale": "Imposed by the FCC (eCFR 2026-09-23, corpus file 47cfr-97.307.md); arithmetic in docs/research/part97-regulatory-basis.md F2. The compliance point is a conducted measurement at the antenna connector into 50 ohm; chassis radiation falls under 97.307(c). No relief.",
+      "source_ids": ["47CFR97.307(e)", "47CFR97.307(c)", "SI-014"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-003",
+      "kind": "Regulatory",
+      "title": "Necessary bandwidth, band confinement, no keyclicks, CW-only segment",
+      "statement": "Transmissions occupy no more bandwidth than necessary for A1A, emissions from keying stay inside 144.000 to 148.000 MHz and cause no keyclick interference, and only CW (A1A, never tone-modulated MCW) is emitted, since 144.000 to 144.100 MHz is CW-only.",
+      "rationale": "Imposed by the FCC: 47 CFR 97.307(a) and (b), 97.305(a) and (c), 97.3(a)(8) bandwidth definition (docs/research/part97-regulatory-basis.md F1 and F11; docs/research/regulatory-corpus-and-operators.md F6 to F8). The sidetone is therefore audio-only. No relief.",
+      "source_ids": ["47CFR97.307(a)", "47CFR97.307(b)", "47CFR97.305(a)", "SI-014", "SI-004"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-004",
+      "kind": "Regulatory",
+      "title": "RF exposure evaluation required; occupational tier for operators only",
+      "statement": "Before transmitting, the licensee ensures compliance with the RF exposure rules of 47 CFR 1.1307(b), 1.1310, 2.1091 and 2.1093; no routine-evaluation exemption exists for a 5 W handheld below 239 MHz used within 20 cm of a person; the licensee and trained household members are evaluated at the occupational limits, everyone else at the general-population limits.",
+      "rationale": "Imposed by the FCC through 47 CFR 97.13(c) (corpus file 47cfr-97.13.md) and FCC 19-126 footnote 143 (docs/research/rf-exposure-evaluation.md F1; docs/research/part97-regulatory-basis.md F6 to F8). SI-030 accepts the two-tier posture. The evaluation is a licensee record, not an FCC filing. No relief; the design mitigates through power steps, defaults and separation rules (NGO-019).",
+      "source_ids": ["47CFR97.13(c)", "SI-030", "SI-014"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-005",
+      "kind": "Regulatory",
+      "title": "Station identification and the 20 WPM automatic-ID limit",
+      "statement": "Each station transmits its call sign at the end of each communication and at least every 10 minutes during one; when an automatic device keys the identification, its speed does not exceed 20 WPM.",
+      "rationale": "Imposed by the FCC: 47 CFR 97.119(a) and (b)(1) (corpus file 47cfr-97.119.md; docs/research/part97-regulatory-basis.md F10). Revision A has no automatic identifier and no message memory (ConOps sections 3.5.1 item 6 and 3.5.4; REQ-SYS-007): the operator keys every identification and the identification reminder serves 97.119(a). The 20 WPM limit binds any automatic identifier a later revision adds. No relief.",
+      "source_ids": ["47CFR97.119(a)", "47CFR97.119(b)(1)", "SI-014"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-006",
+      "kind": "Regulatory",
+      "title": "Control operator, physical control and third-party rules",
+      "statement": "Every transmission has a licensed control operator at the control point who has physical control of the apparatus; a cwht unit is always locally controlled and is never operated as an automatically controlled station; a licensee operating a borrowed unit operates their own station; an unlicensed person may key only as a third party with the control operator present and continuously supervising, and may never operate alone.",
+      "rationale": "Imposed by the FCC: 47 CFR 97.5(a) and (c), 97.7, 97.103, 97.105, 97.109(b) (local control, control operator at the control point) and 97.115(b) (corpus files; docs/research/regulatory-corpus-and-operators.md F2 to F5). Automatic control is permitted only for stations designated elsewhere in Part 97 (97.109(d)), such as beacons in 144.275 to 144.300 MHz (97.203(d)); cwht is none of these, so it is always locally controlled. Operator model OPS-A (each unit is the station of the licensee holding it) is the recommended default; OPS-B (designated control operator of the owner's station) needs a dated designation note in the owner's records per 97.103(b). No relief.",
+      "source_ids": ["47CFR97.7", "47CFR97.5(c)", "47CFR97.103(b)", "47CFR97.115(b)", "47CFR97.109(b)", "47CFR97.109(d)", "47CFR97.203(d)", "SI-019", "SI-030"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-007",
+      "kind": "Regulatory",
+      "title": "Minimum power necessary; 1.5 kW PEP ceiling",
+      "statement": "The station uses the minimum transmitter power necessary to carry out the desired communications, and no more than 1.5 kW PEP.",
+      "rationale": "Imposed by the FCC: 47 CFR 97.313(a) and (b) (corpus file 47cfr-97.313.md). The ceiling is trivially met; the minimum-power duty is why the design offers selectable power steps and a 1 W default (docs/research/part97-regulatory-basis.md F3). No relief.",
+      "source_ids": ["47CFR97.313(a)", "47CFR97.313(b)", "SI-003"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-008",
+      "kind": "Regulatory",
+      "title": "Homebrew status: no equipment authorization, not marketed, at most five units",
+      "statement": "The transceiver needs no FCC equipment authorization or filing as an amateur-built transmitter that transmits solely on amateur frequencies; the digital section is exempt as home-built equipment in quantities of five or less for personal use; the units are never marketed and the build stays at or below five.",
+      "rationale": "FCC Enforcement Advisory DA 18-581 and 47 CFR 15.23 (corpus files fcc-da-18-581.md and 47cfr-15.23.md; docs/research/part97-regulatory-basis.md F9). The five-unit cap coincides with the owner's build quantity (SI-035); exceeding it or marketing kits would reopen the analysis. 47 CFR 97.315 does not apply to an integral PA. The owner can grant no relief; the constraint binds the open-source publication too (SI-025): the repository publishes a design, not a kit.",
+      "source_ids": ["SI-035", "SI-025", "SI-014"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-009",
+      "kind": "Technology",
+      "title": "Raspberry Pi Pico 2 module, Rust firmware on rustos, drivers upstream",
+      "statement": "The controller is the Raspberry Pi Pico 2 module (RP2350, Cortex-M33), the firmware is written in Rust on the owner's rustos with new peripheral drivers developed upstream in rustos, and the application is layered on the rustos api traits so that it runs on a host as well as on the target.",
+      "rationale": "Owner decision SI-007, refined by SI-026 and SI-033; relief only by a new stakeholder input. Consequences accepted with it: the module's 12 MHz crystal (12th harmonic at 144.000 MHz) and 48 MHz USB clock (3rd harmonic at 144.000 MHz) are in-band spur sources (docs/research/display-and-ui-parts.md F10); the RP2350 has no DAC and its ADC gives 9 to 9.5 ENOB (docs/research/audio-output-and-hearing-safety.md F1, F6); erratum E9 shapes the input networks (docs/research/keyer-verification-and-key-input-network.md F2, F3).",
+      "source_ids": ["SI-007", "SI-026", "SI-033"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-010",
+      "kind": "Interface",
+      "title": "Single micro-USB on the Pico 2 module for firmware loading and charging",
+      "statement": "The module's micro-USB receptacle is the only USB connector: it loads firmware through the RP2350 bootloader and supplies charge power to the 2S pack, so every milliamp of charge current passes through the module's connector and VBUS copper.",
+      "rationale": "Owner decision SI-022. Consequences: USB 2.0 configured budget is 500 mA and the module publishes no rating for its connector or VBUS path, so the charge current is 500 mA by default and never above 1.5 A (docs/research/power-tree-and-charging.md F1 to F4, RISK-candidate R-PWR-01); the enclosure needs a 12.0 x 10.0 mm chamfered opening with the receptacle face 0 to 1.0 mm inside the wall (docs/research/display-and-ui-parts.md F21). Relief only by a new stakeholder input adding a second connector.",
+      "source_ids": ["SI-022", "SI-007"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-011",
+      "kind": "Technology",
+      "title": "Two 18650 Li-ion cells in series in holders, user-replaceable",
+      "statement": "The battery is two 18650 Li-ion cells in series (6.0 to 8.4 V) held in holders so that the user replaces cells without tools or soldering.",
+      "rationale": "Owner decision SI-023. Consequences: on-board 2S protection and balancing are mandatory because protected cells (68 to 70 mm) do not fit 65 mm holders and users may mix cells (docs/research/power-tree-and-charging.md F11 to F13); the PA runs from the pack and its output droops with voltage unless controlled (F17); the enclosure length is set by two 65 mm cells (docs/research/antenna-and-erp.md F5). Relief only by a new stakeholder input.",
+      "source_ids": ["SI-023", "SI-001"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-012",
+      "kind": "Interface",
+      "title": "3.5 mm TRS key jack serving both a straight key and an iambic paddle",
+      "statement": "The key input is a 3.5 mm three-conductor jack wired tip = dit or straight key, ring = dah, sleeve = common, accepting the owner's straight key and paddle with their standard TRS plugs, and the electronic keyer is built in.",
+      "rationale": "Owner core requirement SI-018 and SI-034 (both keys use 3.5 mm TRS plugs, brands unknown). The tip/ring/sleeve convention is the de facto standard (docs/research/keyer-and-key-interfaces.md F1). Consequence: a mono plug grounds the ring and is a hazard that the interlock of NGO-021 controls. No relief.",
+      "source_ids": ["SI-018", "SI-034", "SI-005"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-013",
+      "kind": "Interface",
+      "title": "Headphones are the only audio output",
+      "statement": "The operator listens on headphones or earbuds through a 3.5 mm jack; the radio has no speaker in revision A.",
+      "rationale": "SI-005 (operate with headphones plugged in) and the audio report's recommendation D1 (headphones only in revision A; a speaker would add a class-D amplifier, a grille and a second acoustic hazard analysis) which the owner adopted in the SRR brief. Relief by a new stakeholder input for a speaker in a later revision; pads may be reserved.",
+      "source_ids": ["SI-005", "SI-001"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-014",
+      "kind": "Programmatic",
+      "title": "PCBWay turnkey SMT, owner hand-solders through-hole; stocked parts only",
+      "statement": "PCBWay fabricates the boards and places all surface-mount parts from parts stocked at DigiKey, Mouser or PCBWay's turnkey distributors; the owner hand-solders through-hole parts and modules with exposed pads but no hidden-pad packages; no part is bespoke or consignment-only; the power-amplifier device in particular is stocked at those distributors.",
+      "rationale": "Owner decisions SI-009, SI-028 and SI-031; the kit model is recorded as a customization in the charter's tailoring register. PCBWay's sourcing, overage, panel and assembly rules are docs/research/pcbway-fabrication-and-assembly.md F17 to F22. The PA constraint rules out the consigned Mitsubishi baseline unless a distributor stocks it (docs/research/pa-device-candidates.md implications 5 and 9). Relief only by a new stakeholder input. Supersession: SI-031 replaces SI-009's 'no hand soldering'; SI-009's turnkey fabrication and DigiKey-class sourcing still bind.",
+      "source_ids": ["SI-009", "SI-028", "SI-031"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-015",
+      "kind": "Technology",
+      "title": "Aluminum enclosure machined by PCBWay from OpenSCAD via FreeCAD STEP",
+      "statement": "The enclosure is CNC-machined aluminum ordered from PCBWay as a single-solid STEP file with a 2D drawing, generated headlessly from an OpenSCAD source through FreeCAD, with the antenna on one end and a printed facade and knobs from the owner's printer.",
+      "rationale": "Owner decisions SI-008, SI-012 and SI-032. PCBWay refuses STL and requires a drawing for threads, tolerances and marking; 6061 with bead blast and Type II anodize is the recommended finish and anodize is an insulator, so RF ground contact areas are masked (docs/research/enclosure-cnc-and-openscad-pipeline.md A1 to A8). Relief only by a new stakeholder input.",
+      "source_ids": ["SI-008", "SI-012", "SI-032"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-016",
+      "kind": "Resource",
+      "title": "Owner's bench: NanoVNA, dummy load, bench supply, multimeter, tinySA Ultra",
+      "statement": "Bench verification uses the owner's NanoVNA, 50 ohm BNC dummy load, adjustable bench supply, multimeter and the tinySA Ultra spectrum analyzer with a calibrated attenuator; there is no oscilloscope, RF power meter, frequency counter or calibrated signal generator beyond the tinySA's generator output.",
+      "rationale": "SI-013 lists the bench. Supersession: SI-034 replaces SI-013's 'no ... spectrum analyzer' with the owner's tinySA Ultra purchase and closes the open question of SI-021; SI-013's other items (NanoVNA, dummy load, bench supply, no oscilloscope) still bind. What each instrument can and cannot measure, and the alternative for each gap, is docs/process/04-verification-and-validation.md section 6. Relief by the owner buying or borrowing instruments (borrowed instruments are acceptable with model, serial and calibration state recorded).",
+      "source_ids": ["SI-013", "SI-034", "SI-021"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-017",
+      "kind": "Process",
+      "title": "NASA SE Handbook and NPR 7150.2D at Class A rigor with owner-dispositioned gates",
+      "statement": "The project follows the NASA Systems Engineering Handbook, NPR 7123.1D and NPR 7150.2D at Class A software and Criticality-1 system rigor by owner election, with SRR, PDR, CDR as procurement release, TRR and SAR gates that the owner dispositions with RFAs and RIDs, independent author, reviewer and test-author agents, rendered and inspected visual products, and vectorized search over the repository and corpus.",
+      "rationale": "Owner decisions SI-015, SI-016 and SI-017, recorded in the charter. The letter of NPR 7150.2D Appendix D would place a hobby transceiver in Class D or E; the election cannot be relaxed silently (charter section 1). Relief only by the owner through the RMM and compliance matrix.",
+      "source_ids": ["SI-015", "SI-016", "SI-017"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-018",
+      "kind": "Programmatic",
+      "title": "Claude produces every design product; the owner reviews and decides",
+      "statement": "The owner writes no code and lays out no board; Claude and its subagents produce every requirement, analysis, schematic, layout, enclosure model, firmware and procedure, and the owner reviews, dispositions and decides.",
+      "rationale": "Owner decision SI-011. Consequence: every product is reviewed by an independent agent before the owner sees it, and headless tooling is mandatory (charter section 11 rule 8). Relief only by the owner taking on work.",
+      "source_ids": ["SI-011", "SI-015"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-019",
+      "kind": "Programmatic",
+      "title": "Open source under the MIT license",
+      "statement": "The complete project is published under the MIT license at github.com/robinonsay/cwht, and anyone may use it.",
+      "rationale": "Owner decision SI-025. Consequence: no proprietary vendor material is copied into the repository; the process record is public. Relief only by the owner.",
+      "source_ids": ["SI-025"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-020",
+      "kind": "Programmatic",
+      "title": "Expedited schedule: SRR, PDR and CDR within one weekend",
+      "statement": "SRR is held Saturday morning, PDR Saturday evening and CDR with procurement release Sunday evening, with liens on PDR products acceptable when CDR closes them and three owner review windows.",
+      "rationale": "Owner decision SI-020. Consequence: every L1 TBR closes by PDR and every L2 TBR by CDR (charter section 7); trades are decided at PDR with the numbers available; long-lead parts are ordered at PDR where a risk demands it. Relief only by the owner re-planning.",
+      "source_ids": ["SI-020"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-021",
+      "kind": "Technology",
+      "title": "Semi break-in only; no full QSK",
+      "statement": "The radio operates semi break-in: the operator hears the sidetone while sending and the radio returns to receive after an adjustable hang time; full QSK (hearing between elements) is not provided.",
+      "rationale": "Owner decision SI-036, which closed the open item of SI-035. Consequence: a sequenced RF relay of the TE Axicom HF3 class is an acceptable T/R element (relay wear is thousands of hours in semi break-in, docs/research/tr-switch-candidates.md F5), with a first-element lead-in of 8 to 12 ms (relay operate plus bounce, docs/research/tr-switch-candidates.md F4, F7; TR-08 caps it at 12 ms). Relief only by a new stakeholder input, which would reopen the T/R trade.",
+      "source_ids": ["SI-036", "SI-035"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-022",
+      "kind": "Technology",
+      "title": "Full US 2 m band in revision A; 70 cm deferred but not precluded",
+      "statement": "Revision A covers 144.000 to 148.000 MHz and no other band; the architecture keeps a path to 70 cm for a later revision.",
+      "rationale": "Owner decisions SI-024 and SI-002. Relief only by a new stakeholder input.",
+      "source_ids": ["SI-024", "SI-002"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-023",
+      "kind": "Interface",
+      "title": "Rotary encoder tuning, volume knob, small LCD, minimal controls",
+      "statement": "Tuning is by a rotary encoder knob, volume by a knob, the display is a small LCD, and no other controls exist beyond what a future band control needs.",
+      "rationale": "Owner decision SI-006 (rotary encoder accepted in place of a potentiometer). The two-encoder, two-button baseline is the research proposal within this constraint (docs/research/display-and-ui-parts.md baseline table). Relief only by a new stakeholder input.",
+      "source_ids": ["SI-006", "SI-005"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-024",
+      "kind": "Resource",
+      "title": "Build quantity: five boards, three to five assembled, at most five units",
+      "statement": "Five bare boards are fabricated, three to five are assembled, and at most five complete units are built.",
+      "rationale": "Owner-accepted recommendation SI-035; also the 47 CFR 15.23 five-unit boundary (CON-008). PCBWay's fabrication minimum is five pieces (docs/research/pcbway-fabrication-and-assembly.md F20). Relief by the owner within the regulatory cap.",
+      "source_ids": ["SI-035", "SI-019"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-025",
+      "kind": "Process",
+      "title": "Host-first software verification; emulation optional and never for timing",
+      "statement": "Application logic is tested on a macOS or Linux host implementation of the rustos api traits with injected device models; hardware integration is tested on real hardware; drivers trace to the RP2350 datasheet and Cortex-M33 documentation as the hardware ICD; emulation is optional secondary evidence for event ordering only.",
+      "rationale": "Owner decision SI-026. The emulator accreditation ACC-EMU-001 scopes credit to boot, instruction execution, TIMER0 alarms, NVIC entry, SIO GPIO, UART, I2C and SPI byte streams, ADC plumbing, PWM slices 0 to 7 and microsecond-ordered sequencing, and excludes any duration in seconds (docs/research/emulator-accreditation-and-timer-irq.md F13). Relief only by the owner. Supersession: SI-026 relaxes SI-010's 'firmware emulation done beforehand'; SI-010's SPICE-analysis, host-test and first-power-on clauses still bind.",
+      "source_ids": ["SI-026", "SI-033", "SI-010"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-026",
+      "kind": "Resource",
+      "title": "Owner's Bambu Lab H2C printer for facade, knobs and fit-check parts",
+      "statement": "Printed facade, knobs and fit-check parts are produced on the owner's Bambu Lab H2C with AMS; slicing has a manual GUI step that is not reproducible from a script.",
+      "rationale": "SI-012 offers the printer; docs/research/enclosure-cnc-and-openscad-pipeline.md B7 records that headless slicing fails, so the fit-check procedure carries one manual step. A resource, not a limit; the owner may also order a PCBWay SLA print of the CDR STEP.",
+      "source_ids": ["SI-012", "SI-008"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-027",
+      "kind": "Process",
+      "title": "Tool telemetry opt-out",
+      "statement": "LTspice runs with telemetry disabled (CaptureAnalytics=false) on the owner's machine.",
+      "rationale": "Ratified by the owner in SI-027 as a condition of using LTspice batch simulation as an analysis tool; recorded in tools/toolchain.lock.md. Relief only by the owner.",
+      "source_ids": ["SI-027"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-028",
+      "kind": "Process",
+      "title": "Synthesizer selected by a cost and performance trade at PDR",
+      "statement": "The frequency synthesizer is chosen by a trade study at PDR that weighs cost against performance for this application; when the candidates' costs are similar, the best-performing synthesizer is chosen.",
+      "rationale": "Owner decision SI-029, recorded in ADR-013. The trade (TS-002 in docs/design/concept.md section 11.2) compares at least the Si5351A and LMX2571 candidates on phase noise, reciprocal-mixing dynamic range, current and price (docs/research/2m-cw-transceiver-reference-designs.md F16 to F21); NGO-012 and REQ-SYS-031 carry the performance consequence. Relief only by the owner.",
+      "source_ids": ["SI-029"],
+      "status": "Draft"
+    }
+  ]
+}
