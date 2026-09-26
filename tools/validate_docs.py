@@ -47,8 +47,41 @@ Cross-file rules applied on top of the schemas:
       record's checklist_file, when present, is the record's own path; the
       reviewer is not the author; an assurance reviewer other than author and
       reviewer is named for the products of 07 sections 2.1.1 and 14.1;
-      APPROVED needs readiness_met true and no Major finding in state Open
-      (SWE-088 b, c, d; SWE-089);
+      APPROVED needs the record state rule below (SWE-088 b, c, d; SWE-089);
+    - record state rule (SRR package item R18, readiness finding R15-F2;
+      replaces the line heuristic of blob 33ab5a83, which read any body line
+      holding a finding anchor and the words Major and Open, so historical
+      count lines such as "open Major 0" held an APPROVED record). The
+      current state of a record is its front matter plus the finding tables
+      of its latest iteration section; nothing else in the body is read.
+      A record whose verdict is APPROVED fails when
+        (a) readiness_met is not true;
+        (b) reviewer_verdict, when present, is not APPROVED;
+        (c) a finding table of the latest iteration section has a row whose
+            first cell is a finding id (finding-<n> or F-<nn>), whose
+            severity cell begins with the word Major and whose state cell
+            begins with the word Open;
+        (d) findings_open, when present, is above zero and the finding
+            tables of the latest iteration section do not show that many
+            distinct findings with severity Minor in state Open (every open
+            finding of an APPROVED record must be shown to be Minor).
+      Definitions. The latest iteration section runs from the last Markdown
+      heading (outside fenced code blocks) that names the highest
+      "iteration <N>" of any heading, to the end of the body, so it takes in
+      the author self-check and re-issue sections that follow it; a record
+      with no such heading is one iteration and its whole body is read. A
+      finding table is a Markdown table whose header's first cell begins
+      with "Finding" and which has a severity column (a header cell holding
+      "severity") and at least one state column (a header cell, other than
+      the severity column, holding "state", "disposition", "decision" or
+      "result"); a row is in state Open when any state cell begins with the
+      word Open. When a finding has rows in more than one finding table of
+      the section, its last row in document order is its current state (a
+      later disposition supersedes an earlier one). Cell text is read after removing '*', '_' and '`', and a
+      cell "begins with" a word when that word is its first alphabetic word
+      (so "Closed (was Open)" and "Lien: fix before PDR" are not Open).
+      Prose lines, lists, fenced blocks, count summaries and the tables of
+      earlier iterations are never read;
     - a decision memo names its own folder, and disposition, signed, revoked
       and baseline_tag are consistent (01 sections 11, 12.1 and 12.2);
     - no docs/reviews/*/peer-reviews/ folder exists (charter section 5 as
@@ -226,8 +259,16 @@ ASSURANCE_WHOLE_PRODUCTS = (
 )
 SW_MODULE_TOKEN = re.compile(r"(?<![a-z0-9])sw-([a-z0-9]+)")
 NO_ASSURANCE = "none"
-FINDING_ANCHOR = re.compile(r"finding-[0-9]+")
-OPEN_MAJOR = (re.compile(r"\bMajor\b"), re.compile(r"\bOpen\b"))
+# Record state rule (module docstring; SRR package item R18): the finding tables of the latest iteration section.
+FINDING_ID_CELL = re.compile(r"^(finding-[0-9]+|F-[0-9]{1,3})\b")
+ITERATION_HEADING = re.compile(r"^#{1,6}\s.*?\biteration\s+([0-9]+)\b", re.IGNORECASE)
+MARKDOWN_HEADING = re.compile(r"^(#{1,6})\s")
+FENCE = re.compile(r"^\s*(```|~~~)")
+TABLE_SEPARATOR = re.compile(r"^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$")
+SEVERITY_COLUMN = re.compile(r"severity", re.IGNORECASE)
+STATE_COLUMN = re.compile(r"state|disposition|decision|result", re.IGNORECASE)
+LEADING_WORD = re.compile(r"[A-Za-z]+")
+CELL_MARKUP = re.compile(r"<[^>]*>|[*_`]")
 
 # Front matter of docs/templates/decision-memo.md (machine-read keys).
 DECISION_MEMO_SCHEMA: dict[str, Any] = {
@@ -661,14 +702,140 @@ def assurance_reason(product: str, slug: str) -> str | None:
     return None
 
 
-def open_major_findings(body: str) -> list[str]:
-    """Body lines that name a finding-<n> anchor with severity Major and state Open (01 section 13)."""
-    hits: list[str] = []
+@dataclass(frozen=True)
+class FindingRow:
+    """One row of a finding table (record state rule, module docstring)."""
+
+    finding: str
+    severity: str
+    is_open: bool
+
+
+def _unfenced_lines(body: str) -> list[str]:
+    """Body lines with every fenced code block blanked (line numbers kept)."""
+    lines: list[str] = []
+    fenced = False
     for line in body.splitlines():
-        anchor = FINDING_ANCHOR.search(line)
-        if anchor and all(word.search(line) for word in OPEN_MAJOR):
-            hits.append(anchor.group(0))
-    return hits
+        if FENCE.match(line):
+            fenced = not fenced
+            lines.append("")
+            continue
+        lines.append("" if fenced else line)
+    return lines
+
+
+def latest_iteration_section(body: str) -> str:
+    """The latest iteration section of a record body (record state rule, module docstring).
+
+    N is the highest 'iteration <N>' named by any heading. The section starts
+    at the first heading naming N and keeps every later line except the parts
+    under a heading (or a parent heading) that names a lower iteration, such
+    as a 'Closure as written at iteration 2' block placed after it. Without
+    such a heading the record is one iteration and the whole body is kept.
+    """
+    lines = _unfenced_lines(body)
+    named = [(index, int(match.group(1))) for index, line in enumerate(lines) if (match := ITERATION_HEADING.match(line))]
+    if not named:
+        return "\n".join(lines)
+    latest = max(number for _, number in named)
+    start = next(index for index, number in named if number == latest)
+    stack: list[tuple[int, int | None]] = []  # (heading level, iteration it names or None)
+    kept: list[str] = []
+    for line in lines[start:]:
+        heading = MARKDOWN_HEADING.match(line)
+        if heading:
+            level = len(heading.group(1))
+            while stack and stack[-1][0] >= level:
+                stack.pop()
+            match = ITERATION_HEADING.match(line)
+            stack.append((level, int(match.group(1)) if match else None))
+        effective = next((number for _, number in reversed(stack) if number is not None), None)
+        kept.append(line if effective in (None, latest) else "")
+    return "\n".join(kept)
+
+
+def _cells(line: str) -> list[str]:
+    text = line.strip()
+    if text.startswith("|"):
+        text = text[1:]
+    if text.endswith("|") and not text.endswith("\\|"):
+        text = text[:-1]
+    return [CELL_MARKUP.sub("", cell).strip() for cell in re.split(r"(?<!\\)\|", text)]
+
+
+def _leading_word(cell: str) -> str:
+    match = LEADING_WORD.search(cell)
+    return match.group(0) if match else ""
+
+
+def finding_rows(section: str) -> list[FindingRow]:
+    """Rows of every finding table in the section (record state rule, module docstring)."""
+    rows: list[FindingRow] = []
+    lines = section.splitlines()
+    index = 0
+    while index < len(lines):
+        is_header = (
+            lines[index].lstrip().startswith("|")
+            and index + 1 < len(lines)
+            and TABLE_SEPARATOR.match(lines[index + 1].strip()) is not None
+        )
+        if not is_header:
+            index += 1
+            continue
+        header = _cells(lines[index])
+        severity = next((i for i, cell in enumerate(header) if SEVERITY_COLUMN.search(cell)), None)
+        states = [i for i, cell in enumerate(header) if i != severity and STATE_COLUMN.search(cell)]
+        is_finding_table = header[0].lower().startswith("finding") and severity is not None and bool(states)
+        index += 2
+        while index < len(lines) and lines[index].lstrip().startswith("|"):
+            cells = _cells(lines[index])
+            index += 1
+            if not is_finding_table:
+                continue
+            ident = FINDING_ID_CELL.match(cells[0]) if cells else None
+            if ident is None or severity is None or severity >= len(cells):
+                continue
+            is_open = any(i < len(cells) and _leading_word(cells[i]) == "Open" for i in states)
+            rows.append(FindingRow(ident.group(1), _leading_word(cells[severity]), is_open))
+    return rows
+
+
+def current_findings(body: str) -> dict[str, FindingRow]:
+    """Each finding's last row in the latest iteration section: a later row supersedes an earlier one."""
+    current: dict[str, FindingRow] = {}
+    for row in finding_rows(latest_iteration_section(body)):
+        current.pop(row.finding, None)
+        current[row.finding] = row
+    return current
+
+
+def open_major_findings(body: str) -> list[str]:
+    """Findings whose current row (current_findings) has severity Major and state Open."""
+    return [name for name, row in current_findings(body).items() if row.is_open and row.severity == "Major"]
+
+
+def approval_errors(data: dict[str, Any], body: str) -> list[str]:
+    """Record state rule for a record whose verdict is APPROVED (module docstring; SWE-088 b, c)."""
+    errors: list[str] = []
+    if data.get("readiness_met") is not True:
+        errors.append("verdict: APPROVED but readiness_met is not true (SWE-088 b: established readiness criteria)")
+    reviewer_verdict = data.get("reviewer_verdict")
+    if reviewer_verdict is not None and reviewer_verdict != "APPROVED":
+        errors.append(f"verdict: APPROVED but reviewer_verdict is {reviewer_verdict!r} (the record verdict never exceeds the reviewer's)")
+    current = current_findings(body)
+    blocking = [name for name, row in current.items() if row.is_open and row.severity == "Major"]
+    if blocking:
+        names = ", ".join(blocking)
+        errors.append(f"verdict: APPROVED but {names} is a Major finding in state Open in the latest iteration's finding table (SWE-088 b, c: zero open Major findings)")
+    open_count = data.get("findings_open")
+    if isinstance(open_count, int) and not isinstance(open_count, bool) and open_count > 0:
+        shown_minor = {name for name, row in current.items() if row.is_open and row.severity == "Minor"}
+        if len(shown_minor) < open_count:
+            errors.append(
+                f"verdict: APPROVED but findings_open is {open_count} and the latest iteration's finding tables show "
+                f"{len(shown_minor)} open Minor finding(s); every open finding of an APPROVED record is shown Minor (SWE-088 c)"
+            )
+    return errors
 
 
 def validate_peer_review_record(document: Path, root: Path, templates_present: bool) -> tuple[FileResult, str | None, str | None]:
@@ -709,11 +876,7 @@ def validate_peer_review_record(document: Path, root: Path, templates_present: b
         elif assurance in (author, reviewer):
             result.errors.append(f"assurance_reviewer_agent: '{assurance}' is the author or the reviewer; the assurance reviewer is a distinct invocation (07 section 2.1)")
     if data.get("verdict") == "APPROVED":
-        if data.get("readiness_met") is not True:
-            result.errors.append("verdict: APPROVED but readiness_met is not true (SWE-088 b: established readiness criteria)")
-        blocking = open_major_findings(body_after_front_matter(text))
-        if blocking:
-            result.errors.append(f"verdict: APPROVED but {', '.join(blocking)} is a Major finding in state Open (SWE-088 b, c: zero open Major findings)")
+        result.errors.extend(approval_errors(data, body_after_front_matter(text)))
     ident = data.get("id")
     return result, ident if isinstance(ident, str) else None, product or None
 

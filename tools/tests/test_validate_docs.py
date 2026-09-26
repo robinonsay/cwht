@@ -18,6 +18,14 @@
                      path or no named blob fails it; drift of a NEEDS CHANGES record is
                      a note; outside a git work tree top the rule is not applied
                      (RecordDriftTests, SRR package section 2.3, R13)
+    record state     fixtures/record_state/: the record state rule that replaced the
+                     open-Major line heuristic (SRR package item R18, readiness
+                     finding R15-F2): an APPROVED record whose history names a Major
+                     finding with the word Open, and whose latest iteration closes
+                     it, passes; an APPROVED record with an open Major finding in its
+                     latest iteration fails; an unshown findings_open count and a
+                     reviewer_verdict below APPROVED fail; a later row supersedes an
+                     earlier one; NEEDS CHANGES records are not held (RecordStateTests)
 
 Run from the repository root:
 
@@ -41,6 +49,7 @@ import validate_docs  # noqa: E402
 FIXTURES = TOOLS / "tests" / "fixtures"
 VALID = FIXTURES / "valid_project"
 INVALID = FIXTURES / "invalid_project"
+RECORD_STATE = FIXTURES / "record_state"
 TOOL = TOOLS / "validate_docs.py"
 
 EXPECTED_INVALID_FAILURES = {
@@ -313,6 +322,94 @@ class RecordDriftTests(unittest.TestCase):
         record = results["docs/reviews/SRR/checklists/requirements-sys.md"]
         self.assertEqual([], record.errors)
         self.assertTrue(record.notes and record.notes[0].startswith("record drift rule not applied:"), record.notes)
+
+
+class RecordStateTests(unittest.TestCase):
+    """Known answers of the record state rule (module docstring of validate_docs.py; SRR package item R18)."""
+
+    CHECKLISTS = "docs/reviews/SRR/checklists/"
+    EXPECTED_FAILURES = {
+        "approved-latest-open-major.md": ("finding-3 is a Major finding in state Open in the latest iteration's finding table",),
+        "approved-open-count-unshown.md": ("findings_open is 1 and the latest iteration's finding tables show 0 open Minor finding(s)",),
+        "approved-reviewer-needs-changes.md": ("reviewer_verdict is 'NEEDS CHANGES'",),
+    }
+    EXPECTED_PASSES = (
+        "approved-historical-lines.md",
+        "approved-open-minor.md",
+        "approved-superseded-row.md",
+        "needs-changes-open-major.md",
+    )
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.results = relative(validate_docs.validate_all(RECORD_STATE), RECORD_STATE)
+
+    def body(self, name: str) -> str:
+        text = (RECORD_STATE / self.CHECKLISTS / name).read_text(encoding="utf-8")
+        return validate_docs.body_after_front_matter(text)
+
+    def test_exactly_the_seeded_records_fail(self) -> None:
+        failed = {path.removeprefix(self.CHECKLISTS) for path, result in self.results.items() if not result.passed}
+        self.assertEqual(set(self.EXPECTED_FAILURES), failed)
+        self.assertEqual(7, len(self.results))
+
+    def test_approved_record_with_historical_major_open_lines_passes(self) -> None:
+        """Historical count lines and earlier tables name finding-1 with Major and Open; the latest iteration closes it."""
+        result = self.results[self.CHECKLISTS + "approved-historical-lines.md"]
+        self.assertEqual([], result.errors)
+        body = self.body("approved-historical-lines.md")
+        heuristic_hits = [line for line in body.splitlines() if "finding-1" in line and " Major" in line and "Open" in line]
+        self.assertGreaterEqual(len(heuristic_hits), 5, "the fixture carries the lines the replaced heuristic misread")
+        self.assertEqual([], validate_docs.open_major_findings(body))
+        current = validate_docs.current_findings(body)
+        self.assertEqual({"finding-1", "finding-2"}, set(current))
+        self.assertFalse(current["finding-1"].is_open)
+        self.assertEqual("Major", current["finding-1"].severity)
+
+    def test_approved_record_with_open_major_in_latest_iteration_fails(self) -> None:
+        errors = self.results[self.CHECKLISTS + "approved-latest-open-major.md"].errors
+        self.assertTrue(any("finding-3 is a Major finding in state Open" in e for e in errors), errors)
+        self.assertEqual(["finding-3"], validate_docs.open_major_findings(self.body("approved-latest-open-major.md")))
+
+    def test_seeded_failure_messages(self) -> None:
+        for name, fragments in self.EXPECTED_FAILURES.items():
+            errors = self.results[self.CHECKLISTS + name].errors
+            for fragment in fragments:
+                self.assertTrue(any(fragment in e for e in errors), (name, fragment, errors))
+
+    def test_expected_passes(self) -> None:
+        for name in self.EXPECTED_PASSES:
+            self.assertEqual([], self.results[self.CHECKLISTS + name].errors, name)
+
+    def test_later_row_supersedes_and_needs_changes_is_not_held(self) -> None:
+        self.assertEqual([], validate_docs.open_major_findings(self.body("approved-superseded-row.md")))
+        self.assertEqual(["finding-1"], validate_docs.open_major_findings(self.body("needs-changes-open-major.md")))
+
+    def test_latest_iteration_section_bounds(self) -> None:
+        body = "# R\n| Finding | Severity | State |\n|---|---|---|\n| finding-1 | Major | Open |\n"
+        self.assertEqual(["finding-1"], validate_docs.open_major_findings(body), "no iteration heading: the whole body is read")
+        body += (
+            "## Iteration 2 (date)\n| Finding | Severity | Disposition |\n|---|---|---|\n| finding-1 | Major | Closed |\n"
+            "### Closure as written at iteration 1\n| Finding | Severity | State |\n|---|---|---|\n| finding-1 | Major | Open |\n"
+            "## Re-issue\n```\n| Finding | Severity | State |\n|---|---|---|\n| finding-1 | Major | Open |\n```\n"
+        )
+        self.assertEqual([], validate_docs.open_major_findings(body), "earlier-iteration blocks and fenced blocks are not read")
+        section = validate_docs.latest_iteration_section(body)
+        self.assertTrue(section.startswith("## Iteration 2"))
+        self.assertNotIn("as written at iteration 1", section)
+        self.assertIn("## Re-issue", section)
+
+    def test_cell_reading(self) -> None:
+        table = "| Finding | Iteration 1 severity | Result |\n|---|---|---|\n"
+        rows = validate_docs.finding_rows(
+            table
+            + "| <a id=\"finding-4\"></a>F-04 (finding-4) | **Major** | **Open**, owner ruling needed |\n"
+            + "| finding-5 | Major | Closed (was Open) |\n"
+            + "| finding-6 | Minor (was Major) | Open |\n"
+            + "| note | Major | Open |\n"
+        )
+        self.assertEqual([("F-04", "Major", True), ("finding-5", "Major", False), ("finding-6", "Minor", True)], [(r.finding, r.severity, r.is_open) for r in rows])
+        self.assertEqual([], validate_docs.finding_rows("| # | Criterion | Answer |\n|---|---|---|\n| finding-1 | Major | Open |\n"), "not a finding table")
 
 
 class RepositoryTests(unittest.TestCase):
