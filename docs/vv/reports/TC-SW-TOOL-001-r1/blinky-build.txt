@@ -1,0 +1,80 @@
+# Fresh rustos blinky build (2026-09-25 22:50 CDT)
+Source: /Users/robinonsay/rust/rustos/templates/pico2 at rustos c54d35aa8e7f9ad30f6508bca458a59c1fc009db, copied to a scratch directory.
+rustos README 'Building' gives 'cargo build --release' at the rustos root with output target/thumbv8m.main-none-eabihf/release/demo; the demo crate no longer exists
+(rustos commit 8502402 moved it to templates/pico2), so the template is built instead, as templates/README.md describes.
+## Template diff (only the package name and the two dependency lines, git form replaced by the local path form of templates/README.md, so that nothing is downloaded)
+2c2
+< name = "{{project-name}}"
+---
+> name = "blinky"
+11,12c11,12
+< api = { git = "https://github.com/robinonsay/rustos" }
+< pico2 = { git = "https://github.com/robinonsay/rustos" }
+---
+> api = { path = "/Users/robinonsay/rust/rustos/api" }
+> pico2 = { path = "/Users/robinonsay/rust/rustos/firmware/pico2" }
+(diff exit 1)
+## src/main.rs identical to the template:
+yes
+## .cargo/config.toml identical to the template:
+yes
+## rustc (default toolchain, no pin in the template):
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+## Build 1: cargo build --release --target-dir target-r1
+   Compiling pico2 v0.1.0 (/Users/robinonsay/rust/rustos/firmware/pico2)
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos/api)
+   Compiling blinky v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rustos-blinky)
+warning: linker stdout: Memory region         Used Size  Region Size  %age Used
+                    FLASH:        2008 B         4 MB      0.05%
+                      RAM:        8200 B       520 KB      1.54%
+  |
+  = note: `#[warn(linker_messages)]` on by default
+
+warning: `blinky` (bin "blinky") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.67s
+exit=0
+## Build 2: cargo build --release --target-dir target-r2
+   Compiling pico2 v0.1.0 (/Users/robinonsay/rust/rustos/firmware/pico2)
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos/api)
+   Compiling blinky v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rustos-blinky)
+warning: linker stdout: Memory region         Used Size  Region Size  %age Used
+                    FLASH:        2008 B         4 MB      0.05%
+                      RAM:        8200 B       520 KB      1.54%
+  |
+  = note: `#[warn(linker_messages)]` on by default
+
+warning: `blinky` (bin "blinky") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.38s
+exit=0
+## SHA-256
+ef16271deaaf37714cca58bc3cb789f4c94f8a9f98a1c4b343b676e5716ba8c1  target-r1/thumbv8m.main-none-eabihf/release/blinky
+ef16271deaaf37714cca58bc3cb789f4c94f8a9f98a1c4b343b676e5716ba8c1  target-r2/thumbv8m.main-none-eabihf/release/blinky
+c90f5bbeed4d82bb0fd6019f7633c610ce9389f85b7083667f843f0120cec596  /Users/robinonsay/rust/rustos/blinky.elf
+7e03c238649a1a038f988c58c0e716e6e46207acb3ca63ee2d4d90eb1d4332d9  /Users/robinonsay/rust/rustos/blinky.uf2
+## rustos root blinky.elf and blinky.uf2 provenance
+git ls-files (empty = untracked):
+.gitignore:5:*.elf	blinky.elf
+.gitignore:6:*.uf2	blinky.uf2
+-rwxr-xr-x@ 1 robinonsay  staff  134720 Aug 30 07:29 /Users/robinonsay/rust/rustos/blinky.elf
+-rw-r--r--@ 1 robinonsay  staff    4608 Aug 30 07:29 /Users/robinonsay/rust/rustos/blinky.uf2
+last commit touching firmware/pico2/src/lib.rs:
+c54d35a 2026-08-30 11:16:23 -0500 :sparkles: Fix build
+## Section sizes: fresh build, then rustos root blinky.elf
+target-r1/thumbv8m.main-none-eabihf/release/blinky  :
+section             size        addr
+.vector_table        272   268435456
+.boot_info            20   268435728
+.text               1644   268435748
+.rodata               72   268437392
+.data                  0   536870912
+.bss                   4   536870912
+.stack              8192   536870920
+/Users/robinonsay/rust/rustos/blinky.elf  :
+section             size        addr
+.vector_table        272   268435456
+.boot_info            20   268435728
+.text               1708   268435748
+.rodata               96   268437456
+.data                  0   536870912
+.bss                   4   536870912
+.stack              8192   536870920

@@ -1,0 +1,16 @@
+# 07 Annex B: CS-18 function length, CS-17 cross-check, CS-10 forbidden functions.
+too-many-lines-threshold = 60
+cognitive-complexity-threshold = 15
+disallowed-methods = [
+    { path = "core::mem::transmute", reason = "CS-10: no transmute" },
+    { path = "core::mem::zeroed", reason = "CS-10: no zeroed values" },
+    { path = "core::mem::uninitialized", reason = "CS-10: no uninitialized values" },
+    { path = "core::hint::unreachable_unchecked", reason = "CS-10: no unchecked unreachable" },
+    { path = "slice::get_unchecked", reason = "CS-10: no unchecked slice access" },
+    { path = "slice::get_unchecked_mut", reason = "CS-10: no unchecked slice access" },
+    { path = "str::get_unchecked", reason = "CS-10: no unchecked str access" },
+    { path = "core::str::from_utf8_unchecked", reason = "CS-10: no unchecked UTF-8" },
+]
+disallowed-types = [
+    { path = "core::mem::MaybeUninit", reason = "CS-10: no uninitialized storage outside rustos pico2" },
+]

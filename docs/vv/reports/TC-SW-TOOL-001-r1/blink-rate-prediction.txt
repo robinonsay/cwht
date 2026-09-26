@@ -1,0 +1,47 @@
+# Blink-rate prediction (2026-09-25 22:51 CDT)
+Method: count the instructions of each delay loop in the release ELF (rust-objdump -d), assume 1 to 2 core clock
+cycles per instruction (estimate; the Cortex-M33 cycle timings are not in the project corpus), and a system clock of
+4.6 MHz to 19.6 MHz, nominal 11 MHz: neither image configures a clock, so clk_sys runs from clk_ref, which runs from
+the ring oscillator at power-up (RP2350 datasheet section 8.3.1 as extracted in rustos docs/extracted/rp2350-datasheet.md:
+'runs at a nominal 11MHz and is guaranteed to be in the range 4.6MHz to 19.6MHz without randomisation').
+Both images call core::hint::spin_loop 5 000 000 times per half period; one full blink = 2 half periods.
+
+## rustos-blinky.elf delay loop (unrolled 64 times; excerpt, first loop)
+57-100001b2:      	movt	r2, #0x4c
+58-100001b6:      	mov	r3, r2
+59-100001b8:      	str	r1, [r0, #-8]
+60-100001bc:      	yield
+61:100001be:      	subs	r3, #0x40
+62-100001c0:      	yield
+63-100001c2:      	yield
+--
+125-1000023e:      	bne	0x100001bc <_RNvCs98i0Qs8wUgu_6blinky4main+0x92> @ imm = #-0x86
+126-10000240:      	mov	r3, r2
+127-10000242:      	str	r1, [r0]
+128-10000244:      	yield
+yield instructions in the image: 128 (two loops x 64)
+loop body per 64 spins: 64 yield + subs + bne = 66 instructions
+
+## cwht-app.elf delay loop (not unrolled at opt-level s)
+100001a0:      	movw	r3, #0x4b40
+100001a4:      	movt	r3, #0x4c
+100001a8:      	subs	r3, #0x1
+100001aa:      	yield
+100001ac:      	bne	0x100001a8 <_RNvCs4M0nwX3sKz8_8cwht_app4main+0x84> @ imm = #-0x8
+100001ae:      	eor	r2, r2, #0x1
+100001b2:      	b	0x10000196 <_RNvCs4M0nwX3sKz8_8cwht_app4main+0x72> @ imm = #-0x20
+100001b4:      	clrex
+100001b8:      	yield
+100001ba:      	b	0x100001b8 <_RNvCs4M0nwX3sKz8_8cwht_app4main+0x94> @ imm = #-0x6
+
+100001bc <__rustos_main>:
+loop body per spin: subs + yield + bne = 3 instructions
+
+rustos-blinky: cycles per spin 1.0312 to 2.0625 (nominal 1.0469, 1 cycle per instruction, taken branch 2 cycles)
+  full period 0.53 s to 4.48 s, nominal 0.95 s at 11 MHz
+  LED cycles in 60 s: 13.4 to 114.0, nominal 63.0
+cwht-app: cycles per spin 3.0000 to 6.0000 (nominal 4.0000, 1 cycle per instruction, taken branch 2 cycles)
+  full period 1.53 s to 13.04 s, nominal 3.64 s at 11 MHz
+  LED cycles in 60 s: 4.6 to 39.2, nominal 16.5
+Acceptance windows of TC-SW-TOOL-001 (prediction widened to round limits): rustos-blinky 10 to 120, cwht-app 3 to 45 cycles in 60 s.
+Cross-check for the owner's two counts on the same board: predicted ratio blinky/cwht-app is about 3.8 (4.0/1.047); recorded, not a criterion.

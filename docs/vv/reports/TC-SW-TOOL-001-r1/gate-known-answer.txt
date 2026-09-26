@@ -1,0 +1,8 @@
+# gate-known-answer.sh 2026-09-25 22:50 CDT; tools/sw_gate.sh sha256 6bae84453d9ebd345f02eaa3ea63706f9a7a5ac90a142fb0b48125e4bed9473d
+KA-0 unmodified copy: exit 0 (expected 0) MATCH; first FAIL line: no FAIL line
+KA-1 seeded unwrap in cwht-core: exit 1 (expected 1) MATCH; first FAIL line: FAIL G1 clippy host
+KA-2 seeded formatting defect: exit 1 (expected 1) MATCH; first FAIL line: FAIL G1 cargo fmt --check
+KA-3 seeded failing host test: exit 1 (expected 1) MATCH; first FAIL line: FAIL G3 host tests run 1
+KA-4 seeded unsafe block in cwht-core: exit 1 (expected 1) MATCH; first FAIL line: FAIL G1 clippy host
+KA-5 lock rustc row differs from installed rustc: exit 1 (expected 1) MATCH; first FAIL line: FAIL G0 pinned toolchain 1.98.0 absent and stable rustc 'rustc 1.98.0 (88d9e12ae 2026-08-18)' differs from the lock 'rustc 1.98.1 (0000000 2026-09-01)'
+KA-6 seeded unwrap in cwht-app (target clippy): exit 1 (expected 1) MATCH; first FAIL line: FAIL G1 clippy target

@@ -1,0 +1,55 @@
+# cargo build (host, default members)
+   Compiling cwht-core v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-core)
+   Compiling cwht-hal-mock v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-hal-mock)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.15s
+exit=0
+
+# cargo test (host)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running unittests src/lib.rs (target/debug/deps/cwht_core-b6e036d6987de3d0)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/heartbeat.rs (target/debug/deps/heartbeat-ecefb5fa80de187a)
+
+running 5 tests
+test failed_write_keeps_level_and_retries_same_transition ... ok
+test first_step_drives_high_then_alternates ... ok
+test half_period_spin_count_equals_rustos_blinky_delay ... ok
+test spin_wait_calls_spin_exactly_count_times ... ok
+test default_equals_new ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/cwht_hal_mock-41c14b31d789e5d7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/gpio.rs (target/debug/deps/gpio-5c8e7ba001b5c767)
+
+running 5 tests
+test input_reads_set_level_and_injected_fault ... ok
+test output_fails_after_scripted_count ... ok
+test output_failing_after_zero_fails_first_write ... ok
+test output_history_saturates_at_capacity ... ok
+test output_records_writes_in_order ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests cwht_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests cwht_hal_mock
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+exit=0

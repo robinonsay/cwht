@@ -1,0 +1,71 @@
+# cwht firmware workspace (07 section 1.2; build increment FW-B0, 07 section 3.2).
+# rustos is a path dependency on the owner's checkout (SI-033); the commit used for a
+# build is recorded in tools/toolchain.lock.md and in every VDD.
+[workspace]
+resolver = "3"
+members = ["cwht-app", "cwht-core", "cwht-hal-mock"]
+# cwht-app is target-only (#![no_main], rustos pico2 runtime); plain `cargo build` and
+# `cargo test` on the host cover the host-compilable crates only. cwht-app is built with
+# `cargo build -p cwht-app --target thumbv8m.main-none-eabihf` (tools/sw_gate.sh gate G2).
+default-members = ["cwht-core", "cwht-hal-mock"]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.98"
+license = "MIT"
+publish = false
+repository = "https://github.com/robinonsay/cwht"
+
+[workspace.dependencies]
+api = { path = "../../rustos/api" }
+pico2 = { path = "../../rustos/firmware/pico2" }
+cwht-core = { path = "cwht-core" }
+cwht-hal-mock = { path = "cwht-hal-mock" }
+
+# Lint configuration of 07 Annex B (coding standard CS-05, CS-09, CS-11, CS-13 to CS-15,
+# CS-17, CS-18, CS-20, CS-21, CS-25, CS-27). Applies to every member through
+# `[lints] workspace = true`; the rustos crates are not members and keep their own.
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "deny"
+static_mut_refs = "deny"
+unsafe_op_in_unsafe_fn = "deny"
+
+[workspace.lints.clippy]
+pedantic = { level = "deny", priority = -1 }
+nursery  = { level = "deny", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+unreachable = "deny"
+todo = "deny"
+unimplemented = "deny"
+indexing_slicing = "deny"
+panic_in_result_fn = "deny"
+exit = "deny"
+arithmetic_side_effects = "deny"
+as_conversions = "deny"
+wildcard_enum_match_arm = "deny"
+shadow_unrelated = "deny"
+shadow_reuse = "deny"
+shadow_same = "deny"
+let_underscore_must_use = "deny"
+std_instead_of_core = "deny"
+alloc_instead_of_core = "deny"
+float_cmp = "deny"
+too_many_lines = "deny"
+cognitive_complexity = "deny"
+
+# CS-04 profiles. panic = "abort" is required by the rustos runtime (no unwinder).
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+overflow-checks = true
+debug-assertions = false
+lto = "fat"
+codegen-units = 1
+opt-level = "s"
+debug = true

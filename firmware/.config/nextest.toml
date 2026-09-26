@@ -1,0 +1,7 @@
+# 07 Annex B; gate G3 (07 section 8.4) runs this profile twice and compares the result sets.
+[profile.ci]
+retries = 0
+fail-fast = false
+
+[profile.ci.junit]
+path = "junit.xml"   # written to firmware/target/nextest/ci/junit.xml

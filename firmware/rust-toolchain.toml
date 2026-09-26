@@ -1,0 +1,9 @@
+# Toolchain pin (07 CS-03; tools/toolchain.lock.md section 1.3). The first cargo command in
+# this directory makes rustup install 1.98.0-aarch64-apple-darwin (network download, owner
+# approval required). Until it is installed, tools/sw_gate.sh runs on the stable toolchain only
+# after checking that `rustc --version` equals the lock's rustc row exactly.
+[toolchain]
+channel = "1.98.0"
+components = ["clippy", "rustfmt", "llvm-tools"]
+targets = ["thumbv8m.main-none-eabihf"]
+profile = "minimal"

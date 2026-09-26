@@ -1,0 +1,13 @@
+# Build environment for the RP2350 target (Raspberry Pi Pico 2, Cortex-M33), after the
+# rustos template templates/pico2/.cargo/config.toml. No [build] target is set: the
+# host-compilable crates build and test for the host; cwht-app is built with
+# --target thumbv8m.main-none-eabihf. rustos pico2's build.rs puts link.ld on the linker
+# search path; cwht-app/build.rs writes the link map next to the ELF. The linker's
+# --print-memory-usage is not requested: rustc reports linker stdout as the warning
+# linker_messages on every target build, which would hide a new warning in the gate G2 log
+# (INSP-016 finding-12). Gate G2 takes flash and RAM use from the link map instead and fails
+# on any compiler warning.
+[target.thumbv8m.main-none-eabihf]
+rustflags = [
+    "-C", "link-arg=-Tlink.ld",
+]

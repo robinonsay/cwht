@@ -1,0 +1,35 @@
+# cargo-deny policy (07 section 8.1 row "Security (licenses, bans, sources)"; CS-02).
+# Checked offline by tools/sw_gate.sh gate G5 with `cargo deny check bans licenses sources`;
+# the advisories check needs the RustSec database fetched (owner approval, open item).
+[graph]
+targets = ["aarch64-apple-darwin", "thumbv8m.main-none-eabihf"]
+all-features = true
+
+[licenses]
+allow = ["MIT", "Apache-2.0", "BSD-3-Clause", "Unicode-3.0"]
+confidence-threshold = 0.93
+# Workspace crates are publish = false (exempt as private) and MIT-licensed. The rustos path
+# crates api and pico2 carry neither a license field nor publish = false today, so this check
+# and the wildcard ban below fail on them until rustos adds both (proposed rustos work item in
+# the TC-SW-TOOL-001-r1 report); the policy is not relaxed to hide that.
+private = { ignore = true }
+
+[bans]
+multiple-versions = "deny"
+wildcards = "deny"
+allow-wildcard-paths = true
+# CS-02: zero external runtime crates. Every crate outside the workspace and rustos is denied
+# until it is entered in the third-party register (07 section 17.1).
+allow = [
+    { name = "cwht-app" },
+    { name = "cwht-core" },
+    { name = "cwht-hal-mock" },
+    { name = "api" },
+    { name = "pico2" },
+]
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []

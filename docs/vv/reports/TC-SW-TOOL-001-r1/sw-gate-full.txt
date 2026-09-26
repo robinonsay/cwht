@@ -1,0 +1,166 @@
+sw_gate: mode full, 2026-09-26T03:51:02Z, repo 28e49e6
+NOTE G0 pinned toolchain 1.98.0 not installed (installing it downloads; owner approval);
+NOTE G0 using stable, whose rustc is identical to the lock row: rustc 1.98.0 (88d9e12ae 2026-08-18)
+G0 rustc in firmware/: rustc 1.98.0 (88d9e12ae 2026-08-18)
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+G0 rustos HEAD c54d35aa8e7f9ad30f6508bca458a59c1fc009db (lock: c54d35aa8e7f9ad30f6508bca458a59c1fc009db)
+PASS G0 toolchain identity
+---- G1 cargo fmt --check: fwrun cargo fmt --check
+PASS G1 cargo fmt --check
+---- G1 clippy host: fwrun cargo clippy --workspace --exclude cwht-app --all-targets -- -D warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
+PASS G1 clippy host
+---- G1 clippy target: fwrun cargo clippy -p cwht-app --target thumbv8m.main-none-eabihf -- -D warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+PASS G1 clippy target
+---- G2 build: cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf
+   Compiling cwht-app v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-app)
+warning: linker stdout: Memory region         Used Size  Region Size  %age Used
+                    FLASH:        1608 B         4 MB      0.04%
+                      RAM:        8200 B       520 KB      1.54%
+  |
+  = note: `#[warn(linker_messages)]` on by default
+
+warning: `cwht-app` (bin "cwht-app") generated 1 warning
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.40s
+PASS G2 build
+INTERIM G2 tools/measurements.py absent; inline memory-usage check
+---- G2 memory use within TPM-010/TPM-011 red lines: /Users/robinonsay/rust/cwht/.venv/bin/python - /Users/robinonsay/rust/cwht/firmware/target/sw-gate/g2-build.txt
+FLASH used 1608 B of 4 MB = 0.04 % (limit 70.0 %)
+RAM used 8200 B of 520 KB = 1.54 % (limit 75.0 %)
+PASS G2 memory use within TPM-010/TPM-011 red lines
+---- G2 no allocator symbol (CS-01): rust-nm /Users/robinonsay/rust/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app
+PASS G2 no allocator symbol
+---- G2 image dependency set (CS-02): cargo tree -e normal -p cwht-app --target thumbv8m.main-none-eabihf
+api v0.1.0 (/Users/robinonsay/rust/rustos/api)
+cwht-app v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-app)
+cwht-core v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-core)
+pico2 v0.1.0 (/Users/robinonsay/rust/rustos/firmware/pico2)
+PASS G2 image dependency set
+3992e5d8ba616271c8df2a0acd00e9c1992d7b1a5459c73f398778f7cf980ec1  /Users/robinonsay/rust/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app
+---- G3 host tests run 1: cargo nextest run --workspace --exclude cwht-app --profile ci
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+────────────
+ Nextest run ID f1fc435c-5013-48c7-911c-d6ae8aecad49 with nextest profile: ci
+    Starting 10 tests across 4 binaries
+        PASS [   0.007s] ( 1/10) cwht-hal-mock::gpio output_history_saturates_at_capacity
+        PASS [   0.007s] ( 2/10) cwht-core::heartbeat failed_write_keeps_level_and_retries_same_transition
+        PASS [   0.007s] ( 3/10) cwht-hal-mock::gpio output_failing_after_zero_fails_first_write
+        PASS [   0.007s] ( 4/10) cwht-core::heartbeat default_equals_new
+        PASS [   0.007s] ( 5/10) cwht-hal-mock::gpio output_fails_after_scripted_count
+        PASS [   0.007s] ( 6/10) cwht-core::heartbeat half_period_spin_count_equals_rustos_blinky_delay
+        PASS [   0.007s] ( 7/10) cwht-core::heartbeat first_step_drives_high_then_alternates
+        PASS [   0.007s] ( 8/10) cwht-hal-mock::gpio input_reads_set_level_and_injected_fault
+        PASS [   0.007s] ( 9/10) cwht-hal-mock::gpio output_records_writes_in_order
+        PASS [   0.007s] (10/10) cwht-core::heartbeat spin_wait_calls_spin_exactly_count_times
+────────────
+     Summary [   0.007s] 10 tests run: 10 passed, 0 skipped
+PASS G3 host tests run 1
+---- G3 host tests run 2: cargo nextest run --workspace --exclude cwht-app --profile ci
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+────────────
+ Nextest run ID 407707cc-a16f-4bf6-91d7-dcd64ae3fbea with nextest profile: ci
+    Starting 10 tests across 4 binaries
+        PASS [   0.007s] ( 1/10) cwht-hal-mock::gpio input_reads_set_level_and_injected_fault
+        PASS [   0.007s] ( 2/10) cwht-hal-mock::gpio output_history_saturates_at_capacity
+        PASS [   0.007s] ( 3/10) cwht-core::heartbeat half_period_spin_count_equals_rustos_blinky_delay
+        PASS [   0.007s] ( 4/10) cwht-core::heartbeat failed_write_keeps_level_and_retries_same_transition
+        PASS [   0.007s] ( 5/10) cwht-core::heartbeat first_step_drives_high_then_alternates
+        PASS [   0.007s] ( 6/10) cwht-core::heartbeat default_equals_new
+        PASS [   0.007s] ( 7/10) cwht-core::heartbeat spin_wait_calls_spin_exactly_count_times
+        PASS [   0.007s] ( 8/10) cwht-hal-mock::gpio output_fails_after_scripted_count
+        PASS [   0.007s] ( 9/10) cwht-hal-mock::gpio output_records_writes_in_order
+        PASS [   0.007s] (10/10) cwht-hal-mock::gpio output_failing_after_zero_fails_first_write
+────────────
+     Summary [   0.007s] 10 tests run: 10 passed, 0 skipped
+PASS G3 host tests run 2
+INTERIM G3 tools/measurements.py absent; inline JUnit comparison
+---- G3 identical result sets (SWE-186): /Users/robinonsay/rust/cwht/.venv/bin/python - /Users/robinonsay/rust/cwht/firmware/target/nextest/run1-junit.xml /Users/robinonsay/rust/cwht/firmware/target/nextest/run2-junit.xml
+run 1: 10 cases, run 2: 10 cases, passed in both: 10
+PASS G3 identical result sets (SWE-186)
+---- G4 traceability: /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/traceability.py --output /Users/robinonsay/rust/cwht/firmware/target/sw-gate/traceability-report.md --quiet
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-002: traces to HZ-004 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-019: traces to HZ-004, HZ-010 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-020: traces to HZ-004, HZ-010 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-021: traces to HZ-004, HZ-010 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-022: traces to HZ-004, HZ-014 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-023: traces to HZ-004 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-024: traces to HZ-004 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-025: traces to HZ-004 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-026: traces to HZ-001, HZ-003, HZ-004, HZ-006, HZ-012 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-027: traces to HZ-004 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-028: traces to HZ-004 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-029: traces to HZ-004 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-030: traces to HZ-004 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-031: traces to HZ-004 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-033: traces to HZ-005 with method Test but no closing case of method Test cites it (SWE-192)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sys/requirements.json REQ-SYS-180: traces to HZ-001, HZ-003, HZ-004, HZ-006, HZ-012, HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sys/requirements.json REQ-SYS-181: traces to HZ-003 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/sys/requirements.json REQ-SYS-182: traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-002: traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-003: traces to HZ-006, HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-004: traces to HZ-001, HZ-006 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-007: traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-008: traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-009: traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-010: traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-011: traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-012: traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-013: traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-014: traces to HZ-004 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION HAZARD_REQ_NOT_TESTED      docs/requirements/tx/requirements.json REQ-TX-015: traces to HZ-001, HZ-006 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-001: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-002: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-003: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-004: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-005: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-006: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-007: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-008: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-009: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-010: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-011: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-012: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-013: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-014: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-015: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-016: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-017: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-018: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-019: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-020: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-021: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-022: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-023: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-024: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-025: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-026: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-027: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-028: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-029: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-030: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-031: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-032: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-033: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sys/requirements.json REQ-SYS-180: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sys/requirements.json REQ-SYS-181: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/sys/requirements.json REQ-SYS-182: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-001: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-002: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-003: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-004: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-005: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-006: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-007: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-008: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-009: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-010: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-011: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-012: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-013: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-014: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-015: status Draft but no live test case cites this requirement
+VIOLATION REQ_UNVERIFIED             docs/requirements/tx/requirements.json REQ-TX-016: status Draft but no live test case cites this requirement
+FAIL G4 traceability
+sw_gate: FAIL at G4 traceability
+exit=1
