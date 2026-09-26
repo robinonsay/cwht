@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 2 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 class 2: tool configuration, as section 3 states). Decision authority: Robin ratified it because it touches privacy |
 | Decision authority | Robin (owner; ratified a tool configuration touching privacy; no baseline changed, no money spent) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | none (tool configuration; recorded in `tools/toolchain.lock.md`) |
 | Change request | none |
@@ -19,9 +20,11 @@ LTspice 26.0.2 for macOS is the Windows binary inside a CrossOver bottle. On fir
 
 - Driving inputs and expectations: SI-027, SI-010 (SPICE analysis before power-on), SI-016 (renders inspected), charter section 11 rule 8 (headless only)
 - Requirements that constrain the decision: none
-- Hazards in play: none
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): none
 - Research consulted: `docs/research/ltspice-batch-macos.md` F1 (CrossOver bundle under Rosetta), F2 (the documented `LTspice -b` launcher form does not work in 26.0.2), F3 (working invocation via the bottle's `wine` and the Windows path of `LTspice.exe`), F4 (consent dialog blocks `-b`; `CaptureAnalytics=false` fix verified; telemetry endpoint and JSON keys), F5 (`-ini` cannot carry the consent), F6 (one analysis per deck), F8 (Python parsing of `.raw`), F10 (encrypted ADI models load), F11 (ngspice fallback), F12 (version state); `docs/research/verification-tooling-inventory.md` F12, F13
 - Guidance consulted: SWE-136 (tool accreditation), 05 section 9.2 (tool validation records `TV-NNN`); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. The `CaptureAnalytics` key persists across LTspice updates. The wrapper checks it before every run; a toolchain change triggers re-accreditation.
 
 ## 2. Decision
 
@@ -84,3 +87,7 @@ Transcribed from chat into `stakeholder-inputs.md`.
 - Trade study: none
 - Review where presented: SRR (toolchain proof)
 - Revisit conditions: an LTspice update changes the ini key or the batch invocation (toolchain change trigger; re-accreditation); the owner chooses ngspice as primary
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 items (a) enclosure concept; (c) HZ-003, HZ-009, HZ-013). Owner-directed (SI-008, SI-032). Trade study: none; the alloy and finish ADR is due at PDR (README "Decisions expected at PDR"). No trade study for the source format, the vendor and the machined enclosure: this ADR alone records it only if the owner adopts ruling R-2 item (i) of `reconciliation-srr.md` section 7 (open; the owner's ruling); otherwise a trade study is opened, or a waiver of 06 section 14.1 is recorded, before `baseline/srr` |
 | Decision authority | Robin (owner; the decision fixes the enclosure source format and spends money at CDR) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01, F-02 and F-03 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline); product baseline at CDR carries the STEP and drawing |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,13 @@ The owner wants an aluminum enclosure with the antenna on one end, designed in O
 
 - Driving inputs and expectations: SI-008, SI-032, SI-012 (H2C prints for fit checks), SI-016 (renders inspected), SI-001 (pocket form factor)
 - Requirements that constrain the decision: none yet
-- Hazards in play: HZ-003 (PA heat path through the machined enclosure); none new
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): HZ-003 (PA heat path through the machined enclosure), HZ-009 (SMA jack retained by the enclosure boss, anodize masking: REQ-SYS-105, REQ-SYS-107) and HZ-013 (machined edges and pinch points: REQ-SYS-110, REQ-SYS-111, REQ-SYS-168)
 - Research consulted: `docs/research/enclosure-cnc-and-openscad-pipeline.md` A1 (STEP required; STL and STL-derived STEP refused), A2 (2D drawing required for threads, tolerances, marking), A3 (alloys 6061, 7075, 5052, 2A12), A4 (finishes; bead blast plus Type II anodize), A5 (ISO 2768-m default; class f by callout), A6 (pocket radius, wall, depth rules), A7 (threads as pilot holes, tap before anodize), A10 (price signals USD 250 to 370 class), A11 (SLA print as a second-tier fit check), B1 (no STEP in OpenSCAD; 2021.01 stable, 2026.09.23 snapshot), B2 (OpenSCAD CLI renders verified), B3 (mesh to STEP unacceptable), B4 (FreeCAD workbench: primitives, booleans, extrusions become B-rep; hull, minkowski, text, non-uniform scale degrade), B5 (FreeCAD 1.1.3 cask with `freecadcmd`), B6 (build123d and CadQuery alternative), "Recommended pipeline"; `docs/research/verification-tooling-inventory.md` F11 (OpenSCAD 2021.01 installed under Rosetta; snapshot exists); `docs/research/antenna-and-erp.md` F8 (SMA jack bulkhead-retained by an enclosure boss so the PCB carries no antenna bending moment)
 - Guidance consulted: charter section 11 rule 8 (headless only); SWE-136 (tool accreditation, applied to the CAD toolchain as an engineering tool); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. The FreeCAD CSG import gives a single-solid STEP that passes the acceptance checks. Confirmed on the PDR smoke-test shell.
+  2. PCBWay accepts the STEP plus drawing. Confirmed by an instant quote at PDR.
+  3. The masking and anodize callouts are honoured. Confirmed by receipt inspection before TRR.
 
 ## 2. Decision
 
@@ -45,12 +50,12 @@ No trade study: the owner named the source format and the vendor; the alloy and 
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SYS-NNN (enclosure constraint: machined aluminum, antenna on one end, OpenSCAD source; L1 author allocates) | new, constraint traced to SI-008 | |
-| REQ-ME-NNN (design data package: single-solid STEP AP214 or AP242 per part, 2D drawing, SVG marking artwork; no mesh-derived STEP) | new at PDR, self-derived from this ADR | Basis A1, A2, B3 |
-| REQ-ME-NNN (DFM rules: internal radius at least 1.3 times cutter radius and one third of pocket depth, minimum wall 1.5 mm, depth-to-width at most 4, threads M3 minimum as 2.5 mm pilot holes) | new at PDR, self-derived from this ADR | Basis A6, A7 |
-| REQ-ME-NNN (anodize masking of chassis-ground and SMA boss contact areas) | new at PDR | Basis A4 and the RF ground need |
-| REQ-ME-NNN (SMA jack retained by the enclosure boss; PCB carries no antenna moment) | new at PDR | `antenna-and-erp.md` F8 |
-| REQ-SYS-NNN or tooling rule (CAD build reproducible from the command line with logged acceptance checks) | new, self-derived from this ADR | charter 11.3 and 11.8 |
+| REQ-SYS-109 (enclosure material and finish), REQ-SYS-175 (antenna port on one end) | allocated; REQ-SYS-109 cites this ADR, REQ-SYS-175 does not |  |
+| REQ-ME (design data package: single-solid STEP AP214 or AP242 per part, 2D drawing, SVG marking artwork; no mesh-derived STEP) | not created: the ME L2 file is due at PDR | Basis A1, A2, B3 |
+| REQ-ME (DFM rules: internal radius at least 1.3 times cutter radius and one third of pocket depth, minimum wall 1.5 mm, depth-to-width at most 4, threads M3 minimum as 2.5 mm pilot holes) | not created at L2 (PDR); L1 counterpart REQ-SYS-110 (edge break, HZ-013 K1) | Basis A6, A7 |
+| REQ-ME (anodize masking of chassis-ground and SMA boss contact areas) | not created at L2 (PDR); L1 counterpart REQ-SYS-107 (counterpoise attachment and masked contact area, HZ-009 K4) | Basis A4 and the RF ground need |
+| REQ-ME (SMA jack retained by the enclosure boss; PCB carries no antenna moment) | not created at L2 (PDR); L1 counterpart REQ-SYS-105 (antenna port mechanical load path, HZ-009 K1) | `antenna-and-erp.md` F8 |
+| CAD build reproducible from the command line with logged acceptance checks | not a product requirement: tooling rule of 05 section 8.2 step 3 and `tools/toolchain.lock.md` | charter 11.3 and 11.8 |
 
 ### 4.2 Interfaces, design and code
 
@@ -63,7 +68,7 @@ No trade study: the owner named the source format and the vendor; the alloy and 
 
 - Verification cases to add or change: TC-ME-NNN (STEP acceptance checks, Inspection by tool), TC-ME-NNN (printed fit check of PCB, display, jacks, USB opening, Demonstration), TC-ME-NNN (receipt inspection of the machined parts against the drawing; CMM report on the mounting pattern optional)
 - Evidence class implications: Inspection by rendered images (charter 11.3) and by the acceptance script; a tool-validation record `TV-NNN` for the CAD chain (05 section 9.2)
-- Hazard analysis update required: no (HZ-003 thermal path is a design consequence, handled at PDR)
+- Hazard analysis update required: yes (HZ-009 controls K1, K4 and K6 and HZ-013 controls K1, K3 and K4 are enclosure design controls; the HZ-003 thermal path is a design consequence handled at PDR)
 - Safety-critical software scope changed: no
 
 ### 4.4 Cost, schedule, risk
@@ -92,3 +97,7 @@ Transcribed from chat into `stakeholder-inputs.md`.
 - Trade study: none (the alloy and finish are class 2)
 - Review where presented: SRR; pipeline proof (smoke-test shell STEP and its acceptance log) at PDR
 - Revisit conditions: the PDR smoke-test STEP fails the acceptance checks or PCBWay's engineering review rejects it (then option B by a superseding ADR); the owner asks for a printed enclosure for a prototype unit
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

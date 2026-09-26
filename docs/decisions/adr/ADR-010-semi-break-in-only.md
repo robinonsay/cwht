@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 items (a) T/R architecture class; (c) HZ-004, HZ-005, HZ-008 and the `SW-TXSEQ` and `SW-KEYER` components of 07 section 14.1). Owner-directed (SI-036). Trade study: the T/R element study at PDR (section 7). No trade study for the break-in mode: this ADR alone records it only if the owner adopts ruling R-2 item (i) of `reconciliation-srr.md` section 7 (open; the owner's ruling); otherwise a trade study is opened, or a waiver of 06 section 14.1 is recorded, before `baseline/srr`. ADR-026 (Proposed, package decision 47) restates this decision with the requirement values and supersedes it on acceptance |
 | Decision authority | Robin (owner; the decision fixes a functional-baseline behaviour and the T/R architecture class) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01, F-03 and F-04 (hazard line re-derived as for F-02) against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline, to be tagged at SRR) |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,13 @@ Break-in behaviour decides the T/R architecture. Full QSK (hearing the band betw
 
 - Driving inputs and expectations: SI-036, SI-035, SI-018 (paddles at speed), SI-033 (50 WPM), SI-005
 - Requirements that constrain the decision: none yet
-- Hazards in play: HZ-004 (the sequencer that implements break-in also gates PA enable)
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): HZ-004 (the sequencer that implements break-in also gates PA enable), HZ-005 (control K4: receive audio held muted through transmit and the hang, REQ-SYS-157) and HZ-008 (cause C3, a PIN T/R switch after the filter regenerating harmonics, does not apply to the relay baseline this decision permits); the same set as ADR-026 section 1
 - Research consulted: `docs/research/tr-switch-candidates.md` F4 (listening window versus switching time; semi break-in hang 8 dits is 384 ms at 25 WPM, 192 ms at 50 WPM), F5 (relay life: full QSK exhausts a G6Z in 24 to 79 h and an HF3 in 238 to 794 h of keying; semi break-in gives thousands of hours), implications TR-01 to TR-08, D-TR-1 to D-TR-4, "Recommendation for rev A" (PIN switch P1 recommended for QSK; TE Axicom HF3 54 named as the element if the owner chooses semi break-in only); `docs/research/keyer-and-key-interfaces.md` F9 (semi break-in conventions: Auto 8 dits, Contest 6.1 dits, custom ms; PTT lead-in), D5; `docs/research/keyer-verification-and-key-input-network.md` F11 (hand-key timeline for semi break-in: T_lead 5 ms, first-element extension, key-up overhang equals full fall plus 1 ms, hang 8 dits of the displayed WPM), D-KN4; `docs/research/2m-cw-transceiver-reference-designs.md` F28 to F31 (T/R and envelope precedents)
 - Guidance consulted: 47 CFR 97.307(b) (no key clicks; the sequencer never opens the T/R switch under RF); SWE-134; SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. A relay-class T/R element meets the 12 ms lead-in with operate plus bounce time. Confirmed by the T/R element trade study at PDR from datasheet timing, then by Bench logic capture at TRR (REQ-SYS-161 TBR closes at PDR).
+  2. The hang keeps the relay closed within a character at every speed from 5 to 50 WPM. The hang values of section 2 differ from REQ-SYS-044 and REQ-SW-KEYER-032 (3 to 30 dits, TBR); ADR-026 carries the requirement values and its assumption 2 (INSP-011 F-04, package decision 47). Confirmed in the owner's HITL session on the dev board at PDR.
+  3. The owner and friends accept an audible relay click in semi break-in. Confirmed in the HITL session at PDR; if not, the PIN switch used only in semi break-in becomes the T/R trade study outcome within this ADR's scope.
 
 ## 2. Decision
 
@@ -44,11 +49,10 @@ No trade study for the break-in mode (owner decision after the explained trade);
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SYS-NNN (semi break-in with adjustable hang; sidetone while sending; L1 author allocates) | new, traces to SI-036 | |
-| REQ-TX-NNN (T/R sequencing: cold switching, lead-in at most 12 ms, envelope complete before T/R release; candidate TR-03) | new at PDR, hazard HZ-004 link | Full-QSK clause of candidate TR-08 removed |
-| REQ-TX-NNN (fail-safe receive: unpowered T/R state connects antenna to receiver; candidate TR-04) | new at PDR | |
-| REQ-TX-NNN (LPF at the antenna port after the T/R node; LNA supply off in TX; candidates TR-02, TR-05) | new at PDR | |
-| REQ-SW-KEYER-NNN (hang time default 8 dits of displayed WPM; 6.1 dits or 50 to 2500 ms selectable; first-element extension; key-up overhang) | new, parent the L1 requirement | `keyer-verification-and-key-input-network.md` implication 4 |
+| REQ-SYS-044 (semi break-in hang time, TBR) | allocated; cites this ADR | Value differs from section 2: 3 to 30 dits (TBR), no fixed-millisecond option; REQ-SYS-136 (configuration defaults) keeps the 8-dit default. ADR-026 (Proposed) adopts the requirement values (package decision 47; INSP-011 F-04) |
+| REQ-SYS-160 (straight-key contact to RF latency, TBR), REQ-SYS-161 (constant lead-in over an over, TBR) | allocated; both cite this ADR | REQ-SYS-161 applies the 12 ms lead-in to every element of an over, not only the first (ADR-026) |
+| REQ-TX T/R sequencing (cold switching, lead-in, envelope complete before T/R release), fail-safe receive state, LPF at the antenna port after the T/R node, LNA supply off in transmit (candidates TR-02 to TR-05) | not created: the TX L2 file has no T/R sequencing requirement yet; allocated with the T/R element trade study at PDR | HZ-008 control K1 already records the filter position at the antenna port; full-QSK clause of candidate TR-08 removed |
+| REQ-SW-KEYER-018 (straight-key closure latency, TBR), REQ-SW-KEYER-032 (semi break-in hang, TBR) | allocated; both cite this ADR | REQ-SW-KEYER-032 value differs from section 2 as REQ-SYS-044 does; see ADR-026 |
 
 ### 4.2 Interfaces, design and code
 
@@ -61,7 +65,7 @@ No trade study for the break-in mode (owner decision after the explained trade);
 
 - Verification cases to add or change: TC-TX-NNN (sequencer ordering, Emulation with logged GPIO timestamps for ordering and Bench logic capture for durations), TC-TX-NNN (relay operate and release within datasheet, Bench), TC-SW-KEYER-NNN (hang time at 5, 15, 25, 50 WPM, HostUnit), TC-VAL-NNN (owner paddle QSO: the delay is acceptable, Demonstration)
 - Evidence class implications: no oscilloscope; T/R timing by Emulation (ordering) plus Analysis (relay datasheet) plus Bench logic capture (04 section 6 instrument table)
-- Hazard analysis update required: yes (HZ-004: sequencer and relay fail-safe state as controls)
+- Hazard analysis update required: yes (HZ-004: sequencer and relay fail-safe state as controls; HZ-005 control K4)
 - Safety-critical software scope changed: no (PA enable and bias sequencing already in scope)
 
 ### 4.4 Cost, schedule, risk
@@ -88,3 +92,7 @@ Transcribed from chat into `stakeholder-inputs.md`.
 - Trade study: T/R element TS at PDR (relay candidates and a PIN switch used only in semi break-in), scoped by this ADR
 - Review where presented: SRR
 - Revisit conditions: the owner asks for QSK after on-air use (rev B; a superseding ADR and a new T/R trade); the T/R trade finds no relay with verified stock and lifecycle by CDR (then a PIN switch in semi break-in, same ADR intent)
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged; its hang values still differ from REQ-SYS-044 and REQ-SW-KEYER-032, so F-04 for this ADR closes only on package decision 47 (ADR-026 supersedes this ADR on acceptance). Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

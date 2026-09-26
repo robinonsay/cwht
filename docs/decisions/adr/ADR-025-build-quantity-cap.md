@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 2 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 class 2: build quantity under a regulatory cap). Decision authority stays Robin because the decision spends money |
 | Decision authority | Robin (owner; the decision spends money at CDR and fixes the regulatory quantity cap) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01, F-03, F-08 and F-09 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline); product baseline at CDR (order quantities) |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,12 @@
 
 - Driving inputs and expectations: SI-035, SI-019, SI-025 (open design, not marketed), SI-020 (procurement release at CDR)
 - Requirements that constrain the decision: none yet
-- Hazards in play: none
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): none
 - Research consulted: `docs/research/pcbway-export-and-vendor-questions.md` F21 (15.23(a) and (b) text; 2.803(a) marketing definition; the five-unit cap comes from the Part 15 digital section), F22 (vendor quantities: fabrication from 5, assembly from 1 to 5), F23 (options A: 5 fabricated and 5 assembled, all kept and lent; B: 5 fabricated and 3 assembled with 2 spare boards; C: more than 5 requires authorization; recommendation A; legal caveat on "personal use" and lending, Low confidence), D-PCB-06; `docs/research/pcbway-fabrication-and-assembly.md` F20 (quantities), F22 (cost signals); `docs/research/part97-regulatory-basis.md` F9 (no authorization for the amateur-built transceiver; not more than five copies without revisiting 15.23); `docs/plan/tpm.json` TPM-014 (budget and quantity set by the owner at SRR)
 - Guidance consulted: 47 CFR 15.23, 47 CFR 97.315 (eCFR 2026-09-23); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. Lending units to friends is "personal use" under 47 CFR 15.23(a) (Low confidence, `docs/research/pcbway-export-and-vendor-questions.md` F23). A revisit condition; the owner may seek confirmation.
+  2. The PCBWay fabrication minimum stays 5 boards. Confirmed by the CDR quote.
 
 ## 2. Decision
 
@@ -44,8 +48,8 @@ No trade study: a quantity decision under a regulatory cap; recorded here with t
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SYS-NNN (constraint: at most five complete units built across all revisions; units not marketed; L1 author allocates) | new, constraint traced to SI-035, SI-025 with `47CFR15.23` cited in `source_ids` | Inspection (build records, `docs/vv/adp/` unit count) |
-| none for the assembled count | | Order quantity is a product-baseline (CDR) parameter, recorded in the cost model and the assembly package |
+| REQ-SYS-125 (build quantity cap) | allocated; cites this ADR; `47CFR15.23` in `source_ids` | Inspection (build records, `docs/vv/adp/` unit count) |
+| none for the assembled count |  | Order quantity is a product-baseline (CDR) parameter, recorded in the cost model and the assembly package |
 
 ### 4.2 Interfaces, design and code
 
@@ -85,3 +89,7 @@ Transcribed from chat into `stakeholder-inputs.md`. The acceptance is by the own
 - Trade study: none
 - Review where presented: SRR (default confirmed), CDR (assembled count)
 - Revisit conditions: the owner wants more than five units (regulatory assessment first); the first three units pass acceptance and the owner wants the remaining two assembled (a second PCBWay assembly order within the cap, no ADR change)
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: F-08 (erratum E-7, the 47 CFR 2.803(a) citation); F-09 was closed at iteration 2. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

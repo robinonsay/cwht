@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 items (b) synthesizer; (c) HZ-008 causes C7 and C8 and the `SW-SYNTH` component of 07 section 14.1). Owner-directed method (SI-029). Trade study: the synthesizer and reference trade study (not yet created; it takes the next free TS number when created, because the label TS-002 in `docs/design/concept.md` section 11.2 now belongs to the firmware make/buy study) |
 | Decision authority | Robin (owner; the decision fixes the decision rule for a critical part) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01 and F-03 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | none until PDR (the TS outcome enters the allocated baseline) |
 | Change request | none |
@@ -19,13 +20,16 @@ Four synthesizer families can generate a 144 MHz-class LO: the Si5351A (about US
 
 - Driving inputs and expectations: SI-029, SI-004 (narrow CW), SI-034 (battery life), SI-002 (70 cm-ready enhancing criterion, ADR-002), SI-028 (turnkey stock)
 - Requirements that constrain the decision: none yet; TPM-006 (frequency stability) and TPM-008 (battery life) are the measures the trade must respect
-- Hazards in play: none
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): HZ-008 (causes C7 and C8: a frequency-control software fault, or the synthesizer unlocked or locked to a wrong value; REQ-SYS-154 and REQ-SYS-182, control K7)
 - Research consulted: `docs/research/2m-cw-transceiver-reference-designs.md` F16, F17 (Si5351A data and VHF phase-noise reports), F18 (ADF4351), F19 (MAX2871, datasheet not read), F20 (LMX2571: best fit on paper), F21 (reference oscillators), Table 2 (comparison), implication 14, risk 9, action 20; `docs/research/cw-selectivity-options.md` implications 12 to 14 (IF kept as a synthesizer parameter; two selectivity candidates); `docs/research/power-tree-and-charging.md` F23 (LO current 30, 39 or 120 to 170 mA moves battery life from 13.0 to 9.5 to 6.4 h at 1:9); `docs/research/regulatory-corpus-and-operators.md` F8 (reference tolerance sets the band-edge guard, ADR-023)
 - Guidance consulted: 06 section 14.1 class 1 (b) (synthesizer is a critical part: formal trade study), 14.3 to 14.5 (criteria, weights, uncertainty, recommendation); SE HB §6.8.1.2.1 to §6.8.1.2.5; SE HB Table 6.8-1
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. "Similar cost" means within USD 15 per unit. Confirmed by the owner at SRR (README open item 3).
+  2. The Low-confidence VHF phase-noise figures are resolved before scoring. Confirmed by reading the datasheet plots (action 20) before the trade study is scored at PDR.
 
 ## 2. Decision
 
-The synthesizer is chosen by trade study `TS-NNN` before PDR, following 06 section 14.3, with the owner's rule written into the decision method: mandatory criteria first (LO coverage for the receiver architecture selected in the companion architecture trade, including 144.000 to 148.000 MHz with the BFO offset; turnkey stock at CDR per ADR-012; supply from the 3.3 V or 5 V rail; accepts the TCXO reference of ADR-023), then a cost band test: if the unit costs of the surviving candidates at the build quantity lie within a band the owner sets (proposed USD 15 per unit, TBR at SRR), the best-performing candidate on the weighted performance criteria wins regardless of cost; otherwise the full weighted matrix including cost decides. Performance criteria: phase noise at 10 kHz offset at the LO frequency, spurious output, current draw against TPM-008, frequency step and lock time for the tuning UX, and 70 cm LO coverage as an enhancing criterion (ADR-002). Candidates: Si5351A-B, LMX2571, ADF4351, MAX2871; a fixed overtone LO with a tunable IF is evaluated inside the receiver architecture trade, not here. Every score cell carries linked evidence and a confidence; the LMX2571 and Si5351 VHF phase-noise figures are Low confidence until measured or datasheet plots are read (action 20).
+The synthesizer is chosen by the synthesizer and reference trade study (not yet created; it takes the next free TS number when created, because the label TS-002 in `docs/design/concept.md` section 11.2 now belongs to the firmware make/buy study) before PDR, following 06 section 14.3, with the owner's rule written into the decision method: mandatory criteria first (LO coverage for the receiver architecture selected in the companion architecture trade, including 144.000 to 148.000 MHz with the BFO offset; turnkey stock at CDR per ADR-012; supply from the 3.3 V or 5 V rail; accepts the TCXO reference of ADR-023), then a cost band test: if the unit costs of the surviving candidates at the build quantity lie within a band the owner sets (proposed USD 15 per unit, TBR at SRR), the best-performing candidate on the weighted performance criteria wins regardless of cost; otherwise the full weighted matrix including cost decides. Performance criteria: phase noise at 10 kHz offset at the LO frequency, spurious output, current draw against TPM-008, frequency step and lock time for the tuning UX, and 70 cm LO coverage as an enhancing criterion (ADR-002). Candidates: Si5351A-B, LMX2571, ADF4351, MAX2871; a fixed overtone LO with a tunable IF is evaluated inside the receiver architecture trade, not here. Every score cell carries linked evidence and a confidence; the LMX2571 and Si5351 VHF phase-noise figures are Low confidence until measured or datasheet plots are read (action 20).
 
 ## 3. Alternatives considered
 
@@ -42,8 +46,8 @@ The synthesizer is chosen by trade study `TS-NNN` before PDR, following 06 secti
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-RX-NNN and REQ-TX-NNN (LO phase noise, spurious, current; values from the TS outcome) | new at PDR, self-derived from the TS and its ADR | The TS produces exactly one ADR (06 section 14.2) |
-| REQ-SYS-NNN (frequency stability and display accuracy) | value TBR closing at PDR with the TS | TPM-006 provisional plus or minus 1 ppm |
+| REQ-RX and REQ-TX (LO phase noise, spurious, current; values from the trade study outcome) | not created: after the synthesizer and reference trade study at PDR; the L1 requirements REQ-SYS-024 (receive passband width, TBR) and REQ-SYS-031 (reciprocal mixing dynamic range, TBR) cite this ADR | The trade study produces exactly one ADR (06 section 14.2); expectation CON-028 names this ADR |
+| REQ-SYS-010 (carrier frequency accuracy, TBR) | allocated; cites ADR-023 | TPM-006 provisional plus or minus 1 ppm |
 
 ### 4.2 Interfaces, design and code
 
@@ -56,7 +60,7 @@ The synthesizer is chosen by trade study `TS-NNN` before PDR, following 06 secti
 
 - Verification cases to add or change: TC-RX-NNN (reciprocal mixing or phase-noise proxy: Bench with the tinySA where its dynamic range allows, otherwise Analysis from datasheet plots), TC-SYS-NNN (frequency accuracy, Bench against a known reference)
 - Evidence class implications: phase noise cannot be measured on the owner's bench; the TS scores it by datasheet and report evidence with confidence marks
-- Hazard analysis update required: no
+- Hazard analysis update required: yes, at the trade study outcome (HZ-008 cause C8 is re-assessed for the chosen part)
 - Safety-critical software scope changed: no
 
 ### 4.4 Cost, schedule, risk
@@ -80,6 +84,10 @@ Transcribed from chat into `stakeholder-inputs.md`. The USD 15 cost band is Clau
 
 - Supersedes: none
 - Superseded by: none
-- Trade study: synthesizer TS-NNN (created before PDR); coupled with the receiver architecture TS and the reference oscillator decision (ADR-023)
+- Trade study: the synthesizer and reference trade study (not yet created; it takes the next free TS number when created, because the label TS-002 in `docs/design/concept.md` section 11.2 now belongs to the firmware make/buy study), created before PDR; coupled with TS-001 (receiver architecture) and the reference oscillator decision (ADR-023)
 - Review where presented: SRR (method); PDR (outcome)
 - Revisit conditions: 06 section 14.6 (a register trigger names it, a CR changes a criterion, new information moves a Low-confidence score by two levels, or the owner asks)
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03); trade study references resolved to the named, not yet created synthesizer and reference trade study (F-03, erratum E-9); in section 2 only the placeholder trade study id was replaced by the study's name. Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 items (a) power architecture; (b) battery cell and charger; (c) HZ-002, HZ-007, HZ-011). Owner-directed for the cell format (SI-023). Trade study: the power tree parts study at PDR (README "Decisions expected at PDR") for the charger, protector and holders. No trade study for the cell format: this ADR alone records it only if the owner adopts ruling R-2 item (i) of `reconciliation-srr.md` section 7 (open; the owner's ruling); otherwise a trade study is opened, or a waiver of 06 section 14.1 is recorded, before `baseline/srr` |
 | Decision authority | Robin (owner; the decision fixes the power source of the functional baseline) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01, F-02, F-03 and F-07 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline, to be tagged at SRR) |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,13 @@ A 5 W VHF PA at 55 to 65 percent efficiency draws about 1.6 to 2.2 A during key-
 
 - Driving inputs and expectations: SI-023, SI-022 (charge from USB), SI-034 (8 h at 1:9), SI-001 (pocket), SI-019 (units in friends' hands: replaceable cells matter)
 - Requirements that constrain the decision: none yet
-- Hazards in play: HZ-002 (Li-ion charging and thermal event)
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): HZ-002 (Li-ion charging and thermal event), HZ-007 (discharge-side faults: protector, fuse, reverse insertion, holders; REQ-SYS-084 to REQ-SYS-087, REQ-SYS-166) and HZ-011 (charging paused while receiving, control K2, REQ-SYS-093)
 - Research consulted: `docs/research/power-tree-and-charging.md` F3 (charge rates: 500 mA USB gives about 280 mA, about 10 h), F5 to F7 (BQ25887 candidate: 2S boost charger with balancing and ADC), F11 (S-8252 plus dual N-FET protection, BQ29209 second OV layer), F13 (Keystone 1043P single-cell THT holder in stock; two give the four terminals a mid-tap needs; dual holders unverified), F23 (battery-life table: 9.5 h expected at 1:9), section I (safety provisions); `docs/research/pa-device-candidates.md` F18 (2.4 to 3.2 dB output spread across 6.0 to 8.4 V; ALC needed), F19 (11.4 W DC at 5 W; about 1.5 h continuous key-down)
 - Guidance consulted: SWE-134 (charging supervision is safety-critical software, 03 section 4.3); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. Two single-cell holders fit the pocket envelope. Confirmed by a printed fit check before CDR (REQ-SYS-103).
+  2. Unprotected 18650 cells with on-board protection meet the HZ-002 and HZ-007 controls. Confirmed by the power tree parts study at PDR.
+  3. 3000 mAh class cells give 90 percent usable capacity (Low confidence, ADR-020). Confirmed by the discharge curve digitised at PDR.
 
 ## 2. Decision
 
@@ -45,9 +50,9 @@ No trade study for the cell format (owner direction); the charger, protector and
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SYS-NNN (power source constraint: two user-replaceable 18650 cells in series; L1 author allocates) | new, constraint traced to SI-023 | |
-| REQ-PWR-NNN (charge profile, balancing, protection thresholds, temperature window; candidates PWR-CHG-01, PWR-CHG-02, PWR-PROT-*) | new at PDR, parent the L1 power requirement, hazard HZ-002 | Values from `power-tree-and-charging.md` implications |
-| REQ-SYS-NNN (operating supply 6.0 to 8.4 V; output holds 5.0 W above 6.4 V) | new | Ties to ADR-003 tolerance TBR |
+| REQ-SYS-080 (two 18650 cells in holders) | allocated; cites this ADR |  |
+| REQ-PWR (charge profile, balancing, protection thresholds, temperature window; candidates PWR-CHG-01, PWR-CHG-02, PWR-PROT-*) | not created at L2: the PWR file is due at PDR; the L1 counterparts are REQ-SYS-081 to REQ-SYS-089, REQ-SYS-166 and REQ-SYS-167 (hazards HZ-002, HZ-007) | Values from `power-tree-and-charging.md` implications |
+| REQ-SYS-012 (5 W from 6.4 to 8.4 V, TBR), REQ-SYS-097 (low-battery transmit inhibit, TBR), REQ-SYS-098 (low-battery power-down, TBR) | allocated; none cites this ADR | No single supply-window requirement (6.0 to 8.4 V) was created; ties to the ADR-003 tolerance TBR |
 
 ### 4.2 Interfaces, design and code
 
@@ -60,7 +65,7 @@ No trade study for the cell format (owner direction); the charger, protector and
 
 - Verification cases to add or change: TC-PWR-NNN (charge profile with dummy cells and a bench supply; balancing with two cells set 300 mV apart; protector trip points), TC-VAL-NNN (battery-life run, ADR-020)
 - Evidence class implications: Bench (bench supply, multimeter) suffices; no oscilloscope needed for CC-CV
-- Hazard analysis update required: yes (HZ-002 controls: charger limits, protector, secondary OV, firmware supervision)
+- Hazard analysis update required: yes (HZ-002 controls: charger limits, protector, secondary OV, firmware supervision; HZ-007 controls K1 to K5; HZ-011 control K2)
 - Safety-critical software scope changed: no (charging supervision already in scope)
 
 ### 4.4 Cost, schedule, risk
@@ -87,3 +92,7 @@ Transcribed from chat into `stakeholder-inputs.md`.
 - Trade study: power tree, charger and protection TS at PDR (part selections)
 - Review where presented: SRR
 - Revisit conditions: the enclosure envelope cannot hold two holders side by side at the pocket size (then a dual holder with verified terminals, same ADR intent); the PA trade selects a device outside the 6 to 8.4 V class
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: F-07 (erratum E-4, the key-down current of section 1). The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

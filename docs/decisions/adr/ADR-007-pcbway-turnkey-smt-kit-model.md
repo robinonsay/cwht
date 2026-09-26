@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 item (c): HZ-015 names this ADR, control K3; HZ-007 cause C8). Owner-directed (SI-009, SI-031). Trade study: board details in TS-004 at PDR (proposed number, `docs/design/concept.md` section 11.2). No trade study for the assembly model: this ADR alone records it only if the owner adopts ruling R-2 item (i) of `reconciliation-srr.md` section 7 (open; the owner's ruling); otherwise a trade study is opened, or a waiver of 06 section 14.1 is recorded, before `baseline/srr` |
 | Decision authority | Robin (owner; the decision spends money at CDR and sets the assembly baseline) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01, F-02 and F-03 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline); product baseline at CDR states the part categories |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,13 @@ The owner first asked for a fully assembled PCB from PCBWay turnkey with no hand
 
 - Driving inputs and expectations: SI-009, SI-031, SI-011 (owner does no PCB layout), SI-028 (turnkey-stocked PA device), SI-020 (procurement release at CDR)
 - Requirements that constrain the decision: none yet
-- Hazards in play: none directly; owner-soldered joints in the PA path or battery path are inspected before power-on (V&V plan stage 0)
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): HZ-015 (owner hand assembly; REQ-SYS-137 and REQ-SYS-138 cite this ADR and carry it; control K3 is this ADR's part split, control K5 the TRR safety line) and HZ-007 (cause C8, soldering or rework with cells in the holders). Owner-soldered joints in the PA path or battery path are inspected before power-on (V&V plan stage 0)
 - Research consulted: `docs/research/pcbway-fabrication-and-assembly.md` F15 (assembly capabilities: 0201, 0.25 mm pitch, QFN, BGA, THT by hand or machine, IPC-A-610 Class 2), F16 (Pico 2 castellated module: recommended footprint, paste 163 percent, no published PCBWay policy), F17 (turnkey from authorized distributors: DigiKey, Mouser, Farnell element14, Arrow, Avnet, or a BOM-linked supplier), F18 (consigned-parts overage rules), F20 (fabrication minimum 5; assembly from 1 with setup fee), F21 (lead times), F22 (cost signals); `docs/research/pcbway-export-and-vendor-questions.md` Part 1 (kicad-cli 10.0.6 export recipe verified), Part 2 (PA thermal DFM, Type VII via fill), Part 3 (vendor confirmation email); `docs/research/display-and-ui-parts.md` F17, F18, D-UI-06 (SJ1-3535N THT jack versus Switchcraft SMT alternative)
 - Guidance consulted: NPR 7123.1D SE-24 to SE-31 marked NA (no contracts; catalog services, charter section 12); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. PCBWay turnkey stocks every surface-mount line (REQ-SYS-140). Confirmed by stock checks with date and time at PDR and CDR.
+  2. The owner hand-assembles under the HZ-015 procedure. Confirmed by the TRR safety line (HZ-015 K5).
+  3. PCBWay accepts DNP lines for owner-soldered parts. Confirmed by the vendor before CDR (`docs/research/pcbway-export-and-vendor-questions.md` Part 3).
 
 ## 2. Decision
 
@@ -44,9 +49,9 @@ No trade study: the owner's acceptance eliminated the alternatives; the sourcing
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SYS-NNN (assembly constraint: surface-mount parts are placed by PCBWay turnkey; through-hole parts are owner-installed; L1 author allocates) | new, constraint traced to SI-009 and SI-031 | |
-| REQ-ME-NNN or REQ-SYS-NNN (fabrication data package: Gerbers with KiCad names, drill, IPC-2581 or ODB++ optional, stackup, impedance note; assembly package: BOM with distributor links, CPL, DNP list) | new at CDR | From `pcbway-fabrication-and-assembly.md` requirements candidates and the CDR checklist |
-| REQ-SYS-NNN (no owner-soldered hidden-pad package) | new, constraint traced to SI-031 | Inspection of the BOM categories |
+| REQ-SYS-137 (turnkey surface-mount assembly) | allocated; cites this ADR; hazard HZ-015 |  |
+| REQ-SYS-139 (circuit board fabrication rules, TBR) | allocated at L1; does not cite this ADR | The fabrication and assembly data package (Gerbers with KiCad names, drill, stackup, impedance note; BOM with distributor links, CPL, DNP list) is CDR content; no REQ-ME requirement is created for it yet |
+| REQ-SYS-138 (owner hand-soldered parts) | allocated; cites this ADR; hazard HZ-015 | Inspection of the BOM categories |
 
 ### 4.2 Interfaces, design and code
 
@@ -59,7 +64,7 @@ No trade study: the owner's acceptance eliminated the alternatives; the sourcing
 
 - Verification cases to add or change: TC-SYS-NNN receipt inspection (visual against renders and BOM, polarity, dimensions); TC-SYS-NNN owner-solder inspection before power-on (continuity of the PA and battery paths, no bridges); ATP includes both
 - Evidence class implications: Inspection (loupe, multimeter) at receipt; the owner is the assembler for the THT lines, so the assembly of those lines is not vendor evidence
-- Hazard analysis update required: no; the hazard analysis may add "cold joint in the battery or PA path" as a cause under HZ-002 and HZ-003 with the inspection as control
+- Hazard analysis update required: yes (HZ-015 control K3 and HZ-007 cause C8); the hazard analysis may also add "cold joint in the battery or PA path" as a cause under HZ-002 and HZ-003 with the inspection as control
 - Safety-critical software scope changed: no
 
 ### 4.4 Cost, schedule, risk
@@ -88,3 +93,7 @@ SI-031 amends SI-009; both transcribed from chat into `stakeholder-inputs.md`.
 - Trade study: none
 - Review where presented: SRR; part categories confirmed at CDR
 - Revisit conditions: PCBWay confirms in writing that it reflows the Pico 2 module and solders the THT lines within the quote (then option B by a superseding ADR if the owner prefers); the owner withdraws the soldering offer
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

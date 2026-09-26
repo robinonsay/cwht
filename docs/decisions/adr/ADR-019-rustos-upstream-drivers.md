@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 items (h) runtime and HAL acquisition versus development, SWE-033; (c) the `pico2` drivers are in 07 section 14.1). Owner-directed (SI-033). Trade study: TS-002 (Draft) |
 | Decision authority | Robin (owner and rustos maintainer; the decision fixes the software architecture and the rustos dependency) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01, F-03 and F-10 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline; software plan); allocated baseline at PDR (architecture) |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,12 @@ rustos today provides boot, vector table, reset handler, linker script, board de
 
 - Driving inputs and expectations: SI-033 (second sentence), SI-007 (Rust on rustos), SI-026 (host-first through `api` traits), SI-025 (open source)
 - Requirements that constrain the decision: none yet
-- Hazards in play: HZ-004 (the timer, watchdog and GPIO drivers sit under the keyer and PA enable)
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): HZ-004 (the timer, watchdog and GPIO drivers sit under the keyer and PA enable) and the hazards whose firmware controls run on the GPIO, TIMER, PWM, ADC, watchdog, critical-section and clock drivers: HZ-001 to HZ-008, HZ-010, HZ-011, HZ-012 and HZ-014
 - Research consulted: `docs/research/rustos-toolchain-proof.md` F7 (what `api` provides), F8 (what `pico2` provides and the gaps), F9 (address map, reset bits and IRQ numbers per peripheral), F10 (the keyer timebase needs a clock driver that does not exist), F15 (bootrom flash API for configuration), F16 (rustos hygiene items), "Driver extension map", "Work-package table" WP-01 to WP-14, DECISION "where new drivers live: extend rustos upstream (recommended)", DECISION "injectable register-access trait", open item 5; `docs/research/emulator-accreditation-and-timer-irq.md` F12 (peripheral coverage matrix against the work packages); `docs/process/07-software-engineering-plan.md` section 3.4 (sprint structure), 3.5 (file inventory per work package), 17.1 (third-party register: rustos as path dependency pinned in the VDD), 17.2 (make/buy TS, SWE-033), 19 (WP-SW-01 to WP-SW-13), 21 (software risks: rustos driver effort, single maintainer); `docs/process/05-configuration-and-data-management.md` OQ-5 (pinning method decided at PDR)
 - Guidance consulted: SWE-033 (acquisition versus development), SWE-027 (third-party register), SWE-146 (auto-generated code: none; registers hand-written with citations), SWE-057, SWE-058; SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. The owner, as rustos maintainer, merges the work-package pull requests on the schedule. Tracked by the 07 section 21 risk "rustos driver effort" (RSK-013), reviewed at PDR.
+  2. The pinned path dependency is reproducible. Confirmed by the OQ-CM-005 ADR at PDR.
 
 ## 2. Decision
 
@@ -33,10 +37,10 @@ Every new peripheral driver cwht needs is developed upstream in rustos: the trai
 |---|---|---|
 | A (chosen) | Upstream in rustos via reviewed PRs; pinned commit in cwht | Owner direction (SI-033); one HAL, one audit trail, benefits the owner's other rustos users; matches the zero-external-crate policy |
 | B | cwht-local `pico2-ext` crate | Rejected: two HALs for one chip; duplicates rustos conventions; drivers under the keyer would live outside the owner's OS |
-| C | Third-party HAL (rp-hal, Embassy, RTIC) | Rejected by SI-007 and the zero-external-runtime-crate policy; recorded in the make/buy TS (SWE-033) |
+| C | Third-party HAL (rp-hal, Embassy, RTIC) | Rejected by SI-007 and the zero-external-runtime-crate policy; recorded in TS-002 (`docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md`, Draft; decided at SRR; its decision becomes a new ADR) (SWE-033) |
 | D | Generate a PAC with `svd2rust` | Rejected: rustos house style is hand-written registers with citations; the SVD would become an unreviewed input (07 section 17.4) |
 
-The make/buy trade study of 07 section 17.2 records the cost of this choice (the work packages) and its benefit (complete audit).
+TS-002 (`docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md`, Draft; decided at SRR; its decision becomes a new ADR), the make/buy record of 07 section 17.2, records the cost of this choice (the work packages) and its benefit (complete audit).
 
 ## 4. Consequences
 
@@ -44,8 +48,8 @@ The make/buy trade study of 07 section 17.2 records the cost of this choice (the
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SW-NNN (drivers implemented in rustos `pico2` behind `api` traits; no cwht-local register access) | new, self-derived from this ADR | Inspection (`cargo tree`, module list) |
-| REQ-SW-HAL-* (trait contracts per peripheral, written with each work package) | new at PDR, self-derived from the per-WP ADRs | Contract tests against mock and dev board |
+| REQ-SYS-127 (firmware language and platform) | allocated; cites this ADR | Drivers implemented in rustos `pico2` behind `api` traits, no cwht-local register access; Inspection (`cargo tree`, module list) |
+| REQ-SW-HAL-* (trait contracts per peripheral) | not created: written at PDR with each work-package ADR | Contract tests against mock and dev board |
 
 ### 4.2 Interfaces, design and code
 
@@ -58,7 +62,7 @@ The make/buy trade study of 07 section 17.2 records the cost of this choice (the
 
 - Verification cases to add or change: contract tests per trait (HostUnit against the mock), dev-board check binaries (`credit: false`), emulator accreditation entry per peripheral (accredited or not)
 - Evidence class implications: driver-to-datasheet traceability is Inspection evidence (charter section 9); the unsafe audit covers every `pico2` driver
-- Hazard analysis update required: no
+- Hazard analysis update required: no (the hazard records already name the runtime components)
 - Safety-critical software scope changed: no; the timer, watchdog and GPIO drivers are in the safety-critical call path and get the same rigor
 
 ### 4.4 Cost, schedule, risk
@@ -70,7 +74,7 @@ The make/buy trade study of 07 section 17.2 records the cost of this choice (the
 
 ## 5. Compliance and tailoring
 
-RMM row SWE-027 register text changes to "zero external runtime crates" (07 section 22 CR request at SRR); SWE-146 row changes to `build.rs` constant tables only; SWE-033 is satisfied by the make/buy TS. Recorded by the CR named in 07 section 22.
+RMM row SWE-027 register text changes to "zero external runtime crates" (07 section 22 CR request at SRR); SWE-146 row changes to `build.rs` constant tables only; SWE-033 is satisfied by TS-002 (`docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md`, Draft; decided at SRR; its decision becomes a new ADR). Recorded by the CR named in 07 section 22.
 
 ## 6. Decision record
 
@@ -82,6 +86,10 @@ Transcribed from chat into `stakeholder-inputs.md`.
 
 - Supersedes: none
 - Superseded by: none
-- Trade study: firmware runtime and HAL make/buy TS (SWE-033, 07 section 17.2)
+- Trade study: TS-002 (`docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md`, Draft; decided at SRR; its decision becomes a new ADR), the firmware runtime and HAL make/buy (SWE-033, 07 section 17.2)
 - Review where presented: SRR; per-work-package ADRs at PDR
 - Revisit conditions: the owner as rustos maintainer declines an `api` addition (then that trait lives in `cwht-core` as an application-level abstraction over an existing rustos trait, not in a new HAL crate); the pinning method changes at PDR (OQ-5)
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03); trade study references resolved to TS-002 (F-03, erratum E-9). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: F-10 (erratum E-8, the work-package numbering of sections 1 and 7). The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 items (a) firmware task structure: single NVIC priority, run-to-completion handlers; (c) it fixes the verification approach of every component of 07 section 14.1). Owner-directed (SI-026). Trade study: TS-002 (Draft) for the runtime the approach builds on; the emulator selection ADR at PDR. No trade study for the verification approach: this ADR alone records it only if the owner adopts ruling R-2 item (i) of `reconciliation-srr.md` section 7 (open; the owner's ruling); otherwise a trade study is opened, or a waiver of 06 section 14.1 is recorded, before `baseline/srr` |
 | Decision authority | Robin (owner; the decision fixes the software architecture and the primary evidence class) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01 and F-03 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline; the V&V plan is baselined at PDR) |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,13 @@ SI-010 demands that the radio work at first power-on with the proof done beforeh
 
 - Driving inputs and expectations: SI-026, SI-010, SI-007, SI-015 (Class A evidence), SI-018 (keyer timing is the first customer)
 - Requirements that constrain the decision: none yet
-- Hazards in play: HZ-004 (keyer and PA enable are safety-critical software whose tests must be repeatable)
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): HZ-004 (keyer and PA enable are safety-critical software whose tests must be repeatable) and every hazard with a firmware role, whose software controls take HostUnit as primary evidence: HZ-001 to HZ-008, HZ-010, HZ-011, HZ-012 and HZ-014
 - Research consulted: `docs/research/rustos-toolchain-proof.md` F2 (`cargo test -p api` exercises nothing today), F7, F8 (what `api` and `pico2` provide and lack), F13 (host tests against `api` with mocked GPIO work; a portable `Clock` trait is the missing piece), "Driver extension map", "Host-side testing fit"; `docs/research/rp2350-emulation-options.md` A to D (Wokwi, Renode, QEMU, rp2040js lineage), "Recommendation" (c1570/rp2350js ARM mode), REQ-candidate "timing verified by Bench, not Emulation"; `docs/research/emulator-accreditation-and-timer-irq.md` F5 (cycles consistent, seconds not), F6 (TIMER0 alarm IRQ works), F8 (GPIO edge IRQs mis-decoded), F9 (NVIC priority registers at wrong offsets), F10 (PWM slices 0 to 7 only), F12 (coverage matrix), F13 (accreditation case `ACC-EMU-001`, event-ordering scope); `docs/research/keyer-verification-and-key-input-network.md` F8 (simulated-clock HostUnit harness at 0.1 ms), F9 (emulation restricted to event ordering)
 - Guidance consulted: SWE-062, SWE-186 (repeatable unit tests), SWE-073 (validation on target or high-fidelity simulation, limited to accredited scope), SWE-136 (tool accreditation), SWE-187, SWE-211; NPR 7150.2D §3.12.1 Table 1 (design components to code traceability); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. The host mock represents silicon behaviour for application logic. Confirmed by contract tests against mock and dev board from FW-B1, before PDR.
+  2. An emulator can be accredited for event ordering. Confirmed by ACC-EMU-001 in the emulator ADR at PDR.
+  3. The single-priority design meets every timing budget. Confirmed by the software architecture analysis at PDR.
 
 ## 2. Decision
 
@@ -44,11 +49,11 @@ No trade study: the owner's direction fixed the approach; the emulator selection
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SW-NNN (application logic depends only on `api` traits; no direct register access outside rustos `pico2`) | new, self-derived from this ADR | Inspection (dependency graph, `cargo tree`) |
-| REQ-SW-NNN (every `pico2` register access cites the RP2350 datasheet or Cortex-M33 document section) | new, self-derived from this ADR | Inspection; driver-to-datasheet traceability (charter section 9) |
-| REQ-SW-NNN (emulation scenarios assert ordering only; timing requirements carry Bench or HostUnit-with-simulated-clock methods) | new, V&V plan rule | `emulator-accreditation-and-timer-irq.md` REQ-candidates |
-| REQ-SW-NNN (single NVIC priority; PWM slices 0 to 7; GPIO via SIO) | new, self-derived design rules | 07 coding standard rows |
-| REQ-SW-NNN (clock driver enables TICKS explicitly and bounds XOSC and PLL waits with a fault path) | new, self-derived | F3, F5 of the accreditation study |
+| REQ-SYS-128 (host-testable application layering) | allocated; cites this ADR | Application logic depends only on `api` traits; Inspection (dependency graph, `cargo tree`) |
+| Every `pico2` register access cites the RP2350 datasheet or Cortex-M33 document section | not created as a requirement: charter section 9 Inspection rule and the 07 coding standard | Driver-to-datasheet traceability (charter section 9) |
+| Emulation scenarios assert ordering only; timing requirements carry Bench or HostUnit-with-simulated-clock methods | not a product requirement: V&V rule of `docs/process/04-verification-and-validation.md` sections 4 and 5.2 | `emulator-accreditation-and-timer-irq.md` REQ-candidates |
+| REQ-SYS-129 (single interrupt priority design rule) | allocated; cites this ADR | Single NVIC priority; PWM slices 0 to 7; GPIO via SIO; 07 coding standard rows |
+| Clock driver enables TICKS explicitly and bounds XOSC and PLL waits with a fault path | not created: the contract of WP-SW-11 in 07 section 19 (CS-37) | F3, F5 of the accreditation study |
 
 ### 4.2 Interfaces, design and code
 
@@ -61,7 +66,7 @@ No trade study: the owner's direction fixed the approach; the emulator selection
 
 - Verification cases to add or change: HostUnit cases for every platform-independent `REQ-SW-*`; `TC-SW-COV-001` (coverage and complexity), `TC-SW-REG-001` (regression); Emulation cases only where `tools/toolchain.lock.md` accredits the peripheral
 - Evidence class implications: HostUnit primary; Emulation secondary with `ACC-EMU-001` scope; Bench for target timing; the 04 section 5.2 credit table already encodes these limits
-- Hazard analysis update required: no
+- Hazard analysis update required: no (the hazard verification notes already assign HostUnit and Bench evidence)
 - Safety-critical software scope changed: no; MC/DC on safety-critical components is measured on the host (07 section 9.6)
 
 ### 4.4 Cost, schedule, risk
@@ -87,6 +92,10 @@ Transcribed from chat into `stakeholder-inputs.md`.
 
 - Supersedes: none
 - Superseded by: none
-- Trade study: firmware runtime and HAL make/buy TS (SWE-033); emulator selection ADR at PDR
+- Trade study: TS-002 (`docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md`, Draft; decided at SRR; its decision becomes a new ADR), the firmware runtime and HAL make/buy (SWE-033); emulator selection ADR at PDR
 - Review where presented: SRR
 - Revisit conditions: an emulator gains validated timing (then Emulation may take timing credit by a superseding ADR and a widened accreditation scope); the host mock is shown to diverge from silicon on a credited behaviour
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03); trade study references resolved to TS-002 (F-03, erratum E-9). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

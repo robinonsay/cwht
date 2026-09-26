@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 item (c): HZ-001, HZ-003, HZ-004, HZ-006, HZ-008 and HZ-012, and the `SW-TXSEQ` and `SW-KEYER` components of `docs/process/07-software-engineering-plan.md` section 14.1). Owner-directed (SI-003, SI-004). Trade study: TS-001 (Draft) sub-decision P for the PA device-and-supply concept, and TS-003 at PDR for the line-up. No trade study for the emission type and the 5 W ceiling: this ADR alone records it only if the owner adopts ruling R-2 item (i) of `reconciliation-srr.md` section 7 (open; the owner's ruling); otherwise a trade study is opened, or a waiver of 06 section 14.1 is recorded, before `baseline/srr` |
 | Decision authority | Robin (owner; the decision fixes the functional baseline) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01, F-02, F-03 and F-04 (the section 4.1 tolerance row, erratum E-11) against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline, to be tagged at SRR) |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,13 @@ Most 2 m handhelds send "CW" as a tone on an FM carrier (MCW). The owner wants a
 
 - Driving inputs and expectations: SI-003, SI-004, SI-001, SI-005 (headphones and key, tune and chat), SI-014 (Part 97)
 - Requirements that constrain the decision: none yet
-- Hazards in play: HZ-001 (RF exposure at 5 W within centimeters of the body), HZ-003 (PA heating at 5 W in an aluminum pocket radio), HZ-004 (stuck transmission)
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): HZ-001 (RF exposure at 5 W within centimeters of the body), HZ-003 (PA heating at 5 W in an aluminum pocket radio), HZ-004 (stuck transmission), HZ-006 (bystander exposure at 5 W), HZ-008 (REQ-SYS-012, which cites this ADR, carries it; the 25 uW cap binds at 5 W) and HZ-012 (RF burn at 5 W)
 - Research consulted: `docs/research/part97-regulatory-basis.md` F1 (A1A permitted on all of 144 to 148 MHz; 144.000 to 144.100 MHz is CW-only), F2 (at 5 W the 25 uW cap binds: 53.0 dB), F3 (97.313(a) minimum power necessary; 1.5 kW ceiling irrelevant), F6 to F8 (exposure evaluation mandatory for a 5 W handheld); `docs/research/regulatory-corpus-and-operators.md` F6 (necessary bandwidth of A1A: 208HA1A at 50 WPM, K = 5), F7 (26 dB bandwidth 226 to 292 Hz at 50 WPM with 5 ms edges; hard keying 7 to 8 times wider); `docs/research/pa-device-candidates.md` F18 (2.4 to 3.2 dB output spread over 6.0 to 8.4 V), F19 (11.4 W DC at 5 W; 1.5 h continuous key-down from a 3000 mAh pack), F20 (ALC options); `docs/research/rf-exposure-evaluation.md` F2, F7 (time-averaged power per step; 5 W continuous CW is 17.5 percent of the occupational SAR limit under the high analogy)
 - Guidance consulted: 47 CFR 97.305, 97.307(a), (b), (e), 97.313(a), 97.3(a)(8) (eCFR 2026-09-23); 47 CFR 2.202 (necessary bandwidth); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. A turnkey-stocked device delivers 5 W from 6.0 to 8.4 V (TS-001 sub-decision P recommends PD54008L-E). Confirmed by TS-003 at PDR and the CDR stock check.
+  2. The RF Exposure Evaluation supports 5 W under the occupational tier. Confirmed at PDR (REQ-SYS-121).
+  3. The thermal path carries continuous key-down at 5 W. Confirmed by the thermal budget at PDR (REQ-SYS-112).
 
 ## 2. Decision
 
@@ -44,11 +49,11 @@ No trade study: the owner fixed emission type and power; the alternatives are re
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SYS-NNN (emission type A1A only; L1 author allocates) | new, traces to SI-004, this ADR supporting | Verification: Inspection of the design, Bench spectrum shows a single carrier under key-down |
-| REQ-SYS-NNN (output power 5.0 W nominal at the antenna port; tolerance proposed plus or minus 0.5 dB with ALC across 6.4 to 8.4 V) | new, traces to SI-003; tolerance value carries a `tbr` object closing at PDR | The PA trade (PDR) fixes the ALC topology |
-| REQ-SYS-NNN (spurious emissions per 97.307(e)) | new, regulatory; values per ADR-022 (proposed) | |
-| REQ-SYS-NNN (keying envelope and 26 dB bandwidth) | new, regulatory 97.307(a), (b); values per ADR-023 and ADR-024 | |
-| REQ-SYS-NNN (power steps and default power) | new, proposed values pending SRR | Supports 97.313(a) and HZ-001 mitigation |
+| REQ-SYS-001 (A1A emission only), REQ-TX-001 (keying envelope as the only carrier modulation) | allocated; both cite this ADR | Verification: Inspection of the design, Bench spectrum shows a single carrier under key-down |
+| REQ-SYS-012 (rated output power with level control, TBR) | allocated; cites this ADR and ADR-012; hazards HZ-001, HZ-003, HZ-008 | REQ-SYS-012: within plus or minus 1 dB (TBR, closing at PDR); plus or minus 0.5 dB is the ALC design target (HZ-001 K4, HZ-003 K4, HZ-008 K3). The PA trade (PDR) fixes the ALC topology |
+| REQ-SYS-017 and REQ-TX-007 (spurious emission absolute limit; cite ADR-021), REQ-SYS-018 and REQ-TX-008 (spurious emission design margin, TBR; cite ADR-022) | allocated, regulatory 97.307(e) |  |
+| REQ-SYS-014 (keying envelope, TBR), REQ-SYS-015 (occupied bandwidth, TBR), REQ-TX-005 (keying envelope reproduction, TBR), REQ-TX-006 (keying sideband level, TBR) | allocated, regulatory 97.307(a), (b); REQ-SYS-014, REQ-TX-005 and REQ-TX-006 cite ADR-023; REQ-SYS-015 and REQ-TX-006 cite ADR-024 | Values per ADR-023 and ADR-024 |
+| REQ-SYS-011 (selectable power steps below 5 W, TBR), REQ-SYS-063 (deliberate selection of 5 W), REQ-SYS-064 (default power step, TBR), REQ-TX-004 (reduced power steps, TBR) | allocated; none cites this ADR | Supports 97.313(a) and control K1 of HZ-001 and HZ-006; proposed values pending SRR |
 
 ### 4.2 Interfaces, design and code
 
@@ -61,7 +66,7 @@ No trade study: the owner fixed emission type and power; the alternatives are re
 
 - Verification cases to add or change: TC-SYS-NNN for emission type (Inspection, Bench), output power (Bench with the RF detector or a borrowed wattmeter; a wattmeter is not on the bench, `pa-device-candidates.md` implication 1), spurious (ADR-021 instrument)
 - Evidence class implications: Bench spurious measurement needs the tinySA Ultra (ADR-021); the keying bandwidth close-in remains Analysis
-- Hazard analysis update required: yes (HZ-001, HZ-003, HZ-004 severity depends on 5 W)
+- Hazard analysis update required: yes (HZ-001, HZ-003, HZ-004, HZ-006, HZ-008 and HZ-012 all scale with the 5 W level)
 - Safety-critical software scope changed: no (already includes keying and PA enable)
 
 ### 4.4 Cost, schedule, risk
@@ -87,6 +92,10 @@ Transcribed from chat into `stakeholder-inputs.md`.
 
 - Supersedes: none
 - Superseded by: none
-- Trade study: PA device and topology TS at PDR (records the device that delivers 5 W); no TS for the emission type
+- Trade study: TS-001 (concept-level receiver and PA trade, Draft, sub-decision P) and TS-003 (PA device and line-up) with TS-006 (ALC and envelope topology) at PDR, `docs/design/concept.md` section 11.2 (TS-003 and TS-006 are the proposed numbers of that section, confirmed when each file is created), which record the device that delivers 5 W; no TS for the emission type (section 1, Decision class row)
 - Review where presented: SRR
 - Revisit conditions: the RF exposure evaluation (Analysis, PDR) shows 5 W cannot meet the general-population posture the ConOps needs (then power steps and operating rules, not the 5 W ceiling, are the first lever); the PA trade finds no turnkey-stocked 5 W device (ADR-012)
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03); trade study references resolved to TS-001 and the proposed TS-003 and TS-006 (F-03, erratum E-9); the section 4.1 tolerance row now states the REQ-SYS-012 value with the ALC design target (F-04, erratum E-11). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 2 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 class 2: it sets the MOE-004 target before any baseline and decides no hazard control; the low-battery cutoff that ends the run is HZ-007 control K4, used and not changed). Decision authority stays Robin because the decision fixes a measure of effectiveness |
 | Decision authority | Robin (owner; the decision fixes a measure of effectiveness and its L1 requirement) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01 and F-03 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline: MOE and L1) |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,13 @@ Battery life decides the receiver current budget, the synthesizer choice, the LN
 
 - Driving inputs and expectations: SI-034 (second sentence), SI-023 (2S 18650), SI-003 (5 W), SI-005, SI-019 (a day of playing radio)
 - Requirements that constrain the decision: none yet; TPM-008 and TPM-002 are the measures
-- Hazards in play: none
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): none; HZ-007 control K4 (the low-battery cutoff that ends the run) is used, not changed
 - Research consulted: `docs/research/power-tree-and-charging.md` F23 (battery-life model and table; assumptions: 45 percent key-down during transmit, 0.90 buck efficiency, 90 percent usable capacity at Low confidence), F3 (charge time about 10 h at 500 mA), F19 (buck and quiescent currents), implications 10 to 18 (power budget candidates); `docs/research/pa-device-candidates.md` F19 (11.4 W DC at 5 W); `docs/research/rf-exposure-evaluation.md` F7 (the 1:9 figure is the ConOps nominal case, not the exposure compliance case); `docs/research/display-and-ui-parts.md` D-UI-02 (no backlight in build 1)
 - Guidance consulted: SE HB §4.1 (MOEs from stakeholder expectations, via 02 section 6); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. 90 percent usable capacity to 3.0 V per cell (Low confidence). Confirmed by the discharge curve digitised at PDR.
+  2. 45 percent key-down within transmit periods represents the owner's operating. Confirmed by the owner at SRR (section 6).
+  3. The synthesizer and front-end trades keep the expected receiver build. Confirmed by the power budget at PDR with 20 percent margin.
 
 ## 2. Decision
 
@@ -44,9 +49,9 @@ No trade study: the owner set the target; the trades that must respect it are th
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| MOE-NNN (battery life on the CW duty cycle; L0 author allocates) | new, traces to SI-034 | |
-| REQ-SYS-NNN (at least 8 h at 1:9 with 45 percent key-down at 5 W; at least 6 h at 1:4) | new, traces to the MOE and SI-034; the 6 h floor carries a `tbr` closing at SRR or PDR | Analysis (PDR, CDR), Bench (SAR) |
-| REQ-PWR-NNN (receive current budget allocation per block; low-battery cutoff at 3.0 V per cell) | new at PDR, parent the L1 requirement | From the F23 model |
+| MOE-004 (battery life for a day out) | allocated by the L0 author; traces to SI-034 |  |
+| REQ-SYS-094 (battery life at 1:9), REQ-SYS-095 (battery life at 1:4, TBR) | allocated; REQ-SYS-094 cites this ADR | Analysis (PDR, CDR), Bench (SAR) |
+| REQ-PWR (receive current budget allocation per block; low-battery cutoff) | not created at L2 (the PWR file is due at PDR); L1 counterparts REQ-SYS-097 (low-battery transmit inhibit, TBR) and REQ-SYS-098 (low-battery power-down, TBR) | From the F23 model |
 
 ### 4.2 Interfaces, design and code
 
@@ -86,3 +91,7 @@ Transcribed from chat into `stakeholder-inputs.md`. The 45 percent key-down assu
 - Trade study: synthesizer TS (ADR-013) and receiver front-end TS at PDR consume this target as a criterion
 - Review where presented: SRR
 - Revisit conditions: the PDR budget shows the expected build below 8 h with 20 percent margin (then a receiver current reduction, a backlight removal is already taken, or an owner decision on the target); a cell other than the 3000 mAh class is baselined
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).

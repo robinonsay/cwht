@@ -6,9 +6,10 @@
 | Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
+| Decision class | 2 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 class 2: licence choice; no class 1 item). Decision authority stays Robin because the decision fixes the licence of every configuration item |
 | Decision authority | Robin (owner; the decision fixes the license of every configuration item) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01, F-06 and F-08 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | all baselines (license applies to every CI) |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,12 @@ The owner publishes the project at https://github.com/robinonsay/cwht under the 
 
 - Driving inputs and expectations: SI-025, SI-028 (buyable parts), SI-019 (units lent, not sold), SI-007 (rustos is the owner's separate repository)
 - Requirements that constrain the decision: none
-- Hazards in play: none
+- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): none
 - Research consulted: `docs/research/part97-regulatory-basis.md` F9 (no FCC equipment authorization for an amateur-built transceiver; 97.315 reaches only external amplifiers; 15.23 covers the digital section; the unit must not be marketed), constraints; `docs/research/pcbway-export-and-vendor-questions.md` F21 (15.23(a) text: not marketed, not constructed from a kit, five or fewer for personal use; 2.803(a) marketing definition), F23 (legal caveat, Low confidence); `docs/research/pa-device-candidates.md` implication 6 (an EOL device must not become the published baseline unless the primary channel fails)
 - Guidance consulted: 47 CFR 15.23, 47 CFR 97.315 (eCFR 2026-09-23); NPR 7150.2D SWE-147, SWE-148 (reuse and rights rows, NA per charter section 12), SWE-027 c (license review, tailored to owner review); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. The rustos licence allows MIT publication of cwht. Confirmed by the third-party register check (07 section 17.1) at PDR.
+  2. Units are never marketed (47 CFR 15.23(a)). Confirmed by the SAR configuration audit unit count (ADR-025).
 
 ## 2. Decision
 
@@ -44,7 +48,7 @@ No trade study: license choice is the owner's.
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| none | | Licensing is a repository and CM property, not a system requirement; the published-design buildability appears through ADR-012's sourcing constraint |
+| REQ-SYS-148 (open-source publication) | allocated; cites this ADR | Licensing is also a repository and CM property; the published-design buildability appears through ADR-012's sourcing constraint |
 
 ### 4.2 Interfaces, design and code
 
@@ -84,3 +88,7 @@ Transcribed from chat into `stakeholder-inputs.md`.
 - Trade study: none
 - Review where presented: SRR
 - Revisit conditions: the owner wants to sell or kit units (then 15.23 no longer applies and a separate regulatory assessment precedes any change); a third-party component with an incompatible license is proposed (CR with a trade study per 07 section 17.1)
+
+## 8. Change log
+
+- 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: F-06 (erratum E-6, section 5) and F-08 (erratum E-7, the 47 CFR 2.803(a) citation). The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).
