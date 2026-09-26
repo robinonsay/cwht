@@ -1,0 +1,11 @@
+# gate-known-answer.sh (run 2) 2026-09-26 02:46 CDT; tools/sw_gate.sh sha256 c74b3eca5a6d4f5678a6cf95e5c51acabf6cd886f07e3c4912cd9d32bd8cfc1b
+KA-0 unmodified copy: exit 0 (expected 0) MATCH; mode --quick; INTERIM lines 0; first FAIL line: no FAIL line
+KA-1 seeded unwrap in cwht-core: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G1 clippy host
+KA-2 seeded formatting defect: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G1 cargo fmt --check
+KA-3 seeded failing host test: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G3 host tests run 1
+KA-4 seeded unsafe block in cwht-core: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G1 clippy host
+KA-5 lock rustc row differs from installed rustc: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G0 pinned toolchain 1.98.0 absent and stable rustc 'rustc 1.98.0 (88d9e12ae 2026-08-18)' differs from the lock 'rustc 1.98.1 (0000000 2026-09-01)'
+KA-6 seeded unwrap in cwht-app (target clippy): exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G1 clippy target
+KA-7 seeded cargo:warning in cwht-app/build.rs: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G2 no compiler warning
+KA-8 stale JUnit copies with a failing host test: exit 1 (expected 1) MATCH; mode --keep-going; INTERIM lines 0; first FAIL line: FAIL G3 host tests run 1
+KA-8 G3 comparison line: FAIL G3 identical result sets (JUnit file of run 1 or run 2 not written by this invocation); run1-junit.xml after the run: absent

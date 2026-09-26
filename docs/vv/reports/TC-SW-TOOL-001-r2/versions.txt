@@ -1,0 +1,73 @@
+# TC-SW-TOOL-001 run 2: configuration record (2026-09-26 02:44 CDT)
+## cwht
+400e59d34835aed359049df9dad1329dfd372380
+working-tree status of the case scope and the gate inputs (firmware/, tools/sw_gate.sh, tools/measurements.py, tools/unsafe_audit.py, tools/complexity_gate.py, tools/emu_run.sh, tools/toolchain.lock.md, docs/test_cases/sw-tool/):
+ M tools/sw_gate.sh
+ M tools/toolchain.lock.md
+?? firmware/unsafe-audit.md
+?? tools/complexity_gate.py
+?? tools/measurements.py
+?? tools/unsafe_audit.py
+(end of status)
+## blobs as run (git hash-object)
+54b138005b3f3d86e148446c7b0295845cd69e8d  tools/sw_gate.sh
+abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a  tools/measurements.py
+cc3aaa2ad82a52a63615c6af082567007b2d7e6e  tools/unsafe_audit.py
+9214fefb76f95f0494f906607ef06428260d1c75  tools/complexity_gate.py
+17f102aa9bdc286ae5e563ef055ac017b3c8337f  tools/emu_run.sh
+77262c791d971190309ff16c05c9fa8b52139447  tools/toolchain.lock.md
+fee1e7246af59d5e8a43ed1b9cdf483854053fdc  docs/test_cases/sw-tool/test_cases.json
+7799f6b63e26e8fca0c2cb68270c3ff9d7841d05  firmware/Cargo.toml
+784605ca28b94ea0d3ace66a5797c11cbbced80d  firmware/Cargo.lock
+4cd6de9c2f49c9da254ca05cb31973286c9ac2c8  firmware/deny.toml
+e32006a582bc49af6b2b12e8856015173210afd0  firmware/cwht-app/src/main.rs
+## rustos (read only)
+c54d35aa8e7f9ad30f6508bca458a59c1fc009db
+status of api/ firmware/ Cargo.toml Cargo.lock .cargo (empty = clean):
+(end of status)
+## lock rows
+| rustc | `rustc --version` | `rustc 1.98.0 (88d9e12ae 2026-08-18)` | rustup, channel `stable` (§7) | A | Compile firmware for `thumbv8m.main-none-eabihf`; host builds for HostUnit tests. | TV pendin
+| cargo | `cargo --version` | `cargo 1.98.0 (797e8a9bc 2026-08-05)` | rustup, channel `stable` | A (build), B (`cargo test`, `cargo clippy`) | Build, test, lint, dependency locking (`Cargo.lock`). | T
+| picotool | `picotool version` | `picotool v2.3.0 (Darwin, AppleClang-21.0.0.21000099, Release)` at `/opt/homebrew/bin/picotool` | Homebrew `picotool 2.3.0` (§7). Homebrew stable is now 2.3.1 (`brew
+| picotool | `uf2 convert` of the stored fixture ELF equals the stored UF2 SHA-256; `info` reads back the program name; `verify` detects a one-byte change to an image | `tools/tests/fixtures/picotool/
+| `rustos` (firmware platform, Cargo path dependency) | commit SHA on the owner's machine; remote `git@github.com:robinonsay/rustos.git` | `git -C /Users/robinonsay/rust/rustos rev-parse HEAD` | `c54d
+## toolchain in firmware/ (RUSTUP_TOOLCHAIN=stable, RUSTUP_AUTO_INSTALL=0; pin 1.98.0 not installed)
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+rustup 1.29.0 (28d1352db 2026-03-05)
+stable-aarch64-apple-darwin (active, default)
+nightly-aarch64-apple-darwin
+nightly-2026-08-24-aarch64-apple-darwin
+aarch64-apple-darwin
+thumbv8m.main-none-eabihf
+cargo-aarch64-apple-darwin
+clippy-aarch64-apple-darwin
+rust-docs-aarch64-apple-darwin
+rust-src
+rust-std-aarch64-apple-darwin
+rust-std-thumbv8m.main-none-eabihf
+rustc-aarch64-apple-darwin
+rustfmt-aarch64-apple-darwin
+## nightly-2026-08-24 components
+cargo-aarch64-apple-darwin
+clippy-aarch64-apple-darwin
+rust-docs-aarch64-apple-darwin
+rust-std-aarch64-apple-darwin
+rustc-aarch64-apple-darwin
+rustfmt-aarch64-apple-darwin
+## cargo tools
+cargo-nextest 0.9.146 (8af696ddc 2026-09-21)
+cargo-llvm-cov 0.9.1
+cargo-audit-audit 0.22.2
+cargo-deny 0.20.2
+cargo-geiger 0.13.0
+llvm-nm, compatible with GNU nm
+LLVM (http://llvm.org/):
+rust-code-analysis-cli: not installed
+## picotool
+picotool v2.3.0 (Darwin, AppleClang-21.0.0.21000099, Release)
+## advisory databases
+ls: /Users/robinonsay/.cargo/advisory-db: No such file or directory
+ls: /Users/robinonsay/.cargo/advisory-dbs: No such file or directory
+## python
+Python 3.13.5

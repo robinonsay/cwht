@@ -1,0 +1,67 @@
+# cwht-app rebuild identity, run 2 (2026-09-26 02:46 CDT); cwht 400e59d34835aed359049df9dad1329dfd372380, firmware/ clean against HEAD except the untracked firmware/unsafe-audit.md (not a build input)
+## Clean build 1: CARGO_TARGET_DIR=<scratch>/cwht-app-t1 cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf
+   Compiling pico2 v0.1.0 (/Users/robinonsay/rust/rustos/firmware/pico2)
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos/api)
+   Compiling cwht-app v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-app)
+   Compiling cwht-core v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-core)
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.51s
+exit=0
+## Clean build 2: CARGO_TARGET_DIR=<scratch>/cwht-app-t2 cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos/api)
+   Compiling pico2 v0.1.0 (/Users/robinonsay/rust/rustos/firmware/pico2)
+   Compiling cwht-app v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-app)
+   Compiling cwht-core v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-core)
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.58s
+exit=0
+## SHA-256 (clean build 1, clean build 2, gate G2 build in firmware/target, run 1 cwht-app.elf)
+622cbe2a6b8e5d2a12ac5a94306a49dd7ecde1f31c5eb937e3e85b6066b9802f  <scratch>/cwht-app-t1/thumbv8m.main-none-eabihf/release/cwht-app
+622cbe2a6b8e5d2a12ac5a94306a49dd7ecde1f31c5eb937e3e85b6066b9802f  <scratch>/cwht-app-t2/thumbv8m.main-none-eabihf/release/cwht-app
+622cbe2a6b8e5d2a12ac5a94306a49dd7ecde1f31c5eb937e3e85b6066b9802f  /Users/robinonsay/rust/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app
+3992e5d8ba616271c8df2a0acd00e9c1992d7b1a5459c73f398778f7cf980ec1  /Users/robinonsay/rust/cwht/docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.elf
+## Loadable sections (rust-size -A): gate build, then run 1
+firmware/target/thumbv8m.main-none-eabihf/release/cwht-app  :
+section              size        addr
+.vector_table         272   268435456
+.boot_info             20   268435728
+.text                1316   268435748
+.rodata                 0   268437064
+.data                   0   536870912
+.bss                    4   536870912
+.stack               8192   536870920
+.debug_loc           1062           0
+.debug_abbrev        1990           0
+.debug_info         14242           0
+.debug_aranges        280           0
+.debug_ranges        1496           0
+.debug_str          12054           0
+.comment              153           0
+.ARM.attributes        56           0
+.debug_frame          524           0
+.debug_line          6621           0
+Total               48282
+
+
+docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.elf  :
+section              size        addr
+.vector_table         272   268435456
+.boot_info             20   268435728
+.text                1316   268435748
+.rodata                 0   268437064
+.data                   0   536870912
+.bss                    4   536870912
+.stack               8192   536870920
+.debug_loc           1062           0
+.debug_abbrev        1990           0
+.debug_info         14242           0
+.debug_aranges        280           0
+.debug_ranges        1496           0
+.debug_str          12054           0
+.comment              153           0
+.ARM.attributes        56           0
+.debug_frame          524           0
+.debug_line          6621           0
+Total               48282
+
+
+## Loadable bytes equal to run 1 (rust-objcopy -O binary of .vector_table, .boot_info, .text, .rodata; cmp)
+loadable bytes identical

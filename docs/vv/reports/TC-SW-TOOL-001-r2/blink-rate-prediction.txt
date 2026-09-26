@@ -1,0 +1,19 @@
+# Blink-rate prediction, run 2 (2026-09-26 02:47 CDT)
+Method as run 1 (docs/vv/reports/TC-SW-TOOL-001-r1/blink-rate-prediction.txt). Both run 2 UF2 files are byte-identical to run 1 (uf2-info.txt), and the loadable sections of cwht-app.elf equal run 1 (cwht-app-build.txt), so the prediction and the acceptance windows are unchanged. Delay loops re-read from the run 2 ELFs:
+## rustos-blinky.elf: yield count and loop-closing branch
+yield instructions: 128
+10000170: d1eb         	bne	0x1000014a <_RNvCs98i0Qs8wUgu_6blinky4main+0x20> @ imm = #-0x2a
+100001be: 3b40         	subs	r3, #0x40
+1000023e: d1bd         	bne	0x100001bc <_RNvCs98i0Qs8wUgu_6blinky4main+0x92> @ imm = #-0x86
+10000246: 3b40         	subs	r3, #0x40
+## cwht-app.elf delay loop
+1000019e: 6019         	str	r1, [r3]
+100001a0: f644 3340    	movw	r3, #0x4b40
+100001a4: f2c0 034c    	movt	r3, #0x4c
+100001a8: 3b01         	subs	r3, #0x1
+100001aa: bf10         	yield
+100001ac: d1fc         	bne	0x100001a8 <_RNvCs4M0nwX3sKz8_8cwht_app4main+0x84> @ imm = #-0x8
+## Result
+rustos-blinky: 64 yield + subs + bne per 64 spins = 66 instructions; LED cycles in 60 s 13.4 to 114.0, nominal 63.0
+cwht-app: subs + yield + bne per spin = 3 instructions; LED cycles in 60 s 4.6 to 39.2, nominal 16.5
+Acceptance windows (unchanged): rustos-blinky 10 to 120, cwht-app 3 to 45 cycles in 60 s.

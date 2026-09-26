@@ -1,0 +1,54 @@
+# UF2 conversion and file inspection, run 2 (2026-09-26 02:47 CDT); picotool picotool v2.3.0 (Darwin, AppleClang-21.0.0.21000099, Release)
+## rustos-blinky: picotool uf2 convert rustos-blinky.elf rustos-blinky.uf2 --family rp2350-arm-s
+exit=0
+## rustos-blinky: picotool info -a rustos-blinky.uf2
+File rustos-blinky.uf2 family ID 'rp2350-arm-s':
+
+Program Information
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Fixed Pin Information
+ none
+
+Build Information
+ none
+
+Metadata Block 1
+ address:             0x10000110
+ next block address:  0x10000110
+ block type:          image def
+ target chip:         RP2350
+ image type:          ARM Secure
+ extra security:      not enabled
+exit=0
+## cwht-app: picotool uf2 convert cwht-app.elf cwht-app.uf2 --family rp2350-arm-s
+exit=0
+## cwht-app: picotool info -a cwht-app.uf2
+File cwht-app.uf2 family ID 'rp2350-arm-s':
+
+Program Information
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Fixed Pin Information
+ none
+
+Build Information
+ none
+
+Metadata Block 1
+ address:             0x10000110
+ next block address:  0x10000110
+ block type:          image def
+ target chip:         RP2350
+ image type:          ARM Secure
+ extra security:      not enabled
+exit=0
+## SHA-256
+ef16271deaaf37714cca58bc3cb789f4c94f8a9f98a1c4b343b676e5716ba8c1  rustos-blinky.elf
+c45b526837c0831206763eb3134a8e71c854059ff7442c19e51f39edf03308d3  rustos-blinky.uf2
+622cbe2a6b8e5d2a12ac5a94306a49dd7ecde1f31c5eb937e3e85b6066b9802f  cwht-app.elf
+4e0bd133a10b6e29f72f00023ec407cd1885b8550a685b881c7be213462b3529  cwht-app.uf2
+c45b526837c0831206763eb3134a8e71c854059ff7442c19e51f39edf03308d3  ../TC-SW-TOOL-001-r1/rustos-blinky.uf2
+4e0bd133a10b6e29f72f00023ec407cd1885b8550a685b881c7be213462b3529  ../TC-SW-TOOL-001-r1/cwht-app.uf2

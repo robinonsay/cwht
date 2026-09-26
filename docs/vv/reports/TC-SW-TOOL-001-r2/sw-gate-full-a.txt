@@ -1,0 +1,106 @@
+sw_gate: mode full, 2026-09-26T07:43:56Z, repo 400e59d
+NOTE G0 pinned toolchain 1.98.0 not installed (installing it downloads; owner approval);
+NOTE G0 using stable, whose rustc is identical to the lock row: rustc 1.98.0 (88d9e12ae 2026-08-18)
+G0 rustc in firmware/: rustc 1.98.0 (88d9e12ae 2026-08-18)
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+G0 rustos HEAD c54d35aa8e7f9ad30f6508bca458a59c1fc009db (lock: c54d35aa8e7f9ad30f6508bca458a59c1fc009db)
+PASS G0 toolchain identity
+---- G1 cargo fmt --check: fwrun cargo fmt --check
+PASS G1 cargo fmt --check
+---- G1 clippy host: fwrun cargo clippy --workspace --exclude cwht-app --all-targets -- -D warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+PASS G1 clippy host
+---- G1 clippy target: fwrun cargo clippy -p cwht-app --target thumbv8m.main-none-eabihf -- -D warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+PASS G1 clippy target
+---- G2 build: cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.04s
+PASS G2 build
+---- G2 no compiler warning: grep warning /Users/robinonsay/rust/cwht/firmware/target/sw-gate/g2-build.txt
+PASS G2 no compiler warning
+---- G2 link map (measurements.py): /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/measurements.py --link-map /Users/robinonsay/rust/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app.map
+PASS FLASH used 1608 B of 4194304 B = 0.04 % (red line 70.0 % used, TPM-010)
+PASS RAM used 8200 B of 532480 B = 1.54 % (red line 75.0 % used, TPM-011)
+MSR-18 bytes 1608, percent_of_4MB 0.04, assessment Green
+MSR-19 bytes 8200, percent_of_520KB 1.54, assessment Green
+PASS G2 link map (measurements.py)
+---- G2 no allocator symbol (CS-01): rust-nm /Users/robinonsay/rust/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app
+PASS G2 no allocator symbol
+622cbe2a6b8e5d2a12ac5a94306a49dd7ecde1f31c5eb937e3e85b6066b9802f  /Users/robinonsay/rust/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app
+---- G2 image dependency set (CS-02): cargo tree -e normal -p cwht-app --target thumbv8m.main-none-eabihf
+api v0.1.0 (/Users/robinonsay/rust/rustos/api)
+cwht-app v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-app)
+cwht-core v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-core)
+pico2 v0.1.0 (/Users/robinonsay/rust/rustos/firmware/pico2)
+PASS G2 image dependency set
+---- G3 host tests run 1: cargo nextest run --workspace --exclude cwht-app --profile ci
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+────────────
+ Nextest run ID 015dd644-0f6f-44f0-9b69-031e7229b1ed with nextest profile: ci
+    Starting 10 tests across 4 binaries
+        PASS [   0.006s] ( 1/10) cwht-hal-mock::gpio output_records_writes_in_order
+        PASS [   0.006s] ( 2/10) cwht-core::heartbeat half_period_spin_count_equals_rustos_blinky_delay
+        PASS [   0.007s] ( 3/10) cwht-core::heartbeat spin_wait_calls_spin_exactly_count_times
+        PASS [   0.007s] ( 4/10) cwht-core::heartbeat default_equals_new
+        PASS [   0.007s] ( 5/10) cwht-hal-mock::gpio output_fails_after_scripted_count
+        PASS [   0.007s] ( 6/10) cwht-hal-mock::gpio output_failing_after_zero_fails_first_write
+        PASS [   0.007s] ( 7/10) cwht-core::heartbeat first_step_drives_high_then_alternates
+        PASS [   0.007s] ( 8/10) cwht-core::heartbeat failed_write_keeps_level_and_retries_same_transition
+        PASS [   0.007s] ( 9/10) cwht-hal-mock::gpio input_reads_set_level_and_injected_fault
+        PASS [   0.007s] (10/10) cwht-hal-mock::gpio output_history_saturates_at_capacity
+────────────
+     Summary [   0.007s] 10 tests run: 10 passed, 0 skipped
+PASS G3 host tests run 1
+---- G3 host tests run 2: cargo nextest run --workspace --exclude cwht-app --profile ci
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+────────────
+ Nextest run ID 0ff0f67c-ca05-4e48-b360-b66623565b00 with nextest profile: ci
+    Starting 10 tests across 4 binaries
+        PASS [   0.007s] ( 1/10) cwht-hal-mock::gpio output_history_saturates_at_capacity
+        PASS [   0.007s] ( 2/10) cwht-hal-mock::gpio output_records_writes_in_order
+        PASS [   0.007s] ( 3/10) cwht-hal-mock::gpio output_failing_after_zero_fails_first_write
+        PASS [   0.007s] ( 4/10) cwht-core::heartbeat first_step_drives_high_then_alternates
+        PASS [   0.007s] ( 5/10) cwht-hal-mock::gpio output_fails_after_scripted_count
+        PASS [   0.007s] ( 6/10) cwht-core::heartbeat failed_write_keeps_level_and_retries_same_transition
+        PASS [   0.007s] ( 7/10) cwht-core::heartbeat default_equals_new
+        PASS [   0.007s] ( 8/10) cwht-hal-mock::gpio input_reads_set_level_and_injected_fault
+        PASS [   0.007s] ( 9/10) cwht-core::heartbeat spin_wait_calls_spin_exactly_count_times
+        PASS [   0.007s] (10/10) cwht-core::heartbeat half_period_spin_count_equals_rustos_blinky_delay
+────────────
+     Summary [   0.007s] 10 tests run: 10 passed, 0 skipped
+PASS G3 host tests run 2
+---- G3 identical result sets (measurements.py): /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/measurements.py --diff-runs /Users/robinonsay/rust/cwht/firmware/target/nextest/run1-junit.xml /Users/robinonsay/rust/cwht/firmware/target/nextest/run2-junit.xml
+run 1: 10 cases, run 2: 10 cases, passed in both: 10
+PASS identical result sets, all passed (SWE-186)
+PASS G3 identical result sets (measurements.py)
+---- G4 traceability: /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/traceability.py --output /Users/robinonsay/rust/cwht/firmware/target/sw-gate/traceability-report.md --quiet
+PASS G4 traceability
+MISSING G5 cargo audit: RustSec advisory database absent (~/.cargo/advisory-db); fetching it is an owner-approved download
+---- G5 cargo deny (bans, licenses, sources): fwrun cargo deny --log-level error check bans licenses sources
+error[unlicensed]: api = 0.1.0 is unlicensed
+ ├ api v0.1.0
+   ├── cwht-app v0.0.0
+   ├── cwht-core v0.0.0
+   │   └── cwht-app v0.0.0 (*)
+   ├── cwht-hal-mock v0.0.0
+   │   └── (dev) cwht-core v0.0.0 (*)
+   └── pico2 v0.1.0
+       └── cwht-app v0.0.0 (*)
+
+error[unlicensed]: pico2 = 0.1.0 is unlicensed
+ ├ pico2 v0.1.0
+   └── cwht-app v0.0.0
+
+error[wildcard]: found 1 wildcard dependency for crate 'pico2'. allow-wildcard-paths is enabled, but does not apply to public crates as crates.io disallows path dependencies.
+  ┌─ /Users/robinonsay/rust/rustos/firmware/pico2/Cargo.toml:7:7
+  │
+7 │ api = { path = "../../api" }
+  │       ━━━━━━━━━━━━━━━━━━━━━━ wildcard dependency
+  │
+  ├ pico2 v0.1.0
+    └── cwht-app v0.0.0
+
+bans FAILED, licenses FAILED, sources ok
+FAIL G5 cargo deny (bans, licenses, sources)
+sw_gate: FAIL at G5 cargo deny (bans, licenses, sources)
+exit status: 1
