@@ -8,12 +8,12 @@ L2 requirements (charter section 7; 02 section 2). The verification matrix, cove
 
 | Item | Count |
 |---|---|
-| Requirements | 38 |
-| Status Draft | 38 |
-| Method Test | 38 |
-| Priority Baseline | 36 |
+| Requirements | 39 |
+| Status Draft | 39 |
+| Method Test | 39 |
+| Priority Baseline | 37 |
 | Priority KDR | 2 |
-| Open TBR | 10 |
+| Open TBR | 11 |
 | Tagged retired | 0 |
 
 ## 2. Index
@@ -43,12 +43,12 @@ L2 requirements (charter section 7; 02 section 2). The verification matrix, cove
 | REQ-SW-KEYER-021 | Key opening debounce | Test | Draft (TBR) | REQ-SYS-162 |
 | REQ-SW-KEYER-022 | Key-closed interlock | Test | Draft (TBR) | REQ-SYS-052 |
 | REQ-SW-KEYER-023 | KEY inhibit report | Test | Draft | REQ-SYS-067 |
-| REQ-SW-KEYER-024 | Key-input mode change by menu only | Test | Draft | REQ-SYS-056 |
+| REQ-SW-KEYER-024 | Key-input mode change on two validated operator events | Test | Draft | REQ-SYS-056 |
 | REQ-SW-KEYER-025 | Mode selection with a closed input | Test | Draft | REQ-SYS-163 |
 | REQ-SW-KEYER-026 | Manual-closure timeout | Test | Draft (TBR) | REQ-SYS-053 |
 | REQ-SW-KEYER-027 | Sidetone during a manual-closure timeout | Test | Draft | REQ-SYS-053 |
 | REQ-SW-KEYER-028 | Keying sources | Test | Draft | REQ-SYS-007 |
-| REQ-SW-KEYER-029 | Test-mode generator start | Test | Draft | REQ-SYS-179 |
+| REQ-SW-KEYER-029 | Test-mode generator start on two validated operator events | Test | Draft | REQ-SYS-179 |
 | REQ-SW-KEYER-030 | Key-down state integrity | Test | Draft | REQ-SYS-120 |
 | REQ-SW-KEYER-031 | Key-up on keyer error or safe-state command | Test | Draft | REQ-SYS-130 |
 | REQ-SW-KEYER-032 | Semi break-in hang | Test | Draft (TBR) | REQ-SYS-044 |
@@ -58,6 +58,7 @@ L2 requirements (charter section 7; 02 section 2). The verification matrix, cove
 | REQ-SW-KEYER-036 | Key input closed without a plug | Test | Draft (TBR) | - |
 | REQ-SW-KEYER-037 | Out-of-range keyer setting commands | Test | Draft | REQ-SYS-041 |
 | REQ-SW-KEYER-038 | Key inputs change no setting | Test | Draft | - |
+| REQ-SW-KEYER-039 | Distinct operator events for an override | Test | Draft (TBR) | - |
 
 ## 3. Requirements
 
@@ -482,14 +483,14 @@ L2 requirements (charter section 7; 02 section 2). The verification matrix, cove
 | Measures | - |
 | Tags | revA, safety, hsi |
 
-### REQ-SW-KEYER-024: Key-input mode change by menu only
+### REQ-SW-KEYER-024: Key-input mode change on two validated operator events
 
 | Field | Value |
 |---|---|
-| Statement | The keyer firmware shall change its key-input mode only on a mode-selection command from the menu. |
-| Rationale | Why: allocated from REQ-SYS-056; HZ-004 K2 and D-KN8 (Proposed, owner decision pending at SRR): no automatic key-type detection in revision A (ADR-009 alternative D deferred), so plug insertion never changes the mode. 07 section 14.2 row (d) adds a separate confirmation before the menu issues the command (SWE-134 d), while HZ-004 K2 and REQ-SYS-056 name the menu selection only; under either the keyer changes mode only on the command. Ops: OPS-013. Depends on: REQ-SYS-174 (jack wiring) and the operator's menu selection (OPS-013). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 d). |
+| Statement | The keyer firmware shall change its key-input mode only after a mode-selection action and a separate confirmation that it validates as distinct operator events. |
+| Rationale | Why: allocated from REQ-SYS-056; HZ-004 K2 and D-KN8 (Proposed, owner decision pending at SRR): no automatic key-type detection in revision A (ADR-009 alternative D deferred), so plug insertion never changes the mode. SWE-134 d (NPR 7150.2D 3.7.3 d, operator overrides need at least two independent actions) as implemented by 07 section 14.2 row d, section 5 item 5 and CS-39, and hazard-analysis.md section 7 row d (a menu action plus a confirmation for Straight-on-tip): the keyer is the receiving safety-critical component for the key-input mode, so it validates the two operator events itself, as REQ-SW-KEYER-039 defines them, from the debounced button and encoder samples of the 1 kHz SIO sampling it reads directly (CS-35). A menu mode-selection output is an untrusted request that names the target mode and never sets the mode; a faulty menu that emits the action and the confirmation from one input sample or from one queued event produces no mode change. This holds whether or not the owner concurs with the Proposed menu override command path (07 section 14.1; 03 item X20). Ops: OPS-013. Depends on: REQ-SYS-174 (jack wiring) and the operator's two separate actions (OPS-013). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 d). |
 | Verification method | Test |
-| Verification note | Pre-build (closing): HostUnit, the cwht-core keyer on the host against cwht-hal-mock key inputs with the simulated microsecond clock stepped at 100 us (credit row T-SW-LOGIC; the keyer logic sits behind the HAL traits with time from the mock clock, so host execution is representative): plug insertion and removal, jack-detect changes, every input pattern, resets and configuration reloads leave the mode unchanged; only the mode-selection command changes it. Closing case: TC-SW-KEYER-024. |
+| Verification note | Pre-build (closing): HostUnit, the cwht-core keyer on the host against cwht-hal-mock key inputs with the simulated microsecond clock stepped at 100 us (credit row T-SW-LOGIC; the keyer logic sits behind the HAL traits with time from the mock clock, so host execution is representative): plug insertion and removal, jack-detect changes, every key-input pattern, resets and configuration reloads leave the mode unchanged; a menu request without the validated action and confirmation, a faulty menu emitting both events from one input sample or from one queued event, a confirmation without its action and two events closer than the minimum interval without a release leave it unchanged; only a validated action and confirmation change it. Closing case: TC-SW-KEYER-024. |
 | Status | Draft |
 | Priority | Baseline |
 | Parent | REQ-SYS-056 |
@@ -573,14 +574,14 @@ L2 requirements (charter section 7; 02 section 2). The verification matrix, cove
 | Measures | - |
 | Tags | revA, safety, regulatory |
 
-### REQ-SW-KEYER-029: Test-mode generator start
+### REQ-SW-KEYER-029: Test-mode generator start on two validated operator events
 
 | Field | Value |
 |---|---|
-| Statement | The keyer firmware shall start its test-mode PARIS generator only on a confirmed bench-test-mode command. |
-| Rationale | Why: allocated from REQ-SYS-179 (bench test mode entered only after a menu selection and a separate confirmation; HZ-004 K13, SWE-134 d). The generator is the only keying source other than the key jack (REQ-SYS-007). Ops: OPS-012. Depends on: REQ-SYS-055 (hardware cutoff) in hardware; the operator's two separate actions (OPS-012). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. |
+| Statement | The keyer firmware shall start its test-mode PARIS generator only after a bench-test-mode selection and a separate confirmation that it validates as distinct operator events. |
+| Rationale | Why: allocated from REQ-SYS-179 (bench test mode entered only after a menu selection and a separate confirmation; HZ-004 K13). The generator is the only keying source other than the key jack (REQ-SYS-007). SWE-134 d (NPR 7150.2D 3.7.3 d) as implemented by 07 section 14.2 row d, section 5 item 5 and CS-39: the keyer owns the generator (test-mode state is safety-critical state, 07 section 5 item 5), so it is the receiving component that validates the two operator events itself, as REQ-SW-KEYER-039 defines them, from the debounced button and encoder samples of the 1 kHz SIO sampling (CS-35); a menu output is an untrusted request that never starts the generator, and a faulty menu emitting both events from one input sample or one queued event starts nothing. No other software requirement validates this entry (REQ-SYS-179 has this single child). Ops: OPS-012. Depends on: REQ-SYS-055 (hardware cutoff) in hardware; the operator's two separate actions (OPS-012). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. |
 | Verification method | Test |
-| Verification note | Pre-build (closing): HostUnit, the cwht-core keyer on the host against cwht-hal-mock key inputs with the simulated microsecond clock stepped at 100 us (credit row T-SW-LOGIC; the keyer logic sits behind the HAL traits with time from the mock clock, so host execution is representative): every command sequence without the confirmation, including a selection followed by a reset, leaves the generator stopped; the confirmed command starts it. Closing case: TC-SW-KEYER-029. |
+| Verification note | Pre-build (closing): HostUnit, the cwht-core keyer on the host against cwht-hal-mock key inputs with the simulated microsecond clock stepped at 100 us (credit row T-SW-LOGIC; the keyer logic sits behind the HAL traits with time from the mock clock, so host execution is representative): every sequence without a validated confirmation, including a selection followed by a reset, a menu request alone, a faulty menu emitting both events from one input sample or from one queued event, a confirmation without its selection and two events closer than the minimum interval without a release, leaves the generator stopped; a validated selection and confirmation start it. Closing case: TC-SW-KEYER-029. |
 | Status | Draft |
 | Priority | Baseline |
 | Parent | REQ-SYS-179 |
@@ -754,3 +755,22 @@ L2 requirements (charter section 7; 02 section 2). The verification matrix, cove
 | Design references | firmware/cwht-core/src/keyer/, ICD-CTL-KEY |
 | Measures | - |
 | Tags | revA |
+
+### REQ-SW-KEYER-039: Distinct operator events for an override
+
+| Field | Value |
+|---|---|
+| Statement | The keyer firmware shall accept two operator events as distinct only from different input samples showing different inputs, or a release and 300 ms (TBR). |
+| Rationale | Self-derived: 07 section 14.2 row d (SWE-134 d, NPR 7150.2D 3.7.3 d: operator overrides need at least two independent actions), section 5 item 5 and CS-39 require the receiving safety-critical component to accept an override only from two distinct operator events it validates itself from the debounced input samples of the 1 kHz SIO sampling it reads directly (CS-35), with both events from one input sample rejected and every menu output treated as an untrusted request; hazard-analysis.md section 7 row d asks for a menu action plus a confirmation for Straight-on-tip and bench test-mode entry. The samples are those of the button and encoder control inputs (ICD-CTL-SW, planned); the two events are either on two different inputs in two different samples, or on one input with a release between the presses and at least the minimum interval from the first press to the second. A queued or repeated event and a menu output are not operator events. This rule governs the key-input mode change (REQ-SW-KEYER-024) and the test-mode generator start (REQ-SW-KEYER-029). Robin's concurrence is pending in the V2 record (02 section 2.3). Ops: OPS-012, OPS-013. Depends on: the operator's two separate actions (OPS-012, OPS-013). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 d). TBR: the minimum interval, which 07 section 14.2 row d fixes at PDR. |
+| Verification method | Test |
+| Verification note | Pre-build (closing): HostUnit, the cwht-core keyer on the host against cwht-hal-mock key inputs with the simulated microsecond clock stepped at 100 us (credit row T-SW-LOGIC; the keyer logic sits behind the HAL traits with time from the mock clock, so host execution is representative): the action and confirmation sequences of the mode-change and generator-start cases: two different inputs in two samples and one input with a release and the minimum interval plus 10 ms accepted; both events from one sample (one press, and simultaneous presses on two inputs), both from one queued event, no release between the presses, and a release with the minimum interval minus 10 ms rejected. Post-build (closing): Bench on the delivered unit (credit row T-SW-TARGET, SWE-192). Closing cases: TC-SW-KEYER-024, TC-SW-KEYER-029, TC-SW-KEYER-034, TC-SW-KEYER-037. |
+| Status | Draft |
+| Priority | Baseline |
+| Parent | - |
+| Children | - |
+| Sources | NGO-021, OPS-012, OPS-013 |
+| Hazards | HZ-004 |
+| Design references | firmware/cwht-core/src/keyer/ |
+| Measures | - |
+| Tags | revA, safety, hsi |
+| TBR | owner: Robin decides at SRR on Claude's proposal; Claude produces the closing evidence; plan: 07 section 14.2 row d fixes the minimum interval at PDR: Claude proposes it with the PDR menu and control-input design (ICD-CTL-SW) from the button debounce and the owner's control-use session on the Pico 2 development board; Robin approves it in the PDR decision memo.; close by: PDR |
