@@ -52,7 +52,17 @@ Cross-file rules applied on top of the schemas:
     - a decision memo names its own folder, and disposition, signed, revoked
       and baseline_tag are consistent (01 sections 11, 12.1 and 12.2);
     - no docs/reviews/*/peer-reviews/ folder exists (charter section 5 as
-      amended 2026-09-25: the filled checklist is the single record).
+      amended 2026-09-25: the filled checklist is the single record);
+    - record drift (SRR package section 2.3 and item R13; lead SE direction
+      2026-09-26 "records name the committed blobs they reviewed"): when
+      --root is the top of a git work tree with a HEAD commit, every blob a
+      record names in product_files (path@blob) or product_blob (the blob of
+      its single-file product) is compared with `git ls-tree HEAD` (the value
+      `git rev-parse HEAD:<path>` gives). For a record whose verdict is
+      APPROVED a differing or absent blob is a failure, and so is an APPROVED
+      record that names no blob; for any other verdict the drift is printed
+      as a note and does not fail. Outside a git work tree top (the test
+      fixtures) the rule is reported as not applied.
 
 Exit status: 0 when every discovered document validates (or none is found),
 1 when any document fails, 2 on a usage error.
@@ -66,6 +76,7 @@ import argparse
 import datetime as dt
 import json
 import re
+import subprocess
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -178,6 +189,12 @@ PEER_REVIEW_RECORD_SCHEMA: dict[str, Any] = {
         "checklist_revision": {"type": "string"},
         "checklist_file": {"type": "string", "pattern": "^docs/reviews/(SRR|PDR|CDR|TRR|SAR|TRR-D[1-9][0-9]?)/checklists/[a-z0-9][a-z0-9._-]*\\.md$"},
         "product": {"type": "string", "minLength": 1},
+        "product_files": {
+            "type": "array",
+            "items": {"type": "string", "pattern": "^[^@\\s]+@[0-9a-f]{7,40}$"},
+            "description": "path@git blob of every reviewed file (record drift rule, package section 2.3, R13)",
+        },
+        "product_blob": {"type": "string", "pattern": "^[0-9a-f]{7,40}$", "description": "git blob of a single-file product"},
         "product_commit": {
             "type": "string",
             "pattern": "^[0-9a-f]{7,40}$",
@@ -237,6 +254,7 @@ class FileResult:
     schema: Path
     errors: list[str] = field(default_factory=list)
     schema_label: str | None = None
+    notes: list[str] = field(default_factory=list)
 
     @property
     def passed(self) -> bool:
@@ -739,6 +757,65 @@ def validate_decision_memo(document: Path, root: Path) -> FileResult:
     return result
 
 
+PRODUCT_FILE_ENTRY = re.compile(r"^([^@\s]+)@([0-9a-f]{7,40})$")
+DRIFT_RULE = "record drift rule: an APPROVED record names the committed blobs it reviewed (SRR package section 2.3, R13)"
+
+
+def head_blobs(root: Path) -> tuple[dict[str, str] | None, str]:
+    """{path: blob} of HEAD when root is the top of a git work tree with a HEAD commit; else (None, reason)."""
+    try:
+        top = subprocess.run(["git", "-C", str(root), "rev-parse", "--show-toplevel"], capture_output=True, text=True, check=False)
+    except OSError as exc:
+        return None, f"git is not available ({exc})"
+    if top.returncode != 0 or Path(top.stdout.strip()).resolve() != root.resolve():
+        return None, f"{root} is not the top of a git work tree"
+    tree = subprocess.run(["git", "-C", str(root), "ls-tree", "-r", "--full-tree", "HEAD"], capture_output=True, text=True, check=False)
+    if tree.returncode != 0:
+        return None, "the repository has no HEAD commit"
+    blobs = {}
+    for line in tree.stdout.splitlines():
+        meta, _, path = line.partition("\t")
+        parts = meta.split()
+        if len(parts) == 3 and parts[1] == "blob":
+            blobs[path] = parts[2]
+    return blobs, ""
+
+
+def named_blobs(data: dict[str, Any]) -> list[tuple[str, str]]:
+    """(path, blob) pairs a record names in product_files and product_blob."""
+    named = []
+    files = data.get("product_files")
+    if isinstance(files, list):
+        for entry in files:
+            match = PRODUCT_FILE_ENTRY.match(str(entry))
+            if match:
+                named.append((match.group(1), match.group(2)))
+    blob, product = data.get("product_blob"), data.get("product")
+    if isinstance(blob, str) and isinstance(product, str) and re.fullmatch(r"[0-9a-f]{7,40}", blob):
+        named.append((product.strip(), blob))
+    return named
+
+
+def check_record_drift(result: FileResult, data: dict[str, Any], blobs: dict[str, str]) -> None:
+    approved = data.get("verdict") == "APPROVED"
+    named = named_blobs(data)
+    if approved and not named:
+        result.errors.append(f"verdict: APPROVED but the record names no reviewed blob in product_files (path@blob) or product_blob; {DRIFT_RULE}")
+        return
+    for path, blob in named:
+        head = blobs.get(path)
+        if head is None:
+            message = f"product_files: {path}@{blob[:8]} is not in HEAD"
+        elif not head.startswith(blob):
+            message = f"product_files: {path}@{blob[:8]} differs from HEAD blob {head[:8]} (the committed product is not the reviewed one)"
+        else:
+            continue
+        if approved:
+            result.errors.append(f"{message}; {DRIFT_RULE}")
+        else:
+            result.notes.append(f"record drift: {message}")
+
+
 def validate_reviews(root: Path) -> tuple[list[FileResult], dict[str, str]]:
     """Peer-review records, decision memos, folder tokens and the forbidden peer-reviews/ folder.
 
@@ -748,10 +825,17 @@ def validate_reviews(root: Path) -> tuple[list[FileResult], dict[str, str]]:
     products: dict[str, str] = {}
     templates_present = (root / TEMPLATES_DIR).is_dir()
     seen: dict[str, str] = {}
-    for document in sorted(root.glob(PEER_REVIEW_RECORD_GLOB)):
-        if not document.is_file():
-            continue
+    records = [d for d in sorted(root.glob(PEER_REVIEW_RECORD_GLOB)) if d.is_file()]
+    blobs, drift_off = head_blobs(root) if records else (None, "")
+    for document in records:
         result, ident, product = validate_peer_review_record(document, root, templates_present)
+        if blobs is None:
+            if drift_off:
+                result.notes.append(f"record drift rule not applied: {drift_off}")
+        else:
+            front = parse_front_matter(document.read_text(encoding="utf-8"))
+            if front is not None:
+                check_record_drift(result, json_ready(front), blobs)
         if ident is not None:
             if ident in seen:
                 result.errors.append(f"id: {ident} already used by {seen[ident]} (ids are never reused, charter section 6)")
@@ -837,10 +921,15 @@ def print_results(results: list[FileResult], root: Path, quiet: bool) -> None:
         if result.passed:
             if not quiet:
                 print(f"PASS  {rel(result.document, root)}  (schema: {schema_text(result, root)})")
+                for note in result.notes:
+                    print(f"      note: {note}")
             continue
         print(f"FAIL  {rel(result.document, root)}  (schema: {schema_text(result, root)})")
         for error in result.errors:
             print(f"      - {error}")
+        if not quiet:
+            for note in result.notes:
+                print(f"      note: {note}")
     if not quiet:
         passed = sum(1 for result in results if result.passed)
         failed = len(results) - passed

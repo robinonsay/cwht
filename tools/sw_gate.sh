@@ -41,9 +41,11 @@
 # runs only when its database is already present. Installing a toolchain, a component or an
 # advisory database is an owner-approved action recorded in tools/toolchain.lock.md.
 #
-# Interim in-script checks (replaced when the named script exists, 07 section 1.2):
-#   G2 link-map summary and G3 run comparison use tools/measurements.py when present;
-#   otherwise the inline Python below performs the same comparison and prints INTERIM.
+# Scripts of 07 section 1.2 used by the gate (written 2026-09-26, SRR package item R3; TV-011 to
+# TV-013): tools/measurements.py (G2 --link-map, G3 --diff-runs, G6 --coverage),
+# tools/unsafe_audit.py --check (G5), tools/complexity_gate.py --max 15 (G5, fed by
+# rust-code-analysis-cli). The inline Python blocks below are the FW-B0 interim checks; they run
+# only if tools/measurements.py is absent and then print INTERIM.
 
 set -u
 
@@ -324,6 +326,9 @@ else
 fi
 
 # ---------------------------------------------------------------- G6 coverage and emulation
+# The three G6 outputs are removed first, so the G6 measurements step can only read files this
+# invocation wrote (an output a MISSING or SKIP step did not write is reported NOT PRODUCED).
+rm -f "$FW/target/lcov.info" "$FW/target/branch-condition.json" "$FW/target/emu-report.json"
 step "G6 coverage (stable, MSR-13)" fwrun cargo llvm-cov nextest --workspace --exclude cwht-app --profile ci \
     --lcov --output-path "$FW/target/lcov.info" --fail-under-lines 100 --fail-under-regions 100
 fwrun cargo llvm-cov report --summary-only 2>/dev/null || true

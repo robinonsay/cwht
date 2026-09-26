@@ -1,0 +1,5 @@
+     VMA      LMA     Size Align Out     In      Symbol
+10000000 10000000      100     4 .vector_table
+10000100 10000100      200     4 .text
+20000000 10000300       10     4 .data
+20000010 20000010      f0     4 .bss

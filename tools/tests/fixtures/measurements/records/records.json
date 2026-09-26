@@ -1,0 +1,11 @@
+{
+  "schema": "cwht-measurements-1",
+  "updated": "2026-09-26",
+  "records": [
+    {"id": "MSR-17", "name": "Cyclomatic complexity", "state": "Not yet measured", "value": null, "unit": "count", "scope": "firmware workspace", "build": "n/a", "commit": "0000000", "date": "2026-09-25", "source": "fixture", "credit": false, "sprint": "FW-B0", "gate": "SRR", "assessment": "Not assessed", "due": "FW-B1", "note": ""},
+    {"id": "MSR-18", "name": "Flash usage (TPM-010)", "state": "Not yet measured", "value": null, "unit": "bytes and % of 4 MB", "scope": "cwht-app release image", "build": "n/a", "commit": "0000000", "date": "2026-09-25", "source": "fixture", "credit": false, "sprint": "FW-B0", "gate": "SRR", "assessment": "Not assessed", "due": "FW-B0", "note": ""},
+    {"id": "MSR-18", "name": "Flash usage (TPM-010)", "state": "Measured", "value": {"bytes": 1608, "percent_of_4MB": 0.04}, "unit": "bytes and % of 4 MB", "scope": "cwht-app release image (thumbv8m.main-none-eabihf)", "build": "FW-B0 development build", "commit": "0000000", "date": "2026-09-25", "source": "fixture", "evidence": ["evidence/cwht-app.map sha256=e9ba4361ad2d2493acc88a49642a296263ae6b36edb1da6903b5c0e0f8ee1d1a"], "credit": false, "sprint": "FW-B0", "gate": "SRR", "assessment": "Green", "note": ""},
+    {"id": "MSR-19", "name": "RAM usage (TPM-011)", "state": "Measured", "value": {"bytes": 8200, "percent_of_520KB": 1.54}, "unit": "bytes and % of 520 KB", "scope": "cwht-app release image (thumbv8m.main-none-eabihf)", "build": "FW-B0 development build", "commit": "0000000", "date": "2026-09-25", "source": "fixture", "evidence": ["evidence/cwht-app.map sha256=e9ba4361ad2d2493acc88a49642a296263ae6b36edb1da6903b5c0e0f8ee1d1a"], "credit": false, "sprint": "FW-B0", "gate": "SRR", "assessment": "Green", "note": ""},
+    {"id": "MSR-17", "name": "Cyclomatic complexity", "state": "Not yet measured", "value": null, "unit": "count", "scope": "firmware workspace and rustos api, pico2", "build": "n/a", "commit": "0000000", "date": "2026-09-26", "source": "fixture", "credit": false, "sprint": "FW-B0", "gate": "SRR", "assessment": "Not assessed", "due": "FW-B1", "supersedes": {"id": "MSR-17", "scope": "firmware workspace", "date": "2026-09-25"}, "note": "re-keyed"}
+  ]
+}

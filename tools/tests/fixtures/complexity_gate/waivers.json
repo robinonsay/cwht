@@ -1,0 +1,4 @@
+[
+  {"id": "W1", "file": "src/core.rs", "function": "over_limit", "cc": 16, "memo": "docs/reviews/CDR/decision-memo.md"},
+  {"id": "W2", "file": "src/core.rs", "function": "at_limit", "cc": 15, "memo": "docs/reviews/CDR/decision-memo.md"}
+]

@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Record | TV-007 |
-| Status | **Validated** (2026-09-25). Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Validated** (2026-09-25; re-run at commit `400e59d` on 2026-09-26, SRR package item R5). Independent review and owner accreditation pending (sections 8 and 9) |
 | Class | B, evidence-generating (CM plan section 9.1) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9; the tool computes the review-trend TPM (TPM-003) of charter section 4 item 5 and NPR 7123.1D SE-64 as 01 section 11 defines it |
 | Due | SRR (CM plan section 13) |
@@ -44,8 +44,11 @@
 |---|---|---|---|---|
 | 1 | 2026-09-25 23:36 | `28e49e6` (tool, test, fixture and the repository inputs of section 1 byte-identical to the commit) | 20 (`KnownAnswerTests` 5, `CliTests` 5, `WriteTests` 3, `ZoneTests` 7), 0 skipped | pass |
 | 2 | 2026-09-25 23:45 | same | 20, 0 skipped | pass |
+| 3 | 2026-09-26 02:31 | `HEAD` `400e59d` (SRR package item R5): an export of the commit (`git archive HEAD`); tool, test modules and fixtures equal to `400e59d` | 20, 0 skipped | pass |
 
 Earlier runs on the working tree at `b8214ca` (18:23 one repository-content failure, then 18:28 and 19:36 pass) are in lock section 1.1. Evidence: `docs/cm/tool-validation/evidence/python-tools-2026-09-25.log.txt`.
+
+R5 re-run (2026-09-26, SRR package section 2.1 item R5; INSP-015 finding-2): section 3 run at commit `400e59d` on an export of the commit, so the result is bound to a commit that contains every file tested: every tool, test module and fixture identity line of the transcript reads "equal to HEAD". Evidence `evidence/python-tools-2026-09-26-r5-head.log.txt` (procedure `evidence/python-tools-2026-09-26-r5.py`, mode `head`).
 
 ## 5. Reproducibility
 

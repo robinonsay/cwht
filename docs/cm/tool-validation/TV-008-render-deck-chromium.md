@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Record | TV-008 |
-| Status | **Validated** (2026-09-25; re-validated 2026-09-26 with the seeded conversion and render failures, INSP-015 finding-5). Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Validated** (2026-09-25; re-validated 2026-09-26 with the seeded conversion and render failures, INSP-015 finding-5; re-run at commit `400e59d` on 2026-09-26, SRR package item R5). Independent review and owner accreditation pending (sections 8 and 9) |
 | Class | B, evidence-generating (CM plan section 9.1: its PNGs are the record of the presented review, charter section 4 item 2) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9 |
 | Due | SRR (CM plan section 13) |
@@ -47,8 +47,11 @@
 | Inspection | 2026-09-25 23:37 | same | 4 PNGs | pass: slide 1 title "FIXTURE DECK FOR RENDER_DECK.PY" and author line; slide 2 "AGENDA" with items 1 and 2; slide 3 "TABLE" with the 3-column header and one row; slide 4 "BULLETS" with alpha and beta and no speaker-note text; all legible, 1280 x 720 |
 | 2 | 2026-09-25 23:45 | same | 3, 0 skipped | pass |
 | 3 | 2026-09-26 00:15 | tool and `package*.json` equal to `28e49e6`; test blob `ff58fb7b` (modified: `SeededFailures`); fixture equal; headless shell binary SHA-256 re-observed `aa25f2e7...` | 5 (`RenderDeckKnownAnswer` 1, `LocationGuard` 2, `SeededFailures` 2), 0 skipped | pass |
+| 4 | 2026-09-26 02:31 | `HEAD` `400e59d` (SRR package item R5): an export of the commit (`git archive HEAD`); tool, test modules and fixtures equal to `400e59d`; `tools/slides/node_modules/` and the headless shell of section 1 as installed (untracked, linked into the export) | 5 (`RenderDeckKnownAnswer` 1, `LocationGuard` 2, `SeededFailures` 2), 0 skipped | pass |
 
 Renders inspected: `docs/cm/tool-validation/evidence/render-deck-fixture-slide-01.png` to `-04.png`. Earlier runs on the working tree at `b8214ca` are in lock section 1.1. Evidence: `docs/cm/tool-validation/evidence/python-tools-2026-09-25.log.txt` (runs 1 and 2) and `evidence/python-tools-2026-09-26.log.txt` (run 3).
+
+R5 re-run (2026-09-26, SRR package section 2.1 item R5; INSP-015 finding-2): section 3 run at commit `400e59d` on an export of the commit, so the result is bound to a commit that contains every file tested: every tool, test module and fixture identity line of the transcript reads "equal to HEAD". Evidence `evidence/python-tools-2026-09-26-r5-head.log.txt` (procedure `evidence/python-tools-2026-09-26-r5.py`, mode `head`).
 
 ## 5. Reproducibility
 

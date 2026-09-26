@@ -1,0 +1,163 @@
+# Project Python tool known-answer runs (R5, mode worktree), 2026-09-26 02:32:06 CDT, host Darwin 25.6.0 arm64
+# tree tested /Users/robinonsay/rust/cwht; repository HEAD 400e59d34835aed359049df9dad1329dfd372380; python Python 3.13.5; git version 2.50.1 (Apple Git-155)
+
+## TV-002 traceability.py
+  tool    tools/traceability.py: git blob 0a867523f78c224afdaa938735911b5df8f2920c; sha256 150571ceaaee1a935fef4385eb502c8f8fd200c75095d37a92f32331684ec49a; equal to HEAD
+  tool    tools/validate_docs.py: git blob 33ab5a83fc2063071e1afece416b180518d9da12; sha256 1a0ab22c0b37d4e48d0c694b49d723524989181d0a200685654603454f800a7c; differs from HEAD blob 2bedc2a7
+  test    tools/tests/test_traceability.py: git blob d76b06976ba62d374d8c30a8eb08a4cb57d394e7; sha256 493d81f818e2632d486c9f6cc3a09fcc79cd46e84bd0bd106da3077d69edf780; equal to HEAD
+  test    tools/tests/test_traceability_srr_rules.py: git blob 86606485debd4569954847c5a48e7dd62bbcbcab; sha256 7c8f10a4be544fdc6b7b99455fe53839f809651fddf3d64e9cf9d5c731d09776; equal to HEAD
+  test    tools/tests/test_tools.py: git blob ed003bad762332310f0bc4d63346ac875f0e0554; sha256 8408518e994909db7d08b39d800f0f7cd22afc8567e9d1ef06aee470dec5d823; equal to HEAD
+  fixture tools/tests/fixtures/valid_project: 38 files, tree digest sha256 c842bb54028707840409b8d0363fdf3c36885ddccb4e4458df50389e58aa3b7d; 38 equal to HEAD, 0 not ()
+  fixture tools/tests/fixtures/invalid_project: 32 files, tree digest sha256 2377caa9611bdff2407f73ca9705cd1890407885d3f0f914462d7172f1e683eb; 32 equal to HEAD, 0 not ()
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_traceability.py -k ValidProjectTests -k InvalidProjectTests -k WordListTests
+    Ran 27 tests; failures+errors 0; skipped 0; per class {'InvalidProjectTests': 15, 'ValidProjectTests': 10, 'WordListTests': 2}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_traceability_srr_rules.py -k CatalogueTests -k StakeholdersKnownAnswerTests -k AllocationKnownAnswerTests
+    Ran 32 tests; failures+errors 0; skipped 0; per class {'AllocationKnownAnswerTests': 14, 'CatalogueTests': 3, 'StakeholdersKnownAnswerTests': 15}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_tools.py
+    Ran 117 tests; failures+errors 0; skipped 0; per class {'BaselinedMarkdownTbdTests': 2, 'CatalogueKnownAnswerTests': 12, 'CatalogueTests': 2, 'CrossToolTests': 2, 'DecisionMemoAndFolderTests': 3, 'DuplicateIdTests': 2, 'EvidenceRuleTests': 5, 'ExpectationSourceTests': 2, 'ExpectationsTests': 9, 'FrontMatterTests': 4, 'HazardTraceUnionTests': 2, 'InterimRetirementTests': 6, 'LogItemAndHistoryTests': 2, 'MatrixColumnTests': 5, 'MeasurementsSchemaKnownAnswerTests': 2, 'ModuleRuleTests': 2, 'NcrFieldTests': 2, 'NewConventionTests': 1, 'OnTargetTests': 1, 'OutputTests': 2, 'ParentRuleTests': 5, 'PeerReviewRecordRuleTests': 6, 'RegulationPartsTests': 3, 'RenderTests': 3, 'RetiredTests': 3, 'SchemaFindingTests': 3, 'SchemaTripwireTests': 3, 'SourceRuleTests': 5, 'Swe052CoverageTests': 3, 'TagTests': 2, 'TbdScopeTests': 2, 'ValidateDocsHazardsTests': 1, 'VerifiedEvidenceTests': 4}; PASS
+  RESULT TV-002 traceability.py: PASS (176 tests)
+
+## TV-003 validate_docs.py
+  tool    tools/validate_docs.py: git blob 33ab5a83fc2063071e1afece416b180518d9da12; sha256 1a0ab22c0b37d4e48d0c694b49d723524989181d0a200685654603454f800a7c; differs from HEAD blob 2bedc2a7
+  test    tools/tests/test_validate_docs.py: git blob 4fb5bcc756b910876340e2f254359d3d9fcf80ef; sha256 fbae6f777b235c8643ff8820ee1d43bd1c383c81fc5e201f39ff74bde3ed8f0a; differs from HEAD blob 8944a389
+  test    tools/tests/test_tools.py: git blob ed003bad762332310f0bc4d63346ac875f0e0554; sha256 8408518e994909db7d08b39d800f0f7cd22afc8567e9d1ef06aee470dec5d823; equal to HEAD
+  fixture tools/tests/fixtures/valid_project: 38 files, tree digest sha256 c842bb54028707840409b8d0363fdf3c36885ddccb4e4458df50389e58aa3b7d; 38 equal to HEAD, 0 not ()
+  fixture tools/tests/fixtures/invalid_project: 32 files, tree digest sha256 2377caa9611bdff2407f73ca9705cd1890407885d3f0f914462d7172f1e683eb; 32 equal to HEAD, 0 not ()
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_validate_docs.py -k ValidProjectTests -k InvalidProjectTests -k PeerReviewRecordTests -k UsageErrorTests -k RecordDriftTests
+    Ran 25 tests; failures+errors 0; skipped 0; per class {'InvalidProjectTests': 6, 'PeerReviewRecordTests': 8, 'RecordDriftTests': 5, 'UsageErrorTests': 2, 'ValidProjectTests': 4}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_tools.py
+    Ran 117 tests; failures+errors 0; skipped 0; per class {'BaselinedMarkdownTbdTests': 2, 'CatalogueKnownAnswerTests': 12, 'CatalogueTests': 2, 'CrossToolTests': 2, 'DecisionMemoAndFolderTests': 3, 'DuplicateIdTests': 2, 'EvidenceRuleTests': 5, 'ExpectationSourceTests': 2, 'ExpectationsTests': 9, 'FrontMatterTests': 4, 'HazardTraceUnionTests': 2, 'InterimRetirementTests': 6, 'LogItemAndHistoryTests': 2, 'MatrixColumnTests': 5, 'MeasurementsSchemaKnownAnswerTests': 2, 'ModuleRuleTests': 2, 'NcrFieldTests': 2, 'NewConventionTests': 1, 'OnTargetTests': 1, 'OutputTests': 2, 'ParentRuleTests': 5, 'PeerReviewRecordRuleTests': 6, 'RegulationPartsTests': 3, 'RenderTests': 3, 'RetiredTests': 3, 'SchemaFindingTests': 3, 'SchemaTripwireTests': 3, 'SourceRuleTests': 5, 'Swe052CoverageTests': 3, 'TagTests': 2, 'TbdScopeTests': 2, 'ValidateDocsHazardsTests': 1, 'VerifiedEvidenceTests': 4}; PASS
+  RESULT TV-003 validate_docs.py: PASS (142 tests)
+
+## TV-004 render_rmm.py
+  tool    tools/render_rmm.py: git blob 2386a37fbfb9d7d06c333e0f00981b6fc67e1f27; sha256 face0b9e5135585a583a6912e4ae6eda793e515e72e1ad9f2f52a453ee9c1896; equal to HEAD
+  test    tools/tests/test_render_rmm.py: git blob 0454936bf20498078de9ae2861af727c3a66350e; sha256 58f58a7f665c52de3922b940a3ce4e95276a97bc92d8ab63c107f8c4de1c4295; equal to HEAD
+  fixture tools/tests/fixtures/rmm: 17 files, tree digest sha256 fa7f91afec62aa69e01f5fe73cde09720a7c7a6df4d7e09836bfddd69c6f89ce; 17 equal to HEAD, 0 not ()
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_rmm.py
+    Ran 20 tests; failures+errors 0; skipped 0; per class {'CorpusParseTests': 4, 'SeededFaultTests': 10, 'ValidFixtureTests': 6}; PASS
+  RESULT TV-004 render_rmm.py: PASS (20 tests)
+
+## TV-005 render_compliance.py
+  tool    tools/render_compliance.py: git blob d67d6b5e601a64b013b64e8de3cd0fc3deb96ffa; sha256 24d09c18ed2141bd21c3cf3a69d3b42dd713cf9329ec2691b3ab32db47ffc171; equal to HEAD
+  test    tools/tests/test_render_compliance.py: git blob c40a7f1f514d3784efcbef300d301391d9de84c0; sha256 98a7a85be8bfefdf2e2268f02bb6f2ab89502f707daf5b4311508ab750355685; equal to HEAD
+  fixture tools/tests/fixtures/compliance: 15 files, tree digest sha256 a95aad4632621207139c863b87bcb098dd63190cb1e7dd68386bceb63d3a2b43; 15 equal to HEAD, 0 not ()
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_compliance.py -k CorpusParseTests -k ValidFixtureTests -k SeededFaultTests
+    Ran 26 tests; failures+errors 0; skipped 0; per class {'CorpusParseTests': 5, 'SeededFaultTests': 12, 'ValidFixtureTests': 9}; PASS
+  RESULT TV-005 render_compliance.py: PASS (26 tests)
+
+## TV-006 render_risk.py
+  tool    tools/render_risk.py: git blob d38ba1dd25ac8ef5ecb04ce5b1ea907bb60eee8c; sha256 fd3fcbd92f5282a65a41d791d6554d83ac002ccec018607c8017ac61b7947836; equal to HEAD
+  test    tools/tests/test_render_risk.py: git blob 05d695a4dd8c7d0510fd9a2c078584d6e3316b21; sha256 54c9ad7e211aae1de762dd32b0a3456de0b53478fd45bd9cc3024355417fb01f; equal to HEAD
+  fixture tools/tests/fixtures/risk: 5 files, tree digest sha256 3a594f973adbb7c16af2d2d944eced06110abb51811e9bd234dd125aeb1ea8c1; 5 equal to HEAD, 0 not ()
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_risk.py
+    Ran 27 tests; failures+errors 0; skipped 0; per class {'BandTests': 3, 'GateTests': 7, 'HazardCrossCheckTests': 4, 'SeededFaultTests': 3, 'ValidFixtureTests': 10}; PASS
+  RESULT TV-006 render_risk.py: PASS (27 tests)
+
+## TV-007 review_trend.py
+  tool    tools/review_trend.py: git blob 04493157ae1c3245ca600bf1c29069dfe3192810; sha256 24c10c039b3b5fe4679f7ee92cf837ccffc6851fd420362ce84c19b7b13f46d6; equal to HEAD
+  test    tools/tests/test_review_trend.py: git blob 1f3ab0067b9ce33ebedefaf2a460664d2a978bdb; sha256 97d6a7816484ee4a5c038399e501d38e859bbf1b1c7446c34d9109c2182d3945; equal to HEAD
+  fixture tools/tests/fixtures/review_trend: 6 files, tree digest sha256 c7d63b0f247b4f294700a7c3a3616f8a72b5a146dc4cb57125dedc979217a45e; 6 equal to HEAD, 0 not ()
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_review_trend.py
+    Ran 20 tests; failures+errors 0; skipped 0; per class {'CliTests': 5, 'KnownAnswerTests': 5, 'WriteTests': 3, 'ZoneTests': 7}; PASS
+  RESULT TV-007 review_trend.py: PASS (20 tests)
+
+## TV-008 render_deck.py + Chromium headless shell
+  tool    tools/slides/render_deck.py: git blob b42425e9e9d2ca2b860284914b78ccbabecd38a0; sha256 6c8015462a480b18fe62e654f4ffba233039a462add1f037bd6034cb34754862; equal to HEAD
+  tool    tools/slides/package.json: git blob 6b44d97427592c7380bb0f77558d9ec509e3f367; sha256 35a3fde3754618b50a32114dbd09d0a3444e3f6b1fae2e0729d937121b2f2850; equal to HEAD
+  tool    tools/slides/package-lock.json: git blob baf84c95bf620112c065ee8fb7cff9b3d2233806; sha256 71f09c6d378bf284e36a7069c9b6e22619cf300fa90c54774a359d03dbd3dac1; equal to HEAD
+  test    tools/tests/test_render_deck.py: git blob ff58fb7b7f1017ab165ad532bac36898f4ed0835; sha256 14c631667da4bee71ec8b57bf1a2e8d70a6fb276ea917b63ba22c6e7369e486e; equal to HEAD
+  fixture tools/tests/fixtures/slides: 1 files, tree digest sha256 f0519294f5762ef133436b0d2751cba0e0824e1e08ba6a951314708e04636b97; 1 equal to HEAD, 0 not ()
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_deck.py
+    Ran 5 tests; failures+errors 0; skipped 0; per class {'LocationGuard': 2, 'RenderDeckKnownAnswer': 1, 'SeededFailures': 2}; PASS
+  RESULT TV-008 render_deck.py + Chromium headless shell: PASS (5 tests)
+
+## TV-009 git
+  test    tools/tests/test_git_known_answer.py: git blob cd8389823bdc34889edc7fc680f1bd8ae4c928a9; sha256 a588f2d2eef60c22641f2dea740361316b50f03a91d66b505cda3bac3442385f; equal to HEAD
+  fixture tools/tests/fixtures/git: 2 files, tree digest sha256 bfc6387c2a299cd20f59ae8718f466896142a1c173d73374c18df18c7e657238; 2 equal to HEAD, 0 not ()
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_git_known_answer.py
+    Ran 6 tests; failures+errors 0; skipped 0; per class {'GitKnownAnswerTests': 6}; PASS
+  RESULT TV-009 git: PASS (6 tests)
+
+## TV-010 render_review_figures.py
+  tool    tools/render_review_figures.py: git blob 6f3018fdffe25107247f5ef9d010c5cc7d1aaf3e; sha256 016779b8bf93fb1ca22229b0fba5f3125525ef8748005aa71b1c417ad0320a82; differs from HEAD blob 979beb13
+  test    tools/tests/test_render_review_figures.py: git blob cb54d28b00b8c854056b341ece157c00778476cb; sha256 201cf00d5eb3edcb9db1148bbcca2110af9e5327c54c8c6f715c5340fa4bfa5d; differs from HEAD blob ff5d81fa
+  fixture tools/tests/fixtures/review_figures: 6 files, tree digest sha256 1a2dae0b33be6aa3660469ce3a39231c645ae84db29bc087a018a55c8b17b07c; 5 equal to HEAD, 1 not (tools/tests/fixtures/review_figures/docs/reviews/SRR/package.md)
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_review_figures.py -k ParserTests -k DataKnownAnswerTests -k RunTests -k LabelAndDaggerTests -k LayoutKnownAnswerTests
+    Ran 42 tests; failures+errors 0; skipped 0; per class {'DataKnownAnswerTests': 18, 'LabelAndDaggerTests': 4, 'LayoutKnownAnswerTests': 6, 'ParserTests': 7, 'RunTests': 7}; PASS
+  RESULT TV-010 render_review_figures.py: PASS (42 tests)
+
+## TV-011 unsafe_audit.py
+  tool    tools/unsafe_audit.py: git blob cc3aaa2ad82a52a63615c6af082567007b2d7e6e; sha256 08a9030a42a5aa63551b73e59400863e4f36bfe09dbc9131095c1efb127a8941; not in HEAD
+  test    tools/tests/test_unsafe_audit.py: git blob 5fadacd26d32b3d440e79edbfb67ecaa7e6b197d; sha256 d65fe91328db74f2828a525ff37242d2e01fe153110a96aa9c8e2b4bfd197895; not in HEAD
+  fixture tools/tests/fixtures/unsafe_audit: 3 files, tree digest sha256 0c8cb73502c08f990c8b540cee895da27553b32404a1bf206e7206089f81c8f5; 0 equal to HEAD, 3 not (tools/tests/fixtures/unsafe_audit/audited/src/lib.rs, tools/tests/fixtures/unsafe_audit/clean/src/lib.rs, tools/tests/fixtures/unsafe_audit/forbidden/src/main.rs)
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_unsafe_audit.py
+    Ran 14 tests; failures+errors 0; skipped 0; per class {'CheckTests': 4, 'LexerTests': 3, 'ScanKnownAnswerTests': 4, 'SignatureTests': 2, 'UsageTests': 1}; PASS
+  RESULT TV-011 unsafe_audit.py: PASS (14 tests)
+
+## TV-012 complexity_gate.py
+  tool    tools/complexity_gate.py: git blob 9214fefb76f95f0494f906607ef06428260d1c75; sha256 e14a4c3bf98aed410c24d87ef5632d56a04b7d1ba14e5f87dfc2699722fd820c; not in HEAD
+  tool    tools/unsafe_audit.py: git blob cc3aaa2ad82a52a63615c6af082567007b2d7e6e; sha256 08a9030a42a5aa63551b73e59400863e4f36bfe09dbc9131095c1efb127a8941; not in HEAD
+  test    tools/tests/test_complexity_gate.py: git blob a3b0661b4967377a5d49f8b54cc0ec6b380bb947; sha256 f93002021217bbad167e44d79ce7bf071b2237589f4f97fa75be37c54b861e03; not in HEAD
+  fixture tools/tests/fixtures/complexity_gate: 5 files, tree digest sha256 021a012766cfd784490eee7d7574c4e17f431269b804f76ecdcd4b50cd454067; 0 equal to HEAD, 5 not (tools/tests/fixtures/complexity_gate/docs/reviews/CDR/decision-memo.md, tools/tests/fixtures/complexity_gate/rca.json, tools/tests/fixtures/complexity_gate/src/app.rs, tools/tests/fixtures/complexity_gate/src/core.rs, tools/tests/fixtures/complexity_gate/waivers.json)
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_complexity_gate.py
+    Ran 9 tests; failures+errors 0; skipped 0; per class {'GateKnownAnswerTests': 5, 'ParseKnownAnswerTests': 3, 'UsageTests': 1}; PASS
+  RESULT TV-012 complexity_gate.py: PASS (9 tests)
+
+## TV-013 measurements.py
+  tool    tools/measurements.py: git blob abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a; sha256 46f0cf185ea0f941d2cbe3f65cf0c02788d65cee53ddd626e0d7ceb1837701bc; not in HEAD
+  test    tools/tests/test_measurements.py: git blob 7e7ba2bbdb3569ba42924b6d974bcdb70f69f58b; sha256 ce1ee1b9edefc3daccb3f90a0fd8f96827778809038f324cacc7b6439a38048a; not in HEAD
+  fixture tools/tests/fixtures/measurements: 13 files, tree digest sha256 250e0e1e86fba48494ded9377b21e9d1efad5d8b193fd5582ec59be1dbbe0c23; 2 equal to HEAD, 11 not (tools/tests/fixtures/measurements/junit/empty.xml, tools/tests/fixtures/measurements/junit/run1.xml, tools/tests/fixtures/measurements/junit/run2-diff.xml, tools/tests/fixtures/measurements/junit/run2-same.xml, tools/tests/fixtures/measurements/lcov/branch-condition.json, tools/tests/fixtures/measurements/lcov/lcov.info, ...)
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_measurements.py
+    Ran 16 tests; failures+errors 0; skipped 0; per class {'CoverageTests': 2, 'DiffRunsTests': 3, 'LinkMapTests': 5, 'RecordsTests': 5, 'UsageTests': 1}; PASS
+  RESULT TV-013 measurements.py: PASS (16 tests)
+
+## Repository-content checks (not a tool accreditation)
+  test    tools/tests/test_traceability.py: git blob d76b06976ba62d374d8c30a8eb08a4cb57d394e7; sha256 493d81f818e2632d486c9f6cc3a09fcc79cd46e84bd0bd106da3077d69edf780; equal to HEAD
+  test    tools/tests/test_validate_docs.py: git blob 4fb5bcc756b910876340e2f254359d3d9fcf80ef; sha256 fbae6f777b235c8643ff8820ee1d43bd1c383c81fc5e201f39ff74bde3ed8f0a; differs from HEAD blob 8944a389
+  test    tools/tests/test_traceability_srr_rules.py: git blob 86606485debd4569954847c5a48e7dd62bbcbcab; sha256 7c8f10a4be544fdc6b7b99455fe53839f809651fddf3d64e9cf9d5c731d09776; equal to HEAD
+  test    tools/tests/test_render_compliance.py: git blob c40a7f1f514d3784efcbef300d301391d9de84c0; sha256 98a7a85be8bfefdf2e2268f02bb6f2ab89502f707daf5b4311508ab750355685; equal to HEAD
+  test    tools/tests/test_render_review_figures.py: git blob cb54d28b00b8c854056b341ece157c00778476cb; sha256 201cf00d5eb3edcb9db1148bbcca2110af9e5327c54c8c6f715c5340fa4bfa5d; differs from HEAD blob ff5d81fa
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_traceability.py -k RepositoryTests
+    Ran 1 tests; failures+errors 0; skipped 0; per class {'RepositoryTests': 1}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_validate_docs.py -k RepositoryTests
+    Ran 1 tests; failures+errors 1; skipped 0; per class {'RepositoryTests': 1}; FAIL
+    duct_files: docs/cm/tool-validation/TV-003-validate-docs.md@e787b4b1 differs from HEAD blob e9575b7e (the committed product is not the reviewed one)
+          note: record drift: product_files: docs/cm/tool-validation/TV-008-render-deck-chromium.md@df046f21 differs from HEAD blob 1aa3099c (the committed product is not the reviewed one)
+          note: record drift: product_files: docs/cm/tool-validation/TV-010-render-review-figures.md@7273106b differs from HEAD blob 8a7e322b (the committed product is not the reviewed one)
+          note: record drift: product_files: tools/toolchain.lock.md@8b232458 differs from HEAD blob 67c2d9dd (the committed product is not the reviewed one)
+          note: record drift: product_files: tools/tests/test_render_deck.py@539e9593 differs from HEAD blob ff58fb7b (the committed product is not the reviewed one)
+          note: record drift: product_files: tools/tests/test_tools.py@af6ed8b7 differs from HEAD blob ed003bad (the committed product is not the reviewed one)
+          note: record drift: product_files: tools/tests/test_validate_docs.py@3b10718d differs from HEAD blob 8944a389 (the committed product is not the reviewed one)
+    FAIL  docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+          - verdict: APPROVED but the record names no reviewed blob in product_files (path@blob) or product_blob; record drift rule: an APPROVED record names the committed blobs it reviewed (SRR package section 2.3, R13)
+    PASS  docs/reviews/SRR/rfa-rid-log.json  (schema: docs/templates/rfa-rid-log.schema.json)
+    PASS  docs/risk/register.json  (schema: docs/risk/schema.json)
+    PASS  docs/safety/hazards.json  (schema: docs/safety/schema.json)
+    PASS  docs/templates/requirements.example.json  (schema: docs/requirements/schema.json)
+    PASS  docs/templates/rfa-rid-log.example.json  (schema: docs/templates/rfa-rid-log.schema.json)
+    PASS  docs/templates/test_cases.example.json  (schema: docs/test_cases/schema.json)
+    PASS  docs/test_cases/sw-keyer/test_cases.json  (schema: docs/test_cases/schema.json)
+    PASS  docs/test_cases/sw-tool/test_cases.json  (schema: docs/test_cases/schema.json)
+    PASS  docs/test_cases/sys/test_cases.json  (schema: docs/test_cases/schema.json)
+    PASS  docs/test_cases/tx/test_cases.json  (schema: docs/test_cases/schema.json)
+    validate_docs: 35 passed, 2 failed, 37 checked
+    
+    
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.310s
+    
+    FAILED (failures=1)
+    
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_traceability_srr_rules.py -k FixtureSchemaTripwireTests -k RepositoryAllocationTests
+    Ran 2 tests; failures+errors 0; skipped 0; per class {'FixtureSchemaTripwireTests': 1, 'RepositoryAllocationTests': 1}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_compliance.py -k ProjectMatrixTests
+    Ran 1 tests; failures+errors 0; skipped 0; per class {'ProjectMatrixTests': 1}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_review_figures.py -k RepositoryTests
+    Ran 1 tests; failures+errors 0; skipped 0; per class {'RepositoryTests': 1}; PASS
+  RESULT Repository-content checks (not a tool accreditation): FAIL (6 tests)
+
+## Full directory, for information
+  $ .venv/bin/python -m unittest discover -s tools/tests
+    Ran 392 tests in 12.278s |  | FAILED (failures=1); exit 1
+
+OVERALL (tool runs; repository-content checks reported separately) PASS

@@ -7,7 +7,7 @@ Miniature package with the three sections tools/render_review_figures.py reads; 
 | # | Criterion (short) | Gate | Evidence artifact | Commit | Status | Note or proposed lien id |
 |---|---|---|---|---|---|---|
 | S1 | Agenda and success criteria agreed | Hard | this file | untracked | Not met (awaiting owner confirmation) | |
-| S4 | Traceability report passes | Hard | traceability report | untracked | **Met** (tool rules) | |
+| S4 | Traceability report passes | Hard | traceability report | untracked | **Met** (tool rules) | Met on uncredited tool runs |
 | 1 | Stakeholders and expectations | Hard | expectations.json | untracked | Partially met | INSP record missing |
 | 2 | Goals and objectives | Soft at SRR | expectations.json | untracked | Met (content) | |
 

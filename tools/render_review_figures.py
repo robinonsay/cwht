@@ -39,10 +39,20 @@ Exit status: 0 figures written (or --check passed), 1 an input disagrees with th
 package or the figure set, or an input is missing (nothing is written), 2 usage
 error (unknown review token, a review without a figure set, an unknown figure).
 
+Labels name criteria only: an entrance or success label may not restate a
+status (a word such as missing, pending, approval or Red, or a number, that the
+package's criterion cell does not itself contain), so a status can only come
+from the package. The dagger rows (tool_run_rows) must be exactly the package
+rows whose text says they rest on an uncredited tool run. Lanes are laid out to
+fit: the entrance rows shrink together until the fullest lane ends above its
+footnote, and the success rows shrink until every lane's rows end inside the
+lane; a lane too full to fit at 12 pt stops the run (exit 1) instead of
+clipping rows.
+
 The known-answer test is tools/tests/test_render_review_figures.py on the fixture
 tools/tests/fixtures/review_figures/. The tool is class B review-evidence tooling
-without a TV record yet (SWE-136), so its figures are developer evidence until
-the record exists.
+with the tool validation record docs/cm/tool-validation/TV-010-render-review-figures.md
+(SWE-136); its figures are developer evidence until that record is accredited.
 """
 from __future__ import annotations
 
@@ -118,6 +128,7 @@ class FigureSet:
     entrance_overrides: dict[str, tuple[str, str]] = field(default_factory=dict)
     tool_run_rows: frozenset[str] = frozenset()
     entrance_notes: dict[str, str] = field(default_factory=dict)
+    tool_run_marker: str = r"uncredited tool run"  # package row text that marks a tool_run_rows row
     success_labels: dict[str, str] = field(default_factory=dict)
     success_overrides: dict[str, tuple[str, str]] = field(default_factory=dict)
     success_footer: tuple[str, ...] = ()
@@ -138,6 +149,7 @@ class Context:
     spec: FigureSet
     package: "Package"
     log: list[str] = field(default_factory=list)
+    layouts: dict[str, Any] = field(default_factory=dict)  # the layout each renderer used (known-answer tests)
 
     def note(self, text: str) -> None:
         self.log.append(text)
@@ -240,6 +252,29 @@ def lanes_for(kind: str, status: dict[str, str]) -> dict[str, list[str]]:
     return lanes
 
 
+# Words that carry a status or an approval state; a label may use one only when the package's criterion cell does.
+STATUS_WORDS = frozenset({
+    "missing", "pending", "await", "awaits", "awaiting", "open", "approved", "approval", "red", "yellow", "green",
+    "lien", "liens", "met", "not", "blocked", "closed", "verified", "fixed", "needs", "changes", "absent", "done",
+})
+
+
+def label_restatements(label: str, criterion: str) -> list[str]:
+    """Tokens of a label that restate a status or a count the criterion cell does not contain."""
+    words = set(re.findall(r"[a-z]+", criterion.lower()))
+    numbers = set(re.findall(r"\d+", criterion))
+    bad = [w for w in re.findall(r"[a-z]+", label.lower()) if w in STATUS_WORDS and w not in words]
+    bad += [n for n in re.findall(r"\d+", label) if n not in numbers]
+    return bad
+
+
+def check_labels(kind: str, labels: dict[str, str], criteria: dict[str, str]) -> None:
+    for cid, label in labels.items():
+        bad = label_restatements(label, criteria.get(cid, ""))
+        if bad:
+            raise FigureDataError(f"{kind} {cid} label '{label}' restates {bad}, which its package criterion '{criteria.get(cid, '')}' does not contain; labels name the criterion, statuses come from the package")
+
+
 # ----------------------------------------------------------------------------
 # Data (pure: read, cross-check, return what is drawn)
 # ----------------------------------------------------------------------------
@@ -249,14 +284,20 @@ def entrance_data(ctx: Context) -> dict[str, list[tuple[str, str, str]]]:
     """Entrance lanes: (id with a dagger for tool-run rows, label, gate) per status, in package order."""
     spec = ctx.spec
     rows = md_rows(ctx.package.section(spec.entrance_section))
-    status, gate = {}, {}
+    status, gate, criteria, marked = {}, {}, {}, set()
     for row in rows:
         if len(row) < 6:
             raise FigureDataError(f"entrance row {row[:1]} has {len(row)} cells; the table needs # | criterion | gate | evidence | commit | status")
         status[row[0]] = status_of(row[5])
         gate[row[0]] = "Hard" if row[2].startswith("Hard") else ("Soft" if row[2].startswith("Soft") else row[2])
+        criteria[row[0]] = row[1]
+        if re.search(spec.tool_run_marker, " ".join(row[5:]), re.I):
+            marked.add(row[0])
     if set(status) != set(spec.entrance_labels):
         raise FigureDataError(f"entrance rows and figure-set labels differ: {sorted(set(status) ^ set(spec.entrance_labels))}")
+    check_labels("entrance row", spec.entrance_labels, criteria)
+    if marked != set(spec.tool_run_rows):
+        raise FigureDataError(f"dagger rows {sorted(spec.tool_run_rows)} differ from the package rows marked '{spec.tool_run_marker}' {sorted(marked)}")
     status = apply_overrides("entrance row", status, spec.entrance_overrides, ctx.log)
     lanes = lanes_for("entrance row", status)
     return {
@@ -271,6 +312,7 @@ def success_data(ctx: Context) -> dict[str, list[tuple[str, str]]]:
     status = {row[0]: status_of(row[3]) for row in rows}
     if set(status) != set(spec.success_labels):
         raise FigureDataError(f"success criteria and figure-set labels differ: {sorted(set(status) ^ set(spec.success_labels))}")
+    check_labels("success criterion", spec.success_labels, {row[0]: row[1] for row in rows})
     status = apply_overrides("success criterion", status, spec.success_overrides, ctx.log)
     return {lane: [(cid, spec.success_labels[cid]) for cid in ids] for lane, ids in lanes_for("success criterion", status).items()}
 
@@ -338,14 +380,23 @@ def kdr_data(ctx: Context) -> dict[str, Any]:
     shown = {f"REQ-SYS-{num}" for _, items in ctx.spec.kdr_text for num, _ in items}
     if shown != kdr_ids:
         raise FigureDataError(f"KDR figure-set entries and KDR requirements differ: {sorted(shown ^ kdr_ids)}")
+    def close_by(req: dict[str, Any]) -> str:
+        tbr = req.get("tbr")
+        if not tbr:
+            return ""
+        event = tbr.get("close_by") if isinstance(tbr, dict) else None
+        if not isinstance(event, str) or not event:
+            raise FigureDataError(f"{req.get('id')}: open TBR without close_by")
+        return event
+
     groups = [
-        (name, [(num, text, reqs[f"REQ-SYS-{num}"].get("verification_method", ""), bool(reqs[f"REQ-SYS-{num}"].get("tbr"))) for num, text in items])
+        (name, [(num, text, reqs[f"REQ-SYS-{num}"].get("verification_method", ""), close_by(reqs[f"REQ-SYS-{num}"])) for num, text in items])
         for name, items in ctx.spec.kdr_text
     ]
     placed = sorted(i for column in ctx.spec.kdr_columns for i in column)
     if placed != list(range(len(groups))):
         raise FigureDataError(f"kdr_columns place groups {placed}; every one of the {len(groups)} groups goes in exactly one column")
-    return {"groups": groups, "count": len(kdr_ids)}
+    return {"groups": groups, "count": len(kdr_ids), "tbr": sum(1 for _, items in groups for item in items if item[3])}
 
 
 SEVERITIES = ("Catastrophic", "Critical", "Marginal", "Negligible")
@@ -548,8 +599,32 @@ def lbl(ax, x, y, s, fs=16, ha="center", color=INK2):
 # ----------------------------------------------------------------------------
 
 
+ENTRANCE_W, ENTRANCE_H, ENTRANCE_TOP, ENTRANCE_ROW, ENTRANCE_FS = 1760, 850, 78.0, 43.0, 20.0
+NOTE_FS, NOTE_SPACING, NOTE_MARGIN, NOTE_GAP, LANE_MARGIN, MIN_FS = 17.0, 1.3, 22.0, 12.0, 16.0, 12.0
+
+
+def note_height(text: str) -> float:
+    """Pixel height of a lane footnote (dpi 100: 1 pt = 100/72 px)."""
+    return (text.count("\n") + 1) * NOTE_FS * 100 / 72 * NOTE_SPACING
+
+
+def entrance_layout(lanes: dict[str, list[Any]], notes: dict[str, str], h: float = ENTRANCE_H) -> dict[str, Any]:
+    """One row height for every lane: the fullest lane ends above its footnote (or the lane margin)."""
+    bottoms = {title: (h - NOTE_MARGIN - note_height(notes[title]) - NOTE_GAP) if title in notes else h - LANE_MARGIN for title in lanes}
+    row_h = min([ENTRANCE_ROW] + [(bottoms[t] - ENTRANCE_TOP) / len(items) for t, items in lanes.items() if items])
+    fs = min(ENTRANCE_FS, round(row_h * ENTRANCE_FS / ENTRANCE_ROW * 2) / 2)
+    if fs < MIN_FS:
+        raise FigureDataError(f"entrance lanes of {max(len(v) for v in lanes.values())} rows do not fit at {MIN_FS} pt; the figure needs another layout")
+    rows = {t: [ENTRANCE_TOP + row_h * (k + 0.5) for k in range(len(items))] for t, items in lanes.items()}
+    return {"row_h": row_h, "fs": fs, "rows": rows, "bottoms": bottoms}
+
+
 def draw_entrance(ctx: Context, lanes: dict[str, list[tuple[str, str, str]]], out: Path) -> Path:
-    w, h, row_h, fs, id_w = 1760, 850, 43, 20, 70
+    w, h = ENTRANCE_W, ENTRANCE_H
+    layout = entrance_layout(lanes, ctx.spec.entrance_notes)
+    ctx.layouts["entrance"] = layout
+    fs = layout["fs"]
+    id_w = 70 * fs / ENTRANCE_FS
     fig, ax = canvas(w, h)
     gap = 24
     lane_w = (w - gap * (len(lanes) - 1)) / len(lanes)
@@ -560,22 +635,52 @@ def draw_entrance(ctx: Context, lanes: dict[str, list[tuple[str, str, str]]], ou
         box(ax, x + 2, 2, lane_w - 4, 64, fill, edge, lw=2, r=12, z=2)
         ax.text(x + 22, 34, title, fontsize=24, fontweight="semibold", color=INK, va="center", zorder=3)
         ax.text(x + lane_w - 22, 34, f"{len(items)}", fontsize=26, fontweight="semibold", color=INK, va="center", ha="right", zorder=3)
-        y = 66 + 12 + row_h / 2
-        for cid, label, gate in items:
+        for (cid, label, gate), y in zip(items, layout["rows"][title]):
             ax.text(x + 20, y, cid, fontsize=fs, fontweight="semibold", color=INK, va="center", zorder=3)
             ax.text(x + 20 + id_w, y, label, fontsize=fs, color=INK, va="center", zorder=3)
             ax.text(x + lane_w - 20, y, gate, fontsize=fs - 3, color=INK2, va="center", ha="right", zorder=3, fontweight="semibold" if gate == "Hard" else "normal")
-            y += row_h
         if title in ctx.spec.entrance_notes:
-            ax.text(x + 20, h - 22, ctx.spec.entrance_notes[title], fontsize=fs - 3, color=INK2, va="bottom", zorder=3, linespacing=1.3)
+            ax.text(x + 20, h - NOTE_MARGIN, ctx.spec.entrance_notes[title], fontsize=NOTE_FS, color=INK2, va="bottom", zorder=3, linespacing=NOTE_SPACING)
     return save(fig, out, "entrance-checklist.png")
 
 
+SUCCESS_W, SUCCESS_H, SUCCESS_TOP, SUCCESS_FS, SUCCESS_LABEL_X = 1760, 790, 100.0, 19.0, 108.0
+
+
+def success_layout(lanes: dict[str, list[tuple[str, str]]], lane_w: float, lane_bottom: float,
+                   measure: Callable[[str, float, float], list[str]]) -> dict[str, Any]:
+    """The largest font (19 pt down to 12 pt in 0.5 pt steps) at which every lane's wrapped rows end inside the lane.
+
+    Line pitch is 28/19 of the font size and the gap between rows 18/19 of it (the 19 pt layout of revision 2);
+    a row's last line ends half a pitch below its centre, and the rows must end 10 px above the lane bottom."""
+    fs = SUCCESS_FS
+    while fs >= MIN_FS:
+        pitch, gap = fs * 28 / SUCCESS_FS, fs * 18 / SUCCESS_FS
+        rows: dict[str, list[tuple[str, list[str], float]]] = {}
+        lowest = 0.0
+        for title, items in lanes.items():
+            y, placed = SUCCESS_TOP, []
+            for cid, label in items:
+                lines = measure(label, fs, lane_w - SUCCESS_LABEL_X - 24)
+                placed.append((cid, lines, y))
+                lowest = max(lowest, y + pitch * (len(lines) - 1) + pitch / 2)
+                y += pitch * len(lines) + gap
+            rows[title] = placed
+        if lowest <= lane_bottom - 10:
+            return {"fs": fs, "pitch": pitch, "rows": rows, "lowest": lowest, "lane_bottom": lane_bottom}
+        fs -= 0.5
+    raise FigureDataError(f"success lanes of {max(len(v) for v in lanes.values())} criteria do not fit at {MIN_FS} pt; the figure needs another layout")
+
+
 def draw_success(ctx: Context, lanes: dict[str, list[tuple[str, str]]], out: Path) -> Path:
-    w, h = 1760, 790
+    w, h = SUCCESS_W, SUCCESS_H
     fig, ax = canvas(w, h)
     gap = 24
     lane_w = (w - 2 * gap) / 3
+    lane_bottom = 2 + (h - 86)
+    layout = success_layout(lanes, lane_w, lane_bottom, lambda text, fs, px: wrap_px(fig, text, fs, px))
+    ctx.layouts["success"] = layout
+    fs, pitch = layout["fs"], layout["pitch"]
     x = 0.0
     for title, items in lanes.items():
         fill, edge = ST[LANE_COLOR[title]]
@@ -583,13 +688,10 @@ def draw_success(ctx: Context, lanes: dict[str, list[tuple[str, str]]], out: Pat
         box(ax, x + 2, 2, lane_w - 4, 64, fill, edge, lw=2, r=12, z=2)
         ax.text(x + 20, 34, title, fontsize=24, fontweight="semibold", color=INK, va="center", zorder=3)
         ax.text(x + lane_w - 20, 34, f"{len(items)}", fontsize=26, fontweight="semibold", color=INK, va="center", ha="right", zorder=3)
-        y = 66 + 34
-        for cid, label in items:
-            lines = wrap_px(fig, label, 19, lane_w - 108 - 24)
-            ax.text(x + 20, y, cid, fontsize=19, fontweight="semibold", color=INK, va="center", zorder=3)
+        for cid, lines, y in layout["rows"][title]:
+            ax.text(x + 20, y, cid, fontsize=fs, fontweight="semibold", color=INK, va="center", zorder=3)
             for j, line in enumerate(lines):
-                ax.text(x + 108, y + j * 28, line, fontsize=19, color=INK, va="center", zorder=3)
-            y += 28 * len(lines) + 18
+                ax.text(x + SUCCESS_LABEL_X, y + j * pitch, line, fontsize=fs, color=INK, va="center", zorder=3)
         x += lane_w + gap
     for k, line in enumerate(ctx.spec.success_footer):
         ax.text(0, h - 52 + 32 * k, line, fontsize=18, color=INK2, ha="left", va="center")
@@ -654,11 +756,11 @@ def draw_kdr(ctx: Context, data: dict[str, Any], out: Path) -> Path:
             yy = y + head_h + 8
             for num, text, method, tbr in items:
                 ax.text(x + 18, yy + 22, f"REQ-SYS-{num}", fontsize=20, fontweight="semibold", color=INK, va="center", zorder=3)
-                ax.text(x + column_w - 18, yy + 22, method + ("  TBR" if tbr else ""), fontsize=18, color=INK2, va="center", ha="right", zorder=3)
+                ax.text(x + column_w - 18, yy + 22, method + (f"  TBR {tbr}" if tbr else ""), fontsize=18, color=INK2, va="center", ha="right", zorder=3)
                 ax.text(x + 18, yy + 56, text, fontsize=18.5, color=INK, va="center", zorder=3)
                 yy += entry_h
             y += group_h + 16
-    ax.text(w - 4, h - 22, f"{data['count']} KDRs; right tag = verification method, TBR = value open until PDR (package section 8)", fontsize=18, color=INK2, ha="right", va="center")
+    ax.text(w - 4, h - 22, f"{data['count']} KDRs, {data['tbr']} with an open TBR; right tag = verification method, then TBR and the review that closes it (tbr.close_by)", fontsize=18, color=INK2, ha="right", va="center")
     return save(fig, out, "kdr-map.png")
 
 
@@ -937,7 +1039,7 @@ FIGURES: dict[str, tuple[Callable[[Context], Any], Callable[[Context, Any, Path]
     "entrance": (entrance_data, draw_entrance, "entrance-checklist.png", lambda d: "entrance counts " + str({k: len(v) for k, v in d.items()})),
     "success": (success_data, draw_success, "success-criteria.png", lambda d: "success counts " + str({k: len(v) for k, v in d.items()})),
     "requirements": (requirements_data, draw_requirements, "requirements-by-group.png", lambda d: f"requirements {d['total']} total, {d['live']} non-retired, methods {dict(d['methods'])}, TBR {d['tbr']}, {len(d['groups'])} groups"),
-    "kdr": (kdr_data, draw_kdr, "kdr-map.png", lambda d: f"KDRs {d['count']} in {len(d['groups'])} groups"),
+    "kdr": (kdr_data, draw_kdr, "kdr-map.png", lambda d: f"KDRs {d['count']} in {len(d['groups'])} groups, {d['tbr']} with an open TBR"),
     "hazards": (hazards_data, draw_hazards, "hazard-matrix.png", lambda d: f"hazards {len(d['hazards'])} from hazards.json {d['version']}"),
     "risk": (risk_data, draw_risk, "risk-matrix.png", lambda d: f"risks {d['active']} active, bands {dict(d['bands'])}, safety override {sorted(i for ids in d['overridden'].values() for i in ids)}"),
     "tpm": (tpm_data, draw_tpm, "tpm-status.png", lambda d: "TPM zones " + str(dict(Counter(r[3] for r in d)))),
@@ -947,7 +1049,7 @@ FIGURES: dict[str, tuple[Callable[[Context], Any], Callable[[Context, Any, Path]
 
 
 # ----------------------------------------------------------------------------
-# The SRR figure set (docs/reviews/SRR/package.md revision 2, deck review of 2026-09-25)
+# The SRR figure set (docs/reviews/SRR/package.md revision 3; deck review of 2026-09-25; package section 15 item 56)
 # ----------------------------------------------------------------------------
 
 # The SRR set leaves out "risk" and "concept": since 2026-09-25 22:53 docs/reviews/SRR/figures/risk-matrix.png
@@ -975,38 +1077,27 @@ SRR = FigureSet(
         "24": "Compliance matrix populated", "25": "Regulatory REQ-TX-* file", "26": "Preliminary V&V approach",
         "27": "Maintenance and support concept", "28": "Regulatory corpus present",
     },
-    entrance_overrides={
-        "10": ("Partially met", "ConOps INSP record missing, the gap that rates rows 1 to 4, 9 and 12 Partially met"),
-    },
-    tool_run_rows=frozenset({"S4", "8", "24"}),  # Met on the output of a tool without a TV record (package section 2 item H12)
+    entrance_overrides={},  # revision 3 carries every earlier re-rating (item 56 (e))
+    tool_run_rows=frozenset({"S4", "8", "24"}),  # the package rows whose note says "Met on uncredited tool runs (H12)"
     entrance_notes={
         "Not met": "A Hard row that is not met blocks the\nreadiness declaration and cannot be a lien\n(package section 2; review process 12.2)",
-        "Met": "† Met on a tool run with no TV record\nyet: developer evidence, not credited\n(package section 2, item H12)",
+        "Met": "† in any lane: rests on a tool run whose TV\nrecord is not yet accredited, developer\nevidence only (package section 2, H12)",
     },
     success_labels={
         "4.4-1": "L1 responds to NGOs, MOEs, ConOps", "4.4-2": "Mature enough to begin Phase B",
-        "4.4-3": "Allocation and control process", "4.4-4": "Interfaces identified; external ICD stubs missing (row 17, Hard); no lien allowed",
-        "4.4-5": "V&V approach for every requirement", "4.4-6": "Major risks and mitigations; 24 Red plans await approval",
-        "4.4-7": "Objectives clear, concept feasible; INSP records missing", "4.4-8": "Evaluation criteria; existing assets",
-        "4.4-9": "Technical planning for Phase B; SEMP INSP record missing", "4.4-10": "HSI aspects in planning; SEMP INSP record missing",
+        "4.4-3": "Allocation and control process", "4.4-4": "Interfaces identified, incl. USB and key-input security",
+        "4.4-5": "V&V approach for every requirement", "4.4-6": "Major risks and mitigations",
+        "4.4-7": "Objectives clear, concept feasible", "4.4-8": "Evaluation criteria; existing assets",
+        "4.4-9": "Technical planning for Phase B", "4.4-10": "HSI aspects for the next phase",
         "4.4-11": "Fault tolerance in requirements", "4.4-12": "Software SRR-point criteria",
         "C1": "Gate criteria met or on liens", "C2": "Charter, SEMP, RMM compliance", "C3": "TBD and TBR plans",
-        "C4": "Tailoring recorded; owner approval pending", "C5": "Software life-cycle criteria",
+        "C4": "Proposed tailoring recorded", "C5": "Software life-cycle criteria",
         "C6": "Risks with accepted residual",
     },
-    success_overrides={
-        "4.4-4": ("Not met", "no Met-with-lien shortfall may touch interfaces (01 section 12.2)"),
-        "4.4-6": ("Partially met", "owner approval of the 24 Red plans pending, as C6"),
-        "4.4-7": ("Partially met", "INSP records missing, as entrance row 4"),
-        "4.4-9": ("Partially met", "SEMP INSP record missing, as entrance row 9"),
-        "4.4-10": ("Partially met", "SEMP INSP record missing, as entrance row 9"),
-        "C4": ("Partially met", "owner approval of the tailoring pending"),
-    },
+    success_overrides={},  # revision 3 carries every earlier re-rating (item 56 (e))
     success_footer=(
-        "Partially met: the content exists and its INSP record or owner approval is pending, the rating the "
-        "entrance rows give the same gap (4.4-6, 4.4-7, 4.4-9, 4.4-10, C4).",
-        "4.4-4 is Not met: no lien may touch interfaces (review process 12.2). The chair rules each criterion "
-        "Met, Met with lien or Not met.",
+        "Partially met: the content exists and its record or an owner approval is pending, or an open finding stands against it.",
+        "Not met: content is missing, or the shortfall touches safety, regulatory, interfaces or traceability (no lien, review process 12.2).",
     ),
     group_labels={
         "Operating modes": "Operating modes, safe state, faults",
@@ -1064,7 +1155,7 @@ SRR = FigureSet(
         ("011", "RAM margin", "no estimate", ""),
         ("012", "Req. volatility", "no baseline yet", ""),
         ("013", "Keyer timing", "no estimate", ""),
-        ("014", "Unit cost", "USD 557 (USD 610 TBR)", ""),
+        ("014", "Unit cost", "USD 548 (USD 610 TBR)", ""),
         ("015", "Carrier power", "no estimate", ""),
         ("016", "Enclosure envelope", "no estimate at SRR", "status rule"),
         ("017", "SC coverage", "no estimate", ""),

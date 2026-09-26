@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Record | TV-001 |
-| Status | **Validated** (2026-09-25; re-validated 2026-09-26 with the `minProperties` fault and the keyword survey, INSP-015 finding-1). Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Validated** (2026-09-25; re-validated 2026-09-26 with the `minProperties` fault and the keyword survey, INSP-015 finding-1; re-run at commit `400e59d` on 2026-09-26, SRR package item R5). Independent review and owner accreditation pending (sections 8 and 9) |
 | Class | B, evidence-generating (CM plan section 9.1: "the venv Python with `jsonschema`") |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9; SWE-081 (section 5.1.4) for the version record |
 | Due | SRR (CM plan section 13) |
@@ -50,6 +50,7 @@ where `<CHECK>` loads `known-answers.json`, and for each case builds the validat
 | 1, 2 | 2026-09-25 23:34 | `HEAD` `28e49e6`; fixture untracked (case `requirement` only) | pass; negative control exit 1 |
 | 3, 4 | 2026-09-25 23:47 | `HEAD` `28e49e6`; fixture untracked (both cases; case `requirement` files unchanged) | pass; negative control exit 1 |
 | 5, 6 | 2026-09-26 00:12 | `HEAD` `28e49e6`; fixture untracked (case `keywords` with the `minProperties` fault, 19 faults; procedure `python-jsonschema-2026-09-26.sh` with the keyword survey) | pass; both negative controls exit 1; survey: 9 schemas, 23 keywords, none missing |
+| 7, 8 | 2026-09-26 02:31 | `HEAD` `400e59d` (SRR package item R5): an export of the commit (`git archive HEAD`), the fixture equal to `400e59d`; procedure of runs 5 and 6 unchanged (`python-jsonschema-2026-09-26-r5.sh` differs from `python-jsonschema-2026-09-26.sh` only in taking the tree as an argument) | pass; both negative controls exit 1; survey: 11 schemas, none missing |
 
 Output excerpt (run 3):
 
@@ -85,6 +86,8 @@ exit=1 (expected 1)
 ```
 
 Evidence: `docs/cm/tool-validation/evidence/python-jsonschema-2026-09-25.log.txt` (runs 1 to 4, fixture file hashes, negative controls) and `evidence/python-jsonschema-2026-09-26.log.txt` (runs 5 and 6, the revised fixture's hashes, both negative controls, the keyword survey). The interpreter also ran every Python known-answer set of TV-002 to TV-010 (`evidence/python-tools-2026-09-25.log.txt`), which exercises purpose 1.
+
+R5 re-run (2026-09-26, SRR package section 2.1 item R5; INSP-015 finding-2): section 3 run at commit `400e59d` on an export of the commit, so the result is bound to a commit that contains every file tested: every tool, test module and fixture identity line of the transcript reads "equal to HEAD". Evidence `evidence/python-jsonschema-2026-09-26-r5.log.txt` (procedure `evidence/python-jsonschema-2026-09-26-r5.sh`); the fixture file hashes in the transcript equal those of runs 5 and 6.
 
 ## 5. Reproducibility
 

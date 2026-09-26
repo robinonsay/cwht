@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Record | TV-002 |
-| Status | **Validated** (2026-09-25) on the working-tree file identified in section 1, which is not yet committed. Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Validated** (2026-09-25; re-run at commit `400e59d` on 2026-09-26, SRR package item R5) on the file identified in section 1, committed unchanged in `400e59d`. Independent review and owner accreditation pending (sections 8 and 9) |
 | Class | B, evidence-generating (CM plan section 9.1) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9; the tool checks SWE-052 (NPR 7150.2D section 3.12.1 Table 1) as charter section 7 adopts it |
 | Due | SRR (CM plan section 13) |
@@ -53,6 +53,8 @@ Commands: `git hash-object <file>`; `shasum -a 256 <file>`; `git diff --quiet HE
 |---|---|---|---|---|
 | 1 | 2026-09-25 23:36 | `HEAD` `28e49e6` with the working-tree files of section 1 | 173 (27 + 32 + 114), 0 skipped | pass |
 | 2 | 2026-09-25 23:45 | same file identities as run 1 | 173, 0 skipped | pass |
+| 3 | 2026-09-26 02:31 | `HEAD` `400e59d` (SRR package item R5): an export of the commit (`git archive HEAD`); tool, test modules and fixtures equal to `400e59d` | 176 (27 + 32 + 117), 0 skipped | pass |
+| 4 | 2026-09-26 02:32 | working tree on `400e59d`: this tool, its test modules and both fixtures equal to `400e59d`; `tools/validate_docs.py` blob `33ab5a83` (the record drift rule, TV-003 run 5) | 176, 0 skipped | pass |
 
 Output excerpt (run 2):
 
@@ -65,6 +67,8 @@ Output excerpt (run 2):
 ```
 
 Evidence: `docs/cm/tool-validation/evidence/python-tools-2026-09-25.log.txt` (both runs, every file identity, per-class counts).
+
+R5 re-run (2026-09-26, SRR package section 2.1 item R5; INSP-015 finding-2): section 3 run at commit `400e59d` on an export of the commit, so the result is bound to a commit that contains every file tested: every tool, test module and fixture identity line of the transcript reads "equal to HEAD". Evidence `evidence/python-tools-2026-09-26-r5-head.log.txt` (procedure `evidence/python-tools-2026-09-26-r5.py`, mode `head`); run 4: `evidence/python-tools-2026-09-26-r5-worktree.log.txt`.
 
 ## 5. Reproducibility
 

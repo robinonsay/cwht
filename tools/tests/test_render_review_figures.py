@@ -9,6 +9,10 @@ reported) and a ConOps with one nominal and one off-nominal scenario. FIXTURE_SE
 below is the figure set for that fixture. The tests check every value the figures
 draw against hand-computed answers, every cross-check that stops a run, the exit
 statuses, that a failed check writes nothing, and the pixel size of every render.
+LabelAndDaggerTests and LayoutKnownAnswerTests (added 2026-09-26 for package section
+15 item 56) seed labels that restate a status or a count, a dagger set that differs
+from the package, and lanes of 19 rows, with the row heights and font sizes
+computed by hand in their docstrings.
 
 The RepositoryTests class checks repository content, not the tool: the SRR figure
 set run with --check on the repository completes with exit 0 or 1 and no
@@ -191,9 +195,10 @@ class DataKnownAnswerTests(unittest.TestCase):
         data = rrf.kdr_data(context())
         self.assertEqual(2, data["count"])
         self.assertEqual(
-            [("Transmitter", [("001", "Carrier 144.001 to 147.999 MHz", "Test", True)]), ("Receiver", [("004", "MDS at most -140 dBm", "Inspection", False)])],
+            [("Transmitter", [("001", "Carrier 144.001 to 147.999 MHz", "Test", "PDR")]), ("Receiver", [("004", "MDS at most -140 dBm", "Inspection", "")])],
             data["groups"],
         )
+        self.assertEqual(1, data["tbr"], "one KDR carries an open TBR, closed by PDR")
 
     def test_kdr_set_must_equal_the_file(self) -> None:
         spec = dataclasses.replace(FIXTURE_SET, kdr_text=(("Transmitter", (("001", "Carrier"),)),), kdr_columns=((0,),))
@@ -254,6 +259,94 @@ class DataKnownAnswerTests(unittest.TestCase):
         spec = dataclasses.replace(FIXTURE_SET, off_nominal=(("002", "Stuck key"), ("003", "Outside section 6")))
         with self.assertRaisesRegex(rrf.FigureDataError, "off-nominal"):
             rrf.conops_data(context(spec=spec))
+
+
+class LabelAndDaggerTests(unittest.TestCase):
+    """Package section 15 item 56 (a): a label names the criterion; a status or count comes only from the package."""
+
+    def test_label_restatements(self) -> None:
+        self.assertEqual([], rrf.label_restatements("Gate criteria met or on liens", "Gate-specific criteria met or on accepted liens"))
+        self.assertEqual(["missing"], rrf.label_restatements("Interfaces identified; stubs missing", "External interfaces identified"))
+        self.assertEqual(["red", "await", "approval", "24"], rrf.label_restatements("Major risks; 24 Red plans await approval", "Major risks identified"))
+        self.assertEqual([], rrf.label_restatements("L1 responds to NGOs", "L1 requirements respond to NGOs"))
+
+    def test_a_restating_success_label_stops_the_run(self) -> None:
+        labels = dict(FIXTURE_SET.success_labels, **{"4.4-4": "Interfaces identified; ICD stubs missing"})
+        with self.assertRaisesRegex(rrf.FigureDataError, r"success criterion 4.4-4 label .* restates \['missing'\]"):
+            rrf.success_data(context(spec=dataclasses.replace(FIXTURE_SET, success_labels=labels)))
+
+    def test_a_restating_entrance_label_stops_the_run(self) -> None:
+        labels = dict(FIXTURE_SET.entrance_labels, **{"1": "Stakeholders; 2 records pending"})
+        with self.assertRaisesRegex(rrf.FigureDataError, r"entrance row 1 label .* restates \['pending', '2'\]"):
+            rrf.entrance_data(context(spec=dataclasses.replace(FIXTURE_SET, entrance_labels=labels)))
+
+    def test_dagger_rows_must_equal_the_marked_package_rows(self) -> None:
+        with self.assertRaisesRegex(rrf.FigureDataError, r"dagger rows \['1', 'S4'\] differ from the package rows marked .* \['S4'\]"):
+            rrf.entrance_data(context(spec=dataclasses.replace(FIXTURE_SET, tool_run_rows=frozenset({"S4", "1"}))))
+
+
+class LayoutKnownAnswerTests(unittest.TestCase):
+    """Package section 15 item 56 (b), (c), (f): no row is clipped and no footnote overlaps a row, for lanes of 19 rows.
+
+    Hand computation for the SRR revision 3 lane sizes (5, 19, 15; notes of three lines on the first and last lane):
+    a 3-line note is 3 x 17 pt x 100/72 x 1.3 = 92.08 px high, so a lane with a note ends at 850 - 22 - 92.08 - 12
+    = 723.92 px and one without at 850 - 16 = 834 px. Row heights: 43 (cap), (834 - 78) / 19 = 39.789, (723.92 - 78) / 15
+    = 43.06; the common row height is 39.789 px and the font 20 x 39.789 / 43 = 18.51 pt, rounded to 18.5 pt."""
+
+    NOTE = "line 1\nline 2\nline 3"
+
+    def lanes(self, sizes: tuple[int, int, int]) -> dict[str, list[tuple[str, str, str]]]:
+        return {lane: [(f"{lane[0]}{k}", f"Label {k}", "Hard") for k in range(n)] for lane, n in zip(rrf.LANES, sizes)}
+
+    def test_entrance_layout_for_a_19_row_lane(self) -> None:
+        layout = rrf.entrance_layout(self.lanes((5, 19, 15)), {"Not met": self.NOTE, "Met": self.NOTE})
+        self.assertAlmostEqual(39.789, layout["row_h"], places=3)
+        self.assertEqual(18.5, layout["fs"])
+        self.assertAlmostEqual(723.92, layout["bottoms"]["Met"], places=2)
+        rows = layout["rows"]["Partially met"]
+        self.assertEqual(19, len(rows), "every row of the 19-row lane is placed (row 25 of the SRR board)")
+        self.assertLessEqual(rows[-1] + layout["row_h"] / 2, layout["bottoms"]["Partially met"] + 1e-9)
+        self.assertLessEqual(layout["rows"]["Met"][-1] + layout["row_h"] / 2, layout["bottoms"]["Met"] + 1e-9, "the footnote does not overlap the 15th row")
+
+    def test_short_lanes_keep_the_revision_2_size(self) -> None:
+        layout = rrf.entrance_layout(self.lanes((1, 2, 1)), {"Met": self.NOTE})
+        self.assertEqual((43.0, 20.0), (layout["row_h"], layout["fs"]))
+
+    def test_entrance_lane_too_full_stops_the_run(self) -> None:
+        with self.assertRaisesRegex(rrf.FigureDataError, "do not fit at 12.0 pt"):
+            rrf.entrance_layout(self.lanes((1, 60, 1)), {})
+
+    def test_success_layout_shrinks_until_19_rows_fit(self) -> None:
+        # One line per label: at size f the last of 19 rows ends at 100 + 18 x (46 f / 19) + 14 f / 19 = 100 + 842 f / 19,
+        # which must be at most 706 - 10 = 696: f <= 13.45, so 13.0 pt in 0.5 pt steps from 19 pt.
+        lanes = {"Not met": [(f"C{k}", "x") for k in range(19)], "Partially met": [], "Met": []}
+        layout = rrf.success_layout(lanes, 570.0, 706.0, lambda text, fs, px: [text])
+        self.assertEqual(13.0, layout["fs"])
+        self.assertAlmostEqual(100 + 842 * 13 / 19, layout["lowest"], places=6)
+        self.assertEqual(19, len(layout["rows"]["Not met"]))
+        with self.assertRaisesRegex(rrf.FigureDataError, "do not fit"):
+            rrf.success_layout({"Met": [("C", "x")] * 30}, 570.0, 706.0, lambda text, fs, px: [text])
+
+    def test_success_layout_keeps_19_pt_when_it_fits(self) -> None:
+        lanes = {"Not met": [("C1", "x"), ("C2", "y")], "Partially met": [], "Met": []}
+        self.assertEqual(19.0, rrf.success_layout(lanes, 570.0, 706.0, lambda text, fs, px: [text, text])["fs"])
+
+    def test_rendered_boards_use_the_fitted_layout(self) -> None:
+        spec = dataclasses.replace(FIXTURE_SET, entrance_notes={"Not met": self.NOTE, "Met": self.NOTE})
+        ctx = context(spec=spec)
+        rrf.use_fonts(ctx.log)
+        long = "A criterion label long enough to wrap onto a second line in its lane"
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            entrance = rrf.draw_entrance(ctx, self.lanes((5, 19, 15)), out)
+            success = rrf.draw_success(ctx, {"Not met": [(f"C{k}", long) for k in range(11)], "Partially met": [(f"P{k}", "Short") for k in range(19)], "Met": []}, out)
+            self.assertEqual((1760, 850), png_size(entrance))
+            self.assertEqual((1760, 790), png_size(success))
+        self.assertEqual(18.5, ctx.layouts["entrance"]["fs"])
+        fitted = ctx.layouts["success"]
+        self.assertEqual((11, 19), (len(fitted["rows"]["Not met"]), len(fitted["rows"]["Partially met"])))
+        self.assertTrue(all(len(lines) >= 2 for _, lines, _ in fitted["rows"]["Not met"]), "the long labels wrap")
+        self.assertLessEqual(fitted["lowest"], fitted["lane_bottom"] - 10, "the last row (C6 on the SRR board) is not clipped")
 
 
 class RunTests(unittest.TestCase):

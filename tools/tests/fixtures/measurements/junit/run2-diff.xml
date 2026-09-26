@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="ci" tests="3" failures="1" errors="0">
+  <testsuite name="cwht-core" tests="3">
+    <testcase name="heartbeat_toggles" classname="cwht-core::heartbeat"/>
+    <testcase name="spin_wait_counts" classname="cwht-core::heartbeat"><failure message="seeded"/></testcase>
+    <testcase name="gpio_mock_records" classname="cwht-hal-mock::gpio"/>
+  </testsuite>
+</testsuites>

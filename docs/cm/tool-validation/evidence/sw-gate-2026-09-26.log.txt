@@ -1,0 +1,207 @@
+# tools/sw_gate.sh --keep-going, run for TV-011 to TV-013 gate integration (SRR package item R3); tools/sw_gate.sh blob 54b138005b3f3d86e148446c7b0295845cd69e8d, measurements.py abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a, unsafe_audit.py cc3aaa2ad82a52a63615c6af082567007b2d7e6e, complexity_gate.py 9214fefb76f95f0494f906607ef06428260d1c75; 2026-09-26 02:37:28 CDT
+$ RUSTUP_AUTO_INSTALL=0 tools/sw_gate.sh --keep-going
+sw_gate: mode full, 2026-09-26T07:37:28Z, repo 400e59d
+NOTE G0 pinned toolchain 1.98.0 not installed (installing it downloads; owner approval);
+NOTE G0 using stable, whose rustc is identical to the lock row: rustc 1.98.0 (88d9e12ae 2026-08-18)
+G0 rustc in firmware/: rustc 1.98.0 (88d9e12ae 2026-08-18)
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+G0 rustos HEAD c54d35aa8e7f9ad30f6508bca458a59c1fc009db (lock: c54d35aa8e7f9ad30f6508bca458a59c1fc009db)
+PASS G0 toolchain identity
+---- G1 cargo fmt --check: fwrun cargo fmt --check
+PASS G1 cargo fmt --check
+---- G1 clippy host: fwrun cargo clippy --workspace --exclude cwht-app --all-targets -- -D warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.08s
+PASS G1 clippy host
+---- G1 clippy target: fwrun cargo clippy -p cwht-app --target thumbv8m.main-none-eabihf -- -D warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+PASS G1 clippy target
+---- G2 build: cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.04s
+PASS G2 build
+---- G2 no compiler warning: grep warning /Users/robinonsay/rust/cwht/firmware/target/sw-gate/g2-build.txt
+PASS G2 no compiler warning
+---- G2 link map (measurements.py): /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/measurements.py --link-map /Users/robinonsay/rust/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app.map
+PASS FLASH used 1608 B of 4194304 B = 0.04 % (red line 70.0 % used, TPM-010)
+PASS RAM used 8200 B of 532480 B = 1.54 % (red line 75.0 % used, TPM-011)
+MSR-18 bytes 1608, percent_of_4MB 0.04, assessment Green
+MSR-19 bytes 8200, percent_of_520KB 1.54, assessment Green
+PASS G2 link map (measurements.py)
+---- G2 no allocator symbol (CS-01): rust-nm /Users/robinonsay/rust/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app
+PASS G2 no allocator symbol
+622cbe2a6b8e5d2a12ac5a94306a49dd7ecde1f31c5eb937e3e85b6066b9802f  /Users/robinonsay/rust/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app
+---- G2 image dependency set (CS-02): cargo tree -e normal -p cwht-app --target thumbv8m.main-none-eabihf
+api v0.1.0 (/Users/robinonsay/rust/rustos/api)
+cwht-app v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-app)
+cwht-core v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-core)
+pico2 v0.1.0 (/Users/robinonsay/rust/rustos/firmware/pico2)
+PASS G2 image dependency set
+---- G3 host tests run 1: cargo nextest run --workspace --exclude cwht-app --profile ci
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+────────────
+ Nextest run ID 3547ccc0-eebc-466a-a0a4-11fd1210cae2 with nextest profile: ci
+    Starting 10 tests across 4 binaries
+        PASS [   0.007s] ( 1/10) cwht-hal-mock::gpio output_records_writes_in_order
+        PASS [   0.007s] ( 2/10) cwht-core::heartbeat spin_wait_calls_spin_exactly_count_times
+        PASS [   0.007s] ( 3/10) cwht-core::heartbeat half_period_spin_count_equals_rustos_blinky_delay
+        PASS [   0.007s] ( 4/10) cwht-core::heartbeat failed_write_keeps_level_and_retries_same_transition
+        PASS [   0.007s] ( 5/10) cwht-core::heartbeat default_equals_new
+        PASS [   0.007s] ( 6/10) cwht-hal-mock::gpio output_failing_after_zero_fails_first_write
+        PASS [   0.007s] ( 7/10) cwht-core::heartbeat first_step_drives_high_then_alternates
+        PASS [   0.007s] ( 8/10) cwht-hal-mock::gpio output_history_saturates_at_capacity
+        PASS [   0.007s] ( 9/10) cwht-hal-mock::gpio input_reads_set_level_and_injected_fault
+        PASS [   0.007s] (10/10) cwht-hal-mock::gpio output_fails_after_scripted_count
+────────────
+     Summary [   0.008s] 10 tests run: 10 passed, 0 skipped
+PASS G3 host tests run 1
+---- G3 host tests run 2: cargo nextest run --workspace --exclude cwht-app --profile ci
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+────────────
+ Nextest run ID 6bb00ccc-419b-49eb-8a56-4aa3c225c304 with nextest profile: ci
+    Starting 10 tests across 4 binaries
+        PASS [   0.006s] ( 1/10) cwht-hal-mock::gpio output_fails_after_scripted_count
+        PASS [   0.006s] ( 2/10) cwht-core::heartbeat failed_write_keeps_level_and_retries_same_transition
+        PASS [   0.006s] ( 3/10) cwht-hal-mock::gpio output_history_saturates_at_capacity
+        PASS [   0.006s] ( 4/10) cwht-core::heartbeat spin_wait_calls_spin_exactly_count_times
+        PASS [   0.007s] ( 5/10) cwht-core::heartbeat half_period_spin_count_equals_rustos_blinky_delay
+        PASS [   0.007s] ( 6/10) cwht-core::heartbeat first_step_drives_high_then_alternates
+        PASS [   0.007s] ( 7/10) cwht-core::heartbeat default_equals_new
+        PASS [   0.007s] ( 8/10) cwht-hal-mock::gpio input_reads_set_level_and_injected_fault
+        PASS [   0.007s] ( 9/10) cwht-hal-mock::gpio output_records_writes_in_order
+        PASS [   0.007s] (10/10) cwht-hal-mock::gpio output_failing_after_zero_fails_first_write
+────────────
+     Summary [   0.007s] 10 tests run: 10 passed, 0 skipped
+PASS G3 host tests run 2
+---- G3 identical result sets (measurements.py): /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/measurements.py --diff-runs /Users/robinonsay/rust/cwht/firmware/target/nextest/run1-junit.xml /Users/robinonsay/rust/cwht/firmware/target/nextest/run2-junit.xml
+run 1: 10 cases, run 2: 10 cases, passed in both: 10
+PASS identical result sets, all passed (SWE-186)
+PASS G3 identical result sets (measurements.py)
+---- G4 traceability: /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/traceability.py --output /Users/robinonsay/rust/cwht/firmware/target/sw-gate/traceability-report.md --quiet
+PASS G4 traceability
+MISSING G5 cargo audit: RustSec advisory database absent (~/.cargo/advisory-db); fetching it is an owner-approved download
+---- G5 cargo deny (bans, licenses, sources): fwrun cargo deny --log-level error check bans licenses sources
+error[unlicensed]: api = 0.1.0 is unlicensed
+ ├ api v0.1.0
+   ├── cwht-app v0.0.0
+   ├── cwht-core v0.0.0
+   │   └── cwht-app v0.0.0 (*)
+   ├── cwht-hal-mock v0.0.0
+   │   └── (dev) cwht-core v0.0.0 (*)
+   └── pico2 v0.1.0
+       └── cwht-app v0.0.0 (*)
+
+error[unlicensed]: pico2 = 0.1.0 is unlicensed
+ ├ pico2 v0.1.0
+   └── cwht-app v0.0.0
+
+error[wildcard]: found 1 wildcard dependency for crate 'pico2'. allow-wildcard-paths is enabled, but does not apply to public crates as crates.io disallows path dependencies.
+  ┌─ /Users/robinonsay/rust/rustos/firmware/pico2/Cargo.toml:7:7
+  │
+7 │ api = { path = "../../api" }
+  │       ━━━━━━━━━━━━━━━━━━━━━━ wildcard dependency
+  │
+  ├ pico2 v0.1.0
+    └── cwht-app v0.0.0
+
+bans FAILED, licenses FAILED, sources ok
+FAIL G5 cargo deny (bans, licenses, sources)
+MISSING G5 cargo deny advisories: advisory database absent (~/.cargo/advisory-dbs); owner-approved download
+---- G5 cargo geiger --forbid-only cwht-app
+:) cwht-app 0.0.0
+:) ├── cwht-core 0.0.0
+? │   └── api 0.1.0
+? ├── api 0.1.0
+? └── pico2 0.1.0
+?     └── api 0.1.0
+PASS G5 cargo geiger --forbid-only cwht-app
+---- G5 cargo geiger --forbid-only cwht-core
+:) cwht-core 0.0.0
+? └── api 0.1.0
+PASS G5 cargo geiger --forbid-only cwht-core
+---- G5 cargo geiger --forbid-only cwht-hal-mock
+:) cwht-hal-mock 0.0.0
+? └── api 0.1.0
+PASS G5 cargo geiger --forbid-only cwht-hal-mock
+---- G5 unsafe audit: /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/unsafe_audit.py --check
+FAIL rustos/api/src/device/mod.rs:95 unsafe fn (new) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/api/src/device/mod.rs:159 unsafe fn (new) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/api/src/device/mod.rs:276 unsafe block (new) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/common/reset.rs:129 unsafe fn (clr_reset_reg) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/common/reset.rs:132 unsafe block (clr_reset_reg) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/common/reset.rs:170 unsafe fn (set_reset_reg) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/common/reset.rs:173 unsafe block (set_reset_reg) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/common/reset.rs:200 unsafe fn (wait_for_reset_done) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/common/reset.rs:203 unsafe block (wait_for_reset_done) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/gpio/gpio.rs:134 unsafe block (new) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/gpio/gpio.rs:248 unsafe block (new_output) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/gpio/gpio.rs:265 unsafe block (new_input) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/gpio/gpio.rs:309 unsafe block (write) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/gpio/gpio.rs:337 unsafe block (read) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/gpio/gpio.rs:369 unsafe fn (configure_gpio_pin_in) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/gpio/gpio.rs:374 unsafe block (configure_gpio_pin_in) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/gpio/gpio.rs:432 unsafe fn (configure_gpio_pin_out) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/gpio/gpio.rs:437 unsafe block (configure_gpio_pin_out) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:144 unsafe attr (BOOT_INFO) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:157 unsafe extern (extern block) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:165 unsafe extern (extern block) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:248 unsafe fn (enable_fpu) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:249 unsafe block (enable_fpu) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:275 unsafe fn (reset_vtor) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:276 unsafe block (reset_vtor) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:298 unsafe fn (reset_data) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:303 unsafe block (reset_data) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:318 unsafe fn (reset_bss) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:322 unsafe block (reset_bss) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:330 unsafe extern (extern block) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:372 unsafe attr (__rustos_main) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:397 unsafe attr (OnReset) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:399 unsafe block (OnReset) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:413 unsafe attr (DefaultHandler) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:423 unsafe attr (OnHardFault) without a // SAFETY: comment immediately above (CS-06)
+FAIL rustos/firmware/pico2/src/lib.rs:464 unsafe attr (VECTOR_TABLE) without a // SAFETY: comment immediately above (CS-06)
+FAIL cwht/firmware/unsafe-audit.md does not exist; generate it with tools/unsafe_audit.py --write (CS-07)
+MSR-11 unsafe sites: block 16, fn 11, impl 1, extern 3, attr 6; total 37; without SAFETY 36; unsigned 37; in forbidden crates 0
+unsafe_audit: FAIL (37 failure(s))
+FAIL G5 unsafe audit
+MISSING G5 complexity: rust-code-analysis-cli not installed (cargo install is an owner-approved download)
+MISSING G5 Miri: component miri not installed on nightly-2026-08-24 (07 CS-03; owner-approved download)
+---- G6 coverage (stable, MSR-13): fwrun cargo llvm-cov nextest --workspace --exclude cwht-app --profile ci --lcov --output-path /Users/robinonsay/rust/cwht/firmware/target/lcov.info --fail-under-lines 100 --fail-under-regions 100
+info: cargo-llvm-cov currently setting cfg(coverage); you can opt-out it by passing --no-cfg-coverage
+   Compiling cwht-hal-mock v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-hal-mock)
+   Compiling cwht-core v0.0.0 (/Users/robinonsay/rust/cwht/firmware/cwht-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.41s
+────────────
+ Nextest run ID 47e6c5c5-6956-4013-a2b1-65305cb80653 with nextest profile: ci
+    Starting 10 tests across 4 binaries
+        PASS [   0.010s] ( 1/10) cwht-core::heartbeat half_period_spin_count_equals_rustos_blinky_delay
+        PASS [   0.010s] ( 2/10) cwht-core::heartbeat failed_write_keeps_level_and_retries_same_transition
+        PASS [   0.010s] ( 3/10) cwht-hal-mock::gpio output_fails_after_scripted_count
+        PASS [   0.010s] ( 4/10) cwht-core::heartbeat first_step_drives_high_then_alternates
+        PASS [   0.010s] ( 5/10) cwht-hal-mock::gpio input_reads_set_level_and_injected_fault
+        PASS [   0.010s] ( 6/10) cwht-core::heartbeat spin_wait_calls_spin_exactly_count_times
+        PASS [   0.010s] ( 7/10) cwht-core::heartbeat default_equals_new
+        PASS [   0.010s] ( 8/10) cwht-hal-mock::gpio output_history_saturates_at_capacity
+        PASS [   0.010s] ( 9/10) cwht-hal-mock::gpio output_failing_after_zero_fails_first_write
+        PASS [   0.010s] (10/10) cwht-hal-mock::gpio output_records_writes_in_order
+────────────
+     Summary [   0.011s] 10 tests run: 10 passed, 0 skipped
+
+    Finished report saved to /Users/robinonsay/rust/cwht/firmware/target/lcov.info
+PASS G6 coverage (stable, MSR-13)
+Filename                       Regions    Missed Regions     Cover   Functions  Missed Functions  Executed       Lines      Missed Lines     Cover    Branches   Missed Branches     Cover
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cwht-core/src/heartbeat.rs          20                 0   100.00%           4                 0   100.00%          17                 0   100.00%           0                 0         -
+cwht-hal-mock/src/gpio.rs           50                 0   100.00%          10                 0   100.00%          53                 0   100.00%           0                 0         -
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                               70                 0   100.00%          14                 0   100.00%          70                 0   100.00%           0                 0         -
+MISSING G6 branch and condition coverage: llvm-tools not installed on nightly-2026-08-24 (07 CS-03; owner-approved download)
+---- G6 emulation: /Users/robinonsay/rust/cwht/tools/emu_run.sh --all --report /Users/robinonsay/rust/cwht/firmware/target/emu-report.json
+SKIP emulation: no accepted emulator ADR
+PASS G6 emulation
+---- G6 measurements: /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/measurements.py --coverage /Users/robinonsay/rust/cwht/firmware/target/lcov.info --branch-condition /Users/robinonsay/rust/cwht/firmware/target/branch-condition.json --emu /Users/robinonsay/rust/cwht/firmware/target/emu-report.json
+MSR-13 cwht-core: lines 17/17 = 100.00 %, functions 4/4 = 100.00 %, branches 0/0 = n/a (regions: cargo llvm-cov report)
+MSR-13 cwht-hal-mock: lines 53/53 = 100.00 %, functions 10/10 = 100.00 %, branches 0/0 = n/a (regions: cargo llvm-cov report)
+MSR-14 NOT PRODUCED (/Users/robinonsay/rust/cwht/firmware/target/branch-condition.json): the nightly branch and condition step did not write it
+emulation report NOT PRODUCED (/Users/robinonsay/rust/cwht/firmware/target/emu-report.json): tools/emu_run.sh prints SKIP until the PDR emulator ADR
+PASS G6 measurements
+sw_gate: FAIL (2 step(s) failed, 5 prerequisite(s) missing)
+exit=1

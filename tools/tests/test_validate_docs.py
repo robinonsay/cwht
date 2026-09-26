@@ -13,6 +13,11 @@
                      peer-reviews/ folder; exit 1
     usage errors     an unknown option and a --root that is not a directory; exit 2
                      with the argparse message on stderr (UsageErrorTests)
+    record drift     temporary git repositories with one committed product and one
+                     record: an APPROVED record equal to HEAD passes; drift, an absent
+                     path or no named blob fails it; drift of a NEEDS CHANGES record is
+                     a note; outside a git work tree top the rule is not applied
+                     (RecordDriftTests, SRR package section 2.3, R13)
 
 Run from the repository root:
 
@@ -21,8 +26,10 @@ Run from the repository root:
 from __future__ import annotations
 
 import io
+import os
 import subprocess
 import sys
+import tempfile
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
@@ -147,7 +154,6 @@ class PeerReviewRecordTests(unittest.TestCase):
 
     def test_old_peer_reviews_path_is_rejected_by_the_schema(self) -> None:
         import json
-        import tempfile
 
         data = validate_docs.load_json(VALID / "docs/reviews/SRR/rfa-rid-log.json")[0]
         data["items"][0]["verification"]["record"] = "docs/reviews/SRR/peer-reviews/INSP-001.md"
@@ -202,6 +208,111 @@ class UsageErrorTests(unittest.TestCase):
 
     def test_root_not_a_directory_exits_2(self) -> None:
         self.assert_usage_error(run_cli(VALID / "no-such-directory"), "root is not a directory")
+
+
+RECORD_FRONT = """---
+id: INSP-{n:03d}
+checklist: peer-review-checklist-requirements
+product: {product}
+product_commit: "abcdef1"
+{blobs}
+verdict: {verdict}
+author_agent: "author:fixture"
+reviewer_agent: "reviewer:fixture"
+iteration: 1
+date: 2026-09-26
+readiness_met: true
+findings_major: 0
+findings_minor: 0
+findings_fixed: 0
+findings_deferred: 0
+effort_turns: 1
+effort_minutes: 1
+---
+# Fixture record
+"""
+
+
+class RecordDriftTests(unittest.TestCase):
+    """Purpose 6 of TV-003: record drift (SRR package section 2.3, R13).
+
+    Each test builds a temporary git repository with one product file committed and one
+    record, so HEAD blobs are known: the expected blob of the product is computed with
+    `git hash-object` (TV-009), independently of the tool."""
+
+    GIT_ENV = {"GIT_CONFIG_GLOBAL": "/dev/null", "GIT_CONFIG_NOSYSTEM": "1", "GIT_AUTHOR_NAME": "F", "GIT_AUTHOR_EMAIL": "f@example.invalid",
+               "GIT_COMMITTER_NAME": "F", "GIT_COMMITTER_EMAIL": "f@example.invalid"}
+
+    def git(self, root: Path, *args: str) -> str:
+        return subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True, check=True, env=dict(os.environ, **self.GIT_ENV)).stdout.strip()
+
+    def repo(self, tmp: str) -> tuple[Path, str]:
+        root = Path(tmp) / "repo"
+        (root / "docs/plan").mkdir(parents=True)
+        (root / "docs/reviews/SRR/checklists").mkdir(parents=True)
+        (root / "docs/plan/semp.md").write_text("reviewed text\n", encoding="utf-8")
+        self.git(root, "init", "-q", "-b", "main")
+        self.git(root, "add", "-A")
+        self.git(root, "commit", "-q", "-m", "product")
+        return root, self.git(root, "hash-object", "docs/plan/semp.md")
+
+    def record(self, root: Path, verdict: str, blobs: str, n: int = 1) -> Path:
+        path = root / "docs/reviews/SRR/checklists" / f"record-{n}.md"
+        path.write_text(RECORD_FRONT.format(n=n, product="docs/plan/semp.md", blobs=blobs, verdict=verdict), encoding="utf-8")
+        return path
+
+    def result(self, root: Path, path: Path) -> validate_docs.FileResult:
+        return relative(validate_docs.validate_all(root), root)[validate_docs.rel(path, root)]
+
+    def test_approved_record_equal_to_head_passes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root, blob = self.repo(tmp)
+            files = self.record(root, "APPROVED", f'product_files: ["docs/plan/semp.md@{blob}"]', 1)
+            single = self.record(root, "APPROVED", f'product_blob: "{blob[:8]}"', 2)
+            self.assertEqual(([], []), (self.result(root, files).errors, self.result(root, files).notes))
+            self.assertEqual([], self.result(root, single).errors)
+
+    def test_approved_record_with_drift_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root, blob = self.repo(tmp)
+            path = self.record(root, "APPROVED", f'product_files: ["docs/plan/semp.md@{blob}", "docs/plan/absent.md@{blob}"]')
+            (root / "docs/plan/semp.md").write_text("edited after the approval\n", encoding="utf-8")
+            self.git(root, "commit", "-q", "-am", "edit")
+            head = self.git(root, "rev-parse", "HEAD:docs/plan/semp.md")
+            errors = self.result(root, path).errors
+        self.assertEqual(2, len(errors), errors)
+        self.assertTrue(errors[0].startswith(f"product_files: docs/plan/semp.md@{blob[:8]} differs from HEAD blob {head[:8]}"), errors[0])
+        self.assertTrue(errors[1].startswith(f"product_files: docs/plan/absent.md@{blob[:8]} is not in HEAD"), errors[1])
+        self.assertIn("R13", errors[0])
+
+    def test_approved_record_without_blobs_fails_and_needs_changes_drift_is_a_note(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root, blob = self.repo(tmp)
+            bare = self.record(root, "APPROVED", "", 1)
+            open_record = self.record(root, "NEEDS CHANGES", 'product_files: ["docs/plan/semp.md@1234567"]', 2)
+            bare_result, open_result = self.result(root, bare), self.result(root, open_record)
+            printed = io.StringIO()
+            with redirect_stdout(printed):
+                validate_docs.print_results([open_result], root, quiet=False)
+        self.assertEqual(1, len(bare_result.errors))
+        self.assertIn("names no reviewed blob", bare_result.errors[0])
+        self.assertEqual([], open_result.errors)
+        self.assertEqual([f"record drift: product_files: docs/plan/semp.md@1234567 differs from HEAD blob {blob[:8]} (the committed product is not the reviewed one)"], open_result.notes)
+        self.assertIn("      note: record drift:", printed.getvalue())
+
+    def test_malformed_product_files_entry_fails_the_schema(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root, _ = self.repo(tmp)
+            path = self.record(root, "NEEDS CHANGES", 'product_files: ["docs/plan/semp.md"]')
+            errors = self.result(root, path).errors
+        self.assertEqual(1, len(errors), errors)
+        self.assertIn("product_files", errors[0])
+
+    def test_rule_not_applied_outside_a_git_work_tree_top(self) -> None:
+        results = relative(validate_docs.validate_all(VALID), VALID)
+        record = results["docs/reviews/SRR/checklists/requirements-sys.md"]
+        self.assertEqual([], record.errors)
+        self.assertTrue(record.notes and record.notes[0].startswith("record drift rule not applied:"), record.notes)
 
 
 class RepositoryTests(unittest.TestCase):
