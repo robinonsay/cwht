@@ -6,6 +6,8 @@ checklist_file: docs/reviews/SRR/checklists/semp.md
 product: docs/plan/semp.md
 # product_commit: git hash-object of the working-tree file reviewed (blob; the file is uncommitted on top of HEAD 28e49e6); iteration 1 reviewed blob e129c710a71c616377b635e9a9097112313a3350, iteration 2 verified the fixes in the blob below
 product_commit: "2f0588fab3411acfb37342c08f374172da6a52c7"
+# product_files: the committed SEMP blob (git rev-parse HEAD:docs/plan/semp.md at 400e59d) that the delta verification of 2026-09-26 (iteration 3, R13) approves
+product_files: ["docs/plan/semp.md@77fc9ea43527d838a1d92c54cdb332868c1ab450"]
 product_size: 9 sections plus appendices A to F (480 lines)
 sprint: SRR-prep
 author_agent: "author:semp (Claude main session, lead SE; H16 AL-02-26 revision)"
@@ -13,24 +15,24 @@ reviewer_agent: "reviewer:semp"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 2
+iteration: 3
 readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 findings_major: 1
-findings_minor: 8
+findings_minor: 9
 findings_open: 0
 findings_fixed: 0
 findings_verified: 9
-findings_deferred: 0
+findings_deferred: 1
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G1, CK-REQ-G7, S1, S2]
-effort_turns: 75
-effort_minutes: 75
+effort_turns: 80
+effort_minutes: 90
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -174,3 +176,31 @@ MEASUREMENTS: size=9 sections + App. A to F, 480 lines; verified=9; open=0; majo
 ```
 
 `record_status` stays `Open` for the lead SE to set `Closed` with `date_closed` (07 section 10.2: the software lead closes the record once every finding is Verified or Deferred, which is now the case).
+
+## Delta verification (iteration 3, 2026-09-26, SRR package items R13 and H17)
+
+**Scope.** The iteration 2 approval named the working-tree blob `2f0588fa`, which is not in the git object store; the committed SEMP is blob `77fc9ea4` (`git rev-parse HEAD:docs/plan/semp.md` at `400e59d`, first committed at `b301df2`). The package names the edits made after the approval (package section 2.3, R13): appendix F items F-07 and F-13 resolutions with the new cost totals, and the tool and schema status text of lines 130 and 187. The verifier is the integrator invocation of 2026-09-26, which did not author the SEMP (charter section 11 rule 4). Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep` (queries on the TPM-014 cost envelope and on the tool status text).
+
+| Changed passage (committed blob `77fc9ea4`) | Checked against | Result |
+|---|---|---|
+| Appendix F F-07 (line 470): resolved 2026-09-26, the assessment reports DML-n with the section 6.0 TRL mapping | `docs/plan/technology-assessment.md` lines 16 to 18 (committed): the DML scale with its App. E TRL mapping | Consistent |
+| Appendix F F-13 (line 476): instrument line outside the unit budget, each contingency exactly 20 %, unit total USD 828 to 1644 for three units under ADR-025 | `docs/plan/cost-estimate.md` lines 5, 14, 15, 17, 18: unit budget 828 to 1644, contingency 20 % on each line, total envelope 972 to 1836 | Consistent; also consistent with finding-6 (b) and with `docs/plan/tpm.json` TPM-014 as updated 2026-09-26 (cbe 548, low 276) |
+| Line 130: `docs/plan/measurements.json` SRR seed exists (2026-09-25, appended 2026-09-26), schema `measurements.schema.json` | Both files exist and `tools/validate_docs.py` validates `measurements.json` against the schema (PASS, 2026-09-26) | Consistent |
+| Line 187: tool status at the SRR closure revision | `tools/` on 2026-09-26 | One stale statement, finding-10 below |
+
+<a id="finding-10"></a>**finding-10, Minor, Lien: fix before PDR.** Location: section 4.3 line 187. Line 187 says `tools/measurements.py` is "planned with the first software sprint, 07 §11" and does not name `tools/unsafe_audit.py`, `tools/complexity_gate.py` or their known-answer tests (`test_unsafe_audit.py`, `test_complexity_gate.py`, `test_measurements.py`); all three tools and tests exist and are committed with the SRR closure products of 2026-09-26 (TV-011 to TV-013). Fix: restate the tool status at the next SEMP revision. Citation: CK-REQ-G7 (plan statements true of the tree). Disposition under the convergence rule of 2026-09-26 (charter section 4 item 3: a Minor RID is fixed before the next review and does not block the baseline): Lien, fix before PDR, carried by the package as a Routine item.
+
+**Lien table.**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-10 | Minor | Lien: fix before PDR | SEMP author (Claude, lead SE) | PDR readiness declaration |
+
+**Result.** The committed SEMP blob `77fc9ea4` carries every iteration 2 fix (finding-1 to finding-9 re-checked at the lines the iteration 2 closure names; the line numbers are unchanged) and the post-approval edits are consistent with their sources, except the Minor finding-10, which is a lien. Findings: 10, of which 9 Closed (Verified) and 1 Lien; open Major 0.
+
+```
+VERDICT (iteration 3, delta verification): APPROVED (with liens)
+PRODUCT: docs/plan/semp.md@77fc9ea43527d838a1d92c54cdb332868c1ab450
+FINDINGS: finding-10 Minor, Lien: fix before PDR
+MEASUREMENTS: verified=9; lien=1; open_major=0; iteration=3; turns=5; minutes=15
+```

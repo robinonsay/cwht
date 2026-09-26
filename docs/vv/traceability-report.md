@@ -24,7 +24,7 @@ Of the six Class A rows of NPR 7150.2D section 3.12.1 Table 1 (SWE-052) that `do
 | Test cases of class HostUnit | 35 |
 | Test cases of class Inspection | 12 |
 | Test cases of class Simulation | 27 |
-| Verification reports | 1 |
+| Verification reports | 2 |
 | Hazards | 15 |
 | Expectations (NGO, MOE, CON) | 71 |
 | ConOps scenarios | 22 |
@@ -45,7 +45,7 @@ Of the six Class A rows of NPR 7150.2D section 3.12.1 Table 1 (SWE-052) that `do
 | Regulatory corpus (47 CFR Parts 1, 2, 15, 97 sections) | docs/references/md/regulatory | 30 ids |
 | Decision records (ADR) | docs/decisions/adr | 26 ids |
 | Trade studies (TS) | docs/decisions/trade-studies | 2 ids |
-| Verification reports | docs/vv/reports | 1 files |
+| Verification reports | docs/vv/reports | 2 files |
 | Nonconformances (NCR) | docs/vv/ncr | 0 files |
 | SAR decision memo | docs/reviews/SAR/decision-memo.md | absent |
 | Allocation (preliminary at SRR) | docs/design/allocation.json | 179 requirement ids allocated |

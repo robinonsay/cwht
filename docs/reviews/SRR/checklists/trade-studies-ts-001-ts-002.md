@@ -9,6 +9,8 @@ product: docs/decisions/trade-studies/
 # "Product files reviewed" table below. Iteration 1 reviewed TS-001 46a8ed17 and TS-002 7b7d165b;
 # iteration 2 verified the fixes in TS-001 652ad575 and TS-002 ae80decd (revision 1 of each).
 product_commit: "28e49e6"
+# product_files: the committed blobs (git rev-parse HEAD:<path> at 400e59d, first committed at e597e49) that the delta verification of 2026-09-26 (iteration 3, R13) approves
+product_files: ["docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf", "docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@574cee3dda830327b0aa17af361f863da2bc546c"]
 product_size: 2 trade studies (revision 1: TS-001 686 lines, TS-002 361 lines), 3 plus 1 decision matrices
 sprint: SRR-prep
 author_agent: "author:trades (Claude trade study author invocation, 2026-09-25, named as Recommender in both TS headers)"
@@ -16,17 +18,17 @@ reviewer_agent: "reviewer:trades"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 2
+iteration: 3
 readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 findings_major: 2
-findings_minor: 8
+findings_minor: 9
 findings_open: 0
 findings_fixed: 0
 findings_verified: 10
-findings_deferred: 0
+findings_deferred: 1
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -35,8 +37,8 @@ deferred_rids: []
 # every one is Yes in iteration 2 (section "Closure (iteration 2)")
 items_no: []
 # effort: iteration 1 48 turns and 55 minutes; iteration 2 20 turns and 25 minutes
-effort_turns: 68
-effort_minutes: 80
+effort_turns: 74
+effort_minutes: 95
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -424,3 +426,33 @@ MEASUREMENTS: size=2 studies (1,047 lines, 4 matrices); verified=10; open=0; maj
 ```
 
 `record_status` stays `Open` for the lead SE to set `Closed` with `date_closed` once every finding is Verified or Deferred, which is now the case.
+
+## Delta verification (iteration 3, 2026-09-26, SRR package items R13, H5 and H14)
+
+**Scope.** Iteration 2 approved the working-tree blobs TS-001 `652ad575` and TS-002 `ae80decd`, which are not in the git object store, so the difference to the committed files cannot be shown by `git diff`. The committed files are TS-001 blob `2a0c40a8` and TS-002 blob `574cee3d` (`git rev-parse HEAD:<path>` at `400e59d`; first committed at `e597e49`). The verifier is the integrator invocation of 2026-09-26, which did not author either study (charter section 11 rule 4). Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`.
+
+| Check on the committed blobs | Result |
+|---|---|
+| Size equals the approved revision 1 (TS-001 686 lines, TS-002 361 lines; product_size above) | Yes: 686 and 361 lines |
+| Both TS-001 Appendix A.3 listings extracted verbatim (lines 571 to 637 and 645 to 655) and run with `.venv/bin/python` | Exit 0 both; every total and sensitivity figure of the iteration 2 recomputation is reproduced: R2 A 330, B 310, seven weight flips, smallest remaining lead 6.7, all Low A 320, B 320; P P1 460, P3 280, P4 265 (152.5, 170); fallback P3 280, P4 265 (2.9, 5); A-C3 3 or 5 gives A 360 or 390; A-C8 2 gives A 340; P2 re-entry 195 or 275; TS-002 A0 400, A1 265, A2 220, A3 220 (80.6, 115); filter and battery figures (19.4/13.0, 16.7/11.7, 14.2/10.4 h) as in the A.3 results table |
+| F-01, F-07: A-C3 1 (Low), B-C1 scored on the worse side | TS-001 line 346 (C3 row, A 1) and line 277 (B-C1, 39 dB on the worse side, score 2); revision table line 686 |
+| F-02, F-03: P M1 covers the driver; P M5 added for REQ-SYS-112 | TS-001 line 83 (M1 names final and driver device, ADR-012 section 2) and line 676 (P M5 added) |
+| F-08: TS-002 M3 license criterion | TS-002 line 86 (M3 mandatory, pass/fail on the license terms) |
+| F-10: section 10 empty; dissent in section 9 | TS-001 lines 517 and 523, TS-002 lines 314 and 320: section 10 reads "Empty until the owner decides" with blank fields |
+
+<a id="finding-11"></a>**finding-11, Minor, Lien: fix before PDR.** Location: TS-001 and TS-002 header "Status" row. Both committed Status lines still read "awaiting the reviewer's verification of the fixes", although INSP-013 approved revision 1 at iteration 2 and this delta verification confirms the committed blobs (package section 15 item 60). Fix: the trade study author updates both Status lines. Disposition under the convergence rule of 2026-09-26: Lien, fix before PDR, carried by the package as a Routine item.
+
+**Lien table.**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-11 | Minor | Lien: fix before PDR | Trade study author (Claude) | PDR readiness declaration |
+
+**Result.** The committed blobs carry the revision 1 content that iteration 2 verified; no Major finding. Findings: 11, of which 10 Closed (Verified) and 1 Lien. The process items returned to Claude at iteration 2 (the record path and the TS-002 software assurance record) are unchanged and remain in package H1 (c).
+
+```
+VERDICT (iteration 3, delta verification): APPROVED (with liens)
+PRODUCT: TS-001@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf, TS-002@574cee3dda830327b0aa17af361f863da2bc546c
+FINDINGS: finding-11 Minor, Lien: fix before PDR
+MEASUREMENTS: verified=10; lien=1; open_major=0; iteration=3; turns=6; minutes=15
+```
