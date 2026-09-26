@@ -21,6 +21,8 @@ product: docs/process/07-software-engineering-plan.md
 # iteration 3 (2026-09-26): committed blobs re-checked, git rev-parse HEAD:<path> at HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
 # (07 revision A.4 as committed at b301df2, 1010 lines; measurements.json unchanged since iteration 2).
 product_commit: "adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1"
+# re-issue 2026-09-26 (package item R8, no further product review): both blobs re-checked equal to git rev-parse HEAD:<path>
+# and git hash-object at HEAD 1af795c; git log adcfe09..HEAD on both paths is empty
 product_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b"]
 # inputs read (not reviewed): hazards.json 0.4.0-pha, 03 third revision, rmm.json, hazard-analysis.md 0.4.0-pha
 input_files: ["docs/safety/hazards.json@89d0cbc323b2775d326cf7cd42bc637818ec96eb", "docs/process/03-software-classification-and-rmm.md@c87abe5a09985c3f0a3adb74e17386cc61d731b4", "docs/process/rmm.json@3645b4f682cba38373f0fca55beb190ded36c032", "docs/process/03-software-classification-and-rmm.md@fdc8d0764e7ee513a05215de7dfb580687b721d4 (iteration 2)", "docs/process/rmm.json@78c3b2364473e0676f8b5405ecd9f8536715bea1 (iteration 2)", "docs/safety/hazard-analysis.md (0.4.0-pha, working tree)", "docs/safety/hazard-analysis.md@b5ce99e93b96b6a2654f7cbe9ac5e23b8a2e1dbb (iteration 3)", "docs/risk/register.json@57f64995da80f0d20e6232039b6cba897d46c51b (iteration 3)", "tools/sw_gate.sh (iteration 3, HEAD)"]
@@ -45,12 +47,14 @@ iteration: 3
 # iteration 2 (2026-09-26): all seven findings Verified; reviewer_verdict and assurance_verdict APPROVED for the
 # assurance review; record verdict held at NEEDS CHANGES by the 07 section 10.2 pairing rule until INSP-010 is
 # APPROVED, and readiness R1 (measurements schema, INSP-010 finding-2) still fails. items_no is the iteration 1 list.
-# readiness_met: false. Iteration 3: R1 now Yes (validate_docs.py exit 0 with measurements.schema.json); R3 still No
-# (no author self-check against sections A to G on record; package decision 115)
-readiness_met: false
+# readiness_met: iteration 3: R1 Yes (validate_docs.py exit 0 with measurements.schema.json), R3 No.
+# Re-issue 2026-09-26 (package item R8): true; R3 is met by the author self-check filed at 8ef95d3 (package item R7). See "Re-issue".
+readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
-verdict: NEEDS CHANGES
+# verdict: APPROVED (with liens finding-8, finding-9) at the re-issue: assurance APPROVED, the paired file review INSP-010
+# reviewer_verdict APPROVED, readiness met, no Major finding open, named blobs equal HEAD (07 section 10.2; SWE-088)
+verdict: APPROVED
 findings_major: 2
 findings_minor: 7
 findings_open: 0
@@ -63,9 +67,9 @@ assurance_findings_minor: 7
 assurance_tasks_applied: [swe-013 7.1 task 1, swe-013 7.1 task 2, swe-022 7.1 task 1, swe-033 7.1 task 1, swe-033 7.1 task 3, swe-089 7.1 task 1, swe-134 7.1 task 1, swe-134 7.1 task 4, swe-134 7.1 task 5, swe-134 7.1 task 6, swe-205 7.1 task 2, swe-205 7.1 task 3]
 deferred_rids: []
 items_no: [R1, R3, CK-REQ-G1, CK-REQ-G3, CK-REQ-G4, CK-REQ-G6, CK-REQ-G7, SA-013-1, SA-013-2, SA-089-1, SA-134-1, SA-134-4, SA-134-6, SA-220-1]
-# effort: iteration 1 (44 turns, 65 min), iteration 2 (28, 35), iteration 3 (30, 35)
-effort_turns: 102
-effort_minutes: 135
+# effort: iteration 1 (44 turns, 65 min), iteration 2 (28, 35), iteration 3 (30, 35), re-issue (package item R8) (6, 15)
+effort_turns: 108
+effort_minutes: 150
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -76,6 +80,8 @@ date_closed: null
 **Products.** `docs/process/07-software-engineering-plan.md` revision A.3 (working tree on HEAD `28e49e6`, blob `1b8864b0121f3f8547e1b194d63b41752ab946b9`, last commit touching it `4e3f891`) and `docs/plan/measurements.json` (untracked, blob `9bb5989e7080c55e8c97d82e64256a07f9b8788f`), reviewed as one product, the same blobs INSP-010 reviewed. **Sources of record read:** `docs/safety/hazards.json` `0.4.0-pha` (blob `89d0cbc3...`), `docs/safety/hazard-analysis.md` sections 6 and 7, `docs/process/03-software-classification-and-rmm.md` sections 4.3 and 5 (blob `c87abe5a...`), `docs/process/rmm.json` (blob `3645b4f6...`), `docs/requirements/sys/requirements.json`, the SRR records in `docs/reviews/SRR/checklists/`.
 
 **Checklist.** `docs/templates/peer-review-checklist-requirements.md` revision C: readiness R1 to R5, section G (CK-REQ-G1 to G8) and CK-REQ-A8, the "plans and process documents" row (08 section 3.1; 07 section 10.1 row b). `docs/templates/peer-review-checklist-software-assurance.md` does not exist (08 section 3.5: due before PDR), so, per 07 section 15, the SWEHB section 7.1 software assurance tasks of the SWEs this plan implements are applied directly and listed below as items SA-NNN-n. **Minimum content judged:** SRR entrance row 23 (01 section 4.3, "Software plans (preliminary)", NPR 7150.2D chapter 6 records 6.1 a, k, l, t, u), SWE-013 with its assurance tasks, and the safety-critical provisions SWE-134, SWE-205, SWE-219, SWE-220 as planned in 07 section 14. **SRR context:** `docs/reviews/SRR/package.md` section 2 items H1 (07 record with a software assurance reviewer), H14 (07 section 14 reconciliation; SWE-033 trade study) and H16 (SWE-089 measurements).
+
+**Re-issue (2026-09-26, package item R8): verdict APPROVED (with liens finding-8 and finding-9).** The author self-check (package item R7, filed at `8ef95d3`) meets readiness R3, the only hold of iteration 3; the paired file review INSP-010 reads `reviewer_verdict: APPROVED`, and the product blobs equal HEAD. See "Re-issue" at the end.
 
 **Search-first compliance.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: NPR 7150.2D chapter 6 SDP content and SWE-013; SWE-134 items a to l; SWE-033 assurance tasking; SWEHB 5.17 minimum content; partitioning and isolation of safety-critical elements). The tool was available. `grep -n`, `sed -n` and read-only Python over the JSON files were used afterwards only to pin lines and recompute values.
 
@@ -101,9 +107,9 @@ Ids follow the `finding-<n>` anchor rule of 01 section 13 (the assignment's F-nn
 
 | # | Criterion | Answer | Evidence |
 |---|---|---|---|
-| R1 | The product validates: `tools/validate_docs.py` exits 0 | No | Run 2026-09-25: exit 1, `FAIL docs/plan/measurements.json (schema: docs/plan/measurements.schema.json) - schema not found` (and `docs/design/allocation.json`, outside this product). Carried by INSP-010 finding-2 (Major), re-verified here; 07 section 22 row "Measurements schema and tool rows" schedules the schema before the SRR readiness declaration. Not duplicated as a finding in this record |
+| R1 | The product validates: `tools/validate_docs.py` exits 0 | Yes from iteration 3; No at iterations 1 and 2 | Iteration 3: exit 0 with `measurements.schema.json` committed. Iteration 1 run 2026-09-25: exit 1, `FAIL docs/plan/measurements.json (schema: docs/plan/measurements.schema.json) - schema not found` (and `docs/design/allocation.json`, outside this product). Carried by INSP-010 finding-2 (Major), re-verified here; 07 section 22 row "Measurements schema and tool rows" schedules the schema before the SRR readiness declaration. Not duplicated as a finding in this record |
 | R2 | `tools/traceability.py` reports no violation for the ids in the file | Yes | 07 defines no requirement or test case ids; `--report-only` run exit 0 with 2 violations, both on REQ-SYS-183 (outside this product) |
-| R3 | The author's return states the self-check against sections A to G and the brief's acceptance criteria | No | No author return was supplied with this assignment; the 07 revision table row A.3 lists the changes, not a section G self-check. Recorded as a dispatch gap in the return (open question), as INSP-010 did |
+| R3 | The author's return states the self-check against sections A to G and the brief's acceptance criteria | Yes at the re-issue (2026-09-26); No at iterations 1 to 3 | Re-issue: the section "Author self-check" (filed at `8ef95d3`, package item R7) lists AC-6 to AC-8 with INSP-010 AC-1 to AC-5 and answers A8, G1 to G8 and the assurance tasks; see "Re-issue". Iteration 1: no author return was supplied with this assignment; the 07 revision table row A.3 lists the changes, not a section G self-check. Recorded as a dispatch gap in the return (open question), as INSP-010 did |
 | R4 | Every TBR has owner, plan, close_by; no TBD in the file | Yes | `grep -c -w TBD` on 07: 0. Every TBR named in 07 section 14 belongs to an L1 requirement (REQ-SYS-004, 009, 020, 048, 053, 054, 055, 097, 118, 131, 155, 162, 180, 181, 182 carry `tbr` objects; checked in `requirements.json`); `measurements.json` holds no TBR |
 | R5 | For a CR: impact assessment attached | N/A | Not a CR |
 
@@ -336,3 +342,39 @@ MEASUREMENTS: iteration=3; closed=7; liens=2; open=0; turns=30; minutes=35
 **Tool runs by the author.** As in the INSP-010 author self-check (2026-09-26, HEAD `ade0e09`): `tools/validate_docs.py` exit 1, 47 passed, 1 failed, the failure being `docs/reviews/SRR/checklists/hazard-analysis.md` (another agent's R9 work) and this record PASS; `tools/traceability.py --report-only` exit 0, 0 violations, 3 warnings, rewritten `docs/vv/` outputs restored with `git checkout`; `tools/measurements.py --check-records` exit 1 (finding-15).
 
 **Author statement.** The author has re-read 07 and `measurements.json` against checklist items A8 and G1 to G8, AC-1 to AC-8 and the assurance tasks this record applied. The author disputes no finding and accepts liens finding-8 and finding-9 for PDR.
+
+## Re-issue (2026-09-26, SRR package item R8; no further product review)
+
+**Scope and independence.** Written by a new invocation of `sa-reviewer:software-plan` in the software assurance reviewer role. It did not author 07 or `measurements.json`, did not write the author self-check above or INSP-010, and edited no product file. It re-issues this record without a further product review, as iteration 3 ("Verdict at iteration 3") and package items R7 and R8 provide: the only hold was readiness R3, which is not a finding. The convergence rule of 2026-09-26 (charter section 4 item 3) applies.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: the peer-review record readiness items R1 to R4 and the author self-check; the 07 section 10.2 paired-form completion rule). `grep -n`, `sed -n`, `git` and read-only Python were used afterwards only to pin lines and recompute values.
+
+**Product state.** HEAD `1af795cef0234e80f9fc70306f0f39471b58d100`. `git rev-parse HEAD:<path>` and `git hash-object` equal the blobs named in `product_files`: 07 `d0f8baf6`, `measurements.json` `5e2d1755` (2 of 2). `git log adcfe09..HEAD` on both paths is empty, so no product changed and no delta verification is needed. Inputs changed after `adcfe09`: `hazards.json` 0.4.3-pha (`ade0e09`; OQ-SAF-007, 025 and 026 statuses only) and SW-KEYER `requirements.json` (`f2e02aa`; REQ-SW-KEYER-039 "Distinct operator events for an override", HZ-004, the keyer-side form of 07 section 14.2 row d that finding-1 asked for). Neither weakens an assurance task answer of iteration 3.
+
+**Readiness R3 against the author self-check.** R3 reads "The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria". The section "Author self-check" meets it:
+- It lists the assurance acceptance criteria AC-6 to AC-8 and adopts AC-1 to AC-5 of the INSP-010 author self-check, which this run's INSP-010 re-issue confirmed; each has a source and a result.
+- It answers A8 and G1 to G8 and states a position on every assurance task this record applied (SA-013-1, SA-013-2, SA-089-1, SA-134-1, SA-134-4, SA-134-6, SA-205-2, SA-205-3, SA-219-1, SA-220-1).
+- It names the product blobs it checked, equal to `product_files` and to HEAD.
+- It is filed by `author:software-plan` and changes no reviewer field (`git show 8ef95d3`: insertions only).
+
+Spot checks at HEAD `1af795c`: AC-7 and the SA-134-6, SA-205-2, SA-205-3 position (the `firmware_role` and `swe134_items` of all 15 hazards are identical at `08d1496`, 0.4.0-pha, and at HEAD, 0.4.3-pha; none added or removed, so the section 14.1 union verified at iterations 1 and 3 holds); AC-8 (07 line 117 routes 05 and TS-002 to the assurance reviewer, and both paired records now exist, INSP-027 and INSP-030); SA-089-1 (`tools/measurements.py --check-records` prints "89 records, FAIL (80 failure(s))", INSP-010 lien finding-15); SA-134-1 (07 line 618, row d, requires two independent operator actions validated by the receiving component). All agree. The author's version-pointer item (07 line 581 names 0.4.0-pha) is INSP-010 observation O-8, editorial, fixed with the liens before PDR; no assurance answer depends on it.
+
+**Pairing (07 section 10.2).** INSP-010 (`paired_record: INSP-018`) names the same blobs, equal to HEAD, and reads `reviewer_verdict: APPROVED` and `assurance_verdict: APPROVED` (this record's value); it is re-issued APPROVED with liens in the same run. Both reviews of the pair are APPROVED, so 07 section 10.2 allows each record to read APPROVED.
+
+**Findings at the re-issue.** No finding changes state and no new finding is raised. finding-1 and finding-2 (Major) and finding-3 to finding-7 (Minor) stay Closed; finding-8 and finding-9 (Minor) stay "Lien: fix before PDR" (07 author, PDR readiness declaration). No Major finding is open and none waits on an owner ruling.
+
+**Answers changed at the re-issue.** R3 changes from No to Yes. The iteration 3 plan-item and assurance-task answers are unchanged (SA-134-1, SA-134-4, SA-134-6, SA-013-1, SA-013-2, SA-089-1, SA-220-1 Yes; CK-REQ-G1 No on lien finding-9).
+
+**Completion criteria (SWE-088; 07 section 10.2) at the re-issue: met.** Assurance and reviewer verdicts APPROVED; the paired file review INSP-010 reviewer verdict APPROVED; readiness met; zero open Major findings; the named blobs equal HEAD. `verdict: APPROVED` (with liens finding-8 and finding-9). `record_status` is left for the software lead, who sets `Closed` when the liens are dispositioned.
+
+**Cross items (outside this record's scope).** Package section 2 row H14, section 2.1 item R7 (INSP-018 part) and the section 2.4 row for INSP-018: record verdict APPROVED with liens finding-8 and finding-9; the INSP-018 part of R8 is done.
+
+```
+RE-ISSUE (2026-09-26, HEAD 1af795c, package item R8): VERDICT: APPROVED (with liens finding-8, finding-9)
+READINESS: R1 Yes, R2 Yes, R3 Yes (author self-check at 8ef95d3), R4 Yes, R5 N/A
+PRODUCT: 07@d0f8baf614b49e9c99d8fe2169093d02626ac50d, measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b (equal to HEAD, 2/2)
+PAIRING: INSP-010 (file review) reviewer_verdict APPROVED on the same blobs
+FINDINGS: finding-1 to finding-7 Closed; finding-8, finding-9 Minor, Lien: fix before PDR; open Major 0; new 0
+MEASUREMENTS (re-issue): blobs equal HEAD 2/2; turns=6; minutes=15; cumulative turns=108, minutes=150; iteration=3 (re-issue)
+TOOLS: validate_docs.py exit 1, 48 passed, 1 failed (hazard-analysis.md, INSP-008 drift against the R9 hazards commit, another record); this record PASS with no drift note. traceability.py --report-only exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings (docs/vv outputs restored with git checkout). render_risk.py --check --gate SRR --hazards exit 0, 65 risks, register current. unittest discover: 392 tests, 1 failure (test_repository_exit_zero, from other agents' concurrent record edits: expectations.md, hazard-analysis.md)
+```

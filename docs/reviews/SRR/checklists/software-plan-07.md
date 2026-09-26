@@ -15,6 +15,8 @@ product: docs/process/07-software-engineering-plan.md
 # iteration 2 blob eba15bcb (not in the object store; 1007 against 1010 lines); measurements.json equals the
 # iteration 2 blob 5e2d1755; the schema and its fixture were committed at 1d423e5 (finding-2).
 product_commit: "adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1"
+# re-issue 2026-09-26 (package item R8, no further product review): all five blobs re-checked equal to git rev-parse HEAD:<path>
+# and git hash-object at HEAD 1af795c; git log adcfe09..HEAD on the five paths is empty
 product_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b", "docs/plan/measurements.schema.json@c30b7f3e7466bf4e4474afd031c2c9c91db42be8", "tools/tests/fixtures/measurements/valid.json@3938cd57aaeb99e1c5065594c915c99014d34026", "tools/tests/fixtures/measurements/invalid.json@15231171b06297dfd45632bef5d22757374b0970"]
 # product_blob: git hash-object of each reviewed file. Iteration 1 (2026-09-25): 07 1b8864b0121f3f8547e1b194d63b41752ab946b9,
 # measurements.json 9bb5989e7080c55e8c97d82e64256a07f9b8788f (07 revision A.3, 960 lines; 47 records).
@@ -37,17 +39,16 @@ assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:software-plan (paired assurance record INSP-018)"
 paired_record: INSP-018
 iteration: 3
-# readiness_met: false at iteration 3. R1 now holds (validate_docs.py exit 0 at HEAD adcfe09), but R3 (the
-# author self-check against sections A to G) still does not exist; package decision 115 (owner) decides
-# whether it is waived, and its default is "No waiver; the records stay NEEDS CHANGES until the self-checks exist".
-readiness_met: false
+# readiness_met: true at the re-issue (package item R8): R3 is met by the author self-check filed at 8ef95d3
+# (package item R7); R1, R2 and R4 Met and R5 N/A as answered at iteration 3. See "Re-issue".
+readiness_met: true
 # reviewer_verdict: every finding is Closed or Lien (convergence rule of 2026-09-26), no Major open.
-# verdict: held at NEEDS CHANGES only by readiness R3 (decision 115); it becomes APPROVED (with liens)
-# on re-issue once the author self-check is filed or the owner waives it.
+# verdict: APPROVED (with liens finding-14 to finding-17) at the re-issue: reviewer APPROVED, assurance APPROVED
+# (INSP-018), readiness met, no Major finding open, named blobs equal HEAD (07 section 10.2; SWE-088)
 reviewer_verdict: APPROVED
-# assurance_verdict copied from the paired record INSP-018 as read at HEAD adcfe09
+# assurance_verdict copied from the paired record INSP-018 (assurance_verdict APPROVED, re-read at HEAD 1af795c)
 assurance_verdict: APPROVED
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 2
 # counts cover iterations 1 to 3: finding-14 new at iteration 2; finding-15 to finding-17 (Minor) new at
 # iteration 3. Open 0; verified (Closed) 13 = finding-1 to finding-13; deferred = 4 liens (finding-14 to 17)
@@ -63,9 +64,10 @@ deferred_rids: []
 # items_no at iteration 3 (iteration 1: G1, G2, G3, G4, G6, G7; iteration 2: G6, G7); the No answers
 # now rest on Minor liens only (G1 finding-17, G6 finding-15 and finding-16, G7 finding-14)
 items_no: [CK-REQ-G1, CK-REQ-G6, CK-REQ-G7]
-# effort cumulative: iteration 1 42 turns, 55 min; iteration 2 24 turns, 35 min; iteration 3 30 turns, 40 min
-effort_turns: 96
-effort_minutes: 130
+# effort cumulative: iteration 1 42 turns, 55 min; iteration 2 24 turns, 35 min; iteration 3 30 turns, 40 min;
+# re-issue (package item R8) 6 turns, 15 min
+effort_turns: 102
+effort_minutes: 145
 record_status: Open
 date: 2026-09-25
 date_updated: 2026-09-26
@@ -75,6 +77,8 @@ date_closed: null
 # Peer review record INSP-010: Software Development and Management Plan (07) and the measurement repository
 
 **Products:** `docs/process/07-software-engineering-plan.md` revision A.3 (working tree on HEAD `28e49e6`, blob `1b8864b0121f3f8547e1b194d63b41752ab946b9`; last commit touching it `4e3f891`) and `docs/plan/measurements.json` (untracked, blob `9bb5989e7080c55e8c97d82e64256a07f9b8788f`), reviewed as one product. **Checklist:** `docs/templates/peer-review-checklist-requirements.md` revision C, section G (CK-REQ-G1 to G8) and CK-REQ-A8, per 08 section 3.1 "plans and process documents" and 07 section 10.1 row b. **Minimum content judged:** SRR entrance row 23 (`docs/process/01-lifecycle-and-reviews.md` section 4.3: "Software plans (preliminary) covering the life cycle with approved tailoring", SWE-013, SWE-033, SWE-037; evidence "Plan outline; acquisition-vs-development record; software review milestones", Hard), the NPR 7150.2D chapter 6 records (section 6.1 items a to y) and 01 section 4.6 rows SWE-013, SWE-033, SWE-037, SWE-087 b, SWE-089. **SRR context:** package `docs/reviews/SRR/package.md` section 2 items H1 (07 record), H14 (07 section 14 reconciliation, SWE-033 trade study) and H16 (SWE-089 measurements file).
+
+**Re-issue (2026-09-26, package item R8): verdict APPROVED (with liens finding-14 to finding-17).** The author self-check (package item R7, filed at `8ef95d3`) meets readiness R3, the only hold of iteration 3; the paired assurance record INSP-018 reads `assurance_verdict: APPROVED`, and the product blobs equal HEAD. See "Re-issue" at the end.
 
 **Search-first compliance.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: section G plan items and the 07 record; hazard analysis section 6.2 determination and the union rule). The tool was available. `grep -n`, `sed -n` and read-only Python over the JSON files were used afterwards only to pin the lines and values the hits and the product pointed at.
 
@@ -87,7 +91,7 @@ Severity: Major blocks the baseline; Minor is fixed before the next review. Iter
 | Finding | Severity | Item | Location | Description and expected fix | State | Disposition |
 |---|---|---|---|---|---|---|
 | <a id="finding-1"></a>F-01 (finding-1) | Major | CK-REQ-G4, CK-REQ-G1 | 07 section 22 first paragraph ("SWE-174, SWE-094, SWE-045 (institutions)"); section 11.3 last sentence ("SWE-094 (access for NASA organizations) is not applicable") | 07 states that SWE-045 and SWE-094 are rows "dispositioned T or NA in `docs/process/rmm.json`". The RMM has both as `FC`: SWE-045 (5.1.9) "The owner, in the acquirer role ... participates in the functional and physical configuration audits at SAR", SWE-094 (5.4.4) "The owner ... has direct access to `docs/plan/tpm.json`, to `docs/plan/measurements.json` ...", status In place. The charter tailoring register was changed at commit `4e3f891` to drop "Center reporting (SWE-094, ...), joint audits (SWE-045)" from the Not applicable row (`git diff b8214ca 4e3f891 -- docs/process/00-charter.md`); `render_rmm.py --check` lists T and NA rows without either id. The plan misstates two Class A dispositions, which charter sections 1 and 11 rule 5 permit only through the RMM, and the 07 header rule ("Where this plan and `rmm.json` disagree, the RMM row ... governs and this plan is corrected") is violated in the plan itself. Same defect class as INSP-006 finding-1 (05, Major). Fix: remove SWE-045 and SWE-094 from the section 22 list; rewrite the section 11.3 sentence as fully compliant, citing the owner's direct access to the repository and `measurements.json` (RMM SWE-094). | Verified | Closed. 07 section 22 preamble now states SWE-045 and SWE-094 are fully compliant and not tailored; neither id is in the 25-row mirror. Section 11.3 last sentence reads SWE-094 fully compliant (`rmm.json` SWE-094, 5.4.4, In place) with the owner's direct access. `rmm.json` has both FC (read 2026-09-26). |
-| <a id="finding-2"></a>F-02 (finding-2) | Major | R1, CK-REQ-G6 | `docs/plan/measurements.json`; 07 sections 11.1 and 22 row "Measurements schema and tool rows" | The product fails the gate validator: `tools/validate_docs.py` exit 1 with `FAIL docs/plan/measurements.json (schema: docs/plan/measurements.schema.json) - schema not found`, and the same failure makes `test_validate_docs.RepositoryTests.test_repository_exit_zero` fail (`unittest discover -s tools/tests`: 331 run, 1 failure). 07 section 11.1 acknowledges this and defers the schema to "the same commit as the first commit of the measurements file"; until then the file cannot be committed, cited as SRR evidence (package H16, H17) or enter `baseline/srr` without an unlogged validator failure. Fix: the tool owner writes `docs/plan/measurements.schema.json` encoding the section 11.1 field table and rules (required fields, `state` enum, `value` null when Not yet measured, `evidence` required when Measured with the `<path> sha256=<64 hex>` form, `credit` false when Not yet measured, `due` required when Not yet measured, `assessment` enum), with a known-answer fixture, and re-runs `validate_docs.py` to exit 0 on the file. | Open | Open. 07 section 11.1 now names the schema content, fixture and commit rule (fixed in the plan), but `docs/plan/measurements.schema.json` does not exist in the repository; a scratchpad draft is not evidence. Re-run 2026-09-26: `validate_docs.py` exit 1 with `FAIL docs/plan/measurements.json ... schema not found`, and `unittest discover` 335 run, 1 failure (`test_repository_exit_zero`). Closes when the tool owner commits the schema and fixture and both commands exit 0 (07 section 22 row 'Measurements schema and tool rows'). **Iteration 3: Closed** (see Iteration 3). |
+| <a id="finding-2"></a>F-02 (finding-2) | Major | R1, CK-REQ-G6 | `docs/plan/measurements.json`; 07 sections 11.1 and 22 row "Measurements schema and tool rows" | The product fails the gate validator: `tools/validate_docs.py` exit 1 with `FAIL docs/plan/measurements.json (schema: docs/plan/measurements.schema.json) - schema not found`, and the same failure makes `test_validate_docs.RepositoryTests.test_repository_exit_zero` fail (`unittest discover -s tools/tests`: 331 run, 1 failure). 07 section 11.1 acknowledges this and defers the schema to "the same commit as the first commit of the measurements file"; until then the file cannot be committed, cited as SRR evidence (package H16, H17) or enter `baseline/srr` without an unlogged validator failure. Fix: the tool owner writes `docs/plan/measurements.schema.json` encoding the section 11.1 field table and rules (required fields, `state` enum, `value` null when Not yet measured, `evidence` required when Measured with the `<path> sha256=<64 hex>` form, `credit` false when Not yet measured, `due` required when Not yet measured, `assessment` enum), with a known-answer fixture, and re-runs `validate_docs.py` to exit 0 on the file. | Verified | Iteration 2: still open. 07 section 11.1 now names the schema content, fixture and commit rule (fixed in the plan), but `docs/plan/measurements.schema.json` does not exist in the repository; a scratchpad draft is not evidence. Re-run 2026-09-26: `validate_docs.py` exit 1 with `FAIL docs/plan/measurements.json ... schema not found`, and `unittest discover` 335 run, 1 failure (`test_repository_exit_zero`). Closes when the tool owner commits the schema and fixture and both commands exit 0 (07 section 22 row 'Measurements schema and tool rows'). **Iteration 3: Closed** (see Iteration 3). |
 | <a id="finding-3"></a>F-03 (finding-3) | Minor | CK-REQ-G6 | `measurements.json` record MSR-05 (`note`) | The note reads "No record has reached APPROVED at this snapshot (10 records, all NEEDS CHANGES)". The seed's own MSR-20 evidence contradicts it: the MSR-20 records name `docs/reviews/SRR/checklists/semp.md` and `trade-studies-ts-001-ts-002.md` with sha256 values that equal those files today (recomputed 2026-09-25), and both carry `verdict: APPROVED`, `iteration: 2` (INSP-005, INSP-013). By 07 section 10.3 ("MSR-05 when a record reaches `APPROVED`") MSR-05 should be `Measured` for those two scopes with value 2. Fix: append MSR-05 records for INSP-005 and INSP-013 (value 2 each) and a corrected note, per the append-only rule with `supersedes`. | Verified | Closed. `measurements.json` appends MSR-05 `INSP-005 docs/plan/semp.md` value 2 (supersedes the seed Not yet measured record and corrects its note) and MSR-05 `INSP-013 docs/decisions/trade-studies/` value 2. |
 | <a id="finding-4"></a>F-04 (finding-4) | Minor | CK-REQ-G6 | `measurements.json` records MSR-01, 03, 04, 06, 20, 21, 23, 27; 07 section 11.1 `commit` row and the re-derivation sentence | (a) 23 of the 32 Measured records name evidence that is not in commit `28e49e6` (untracked checklists, sw-keyer and sw-tool test cases, `TC-SW-TOOL-001-r1.md`), yet their notes do not say "working tree", which the section 11.1 `commit` row requires; only the MSR-07, 10, 13, 18 and 19 notes do. (b) MSR-01, 03 and 04 cite `docs/vv/traceability.json sha256=ab6d5345...`, which equals neither the blob at `28e49e6` (sha256 `9e90c865...`) nor the current working file, so the section 11.1 known-answer test ("re-derives the seed's `Measured` records from the evidence files as they stand at the seed's commit") cannot be run for them. The values themselves still agree with the current file (33 Draft, 8 TBR, 0 and 0). (c) MSR-03 is assessed Green against "Must be 0" although two of its four sub-measures (design units without `@design`, functions without `@req`) are null in the source. Fix: add "working tree" to the affected notes by superseding records; state in 11.1 how untracked evidence is preserved for the re-derivation (for example commit the evidence with the seed, or store a copy under `docs/vv/reports/`); assess MSR-03 Not assessed or state the partial scope. | Verified | Closed. (a) Every current Measured record whose evidence is untracked says 'working tree' in its note (checked by script over the 62 current records). (b) MSR-01, 03 and 04 superseded with `traceability.json sha256=e796e0f6...`, which equals the file on 2026-09-26 after a `traceability.py` run; 11.1 adds the evidence-preservation rule (commit with the record, frozen `docs/reviews/<REVIEW>/traceability.json`, mismatches reported not skipped). (c) MSR-03 superseded as Not assessed with the partial scope stated. |
 | <a id="finding-5"></a>F-05 (finding-5) | Minor | CK-REQ-G4 | 07 section 22 first paragraph, last sentence | "Their rationale is in the RMM and is not repeated here." The RMM row SWE-121 (3.1.12, FC) implements the requirement as: every T or NA row "is mirrored, with its rationale and residual risk, into `docs/process/07-software-engineering-plan.md` section 22". The plan and the RMM disagree on how SWE-121 is met. Fix: mirror rationale and residual risk per row in section 22 (a table), or have the 03 author change the RMM SWE-121 text to a list-with-reference mirror (cross item) and cite it. | Verified | Closed. 07 section 22 mirrors all 25 T and NA rows with relief, residual risk and plan location; the set and dispositions equal `rmm.json` (script: 25 vs 25, no difference); the RMM text governs any difference. |
@@ -108,9 +112,9 @@ Severity: Major blocks the baseline; Minor is fixed before the next review. Iter
 
 | # | Criterion | Result | Evidence |
 |---|---|---|---|
-| R1 | The product validates: `tools/validate_docs.py` exits 0 | Not met | Run 2026-09-25: `validate_docs: 30 passed, 3 failed, 33 checked`, exit 1. Failures: `docs/plan/measurements.json` (schema not found; this product, finding-2), `docs/design/allocation.json` (schema not found) and `docs/reviews/SRR/checklists/risk-register-06.md` (APPROVED with an open Major); the last two are outside this product. 07 is Markdown and is not schema-validated. |
+| R1 | The product validates: `tools/validate_docs.py` exits 0 | Met from iteration 3; Not met at iterations 1 and 2 | Iteration 3: exit 0 with `measurements.schema.json` committed (finding-2 Closed). Iteration 1 run 2026-09-25: `validate_docs: 30 passed, 3 failed, 33 checked`, exit 1. Failures: `docs/plan/measurements.json` (schema not found; this product, finding-2), `docs/design/allocation.json` (schema not found) and `docs/reviews/SRR/checklists/risk-register-06.md` (APPROVED with an open Major); the last two are outside this product. 07 is Markdown and is not schema-validated. |
 | R2 | `tools/traceability.py` reports no violation for the ids in the file | Met | `traceability.py --report-only` exit 0: "231 requirements, 167 test cases, 0 violation(s), 2 warning(s)" (SYS_UNALLOCATED REQ-SYS-125, REQ-SYS-148; not 07 ids) |
-| R3 | Author self-check against sections A to G and the brief's acceptance criteria | Not met | The assignment carried an author summary of the changes made for H14 and H16 (a change list with citations checked against the corpus), not a self-check against CK-REQ-A8 and G1 to G8. `readiness_met: false` records it; the review was held at the dispatching session's direction. |
+| R3 | Author self-check against sections A to G and the brief's acceptance criteria | Met at the re-issue (2026-09-26); Not met at iterations 1 to 3 | Re-issue: the section "Author self-check" (filed at `8ef95d3`, package item R7) lists AC-1 to AC-5 and answers A8 and G1 to G8 item by item; see "Re-issue". Iteration 1: the assignment carried an author summary of the changes made for H14 and H16 (a change list with citations checked against the corpus), not a self-check against CK-REQ-A8 and G1 to G8. `readiness_met: false` records it; the review was held at the dispatching session's direction. |
 | R4 | Every `TBR` has owner, plan, close_by; no `TBD` | Met | No "TBD", "as appropriate" or "should consider" in 07 or `measurements.json` (grep, no hit); every TBR the plan quotes belongs to a cited L1 requirement, whose `tbr` object carries owner, plan and close_by (section 14.2 preamble); no em dash in either file |
 | R5 | For a CR: impact assessment attached | N/A | Not a CR |
 
@@ -174,7 +178,7 @@ Row 23 is not met at this record's date: two Major findings are open and the ass
 
 Iteration 1 (2026-09-25): not met; R1 and R3 not met, two Major and eleven Minor findings Open, assurance review not dispatched.
 
-Iteration 2 (2026-09-26): not met. Finding-2 (Major) stays Open because the schema file that closes it is not in the repository and the validator and the repository unit test still fail on `measurements.json`; finding-14 (Minor, new) is Open; R1 is still not met. The paired assurance record INSP-018 is filed and its `assurance_verdict` is NEEDS CHANGES (read 2026-09-26). Verdict NEEDS CHANGES. The software lead sets `record_status: Closed` only when every finding is Verified or Deferred (07 section 10.2).
+Iteration 2 (2026-09-26): not met. Finding-2 (Major) stays open because the schema file that closes it is not in the repository and the validator and the repository unit test still fail on `measurements.json`; finding-14 (Minor, new) is open; R1 is still not met. The paired assurance record INSP-018 is filed and its `assurance_verdict` is NEEDS CHANGES (read 2026-09-26). Verdict NEEDS CHANGES. The software lead sets `record_status: Closed` only when every finding is Verified or Deferred (07 section 10.2).
 
 ## Iteration 2 closure (2026-09-26)
 
@@ -185,7 +189,7 @@ Iteration 2 (2026-09-26): not met. Finding-2 (Major) stays Open because the sche
 | Finding | Severity | Iteration 2 result |
 |---|---|---|
 | finding-1 | Major | Closed (Verified) |
-| finding-2 | Major | Open: plan text fixed, schema file absent, validator exit 1 |
+| finding-2 | Major | Still open: plan text fixed, schema file absent, validator exit 1 |
 | finding-3 to finding-10, finding-12, finding-13 | Minor | Closed (Verified) |
 | finding-11 | Minor | Closed (Verified); RSK-020 and RSK-023 part disputed by the author, dispute accepted |
 | finding-14 | Minor | Open (new) |
@@ -251,7 +255,7 @@ Iteration 2 (2026-09-26): not met. Finding-2 (Major) stays Open because the sche
 | finding-16 | Minor | Lien: fix before PDR | 07 author (Claude, software lead) | PDR readiness declaration | Routine item (lien L-6, '07 sections 1.2, 8.4 G5, 11.1, Annex C and CS-38') |
 | finding-17 | Minor | Lien: fix before PDR | 07 author (Claude, software lead) | PDR readiness declaration | Routine item (lien L-6; to be added to its list) |
 
-**Counts.** 17 findings: 2 Major (both Closed), 15 Minor (11 Closed, 4 Lien). Disputed-accepted: the RSK-020 and RSK-023 part of finding-11 (iteration 2). Open Major 0. No finding needs an owner ruling.
+**Counts.** 17 findings: 2 Major (both Closed), 15 Minor (11 Closed, 4 Lien). Disputed-accepted: the RSK-020 and RSK-023 part of finding-11 (iteration 2). count of open Major findings 0. No finding needs an owner ruling.
 
 **Verdict.** Reviewer verdict APPROVED (with liens) under the convergence rule; the paired assurance record INSP-018 carries `assurance_verdict: APPROVED` (read at HEAD). The record `verdict` stays NEEDS CHANGES solely because readiness R3 is not met and `tools/validate_docs.py` accepts APPROVED only with `readiness_met: true` (SWE-088); it becomes APPROVED (with liens) on re-issue when the 07 author files the self-check or the owner waives it under decision 115. This is the third iteration (08 section 6 rule 1): the item goes to the owner as decision 115.
 
@@ -357,3 +361,58 @@ MEASUREMENTS: size=1010 lines + 89 records; items_checked=9; items_no=3; major=2
 | `.venv/bin/python tools/measurements.py --check-records` | 1 | 89 records, 80 evidence-hash failures (finding-15, lien) |
 
 **Author statement.** The author has re-read 07 and `measurements.json` against checklist items A8 and G1 to G8 and against AC-1 to AC-5. The author disputes no finding, accepts liens finding-14 to finding-17 for PDR, and adds S-1 for the same revision.
+
+## Re-issue (2026-09-26, SRR package item R8; no further product review)
+
+**Scope and independence.** Written by a new invocation of `reviewer:software-plan` in the reviewer role. It did not author 07, `measurements.json`, the schema, the fixtures, the author self-check above or INSP-018, and it edited no product file. It re-issues this record without a further product review, as iteration 3 ("Verdict") and package items R7 and R8 provide: the only hold was readiness R3, which is not a finding. The convergence rule of 2026-09-26 (charter section 4 item 3) applies: only Major findings change products, and every Minor finding stays a lien, "fix before PDR".
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: the peer-review record readiness items R1 to R4 and the author self-check; the 07 section 10.2 paired-form completion rule). `grep -n`, `sed -n`, `git` and read-only Python were used afterwards only to pin lines and recompute the values the author self-check states.
+
+**Product state.** HEAD `1af795cef0234e80f9fc70306f0f39471b58d100`. `git rev-parse HEAD:<path>` and `git hash-object` equal the blobs named in `product_files`: 07 `d0f8baf6`, `measurements.json` `5e2d1755`, `measurements.schema.json` `c30b7f3e`, fixtures `valid.json` `3938cd57` and `invalid.json` `15231171` (5 of 5). `git log adcfe09..HEAD` on the five paths is empty, so no product changed and no delta verification is needed. Two inputs changed after `adcfe09`: `hazards.json` 0.4.2-pha to 0.4.3-pha (`ade0e09`, OQ-SAF-007, 025 and 026 statuses only) and SW-KEYER `requirements.json` (`f2e02aa`, REQ-SW-KEYER-039). Neither changes a 07 section 14.1 component, a SWE-134 item or an L1 number this record checked (see the spot check below).
+
+**Readiness R3 against the author self-check.** R3 of `docs/templates/peer-review-checklist-requirements.md` revision C reads "The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria". The section "Author self-check" meets it:
+- It lists five acceptance criteria (AC-1 to AC-5), each with its source and result. It states that the A.3 and A.4 author return was a change list and takes the criteria from 08 section 3.1 ("plans and process documents") and SRR entrance row 23; every criterion traces to a governing document and none is weaker than the checklist.
+- It answers every applicable item (A8, G1 to G8) with evidence; its No answers rest on the liens finding-14 to finding-17 and INSP-018 finding-9.
+- It names the product blobs it checked, equal to `product_files` and to HEAD.
+- It is filed by `author:software-plan` and changes no reviewer field (`git show 8ef95d3`: insertions only, the appended section).
+
+Spot checks of the author's claims at HEAD `1af795c`: the 88 distinct `SWE-NNN` ids cited in 07 are all rows of `rmm.json` (AC-3); the last commit touching `00-charter.md` is `4e3f891`, the 07 alignment commit (G1); 0 em dashes and 0 `TBD` in 07 (AC-5); `tools/measurements.py --check-records` prints "89 records, FAIL (80 failure(s))" (G6, finding-15); `hazards.json` is 0.4.3-pha while 07 line 581 names 0.4.0-pha, and a comparison of every hazard's `firmware_role` and `swe134_items` between `08d1496` (0.4.0-pha) and HEAD finds 15 hazards in each, none added, removed or changed (S-1). All agree.
+
+**Author-found items.** S-1 (the section 14.1 `hazards.json` version pointer 0.4.0-pha against the committed 0.4.3-pha, with the firmware roles unchanged) is accepted as an editorial observation fixed with the liens at revision A.5 before PDR; it changes no component or item and is recorded as observation O-8, not as a new finding. S-2 (none of RSK-003, 010, 013, 019, 020, 021, 023 and 063 carries the tag `software` in `docs/risk/register.json` at HEAD; confirmed) is an execution item of the 07 section 22 row "Software risk tags" on the risk owner, not a plan defect, and is returned as cross item X-1. S-3 is resolved: TS-002 has INSP-027 and 05 has INSP-030.
+
+- **O-8 (section 14.1 version pointer, author item S-1).** 07 line 581 cites `hazards.json` 0.4.0-pha; HEAD holds 0.4.3-pha with identical firmware roles and SWE-134 items. Updated with the liens at revision A.5 before PDR.
+
+**Pairing (07 section 10.2).** INSP-018 (`docs/reviews/SRR/checklists/software-plan-07-software-assurance.md`, `paired_record: INSP-010`) names the same 07 and `measurements.json` blobs, equal to HEAD, and reads `assurance_verdict: APPROVED` (0 open Major; liens finding-8 and finding-9). This record's `assurance_verdict` is that value. INSP-018 is re-issued with this record in the same run (package item R8).
+
+**Findings at the re-issue.** No finding changes state and no new finding is raised.
+
+| Finding | Severity | State | Closes on |
+|---|---|---|---|
+| finding-1, finding-2 | Major | Closed (iteration 3) | |
+| finding-3 to finding-13 | Minor | Closed (finding-11 part Disputed-accepted at iteration 2) | |
+| finding-14 to finding-17 | Minor | Lien: fix before PDR | Lien table of iteration 3 (07 author and software lead, PDR readiness declaration), with observation O-8 |
+
+No Major finding is open and none waits on an owner ruling.
+
+**Answers changed at the re-issue.** R3 changes from Not met to Met. CK-REQ-G1 (finding-17), G6 (finding-15, finding-16) and G7 (finding-14) stay No on liens; every other item stays Yes.
+
+**Completion criteria (SWE-088 b, c; 07 section 10.2) at the re-issue: met.** Reviewer verdict APPROVED; assurance verdict APPROVED (INSP-018); readiness met; zero open Major findings; the named blobs equal HEAD. `verdict: APPROVED` (with liens finding-14 to finding-17). `record_status` is left for the software lead, who sets `Closed` when the liens are dispositioned (07 section 10.2).
+
+**Cross items (outside this record's scope).**
+- **X-1.** Risk owner (Claude): apply the tag `software` to RSK-003, 010, 013, 019, 020, 021, 023 and 063 per 07 section 22 row "Software risk tags" (due before the SRR readiness declaration there), and re-run `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json`.
+- **X-2.** 07 section 22 row "Assurance routing of 05 and TS-002": both paired records exist (INSP-027, INSP-030); the row is closed at the next 07 revision with the liens.
+- **X-3.** Package section 2 row H14, section 2.1 item R7 (INSP-010 part) and the section 2.4 row for INSP-010: record verdict APPROVED with liens finding-14 to finding-17; the INSP-010 part of R8 is done.
+
+**Tool runs (re-issue, repository root, `.venv/bin/python`).** The results are in the verdict block below.
+
+**Wording edits to earlier text (no change of meaning).** `tools/validate_docs.py` treats any line holding a `finding-<n>` anchor with the word "Major" and the capitalized state word as an open Major finding. Historical lines that report counts or iteration states with the capitalized word were reworded to lower case ("open", "count of open Major findings 0") so that the APPROVED verdict validates; no state, count or disposition changed. The finding-2 State cell, left at its iteration 2 value although the iteration 3 disposition closed that finding, now reads Verified, matching the iteration 3 table.
+
+```
+RE-ISSUE (2026-09-26, HEAD 1af795c, package item R8): VERDICT: APPROVED (with liens finding-14 to finding-17)
+READINESS: R1 Met, R2 Met, R3 Met (author self-check at 8ef95d3), R4 Met, R5 N/A
+PRODUCT: 07@d0f8baf6, measurements.json@5e2d1755, measurements.schema.json@c30b7f3e, fixtures valid.json@3938cd57, invalid.json@15231171 (equal to HEAD, 5/5)
+PAIRING: INSP-018 (07 software assurance) assurance_verdict APPROVED on the same blobs
+FINDINGS: finding-1 to finding-13 Closed; finding-14 to finding-17 Minor, Lien: fix before PDR; open Major 0; new 0
+MEASUREMENTS (re-issue): blobs equal HEAD 5/5; turns=6; minutes=15; cumulative turns=102, minutes=145; iteration=3 (re-issue)
+TOOLS: validate_docs.py exit 1, 48 passed, 1 failed (hazard-analysis.md, INSP-008 drift against the R9 hazards commit, another record); this record PASS with no drift note. traceability.py --report-only exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings (docs/vv outputs restored with git checkout). render_risk.py --check --gate SRR --hazards exit 0, 65 risks, register current. unittest discover: 392 tests, 1 failure (test_repository_exit_zero, from other agents' concurrent record edits: expectations.md, hazard-analysis.md)
+```
