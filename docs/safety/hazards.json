@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0-pha",
+  "version": "0.4.2-pha",
   "updated": "2026-09-26",
   "baseline": null,
   "phase": "PHA",
@@ -1060,7 +1060,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Straight-on-tip mode is selected only by an explicit menu action after the interlock has passed, never by automatic detection; the ring contact is then ignored, which makes a mono plug safe (SWE-134 d). Mode changes only by menu (D-KN8).",
+          "text": "Straight-on-tip mode is selected only by an explicit menu action, never by automatic detection; the selection is accepted while the KEY inhibit is active (REQ-SYS-163), because a mono plug holds the ring closed, and the REQ-SYS-052 key-closed interlock then re-runs on the inputs the new mode uses before transmit can be armed; the ring contact is then ignored, which makes a mono plug safe (SWE-134 d). Mode changes only by menu (D-KN8).",
           "control_req_ids": [
             "REQ-SYS-056",
             "REQ-SYS-163",
@@ -1383,6 +1383,15 @@
           "risk": "High",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: the 15 L2 back-links added (REQ-SW-KEYER-002, 019 to 031 to K1, K2, K3, K7, K8, K9, K13; REQ-TX-014 to K8); K5 tagged Proposed, owner decision pending at SRR (D-KN2, package decision 36); no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "Pre-SRR",
+          "severity": "Critical",
+          "likelihood": "B",
+          "risk": "High",
+          "status": "Controls proposed",
+          "note": "Revision 0.4.2-pha (ConOps appendix D item D10, SRR package H6 and R14): K2 text states that the Straight-on-tip selection is accepted while the KEY inhibit is active (REQ-SYS-163) and that the REQ-SYS-052 interlock then re-runs on the newly used inputs, replacing 'after the interlock has passed', which a mono plug can never satisfy; no change to control_req_ids, severity, likelihood, risk or status"
         }
       ]
     },
@@ -4330,9 +4339,9 @@
       ],
       "subject": "Trace clean-up: REQ-SYS-122 checklist, REQ-SYS-123, REQ-SYS-006, risk citations",
       "request": "(1) REQ-SYS-122's verification note builds its checklist from 'every Documentation control'; extend it to every Documentation, Operator procedure and Warning or label control that hazards.json places in the handbook, named by control id (for example 'HZ-004 K11'). (2) hazards.json no longer traces controls to REQ-SYS-123 (a 30 min usability task list, now supporting validation only) or REQ-SYS-006 (call sign storage); remove HZ-001, HZ-004 and HZ-006 from REQ-SYS-123 hazard_ids and HZ-006 from REQ-SYS-006 hazard_ids, with the safety tag if no hazard remains. (3) REQ-SYS-050 cites 'Analysis accepted per RSK-012', but the register now carries HZ-010 in RSK-024; REQ-SYS-106 cites RSK-018, but HZ-009 is carried by RSK-025.",
-      "status": "Open",
+      "status": "Closed",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Items (1) and (2) answered: the REQ-SYS-122 rationale names by id every handbook control of this file (HZ-001 K5, K6; HZ-002 K8; HZ-003 K6; HZ-004 K10, K11; HZ-005 K8; HZ-006 K4, K8; HZ-007 K7; HZ-009 K5; HZ-011 K5; HZ-012 K3; HZ-013 K5), its verification note covers the Documentation and Operator procedure controls, and every Warning or label control is allocated to the enclosure legend (REQ-SYS-124), not to the handbook; REQ-SYS-123 is retired and REQ-SYS-006 lists no hazard. Item (3) not answered: REQ-SYS-050 still cites 'Analysis accepted per RSK-012' (HZ-010 is carried by RSK-024) and REQ-SYS-106 still cites RSK-018 (HZ-009 is carried by RSK-025). Remaining (requirements author, before the SRR readiness declaration, no owner ruling): correct the two risk citations; the REQ-SYS-122 verification note should select by the rationale's control list rather than by type, because a type selection also takes in HZ-015 K2 and K4, which belong to the release-package procedure (OQ-SAF-019). Checked again at hazards.json 0.4.0-pha (2026-09-25): still not answered. If the requirements author has not made the edit before the SRR readiness declaration, the owner re-dates this question in the SRR decision memo (proposed close_by PDR) and this file records the new close_by; until then it blocks package item H7 (package section 18.1)."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Items (1) and (2) answered: the REQ-SYS-122 rationale names by id every handbook control of this file (HZ-001 K5, K6; HZ-002 K8; HZ-003 K6; HZ-004 K10, K11; HZ-005 K8; HZ-006 K4, K8; HZ-007 K7; HZ-009 K5; HZ-011 K5; HZ-012 K3; HZ-013 K5), its verification note covers the Documentation and Operator procedure controls, and every Warning or label control is allocated to the enclosure legend (REQ-SYS-124), not to the handbook; REQ-SYS-123 is retired and REQ-SYS-006 lists no hazard. Item (3) not answered: REQ-SYS-050 still cites 'Analysis accepted per RSK-012' (HZ-010 is carried by RSK-024) and REQ-SYS-106 still cites RSK-018 (HZ-009 is carried by RSK-025). Remaining (requirements author, before the SRR readiness declaration, no owner ruling): correct the two risk citations; the REQ-SYS-122 verification note should select by the rationale's control list rather than by type, because a type selection also takes in HZ-015 K2 and K4, which belong to the release-package procedure (OQ-SAF-019). Checked again at hazards.json 0.4.0-pha (2026-09-25): still not answered. If the requirements author has not made the edit before the SRR readiness declaration, the owner re-dates this question in the SRR decision memo (proposed close_by PDR) and this file records the new close_by; until then it blocks package item H7 (package section 18.1). Closed at hazards.json 0.4.1-pha (2026-09-26, hazard analysis author, SRR package decision 116 recommendation and item R9; no re-dating needed because the edit was made before the readiness declaration). Item (3) answered in the committed product, docs/requirements/sys/requirements.json blob 0da73012 at HEAD 400e59d: the REQ-SYS-050 rationale and verification note read 'Analysis accepted per RSK-024' and the REQ-SYS-106 rationale and verification note read 'Analysis accepted per RSK-025'; docs/risk/register.json blob 57f64995 lists HZ-010 in RSK-024 related.hazard_ids and HZ-009 in RSK-025 related.hazard_ids, so each cited risk carries the hazard. Items (1) and (2) re-checked on the same blob: the REQ-SYS-122 rationale names every handbook control by id, REQ-SYS-123 is Closed with tag retired and no hazard_ids, REQ-SYS-006 lists no hazard. The residual refinement noted above (the REQ-SYS-122 verification note selects 'every Documentation and Operator procedure control' by type and so also takes in HZ-015 K2, K4 and K6, which have no requirement and belong to the release-package procedure) is not part of this question's request; it is a Minor item and is carried to OQ-SAF-019 (close_by PDR, lien: fix before PDR), where the hand-assembly procedure requirement that takes those controls is written."
     },
     {
       "id": "OQ-SAF-018",
@@ -4369,13 +4378,14 @@
         "HZ-015 K6"
       ],
       "targets": [
-        "docs/requirements/sys/requirements.json REQ-SYS-137, REQ-SYS-138 (new REQ-SYS)"
+        "docs/requirements/sys/requirements.json REQ-SYS-137, REQ-SYS-138 (new REQ-SYS)",
+        "docs/requirements/sys/requirements.json REQ-SYS-122 verification note"
       ],
       "subject": "HZ-015 hand-assembly safety content requirement and hazard links",
       "request": "No requirement implements HZ-015 K1, K2, K4 and K5. Proposed wording: 'The transceiver's hardware release package shall include a hand-assembly procedure stating the soldering-station, fume-extraction, eye-protection, hygiene, ESD and cell-removal precautions of docs/safety/hazards.json HZ-015.' Add HZ-015 to REQ-SYS-137 and REQ-SYS-138 hazard_ids (HZ-015 K3). The Inspection method of these requirements meets the open 04 section 7.3 rule 6 conflict already noted on REQ-SYS-122.",
       "status": "Open",
       "close_by": "PDR",
-      "resolution": "State on 2026-09-25 (hazards.json 0.3.0-pha): partly answered; REQ-SYS-137 and REQ-SYS-138 list HZ-015 (K3) and RSK-034 carries the hazard. Open: the hand-assembly procedure requirement for K1, K2, K4 and K5 and the owner's confirmation of the bench equipment (package decision 100), by PDR. 0.4.0-pha: K1 split into the station (K1, Hardware interlock) and the practice (K6, Operator procedure); the requirement covers both, and K1 is proposed to close by Test (auto-sleep timing, read with the multimeter thermocouple if OQ-VV-003 confirms one or with the station's own readout)."
+      "resolution": "State on 2026-09-25 (hazards.json 0.3.0-pha): partly answered; REQ-SYS-137 and REQ-SYS-138 list HZ-015 (K3) and RSK-034 carries the hazard. Open: the hand-assembly procedure requirement for K1, K2, K4 and K5 and the owner's confirmation of the bench equipment (package decision 100), by PDR. 0.4.0-pha: K1 split into the station (K1, Hardware interlock) and the practice (K6, Operator procedure); the requirement covers both, and K1 is proposed to close by Test (auto-sleep timing, read with the multimeter thermocouple if OQ-VV-003 confirms one or with the station's own readout). Carried from OQ-SAF-017 at 0.4.1-pha (2026-09-26; Minor, lien: fix before PDR): when the hand-assembly procedure requirement is written, the requirements author also changes the REQ-SYS-122 verification note to select the handbook controls by the control list its rationale names rather than by control type, so that HZ-015 K2, K4 and K6 (Operator procedure, allocated to the release-package procedure) are not in the handbook checklist."
     },
     {
       "id": "OQ-SAF-020",
@@ -4395,9 +4405,9 @@
       ],
       "subject": "Register actions under the hazard link rule",
       "request": "(1) HZ-003 is now Critical: raise the safety consequence of RSK-006 and RSK-026 from 3 to 4 (06 section 1) and re-score. (2) HZ-015 has no carrying risk: open one with safety 5 (Catastrophic) and name HZ-015 in related.hazard_ids. (3) HZ-008 C7 (out-of-band fundamental from a frequency-control fault) is not in the statements of RSK-001 or RSK-011: add it to one of them or open a risk. (4) RSK-024's statement should name the toggling-stream gap and the K12 backstop. (5) Optional: RSK-028 (unlicensed person transmits) may name HZ-006. (6) 06 section 7 safety level 4 names RF exposure above the FCC limit for a bystander only; align it with the section 3.2 Critical definition, which now includes the operator above the 1.1310(b) occupational limit.",
-      "status": "Open",
+      "status": "Closed",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1; updated at hazards.json 0.4.0-pha. Items (1), (2) and (4) answered: RSK-006 and RSK-026 carry HZ-003 at safety 4; RSK-034 carries HZ-015 at safety 5 and HZ-015 names it back; RSK-024 names the toggling-stream gap and K12. Item (3) answered at 0.4.0-pha: docs/risk/register.json RSK-046 (Transmission outside the 144.000 to 148.000 MHz band) lists HZ-008 in related.hazard_ids, and HZ-008 related_risk_ids now names RSK-046, so the two-way link holds (tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json). Item (5) was optional and is withdrawn by the hazard analysis author: HZ-006 is carried by RSK-016. Not answered: (6) docs/process/06-risk-and-decision-analysis.md section 7 safety level 4 still names RF exposure above the FCC limit for a bystander only (06 author, no owner ruling). If the 06 author has not made the edit before the SRR readiness declaration, the owner re-dates this question in the SRR decision memo (proposed close_by PDR) and this file records the new close_by."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1; updated at hazards.json 0.4.0-pha. Items (1), (2) and (4) answered: RSK-006 and RSK-026 carry HZ-003 at safety 4; RSK-034 carries HZ-015 at safety 5 and HZ-015 names it back; RSK-024 names the toggling-stream gap and K12. Item (3) answered at 0.4.0-pha: docs/risk/register.json RSK-046 (Transmission outside the 144.000 to 148.000 MHz band) lists HZ-008 in related.hazard_ids, and HZ-008 related_risk_ids now names RSK-046, so the two-way link holds (tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json). Item (5) was optional and is withdrawn by the hazard analysis author: HZ-006 is carried by RSK-016. Not answered: (6) docs/process/06-risk-and-decision-analysis.md section 7 safety level 4 still names RF exposure above the FCC limit for a bystander only (06 author, no owner ruling). If the 06 author has not made the edit before the SRR readiness declaration, the owner re-dates this question in the SRR decision memo (proposed close_by PDR) and this file records the new close_by. Closed at hazards.json 0.4.1-pha (2026-09-26, hazard analysis author, SRR package decision 116 recommendation and item R9; no re-dating needed because the edit was made before the readiness declaration). Item (6) answered in the committed product, docs/process/06-risk-and-decision-analysis.md blob 7a92d21f at HEAD 400e59d: section 7 level 4 (Major) safety now reads 'RF exposure above the applicable FCC limit for the operator, a bystander or any other person', which covers the hazard-analysis.md section 3.2 Critical definition (operator above the 47 CFR 1.1310(b) occupational limit, others above the 1.1310(c) general-population limit; corpus: 47cfr-1.1310.md, eCFR issue 2026-09-23). Items (1) to (4) re-checked on docs/risk/register.json blob 57f64995 (render_risk.py --check --gate SRR --hazards exit 0 on 2026-09-26); item (5) stays withdrawn."
     },
     {
       "id": "OQ-SAF-021",
