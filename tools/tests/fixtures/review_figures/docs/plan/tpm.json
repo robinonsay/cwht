@@ -1,0 +1,10 @@
+{
+  "tpms": [
+    {"id": "TPM-001", "history": []},
+    {"id": "TPM-002", "history": [
+      {"review": "SRR", "date": "2026-09-25", "cbe": 58.0, "status": "yellow"},
+      {"review": "PDR", "date": "2027-01-15", "cbe": 61.0, "status": "green"}
+    ]},
+    {"id": "TPM-003"}
+  ]
+}

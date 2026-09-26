@@ -1,12 +1,31 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "cwht Stakeholder Expectations (L0)",
-  "description": "Schema for docs/requirements/l0-stakeholder/expectations.json: Needs, Goals and Objectives (NGO-NNN), Measures of Effectiveness (MOE-NNN) and Constraints (CON-NNN) per SE HB 4.1.1.2.3, 4.1.1.2.6 and 4.2.1.2.1. Every entry traces to stakeholder inputs SI-NNN in stakeholder-inputs.md (SE HB 4.1.1.2.7). L0 entries are expectations, not requirements: statements never contain 'shall'. Process: docs/process/02-requirements-and-traceability.md section 3.",
+  "description": "Schema for docs/requirements/l0-stakeholder/expectations.json: the identified stakeholders (SE HB 4.1.1.2.1; NPR 7123.1D SE-35), Needs, Goals and Objectives (NGO-NNN), Measures of Effectiveness (MOE-NNN) and Constraints (CON-NNN) per SE HB 4.1.1.2.3, 4.1.1.2.6 and 4.2.1.2.1. Every entry traces to stakeholder inputs SI-NNN in stakeholder-inputs.md (SE HB 4.1.1.2.7). L0 entries are expectations, not requirements: statements never contain 'shall'. The stakeholders array is required once the file carries a baseline tag (baselined at SRR with the rest of the file). Process: docs/process/02-requirements-and-traceability.md section 3.",
   "type": "object",
   "required": [
     "ngos",
     "moes",
     "constraints"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "baseline": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "baseline"
+        ]
+      },
+      "then": {
+        "required": [
+          "stakeholders"
+        ]
+      }
+    }
   ],
   "properties": {
     "baseline": {
@@ -15,7 +34,15 @@
         "null"
       ],
       "pattern": "^baseline/[a-z]+$",
-      "description": "Git tag of the baseline under which this file was last approved (e.g. baseline/srr); null before SRR"
+      "description": "Git tag of the baseline under which this file was last approved (baseline/srr at the SRR flip of process section 11.2); null before SRR. When set, the stakeholders array is required."
+    },
+    "stakeholders": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Stakeholders identified per SE HB 4.1.1.2.1 (process section 3.0): who is affected by or has a stake in the radio, what they care about and who speaks for them in validation step V2. Required when baseline is set (SRR, SE-35). Entries are keyed by name (unique, checked by tool rule T-21); charter section 6 defines no stakeholder id scheme (process section 14, CI-10).",
+      "items": {
+        "$ref": "#/definitions/stakeholder"
+      }
     },
     "ngos": {
       "type": "array",
@@ -55,15 +82,70 @@
       "pattern": "^OPS-[0-9]{3}$",
       "description": "Scenario heading in docs/conops/conops.md"
     },
+    "stakeholder": {
+      "type": "object",
+      "required": [
+        "name",
+        "role",
+        "interests",
+        "represented_by",
+        "source_ids"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80,
+          "description": "Person, group or organization, e.g. 'Robin (owner)', 'Friends who receive and operate units', 'Federal Communications Commission'. Unique within the array."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "customer",
+            "user",
+            "guest operator",
+            "regulator",
+            "vendor",
+            "supplier",
+            "public"
+          ],
+          "description": "customer: requests and accepts the product; user: operates it as their own station; guest operator: operates a unit loaned or handed over by the owner (SI-019); regulator: imposes rules the product must meet (47 CFR, SI-014); vendor: supplies fabrication, assembly or parts under catalog terms (PCBWay, DigiKey); supplier: produces the design and evidence (Claude, SI-011); public: anyone who reuses the open design (SI-025) or is near a transmitting unit"
+        },
+        "interests": {
+          "type": "string",
+          "minLength": 10,
+          "description": "What the stakeholder expects or is affected by, stated without 'shall' (SE HB 4.1.1.2.1)"
+        },
+        "represented_by": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Who speaks for the stakeholder in validation step V2 (process sections 3.0 and 5) and the record that establishes it, e.g. 'Robin, per the SRR decision memo'"
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/si_id"
+          },
+          "description": "Stakeholder inputs that identify this stakeholder or state their interests"
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional clarification, e.g. why the stakeholder has no separate voice in V2"
+        }
+      },
+      "additionalProperties": false
+    },
     "regulation_clause": {
       "type": "string",
       "pattern": "^47CFR(1|2|15|97)\\.[0-9]+(\\([a-z0-9]+\\))*$",
-      "description": "47 CFR clause from Part 1, 2, 15 or 97 (charter section 1), e.g. 47CFR97.307(e) or 47CFR1.1310; the section resolves to docs/references/md/regulatory/47cfr-<part>.<section>.md (process section 3.4, tool rule T-07)"
+      "description": "47 CFR clause from Part 1, 2, 15 or 97 (charter section 1), e.g. 47CFR97.307(e) or 47CFR1.1310; the <part>.<section> resolves to a corpus file docs/references/md/regulatory/47cfr-<part>.<section>.md or an extract 47cfr-<part>.<section>-<slug>.md such as 47cfr-2.106-harmonic-bands.md (process section 3.4, tool rule T-07)"
     },
     "cr_id": {
       "type": "string",
-      "pattern": "^(CR-[0-9]{3}|RID-(SRR|PDR|CDR|TRR|TRR-D[0-9]+|SAR)-[0-9]{3})$",
-      "description": "Change Request (after SRR) or RID (before SRR; review tokens of charter section 6) that retired the entry"
+      "pattern": "^(CR-[0-9]{3}|RID-(SRR|PDR|CDR|TRR|TRR-D[0-9]+|SAR)-[0-9]{3}|INSP-[0-9]{3})$",
+      "description": "Record that retired the entry: a Change Request CR-NNN after the SRR baseline; before it, a RID-<REVIEW>-NNN (review tokens of charter section 6) or the INSP-NNN peer-review record whose finding motivated the retirement (process sections 8.3 and 11.3)"
     },
     "status": {
       "type": "string",
@@ -72,7 +154,7 @@
         "Baselined",
         "Retired"
       ],
-      "description": "Draft until the SRR decision memo baselines the file; Retired entries keep their ID and carry retired_by (this schema already carries the Retired status that charter section 6 anticipates; the requirement and test-case schemas use the interim marker of process section 11.3)"
+      "description": "Draft until the SRR decision memo baselines the file (process section 11.2 flips every Draft entry to Baselined and sets baseline to baseline/srr in one commit); Retired entries keep their ID and carry retired_by. Allowed transitions (process section 8.3, tool rule T-12): Draft to Baselined at the SRR flip; Draft to Retired before SRR (retired_by a RID or INSP id); Baselined to Retired only by an approved CR; Baselined text changes only by an approved CR. Forbidden: Baselined to Draft; Retired to anything. This schema already carries the Retired status that charter section 6 anticipates; the requirement and test-case schemas use the interim marker of process section 11.3."
     },
     "expectation_statement": {
       "type": "string",

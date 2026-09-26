@@ -1,0 +1,247 @@
+# Evidence transcript: kicad-cli 10.0.6 sanity check (tools/toolchain.lock.md section 1.1), two runs on 2026-09-25.
+# Run 1 FAILED on the STEP box (expected-value error, see tools/tests/fixtures/kicad/known-answers.json step.revision_note); run 2 PASSED after the documented revision.
+# Procedure: kicad-cli-2026-09-25.sh (this directory). Each run works on a temporary copy of tools/tests/fixtures/kicad/.
+
+######## RUN 1
+# kicad-cli sanity check, 2026-09-25 23:13:18 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d; fixture tree a6884884e1eda8af (sha256 of the file list below)
+fae6c8bf24dbfcc9cead1a35e859f02d856b5747d8f832b87f498e04d5cb4df7  clean.kicad_pcb
+c5c89ea4db4ddcd1d7a15c29d4785d373cc154ebb4d50dfceda3550847c6dab3  clean.kicad_pro
+b881644f2c42dbdd8f0e031aef756cc5f3d97902a4211f8a6e0aee4c270764f4  clean.kicad_sch
+21fa6de8d7ec64c8775c918bfad1d3257a125d3bbfba1541ba74d6386793af5f  seeded.kicad_pcb
+1904966ca0f2057399d224ae463bcb94b7a14cd23a2f27a09a4d5c952c7a0b28  seeded.kicad_pro
+b889d4e80edbb3516f3fb90074e09938eb4ace69a36f9eb3b7471ed5293105fb  seeded.kicad_sch
+0b7fb2b428b44b857655b9ca7d911d3f237bb8eb6f8ec494845e3b99a0669dc0  sym-lib-table
+2c3b8312fded1f73ad708b17db8d95eea3b76425471dacae6facbd091bec506c  fp-lib-table
+c614ca1b2e7d95093b8ade0b02974005c87b17d5566f62b5e7682206c735121a  known-answers.json
+c96d765db2d5f932fd4378b3e72437153ebe609b11a66e14689ab86062c1ad6e  expected/clean-bom.csv
+ec9db5b50b0236ee71301681b023dc11753ff16b5d669c926254e5b8e0feef39  expected/clean-cpl.csv
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli version
+10.0.6
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli sch erc --format json --severity-all --exit-code-violations -o clean-erc.json clean.kicad_sch
+Found 0 violations
+Saved ERC Report to clean-erc.json
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli sch erc --format json --severity-all --exit-code-violations -o seeded-erc.json seeded.kicad_sch
+Found 1 violations
+Saved ERC Report to seeded-erc.json
+exit=5
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb drc --format json --severity-all --exit-code-violations -o clean-drc.json clean.kicad_pcb
+Found 0 violations
+Found 0 unconnected items
+Saved DRC Report to clean-drc.json
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb drc --format json --severity-all --exit-code-violations -o seeded-drc.json seeded.kicad_pcb
+Found 1 violations
+Found 0 unconnected items
+Saved DRC Report to seeded-drc.json
+exit=5
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export drill -o out/ --format excellon --drill-origin plot --excellon-units mm --excellon-zeros-format decimal --excellon-oval-format route --excellon-separate-th --generate-map --map-format pdf --generate-report --report-path out/clean-drill-report.rpt clean.kicad_pcb
+Created file 'out/clean-PTH.drl'
+Created file 'out/clean-NPTH.drl'
+Created file 'out/clean-PTH-drl_map.pdf'.
+Created file 'out/clean-NPTH-drl_map.pdf'.
+Done.
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export pos -o out/clean-cpl.csv --format csv --units mm --use-drill-file-origin --side both --smd-only --exclude-dnp clean.kicad_pcb
+Wrote position data to 'out/clean-cpl.csv'.
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli sch export bom -o out/clean-bom.csv clean.kicad_sch
+Wrote bill of materials to 'out/clean-bom.csv'.
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export step --board-only --drill-origin -o out/clean.step clean.kicad_pcb
+2026-09-25 23:13:20.856 kicad-cli[86341:7134710] Error retrieving source file attributes: Error Domain=NSCocoaErrorDomain Code=260 "The file “clean.step” couldn’t be opened because there is no such file." UserInfo={NSFilePath=out/clean.step, NSURL=out/clean.step -- file:///private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-kicad.KiYR9G/out/, NSUnderlyingError=0x7eb018390 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+STEP file 'out/clean.step' created.
+
+Export time 0.031 s
+exit=0
+## drill report
+Drill report for clean.kicad_pcb
+Created on 2026-09-25T23:13:20
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'clean-PTH.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.700mm  0.0276"  (1 hole)
+
+    Total plated holes count 1
+
+
+Drill file 'clean-NPTH.drl' contains
+    unplated through holes:
+    =============================================================
+    T1  3.200mm  0.1260"  (1 hole)
+
+    Total unplated holes count 1
+## CPL
+Ref,Val,Package,PosX,PosY,Rot,Side
+"R1","10k","R_0603_1608Metric",10.000000,10.000000,0.000000,top
+## BOM
+"Refs","Value","Footprint","Qty","DNP"
+"R1","10k","Resistor_SMD:R_0603_1608Metric","1",""
+## comparison against known-answers.json
+PASS ERC clean: []
+PASS DRC clean: []; unconnected 0
+PASS ERC seeded: [['pin_not_connected', 'error', 'Symbol R1 Pin 2 [Passive, Line]']]
+PASS DRC seeded: [['clearance', 'error', 'Clearance violation ( clearance 0.2000 mm; actual 0.1000 mm)', 'Pad 2 [OTH] of R1 on F.Cu']]; unconnected 0
+drill files: ['clean-NPTH.drl', 'clean-PTH.drl']
+PASS drill PTH: hits 1, tools ['0.700']
+PASS drill NPTH: hits 1, tools ['3.200']
+PASS CPL: 2 lines vs 2 stored
+PASS BOM: 2 lines vs 2 stored
+FAIL STEP box: 40 points, box {'x': [0.0, 30.0], 'y': [0.0, 20.0], 'z': [-0.046, 1.51]}
+RESULT FAIL
+exit=1
+## reproducibility (informative): two drill and CPL exports, raw SHA-256
+2026-09-25 23:13:23.526 kicad-cli[86364:7134827] Error retrieving source file attributes: Error Domain=NSCocoaErrorDomain Code=260 "The file “clean.step” couldn’t be opened because there is no such file." UserInfo={NSFilePath=out2/clean.step, NSURL=out2/clean.step -- file:///private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-kicad.KiYR9G/out2/, NSUnderlyingError=0xa2b018390 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+clean-PTH.drl run1 0ce7b4bf25150648 run2 3372808f57522804 differs
+clean-NPTH.drl run1 6ddd74e94d983f17 run2 6a4a28ee80500a80 differs
+clean-drill-report.rpt run1 19329e842e0ac220 run2 945e41ceb62744f9 differs
+clean-cpl.csv run1 ec9db5b50b0236ee run2 ec9db5b50b0236ee identical
+clean.step run1 d4e341e001b3d72f run2 700e466e7d4652ba differs
+## diff of differing text files (time stamps expected)
+2c2
+< ; DRILL file KiCad 10.0.6 date 2026-09-25T23:13:20
+---
+> ; DRILL file KiCad 10.0.6 date 2026-09-25T23:13:23
+4c4
+< ; #@! TF.CreationDate,2026-09-25T23:13:20-05:00
+---
+> ; #@! TF.CreationDate,2026-09-25T23:13:23-05:00
+2c2
+< Created on 2026-09-25T23:13:20
+---
+> Created on 2026-09-25T23:13:23
+4c4
+< FILE_NAME('clean.step','2026-09-25T23:13:20',('Pcbnew'),('Kicad'),
+---
+> FILE_NAME('clean.step','2026-09-25T23:13:23',('Pcbnew'),('Kicad'),
+
+######## RUN 2
+# kicad-cli sanity check, 2026-09-25 23:14:18 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d; fixture tree e135e7608f9790a5 (sha256 of the file list below)
+fae6c8bf24dbfcc9cead1a35e859f02d856b5747d8f832b87f498e04d5cb4df7  clean.kicad_pcb
+c5c89ea4db4ddcd1d7a15c29d4785d373cc154ebb4d50dfceda3550847c6dab3  clean.kicad_pro
+b881644f2c42dbdd8f0e031aef756cc5f3d97902a4211f8a6e0aee4c270764f4  clean.kicad_sch
+21fa6de8d7ec64c8775c918bfad1d3257a125d3bbfba1541ba74d6386793af5f  seeded.kicad_pcb
+1904966ca0f2057399d224ae463bcb94b7a14cd23a2f27a09a4d5c952c7a0b28  seeded.kicad_pro
+b889d4e80edbb3516f3fb90074e09938eb4ace69a36f9eb3b7471ed5293105fb  seeded.kicad_sch
+0b7fb2b428b44b857655b9ca7d911d3f237bb8eb6f8ec494845e3b99a0669dc0  sym-lib-table
+2c3b8312fded1f73ad708b17db8d95eea3b76425471dacae6facbd091bec506c  fp-lib-table
+19c1b672bac613baf741ce4a138a2fba17c06282df9fcc5e2dfc0268973f45df  known-answers.json
+c96d765db2d5f932fd4378b3e72437153ebe609b11a66e14689ab86062c1ad6e  expected/clean-bom.csv
+ec9db5b50b0236ee71301681b023dc11753ff16b5d669c926254e5b8e0feef39  expected/clean-cpl.csv
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli version
+10.0.6
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli sch erc --format json --severity-all --exit-code-violations -o clean-erc.json clean.kicad_sch
+Found 0 violations
+Saved ERC Report to clean-erc.json
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli sch erc --format json --severity-all --exit-code-violations -o seeded-erc.json seeded.kicad_sch
+Found 1 violations
+Saved ERC Report to seeded-erc.json
+exit=5
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb drc --format json --severity-all --exit-code-violations -o clean-drc.json clean.kicad_pcb
+Found 0 violations
+Found 0 unconnected items
+Saved DRC Report to clean-drc.json
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb drc --format json --severity-all --exit-code-violations -o seeded-drc.json seeded.kicad_pcb
+Found 1 violations
+Found 0 unconnected items
+Saved DRC Report to seeded-drc.json
+exit=5
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export drill -o out/ --format excellon --drill-origin plot --excellon-units mm --excellon-zeros-format decimal --excellon-oval-format route --excellon-separate-th --generate-map --map-format pdf --generate-report --report-path out/clean-drill-report.rpt clean.kicad_pcb
+Created file 'out/clean-PTH.drl'
+Created file 'out/clean-NPTH.drl'
+Created file 'out/clean-PTH-drl_map.pdf'.
+Created file 'out/clean-NPTH-drl_map.pdf'.
+Done.
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export pos -o out/clean-cpl.csv --format csv --units mm --use-drill-file-origin --side both --smd-only --exclude-dnp clean.kicad_pcb
+Wrote position data to 'out/clean-cpl.csv'.
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli sch export bom -o out/clean-bom.csv clean.kicad_sch
+Wrote bill of materials to 'out/clean-bom.csv'.
+exit=0
+$ /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export step --board-only --drill-origin -o out/clean.step clean.kicad_pcb
+2026-09-25 23:14:21.238 kicad-cli[86923:7137124] Error retrieving source file attributes: Error Domain=NSCocoaErrorDomain Code=260 "The file “clean.step” couldn’t be opened because there is no such file." UserInfo={NSFilePath=out/clean.step, NSURL=out/clean.step -- file:///private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-kicad.XGBe4V/out/, NSUnderlyingError=0xc2b018390 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+STEP file 'out/clean.step' created.
+
+Export time 0.007 s
+exit=0
+## drill report
+Drill report for clean.kicad_pcb
+Created on 2026-09-25T23:14:20
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'clean-PTH.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.700mm  0.0276"  (1 hole)
+
+    Total plated holes count 1
+
+
+Drill file 'clean-NPTH.drl' contains
+    unplated through holes:
+    =============================================================
+    T1  3.200mm  0.1260"  (1 hole)
+
+    Total unplated holes count 1
+## CPL
+Ref,Val,Package,PosX,PosY,Rot,Side
+"R1","10k","R_0603_1608Metric",10.000000,10.000000,0.000000,top
+## BOM
+"Refs","Value","Footprint","Qty","DNP"
+"R1","10k","Resistor_SMD:R_0603_1608Metric","1",""
+## comparison against known-answers.json
+PASS ERC clean: []
+PASS DRC clean: []; unconnected 0
+PASS ERC seeded: [['pin_not_connected', 'error', 'Symbol R1 Pin 2 [Passive, Line]']]
+PASS DRC seeded: [['clearance', 'error', 'Clearance violation ( clearance 0.2000 mm; actual 0.1000 mm)', 'Pad 2 [OTH] of R1 on F.Cu']]; unconnected 0
+drill files: ['clean-NPTH.drl', 'clean-PTH.drl']
+PASS drill PTH: hits 1, tools ['0.700']
+PASS drill NPTH: hits 1, tools ['3.200']
+PASS CPL: 2 lines vs 2 stored
+PASS BOM: 2 lines vs 2 stored
+PASS STEP box: 12 vertices, box {'x': [0.0, 30.0], 'y': [-0.0, 20.0], 'z': [0.0, 1.51]}
+RESULT PASS
+exit=0
+## reproducibility (informative): two drill and CPL exports, raw SHA-256
+2026-09-25 23:14:23.840 kicad-cli[86939:7137237] Error retrieving source file attributes: Error Domain=NSCocoaErrorDomain Code=260 "The file “clean.step” couldn’t be opened because there is no such file." UserInfo={NSFilePath=out2/clean.step, NSURL=out2/clean.step -- file:///private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-kicad.XGBe4V/out2/, NSUnderlyingError=0xa2b018390 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+clean-PTH.drl run1 bcf1a3f9cb6d3bbe run2 0db4ee768eaadbfd differs
+clean-NPTH.drl run1 229940acf29b31ec run2 9ec24db48c8612da differs
+clean-drill-report.rpt run1 88459c98621bb2ab run2 823c5b048627a09c differs
+clean-cpl.csv run1 ec9db5b50b0236ee run2 ec9db5b50b0236ee identical
+clean.step run1 2eef7c3955396062 run2 00481cb3bb9a3487 differs
+## diff of differing text files (time stamps expected)
+2c2
+< ; DRILL file KiCad 10.0.6 date 2026-09-25T23:14:20
+---
+> ; DRILL file KiCad 10.0.6 date 2026-09-25T23:14:23
+4c4
+< ; #@! TF.CreationDate,2026-09-25T23:14:20-05:00
+---
+> ; #@! TF.CreationDate,2026-09-25T23:14:23-05:00
+2c2
+< Created on 2026-09-25T23:14:20
+---
+> Created on 2026-09-25T23:14:23
+4c4
+< FILE_NAME('clean.step','2026-09-25T23:14:21',('Pcbnew'),('Kicad'),
+---
+> FILE_NAME('clean.step','2026-09-25T23:14:23',('Pcbnew'),('Kicad'),

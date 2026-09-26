@@ -1,0 +1,149 @@
+# Evidence transcript: project Python tool known-answer runs for TV-002 to TV-010, 2026-09-26 (after INSP-015 findings 1 to 6 were applied). Procedure: python-tools-2026-09-26.py (this directory).
+# Run 3: every tool section PASS with 0 skipped. OVERALL reads FAIL only because the runner also counts the repository-content section, where test_validate_docs.RepositoryTests fails on 'schema not found' for docs/design/allocation.json and docs/plan/measurements.json (their schema files are absent; repository content outside the tools, INSP-015 cross item 1; tools/validate_docs.py --quiet run separately at 00:17 printed exactly those two FAIL lines). Changes since runs 1 and 2: test_validate_docs.py gains UsageErrorTests (2 tests) and test_render_deck.py gains SeededFailures (2 tests), INSP-015 finding-5; every other tool, test and fixture identity equals runs 1 and 2.
+
+######## RUN 3
+# Project Python tool known-answer runs, 2026-09-26 00:15:23 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d; python Python 3.13.5; git git version 2.50.1 (Apple Git-155) at /usr/bin/git
+
+## TV-002 traceability.py
+  tool    tools/traceability.py: git blob 0a867523f78c224afdaa938735911b5df8f2920c; sha256 150571ceaaee1a935fef4385eb502c8f8fd200c75095d37a92f32331684ec49a; modified in the working tree
+  tool    tools/validate_docs.py: git blob 2bedc2a7aaa14359e3adde6b50810314c9793033; sha256 96c9e264b99899bf5434b354c99a35514db69133dc0eda8e2294ec09e4479dc8; unchanged from HEAD
+  test    tools/tests/test_traceability.py: git blob d76b06976ba62d374d8c30a8eb08a4cb57d394e7; sha256 493d81f818e2632d486c9f6cc3a09fcc79cd46e84bd0bd106da3077d69edf780; modified in the working tree
+  test    tools/tests/test_traceability_srr_rules.py: git blob 86606485debd4569954847c5a48e7dd62bbcbcab; sha256 7c8f10a4be544fdc6b7b99455fe53839f809651fddf3d64e9cf9d5c731d09776; untracked
+  test    tools/tests/test_tools.py: git blob af6ed8b7d3b34338d52fef0eba76bc84d27cadb1; sha256 a082201de394af3dbe421a74dbc0526eb189b6320f54643e132efec96250998b; modified in the working tree
+  fixture tools/tests/fixtures/valid_project: 38 files, tree digest sha256 6a58c19d2cf0e4d8f1bde9054ef154ff406dbeb9a1dd0752de4e49b5bd2b4f30 (SHA-256 of the sorted "sha256  path" list); untracked files 2
+  fixture tools/tests/fixtures/invalid_project: 32 files, tree digest sha256 2377caa9611bdff2407f73ca9705cd1890407885d3f0f914462d7172f1e683eb (SHA-256 of the sorted "sha256  path" list); untracked files 0
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_traceability.py -k ValidProjectTests -k InvalidProjectTests -k WordListTests
+    Ran 27 tests; failures+errors 0; skipped 0; per class {'InvalidProjectTests': 15, 'ValidProjectTests': 10, 'WordListTests': 2}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_traceability_srr_rules.py -k CatalogueTests -k StakeholdersKnownAnswerTests -k AllocationKnownAnswerTests
+    Ran 32 tests; failures+errors 0; skipped 0; per class {'AllocationKnownAnswerTests': 14, 'CatalogueTests': 3, 'StakeholdersKnownAnswerTests': 15}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_tools.py
+    Ran 114 tests; failures+errors 0; skipped 0; per class {'BaselinedMarkdownTbdTests': 2, 'CatalogueKnownAnswerTests': 12, 'CatalogueTests': 2, 'CrossToolTests': 2, 'DecisionMemoAndFolderTests': 3, 'DuplicateIdTests': 2, 'EvidenceRuleTests': 5, 'ExpectationSourceTests': 2, 'ExpectationsTests': 9, 'FrontMatterTests': 4, 'HazardTraceUnionTests': 2, 'InterimRetirementTests': 6, 'LogItemAndHistoryTests': 2, 'MatrixColumnTests': 5, 'ModuleRuleTests': 2, 'NcrFieldTests': 2, 'NewConventionTests': 1, 'OnTargetTests': 1, 'OutputTests': 2, 'ParentRuleTests': 5, 'PeerReviewRecordRuleTests': 6, 'RegulationPartsTests': 3, 'RenderTests': 3, 'RetiredTests': 3, 'SchemaFindingTests': 3, 'SchemaTripwireTests': 2, 'SourceRuleTests': 5, 'Swe052CoverageTests': 3, 'TagTests': 2, 'TbdScopeTests': 2, 'ValidateDocsHazardsTests': 1, 'VerifiedEvidenceTests': 4}; PASS
+  RESULT TV-002 traceability.py: PASS (173 tests)
+
+## TV-003 validate_docs.py
+  tool    tools/validate_docs.py: git blob 2bedc2a7aaa14359e3adde6b50810314c9793033; sha256 96c9e264b99899bf5434b354c99a35514db69133dc0eda8e2294ec09e4479dc8; unchanged from HEAD
+  test    tools/tests/test_validate_docs.py: git blob 8944a389618686b58c557f60872238321c5a3106; sha256 23f226aa49af06e2c10cef54c981b07bf150b689f077b47abc1d0babb881d281; modified in the working tree
+  test    tools/tests/test_tools.py: git blob af6ed8b7d3b34338d52fef0eba76bc84d27cadb1; sha256 a082201de394af3dbe421a74dbc0526eb189b6320f54643e132efec96250998b; modified in the working tree
+  fixture tools/tests/fixtures/valid_project: 38 files, tree digest sha256 6a58c19d2cf0e4d8f1bde9054ef154ff406dbeb9a1dd0752de4e49b5bd2b4f30 (SHA-256 of the sorted "sha256  path" list); untracked files 2
+  fixture tools/tests/fixtures/invalid_project: 32 files, tree digest sha256 2377caa9611bdff2407f73ca9705cd1890407885d3f0f914462d7172f1e683eb (SHA-256 of the sorted "sha256  path" list); untracked files 0
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_validate_docs.py -k ValidProjectTests -k InvalidProjectTests -k PeerReviewRecordTests -k UsageErrorTests
+    Ran 20 tests; failures+errors 0; skipped 0; per class {'InvalidProjectTests': 6, 'PeerReviewRecordTests': 8, 'UsageErrorTests': 2, 'ValidProjectTests': 4}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_tools.py
+    Ran 114 tests; failures+errors 0; skipped 0; per class {'BaselinedMarkdownTbdTests': 2, 'CatalogueKnownAnswerTests': 12, 'CatalogueTests': 2, 'CrossToolTests': 2, 'DecisionMemoAndFolderTests': 3, 'DuplicateIdTests': 2, 'EvidenceRuleTests': 5, 'ExpectationSourceTests': 2, 'ExpectationsTests': 9, 'FrontMatterTests': 4, 'HazardTraceUnionTests': 2, 'InterimRetirementTests': 6, 'LogItemAndHistoryTests': 2, 'MatrixColumnTests': 5, 'ModuleRuleTests': 2, 'NcrFieldTests': 2, 'NewConventionTests': 1, 'OnTargetTests': 1, 'OutputTests': 2, 'ParentRuleTests': 5, 'PeerReviewRecordRuleTests': 6, 'RegulationPartsTests': 3, 'RenderTests': 3, 'RetiredTests': 3, 'SchemaFindingTests': 3, 'SchemaTripwireTests': 2, 'SourceRuleTests': 5, 'Swe052CoverageTests': 3, 'TagTests': 2, 'TbdScopeTests': 2, 'ValidateDocsHazardsTests': 1, 'VerifiedEvidenceTests': 4}; PASS
+  RESULT TV-003 validate_docs.py: PASS (134 tests)
+
+## TV-004 render_rmm.py
+  tool    tools/render_rmm.py: git blob 2386a37fbfb9d7d06c333e0f00981b6fc67e1f27; sha256 face0b9e5135585a583a6912e4ae6eda793e515e72e1ad9f2f52a453ee9c1896; unchanged from HEAD
+  test    tools/tests/test_render_rmm.py: git blob 0454936bf20498078de9ae2861af727c3a66350e; sha256 58f58a7f665c52de3922b940a3ce4e95276a97bc92d8ab63c107f8c4de1c4295; unchanged from HEAD
+  fixture tools/tests/fixtures/rmm: 17 files, tree digest sha256 fa7f91afec62aa69e01f5fe73cde09720a7c7a6df4d7e09836bfddd69c6f89ce (SHA-256 of the sorted "sha256  path" list); untracked files 0
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_rmm.py
+    Ran 20 tests; failures+errors 0; skipped 0; per class {'CorpusParseTests': 4, 'SeededFaultTests': 10, 'ValidFixtureTests': 6}; PASS
+  RESULT TV-004 render_rmm.py: PASS (20 tests)
+
+## TV-005 render_compliance.py
+  tool    tools/render_compliance.py: git blob d67d6b5e601a64b013b64e8de3cd0fc3deb96ffa; sha256 24d09c18ed2141bd21c3cf3a69d3b42dd713cf9329ec2691b3ab32db47ffc171; unchanged from HEAD
+  test    tools/tests/test_render_compliance.py: git blob c40a7f1f514d3784efcbef300d301391d9de84c0; sha256 98a7a85be8bfefdf2e2268f02bb6f2ab89502f707daf5b4311508ab750355685; unchanged from HEAD
+  fixture tools/tests/fixtures/compliance: 15 files, tree digest sha256 a95aad4632621207139c863b87bcb098dd63190cb1e7dd68386bceb63d3a2b43 (SHA-256 of the sorted "sha256  path" list); untracked files 0
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_compliance.py -k CorpusParseTests -k ValidFixtureTests -k SeededFaultTests
+    Ran 26 tests; failures+errors 0; skipped 0; per class {'CorpusParseTests': 5, 'SeededFaultTests': 12, 'ValidFixtureTests': 9}; PASS
+  RESULT TV-005 render_compliance.py: PASS (26 tests)
+
+## TV-006 render_risk.py
+  tool    tools/render_risk.py: git blob d38ba1dd25ac8ef5ecb04ce5b1ea907bb60eee8c; sha256 fd3fcbd92f5282a65a41d791d6554d83ac002ccec018607c8017ac61b7947836; unchanged from HEAD
+  test    tools/tests/test_render_risk.py: git blob 05d695a4dd8c7d0510fd9a2c078584d6e3316b21; sha256 54c9ad7e211aae1de762dd32b0a3456de0b53478fd45bd9cc3024355417fb01f; unchanged from HEAD
+  fixture tools/tests/fixtures/risk: 5 files, tree digest sha256 3a594f973adbb7c16af2d2d944eced06110abb51811e9bd234dd125aeb1ea8c1 (SHA-256 of the sorted "sha256  path" list); untracked files 0
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_risk.py
+    Ran 27 tests; failures+errors 0; skipped 0; per class {'BandTests': 3, 'GateTests': 7, 'HazardCrossCheckTests': 4, 'SeededFaultTests': 3, 'ValidFixtureTests': 10}; PASS
+  RESULT TV-006 render_risk.py: PASS (27 tests)
+
+## TV-007 review_trend.py
+  tool    tools/review_trend.py: git blob 04493157ae1c3245ca600bf1c29069dfe3192810; sha256 24c10c039b3b5fe4679f7ee92cf837ccffc6851fd420362ce84c19b7b13f46d6; unchanged from HEAD
+  test    tools/tests/test_review_trend.py: git blob 1f3ab0067b9ce33ebedefaf2a460664d2a978bdb; sha256 97d6a7816484ee4a5c038399e501d38e859bbf1b1c7446c34d9109c2182d3945; unchanged from HEAD
+  fixture tools/tests/fixtures/review_trend: 6 files, tree digest sha256 c7d63b0f247b4f294700a7c3a3616f8a72b5a146dc4cb57125dedc979217a45e (SHA-256 of the sorted "sha256  path" list); untracked files 0
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_review_trend.py
+    Ran 20 tests; failures+errors 0; skipped 0; per class {'CliTests': 5, 'KnownAnswerTests': 5, 'WriteTests': 3, 'ZoneTests': 7}; PASS
+  RESULT TV-007 review_trend.py: PASS (20 tests)
+
+## TV-008 render_deck.py + Chromium headless shell
+  tool    tools/slides/render_deck.py: git blob b42425e9e9d2ca2b860284914b78ccbabecd38a0; sha256 6c8015462a480b18fe62e654f4ffba233039a462add1f037bd6034cb34754862; unchanged from HEAD
+  tool    tools/slides/package.json: git blob 6b44d97427592c7380bb0f77558d9ec509e3f367; sha256 35a3fde3754618b50a32114dbd09d0a3444e3f6b1fae2e0729d937121b2f2850; unchanged from HEAD
+  tool    tools/slides/package-lock.json: git blob baf84c95bf620112c065ee8fb7cff9b3d2233806; sha256 71f09c6d378bf284e36a7069c9b6e22619cf300fa90c54774a359d03dbd3dac1; unchanged from HEAD
+  test    tools/tests/test_render_deck.py: git blob ff58fb7b7f1017ab165ad532bac36898f4ed0835; sha256 14c631667da4bee71ec8b57bf1a2e8d70a6fb276ea917b63ba22c6e7369e486e; modified in the working tree
+  fixture tools/tests/fixtures/slides: 1 files, tree digest sha256 f0519294f5762ef133436b0d2751cba0e0824e1e08ba6a951314708e04636b97 (SHA-256 of the sorted "sha256  path" list); untracked files 0
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_deck.py
+    Ran 5 tests; failures+errors 0; skipped 0; per class {'LocationGuard': 2, 'RenderDeckKnownAnswer': 1, 'SeededFailures': 2}; PASS
+  RESULT TV-008 render_deck.py + Chromium headless shell: PASS (5 tests)
+
+## TV-009 git
+  test    tools/tests/test_git_known_answer.py: git blob cd8389823bdc34889edc7fc680f1bd8ae4c928a9; sha256 a588f2d2eef60c22641f2dea740361316b50f03a91d66b505cda3bac3442385f; untracked
+  fixture tools/tests/fixtures/git: 2 files, tree digest sha256 bfc6387c2a299cd20f59ae8718f466896142a1c173d73374c18df18c7e657238 (SHA-256 of the sorted "sha256  path" list); untracked files 2
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_git_known_answer.py
+    Ran 6 tests; failures+errors 0; skipped 0; per class {'GitKnownAnswerTests': 6}; PASS
+  RESULT TV-009 git: PASS (6 tests)
+
+## TV-010 render_review_figures.py
+  tool    tools/render_review_figures.py: git blob 979beb139d13df8a64e295b2c6aac0d71a83c0e0; sha256 58643ecd37583f1c392ca24c2440229a5c305a5aa7c3a26d8abcdfdcd61e0865; untracked
+  test    tools/tests/test_render_review_figures.py: git blob ff5d81facd2d95718be681270238c6c980f2494c; sha256 cd572a0fc8f6330cd9f6593d4461e27a0c56ddf822aaa1e37d1141b5e64c1d53; untracked
+  fixture tools/tests/fixtures/review_figures: 6 files, tree digest sha256 9cab14eb7ea5fa650fb2bc34d87b7386e86dce7a039afc32a0b25311450475ae (SHA-256 of the sorted "sha256  path" list); untracked files 6
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_review_figures.py -k ParserTests -k DataKnownAnswerTests -k RunTests
+    Ran 32 tests; failures+errors 0; skipped 0; per class {'DataKnownAnswerTests': 18, 'ParserTests': 7, 'RunTests': 7}; PASS
+  RESULT TV-010 render_review_figures.py: PASS (32 tests)
+
+## Repository-content checks (not a tool accreditation)
+  test    tools/tests/test_traceability.py: git blob d76b06976ba62d374d8c30a8eb08a4cb57d394e7; sha256 493d81f818e2632d486c9f6cc3a09fcc79cd46e84bd0bd106da3077d69edf780; modified in the working tree
+  test    tools/tests/test_validate_docs.py: git blob 8944a389618686b58c557f60872238321c5a3106; sha256 23f226aa49af06e2c10cef54c981b07bf150b689f077b47abc1d0babb881d281; modified in the working tree
+  test    tools/tests/test_traceability_srr_rules.py: git blob 86606485debd4569954847c5a48e7dd62bbcbcab; sha256 7c8f10a4be544fdc6b7b99455fe53839f809651fddf3d64e9cf9d5c731d09776; untracked
+  test    tools/tests/test_render_compliance.py: git blob c40a7f1f514d3784efcbef300d301391d9de84c0; sha256 98a7a85be8bfefdf2e2268f02bb6f2ab89502f707daf5b4311508ab750355685; unchanged from HEAD
+  test    tools/tests/test_render_review_figures.py: git blob ff5d81facd2d95718be681270238c6c980f2494c; sha256 cd572a0fc8f6330cd9f6593d4461e27a0c56ddf822aaa1e37d1141b5e64c1d53; untracked
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_traceability.py -k RepositoryTests
+    Ran 1 tests; failures+errors 0; skipped 0; per class {'RepositoryTests': 1}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_validate_docs.py -k RepositoryTests
+    Ran 1 tests; failures+errors 1; skipped 0; per class {'RepositoryTests': 1}; FAIL
+    a: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/conops-and-concept.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/expectations.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/hazard-analysis.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/icd-stubs-external.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/requirements-sys.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/requirements-tx-and-sw-keyer.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/risk-register-06.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/semp.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/software-plan-07-software-assurance.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/software-plan-07.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/technology-assessment.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/tool-validation-tv-001-to-tv-010.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md  (schema: built-in peer-review record schema (charter section 5; 01 section 13))
+    PASS  docs/reviews/SRR/rfa-rid-log.json  (schema: docs/templates/rfa-rid-log.schema.json)
+    PASS  docs/risk/register.json  (schema: docs/risk/schema.json)
+    PASS  docs/safety/hazards.json  (schema: docs/safety/schema.json)
+    PASS  docs/templates/requirements.example.json  (schema: docs/requirements/schema.json)
+    PASS  docs/templates/rfa-rid-log.example.json  (schema: docs/templates/rfa-rid-log.schema.json)
+    PASS  docs/templates/test_cases.example.json  (schema: docs/test_cases/schema.json)
+    PASS  docs/test_cases/sw-keyer/test_cases.json  (schema: docs/test_cases/schema.json)
+    PASS  docs/test_cases/sw-tool/test_cases.json  (schema: docs/test_cases/schema.json)
+    PASS  docs/test_cases/sys/test_cases.json  (schema: docs/test_cases/schema.json)
+    PASS  docs/test_cases/tx/test_cases.json  (schema: docs/test_cases/schema.json)
+    validate_docs: 35 passed, 2 failed, 37 checked
+    
+    
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.216s
+    
+    FAILED (failures=1)
+    
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_traceability_srr_rules.py -k FixtureSchemaTripwireTests -k RepositoryAllocationTests
+    Ran 2 tests; failures+errors 0; skipped 0; per class {'FixtureSchemaTripwireTests': 1, 'RepositoryAllocationTests': 1}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_compliance.py -k ProjectMatrixTests
+    Ran 1 tests; failures+errors 0; skipped 0; per class {'ProjectMatrixTests': 1}; PASS
+  $ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_review_figures.py -k RepositoryTests
+    Ran 1 tests; failures+errors 0; skipped 0; per class {'RepositoryTests': 1}; PASS
+  RESULT Repository-content checks (not a tool accreditation): FAIL (6 tests)
+
+## Full directory, for information
+  $ .venv/bin/python -m unittest discover -s tools/tests
+    Ran 335 tests in 9.386s |  | FAILED (failures=1); exit 1
+
+OVERALL FAIL
+exit=1

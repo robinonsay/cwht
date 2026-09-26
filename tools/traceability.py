@@ -14,7 +14,11 @@ their gates (docs/process/03-software-classification-and-rmm.md section 8).
 It also applies the requirement-side rules of
 docs/process/02-requirements-and-traceability.md section 8.2 and the
 evidence-side rules of docs/process/04-verification-and-validation.md
-section 7.3 as far as CHECK_CATALOGUE lists them, and writes
+section 7.3 as far as CHECK_CATALOGUE lists them, including the two rules due
+before SRR at their plain-run severity Warning: T-21 STAKEHOLDERS_MISSING (the
+stakeholders array of expectations.json) and T-18 SYS_UNALLOCATED (every Draft
+or Active SYS requirement names a receiving L2 module through child_ids or the
+preliminary docs/design/allocation.json), and writes
 docs/vv/traceability-report.md containing a
 Requirements Verification Matrix (SE HB Appendix D, Table D-1) and a
 Validation Matrix (SE HB Appendix E, Table E-1), plus the machine-readable
@@ -94,6 +98,7 @@ REPORTS_DIR = Path("docs/vv/reports")
 ADR_DIR = Path("docs/decisions/adr")
 TRADE_STUDY_DIR = Path("docs/decisions/trade-studies")
 SAR_DECISION_MEMO = Path("docs/reviews/SAR/decision-memo.md")
+ALLOCATION = Path("docs/design/allocation.json")  # preliminary at SRR (02 section 2.3, T-18), baselined at PDR
 SEMP = Path("docs/plan/semp.md")
 ICD_GLOB = "docs/icd/ICD-*.md"
 EXPECTATION_TEXT_FIELDS = ("title", "statement", "rationale", "success_criterion")
@@ -142,6 +147,7 @@ RECURRING_CLAUSE = re.compile(r"\bRecurring:\s*(yes|no)\b", re.IGNORECASE)
 # the owner's decision on it is a charter issue); VER is reserved and unused. Test-only modules
 # (04 section 1): VAL, ATP, SW-COV, SW-REG, SW-TOOL.
 REQUIREMENT_MODULES = ("SYS", "RX", "TX", "PWR", "CTL", "ME", "SW")
+L2_MODULES = tuple(m for m in REQUIREMENT_MODULES if m != "SYS")  # plus SW-<SUB> (is_l2_module)
 TEST_ONLY_MODULES = ("VAL", "ATP", "SW-COV", "SW-REG", "SW-TOOL")
 SW_SUB_MODULE = re.compile(r"^SW-[A-Z][A-Z0-9]*$")
 
@@ -168,6 +174,8 @@ ACTIVE_OR_LATER = ("Active", "Verified", "Closed")
 TAG_SAFETY = "safety"
 TAG_REGULATORY = "regulatory"
 TAG_INTERFACE = "interface"
+# 02 section 3.0 and T-21: the stakeholders array holds at least one entry of each of these roles.
+REQUIRED_STAKEHOLDER_ROLES = ("customer", "user", "regulator")
 EXPECTATION_STATUS_BASELINED = "Baselined"
 NGO_KINDS = ("Need", "Goal", "Objective")
 
@@ -291,6 +299,8 @@ CHECK_CATALOGUE: tuple[tuple[str, str, str], ...] = (
     ("RISK_FILE_MISSING", WARNING, "docs/risk/register.json is absent, so the RSK-NNN named by an 'Analysis accepted per RSK-NNN' note cannot be resolved yet"),
     ("REPORTS_DIR_MISSING", WARNING, "docs/vv/reports is absent, so Passed, Failed and Verified statuses are checked against case status only"),
     ("SOURCE_FORMAT_UNKNOWN", WARNING, "a source id or measure id matches no known identifier scheme"),
+    ("STAKEHOLDERS_MISSING", WARNING, "expectations.json has no stakeholders array or an empty one, no entry of role customer, user or regulator, a stakeholder name used twice, or a stakeholder source_ids entry that does not resolve (02 section 3.0; T-21 and the stakeholder part of T-03; plain-run Warning before SRR, Error under --gate; the schema requires the array once baseline is set)"),
+    ("SYS_UNALLOCATED", WARNING, "a Draft or Active SYS requirement names no receiving L2 module: no child_ids entry or parent_id child is a live requirement of an L2 module (RX, TX, PWR, CTL, ME, SW, SW-<SUB>), and docs/design/allocation.json lists it under no L2 module; each gap is listed for the reviewer to confirm or correct in V6 (02 section 2.3, T-18: Warning at SRR, Error from PDR under --gate)"),
     ("MOP_UNRESOLVED", WARNING, "a mop_ids entry names no id in docs/plan/tpm.json mops[] or tpms[] (02 T-16; Error from PDR under --gate)"),
     ("INTERFACE_TAG_NO_ICD", WARNING, "a requirement tagged interface has no ICD-<A>-<B> id in design_refs (02 section 3.5, T-22; Error from PDR under --gate)"),
     ("DESCRIPTION_LENGTH", WARNING, "a requirement description exceeds 25 words"),
@@ -546,6 +556,9 @@ class Project:
     measures: set[str] | None = None
     regulations: set[str] | None = None
     sar_memo_present: bool = False
+    allocation_present: bool = False
+    allocation_error: str | None = None
+    allocation_modules: dict[str, set[str]] = field(default_factory=dict)  # requirement id -> modules named in allocation.json
     icd_tables: dict[str, list[tuple[int, str]]] = field(default_factory=dict)
     baselined_lines: dict[str, list[tuple[int, str]]] = field(default_factory=dict)
     conops_titles: dict[str, str] = field(default_factory=dict)
@@ -640,10 +653,29 @@ class Project:
     def expectations_of_kind(self, kind: str) -> list[Expectation]:
         return sorted((e for e in self.expectation_entries.values() if e.kind == kind), key=lambda e: e.id)
 
+    def child_modules(self, req: Requirement) -> list[str]:
+        """Modules of the live L2 requirements named by child_ids or whose parent_id is req (02 section 2.3, T-18)."""
+        ids = set(req.child_ids) | {c.id for c in self.children_of(req.id)}
+        found = {self.requirements[i].module for i in ids if i in self.requirements and not self.requirements[i].is_retired}
+        return sorted(m for m in found if is_l2_module(m))
+
+    def allocated_modules(self, req_id: str) -> list[str]:
+        """L2 modules under which docs/design/allocation.json lists the requirement (02 section 2.3, T-18)."""
+        return sorted(m for m in self.allocation_modules.get(req_id, set()) if is_l2_module(m))
+
+    def receiving_modules(self, req: Requirement) -> list[str]:
+        """Every L2 module that receives the requirement, through children or allocation.json."""
+        return sorted(set(self.child_modules(req)) | set(self.allocated_modules(req.id)))
+
 
 # ----------------------------------------------------------------------------
 # Loading helpers
 # ----------------------------------------------------------------------------
+
+
+def is_l2_module(module: str) -> bool:
+    """RX, TX, PWR, CTL, ME, SW or SW-<SUB>: the L2 requirement modules of charter section 6."""
+    return module in L2_MODULES or bool(SW_SUB_MODULE.match(module))
 
 
 def rel(path: Path, root: Path) -> str:
@@ -917,6 +949,67 @@ def load_expectations(project: Project, cache: dict[Path, Any]) -> None:
     project.expectations = set(project.expectation_entries)
 
 
+def load_allocation(project: Project) -> None:
+    """docs/design/allocation.json (02 section 2.3, T-18): the modules each requirement id is allocated to.
+
+    Three record forms allocate, wherever they sit in the file:
+
+    1. an object with a requirement_ids list allocates those ids to the module named
+       by its own module field or, when it has none, by the nearest enclosing object
+       that has one (elements[] entries: id, module, requirement_ids, code; 02
+       section 7 rows 3 and 4);
+    2. an entry of a list under the key modules whose id is a string is the record of
+       that module (modules[] entries: id RX, requirement_ids; the reading of 02
+       section 2.3 "lists the SYS id in requirement_ids under the receiving module");
+    3. an object with a requirement_id string and a modules list allocates that id to
+       each listed module (per-requirement allocations[] entries).
+
+    A requirement_ids list with no module above it allocates nothing, so lists such
+    as functions[] or gaps[] do not count. Whether a module is an L2 module is
+    decided by the check (is_l2_module). Validation of the file against
+    docs/design/allocation.schema.json belongs to validate_docs.py.
+    """
+    path = project.root / ALLOCATION
+    if not path.is_file():
+        return
+    project.allocation_present = True
+    data, error = validate_docs.load_json(path)
+    if error is not None:
+        project.allocation_error = error
+        return
+
+    def allocate(req_id: Any, module: str) -> None:
+        if isinstance(req_id, str) and module:
+            project.allocation_modules.setdefault(req_id, set()).add(module)
+
+    def visit(node: Any, module: str | None, in_modules_list: bool = False) -> None:
+        if isinstance(node, dict):
+            own = node.get("module")
+            if isinstance(own, str) and own:
+                current: str | None = own
+            elif in_modules_list and isinstance(node.get("id"), str):
+                current = node["id"]
+            else:
+                current = module
+            ids = node.get("requirement_ids")
+            if isinstance(ids, list) and current:
+                for req_id in ids:
+                    allocate(req_id, current)
+            single, modules = node.get("requirement_id"), node.get("modules")
+            if isinstance(single, str) and isinstance(modules, list):
+                for listed in modules:
+                    if isinstance(listed, str):
+                        allocate(single, listed)
+            for key, value in node.items():
+                if isinstance(value, (dict, list)):
+                    visit(value, current, key == "modules" and isinstance(value, list))
+        elif isinstance(node, list):
+            for item in node:
+                visit(item, module, in_modules_list)
+
+    visit(data, None)
+
+
 def load_upstream(project: Project, cache: dict[Path, Any]) -> None:
     """Stakeholder inputs, expectations, ConOps scenarios, ADRs, trade studies, risks, measures, regulations."""
     root = project.root
@@ -976,6 +1069,7 @@ def load_upstream(project: Project, cache: dict[Path, Any]) -> None:
             if match:
                 project.regulations.add(match.group(1))
     project.sar_memo_present = (root / SAR_DECISION_MEMO).is_file()
+    load_allocation(project)
     for icd in sorted(root.glob(ICD_GLOB)):
         # Only definition-table rows are scanned for TBD: the template's instruction
         # sentence "No TBD anywhere" is prose, and every ICD value sits in a table (02 section 3.5).
@@ -1302,8 +1396,21 @@ def check_sources(project: Project) -> None:
                 project.violation("SOURCE_UNRESOLVED", f"{EXPECTATIONS} {entry.id}", f"source id '{source_id}' not found in {upstream_name(source_id)}")
             elif resolved is None and upstream_name(source_id):
                 unresolvable[upstream_name(source_id)].append(f"{entry.id}:{source_id}")
+    for name, source_id in stakeholder_sources(project):
+        # T-21: stakeholder sources that cannot be checked join the same one-per-file warning.
+        if resolve_source(project, source_id) is None and upstream_name(source_id):
+            unresolvable[upstream_name(source_id)].append(f"{name}:{source_id}")
     for upstream, refs in sorted(unresolvable.items()):
         project.warning("SOURCE_FILE_MISSING", upstream, f"absent; {len(refs)} reference(s) not checked: {', '.join(refs)}")
+
+
+def stakeholder_sources(project: Project) -> list[tuple[str, str]]:
+    """(name, source id) of every stakeholders entry of expectations.json (02 section 3.0)."""
+    data = project.expectations_raw
+    entries = data.get("stakeholders") if isinstance(data, dict) else None
+    if not isinstance(entries, list):
+        return []
+    return [(as_str(e.get("name")) or f"stakeholders[{i}]", s) for i, e in enumerate(entries) if isinstance(e, dict) for s in as_str_list(e.get("source_ids"))]
 
 
 def check_tags(project: Project) -> None:
@@ -1632,6 +1739,87 @@ def check_expectations(project: Project) -> None:
         project.warning("SOURCE_FILE_MISSING", str(CONOPS), f"absent; {len(unresolved_ops)} ops_ids reference(s) not checked: {', '.join(unresolved_ops)}")
 
 
+def check_stakeholders(project: Project) -> None:
+    """02 T-21, stakeholder part, with the stakeholder-name part of T-03 (plain-run severity Warning).
+
+    02 section 3.0: the stakeholders array of expectations.json exists, holds at least
+    one entry of role customer, user and regulator, keys its entries by unique name,
+    and every source_ids entry resolves. Not evaluated while expectations.json is
+    absent or does not parse (SCHEMA_INVALID reports the latter). The schema itself
+    requires the array once baseline is set; the Error severity of the gate column
+    comes with --gate.
+    """
+    data = project.expectations_raw
+    if not isinstance(data, dict):
+        return
+    where_file = f"{EXPECTATIONS} stakeholders"
+    entries = data.get("stakeholders")
+    if not isinstance(entries, list) or not entries:
+        state = "absent" if entries is None else ("empty" if isinstance(entries, list) else "not an array")
+        project.warning(
+            "STAKEHOLDERS_MISSING", where_file,
+            f"stakeholders array {state}; 02 section 3.0 requires the identified stakeholders with at least one entry of role "
+            f"{', '.join(REQUIRED_STAKEHOLDER_ROLES)}, and the schema requires the array once baseline is set",
+        )
+        return
+    roles: set[str] = set()
+    first_index: dict[str, int] = {}
+    for index, raw in enumerate(entries):
+        if not isinstance(raw, dict):
+            continue  # the schema reports a malformed entry
+        name, role = as_str(raw.get("name")), as_str(raw.get("role"))
+        where = f"{where_file}[{index}] {name or '(no name)'}"
+        roles.add(role)
+        if name in first_index:
+            project.warning("STAKEHOLDERS_MISSING", where, f"name already used by stakeholders[{first_index[name]}]; entries are keyed by unique name (02 section 3.0; T-03)")
+        elif name:
+            first_index[name] = index
+        for source_id in as_str_list(raw.get("source_ids")):
+            resolved = resolve_source(project, source_id)
+            upstream = upstream_name(source_id)
+            if resolved is False:
+                project.warning("STAKEHOLDERS_MISSING", where, f"source id '{source_id}' not found in {upstream}")
+            elif resolved is None and not upstream:
+                project.warning("STAKEHOLDERS_MISSING", where, f"source id '{source_id}' matches no known scheme")
+            # resolved None with a known upstream: the file is absent; check_sources reports SOURCE_FILE_MISSING
+    missing = [r for r in REQUIRED_STAKEHOLDER_ROLES if r not in roles]
+    if missing:
+        project.warning("STAKEHOLDERS_MISSING", where_file, f"no entry of role {', '.join(missing)}; 02 section 3.0 requires at least one of each of {', '.join(REQUIRED_STAKEHOLDER_ROLES)}")
+
+
+def check_allocation(project: Project) -> None:
+    """02 T-18 at SRR (plain-run severity Warning; Error from PDR under --gate, not yet implemented).
+
+    Every Draft or Active SYS requirement names at least one receiving L2 module
+    through child_ids (or a child's parent_id) naming a live L2 requirement, or
+    through a docs/design/allocation.json record that lists it under an L2 module
+    (02 section 2.3). Each gap is one finding on the requirement; the reviewer
+    confirms or corrects it in V6. Retired requirements are excluded (T-19).
+    """
+    if project.allocation_error is not None:
+        project.warning("SYS_UNALLOCATED", str(ALLOCATION), f"{project.allocation_error}; no allocation record is read, so only child_ids count for T-18")
+    for req in project.live_requirements():
+        if req.module != L1_MODULE or req.status not in REQ_STATUSES_NEEDING_TC:
+            continue
+        if project.receiving_modules(req):
+            continue
+        named = sorted(set(req.child_ids) | {c.id for c in project.children_of(req.id)})
+        parts = ["no child is a live L2 requirement" + (f" (children named: {', '.join(named)})" if named else " (child_ids empty)")]
+        listed = sorted(project.allocation_modules.get(req.id, set()))
+        if not project.allocation_present:
+            parts.append(f"{ALLOCATION} is absent")
+        elif project.allocation_error is not None:
+            parts.append(f"{ALLOCATION} does not parse")
+        elif listed:
+            parts.append(f"{ALLOCATION} lists it only under {', '.join(listed)}, not an L2 module")
+        else:
+            parts.append(f"{ALLOCATION} lists it under no module")
+        project.warning(
+            "SYS_UNALLOCATED", f"{req.file} {req.id}",
+            f"{req.status} SYS requirement names no receiving L2 module: {'; '.join(parts)}; the reviewer confirms or corrects the gap in V6 (02 section 2.3, T-18)",
+        )
+
+
 def check_l0_coverage(project: Project) -> None:
     """02 T-20 (plain-run severity W): core inputs, Baselined Objectives and scenarios are covered.
 
@@ -1710,6 +1898,8 @@ def run_checks(project: Project) -> None:
     check_retired(project)
     check_text_rules(project)
     check_expectations(project)
+    check_stakeholders(project)
+    check_allocation(project)
     check_l0_coverage(project)
     check_ncrs(project)
     check_reports(project)
@@ -1841,6 +2031,24 @@ def render_expectations(project: Project) -> str | None:
             scenario_moes[ops_id].append(as_str(moe.get("id")))
     scenarios = sorted(set(project.conops_titles) | set(scenario_moes))
     out += table(["Scenario", "Title", "MOEs judged there"], ([ops, project.conops_titles.get(ops, "(not a heading of conops.md)"), ", ".join(sorted(scenario_moes.get(ops, []))) or "-"] for ops in scenarios))
+    out += ["", "## 7. Stakeholders", ""]
+    stakeholders = data.get("stakeholders")
+    if isinstance(stakeholders, list) and stakeholders:
+        out += [
+            "The identified stakeholders of 02 section 3.0 (SE HB 4.1.1.2.1), keyed by name; `represented_by` names who speaks for each in "
+            "validation step V2. `tools/traceability.py` checks the array with STAKEHOLDERS_MISSING (T-21).",
+            "",
+        ]
+        out += table(
+            ["Name", "Role", "Interests", "Represented by (V2)", "Sources", "Note"],
+            (
+                [as_str(e.get("name")), as_str(e.get("role")), as_str(e.get("interests")), as_str(e.get("represented_by")), md_text(as_str_list(e.get("source_ids"))), md_text(e.get("note"))]
+                for e in stakeholders
+                if isinstance(e, dict)
+            ),
+        )
+    else:
+        out += ["The `stakeholders` array is absent or empty; `tools/traceability.py` reports STAKEHOLDERS_MISSING (T-21, 02 section 3.0)."]
     out += [""]
     return "\n".join(out)
 
@@ -2103,7 +2311,17 @@ def upstream_status(project: Project) -> list[list[str]]:
         ["Verification reports", str(REPORTS_DIR), f"{len(project.reports)} files" if project.reports_present else "absent"],
         ["Nonconformances (NCR)", str(NCR_DIR), f"{len(project.ncrs)} files" if (project.root / NCR_DIR).is_dir() else "absent"],
         ["SAR decision memo", str(SAR_DECISION_MEMO), "present" if project.sar_memo_present else "absent"],
+        ["Allocation (preliminary at SRR)", str(ALLOCATION), allocation_state(project)],
     ]
+
+
+def allocation_state(project: Project) -> str:
+    if not project.allocation_present:
+        return "absent"
+    if project.allocation_error is not None:
+        return "does not parse"
+    return f"{len(project.allocation_modules)} requirement ids allocated"
+
 
 
 def verification_row(project: Project, req: Requirement) -> list[str]:
@@ -2363,10 +2581,23 @@ def build_report(project: Project, today: dt.date | None = None) -> str:
             if r.parent_id is None
         ),
     )
-    out += ["", "### 7.2 Allocation to children", "", "Requirements that have no children are not yet allocated to a lower level; before PDR this is expected for L1 (T-18 applies from PDR).", ""]
+    out += [
+        "",
+        "### 7.2 Allocation to children",
+        "",
+        "Rule T-18 (02 section 8.2) applies from SRR: every Draft or Active SYS requirement names at least one receiving L2 module, "
+        f"through `child_ids` naming a live L2 requirement or through a preliminary `{ALLOCATION}` record that lists it under an L2 module "
+        "(02 section 2.3). At SRR each gap is a `SYS_UNALLOCATED` warning in section 2.2, which the reviewer confirms or corrects in V6; "
+        "from PDR it is an Error under `--gate`, and every Active SYS requirement then needs a child or the tag `leaf`. "
+        "Receiving L2 modules are the modules of the live L2 children and of the allocation records.",
+        "",
+    ]
     out += table(
-        ["ID", "Module", "Children", "Child ids"],
-        ([r.id, r.module, str(len(project.children_of(r.id))), ", ".join(c.id for c in project.children_of(r.id))] for r in project.ordered_requirements()),
+        ["ID", "Module", "Children", "Child ids", "Receiving L2 modules"],
+        (
+            [r.id, r.module, str(len(project.children_of(r.id))), ", ".join(c.id for c in project.children_of(r.id)), ", ".join(project.receiving_modules(r))]
+            for r in project.ordered_requirements()
+        ),
     )
     out += ["", "### 7.3 Requirements tree", "", "Roots are requirements with `parent_id` null; each line is `id [status] title`.", ""]
     out += tree_lines(project)

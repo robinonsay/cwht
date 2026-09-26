@@ -1430,6 +1430,7 @@ class NewConventionTests(unittest.TestCase):
         self.assertTrue(valid["docs/plan/tpm.json"].passed, valid["docs/plan/tpm.json"].errors)
         with tempfile.TemporaryDirectory() as tmp:
             root = copy_valid(tmp)
+            (root / "docs/design/allocation.schema.json").unlink()  # valid_project carries a fixture copy for T-18
             write_json(root / "docs/plan/measurements.json", {"schema": "cwht-measurements-1", "records": []})
             write_json(root / "docs/design/allocation.json", {"elements": []})
             write_json(root / "docs/process/se-compliance-matrix.json", {"rows": []})
@@ -1460,6 +1461,29 @@ class SchemaTripwireTests(unittest.TestCase):
 
     def test_tpm_schema(self) -> None:
         self.assert_same_constraints("docs/plan/tpm.schema.json", ("valid_project", "invalid_project"))
+
+    def test_allocation_schema(self) -> None:
+        self.assert_same_constraints("docs/design/allocation.schema.json", ("valid_project",))
+
+
+class MeasurementsSchemaKnownAnswerTests(unittest.TestCase):
+    """docs/plan/measurements.schema.json against a valid and a seeded-invalid file (07 section 11.1; INSP-010 finding-2)."""
+
+    def errors(self, name: str) -> list[list[str]]:
+        schema = json.loads((traceability.REPO_ROOT / "docs/plan/measurements.schema.json").read_text(encoding="utf-8"))
+        document = json.loads((FIXTURES / "measurements" / name).read_text(encoding="utf-8"))
+        validator = validate_docs.jsonschema.validators.validator_for(schema)
+        validator.check_schema(schema)
+        return sorted(["/".join(map(str, e.absolute_path)), e.validator] for e in validator(schema).iter_errors(document))
+
+    def test_valid_file_has_no_errors(self) -> None:
+        self.assertEqual([], self.errors("valid.json"))
+
+    def test_invalid_file_has_exactly_the_seeded_errors(self) -> None:
+        self.assertEqual(
+            [["records/0/evidence/0", "pattern"], ["records/1/value", "type"], ["records/2/scope", "pattern"]],
+            self.errors("invalid.json"),
+        )
 
 
 if __name__ == "__main__":

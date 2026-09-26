@@ -1,0 +1,2302 @@
+{
+  "schema": "cwht-measurements-1",
+  "updated": "2026-09-26",
+  "description": "cwht software measurement repository (docs/process/07-software-engineering-plan.md sections 10.3 and 11; SWE-089, SWE-090). SRR seed of 2026-09-25, transcribed by the software lead from the evidence each record names, before tools/measurements.py exists (07 section 11.1); append-only. Appended 2026-09-26 by the software lead, still by hand: corrections with supersedes (INSP-010 findings 3 and 4) and the MSR-05, MSR-20 and MSR-21 roll-up of every INSP record keyed on the INSP id (INSP-018 findings 3 and 4).",
+  "records": [
+    {
+      "id": "MSR-01",
+      "name": "Software requirements count by level and status",
+      "state": "Measured",
+      "value": {
+        "L2_software_Draft": 33
+      },
+      "unit": "count",
+      "scope": "software requirement modules SW and SW-<SUB> (present: SW-KEYER)",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": ".venv/bin/python tools/traceability.py --report-only (docs/vv/traceability.json measurements.MSR-01.software_by_status)",
+      "evidence": [
+        "docs/vv/traceability.json sha256=ab6d5345c2a7850976f49ff49d431ce486626ad5054b41381009ab93242be9a1"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "Rule (Draft count 0 at the baselining gate) applies at PDR for L2. All requirement modules at this snapshot: L1 {\"Closed\": 2, \"Draft\": 180}, L2 {\"Draft\": 49}. Snapshot of files being authored concurrently for SRR package item H15; superseded by the gate-time record."
+    },
+    {
+      "id": "MSR-02",
+      "name": "Requirements volatility (SWE-200; TPM-012)",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "%",
+      "scope": "L1 and L2 requirements",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "PDR: first interval after baseline/srr; tools/traceability.py --volatility (planned, PDR)",
+      "note": "No baseline exists before SRR, so no interval can be measured."
+    },
+    {
+      "id": "MSR-03",
+      "name": "Traceability gaps: requirements without parent, without verification case",
+      "state": "Measured",
+      "value": {
+        "requirements_without_parent": 0,
+        "software_requirements_without_verification_case": 0
+      },
+      "unit": "count",
+      "scope": "software requirement modules SW and SW-<SUB>",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": ".venv/bin/python tools/traceability.py --report-only (measurements.MSR-03; coverage_by_module)",
+      "evidence": [
+        "docs/vv/traceability.json sha256=ab6d5345c2a7850976f49ff49d431ce486626ad5054b41381009ab93242be9a1"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Green",
+      "note": "requirements_without_parent is counted over all modules by the tool. All modules without a verification case: 0. Design units without @design and functions without @req are not measured: the firmware tag scan (02 T-15) is a PDR and CDR tool task. Rule: 0 at every gate; met at this snapshot."
+    },
+    {
+      "id": "MSR-04",
+      "name": "Open TBR count in software requirements",
+      "state": "Measured",
+      "value": 8,
+      "unit": "count",
+      "scope": "software requirement modules SW and SW-<SUB>",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": ".venv/bin/python tools/traceability.py --report-only (measurements.MSR-04.software_requirements)",
+      "evidence": [
+        "docs/vv/traceability.json sha256=ab6d5345c2a7850976f49ff49d431ce486626ad5054b41381009ab93242be9a1"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "Rule applies at PDR (L1) and CDR (L2, including the module files). All modules: 125 open TBRs."
+    },
+    {
+      "id": "MSR-05",
+      "name": "Sprint iterations to APPROVED per file",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "count",
+      "scope": "INSP records in docs/reviews/*/checklists/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "First record that reaches verdict APPROVED (FW-B0 record INSP-016 or an SRR record), then every sprint",
+      "note": "No record has reached APPROVED at this snapshot (10 records, all NEEDS CHANGES). Current iterations: INSP-011 2, INSP-006 2, INSP-002 2, INSP-001 2, INSP-016 2, INSP-008 1, INSP-007 1, INSP-005 2, INSP-014 2, INSP-013 2."
+    },
+    {
+      "id": "MSR-06",
+      "name": "Planned versus completed increments and sprints (SWE-024)",
+      "state": "Measured",
+      "value": {
+        "increments_planned_by_SRR": 1,
+        "increments_completed": 0,
+        "sprints_planned": 0,
+        "sprints_closed": 0
+      },
+      "unit": "count",
+      "scope": "FW-B0 (the increment section 3.1 plans for SRR); docs/sprints/ (absent)",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "docs/vv/reports/TC-SW-TOOL-001-r1.md front matter result and section 9 verdict; docs/sprints/ does not exist",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1.md sha256=be4c0749161e40b674339b2e384e5cf493c316892467f8560deb3d828b0ef219"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Yellow",
+      "note": "FW-B0 exit criterion (tools/sw_gate.sh exit 0, blinky flashed and observed) not met: run 1 result Blocked (gate exit 1 on G4 and G5 items outside the workspace; owner steps 11 and 12 pending). Slip reported as SRR package item H12, with the planned actions of the report section 9 (owner-approved downloads, rustos manifest work item, four scripts)."
+    },
+    {
+      "id": "MSR-07",
+      "name": "Clippy warnings under the CS-27 set",
+      "state": "Measured",
+      "value": 0,
+      "unit": "count",
+      "scope": "cwht-core, cwht-hal-mock (host, all targets); cwht-app (thumbv8m.main-none-eabihf)",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "tools/sw_gate.sh --keep-going, run 2026-09-25 for TC-SW-TOOL-001-r1 step 6 (rustc 1.98.0 88d9e12ae 2026-08-18 on the stable channel, report deviation D1): G1 cargo clippy -- -D warnings (host and target)",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1/sw-gate-keep-going.txt sha256=a10d282bfd3e19b1da967150b55a66ca5c34d82df34167946962f6dbdac5e1ec"
+      ],
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Green",
+      "note": "Working tree on HEAD 28e49e6 (firmware/ untracked at the measurement). Developer evidence: clippy has no TV record yet (section 8.3)."
+    },
+    {
+      "id": "MSR-08",
+      "name": "Miri failures",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "count",
+      "scope": "api, pico2 host tests (CS-38 decision functions)",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "FW-B0 gate completion (G5), after the owner-approved install of miri on nightly-2026-08-24 (CS-03); then every release",
+      "note": "Gate G5 printed MISSING: component miri not installed."
+    },
+    {
+      "id": "MSR-09",
+      "name": "cargo audit advisories",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "count",
+      "scope": "firmware workspace",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "FW-B0 gate completion (G5), after the owner-approved RustSec advisory database fetch; then every release",
+      "note": "Gate G5 printed MISSING: advisory database absent."
+    },
+    {
+      "id": "MSR-10",
+      "name": "cargo deny violations",
+      "state": "Measured",
+      "value": {
+        "unlicensed": 2,
+        "wildcard_path_dependency": 1
+      },
+      "unit": "count",
+      "scope": "firmware workspace image dependency set (cwht-app, cwht-core, api, pico2); checks bans, licenses, sources",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "tools/sw_gate.sh --keep-going, run 2026-09-25 for TC-SW-TOOL-001-r1 step 6 (rustc 1.98.0 88d9e12ae 2026-08-18 on the stable channel, report deviation D1): G5 cargo deny --log-level error check bans licenses sources (cargo-deny 0.20.2)",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1/sw-gate-keep-going.txt sha256=a10d282bfd3e19b1da967150b55a66ca5c34d82df34167946962f6dbdac5e1ec"
+      ],
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Red",
+      "note": "Working tree on HEAD 28e49e6 (firmware/ untracked at the measurement). The three violations are in the rustos crates (api and pico2 unlicensed; pico2 path dependency on api counted as a wildcard). Corrective action: the rustos manifest work item of TC-SW-TOOL-001-r1 section 9 recommendation 3 (owner, rustos maintainer; publish = false and license fields), carried by SRR package item H12; OQ-SW-001 (rustos license) in section 17.1. The advisories check was not run (database absent)."
+    },
+    {
+      "id": "MSR-11",
+      "name": "Unsafe sites (blocks, fns, impls) in pico2 and api; unsigned audit entries",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "count",
+      "scope": "pico2, api",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "FW-B0 gate completion (G5 full geiger count and tools/unsafe_audit.py); unsigned entries must be 0 at CDR",
+      "note": "Only cargo geiger --forbid-only ran (PASS for cwht-app, cwht-core and cwht-hal-mock, confirming forbid(unsafe_code) on the image crates); the full count in pico2 and api and tools/unsafe_audit.py are MISSING in the gate log."
+    },
+    {
+      "id": "MSR-12",
+      "name": "Mutation score of safety-critical modules (optional)",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "%",
+      "scope": "safety-critical modules of section 14.1",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "CDR (from FW-B2; optional, no threshold)",
+      "note": "No safety-critical module exists in the workspace yet."
+    },
+    {
+      "id": "MSR-13",
+      "name": "Line and region coverage per crate (stable)",
+      "state": "Measured",
+      "value": {
+        "line_pct": 100.0,
+        "region_pct": 100.0,
+        "function_pct": 100.0
+      },
+      "unit": "%",
+      "scope": "cwht-core",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "tools/sw_gate.sh --keep-going, run 2026-09-25 for TC-SW-TOOL-001-r1 step 6 (rustc 1.98.0 88d9e12ae 2026-08-18 on the stable channel, report deviation D1): G6 cargo llvm-cov nextest --fail-under-lines 100 --fail-under-regions 100 (cargo-llvm-cov 0.9.1)",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1/sw-gate-keep-going.txt sha256=a10d282bfd3e19b1da967150b55a66ca5c34d82df34167946962f6dbdac5e1ec"
+      ],
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Green",
+      "note": "Working tree on HEAD 28e49e6 (firmware/ untracked at the measurement). cwht-core/src/heartbeat.rs: 20 regions, 17 lines, 4 functions, none missed. FW-B0 placeholder code (heartbeat and GPIO mock), no safety-critical component, so nothing is mirrored to TPM-017. Developer evidence: cargo-llvm-cov has no TV record yet."
+    },
+    {
+      "id": "MSR-13",
+      "name": "Line and region coverage per crate (stable)",
+      "state": "Measured",
+      "value": {
+        "line_pct": 100.0,
+        "region_pct": 100.0,
+        "function_pct": 100.0
+      },
+      "unit": "%",
+      "scope": "cwht-hal-mock",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "tools/sw_gate.sh --keep-going, run 2026-09-25 for TC-SW-TOOL-001-r1 step 6 (rustc 1.98.0 88d9e12ae 2026-08-18 on the stable channel, report deviation D1): G6 cargo llvm-cov nextest --fail-under-lines 100 --fail-under-regions 100 (cargo-llvm-cov 0.9.1)",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1/sw-gate-keep-going.txt sha256=a10d282bfd3e19b1da967150b55a66ca5c34d82df34167946962f6dbdac5e1ec"
+      ],
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Green",
+      "note": "Working tree on HEAD 28e49e6 (firmware/ untracked at the measurement). cwht-hal-mock/src/gpio.rs: 50 regions, 51 lines, 10 functions, none missed. FW-B0 placeholder code (heartbeat and GPIO mock), no safety-critical component, so nothing is mirrored to TPM-017. Developer evidence: cargo-llvm-cov has no TV record yet."
+    },
+    {
+      "id": "MSR-14",
+      "name": "Branch coverage of host-compilable image code and condition coverage of safety-critical components (pinned nightly)",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "%",
+      "scope": "host-compilable image code; safety-critical decisions",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "FW-B0 gate completion (G6 step, after the owner-approved llvm-tools install on nightly-2026-08-24); required at every release from FW-B3",
+      "note": "Gate G6 printed MISSING: llvm-tools not installed on nightly-2026-08-24. The stable report shows 0 branches (branch instrumentation is nightly only)."
+    },
+    {
+      "id": "MSR-15",
+      "name": "MC/DC decisions with complete independence pairs divided by decisions",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "%",
+      "scope": "safety-critical decisions (section 9.6)",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "CDR (first detailed design with decision tables)",
+      "note": "No safety-critical decision is designed yet."
+    },
+    {
+      "id": "MSR-16",
+      "name": "Stack high-water mark per task and maximum interrupt nesting",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "bytes; count",
+      "scope": "cwht-app image",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "CDR (dev board, credit false); TRR on CWHT-A-001",
+      "note": "Needs the event-log readout of the painted stack; not implemented in FW-B0."
+    },
+    {
+      "id": "MSR-17",
+      "name": "Cyclomatic complexity: max, mean, functions above 12 and above 15, target-only functions above 1",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "count",
+      "scope": "firmware workspace",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "FW-B0 gate completion (G5), after the owner-approved install of rust-code-analysis-cli and the writing of tools/complexity_gate.py",
+      "note": "Gate G5 printed MISSING for both."
+    },
+    {
+      "id": "MSR-18",
+      "name": "Flash usage (TPM-010)",
+      "state": "Measured",
+      "value": {
+        "bytes": 1608,
+        "percent_of_4MB": 0.04
+      },
+      "unit": "bytes and % of 4 MB",
+      "scope": "cwht-app release image (thumbv8m.main-none-eabihf)",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "tools/sw_gate.sh --keep-going, run 2026-09-25 for TC-SW-TOOL-001-r1 step 6 (rustc 1.98.0 88d9e12ae 2026-08-18 on the stable channel, report deviation D1): G2 cargo build -p cwht-app --release, linker memory-region report (INTERIM inline check, tools/measurements.py absent)",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1/sw-gate-keep-going.txt sha256=a10d282bfd3e19b1da967150b55a66ca5c34d82df34167946962f6dbdac5e1ec",
+        "docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.map sha256=e9ba4361ad2d2493acc88a49642a296263ae6b36edb1da6903b5c0e0f8ee1d1a"
+      ],
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Green",
+      "note": "Working tree on HEAD 28e49e6 (firmware/ untracked at the measurement). FLASH = .vector_table 0x110 + .boot_info 0x14 + .text 0x524 = 1608 B (map). FW-B0 placeholder image: not a TPM-010 estimate and not mirrored (section 11.1)."
+    },
+    {
+      "id": "MSR-19",
+      "name": "RAM usage .data + .bss plus stack budget (TPM-011)",
+      "state": "Measured",
+      "value": {
+        "bytes": 8200,
+        "percent_of_520KB": 1.54
+      },
+      "unit": "bytes and % of 520 KB",
+      "scope": "cwht-app release image (thumbv8m.main-none-eabihf)",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "tools/sw_gate.sh --keep-going, run 2026-09-25 for TC-SW-TOOL-001-r1 step 6 (rustc 1.98.0 88d9e12ae 2026-08-18 on the stable channel, report deviation D1): G2 linker memory-region report (INTERIM inline check)",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1/sw-gate-keep-going.txt sha256=a10d282bfd3e19b1da967150b55a66ca5c34d82df34167946962f6dbdac5e1ec",
+        "docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.map sha256=e9ba4361ad2d2493acc88a49642a296263ae6b36edb1da6903b5c0e0f8ee1d1a"
+      ],
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Green",
+      "note": "Working tree on HEAD 28e49e6 (firmware/ untracked at the measurement). RAM = .data 0 + .bss 4 B + alignment 4 B + .stack 0x2000 (8192 B, the rustos _min_stack_size of 8K) = 8200 B (map). FW-B0 placeholder image: not a TPM-011 estimate and not mirrored."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 4,
+        "minor": 7,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 10,
+        "fixed": 0,
+        "verified": 1,
+        "deferred": 0,
+        "items_no": 4
+      },
+      "unit": "count",
+      "scope": "docs/decisions/adr/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/adrs-001-to-025.md: INSP-011 (peer-review-checklist-design revision B, iteration 2, verdict NEEDS CHANGES, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/adrs-001-to-025.md sha256=f3b96168d6f695fc8ac432f43c89255d37dc569ad9bc2db20e0e2bf64b2f1959"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Product size: 26 ADRs (ADR-001 to ADR-026, 2341 lines), the reconciliation register (223 lines) and the index README.md. Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 7,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 1,
+        "fixed": 8,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 5
+      },
+      "unit": "count",
+      "scope": "docs/process/05-configuration-and-data-management.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/cm-plan-05.md: INSP-006 (peer-review-checklist-requirements revision C, iteration 2, verdict NEEDS CHANGES, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/cm-plan-05.md sha256=9c0832cca02d5ba4a5c483fb3432b6f8cd71b2c3fcacf9286054ea01abd3b4b7"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "07 section 10.1 row b (software plan: CM plan, SWE-079). Product size: 16 sections, 670 lines (revision 3), Table 4-1 with 55 rows, Table 4-2 and Table 6-1 added. Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 4,
+        "minor": 15,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 2,
+        "fixed": 0,
+        "verified": 16,
+        "deferred": 0,
+        "items_no": 4
+      },
+      "unit": "count",
+      "scope": "docs/conops/conops.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/conops-and-concept.md: INSP-002 (peer-review-checklist-design revision B, iteration 2, verdict NEEDS CHANGES, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/conops-and-concept.md sha256=50a51c5ae5c7495abb3bb8fdbacbe6d238efdd6c2ac4649fd1babf18e4dd5081"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Product size: ConOps 865 lines at iteration 1, 866 at iteration 2 (22 scenarios, 9 modes, 25 transitions, 20 causes, appendices A to D); concept 365 lines at iteration 1, 381 at iteration 2 (22 blocks, 10 functions, 18 ICDs, 6 trade studies); 3 renders. Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 10,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 2,
+        "fixed": 0,
+        "verified": 10,
+        "deferred": 0,
+        "items_no": 2
+      },
+      "unit": "count",
+      "scope": "docs/requirements/l0-stakeholder/expectations.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/expectations.md: INSP-001 (peer-review-checklist-requirements revision C, iteration 2, verdict NEEDS CHANGES, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/expectations.md sha256=35d891dab2ae36bbdba9a34fe5036bd753614cfc61b3207b618fcd55cfea33be"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Product size: 1 Need, 7 Goals, 22 Objectives, 13 MOEs, 28 constraints, 10 stakeholders, 36 SI rows. Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 10,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 3,
+        "fixed": 9,
+        "verified": 9,
+        "deferred": 0,
+        "items_no": 10
+      },
+      "unit": "count",
+      "scope": "firmware/ (FW-B0 workspace), tools/sw_gate.sh, docs/test_cases/sw-tool/test_cases.json, docs/vv/reports/TC-SW-TOOL-001-r1.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md: INSP-016 (peer-review-checklist-code revision B, iteration 2, verdict NEEDS CHANGES, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md sha256=8646146a99abb8da907f892d2d81702090f191457ad1280bb5dd1311da24d38c"
+      ],
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "07 section 10.1 rows d and e (FW-B0 code, gate script and test case). Product size: 8 Rust and 10 TOML files plus Cargo.lock and emu/README.md (678 lines under firmware/, excluding target/); sw_gate.sh 300 lines; test_cases.json 117 lines; report 170 lines with 14 artifacts. Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 3,
+        "minor": 10,
+        "open": 13,
+        "fixed": 0,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 16
+      },
+      "unit": "count",
+      "scope": "docs/safety/hazard-analysis.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/hazard-analysis.md: INSP-008 (peer-review-checklist-safety revision A, iteration 1, verdict NEEDS CHANGES, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/hazard-analysis.md sha256=e37eae83c5aabf61b48db4353fa6bbace6306f8f1181627444cc9e457631a497"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Product size: 15 hazards, 117 controls, 24 open questions, 23 single point failure entries. Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 4,
+        "minor": 11,
+        "open": 15,
+        "fixed": 0,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 12
+      },
+      "unit": "count",
+      "scope": "docs/risk/register.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/risk-register-06.md: INSP-007 (peer-review-checklist-risk revision A, iteration 1, verdict NEEDS CHANGES, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/risk-register-06.md sha256=d9cd7c5bb63acac61c2ec5537b242e1a9d49dd237fcebc0712f7277dd9deca11"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Product size: 59 active risks and 130 candidates; plan 06 (17 sections). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 1,
+        "minor": 8,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 0,
+        "fixed": 0,
+        "verified": 9,
+        "deferred": 0,
+        "items_no": 4
+      },
+      "unit": "count",
+      "scope": "docs/plan/semp.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/semp.md: INSP-005 (peer-review-checklist-requirements revision C, iteration 2, verdict APPROVED, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/semp.md sha256=20da8038bb4beb95b3b1487d74b11580d409dba91d26d1d29db2c8b0e999c363"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Product size: 9 sections plus appendices A to F (480 lines). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 5,
+        "minor": 3,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 1,
+        "fixed": 0,
+        "verified": 7,
+        "deferred": 0,
+        "items_no": 2
+      },
+      "unit": "count",
+      "scope": "docs/plan/technology-assessment.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/technology-assessment.md: INSP-014 (peer-review-checklist-design revision B, iteration 2, verdict NEEDS CHANGES, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/technology-assessment.md sha256=e782211b34234cb44609c4b90822dda0aa53a4cf70dffa4459fd0674b9c00082"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Product size: 417 lines, 9 sections, 22 element assessments, 27 matrix rows, 7 roll-up rows, 13 heritage rows, 10 tool rows. Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 8,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 0,
+        "fixed": 0,
+        "verified": 10,
+        "deferred": 0,
+        "items_no": 0
+      },
+      "unit": "count",
+      "scope": "docs/decisions/trade-studies/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md: INSP-013 (peer-review-checklist-design revision B, iteration 2, verdict APPROVED, record_status Open, assurance_required false)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md sha256=a9490d57fc0b116095e9c67726bcbfac9d19af9923d1ffcec130e1c9e25abe9d"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Product size: 2 trade studies (revision 1: TS-001 686 lines, TS-002 361 lines), 3 plus 1 decision matrices. Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 75,
+        "minutes": 95
+      },
+      "unit": "count, min",
+      "scope": "docs/decisions/adr/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/adrs-001-to-025.md: INSP-011 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/adrs-001-to-025.md sha256=f3b96168d6f695fc8ac432f43c89255d37dc569ad9bc2db20e0e2bf64b2f1959"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 57,
+        "minutes": 55
+      },
+      "unit": "count, min",
+      "scope": "docs/process/05-configuration-and-data-management.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/cm-plan-05.md: INSP-006 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/cm-plan-05.md sha256=9c0832cca02d5ba4a5c483fb3432b6f8cd71b2c3fcacf9286054ea01abd3b4b7"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "07 section 10.1 row b (software plan: CM plan, SWE-079). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 58,
+        "minutes": 95
+      },
+      "unit": "count, min",
+      "scope": "docs/conops/conops.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/conops-and-concept.md: INSP-002 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/conops-and-concept.md sha256=50a51c5ae5c7495abb3bb8fdbacbe6d238efdd6c2ac4649fd1babf18e4dd5081"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 60,
+        "minutes": 75
+      },
+      "unit": "count, min",
+      "scope": "docs/requirements/l0-stakeholder/expectations.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/expectations.md: INSP-001 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/expectations.md sha256=35d891dab2ae36bbdba9a34fe5036bd753614cfc61b3207b618fcd55cfea33be"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 50,
+        "minutes": 75
+      },
+      "unit": "count, min",
+      "scope": "firmware/ (FW-B0 workspace), tools/sw_gate.sh, docs/test_cases/sw-tool/test_cases.json, docs/vv/reports/TC-SW-TOOL-001-r1.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md: INSP-016 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md sha256=8646146a99abb8da907f892d2d81702090f191457ad1280bb5dd1311da24d38c"
+      ],
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "07 section 10.1 rows d and e (FW-B0 code, gate script and test case). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 46,
+        "minutes": 55
+      },
+      "unit": "count, min",
+      "scope": "docs/safety/hazard-analysis.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/hazard-analysis.md: INSP-008 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/hazard-analysis.md sha256=e37eae83c5aabf61b48db4353fa6bbace6306f8f1181627444cc9e457631a497"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 48,
+        "minutes": 70
+      },
+      "unit": "count, min",
+      "scope": "docs/risk/register.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/risk-register-06.md: INSP-007 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/risk-register-06.md sha256=d9cd7c5bb63acac61c2ec5537b242e1a9d49dd237fcebc0712f7277dd9deca11"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 75,
+        "minutes": 75
+      },
+      "unit": "count, min",
+      "scope": "docs/plan/semp.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/semp.md: INSP-005 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/semp.md sha256=20da8038bb4beb95b3b1487d74b11580d409dba91d26d1d29db2c8b0e999c363"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 54,
+        "minutes": 50
+      },
+      "unit": "count, min",
+      "scope": "docs/plan/technology-assessment.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/technology-assessment.md: INSP-014 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/technology-assessment.md sha256=e782211b34234cb44609c4b90822dda0aa53a4cf70dffa4459fd0674b9c00082"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 68,
+        "minutes": 80
+      },
+      "unit": "count, min",
+      "scope": "docs/decisions/trade-studies/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "front matter of docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md: INSP-013 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md sha256=a9490d57fc0b116095e9c67726bcbfac9d19af9923d1ffcec130e1c9e25abe9d"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "not a 07 section 10.1 product (system product under the same procedure, 01 section 13). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-22",
+      "name": "Review effectiveness (review-found / all found)",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "ratio",
+      "scope": "all INSP records and NCRs",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "CDR (first gate with credited HostUnit runs, so test-found defects can occur; rule: below 0.6 at CDR triggers checklist revision)",
+      "note": "Numerator at this snapshot: 118 review-found findings over 10 records; test-found 0 and field-found 0 (docs/vv/ncr/ holds 0 NCRs; no credited test has run), so the ratio is 1 by construction and carries no information yet."
+    },
+    {
+      "id": "MSR-23",
+      "name": "Test counts: cases defined, Active, Passed, Failed, Blocked by class",
+      "state": "Measured",
+      "value": {
+        "SW-KEYER_HostUnit_Draft": 32,
+        "SW-KEYER_Bench_Draft": 8,
+        "SW-TOOL_Bench_Draft": 1,
+        "TC-SW-TOOL-001-r1_Blocked": 1
+      },
+      "unit": "count",
+      "scope": "software test case modules SW-<SUB> and SW-TOOL (docs/test_cases/sw-keyer/test_cases.json, docs/test_cases/sw-tool/test_cases.json)",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "count of test_cases[].type and .status in the named files; report result from the TC-SW-TOOL-001-r1 front matter",
+      "evidence": [
+        "docs/test_cases/sw-keyer/test_cases.json sha256=c756d1455691d24ee8fade125a96cfad9177b7b69615ca4641f440cba775449a",
+        "docs/test_cases/sw-tool/test_cases.json sha256=444f08efd7d944f6e0eaa9d45cd65b1a2b06f56154b7ec4dbd437b1fab61974a",
+        "docs/vv/reports/TC-SW-TOOL-001-r1.md sha256=be4c0749161e40b674339b2e384e5cf493c316892467f8560deb3d828b0ef219"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "Every case is Draft; the one run so far (TC-SW-TOOL-001-r1, credit false) is Blocked. Rule (all Active HostUnit and Emulation cases Passed) applies before TRR. All modules per tools/traceability.py: {\"Bench\": 96, \"HostUnit\": 32, \"Inspection\": 12, \"Simulation\": 27}. Snapshot of files being authored concurrently."
+    },
+    {
+      "id": "MSR-24",
+      "name": "Keyer element timing error and key-to-PA_EN latency (TPM-013)",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "µs",
+      "scope": "SW-KEYER",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "CDR (HostUnit on the mock clock; dev board credit false); TRR and SAR on CWHT-A-001",
+      "note": "No keyer code exists in FW-B0."
+    },
+    {
+      "id": "MSR-25",
+      "name": "Boot-to-safe-state time; off-nominal detection-to-PA_EN-low time (SWE-134 j)",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "ms",
+      "scope": "cwht-app and cwht-core",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "CDR (HostUnit detection-to-command path); TRR (Bench logic capture)",
+      "note": "No safe-state code exists in FW-B0."
+    },
+    {
+      "id": "MSR-26",
+      "name": "Worst-case main-loop time, 1 ms tick overruns and worst-case handler duration",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "µs, count",
+      "scope": "SW-SCHED, cwht-app",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "CDR (HostUnit overrun logic; dev board credit false); TRR on CWHT-A-001",
+      "note": "No scheduler exists in FW-B0."
+    },
+    {
+      "id": "MSR-27",
+      "name": "NCRs opened and closed by severity, software-attributed",
+      "state": "Measured",
+      "value": {
+        "opened": 0,
+        "closed": 0,
+        "open_S1": 0,
+        "open_S2": 0
+      },
+      "unit": "count",
+      "scope": "docs/vv/ncr/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "listing of docs/vv/ncr/NCR-*.md",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1.md sha256=be4c0749161e40b674339b2e384e5cf493c316892467f8560deb3d828b0ef219"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Green",
+      "note": "docs/vv/ncr/ exists and is empty; the FW-B0 run opened none (report section 7). The evidence cited is the report that states it, because an empty folder has no hash."
+    },
+    {
+      "id": "MSR-28",
+      "name": "Build reproducibility: image hash of a clean rebuild equals the release hash",
+      "state": "Not yet measured",
+      "value": null,
+      "unit": "boolean",
+      "scope": "release images",
+      "build": "FW-B0 development build",
+      "commit": "28e49e6",
+      "date": "2026-09-25",
+      "source": "none (not yet collected)",
+      "credit": false,
+      "sprint": "FW-B0",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "due": "FW-B3 (first release candidate; tools/release.sh --rebuild-check)",
+      "note": "No release exists. Supporting only: two clean builds of the rustos blinky gave identical ELF SHA-256 (TC-SW-TOOL-001-r1 step 8)."
+    },
+    {
+      "id": "MSR-01",
+      "name": "Software requirements count by level and status",
+      "state": "Measured",
+      "value": {
+        "L2_software_Draft": 38
+      },
+      "unit": "count",
+      "scope": "software requirement modules SW and SW-<SUB> (present: SW-KEYER)",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": ".venv/bin/python tools/traceability.py --report-only, run 2026-09-26 (docs/vv/traceability.json measurements.MSR-01.software_by_status)",
+      "evidence": [
+        "docs/vv/traceability.json sha256=e796e0f6a3c62302b016531fda8e8ae22ea47bc709483661740afaa2cf734f16"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-01",
+        "scope": "software requirement modules SW and SW-<SUB> (present: SW-KEYER)",
+        "date": "2026-09-25"
+      },
+      "note": "Correction: the 2026-09-25 record cites docs/vv/traceability.json sha256=ab6d5345..., which equals neither the 28e49e6 blob nor any later file, so it cannot be re-derived (INSP-010 finding-4). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule); docs/vv/traceability.json is regenerated at every run, so the SRR package build re-appends this measure against the frozen copy docs/reviews/SRR/traceability.json (07 section 11.1). Rule (Draft count 0 at the baselining gate) applies at PDR for L2. All requirement modules at this snapshot: L1 {\"Closed\": 2, \"Draft\": 181}, L2 {\"Draft\": 54}; the only software module file is docs/requirements/sw/sw-keyer/requirements.json."
+    },
+    {
+      "id": "MSR-03",
+      "name": "Traceability gaps: requirements without parent, without verification case",
+      "state": "Measured",
+      "value": {
+        "requirements_without_parent": 0,
+        "software_requirements_without_verification_case": 0
+      },
+      "unit": "count",
+      "scope": "software requirement modules SW and SW-<SUB>",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": ".venv/bin/python tools/traceability.py --report-only, run 2026-09-26 (measurements.MSR-03)",
+      "evidence": [
+        "docs/vv/traceability.json sha256=e796e0f6a3c62302b016531fda8e8ae22ea47bc709483661740afaa2cf734f16"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-03",
+        "scope": "software requirement modules SW and SW-<SUB>",
+        "date": "2026-09-25"
+      },
+      "note": "Correction: the 2026-09-25 record cites docs/vv/traceability.json sha256=ab6d5345..., which equals neither the 28e49e6 blob nor any later file, so it cannot be re-derived (INSP-010 finding-4); and the 2026-09-25 record was assessed Green although two of the four sub-measures were not measured (INSP-010 finding-4). Partial scope: requirements without parent and software requirements without a verification case are measured (both 0); design units without @design and functions without @req are null in the source because the firmware tag scan (02 T-15) is a PDR and CDR tool task, so the rule 'Must be 0 at every gate' is not assessed until all four are measured. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule); re-appended at the SRR package build against docs/reviews/SRR/traceability.json."
+    },
+    {
+      "id": "MSR-04",
+      "name": "Open TBR count in software requirements",
+      "state": "Measured",
+      "value": 10,
+      "unit": "count",
+      "scope": "software requirement modules SW and SW-<SUB>",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": ".venv/bin/python tools/traceability.py --report-only, run 2026-09-26 (measurements.MSR-04.software_requirements)",
+      "evidence": [
+        "docs/vv/traceability.json sha256=e796e0f6a3c62302b016531fda8e8ae22ea47bc709483661740afaa2cf734f16"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-04",
+        "scope": "software requirement modules SW and SW-<SUB>",
+        "date": "2026-09-25"
+      },
+      "note": "Correction: the 2026-09-25 record cites docs/vv/traceability.json sha256=ab6d5345..., which equals neither the 28e49e6 blob nor any later file, so it cannot be re-derived (INSP-010 finding-4). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule); re-appended at the SRR package build against docs/reviews/SRR/traceability.json. Rule applies at PDR (L1) and CDR (L2, including the module files). All modules: 139 open TBRs."
+    },
+    {
+      "id": "MSR-06",
+      "name": "Planned versus completed increments and sprints (SWE-024)",
+      "state": "Measured",
+      "value": {
+        "increments_planned_by_SRR": 1,
+        "increments_completed": 0,
+        "sprints_planned": 0,
+        "sprints_closed": 0
+      },
+      "unit": "count",
+      "scope": "FW-B0 (the increment section 3.1 plans for SRR); docs/sprints/ (absent)",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "docs/vv/reports/TC-SW-TOOL-001-r1.md front matter result and section 9 verdict; docs/sprints/ does not exist",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1.md sha256=be4c0749161e40b674339b2e384e5cf493c316892467f8560deb3d828b0ef219"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Yellow",
+      "supersedes": {
+        "id": "MSR-06",
+        "scope": "FW-B0 (the increment section 3.1 plans for SRR); docs/sprints/ (absent)",
+        "date": "2026-09-25"
+      },
+      "note": "Correction of the 2026-09-25 note, which did not say working tree (INSP-010 finding-4); value and evidence unchanged. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). FW-B0 exit criterion (tools/sw_gate.sh exit 0, blinky flashed and observed) not met: run 1 result Blocked (gate exit 1 on G4 and G5 items outside the workspace; owner steps 11 and 12 pending). Slip reported as SRR package item H12, with the planned actions of the report section 9 (owner-approved downloads, rustos manifest work item, four scripts)."
+    },
+    {
+      "id": "MSR-23",
+      "name": "Test counts: cases defined, Active, Passed, Failed, Blocked by class",
+      "state": "Measured",
+      "value": {
+        "SW-KEYER_HostUnit_Draft": 35,
+        "SW-KEYER_Bench_Draft": 8,
+        "SW-TOOL_Bench_Draft": 1,
+        "TC-SW-TOOL-001-r1_Blocked": 1
+      },
+      "unit": "count",
+      "scope": "software test case modules SW-<SUB> and SW-TOOL (docs/test_cases/sw-keyer/test_cases.json, docs/test_cases/sw-tool/test_cases.json)",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "count of test_cases[].type and .status in the named files, 2026-09-26; report result from the TC-SW-TOOL-001-r1 front matter",
+      "evidence": [
+        "docs/test_cases/sw-keyer/test_cases.json sha256=26b52d61ac19aeb4e194222a58465516690195548c91ebef88a0aa94acb37c7f",
+        "docs/test_cases/sw-tool/test_cases.json sha256=444f08efd7d944f6e0eaa9d45cd65b1a2b06f56154b7ec4dbd437b1fab61974a",
+        "docs/vv/reports/TC-SW-TOOL-001-r1.md sha256=be4c0749161e40b674339b2e384e5cf493c316892467f8560deb3d828b0ef219"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-23",
+        "scope": "software test case modules SW-<SUB> and SW-TOOL (docs/test_cases/sw-keyer/test_cases.json, docs/test_cases/sw-tool/test_cases.json)",
+        "date": "2026-09-25"
+      },
+      "note": "Correction: the 2026-09-25 record did not say working tree and its docs/test_cases/sw-keyer/test_cases.json hash no longer matches the file (INSP-010 finding-4); re-counted. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Every case is Draft; the one run so far (TC-SW-TOOL-001-r1, credit false) is Blocked. Rule (all Active HostUnit and Emulation cases Passed) applies before TRR. All modules per tools/traceability.py: {\"Bench\": 96, \"HostUnit\": 35, \"Inspection\": 12, \"Simulation\": 27}."
+    },
+    {
+      "id": "MSR-27",
+      "name": "NCRs opened and closed by severity, software-attributed",
+      "state": "Measured",
+      "value": {
+        "opened": 0,
+        "closed": 0,
+        "open_S1": 0,
+        "open_S2": 0
+      },
+      "unit": "count",
+      "scope": "docs/vv/ncr/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "listing of docs/vv/ncr/NCR-*.md",
+      "evidence": [
+        "docs/vv/reports/TC-SW-TOOL-001-r1.md sha256=be4c0749161e40b674339b2e384e5cf493c316892467f8560deb3d828b0ef219"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Green",
+      "supersedes": {
+        "id": "MSR-27",
+        "scope": "docs/vv/ncr/",
+        "date": "2026-09-25"
+      },
+      "note": "Correction of the 2026-09-25 note, which did not say working tree (INSP-010 finding-4); value and evidence unchanged. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). docs/vv/ncr/ exists and is empty; the FW-B0 run opened none (report section 7). The evidence cited is the report that states it, because an empty folder has no hash."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 10,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 2,
+        "fixed": 0,
+        "verified": 10,
+        "deferred": 0,
+        "items_no": 2
+      },
+      "unit": "count",
+      "scope": "INSP-001 docs/requirements/l0-stakeholder/expectations.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/expectations.md: INSP-001 (peer-review-checklist-requirements revision C, iteration 2, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/expectations.md sha256=35d891dab2ae36bbdba9a34fe5036bd753614cfc61b3207b618fcd55cfea33be"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "docs/requirements/l0-stakeholder/expectations.json",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 60,
+        "minutes": 75
+      },
+      "unit": "count, min",
+      "scope": "INSP-001 docs/requirements/l0-stakeholder/expectations.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/expectations.md: INSP-001 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/expectations.md sha256=35d891dab2ae36bbdba9a34fe5036bd753614cfc61b3207b618fcd55cfea33be"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "docs/requirements/l0-stakeholder/expectations.json",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 4,
+        "minor": 15,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 2,
+        "fixed": 0,
+        "verified": 16,
+        "deferred": 0,
+        "items_no": 4
+      },
+      "unit": "count",
+      "scope": "INSP-002 docs/conops/conops.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/conops-and-concept.md: INSP-002 (peer-review-checklist-design revision B, iteration 2, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/conops-and-concept.md sha256=50a51c5ae5c7495abb3bb8fdbacbe6d238efdd6c2ac4649fd1babf18e4dd5081"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "docs/conops/conops.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 58,
+        "minutes": 95
+      },
+      "unit": "count, min",
+      "scope": "INSP-002 docs/conops/conops.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/conops-and-concept.md: INSP-002 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/conops-and-concept.md sha256=50a51c5ae5c7495abb3bb8fdbacbe6d238efdd6c2ac4649fd1babf18e4dd5081"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "docs/conops/conops.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 9,
+        "minor": 13,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 22,
+        "fixed": 0,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 19
+      },
+      "unit": "count",
+      "scope": "INSP-003 docs/requirements/sys/requirements.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/requirements-sys.md: INSP-003 (peer-review-checklist-requirements revision C, iteration 1, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/requirements-sys.md sha256=16d2878f786549dddd155b68526335a1f0b08af24b11c4758432cb6e1c54b35e"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 62,
+        "minutes": 80
+      },
+      "unit": "count, min",
+      "scope": "INSP-003 docs/requirements/sys/requirements.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/requirements-sys.md: INSP-003 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/requirements-sys.md sha256=16d2878f786549dddd155b68526335a1f0b08af24b11c4758432cb6e1c54b35e"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 4,
+        "minor": 11,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 15,
+        "fixed": 0,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 20
+      },
+      "unit": "count",
+      "scope": "INSP-004 docs/requirements/tx/requirements.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/requirements-tx-and-sw-keyer.md: INSP-004 (peer-review-checklist-requirements revision C, iteration 1, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict pending, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/requirements-tx-and-sw-keyer.md sha256=61b431da5f2e70843290687c952e21005e18688fd68f38802aa57e7cc13e311b"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row a for its SW-KEYER part (docs/requirements/sw/sw-keyer/requirements.json, a safety-critical module file, section 2.1.1); the TX part is a system product under the same procedure. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 48,
+        "minutes": 75
+      },
+      "unit": "count, min",
+      "scope": "INSP-004 docs/requirements/tx/requirements.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/requirements-tx-and-sw-keyer.md: INSP-004 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/requirements-tx-and-sw-keyer.md sha256=61b431da5f2e70843290687c952e21005e18688fd68f38802aa57e7cc13e311b"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row a for its SW-KEYER part (docs/requirements/sw/sw-keyer/requirements.json, a safety-critical module file, section 2.1.1); the TX part is a system product under the same procedure. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 1,
+        "minor": 8,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 0,
+        "fixed": 0,
+        "verified": 9,
+        "deferred": 0,
+        "items_no": 4
+      },
+      "unit": "count",
+      "scope": "INSP-005 docs/plan/semp.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/semp.md: INSP-005 (peer-review-checklist-requirements revision C, iteration 2, verdict APPROVED, reviewer_verdict APPROVED, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/semp.md sha256=20da8038bb4beb95b3b1487d74b11580d409dba91d26d1d29db2c8b0e999c363"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "docs/plan/semp.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 75,
+        "minutes": 75
+      },
+      "unit": "count, min",
+      "scope": "INSP-005 docs/plan/semp.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/semp.md: INSP-005 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/semp.md sha256=20da8038bb4beb95b3b1487d74b11580d409dba91d26d1d29db2c8b0e999c363"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "docs/plan/semp.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 7,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 1,
+        "fixed": 8,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 5
+      },
+      "unit": "count",
+      "scope": "INSP-006 docs/process/05-configuration-and-data-management.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/cm-plan-05.md: INSP-006 (peer-review-checklist-requirements revision C, iteration 2, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/cm-plan-05.md sha256=9c0832cca02d5ba4a5c483fb3432b6f8cd71b2c3fcacf9286054ea01abd3b4b7"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "docs/process/05-configuration-and-data-management.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. 07 section 10.1 row b (software plan: the software CM plan, NPR 7150.2D 6.1 item d). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 57,
+        "minutes": 55
+      },
+      "unit": "count, min",
+      "scope": "INSP-006 docs/process/05-configuration-and-data-management.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/cm-plan-05.md: INSP-006 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/cm-plan-05.md sha256=9c0832cca02d5ba4a5c483fb3432b6f8cd71b2c3fcacf9286054ea01abd3b4b7"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "docs/process/05-configuration-and-data-management.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. 07 section 10.1 row b (software plan: the software CM plan, NPR 7150.2D 6.1 item d). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 4,
+        "minor": 12,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 2,
+        "fixed": 14,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 2
+      },
+      "unit": "count",
+      "scope": "INSP-007 docs/risk/register.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/risk-register-06.md: INSP-007 (peer-review-checklist-risk revision A, iteration 2, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/risk-register-06.md sha256=fef88edc382ecf56d483da7b0a2f81e068abe4858bdb6714c21115a103ac7016"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "docs/risk/register.json",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3) and corrected: the record changed after the 2026-09-25 snapshot (INSP-018 finding-4). The front matter carries no assurance_findings_major or assurance_findings_minor (assurance_required false), recorded as 0. 07 section 10.1 row b for its plan 06 part (a docs/process document); the register is a system product under the same procedure. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 72,
+        "minutes": 110
+      },
+      "unit": "count, min",
+      "scope": "INSP-007 docs/risk/register.json",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/risk-register-06.md: INSP-007 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/risk-register-06.md sha256=fef88edc382ecf56d483da7b0a2f81e068abe4858bdb6714c21115a103ac7016"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "docs/risk/register.json",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3) and corrected: the record changed after the 2026-09-25 snapshot (INSP-018 finding-4). 07 section 10.1 row b for its plan 06 part (a docs/process document); the register is a system product under the same procedure. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 3,
+        "minor": 12,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 3,
+        "fixed": 0,
+        "verified": 12,
+        "deferred": 0,
+        "items_no": 3
+      },
+      "unit": "count",
+      "scope": "INSP-008 docs/safety/hazard-analysis.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/hazard-analysis.md: INSP-008 (peer-review-checklist-safety revision A, iteration 2, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/hazard-analysis.md sha256=bbc21ca08c00d197b41a6d6be0b3f79737d392e63ad7fdd6a3fe19c0a8942493"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "docs/safety/hazard-analysis.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3) and corrected: the record changed after the 2026-09-25 snapshot (INSP-018 finding-4). The front matter carries no assurance_findings_major or assurance_findings_minor (assurance_required false), recorded as 0. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 74,
+        "minutes": 90
+      },
+      "unit": "count, min",
+      "scope": "INSP-008 docs/safety/hazard-analysis.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/hazard-analysis.md: INSP-008 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/hazard-analysis.md sha256=bbc21ca08c00d197b41a6d6be0b3f79737d392e63ad7fdd6a3fe19c0a8942493"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "docs/safety/hazard-analysis.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3) and corrected: the record changed after the 2026-09-25 snapshot (INSP-018 finding-4). not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 1,
+        "minor": 5,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 6,
+        "fixed": 0,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 6
+      },
+      "unit": "count",
+      "scope": "INSP-009 docs/process/03-software-classification-and-rmm.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm.md: INSP-009 (peer-review-checklist-classification revision A, iteration 1, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict pending, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm.md sha256=8313a99cad77ce0e3439e0fc3e90671a5bb7a28b12da9de9c1cce9682b37bbf8"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row b (software plan: 03, the SWE-205 determination and the RMM); file review paired with the assurance record INSP-017. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 38,
+        "minutes": 55
+      },
+      "unit": "count, min",
+      "scope": "INSP-009 docs/process/03-software-classification-and-rmm.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm.md: INSP-009 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm.md sha256=8313a99cad77ce0e3439e0fc3e90671a5bb7a28b12da9de9c1cce9682b37bbf8"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row b (software plan: 03, the SWE-205 determination and the RMM); file review paired with the assurance record INSP-017. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 11,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 13,
+        "fixed": 0,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 6
+      },
+      "unit": "count",
+      "scope": "INSP-010 docs/process/07-software-engineering-plan.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/software-plan-07.md: INSP-010 (peer-review-checklist-requirements revision C, iteration 1, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict pending, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/software-plan-07.md sha256=bcf1a4c12461ccada75325d77d1b20e7d16f9ac6755eb15f05886886cac50cc7"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row b (software plan: this plan, 6.1 items a, k and l); file review paired with the assurance record INSP-018. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 42,
+        "minutes": 55
+      },
+      "unit": "count, min",
+      "scope": "INSP-010 docs/process/07-software-engineering-plan.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/software-plan-07.md: INSP-010 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/software-plan-07.md sha256=bcf1a4c12461ccada75325d77d1b20e7d16f9ac6755eb15f05886886cac50cc7"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row b (software plan: this plan, 6.1 items a, k and l); file review paired with the assurance record INSP-018. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 4,
+        "minor": 7,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 10,
+        "fixed": 0,
+        "verified": 1,
+        "deferred": 0,
+        "items_no": 4
+      },
+      "unit": "count",
+      "scope": "INSP-011 docs/decisions/adr/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/adrs-001-to-025.md: INSP-011 (peer-review-checklist-design revision B, iteration 2, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/adrs-001-to-025.md sha256=f3b96168d6f695fc8ac432f43c89255d37dc569ad9bc2db20e0e2bf64b2f1959"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "docs/decisions/adr/",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 75,
+        "minutes": 95
+      },
+      "unit": "count, min",
+      "scope": "INSP-011 docs/decisions/adr/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/adrs-001-to-025.md: INSP-011 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/adrs-001-to-025.md sha256=f3b96168d6f695fc8ac432f43c89255d37dc569ad9bc2db20e0e2bf64b2f1959"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "docs/decisions/adr/",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 0,
+        "minor": 9,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 1,
+        "fixed": 0,
+        "verified": 8,
+        "deferred": 0,
+        "items_no": 1
+      },
+      "unit": "count",
+      "scope": "INSP-012 docs/icd/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/icd-stubs-external.md: INSP-012 (peer-review-checklist-design revision B, iteration 2, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/icd-stubs-external.md sha256=af64899715ffec63facc8fee5d2c36068281906ccbca63c73b42ac263f8cde86"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 62,
+        "minutes": 80
+      },
+      "unit": "count, min",
+      "scope": "INSP-012 docs/icd/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/icd-stubs-external.md: INSP-012 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/icd-stubs-external.md sha256=af64899715ffec63facc8fee5d2c36068281906ccbca63c73b42ac263f8cde86"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 8,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 0,
+        "fixed": 0,
+        "verified": 10,
+        "deferred": 0,
+        "items_no": 0
+      },
+      "unit": "count",
+      "scope": "INSP-013 docs/decisions/trade-studies/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md: INSP-013 (peer-review-checklist-design revision B, iteration 2, verdict APPROVED, reviewer_verdict APPROVED, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md sha256=a9490d57fc0b116095e9c67726bcbfac9d19af9923d1ffcec130e1c9e25abe9d"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "docs/decisions/trade-studies/",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. 07 section 10.1 row b for its TS-002 part (the 6.1 item t make/buy record, section 2.1.1); TS-001 is a system product under the same procedure. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 68,
+        "minutes": 80
+      },
+      "unit": "count, min",
+      "scope": "INSP-013 docs/decisions/trade-studies/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md: INSP-013 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md sha256=a9490d57fc0b116095e9c67726bcbfac9d19af9923d1ffcec130e1c9e25abe9d"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "docs/decisions/trade-studies/",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. 07 section 10.1 row b for its TS-002 part (the 6.1 item t make/buy record, section 2.1.1); TS-001 is a system product under the same procedure. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 5,
+        "minor": 3,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 1,
+        "fixed": 0,
+        "verified": 7,
+        "deferred": 0,
+        "items_no": 2
+      },
+      "unit": "count",
+      "scope": "INSP-014 docs/plan/technology-assessment.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/technology-assessment.md: INSP-014 (peer-review-checklist-design revision B, iteration 2, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/technology-assessment.md sha256=e782211b34234cb44609c4b90822dda0aa53a4cf70dffa4459fd0674b9c00082"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "docs/plan/technology-assessment.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 54,
+        "minutes": 50
+      },
+      "unit": "count, min",
+      "scope": "INSP-014 docs/plan/technology-assessment.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/technology-assessment.md: INSP-014 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/technology-assessment.md sha256=e782211b34234cb44609c4b90822dda0aa53a4cf70dffa4459fd0674b9c00082"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "docs/plan/technology-assessment.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. not a 07 section 10.1 product (system product under the same procedure, 01 section 13). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 10,
+        "assurance_major": 0,
+        "assurance_minor": 0,
+        "open": 3,
+        "fixed": 9,
+        "verified": 9,
+        "deferred": 0,
+        "items_no": 10
+      },
+      "unit": "count",
+      "scope": "INSP-016 firmware/ (FW-B0 workspace), tools/sw_gate.sh, docs/test_cases/sw-tool/test_cases.json, docs/vv/reports/TC-SW-TOOL-001-r1.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md: INSP-016 (peer-review-checklist-code revision B, iteration 2, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict not-required, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md sha256=8646146a99abb8da907f892d2d81702090f191457ad1280bb5dd1311da24d38c"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-20",
+        "scope": "firmware/ (FW-B0 workspace), tools/sw_gate.sh, docs/test_cases/sw-tool/test_cases.json, docs/vv/reports/TC-SW-TOOL-001-r1.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. 07 section 10.1 rows d and e (FW-B0 code, gate script and test case). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 50,
+        "minutes": 75
+      },
+      "unit": "count, min",
+      "scope": "INSP-016 firmware/ (FW-B0 workspace), tools/sw_gate.sh, docs/test_cases/sw-tool/test_cases.json, docs/vv/reports/TC-SW-TOOL-001-r1.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md: INSP-016 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md sha256=8646146a99abb8da907f892d2d81702090f191457ad1280bb5dd1311da24d38c"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-21",
+        "scope": "firmware/ (FW-B0 workspace), tools/sw_gate.sh, docs/test_cases/sw-tool/test_cases.json, docs/vv/reports/TC-SW-TOOL-001-r1.md",
+        "date": "2026-09-25"
+      },
+      "note": "Re-keyed on the INSP id (07 section 11.1 key rule; INSP-018 finding-3); values unchanged from the 2026-09-25 record except the added assurance keys. 07 section 10.1 rows d and e (FW-B0 code, gate script and test case). working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 1,
+        "minor": 5,
+        "assurance_major": 1,
+        "assurance_minor": 5,
+        "open": 6,
+        "fixed": 0,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 11
+      },
+      "unit": "count",
+      "scope": "INSP-017 docs/process/03-software-classification-and-rmm.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm-software-assurance.md: INSP-017 (peer-review-checklist-classification revision A, iteration 1, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict NEEDS CHANGES, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm-software-assurance.md sha256=0bc4eba77d038686eeaefedfc37c5228faccf6b6be117cbed7e9fc3a9834ffef"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row b (software plan: 03); software assurance record paired with the file review INSP-009. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 42,
+        "minutes": 55
+      },
+      "unit": "count, min",
+      "scope": "INSP-017 docs/process/03-software-classification-and-rmm.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm-software-assurance.md: INSP-017 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm-software-assurance.md sha256=0bc4eba77d038686eeaefedfc37c5228faccf6b6be117cbed7e9fc3a9834ffef"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row b (software plan: 03); software assurance record paired with the file review INSP-009. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-20",
+      "name": "Peer review defects by severity and state per product, and checklist items answered No",
+      "state": "Measured",
+      "value": {
+        "major": 2,
+        "minor": 5,
+        "assurance_major": 2,
+        "assurance_minor": 5,
+        "open": 7,
+        "fixed": 0,
+        "verified": 0,
+        "deferred": 0,
+        "items_no": 14
+      },
+      "unit": "count",
+      "scope": "INSP-018 docs/process/07-software-engineering-plan.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/software-plan-07-software-assurance.md: INSP-018 (peer-review-checklist-requirements revision C, iteration 1, verdict NEEDS CHANGES, reviewer_verdict NEEDS CHANGES, assurance_verdict NEEDS CHANGES, record_status Open)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/software-plan-07-software-assurance.md sha256=9512f81e6d7cabaf03a9b796d3ad8ce936b282957ec80068835b6fbb19815eca"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row b (software plan: this plan); software assurance record paired with the file review INSP-010. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Rule (more than 5 Major findings in a module triggers a design re-review) applies to firmware modules from FW-B1."
+    },
+    {
+      "id": "MSR-21",
+      "name": "Peer review effort (agent turns, wall time)",
+      "state": "Measured",
+      "value": {
+        "turns": 44,
+        "minutes": 65
+      },
+      "unit": "count, min",
+      "scope": "INSP-018 docs/process/07-software-engineering-plan.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/software-plan-07-software-assurance.md: INSP-018 effort_turns and effort_minutes (cumulative over iterations)",
+      "evidence": [
+        "docs/reviews/SRR/checklists/software-plan-07-software-assurance.md sha256=9512f81e6d7cabaf03a9b796d3ad8ce936b282957ec80068835b6fbb19815eca"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "First roll-up of this record (INSP-018 finding-4). 07 section 10.1 row b (software plan: this plan); software assurance record paired with the file review INSP-010. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule). Trend measure, no threshold."
+    },
+    {
+      "id": "MSR-05",
+      "name": "Sprint iterations to APPROVED per file",
+      "state": "Measured",
+      "value": 2,
+      "unit": "count",
+      "scope": "INSP-005 docs/plan/semp.md",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/semp.md: INSP-005 iteration and verdict",
+      "evidence": [
+        "docs/reviews/SRR/checklists/semp.md sha256=20da8038bb4beb95b3b1487d74b11580d409dba91d26d1d29db2c8b0e999c363"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "supersedes": {
+        "id": "MSR-05",
+        "scope": "INSP records in docs/reviews/*/checklists/",
+        "date": "2026-09-25"
+      },
+      "note": "Correction of the 2026-09-25 Not yet measured record, whose note said no record had reached APPROVED: INSP-005 and INSP-013 already carried verdict APPROVED at iteration 2 with the hashes the seed's MSR-20 records name (INSP-010 finding-3). INSP-005 reached verdict APPROVED at iteration 2. The rule (mean above 2 for a sprint) applies per sprint from FW-B1; SRR-prep is not a sprint. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule)."
+    },
+    {
+      "id": "MSR-05",
+      "name": "Sprint iterations to APPROVED per file",
+      "state": "Measured",
+      "value": 2,
+      "unit": "count",
+      "scope": "INSP-013 docs/decisions/trade-studies/",
+      "build": "n/a",
+      "commit": "28e49e6",
+      "date": "2026-09-26",
+      "source": "front matter of docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md: INSP-013 iteration and verdict",
+      "evidence": [
+        "docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md sha256=a9490d57fc0b116095e9c67726bcbfac9d19af9923d1ffcec130e1c9e25abe9d"
+      ],
+      "credit": false,
+      "sprint": "SRR-prep",
+      "gate": "SRR",
+      "assessment": "Not assessed",
+      "note": "INSP-013 reached verdict APPROVED at iteration 2. The rule (mean above 2 for a sprint) applies per sprint from FW-B1; SRR-prep is not a sprint. working tree on HEAD 28e49e6 (evidence uncommitted at the measurement date; it is committed with this file per 07 section 11.1 evidence-preservation rule)."
+    }
+  ]
+}

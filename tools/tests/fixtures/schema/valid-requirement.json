@@ -1,0 +1,22 @@
+{
+  "module": "FIX",
+  "requirements": [
+    {
+      "id": "REQ-FIX-001",
+      "title": "Fixture requirement accepted by the schema",
+      "description": "The fixture shall report its state within 10 ms of a request.",
+      "rationale": "Known-answer input for the venv Python with jsonschema (tools/toolchain.lock.md section 1.1); every field is valid.",
+      "verification_method": "Test",
+      "status": "Draft",
+      "parent_id": null,
+      "tags": ["revA"],
+      "source_ids": ["SI-001"],
+      "tbr": {
+        "owner": "Claude",
+        "plan": "Fixture TBR with every required key",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    }
+  ]
+}

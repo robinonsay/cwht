@@ -1,0 +1,172 @@
+# Evidence transcript: venv Python 3.13.5 + jsonschema 4.26.0 sanity check (tools/toolchain.lock.md section 1.1; TV-001), 2026-09-25.
+# Runs 1 and 2 (23:34): case 'requirement' only (the first fixture), PASS, negative control FAIL as required.
+# Runs 3 and 4 (23:47:55): known-answers.json restructured into two cases and the 'keywords' case added (one seeded fault per keyword the repository schemas use); the 'requirement' case files are unchanged; PASS on the first run of the new case, negative control FAIL as required.
+# Procedure: python-jsonschema-2026-09-25.sh (this directory, the runs 3 and 4 version).
+
+######## RUN 1
+# venv Python + jsonschema sanity check, 2026-09-25 23:34:38 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+7b51417bbcd0d38fe99f5bf4de6ee8514f040123f8ce6419b0f9d61af99a70fd  requirements.schema.json
+12f542f1de0ea591eaeb0298dbd177cff5e403e1b09c97e892d2406639fd9483  valid-requirement.json
+555b02c5e8cc33d45ab98c5646fca7d325875e20ca54a95afb9f10f9a38baeb4  invalid-requirement.json
+a6d1c5efd4131ac02d6f29c478844b95e750e5887b0fac9136b68db84180afd7  known-answers.json
+$ cmp tools/tests/fixtures/schema/requirements.schema.json docs/requirements/schema.json
+identical (informative: the fixture copy still equals the repository schema)
+$ /Users/robinonsay/rust/cwht/.venv/bin/python --version
+Python 3.13.5
+$ /Users/robinonsay/rust/cwht/.venv/bin/python -m pip show jsonschema | head -2
+Name: jsonschema
+Version: 4.26.0
+## known-answer check (run in the fixture directory)
+$ cd tools/tests/fixtures/schema && /Users/robinonsay/rust/cwht/.venv/bin/python -c '<CHECK>'
+    CHECK = import json,sys,importlib.metadata as m,jsonschema as j
+    k=json.load(open("known-answers.json")); s=json.load(open(k["schema"])); V=j.validators.validator_for(s); V.check_schema(s); ok=V.__name__==k["validator_class"]
+    print("jsonschema", m.version("jsonschema"), V.__name__)
+    for c in ("valid","invalid"):
+        got=sorted(["/".join(map(str,e.absolute_path)),e.validator] for e in V(s).iter_errors(json.load(open(k[c]["file"]))))
+        print(c, k[c]["file"], got, "MATCH" if got==k[c]["errors"] else "MISMATCH"); ok=ok and got==k[c]["errors"]
+    print("PASS" if ok else "FAIL"); sys.exit(0 if ok else 1)
+jsonschema 4.26.0 Draft7Validator
+valid valid-requirement.json [] MATCH
+invalid invalid-requirement.json [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MATCH
+PASS
+exit=0
+## negative control: temporary copy with seeded fault 1 removed (must FAIL)
+jsonschema 4.26.0 Draft7Validator
+valid valid-requirement.json [] MATCH
+invalid invalid-requirement.json [['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MISMATCH
+FAIL
+exit=1 (expected 1)
+
+######## RUN 2
+# venv Python + jsonschema sanity check, 2026-09-25 23:34:39 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+7b51417bbcd0d38fe99f5bf4de6ee8514f040123f8ce6419b0f9d61af99a70fd  requirements.schema.json
+12f542f1de0ea591eaeb0298dbd177cff5e403e1b09c97e892d2406639fd9483  valid-requirement.json
+555b02c5e8cc33d45ab98c5646fca7d325875e20ca54a95afb9f10f9a38baeb4  invalid-requirement.json
+a6d1c5efd4131ac02d6f29c478844b95e750e5887b0fac9136b68db84180afd7  known-answers.json
+$ cmp tools/tests/fixtures/schema/requirements.schema.json docs/requirements/schema.json
+identical (informative: the fixture copy still equals the repository schema)
+$ /Users/robinonsay/rust/cwht/.venv/bin/python --version
+Python 3.13.5
+$ /Users/robinonsay/rust/cwht/.venv/bin/python -m pip show jsonschema | head -2
+Name: jsonschema
+Version: 4.26.0
+## known-answer check (run in the fixture directory)
+$ cd tools/tests/fixtures/schema && /Users/robinonsay/rust/cwht/.venv/bin/python -c '<CHECK>'
+    CHECK = import json,sys,importlib.metadata as m,jsonschema as j
+    k=json.load(open("known-answers.json")); s=json.load(open(k["schema"])); V=j.validators.validator_for(s); V.check_schema(s); ok=V.__name__==k["validator_class"]
+    print("jsonschema", m.version("jsonschema"), V.__name__)
+    for c in ("valid","invalid"):
+        got=sorted(["/".join(map(str,e.absolute_path)),e.validator] for e in V(s).iter_errors(json.load(open(k[c]["file"]))))
+        print(c, k[c]["file"], got, "MATCH" if got==k[c]["errors"] else "MISMATCH"); ok=ok and got==k[c]["errors"]
+    print("PASS" if ok else "FAIL"); sys.exit(0 if ok else 1)
+jsonschema 4.26.0 Draft7Validator
+valid valid-requirement.json [] MATCH
+invalid invalid-requirement.json [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MATCH
+PASS
+exit=0
+## negative control: temporary copy with seeded fault 1 removed (must FAIL)
+jsonschema 4.26.0 Draft7Validator
+valid valid-requirement.json [] MATCH
+invalid invalid-requirement.json [['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MISMATCH
+FAIL
+exit=1 (expected 1)
+
+######## RUN 3
+# venv Python + jsonschema sanity check, 2026-09-25 23:47:55 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+555b02c5e8cc33d45ab98c5646fca7d325875e20ca54a95afb9f10f9a38baeb4  invalid-requirement.json
+441de5dfd29bc8dc9288352b7e87dcc06140da8fce6393ee3dc1394704dff539  keywords-invalid.json
+8322222aa25c8593174a87f067c5679e2ca720ee283a4ba4b64fabe942c18d5d  keywords-valid.json
+b328797df62129b0431aed7cf0929341dbce2edd2512630153c36df085797947  keywords.schema.json
+d18ffbd1b9c33d32fead771cb02aae5a1ab8ca28bec026f4f6912b081f731080  known-answers.json
+7b51417bbcd0d38fe99f5bf4de6ee8514f040123f8ce6419b0f9d61af99a70fd  requirements.schema.json
+12f542f1de0ea591eaeb0298dbd177cff5e403e1b09c97e892d2406639fd9483  valid-requirement.json
+$ cmp tools/tests/fixtures/schema/requirements.schema.json docs/requirements/schema.json
+identical (informative: the fixture copy still equals the repository schema)
+$ /Users/robinonsay/rust/cwht/.venv/bin/python --version
+Python 3.13.5
+$ /Users/robinonsay/rust/cwht/.venv/bin/python -m pip show jsonschema | head -2
+Name: jsonschema
+Version: 4.26.0
+## known-answer check (run in the fixture directory)
+$ cd tools/tests/fixtures/schema && /Users/robinonsay/rust/cwht/.venv/bin/python -c '<CHECK>'
+    CHECK = import json,sys,importlib.metadata as m,jsonschema as j
+    k=json.load(open("known-answers.json")); ok=True
+    print("jsonschema", m.version("jsonschema"))
+    for case in k["cases"]:
+        s=json.load(open(case["schema"])); V=j.validators.validator_for(s); V.check_schema(s); ok=ok and V.__name__==case["validator_class"]
+        print("case", case["name"], case["schema"], V.__name__)
+        for c in ("valid","invalid"):
+            got=sorted(["/".join(map(str,e.absolute_path)),e.validator] for e in V(s).iter_errors(json.load(open(case[c]["file"])))); exp=sorted(case[c]["errors"])
+            print(" ", c, case[c]["file"], len(got), "errors", got, "MATCH" if got==exp else "MISMATCH, expected "+str(exp)); ok=ok and got==exp
+    print("PASS" if ok else "FAIL"); sys.exit(0 if ok else 1)
+jsonschema 4.26.0
+case requirement requirements.schema.json Draft7Validator
+  valid valid-requirement.json 0 errors [] MATCH
+  invalid invalid-requirement.json 4 errors [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MATCH
+case keywords keywords.schema.json Draft7Validator
+  valid keywords-valid.json 0 errors [] MATCH
+  invalid keywords-invalid.json 18 errors [['entries/0/id', 'pattern'], ['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']] MATCH
+PASS
+exit=0
+## negative control: temporary copy with seeded fault 1 of each case removed (must FAIL)
+jsonschema 4.26.0
+case requirement requirements.schema.json Draft7Validator
+  valid valid-requirement.json 0 errors [] MATCH
+  invalid invalid-requirement.json 3 errors [['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MISMATCH, expected [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']]
+case keywords keywords.schema.json Draft7Validator
+  valid keywords-valid.json 0 errors [] MATCH
+  invalid keywords-invalid.json 17 errors [['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']] MISMATCH, expected [['entries/0/id', 'pattern'], ['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']]
+FAIL
+exit=1 (expected 1)
+
+######## RUN 4
+# venv Python + jsonschema sanity check, 2026-09-25 23:47:55 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+555b02c5e8cc33d45ab98c5646fca7d325875e20ca54a95afb9f10f9a38baeb4  invalid-requirement.json
+441de5dfd29bc8dc9288352b7e87dcc06140da8fce6393ee3dc1394704dff539  keywords-invalid.json
+8322222aa25c8593174a87f067c5679e2ca720ee283a4ba4b64fabe942c18d5d  keywords-valid.json
+b328797df62129b0431aed7cf0929341dbce2edd2512630153c36df085797947  keywords.schema.json
+d18ffbd1b9c33d32fead771cb02aae5a1ab8ca28bec026f4f6912b081f731080  known-answers.json
+7b51417bbcd0d38fe99f5bf4de6ee8514f040123f8ce6419b0f9d61af99a70fd  requirements.schema.json
+12f542f1de0ea591eaeb0298dbd177cff5e403e1b09c97e892d2406639fd9483  valid-requirement.json
+$ cmp tools/tests/fixtures/schema/requirements.schema.json docs/requirements/schema.json
+identical (informative: the fixture copy still equals the repository schema)
+$ /Users/robinonsay/rust/cwht/.venv/bin/python --version
+Python 3.13.5
+$ /Users/robinonsay/rust/cwht/.venv/bin/python -m pip show jsonschema | head -2
+Name: jsonschema
+Version: 4.26.0
+## known-answer check (run in the fixture directory)
+$ cd tools/tests/fixtures/schema && /Users/robinonsay/rust/cwht/.venv/bin/python -c '<CHECK>'
+    CHECK = import json,sys,importlib.metadata as m,jsonschema as j
+    k=json.load(open("known-answers.json")); ok=True
+    print("jsonschema", m.version("jsonschema"))
+    for case in k["cases"]:
+        s=json.load(open(case["schema"])); V=j.validators.validator_for(s); V.check_schema(s); ok=ok and V.__name__==case["validator_class"]
+        print("case", case["name"], case["schema"], V.__name__)
+        for c in ("valid","invalid"):
+            got=sorted(["/".join(map(str,e.absolute_path)),e.validator] for e in V(s).iter_errors(json.load(open(case[c]["file"])))); exp=sorted(case[c]["errors"])
+            print(" ", c, case[c]["file"], len(got), "errors", got, "MATCH" if got==exp else "MISMATCH, expected "+str(exp)); ok=ok and got==exp
+    print("PASS" if ok else "FAIL"); sys.exit(0 if ok else 1)
+jsonschema 4.26.0
+case requirement requirements.schema.json Draft7Validator
+  valid valid-requirement.json 0 errors [] MATCH
+  invalid invalid-requirement.json 4 errors [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MATCH
+case keywords keywords.schema.json Draft7Validator
+  valid keywords-valid.json 0 errors [] MATCH
+  invalid keywords-invalid.json 18 errors [['entries/0/id', 'pattern'], ['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']] MATCH
+PASS
+exit=0
+## negative control: temporary copy with seeded fault 1 of each case removed (must FAIL)
+jsonschema 4.26.0
+case requirement requirements.schema.json Draft7Validator
+  valid valid-requirement.json 0 errors [] MATCH
+  invalid invalid-requirement.json 3 errors [['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MISMATCH, expected [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']]
+case keywords keywords.schema.json Draft7Validator
+  valid keywords-valid.json 0 errors [] MATCH
+  invalid keywords-invalid.json 17 errors [['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']] MISMATCH, expected [['entries/0/id', 'pattern'], ['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']]
+FAIL
+exit=1 (expected 1)

@@ -1,0 +1,10 @@
+{
+  "module": "SYS",
+  "requirements": [
+    {"id": "REQ-SYS-001", "title": "Carrier range", "description": "The transceiver shall transmit between 144.001 and 147.999 MHz.", "rationale": "Fixture.", "verification_method": "Test", "status": "Draft", "priority": "KDR", "tbr": {"owner": "Robin", "plan": "Fixture plan", "close_by": "PDR"}},
+    {"id": "REQ-SYS-002", "title": "Carrier stability", "description": "The transceiver shall hold the carrier within 2.5 ppm.", "rationale": "Fixture.", "verification_method": "Analysis", "status": "Draft"},
+    {"id": "REQ-SYS-003", "title": "Retired bandwidth", "description": "The transceiver shall occupy at most 150 Hz.", "rationale": "Retired by INSP-001: fixture.", "verification_method": "Test", "status": "Closed", "tags": ["retired"]},
+    {"id": "REQ-SYS-004", "title": "Receiver sensitivity", "description": "The receiver shall detect -140 dBm in 500 Hz.", "rationale": "Fixture.", "verification_method": "Inspection", "status": "Draft", "priority": "KDR"},
+    {"id": "REQ-SYS-005", "title": "Receiver demonstration", "description": "The receiver shall copy a CW signal on air.", "rationale": "Fixture.", "verification_method": "Demonstration", "status": "Draft"}
+  ]
+}

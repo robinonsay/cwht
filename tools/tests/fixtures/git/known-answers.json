@@ -1,0 +1,13 @@
+{
+  "description": "Known answers for tools/tests/test_git_known_answer.py (tools/toolchain.lock.md section 1.1, git row). hello.txt is hashed as a git blob; the temporary repository commits it alone with the fixed identity and dates below, which fixes the tree and commit hashes. Computed 2026-09-25 with git 2.50.1 (Apple Git-155) and cross-checked for the blob by SHA-1 of 'blob <size>\\0<content>' in Python.",
+  "file": "hello.txt",
+  "blob_sha1": "d184c9289729acfe155b2ec99b566eba8063e0ba",
+  "tree_sha1": "bf3b5c844f9a90e68baee93aa79dba453ac531ab",
+  "commit_sha1": "779d21e2b520a0b8dd6c60b7106cd68d84645bb9",
+  "commit": {
+    "message": "known answer",
+    "name": "cwht-kat",
+    "email": "kat@cwht.invalid",
+    "date": "2026-09-25T00:00:00+0000"
+  }
+}

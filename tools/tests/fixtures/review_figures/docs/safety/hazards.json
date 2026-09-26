@@ -1,0 +1,15 @@
+{
+  "version": "0.1.0-fixture",
+  "scales": {
+    "risk_matrix": {
+      "Catastrophic": {"A": "High", "B": "High", "C": "High", "D": "Serious", "E": "Medium"},
+      "Critical": {"A": "High", "B": "High", "C": "Serious", "D": "Medium", "E": "Low"},
+      "Marginal": {"A": "Serious", "B": "Serious", "C": "Medium", "D": "Low", "E": "Low"},
+      "Negligible": {"A": "Medium", "B": "Medium", "C": "Low", "D": "Low", "E": "Low"}
+    }
+  },
+  "hazards": [
+    {"id": "HZ-001", "severity": "Catastrophic", "likelihood": "B", "initial_risk": "High", "residual_risk": {"severity": "Catastrophic", "likelihood": "D", "level": "Serious"}},
+    {"id": "HZ-002", "severity": "Marginal", "likelihood": "C", "initial_risk": "Medium", "residual_risk": {"severity": "Marginal", "likelihood": "E", "level": "Low"}}
+  ]
+}

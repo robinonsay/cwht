@@ -1,0 +1,8 @@
+* rc-seeded-error.net: rc-lowpass netlist with a seeded second analysis (tools/tests/fixtures/ltspice/known-answers.json)
+V1 in 0 AC 1
+R1 in out 1k
+C1 out 0 159.155n
+.ac dec 100 10 100k
+.tran 10m
+.meas AC f3db WHEN mag(V(out))=1/sqrt(2)
+.end

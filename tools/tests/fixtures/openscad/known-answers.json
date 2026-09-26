@@ -1,0 +1,33 @@
+{
+  "description": "Known answers for the OpenSCAD 2021.01 + FreeCAD 1.1.3 sanity check (tools/toolchain.lock.md section 1.1; CM plan section 9.2 table; TV due PDR, shared). cube.scad is a 30 x 20 x 10 mm block minus a 6 mm diameter through hole ($fn = 64) on the vertical axis at (15, 10). Expected values were derived by hand from that geometry before the first run: analytic volume 30 x 20 x 10 - pi x 3^2 x 10 = 5717.257 mm^3 (a 64-sided prism would give 5717.711 mm^3; the two differ by 0.008 %, so the face types, not the volume, show whether FreeCAD made a true cylinder). The STEP step uses the listing of docs/research/enclosure-cnc-and-openscad-pipeline.md step 3 until tools/scad2step.py is committed (CM plan section 8.2 step 3; ADR-008); a run with the listing is developer evidence for freecadcmd, not the known-answer test of tools/scad2step.py.",
+  "openscad_version": "OpenSCAD version 2021.01",
+  "freecad_version": "1.1.3",
+  "csg_export": {
+    "command": "/Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD -o cube.csg cube.scad",
+    "exit": 0,
+    "must_contain": ["difference() {", "cube(size = [30, 20, 10], center = false);", "cylinder($fn = 64, $fa = 12, $fs = 2, h = 12, r1 = 3, r2 = 3, center = false);"]
+  },
+  "png_render": {
+    "command": "/Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD --render --imgsize=800,600 --viewall --autocenter -o cube.png cube.scad",
+    "exit": 0,
+    "size_px": [800, 600],
+    "inspection": "the render is opened and inspected: a rectangular block with one round through hole"
+  },
+  "step_rejected_by_openscad": {
+    "command": "/Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD -o cube.step cube.scad",
+    "expected": "non-zero exit and no cube.step written (OpenSCAD 2021.01 cannot export STEP; CM plan section 8.2 step 3)"
+  },
+  "step_export": {
+    "command": "CWHT_CSG=cube.csg CWHT_STEP=cube.step /Applications/FreeCAD.app/Contents/Resources/bin/freecadcmd <research step 3 listing>",
+    "solids": 1,
+    "valid": true,
+    "bspline_faces": 0,
+    "faces": 7,
+    "cylindrical_faces": 1,
+    "volume_mm3": 5717.257,
+    "volume_tolerance_fraction": 0.005,
+    "bounding_box_mm": {"x": [0.0, 30.0], "y": [0.0, 20.0], "z": [0.0, 10.0]},
+    "bounding_box_tolerance_mm": 0.01,
+    "measurement": "solid count, validity, face types and volume printed by freecadcmd from the exported shape; bounding box measured independently of FreeCAD from the CARTESIAN_POINT entities referenced by VERTEX_POINT entities of cube.step"
+  }
+}

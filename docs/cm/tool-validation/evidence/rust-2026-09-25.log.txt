@@ -1,0 +1,255 @@
+# Evidence transcript: rustc 1.98.0 / cargo 1.98.0 / clippy 0.1.98 sanity check (tools/toolchain.lock.md section 1.1), 2026-09-25.
+# Run 1: PASS with no stored ELF hash (the regression value was recorded from it: 3201d382...df7d). Run 2: PASS against the stored value; known-answers.json changed only in elf_sha256 between the runs.
+# Procedure: rust-2026-09-25.sh (this directory).
+
+######## RUN 1
+# rustc/cargo/clippy sanity check, 2026-09-25 23:28:46 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+59e2571237b7ced2c4850cc4fab3cbf3e5c7f50f7880491fafad73b0c515b079  ./kat-host/Cargo.lock
+2902926b418918db5bf9cfb0b35e9b6c1831c64ce34689aa1bc5ceb391db81e1  ./kat-host/Cargo.toml
+555f48b388ad3e8e7697618ff7c8b9038654b083d421351eb6fcc885954896c2  ./kat-host/clippy.toml
+d10f0df6b05a2663fe101a50fc6a5578721fb8e056ea253c9eb473a9a7d75a45  ./kat-host/src/lib.rs
+0d23b65df442741f2a5873b50817407a6a8f43ba192de6a136bd340af4c42e78  ./kat-target/.cargo/config.toml
+e39f23be2b4e47b2d462eadcd473446211576389c7ffdb6a4028e6eb09091297  ./kat-target/Cargo.lock
+ccdb9192888ddba0e582fadc9e3657501a7e4c021b9141510dcac31a4a9d9214  ./kat-target/Cargo.toml
+ec5e21e3530c3a8ae200a89c0b0d1ae12ba003aa5bcd47b709bbe1bbec6f3b21  ./kat-target/build.rs
+c4a07fb5b9f5033f3b57d9880cc39b9cca8bd0aa6b572574d79dcc4e0f0de451  ./kat-target/link.x
+8c167404630d35843c385c5949572602e59e4aeedcf1f6e78ed5e0122c70571d  ./kat-target/src/main.rs
+198424aa129e603add086f1f5dbcac4660f4578e52b61e6dd02580d9668bb94d  ./known-answers.json
+$ rustc +stable --version
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+exit=0
+$ cargo +stable --version
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+exit=0
+$ cargo +stable clippy --version
+clippy 0.1.98 (88d9e12ae1 2026-08-18)
+exit=0
+$ rustup show active-toolchain
+stable-aarch64-apple-darwin (default)
+exit=0
+$ cargo +stable build --release --locked
+   Compiling kat-target v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.nFoEr2/kat-target)
+    Finished `release` profile [optimized] target(s) in 0.39s
+exit=0
+build 1 ELF sha256 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+$ cargo +stable clean
+     Removed 30 files, 990.1KiB total
+exit=0
+$ cargo +stable build --release --locked
+   Compiling kat-target v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.nFoEr2/kat-target)
+    Finished `release` profile [optimized] target(s) in 0.37s
+exit=0
+build 2 ELF sha256 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+$ cargo +stable build --release --locked
+   Compiling kat-target v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-b.H169Ag/kat-target)
+    Finished `release` profile [optimized] target(s) in 0.33s
+exit=0
+build 3 (second directory) ELF sha256 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+$ cargo +stable test --locked
+   Compiling kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.nFoEr2/kat-host)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.14s
+     Running unittests src/lib.rs (/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//kat-rust-a.nFoEr2/kat-host/target/debug/deps/kat_host-ee61c2462314e59a)
+running 3 tests
+test tests::equal_values ... ok
+test tests::first_is_larger ... ok
+test tests::second_is_larger ... ok
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+   Doc-tests kat_host
+running 0 tests
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=0
+$ cargo +stable test --locked --features seeded-fail
+   Compiling kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.nFoEr2/kat-host)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s
+     Running unittests src/lib.rs (/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//kat-rust-a.nFoEr2/kat-host/target/debug/deps/kat_host-c41c4bfb9f0f1ca7)
+running 4 tests
+test tests::equal_values ... ok
+test tests::first_is_larger ... ok
+test tests::second_is_larger ... ok
+test tests::seeded_failure ... FAILED
+failures:
+---- tests::seeded_failure stdout ----
+thread 'tests::seeded_failure' (7187076) panicked at src/lib.rs:57:9:
+assertion `left == right` failed
+  left: 2
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+failures:
+    tests::seeded_failure
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+error: test failed, to rerun pass `--lib`
+exit=101
+$ cargo +stable clippy --locked --all-targets -- -D warnings
+    Checking kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.nFoEr2/kat-host)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.06s
+exit=0
+$ cargo +stable clippy --locked --all-targets --features seeded-lint -- -D warnings
+    Checking kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.nFoEr2/kat-host)
+error: this comparison involving the minimum or maximum element for this type contains a case that is always true or always false
+  --> src/lib.rs:21:5
+   |
+21 |     x > u8::MAX
+   |     ^^^^^^^^^^^
+   |
+   = help: because `u8::MAX` is the maximum value for this type, this comparison is always false
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#absurd_extreme_comparisons
+   = note: `#[deny(clippy::absurd_extreme_comparisons)]` on by default
+error: could not compile `kat-host` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+$ cargo +stable clippy --locked --all-targets --features seeded-unwrap -- -D warnings
+    Checking kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.nFoEr2/kat-host)
+error: used `unwrap()` on an `Option` value
+  --> src/lib.rs:32:6
+   |
+32 |     *values.first().unwrap()
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: if this value is `None`, it will panic
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#unwrap_used
+   = note: requested on the command line with `-D clippy::unwrap-used`
+error: could not compile `kat-host` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+## comparison against known-answers.json
+PASS versions: rustc 1.98.0 (88d9e12ae 2026-08-18) | cargo 1.98.0 (797e8a9bc 2026-08-05) | clippy 0.1.98 (88d9e12ae1 2026-08-18)
+PASS ELF class: class 1 data 1 e_machine 40 e_entry 0x10000031 reset 0x10000031
+PASS builds exit 0: [0, 0, 0]
+PASS reproducible: 3201d382b9b1e32e 3201d382b9b1e32e 3201d382b9b1e32e
+PASS stored ELF hash: stored None, built 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d (no stored value yet: record it)
+PASS cargo test clean: exit 0
+PASS cargo test seeded: exit 101
+PASS clippy clean: exit 0
+PASS clippy seeded_lint: exit 101, lints ['absurd_extreme_comparisons']
+PASS clippy seeded_unwrap: exit 101, lints ['unwrap_used']
+RESULT PASS
+exit=0
+
+######## RUN 2
+# rustc/cargo/clippy sanity check, 2026-09-25 23:29:07 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+59e2571237b7ced2c4850cc4fab3cbf3e5c7f50f7880491fafad73b0c515b079  ./kat-host/Cargo.lock
+2902926b418918db5bf9cfb0b35e9b6c1831c64ce34689aa1bc5ceb391db81e1  ./kat-host/Cargo.toml
+555f48b388ad3e8e7697618ff7c8b9038654b083d421351eb6fcc885954896c2  ./kat-host/clippy.toml
+d10f0df6b05a2663fe101a50fc6a5578721fb8e056ea253c9eb473a9a7d75a45  ./kat-host/src/lib.rs
+0d23b65df442741f2a5873b50817407a6a8f43ba192de6a136bd340af4c42e78  ./kat-target/.cargo/config.toml
+e39f23be2b4e47b2d462eadcd473446211576389c7ffdb6a4028e6eb09091297  ./kat-target/Cargo.lock
+ccdb9192888ddba0e582fadc9e3657501a7e4c021b9141510dcac31a4a9d9214  ./kat-target/Cargo.toml
+ec5e21e3530c3a8ae200a89c0b0d1ae12ba003aa5bcd47b709bbe1bbec6f3b21  ./kat-target/build.rs
+c4a07fb5b9f5033f3b57d9880cc39b9cca8bd0aa6b572574d79dcc4e0f0de451  ./kat-target/link.x
+8c167404630d35843c385c5949572602e59e4aeedcf1f6e78ed5e0122c70571d  ./kat-target/src/main.rs
+e53563f16c5fababe3dd764a799adefe1e27d33d76c97d3f8a8b2e5f68e33410  ./known-answers.json
+$ rustc +stable --version
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+exit=0
+$ cargo +stable --version
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+exit=0
+$ cargo +stable clippy --version
+clippy 0.1.98 (88d9e12ae1 2026-08-18)
+exit=0
+$ rustup show active-toolchain
+stable-aarch64-apple-darwin (default)
+exit=0
+$ cargo +stable build --release --locked
+   Compiling kat-target v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.RySoWu/kat-target)
+    Finished `release` profile [optimized] target(s) in 0.36s
+exit=0
+build 1 ELF sha256 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+$ cargo +stable clean
+     Removed 30 files, 990.1KiB total
+exit=0
+$ cargo +stable build --release --locked
+   Compiling kat-target v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.RySoWu/kat-target)
+    Finished `release` profile [optimized] target(s) in 0.35s
+exit=0
+build 2 ELF sha256 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+$ cargo +stable build --release --locked
+   Compiling kat-target v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-b.aGawMi/kat-target)
+    Finished `release` profile [optimized] target(s) in 0.37s
+exit=0
+build 3 (second directory) ELF sha256 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+$ cargo +stable test --locked
+   Compiling kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.RySoWu/kat-host)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.13s
+     Running unittests src/lib.rs (/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//kat-rust-a.RySoWu/kat-host/target/debug/deps/kat_host-ee61c2462314e59a)
+running 3 tests
+test tests::equal_values ... ok
+test tests::first_is_larger ... ok
+test tests::second_is_larger ... ok
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+   Doc-tests kat_host
+running 0 tests
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=0
+$ cargo +stable test --locked --features seeded-fail
+   Compiling kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.RySoWu/kat-host)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s
+     Running unittests src/lib.rs (/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//kat-rust-a.RySoWu/kat-host/target/debug/deps/kat_host-c41c4bfb9f0f1ca7)
+running 4 tests
+test tests::equal_values ... ok
+test tests::first_is_larger ... ok
+test tests::second_is_larger ... ok
+test tests::seeded_failure ... FAILED
+failures:
+---- tests::seeded_failure stdout ----
+thread 'tests::seeded_failure' (7189389) panicked at src/lib.rs:57:9:
+assertion `left == right` failed
+  left: 2
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+failures:
+    tests::seeded_failure
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+error: test failed, to rerun pass `--lib`
+exit=101
+$ cargo +stable clippy --locked --all-targets -- -D warnings
+    Checking kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.RySoWu/kat-host)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.06s
+exit=0
+$ cargo +stable clippy --locked --all-targets --features seeded-lint -- -D warnings
+    Checking kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.RySoWu/kat-host)
+error: this comparison involving the minimum or maximum element for this type contains a case that is always true or always false
+  --> src/lib.rs:21:5
+   |
+21 |     x > u8::MAX
+   |     ^^^^^^^^^^^
+   |
+   = help: because `u8::MAX` is the maximum value for this type, this comparison is always false
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#absurd_extreme_comparisons
+   = note: `#[deny(clippy::absurd_extreme_comparisons)]` on by default
+error: could not compile `kat-host` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+$ cargo +stable clippy --locked --all-targets --features seeded-unwrap -- -D warnings
+    Checking kat-host v0.1.0 (/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-rust-a.RySoWu/kat-host)
+error: used `unwrap()` on an `Option` value
+  --> src/lib.rs:32:6
+   |
+32 |     *values.first().unwrap()
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: if this value is `None`, it will panic
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#unwrap_used
+   = note: requested on the command line with `-D clippy::unwrap-used`
+error: could not compile `kat-host` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+## comparison against known-answers.json
+PASS versions: rustc 1.98.0 (88d9e12ae 2026-08-18) | cargo 1.98.0 (797e8a9bc 2026-08-05) | clippy 0.1.98 (88d9e12ae1 2026-08-18)
+PASS ELF class: class 1 data 1 e_machine 40 e_entry 0x10000031 reset 0x10000031
+PASS builds exit 0: [0, 0, 0]
+PASS reproducible: 3201d382b9b1e32e 3201d382b9b1e32e 3201d382b9b1e32e
+PASS stored ELF hash: stored 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d, built 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+PASS cargo test clean: exit 0
+PASS cargo test seeded: exit 101
+PASS clippy clean: exit 0
+PASS clippy seeded_lint: exit 101, lints ['absurd_extreme_comparisons']
+PASS clippy seeded_unwrap: exit 101, lints ['unwrap_used']
+RESULT PASS
+exit=0

@@ -1,0 +1,5536 @@
+{
+  "document": "cwht preliminary allocation of L1 system requirements to L2 modules and concept elements",
+  "version": "0.2.0-srr",
+  "status": "Preliminary",
+  "updated": "2026-09-26",
+  "baseline": null,
+  "author": "Claude (requirements engineer role, author invocation); independent review in the L1 requirements record docs/reviews/SRR/checklists/requirements-sys.md (V6); revised 2026-09-25 by the same author for INSP-003 findings 1, 9 and 20",
+  "basis": [
+    "NPR 7123.1D App. G Table G-4 entrance 5.1: requirements ready to baseline and preliminary allocation to the next lower level performed",
+    "docs/process/02-requirements-and-traceability.md section 2.3 Flowdown and rule T-18 (SYS_UNALLOCATED: W at SRR, E from PDR)",
+    "docs/process/01-lifecycle-and-reviews.md section 4.3 row 7",
+    "docs/design/concept.md section 5 (blocks B01 to B22), section 6 (functions F1 to F10 and the allocation matrix), section 7 (module scope)",
+    "docs/process/07-software-engineering-plan.md section 3 item 1 (candidate SW-<SUB> module list) and section 14.1 (criticality)"
+  ],
+  "conventions": {
+    "T-18 reading": "A Draft or Active REQ-SYS id is allocated when it appears in requirement_ids of at least one entry of modules[] (02 section 2.3: 'lists the SYS id in requirement_ids under the receiving module') or when its child_ids names an L2 entry. allocations[] is the per-requirement record from which modules[].requirement_ids, elements[].requirement_ids and functions[].requirement_ids are derived; the three derived lists always agree with it.",
+    "modules[]": "The six L2 modules of charter section 6 (RX, TX, PWR, CTL, ME, SW), then the candidate SW-<SUB> module files. An L1 requirement allocated to software lists SW (firmware-wide L2, REQ-SW-NNN) in allocations[].modules and names the anticipated SW-<SUB> files in allocations[].sw_modules; the SW-<SUB> entries of modules[] list those ids as the anticipated second-step flowdown (07 section 3 item 1), not as a direct SYS-to-module-file allocation.",
+    "Token mapping": "docs/design/concept.md section 7 uses the provisional sub-module tokens SW-SEQ, SW-UI and SW-DSP; this file uses the 07 section 3 item 1 names SW-TXSEQ and SW-DISPLAY (the tokens validate_docs.py and 07 section 14.1 use) and names no SW-DSP file (TS-001 candidate B only; see allocations notes).",
+    "element_ids": "Concept blocks B01 to B22 (concept section 5). The architecture ADR at PDR may split or rename them with a mapping table; elements[].code stays empty until design units exist (02 section 7 rows 3 and 4; T-15).",
+    "primary_module": "The first entry of modules: the module whose L2 file carries the main child at PDR. Other modules receive a supporting allocation (an interface, a budget share or a sub-function). A system-level budget or environment row (for example REQ-SYS-094, 102, 114, 115, 137, 138, 140, 147) names as primary the module that holds the largest share or the physical boundary, and says in its note that every listed module receives a share. The value 'system' marks a leaf row (tag leaf in the requirement): the main record stays at L1, and modules lists the contributors only (REQ-SYS-122).",
+    "child_ids": "Filled from existing L2 files whose parent_id names the SYS id, united with the SYS requirement's own child_ids. Empty while no L2 file exists.",
+    "gaps[]": "Non-retired SYS requirements that no L2 module can receive at SRR, each with a proposed disposition; each is a T-18 Warning for the reviewer to confirm or correct in V6.",
+    "excluded[]": "Retired SYS requirements, excluded from allocation (02 section 11.3 item 4; T-19).",
+    "change control": "Preliminary until PDR; baselined at PDR with the L2 files (SE-42; 02 section 10). Regenerated from the allocation table of the author; hand edits are made to the table and the file regenerated.",
+    "schema": "Validated by tools/validate_docs.py against docs/design/allocation.schema.json (the convention of that tool). The schema is proposed by the allocation author (INSP-003 finding-9) and placed by the tools owner; until it exists validate_docs.py reports this file as a failure."
+  },
+  "modules": [
+    {
+      "id": "RX",
+      "name": "Receiver",
+      "level": "L2",
+      "requirements_file": "docs/requirements/rx/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B08",
+        "B09",
+        "B10",
+        "B11"
+      ],
+      "primary_for": [
+        "REQ-SYS-021",
+        "REQ-SYS-022",
+        "REQ-SYS-023",
+        "REQ-SYS-024",
+        "REQ-SYS-025",
+        "REQ-SYS-026",
+        "REQ-SYS-027",
+        "REQ-SYS-028",
+        "REQ-SYS-029",
+        "REQ-SYS-030",
+        "REQ-SYS-031",
+        "REQ-SYS-032",
+        "REQ-SYS-033",
+        "REQ-SYS-036",
+        "REQ-SYS-037",
+        "REQ-SYS-144",
+        "REQ-SYS-145",
+        "REQ-SYS-176"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-021",
+        "REQ-SYS-022",
+        "REQ-SYS-023",
+        "REQ-SYS-024",
+        "REQ-SYS-025",
+        "REQ-SYS-026",
+        "REQ-SYS-027",
+        "REQ-SYS-028",
+        "REQ-SYS-029",
+        "REQ-SYS-030",
+        "REQ-SYS-031",
+        "REQ-SYS-032",
+        "REQ-SYS-033",
+        "REQ-SYS-034",
+        "REQ-SYS-035",
+        "REQ-SYS-036",
+        "REQ-SYS-037",
+        "REQ-SYS-046",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-102",
+        "REQ-SYS-114",
+        "REQ-SYS-115",
+        "REQ-SYS-116",
+        "REQ-SYS-137",
+        "REQ-SYS-138",
+        "REQ-SYS-140",
+        "REQ-SYS-144",
+        "REQ-SYS-145",
+        "REQ-SYS-147",
+        "REQ-SYS-176",
+        "REQ-SYS-178",
+        "REQ-SYS-183"
+      ]
+    },
+    {
+      "id": "TX",
+      "name": "Transmitter and frequency generation",
+      "level": "L2",
+      "requirements_file": "docs/requirements/tx/requirements.json",
+      "file_exists": true,
+      "element_ids": [
+        "B01",
+        "B02",
+        "B03",
+        "B04",
+        "B05",
+        "B06",
+        "B07"
+      ],
+      "primary_for": [
+        "REQ-SYS-001",
+        "REQ-SYS-008",
+        "REQ-SYS-010",
+        "REQ-SYS-011",
+        "REQ-SYS-012",
+        "REQ-SYS-013",
+        "REQ-SYS-014",
+        "REQ-SYS-015",
+        "REQ-SYS-017",
+        "REQ-SYS-018",
+        "REQ-SYS-055",
+        "REQ-SYS-104",
+        "REQ-SYS-106",
+        "REQ-SYS-112",
+        "REQ-SYS-120",
+        "REQ-SYS-121",
+        "REQ-SYS-141",
+        "REQ-SYS-151",
+        "REQ-SYS-152",
+        "REQ-SYS-172",
+        "REQ-SYS-181",
+        "REQ-SYS-183"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-001",
+        "REQ-SYS-004",
+        "REQ-SYS-007",
+        "REQ-SYS-008",
+        "REQ-SYS-009",
+        "REQ-SYS-010",
+        "REQ-SYS-011",
+        "REQ-SYS-012",
+        "REQ-SYS-013",
+        "REQ-SYS-014",
+        "REQ-SYS-015",
+        "REQ-SYS-017",
+        "REQ-SYS-018",
+        "REQ-SYS-019",
+        "REQ-SYS-021",
+        "REQ-SYS-031",
+        "REQ-SYS-036",
+        "REQ-SYS-037",
+        "REQ-SYS-050",
+        "REQ-SYS-055",
+        "REQ-SYS-092",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-102",
+        "REQ-SYS-104",
+        "REQ-SYS-105",
+        "REQ-SYS-106",
+        "REQ-SYS-107",
+        "REQ-SYS-112",
+        "REQ-SYS-113",
+        "REQ-SYS-114",
+        "REQ-SYS-115",
+        "REQ-SYS-116",
+        "REQ-SYS-118",
+        "REQ-SYS-119",
+        "REQ-SYS-120",
+        "REQ-SYS-121",
+        "REQ-SYS-122",
+        "REQ-SYS-137",
+        "REQ-SYS-138",
+        "REQ-SYS-139",
+        "REQ-SYS-140",
+        "REQ-SYS-141",
+        "REQ-SYS-142",
+        "REQ-SYS-144",
+        "REQ-SYS-145",
+        "REQ-SYS-147",
+        "REQ-SYS-149",
+        "REQ-SYS-151",
+        "REQ-SYS-152",
+        "REQ-SYS-154",
+        "REQ-SYS-155",
+        "REQ-SYS-156",
+        "REQ-SYS-160",
+        "REQ-SYS-172",
+        "REQ-SYS-175",
+        "REQ-SYS-176",
+        "REQ-SYS-178",
+        "REQ-SYS-180",
+        "REQ-SYS-181",
+        "REQ-SYS-182",
+        "REQ-SYS-183"
+      ]
+    },
+    {
+      "id": "PWR",
+      "name": "Power",
+      "level": "L2",
+      "requirements_file": "docs/requirements/pwr/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B16",
+        "B17",
+        "B18",
+        "B19",
+        "B20"
+      ],
+      "primary_for": [
+        "REQ-SYS-080",
+        "REQ-SYS-081",
+        "REQ-SYS-082",
+        "REQ-SYS-083",
+        "REQ-SYS-084",
+        "REQ-SYS-085",
+        "REQ-SYS-086",
+        "REQ-SYS-089",
+        "REQ-SYS-090",
+        "REQ-SYS-091",
+        "REQ-SYS-092",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-100",
+        "REQ-SYS-101",
+        "REQ-SYS-149",
+        "REQ-SYS-166"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-003",
+        "REQ-SYS-011",
+        "REQ-SYS-012",
+        "REQ-SYS-017",
+        "REQ-SYS-034",
+        "REQ-SYS-070",
+        "REQ-SYS-080",
+        "REQ-SYS-081",
+        "REQ-SYS-082",
+        "REQ-SYS-083",
+        "REQ-SYS-084",
+        "REQ-SYS-085",
+        "REQ-SYS-086",
+        "REQ-SYS-087",
+        "REQ-SYS-088",
+        "REQ-SYS-089",
+        "REQ-SYS-090",
+        "REQ-SYS-091",
+        "REQ-SYS-092",
+        "REQ-SYS-093",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-098",
+        "REQ-SYS-099",
+        "REQ-SYS-100",
+        "REQ-SYS-101",
+        "REQ-SYS-102",
+        "REQ-SYS-114",
+        "REQ-SYS-115",
+        "REQ-SYS-116",
+        "REQ-SYS-122",
+        "REQ-SYS-137",
+        "REQ-SYS-138",
+        "REQ-SYS-140",
+        "REQ-SYS-147",
+        "REQ-SYS-149",
+        "REQ-SYS-153",
+        "REQ-SYS-166",
+        "REQ-SYS-167",
+        "REQ-SYS-177",
+        "REQ-SYS-178"
+      ]
+    },
+    {
+      "id": "CTL",
+      "name": "Controller, UI and audio hardware",
+      "level": "L2",
+      "requirements_file": "docs/requirements/ctl/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B12",
+        "B13",
+        "B14",
+        "B15"
+      ],
+      "primary_for": [
+        "REQ-SYS-034",
+        "REQ-SYS-047",
+        "REQ-SYS-049",
+        "REQ-SYS-050",
+        "REQ-SYS-051",
+        "REQ-SYS-057",
+        "REQ-SYS-061",
+        "REQ-SYS-071",
+        "REQ-SYS-072",
+        "REQ-SYS-073",
+        "REQ-SYS-076",
+        "REQ-SYS-077",
+        "REQ-SYS-078",
+        "REQ-SYS-079",
+        "REQ-SYS-119",
+        "REQ-SYS-126",
+        "REQ-SYS-133",
+        "REQ-SYS-142",
+        "REQ-SYS-150",
+        "REQ-SYS-165",
+        "REQ-SYS-173",
+        "REQ-SYS-174",
+        "REQ-SYS-178",
+        "REQ-SYS-180"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-002",
+        "REQ-SYS-003",
+        "REQ-SYS-005",
+        "REQ-SYS-006",
+        "REQ-SYS-007",
+        "REQ-SYS-017",
+        "REQ-SYS-034",
+        "REQ-SYS-038",
+        "REQ-SYS-039",
+        "REQ-SYS-042",
+        "REQ-SYS-043",
+        "REQ-SYS-045",
+        "REQ-SYS-047",
+        "REQ-SYS-048",
+        "REQ-SYS-049",
+        "REQ-SYS-050",
+        "REQ-SYS-051",
+        "REQ-SYS-055",
+        "REQ-SYS-057",
+        "REQ-SYS-058",
+        "REQ-SYS-059",
+        "REQ-SYS-060",
+        "REQ-SYS-061",
+        "REQ-SYS-067",
+        "REQ-SYS-070",
+        "REQ-SYS-071",
+        "REQ-SYS-072",
+        "REQ-SYS-073",
+        "REQ-SYS-076",
+        "REQ-SYS-077",
+        "REQ-SYS-078",
+        "REQ-SYS-079",
+        "REQ-SYS-088",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-102",
+        "REQ-SYS-114",
+        "REQ-SYS-115",
+        "REQ-SYS-116",
+        "REQ-SYS-119",
+        "REQ-SYS-120",
+        "REQ-SYS-122",
+        "REQ-SYS-126",
+        "REQ-SYS-131",
+        "REQ-SYS-133",
+        "REQ-SYS-137",
+        "REQ-SYS-138",
+        "REQ-SYS-139",
+        "REQ-SYS-140",
+        "REQ-SYS-142",
+        "REQ-SYS-146",
+        "REQ-SYS-147",
+        "REQ-SYS-150",
+        "REQ-SYS-164",
+        "REQ-SYS-165",
+        "REQ-SYS-173",
+        "REQ-SYS-174",
+        "REQ-SYS-176",
+        "REQ-SYS-177",
+        "REQ-SYS-178",
+        "REQ-SYS-180",
+        "REQ-SYS-181",
+        "REQ-SYS-182"
+      ]
+    },
+    {
+      "id": "ME",
+      "name": "Enclosure and mechanical",
+      "level": "L2",
+      "requirements_file": "docs/requirements/me/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B21"
+      ],
+      "primary_for": [
+        "REQ-SYS-102",
+        "REQ-SYS-103",
+        "REQ-SYS-105",
+        "REQ-SYS-107",
+        "REQ-SYS-108",
+        "REQ-SYS-109",
+        "REQ-SYS-110",
+        "REQ-SYS-111",
+        "REQ-SYS-113",
+        "REQ-SYS-114",
+        "REQ-SYS-115",
+        "REQ-SYS-116",
+        "REQ-SYS-117",
+        "REQ-SYS-124",
+        "REQ-SYS-137",
+        "REQ-SYS-138",
+        "REQ-SYS-139",
+        "REQ-SYS-140",
+        "REQ-SYS-146",
+        "REQ-SYS-147",
+        "REQ-SYS-168",
+        "REQ-SYS-175",
+        "REQ-SYS-177"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-013",
+        "REQ-SYS-050",
+        "REQ-SYS-051",
+        "REQ-SYS-057",
+        "REQ-SYS-080",
+        "REQ-SYS-101",
+        "REQ-SYS-102",
+        "REQ-SYS-103",
+        "REQ-SYS-104",
+        "REQ-SYS-105",
+        "REQ-SYS-106",
+        "REQ-SYS-107",
+        "REQ-SYS-108",
+        "REQ-SYS-109",
+        "REQ-SYS-110",
+        "REQ-SYS-111",
+        "REQ-SYS-112",
+        "REQ-SYS-113",
+        "REQ-SYS-114",
+        "REQ-SYS-115",
+        "REQ-SYS-116",
+        "REQ-SYS-117",
+        "REQ-SYS-122",
+        "REQ-SYS-124",
+        "REQ-SYS-137",
+        "REQ-SYS-138",
+        "REQ-SYS-139",
+        "REQ-SYS-140",
+        "REQ-SYS-146",
+        "REQ-SYS-147",
+        "REQ-SYS-165",
+        "REQ-SYS-168",
+        "REQ-SYS-173",
+        "REQ-SYS-175",
+        "REQ-SYS-177"
+      ]
+    },
+    {
+      "id": "SW",
+      "name": "Firmware (firmware-wide L2)",
+      "level": "L2",
+      "requirements_file": "docs/requirements/sw/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "primary_for": [
+        "REQ-SYS-002",
+        "REQ-SYS-003",
+        "REQ-SYS-004",
+        "REQ-SYS-005",
+        "REQ-SYS-006",
+        "REQ-SYS-007",
+        "REQ-SYS-009",
+        "REQ-SYS-019",
+        "REQ-SYS-020",
+        "REQ-SYS-035",
+        "REQ-SYS-038",
+        "REQ-SYS-039",
+        "REQ-SYS-040",
+        "REQ-SYS-041",
+        "REQ-SYS-042",
+        "REQ-SYS-043",
+        "REQ-SYS-044",
+        "REQ-SYS-045",
+        "REQ-SYS-046",
+        "REQ-SYS-048",
+        "REQ-SYS-052",
+        "REQ-SYS-053",
+        "REQ-SYS-054",
+        "REQ-SYS-056",
+        "REQ-SYS-058",
+        "REQ-SYS-059",
+        "REQ-SYS-060",
+        "REQ-SYS-062",
+        "REQ-SYS-063",
+        "REQ-SYS-064",
+        "REQ-SYS-065",
+        "REQ-SYS-066",
+        "REQ-SYS-067",
+        "REQ-SYS-068",
+        "REQ-SYS-069",
+        "REQ-SYS-070",
+        "REQ-SYS-074",
+        "REQ-SYS-075",
+        "REQ-SYS-087",
+        "REQ-SYS-088",
+        "REQ-SYS-093",
+        "REQ-SYS-096",
+        "REQ-SYS-097",
+        "REQ-SYS-098",
+        "REQ-SYS-099",
+        "REQ-SYS-118",
+        "REQ-SYS-127",
+        "REQ-SYS-128",
+        "REQ-SYS-129",
+        "REQ-SYS-130",
+        "REQ-SYS-131",
+        "REQ-SYS-132",
+        "REQ-SYS-134",
+        "REQ-SYS-135",
+        "REQ-SYS-136",
+        "REQ-SYS-143",
+        "REQ-SYS-153",
+        "REQ-SYS-154",
+        "REQ-SYS-155",
+        "REQ-SYS-156",
+        "REQ-SYS-157",
+        "REQ-SYS-158",
+        "REQ-SYS-159",
+        "REQ-SYS-160",
+        "REQ-SYS-161",
+        "REQ-SYS-162",
+        "REQ-SYS-163",
+        "REQ-SYS-164",
+        "REQ-SYS-167",
+        "REQ-SYS-169",
+        "REQ-SYS-170",
+        "REQ-SYS-171",
+        "REQ-SYS-179",
+        "REQ-SYS-182"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-001",
+        "REQ-SYS-002",
+        "REQ-SYS-003",
+        "REQ-SYS-004",
+        "REQ-SYS-005",
+        "REQ-SYS-006",
+        "REQ-SYS-007",
+        "REQ-SYS-008",
+        "REQ-SYS-009",
+        "REQ-SYS-010",
+        "REQ-SYS-011",
+        "REQ-SYS-012",
+        "REQ-SYS-014",
+        "REQ-SYS-015",
+        "REQ-SYS-017",
+        "REQ-SYS-019",
+        "REQ-SYS-020",
+        "REQ-SYS-021",
+        "REQ-SYS-024",
+        "REQ-SYS-025",
+        "REQ-SYS-026",
+        "REQ-SYS-027",
+        "REQ-SYS-028",
+        "REQ-SYS-030",
+        "REQ-SYS-032",
+        "REQ-SYS-034",
+        "REQ-SYS-035",
+        "REQ-SYS-036",
+        "REQ-SYS-038",
+        "REQ-SYS-039",
+        "REQ-SYS-040",
+        "REQ-SYS-041",
+        "REQ-SYS-042",
+        "REQ-SYS-043",
+        "REQ-SYS-044",
+        "REQ-SYS-045",
+        "REQ-SYS-046",
+        "REQ-SYS-048",
+        "REQ-SYS-051",
+        "REQ-SYS-052",
+        "REQ-SYS-053",
+        "REQ-SYS-054",
+        "REQ-SYS-056",
+        "REQ-SYS-058",
+        "REQ-SYS-059",
+        "REQ-SYS-060",
+        "REQ-SYS-061",
+        "REQ-SYS-062",
+        "REQ-SYS-063",
+        "REQ-SYS-064",
+        "REQ-SYS-065",
+        "REQ-SYS-066",
+        "REQ-SYS-067",
+        "REQ-SYS-068",
+        "REQ-SYS-069",
+        "REQ-SYS-070",
+        "REQ-SYS-074",
+        "REQ-SYS-075",
+        "REQ-SYS-076",
+        "REQ-SYS-077",
+        "REQ-SYS-082",
+        "REQ-SYS-087",
+        "REQ-SYS-088",
+        "REQ-SYS-089",
+        "REQ-SYS-093",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-096",
+        "REQ-SYS-097",
+        "REQ-SYS-098",
+        "REQ-SYS-099",
+        "REQ-SYS-118",
+        "REQ-SYS-119",
+        "REQ-SYS-120",
+        "REQ-SYS-122",
+        "REQ-SYS-127",
+        "REQ-SYS-128",
+        "REQ-SYS-129",
+        "REQ-SYS-130",
+        "REQ-SYS-131",
+        "REQ-SYS-132",
+        "REQ-SYS-133",
+        "REQ-SYS-134",
+        "REQ-SYS-135",
+        "REQ-SYS-136",
+        "REQ-SYS-143",
+        "REQ-SYS-144",
+        "REQ-SYS-145",
+        "REQ-SYS-146",
+        "REQ-SYS-150",
+        "REQ-SYS-152",
+        "REQ-SYS-153",
+        "REQ-SYS-154",
+        "REQ-SYS-155",
+        "REQ-SYS-156",
+        "REQ-SYS-157",
+        "REQ-SYS-158",
+        "REQ-SYS-159",
+        "REQ-SYS-160",
+        "REQ-SYS-161",
+        "REQ-SYS-162",
+        "REQ-SYS-163",
+        "REQ-SYS-164",
+        "REQ-SYS-166",
+        "REQ-SYS-167",
+        "REQ-SYS-169",
+        "REQ-SYS-170",
+        "REQ-SYS-171",
+        "REQ-SYS-179",
+        "REQ-SYS-182",
+        "REQ-SYS-183"
+      ]
+    },
+    {
+      "id": "SW-BOOT",
+      "name": "Software module file SW-BOOT",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "safety-critical",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-boot/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-003",
+        "REQ-SYS-119",
+        "REQ-SYS-130",
+        "REQ-SYS-132",
+        "REQ-SYS-133",
+        "REQ-SYS-143"
+      ]
+    },
+    {
+      "id": "SW-KEYER",
+      "name": "Software module file SW-KEYER",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "safety-critical",
+      "status": "Exists from SRR (SI-018)",
+      "requirements_file": "docs/requirements/sw/sw-keyer/requirements.json",
+      "file_exists": true,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-007",
+        "REQ-SYS-038",
+        "REQ-SYS-039",
+        "REQ-SYS-040",
+        "REQ-SYS-041",
+        "REQ-SYS-042",
+        "REQ-SYS-043",
+        "REQ-SYS-044",
+        "REQ-SYS-048",
+        "REQ-SYS-052",
+        "REQ-SYS-053",
+        "REQ-SYS-056",
+        "REQ-SYS-067",
+        "REQ-SYS-120",
+        "REQ-SYS-130",
+        "REQ-SYS-159",
+        "REQ-SYS-160",
+        "REQ-SYS-162",
+        "REQ-SYS-163",
+        "REQ-SYS-179"
+      ]
+    },
+    {
+      "id": "SW-DISPLAY",
+      "name": "Software module file SW-DISPLAY",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "mission-critical",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-display/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-002",
+        "REQ-SYS-005",
+        "REQ-SYS-006",
+        "REQ-SYS-019",
+        "REQ-SYS-056",
+        "REQ-SYS-058",
+        "REQ-SYS-059",
+        "REQ-SYS-060",
+        "REQ-SYS-061",
+        "REQ-SYS-062",
+        "REQ-SYS-063",
+        "REQ-SYS-066",
+        "REQ-SYS-067",
+        "REQ-SYS-068",
+        "REQ-SYS-069",
+        "REQ-SYS-070",
+        "REQ-SYS-096",
+        "REQ-SYS-146",
+        "REQ-SYS-163",
+        "REQ-SYS-164",
+        "REQ-SYS-171",
+        "REQ-SYS-179"
+      ]
+    },
+    {
+      "id": "SW-SYNTH",
+      "name": "Software module file SW-SYNTH",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "mission-critical",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-synth/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-008",
+        "REQ-SYS-009",
+        "REQ-SYS-010",
+        "REQ-SYS-017",
+        "REQ-SYS-021",
+        "REQ-SYS-034",
+        "REQ-SYS-035",
+        "REQ-SYS-046",
+        "REQ-SYS-145",
+        "REQ-SYS-154"
+      ]
+    },
+    {
+      "id": "SW-TXSEQ",
+      "name": "Software module file SW-TXSEQ",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "safety-critical",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-txseq/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-001",
+        "REQ-SYS-004",
+        "REQ-SYS-007",
+        "REQ-SYS-011",
+        "REQ-SYS-012",
+        "REQ-SYS-014",
+        "REQ-SYS-015",
+        "REQ-SYS-019",
+        "REQ-SYS-036",
+        "REQ-SYS-044",
+        "REQ-SYS-063",
+        "REQ-SYS-075",
+        "REQ-SYS-120",
+        "REQ-SYS-152",
+        "REQ-SYS-156",
+        "REQ-SYS-160",
+        "REQ-SYS-161",
+        "REQ-SYS-183"
+      ]
+    },
+    {
+      "id": "SW-SAFE",
+      "name": "Software module file SW-SAFE",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "safety-critical",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-safe/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-002",
+        "REQ-SYS-003",
+        "REQ-SYS-004",
+        "REQ-SYS-005",
+        "REQ-SYS-009",
+        "REQ-SYS-020",
+        "REQ-SYS-052",
+        "REQ-SYS-053",
+        "REQ-SYS-054",
+        "REQ-SYS-065",
+        "REQ-SYS-066",
+        "REQ-SYS-067",
+        "REQ-SYS-097",
+        "REQ-SYS-118",
+        "REQ-SYS-120",
+        "REQ-SYS-130",
+        "REQ-SYS-131",
+        "REQ-SYS-153",
+        "REQ-SYS-154",
+        "REQ-SYS-155",
+        "REQ-SYS-156",
+        "REQ-SYS-179",
+        "REQ-SYS-182",
+        "REQ-SYS-183"
+      ]
+    },
+    {
+      "id": "SW-PWR",
+      "name": "Software module file SW-PWR",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "safety-critical",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-pwr/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-070",
+        "REQ-SYS-082",
+        "REQ-SYS-087",
+        "REQ-SYS-088",
+        "REQ-SYS-089",
+        "REQ-SYS-093",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-096",
+        "REQ-SYS-097",
+        "REQ-SYS-098",
+        "REQ-SYS-099",
+        "REQ-SYS-153",
+        "REQ-SYS-166",
+        "REQ-SYS-167"
+      ]
+    },
+    {
+      "id": "SW-AUDIO",
+      "name": "Software module file SW-AUDIO",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "safety-critical",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-audio/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-045",
+        "REQ-SYS-046",
+        "REQ-SYS-059",
+        "REQ-SYS-074",
+        "REQ-SYS-075",
+        "REQ-SYS-076",
+        "REQ-SYS-077",
+        "REQ-SYS-157",
+        "REQ-SYS-158",
+        "REQ-SYS-159",
+        "REQ-SYS-169",
+        "REQ-SYS-170"
+      ]
+    },
+    {
+      "id": "SW-CFG",
+      "name": "Software module file SW-CFG",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "mission-critical",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-cfg/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-006",
+        "REQ-SYS-035",
+        "REQ-SYS-064",
+        "REQ-SYS-134",
+        "REQ-SYS-135",
+        "REQ-SYS-136",
+        "REQ-SYS-144",
+        "REQ-SYS-170"
+      ]
+    },
+    {
+      "id": "SW-SCHED",
+      "name": "Software module file SW-SCHED",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "safety-critical",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-sched/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-042",
+        "REQ-SYS-043",
+        "REQ-SYS-129",
+        "REQ-SYS-131"
+      ]
+    },
+    {
+      "id": "SW-DIAG",
+      "name": "Software module file SW-DIAG",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "neither",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-diag/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-143",
+        "REQ-SYS-150"
+      ]
+    },
+    {
+      "id": "SW-HAL",
+      "name": "Software module file SW-HAL",
+      "level": "L2 software module file (receives through REQ-SW-NNN, 07 section 3 item 1)",
+      "parent_module": "SW",
+      "criticality": "per unit (07 section 14.1)",
+      "status": "Proposed: candidate module list of docs/process/07-software-engineering-plan.md section 3 item 1, confirmed by the architecture ADR at PDR",
+      "requirements_file": "docs/requirements/sw/sw-hal/requirements.json",
+      "file_exists": false,
+      "element_ids": [
+        "B22"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-128"
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "id": "B01",
+      "name": "Antenna port: SMA jack, bulkhead-retained by the enclosure boss, counterpoise lug",
+      "module": "TX",
+      "supporting_modules": [
+        "ME"
+      ],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-013",
+        "REQ-SYS-050",
+        "REQ-SYS-104",
+        "REQ-SYS-105",
+        "REQ-SYS-106",
+        "REQ-SYS-107",
+        "REQ-SYS-121",
+        "REQ-SYS-141",
+        "REQ-SYS-172",
+        "REQ-SYS-175"
+      ],
+      "code": []
+    },
+    {
+      "id": "B02",
+      "name": "Harmonic LPF at the antenna port",
+      "module": "TX",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-013",
+        "REQ-SYS-017",
+        "REQ-SYS-018",
+        "REQ-SYS-037",
+        "REQ-SYS-050",
+        "REQ-SYS-141",
+        "REQ-SYS-145",
+        "REQ-SYS-151"
+      ],
+      "code": []
+    },
+    {
+      "id": "B03",
+      "name": "T/R relay, sequenced, fails to receive",
+      "module": "TX",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-013",
+        "REQ-SYS-036",
+        "REQ-SYS-037",
+        "REQ-SYS-119",
+        "REQ-SYS-145",
+        "REQ-SYS-160",
+        "REQ-SYS-180",
+        "REQ-SYS-183"
+      ],
+      "code": []
+    },
+    {
+      "id": "B04",
+      "name": "Driver and PA with gate-bias ALC and envelope shaping",
+      "module": "TX",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-001",
+        "REQ-SYS-004",
+        "REQ-SYS-011",
+        "REQ-SYS-012",
+        "REQ-SYS-013",
+        "REQ-SYS-014",
+        "REQ-SYS-015",
+        "REQ-SYS-017",
+        "REQ-SYS-018",
+        "REQ-SYS-019",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-112",
+        "REQ-SYS-113",
+        "REQ-SYS-118",
+        "REQ-SYS-120",
+        "REQ-SYS-121",
+        "REQ-SYS-145",
+        "REQ-SYS-149",
+        "REQ-SYS-151",
+        "REQ-SYS-152",
+        "REQ-SYS-155",
+        "REQ-SYS-156",
+        "REQ-SYS-181",
+        "REQ-SYS-183"
+      ],
+      "code": []
+    },
+    {
+      "id": "B05",
+      "name": "Exciter and TX carrier buffer",
+      "module": "TX",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-001",
+        "REQ-SYS-014",
+        "REQ-SYS-015",
+        "REQ-SYS-183"
+      ],
+      "code": []
+    },
+    {
+      "id": "B06",
+      "name": "Synthesizer with TCXO (Si5351A or LMX2571, TS-002)",
+      "module": "TX",
+      "supporting_modules": [
+        "RX"
+      ],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-008",
+        "REQ-SYS-010",
+        "REQ-SYS-017",
+        "REQ-SYS-021",
+        "REQ-SYS-031",
+        "REQ-SYS-144",
+        "REQ-SYS-145",
+        "REQ-SYS-154",
+        "REQ-SYS-176",
+        "REQ-SYS-182",
+        "REQ-SYS-183"
+      ],
+      "code": []
+    },
+    {
+      "id": "B07",
+      "name": "Hardware PA-enable cutoff, T_max 10 s, TX inhibit while VBUS present",
+      "module": "TX",
+      "supporting_modules": [
+        "CTL"
+      ],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-004",
+        "REQ-SYS-055",
+        "REQ-SYS-092",
+        "REQ-SYS-119",
+        "REQ-SYS-120",
+        "REQ-SYS-142",
+        "REQ-SYS-180",
+        "REQ-SYS-181",
+        "REQ-SYS-183"
+      ],
+      "code": []
+    },
+    {
+      "id": "B08",
+      "name": "Front end: BPF, LNA with switched supply, RX protection",
+      "module": "RX",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-021",
+        "REQ-SYS-022",
+        "REQ-SYS-023",
+        "REQ-SYS-029",
+        "REQ-SYS-033",
+        "REQ-SYS-034",
+        "REQ-SYS-036",
+        "REQ-SYS-037",
+        "REQ-SYS-145",
+        "REQ-SYS-176"
+      ],
+      "code": []
+    },
+    {
+      "id": "B09",
+      "name": "Mixer and post-mixer amplifier",
+      "module": "RX",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-021",
+        "REQ-SYS-022",
+        "REQ-SYS-023",
+        "REQ-SYS-029",
+        "REQ-SYS-031",
+        "REQ-SYS-033",
+        "REQ-SYS-145",
+        "REQ-SYS-176"
+      ],
+      "code": []
+    },
+    {
+      "id": "B10",
+      "name": "Candidate A: 8-pole crystal filter, IF amplifier, analog AGC, product detector (TS-001)",
+      "module": "RX",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-022",
+        "REQ-SYS-023",
+        "REQ-SYS-024",
+        "REQ-SYS-025",
+        "REQ-SYS-026",
+        "REQ-SYS-027",
+        "REQ-SYS-028",
+        "REQ-SYS-029",
+        "REQ-SYS-030",
+        "REQ-SYS-032",
+        "REQ-SYS-035",
+        "REQ-SYS-046",
+        "REQ-SYS-144"
+      ],
+      "code": []
+    },
+    {
+      "id": "B11",
+      "name": "Candidate B: 1.0 kHz roofing ladder, fixed gain, PCM1808 I2S ADC, DSP in firmware (TS-001)",
+      "module": "RX",
+      "supporting_modules": [
+        "SW"
+      ],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-022",
+        "REQ-SYS-023",
+        "REQ-SYS-024",
+        "REQ-SYS-025",
+        "REQ-SYS-026",
+        "REQ-SYS-027",
+        "REQ-SYS-028",
+        "REQ-SYS-029",
+        "REQ-SYS-030",
+        "REQ-SYS-032",
+        "REQ-SYS-035",
+        "REQ-SYS-046",
+        "REQ-SYS-144"
+      ],
+      "code": []
+    },
+    {
+      "id": "B12",
+      "name": "Pico 2 module: RP2350, 4 MB flash, micro-USB",
+      "module": "CTL",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-002",
+        "REQ-SYS-003",
+        "REQ-SYS-017",
+        "REQ-SYS-034",
+        "REQ-SYS-042",
+        "REQ-SYS-043",
+        "REQ-SYS-055",
+        "REQ-SYS-088",
+        "REQ-SYS-119",
+        "REQ-SYS-126",
+        "REQ-SYS-131",
+        "REQ-SYS-133",
+        "REQ-SYS-142",
+        "REQ-SYS-146",
+        "REQ-SYS-150",
+        "REQ-SYS-176",
+        "REQ-SYS-177",
+        "REQ-SYS-182"
+      ],
+      "code": []
+    },
+    {
+      "id": "B13",
+      "name": "Key inputs: TRS jack, pull-up, series resistor, capacitor, ESD clamp",
+      "module": "CTL",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-007",
+        "REQ-SYS-038",
+        "REQ-SYS-039",
+        "REQ-SYS-047",
+        "REQ-SYS-048",
+        "REQ-SYS-049",
+        "REQ-SYS-050",
+        "REQ-SYS-051",
+        "REQ-SYS-142",
+        "REQ-SYS-173",
+        "REQ-SYS-174",
+        "REQ-SYS-178"
+      ],
+      "code": []
+    },
+    {
+      "id": "B14",
+      "name": "Memory LCD, two encoders, two buttons",
+      "module": "CTL",
+      "supporting_modules": [
+        "ME"
+      ],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-005",
+        "REQ-SYS-006",
+        "REQ-SYS-057",
+        "REQ-SYS-058",
+        "REQ-SYS-059",
+        "REQ-SYS-060",
+        "REQ-SYS-061",
+        "REQ-SYS-067",
+        "REQ-SYS-070",
+        "REQ-SYS-146",
+        "REQ-SYS-164",
+        "REQ-SYS-165",
+        "REQ-SYS-178"
+      ],
+      "code": []
+    },
+    {
+      "id": "B15",
+      "name": "Audio: PWM DAC, reconstruction, headphone amplifier, jack with detect, DNP I2S DAC",
+      "module": "CTL",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-045",
+        "REQ-SYS-050",
+        "REQ-SYS-059",
+        "REQ-SYS-071",
+        "REQ-SYS-072",
+        "REQ-SYS-073",
+        "REQ-SYS-076",
+        "REQ-SYS-077",
+        "REQ-SYS-078",
+        "REQ-SYS-079",
+        "REQ-SYS-173",
+        "REQ-SYS-178"
+      ],
+      "code": []
+    },
+    {
+      "id": "B16",
+      "name": "USB 5 V from the Pico 2 VBUS pin, 500 mA default",
+      "module": "PWR",
+      "supporting_modules": [
+        "CTL"
+      ],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-090",
+        "REQ-SYS-092",
+        "REQ-SYS-149"
+      ],
+      "code": []
+    },
+    {
+      "id": "B17",
+      "name": "2S charger with balancing and ADC",
+      "module": "PWR",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-003",
+        "REQ-SYS-070",
+        "REQ-SYS-081",
+        "REQ-SYS-082",
+        "REQ-SYS-087",
+        "REQ-SYS-088",
+        "REQ-SYS-089",
+        "REQ-SYS-090",
+        "REQ-SYS-091",
+        "REQ-SYS-092",
+        "REQ-SYS-093",
+        "REQ-SYS-100",
+        "REQ-SYS-153",
+        "REQ-SYS-167"
+      ],
+      "code": []
+    },
+    {
+      "id": "B18",
+      "name": "Cell protector, dual N-FET, secondary over-voltage IC",
+      "module": "PWR",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-083",
+        "REQ-SYS-084",
+        "REQ-SYS-085",
+        "REQ-SYS-086",
+        "REQ-SYS-100",
+        "REQ-SYS-149",
+        "REQ-SYS-166"
+      ],
+      "code": []
+    },
+    {
+      "id": "B19",
+      "name": "2S 18650 in two single-cell holders",
+      "module": "PWR",
+      "supporting_modules": [
+        "ME"
+      ],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-011",
+        "REQ-SYS-012",
+        "REQ-SYS-080",
+        "REQ-SYS-086",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-102",
+        "REQ-SYS-178"
+      ],
+      "code": []
+    },
+    {
+      "id": "B20",
+      "name": "Power switch, 5 V synchronous buck, 3.3 V low-noise LDO",
+      "module": "PWR",
+      "supporting_modules": [],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-017",
+        "REQ-SYS-034",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-098",
+        "REQ-SYS-099",
+        "REQ-SYS-100",
+        "REQ-SYS-101",
+        "REQ-SYS-166",
+        "REQ-SYS-177"
+      ],
+      "code": []
+    },
+    {
+      "id": "B21",
+      "name": "CNC 6061 body: PA pedestal, SMA boss, LCD window, engraved legend, printed knobs",
+      "module": "ME",
+      "supporting_modules": [
+        "TX",
+        "CTL"
+      ],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-013",
+        "REQ-SYS-050",
+        "REQ-SYS-051",
+        "REQ-SYS-057",
+        "REQ-SYS-080",
+        "REQ-SYS-101",
+        "REQ-SYS-102",
+        "REQ-SYS-103",
+        "REQ-SYS-104",
+        "REQ-SYS-105",
+        "REQ-SYS-106",
+        "REQ-SYS-107",
+        "REQ-SYS-108",
+        "REQ-SYS-109",
+        "REQ-SYS-110",
+        "REQ-SYS-111",
+        "REQ-SYS-112",
+        "REQ-SYS-113",
+        "REQ-SYS-116",
+        "REQ-SYS-117",
+        "REQ-SYS-124",
+        "REQ-SYS-137",
+        "REQ-SYS-138",
+        "REQ-SYS-139",
+        "REQ-SYS-140",
+        "REQ-SYS-146",
+        "REQ-SYS-165",
+        "REQ-SYS-168",
+        "REQ-SYS-173",
+        "REQ-SYS-175",
+        "REQ-SYS-177"
+      ],
+      "code": []
+    },
+    {
+      "id": "B22",
+      "name": "cwht-app on rustos pico2 drivers; cwht-core logic behind api traits",
+      "module": "SW",
+      "supporting_modules": [
+        "CTL"
+      ],
+      "source": "docs/design/concept.md section 5 (block diagram) and section 7 (module scope)",
+      "requirement_ids": [
+        "REQ-SYS-001",
+        "REQ-SYS-002",
+        "REQ-SYS-003",
+        "REQ-SYS-004",
+        "REQ-SYS-005",
+        "REQ-SYS-006",
+        "REQ-SYS-007",
+        "REQ-SYS-008",
+        "REQ-SYS-009",
+        "REQ-SYS-010",
+        "REQ-SYS-011",
+        "REQ-SYS-012",
+        "REQ-SYS-014",
+        "REQ-SYS-015",
+        "REQ-SYS-019",
+        "REQ-SYS-020",
+        "REQ-SYS-021",
+        "REQ-SYS-024",
+        "REQ-SYS-025",
+        "REQ-SYS-026",
+        "REQ-SYS-027",
+        "REQ-SYS-028",
+        "REQ-SYS-030",
+        "REQ-SYS-032",
+        "REQ-SYS-034",
+        "REQ-SYS-035",
+        "REQ-SYS-036",
+        "REQ-SYS-038",
+        "REQ-SYS-039",
+        "REQ-SYS-040",
+        "REQ-SYS-041",
+        "REQ-SYS-042",
+        "REQ-SYS-043",
+        "REQ-SYS-044",
+        "REQ-SYS-045",
+        "REQ-SYS-046",
+        "REQ-SYS-048",
+        "REQ-SYS-051",
+        "REQ-SYS-052",
+        "REQ-SYS-053",
+        "REQ-SYS-054",
+        "REQ-SYS-056",
+        "REQ-SYS-058",
+        "REQ-SYS-059",
+        "REQ-SYS-060",
+        "REQ-SYS-061",
+        "REQ-SYS-062",
+        "REQ-SYS-063",
+        "REQ-SYS-064",
+        "REQ-SYS-065",
+        "REQ-SYS-066",
+        "REQ-SYS-067",
+        "REQ-SYS-068",
+        "REQ-SYS-069",
+        "REQ-SYS-070",
+        "REQ-SYS-074",
+        "REQ-SYS-075",
+        "REQ-SYS-076",
+        "REQ-SYS-077",
+        "REQ-SYS-082",
+        "REQ-SYS-087",
+        "REQ-SYS-088",
+        "REQ-SYS-089",
+        "REQ-SYS-093",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-096",
+        "REQ-SYS-097",
+        "REQ-SYS-098",
+        "REQ-SYS-099",
+        "REQ-SYS-118",
+        "REQ-SYS-119",
+        "REQ-SYS-120",
+        "REQ-SYS-127",
+        "REQ-SYS-128",
+        "REQ-SYS-129",
+        "REQ-SYS-130",
+        "REQ-SYS-131",
+        "REQ-SYS-132",
+        "REQ-SYS-133",
+        "REQ-SYS-134",
+        "REQ-SYS-135",
+        "REQ-SYS-136",
+        "REQ-SYS-143",
+        "REQ-SYS-144",
+        "REQ-SYS-145",
+        "REQ-SYS-146",
+        "REQ-SYS-150",
+        "REQ-SYS-152",
+        "REQ-SYS-153",
+        "REQ-SYS-154",
+        "REQ-SYS-155",
+        "REQ-SYS-156",
+        "REQ-SYS-157",
+        "REQ-SYS-158",
+        "REQ-SYS-159",
+        "REQ-SYS-160",
+        "REQ-SYS-161",
+        "REQ-SYS-162",
+        "REQ-SYS-163",
+        "REQ-SYS-164",
+        "REQ-SYS-166",
+        "REQ-SYS-167",
+        "REQ-SYS-169",
+        "REQ-SYS-170",
+        "REQ-SYS-171",
+        "REQ-SYS-179",
+        "REQ-SYS-182",
+        "REQ-SYS-183"
+      ],
+      "code": []
+    }
+  ],
+  "functions": [
+    {
+      "id": "F1",
+      "name": "Receive CW signals in 144.000 to 148.000 MHz",
+      "primary_modules": [
+        "RX"
+      ],
+      "supporting_modules": [
+        "TX",
+        "CTL",
+        "SW"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-021",
+        "REQ-SYS-022",
+        "REQ-SYS-023",
+        "REQ-SYS-024",
+        "REQ-SYS-025",
+        "REQ-SYS-026",
+        "REQ-SYS-027",
+        "REQ-SYS-028",
+        "REQ-SYS-029",
+        "REQ-SYS-030",
+        "REQ-SYS-031",
+        "REQ-SYS-032",
+        "REQ-SYS-033",
+        "REQ-SYS-034",
+        "REQ-SYS-035",
+        "REQ-SYS-036",
+        "REQ-SYS-037",
+        "REQ-SYS-046",
+        "REQ-SYS-144",
+        "REQ-SYS-145",
+        "REQ-SYS-176"
+      ]
+    },
+    {
+      "id": "F2",
+      "name": "Transmit an A1A carrier",
+      "primary_modules": [
+        "TX"
+      ],
+      "supporting_modules": [
+        "PWR",
+        "CTL",
+        "SW"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-001",
+        "REQ-SYS-008",
+        "REQ-SYS-011",
+        "REQ-SYS-012",
+        "REQ-SYS-013",
+        "REQ-SYS-014",
+        "REQ-SYS-015",
+        "REQ-SYS-017",
+        "REQ-SYS-018",
+        "REQ-SYS-050",
+        "REQ-SYS-104",
+        "REQ-SYS-141",
+        "REQ-SYS-145",
+        "REQ-SYS-151",
+        "REQ-SYS-152",
+        "REQ-SYS-183"
+      ]
+    },
+    {
+      "id": "F3",
+      "name": "Key and sequence",
+      "primary_modules": [
+        "SW"
+      ],
+      "supporting_modules": [
+        "TX",
+        "CTL"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-002",
+        "REQ-SYS-004",
+        "REQ-SYS-007",
+        "REQ-SYS-038",
+        "REQ-SYS-039",
+        "REQ-SYS-040",
+        "REQ-SYS-041",
+        "REQ-SYS-042",
+        "REQ-SYS-043",
+        "REQ-SYS-044",
+        "REQ-SYS-045",
+        "REQ-SYS-046",
+        "REQ-SYS-047",
+        "REQ-SYS-048",
+        "REQ-SYS-049",
+        "REQ-SYS-050",
+        "REQ-SYS-051",
+        "REQ-SYS-052",
+        "REQ-SYS-053",
+        "REQ-SYS-054",
+        "REQ-SYS-055",
+        "REQ-SYS-056",
+        "REQ-SYS-142",
+        "REQ-SYS-159",
+        "REQ-SYS-160",
+        "REQ-SYS-161",
+        "REQ-SYS-162",
+        "REQ-SYS-163",
+        "REQ-SYS-174",
+        "REQ-SYS-180"
+      ]
+    },
+    {
+      "id": "F4",
+      "name": "Generate frequencies",
+      "primary_modules": [
+        "TX"
+      ],
+      "supporting_modules": [
+        "RX",
+        "CTL",
+        "SW"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-008",
+        "REQ-SYS-010",
+        "REQ-SYS-017",
+        "REQ-SYS-021",
+        "REQ-SYS-031",
+        "REQ-SYS-034",
+        "REQ-SYS-144",
+        "REQ-SYS-145",
+        "REQ-SYS-154",
+        "REQ-SYS-176",
+        "REQ-SYS-182"
+      ]
+    },
+    {
+      "id": "F5",
+      "name": "Operator interface",
+      "primary_modules": [
+        "CTL",
+        "SW"
+      ],
+      "supporting_modules": [
+        "ME"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-002",
+        "REQ-SYS-006",
+        "REQ-SYS-056",
+        "REQ-SYS-057",
+        "REQ-SYS-058",
+        "REQ-SYS-059",
+        "REQ-SYS-060",
+        "REQ-SYS-061",
+        "REQ-SYS-062",
+        "REQ-SYS-063",
+        "REQ-SYS-066",
+        "REQ-SYS-067",
+        "REQ-SYS-146",
+        "REQ-SYS-164",
+        "REQ-SYS-165",
+        "REQ-SYS-171",
+        "REQ-SYS-179"
+      ]
+    },
+    {
+      "id": "F6",
+      "name": "Produce audio",
+      "primary_modules": [
+        "CTL",
+        "SW"
+      ],
+      "supporting_modules": [
+        "RX"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-045",
+        "REQ-SYS-050",
+        "REQ-SYS-059",
+        "REQ-SYS-071",
+        "REQ-SYS-072",
+        "REQ-SYS-073",
+        "REQ-SYS-074",
+        "REQ-SYS-075",
+        "REQ-SYS-076",
+        "REQ-SYS-077",
+        "REQ-SYS-078",
+        "REQ-SYS-079",
+        "REQ-SYS-157",
+        "REQ-SYS-158",
+        "REQ-SYS-159",
+        "REQ-SYS-169",
+        "REQ-SYS-170",
+        "REQ-SYS-173"
+      ]
+    },
+    {
+      "id": "F7",
+      "name": "Store, protect, charge and distribute power",
+      "primary_modules": [
+        "PWR"
+      ],
+      "supporting_modules": [
+        "TX",
+        "CTL",
+        "ME",
+        "SW"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-070",
+        "REQ-SYS-080",
+        "REQ-SYS-081",
+        "REQ-SYS-082",
+        "REQ-SYS-083",
+        "REQ-SYS-084",
+        "REQ-SYS-085",
+        "REQ-SYS-086",
+        "REQ-SYS-087",
+        "REQ-SYS-088",
+        "REQ-SYS-089",
+        "REQ-SYS-090",
+        "REQ-SYS-091",
+        "REQ-SYS-092",
+        "REQ-SYS-093",
+        "REQ-SYS-094",
+        "REQ-SYS-095",
+        "REQ-SYS-096",
+        "REQ-SYS-097",
+        "REQ-SYS-098",
+        "REQ-SYS-099",
+        "REQ-SYS-100",
+        "REQ-SYS-101",
+        "REQ-SYS-149",
+        "REQ-SYS-166",
+        "REQ-SYS-167"
+      ]
+    },
+    {
+      "id": "F8",
+      "name": "Configure and update",
+      "primary_modules": [
+        "SW"
+      ],
+      "supporting_modules": [
+        "CTL"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-126",
+        "REQ-SYS-127",
+        "REQ-SYS-128",
+        "REQ-SYS-129",
+        "REQ-SYS-132",
+        "REQ-SYS-133",
+        "REQ-SYS-134",
+        "REQ-SYS-135",
+        "REQ-SYS-136",
+        "REQ-SYS-143",
+        "REQ-SYS-150"
+      ]
+    },
+    {
+      "id": "F9",
+      "name": "Protect people and comply",
+      "primary_modules": [
+        "SW"
+      ],
+      "supporting_modules": [
+        "TX",
+        "PWR",
+        "CTL",
+        "ME"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-002",
+        "REQ-SYS-003",
+        "REQ-SYS-004",
+        "REQ-SYS-005",
+        "REQ-SYS-009",
+        "REQ-SYS-019",
+        "REQ-SYS-020",
+        "REQ-SYS-052",
+        "REQ-SYS-053",
+        "REQ-SYS-054",
+        "REQ-SYS-055",
+        "REQ-SYS-063",
+        "REQ-SYS-064",
+        "REQ-SYS-065",
+        "REQ-SYS-066",
+        "REQ-SYS-068",
+        "REQ-SYS-069",
+        "REQ-SYS-112",
+        "REQ-SYS-118",
+        "REQ-SYS-119",
+        "REQ-SYS-120",
+        "REQ-SYS-121",
+        "REQ-SYS-122",
+        "REQ-SYS-124",
+        "REQ-SYS-130",
+        "REQ-SYS-131",
+        "REQ-SYS-153",
+        "REQ-SYS-154",
+        "REQ-SYS-155",
+        "REQ-SYS-156",
+        "REQ-SYS-172",
+        "REQ-SYS-179",
+        "REQ-SYS-180",
+        "REQ-SYS-181",
+        "REQ-SYS-182",
+        "REQ-SYS-183"
+      ]
+    },
+    {
+      "id": "F10",
+      "name": "House and cool",
+      "primary_modules": [
+        "ME"
+      ],
+      "supporting_modules": [
+        "TX"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-013",
+        "REQ-SYS-080",
+        "REQ-SYS-102",
+        "REQ-SYS-103",
+        "REQ-SYS-104",
+        "REQ-SYS-105",
+        "REQ-SYS-106",
+        "REQ-SYS-107",
+        "REQ-SYS-108",
+        "REQ-SYS-109",
+        "REQ-SYS-110",
+        "REQ-SYS-111",
+        "REQ-SYS-112",
+        "REQ-SYS-113",
+        "REQ-SYS-114",
+        "REQ-SYS-115",
+        "REQ-SYS-116",
+        "REQ-SYS-117",
+        "REQ-SYS-124",
+        "REQ-SYS-139",
+        "REQ-SYS-168",
+        "REQ-SYS-175",
+        "REQ-SYS-177"
+      ]
+    }
+  ],
+  "allocations": [
+    {
+      "requirement_id": "REQ-SYS-001",
+      "title": "A1A emission only",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B04",
+        "B05",
+        "B22"
+      ],
+      "function_ids": [
+        "F2"
+      ],
+      "child_ids": [
+        "REQ-TX-001"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-002",
+      "title": "Operating modes and transitions",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22",
+        "B12"
+      ],
+      "function_ids": [
+        "F3",
+        "F5",
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-003",
+      "title": "Self-test before transmit",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL",
+        "PWR"
+      ],
+      "sw_modules": [
+        "SW-BOOT",
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22",
+        "B12",
+        "B17"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-004",
+      "title": "Carrier end on an inhibit, flag or latched fault",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "TX"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B22",
+        "B04",
+        "B07"
+      ],
+      "function_ids": [
+        "F3",
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-005",
+      "title": "Fault-safe exit",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22",
+        "B14"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-006",
+      "title": "Operator call sign",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY",
+        "SW-CFG"
+      ],
+      "element_ids": [
+        "B22",
+        "B14"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-007",
+      "title": "Keying only from the key jack",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL",
+        "TX"
+      ],
+      "sw_modules": [
+        "SW-KEYER",
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B22",
+        "B13"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-028",
+        "REQ-TX-014"
+      ],
+      "note": "TX added because the live L2 requirement REQ-TX-014 names this requirement as parent."
+    },
+    {
+      "requirement_id": "REQ-SYS-008",
+      "title": "Transmit frequency range with band-edge guard",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SYNTH"
+      ],
+      "element_ids": [
+        "B06",
+        "B22"
+      ],
+      "function_ids": [
+        "F2",
+        "F4"
+      ],
+      "child_ids": [
+        "REQ-TX-002"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-009",
+      "title": "Transmit inhibit outside the guard",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "TX"
+      ],
+      "sw_modules": [
+        "SW-SYNTH",
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": [
+        "REQ-TX-003"
+      ],
+      "note": "TX added because the live L2 requirement REQ-TX-003 names this requirement as parent."
+    },
+    {
+      "requirement_id": "REQ-SYS-010",
+      "title": "Carrier frequency accuracy",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SYNTH"
+      ],
+      "element_ids": [
+        "B06",
+        "B22"
+      ],
+      "function_ids": [
+        "F4"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-011",
+      "title": "Selectable power steps below 5 W",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "SW",
+        "PWR"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B04",
+        "B22",
+        "B19"
+      ],
+      "function_ids": [
+        "F2"
+      ],
+      "child_ids": [
+        "REQ-TX-004"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-012",
+      "title": "Rated output power with level control",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "PWR",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B04",
+        "B19",
+        "B22"
+      ],
+      "function_ids": [
+        "F2"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-013",
+      "title": "Survival into open, short and high SWR",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B01",
+        "B02",
+        "B03",
+        "B04",
+        "B21"
+      ],
+      "function_ids": [
+        "F2",
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-014",
+      "title": "Keying envelope",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B04",
+        "B05",
+        "B22"
+      ],
+      "function_ids": [
+        "F2"
+      ],
+      "child_ids": [
+        "REQ-TX-005"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-015",
+      "title": "Occupied bandwidth",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B04",
+        "B05",
+        "B22"
+      ],
+      "function_ids": [
+        "F2"
+      ],
+      "child_ids": [
+        "REQ-TX-006"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-017",
+      "title": "Spurious emission absolute limit",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "CTL",
+        "PWR",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SYNTH"
+      ],
+      "element_ids": [
+        "B02",
+        "B04",
+        "B06",
+        "B12",
+        "B20"
+      ],
+      "function_ids": [
+        "F2",
+        "F4"
+      ],
+      "child_ids": [
+        "REQ-TX-007"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-018",
+      "title": "Spurious emission design margin",
+      "primary_module": "TX",
+      "modules": [
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B02",
+        "B04"
+      ],
+      "function_ids": [
+        "F2"
+      ],
+      "child_ids": [
+        "REQ-TX-008",
+        "REQ-TX-009",
+        "REQ-TX-010",
+        "REQ-TX-011"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-019",
+      "title": "Tune carrier power",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "TX"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ",
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22",
+        "B04"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-020",
+      "title": "Tune carrier timeout",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-021",
+      "title": "Receive frequency range",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SYNTH"
+      ],
+      "element_ids": [
+        "B08",
+        "B09",
+        "B06",
+        "B22"
+      ],
+      "function_ids": [
+        "F1",
+        "F4"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-022",
+      "title": "Minimum discernible signal",
+      "primary_module": "RX",
+      "modules": [
+        "RX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B08",
+        "B09",
+        "B10",
+        "B11"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-023",
+      "title": "Minimum discernible signal target",
+      "primary_module": "RX",
+      "modules": [
+        "RX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B08",
+        "B09",
+        "B10",
+        "B11"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-024",
+      "title": "Receive passband width",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B10",
+        "B11",
+        "B22"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": [],
+      "note": "SW part applies to TS-001 candidate B only (firmware CW filter and digital AGC); the receiving SW-<SUB> module is named by the architecture ADR at PDR if candidate B is chosen."
+    },
+    {
+      "requirement_id": "REQ-SYS-025",
+      "title": "Receive -60 dB bandwidth",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B10",
+        "B11",
+        "B22"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": [],
+      "note": "SW part applies to TS-001 candidate B only (firmware CW filter and digital AGC); the receiving SW-<SUB> module is named by the architecture ADR at PDR if candidate B is chosen."
+    },
+    {
+      "requirement_id": "REQ-SYS-026",
+      "title": "Stopband rejection from 2 kHz to 5 kHz",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B10",
+        "B11",
+        "B22"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": [],
+      "note": "SW part applies to TS-001 candidate B only (firmware CW filter and digital AGC); the receiving SW-<SUB> module is named by the architecture ADR at PDR if candidate B is chosen."
+    },
+    {
+      "requirement_id": "REQ-SYS-027",
+      "title": "Ultimate receive rejection",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B10",
+        "B11",
+        "B22"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": [],
+      "note": "SW part applies to TS-001 candidate B only (firmware CW filter and digital AGC); the receiving SW-<SUB> module is named by the architecture ADR at PDR if candidate B is chosen."
+    },
+    {
+      "requirement_id": "REQ-SYS-028",
+      "title": "Passband ripple",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B10",
+        "B11",
+        "B22"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": [],
+      "note": "SW part applies to TS-001 candidate B only (firmware CW filter and digital AGC); the receiving SW-<SUB> module is named by the architecture ADR at PDR if candidate B is chosen."
+    },
+    {
+      "requirement_id": "REQ-SYS-029",
+      "title": "Adjacent-signal desensitization",
+      "primary_module": "RX",
+      "modules": [
+        "RX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B08",
+        "B09",
+        "B10",
+        "B11"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-030",
+      "title": "No gain pumping from an adjacent signal",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B10",
+        "B11",
+        "B22"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": [],
+      "note": "SW part applies to TS-001 candidate B only (firmware CW filter and digital AGC); the receiving SW-<SUB> module is named by the architecture ADR at PDR if candidate B is chosen."
+    },
+    {
+      "requirement_id": "REQ-SYS-031",
+      "title": "Reciprocal mixing dynamic range",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B09",
+        "B06"
+      ],
+      "function_ids": [
+        "F1",
+        "F4"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-032",
+      "title": "Receive level control range",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B10",
+        "B11",
+        "B22"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": [],
+      "note": "SW part applies to TS-001 candidate B only (firmware CW filter and digital AGC); the receiving SW-<SUB> module is named by the architecture ADR at PDR if candidate B is chosen."
+    },
+    {
+      "requirement_id": "REQ-SYS-033",
+      "title": "Receiver spurious response rejection",
+      "primary_module": "RX",
+      "modules": [
+        "RX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B08",
+        "B09"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-034",
+      "title": "Internally generated receive spurious signals",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "PWR",
+        "RX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SYNTH"
+      ],
+      "element_ids": [
+        "B12",
+        "B20",
+        "B08",
+        "B22"
+      ],
+      "function_ids": [
+        "F1",
+        "F4"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-035",
+      "title": "Receive filter-centre calibration trim",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "RX"
+      ],
+      "sw_modules": [
+        "SW-CFG",
+        "SW-SYNTH"
+      ],
+      "element_ids": [
+        "B22",
+        "B10",
+        "B11"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-036",
+      "title": "Receive recovery after transmit",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B08",
+        "B03",
+        "B22"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-037",
+      "title": "Receiver input overload survival",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B08",
+        "B03",
+        "B02"
+      ],
+      "function_ids": [
+        "F1"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-038",
+      "title": "Straight-key keying",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22",
+        "B13"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-001",
+        "REQ-SW-KEYER-002"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-039",
+      "title": "Iambic paddle keying",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22",
+        "B13"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-003",
+        "REQ-SW-KEYER-004",
+        "REQ-SW-KEYER-005"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-040",
+      "title": "Keyer modes",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-006",
+        "REQ-SW-KEYER-007",
+        "REQ-SW-KEYER-008",
+        "REQ-SW-KEYER-009",
+        "REQ-SW-KEYER-010",
+        "REQ-SW-KEYER-011",
+        "REQ-SW-KEYER-012"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-041",
+      "title": "Keyer speed range",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-015",
+        "REQ-SW-KEYER-016",
+        "REQ-SW-KEYER-037"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-042",
+      "title": "Element and space timing accuracy",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-KEYER",
+        "SW-SCHED"
+      ],
+      "element_ids": [
+        "B22",
+        "B12"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-013",
+        "REQ-SW-KEYER-014"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-043",
+      "title": "Paddle-to-element latency",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-KEYER",
+        "SW-SCHED"
+      ],
+      "element_ids": [
+        "B22",
+        "B12"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-017",
+        "REQ-SW-KEYER-019"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-044",
+      "title": "Semi break-in hang time",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ",
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-032"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-045",
+      "title": "Sidetone frequency",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-AUDIO"
+      ],
+      "element_ids": [
+        "B22",
+        "B15"
+      ],
+      "function_ids": [
+        "F3",
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-046",
+      "title": "CW pitch equals sidetone",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "RX"
+      ],
+      "sw_modules": [
+        "SW-SYNTH",
+        "SW-AUDIO"
+      ],
+      "element_ids": [
+        "B22",
+        "B10",
+        "B11"
+      ],
+      "function_ids": [
+        "F1",
+        "F3"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-047",
+      "title": "Key contact thresholds",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B13"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-048",
+      "title": "Key closure debounce",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22",
+        "B13"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-020"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-049",
+      "title": "Key input abuse tolerance",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B13"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-050",
+      "title": "Electrostatic discharge tolerance",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "TX",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B13",
+        "B15",
+        "B01",
+        "B02",
+        "B21"
+      ],
+      "function_ids": [
+        "F2",
+        "F3",
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-051",
+      "title": "Key input RF immunity",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "ME",
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B13",
+        "B21",
+        "B22"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-052",
+      "title": "Key-closed interlock at power-on and reset",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3",
+        "F9"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-022"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-053",
+      "title": "Straight-key timeout",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3",
+        "F9"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-026",
+        "REQ-SW-KEYER-027"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-054",
+      "title": "Paddle watchdog",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3",
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-055",
+      "title": "Hardware transmit cutoff",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B07",
+        "B12"
+      ],
+      "function_ids": [
+        "F3",
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "Block B07 is drawn in the TX group of concept section 5 and allocated to TX by concept sections 7 and 7.2 (INSP-002 F-14); HZ-004 K5 allocates to TX. Primary TX, CTL supporting through ICD-TX-CTL; the VBUS sense divider is part of B16 (PWR); the architecture ADR at PDR confirms."
+    },
+    {
+      "requirement_id": "REQ-SYS-056",
+      "title": "Key input mode selection",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-KEYER",
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3",
+        "F5"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-024"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-057",
+      "title": "Operator control set",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B14",
+        "B21"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-058",
+      "title": "Tuning with rate-dependent step",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22",
+        "B14"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-059",
+      "title": "Volume control",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-AUDIO",
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22",
+        "B14",
+        "B15"
+      ],
+      "function_ids": [
+        "F5",
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-060",
+      "title": "Status display content",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22",
+        "B14"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-061",
+      "title": "Display character size",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B14",
+        "B22"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-062",
+      "title": "Menu depth",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-063",
+      "title": "Deliberate selection of 5 W",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY",
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F5",
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-064",
+      "title": "Default power step",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-CFG"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-065",
+      "title": "Guest lock transmit inhibit",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-066",
+      "title": "Guest lock set and release",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F5",
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-067",
+      "title": "Fault cause display",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY",
+        "SW-SAFE",
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22",
+        "B14"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-023"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-068",
+      "title": "Identification reminder",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-069",
+      "title": "Separation reminder per power step",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-070",
+      "title": "Charge state indication",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-PWR",
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22",
+        "B17",
+        "B14"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-071",
+      "title": "Headphone output ceiling",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B15"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-072",
+      "title": "Headphone output worst case",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B15"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-073",
+      "title": "Headphone ceiling under a single component failure",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B15"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-074",
+      "title": "Default audio level cap",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-AUDIO"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-075",
+      "title": "Receive mute at key-down",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-AUDIO",
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-076",
+      "title": "Headphone transients",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-AUDIO"
+      ],
+      "element_ids": [
+        "B15",
+        "B22"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-077",
+      "title": "Amplifier off without headphones",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-AUDIO"
+      ],
+      "element_ids": [
+        "B15",
+        "B22"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-078",
+      "title": "Headphone load and channels",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B15"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-079",
+      "title": "Headphone output short-circuit tolerance",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B15"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-080",
+      "title": "Two 18650 cells in holders",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B19",
+        "B21"
+      ],
+      "function_ids": [
+        "F7",
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-081",
+      "title": "Charge termination voltage",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B17"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-082",
+      "title": "Charge temperature window",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B17",
+        "B22"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-083",
+      "title": "Independent cell over-voltage protection",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B18"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-084",
+      "title": "Cell under-voltage cutoff",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B18"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-085",
+      "title": "Over-current and short-circuit protection",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B18"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-086",
+      "title": "Reverse cell insertion",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B18",
+        "B19"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-087",
+      "title": "Cell insertion check",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "PWR"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B22",
+        "B17"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-088",
+      "title": "Dual-path cell voltage check",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B22",
+        "B17",
+        "B12"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-089",
+      "title": "Charge safety timer",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B17",
+        "B22"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-090",
+      "title": "USB input current",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B16",
+        "B17"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-091",
+      "title": "Charge time",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B17"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-092",
+      "title": "Hardware transmit inhibit with USB power",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B16",
+        "B17",
+        "B07"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-093",
+      "title": "Charging paused while receiving",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "PWR"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B22",
+        "B17"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-094",
+      "title": "Battery life at 1:9",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "TX",
+        "RX",
+        "CTL",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B19",
+        "B20",
+        "B04",
+        "B22"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": [],
+      "note": "System power budget (TPM-002, TPM-008): PWR holds the capacity and conversion efficiency; TX, RX, CTL and SW each receive a power allocation at PDR."
+    },
+    {
+      "requirement_id": "REQ-SYS-095",
+      "title": "Battery life at 1:4",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "TX",
+        "RX",
+        "CTL",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B19",
+        "B20",
+        "B04",
+        "B22"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": [],
+      "note": "System power budget (TPM-002): as REQ-SYS-094."
+    },
+    {
+      "requirement_id": "REQ-SYS-096",
+      "title": "Low-battery warning",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-PWR",
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-097",
+      "title": "Low-battery transmit inhibit",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-PWR",
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-098",
+      "title": "Low-battery power-down",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "PWR"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B22",
+        "B20"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-099",
+      "title": "Cell over-temperature lockout",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "PWR"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B22",
+        "B20"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-100",
+      "title": "Current drawn when switched off",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B17",
+        "B18",
+        "B20"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-101",
+      "title": "Mechanical power switch",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B20",
+        "B21"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-102",
+      "title": "Unit mass",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "PWR",
+        "TX",
+        "RX",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21",
+        "B19"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": [],
+      "note": "Mass budget (TPM-001, provisional allocation 350 g): ME holds the enclosure share; PWR, TX, RX and CTL receive board and part allocations at PDR."
+    },
+    {
+      "requirement_id": "REQ-SYS-103",
+      "title": "External envelope",
+      "primary_module": "ME",
+      "modules": [
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-104",
+      "title": "Antenna connector",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B01",
+        "B21"
+      ],
+      "function_ids": [
+        "F2",
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-105",
+      "title": "Antenna port mechanical load path",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21",
+        "B01"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-106",
+      "title": "Antenna port mating life",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B01",
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-107",
+      "title": "Counterpoise attachment",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21",
+        "B01"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-108",
+      "title": "Connector access through the enclosure",
+      "primary_module": "ME",
+      "modules": [
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-109",
+      "title": "Enclosure material and finish",
+      "primary_module": "ME",
+      "modules": [
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-110",
+      "title": "Edge break",
+      "primary_module": "ME",
+      "modules": [
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-111",
+      "title": "Knob clearance",
+      "primary_module": "ME",
+      "modules": [
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-112",
+      "title": "PA thermal path at continuous key-down",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B04",
+        "B21"
+      ],
+      "function_ids": [
+        "F9",
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-113",
+      "title": "Hand-hold surface temperature",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21",
+        "B04"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-114",
+      "title": "Operating temperature",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "RX",
+        "TX",
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": [],
+      "note": "System-level environmental requirement applied to every hardware module (RX, TX, PWR, CTL); ME holds the main child, the enclosure thermal environment at the unit boundary, and each other L2 file carries its own range or cites this one at PDR (INSP-003 finding-20)."
+    },
+    {
+      "requirement_id": "REQ-SYS-115",
+      "title": "Storage temperature",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "RX",
+        "TX",
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": [],
+      "note": "System-level environmental requirement applied to every hardware module (RX, TX, PWR, CTL); ME holds the main child at the unit boundary, and each other L2 file carries its own storage range or cites this one at PDR (INSP-003 finding-20)."
+    },
+    {
+      "requirement_id": "REQ-SYS-116",
+      "title": "Drop survival",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "RX",
+        "TX",
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": [],
+      "note": "Environmental requirement; ME primary (enclosure and board support), the other hardware modules for part retention."
+    },
+    {
+      "requirement_id": "REQ-SYS-117",
+      "title": "Light rain",
+      "primary_module": "ME",
+      "modules": [
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-118",
+      "title": "PA over-temperature inhibit",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "TX"
+      ],
+      "sw_modules": [
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22",
+        "B04"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-119",
+      "title": "Transmit held off during reset and firmware load",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-BOOT"
+      ],
+      "element_ids": [
+        "B07",
+        "B12",
+        "B03",
+        "B22"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-120",
+      "title": "Two independent conditions for RF output",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "CTL",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ",
+        "SW-SAFE",
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B07",
+        "B04",
+        "B22"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-030"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-121",
+      "title": "RF exposure evaluation",
+      "primary_module": "TX",
+      "modules": [
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B01",
+        "B04"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": [
+        "REQ-TX-015"
+      ],
+      "note": "System-level analysis product (docs/design/analysis/rf-exposure-evaluation.md); TX supplies the power and antenna inputs and carries the L2 child."
+    },
+    {
+      "requirement_id": "REQ-SYS-122",
+      "title": "Operations handbook safety content",
+      "primary_module": "system",
+      "modules": [
+        "TX",
+        "PWR",
+        "CTL",
+        "ME",
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "Leaf (tag leaf, INSP-003 finding-20): system-level documentation product (docs/ops/operations-handbook.md, SAR), verified at system level only. The listed modules contribute the operator instructions for the documentation and procedure controls of the hazards they hold (TX: HZ-001, HZ-006, HZ-012 exposure and antenna; PWR: HZ-002, HZ-007, HZ-011 cells and charging; CTL: HZ-005 audio; ME: HZ-003, HZ-009, HZ-013 handling; SW: HZ-004 stuck-key actions); none carries the main child."
+    },
+    {
+      "requirement_id": "REQ-SYS-124",
+      "title": "Enclosure legend",
+      "primary_module": "ME",
+      "modules": [
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F9",
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-126",
+      "title": "Controller module",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B12"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": [],
+      "note": "Tagged leaf."
+    },
+    {
+      "requirement_id": "REQ-SYS-127",
+      "title": "Firmware language and platform",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": [],
+      "note": "Tagged leaf."
+    },
+    {
+      "requirement_id": "REQ-SYS-128",
+      "title": "Host-testable application layering",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-HAL"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-129",
+      "title": "Single interrupt priority design rule",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SCHED"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-130",
+      "title": "Safe state first on reset, panic and latched fault",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-BOOT",
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-031"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-131",
+      "title": "Firmware hang recovery",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-SCHED",
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22",
+        "B12"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-132",
+      "title": "Firmware image integrity",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-BOOT"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-133",
+      "title": "Firmware update over USB",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-BOOT"
+      ],
+      "element_ids": [
+        "B12",
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-134",
+      "title": "Stored configuration integrity",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-CFG"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-135",
+      "title": "Settings persistence",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-CFG"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-136",
+      "title": "Configuration defaults",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-CFG"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-137",
+      "title": "Turnkey surface-mount assembly",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "RX",
+        "TX",
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [],
+      "child_ids": [],
+      "note": "System-level producibility requirement on every board module (RX, TX, PWR, CTL list their parts in the design BOM category, SI-031); ME holds the main child with the board-level fabrication and assembly rules of REQ-SYS-139 (concept section 7.8) (INSP-003 finding-20)."
+    },
+    {
+      "requirement_id": "REQ-SYS-138",
+      "title": "Owner hand-soldered parts",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "RX",
+        "TX",
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [],
+      "child_ids": [],
+      "note": "System-level producibility requirement on every board module (RX, TX, PWR, CTL list their parts in the design BOM category, SI-031); ME holds the main child with the board-level fabrication and assembly rules of REQ-SYS-139 (concept section 7.8) (INSP-003 finding-20)."
+    },
+    {
+      "requirement_id": "REQ-SYS-139",
+      "title": "Circuit board fabrication rules",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "TX",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": [],
+      "note": "PCB rules sit with ME per concept section 7.8 (board outline, bosses, thickness), TX for the 50 ohm microstrip and the PA via array, CTL for the module footprint."
+    },
+    {
+      "requirement_id": "REQ-SYS-140",
+      "title": "Parts sourcing",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "RX",
+        "TX",
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [],
+      "child_ids": [],
+      "note": "System-level producibility requirement on every board module (RX, TX, PWR, CTL list their parts in the design BOM category, SI-031); ME holds the main child with the board-level fabrication and assembly rules of REQ-SYS-139 (concept section 7.8) (INSP-003 finding-20)."
+    },
+    {
+      "requirement_id": "REQ-SYS-141",
+      "title": "Transmit monitor port",
+      "primary_module": "TX",
+      "modules": [
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B01",
+        "B02"
+      ],
+      "function_ids": [
+        "F2"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-142",
+      "title": "Test points",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B12",
+        "B13",
+        "B07"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-143",
+      "title": "Boot banner and serial telemetry",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-DIAG",
+        "SW-BOOT"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-144",
+      "title": "No manual alignment",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-CFG"
+      ],
+      "element_ids": [
+        "B10",
+        "B11",
+        "B06",
+        "B22"
+      ],
+      "function_ids": [
+        "F1",
+        "F4"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-145",
+      "title": "Band-dependent functions partitioned",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SYNTH"
+      ],
+      "element_ids": [
+        "B02",
+        "B03",
+        "B04",
+        "B06",
+        "B08",
+        "B09",
+        "B22"
+      ],
+      "function_ids": [
+        "F1",
+        "F2",
+        "F4"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-146",
+      "title": "Reserved band control",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "CTL",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B21",
+        "B12",
+        "B14",
+        "B22"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-147",
+      "title": "Unit cost",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "RX",
+        "TX",
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [],
+      "function_ids": [],
+      "child_ids": [],
+      "note": "Cost budget (TPM-014) allocated to every hardware module at PDR from docs/plan/cost-estimate.md; ME holds the largest share, the CNC enclosure, and carries the main child (INSP-003 finding-20)."
+    },
+    {
+      "requirement_id": "REQ-SYS-149",
+      "title": "No transmitter supply from USB alone",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B16",
+        "B18",
+        "B04"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-150",
+      "title": "Telemetry without USB power",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-DIAG"
+      ],
+      "element_ids": [
+        "B12",
+        "B22"
+      ],
+      "function_ids": [
+        "F8"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-151",
+      "title": "Spurious emissions into a mismatched load",
+      "primary_module": "TX",
+      "modules": [
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B02",
+        "B04"
+      ],
+      "function_ids": [
+        "F2"
+      ],
+      "child_ids": [
+        "REQ-TX-012"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-152",
+      "title": "Rated power into a mismatched load",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B04",
+        "B22"
+      ],
+      "function_ids": [
+        "F2"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-153",
+      "title": "High pack voltage transmit lockout",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "PWR"
+      ],
+      "sw_modules": [
+        "SW-PWR",
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22",
+        "B17"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-154",
+      "title": "Synthesizer fault response",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "TX"
+      ],
+      "sw_modules": [
+        "SW-SYNTH",
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22",
+        "B06"
+      ],
+      "function_ids": [
+        "F4",
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-155",
+      "title": "PA temperature sensor fault response",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "TX"
+      ],
+      "sw_modules": [
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22",
+        "B04"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-156",
+      "title": "Forward-power detector fault response",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "TX"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ",
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22",
+        "B04"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-157",
+      "title": "Receive audio held muted through transmit and hang",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-AUDIO"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-158",
+      "title": "Receive audio restore fade",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-AUDIO"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-159",
+      "title": "Sidetone onset latency",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-AUDIO",
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3",
+        "F6"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-033"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-160",
+      "title": "Straight-key contact to RF latency",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "TX"
+      ],
+      "sw_modules": [
+        "SW-KEYER",
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B22",
+        "B03"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-018"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-161",
+      "title": "Constant lead-in over an over",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-162",
+      "title": "Key opening debounce",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-021"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-163",
+      "title": "Key-mode selection with a closed input",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-KEYER",
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-025"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-164",
+      "title": "Band crossing time",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22",
+        "B14"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-165",
+      "title": "Display legibility without a backlight",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B14",
+        "B21"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-166",
+      "title": "Rails held off for out-of-window cells",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B18",
+        "B20",
+        "B22"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-167",
+      "title": "Charge current-fall supervision",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "PWR"
+      ],
+      "sw_modules": [
+        "SW-PWR"
+      ],
+      "element_ids": [
+        "B22",
+        "B17"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-168",
+      "title": "Cell cover pinch gap",
+      "primary_module": "ME",
+      "modules": [
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-169",
+      "title": "Audio unlock expiry",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-AUDIO"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-170",
+      "title": "Audio cap at power-on",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-AUDIO",
+        "SW-CFG"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-171",
+      "title": "Key-down time display",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-DISPLAY"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F5"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-172",
+      "title": "Delivered antenna gain",
+      "primary_module": "TX",
+      "modules": [
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B01"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "The reference antennas are shipped accessories on the antenna side of ICD-TX-ANT; TX owns the port interface."
+    },
+    {
+      "requirement_id": "REQ-SYS-173",
+      "title": "Headphone audio while keying with long leads",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "ME"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B13",
+        "B15",
+        "B21"
+      ],
+      "function_ids": [
+        "F6"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-174",
+      "title": "Key jack wiring",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B13"
+      ],
+      "function_ids": [
+        "F3"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-175",
+      "title": "Antenna port on one end",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21",
+        "B01"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-176",
+      "title": "Receive-mode emissions at the antenna port",
+      "primary_module": "RX",
+      "modules": [
+        "RX",
+        "TX",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B06",
+        "B08",
+        "B09",
+        "B12"
+      ],
+      "function_ids": [
+        "F1",
+        "F4"
+      ],
+      "child_ids": [
+        "REQ-TX-016"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-177",
+      "title": "Enclosure emissions from digital and switching circuits",
+      "primary_module": "ME",
+      "modules": [
+        "ME",
+        "CTL",
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B21",
+        "B12",
+        "B20"
+      ],
+      "function_ids": [
+        "F10"
+      ],
+      "child_ids": []
+    },
+    {
+      "requirement_id": "REQ-SYS-178",
+      "title": "Owner-procured parts sourcing",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "PWR",
+        "TX",
+        "RX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B13",
+        "B14",
+        "B15",
+        "B19"
+      ],
+      "function_ids": [],
+      "child_ids": [],
+      "note": "Owner-procured hand-soldered parts sit in these modules (jacks, encoders, holders, relay if through-hole)."
+    },
+    {
+      "requirement_id": "REQ-SYS-179",
+      "title": "Bench test mode entry",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-DISPLAY",
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F5",
+        "F9"
+      ],
+      "child_ids": [
+        "REQ-SW-KEYER-029"
+      ]
+    },
+    {
+      "requirement_id": "REQ-SYS-180",
+      "title": "Transmission-length hardware backstop",
+      "primary_module": "CTL",
+      "modules": [
+        "CTL",
+        "TX"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B07",
+        "B03"
+      ],
+      "function_ids": [
+        "F3",
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "Proposed at SRR (package decision 38). HZ-004 K12 allocates the second monostable to CTL; it acts on the PA-path enable node of B07 and watches the T/R drive of B03."
+    },
+    {
+      "requirement_id": "REQ-SYS-181",
+      "title": "Hardware PA over-temperature cut-off",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B04",
+        "B07"
+      ],
+      "function_ids": [
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "Proposed at SRR (package decision 39). HZ-003 K9 allocates the sensor and comparator to TX; it acts on the PA-path enable node of B07."
+    },
+    {
+      "requirement_id": "REQ-SYS-182",
+      "title": "Independent frequency verification before and during transmit",
+      "primary_module": "SW",
+      "modules": [
+        "SW",
+        "TX",
+        "CTL"
+      ],
+      "sw_modules": [
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B06",
+        "B12",
+        "B22"
+      ],
+      "function_ids": [
+        "F4",
+        "F9"
+      ],
+      "child_ids": [
+        "REQ-TX-013"
+      ],
+      "note": "Proposed at SRR (package decision 40). The counter must be independent of the SW-SYNTH frequency-word path (HZ-008 K7), so it is allocated to SW-SAFE, not SW-SYNTH; TX supplies the prescaled synthesizer sample, CTL the PIO or timer unit and the RP2350 crystal timebase. The architecture ADR at PDR may create a module of its own."
+    },
+    {
+      "requirement_id": "REQ-SYS-183",
+      "title": "RF-off level at the antenna port",
+      "primary_module": "TX",
+      "modules": [
+        "TX",
+        "RX",
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-TXSEQ",
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B03",
+        "B04",
+        "B05",
+        "B06",
+        "B07",
+        "B22"
+      ],
+      "function_ids": [
+        "F2",
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "RF-off level (INSP-003 finding-1): TX holds the main child, the off-state isolation of the PA, exciter, T/R relay and PA-enable path at the carrier frequency; RX shares the level with the receive-mode limit REQ-SYS-176 through the T/R and front-end isolation; SW-TXSEQ and SW-SAFE hold the states in which RF is ended or inhibited."
+    }
+  ],
+  "gaps": [
+    {
+      "requirement_id": "REQ-SYS-125",
+      "title": "Build quantity cap",
+      "reason": "Programmatic constraint on the production quantity (47 CFR 15.23(a), five or fewer units not marketed), not a property any L2 module can hold. Tagged leaf (INSP-003 finding-20), with a rationale that states why it is verified at system level only; verified by Inspection of the release quantities and the unit serial register. Confirmed by the reviewer in V6; a T-18 Warning at SRR, exempt from the PDR Error by the leaf tag."
+    },
+    {
+      "requirement_id": "REQ-SYS-148",
+      "title": "Open-source publication",
+      "reason": "Programmatic constraint on the licensing of the repository (tagged leaf). No L2 module receives it; verified at system level by Inspection; confirmed by the reviewer in V6 (INSP-003)."
+    }
+  ],
+  "excluded": [
+    {
+      "requirement_id": "REQ-SYS-016",
+      "title": "Necessary bandwidth",
+      "reason": "Retired (status Closed, tag retired, charter section 6); retirement rests on the L1 reviewer record docs/reviews/SRR/checklists/requirements-sys.md (package section 2 item H2); if that record does not carry it, the requirement is reinstated and allocated before baseline/srr."
+    },
+    {
+      "requirement_id": "REQ-SYS-123",
+      "title": "Operation from the handbook",
+      "reason": "Retired (status Closed, tag retired, charter section 6); retirement rests on the L1 reviewer record docs/reviews/SRR/checklists/requirements-sys.md (package section 2 item H2); if that record does not carry it, the requirement is reinstated and allocated before baseline/srr."
+    }
+  ],
+  "summary": {
+    "sys_requirements": 183,
+    "non_retired": 181,
+    "allocated": 179,
+    "gaps": 2,
+    "retired_excluded": 2,
+    "with_child_ids": 32,
+    "system_level_leaf_rows": 1
+  }
+}

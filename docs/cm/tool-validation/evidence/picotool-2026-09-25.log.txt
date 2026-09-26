@@ -1,0 +1,176 @@
+# Evidence transcript: picotool v2.3.0 sanity check (tools/toolchain.lock.md section 1.1), 2026-09-25. File operations only (uf2 convert, info); verify needs a device and is blocked.
+# Runs 1 and 2: PASS for convert and info; the two UF2 outputs have the same SHA-256 (class A reproducibility).
+# Procedure: picotool-2026-09-25.sh (this directory).
+
+######## RUN 1
+# picotool sanity check, 2026-09-25 23:30:24 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  kat-target.elf
+85d5ad9edd4d3caaa5e511d8a27a1a062eb3d91fd2d83e153385cc144b01e15f  known-answers.json
+$ which picotool
+/opt/homebrew/bin/picotool
+exit=0
+$ picotool version
+picotool v2.3.0 (Darwin, AppleClang-21.0.0.21000099, Release)
+exit=0
+$ picotool uf2 convert kat-target.elf kat-target.uf2 --family rp2350-arm-s
+exit=0
+$ shasum -a 256 kat-target.uf2
+f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093  kat-target.uf2
+exit=0
+$ picotool info -a kat-target.elf
+File kat-target.elf:
+
+Program Information
+ name:                cwht-kat-fixture
+ binary start:        0x10000000
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Fixed Pin Information
+ none
+
+Build Information
+ none
+
+Metadata Block 1
+ address:             0x1000001c
+ next block address:  0x1000001c
+ block type:          image def
+ target chip:         RP2350
+ image type:          ARM Secure
+ extra security:      not enabled
+exit=0
+$ picotool info -a kat-target.uf2
+File kat-target.uf2 family ID 'rp2350-arm-s':
+
+Program Information
+ name:                cwht-kat-fixture
+ binary start:        0x10000000
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Fixed Pin Information
+ none
+
+Build Information
+ none
+
+Metadata Block 1
+ address:             0x1000001c
+ next block address:  0x1000001c
+ block type:          image def
+ target chip:         RP2350
+ image type:          ARM Secure
+ extra security:      not enabled
+exit=0
+## comparison against known-answers.json
+PASS version: picotool v2.3.0 (Darwin, AppleClang-21.0.0.21000099, Release)
+PASS fixture ELF: 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+reconstruction sha256 f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093 pages ['0x10000000']
+PASS uf2 convert: exit 0, 512 B, sha256 f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093, equals stored and reconstruction: True / True
+PASS info ELF: exit 0, missing []
+PASS info UF2: exit 0, missing []
+NOT RUN verify: blocked: picotool verify compares a file with the flash of a connected device in BOOTSEL mode; it needs the owner's Pico 2 (owner action, with the FW-B0 flash steps of TC-SW-TOOL-001)
+RESULT PASS (convert, info); verify blocked
+exit=0
+
+######## RUN 2
+# picotool sanity check, 2026-09-25 23:30:41 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  kat-target.elf
+85d5ad9edd4d3caaa5e511d8a27a1a062eb3d91fd2d83e153385cc144b01e15f  known-answers.json
+$ which picotool
+/opt/homebrew/bin/picotool
+exit=0
+$ picotool version
+picotool v2.3.0 (Darwin, AppleClang-21.0.0.21000099, Release)
+exit=0
+$ picotool uf2 convert kat-target.elf kat-target.uf2 --family rp2350-arm-s
+exit=0
+$ shasum -a 256 kat-target.uf2
+f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093  kat-target.uf2
+exit=0
+$ picotool info -a kat-target.elf
+File kat-target.elf:
+
+Program Information
+ name:                cwht-kat-fixture
+ binary start:        0x10000000
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Fixed Pin Information
+ none
+
+Build Information
+ none
+
+Metadata Block 1
+ address:             0x1000001c
+ next block address:  0x1000001c
+ block type:          image def
+ target chip:         RP2350
+ image type:          ARM Secure
+ extra security:      not enabled
+exit=0
+$ picotool info -a kat-target.uf2
+File kat-target.uf2 family ID 'rp2350-arm-s':
+
+Program Information
+ name:                cwht-kat-fixture
+ binary start:        0x10000000
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Fixed Pin Information
+ none
+
+Build Information
+ none
+
+Metadata Block 1
+ address:             0x1000001c
+ next block address:  0x1000001c
+ block type:          image def
+ target chip:         RP2350
+ image type:          ARM Secure
+ extra security:      not enabled
+exit=0
+## comparison against known-answers.json
+PASS version: picotool v2.3.0 (Darwin, AppleClang-21.0.0.21000099, Release)
+PASS fixture ELF: 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+reconstruction sha256 f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093 pages ['0x10000000']
+PASS uf2 convert: exit 0, 512 B, sha256 f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093, equals stored and reconstruction: True / True
+PASS info ELF: exit 0, missing []
+PASS info UF2: exit 0, missing []
+NOT RUN verify: blocked: picotool verify compares a file with the flash of a connected device in BOOTSEL mode; it needs the owner's Pico 2 (owner action, with the FW-B0 flash steps of TC-SW-TOOL-001)
+RESULT PASS (convert, info); verify blocked
+exit=0
+
+######## picotool help verify (why verify is blocked without a device)
+VERIFY:
+    Check that the device contents match those in the file.
+
+SYNOPSIS:
+    picotool verify <filename> [-t <type>] [-r <from> <to>] [-o <offset>]
+                [device-selection]
+
+OPTIONS:
+    The file to compare against
+        <filename>
+            The file name
+        -t <type>
+            Specify file type (uf2 | elf | bin) explicitly, ignoring file
+            extension
+    Address options
+        -r, --range
+            Compare a sub range of memory only
+        <from>
+            The lower address bound in hex
+        <to>
+            The upper address bound in hex
+        -o, --offset
+            Specify the load address when comparing with a BIN file
+        <offset>
+            Load offset (memory address; default 0x10000000)

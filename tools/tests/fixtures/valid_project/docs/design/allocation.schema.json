@@ -1,0 +1,354 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cwht allocation of L1 system requirements to L2 modules and concept elements",
+  "description": "Schema for docs/design/allocation.json (charter section 5; 02 section 2.3 Flowdown, section 7 rows 3 and 4, rule T-18; SE-42 at PDR). Preliminary at SRR, baselined at PDR. Drafted by the allocation author for INSP-003 finding-9 and placed by Claude as tools owner on 2026-09-26; tools/tests/fixtures/valid_project/docs/design/allocation.schema.json is a copy of it (SchemaTripwireTests).",
+  "type": "object",
+  "required": [
+    "document",
+    "version",
+    "status",
+    "updated",
+    "conventions",
+    "modules",
+    "elements",
+    "functions",
+    "allocations",
+    "gaps",
+    "excluded",
+    "summary"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "sysId": {
+      "type": "string",
+      "pattern": "^REQ-SYS-[0-9]{3}$"
+    },
+    "reqId": {
+      "type": "string",
+      "pattern": "^REQ-[A-Z][A-Z0-9]*(-[A-Z][A-Z0-9]*)*-[0-9]{3}$"
+    },
+    "moduleId": {
+      "type": "string",
+      "pattern": "^(RX|TX|PWR|CTL|ME|SW)(-[A-Z][A-Z0-9]*)?$"
+    },
+    "elementId": {
+      "type": "string",
+      "pattern": "^B[0-9]{2}$"
+    },
+    "functionId": {
+      "type": "string",
+      "pattern": "^F[0-9]{1,2}$"
+    },
+    "sysIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/sysId"
+      },
+      "uniqueItems": true
+    },
+    "retiredRow": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "title",
+        "reason"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "requirement_id": {
+          "$ref": "#/definitions/sysId"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "properties": {
+    "document": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[a-z]+)?$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Preliminary",
+        "Baseline"
+      ]
+    },
+    "updated": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "baseline": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "author": {
+      "type": "string"
+    },
+    "basis": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conventions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "level",
+          "requirements_file",
+          "file_exists",
+          "element_ids",
+          "requirement_ids"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/moduleId"
+          },
+          "name": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string"
+          },
+          "parent_module": {
+            "$ref": "#/definitions/moduleId"
+          },
+          "criticality": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string"
+          },
+          "requirements_file": {
+            "type": "string",
+            "pattern": "^docs/requirements/.+/requirements\\.json$"
+          },
+          "file_exists": {
+            "type": "boolean"
+          },
+          "element_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/elementId"
+            },
+            "uniqueItems": true
+          },
+          "primary_for": {
+            "$ref": "#/definitions/sysIds"
+          },
+          "requirement_ids": {
+            "$ref": "#/definitions/sysIds"
+          }
+        }
+      }
+    },
+    "elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "module",
+          "requirement_ids",
+          "code"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/elementId"
+          },
+          "name": {
+            "type": "string"
+          },
+          "module": {
+            "$ref": "#/definitions/moduleId"
+          },
+          "supporting_modules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/moduleId"
+            },
+            "uniqueItems": true
+          },
+          "source": {
+            "type": "string"
+          },
+          "requirement_ids": {
+            "$ref": "#/definitions/sysIds"
+          },
+          "code": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "functions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "primary_modules",
+          "requirement_ids"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/functionId"
+          },
+          "name": {
+            "type": "string"
+          },
+          "primary_modules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/moduleId"
+            },
+            "minItems": 1
+          },
+          "supporting_modules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/moduleId"
+            }
+          },
+          "requirement_ids": {
+            "$ref": "#/definitions/sysIds"
+          }
+        }
+      }
+    },
+    "allocations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "title",
+          "primary_module",
+          "modules",
+          "sw_modules",
+          "element_ids",
+          "function_ids",
+          "child_ids"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "requirement_id": {
+            "$ref": "#/definitions/sysId"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "primary_module": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/moduleId"
+              },
+              {
+                "const": "system"
+              }
+            ]
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/moduleId"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "sw_modules": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^SW-[A-Z][A-Z0-9]*$"
+            },
+            "uniqueItems": true
+          },
+          "element_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/elementId"
+            },
+            "uniqueItems": true
+          },
+          "function_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/functionId"
+            },
+            "uniqueItems": true
+          },
+          "child_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/reqId"
+            },
+            "uniqueItems": true
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/retiredRow"
+      }
+    },
+    "excluded": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/retiredRow"
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "sys_requirements",
+        "non_retired",
+        "allocated",
+        "gaps",
+        "retired_excluded"
+      ],
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  }
+}

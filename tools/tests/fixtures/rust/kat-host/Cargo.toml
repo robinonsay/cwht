@@ -1,0 +1,52 @@
+# Known-answer fixture crate for cargo test, clippy, cargo-nextest, cargo-llvm-cov and
+# cargo-geiger (tools/toolchain.lock.md section 1.1). The [lints] tables below are a copy of
+# the project lint configuration, firmware/Cargo.toml [workspace.lints] (07 Annex B), and
+# clippy.toml is a copy of firmware/clippy.toml; tools/tests/fixtures/rust/known-answers.json
+# records the SHA-256 of both sources at the time of the copy.
+[package]
+name = "kat-host"
+version = "0.1.0"
+edition = "2024"
+publish = false
+license = "MIT"
+
+[workspace]
+
+[features]
+# seeded-fail adds one deliberately failing test (cargo test and cargo-nextest known answers)
+seeded-fail = []
+# seeded-lint adds one clippy::correctness violation (clippy known answer)
+seeded-lint = []
+# seeded-unwrap adds one Option::unwrap, denied only by the project lint table (unwrap_used)
+seeded-unwrap = []
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "deny"
+static_mut_refs = "deny"
+unsafe_op_in_unsafe_fn = "deny"
+
+[lints.clippy]
+pedantic = { level = "deny", priority = -1 }
+nursery  = { level = "deny", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+unreachable = "deny"
+todo = "deny"
+unimplemented = "deny"
+indexing_slicing = "deny"
+panic_in_result_fn = "deny"
+exit = "deny"
+arithmetic_side_effects = "deny"
+as_conversions = "deny"
+wildcard_enum_match_arm = "deny"
+shadow_unrelated = "deny"
+shadow_reuse = "deny"
+shadow_same = "deny"
+let_underscore_must_use = "deny"
+std_instead_of_core = "deny"
+alloc_instead_of_core = "deny"
+float_cmp = "deny"
+too_many_lines = "deny"
+cognitive_complexity = "deny"

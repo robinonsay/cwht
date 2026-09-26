@@ -71,3 +71,13 @@ Objectives under NGO-002:
 |---|---|---|
 | OPS-001 | Nominal QSO with a straight key | MOE-001 |
 | OPS-002 | Nominal QSO with iambic paddles | - |
+
+## 7. Stakeholders
+
+The identified stakeholders of 02 section 3.0 (SE HB 4.1.1.2.1), keyed by name; `represented_by` names who speaks for each in validation step V2. `tools/traceability.py` checks the array with STAKEHOLDERS_MISSING (T-21).
+
+| Name | Role | Interests | Represented by (V2) | Sources | Note |
+|---|---|---|---|---|---|
+| Owner (customer) | customer | A pocket true-CW radio accepted at SAR, working at first power-on | Owner, per the SRR decision memo | SI-001, SI-010 | - |
+| Owner (operator) | user | Operates the unit with headphones, a straight key or paddles | Owner | SI-005, SI-018 | - |
+| Federal Communications Commission | regulator | Emission limits, station identification and RF exposure under 47 CFR Part 97 | The verbatim regulatory corpus, read by the reviewer in V3 | SI-014 | Fixture entry for the T-21 known-answer test |

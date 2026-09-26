@@ -1,0 +1,23 @@
+{
+  "entries": [
+    {"id": "K-1", "kind": "alpha", "score": 1},
+    {"id": "K-101", "kind": "gamma", "score": 1},
+    {"id": "K-102", "kind": "alpha", "version": 2, "score": 1},
+    {"id": "K-103", "kind": "alpha", "score": 11},
+    {"id": "K-104", "kind": "alpha", "score": -1},
+    {"id": "K-105", "kind": "beta", "score": 1, "tags": ["ab", "ab"]},
+    {"id": "K-106", "kind": "beta", "score": 1, "tags": ["a"]},
+    {"id": "K-107", "kind": "beta", "score": 1, "tags": ["abcdefghi"]},
+    {"id": "K-108", "kind": "alpha", "score": 1, "note": ""},
+    {"id": "K-109", "kind": "alpha", "score": 1, "value": 1.5},
+    {"id": "K-110", "kind": "alpha", "score": 1, "owner": ""},
+    {"id": "K-111", "kind": "beta", "score": 1},
+    {"id": "K-112", "kind": "alpha", "score": 1, "tags": ["ab"]},
+    {"id": "K-113", "kind": "alpha", "score": 1, "extra": true},
+    {"id": "K-114", "kind": "alpha"},
+    {"id": "K-115", "kind": "alpha", "score": "5"},
+    {"id": "K-116", "kind": "alpha", "score": 1, "margins": {}}
+  ],
+  "list": [],
+  "meta": {"Bad-Key": 1}
+}

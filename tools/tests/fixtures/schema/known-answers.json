@@ -1,0 +1,51 @@
+{
+  "description": "Known answers for the venv Python with jsonschema (tools/toolchain.lock.md section 1.1, row 'python (venv) + jsonschema'; TV-001). Two cases. Case 'requirement': requirements.schema.json is a byte copy of docs/requirements/schema.json at git blob ca049dfb0a4480f8de889fe112add0a2e893915f (commit 4e3f891), so the check does not depend on the repository schema; invalid-requirement.json seeds four faults. Case 'keywords': keywords.schema.json uses every validation keyword that the nine repository schemas under docs/ use (all draft-07; survey of 2026-09-25, corrected 2026-09-26: minProperties, used by docs/plan/tpm.schema.json margin_policy, was missing and is now seeded as entries/16, review INSP-015 finding-1), and keywords-invalid.json seeds one fault per keyword, each in its own array element so that each yields exactly one error. The validator class is selected from the schema's $schema by jsonschema.validators.validator_for, and the schema itself is checked with check_schema. Expected errors were written by hand from the seeded faults before the first run; each is [absolute_path joined by '/', validator keyword], compared as sorted lists. A propertyNames failure is reported by jsonschema at the object's path with the keyword of the failing subschema (here 'pattern').",
+  "cases": [
+    {
+      "name": "requirement",
+      "schema": "requirements.schema.json",
+      "schema_git_blob": "ca049dfb0a4480f8de889fe112add0a2e893915f",
+      "validator_class": "Draft7Validator",
+      "valid": {"file": "valid-requirement.json", "errors": []},
+      "invalid": {
+        "file": "invalid-requirement.json",
+        "errors": [
+          ["requirements/0/verification_method", "enum"],
+          ["requirements/1/id", "pattern"],
+          ["requirements/2", "required"],
+          ["requirements/3/tbr", "additionalProperties"]
+        ]
+      }
+    },
+    {
+      "name": "keywords",
+      "schema": "keywords.schema.json",
+      "validator_class": "Draft7Validator",
+      "valid": {"file": "keywords-valid.json", "errors": []},
+      "invalid": {
+        "file": "keywords-invalid.json",
+        "errors": [
+          ["entries/0/id", "pattern"],
+          ["entries/1/kind", "enum"],
+          ["entries/2/version", "const"],
+          ["entries/3/score", "maximum"],
+          ["entries/4/score", "minimum"],
+          ["entries/5/tags", "uniqueItems"],
+          ["entries/6/tags/0", "minLength"],
+          ["entries/7/tags/0", "maxLength"],
+          ["entries/8/note", "not"],
+          ["entries/9/value", "oneOf"],
+          ["entries/10/owner", "anyOf"],
+          ["entries/11", "required"],
+          ["entries/12/tags", "maxItems"],
+          ["entries/13", "additionalProperties"],
+          ["entries/14", "required"],
+          ["entries/15/score", "type"],
+          ["entries/16/margins", "minProperties"],
+          ["list", "minItems"],
+          ["meta", "pattern"]
+        ]
+      }
+    }
+  ]
+}

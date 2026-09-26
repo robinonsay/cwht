@@ -1,5 +1,10 @@
 {
   "baseline": null,
+  "stakeholders": [
+    {"name": "Owner (customer)", "role": "customer", "interests": "A pocket true-CW radio accepted at SAR, working at first power-on", "represented_by": "Owner, per the SRR decision memo", "source_ids": ["SI-001", "SI-010"]},
+    {"name": "Owner (operator)", "role": "user", "interests": "Operates the unit with headphones, a straight key or paddles", "represented_by": "Owner", "source_ids": ["SI-005", "SI-018"]},
+    {"name": "Federal Communications Commission", "role": "regulator", "interests": "Emission limits, station identification and RF exposure under 47 CFR Part 97", "represented_by": "The verbatim regulatory corpus, read by the reviewer in V3", "source_ids": ["SI-014"], "note": "Fixture entry for the T-21 known-answer test"}
+  ],
   "ngos": [
     {
       "id": "NGO-001",

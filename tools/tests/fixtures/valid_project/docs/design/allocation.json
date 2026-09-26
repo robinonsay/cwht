@@ -1,0 +1,28 @@
+{
+  "document": "Fixture allocation for the T-18 known-answer tests",
+  "version": "0.1.0-fixture",
+  "status": "Preliminary",
+  "updated": "2026-09-26",
+  "baseline": null,
+  "conventions": {
+    "fixture": "One record of each form tools/traceability.py load_allocation reads: modules[] id (CTL, TX), elements[] module (ME), allocations[] modules (PWR); functions[] and gaps[] allocate nothing. Valid against the copy of docs/design/allocation.schema.json beside it."
+  },
+  "modules": [
+    {"id": "CTL", "name": "Fixture control module", "level": "L2", "requirements_file": "docs/requirements/ctl/requirements.json", "file_exists": false, "element_ids": [], "requirement_ids": ["REQ-SYS-004"]},
+    {"id": "TX", "name": "Fixture transmitter module", "level": "L2", "requirements_file": "docs/requirements/tx/requirements.json", "file_exists": false, "element_ids": [], "requirement_ids": ["REQ-SYS-006"]}
+  ],
+  "elements": [
+    {"id": "B21", "name": "Fixture enclosure element", "module": "ME", "requirement_ids": ["REQ-SYS-006"], "code": []}
+  ],
+  "functions": [
+    {"id": "F1", "name": "Fixture function", "primary_modules": ["CTL"], "requirement_ids": ["REQ-SYS-003"]}
+  ],
+  "allocations": [
+    {"requirement_id": "REQ-SYS-005", "title": "Fixture allocation record", "primary_module": "PWR", "modules": ["PWR"], "sw_modules": [], "element_ids": [], "function_ids": [], "child_ids": []}
+  ],
+  "gaps": [
+    {"requirement_id": "REQ-SYS-003", "title": "Fixture gap", "reason": "Fixture: a gap record allocates nothing"}
+  ],
+  "excluded": [],
+  "summary": {"sys_requirements": 6, "non_retired": 6, "allocated": 3, "gaps": 1, "retired_excluded": 0}
+}

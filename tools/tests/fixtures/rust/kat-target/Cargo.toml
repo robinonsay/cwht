@@ -1,0 +1,21 @@
+# Known-answer fixture image for rustc/cargo and picotool (tools/toolchain.lock.md section 1.1).
+# Self-contained: no dependencies, its own linker script, its own workspace root.
+[package]
+name = "kat-target"
+version = "0.1.0"
+edition = "2024"
+publish = false
+license = "MIT"
+
+[workspace]
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+opt-level = "s"
+lto = "fat"
+codegen-units = 1
+debug = false
+strip = "debuginfo"

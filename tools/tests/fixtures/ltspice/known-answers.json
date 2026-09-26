@@ -1,0 +1,40 @@
+{
+  "description": "Known answers for the LTspice sanity check (tools/toolchain.lock.md section 1.1, LTspice row; CM plan section 9.2 table; TV due PDR). rc-lowpass.asc is a first-order RC low-pass: V1 (AC 1) on net 'in', R1 1k from 'in' to 'out', C1 159.155n from 'out' to ground, '.ac dec 100 10 100k' and a '.meas' of the frequency where |V(out)| = 1/sqrt(2). The analytic -3 dB frequency is 1/(2 pi R C) = 999.9996 Hz. rc-seeded-error.net is the netlist of the same circuit with a second analysis (.tran 10m), which LTspice rejects with exit 1 and 'More than one analysis specified.' in the log (docs/research/ltspice-batch-macos.md F6). rc-hang-error.asc carries the same seeded error in schematic form; on 2026-09-25 (run 2 of docs/cm/tool-validation/evidence/ltspice-2026-09-25.log.txt) '-b' on it did not exit and wrote no log within 120 s, so it is the known answer for the guard every batch run needs: the run is killed at the timeout and counted as a failure. The schematic was written by hand on the 16-unit grid with the pin offsets of docs/research/ltspice-batch-macos.md F9; the netlist check rejects any NC_ net (F9). Expected values were written before the first run. Runs use the CrossOver wine command of tools/toolchain.lock.md section 1 (research F3) on a temporary copy, because LTspice writes .net, .raw, .op.raw and .log beside the deck.",
+  "precondition": "CaptureAnalytics=false present in $HOME/Library/Application Support/LTspice/Bottles/ltspice/drive_c/users/crossover/AppData/Roaming/LTspice.ini (research F4; SI-027; ADR-018). The file is UTF-16LE with CRLF line ends, so a byte grep (/usr/bin/grep) never matches it; the check is: iconv -f UTF-16LE -t UTF-8 \"$INI\" | tr -d '\\r' | /usr/bin/grep -q '^CaptureAnalytics=false$' (observed 2026-09-25, evidence docs/cm/tool-validation/evidence/ltspice-2026-09-25.log.txt run 1).",
+  "version": {
+    "command": "-version",
+    "stdout": "26.0.2",
+    "exit": 0
+  },
+  "netlist": {
+    "command": "-netlist rc-lowpass.asc",
+    "exit": 0,
+    "must_contain": [
+      "R1 in out 1k",
+      "C1 out 0 159.155n",
+      "V1 in 0 AC 1",
+      ".ac dec 100 10 100k"
+    ],
+    "must_not_contain": [
+      "NC_"
+    ]
+  },
+  "simulation": {
+    "command": "-b rc-lowpass.asc",
+    "exit": 0,
+    "log_first_line": "LTspice 26.0.2 for MacOS",
+    "f3db_hz": 999.9996,
+    "f3db_tolerance_fraction": 0.01
+  },
+  "seeded_error": {
+    "command": "-b rc-seeded-error.net",
+    "exit": 1,
+    "log_must_contain": "More than one analysis specified."
+  },
+  "timeout_s": 120,
+  "hang_case": {
+    "command": "-b rc-hang-error.asc",
+    "expected": "no exit within timeout_s; the runner kills only its own process (pkill -f on the unique temporary directory) and records exit 143",
+    "timeout_s": 30
+  }
+}

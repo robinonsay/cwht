@@ -8,8 +8,11 @@ Runs the tool on the two seeded fixtures under tools/tests/fixtures/:
                      'Analysis accepted per RSK-001', a self-derived L2
                      requirement backed by ADR-001, an expectations.json in the
                      real L0 structure, a TC-VAL case, a MOP in tpm.json, a
-                     regulatory corpus section, and a credited report with a
-                     hashed artifact
+                     regulatory corpus section, a credited report with a
+                     hashed artifact, a stakeholders array with the customer,
+                     user and regulator roles (T-21), and a preliminary
+                     docs/design/allocation.json that allocates every Draft or
+                     Active SYS requirement without an L2 child (T-18)
     invalid_project  one seeded defect per check code: orphan requirement,
                      test case without a requirement, duplicate id (REQ and CON),
                      TBR on a Verified requirement, software hazard control with
@@ -18,11 +21,15 @@ Runs the tool on the two seeded fixtures under tools/tests/fixtures/:
                      with a parent, an L2 requirement without parent or
                      derivation, tags without their obligations, a type that
                      does not match its method, an Active child of a Draft
-                     parent, a Closed requirement without the SAR memo, and an
-                     inconsistent expectations.json
+                     parent, a Closed requirement without the SAR memo, an
+                     inconsistent expectations.json without a stakeholders array
+                     (STAKEHOLDERS_MISSING, T-21) and two Draft SYS requirements
+                     that name no receiving L2 module (SYS_UNALLOCATED, T-18)
 
     tools/tests/test_tools.py holds the tests added with the pre-SRR rule set
-    (02 section 8.5 rows T-03, T-05, T-07, T-08, T-16, T-19, T-20, T-21).
+    (02 section 8.5 rows T-03, T-05, T-07, T-08, T-16, T-19, T-20, T-21), and
+    tools/tests/test_traceability_srr_rules.py the known-answer tests of
+    STAKEHOLDERS_MISSING (T-21) and SYS_UNALLOCATED (T-18).
 
 Run from the repository root:
 
@@ -100,6 +107,8 @@ EXPECTED_INVALID_WARNINGS = {
     "RENDER_STALE",
     "SOURCE_FILE_MISSING",
     "SOURCE_FORMAT_UNKNOWN",
+    "STAKEHOLDERS_MISSING",
+    "SYS_UNALLOCATED",
     "UNVERIFIABLE_WORD",
 }
 

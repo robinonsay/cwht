@@ -1,0 +1,42 @@
+{
+  "module": "FIX",
+  "requirements": [
+    {
+      "id": "REQ-FIX-001",
+      "title": "Seeded enum fault",
+      "description": "The fixture shall report its state within 10 ms of a request.",
+      "rationale": "Seeded fault 1: verification_method outside the enum.",
+      "verification_method": "Review",
+      "status": "Draft"
+    },
+    {
+      "id": "REQ-fix-2",
+      "title": "Seeded pattern fault",
+      "description": "The fixture shall report its state within 10 ms of a request.",
+      "rationale": "Seeded fault 2: id does not match the REQ-MODULE-NNN pattern.",
+      "verification_method": "Test",
+      "status": "Draft"
+    },
+    {
+      "id": "REQ-FIX-003",
+      "title": "Seeded required-field fault",
+      "description": "The fixture shall report its state within 10 ms of a request.",
+      "verification_method": "Test",
+      "status": "Draft"
+    },
+    {
+      "id": "REQ-FIX-004",
+      "title": "Seeded additional-property fault",
+      "description": "The fixture shall report its state within 10 ms of a request.",
+      "rationale": "Seeded fault 4: tbr carries a key the schema forbids.",
+      "verification_method": "Test",
+      "status": "Draft",
+      "tbr": {
+        "owner": "Claude",
+        "plan": "Fixture TBR with a forbidden extra key",
+        "close_by": "PDR",
+        "due": "soon"
+      }
+    }
+  ]
+}

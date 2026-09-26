@@ -1,0 +1,158 @@
+# Evidence transcript: OpenSCAD 2021.01 + FreeCAD 1.1.3 (freecadcmd) sanity check (tools/toolchain.lock.md section 1.1), 2026-09-25. Headless CLI only.
+# tools/scad2step.py does not exist; the STEP step ran the listing of docs/research/enclosure-cnc-and-openscad-pipeline.md step 3 from a scratch copy (openscad-freecad-2026-09-25-listing-run1.py verbatim apart from environment paths; openscad-freecad-2026-09-25-listing-run2.py adds the one ADAPTATION line).
+# Run 1: OpenSCAD checks PASS; FreeCAD step FAIL: the listing's assertion 'invalid or non-solid result' fired because FreeCAD 1.1.3 returns the Part::Cut result as a Compound with one Solid; freecadcmd printed 'Exception while processing file' and still exited 0.
+# Run 2: PASS with the adaptation. Procedure: openscad-freecad-2026-09-25.sh (this directory). Render inspected: openscad-fixture-cube.png.
+
+######## RUN 1
+# OpenSCAD + FreeCAD sanity check, 2026-09-25 23:32:20 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+c32c5f6662eeecaa880c630731ec4b936bac3eb9363ba1c37976fd3e0d3c3dc4  cube.scad
+d5a715a0ba86735160403b63a550bc623afe9cc5571170cbd5a324eb02183a32  known-answers.json
+8feddbe6813c56cd8b12dccdba1423b684575c2fb8719beae6d914143cad4585  /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/scad2step_research.py
+$ /Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD --version
+OpenSCAD version 2021.01
+exit=0
+$ defaults read /Applications/FreeCAD.app/Contents/Info.plist CFBundleVersion
+1.1.3
+exit=0
+$ /Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD -o cube.csg cube.scad
+exit=0
+## cube.csg
+difference() {
+	cube(size = [30, 20, 10], center = false);
+	multmatrix([[1, 0, 0, 15], [0, 1, 0, 10], [0, 0, 1, -1], [0, 0, 0, 1]]) {
+		cylinder($fn = 64, $fa = 12, $fs = 2, h = 12, r1 = 3, r2 = 3, center = false);
+	}
+}
+
+$ /Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD --render --imgsize=800,600 --viewall --autocenter -o cube.png cube.scad
+Geometries in cache: 3
+Geometry cache size in bytes: 19464
+CGAL Polyhedrons in cache: 1
+CGAL cache size in bytes: 183504
+Total rendering time: 0:00:00.146
+   Top level object is a 3D object:
+   Simple:        yes
+   Vertices:      136
+   Halfedges:     408
+   Edges:         204
+   Halffacets:    140
+   Facets:         70
+   Volumes:         2
+exit=0
+$ /Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD -o cube.step cube.scad
+Either add a valid suffix or specify one using the --export-format option.
+exit=1
+no cube.step written
+$ env CWHT_CSG=cube.csg CWHT_STEP=cube.step /Applications/FreeCAD.app/Contents/Resources/bin/freecadcmd /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//kat-openscad.5X1A48/scad2step_research.py
+WARNING: Token 'DOT' defined, but not used
+WARNING: Token 'WORD' defined, but not used
+WARNING: There are 2 unused tokens
+WARNING: Token 'DOT' defined, but not used
+WARNING: Token 'WORD' defined, but not used
+WARNING: There are 2 unused tokens
+Exception while processing file: /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//kat-openscad.5X1A48/scad2step_research.py [invalid or non-solid result]
+FreeCAD 1.1.3, Libs: 1.1.3R20260725 (Git shallow)
+(C) 2001-2026 FreeCAD contributors
+FreeCAD is free and open-source software licensed under the terms of LGPL2+ license.
+End processing CSG file
+Recompute......
+						(33 %)							(66 %)							(100 %)									Recompute......
+						(33 %)							(66 %)							(100 %)									End processing CSG file
+Recompute......
+						(33 %)							(66 %)							(100 %)									Recompute......
+						(33 %)							(66 %)							(100 %)									
+exit=0
+## comparison against known-answers.json
+PASS versions: OpenSCAD version 2021.01 | FreeCAD 1.1.3
+PASS CSG export: exit 0, missing []
+PASS PNG render: exit 0, size (800, 600)
+PASS STEP refused by OpenSCAD: exit 1, file written False
+FAIL FreeCAD STEP export: exit 0, no KAT line
+RESULT FAIL
+exit=1
+
+######## RUN 2
+# OpenSCAD + FreeCAD sanity check, 2026-09-25 23:33:45 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+c32c5f6662eeecaa880c630731ec4b936bac3eb9363ba1c37976fd3e0d3c3dc4  cube.scad
+d5a715a0ba86735160403b63a550bc623afe9cc5571170cbd5a324eb02183a32  known-answers.json
+cb4ab8932e17f696247ca2b832c5aa2edebf10f1618511f8d5a7ad490d83baeb  /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/scad2step_research.py
+$ /Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD --version
+OpenSCAD version 2021.01
+exit=0
+$ defaults read /Applications/FreeCAD.app/Contents/Info.plist CFBundleVersion
+1.1.3
+exit=0
+$ /Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD -o cube.csg cube.scad
+exit=0
+## cube.csg
+difference() {
+	cube(size = [30, 20, 10], center = false);
+	multmatrix([[1, 0, 0, 15], [0, 1, 0, 10], [0, 0, 1, -1], [0, 0, 0, 1]]) {
+		cylinder($fn = 64, $fa = 12, $fs = 2, h = 12, r1 = 3, r2 = 3, center = false);
+	}
+}
+
+$ /Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD --render --imgsize=800,600 --viewall --autocenter -o cube.png cube.scad
+Geometries in cache: 3
+Geometry cache size in bytes: 19464
+CGAL Polyhedrons in cache: 1
+CGAL cache size in bytes: 183504
+Total rendering time: 0:00:00.158
+   Top level object is a 3D object:
+   Simple:        yes
+   Vertices:      136
+   Halfedges:     408
+   Edges:         204
+   Halffacets:    140
+   Facets:         70
+   Volumes:         2
+exit=0
+$ /Applications/OpenSCAD-2021.01.app/Contents/MacOS/OpenSCAD -o cube.step cube.scad
+Either add a valid suffix or specify one using the --export-format option.
+exit=1
+no cube.step written
+$ env CWHT_CSG=cube.csg CWHT_STEP=cube.step /Applications/FreeCAD.app/Contents/Resources/bin/freecadcmd /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//kat-openscad.2FmFT8/scad2step_research.py
+WARNING: Token 'DOT' defined, but not used
+WARNING: Token 'WORD' defined, but not used
+WARNING: There are 2 unused tokens
+FreeCAD 1.1.3, Libs: 1.1.3R20260725 (Git shallow)
+(C) 2001-2026 FreeCAD contributors
+FreeCAD is free and open-source software licensed under the terms of LGPL2+ license.
+End processing CSG file
+Recompute......
+						(33 %)							(66 %)							(100 %)									Recompute......
+						(33 %)							(66 %)							(100 %)									Recompute......
+						(25 %)							(50 %)							(75 %)							(100 %)									[32;1m
+*******************************************************************
+******        Statistics on Transfer (Write)                 ******[0m
+[32;1m
+*******************************************************************
+******        Transfer Mode = 0  I.E.  As Is       ******[0m
+[32;1m******        Transferring Shape, ShapeType = 0                      ******[0m
+[32;1m** WorkSession : Sending all data[0m
+[32;1m Step File Name : /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-openscad.2FmFT8/cube.step(209 ents)  Write  Done[0m
+KAT root ShapeType before adaptation: Compound solids: 1
+volume mm^3: 5717.26 faces: 7 cylinders: 1
+wrote /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-openscad.2FmFT8/cube.step
+KAT solids=1 valid=True faces=7 cylinders=1 bspline=0 volume=5717.257 step_reread_solids=1 step_reread_volume=5717.257
+exit=0
+## comparison against known-answers.json
+PASS versions: OpenSCAD version 2021.01 | FreeCAD 1.1.3
+PASS CSG export: exit 0, missing []
+PASS PNG render: exit 0, size (800, 600)
+PASS STEP refused by OpenSCAD: exit 1, file written False
+PASS FreeCAD STEP export: exit 0, solids 1, valid True, faces 7, cylinders 1, bspline 0
+PASS volume: shape 5717.257 mm^3, STEP re-read 5717.257 mm^3 (1 solid), expected 5717.257 mm^3, error 0.0000 %
+PASS STEP bounding box: 10 vertices, box {'x': [0.0, 30.0], 'y': [0.0, 20.0], 'z': [0.0, 10.0]}
+STEP header: AUTOMOTIVE_DESIGN { 1 0 10303 214 1 1 1 1 }
+RESULT PASS
+exit=0
+
+######## Relative output path behaviour (found while debugging run 1)
+# OpenSCAD 2021.01 relative -o path, 2026-09-25 23:34:15 CDT: input in directory IN, working directory CWD
+$ cd CWD && OpenSCAD -o rel.csg IN/cube.scad
+exit=0
+files in CWD: 
+files in IN:  cube.scad rel.csg 

@@ -1,0 +1,39 @@
+{
+  "description": "Known answers for the kicad-cli sanity check (tools/toolchain.lock.md section 1.1, kicad-cli row; CM plan section 9.2 table; TV due PDR). Two KiCad projects share this directory: 'clean' and 'seeded'. Each schematic holds one Device:R (R1, 10k, Resistor_SMD:R_0603_1608Metric) at (101.6, 101.6) mm; clean.kicad_sch puts a no-connect flag on both pins, seeded.kicad_sch on pin 1 only. Each board is 30 x 20 mm (Edge.Cuts 100..130 x 100..120 mm, aux and drill origin at the lower-left corner 100, 120) with R1 at (110, 110), TP1 (TestPoint_THTPad_D1.5mm_Drill0.7mm, net SIG) at (120, 110) and H1 (MountingHole_3.2mm_M3, NPTH) at (125, 115); a 0.25 mm F.Cu track of net SIG runs R1 pad 1 -> (109.175, Y) -> (120, Y) -> TP1 with Y = 108.0 mm on clean (1.4 mm from R1 pad 2, net OTH) and Y = 109.3 mm on seeded (0.1 mm from R1 pad 2 against the 0.2 mm Default netclass clearance). The project-local sym-lib-table and fp-lib-table point at the libraries bundled with KiCad 10.0.6 through KICAD10_SYMBOL_DIR and KICAD10_FOOTPRINT_DIR, so no ERC or DRC severity is changed from the KiCad default. Provenance: make_fixture_sch.py (writes format 20250114, then 'kicad-cli sch upgrade' to 20260306) and make_fixture_pcb.py (KiCad bundled Python 3.9 with pcbnew 10.0.6). Expected values below were derived by hand from that geometry before the first run; the checks run on a temporary copy of this directory because kicad-cli writes .kicad_prl files beside the project.",
+  "kicad_cli_version": "10.0.6",
+  "erc": {
+    "command": "sch erc --format json --severity-all --exit-code-violations -o <name>-erc.json <name>.kicad_sch",
+    "clean": {"exit": 0, "violations": []},
+    "seeded": {"exit": 5, "violations": [["pin_not_connected", "error", "Symbol R1 Pin 2 [Passive, Line]"]]}
+  },
+  "drc": {
+    "command": "pcb drc --format json --severity-all --exit-code-violations -o <name>-drc.json <name>.kicad_pcb",
+    "clean": {"exit": 0, "violations": [], "unconnected_items": 0},
+    "seeded": {"exit": 5, "violations": [["clearance", "error", "Clearance violation ( clearance 0.2000 mm; actual 0.1000 mm)", "Pad 2 [OTH] of R1 on F.Cu"]], "unconnected_items": 0}
+  },
+  "drill": {
+    "command": "pcb export drill -o <out>/ --format excellon --drill-origin plot --excellon-units mm --excellon-zeros-format decimal --excellon-oval-format route --excellon-separate-th --generate-map --map-format pdf --generate-report --report-path <out>/clean-drill-report.rpt clean.kicad_pcb",
+    "plated_holes": 1,
+    "plated_diameter_mm": 0.7,
+    "non_plated_holes": 1,
+    "non_plated_diameter_mm": 3.2
+  },
+  "cpl": {
+    "command": "pcb export pos -o <out>/clean-cpl.csv --format csv --units mm --use-drill-file-origin --side both --smd-only --exclude-dnp clean.kicad_pcb",
+    "expected_file": "expected/clean-cpl.csv"
+  },
+  "bom": {
+    "command": "sch export bom -o <out>/clean-bom.csv clean.kicad_sch",
+    "expected_file": "expected/clean-bom.csv"
+  },
+  "step": {
+    "command": "pcb export step --board-only --drill-origin -o <out>/clean.step clean.kicad_pcb",
+    "bounding_box_mm": {"x": [0.0, 30.0], "y": [0.0, 20.0], "z": [0.0, 1.51]},
+    "tolerance_mm": 0.01,
+    "measurement": "minimum and maximum over the CARTESIAN_POINT entities referenced by VERTEX_POINT entities of the STEP file (the solid's vertices)",
+    "revision_note": "Revised 2026-09-25 after the first run (evidence docs/cm/tool-validation/evidence/kicad-cli-2026-09-25.log.txt, run 1, FAIL). The first expected z range [0, 1.6] assumed the total board thickness and the first measurement took every CARTESIAN_POINT, which includes the axis placement points of the two hole cylinders at z = -0.046 mm. With --board-only kicad-cli 10.0.6 exports the substrate body only, whose thickness is the dielectric of the KiCad default 2-layer stackup, 1.6 - 2 x 0.035 (copper) - 2 x 0.010 (mask) = 1.51 mm (the same stackup values as the bundled RaspberryPi-HAT template board); copper and mask are exported only with --include-pads, --include-tracks or --include-soldermask. x and y were predicted correctly and are unchanged."
+  },
+  "normalized_exports": {
+    "status": "blocked until tools/normalize_fab.py exists (TV due PDR); SHA256SUMS.normalized is not stored yet"
+  }
+}

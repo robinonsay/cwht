@@ -1,0 +1,8 @@
+{
+  "risks": [
+    {"id": "RSK-001", "status": "Open", "likelihood": 4, "consequence": {"cost": 4, "schedule": 2}},
+    {"id": "RSK-002", "status": "Watch", "likelihood": 2, "consequence": {"safety": 5, "cost": 1}},
+    {"id": "RSK-003", "status": "Open", "likelihood": 1, "consequence": {"schedule": 2}},
+    {"id": "RSK-004", "status": "Closed", "likelihood": 5, "consequence": {"cost": 5}}
+  ]
+}

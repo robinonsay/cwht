@@ -1,0 +1,193 @@
+# Evidence transcript: venv Python 3.13.5 + jsonschema 4.26.0 sanity check (tools/toolchain.lock.md section 1.1; TV-001), 2026-09-26.
+# Runs 5 and 6: after review INSP-015 finding-1, the 'keywords' case gains a minProperties constraint (entry property 'margins', mirroring docs/plan/tpm.schema.json margin_policy) and seeded fault entries/16 (19 faults); a keyword survey step and its negative control are added.
+# Procedure: python-jsonschema-2026-09-26.sh (this directory).
+
+######## RUN 5
+# venv Python + jsonschema sanity check, 2026-09-26 00:12:49 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+555b02c5e8cc33d45ab98c5646fca7d325875e20ca54a95afb9f10f9a38baeb4  invalid-requirement.json
+1a72fa44456365e3f0e07af337aa2bdb82282930eed82ee6568c81d23611318a  keywords-invalid.json
+86d7843b4aae0e3fe7a2978114714b3d80292b38635a30b9d68302ee46010340  keywords-valid.json
+ef3fd5487f425d08551ab7db11a3842e406c6f9090d5b9e409e20c993a249a87  keywords.schema.json
+e5a563e4945c9ea01ed546cb1af8b4468327b8385d72f506cc66bca3d76784c5  known-answers.json
+7b51417bbcd0d38fe99f5bf4de6ee8514f040123f8ce6419b0f9d61af99a70fd  requirements.schema.json
+12f542f1de0ea591eaeb0298dbd177cff5e403e1b09c97e892d2406639fd9483  valid-requirement.json
+$ cmp tools/tests/fixtures/schema/requirements.schema.json docs/requirements/schema.json
+identical (informative: the fixture copy still equals the repository schema)
+$ /Users/robinonsay/rust/cwht/.venv/bin/python --version
+Python 3.13.5
+$ /Users/robinonsay/rust/cwht/.venv/bin/python -m pip show jsonschema | head -2
+Name: jsonschema
+Version: 4.26.0
+## known-answer check (run in the fixture directory)
+$ cd tools/tests/fixtures/schema && /Users/robinonsay/rust/cwht/.venv/bin/python -c '<CHECK>'
+    CHECK = import json,sys,importlib.metadata as m,jsonschema as j
+    k=json.load(open("known-answers.json")); ok=True
+    print("jsonschema", m.version("jsonschema"))
+    for case in k["cases"]:
+        s=json.load(open(case["schema"])); V=j.validators.validator_for(s); V.check_schema(s); ok=ok and V.__name__==case["validator_class"]
+        print("case", case["name"], case["schema"], V.__name__)
+        for c in ("valid","invalid"):
+            got=sorted(["/".join(map(str,e.absolute_path)),e.validator] for e in V(s).iter_errors(json.load(open(case[c]["file"])))); exp=sorted(case[c]["errors"])
+            print(" ", c, case[c]["file"], len(got), "errors", got, "MATCH" if got==exp else "MISMATCH, expected "+str(exp)); ok=ok and got==exp
+    print("PASS" if ok else "FAIL"); sys.exit(0 if ok else 1)
+jsonschema 4.26.0
+case requirement requirements.schema.json Draft7Validator
+  valid valid-requirement.json 0 errors [] MATCH
+  invalid invalid-requirement.json 4 errors [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MATCH
+case keywords keywords.schema.json Draft7Validator
+  valid keywords-valid.json 0 errors [] MATCH
+  invalid keywords-invalid.json 19 errors [['entries/0/id', 'pattern'], ['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/16/margins', 'minProperties'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']] MATCH
+PASS
+exit=0
+## negative control: temporary copy with seeded fault 1 of each case removed (must FAIL)
+jsonschema 4.26.0
+case requirement requirements.schema.json Draft7Validator
+  valid valid-requirement.json 0 errors [] MATCH
+  invalid invalid-requirement.json 3 errors [['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MISMATCH, expected [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']]
+case keywords keywords.schema.json Draft7Validator
+  valid keywords-valid.json 0 errors [] MATCH
+  invalid keywords-invalid.json 18 errors [['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/16/margins', 'minProperties'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']] MISMATCH, expected [['entries/0/id', 'pattern'], ['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/16/margins', 'minProperties'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']]
+FAIL
+exit=1 (expected 1)
+## keyword survey: every schema keyword used by docs/**/*schema*.json must be used by keywords.schema.json (must PASS)
+    SURVEY = import json,glob,sys
+    ANN={"$schema","$id","title","description","definitions","properties","items","default","examples","$comment"}
+    def kw(n,out):
+        if isinstance(n,dict):
+            for k,v in n.items():
+                out.add(k)
+                if k in ("properties","definitions","patternProperties"):
+                    for x in v.values(): kw(x,out)
+                elif k not in ("enum","const","required"): kw(v,out)
+        elif isinstance(n,list):
+            for x in n: kw(x,out)
+    root="/Users/robinonsay/rust/cwht/"; files=sorted(glob.glob(root+"docs/**/*schema*.json",recursive=True))
+    repo=set()
+    for f in files:
+        s=set(); kw(json.load(open(f)),s); repo|=s; print(" ", f[len(root):], json.load(open(f)).get("$schema"), sorted(s-ANN))
+    fx=set(); kw(json.load(open("keywords.schema.json")),fx)
+    missing=sorted((repo-ANN)-fx); print("schemas", len(files), "repository keywords", sorted(repo-ANN)); print("not in fixture", missing)
+    print("PASS" if not missing else "FAIL"); sys.exit(0 if not missing else 1)
+  docs/plan/tpm.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'else', 'enum', 'if', 'minItems', 'minLength', 'minProperties', 'oneOf', 'pattern', 'propertyNames', 'required', 'then', 'type', 'uniqueItems']
+  docs/process/rmm.schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'const', 'else', 'enum', 'if', 'maxItems', 'maxLength', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/process/se-compliance-matrix.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'else', 'enum', 'if', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type']
+  docs/requirements/l0-stakeholder/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'else', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'not', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/requirements/schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'enum', 'maxLength', 'pattern', 'required', 'type']
+  docs/risk/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'enum', 'if', 'maxLength', 'maximum', 'minItems', 'minLength', 'minimum', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/safety/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/templates/rfa-rid-log.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'minimum', 'pattern', 'required', 'then', 'type']
+  docs/test_cases/schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'enum', 'minItems', 'pattern', 'required', 'type']
+schemas 9 repository keywords ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'else', 'enum', 'if', 'maxItems', 'maxLength', 'maximum', 'minItems', 'minLength', 'minProperties', 'minimum', 'not', 'oneOf', 'pattern', 'propertyNames', 'required', 'then', 'type', 'uniqueItems']
+not in fixture []
+PASS
+exit=0
+## survey negative control: temporary copy of keywords.schema.json without the margins property (the 2026-09-25 fixture state; must FAIL naming minProperties)
+  docs/plan/tpm.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'else', 'enum', 'if', 'minItems', 'minLength', 'minProperties', 'oneOf', 'pattern', 'propertyNames', 'required', 'then', 'type', 'uniqueItems']
+  docs/process/rmm.schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'const', 'else', 'enum', 'if', 'maxItems', 'maxLength', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/process/se-compliance-matrix.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'else', 'enum', 'if', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type']
+  docs/requirements/l0-stakeholder/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'else', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'not', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/requirements/schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'enum', 'maxLength', 'pattern', 'required', 'type']
+  docs/risk/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'enum', 'if', 'maxLength', 'maximum', 'minItems', 'minLength', 'minimum', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/safety/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/templates/rfa-rid-log.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'minimum', 'pattern', 'required', 'then', 'type']
+  docs/test_cases/schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'enum', 'minItems', 'pattern', 'required', 'type']
+schemas 9 repository keywords ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'else', 'enum', 'if', 'maxItems', 'maxLength', 'maximum', 'minItems', 'minLength', 'minProperties', 'minimum', 'not', 'oneOf', 'pattern', 'propertyNames', 'required', 'then', 'type', 'uniqueItems']
+not in fixture ['minProperties']
+FAIL
+exit=1 (expected 1)
+
+######## RUN 6
+# venv Python + jsonschema sanity check, 2026-09-26 00:12:49 CDT, host Darwin 25.6.0 arm64
+# repository HEAD 28e49e6e48ce02d6827e2cc015621900dccc2d1d
+555b02c5e8cc33d45ab98c5646fca7d325875e20ca54a95afb9f10f9a38baeb4  invalid-requirement.json
+1a72fa44456365e3f0e07af337aa2bdb82282930eed82ee6568c81d23611318a  keywords-invalid.json
+86d7843b4aae0e3fe7a2978114714b3d80292b38635a30b9d68302ee46010340  keywords-valid.json
+ef3fd5487f425d08551ab7db11a3842e406c6f9090d5b9e409e20c993a249a87  keywords.schema.json
+e5a563e4945c9ea01ed546cb1af8b4468327b8385d72f506cc66bca3d76784c5  known-answers.json
+7b51417bbcd0d38fe99f5bf4de6ee8514f040123f8ce6419b0f9d61af99a70fd  requirements.schema.json
+12f542f1de0ea591eaeb0298dbd177cff5e403e1b09c97e892d2406639fd9483  valid-requirement.json
+$ cmp tools/tests/fixtures/schema/requirements.schema.json docs/requirements/schema.json
+identical (informative: the fixture copy still equals the repository schema)
+$ /Users/robinonsay/rust/cwht/.venv/bin/python --version
+Python 3.13.5
+$ /Users/robinonsay/rust/cwht/.venv/bin/python -m pip show jsonschema | head -2
+Name: jsonschema
+Version: 4.26.0
+## known-answer check (run in the fixture directory)
+$ cd tools/tests/fixtures/schema && /Users/robinonsay/rust/cwht/.venv/bin/python -c '<CHECK>'
+    CHECK = import json,sys,importlib.metadata as m,jsonschema as j
+    k=json.load(open("known-answers.json")); ok=True
+    print("jsonschema", m.version("jsonschema"))
+    for case in k["cases"]:
+        s=json.load(open(case["schema"])); V=j.validators.validator_for(s); V.check_schema(s); ok=ok and V.__name__==case["validator_class"]
+        print("case", case["name"], case["schema"], V.__name__)
+        for c in ("valid","invalid"):
+            got=sorted(["/".join(map(str,e.absolute_path)),e.validator] for e in V(s).iter_errors(json.load(open(case[c]["file"])))); exp=sorted(case[c]["errors"])
+            print(" ", c, case[c]["file"], len(got), "errors", got, "MATCH" if got==exp else "MISMATCH, expected "+str(exp)); ok=ok and got==exp
+    print("PASS" if ok else "FAIL"); sys.exit(0 if ok else 1)
+jsonschema 4.26.0
+case requirement requirements.schema.json Draft7Validator
+  valid valid-requirement.json 0 errors [] MATCH
+  invalid invalid-requirement.json 4 errors [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MATCH
+case keywords keywords.schema.json Draft7Validator
+  valid keywords-valid.json 0 errors [] MATCH
+  invalid keywords-invalid.json 19 errors [['entries/0/id', 'pattern'], ['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/16/margins', 'minProperties'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']] MATCH
+PASS
+exit=0
+## negative control: temporary copy with seeded fault 1 of each case removed (must FAIL)
+jsonschema 4.26.0
+case requirement requirements.schema.json Draft7Validator
+  valid valid-requirement.json 0 errors [] MATCH
+  invalid invalid-requirement.json 3 errors [['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']] MISMATCH, expected [['requirements/0/verification_method', 'enum'], ['requirements/1/id', 'pattern'], ['requirements/2', 'required'], ['requirements/3/tbr', 'additionalProperties']]
+case keywords keywords.schema.json Draft7Validator
+  valid keywords-valid.json 0 errors [] MATCH
+  invalid keywords-invalid.json 18 errors [['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/16/margins', 'minProperties'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']] MISMATCH, expected [['entries/0/id', 'pattern'], ['entries/1/kind', 'enum'], ['entries/10/owner', 'anyOf'], ['entries/11', 'required'], ['entries/12/tags', 'maxItems'], ['entries/13', 'additionalProperties'], ['entries/14', 'required'], ['entries/15/score', 'type'], ['entries/16/margins', 'minProperties'], ['entries/2/version', 'const'], ['entries/3/score', 'maximum'], ['entries/4/score', 'minimum'], ['entries/5/tags', 'uniqueItems'], ['entries/6/tags/0', 'minLength'], ['entries/7/tags/0', 'maxLength'], ['entries/8/note', 'not'], ['entries/9/value', 'oneOf'], ['list', 'minItems'], ['meta', 'pattern']]
+FAIL
+exit=1 (expected 1)
+## keyword survey: every schema keyword used by docs/**/*schema*.json must be used by keywords.schema.json (must PASS)
+    SURVEY = import json,glob,sys
+    ANN={"$schema","$id","title","description","definitions","properties","items","default","examples","$comment"}
+    def kw(n,out):
+        if isinstance(n,dict):
+            for k,v in n.items():
+                out.add(k)
+                if k in ("properties","definitions","patternProperties"):
+                    for x in v.values(): kw(x,out)
+                elif k not in ("enum","const","required"): kw(v,out)
+        elif isinstance(n,list):
+            for x in n: kw(x,out)
+    root="/Users/robinonsay/rust/cwht/"; files=sorted(glob.glob(root+"docs/**/*schema*.json",recursive=True))
+    repo=set()
+    for f in files:
+        s=set(); kw(json.load(open(f)),s); repo|=s; print(" ", f[len(root):], json.load(open(f)).get("$schema"), sorted(s-ANN))
+    fx=set(); kw(json.load(open("keywords.schema.json")),fx)
+    missing=sorted((repo-ANN)-fx); print("schemas", len(files), "repository keywords", sorted(repo-ANN)); print("not in fixture", missing)
+    print("PASS" if not missing else "FAIL"); sys.exit(0 if not missing else 1)
+  docs/plan/tpm.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'else', 'enum', 'if', 'minItems', 'minLength', 'minProperties', 'oneOf', 'pattern', 'propertyNames', 'required', 'then', 'type', 'uniqueItems']
+  docs/process/rmm.schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'const', 'else', 'enum', 'if', 'maxItems', 'maxLength', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/process/se-compliance-matrix.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'else', 'enum', 'if', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type']
+  docs/requirements/l0-stakeholder/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'else', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'not', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/requirements/schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'enum', 'maxLength', 'pattern', 'required', 'type']
+  docs/risk/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'enum', 'if', 'maxLength', 'maximum', 'minItems', 'minLength', 'minimum', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/safety/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/templates/rfa-rid-log.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'minimum', 'pattern', 'required', 'then', 'type']
+  docs/test_cases/schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'enum', 'minItems', 'pattern', 'required', 'type']
+schemas 9 repository keywords ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'else', 'enum', 'if', 'maxItems', 'maxLength', 'maximum', 'minItems', 'minLength', 'minProperties', 'minimum', 'not', 'oneOf', 'pattern', 'propertyNames', 'required', 'then', 'type', 'uniqueItems']
+not in fixture []
+PASS
+exit=0
+## survey negative control: temporary copy of keywords.schema.json without the margins property (the 2026-09-25 fixture state; must FAIL naming minProperties)
+  docs/plan/tpm.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'else', 'enum', 'if', 'minItems', 'minLength', 'minProperties', 'oneOf', 'pattern', 'propertyNames', 'required', 'then', 'type', 'uniqueItems']
+  docs/process/rmm.schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'const', 'else', 'enum', 'if', 'maxItems', 'maxLength', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/process/se-compliance-matrix.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'else', 'enum', 'if', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type']
+  docs/requirements/l0-stakeholder/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'else', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'not', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/requirements/schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'enum', 'maxLength', 'pattern', 'required', 'type']
+  docs/risk/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'enum', 'if', 'maxLength', 'maximum', 'minItems', 'minLength', 'minimum', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/safety/schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'const', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'pattern', 'required', 'then', 'type', 'uniqueItems']
+  docs/templates/rfa-rid-log.schema.json http://json-schema.org/draft-07/schema# ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'enum', 'if', 'maxLength', 'minItems', 'minLength', 'minimum', 'pattern', 'required', 'then', 'type']
+  docs/test_cases/schema.json http://json-schema.org/draft-07/schema# ['additionalProperties', 'enum', 'minItems', 'pattern', 'required', 'type']
+schemas 9 repository keywords ['$ref', 'additionalProperties', 'allOf', 'anyOf', 'const', 'else', 'enum', 'if', 'maxItems', 'maxLength', 'maximum', 'minItems', 'minLength', 'minProperties', 'minimum', 'not', 'oneOf', 'pattern', 'propertyNames', 'required', 'then', 'type', 'uniqueItems']
+not in fixture ['minProperties']
+FAIL
+exit=1 (expected 1)

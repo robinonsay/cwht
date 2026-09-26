@@ -1,0 +1,20 @@
+{
+  "description": "Known answers for the picotool sanity check (tools/toolchain.lock.md section 1.1, picotool row; CM plan section 9.2 table; TV due CDR). kat-target.elf is the image built from tools/tests/fixtures/rust/kat-target (its SHA-256 equals rust/known-answers.json target_build.elf_sha256). The UF2 known answer was computed independently of picotool, in Python, from the ELF: every PT_LOAD segment with a non-zero file size is placed at its physical address in 256-byte pages (unused bytes zero), one 512-byte UF2 block per page in address order (magics 0x0A324655, 0x9E5D5157, 0x0AB16F30; flags 0x00002000 family-id present; payload 256; family 0xE48BFF59), the block layout of the UF2 specification (github.com/microsoft/uf2; not in the reference corpus) with the rp2350_arm_s family id of RP2350 datasheet Table 454 in section 5.5 USB Mass Storage Interface (rustos docs/extracted/rp2350-datasheet.md). A wrong constant in the reconstruction would make it differ from picotool, so the byte-for-byte match checks both. The one image has one page at 0x10000000, so the UF2 is one block of 512 bytes. The program name is the string the fixture's binary-info entry carries (tools/tests/fixtures/rust/kat-target/src/main.rs).",
+  "picotool_version": "picotool v2.3.0 (Darwin, AppleClang-21.0.0.21000099, Release)",
+  "elf": {"file": "kat-target.elf", "sha256": "3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d"},
+  "uf2_convert": {
+    "command": "picotool uf2 convert kat-target.elf kat-target.uf2 --family rp2350-arm-s",
+    "exit": 0,
+    "size_bytes": 512,
+    "sha256": "f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093"
+  },
+  "info": {
+    "command": "picotool info -a kat-target.elf (and the same on kat-target.uf2)",
+    "exit": 0,
+    "must_contain": [" name:                cwht-kat-fixture", " binary start:        0x10000000", " target chip:         RP2350", " image type:          ARM Secure", " block type:          image def"]
+  },
+  "verify": {
+    "command": "picotool load kat-target.uf2, then picotool verify kat-target.elf (pass) and picotool verify on a copy with one byte changed (fail)",
+    "status": "blocked: picotool verify compares a file with the flash of a connected device in BOOTSEL mode; it needs the owner's Pico 2 (owner action, with the FW-B0 flash steps of TC-SW-TOOL-001)"
+  }
+}

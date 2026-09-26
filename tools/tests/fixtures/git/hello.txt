@@ -1,0 +1,1 @@
+cwht git known-answer fixture: this line is hashed as a git blob.

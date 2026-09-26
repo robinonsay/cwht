@@ -1,0 +1,5 @@
+stateDiagram-v2
+    [*] --> Off
+    Off --> Receive: T01 switch on
+    Receive --> Transmit: T10 key down
+    Transmit --> Receive: T11 hang expires

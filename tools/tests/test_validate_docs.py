@@ -11,6 +11,8 @@
                      record, peer-review records with bad front matter, a reused
                      INSP id, a record under a non-review folder, and a forbidden
                      peer-reviews/ folder; exit 1
+    usage errors     an unknown option and a --root that is not a directory; exit 2
+                     with the argparse message on stderr (UsageErrorTests)
 
 Run from the repository root:
 
@@ -180,6 +182,26 @@ class PeerReviewRecordTests(unittest.TestCase):
         errors = self.invalid["docs/reviews/SRR/peer-reviews"].errors
         self.assertEqual(1, len(errors))
         self.assertIn("no peer-reviews/ folder", errors[0])
+
+
+class UsageErrorTests(unittest.TestCase):
+    """Purpose 5 of TV-003: exit 2 on a usage error, with no document validated (INSP-015 finding-5).
+
+    Seeded faults: an unknown option, and a --root that is not a directory. Expected
+    answers written from argparse's documented behavior (exit status 2, message on
+    stderr) before the first run."""
+
+    def assert_usage_error(self, result: subprocess.CompletedProcess[str], message: str) -> None:
+        self.assertEqual(2, result.returncode, result.stdout + result.stderr)
+        self.assertIn(message, result.stderr)
+        self.assertNotIn("PASS", result.stdout)
+        self.assertNotIn("FAIL", result.stdout)
+
+    def test_unknown_option_exits_2(self) -> None:
+        self.assert_usage_error(run_cli(VALID, "--bogus"), "unrecognized arguments: --bogus")
+
+    def test_root_not_a_directory_exits_2(self) -> None:
+        self.assert_usage_error(run_cli(VALID / "no-such-directory"), "root is not a directory")
 
 
 class RepositoryTests(unittest.TestCase):

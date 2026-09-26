@@ -1,0 +1,10 @@
+{
+  "schema": "cwht-measurements-1",
+  "updated": "2026-09-26",
+  "description": "Known-answer fixture: a valid cwht-measurements-1 file (07 section 11.1) with one Measured record, one Not yet measured record and one INSP-keyed MSR-20 record that supersedes a seed record.",
+  "records": [
+    {"id": "MSR-01", "name": "Fixture requirement count", "state": "Measured", "value": 33, "unit": "requirements", "scope": "SW-KEYER", "build": "n/a", "commit": "28e49e6", "date": "2026-09-25", "source": "fixture", "evidence": ["docs/requirements/sw/sw-keyer/requirements.json sha256=0000000000000000000000000000000000000000000000000000000000000000"], "credit": false, "sprint": "SRR-prep", "gate": "SRR", "assessment": "Green", "note": "fixture"},
+    {"id": "MSR-08", "name": "Fixture coverage", "state": "Not yet measured", "value": null, "unit": "percent", "scope": "api, pico2", "build": "n/a", "commit": "28e49e6", "date": "2026-09-25", "source": "fixture", "credit": false, "sprint": "SRR-prep", "gate": "SRR", "assessment": "Not assessed", "due": "PDR", "note": "fixture"},
+    {"id": "MSR-20", "name": "Fixture findings", "state": "Measured", "value": {"major": 1, "minor": 2}, "unit": "findings", "scope": "INSP-001 docs/requirements/l0-stakeholder/expectations.json", "build": "n/a", "commit": "28e49e6", "date": "2026-09-26", "source": "fixture", "evidence": ["docs/reviews/SRR/checklists/expectations.md sha256=1111111111111111111111111111111111111111111111111111111111111111"], "credit": false, "sprint": "SRR-prep", "gate": "SRR", "assessment": "Not assessed", "supersedes": {"id": "MSR-20", "scope": "docs/requirements/l0-stakeholder/expectations.json", "date": "2026-09-25"}, "note": "fixture"}
+  ]
+}

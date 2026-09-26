@@ -1,0 +1,8 @@
+{
+  "entries": [
+    {"id": "K-001", "kind": "alpha", "version": 1, "score": 0, "note": "x", "value": 3, "owner": null, "margins": {"SRR": "10 %"}},
+    {"id": "K-002", "kind": "beta", "score": 10, "tags": ["ab", "abcdefgh"], "value": "s", "owner": "Robin"}
+  ],
+  "list": [1],
+  "meta": {"author": "fixture", "note_two": "x"}
+}
