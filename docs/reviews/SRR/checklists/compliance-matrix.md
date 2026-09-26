@@ -16,11 +16,13 @@ criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
 iteration: 1
-# readiness_met: false because R3 (author self-check against section G) is not on record; see Readiness
-readiness_met: false
+# readiness_met: true at the re-issue of 2026-09-26 (package item R8): R3 met by the author self-check filed at ca22e37 and confirmed by the reviewer; see Re-issue
+readiness_met: true
+# verdict: APPROVED (with liens finding-1 to finding-7, fix before PDR) at the re-issue of 2026-09-26 without a further product review;
+# iteration 1 held it at NEEDS CHANGES only on readiness R3, which the author self-check now meets
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
 findings_minor: 7
 findings_open: 0
@@ -32,8 +34,8 @@ assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G1, CK-REQ-G3, CK-REQ-G6, CK-REQ-A8]
-effort_turns: 45
-effort_minutes: 40
+effort_turns: 51
+effort_minutes: 50
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -45,7 +47,7 @@ date_closed: null
 
 **Independence.** The reviewer did not author the matrix and did not edit it. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (queries: App. H compliance matrix tailoring; SE-44 rationale; DR and DRR Tables G-17 and G-18; compliance matrix author self-check) preceded every `grep`; `grep -n` was used only to pin lines the hits pointed at. **Convergence rule** (lead SE, 2026-09-26, applying charter section 4 item 3): only Major findings change products in this round; every Minor finding is dispositioned "Lien: fix before PDR" and carried by the package as a Routine item.
 
-**Verdict (iteration 1, 2026-09-26).** Reviewer verdict **APPROVED (with liens)**: 0 Major, 7 Minor, all Lien. Record `verdict` **NEEDS CHANGES on readiness R3 only**: no author self-check against section G is on record, and the checklist completion criteria and `tools/validate_docs.py` accept APPROVED only with `readiness_met: true`. The record turns APPROVED (with liens) with no product change when the matrix author files the self-check or Robin waives R3 for this record under package decision 115 (which today names seven other records only; cross item X-1).
+**Verdict (iteration 1, 2026-09-26; superseded by the re-issue at the end of this record, which reads APPROVED with liens).** Reviewer verdict **APPROVED (with liens)**: 0 Major, 7 Minor, all Lien. Record `verdict` **NEEDS CHANGES on readiness R3 only**: no author self-check against section G is on record, and the checklist completion criteria and `tools/validate_docs.py` accept APPROVED only with `readiness_met: true`. The record turns APPROVED (with liens) with no product change when the matrix author files the self-check or Robin waives R3 for this record under package decision 115 (which today names seven other records only; cross item X-1).
 
 ## Record
 
@@ -81,7 +83,7 @@ date_closed: null
 |---|---|---|---|
 | R1 | `tools/validate_docs.py` exits 0 | Yes | Run 2026-09-26 at HEAD `adcfe09`: exit 0, "validate_docs: 38 passed, 0 failed, 38 checked"; the matrix also validates directly against `se-compliance-matrix.schema.json` (jsonschema, "schema ok") |
 | R2 | `tools/traceability.py` reports no violation | Yes | `--report-only` exit 0: 237 requirements, 170 test cases, 0 violations, 2 warnings (REQ-SYS-125, REQ-SYS-148 `SYS_UNALLOCATED`, outside this product) |
-| R3 | The author's return states the self-check against sections A to G and lists the brief's acceptance criteria | No | No author return accompanied this assignment. The product's "Validation" block is the `render_compliance.py` check of row set, order, statements, rationales and the charter section 12 dispositions, not a self-check against G1 to G8; `01-lifecycle-and-reviews.md` section 15 item 1 is a resolution note. A claude-context search for a compliance-matrix self-check found none. Not a product finding; `readiness_met: false` records it |
+| R3 | The author's return states the self-check against sections A to G and lists the brief's acceptance criteria | Yes at re-issue (No at iteration 1) | Re-issue 2026-09-26: the author self-check filed at `ca22e37` lists the acceptance criteria and answers A8 and G1 to G8; confirmed in section "Re-issue". Iteration 1 text: No author return accompanied this assignment. The product's "Validation" block is the `render_compliance.py` check of row set, order, statements, rationales and the charter section 12 dispositions, not a self-check against G1 to G8; `01-lifecycle-and-reviews.md` section 15 item 1 is a resolution note. A claude-context search for a compliance-matrix self-check found none. Not a product finding; `readiness_met: false` records it |
 | R4 | No `TBD`; every TBR has owner, plan, close_by | Yes | The only "TBD" string is the SE-39 statement "no TBDs"; no TBR in the matrix |
 | R5 | CR impact assessment | N/A | Not a CR |
 
@@ -204,3 +206,33 @@ Filed by the author, `author:compliance` (Claude main session, lead SE, the auth
 | `python -m unittest discover -s tools/tests` | 1 | 392 tests, 1 failure: `test_validate_docs.RepositoryTests.test_repository_exit_zero`, caused by the same INSP-008 record drift; no failure touches this product |
 
 **Author statement.** The self-check finds no Major defect and no defect beyond the reviewer's findings, which the author accepts as Minor liens due PDR without dispute. Readiness R3 is offered as met by this section, subject to the reviewer's confirmation at re-issue.
+
+## Re-issue (reviewer; SRR package item R8; 2026-09-26)
+
+Written by `reviewer:INSP-024`, the reviewer role of this record, not the author (charter section 11 rule 4; 08 section 3.1). This is the re-issue without a further product review that package section 2.1 item R8 and the iteration verdict above provide for: only readiness R3 and the product blobs are re-checked. The findings, the item answers of the review, the lien table and the counts stand as reviewed, except where this section says otherwise. **Search first:** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: record readiness fields R1 to R4, author self-check, re-issue verdict APPROVED with liens) ran before any `grep`; `grep` and `git` were used afterwards only to pin lines and blobs.
+
+**Product blobs (record drift rule, package section 2.3).** At HEAD `8ef95d3` `git rev-parse HEAD:<path>` equals the reviewed blob for every `product_files` entry: `se-compliance-matrix.json@790d2562`, `se-compliance-matrix.md@09426930`. `git log --oneline adcfe09..HEAD -- <path>` prints nothing for any of them, so no product changed after the review and no delta verification is needed. The working tree equals HEAD for the product files (`git status --short` on them prints nothing).
+
+**Readiness R3 confirmed.** The author self-check above (filed at `ca22e37` by the author named in the front matter, not by this reviewer) meets both halves of R3 ("the author's return states the self-check against sections A to G below and lists the brief's acceptance criteria"): (a) it lists acceptance criteria AC-1 to AC-7 with a result and evidence for each; the original author briefs are not in the repository, and the criteria are restated from the rules 08 section 1 (WRITING, CITATIONS, SCOPE, COMMANDS) and section 3.1 (row "plans and process documents") impose on every process-document brief, plus the convergence rule, which is the complete set a brief for this product could carry; (b) it answers every applicable item (CK-REQ-A8 and G1 to G8) Yes, No or N/A with evidence, and A1 to A7 and sections B to F N/A by the product-type table, as this record does. Every author No coincides with a reviewer No and names the same findings (A8, G1, G3 and G6, on finding-1 to finding-7); no author answer is Yes where this record answers No; the author disputes no finding and adds no finding. The self-check changed nothing the reviewer owns (`git show ca22e37 -- <this record>` adds only the self-check section) and changed no product.
+
+**Reviewer spot checks of the self-check (2026-09-26, HEAD `8ef95d3`).** `tools/render_compliance.py --check` exit 0 with the NA rows SE-24 to SE-31 and SE-44, "validation PASSED and rendered file is current" (author G7 and the 62 rows FC 49, T 4, NA 9). The JSON still reads `revision_date` 2026-09-25 and `approval.submitted_by` "Claude (lead systems engineer)", so the author's A8 (finding-6) and G3 (finding-5) No answers describe the product at HEAD. Em dash count 0 in both files; the single `TBD` is the SE-39 statement "no TBDs".
+
+
+
+**Readiness at re-issue.** R1 Yes (`tools/validate_docs.py` at HEAD `8ef95d3` passes this record and fails only on the INSP-008 drift outside this product; the matrix validates against `se-compliance-matrix.schema.json` within it). R2 as reviewed. R3 **Yes** (changed from No: the self-check above, confirmed here). R4 Yes (re-confirmed: 0 em dashes, and `TBD` only as the name of a rule or list, in every product file at HEAD). R5 N/A. `readiness_met: true`.
+
+**Open Major findings needing an owner ruling:** none. No finding of this record waits on a package decision; package decision 115 (owner waiver of the self-check) is no longer needed for this record.
+
+**Tool runs at re-issue (2026-09-26, HEAD `8ef95d3`, repository root, `.venv/bin/python`).** `tools/validate_docs.py` exit 1: 48 passed, 1 failed of 49; this record PASS as APPROVED (record drift check included); the one failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (INSP-008, record drift against the hazard blobs committed at `ade0e09` for package item R9), outside this record's scope and reported to the lead SE; `tools/traceability.py --report-only` exit 0, 0 violations, 3 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and REQ-SYS-148, `HAZARD_INVERSE` REQ-SW-KEYER-039; none in this product), with the regenerated `docs/vv/traceability-report.md` and `traceability.json` restored by `git checkout`; `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` exit 0; `python -m unittest discover -s tools/tests` exit 1: 392 tests, 1 failure, `test_validate_docs.RepositoryTests.test_repository_exit_zero`, caused by the same INSP-008 drift; no failure touches this record or its product.
+
+**Measurements (re-issue).** Items re-checked: R1 to R5 and the product blobs; items answered No: 0; new findings: 0; effort 6 turns, 10 minutes (added to the front matter totals).
+
+```
+RE-ISSUE (2026-09-26, HEAD 8ef95d3, package item R8): VERDICT: APPROVED (with liens)
+FINDINGS: finding-1 to finding-7 Minor, Lien: fix before PDR (unchanged); open Major 0
+READINESS: R1 Yes, R2 Yes, R3 Yes (author self-check at ca22e37 confirmed), R4 Yes, R5 N/A; readiness_met true
+PRODUCT: docs/process/se-compliance-matrix.json@790d2562; docs/process/se-compliance-matrix.md@09426930 (unchanged since adcfe09)
+MEASUREMENTS: re-issue items=R1 to R5 + blobs; no=0; new findings=0; turns=6; minutes=10; cumulative turns=51, minutes=50
+```
+
+`record_status` stays Open: the liens are neither Verified nor Deferred by an owner decision, and the software lead closes the record (07 section 10.2, action tracking).
