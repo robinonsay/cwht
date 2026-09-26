@@ -1,21 +1,26 @@
-%%{init: {"flowchart": {"nodeSpacing": 70, "rankSpacing": 90, "curve": "basis"}, "themeVariables": {"fontSize": "15px"}}}%%
+%%{init: {"flowchart": {"nodeSpacing": 70, "rankSpacing": 90, "curve": "basis", "subGraphTitleMargin": {"top": 6, "bottom": 50}}, "themeVariables": {"fontSize": "15px"}}}%%
 %% cwht ConOps section 3.4, Figure 3.4-1: operating modes and transitions (Table 3.4-2 defines T01 to T25).
-%% Source of conops-modes.png; render: mmdc -i conops-modes.mmd -o conops-modes.png -b white -s 2
+%% Source of conops-modes.png; render (headless, mermaid-cli 11.12.0 at /opt/homebrew/bin/mmdc):
+%%   mmdc -i conops-modes.mmd -o conops-modes.png -b white -w 1600 -s 2
 %% Edges that start on the "Radio on" box apply to every mode inside it.
+%% T05L, T08L, T16L and T17L are not modes: they are the labels of T05, T08, T16 and T17 drawn as
+%% inline label boxes (class elabel) on their own edge, because the renderer otherwise places those
+%% labels away from their edges (SRR package section 15 item 16). Each reads as one labelled edge.
+%% The Radio-on title is set on three lines with subGraphTitleMargin so that no edge crosses it.
 flowchart TB
     START(( )) -->|delivered| OFF
     OFF["Off"]
     CHG["Charging<br/>(switch off, USB present)"]
     FS["Fault-safe (latched)"]
     FWU["Firmware-update"]
-    subgraph ON["Radio on (switch on). From every mode inside: T17 latched fault to Fault-safe, T18 controller reset to Self-test, T19 switch off, T20 power-down"]
+    subgraph ON["Radio on (switch on). From every mode inside:<br/>T17 latched fault to Fault-safe, T18 controller reset to Self-test,<br/>T19 switch off, T20 power-down"]
         direction TB
         ST["Self-test"]
         RX["Receive<br/>flags GUEST, PRACTICE, USB, LOWBATT<br/>inhibits KEY, HOT, GUARD"]
         TX["Transmit-keyed"]
         TU["Tune"]
         BT["Bench-test"]
-        ST -->|T08 pass| RX
+        ST --- T08L["T08 pass"] --> RX
         RX <-->|"T10 key, Arm / T11 hang or inhibit"| TX
         RX <-->|"T12 menu, Arm / T13 timeout or inhibit"| TU
         RX <-->|"T14 test menu / T15 exit or inhibit"| BT
@@ -23,16 +28,16 @@ flowchart TB
     OFF -->|T02 USB in| CHG
     CHG -->|T04 USB out| OFF
     OFF -->|T01 switch on| ST
-    CHG -->|T05 switch on| ST
+    CHG --- T05L["T05 switch on"] --> ST
     OFF -->|T03 USB in, BOOTSEL| FWU
     CHG -->|T07 host command| FWU
-    RX -->|T16 host command| FWU
-    FWU -->|T21 reset, switch on| ST
+    RX --- T16L["T16 host command"] --> FWU
     FWU -->|T22 reset, switch off| CHG
+    FWU -->|T21 reset, switch on| ST
     FWU -->|T23 power removed| OFF
     ST -->|T09 check fails| FS
     CHG -->|T06 cell or charger fault| FS
-    ON -->|T17 latched fault| FS
+    ON --- T17L["T17 latched fault"] --> FS
     ON -->|T19, T20 no USB| OFF
     ON -->|T19, T20 USB| CHG
     FS -->|T24 acknowledged| ST
@@ -42,4 +47,6 @@ flowchart TB
     classDef latched fill:#fbeeee,stroke:#8c3b3b,color:#111;
     class OFF,CHG,FWU,ST,RX,TX,TU,BT mode;
     class FS latched;
+    classDef elabel fill:#e8e8e8,stroke:#e8e8e8,color:#333;
+    class T05L,T08L,T16L,T17L elabel;
     style ON fill:#fafaf2,stroke:#777,color:#111;
