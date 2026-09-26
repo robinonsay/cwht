@@ -6,7 +6,7 @@ checklist_file: docs/reviews/SRR/checklists/semp.md
 product: docs/plan/semp.md
 # product_commit: git hash-object of the working-tree file reviewed (blob; the file is uncommitted on top of HEAD 28e49e6); iteration 1 reviewed blob e129c710a71c616377b635e9a9097112313a3350, iteration 2 verified the fixes in the blob below
 product_commit: "2f0588fab3411acfb37342c08f374172da6a52c7"
-# product_files: the committed SEMP blob (git rev-parse HEAD:docs/plan/semp.md at 400e59d) that the delta verification of 2026-09-26 (iteration 3, R13) approves
+# product_files: the committed SEMP blob reviewed at iteration 3 by the independent reviewer (git rev-parse HEAD:docs/plan/semp.md at HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1; unchanged since b301df2 and 400e59d)
 product_files: ["docs/plan/semp.md@77fc9ea43527d838a1d92c54cdb332868c1ab450"]
 product_size: 9 sections plus appendices A to F (480 lines)
 sprint: SRR-prep
@@ -21,18 +21,18 @@ reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 findings_major: 1
-findings_minor: 9
+findings_minor: 10
 findings_open: 0
 findings_fixed: 0
 findings_verified: 9
-findings_deferred: 1
+findings_deferred: 2
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G1, CK-REQ-G7, S1, S2]
-effort_turns: 80
-effort_minutes: 90
+effort_turns: 100
+effort_minutes: 115
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -203,4 +203,42 @@ VERDICT (iteration 3, delta verification): APPROVED (with liens)
 PRODUCT: docs/plan/semp.md@77fc9ea43527d838a1d92c54cdb332868c1ab450
 FINDINGS: finding-10 Minor, Lien: fix before PDR
 MEASUREMENTS: verified=9; lien=1; open_major=0; iteration=3; turns=5; minutes=15
+```
+
+## Iteration 3 (independent reviewer re-verification, 2026-09-26)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:semp`); it did not author the SEMP, did not write the integrator delta verification above, and did not edit the product. Review baseline: HEAD `adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1`. Product reviewed: `docs/plan/semp.md@77fc9ea43527d838a1d92c54cdb332868c1ab450` (`git rev-parse HEAD:docs/plan/semp.md`; the blob is unchanged since its commit `b301df2`, so the integrator's line numbers hold). Sources read at HEAD: charter (unchanged since `4e3f891`), `docs/plan/cost-estimate.md`, `docs/plan/tpm.json` (TPM-014 and the 20 TPM ids, keys and `mop_id` links), `docs/requirements/sys/requirements.json` (REQ-SYS-011, 019, 020, 061, 064, 067, 165), `git ls-files tools/`. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query on the SEMP tool status of `measurements.py`, `unsafe_audit.py` and `complexity_gate.py`) ran before any `grep -n` pin. Convergence rule of the lead SE, 2026-09-26 (charter section 4 item 3: a Minor RID is fixed before the next review and does not block the baseline): only Major findings change products in this round; every Minor is a lien.
+
+**Disposition of every finding at HEAD.**
+
+| Finding | Severity | Disposition at HEAD | Evidence (SEMP blob `77fc9ea4` unless stated) |
+|---|---|---|---|
+| finding-1 | Major | Closed | Lines 41 and 309 read "recorded by a receipt-inspection report `docs/vv/reports/receipt-inspection-<n>.md` and a tool validation record `docs/cm/tool-validation/TV-NNN-<tool>.md` before TRR, closing OQ-VV-001"; charter line 130 at HEAD says the same; "by ADR" occurs 0 times |
+| finding-2 | Minor | Closed | Line 7 aligned to `4e3f891`, which is still the charter's last commit (`git log -- docs/process/00-charter.md`); line 100 matches charter line 39; line 169 matches charter line 157; line 455 OQ-SE-004 Withdrawn; lines 466 (F-03) and 473 (F-10) Resolved |
+| finding-3 | Minor | Closed | Lines 67 and 185 state T-18 implemented; line 187 states `sw_gate.sh` exists, names `render_review_figures.py` and the 11 test files of the SRR closure revision; section 7.4 carries no interim jsonschema command. The tools committed after that revision are finding-10 and finding-11 |
+| finding-4 | Minor | Closed | `cwht-emu` and `rp2350-emu` occur 0 times; line 305 names c1570/rp2350js at `af0114cb` or Renode (07 section 9.4); line 327 uses `firmware/emu/` |
+| finding-5 | Minor | Closed | Line 348 cites REQ-SYS-057 to REQ-SYS-070 and REQ-SYS-165 and makes the L1 file governing; line 358 (0.5 W (TBR), at most 5.5 s (TBR)) and line 354 (4.0 mm (TBR); 0.5 m under 300 lux (TBR); 1 s (TBR)) equal the HEAD descriptions of REQ-SYS-011, 019, 020, 061, 064, 067 and 165 |
+| finding-6 | Minor | Closed | Line 202 every MOE (13); line 415 USD 828 to 1644 from 690 to 1370 plus 20 %, equal to `cost-estimate.md` lines 15 to 17 at HEAD and to TPM-014 (`cbe` 548, `cbe_low_usd` 276, three units); line 475 F-12 condition part resolved; line 30 267 files, 130 SWE pages (charter line 14) |
+| finding-7 | Minor | Closed | Line 94 "Table G-10 (plus Table G-9 items 3.1, 3.2 and 8)" |
+| finding-8 | Minor | Closed | Line 47 "Adequate definition of the problem" answers App. J section 3.0 key question 5 |
+| finding-9 | Minor | Closed | Line 442 lists `peer-review-checklist-safety.md` and `peer-review-checklist-visual-product.md` and names `analysis` and `software-assurance` as the two remaining due checklists (08 section 3.5) |
+| finding-10 | Minor | Lien: fix before PDR | Still present at HEAD: line 187 says `tools/measurements.py` is "planned with the first software sprint" and omits `tools/unsafe_audit.py`, `tools/complexity_gate.py` and `test_unsafe_audit.py`, `test_complexity_gate.py`, `test_measurements.py`, all tracked at HEAD (`git ls-files`) with TV-011 to TV-013 |
+| <a id="finding-11"></a>finding-11 (new) | Minor | Lien: fix before PDR | Section 7.2 row "Documentation data", line 329, repeats the stale status, "`tools/measurements.py` (planned)", and omits `unsafe_audit.py` and `complexity_gate.py`, which `tools/sw_gate.sh` runs at G5 (`tools/README.md` line 12). Same defect as finding-10 at a second place; the integrator delta verification checked line 187 only. Fix: restate the tool list of the row with line 187 at the next SEMP revision. Citation: CK-REQ-G7 |
+
+**New-defect scan at HEAD.** Concentrated on the text changed after the iteration 2 quotes (header line 7, lines 130, 187, 329, 415, appendix F F-07, F-12, F-13) and on the numbers the SEMP copies from files that changed on 2026-09-26: the section 7.4 TPM table (20 ids, keys and `mop_id` links equal `tpm.json` at HEAD), the cost basis (equal to `cost-estimate.md` and TPM-014), F-07 against `technology-assessment.md` (DML-n with the section 6.0 TRL mapping, as the integrator recorded), line 130 (`measurements.json` and `measurements.schema.json` exist and validate), the HSI values of section 7.3.1 (equal to L1 at HEAD) and the SE-38 and SE-66 citations (pinned in `npr-7123-1d/05-chapter5.md` lines 74 and 78). No em dash; no bare TBD. No new Major defect found. One new Minor, finding-11.
+
+**Lien table (iteration 3).**
+
+| Finding | Severity | Disposition | Owner | Due | Package carriage |
+|---|---|---|---|---|---|
+| finding-10 | Minor | Lien: fix before PDR | SEMP author (Claude, lead SE) | PDR readiness declaration | Routine item |
+| finding-11 | Minor | Lien: fix before PDR | SEMP author (Claude, lead SE) | PDR readiness declaration | Routine item (fix together with finding-10) |
+
+**Counts.** 11 findings: 1 Major (Closed), 10 Minor (8 Closed, 2 Lien). Disputed-accepted 0. Open Major 0. No finding needs an owner ruling.
+
+```
+VERDICT (iteration 3, independent reviewer): APPROVED (with liens)
+PRODUCT: docs/plan/semp.md@77fc9ea43527d838a1d92c54cdb332868c1ab450 (HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1)
+FINDINGS: finding-1 to finding-9 Closed; finding-10 Minor Lien: fix before PDR; finding-11 Minor (new) Lien: fix before PDR
+MEASUREMENTS: items re-checked=11 findings plus changed passages; closed=9; lien=2; open_major=0; iteration=3; turns=20; minutes=25
 ```

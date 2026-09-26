@@ -3,11 +3,11 @@
   "tool": "tools/traceability.py",
   "result": "PASS",
   "violations": 0,
-  "warnings": 2,
+  "warnings": 3,
   "counts": {
-    "requirements": 235,
+    "requirements": 236,
     "requirements_retired": 2,
-    "requirements_covered": 235,
+    "requirements_covered": 236,
     "requirements_verified_or_closed": 0,
     "test_cases": 170,
     "reports": 2,
@@ -26,12 +26,12 @@
       "open_tbr": 115
     },
     "SW-KEYER": {
-      "requirements": 38,
-      "with_any_case": 38,
-      "with_closing_case": 38,
+      "requirements": 39,
+      "with_any_case": 39,
+      "with_closing_case": 39,
       "verified_or_closed": 0,
       "with_children": 0,
-      "open_tbr": 10
+      "open_tbr": 11
     },
     "TX": {
       "requirements": 16,
@@ -42,12 +42,12 @@
       "open_tbr": 14
     },
     "All": {
-      "requirements": 235,
-      "with_any_case": 235,
-      "with_closing_case": 235,
+      "requirements": 236,
+      "with_any_case": 236,
+      "with_closing_case": 236,
       "verified_or_closed": 0,
       "with_children": 32,
-      "open_tbr": 139
+      "open_tbr": 140
     }
   },
   "measurements": {
@@ -59,11 +59,11 @@
           "Draft": 181
         },
         "L2": {
-          "Draft": 54
+          "Draft": 55
         }
       },
       "software_by_status": {
-        "Draft": 38
+        "Draft": 39
       }
     },
     "MSR-03": {
@@ -76,8 +76,8 @@
     },
     "MSR-04": {
       "name": "Open TBR count",
-      "software_requirements": 10,
-      "all_requirements": 139
+      "software_requirements": 11,
+      "all_requirements": 140
     },
     "MSR-23": {
       "name": "Test counts by status and class",
@@ -262,6 +262,12 @@
     "MOE-013": "No case"
   },
   "findings": [
+    {
+      "severity": "WARNING",
+      "code": "HAZARD_INVERSE",
+      "location": "docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-039",
+      "message": "HZ-004 does not list REQ-SW-KEYER-039 in its requirement_ids"
+    },
     {
       "severity": "WARNING",
       "code": "SYS_UNALLOCATED",

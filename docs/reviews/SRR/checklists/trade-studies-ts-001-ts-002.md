@@ -8,27 +8,34 @@ product: docs/decisions/trade-studies/
 # this commit (git status "??"), so the reviewed content is identified by the blob hashes in the
 # "Product files reviewed" table below. Iteration 1 reviewed TS-001 46a8ed17 and TS-002 7b7d165b;
 # iteration 2 verified the fixes in TS-001 652ad575 and TS-002 ae80decd (revision 1 of each).
-product_commit: "28e49e6"
-# product_files: the committed blobs (git rev-parse HEAD:<path> at 400e59d, first committed at e597e49) that the delta verification of 2026-09-26 (iteration 3, R13) approves
+# Iteration 3 (independent reviewer, 2026-09-26): review baseline HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1;
+# product_commit is the last commit touching either product at that HEAD (git log -1 -- docs/decisions/trade-studies/).
+product_commit: "e597e49"
+# product_files: the committed blobs (git rev-parse HEAD:<path> at adcfe09; unchanged since e597e49) re-reviewed at iteration 3
 product_files: ["docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf", "docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@574cee3dda830327b0aa17af361f863da2bc546c"]
 product_size: 2 trade studies (revision 1: TS-001 686 lines, TS-002 361 lines), 3 plus 1 decision matrices
 sprint: SRR-prep
 author_agent: "author:trades (Claude trade study author invocation, 2026-09-25, named as Recommender in both TS headers)"
 reviewer_agent: "reviewer:trades"
 criticality: neither
-assurance_required: false
-assurance_reviewer_agent: none
+# assurance_required: true since 07 revision A.4 (blob d0f8baf6 at adcfe09, section 2.1.1 line 117 "Software plans" row names
+# TS-002, the make/buy record, Yes in every column). No paired assurance record for TS-002 exists at adcfe09
+# (07 section 22 line 856 carries its dispatch to Claude; package H1 (c)). TS-001 alone would need none.
+assurance_required: true
+assurance_reviewer_agent: "pending: paired software assurance record for TS-002 not yet dispatched (07 section 2.1.1, section 22)"
 iteration: 3
 readiness_met: true
+# reviewer_verdict: every finding is Closed or a Lien (convergence rule of 2026-09-26). verdict stays NEEDS CHANGES only on
+# the missing 07 section 2.1.1 assurance verdict for TS-002 (07 section 10.2 line 449 completion criteria; not a finding; see Iteration 3)
 reviewer_verdict: APPROVED
-assurance_verdict: not-required
-verdict: APPROVED
+assurance_verdict: pending
+verdict: NEEDS CHANGES
 findings_major: 2
-findings_minor: 9
+findings_minor: 10
 findings_open: 0
 findings_fixed: 0
 findings_verified: 10
-findings_deferred: 1
+findings_deferred: 2
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -36,9 +43,10 @@ deferred_rids: []
 # items_no: iteration 1 answered No on CK-DES-H1, CK-DES-H4, CK-RSK-B3, B5, B7, B8 and B10;
 # every one is Yes in iteration 2 (section "Closure (iteration 2)")
 items_no: []
-# effort: iteration 1 48 turns and 55 minutes; iteration 2 20 turns and 25 minutes
-effort_turns: 74
-effort_minutes: 95
+# effort: iteration 1 48 turns and 55 minutes; iteration 2 20 turns and 25 minutes; delta verification 6 turns and 15 minutes;
+# iteration 3 (independent reviewer) 32 turns and 40 minutes
+effort_turns: 106
+effort_minutes: 135
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -455,4 +463,77 @@ VERDICT (iteration 3, delta verification): APPROVED (with liens)
 PRODUCT: TS-001@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf, TS-002@574cee3dda830327b0aa17af361f863da2bc546c
 FINDINGS: finding-11 Minor, Lien: fix before PDR
 MEASUREMENTS: verified=10; lien=1; open_major=0; iteration=3; turns=6; minutes=15
+```
+
+## Iteration 3 (independent reviewer re-review, 2026-09-26)
+
+**Scope and independence.** New invocation of the reviewer role `reviewer:trades`; it did not author either study and did not edit either product. The "Delta verification" section above was written by the integrator invocation; this section repeats that check as the reviewer and re-opens every finding at the review baseline HEAD `adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1`. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep` (query: INSP-013 trade studies TS-001 TS-002 lien convergence rule decision 58 PA fallback); `grep -n` then pinned lines in both studies, `package.md`, 07 and `tools/validate_docs.py`. Known paths were read directly.
+
+**Products at HEAD.** `git rev-parse HEAD:<path>`: TS-001 `2a0c40a8d86cc6858e011b735a00ff4cd7e54caf` (686 lines), TS-002 `574cee3dda830327b0aa17af361f863da2bc546c` (361 lines). `git log` shows `e597e49` as the only commit touching either file, and `git hash-object` on the working tree gives the same blobs, so no product text changed since the delta verification. The re-review therefore concentrated on the sources the studies cite, several of which changed after `e597e49` (ADR set `0ab3d6e`, hazards 0.4.2-pha `1543c9f`, 07 revision A.4 blob `d0f8baf6`, package revision 3).
+
+**Recomputation.** Both TS-001 Appendix A.3 listings were extracted from `git show HEAD:<path>` and run with `.venv/bin/python` (exit 0 both). Every figure of the A.3 results table and of sections 5, 6, 8.3 and 8.4 is reproduced: R2 A 330, B 310, seven weight flips, smallest remaining lead 6.7 (C2 +10), no Low-cell flip (lead 10), all Low A 320, B 320; P P1 460, P3 280, P4 265 (152.5, 170; 460/300/285); fallback P3 280, P4 265 (2.9, 5; P4 285, P3 250); A-C3 3 or 5 gives A 360 or 390; A-C8 2 gives A 340; P2 re-entry 195 or 275; TS-002 A0 400, A1 265, A2 220, A3 220 (80.6, 115; 400/355/310/295); Butterworth figures 56.1/49.9/47.0/52.5/89.3/160.4 dB and the battery figures 19.4/13.0, 16.7/11.7, 14.2/10.4 h.
+
+**Cited sources re-checked at HEAD.**
+
+- REQ-SYS-024 ("-6 dB bandwidth from 400 Hz to 600 Hz (TBR)", Baseline) and REQ-SYS-112 ("PA junction at or below 110 C (TBR) ... 5 W step in 45 C ambient", KDR) read as TS-001 3.1 M5 (line 87) and section 4 quote them; REQ-SYS-022 and REQ-SYS-094 are KDR as 3.3 states.
+- ADR-012 line 32 still makes the final and driver devices mandatory-criterion parts; the `0ab3d6e` pre-baseline correction changed its header and trade-study pointer (now naming TS-001 sub-decision P), not section 2. TS-001 P M1 (line 83) agrees.
+- RSK-058 Proposed at 12, RSK-027 Proposed at 12 ("PA output power below the 5 W requirement"), RSK-006 Proposed at 12 (`register.json`). Every RSK, REQ-SYS and HZ id in both studies exists at HEAD; HZ-001, HZ-003, HZ-008 and HZ-014 titles in `hazards.json` 0.4.2-pha match their use.
+- Package decisions named by TS-001 (54, 55, 58, 59, 60, 101, 102) carry the subjects the study gives them (package section 13.1 lines 808 to 810, 940, 941, 1013, 1014); decision 58 now adopts P1 with P3 then P4, as TS-001 8.4 recommends. The 07 sections TS-002 cites (1.3, 2.1.1, 14.1, 17.2, 19) and the 06 sections both cite (14.1 to 14.6, 16) exist at HEAD.
+
+**Disposition of every finding at HEAD.**
+
+| Finding | Severity | Disposition at iteration 3 | Evidence at HEAD |
+|---|---|---|---|
+| F-01 | Major | Closed | TS-001 line 257 (A M1 conditional pass on the Inrad tolerance and termination, implication 12 read as the post-detector 250 Hz position); line 346 (C3 row, A 1, Low); `lowR` line 605 includes ("A", "C3"); line 24 and line 399 (R2 Not robust, A leads by 20, closely ranked); recomputation above |
+| F-02 | Major | Closed | TS-001 line 87 (P M5, REQ-SYS-112 screen); line 266 (P2 fails M5, 45 + 80 = 125 C against 110 C); line 435 (P2 thermal row, 16, kept for re-entry only); lines 470 to 475 (8.3: P2 not a fallback as REQ-SYS-112 stands; CR or thermal design routes) and line 487 (8.4 decision 58: P3 then P4) |
+| F-03 | Minor | Closed | TS-001 line 83 (P M1 covers final and driver, ADR-012 section 2); line 393 (driver drive margin in section 6); section 7 P1 drive-margin row under RSK-027 |
+| F-04 | Minor | Closed | TS-001 line 121 (F-B pass cites only the Anglian F6 above 70 dB; Kuhne at least 60 dB); 3.2 F-A front-end filter analysis with Low confidence; line 129 (F-B dominance quantified, 19.4 to 16.7 h reproduced) |
+| F-05 | Minor | Closed | TS-001 line 185 (R2 C4 exception stated) and the P C3 and P C5 rows of 3.3 |
+| F-06 | Minor | Closed | TS-001 line 484 (decision 55 changes only the LNA, 14.2 and 10.4 h reproduced); line 185 (RSK-058 Proposed at 12); lines 168 and 169 (AFT09MS007N and AFT05MS003N pruned in 3.2) |
+| F-07 | Minor | Closed | TS-001 line 277 (B-C1 39 dB on the worse side, score 2) |
+| F-08 | Minor | Closed | TS-002 lines 185 to 187 and line 152 (M3 on crates.io license metadata), line 244 (transitive crates not assessed) |
+| F-09 | Minor | Closed (product part) | TS-002 line 277 ("Evidence offered", confirmation left to the assurance record). The process part is now settled by 07 section 2.1.1 line 117 (TS-002 routed to assurance) and is the record gate below, not a finding |
+| F-10 | Minor | Closed | TS-002 line 320 to 322 (section 10 empty); proposed revisit triggers in section 8 (line 308) |
+| finding-11 | Minor | Lien: fix before PDR | Not fixed at HEAD: TS-001 line 6 and TS-002 line 6 Status rows still read "awaiting the reviewer's verification of the fixes" |
+| finding-12 | Minor (new) | Lien: fix before PDR | See below |
+
+<a id="finding-12"></a>**finding-12, Minor, Lien: fix before PDR.** Location: TS-002 line 10 and TS-001 line 10, header "Independent reviewer" rows. TS-002 states that the assurance review was "not dispatched ... because the dispatch table of 07 section 2.1.1 has no trade-study row" and refers the question to Claude. At HEAD, 07 (blob `d0f8baf6`) section 2.1.1 line 117 names TS-002 in the "Software plans" row (Yes in every column) and line 118 adds a trade-study row, so the stated reason is no longer true. TS-001 line 10 still ends at "Iteration 1: NEEDS CHANGES (2 Major, 8 Minor); revision 1 applies F-01 to F-07" with no later iteration. Expected fix: when the author updates the Status rows (finding-11), update both reviewer rows to name the iteration 2 and 3 results and, for TS-002, the paired assurance record once dispatched. No score, ranking or recommendation is affected. Citation: 07 section 2.1.1; 06 section 14.6 (Status line edits). Disposition under the convergence rule of 2026-09-26: Lien, fix before PDR, carried by the package as a Routine item.
+
+**New Major defects.** None. No product text changed since the delta verification; the source re-checks above found no citation that became wrong in a way that moves a score, a mandatory result, a risk band or a recommendation.
+
+**Lien table (iteration 3).**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-11 | Minor | Lien: fix before PDR | Trade study author (Claude) | PDR readiness declaration |
+| finding-12 | Minor | Lien: fix before PDR | Trade study author (Claude) | PDR readiness declaration |
+
+**Record gate (not a finding): TS-002 software assurance.** 07 section 2.1.1 line 117 now routes TS-002 to the software assurance reviewer, and 07 section 10.2 line 449 (completion criteria) sets a record to `verdict: APPROVED` only when `assurance_verdict` is APPROVED where 2.1.1 says Yes, with a paired record carrying that verdict. No paired assurance record for TS-002 exists at `adcfe09` (07 section 22 line 856; package H1 (c) and H14). The front matter therefore now reads `assurance_required: true`, `assurance_verdict: pending`, `reviewer_verdict: APPROVED` and `verdict: NEEDS CHANGES`, following the INSP-006 iteration 3 precedent. This supersedes the "not-required" value and the "APPROVED (with liens)" verdict of the delta verification section above, which predates reading the committed 07. No product change is needed: the verdict becomes APPROVED (with liens) when Claude dispatches the paired assurance record for TS-002 and it returns APPROVED. The TS-001 part needs no assurance review (07 section 2.1.1 trade-study row: TS-001 constrains no section 14.1 component) and on its own would be APPROVED (with liens); combining both studies in one record is the process item returned to Claude at iterations 1 and 2.
+
+**Cross items (outside this record's scope).**
+
+1. Package K8 (line 801) lists decision 53 (receiver architecture family) among the TS-001 interim rulings, but TS-001 section 8.4 requests rulings on decisions 54, 55 and 58 only; the R1 recommendation is in sections 1 and 8.1. Package author: either drop 53 from the K8 heading or cite TS-001 section 8.1 for it.
+2. Package H5 and H14 (lines 94 and 103) and section 6.12 cite INSP-013 as APPROVED; under the record gate above they should read "reviewer verdict APPROVED; record verdict waits on the TS-002 paired assurance record (07 section 10.2)". H5 depends on TS-001 only, which the gate does not touch.
+3. `tools/validate_docs.py` `ASSURANCE_WHOLE_PRODUCTS` does not yet list TS-002 (07 section 22 line 856, tool owner).
+
+**Tool runs (iteration 3, repository root, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (before this edit) | 1 | 36 passed, 1 failed; this record PASS; the failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (another record, working-tree edit, outside this scope) |
+| `tools/traceability.py --report-only` | 0 | 237 requirements, 170 test cases, 0 violations, 2 warnings (REQ-SYS-125, REQ-SYS-148), none naming TS-001 or TS-002 |
+| `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | 65 risks, 159 candidates, 0 warnings |
+| `tools/render_rmm.py --check` | 0 | rendered file current |
+| `tools/render_compliance.py --check` | 0 | validation passed, rendered file current |
+| `python -m unittest discover -s tools/tests` | 0 | 392 tests OK |
+
+No image was produced in this iteration (TS-001 A.4: no figures), so there was nothing to open for visual closure.
+
+Counts: 12 findings (2 Major, 10 Minor); 10 Closed (Verified), 2 Lien, 0 Disputed accepted, 0 Open; open Major 0.
+
+```
+VERDICT (iteration 3, independent reviewer): reviewer APPROVED (with liens); record NEEDS CHANGES only on the TS-002 assurance gate (07 section 10.2)
+PRODUCT: TS-001@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf, TS-002@574cee3dda830327b0aa17af361f863da2bc546c (HEAD adcfe09)
+FINDINGS: finding-11 Minor Lien; finding-12 Minor Lien; F-01 to F-10 Closed
+MEASUREMENTS: verified=10; lien=2; open_major=0; major=2; minor=10; iteration=3; turns=32; minutes=40
 ```

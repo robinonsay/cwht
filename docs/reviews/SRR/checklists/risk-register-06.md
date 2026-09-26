@@ -4,7 +4,11 @@ checklist: peer-review-checklist-risk
 checklist_revision: A
 checklist_file: docs/reviews/SRR/checklists/risk-register-06.md
 product: docs/risk/register.json
-product_commit: "28e49e6"
+# product_commit: HEAD at iteration 3 (review baseline adcfe09); iteration 1 and 2 base commit was 28e49e6
+product_commit: "adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1"
+# product_files: committed blobs reviewed at iteration 3 (git rev-parse HEAD:<path> at adcfe09, 2026-09-26);
+# iteration 2 working-tree blobs: register.json 2903601e, register.md 761f3731, 06 7a92d21f (06 unchanged)
+product_files: ["docs/risk/register.json@57f64995da80f0d20e6232039b6cba897d46c51b", "docs/risk/register.md@77b864a0e8c82b133fa86a010640192d4731c223", "docs/process/06-risk-and-decision-analysis.md@7a92d21f24a1733d70ae083576e708274bfd1a6d"]
 product_size: 65 active risks and 159 candidates; plan 06 (17 sections) (iteration 1: 59 and 130)
 sprint: SRR-prep
 author_agent: "author:risk-manager (Claude main session, lead SE and risk manager; register 0.5.1-pre-srr, SRR readiness items H9 and F6)"
@@ -12,24 +16,25 @@ reviewer_agent: "reviewer:risk"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 2
-readiness_met: false
-reviewer_verdict: NEEDS CHANGES
+iteration: 3
+readiness_met: true
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+verdict: APPROVED
+# finding-17 is new at iteration 3; findings_deferred counts the two liens (finding-16, finding-17: Lien, fix before PDR)
 findings_major: 4
-findings_minor: 12
-findings_open: 2
-findings_fixed: 14
+findings_minor: 13
+findings_open: 0
+findings_fixed: 15
 findings_verified: 0
-findings_deferred: 0
+findings_deferred: 2
 deferred_rids: []
-# iteration 2 answers (iteration 1: CK-RSK-A1, A2, A3, A4, A7, A8, A10, A11, CK-REQ-G1, G2, G4, G6)
-items_no: [CK-RSK-A10, CK-REQ-G1]
-effort_turns: 72
-effort_minutes: 110
+# iteration 3 answers (iteration 2: CK-RSK-A10, CK-REQ-G1; iteration 1: CK-RSK-A1, A2, A3, A4, A7, A8, A10, A11, CK-REQ-G1, G2, G4, G6)
+items_no: [CK-REQ-G1]
+effort_turns: 96
+effort_minutes: 140
 record_status: Open
-date: 2026-09-25
+date: 2026-09-26
 date_closed: null
 ---
 
@@ -65,14 +70,15 @@ Severity: Major blocks the baseline; Minor is fixed before the next review. Stat
 | <a id="finding-6"></a>F-06 (finding-6) | Minor | CK-RSK-A3 | `statement.condition` of RSK-009, RSK-013, RSK-023 | The condition must be a fact true today (06 section 4). RSK-009 still says the scrape "has not been checked page by page for completeness of the guidance, small-project and software-assurance sections", which the S1 check (Done; reproduced by the reviewer: 100 of 100 RMM rows pass, smallest sections 6056, 3283 and 6407 non-space characters, exact match) now contradicts; the remaining gap is content fidelity (S2). RSK-013 ("twelve rustos driver work packages (WP-SW-01 to WP-SW-12, 07 section 19)") and RSK-023 ("the twelve driver work packages of 07 section 19") disagree with 07 section 19, which has WP-SW-01 to WP-SW-13, with 07 section 21 ("Thirteen work packages") and with RSK-013's own S1 evidence (WP-SW-01 to WP-SW-13). Fix: restate the three conditions. | Fixed | Closed. RSK-009 condition records the S1 structural check as done and reproduced by INSP-007, and names the remaining content-fidelity gap (S2); RSK-013 and RSK-023 now say thirteen work packages (WP-SW-01 to WP-SW-13, WP-SW-13 optional), matching 07 section 19. | | |
 | <a id="finding-7"></a>F-07 (finding-7) | Minor | CK-RSK-A5 (band minimums, Green row), CK-RSK-A10 | RSK-030 `mitigation.strategy` and S1; package section 13.1 decision 32 | RSK-030 has strategy Accept while Proposed and without an acceptance record; the schema description reads "Accept = owner accepts residual (needs acceptance...)" and the 06 section 8 Green row calls for Watch with closure criteria. S1 schedules the acceptance "with the RF Exposure Evaluation approval at PDR", while package decision 32 and package section 11 ask the owner to accept RSK-030 in the SRR memo. Fix: set Watch (or keep Accept and state the rule in 06, F-11) and align the acceptance gate with decision 32. | Fixed | Closed. RSK-030 keeps *Accept*, which the new 06 section 8 strategy table now allows for Yellow and Green with a step due at the named gate whose artifact is the decision memo; S1 is due SRR, artifact `docs/reviews/SRR/decision-memo.md`, and names package decision 32, so the gate agrees with the package. | | |
 | <a id="finding-8"></a>F-08 (finding-8) | Minor | CK-RSK-A7, CK-RSK-A3 | RSK-046 `related.hazard_ids`; `docs/safety/hazards.json` HZ-008 `related_risk_ids` | RSK-046's condition and source name the HZ-008 C7 out-of-band fundamental cause (hazard-analysis section 12 row HZ-008 action), and it scores safety 4, but `related.hazard_ids` is empty "until the hazard analysis author adds RSK-046" (last history entry). The tool passes only because the link is absent on both sides. Fix in one pass with the hazard analysis author: RSK-046 `hazard_ids` [HZ-008] and HZ-008 `related_risk_ids` adds RSK-046; the optional HZ-006 link for RSK-028 is decided in the same pass. | Fixed | Closed. RSK-046 `related.hazard_ids` = [HZ-008] with history note; `hazards.json` HZ-008 `related_risk_ids` = [RSK-001, RSK-011, RSK-046]; safety 4 meets Critical; `--hazards` check exit 0. RSK-028 not linked to HZ-006, decided in RSK-028 history (RSK-016 carries HZ-006). | | |
-| <a id="finding-9"></a>F-09 (finding-9) | Minor | CK-RSK-A10 | `docs/reviews/SRR/package.md` section 11 and section 13.1 decision 14 (outside the product); 07 section 22 row "RSK-009 closure evidence" | The package risk section no longer matches the register history: it says "7 open steps due at SRR" and lists RSK-009 S1, RSK-010 S1, RSK-013 S1 and RSK-016 S3 as open, while the register measures table gives 3 (RSK-012 S5, RSK-028 S2, RSK-046 S1) after S1 Done (RSK-009, RSK-013), S3 Done (RSK-016) and S1 re-planned to PDR (RSK-010). Decision 14 recommends "close RSK-009 on the recorded check", and 07 section 22 says "the owner closes RSK-009 at SRR", while the register records that closure criteria are not met (S2 due PDR). Fix (package author, 07 author): refresh section 11 from the register; reword decision 14 to approve the Red plans only (with the F-02 Red list) and keep RSK-009 open to PDR. | Open | Open (author dispute not accepted: it concerns ownership, not substance, and the defect persists). Register side done (RSK-009 open to PDR, S2 to S4 due PDR). `docs/reviews/SRR/package.md` line 348 still says "7 open steps due at SRR" and SRR 59 active, Red 24 (register.md SRR row now 65 active, Red 32, Yellow 25, Green 8, 4 open steps due); line 447 still lists RSK-009 S1, RSK-010 S1, RSK-013 S1, RSK-016 S3 as open; line 620 decision 14 still asks to approve "24 Red" plans and "close RSK-009"; 07 line 820 still says "the owner closes RSK-009 at SRR". Owners: package author and 07 author (cross). | | |
+| <a id="finding-9"></a>F-09 (finding-9) | Minor | CK-RSK-A10 | `docs/reviews/SRR/package.md` section 11 and section 13.1 decision 14 (outside the product); 07 section 22 row "RSK-009 closure evidence" | The package risk section no longer matches the register history: it says "7 open steps due at SRR" and lists RSK-009 S1, RSK-010 S1, RSK-013 S1 and RSK-016 S3 as open, while the register measures table gives 3 (RSK-012 S5, RSK-028 S2, RSK-046 S1) after S1 Done (RSK-009, RSK-013), S3 Done (RSK-016) and S1 re-planned to PDR (RSK-010). Decision 14 recommends "close RSK-009 on the recorded check", and 07 section 22 says "the owner closes RSK-009 at SRR", while the register records that closure criteria are not met (S2 due PDR). Fix (package author, 07 author): refresh section 11 from the register; reword decision 14 to approve the Red plans only (with the F-02 Red list) and keep RSK-009 open to PDR. | Fixed | Iteration 3: Closed (`package.md` blob `9042d945` lines 436 and 764, `07` blob `d0f8baf6` line 866). Iteration 2: Open (author dispute not accepted: it concerns ownership, not substance, and the defect persists). Register side done (RSK-009 open to PDR, S2 to S4 due PDR). `docs/reviews/SRR/package.md` line 348 still says "7 open steps due at SRR" and SRR 59 active, Red 24 (register.md SRR row now 65 active, Red 32, Yellow 25, Green 8, 4 open steps due); line 447 still lists RSK-009 S1, RSK-010 S1, RSK-013 S1, RSK-016 S3 as open; line 620 decision 14 still asks to approve "24 Red" plans and "close RSK-009"; 07 line 820 still says "the owner closes RSK-009 at SRR". Owners: package author and 07 author (cross). | | |
 | <a id="finding-10"></a>F-10 (finding-10) | Minor | CK-REQ-G1 | 06 section 17 rows "268 pages scraped", "Software risks opened ... at SRR", "Hazard related_risk_ids back-links" | Alignment rows are stale: charter section 1 now reads "scraped 2026-09-25: 267 files, 130 of them SWE pages" (the row still reports a 268 charter issue); 07 section 21 now has nine rows, including RSK-015 and the unregistered host-mock row (the row says "All seven rows are in the register. No difference"); the back-link actions listed are done except HZ-015 (F-01). Fix: update the three rows with the date and the evidence. | Fixed | Closed. 06 section 17 rows updated 2026-09-25: 07 section 21 nine rows all registered; SWEHB count row matches charter section 1 ("267 files, 130 of them SWE pages") and records the remaining 08 section 1 "268 pages scraped" difference (confirmed at 08 line 30) as an action; back-link row lists HZ-015 done. The hazard row has since gone stale on one clause, recorded as F-16. | | |
 | <a id="finding-11"></a>F-11 (finding-11) | Minor | CK-REQ-G2 | 06 sections 8 and 9 (Plan step "Choose strategy") | The five strategy values Mitigate, Watch, Accept, Research and Elevate are defined only in the `docs/risk/schema.json` description, not in the plan; 06 gives no rule for choosing Accept before the owner's acceptance, or Elevate. Fix: add a strategy table to section 8 or 9 (definition, band where allowed, what it requires). | Fixed | Closed. 06 section 8 "Strategies" table defines Mitigate, Research, Elevate, Watch and Accept with bands allowed and what each requires, including Accept before the owner's ruling and Elevate; Yellow and Green rows reference it; section 9 Plan step points to it. | | |
 | <a id="finding-12"></a>F-12 (finding-12) | Minor | CK-REQ-G2, CK-RSK-A4 | 06 section 6; `likelihood_rationale` of RSK-015, RSK-020, RSK-022, RSK-030, RSK-042, RSK-054, RSK-057 | Anchor 1 needs a Test on the delivered unit or heritage with two analyses; anchor 2 needs analysis "performed with a validated tool (SWE-136)". No TV record exists (`docs/cm/` absent; package H12), so no risk meets anchor 1 or 2 at SRR, and 06 does not say how a procedural, threat or programmatic risk is anchored (RSK-034's rationale notes "No design-analysis anchor applies"). The seven risks listed claim "Anchor level 1" or "Anchor level 2" without that evidence (for example RSK-022: "recorded on that assessment until S1 is verified"). Fix: in 06 section 6, state that before the anchors are reachable the level rests on the probability band with named evidence and a stated confidence; restate the seven rationales on that basis or re-level them. | Fixed | Closed. 06 section 6 "Anchor availability and the band argument" states that anchors 1 and 2 are unreachable on 2026-09-25 and defines cases (a), (b), (c) with level and confidence rules; section 16 item 4 updated. RSK-015, 020, 022, 042, 057 restated as case (c), RSK-030 as case (b) (anchor 2 explicitly not claimed), RSK-054 as case (a) at 3; scripted check: no rationale over the 65 claims anchor 1 or 2, every rationale names an anchor or a band case. | | |
 | <a id="finding-13"></a>F-13 (finding-13) | Minor | CK-REQ-G2 | 06 section 9, candidate disposition rule and its Status sentence | The listed candidate sources (ConOps section 8, research risk lists, hazard analysis linkage table, minutes, RFA answers) omit the "Risks opened, closed or re-scored" field of ADRs and the risk tables of plan documents (07 sections 16.2 and 21), which is how the F-03 candidates were missed. Fix: add ADRs, trade studies and plan risk tables to the source list and to the pre-readiness pass. | Fixed | Closed. 06 section 9 candidate rule now lists ADR section 4.4 fields, trade-study "Related risks" rows, 07 sections 16.2 and 21, technology assessment section 7 and plan risk-opening rules; Status records the plan-table pass (15 candidates) and ADR pass (14 candidates); the remaining SEMP and 01 to 05 pass is scheduled before the readiness declaration. | | |
 | <a id="finding-14"></a>F-14 (finding-14) | Minor | CK-REQ-G6 | 06 section 12, measures table | The per-review measures (active by band, opened, closed, accepted, open steps due, overdue) have a source (history) and storage (`register.md`, package figures) but no threshold or analysis rule (for example: any overdue step at a gate becomes a RID; a rising Red count between gates is reported with its cause). Fix: add a threshold and response for each measure. | Fixed | Closed. 06 section 12 "Measure thresholds and responses" gives a threshold and a response for overdue steps, steps due at the gate, Red count rise, Red at CDR, late-opened risks, closures and acceptances. | | |
 | <a id="finding-15"></a>F-15 (finding-15) | Minor | CK-REQ-G4 | 06 section 15, rows SWE-154 and SWE-086 | 06 relies on SWE-154, which `docs/process/rmm.json` dispositions T (Tailored: "firmware image tampering, malformed configuration data, debug port access"), but 06 does not mirror the disposition or its scope; the charter section 12 tailoring also names "command injection via the key input", which neither the RMM row nor the register covers (see F-03). Fix: state the RMM disposition of SWE-154 (T) and SWE-086 (FC) in the 06 section 15 rows and align the scope with charter section 12. | Fixed | Closed. 06 section 15 rows state SWE-086 FC and SWE-154 T with the tailoring scope, including charter section 12 "command injection via the key input" (RMM rows confirmed: SWE-086 FC, SWE-154 T). The RMM SWE-154 implementation text still lists three surfaces only; 06 records it as a cross item to the RMM author (outside this product). | | |
-| <a id="finding-16"></a>F-16 (finding-16) | Minor | CK-REQ-G1 | 06 section 17 row "Hazard `related_risk_ids` back-links" (new at iteration 2) | The row says the hazard analysis author "adds RSK-046 to HZ-008 `related_risk_ids`; until then `render_risk.py --check --gate SRR --hazards` exits 1 on that back-link only". HZ-008 now carries RSK-046 and the command exits 0 (Tool runs, iteration 2), so the listed action is done and the row reports a failure that no longer occurs. Fix: restate the row as resolved with the date and the exit code. | Open | Open (new). | | |
+| <a id="finding-16"></a>F-16 (finding-16) | Minor | CK-REQ-G1 | 06 section 17 row "Hazard `related_risk_ids` back-links" (new at iteration 2) | The row says the hazard analysis author "adds RSK-046 to HZ-008 `related_risk_ids`; until then `render_risk.py --check --gate SRR --hazards` exits 1 on that back-link only". HZ-008 now carries RSK-046 and the command exits 0 (Tool runs, iteration 2), so the listed action is done and the row reports a failure that no longer occurs. Fix: restate the row as resolved with the date and the exit code. | Lien | Iteration 3: Lien: fix before PDR (06 blob `7a92d21f` unchanged; line 423 still reports the exit 1). Iteration 2: new. | | PDR |
+| <a id="finding-17"></a>F-17 (finding-17) | Minor | CK-REQ-G1, CK-REQ-G4 | 06 section 15 row SWE-154 (line 371); section 17 rows "Cyber risks of the 07 section 16.2 assessment" (line 420) and "SWEHB page count" (line 422) (new at iteration 3) | The rows report two cross-item actions as still open that are done at HEAD `adcfe09`: the RMM SWE-154 implementation text "names the first three surfaces only" (lines 371, 420), while `docs/process/rmm.json` SWE-154 `implementation` now names RSK-015, RSK-022, RSK-060, RSK-061 and RSK-062; and "the 08 section 1 repo map still says 268 pages scraped" (line 422), while `08-agent-briefing.md` line 30 reads "267 files, 130 of them SWE pages". Fix: restate the three rows as resolved with the date and the evidence. | Lien | Iteration 3: Lien: fix before PDR (new). | | PDR |
 
 ### Risks passing the Analyze check (section A only)
 
@@ -229,7 +235,7 @@ Author agent `author:risk-manager` (not present). Reviewer agent `reviewer:risk`
 | Disputed accepted | 1 (within the Closed count) | finding-1: the author is right that the HZ-015 back-link is already set and that the fix was the hazard analysis author's; the defect is gone, so it is Closed |
 | Open | 2 (Minor) | finding-9 (dispute not accepted: the package and 07 section 22 text is still wrong; owners package author and 07 author); finding-16 (new: 06 section 17 hazard row reports an exit 1 that no longer occurs) |
 
-Open Major: 0. Verdict NEEDS CHANGES: no Major finding remains, and on the product alone the two open Minor findings would ride with APPROVED (08 section 3.2), but `readiness_met` stays false for R1 (`validate_docs.py` exits 1 on two files outside the product, `docs/design/allocation.json` and `docs/plan/measurements.json`, schema not found), and `tools/validate_docs.py` rejects APPROVED while `readiness_met` is false (SWE-088 b). The register and this record pass their own checks. The verdict becomes APPROVED on a re-run once R1 is met, with finding-9 and finding-16 carried as Minor.
+Major findings not closed: 0. Verdict NEEDS CHANGES: no Major finding remains, and on the product alone the two open Minor findings would ride with APPROVED (08 section 3.2), but `readiness_met` stays false for R1 (`validate_docs.py` exits 1 on two files outside the product, `docs/design/allocation.json` and `docs/plan/measurements.json`, schema not found), and `tools/validate_docs.py` rejects APPROVED while `readiness_met` is false (SWE-088 b). The register and this record pass their own checks. The verdict becomes APPROVED on a re-run once R1 is met, with finding-9 and finding-16 carried as Minor.
 
 **Iteration 2 answers** (items answered No at iteration 1; items not listed keep their iteration 1 answer).
 
@@ -266,9 +272,57 @@ Open Major: 0. Verdict NEEDS CHANGES: no Major finding remains, and on the produ
 
 The record can close when finding-9 and finding-16 are fixed or deferred by the owner with a decision reference and a gate.
 
+## Iteration 3 (2026-09-26, committed products at HEAD `adcfe09`; SRR package item R8)
+
+**Scope and independence.** `reviewer:risk`, a new invocation of the reviewer role, independent of the author; it edited no file of the product and wrote only this record. Iterations 1 and 2 reviewed working-tree blobs that are not in the object store (package section 2.3). This iteration reviews the committed blobs named in `product_files` (`git rev-parse HEAD:<path>` at `adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1`): `register.json` `57f64995` (0.6.0-pre-srr, updated 2026-09-26), `register.md` `77b864a0`, 06 `7a92d21f` (the same blob as iteration 2). The register changed after iteration 2 in commit `08d1496` only; that commit message names RSK-012 S5 Done and the RSK-013 rationale, both re-read here, and the whole population checks of iteration 2 were re-run by read-only Python on the committed blob. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: package risk status, open steps due at SRR, decision 14, RSK-009 closure) ran before any `grep`; `grep -n` then pinned lines in `package.md`, 06, 07 and 08. The convergence rule of 2026-09-26 applies (charter section 4 item 3): only Major findings change products in this round, and every Minor finding is "Lien: fix before PDR".
+
+| Finding | Severity | Check at HEAD `adcfe09` | Disposition |
+|---|---|---|---|
+| finding-1 to finding-8, finding-10 to finding-15 | Major 4, Minor 10 | Closed at iteration 2 on working-tree blobs; re-checked on the committed blob: `render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` exit 0 (hazards.json `37d6cc83`, 0.4.2-pha); scripted over 65 risks: every likelihood rationale names an anchor level or a section 6 case, no anchor-level mismatch, no claim of anchor 1 or 2, every score equals likelihood times the maximum consequence; 32 Red, each with strategy Mitigate, Research or Elevate, at least two active steps, triggers and a fallback; 159 candidates (Entered 81, Merged 56, Declined 22); no `TS-001-cw-selectivity`, `TS-002-synthesizer` or `TS-003` step artifact; no em dash, no bare TBD in `register.json`, `register.md` or 06 | Closed (unchanged) |
+| finding-9 | Minor | `docs/reviews/SRR/package.md` (blob `9042d945`) line 436: SRR 65 active, Red 32, Yellow 25, Green 8, open steps due at SRR 3 (RSK-028 S2, RSK-030 S1, RSK-046 S1), matching `register.md` "Risk status measures by review" SRR row; line 764 decision 14: "Approve the mitigation plans of the 32 Red risks ... and keep RSK-009 open to PDR"; no "24 Red", "7 open steps" or "close RSK-009" string remains; `07-software-engineering-plan.md` (blob `d0f8baf6`) line 866: "RSK-009 stays open until its closure criteria are met (S2 to S4 due PDR)" | Closed |
+| finding-16 | Minor | 06 blob unchanged; line 423 still says the hazard analysis author adds RSK-046 to HZ-008 and "until then ... exits 1", while HZ-008 carries RSK-046 and the command exits 0 | Lien: fix before PDR |
+| finding-17 (new) | Minor | 06 lines 371, 420 and 422 report the RMM SWE-154 text and the 08 "268 pages" count as open actions; both are done at HEAD (`rmm.json` SWE-154 implementation names RSK-060 to RSK-062; 08 line 30 "267 files, 130 of them SWE pages") | Lien: fix before PDR |
+
+**Changed register text re-read (commit `08d1496`).** RSK-012 S5 is Done with evidence `docs/icd/ICD-CTL-KEY.md`, which exists at HEAD, with a dated history entry and an unchanged score; the SRR measures row now gives 3 open steps due at SRR, consistent with the step states. RSK-013 likelihood rationale no longer claims an on-board rustos run ("no on-board run is recorded in the repository", TC-SW-TOOL-001-r1) and keeps anchor level 3, which the 07 section 19 gap list (S1 Done) supports. No new Major defect was found.
+
+**Citations re-pinned.** SWE-154 at NPR 7150.2D 3.11.3 (`npr-7150-2d/03-chapter3.md` line 299); SWE-086 (`npr-7150-2d/05-chapter5.md` line 41).
+
+**Readiness.** R1 Met: `tools/validate_docs.py` exit 0 (37 passed, 0 failed). R2 Met: `render_risk.py --check` exit 0, register.md current. R3 N/A. R4 Met (iteration 1). `readiness_met: true`.
+
+**Iteration 3 answers** (items not listed keep their iteration 2 answer).
+
+| Item | Answer | Evidence |
+|---|---|---|
+| CK-RSK-A10 | Yes | finding-9 closed; package section 11 counts (159: 81, 56, 22) and decision 14 agree with the register |
+| CK-REQ-G1 | No | finding-16 and finding-17 (Minor, liens) |
+
+**Lien table.**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-16 | Minor | Lien: fix before PDR | Risk manager (06 author) | PDR readiness declaration |
+| finding-17 | Minor | Lien: fix before PDR | Risk manager (06 author) | PDR readiness declaration |
+
+**Counts after iteration 3.** 17 findings: Closed 15 (Major 4, Minor 11), Lien 2 (Minor), none open. Verdict APPROVED with liens under the convergence rule.
+
+**Tool runs (iteration 3, 2026-09-26, HEAD `adcfe09`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `.venv/bin/python tools/validate_docs.py` | 0 | 37 passed, 0 failed (record drift rule applied) at the start of the iteration; after this record was written: `PASS docs/reviews/SRR/checklists/risk-register-06.md`, with one failure outside this record (the classification software assurance record, being edited in the working tree by another reviewer invocation at the same time) |
+| `.venv/bin/python tools/render_risk.py --check` | 0 | 65 risks, 159 candidates, 0 warnings; register.md current |
+| `.venv/bin/python tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | hazard cross-check passes |
+| `.venv/bin/python tools/traceability.py --report-only` | 0 | 237 requirements, 170 test cases, 0 violations, 2 warnings (REQ-SYS-125, REQ-SYS-148; none on RSK ids) |
+| `.venv/bin/python tools/render_rmm.py --check` | 0 | 100 rows; render current |
+| `.venv/bin/python tools/render_compliance.py --check` | 0 | passed, render current |
+| `.venv/bin/python -m unittest discover -s tools/tests` | 0 | 392 tests OK |
+
+**Cross items (outside the product).** None new. Iteration 2 cross items (1) to (5) are done at HEAD.
+
 ## Verdict (returned by the reviewer)
 
 ```
 ITERATION 1 (2026-09-25): VERDICT: NEEDS CHANGES. Major 4, Minor 11, all Open.
 ITERATION 2 (2026-09-25): VERDICT: NEEDS CHANGES (readiness R1 not met, outside the product). Closed 14, all four Major among them; the first finding closed with the author's dispute accepted. Still open: 2 Minor (finding-9 package and 07 text, dispute not accepted; finding-16 new, 06 section 17 hazard row). No Major remains.
+ITERATION 3 (2026-09-26): VERDICT: APPROVED (with liens). Committed blobs register.json 57f64995, register.md 77b864a0, 06 7a92d21f. finding-9 Closed; Liens 2 (finding-16, finding-17 new: 06 stale alignment rows, fix before PDR). No Major remains; readiness met.
 ```

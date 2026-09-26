@@ -11,11 +11,13 @@ checklist_file: docs/reviews/SRR/checklists/requirements-tx-and-sw-keyer.md
 product: docs/requirements/tx/requirements.json
 # product_commit: HEAD on which the files sit; all four files are untracked at review time, so
 # product_files carries the git hash-object blob of each file as reviewed.
-product_commit: "28e49e6"
+product_commit: "adcfe09"
 # Iteration 1 blobs: tx req 10507f5d, sw-keyer req b8a301b8, tx tc 5bc1bd74, sw-keyer tc 19186fd3.
-# Iteration 2 (2026-09-26) re-read the blobs below.
-product_files: ["docs/requirements/tx/requirements.json@c0aabfef3a3de986375e314805ff58d6d8ae4705", "docs/requirements/sw/sw-keyer/requirements.json@4a24fed581db184c95aec05d96071f32d1ea98f1", "docs/test_cases/tx/test_cases.json@20e560c597bfb165fc3fc805960037f8c14ffeb2", "docs/test_cases/sw-keyer/test_cases.json@3c5c5dc1594b41357b863468cb4fc8b001358e54"]
-product_size: 54 requirements (16 REQ-TX, 38 REQ-SW-KEYER); 59 test cases (16 TC-TX, 43 TC-SW-KEYER) at iteration 2 (iteration 1: 49 and 56)
+# Iteration 2 (2026-09-26) blobs: tx req c0aabfef, sw-keyer req 4a24fed5, tx tc 20e560c5, sw-keyer tc 3c5c5dc1
+# (working tree, not in the object store). Iteration 3 (2026-09-26) reviewed the committed blobs
+# below, git rev-parse HEAD:<path> at adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1 (files last changed in cb00792).
+product_files: ["docs/requirements/tx/requirements.json@ef206c83ce711d22d37513fa4c37e092abf0dcc2", "docs/requirements/sw/sw-keyer/requirements.json@db2de344c66ff7caa5e72f922f87686fd3a7ce71", "docs/test_cases/tx/test_cases.json@20e560c597bfb165fc3fc805960037f8c14ffeb2", "docs/test_cases/sw-keyer/test_cases.json@f730056914aedfa003757f94284a020e79c67795"]
+product_size: 54 requirements (16 REQ-TX, 38 REQ-SW-KEYER); 59 test cases (16 TC-TX, 43 TC-SW-KEYER) at iterations 2 and 3 (iteration 1: 49 and 56)
 sprint: SRR-prep
 author_agent: "author:requirements-l2 (requirements author, REQ-TX and REQ-SW-KEYER) and test-author:requirements-l2 (independent test author, TC-TX and TC-SW-KEYER)"
 reviewer_agent: "reviewer:requirements-l2"
@@ -25,30 +27,34 @@ assurance_required: true
 # The assurance second review of the SW-KEYER file (07 section 2.1.1) is a separate invocation that
 # has not been dispatched; this reviewer is not the assurance reviewer.
 assurance_reviewer_agent: "assurance:requirements-sw-keyer (separate invocation, not yet dispatched)"
-iteration: 2
+iteration: 3
 readiness_met: false
-# reviewer_verdict: no open Major finding at iteration 2 (finding-16 and 17 are Minor)
+# reviewer_verdict: iteration 3, no open Major finding; APPROVED with liens (finding-17, 18, 19)
+# under the convergence rule of 2026-09-26
 reviewer_verdict: APPROVED
 # assurance_verdict: pending until the assurance invocation returns
 assurance_verdict: pending
-# verdict stays NEEDS CHANGES: the assurance review required by 07 section 2.1.1 has not run, and
-# readiness R1 and R3 are still No (07 section 10.2 completion criteria)
+# verdict stays NEEDS CHANGES at iteration 3 only because assurance_verdict is pending: 07 section
+# 2.1.1 lets the software lead set APPROVED only after the assurance verdict is APPROVED (package
+# H1 (c), R6). No product finding holds it: every finding is Closed or a Lien.
 verdict: NEEDS CHANGES
 findings_major: 4
-findings_minor: 13
-findings_open: 2
+findings_minor: 15
+# iteration 3: 16 Verified, 3 Minor liens (fix before PDR) counted as deferred, as INSP-003 does
+findings_open: 0
 findings_fixed: 0
-findings_verified: 15
-findings_deferred: 0
+findings_verified: 16
+findings_deferred: 3
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 # items_no at iteration 1: R1, R3, CK-REQ-A3, A4, A7, A8, B3, B4, B5, C1, C2, C4, C5, C6, C7, D4, E1, E3, E5, F2
-items_no: [R1, R3, CK-REQ-B5]
-# effort: iteration 1 48 turns and 75 minutes; iteration 2 30 turns and 45 minutes
-effort_turns: 78
-effort_minutes: 120
+# items_no at iteration 2: R1, R3, CK-REQ-B5
+items_no: [R3, CK-REQ-A7]
+# effort: iteration 1 48 turns and 75 minutes; iteration 2 30 turns and 45 minutes; iteration 3 25 turns and 40 minutes
+effort_turns: 103
+effort_minutes: 160
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -97,8 +103,10 @@ date_closed: null
 | <a id="finding-13"></a>finding-13 | reviewer | Minor | V5 (closing-case evidence) | TC-TX-007, TC-TX-012 acceptance criteria | The limit is written "at most -16.0 dBm (25 uW)"; -16.0 dBm is 25.1 uW and 25 uW is -16.02 dBm, so the stated dBm limit is 0.02 dB looser than 47 CFR 97.307(e) (`47cfr-97.307.md` line 25). The added instrument uncertainty makes the practical effect negligible, but a regulatory limit is quoted exactly. Fix: write -16.02 dBm or state the limit in uW (also in 04 section 6.1 and ADR-021, cross) | Verified | Closed. Every limit in TC-TX-007 and TC-TX-012 reads -16.02 dBm (25 uW), matching 47 CFR 97.307(e) (corpus: `47cfr-97.307.md` line 25); no '-16.0 dBm' remains. 04 section 6.1 and ADR-021 stay a cross item | Pending | |
 | <a id="finding-14"></a>finding-14 | reviewer | Minor | WR-10, CK-REQ-A7 | REQ-TX-009, 010, 011, 013; REQ-SW-KEYER-030 | 02 section 4.3 fixes the order Why, Assumes, Ops, Depends on, Fault tolerance, Constraint, KDR, TBR. REQ-TX-009 to 011 and REQ-SW-KEYER-030 put `Constraint:` before `Ops:` and `Fault tolerance:`; REQ-TX-013 names a design solution without a `Constraint:` item (see finding-6). Fix: reorder the items | Verified | Closed. Scripted order check of every rationale against Why, Assumes, Ops, Depends on, Fault tolerance, Constraint, KDR, TBR: no violation in the 54 requirements; REQ-TX-013 has its `Constraint:` item | Pending | |
 | <a id="finding-15"></a>finding-15 | reviewer | Major | WR-04, CK-REQ-A3, CK-REQ-A4 (V1, V5) | REQ-SW-KEYER-014 | The load condition "while the display and encoders run continuously" has no number: neither the display refresh rate nor the encoder step rate is bounded, and "continuously" is an adverb standing in for them (CK-REQ-A4). TC-SW-KEYER-014 supplies the missing values itself ("the display refreshes at its maximum rate", a fixture turning both encoders at an unstated rate). WR-04 is Major per 02 section 4.2. Fix: state the load, for example "with the display refreshing at its maximum rate and each encoder stepping at 50 steps/s (TBR)" | Verified | Closed. REQ-SW-KEYER-014 states 50 display frames/s and 50 detents/s per encoder (TBR, tbr object, close_by PDR); sources checked: UI-DSP-01 full-frame update <= 20 ms (`display-and-ui-parts.md` line 155) and 24 detents (ADR-006 line 28; 2 rev/s = 48 detents/s). TC-SW-KEYER-014 configuration uses 50 detents/s and its acceptance requires at least 50 full-frame transfers/s and 50 +/-2 detents/s per loaded capture; the test author's open question is gone | Pending | |
-| <a id="finding-16"></a>finding-16 | reviewer (iteration 2, new) | Minor | CK-REQ-B5 | REQ-SW-KEYER-034, 035, 036; `docs/safety/hazards.json` | The three hazard-tracing requirements added for finding-2 carry `hazard_ids` (HZ-004; 036 also HZ-010), but no control in `hazards.json` lists them: `tools/traceability.py --report-only` (2026-09-26) prints 4 `HAZARD_INVERSE` warnings (034/HZ-004, 035/HZ-004, 036/HZ-004, 036/HZ-010), which 04 section 7.3 rule 6 counts against gate readiness. The product side is correct; the fix is in `hazards.json` (cross item for the hazard analyst: REQ-SW-KEYER-034 under HZ-004 K8, 035 under HZ-004 K1, 036 under HZ-004 K9 and HZ-010) | Open | Open (cross item; the author has no write access to `hazards.json`) | Pending | |
-| <a id="finding-17"></a>finding-17 | reviewer (iteration 2, new; present at iteration 1 and missed) | Minor | V5 | REQ-SW-KEYER-016, 017, 026; TC-SW-KEYER-016, 017, 026 | Same class as finding-10: the requirement leaves a reference point open, and the test author recorded it inside the case. TC-SW-KEYER-016 setup: REQ-SW-KEYER-016 "does not say which speed the space after an element in progress uses; open question of the test author". TC-SW-KEYER-017: the 2 ms latency is not bounded "for a bounced closure ... as written; open question of the test author". TC-SW-KEYER-026: the +/-1 ms window exists "because the requirement does not fix which sample starts the count". Fix: state in each requirement the reference (the speed that governs the trailing space; the sample from which latency counts for a bounced closure, for example the sample that completes the make filter; the sample that starts the timeout count) and tighten the three cases | Open | Open | Pending | |
+| <a id="finding-16"></a>finding-16 | reviewer (iteration 2, new) | Minor | CK-REQ-B5 | REQ-SW-KEYER-034, 035, 036; `docs/safety/hazards.json` | The three hazard-tracing requirements added for finding-2 carry `hazard_ids` (HZ-004; 036 also HZ-010), but no control in `hazards.json` lists them: `tools/traceability.py --report-only` (2026-09-26) prints 4 `HAZARD_INVERSE` warnings (034/HZ-004, 035/HZ-004, 036/HZ-004, 036/HZ-010), which 04 section 7.3 rule 6 counts against gate readiness. The product side is correct; the fix is in `hazards.json` (cross item for the hazard analyst: REQ-SW-KEYER-034 under HZ-004 K8, 035 under HZ-004 K1, 036 under HZ-004 K9 and HZ-010) | Verified (iteration 3) | Open (cross item; the author has no write access to `hazards.json`). Iteration 3: Closed, see the Iteration 3 section | Pending | |
+| <a id="finding-17"></a>finding-17 | reviewer (iteration 2, new; present at iteration 1 and missed) | Minor | V5 | REQ-SW-KEYER-016, 017, 026; TC-SW-KEYER-016, 017, 026 | Same class as finding-10: the requirement leaves a reference point open, and the test author recorded it inside the case. TC-SW-KEYER-016 setup: REQ-SW-KEYER-016 "does not say which speed the space after an element in progress uses; open question of the test author". TC-SW-KEYER-017: the 2 ms latency is not bounded "for a bounced closure ... as written; open question of the test author". TC-SW-KEYER-026: the +/-1 ms window exists "because the requirement does not fix which sample starts the count". Fix: state in each requirement the reference (the speed that governs the trailing space; the sample from which latency counts for a bounced closure, for example the sample that completes the make filter; the sample that starts the timeout count) and tighten the three cases | Lien (iteration 3) | Open. Iteration 3: Lien: fix before PDR | Pending | |
+| <a id="finding-18"></a>finding-18 | reviewer (iteration 3, new) | Minor | WR-10, CK-REQ-A7 | REQ-TX-002, 003, 006, 007, 008, 011, 012, 015; REQ-SW-KEYER-036 | The rationales carry an item "Hazard controls implemented (docs/safety/hazards.json control_req_ids): ..." that is not one of the labelled items of 02 section 4.3 (lines 246 to 258) and sits after `TBR:`; with it REQ-TX-006 has 127 words and REQ-TX-007 122, above the 120-word limit of 02 section 4.3 line 246. The listed controls match `hazards.json` (scripted check: every listed HZ and K id equals the controls whose `control_req_ids` name the requirement), so the content is correct; only the form breaks WR-10, which 02 section 4.2 line 225 makes Minor. Fix: drop the item (the back-link is in `hazards.json`) or fold the control ids into `Why:`, and bring REQ-TX-006 and 007 to 120 words or fewer | Lien (iteration 3) | Lien: fix before PDR | Pending | |
+| <a id="finding-19"></a>finding-19 | reviewer (iteration 3, carried from readiness R3) | Minor | R3 | author returns of `author:requirements-l2` | No requirements-author return with the self-check against checklist sections A to G has reached this reviewer at any iteration (readiness R3 No since iteration 1). Package section 2.1 R7 and decision 115 carry it. Fix: the requirements author files the self-check | Lien (iteration 3) | Lien: fix before PDR (decision 115) | Pending | |
 
 ### Per-requirement validation (02 sections 4.2 and 5; SE HB §4.2.1.2.4)
 
@@ -333,3 +341,55 @@ MEASUREMENTS: size=54 requirements, 59 cases; rows=54; verified=15; open=2; majo
 ```
 
 `record_status` stays `Open`. Under 07 section 10.2 the software lead closes the record once every finding is Verified or Deferred and the assurance verdict is in.
+
+## Iteration 3 (2026-09-26, re-review on the committed blobs; SRR package items R8 and H15)
+
+**Scope and independence.** Iteration 2 read working-tree blobs (`c0aabfef`, `4a24fed5`, `20e560c5`, `3c5c5dc1`); three of them are not in the git object store (`git cat-file -e` fails), so the change since iteration 2 cannot be diffed. This iteration therefore re-checked every finding, and re-ran the scripted writing checks over all 54 requirements, on the committed blobs named in `product_files` (HEAD `adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1`; the four files were last changed in `cb00792`). The reviewer (`reviewer:requirements-l2`, a new invocation in the same role) did not author the requirements or the cases and edited no product file. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep` (queries: the record drift rule and `product_files`; the 07 section 2.1.1 assurance gate on the record verdict). `grep -n` then pinned lines only. The tool was available throughout. The convergence rule of 2026-09-26 applies (charter section 4 item 3): in this round only Major findings change products, and every Minor finding is dispositioned "Lien: fix before PDR".
+
+**Commands (2026-09-26).** `tools/traceability.py --report-only`: exit 0, 237 requirements, 170 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and REQ-SYS-148, outside this product); no `HAZARD_INVERSE` warning. `tools/validate_docs.py` on the working tree: exit 1, 36 passed, 1 failed; the failures are other records being edited concurrently and uncommitted (`risk-register-06.md`, `classification-03-...-software-assurance.md`), not this product or this record. On an export of HEAD (`git archive HEAD`, `validate_docs.py --root <export>`): exit 0, 37 passed, 0 failed. Scripted checks over the 54 committed requirements: one `shall` per description, at most 25 words, rationale item order of 02 section 4.3, `(TBR)` if and only if a `tbr` object: no violation; rationale word count: REQ-TX-006 127 and REQ-TX-007 122 (finding-18). Across the four files: no em dash, no bare TBD, no "KeyClosed", no "-16.0 dBm" (all counts 0). Citations re-pinned: SWE-050 (`04-chapter4.md` line 13), SWE-052 (`03-chapter3.md` line 321), 47 CFR 97.305(a) (`47cfr-97.305.md` line 17), 97.307(e) (`47cfr-97.307.md` line 25).
+
+**Dispositions at HEAD.**
+
+| Finding | Severity | Check on the committed blob | Disposition |
+|---|---|---|---|
+| finding-1 | Major | REQ-TX-006: "at least 60 dB below total mean power beyond 750 Hz (TBR) offset with continuous 50 WPM dits"; rationale cites F7 614 Hz and 735 Hz and F12 as a 30 WPM figure; TC-TX-006 title and acceptance use 750 Hz to 50 kHz and the 614 Hz known answer within 10 Hz | Closed |
+| finding-2 | Major | REQ-SW-KEYER-034 (memories with complements), 035 (sidetone gate held while the interlock withholds key-down), 036 (plug-presence check), 023 (both KEY inhibit causes, ConOps Table 3.4-4 rows 1 and 2) present; closing cases TC-SW-KEYER-041, 042, 043 cite them | Closed |
+| finding-3 | Major | REQ-TX-003, 007, 008, 012, 014, 016 carry `interface` and `ICD-TX-ANT`; REQ-SW-KEYER-019 to 022, 024, 026, 028, 036, 038 carry `ICD-CTL-KEY`; `docs/icd/ICD-TX-ANT.md` line 51 now lists the six REQ-TX as side-A requirements (the iteration 2 cross item is done) | Closed |
+| finding-4 | Minor | `traceability.py --report-only`: no `HAZARD_INVERSE` for any REQ-TX or REQ-SW-KEYER | Closed |
+| finding-5 | Minor | REQ-TX-001, 005, 006 rationales name SRR decision 30 and trade TS-NNN; REQ-TX-005 and 006 cite 8.1 item 7 | Closed |
+| finding-6 | Minor | REQ-TX-013 `parent_id` REQ-SYS-182; `Constraint:` item present; description states 1 kHz (TBR) | Closed |
+| finding-7 | Minor | REQ-SW-KEYER-019 rationale assigns REQ-SYS-051 to the CTL network and REQ-SYS-054 to the safe-state manager; `allocation.json` now has `sw_modules` [] for REQ-SYS-051 and [SW-SAFE] for REQ-SYS-054 (the iteration 2 cross item is done) | Closed |
+| finding-8 | Minor | REQ-SW-KEYER-020 and 021 state the N-sample convention and the fixed-count proposal | Closed |
+| finding-9 | Minor | REQ-SW-KEYER-037 and 038 present; TC-SW-KEYER-009, 015, 032 cite 037 and TC-SW-KEYER-040 cites 038 | Closed |
+| finding-10 | Minor | REQ-SW-KEYER-022 reads "500 consecutive samples (TBR)"; TC-SW-KEYER-022 acceptance holds 499 against 500 raw samples | Closed |
+| finding-11 | Minor | "KeyClosed" count 0; "KEY inhibit" used | Closed |
+| finding-12 | Minor | TC-TX-011 acceptance requires every point from 576 MHz to 1.5 GHz measured on an instrument whose TV record or contingency entry covers it | Closed |
+| finding-13 | Minor | "-16.0 dBm" count 0 | Closed |
+| finding-14 | Minor | Scripted order check: no violation | Closed |
+| finding-15 | Major | REQ-SW-KEYER-014 states 50 display frames/s and 50 detents/s per encoder (TBR); TC-SW-KEYER-014 acceptance checks both loads | Closed |
+| finding-16 | Minor | `hazards.json` 0.4.2-pha: REQ-SW-KEYER-034 under HZ-004 K8, 035 under HZ-004 K1, 036 under HZ-004 K9 and HZ-010 K3; no `HAZARD_INVERSE` warning | Closed |
+| finding-17 | Minor | TC-SW-KEYER-016, 017 and 026 still carry the test author's open questions (the speed of the trailing space; latency of a bounced closure; the sample that starts the 5 s count) | Lien: fix before PDR |
+| finding-18 | Minor (new) | See the findings table | Lien: fix before PDR |
+| finding-19 | Minor (new, readiness R3) | See the findings table | Lien: fix before PDR (decision 115) |
+
+**New-defect scan.** Every description, rationale and verification note of the 54 committed requirements and the acceptance criteria of the cases named above were read. No new Major defect was found. The only text not seen in the iteration 2 quotes is the "Hazard controls implemented" rationale item on nine requirements (finding-18); its control ids match `hazards.json`.
+
+**Lien table.**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-17 | Minor | Lien: fix before PDR | Requirements author (REQ-SW-KEYER-016, 017, 026) and test author (TC-SW-KEYER-016, 017, 026) | PDR readiness declaration |
+| finding-18 | Minor | Lien: fix before PDR | Requirements author | PDR readiness declaration |
+| finding-19 | Minor | Lien: fix before PDR | Requirements author (self-check, decision 115) | PDR readiness declaration |
+
+**Readiness at iteration 3.** R1 Yes (exit 0 on the committed tree). R2 Yes. R3 No (finding-19). R4 Yes (re-checked on the 54 committed requirements). R5 N/A. `readiness_met` stays false. Checklist items answered No at iteration 3: CK-REQ-A7 (finding-18); CK-REQ-B5 is now Yes (finding-16 closed).
+
+**Record verdict.** Reviewer verdict: APPROVED with liens. Every finding is Closed or a Lien, so under the convergence rule the product needs no further change for SRR. The record `verdict` field stays NEEDS CHANGES for one reason only: 07 section 2.1.1 lets the software lead set APPROVED only after `assurance_verdict` is APPROVED, and the SW-KEYER software assurance review has still not been dispatched (package H1 (c), R6). When that review returns APPROVED, the software lead can set `verdict: APPROVED` with the three liens and no further reviewer iteration.
+
+**Cross items still open (not edited by this reviewer).** `docs/requirements/sys/requirements.json` REQ-SYS-008 and `ADR-023` (the 630 Hz guard against 750 Hz, closes with the REQ-TX-006 TBR at PDR); `docs/process/07-software-engineering-plan.md` section 14.2 row (d) versus HZ-004 K2 (package H14); `docs/safety/hazards.json` HZ-004 K9 and HZ-010 K3 configurability wording if Robin accepts the fixed counts; `docs/process/04-verification-and-validation.md` section 6.1 and ADR-021 (-16.02 dBm); the NanoVNA TV record (owner input).
+
+```
+ITERATION 3 (2026-09-26): reviewer verdict APPROVED with liens; record verdict NEEDS CHANGES pending the SW-KEYER assurance review only (07 section 2.1.1)
+FINDINGS: finding-1 to finding-16 Closed; liens finding-17, finding-18, finding-19 (Minor, fix before PDR); open Major 0
+MEASUREMENTS: size=54 requirements, 59 cases; rows=54; verified=16; liens=3; major_open=0; minor_open=0; iteration=3; turns=25; minutes=40
+```

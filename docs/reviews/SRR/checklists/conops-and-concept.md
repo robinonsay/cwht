@@ -8,41 +8,45 @@ checklist_file: docs/reviews/SRR/checklists/conops-and-concept.md
 # product: the SE-36 concept definition, reviewed as one product: the ConOps (operational view) with
 # its figures, the concept description (technical view) and the concept block diagram render.
 product: docs/conops/conops.md
-# product_commit: base commit; at iteration 2 conops.md, concept.md, the block diagram render and its
-# generator differ from HEAD or are untracked (blob table in the body; finding-17 open until H17 commits them)
-product_commit: "28e49e6"
-# product_files: path@git blob hash (git hash-object of the working tree re-reviewed at iteration 2, 2026-09-25;
-# iteration 1 blobs are in the body table)
-product_files: ["docs/conops/conops.md@b2e9359490483b04de863d446f375ca2b8051084", "docs/conops/figures/conops-context.mmd@55ebae2e15589bf9951456dc04400b7ccb96ea27", "docs/conops/figures/conops-context.png@2e4647f81c61a1d2df05637efa3ee3d71a506e09", "docs/conops/figures/conops-modes.mmd@829a46f800db84ae5196cf3946d4376eb813fc0f", "docs/conops/figures/conops-modes.png@b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c", "docs/design/concept.md@f9c4af4302ae08f55a20184901bc9eb2fabbf581", "docs/reviews/SRR/figures/concept-block-diagram.png@3ef6e911d5201ce0a88c9f2d358b6d85dc425038", "docs/reviews/SRR/figures/concept-block-diagram.py@3806a3449d3bfe3e14dde14726bc1466b94e36af"]
-product_size: ConOps 865 lines at iteration 1, 866 at iteration 2 (22 scenarios, 9 modes, 25 transitions, 20 causes, appendices A to D); concept 365 lines at iteration 1, 381 at iteration 2 (22 blocks, 10 functions, 18 ICDs, 6 trade studies); 3 renders
+# product_commit: iteration 3 review baseline, HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1 (2026-09-26);
+# iterations 1 and 2 reviewed 28e49e6 and the uncommitted working tree (blob tables in the body)
+product_commit: "adcfe09"
+# product_files: committed blobs reviewed at iteration 3 (git rev-parse HEAD:<path> at adcfe09).
+# iteration 2 (working tree, not in the object store): conops.md@b2e93594, concept.md@f9c4af43; the six figure files are unchanged
+product_files: ["docs/conops/conops.md@b2c76c80b199bc5021535a612617871a1b20554e", "docs/conops/figures/conops-context.mmd@55ebae2e15589bf9951456dc04400b7ccb96ea27", "docs/conops/figures/conops-context.png@2e4647f81c61a1d2df05637efa3ee3d71a506e09", "docs/conops/figures/conops-modes.mmd@829a46f800db84ae5196cf3946d4376eb813fc0f", "docs/conops/figures/conops-modes.png@b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c", "docs/design/concept.md@729190a21066f27525fe5d6e5160e3fa4d22e21b", "docs/reviews/SRR/figures/concept-block-diagram.png@3ef6e911d5201ce0a88c9f2d358b6d85dc425038", "docs/reviews/SRR/figures/concept-block-diagram.py@3806a3449d3bfe3e14dde14726bc1466b94e36af"]
+product_size: ConOps 865 lines at iteration 1, 866 at iteration 2, 867 at iteration 3 (22 scenarios, 9 modes, 25 transitions, 20 causes, appendices A to D); concept 365 lines at iteration 1, 381 at iterations 2 and 3 (22 blocks, 10 functions, 18 ICDs, 6 trade studies); 3 renders
 sprint: SRR-prep
-author_agent: "author:conops-concept (Claude main session, lead systems engineer: ConOps revision 2 at commit 28e49e6; concept description and the three renders revised by the H10 author run, uncommitted)"
+author_agent: "author:conops-concept (Claude main session, lead systems engineer: ConOps revision 2 at commit 28e49e6, fixes committed at 8a37f8e, appendix D statuses at 1543c9f; concept description and the three renders revised by the H10 author run, committed at 8a37f8e)"
 reviewer_agent: "reviewer:conops-concept"
 # criticality and assurance: the ConOps and concept are not products of 07 sections 2.1.1 or 14.1
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 2
+iteration: 3
+# readiness R4 (author self-check) is not met; it closes on package decision 115 (Iteration 3 section)
 readiness_met: false
 reviewer_verdict: NEEDS CHANGES
 assurance_verdict: not-required
 verdict: NEEDS CHANGES
 findings_major: 4
-# finding-19 is new at iteration 2; finding-18 is withdrawn (disputed accepted) and counted in neither open nor verified
-findings_minor: 15
-findings_open: 2
+# finding-19 is new at iteration 2; finding-20 to finding-22 are new at iteration 3 (all Minor);
+# finding-18 is withdrawn (disputed accepted) and counted in neither open nor verified;
+# findings_deferred counts the four liens (finding-19 to finding-22, "Lien: fix before PDR")
+findings_minor: 18
+findings_open: 0
 findings_fixed: 0
-findings_verified: 16
-findings_deferred: 0
+findings_verified: 17
+findings_deferred: 4
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
-# iteration 2 answers (iteration 1: R3, R4, CK-DES-H1, CK-DES-H3, CK-VIS-A1, CK-REQ-C5)
-items_no: [R3, R4, CK-DES-H1, CK-VIS-A1]
-renders_inspected: 3  # iteration 2 re-rendered and re-opened the block diagram; the two ConOps renders are byte-identical to iteration 1
-effort_turns: 58
-effort_minutes: 95
+# iteration 3 answers (iteration 1: R3, R4, CK-DES-H1, CK-DES-H3, CK-VIS-A1, CK-REQ-C5; iteration 2: R3, R4, CK-DES-H1, CK-VIS-A1)
+items_no: [R4, CK-DES-H1]
+renders_inspected: 3  # iteration 3 re-opened the block diagram (--check exit 0 against the committed concept); the two ConOps renders are the blobs inspected at iterations 1 and 2
+# effort: iterations 1 and 2 (58 turns, 95 min) plus iteration 3 (30 turns, 40 min)
+effort_turns: 88
+effort_minutes: 135
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -71,7 +75,7 @@ date_closed: null
 
 ## Findings
 
-Severity: Major blocks the baseline; Minor is fixed before the next review. The Disposition column holds the reviewer's iteration 2 disposition (Closed, Disputed accepted or Open, with evidence). Findings still open go to the owner's ruling (01 section 10.1).
+Severity: Major blocks the baseline; Minor is fixed before the next review. The Disposition column holds the reviewer's latest disposition (iteration 3 where the row says so: Closed, Disputed accepted, Lien or Open, with evidence). Under the lead SE convergence rule of 2026-09-26 (charter section 4 item 3), every Minor finding still open at iteration 3 is a lien, "Lien: fix before PDR"; Major findings still open go to the owner's ruling (01 section 10.1).
 
 | Finding | Severity | Item | Location | Description and expected fix | State | Disposition |
 |---|---|---|---|---|---|---|
@@ -91,9 +95,12 @@ Severity: Major blocks the baseline; Minor is fixed before the next review. The 
 | <a id="finding-14"></a>F-14 (finding-14) | Minor | CK-DES-H1 | concept section 7 table (CTL scope: "hardware monostable for the cutoff, TX_KEY and PA_EN pull-downs") and section 7.5 last sentence, against block B07 in the TX group (section 5) and the TX row "hardware PA-enable cutoff" | The cutoff block is allocated to TX in the block diagram and the TX scope statement, and to CTL in the CTL scope statement and section 7.5. `allocation.json` will inherit one of them. Fix: allocate B07 to one module and name the ICD (`ICD-TX-CTL`) that carries the other side. | Verified | Closed. Concept section 7 CTL scope (line 195) and section 7.5 last sentence (line 219) allocate B07 to TX and route CTL through `ICD-TX-CTL`; section 7.2 (line 205) says the same; `ICD-TX-CTL` row (line 262) carries TX_KEY, PA_EN and cutoff Q |
 | <a id="finding-15"></a>F-15 (finding-15) | Minor | CK-DES-H1 | ConOps OPS-013 step 3 ("3.1 s of dits at 50 WPM, 30.7 s at 5 WPM") | The figures count key-down time only: at 50 WPM a dit is 24 ms and 128 dits are 3.07 s keyed, but 6.1 s elapsed with the inter-element spaces; at 5 WPM 128 dits take 61 s elapsed. The watchdog's time basis (elapsed or key-down) is not stated, and REQ-SYS-054 "10 s (TBR) of them" is equally silent. Fix: state the basis in the ConOps and raise the same point against REQ-SYS-054. | Verified | Closed. ConOps OPS-013 step 3 (line 537) states the elapsed-time basis with correct figures (128 dits: 6.1 s at 50 WPM, 20.5 s at 15 WPM, 61 s at 5 WPM; crossover about 31 WPM at 10 s and about 10 WPM at 30 s; 128 dahs 12.3 s at 50 WPM, all checked by the reviewer at dit = 1.2/WPM s); Appendix D item D18 raises the basis against REQ-SYS-054 |
 | <a id="finding-16"></a>F-16 (finding-16) | Minor | CK-DES-H4 (charter section 11 rule 2) | ConOps header ("revision 2 of 2026-09-25 after the independent ConOps review"); Appendix C rows "review finding on guest-lock claims" and "review finding on Fault-safe" | No record of an earlier ConOps review exists (`docs/reviews/SRR/checklists/` holds no ConOps record before this one; package section 6.2: "Review record: none"). A claim or source without a linked artifact is not evidence. Fix: remove the claim and the two source entries, or cite this record's findings once they are adopted. | Verified | Closed. ConOps header (line 3) now cites this record instead of an earlier review; the two "review finding" source entries of Appendix C are removed (grep: no "review finding" or "independent ConOps review" remains) |
-| <a id="finding-17"></a>F-17 (finding-17) | Minor | CK-VIS-A1; visual-product R3 | `conops-modes.mmd`, `conops-modes.png`, `concept.md`, `concept-block-diagram.png` (modified) and `concept-block-diagram.py` (untracked) | The renders and their sources are not committed, so the record cannot name a commit that holds the reviewed product and CK-VIS-A1 ("is committed") is not met. Package section 2 item H17 tracks the commit. Fix: commit the files when the findings are dispositioned and re-issue the record's `product_commit`. | Open | Open. Not refuted: the working-tree files are still modified or untracked (`git diff --stat HEAD` lists conops.md, conops-modes.mmd and .png, concept.md, concept-block-diagram.png; the .py is untracked). The author cannot commit under its assignment; tracked by package section 2 item H17 (Robin authorizes, Claude commits). Closes when the commit exists and `product_commit` is re-issued |
+| <a id="finding-17"></a>F-17 (finding-17) | Minor | CK-VIS-A1; visual-product R3 | `conops-modes.mmd`, `conops-modes.png`, `concept.md`, `concept-block-diagram.png` (modified) and `concept-block-diagram.py` (untracked) | The renders and their sources are not committed, so the record cannot name a commit that holds the reviewed product and CK-VIS-A1 ("is committed") is not met. Package section 2 item H17 tracks the commit. Fix: commit the files when the findings are dispositioned and re-issue the record's `product_commit`. | Verified | Iteration 3: Closed. All eight product files are committed (`git status` clean at HEAD `adcfe09`; conops.md, conops-modes.mmd and .png, concept.md, concept-block-diagram.png and .py last changed at `8a37f8e`, appendix D at `1543c9f`) and `product_commit` and `product_files` now name the HEAD blobs. Iteration 2: Open. Not refuted: the working-tree files are still modified or untracked (`git diff --stat HEAD` lists conops.md, conops-modes.mmd and .png, concept.md, concept-block-diagram.png; the .py is untracked). The author cannot commit under its assignment; tracked by package section 2 item H17 (Robin authorizes, Claude commits). Closes when the commit exists and `product_commit` is re-issued |
 | <a id="finding-18"></a>F-18 (finding-18) | Minor | CK-DES-H3 | `docs/conops/conops.md` (865 lines) | The design checklist limits a file to 500 lines with an index linking sub-files. The ConOps exceeds it; the concept (365 lines) meets it. Fix: split the ConOps (for example scenarios in `docs/conops/scenarios.md` and appendices C and D in their own file, indexed from `conops.md`), or have the owner rule H3 not applicable to the ConOps. | Withdrawn | Disputed accepted. The author's sources are right: 08 section 3.5 names the requirements checklist (sections A, B, F), which has no file-length rule, as the ConOps checklist, and CK-DES-H3 is a presentation rule for design files; charter section 5 maps the ConOps to `docs/conops/conops.md` with scenarios OPS-NNN, and `tools/traceability.py` reads OPS headings and the TBD scan only from that path (`CONOPS` constant, line 91; codes EXPECTATIONS_INCONSISTENT, VAL_TARGET_UNRESOLVED, TBD_PRESENT). The finding misapplied H3 to an operational product; withdrawn. H3 is N/A for the ConOps and Yes for the concept (381 lines) |
-| <a id="finding-19"></a>F-19 (finding-19) | Minor | CK-DES-H1 | ConOps section 2.2 `register.json` row and section 8 lead-in (line 684) | New at iteration 2. Both say "RSK-001 to RSK-059"; `docs/risk/register.json` in the working tree now holds RSK-001 to RSK-065 (65 risks). Of the new entries, RSK-064 (open or cold owner-soldered joint in a power path, the Assembly phase of the Off row) and RSK-065 (lending units treated as outside the 47 CFR 15.23 exemption, the loan scenario) bear on operations, and the section 8 table names neither. Fix: cite the register without a fixed upper id (or update it to RSK-065), and add RSK-064 and RSK-065 to the section 8 table or say why they are not operational. | Open | Open (iteration 2) |
+| <a id="finding-19"></a>F-19 (finding-19) | Minor | CK-DES-H1 | ConOps section 2.2 `register.json` row and section 8 lead-in (line 684) | New at iteration 2. Both say "RSK-001 to RSK-059"; `docs/risk/register.json` in the working tree now holds RSK-001 to RSK-065 (65 risks). Of the new entries, RSK-064 (open or cold owner-soldered joint in a power path, the Assembly phase of the Off row) and RSK-065 (lending units treated as outside the 47 CFR 15.23 exemption, the loan scenario) bear on operations, and the section 8 table names neither. Fix: cite the register without a fixed upper id (or update it to RSK-065), and add RSK-064 and RSK-065 to the section 8 table or say why they are not operational. | Lien | Iteration 3: Lien: fix before PDR. Not fixed at HEAD: `conops.md` line 105 and line 685 still read "RSK-001 to RSK-059" while `docs/risk/register.json` 0.6.0-pre-srr holds RSK-001 to RSK-065 (`register.md` summary: 65 active); section 8 still names neither RSK-064 nor RSK-065. Iteration 2: Open |
+| <a id="finding-20"></a>F-20 (finding-20) | Minor | CK-DES-H1 | ConOps section 2.2 `hazards.json` row (line 103) | New at iteration 3. The row cites "`docs/safety/hazards.json` (version 0.3.0-pha)"; the committed file is 0.4.2-pha (HZ-001 to HZ-015 unchanged). Appendix D items D6 and D10 of the same file cite 0.4.2-pha, so the ConOps names two versions of one input. Fix: cite 0.4.2-pha, or cite the file without a version as section 2.2 does for other inputs. | Lien | Lien: fix before PDR |
+| <a id="finding-21"></a>F-21 (finding-21) | Minor | CK-DES-H4 | ConOps Appendix D status column header (line 848) | New at iteration 3. The header reads "Status (2026-09-26, products at commit 400e59d)", but the D6 and D10 statuses cite `hazards.json` 0.4.2-pha and the section 7 rows of `hazard-analysis.md` at 0.4.2-pha, which first exist at `1543c9f` (`git show 400e59d:docs/safety/hazards.json` is 0.4.0-pha). The evidence commit named for the statuses does not hold all of the evidence (charter section 11 rule 2). Fix: name the commit that holds every cited product (`1543c9f` or later), or date each status by its own commit. | Lien | Lien: fix before PDR |
+| <a id="finding-22"></a>F-22 (finding-22) | Minor | CK-DES-H1 | ConOps OPS-013 step 6, last sentence (line 540) | New at iteration 3 (text not quoted at iteration 2). "If both are declined, firmware alone bounds a toggling stream" contradicts the same step, which says "REQ-SYS-054 as written counts identical elements only": with the HZ-004 K4 no-gap watchdog (decision 37) and REQ-SYS-180 (decision 38) both declined, no L1 requirement bounds an alternating squeeze stream from a shorted TRS cable in an iambic mode, and `docs/safety/hazard-analysis.md` section 8.2 row 3 records it as "open single point if declined". The ConOps also overstates the Expected outcome in that case. The underlying choice is already before the owner (package decisions 37 and 38, OQ-SAF-006), so the defect is the sentence, not the hazard record. Fix: state that with both declined no requirement bounds the stream and it is the open single point of hazard-analysis section 8.3, in the OPS-013 edit that R9 (OQ-SAF-006) already schedules after the rulings. | Lien | Lien: fix before PDR |
 
 ## Readiness criteria
 
@@ -203,4 +210,76 @@ Open Major: 0. Open Minor: 2.
 VERDICT (iteration 2): NEEDS CHANGES
 FINDINGS: Closed 16 (finding-1 to finding-16; Major 4, Minor 12); Disputed accepted 1 (finding-18); Open 2 Minor (finding-17, finding-19); open Major 0
 MEASUREMENTS: items re-checked 10; items answered No 4 (R3, R4, CK-DES-H1, CK-VIS-A1); renders re-inspected 1; iteration 2
+```
+
+## Iteration 3 (2026-09-26, committed product at HEAD `adcfe09`; SRR package items R8 and H17)
+
+**Scope and independence.** A new invocation of `reviewer:conops-concept`, independent of the author (charter section 2; section 11 rule 4); it did not edit the product. Review baseline: HEAD `adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1`, with the blobs of `git rev-parse HEAD:<path>` named in `product_files`. The iteration 2 blobs `conops.md` `b2e93594` and `concept.md` `f9c4af43` are not in the object store (package section 2.3), so the reviewer could not diff them. It therefore re-checked every closure quote of finding-1 to finding-16 against the committed text, line by line. It then read every hunk of `git diff 28e49e6 8a37f8e` and `git diff 8a37f8e HEAD` of `conops.md`: the appendix D status column of `1543c9f`, and OPS-013 step 6 with its revised Expected outcome, which no earlier iteration quoted. The six figure files have the same blobs as at iteration 2. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`. The queries were "validate_docs record drift rule product_files blobs differ from HEAD APPROVED record", "ConOps register.json RSK range section 8 operational risks RSK-064 RSK-065", "author self-check INSP-002 ConOps concept decision 115 readiness R4 waiver" and "ConOps author self-check against checklist acceptance criteria conops.md concept.md". `grep -n` then pinned lines. Sources checked: `docs/requirements/sys/requirements.json` (statements and rationales of REQ-SYS-002 to 005, 007, 020, 045, 046, 052 to 056, 060, 065, 066, 068, 092, 102, 103, 106, 114 to 117, 121, 130, 144, 161, 163, 180, 183), `docs/safety/hazards.json` 0.4.2-pha (HZ-001 K2 and K6, HZ-004 K2, HZ-006 K2, the phase list), `docs/safety/hazard-analysis.md` sections 7 and 8.2 (rows 3 and 20), `docs/plan/tpm.json` (MOP-001, MOP-002, TPM-001, TPM-016 `moe_ids`), `docs/decisions/adr/ADR-015-*.md`, `docs/research/rf-exposure-evaluation.md` line 94, `docs/risk/register.md` and `git show 400e59d:docs/safety/hazards.json`. The changed passages contain no em dash (count 0 in both files) and no bare TBD.
+
+**Render (visual closure).** The reviewer ran `concept-block-diagram.py --check` against the committed concept: exit 0, "22 blocks, 6 groups, 32 edges; layout checks passed ... is current". It then opened `docs/reviews/SRR/figures/concept-block-diagram.png` (blob `3ef6e911`) with Read. The render is legible with nothing clipped. B07 reads "Hardware PA-enable cutoff, T_max 10 s, TX inhibit while VBUS present", and the "VBUS present" edge runs from B16 to B07. `conops-context.png` and `conops-modes.png` are the blobs inspected at iterations 1 and 2 (`2e4647f8`, `b3a08b67`).
+
+**Disposition table.**
+
+| Finding | Severity | Iteration 3 disposition | Evidence at HEAD `adcfe09` |
+|---|---|---|---|
+| finding-1 | Major | Closed | `conops.md` line 212 (Table 3.4-4 preamble) and line 397 (OPS-002 branch A) bring RF "to the RF-off level of REQ-SYS-183 within 20 ms (TBR)", equal to the REQ-SYS-004 statement; line 165 (Transmit-keyed row) cites "20 ms (TBR, REQ-SYS-004)"; D3 (line 852) matches. No other carrier-end value remains (grep of `dBc` and `RF-off`) |
+| finding-2 | Major | Closed | "128 consecutive identical elements or 10 s (TBR) ... 30 s is the alternative of package decision 37" at `conops.md` lines 165, 218, 276, 537 and 823 and `concept.md` line 164 (F3.6) and line 367 (section 14 item 3); line 239 (section 8) gives the same values. REQ-SYS-054 reads "128 consecutive identical paddle elements or 10 s (TBR) elapsed since the first" |
+| finding-3 | Major | Closed | `concept.md` line 81 (B07 label), line 132 (edge `USBP -->\|"VBUS present"\| CUT`), line 148 (NOT VBUS from B16), line 263 (`ICD-TX-PWR` inhibit line); render as above. REQ-SYS-092 reads "whenever USB VBUS is present" |
+| finding-4 | Major | Closed | `concept.md` section 4.1 (lines 48 to 66): mapping onto the nine ConOps modes, four flags and three inhibits; Fault-safe entered only by the Latched class (rows 10 to 15); inhibits apply the transmit part only; a reset returns through Self-test |
+| finding-5 | Minor | Closed | `conops.md` line 267 (sidetone 300 to 1000 Hz, REQ-SYS-045, REQ-SYS-046), line 831 (BFO calibration range +/-500 Hz) |
+| finding-6 | Minor | Closed | `concept.md` line 201: "Signal Stick quarter-wave (48 cm)" |
+| finding-7 | Minor | Closed | `concept.md` line 255: "500 matings (REQ-SYS-106)" |
+| finding-8 | Minor | Closed | `conops.md` line 103 (HZ-001 to HZ-015; its stale file version is new finding-20); Table 3.4-5 Off row unchanged since iteration 2 |
+| finding-9 | Minor | Closed | `conops.md` line 339: 3.3 W final-stage dissipation at the TPM-004 60 percent drain efficiency |
+| finding-10 | Minor | Closed | `conops.md` line 272: "9 min 00 s +/-5 s (TBR)", equal to REQ-SYS-068 |
+| finding-11 | Minor | Closed | `concept.md` line 34: -10 C to +45 C (REQ-SYS-114, TBR), 40 C named as the thermal analysis ambient |
+| finding-12 | Minor | Closed | `concept.md` line 164 (F3.4): "first-element lead-in 8 to 12 ms, at most 12 ms by REQ-SYS-161, TBR" |
+| finding-13 | Minor | Closed | `concept.md` line 170 (F9.5): reminder per REQ-SYS-068, no automatic identification in rev A (REQ-SYS-007), CW ID deferred |
+| finding-14 | Minor | Closed | `concept.md` line 195 (CTL scope), line 219 (section 7.5), line 262 (`ICD-TX-CTL`): B07 allocated to TX |
+| finding-15 | Minor | Closed | `conops.md` line 537: elapsed-time basis with 6.1 s, 20.5 s, 61 s and 12.3 s figures; D18 (line 867) Edited, REQ-SYS-054 now says "elapsed since the first" |
+| finding-16 | Minor | Closed | `conops.md` line 3 cites this record; no "review finding" or "independent ConOps review" text remains |
+| finding-17 | Minor | Closed | All product files committed; `product_commit` `adcfe09` and `product_files` name the HEAD blobs (front matter) |
+| finding-18 | Minor | Disputed accepted (Withdrawn) | Unchanged from iteration 2 |
+| finding-19 | Minor | Lien: fix before PDR | `conops.md` lines 105 and 685 still read "RSK-001 to RSK-059"; the register holds RSK-001 to RSK-065 |
+| finding-20 | Minor (new) | Lien: fix before PDR | `conops.md` line 103 cites `hazards.json` 0.3.0-pha; HEAD is 0.4.2-pha |
+| finding-21 | Minor (new) | Lien: fix before PDR | `conops.md` line 848: "products at commit 400e59d"; D6 and D10 cite 0.4.2-pha, first committed at `1543c9f` |
+| finding-22 | Minor (new) | Lien: fix before PDR | `conops.md` line 540 (OPS-013 step 6): "If both are declined, firmware alone bounds a toggling stream" contradicts "REQ-SYS-054 as written counts identical elements only" and hazard-analysis section 8.2 row 3 |
+
+**Appendix D statuses (new text at `1543c9f`, checked).** The reviewer checked each status claim of the new status column against the committed products. D1, D2, D4, D5, D8, D16 and D18 hold: REQ-SYS-002, 003, 005, 053, 054, 007, 121, 102, 103 and 114 to 117 carry the stated text or sources. D3 holds. The L1 parts of D6 (REQ-SYS-130), D9 (REQ-SYS-065) and D10 (REQ-SYS-052, 056, 163) hold. The D7 edits hold: REQ-SYS-020 at 5.5 s, the REQ-SYS-055 rationale, HZ-001 K2, HZ-006 K2, and `concept.md` lines 59, 170, 240 and 366. The hazard parts of D6 and D10 are in 0.4.2-pha (HZ-004 K2 text; hazard-analysis section 7 exists), and their verification belongs to the INSP-008 reviewer, as the column says. The Open claims hold: D9 (ADR-015 section 2 unchanged), D11 (phases still Assembly, Charging, Firmware load, Handling, Receive, Storage, Transmit, Tune), D12 (HZ-001 K6 cites no OPS-022), D13 (the four items parent to MOE-001), D14 (`rf-exposure-evaluation.md` line 94 unchanged), D15 and D17. The only defect in the column is its header commit (finding-21).
+
+**New Major scan.** None found. The text changed since the iteration 2 quotes is the appendix D status column and OPS-013 step 6 with its Expected outcome. Step 6 carries one Minor misstatement (finding-22). The hazard it describes is already before the owner as package decisions 37 and 38 (OQ-SAF-006; hazard-analysis section 8.2 row 3). The ConOps discloses that REQ-SYS-054 does not cover the squeeze stream, and OPS-013 is not in section 3.4, the part that REQ-SYS-002 binds. So the sentence does not put a conflicting value into the functional baseline.
+
+**Lien table** (carried by the package as Routine items; charter section 4 item 3, a Minor RID is fixed before the next review).
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-19 | Minor | Lien: fix before PDR | ConOps author (Claude, lead SE) | PDR readiness declaration |
+| finding-20 | Minor | Lien: fix before PDR | ConOps author (Claude, lead SE) | PDR readiness declaration |
+| finding-21 | Minor | Lien: fix before PDR | ConOps author (Claude, lead SE) | PDR readiness declaration |
+| finding-22 | Minor | Lien: fix before PDR | ConOps author (Claude, lead SE), in the OPS-013 edit of R9 (OQ-SAF-006) after decisions 37 and 38 | PDR readiness declaration |
+
+**Iteration 3 answers.**
+
+| Item | Answer | Evidence |
+|---|---|---|
+| R1 | Yes | Every figure is committed beside its source and inspected (render paragraph above) |
+| R2 | N/A | As at iteration 1 |
+| R3 | N/A | Changed from No: before SRR every requirement is Draft by rule (08 section 3.1 Status), and this product is baselined with the L1 set at SRR, so no Active requirement or CR can exist. This matches the R3 answer of INSP-012 and INSP-013 on the same checklist. At iterations 1 and 2 the answer No was already marked "not a finding" |
+| R4 | No | No author self-check of `conops.md` or `concept.md` against this checklist, and no acceptance criteria, came with the iteration 3 assignment or appear in the repository (claude-context search above). Package decision 115 carries this for INSP-002. Its recommendation is no waiver: the author files the self-check |
+| CK-DES-H1 | No (liens only) | finding-1 to finding-15 Closed; finding-19, finding-20 and finding-22 are liens |
+| CK-DES-H2 | Yes | As at iteration 2 |
+| CK-DES-H3 | N/A (ConOps); Yes (concept, 381 lines) | As at iteration 2 |
+| CK-DES-H4 | Yes, with finding-21 (lien) | finding-16 Closed |
+| CK-VIS-A1 | Yes | finding-17 Closed: every render and source is committed |
+| CK-REQ-C5 | Yes | finding-1 and finding-4 Closed |
+
+**Counts after iteration 3.** There are 22 findings. Closed (Verified): 17 (Major 4, Minor 13). Disputed accepted: 1 (finding-18). Lien: 4 (Minor: finding-19 to finding-22). Open: 0. Open Major: 0.
+
+**Verdict (iteration 3): NEEDS CHANGES, on readiness only.** Every finding is Closed, Disputed-accepted or a lien, so under the convergence rule the findings allow APPROVED (with liens). Readiness R4 is not met, however. The design checklist's verdict rule requires R1 to R4 to hold for APPROVED, and SWE-088 b calls for established readiness criteria. `tools/validate_docs.py` rejects APPROVED while `readiness_met` is false. A readiness criterion is not a finding, so a lien cannot discharge it. The record is re-issued APPROVED (with liens finding-19 to finding-22), with no further product review, when either of two things happens: the ConOps author files the self-check against design checklist section H and the ConOps-row items of the requirements checklist, and the reviewer confirms it; or the owner rules decision 115 as a waiver to PDR, with the decision reference recorded here. `record_status` stays Open for the lead SE (07 section 10.2).
+
+```
+VERDICT (iteration 3): NEEDS CHANGES (readiness R4 only; package decision 115)
+FINDINGS: Closed 17 (finding-1 to finding-17; Major 4, Minor 13); Disputed accepted 1 (finding-18); Lien 4 (finding-19 to finding-22, "Lien: fix before PDR"); Open 0; open Major 0
+MEASUREMENTS: items re-checked 22 findings and 10 items; items answered No 2 (R4, CK-DES-H1 on liens); renders re-inspected 1; iteration 3; 30 turns, 40 minutes
+PRODUCT: HEAD adcfe09; conops.md b2c76c80, concept.md 729190a2, six figure files as in product_files
 ```

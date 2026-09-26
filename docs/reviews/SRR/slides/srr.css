@@ -217,3 +217,7 @@ html, body, .reveal-viewport { background: #ffffff; }
 .reveal .slide-number::before { content: "cwht SRR    "; white-space: pre; }
 .reveal .slide-number a { color: var(--srr-ink-2); }
 .reveal .controls, .reveal .progress { display: none !important; }
+
+/* Fourth lane colour for the record board: held by a pairing or re-issue (neutral). */
+.reveal .lane.nt { border-color: #7fa3d1; }
+.reveal .lane.nt .lane-head { background: #eef3fb; color: var(--srr-navy); border-color: #7fa3d1; }

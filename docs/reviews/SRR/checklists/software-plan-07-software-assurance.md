@@ -17,10 +17,13 @@ product: docs/process/07-software-engineering-plan.md
 # blobs are in product_files; they equal the blobs INSP-010 reviewed.
 # iteration 2 verified the fixed blobs below (07 revision A.4 working tree, 1007 lines; measurements.json 89 records);
 # iteration 1 reviewed 07 blob 1b8864b0121f3f8547e1b194d63b41752ab946b9 and measurements.json blob 9bb5989e7080c55e8c97d82e64256a07f9b8788f.
-product_commit: "eba15bcb8ab0cecfd8bc155bd749bc89fdcddb34"
-product_files: ["docs/process/07-software-engineering-plan.md@eba15bcb8ab0cecfd8bc155bd749bc89fdcddb34", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b"]
+# iteration 2 product_commit was the working-tree 07 blob eba15bcb8ab0cecfd8bc155bd749bc89fdcddb34 (not in the object store).
+# iteration 3 (2026-09-26): committed blobs re-checked, git rev-parse HEAD:<path> at HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
+# (07 revision A.4 as committed at b301df2, 1010 lines; measurements.json unchanged since iteration 2).
+product_commit: "adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1"
+product_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b"]
 # inputs read (not reviewed): hazards.json 0.4.0-pha, 03 third revision, rmm.json, hazard-analysis.md 0.4.0-pha
-input_files: ["docs/safety/hazards.json@89d0cbc323b2775d326cf7cd42bc637818ec96eb", "docs/process/03-software-classification-and-rmm.md@c87abe5a09985c3f0a3adb74e17386cc61d731b4", "docs/process/rmm.json@3645b4f682cba38373f0fca55beb190ded36c032", "docs/process/03-software-classification-and-rmm.md@fdc8d0764e7ee513a05215de7dfb580687b721d4 (iteration 2)", "docs/process/rmm.json@78c3b2364473e0676f8b5405ecd9f8536715bea1 (iteration 2)", "docs/safety/hazard-analysis.md (0.4.0-pha, working tree)"]
+input_files: ["docs/safety/hazards.json@89d0cbc323b2775d326cf7cd42bc637818ec96eb", "docs/process/03-software-classification-and-rmm.md@c87abe5a09985c3f0a3adb74e17386cc61d731b4", "docs/process/rmm.json@3645b4f682cba38373f0fca55beb190ded36c032", "docs/process/03-software-classification-and-rmm.md@fdc8d0764e7ee513a05215de7dfb580687b721d4 (iteration 2)", "docs/process/rmm.json@78c3b2364473e0676f8b5405ecd9f8536715bea1 (iteration 2)", "docs/safety/hazard-analysis.md (0.4.0-pha, working tree)", "docs/safety/hazard-analysis.md@b5ce99e93b96b6a2654f7cbe9ac5e23b8a2e1dbb (iteration 3)", "docs/risk/register.json@57f64995da80f0d20e6232039b6cba897d46c51b (iteration 3)", "tools/sw_gate.sh (iteration 3, HEAD)"]
 product_size: 07 revision A.3, 23 sections and annexes A to D, 960 lines; measurements.json 47 records (MSR-01 to MSR-28; 32 Measured, 15 Not yet measured)
 sprint: SRR-prep
 author_agent: "author:software-plan (Claude software lead; 07 revision A.3 of 2026-09-25 and the SRR seed of measurements.json, SRR items H14 07 part and H16 SWE-089)"
@@ -33,29 +36,36 @@ assurance_required: true
 # separate assurance record.
 assurance_reviewer_agent: "sa-reviewer:software-plan (software assurance function; paired peer review INSP-010 by reviewer:software-plan)"
 paired_record: INSP-010
-iteration: 2
+iteration: 3
+# iteration 3 (2026-09-26): findings 1 to 7 stay Closed on the committed blob d0f8baf6; new Minor finding-8 and
+# finding-9 are "Lien: fix before PDR" (lead SE convergence rule). reviewer_verdict and assurance_verdict APPROVED
+# with liens. Record verdict held at NEEDS CHANGES by readiness R3 only (no author self-check; package decision 115,
+# whose default is "records stay NEEDS CHANGES"; tools/validate_docs.py refuses APPROVED without readiness_met);
+# no open Major. INSP-010 iteration 3 (working tree, read 2026-09-26) reads reviewer_verdict APPROVED.
 # iteration 2 (2026-09-26): all seven findings Verified; reviewer_verdict and assurance_verdict APPROVED for the
 # assurance review; record verdict held at NEEDS CHANGES by the 07 section 10.2 pairing rule until INSP-010 is
 # APPROVED, and readiness R1 (measurements schema, INSP-010 finding-2) still fails. items_no is the iteration 1 list.
-# readiness_met: false: R1 fails (measurements.json has no schema; INSP-010 finding-2) and R3 (the author
-# self-check against sections A to G) was not supplied to this reviewer
+# readiness_met: false. Iteration 3: R1 now Yes (validate_docs.py exit 0 with measurements.schema.json); R3 still No
+# (no author self-check against sections A to G on record; package decision 115)
 readiness_met: false
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
 verdict: NEEDS CHANGES
 findings_major: 2
-findings_minor: 5
+findings_minor: 7
 findings_open: 0
 findings_fixed: 0
 findings_verified: 7
-findings_deferred: 0
+# findings_deferred: the two iteration 3 liens (finding-8, finding-9), fix before PDR
+findings_deferred: 2
 assurance_findings_major: 2
-assurance_findings_minor: 5
+assurance_findings_minor: 7
 assurance_tasks_applied: [swe-013 7.1 task 1, swe-013 7.1 task 2, swe-022 7.1 task 1, swe-033 7.1 task 1, swe-033 7.1 task 3, swe-089 7.1 task 1, swe-134 7.1 task 1, swe-134 7.1 task 4, swe-134 7.1 task 5, swe-134 7.1 task 6, swe-205 7.1 task 2, swe-205 7.1 task 3]
 deferred_rids: []
 items_no: [R1, R3, CK-REQ-G1, CK-REQ-G3, CK-REQ-G4, CK-REQ-G6, CK-REQ-G7, SA-013-1, SA-013-2, SA-089-1, SA-134-1, SA-134-4, SA-134-6, SA-220-1]
-effort_turns: 72
-effort_minutes: 100
+# effort: iteration 1 (44 turns, 65 min), iteration 2 (28, 35), iteration 3 (30, 35)
+effort_turns: 102
+effort_minutes: 135
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -84,6 +94,8 @@ Ids follow the `finding-<n>` anchor rule of 01 section 13 (the assignment's F-nn
 | <a id="finding-5"></a>finding-5 (F-05) | assurance | Minor | SA-013-1, CK-REQ-G3 | 07 section 2.1.1 row "Other process documents (`docs/process/0N-*.md` except 03 and this plan) ...: No"; section 10.1 row b ("every `docs/process/0N-*.md`" as SWE-087 b software plans); section 1.3 row d | NPR 7150.2D 6.1 item d, the Software CM plan, is `docs/process/05-configuration-and-data-management.md` (07 section 1.3 row d), and section 10.1 row b treats it as a software plan, yet section 2.1.1 routes it to no assurance review; INSP-006 ran with `assurance_reviewer_agent: none`. SWEHB `swe-013` section 7.1 task 1 asks the assurance function to "confirm that all plans, including security plans, are in place and have expected content", and section 7.2 item 1 lists the "Software Configuration Management Plan" among the plans the assurance plan-review checklists cover. INSP-010 finding-10 raises the same routing gap for the make/buy record TS-002 (6.1 item t); this finding adds the CM plan and the SWE-013 basis. Fix: add the software CM plan and the 6.1 item t make/buy record to the "Software plans" row of section 2.1.1 (Yes, Yes, Yes), and have Claude dispatch the assurance review of 05 before the SRR declaration or record the owner's decision that 05 is covered by this record's SA-013-1 result | Verified | | Closed (iteration 2, verified 2026-09-26). 07 section 2.1.1 row "Software plans" names the software CM plan 05 (6.1 item d) and TS-002 (6.1 item t) with the SWEHB `swe-013` 7.1 task 1 and 7.2 item 1 basis (Yes, Yes, Yes); "Other process documents" now excludes 03, 05 and 07; new row routes trade studies and ADRs that constrain a safety-critical or mission-critical component (Yes, Yes, No); section 10.1 row b names 05 and TS-002. Dispatch of the 05 and TS-002 assurance reviews (or the owner's coverage decision) and the `ASSURANCE_WHOLE_PRODUCTS` tool constant are carried in 07 section 22 row "Assurance routing of 05 and TS-002", due before the SRR readiness declaration |
 | <a id="finding-6"></a>finding-6 (F-06) | assurance | Minor | SA-013-2, CK-REQ-G8 | 07 section 15 table rows "5.17 items 1 to 3, 5.18 item 2.5", "5.17 item 13" and "5.17 item 14" | Checked against `docs/references/md/swehb/5-17-software-assurance-plan-minimum-content.md` lines 9 to 51. (a) 5.17 item 1 is "Introduction" (purpose, scope, overview), not an assurance activity; the row labels items 1 to 3 as activities and methods, and the introduction content (07 header and section 1.1) is not mapped. (b) Item 13 asks the plan to "identify all NPR 7150.2 requirements to be implemented and the associated NASA-STD-8739.8 tasking to be performed", satisfiable by the SA Tasking Checklist Tool of topic 8.15; the row points to `rmm.json` rows, which have no assurance tasking field, and to `assurance_tasks_applied`, which records tasks after each review rather than planning them. The consolidating checklist `peer-review-checklist-software-assurance.md` is due before PDR (08 section 3.5) but the row does not name it as the item 13 closure. (c) Item 14 says "at a minimum, collect and report on the software assurance metrics specified in NASA-STD-8739.8"; the row maps MSR-20 to MSR-23 and MSR-27 without stating the relief (the standard is not in the corpus; RMM SWE-022 T). SWEHB `swe-013` section 7.1 task 2 asks for an SA plan "following the content defined in NASA-HDBK-2203". Fix: split the row as item 1 (header and section 1.1) and items 2 and 3; name the SA checklist with its due gate as the item 13 closure (or add a SWE-to-task table); state the item 14 relief with the RMM SWE-022 reference | Verified | | Closed (iteration 2, verified 2026-09-26). 07 section 15 table: 5.17 item 1 (introduction) mapped alone to the header and section 1.1; items 2 and 3 separate; item 13 states "Partial at SRR" with closure by the SWE-to-task table of `peer-review-checklist-software-assurance.md` (SWEHB topic 8.15 form), due PDR; item 14 states the relief with the `rmm.json` SWE-022 T reference, mirrored in the section 22 SWE-022 row ("Section 15 (items 13 and 14 relief)") |
 | <a id="finding-7"></a>finding-7 (F-07) | assurance | Minor | SA-220-1, CK-REQ-G1 | 07 section 14.1 paragraph after the table ("CC limit 15 with no waiver (SWE-220)"); section 14.3 ("no waiver is planned for a safety-critical component or unit"); `rmm.json` row SWE-220 ("any exceedance requires an owner waiver with rationale in the decision memo of the next review and is listed in the VDD") | NPR 7150.2D 3.7.5 [SWE-220] (`npr-7150-2d/03-chapter3.md` line 219): "Any exceedance shall be reviewed and waived with rationale by the project manager or technical approval authority." Section 14.1 reads as a prohibition of waivers for safety-critical code, section 14.3 as a plan without one, and the RMM row (FC) as a permitted owner waiver. The three texts disagree on what happens when a safety-critical function exceeds 15; section 8.2 (Complexity row) admits an owner waiver for any function. Fix: state once, in section 14.3, that no waiver is planned and that an exceedance in a safety-critical unit is reviewed and waived only by the owner with rationale in the decision memo, listed in the VDD (RMM SWE-220), and make section 14.1 point to it | Verified | | Closed (iteration 2, verified 2026-09-26). 07 section 14.3 is the single waiver rule and quotes NPR 7150.2D 3.7.5 verbatim (corpus `03-chapter3.md` line 219): no waiver planned; an exceedance in a safety-critical unit is reviewed by the independent and assurance reviewers and waived only by the owner with rationale as `W<n>` in the decision memo, CSA item 12 and the VDD; G5 fails until then. Section 14.1 points to it ("under the single waiver rule of section 14.3"); section 8.2 Complexity row ("without an owner waiver in the latest decision memo") and `rmm.json` SWE-220 agree |
+| <a id="finding-8"></a>finding-8 (iteration 3) | assurance | Minor | CK-REQ-G1, SA-013-1 | 07 section 22 row "Paired assurance record fields" (line 857 of blob `d0f8baf6`) | The row still asks the 01 author and the tool owner to add the optional `paired_record` field and INSP-010 to name INSP-018 in `assurance_reviewer_agent` and `paired_record`, "Before the SRR readiness declaration". At HEAD all three are done: 01 section 13 (line 899) defines the optional `paired_record` field and the equal-`assurance_verdict` rule, `tools/validate_docs.py` accepts it, and INSP-010 front matter reads `paired_record: INSP-018` with `assurance_reviewer_agent` naming this record. A section 22 item that is done but listed as open misstates the plan's open-item list that the SRR package reads. Fix: mark the row done with the evidence (01 line 899, INSP-010 front matter) or remove it at the next revision of 07, keeping only what remains (INSP-009 naming INSP-017 and the `assurance_verdict` copy rule, if still open) | Lien: fix before PDR | PDR | Lien: fix before PDR (iteration 3, lead SE convergence rule 2026-09-26; Routine package item). Owner: 07 author |
+| <a id="finding-9"></a>finding-9 (iteration 3) | assurance | Minor | CK-REQ-G1, SA-134-6 | 07 section 14.2 row i L1 column (line 623 of blob `d0f8baf6`: "181 is a 07 addition not named in `hazard-analysis.md` section 7") versus 07 section 22 row "Hazard analysis follow-ups" (line 854: "(1) and (2) done 2026-09-26 ... row i names REQ-SYS-181") | The two statements of the same plan contradict each other. `hazard-analysis.md` at HEAD (blob `b5ce99e9`, line 228) row i lists "REQ-SYS-055, 071, 083, 092, 119, 120, 180, 181, 182 (180, 181 and 182 pending package decisions 38, 39 and 40)", so section 22 is right and the row i label is stale; the allocation itself is unaffected (row i carries REQ-SYS-181 either way, so SWE-134 item i coverage is not reduced). SWEHB `swe-134` section 7.1 task 6 (implementation consistent with the system hazard analysis). Fix: at the next revision of 07, replace "181 is a 07 addition not named in `hazard-analysis.md` section 7" with the same pending-decision wording as the hazard analysis (181 pending package decision 39) | Lien: fix before PDR | PDR | Lien: fix before PDR (iteration 3, lead SE convergence rule 2026-09-26; Routine package item). Owner: 07 author |
 
 ## Readiness criteria (all true before the review starts)
 
@@ -200,6 +212,52 @@ Items this closure depends on, outside this record and carried in 07 section 22 
 - `record_status` stays Open (set to Closed by the software lead); `date_closed` null.
 - Iteration 2 effort: 28 agent turns, 35 minutes (front matter totals 72 turns, 100 minutes).
 
+## Iteration 3 (2026-09-26, committed-blob re-check; SRR package items R8 and R13)
+
+**Scope and independence.** New invocation of the role `sa-reviewer:software-plan`; the product was not edited by this reviewer. Iteration 2 verified the working-tree 07 blob `eba15bcb` (1007 lines), which is not in the git object store, so it cannot be diffed against the committed file. Review baseline: HEAD `adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1`; `git rev-parse HEAD:<path>` gives 07 `d0f8baf614b49e9c99d8fe2169093d02626ac50d` (1010 lines, last commit touching it `b301df2`) and `measurements.json` `5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b` (equal to the iteration 2 blob). The committed 07 carries the same revision row A.4 as the reviewed blob, with no later revision row; the changes that `b301df2` lists for 07 beyond the reviewed fixes ("host clippy and cargo geiger commands as the gate runs them; RSK-009 row to PDR; RSK-063 row; hazard-analysis follow-ups 1 and 2 done") were located in `git diff 4e3f891 b301df2` and read at HEAD: section 8.4 G1 (line 352) and Annex C (lines 953, 963 to 965), section 21 RSK-063 row (line 812), section 22 rows "Hazard analysis follow-ups" (854) and "RSK-009 closure evidence" (866). The Annex C `cargo geiger` loop matches `tools/sw_gate.sh` lines 295 to 307 (per-crate absolute manifest, `:)` marker test because `--forbid-only` exits 0), and the section 21 preamble (line 801) states that the `software` tags of RSK-003, 010, 013, 019, 020, 021, 023 and 063 are a section 22 item; `docs/risk/register.json` confirms those eight carry no tag yet (INSP-010 finding-11 territory, not duplicated). Search-first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep` (queries: 07 revision history after the SRR review; author self-check of 07 against sections A to G and decision 115); `grep -n` then pinned lines only.
+
+**Finding-by-finding decision at HEAD.**
+
+| Finding | Severity | Evidence at HEAD (07 blob `d0f8baf6` unless named) | Decision |
+|---|---|---|---|
+| finding-1 | Major | Section 5 item 5 (line 215, SWEHB `swe-134` 7.1 task 4 a and b); CS-39 (line 306); section 14.1 Proposed "Menu override command path" row (line 600) and Owner decision paragraph (583); section 14.2 row d (line 618): receiving component validates two distinct operator events from CS-35 samples, menu output an untrusted request, faulty-menu HostUnit case in the Verification cell; menu module row (643); section 22 ruling row (855) | Closed |
+| finding-2 | Major | Section 14.2 module rows unchanged from the verified text, e.g. `cfg_guard` a, b, c, e, f, g, h, k, l (line 638); governing-source paragraph after the table | Closed |
+| finding-3 | Minor | Section 2.1.1 (line 117), section 10.2 Completion criteria and Record rows (lines 449, 451: paired slug `<product-slug>-software-assurance.md`, `paired_record`), section 15 rows; 01 section 13 line 899 now defines `paired_record` | Closed |
+| finding-4 | Minor | `measurements.json` blob `5e2d1755`, identical to iteration 2 (MSR-20 and MSR-21 keyed on the INSP id, INSP-007 and INSP-008 superseded, assurance keys present); validates against `measurements.schema.json` (`validate_docs.py` exit 0) | Closed |
+| finding-5 | Minor | Section 2.1.1 "Software plans" row names 05 and TS-002 (line 117); section 10.1 row b (line 435); dispatch item in section 22 | Closed |
+| finding-6 | Minor | Section 15 rows 5.17 item 13 (line 672, Partial at SRR, closure PDR) and item 14 (line 673, relief with the RMM SWE-022 reference); item 1 mapped alone | Closed |
+| finding-7 | Minor | Section 14.3 single waiver rule (line 652) quotes NPR 7150.2D 3.7.5 exactly as `03-chapter3.md` line 219 | Closed |
+| finding-8 (new) | Minor | Section 22 row "Paired assurance record fields" (line 857) lists as open work already done at HEAD | Lien: fix before PDR |
+| finding-9 (new) | Minor | Section 14.2 row i (line 623) calls REQ-SYS-181 a "07 addition", contradicting section 22 line 854 and `hazard-analysis.md` line 228 | Lien: fix before PDR |
+
+No new Major defect: the text changed since this record's quotes (gate commands, RSK rows, section 22 statuses) touches no SWE-134 provision, no allocation row, no waiver rule and no assurance routing. Findings dispositioned against the prior record: 7 Closed, 0 Disputed-accepted, 0 Open.
+
+**Lien table** (lead SE convergence rule of 2026-09-26, charter section 4 item 3; carried by the package as Routine items).
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-8 | Minor | Lien: fix before PDR | 07 author (software lead) | PDR readiness declaration |
+| finding-9 | Minor | Lien: fix before PDR | 07 author (software lead) | PDR readiness declaration |
+
+**Readiness at iteration 3.** R1 Yes (`validate_docs.py` exit 0, 37 passed, `measurements.json` validates against `measurements.schema.json`). R2 Yes (`traceability.py --report-only` exit 0, 0 violations). R3 No: no author self-check against checklist sections A to G is on record for 07; the A.4 revision row and the `b301df2` commit message list changes, which is not the self-check (charter section 11 rule 2), and the claude-context search found none. The same author and product sit under package decision 115 through INSP-010. R4 Yes (no TBD; TBRs are the L1 ones already listed). R5 N/A. `readiness_met` stays false.
+
+**Verdict at iteration 3.** Assurance task results unchanged from iteration 2 (SA-134-1, SA-134-4, SA-134-6, SA-013-1, SA-013-2, SA-089-1, SA-220-1 Yes); finding-8 and finding-9 are liens and do not change them. `reviewer_verdict` and `assurance_verdict`: APPROVED with liens (finding-8, finding-9). Under the convergence rule this record would read APPROVED; the record `verdict` stays NEEDS CHANGES solely because readiness R3 is not met and `tools/validate_docs.py` (SWE-088 b rule, line 712) refuses `verdict: APPROVED` with `readiness_met: false`. It turns APPROVED, with no further finding review, when the 07 author files the self-check or the owner waives R3 under package decision 115. The 07 section 10.2 pairing condition is met at the review level: INSP-010 iteration 3 (working tree, read 2026-09-26) reads `reviewer_verdict: APPROVED` and `assurance_verdict: APPROVED`.
+
+**Cross items (outside this record's scope; no action by this reviewer).** (1) INSP-010 front matter `assurance_verdict` equals this record's; confirmed as read. (2) The eight `software` risk tags of 07 section 21 remain a section 22 item for the risk owner (INSP-010 finding-11). (3) Observation 5 of iteration 2 (superseding MSR-20 and MSR-21 records for evidence hashes changed after the append) remains a package item (H16); this record's own MSR-20 and MSR-21 need a superseding record for iteration 3.
+
+### Tool runs (2026-09-26, iteration 3, this reviewer)
+
+| Command | Exit | Result |
+|---|---|---|
+| `.venv/bin/python tools/validate_docs.py` | 0 | 37 passed, 0 failed; this record PASS with no record-drift note (its `product_files` equal the HEAD blobs) |
+| `.venv/bin/python tools/traceability.py --report-only` | 0 | 237 requirements, 170 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, REQ-SYS-148) |
+| `.venv/bin/python tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | 65 risks, 159 candidates, 0 warnings, hazard cross-check |
+| `.venv/bin/python tools/render_rmm.py --check` | 0 | `rmm.md` current |
+| `.venv/bin/python tools/render_compliance.py --check` | 0 | validation passed, rendered file current |
+| `.venv/bin/python -m unittest discover -s tools/tests` | 0 | 392 tests OK |
+
+Visual products: none produced or changed by this review. Iteration 3 effort: 30 agent turns, 35 minutes (front matter totals 102 turns, 135 minutes).
+
 ## Verdict
 
 ```
@@ -222,4 +280,13 @@ Iteration 2 (2026-09-26):
 VERDICT: APPROVED (assurance review); record verdict held at NEEDS CHANGES pending INSP-010 and readiness R1
 FINDINGS: finding-1 to finding-7 Closed and Verified; 0 open
 MEASUREMENTS: iteration=2; closed=7; open=0; turns=28; minutes=35
+```
+
+Iteration 3 (2026-09-26):
+
+```
+VERDICT: NEEDS CHANGES (record, readiness R3 only); reviewer_verdict and assurance_verdict APPROVED with liens
+FINDINGS: finding-1 to finding-7 Closed at HEAD blob d0f8baf6; 0 open Major
+LIENS: [Minor] finding-8 07 s22 "Paired assurance record fields" row stale; [Minor] finding-9 07 s14.2 row i "07 addition" label stale (fix before PDR)
+MEASUREMENTS: iteration=3; closed=7; liens=2; open=0; turns=30; minutes=35
 ```

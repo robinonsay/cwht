@@ -4,10 +4,10 @@ checklist: peer-review-checklist-design
 checklist_revision: B
 checklist_file: docs/reviews/SRR/checklists/icd-stubs-external.md
 product: docs/icd/
-# product_commit: the working-tree base; the product files are untracked on top of it and are identified by their blob hashes in the Product files table
-product_commit: "28e49e6"
-# product_files: blobs re-reviewed at iteration 2; iteration 1 blobs are in the body table
-product_files: ["docs/icd/ICD-CTL-KEY.md@0560bd89300d607befb750dc751ae04f131ec0bd", "docs/icd/ICD-CTL-PHONES.md@a97c636d3d790f1cb82e1c09c1142170fd0573b0", "docs/icd/ICD-CTL-USB.md@0c2541960774f3cbc8828d6e338c2707b092f31c", "docs/icd/ICD-PWR-CELL.md@28e2656ec63073020b34568b423bd7c4473a8bd3", "docs/icd/ICD-TX-ANT.md@ca2081dc306db41c0787897de614a9dc608ca04d", "docs/icd/figures/render_icd_figures.py@5e0027af2211af1063cf00463c6175f481c45a44"]
+# product_commit: the review baseline of iteration 3 (HEAD adcfe09); iterations 1 and 2 reviewed working-tree blobs over 28e49e6 (body tables)
+product_commit: "adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1"
+# product_files: the committed blobs (git rev-parse HEAD:<path> at adcfe09) reviewed at iteration 3; iteration 2 blobs 0560bd89 (KEY) and ca2081dc (ANT) are not in the object store; iteration 1 blobs are in the body table
+product_files: ["docs/icd/ICD-CTL-KEY.md@5e9f1888fcac3003e834bf25b0630e42d447de8a", "docs/icd/ICD-CTL-PHONES.md@a97c636d3d790f1cb82e1c09c1142170fd0573b0", "docs/icd/ICD-CTL-USB.md@0c2541960774f3cbc8828d6e338c2707b092f31c", "docs/icd/ICD-PWR-CELL.md@28e2656ec63073020b34568b423bd7c4473a8bd3", "docs/icd/ICD-TX-ANT.md@394d8bffb419ee5d98528e58fa6cc9475fc2c2bf", "docs/icd/figures/render_icd_figures.py@5e0027af2211af1063cf00463c6175f481c45a44", "docs/icd/figures/ICD-CTL-KEY-plane.png@dfaaeaf4ab6e07e494ee3e0123db83f1d3929fc9", "docs/icd/figures/ICD-CTL-PHONES-plane.png@923539828481ba22012883cd9528a3bfc0250368", "docs/icd/figures/ICD-CTL-USB-plane.png@fd541d5f1c34024157dfe13177d480979df62cee", "docs/icd/figures/ICD-PWR-CELL-plane.png@4a0cf3a46a4c2e1cbf354bf856b53c015998ff81", "docs/icd/figures/ICD-TX-ANT-plane.png@ee75beaf1ba4e2fa09a83bbb78ff8d62491ef402"]
 product_size: 5 ICD stubs (1286 lines) plus 5 interface-plane figures and their render script
 sprint: SRR-prep
 author_agent: "author:icd-author (Claude ICD author invocation 2026-09-25, named in each ICD owner field)"
@@ -15,25 +15,25 @@ reviewer_agent: "reviewer:icds"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 2
+iteration: 3
 readiness_met: true
-reviewer_verdict: NEEDS CHANGES
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
-findings_minor: 9
-findings_open: 1
+findings_minor: 11
+findings_open: 0
 findings_fixed: 0
 findings_verified: 8
-findings_deferred: 0
+findings_deferred: 3
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
-# iteration 2 answers (iteration 1: CK-DES-I3, CK-DES-I4, CK-DES-I5)
+# iteration 3 answers (iteration 2: CK-DES-I5; iteration 1: CK-DES-I3, CK-DES-I4, CK-DES-I5); CK-DES-I5 is No for the CTL and PWR side-A pairing and the KEY section 4 list, both carried as liens
 items_no: [CK-DES-I5]
-effort_turns: 62
-effort_minutes: 80
+effort_turns: 92
+effort_minutes: 120
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -263,3 +263,69 @@ MEASUREMENTS: size=5 ICDs, 1295 lines; 5 figures; 1 render script (773 lines); v
 ```
 
 The verdict stays NEEDS CHANGES because 07 section 10.2 completion criteria require every Minor finding fixed or deferred with an owner decision reference. `record_status` stays `Open` for the software lead, who sets `Closed` once F-01 is Verified or Deferred.
+
+## Iteration 3 (2026-09-26, review baseline HEAD `adcfe09`, SRR package items R8, H11 and H17)
+
+**Scope and independence.** A new invocation of the reviewer role (`reviewer:icds`); it did not edit the product. It re-opened F-01 to F-09 against the committed blobs named in `product_files` (read with `git show HEAD:<path>`), not against the author's change log or the package text. The iteration 2 blobs of ICD-CTL-KEY (`0560bd89`) and ICD-TX-ANT (`ca2081dc`) are not in the object store (`git cat-file` fails), so the changed text since the iteration 2 quotes could not be diffed; both files were therefore read in full at HEAD (KEY `5e9f1888`, 273 lines; ANT `394d8bff`, 267 lines). PHONES, USB, CELL, the render script and the five PNGs are byte-identical to the iteration 2 blobs.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: "INSP-012 ICD stubs side-A pairing deferral to PDR owner decision F-01"; "decision defer side-A ICD pairing CTL PWR to PDR INSP-012 lien"). `grep -n` was used afterwards only to pin lines in known files. The tool was available throughout.
+
+**Checks run at iteration 3.**
+
+| Check | Result |
+|---|---|
+| `.venv/bin/python docs/icd/figures/render_icd_figures.py --check` | exit 0 |
+| Figures opened with the Read tool (ICD-TX-ANT, ICD-CTL-KEY; the other three are the blobs inspected at iteration 2) | Legible, no overlaps; KEY: 0.30 mA, OD 1, 50 mA abuse source limit; ANT: stainless neck above 4.0 N m (TBR), brass 2.4 to 3.6 N m as context. The figures carry no requirement lists, so the section 4 changes do not touch them |
+| `.venv/bin/python tools/traceability.py --report-only` | exit 0; 237 requirements, 170 test cases, 0 violations, 2 warnings (SYS_UNALLOCATED REQ-SYS-125, REQ-SYS-148; not ICD related) |
+| TX L2 file at HEAD (Python read of `git show HEAD:docs/requirements/tx/requirements.json`) | REQ-TX-003, 007, 008, 012, 014, 016 carry tag `interface` and `ICD-TX-ANT` in `design_refs` (lines 104, 252, 289, 439, 512, 588); no other REQ-TX cites the ICD |
+| Section 4 against the citing requirements (every `docs/requirements/**/requirements.json` at HEAD) | Equal for PHONES, USB, CELL and ANT. **Not equal for KEY:** REQ-SW-KEYER-019, 020, 021, 022, 024, 026, 028, 036 and 038 name `ICD-CTL-KEY` in `design_refs` (`docs/requirements/sw/sw-keyer/requirements.json` lines 547 to 1120) and are absent from KEY section 4 and `requirements_other` (finding-10) |
+| Side-A statements of ICD-TX-ANT section 4 | 6 of 6 verbatim with the `description`, method Test equal to `verification_method`; TC-TX-003, 007, 008, 012, 014, 016 exist and cite their requirement |
+| Identifier existence (every REQ, TC, HZ and RSK id in the five ICDs at HEAD) | All resolve; front matter `hazard_ids` equal the HZ ids in each body; HZ-007 still reads 1.3 to 2.1 A and the 2.1 A fuse rating (CELL F-06 basis unchanged) |
+| `tbr_open` against section 6 rows | KEY 14 = 14; PHONES 14 = 14; USB 11 = 11; CELL 22 = 22; ANT 18 = 18 |
+| Em dash and bare TBD scan of the five ICDs | 0 and 0 |
+| Citations re-verified in the corpus | SWE-134 items g and j (`npr-7150-2d/03-chapter3.md` lines 201 and 205) and SWE-210 (line 315), as cited in KEY 3.2.5 |
+
+**Disposition of every finding at HEAD.**
+
+| Finding | Severity | Disposition | Evidence at HEAD |
+|---|---|---|---|
+| F-01 | Minor | ICD-TX-ANT part **Closed**; CTL and PWR part **Lien: fix before PDR** | ANT line 11 `requirements_a` lists REQ-TX-003, 007, 008, 012, 014, 016; line 51 and line 209 state the pairing; lines 213 to 218 quote the six statements verbatim; the TX file tags them (lines above). KEY line 221, PHONES section 4, USB section 4 and CELL section 4 still defer the side-A pairing to PDR, when `docs/requirements/ctl/` and `docs/requirements/pwr/` are written; T-22 is W at SRR and E at PDR (02 section 8.2). The residual is Minor and is carried as a lien under the convergence rule, so no owner decision reference is needed for this record |
+| F-02 | Minor | Closed (re-verified) | KEY lines 77, 138, 141, 197 (0.30 mA over 11.0 kohm; 0.33 V at the pad and 0.03 V across a 100 ohm contact; superseded figures named); figure left panel |
+| F-03 | Minor | Closed (re-verified) | KEY line 194 (50 mA (TBR) source limit, R1 8 to 28 mW with the TVS conducting and 69 mW with it open, TVS 45 to 47 mA and 0.3 to 0.4 W, rating not shown) and line 264 (PDR dissipation analysis and the REQ-SYS-049 route); arithmetic re-derived |
+| F-04 | Minor | Closed (re-verified) | KEY line 149 and line 177 carry OD = 1 with ISO = 0; figure pad box "OD 1" |
+| F-05 | Minor | Closed (re-verified) | KEY line 68 and line 169 cite RSK-060 (tag `cyber`, SEP16-KEY); line 263 keeps only the logging TBR; USB section 2.2 and 3.2.6 Basis cite RSK-061 (blob unchanged since iteration 2) |
+| F-06 | Minor | Closed (re-verified) | CELL blob unchanged since iteration 2 (lines 73, 136, 146, 176, 196: 1.3 to 2.1 A (TBR)); HZ-007 at HEAD still gives 1.3 to 2.1 A |
+| F-07 | Minor | Closed (re-verified) | CELL blob unchanged (lines 154, 155, 242) |
+| F-08 | Minor | Closed (re-verified) | Render script blob `5e0027af` unchanged (lines 618 to 620); USB PNG `fd541d5f` unchanged; `--check` exit 0 |
+| F-09 | Minor | Closed (re-verified) | ANT line 130 (torque basis, stainless 8 in-lb context, PDR datasheet check), line 190 (6 to 9 N for 2.4 to 3.6 N m as brass context; stainless neck above 4.0 N m (TBR)), section 6 lines 248 and 249; figure mechanical panel |
+| F-10 (new) | Minor | Lien: fix before PDR | finding-10 below |
+| F-11 (new) | Minor | Lien: fix before PDR | finding-11 below |
+
+No new Major defect was found. The KEY and ANT text read in full at HEAD agrees with its sources where checked (KEY bias, abuse and pad rows; ANT section 4 statements, methods, cases and TBR rows).
+
+<a id="finding-10"></a>**finding-10 (F-10, Minor, Lien: fix before PDR): KEY section 4 omits the SW-KEYER requirements that cite it.** Location: ICD-CTL-KEY front matter line 13 and section 4 (lines 219 to 234). Nine L2 requirements name `ICD-CTL-KEY` in `design_refs`: REQ-SW-KEYER-019, 020, 021, 022, 024, 026, 028, 036 and 038 (`docs/requirements/sw/sw-keyer/requirements.json` lines 547, 577, 611, 646, 709, 770, 837, 1064, 1120). The ICD names them in section 2.1 (line 51) and in the 3.2.5 Security expectations Basis (line 169), but section 4 and `requirements_other` list only the six L1 requirements, while line 234 states that "the lists here equal" the front matter and are checked by T-22 against `design_refs`. 02 section 3.5 Owner row makes a third module that cites the ICD a citing module, not a side, and rule T-22 (02 line 493) requires "the ICD's section 4 lists exactly the requirements that cite it". T-22 is W at SRR (the `ICD_SECTION4_MISMATCH` check is not yet implemented, 02 line 562), so the defect is Minor. **Fix:** add the nine SW-KEYER ids to `requirements_other` and as `other` rows of section 4 with their verbatim statements and methods, or have the SW-KEYER author move the reference to `ICD-CTL-SW` at PDR if the boundary belongs there. **Citation:** 02 section 3.5 Owner and Pairing rows; T-22; CK-DES-I5.
+
+<a id="finding-11"></a>**finding-11 (F-11, Minor, Lien: fix before PDR): ICD-TX-ANT side-A rows point at the wrong section and the change history misses the F-01 edit.** Location: ICD-TX-ANT section 4 lines 214 to 216, section 5 line 236, section 7 line 267. The "Section 3.2 rows it depends on" column gives "3.2.4 spurious at the port" for REQ-TX-007, 008 and 012, but the conducted spurious row is in 3.2.7.1 (line 174), not 3.2.4 (lines 142 to 148). Section 5 line 236 still calls TC-TX-003 to 016 cases of "related TX L2 requirements" although those requirements are now the side-A rows. The change history (line 267, dated 2026-09-25) records "F-01 (side-A proposal)" while line 209 says the tagging was applied 2026-09-26; the 2026-09-26 edit has no history row. **Fix:** point the three rows at 3.2.7.1, label the TC-TX row as the side-A cases, and add a change-history row for the 2026-09-26 edit. **Citation:** `docs/templates/icd.md` sections 4, 5 and 7; 02 section 3.5 Content row; CK-DES-I5.
+
+**Checklist answers at iteration 3.** CK-DES-I1, I2, I3, I4, I6, I7: Yes (unchanged, confirmed at HEAD). CK-DES-I5: No, carried by liens F-01 (CTL and PWR side A at PDR), F-10 and F-11; Yes for ICD-TX-ANT side A. CK-DES-I8: N/A.
+
+**Lien table** (convergence rule of 2026-09-26, charter section 4 item 3: a Minor RID is fixed before the next review and does not block the baseline; each lien is carried by the package as a Routine item).
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-1 residual (CTL side of KEY, PHONES, USB; PWR side of CELL) | Minor | Lien: fix before PDR | CTL and PWR L2 authors, with the ICD author moving the new ids to `requirements_a` in the same change | PDR (T-22 becomes an error under `--gate PDR`) |
+| finding-10 | Minor | Lien: fix before PDR | ICD author (Claude); SW-KEYER requirements author if the reference moves to `ICD-CTL-SW` | PDR readiness declaration |
+| finding-11 | Minor | Lien: fix before PDR | ICD author (Claude) | PDR readiness declaration |
+
+**Cross items (outside this record's scope, returned to their owners).** (1) Package `docs/reviews/SRR/package.md` line 100 (H11) says only that F-01 awaits verification, and line 1283 (success criterion 4.4-4) says row 17 cannot be Met with a lien while F-01 is open; the package author reconciles both with this disposition (TX part Closed, CTL and PWR residual a Minor lien) and with the 01 section 12.2 rule that a Hard item may not be a lien. (2) The keyer-verification F5 arithmetic and the REQ-SYS-049 verification note (iteration 2 residual) remain with their owners. (3) The missing ICD row in the 07 section 2.1.1 criticality table (iteration 1 process issue) remains with Claude.
+
+**Result.** Findings 11 (Major 0, Minor 11): 8 Closed (F-02 to F-09, Verified), F-01 Closed for ICD-TX-ANT with its CTL and PWR residual a lien, and F-10 and F-11 liens. Open Major 0. Readiness R1 to R4 still hold. Under the convergence rule the verdict is APPROVED with liens. `record_status` stays `Open` for the software lead.
+
+```
+VERDICT (iteration 3): APPROVED (with liens)
+FINDINGS:
+- [Minor] CK-DES-I5 KEY, PHONES, USB, CELL section 4: CTL and PWR side-A pairing deferred to PDR. Lien: fix before PDR (ICD-TX-ANT part Closed).
+- [Minor] CK-DES-I5 ICD-CTL-KEY section 4 and requirements_other: nine citing REQ-SW-KEYER ids not listed (T-22). Lien: fix before PDR.
+- [Minor] CK-DES-I5 ICD-TX-ANT section 4, 5, 7: spurious rows point at 3.2.4 not 3.2.7.1; TC-TX labelled related; no history row for the 2026-09-26 edit. Lien: fix before PDR.
+MEASUREMENTS: size=5 ICDs, 1300 lines; 5 figures; 1 render script (773 lines); verified=8; lien=3; open_major=0; iteration=3; turns=92; minutes=120
+```
