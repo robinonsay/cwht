@@ -1,0 +1,206 @@
+---
+# Peer-review record front matter (charter section 5; docs/process/01-lifecycle-and-reviews.md
+# section 13 is the single field list; docs/process/08-agent-briefing.md section 3.2).
+id: INSP-002
+checklist: peer-review-checklist-design
+checklist_revision: B
+checklist_file: docs/reviews/SRR/checklists/conops-and-concept.md
+# product: the SE-36 concept definition, reviewed as one product: the ConOps (operational view) with
+# its figures, the concept description (technical view) and the concept block diagram render.
+product: docs/conops/conops.md
+# product_commit: base commit; at iteration 2 conops.md, concept.md, the block diagram render and its
+# generator differ from HEAD or are untracked (blob table in the body; finding-17 open until H17 commits them)
+product_commit: "28e49e6"
+# product_files: path@git blob hash (git hash-object of the working tree re-reviewed at iteration 2, 2026-09-25;
+# iteration 1 blobs are in the body table)
+product_files: ["docs/conops/conops.md@b2e9359490483b04de863d446f375ca2b8051084", "docs/conops/figures/conops-context.mmd@55ebae2e15589bf9951456dc04400b7ccb96ea27", "docs/conops/figures/conops-context.png@2e4647f81c61a1d2df05637efa3ee3d71a506e09", "docs/conops/figures/conops-modes.mmd@829a46f800db84ae5196cf3946d4376eb813fc0f", "docs/conops/figures/conops-modes.png@b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c", "docs/design/concept.md@f9c4af4302ae08f55a20184901bc9eb2fabbf581", "docs/reviews/SRR/figures/concept-block-diagram.png@3ef6e911d5201ce0a88c9f2d358b6d85dc425038", "docs/reviews/SRR/figures/concept-block-diagram.py@3806a3449d3bfe3e14dde14726bc1466b94e36af"]
+product_size: ConOps 865 lines at iteration 1, 866 at iteration 2 (22 scenarios, 9 modes, 25 transitions, 20 causes, appendices A to D); concept 365 lines at iteration 1, 381 at iteration 2 (22 blocks, 10 functions, 18 ICDs, 6 trade studies); 3 renders
+sprint: SRR-prep
+author_agent: "author:conops-concept (Claude main session, lead systems engineer: ConOps revision 2 at commit 28e49e6; concept description and the three renders revised by the H10 author run, uncommitted)"
+reviewer_agent: "reviewer:conops-concept"
+# criticality and assurance: the ConOps and concept are not products of 07 sections 2.1.1 or 14.1
+criticality: neither
+assurance_required: false
+assurance_reviewer_agent: none
+iteration: 2
+readiness_met: false
+reviewer_verdict: NEEDS CHANGES
+assurance_verdict: not-required
+verdict: NEEDS CHANGES
+findings_major: 4
+# finding-19 is new at iteration 2; finding-18 is withdrawn (disputed accepted) and counted in neither open nor verified
+findings_minor: 15
+findings_open: 2
+findings_fixed: 0
+findings_verified: 16
+findings_deferred: 0
+assurance_findings_major: 0
+assurance_findings_minor: 0
+assurance_tasks_applied: []
+deferred_rids: []
+# iteration 2 answers (iteration 1: R3, R4, CK-DES-H1, CK-DES-H3, CK-VIS-A1, CK-REQ-C5)
+items_no: [R3, R4, CK-DES-H1, CK-VIS-A1]
+renders_inspected: 3  # iteration 2 re-rendered and re-opened the block diagram; the two ConOps renders are byte-identical to iteration 1
+effort_turns: 58
+effort_minutes: 95
+record_status: Open
+date: 2026-09-25
+date_closed: null
+---
+
+# Peer review record INSP-002: ConOps and concept description (SE-36)
+
+**Product.** The SE-36 concept definition (NPR 7123.1D section 5.2.2.2 a (2), "Baselined concept definition [SE-36]", corpus `npr-7123-1d/05-chapter5.md` line 68; App. H row SE-36), reviewed as one product for SRR entrance rows 4, 5, 6, 10 and 17 (01 section 4.3) and minimum product SE-36 (01 section 4.5): the ConOps `docs/conops/conops.md` with its two Mermaid figures (operational view), the concept description `docs/design/concept.md` (technical view) and the concept block diagram render `docs/reviews/SRR/figures/concept-block-diagram.png` with its generator.
+
+| File | Git blob (hash-object, working tree) | Blob at HEAD 28e49e6 | Status |
+|---|---|---|---|
+| `docs/conops/conops.md` | `559aed3ad8dcdc7806504b9310412b7539ea0bb4` | same | committed, clean |
+| `docs/conops/figures/conops-context.mmd` | `55ebae2e15589bf9951456dc04400b7ccb96ea27` | same | committed, clean |
+| `docs/conops/figures/conops-context.png` | `2e4647f81c61a1d2df05637efa3ee3d71a506e09` | same | committed, clean |
+| `docs/conops/figures/conops-modes.mmd` | `829a46f800db84ae5196cf3946d4376eb813fc0f` | `8e004f85f7ef...` | modified, uncommitted |
+| `docs/conops/figures/conops-modes.png` | `b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c` | `af7d1ad9c052...` | modified, uncommitted |
+| `docs/design/concept.md` | `86cb6f413c2b5439ea72412fbd42b1d6e826ef41` | `5d03bdf2a944...` | modified, uncommitted |
+| `docs/reviews/SRR/figures/concept-block-diagram.png` | `ae2deab051150305d146b94076627323dea27252` | `f22e322bab60...` | modified, uncommitted |
+| `docs/reviews/SRR/figures/concept-block-diagram.py` | `7d636a7c8a87b8b3d8996b76627dcd7da76327b8` | none | untracked |
+
+**Checklist.** `docs/templates/peer-review-checklist-design.md` revision B, as assigned, with `docs/templates/peer-review-checklist-visual-product.md` revision A section A and items C3 and C5 for the three renders (its product-type row 3: a render inside another product is checked in that product's record). The design checklist sections A to G and I to J address software architecture and design, ICDs and hardware; the product here is the operational and concept-level system view, so those sections are N/A and section H with the readiness criteria carries the design-checklist judgment. Because `docs/process/08-agent-briefing.md` section 3.5 names the requirements checklist (sections A, B, F; ConOps row: A3, A4, A8, B4, C5, C6, F2, G1, G2) for "expectations, ConOps and the concept", the reviewer also applied the three ConOps-row items that bear on content (B4, C5, C6) as supplementary evidence; the record's `checklist` field names the assigned template only. The mismatch between the assignment and 08 section 3.5 is reported to Claude in the return.
+
+**Reviewer.** `reviewer:conops-concept`, independent of the author (charter section 2; section 11 rule 4). The reviewer did not edit the product. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before every `grep` (queries: SRR readiness shortfalls ConOps concept block diagram H items; SE-36 concept definition; Appendix S annotated outline nominal and off-nominal); `grep -n` was used afterwards only to pin lines. Numbers were checked against `docs/requirements/sys/requirements.json`, `docs/safety/hazards.json` (0.3.0-pha), `docs/risk/register.json`, `docs/plan/tpm.json`, the research reports named in each finding and the regulatory corpus.
+
+**Verdict: NEEDS CHANGES.** Four Major findings (finding-1 to finding-4) and fourteen Minor findings. The ConOps content against SE HB App. S is complete and of high quality (every App. S section 1.0 to 8.0 and Appendices A and B present, 12 nominal and 10 off-nominal scenarios, modes with a full transition table and forbidden transitions, operator model, postures, support concept); the Major findings are disagreements between the two views and the L1 set on hazard-control values and the state set, which the functional baseline cannot carry, because REQ-SYS-002 makes ConOps section 3.4 binding.
+
+## Findings
+
+Severity: Major blocks the baseline; Minor is fixed before the next review. The Disposition column holds the reviewer's iteration 2 disposition (Closed, Disputed accepted or Open, with evidence). Findings still open go to the owner's ruling (01 section 10.1).
+
+| Finding | Severity | Item | Location | Description and expected fix | State | Disposition |
+|---|---|---|---|---|---|---|
+| <a id="finding-1"></a>F-01 (finding-1) | Major | CK-DES-H1; CK-REQ-C5 | ConOps section 3.4 Table 3.4-1 Transmit-keyed row, Table 3.4-4 preamble, OPS-002 branch A; Appendix D item D3 | The ConOps states that every Inhibit and Latched cause "ends a carrier through the shaped fall within 10 ms (TBR) of detection (REQ-SYS-004 as aligned in Appendix D)". REQ-SYS-004 now reads "at most -40 dBc (TBR) within 20 ms (TBR) of detecting any inhibit, flag or latched fault". REQ-SYS-002 makes ConOps section 3.4 binding, so the functional baseline would carry two different values for one HZ-004 control. D3 is also stale: its scope extension is applied in REQ-SYS-004, its value is not. Fix: state one value in both products (the REQ-SYS-004 TBR with its plan, or a CR-ready change to REQ-SYS-004) and update D3's status. | Verified | Closed. ConOps line 165 (Table 3.4-1 Transmit-keyed row), line 212 (Table 3.4-4 preamble) and line 397 (OPS-002 branch A) state "at most -40 dBc within 20 ms (TBR, REQ-SYS-004)", equal to the REQ-SYS-004 statement and its TBR (owner Robin, plan ICD-TX-SW timing analysis, close_by PDR); Appendix D item D3 (line 851) is marked Closed with the 12.7 ms figure, which matches the REQ-SYS-004 rationale. No other carrier-end value remains (grep of `shaped fall` and `dBc`) |
+| <a id="finding-2"></a>F-02 (finding-2) | Major | CK-DES-H1 | ConOps Table 3.4-1 Transmit-keyed row, Table 3.4-4 row 3, section 3.5.1 item 10, OPS-013 step 3, Appendix C stuck-key row; concept F3.6, section 8 first row, section 14 item 3 | Both products state the paddle watchdog as "128 identical elements or 30 s". REQ-SYS-054 reads "128 consecutive identical paddle elements or 10 s (TBR)", with the TBR plan "Robin decides D-KN3 at SRR (10 s cap, or 30 s with MOE-012 amended)". The concept's own convention says the requirements file wins where the two differ. Package section 15 items 7 and 15 record the same conflict. Fix: carry the pending owner decision explicitly (for example "10 s (TBR, REQ-SYS-054; 30 s is the alternative of decision 37)") in both products, or align the L1 value after the ruling. | Verified | Closed. ConOps lines 165, 218, 276, 537 and 822 and concept F3.6 (line 164), section 8 first row (line 239) and section 14 item 3 (line 367) state "128 consecutive identical elements or 10 s (TBR, REQ-SYS-054)" with 30 s named as the alternative of package decision 37 (D-KN3). Equals REQ-SYS-054 and its TBR plan |
+| <a id="finding-3"></a>F-03 (finding-3) | Major | CK-DES-H1 (concept against L1 and ConOps) | concept section 4 paragraph 2, section 5 block B07 and edge `CHG -->|"charge active"| CUT`, section 7.2 last sentence, section 8 first row; render `concept-block-diagram.png` block B07 and the "charge active" edge | The concept ties the hardware transmit inhibit to the charger's charge-active state ("the PA is inhibited by hardware while the charger is active"; B07 "TX inhibit while charging"). REQ-SYS-092 requires a hardware inhibit "whenever USB VBUS is present", and the ConOps (flag USB, Table 3.4-3; Table 3.4-4 row 6; OPS-002) pauses charging while the radio receives with USB present. With charging paused the charge-active signal is inactive, so the concept as drawn releases the hardware inhibit exactly in the Receive-with-USB case of HZ-011. Fix: source the B07 inhibit from VBUS presence (for example from B16) in section 4, 7.2, 8, B07's label and the Mermaid edge, then re-render and re-inspect the figure. | Verified | Closed. Concept section 4 paragraph 2 (line 40), section 7.2 (line 205, VBUS sense divider of B16 through `ICD-TX-PWR`, "whether or not the charger is charging"), F7.6 (line 168), section 8 (line 239), B07 label and the edge `USBP -->|"VBUS present"| CUT` (lines 81, 132); `ICD-TX-PWR` row (line 263) carries the inhibit line. Render re-made by the reviewer (`concept-block-diagram.py --check` exit 0, `--output` to scratch exit 0, byte-identical) and opened: B07 reads "TX inhibit while VBUS present" and the VBUS present edge runs from B16 to B07 |
+| <a id="finding-4"></a>F-04 (finding-4) | Major | CK-DES-H1; CK-REQ-C5 | concept section 4.1 | The concept-level state list (Off, Boot, Interlock, Receive, TxPending, Transmit, Hang; orthogonal GuestLock, Charging, Tune, SafeState) differs from the ConOps mode set that REQ-SYS-002 binds (nine modes Off, Charging, Self-test, Receive, Transmit-keyed, Tune, Bench-test, Firmware-update, Fault-safe; flags GUEST, PRACTICE, USB, LOWBATT; inhibits KEY, HOT, GUARD). Beyond names, the semantics conflict: concept SafeState is entered on "any watchdog or fault" with audio muted, while ConOps Table 3.4-4 sends a watchdog reset through Self-test (row 9), keeps the key causes in Receive as self-clearing inhibits with the sidetone sounding (rows 2 and 3), and latches only the Latched class (Appendix D item D6 records the same conflict against REQ-SYS-130). Section 4.1 also claims its names "are the CamelCase enum spellings the requirements use", but REQ-SYS-060 uses "Receive, Transmit-keyed and Tune modes". Fix: restate section 4.1 as a mapping onto the ConOps modes, flags and inhibits (implementation sub-states such as TxPending and Hang may remain, marked as sub-states of Transmit-keyed), and drop the "any fault" SafeState rule. | Verified | Closed. Concept section 4.1 (lines 48 to 66) is now a mapping onto the nine ConOps modes, four flags and three inhibits; `Boot`, `TxPending`, `TxElement` and `Hang` are marked proposed sub-states; Fault-safe is entered only by the Latched class, a reset returns through Self-test (T18, row 9), and inhibits keep the unit in Receive with the stuck-key sidetone. The "any fault" SafeState rule and the claim about the requirements' spelling are gone; the CamelCase citation now points at 02 section 4.2 WR-07, which does name the architecture enum spelling (02 line 235) |
+| <a id="finding-5"></a>F-05 (finding-5) | Minor | CK-DES-H1 | ConOps section 3.5.1 item 1; Appendix C receiver-set row ("offset +/-500 Hz in 10 Hz steps") | The ConOps presents a "pitch offset adjustable over +/-500 Hz in 10 Hz steps" as an operator capability, and in section 3.5.1 item 4 a sidetone of 300 to 1000 Hz locked to the receive offset. `docs/research/cw-selectivity-options.md` implication 4 makes the +/-500 Hz a stored per-unit BFO calibration range; REQ-SYS-045 (sidetone 300 to 1000 Hz) and REQ-SYS-144 (pitch centre is stored calibration) agree, and the concept section 7.3 says "stored per unit". Same defect as INSP-001 finding-2 against NGO-012. Fix: state the operator pitch as the 300 to 1000 Hz sidetone range and the +/-500 Hz as the stored calibration range. | Verified | Closed. ConOps section 3.5.1 item 1 (operator pitch is the 300 to 1000 Hz sidetone, REQ-SYS-045 and REQ-SYS-046; +/-500 Hz is the stored BFO calibration, REQ-SYS-144), OPS-003 step 3 (line 408) and the Appendix C receiver-set row agree |
+| <a id="finding-6"></a>F-06 (finding-6) | Minor | CK-DES-H1 | concept section 7.1 ("reference antennas Signal Stick half-wave class") | `docs/research/antenna-and-erp.md` line 55 lists the Signal Stick as "1/4 wave (144 to 148 MHz)", and ANT-05 (line 271) names it the quarter-wave pocket reference; ConOps assumption 3 and Appendix C say quarter-wave. Package section 15 item 6. Fix: "Signal Stick quarter-wave (48 cm)". | Verified | Closed. Concept section 7.1 (line 201): "Signal Stick quarter-wave (48 cm)" |
+| <a id="finding-7"></a>F-07 (finding-7) | Minor | CK-DES-H1 | concept section 9, `ICD-TX-ANT` row ("1000 matings") | Concept section 7.1 says "500 mating cycles class", the ConOps section 3.3 says 500 matings and that REQ-SYS-106 and HZ-009 K2 correct the research figure of 1000, and REQ-SYS-106 reads "after 500 mating cycles". Fix: 500 matings in the ICD row. | Verified | Closed. Concept section 9 `ICD-TX-ANT` row (line 255): "500 matings (REQ-SYS-106)" |
+| <a id="finding-8"></a>F-08 (finding-8) | Minor | CK-DES-H1 | ConOps section 2.2 rows for `hazards.json` ("HZ-001 to HZ-014") and `register.json` ("RSK-001 to RSK-033"); section 8 lead-in; Table 3.4-5 | `docs/safety/hazards.json` is version 0.3.0-pha with HZ-001 to HZ-015 (HZ-015 owner hand assembly, phase Assembly), and `docs/risk/register.json` holds RSK-001 to RSK-059. Table 3.4-5 maps the Off row to the Assembly phase but omits HZ-015, and omits HZ-010, whose phases include Handling. Fix: update the ranges and add HZ-015 and HZ-010 to the Off row. | Verified | Closed as specified: ConOps section 2.2 rows give hazards.json 0.3.0-pha HZ-001 to HZ-015 and the Table 3.4-5 Off row adds HZ-010 and HZ-015 (checked against `hazards.json`: HZ-010 phases include Handling, HZ-015 phase Assembly). The register range was right when fixed and has since moved; see finding-19 |
+| <a id="finding-9"></a>F-09 (finding-9) | Minor | CK-DES-H1 | ConOps section 4, "Handling and thermal" row | "the amplifier dissipates about 4 to 7 W while keyed at 5 W (efficiency about 60 percent, TPM-004)". At the TPM-004 planned 60 percent drain efficiency the final stage dissipates 5/0.6 - 5 = 3.3 W; 4 to 7 W corresponds to 42 to 56 percent overall efficiency (the figure comes from `docs/research/keyer-verification-and-key-input-network.md` line 230, citing an RSK thermal entry). Fix: state which stages and which efficiency the 4 to 7 W assumes, or quote 3.3 W at 60 percent drain efficiency with the driver and bias added separately. | Verified | Closed. ConOps section 4 Handling and thermal row (line 339): 3.3 W final-stage dissipation at the TPM-004 60 percent drain efficiency, the 4 to 7 W research figure explained as a 42 to 56 percent line-up efficiency, both replaced by the PDR thermal analysis. Arithmetic checked |
+| <a id="finding-10"></a>F-10 (finding-10) | Minor | CK-DES-H1 | ConOps section 3.5.1 item 6 | "show an identification reminder when 10 minutes have passed since the first transmission after the previous reminder". REQ-SYS-068 reads "9 min 00 s +/-5 s (TBR)", which leaves margin before the 10 minute interval of 47 CFR 97.119(a). Fix: cite the REQ-SYS-068 value. | Verified | Closed. ConOps section 3.5.1 item 6 and OPS-004 step 4 (line 422) cite REQ-SYS-068 9 min 00 s +/-5 s (TBR) and 47 CFR 97.119(a) (verified in corpus `47cfr-97.119.md` line 17: "at least every 10 minutes") |
+| <a id="finding-11"></a>F-11 (finding-11) | Minor | CK-DES-H1 | concept section 3, "Environment" paragraph | "0 to 40 C design point for battery and thermal analyses ... no ingress rating in rev A". REQ-SYS-114 sets -10 to +45 C (TBR), TPM-006 carries the -10 to +45 C span, and REQ-SYS-117 sets IPX2 for 10 min; the ConOps section 4 agrees. The concept section 7.8 thermal line (40 C ambient) may stay as an analysis case if so labelled. Fix: state the -10 to +45 C operating span and the IPX2 light-rain condition, and name 40 C as the thermal analysis ambient. | Verified | Closed. Concept section 3 Environment (line 34): -10 C to +45 C (REQ-SYS-114, TBR), IPX2 10 min (REQ-SYS-117, TBR), 40 C named as the PA thermal analysis ambient |
+| <a id="finding-12"></a>F-12 (finding-12) | Minor | CK-DES-H1 | concept section 6, F3.4 ("lead-in 5 ms") | The ConOps OPS-004 step 1 and the glossary give the first-element lead-in as 8 to 12 ms; REQ-SYS-161 bounds it at 12 ms (TBR); `docs/research/tr-switch-candidates.md` line 178 gives "8 ms lead-in" for the HF3 relay (5 ms operate plus 3 ms bounce, line 41). Fix: "lead-in 8 to 12 ms (REQ-SYS-161, TBR)". | Verified | Closed. Concept F3.4 (line 164): "first-element lead-in 8 to 12 ms, at most 12 ms by REQ-SYS-161, TBR" |
+| <a id="finding-13"></a>F-13 (finding-13) | Minor | CK-DES-H1 | concept section 6, F9.5 ("10-minute identification reminder and CW ID at most 20 WPM") | The ConOps (section 3.5.1 item 6; section 3.5.4; Appendix C automatic-ID row) and REQ-SYS-007 provide no automatic identification in revision A; concept section 12 itself lists "CW ID beyond the identification reminder" as deferred. Fix: remove the CW ID from F9.5, or mark it as the deferred capability with its 47 CFR 97.119(b)(1) cap. | Verified | Closed. Concept F9.5 (line 170): reminder at 9 min 00 s +/-5 s (REQ-SYS-068), no automatic identification (REQ-SYS-007), the 20 WPM CW ID named as the deferred capability of section 12 |
+| <a id="finding-14"></a>F-14 (finding-14) | Minor | CK-DES-H1 | concept section 7 table (CTL scope: "hardware monostable for the cutoff, TX_KEY and PA_EN pull-downs") and section 7.5 last sentence, against block B07 in the TX group (section 5) and the TX row "hardware PA-enable cutoff" | The cutoff block is allocated to TX in the block diagram and the TX scope statement, and to CTL in the CTL scope statement and section 7.5. `allocation.json` will inherit one of them. Fix: allocate B07 to one module and name the ICD (`ICD-TX-CTL`) that carries the other side. | Verified | Closed. Concept section 7 CTL scope (line 195) and section 7.5 last sentence (line 219) allocate B07 to TX and route CTL through `ICD-TX-CTL`; section 7.2 (line 205) says the same; `ICD-TX-CTL` row (line 262) carries TX_KEY, PA_EN and cutoff Q |
+| <a id="finding-15"></a>F-15 (finding-15) | Minor | CK-DES-H1 | ConOps OPS-013 step 3 ("3.1 s of dits at 50 WPM, 30.7 s at 5 WPM") | The figures count key-down time only: at 50 WPM a dit is 24 ms and 128 dits are 3.07 s keyed, but 6.1 s elapsed with the inter-element spaces; at 5 WPM 128 dits take 61 s elapsed. The watchdog's time basis (elapsed or key-down) is not stated, and REQ-SYS-054 "10 s (TBR) of them" is equally silent. Fix: state the basis in the ConOps and raise the same point against REQ-SYS-054. | Verified | Closed. ConOps OPS-013 step 3 (line 537) states the elapsed-time basis with correct figures (128 dits: 6.1 s at 50 WPM, 20.5 s at 15 WPM, 61 s at 5 WPM; crossover about 31 WPM at 10 s and about 10 WPM at 30 s; 128 dahs 12.3 s at 50 WPM, all checked by the reviewer at dit = 1.2/WPM s); Appendix D item D18 raises the basis against REQ-SYS-054 |
+| <a id="finding-16"></a>F-16 (finding-16) | Minor | CK-DES-H4 (charter section 11 rule 2) | ConOps header ("revision 2 of 2026-09-25 after the independent ConOps review"); Appendix C rows "review finding on guest-lock claims" and "review finding on Fault-safe" | No record of an earlier ConOps review exists (`docs/reviews/SRR/checklists/` holds no ConOps record before this one; package section 6.2: "Review record: none"). A claim or source without a linked artifact is not evidence. Fix: remove the claim and the two source entries, or cite this record's findings once they are adopted. | Verified | Closed. ConOps header (line 3) now cites this record instead of an earlier review; the two "review finding" source entries of Appendix C are removed (grep: no "review finding" or "independent ConOps review" remains) |
+| <a id="finding-17"></a>F-17 (finding-17) | Minor | CK-VIS-A1; visual-product R3 | `conops-modes.mmd`, `conops-modes.png`, `concept.md`, `concept-block-diagram.png` (modified) and `concept-block-diagram.py` (untracked) | The renders and their sources are not committed, so the record cannot name a commit that holds the reviewed product and CK-VIS-A1 ("is committed") is not met. Package section 2 item H17 tracks the commit. Fix: commit the files when the findings are dispositioned and re-issue the record's `product_commit`. | Open | Open. Not refuted: the working-tree files are still modified or untracked (`git diff --stat HEAD` lists conops.md, conops-modes.mmd and .png, concept.md, concept-block-diagram.png; the .py is untracked). The author cannot commit under its assignment; tracked by package section 2 item H17 (Robin authorizes, Claude commits). Closes when the commit exists and `product_commit` is re-issued |
+| <a id="finding-18"></a>F-18 (finding-18) | Minor | CK-DES-H3 | `docs/conops/conops.md` (865 lines) | The design checklist limits a file to 500 lines with an index linking sub-files. The ConOps exceeds it; the concept (365 lines) meets it. Fix: split the ConOps (for example scenarios in `docs/conops/scenarios.md` and appendices C and D in their own file, indexed from `conops.md`), or have the owner rule H3 not applicable to the ConOps. | Withdrawn | Disputed accepted. The author's sources are right: 08 section 3.5 names the requirements checklist (sections A, B, F), which has no file-length rule, as the ConOps checklist, and CK-DES-H3 is a presentation rule for design files; charter section 5 maps the ConOps to `docs/conops/conops.md` with scenarios OPS-NNN, and `tools/traceability.py` reads OPS headings and the TBD scan only from that path (`CONOPS` constant, line 91; codes EXPECTATIONS_INCONSISTENT, VAL_TARGET_UNRESOLVED, TBD_PRESENT). The finding misapplied H3 to an operational product; withdrawn. H3 is N/A for the ConOps and Yes for the concept (381 lines) |
+| <a id="finding-19"></a>F-19 (finding-19) | Minor | CK-DES-H1 | ConOps section 2.2 `register.json` row and section 8 lead-in (line 684) | New at iteration 2. Both say "RSK-001 to RSK-059"; `docs/risk/register.json` in the working tree now holds RSK-001 to RSK-065 (65 risks). Of the new entries, RSK-064 (open or cold owner-soldered joint in a power path, the Assembly phase of the Off row) and RSK-065 (lending units treated as outside the 47 CFR 15.23 exemption, the loan scenario) bear on operations, and the section 8 table names neither. Fix: cite the register without a fixed upper id (or update it to RSK-065), and add RSK-064 and RSK-065 to the section 8 table or say why they are not operational. | Open | Open (iteration 2) |
+
+## Readiness criteria
+
+| # | Criterion | Result | Evidence |
+|---|---|---|---|
+| R1 | Every figure rendered beside its source and stated inspected | Yes | ConOps header "Figures are rendered from Mermaid sources ... and were inspected"; concept section 5 rendering note "Rendered and inspected 2026-09-25"; the three PNGs exist beside their sources |
+| R2 | `design_refs` allocation shown by `traceability.py` | N/A | Concept-level product at SRR; allocation is preliminary (`docs/design/allocation.json`, T-18 at Warning level, package item H6) |
+| R3 | Requirements implemented are Active or the brief names the CR | No | All 177 non-retired REQ-SYS are Draft (package section 8); expected at SRR, where this product and the L1 set are baselined together. Not a finding |
+| R4 | Author return lists acceptance criteria and self-check | No | The author summary covers the H10 figure work only (layout checks, `--check` exit 0); no self-check of `conops.md` or the concept text against this checklist exists |
+
+`readiness_met: false` records R3 and R4.
+
+## Checklist items
+
+Result values: Yes (Pass), No (Fail), N/A.
+
+| Id | Result | Evidence |
+|---|---|---|
+| CK-DES-A1 to A8 | N/A | Software architecture content; the software architecture is a PDR product (`docs/design/architecture.md`). Concept section 7.6 fixes concept-level firmware rules only |
+| CK-DES-B1 to B5 | N/A | REQ-SW allocation and design-unit tags do not exist at SRR. At concept level, concept section 8 maps each hazard family to its independent layers, used as evidence for F-03 |
+| CK-DES-C1 to C15 | N/A | SWE-134 unit-level provisions belong to the module designs (CDR) |
+| CK-DES-D1 to D13 | N/A | Detailed design (CDR) |
+| CK-DES-E1 to E4 | N/A | Pin-level ICD consistency (PDR); the external ICD stubs have their own record (design section I) |
+| CK-DES-F1 to F3, G1, G2 | N/A | Software design cybersecurity and reuse (PDR, CDR) |
+| CK-DES-H1 | No | Contradictions quoted in finding-1 to finding-15: between the concept and the ConOps (F-04, F-12, F-13), between each product and the L1 set (F-01, F-02, F-03, F-05, F-07, F-10, F-11), inside a product (F-07, F-09, F-14) and against research (F-06, F-15). No contradiction with ADR-011 was found in concept section 7.6 (single NVIC priority, PWM slices 0 to 7, GPIO through SIO, TIMER0 alarms) |
+| CK-DES-H2 | Yes | All three figures are legible; every figure is referenced in text (ConOps Figure 1.3-1 and Figure 3.4-1; concept section 5 rendering note); state names in `conops-modes.png` equal Table 3.4-1 (Off, Charging, Self-test, Receive, Transmit-keyed, Tune, Bench-test, Firmware-update, Fault-safe) and the edge labels carry the Table 3.4-2 ids T01 to T25 (T17 to T20 on the Radio-on box, as the caption states) |
+| CK-DES-H3 | No | `wc -l`: `conops.md` 865, `concept.md` 365 (finding-18) |
+| CK-DES-H4 | Yes, with finding-16 | Verified in the corpus: SE HB App. S (`nasa-se-handbook/41-appendix-s-concept-of-operations-annotated-outline.md`, sections 1.1 to 8.0 and 6.1, 6.2 nominal and off-nominal); SE HB section 4.1.1.2.4 (`04-4-1-stakeholder-expectations-definition.md` line 183); SE-36 (`npr-7123-1d/05-chapter5.md` line 68, `14-appendixh.md` line 70); App. G Table G-3 entrance items 3.2 (concept ready to be baselined, technically feasible), 5.2 (alternative concepts), 5.4 (descope options) and 5.10 (single point failure and fault tolerance philosophy), and Table G-4 entrance items 6.1 (updated concept definition) and 6.11 (external interfaces), as the concept header cites them (`13-appendixg.md`, entrance lists 3, 5 and 6); 47 CFR 97.307(e) (corpus `47cfr-97.307.md` line 25: 25 uW and 40 dB, so 53.0 dB at 5 W as both products state), 97.119(b)(1) 20 WPM (line 21), 15.23(a) five units, not a kit (line 17). F-16 is an unsupported internal citation |
+| CK-DES-I1 to I8 | N/A | ICD stubs are reviewed in their own record; concept section 9 lists the 18 ICDs and matches the 02 section 3.5 ordering (F-07 is a value error in one row) |
+| CK-DES-J1 to J10 | N/A | No schematic, PCB, enclosure or BOM at SRR |
+
+### Visual-product items applied to the three renders (CK-VIS)
+
+| Id | Result | Evidence |
+|---|---|---|
+| CK-VIS-A1 | No | All three renders exist beside their sources; the modes figure and the concept block diagram are not committed (finding-17) |
+| CK-VIS-A2 | Yes | Headless: `mmdc` (mermaid-cli, `/opt/homebrew/bin/mmdc`) with the command written in each `.mmd` header; `concept-block-diagram.py` (matplotlib, headless) reads the Mermaid block of concept section 5 |
+| CK-VIS-A3 | Yes | Reviewer re-renders into the scratch directory: `mmdc -i conops-modes.mmd -o <scratch>/modes.png -b white -w 1600 -s 2` exit 0, byte-identical to the working-tree PNG; `mmdc -i conops-context.mmd -o <scratch>/context2.png -b white -s 2` exit 0, same 1568 x 906 size, bytes differ, opened side by side and visually identical; `concept-block-diagram.py --check` exit 0 ("is current"), and `--output <scratch>/cbd.png` exit 0, byte-identical to the working-tree PNG |
+| CK-VIS-A4 | Yes | Per-render table below |
+| CK-VIS-A5 | Yes | Concept render: all 22 blocks B01 to B22 with the Mermaid labels, 6 groups, and all 32 edges with their labels, including the B17 "I2C, sense" link, the two 3.3 V rail connectors from B20 to B08 and B06, "heat", "retention" and "runs on" (the script reports "22 blocks, 6 groups, 32 edges; layout checks passed"). Modes render: every T01 to T25 id appears; the "T08 pass" label now sits on the Self-test to Receive edge (package section 7 defect closed). Context render: actors, equipment and ICD ids agree with ConOps section 3.3 and section 3.2 users |
+| CK-VIS-A6 | Yes | ConOps figures carry numbered captions in the text; the concept render has a legend (RF and signal, power, control, association) and is titled by concept section 5 and package section 7 |
+| CK-VIS-A7 | Yes | No red, amber or green status coding in the three renders; the Fault-safe box tint in the modes figure is backed by its "(latched)" label |
+| CK-VIS-A8 | Yes | The two package section 7 defects (T08 label, concept diagram not rendered) are fixed in the working tree; package section 7 rows are now stale (reported to Claude) |
+| CK-VIS-C3 | Yes | Block, state and edge names match the governing documents (see A5); `ICD-` ids in the context figure equal ConOps section 3.3 |
+| CK-VIS-C5 | N/A | No package copy of a ConOps render; the deck's `conops-modes-scenarios.png` is a separate figure of `tools/render_review_figures.py`, not reviewed here |
+
+### Per-render results
+
+| Render | Source | Opened with Read (A4) | Legible, nothing clipped or overlapping (A4) | Content agrees with source (A5) | Finding ids |
+|---|---|---|---|---|---|
+| `docs/conops/figures/conops-context.png` (1568 x 906) | `conops-context.mmd` | Yes | Yes | Yes | none |
+| `docs/conops/figures/conops-modes.png` (3168 x 2324) | `conops-modes.mmd` | Yes | Yes (long crossing edges on the left, all labels readable and on their edges) | Yes | finding-17 |
+| `docs/reviews/SRR/figures/concept-block-diagram.png` (1760 x 860) | concept section 5 Mermaid block through `concept-block-diagram.py` | Yes | Yes (two reviewed crossings of the B07 to B03 line, as the script reports) | Yes: it draws the source faithfully; the source defect of finding-3 is visible in block B07 and the "charge active" edge | finding-3, finding-17 |
+
+### Supplementary: requirements-checklist ConOps row items (08 section 3.5)
+
+| Id | Result | Evidence |
+|---|---|---|
+| CK-REQ-B4 | Yes | Every OPS-001 to OPS-022 heading carries an "Exercises" line naming MOEs and NGOs (OPS-015 and OPS-020 name MOE-006; OPS-013 names MOE-012); both key types are exercised (OPS-004 paddle, OPS-005 straight key, OPS-013 steps 1 to 3) |
+| CK-REQ-C5 | No | State names differ between ConOps section 3.4 and concept section 4.1 (finding-4); the carrier-end value differs from REQ-SYS-004 (finding-1) |
+| CK-REQ-C6 | Yes | Ten off-nominal scenarios OPS-013 to OPS-022 (stuck key and mono plug, over-temperature, antenna fault, charging fault, RF pickup, bystander, guest, band edge, reset during transmit, face posture), plus off-nominal branches in OPS-001 and OPS-002; every entrance row 10 case is present |
+
+## SE-36 content judgment
+
+The ConOps follows SE HB App. S section by section (header section map, verified against the App. S file), and states its additions (sections 3.6, 3.7, Appendices C and D) as App. S permits ("additional subsections should be added as necessary"). Scenarios are labelled for traceability as App. S section 6.0 advises, cover nominal and off-nominal conditions separately (6.1, 6.2), and each has actors, preconditions, steps, expected outcome and exercised expectations (02 section 3.3). The concept description covers the Table G-3 concept items (feasibility by catalog parts and research basis, alternatives dispositioned in 11.1 with six PDR trade studies, ten descope options, the single point failure and fault tolerance philosophy in section 8) and Table G-4 item 11 (section 9). Spot checks that agree with their sources: FM comparison 12.7 dB, 2.1x and 4.3x range (`antenna-and-erp.md` line 246); bystander distances 0.58 m, 0.91 m, 0.41 m, 0.29 m, 0.26 m and the per-step reminders 0.2, 0.3, 0.4, 0.6 m (`rf-exposure-evaluation.md` Table 2 lines 83 to 92 and line 191); the SAR percentages of section 3.6 and OPS-022 (0.35 W/kg per W at the stated duty factors against 8 and 1.6 W/kg); the 53.0 dB spurious limit at 5 W; the REQ-SYS-020 tune limit of 5.5 s in both products (package section 15 item 15 on the tune value is closed in the working tree; its paddle part remains as finding-2).
+
+## Measurements (SWE-089)
+
+Iteration 1: items checked 18 design-checklist items or groups (H1 to H4 answered; A to G, I, J N/A), 10 CK-VIS items, 3 supplementary CK-REQ items, 4 readiness criteria. Items answered No: R3, R4, CK-DES-H1, CK-DES-H3, CK-VIS-A1, CK-REQ-C5. Findings: 4 Major, 14 Minor; fixed 0; deferred 0. Renders inspected: 3.
+
+Iteration 2: items re-checked 10 (closure table). Items answered No: R3, R4, CK-DES-H1, CK-VIS-A1. Findings: 4 Major, 15 Minor (finding-19 new); verified 16, withdrawn 1 (finding-18), open 2 Minor, deferred 0. Renders re-inspected: 1 (block diagram). Effort for the iteration: 24 turns, 35 minutes.
+
+## Closure (iteration 2, 2026-09-25)
+
+**Re-review scope.** The author said finding-1 to finding-16 were fixed. It disputed finding-17 (the commit is outside its assignment and is routed to the main session) and finding-18 (splitting the file would break the references that bind to `conops.md`). The reviewer (`reviewer:conops-concept`, a new invocation in the same role) did not edit the product. It re-read the working-tree blobs in the front matter against `git diff HEAD` of `conops.md` and the whole of `concept.md` (381 lines), and checked each fix against its source. The sources were `docs/requirements/sys/requirements.json` (REQ-SYS-004, 045, 046, 054, 068, 092, 106, 114, 117, 144, 161 statements and TBR blocks), `docs/safety/hazards.json` 0.3.0-pha, `docs/risk/register.json`, `docs/process/02-requirements-and-traceability.md` line 235 (WR-07), `tools/traceability.py` line 91 and the regulatory corpus `47cfr-97.119.md` line 17. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`. The queries were "peer review record closure block findings disposition" and "paddle watchdog 128 identical elements 30 s ConOps concept". `grep -n` then pinned lines. The changed passages contain no em dash (count 0 in both files) and no bare TBD.
+
+**Render (visual closure).** The reviewer ran `concept-block-diagram.py --check` (exit 0, "22 blocks, 6 groups, 32 edges; layout checks passed") and `--output <scratchpad>/cbd.png` (exit 0). The output is byte-identical (`cmp`) to `docs/reviews/SRR/figures/concept-block-diagram.png`, blob `3ef6e911`. The reviewer opened that render with Read. It is legible with nothing clipped. B07 reads "Hardware PA-enable cutoff, T_max 10 s, TX inhibit while VBUS present", the "VBUS present" edge runs from B16 to B07, and the "charge active" edge is gone. `conops-modes.png` and `conops-context.png` have the same blobs as at iteration 1 (inspected then).
+
+**Dispositions.**
+
+| Disposition | Count | Findings |
+|---|---|---|
+| Closed (fix verified in the product, state Verified) | 16 (Major 4, Minor 12) | finding-1 to finding-16 |
+| Disputed accepted (state Withdrawn) | 1 (Minor) | finding-18 |
+| Open | 2 (Minor) | finding-17 (commit; package H17, Robin authorizes, Claude commits); finding-19 (new: the RSK range is stale after concurrent register growth to RSK-065) |
+
+Open Major: 0. Open Minor: 2.
+
+**Iteration 2 answers.**
+
+| Item | Answer | Evidence |
+|---|---|---|
+| R1 | Yes | Block diagram re-rendered and inspected (above); the ConOps renders are unchanged |
+| R2 | N/A | As at iteration 1 |
+| R3 | No | All REQ-SYS are still Draft, as expected at SRR (not a finding) |
+| R4 | No | The author's iteration 2 return gives a list of fixed ids and two dispute reasons. It gives no acceptance criteria and no checklist self-check of `conops.md` or `concept.md` |
+| CK-DES-H1 | No | finding-1 to finding-15 closed; finding-19 open |
+| CK-DES-H2 | Yes | As at iteration 1; the block diagram labels now equal concept section 5 |
+| CK-DES-H3 | N/A (ConOps); Yes (concept, 381 lines) | finding-18 withdrawn |
+| CK-DES-H4 | Yes | finding-16 closed; 47 CFR 97.119(a) verified in the corpus; the 02 WR-07 citation of concept section 4.1 verified (02 line 235) |
+| CK-VIS-A1 | No | finding-17 |
+| CK-REQ-C5 | Yes | finding-1 and finding-4 closed |
+
+**Verdict (iteration 2): NEEDS CHANGES.** No Major finding is open. Minor findings would ride with APPROVED (08 section 3.2), but the readiness criteria are not met: R4 has no author self-check, and R3 is structural until the SRR baseline. `tools/validate_docs.py` rejects APPROVED while `readiness_met` is false. The record can move to APPROVED when three things are done: the author supplies the self-check (R4) or the owner waives it; finding-19 is fixed; and finding-17 is closed by the H17 commit, or the owner defers it to that commit with a decision reference. `record_status` stays Open for the lead SE (07 section 10.2).
+
+```
+VERDICT (iteration 2): NEEDS CHANGES
+FINDINGS: Closed 16 (finding-1 to finding-16; Major 4, Minor 12); Disputed accepted 1 (finding-18); Open 2 Minor (finding-17, finding-19); open Major 0
+MEASUREMENTS: items re-checked 10; items answered No 4 (R3, R4, CK-DES-H1, CK-VIS-A1); renders re-inspected 1; iteration 2
+```
