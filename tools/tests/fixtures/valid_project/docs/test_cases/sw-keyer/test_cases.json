@@ -1,0 +1,16 @@
+{
+  "module": "SW-KEYER",
+  "test_cases": [
+    {
+      "id": "TC-SW-KEYER-001",
+      "title": "Keyer timing host tests",
+      "requirement_ids": ["REQ-SW-KEYER-001", "REQ-SW-KEYER-002", "REQ-SW-KEYER-003"],
+      "verification_method": "Test",
+      "type": "HostUnit",
+      "procedure": ["cargo test -p cwht-fw keyer"],
+      "acceptance_criteria": "All keyer tests pass; element timing error below 1 percent.",
+      "status": "Active",
+      "automation_ref": "firmware/tests/keyer.rs"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["risks"],
+  "properties": {
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "statement", "likelihood", "consequence"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^RSK-[0-9]{3}$"},
+          "statement": {"type": "string"},
+          "likelihood": {"type": "integer", "minimum": 1, "maximum": 5},
+          "consequence": {"type": "integer", "minimum": 1, "maximum": 5}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

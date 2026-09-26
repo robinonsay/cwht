@@ -1,0 +1,97 @@
+{
+  "module": "SYS",
+  "requirements": [
+    {
+      "id": "REQ-SYS-001",
+      "title": "Transmitter carrier output power",
+      "description": "The transceiver shall deliver 5.0 W (+0.5 W, -1.0 W) A1A carrier power into a 50 Ω load from 144.000 MHz to 148.000 MHz.",
+      "rationale": "Why: SI-003 sets 5 W for useful simplex range; NGO-009 (open-ground contact at 5 km) and MOE-001 depend on it; the MOP for MOE-001 is MOP-004, tracked as TPM-015. -1.0 W keeps range within 1 dB of the goal; +0.5 W caps PA dissipation and battery current. Assumes: 50 Ω resistive load, key-down steady state, fresh battery. Ops: OPS-004 paddle QSO, OPS-005 straight-key QSO. KDR: the PA device (ADR-012 sourcing constraint), heat path, battery capacity and enclosure are sized by this value.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Analysis case, LTspice .tran of the PA into 50 Ω at 144, 146 and 148 MHz. Post-build (closing Test): Bench on the delivered unit, diode RF probe across the 50 Ω dummy load read on the multimeter, P = Vpk^2 / 100, with the tinySA Ultra through the calibrated attenuator as the secondary reading (04 section 6.2); closing case TC-SYS-001.",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": [],
+      "tags": [
+        "revA"
+      ],
+      "source_ids": [
+        "NGO-009",
+        "MOE-001",
+        "OPS-004",
+        "OPS-005",
+        "SI-003",
+        "ADR-012"
+      ],
+      "hazard_ids": [],
+      "design_refs": [],
+      "mop_ids": [
+        "MOP-004",
+        "TPM-015"
+      ],
+      "tbr": null,
+      "priority": "KDR"
+    },
+    {
+      "id": "REQ-SYS-002",
+      "title": "Paddle keying speed range and element timing",
+      "description": "The transceiver shall time paddle-keyed Morse elements within ±1 % or ±0.5 ms, whichever is larger, of PARIS timing from 5 to 50 WPM.",
+      "rationale": "Why: SI-018 (core requirement) calls for a built-in keyer driven by iambic paddles; the functional requirements, one per key type, are separate (02 section 4.6). NGO-013 is the keyer timing objective and MOP-012 its measure (TPM-013); the tolerance is the MOP-012 threshold. 5 WPM lets beginner friends operate (SI-019); 50 WPM is the upper bound the owner accepted in SI-033, recorded by ADR-024. PARIS timing: dit = 1200 / WPM ms. Assumes: the speed is set in the keyer menu (OPS-004).",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): HostUnit keyer timing test TC-SW-KEYER-003, the closing case of REQ-SW-KEYER-003, at 5, 15, 25 and 50 WPM. Post-build (closing Test): Bench on the delivered unit; paddle closures applied at the key jack; TX_KEY line captured with the Pico-based logic capture (04 section 6.1) at 5, 15, 25 and 50 WPM; element and gap durations compared with PARIS timing; closing case TC-SYS-002.",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "hsi"
+      ],
+      "source_ids": [
+        "NGO-013",
+        "MOE-005",
+        "OPS-004",
+        "SI-018",
+        "SI-033",
+        "SI-019",
+        "ADR-024"
+      ],
+      "hazard_ids": [],
+      "design_refs": [],
+      "mop_ids": [
+        "MOP-012",
+        "TPM-013"
+      ],
+      "tbr": null,
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-SYS-003",
+      "title": "Transmitter inhibit on over-temperature",
+      "description": "The transceiver shall cease RF output within 100 ms after its transmitter temperature exceeds 85 (TBR) °C.",
+      "rationale": "Why: control for HZ-003 (power amplifier and enclosure over-temperature and contact burn, docs/safety/hazards.json) under NGO-004 (lawful and safe); OPS-014 is the over-temperature scenario. 85 °C is a best estimate 15 °C below the 100 °C derated case limit of the preliminary thermal budget; 100 ms bounds post-threshold dissipation to about 1 J. Assumes: the sensed temperature is within 5 °C of the hottest transmitter part; the sensing location and the firmware monitor are allocated to TX and SW-SAFE at PDR. Fault tolerance: docs/safety/hazard-analysis.md section 8.1 items 1 and 7; single point candidate 6 of section 8.2. TBR: the PA thermal analysis fixes the threshold.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): HostUnit and Emulation of the thermal monitor. Post-build (closing Test): Bench on the delivered unit; inject the sensor signal at its test pad while keyed into the dummy load; capture key-line and RF-detector output (scaled to a logic level) with the Pico-based logic capture (charter section 9) and measure the inhibit latency against 100 ms; closing case TC-SYS-003.",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety"
+      ],
+      "source_ids": [
+        "NGO-004",
+        "OPS-014"
+      ],
+      "hazard_ids": [
+        "HZ-003"
+      ],
+      "design_refs": [],
+      "mop_ids": [],
+      "tbr": {
+        "owner": "Claude prepares the PA thermal analysis; Robin decides",
+        "plan": "The PA thermal analysis (docs/design/analysis/, PDR) fixes the inhibit threshold; the value replaces 85 (TBR), the decision is recorded in an ADR and this tbr object is removed in the same CR.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    }
+  ]
+}

@@ -30,3 +30,7 @@ tools/slides/node_modules/
 # retained V&V evidence must not be dropped by the *.log / *.raw rules above
 !docs/vv/**/*.log
 !docs/vv/**/*.raw
+
+# reveal.js runtime copied next to each deck by tools/slides/render_deck.py (regenerated; PNG renders are the record)
+docs/reviews/*/slides/reveal.js/
+/reveal.js/

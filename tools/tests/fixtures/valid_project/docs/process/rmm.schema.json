@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["software_class", "rows"],
+  "properties": {
+    "software_class": {"type": "string", "enum": ["A", "B", "C", "D", "E", "F"]},
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["swe", "disposition"],
+        "properties": {
+          "swe": {"type": "string", "pattern": "^SWE-[0-9]{3}$"},
+          "disposition": {"type": "string", "enum": ["Full", "Tailored", "Not applicable"]},
+          "rationale": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

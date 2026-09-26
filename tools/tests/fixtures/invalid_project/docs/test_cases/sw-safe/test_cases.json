@@ -1,0 +1,15 @@
+{
+  "module": "SW-SAFE",
+  "test_cases": [
+    {
+      "id": "TC-SW-SAFE-001",
+      "title": "Reset path timing analysis",
+      "requirement_ids": ["REQ-SW-SAFE-001"],
+      "verification_method": "Analysis",
+      "type": "Simulation",
+      "procedure": ["Count cycles on the reset path"],
+      "acceptance_criteria": "Path shorter than 2 ms at 150 MHz.",
+      "status": "Draft"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "module": "EXAMPLE",
+  "requirements": [
+    {
+      "id": "REQ-EXAMPLE-001",
+      "title": "Example title",
+      "description": "The example shall do one observable thing with a number and a unit.",
+      "rationale": "Why the example exists.",
+      "verification_method": "Test",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["SI-001"]
+    }
+  ]
+}

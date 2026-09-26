@@ -1,0 +1,419 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cwht Stakeholder Expectations (L0)",
+  "description": "Schema for docs/requirements/l0-stakeholder/expectations.json: the identified stakeholders (SE HB 4.1.1.2.1; NPR 7123.1D SE-35), Needs, Goals and Objectives (NGO-NNN), Measures of Effectiveness (MOE-NNN) and Constraints (CON-NNN) per SE HB 4.1.1.2.3, 4.1.1.2.6 and 4.2.1.2.1. Every entry traces to stakeholder inputs SI-NNN in stakeholder-inputs.md (SE HB 4.1.1.2.7). L0 entries are expectations, not requirements: statements never contain 'shall'. The stakeholders array is required once the file carries a baseline tag (baselined at SRR with the rest of the file). Process: docs/process/02-requirements-and-traceability.md section 3.",
+  "type": "object",
+  "required": [
+    "ngos",
+    "moes",
+    "constraints"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "baseline": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "baseline"
+        ]
+      },
+      "then": {
+        "required": [
+          "stakeholders"
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "baseline": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^baseline/[a-z]+$",
+      "description": "Git tag of the baseline under which this file was last approved (baseline/srr at the SRR flip of process section 11.2); null before SRR. When set, the stakeholders array is required."
+    },
+    "stakeholders": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Stakeholders identified per SE HB 4.1.1.2.1 (process section 3.0): who is affected by or has a stake in the radio, what they care about and who speaks for them in validation step V2. Required when baseline is set (SRR, SE-35). Entries are keyed by name (unique, checked by tool rule T-21); charter section 6 defines no stakeholder id scheme (process section 14, CI-10).",
+      "items": {
+        "$ref": "#/definitions/stakeholder"
+      }
+    },
+    "ngos": {
+      "type": "array",
+      "description": "Needs, Goals and Objectives. One Need per file. Goals trace to the Need, Objectives to a Goal (SE HB 4.1.1.2.3). The schema checks id patterns only; the Need count, parent kinds and id resolution are tool rule T-21 (process section 8.2).",
+      "items": {
+        "$ref": "#/definitions/ngo"
+      }
+    },
+    "moes": {
+      "type": "array",
+      "description": "Measures of Effectiveness: success criteria stated from the owner's point of view (SE HB 4.1.1.2.6). Quantified by MOP-NNN entries in docs/plan/tpm.json mops[] (added before SRR; process section 6.2), not here.",
+      "items": {
+        "$ref": "#/definitions/moe"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "description": "Conditions the design must meet that are not open to trade (SE HB 4.2.1.2.1): regulation, existing interfaces, mandated technology, resources.",
+      "items": {
+        "$ref": "#/definitions/constraint"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "si_id": {
+      "type": "string",
+      "pattern": "^SI-[0-9]{3}$",
+      "description": "Row in docs/requirements/l0-stakeholder/stakeholder-inputs.md"
+    },
+    "ngo_id": {
+      "type": "string",
+      "pattern": "^NGO-[0-9]{3}$"
+    },
+    "ops_id": {
+      "type": "string",
+      "pattern": "^OPS-[0-9]{3}$",
+      "description": "Scenario heading in docs/conops/conops.md"
+    },
+    "stakeholder": {
+      "type": "object",
+      "required": [
+        "name",
+        "role",
+        "interests",
+        "represented_by",
+        "source_ids"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80,
+          "description": "Person, group or organization, e.g. 'Robin (owner)', 'Friends who receive and operate units', 'Federal Communications Commission'. Unique within the array."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "customer",
+            "user",
+            "guest operator",
+            "regulator",
+            "vendor",
+            "supplier",
+            "public"
+          ],
+          "description": "customer: requests and accepts the product; user: operates it as their own station; guest operator: operates a unit loaned or handed over by the owner (SI-019); regulator: imposes rules the product must meet (47 CFR, SI-014); vendor: supplies fabrication, assembly or parts under catalog terms (PCBWay, DigiKey); supplier: produces the design and evidence (Claude, SI-011); public: anyone who reuses the open design (SI-025) or is near a transmitting unit"
+        },
+        "interests": {
+          "type": "string",
+          "minLength": 10,
+          "description": "What the stakeholder expects or is affected by, stated without 'shall' (SE HB 4.1.1.2.1)"
+        },
+        "represented_by": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Who speaks for the stakeholder in validation step V2 (process sections 3.0 and 5) and the record that establishes it, e.g. 'Robin, per the SRR decision memo'"
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/si_id"
+          },
+          "description": "Stakeholder inputs that identify this stakeholder or state their interests"
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional clarification, e.g. why the stakeholder has no separate voice in V2"
+        }
+      },
+      "additionalProperties": false
+    },
+    "regulation_clause": {
+      "type": "string",
+      "pattern": "^47CFR(1|2|15|97)\\.[0-9]+(\\([a-z0-9]+\\))*$",
+      "description": "47 CFR clause from Part 1, 2, 15 or 97 (charter section 1), e.g. 47CFR97.307(e) or 47CFR1.1310; the <part>.<section> resolves to a corpus file docs/references/md/regulatory/47cfr-<part>.<section>.md or an extract 47cfr-<part>.<section>-<slug>.md such as 47cfr-2.106-harmonic-bands.md (process section 3.4, tool rule T-07)"
+    },
+    "cr_id": {
+      "type": "string",
+      "pattern": "^(CR-[0-9]{3}|RID-(SRR|PDR|CDR|TRR|TRR-D[0-9]+|SAR)-[0-9]{3}|INSP-[0-9]{3})$",
+      "description": "Record that retired the entry: a Change Request CR-NNN after the SRR baseline; before it, a RID-<REVIEW>-NNN (review tokens of charter section 6) or the INSP-NNN peer-review record whose finding motivated the retirement (process sections 8.3 and 11.3)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Baselined",
+        "Retired"
+      ],
+      "description": "Draft until the SRR decision memo baselines the file (process section 11.2 flips every Draft entry to Baselined and sets baseline to baseline/srr in one commit); Retired entries keep their ID and carry retired_by. Allowed transitions (process section 8.3, tool rule T-12): Draft to Baselined at the SRR flip; Draft to Retired before SRR (retired_by a RID or INSP id); Baselined to Retired only by an approved CR; Baselined text changes only by an approved CR. Forbidden: Baselined to Draft; Retired to anything. This schema already carries the Retired status that charter section 6 anticipates; the requirement and test-case schemas use the interim marker of process section 11.3."
+    },
+    "expectation_statement": {
+      "type": "string",
+      "minLength": 10,
+      "not": {
+        "pattern": "\\b[Ss][Hh][Aa][Ll][Ll]\\b"
+      },
+      "description": "Plain-language expectation. Expectations are not requirements: 'shall' is forbidden here (SE HB 4.1.1.2.3: NGOs are not contractual requirements)."
+    },
+    "retirement": {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "Retired"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "retired_by"
+        ]
+      }
+    },
+    "ngo": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/retirement"
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "Need"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "parent_id": {
+                "const": null
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "parent_id": {
+                "$ref": "#/definitions/ngo_id"
+              }
+            }
+          }
+        }
+      ],
+      "required": [
+        "id",
+        "kind",
+        "parent_id",
+        "title",
+        "statement",
+        "rationale",
+        "source_ids",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ngo_id"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "Need",
+            "Goal",
+            "Objective"
+          ],
+          "description": "Need: the single problem statement. Goal: elaboration of the Need. Objective: specific, measurable target level for a Goal (SE HB 4.1.1.2.3)."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "null for the Need; the Need's id for a Goal; a Goal's id for an Objective"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "statement": {
+          "$ref": "#/definitions/expectation_statement"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Why the expectation exists, assumptions made, and anything needed to manage it (SE HB 4.1.1.2.3)"
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/si_id"
+          },
+          "description": "Stakeholder inputs this entry was distilled from"
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "retired_by": {
+          "$ref": "#/definitions/cr_id"
+        }
+      },
+      "additionalProperties": false
+    },
+    "moe": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/retirement"
+        }
+      ],
+      "required": [
+        "id",
+        "title",
+        "statement",
+        "success_criterion",
+        "rationale",
+        "ngo_ids",
+        "ops_ids",
+        "source_ids",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^MOE-[0-9]{3}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "statement": {
+          "$ref": "#/definitions/expectation_statement"
+        },
+        "success_criterion": {
+          "type": "string",
+          "minLength": 10,
+          "description": "How the owner will judge the MOE met when using the delivered radio (validation, SE HB 5.4). May be qualitative; MOPs supply the numbers."
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 10
+        },
+        "ngo_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ngo_id"
+          },
+          "description": "Objectives or Goals whose accomplishment this MOE measures"
+        },
+        "ops_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ops_id"
+          },
+          "description": "ConOps scenarios in which the MOE is judged; empty only while docs/conops/conops.md does not exist, populated before SRR"
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/si_id"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "retired_by": {
+          "$ref": "#/definitions/cr_id"
+        }
+      },
+      "additionalProperties": false
+    },
+    "constraint": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/retirement"
+        }
+      ],
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "statement",
+        "rationale",
+        "source_ids",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^CON-[0-9]{3}$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "Regulatory",
+            "Interface",
+            "Technology",
+            "Resource",
+            "Programmatic",
+            "Environmental",
+            "Safety",
+            "Process"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "statement": {
+          "$ref": "#/definitions/expectation_statement"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Who imposes the constraint and what relief, if any, the owner can grant"
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/si_id"
+              },
+              {
+                "$ref": "#/definitions/regulation_clause"
+              }
+            ]
+          },
+          "description": "Stakeholder inputs or regulation clauses that impose the constraint"
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "retired_by": {
+          "$ref": "#/definitions/cr_id"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

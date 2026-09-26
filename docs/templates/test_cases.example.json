@@ -1,0 +1,182 @@
+{
+  "module": "EXAMPLE",
+  "test_cases": [
+    {
+      "id": "TC-EXAMPLE-001",
+      "title": "Transmit low-pass filter harmonic attenuation (Simulation, closes an Analysis requirement)",
+      "requirement_ids": ["REQ-TX-010"],
+      "verification_method": "Analysis",
+      "type": "Simulation",
+      "setup": "Article: design data at tag baseline/cdr, hardware/sim/tx_lpf.asc with CDR part values and PCB pad parasitics from the layout extraction. Configuration: LTspice .ac sweep 100 MHz to 1 GHz, 50 ohm source and load; checker hardware/sim/checks/tx_lpf_check.py compares S21 at 144, 148, 288, 296, 432, 444 MHz against the criterion. Credit row: A. Analysis closed by Simulation (docs/process/04-verification-and-validation.md section 5.2); credit taken at CDR, confirmed at SAR by physical configuration audit of the filter part values. Tools: LTspice (batch wrapper tools/run_sim.py) and Python versions per tools/toolchain.lock.md. Safety: not applicable. Environment: not applicable.",
+      "procedure": [
+        "Confirm hardware/sim/tx_lpf.asc part values equal hardware/kicad schematic sheet TX-LPF at the baseline/cdr tag (script prints the diff; empty diff required).",
+        "Run the LTspice batch sweep via tools/run_sim.py hardware/sim/tx_lpf.asc; the run exports hardware/sim/out/tx_lpf_s21.csv.",
+        "Run hardware/sim/checks/tx_lpf_check.py on the CSV; the checker prints insertion loss at 144 and 148 MHz and attenuation at 288, 296, 432 and 444 MHz with pass/fail per value.",
+        "Repeat steps 2 and 3 with every inductor and capacitor at its tolerance corners (checker option --corners) and record the worst case.",
+        "Record tool versions and the git commit of the deck and checker in the report.",
+        "On any checker failure or schematic diff, stop and open an NCR per docs/process/04-verification-and-validation.md section 10."
+      ],
+      "acceptance_criteria": "Pass if insertion loss at 144 MHz and 148 MHz is 0.8 dB or less (nominal) and 1.2 dB or less at every tolerance corner, and attenuation relative to 146 MHz is 45 dB or more at 288 MHz and 296 MHz and 55 dB or more at 432 MHz and 444 MHz at every tolerance corner; otherwise Fail.",
+      "instruments": [],
+      "expected_artifacts": [
+        { "name": "tx_lpf_s21.csv", "description": "Frequency versus S21 magnitude in dB, nominal and corner runs", "artifact_type": "csv" },
+        { "name": "tx_lpf_s21.png", "description": "Plot of S21 with the acceptance bounds drawn", "artifact_type": "plot" },
+        { "name": "tx_lpf_check.log.txt", "description": "Checker output with per-frequency pass/fail and the schematic diff result", "artifact_type": "log" }
+      ],
+      "status": "Draft",
+      "automation_ref": "hardware/sim/checks/tx_lpf_check.py"
+    },
+    {
+      "id": "TC-EXAMPLE-002",
+      "title": "Keyer element timing with iambic paddles and straight-key pass-through (HostUnit)",
+      "requirement_ids": ["REQ-SW-KEYER-001", "REQ-SW-KEYER-002", "REQ-SW-KEYER-003"],
+      "verification_method": "Test",
+      "type": "HostUnit",
+      "setup": "Article: firmware crate cwht-core (planned crate names of docs/process/07-software-engineering-plan.md section 1.2) at the release candidate tag release/FW-vX.Y.Z-rcN named in firmware/releases/VDD-vX.Y.Z-rcN.md, compiled for the host against cwht-hal-mock (mock clock, mock GPIO for dit, dah and straight-key inputs, recorded key-out line). Configuration: cargo test --package cwht-core --test keyer in firmware/; the mock clock advances in 100 us steps; no real time is used; any pseudo-random input is seeded from a constant printed on failure; the suite is run twice and both result sets must be identical (SWE-186, docs/process/04-verification-and-validation.md section 4 HostUnit row). Credit row: T-SW-LOGIC. Likeness argument: the keyer module reads the paddles and the straight key through the HAL trait and computes element timing from the mocked clock, so host execution is representative (section 5.2). GPIO edge latency is excluded here and is verified by a Bench case with the Pico-based logic capture (section 5.2, row T-SW-TARGET for software requirements that depend on target timing). MC/DC independence pairs for the keyer decisions are evidenced in TC-SW-COV-001 (section 12), not by this case. Both key types are exercised (SI-018). Tools: Rust toolchain and cargo-llvm-cov versions per tools/toolchain.lock.md. Safety: not applicable. Environment: not applicable.",
+      "procedure": [
+        "Check out the release candidate commit; confirm the VDD lists this commit (SWE-187).",
+        "Run cargo test --package cwht-core --test keyer -- --nocapture twice and capture both outputs to keyer-host-run1.log.txt and keyer-host-run2.log.txt; the sets of passed and failed tests must be identical (SWE-186).",
+        "Test keyer_iambic_timing_20wpm: hold the dah paddle on the mock GPIO for 500 ms of mock time at 20 WPM (dit unit 60 ms); assert each dah key-out interval is 180 ms and each inter-element gap is 60 ms, both within plus or minus 0.1 ms of mock time.",
+        "Test keyer_iambic_squeeze_alternation: hold both paddles for 1000 ms at 20 WPM; assert key-out alternates dit, dah, dit, dah with correct element and gap lengths and that releasing both paddles completes the current element and stops.",
+        "Test keyer_speed_range: repeat step 3 at 5 WPM and at 50 WPM (the SI-033 range); assert element lengths scale as 1200 ms divided by WPM within plus or minus 0.1 ms.",
+        "Test straight_key_passthrough: in straight-key mode drive the straight-key input with a 37 ms closure followed by a 63 ms open, ten times; assert key-out follows the input with no added elements and with a latency of 1 ms or less of mock time per edge, and that the paddle inputs are ignored while in straight-key mode.",
+        "Test keyer_mode_selection: switch between paddle mode and straight-key mode while no key is closed; assert the switch takes effect before the next edge and that a switch requested during a closed key is deferred until key-up (no truncated element).",
+        "Run cargo llvm-cov --package cwht-core --test keyer on the stable toolchain and record line and region coverage of the keyer module in the report as supporting data; the credited coverage and the MC/DC independence-pair tables of the release are in the TC-SW-COV-001 report (docs/process/04-verification-and-validation.md section 12).",
+        "Record tool versions, the release candidate tag and commit, and the toolchain lock commit in the report.",
+        "On any assertion failure or run-to-run difference, stop and open an NCR per docs/process/04-verification-and-validation.md section 10."
+      ],
+      "acceptance_criteria": "Pass if all five tests pass on the release candidate in both runs with identical result sets, every asserted interval is within plus or minus 0.1 ms of mock time of the value computed as 1200 ms divided by WPM (dit) and three times that (dah), and the straight-key latency is 1 ms or less of mock time per edge; otherwise Fail.",
+      "instruments": [],
+      "expected_artifacts": [
+        { "name": "keyer-host-run1.log.txt", "description": "cargo test output of the first run with assertion values printed per element", "artifact_type": "log" },
+        { "name": "keyer-host-run2.log.txt", "description": "cargo test output of the repeat run (SWE-186)", "artifact_type": "log" },
+        { "name": "keyer-coverage.txt", "description": "cargo llvm-cov summary for the keyer module (supporting data; credited coverage is in TC-SW-COV-001)", "artifact_type": "report" }
+      ],
+      "status": "Draft",
+      "automation_ref": "firmware/cwht-core/tests/keyer.rs"
+    },
+    {
+      "id": "TC-EXAMPLE-003",
+      "title": "Receive-mode supply current on the delivered unit (Bench)",
+      "requirement_ids": ["REQ-PWR-004"],
+      "verification_method": "Test",
+      "type": "Bench",
+      "setup": "Article: CWHT-A-001, firmware at the released version release/FW-vX.Y.Z in firmware/releases/VDD-vX.Y.Z.md, enclosure lid off, PA supply jumper installed, headphones connected, no key connected. Configuration: powered from the adjustable bench supply at 7.4 V through the battery terminals (battery removed); bench supply current limit 500 mA; multimeter in series on the positive lead, DC current range 2 A; 50 ohm BNC dummy load on the antenna port. Credit row: T-HW. Test on a hardware requirement closed by Bench (docs/process/04-verification-and-validation.md section 5.2); run after TRR (section 13), witnessed by the owner. Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: transmit is inhibited for this case (do not connect a key); dummy load stays connected; supply current limit set before power-on; unit handled by the enclosure or board edges. Environment: room temperature 18 to 28 C, supply 7.4 V plus or minus 0.05 V.",
+      "procedure": [
+        "Set the bench supply to 7.4 V with the output off and the current limit at 500 mA; record the settings.",
+        "Connect the multimeter in series with the positive supply lead on the 2 A DC range; record the meter's specified accuracy for that range from its datasheet.",
+        "Connect the dummy load to the antenna port and headphones to the audio jack; confirm no key or paddle is connected.",
+        "Turn the supply output on; wait 30 s for the firmware to boot and the display to show a frequency.",
+        "Set the volume to the mid detent and tune to 146.000 MHz; wait 60 s.",
+        "Read the multimeter current and the bench supply readout; record both with a photograph of the displays.",
+        "Repeat step 6 at 144.100 MHz and at 147.900 MHz.",
+        "Set the volume to minimum; read and record the current at 146.000 MHz.",
+        "Turn the supply output off; record instrument calibration state and firmware version in the report.",
+        "On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10."
+      ],
+      "acceptance_criteria": "Pass if, at each of the three frequencies at mid volume, the multimeter reading plus the meter's stated accuracy for the 2 A DC range is 120 mA or less, and the multimeter and bench supply readings agree within the sum of their stated accuracies; otherwise Fail. The minimum-volume reading is recorded for MOP-003 and is not a pass/fail value.",
+      "instruments": [
+        "Adjustable bench supply, 0 to 30 V, current limit set to 500 mA",
+        "Multimeter, DC current 2 A range, accuracy per datasheet recorded in the report",
+        "50 ohm BNC dummy load"
+      ],
+      "expected_artifacts": [
+        { "name": "rx-current-readings.csv", "description": "Frequency, volume setting, multimeter mA, supply readout mA, time", "artifact_type": "csv" },
+        { "name": "rx-current-setup.jpg", "description": "Photograph of the setup showing supply settings, meter range and dummy load", "artifact_type": "photo" },
+        { "name": "rx-current-displays.jpg", "description": "Photograph of the meter and supply displays at 146.000 MHz mid volume", "artifact_type": "photo" }
+      ],
+      "status": "Draft",
+      "automation_ref": null
+    },
+    {
+      "id": "TC-EXAMPLE-004",
+      "title": "On-air QSOs with a second station using the straight key and then the iambic paddles (validation case, OnAir Demonstration)",
+      "requirement_ids": ["REQ-SYS-038", "REQ-SYS-039"],
+      "verification_method": "Demonstration",
+      "type": "OnAir",
+      "setup": "Validates: OPS-004, OPS-005, MOE-005. Phase: SAR. Credit row: VAL. A validation case in module VAL never closes a requirement; its result sets the validation rows of OPS-004, OPS-005 and MOE-005, and requirement_ids lists the requirements it exercises (docs/process/04-verification-and-validation.md sections 1, 5.2 and 7.2). Article: CWHT-A-001 in its enclosure, firmware at the released version release/FW-vX.Y.Z in firmware/releases/VDD-vX.Y.Z.md, antenna fitted per the operations handbook, battery pack fitted. Configuration: operational configuration; the owner's straight key and iambic paddle on the 3.5 mm TRS key jack (SI-034), one at a time, with the key type selected in the menu before each block; the second station is a licensed friend's 2 m CW station at an agreed location and frequency. Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: run only after the OnAir authorization section of docs/reviews/TRR-Dn/decision-memo.md (section 6.3); operator at posture P1 with the antenna 20 cm or more from head and torso, everyone else at 1.0 m or more; 1 W step for the first exchange and 5 W only after the power-per-step case has passed (docs/safety/hazard-analysis.md RF exposure provision); station identification per 47 CFR 97.119. Environment: owner's choice of location within the NGO-026 operating range of -10 to +45 C; battery above the low-battery warning.",
+      "procedure": [
+        "Confirm that the OnAir authorization section exists in the on-air delta TRR decision memo and names this unit and release; record its path in the report.",
+        "Power on; confirm the boot banner shows the released version and hash; record both.",
+        "Select straight-key mode in the menu and connect the straight key.",
+        "Tune to the agreed frequency, listen for 60 s to confirm it is clear, and call the second station (OPS-005).",
+        "Complete a QSO exchanging call signs, a signal report and a name; the second station writes the report it sent and the keying quality it heard (clean, clicks or chirp) on the exchange sheet.",
+        "Disconnect the straight key, select iambic mode A in the menu, connect the paddles and set the keyer speed to 15 WPM.",
+        "Call the second station and complete a second QSO with the same exchange using the paddles (OPS-004).",
+        "Repeat step 7 at 25 WPM.",
+        "The owner writes on the exchange sheet, for each key type, whether keying felt natural and the timing was correct (the MOE-005 judgment) and any deviation observed.",
+        "Photograph the exchange sheet; record frequency, times, power step, key types, speeds, the second station's call sign and equipment, firmware version and tool versions in the report.",
+        "On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10."
+      ],
+      "acceptance_criteria": "Pass if the straight-key QSO and the paddle QSOs at 15 and 25 WPM are each completed with call signs, signal reports and names exchanged correctly, the second station reports clean keying with no clicks for each key type, and the owner judges keying feel and timing acceptable for both key types (MOE-005); otherwise Fail. A run in which the second station cannot be worked for a cause outside the unit (propagation, second-station fault) has result Blocked and is repeated.",
+      "instruments": [
+        "Second station: licensed friend's 2 m CW transceiver, model recorded in the report",
+        "Owner's straight key and iambic paddle, 3.5 mm TRS plugs (SI-034)"
+      ],
+      "expected_artifacts": [
+        { "name": "qso-log.csv", "description": "Time, frequency, key type, keyer speed, power step, reports sent and received, second station call sign", "artifact_type": "csv" },
+        { "name": "exchange-sheet.jpg", "description": "Photograph of the exchange sheet with the second station's keying-quality notes and the owner's MOE-005 judgment", "artifact_type": "photo" },
+        { "name": "onair-setup.jpg", "description": "Photograph of the operating position showing posture, antenna and key", "artifact_type": "photo" }
+      ],
+      "status": "Draft",
+      "automation_ref": null
+    },
+    {
+      "id": "TC-EXAMPLE-005",
+      "title": "PA-enable follows the T/R command and the settle event (Emulation, event order only)",
+      "requirement_ids": ["REQ-SW-TXSEQ-004"],
+      "verification_method": "Test",
+      "type": "Emulation",
+      "setup": "Article: release ELF of release/FW-vX.Y.Z-rcN named in firmware/releases/VDD-vX.Y.Z-rcN.md, loaded into the RP2350 emulator selected by the PDR emulator ADR through the cwht-emu harness in firmware/emu/ (docs/process/07-software-engineering-plan.md section 9.4). Configuration: scenario firmware/emu/src/scenarios/txseq_order.rs drives the key input GPIO and records every change of TX_KEY, the T/R command, the T/R settle flag and PA_EN with its TIMER0 microsecond stamp; GPIO and TIMER alarms are inside the per-peripheral credit scope of docs/cm/tool-validation/TV-NNN-emulator.md. Credit row: T-SW-ORDER. Likeness argument: the requirement states only an event order, and GPIO and TIMER alarm sequencing are accredited against the dev-board reference traces, so the emulated order is representative (docs/process/04-verification-and-validation.md section 5.2). The scenario asserts order only: TIMER0 stamps sort the events and no duration, frequency or timeout is asserted (section 5.2 Emulation rule); the T/R settle time and the key-to-PA_EN latency are verified by Bench cases with the Pico-based logic capture (row T-SW-TARGET). Tools: emulator, Rust toolchain and cargo-nextest versions per tools/toolchain.lock.md. Safety: not applicable. Environment: not applicable.",
+      "procedure": [
+        "Check out the release candidate commit; confirm the VDD lists this commit and the ELF SHA-256 (SWE-187).",
+        "Confirm the emulator version equals the one named in tools/toolchain.lock.md and that GPIO and TIMER alarms are listed in the credit scope of its TV record.",
+        "Run cargo nextest run -p cwht-emu -E 'test(txseq_order)'; capture the event trace to txseq-order-trace.csv and the run log to txseq-order.log.txt.",
+        "Key-down: assert the recorded order is TX_KEY rises, then the T/R command is set, then the T/R settle flag is set, then PA_EN rises, and that no PA_EN rise precedes the settle flag.",
+        "Key-up: assert PA_EN falls before the T/R command is released.",
+        "Repeat steps 4 and 5 for 50 key cycles at the intervals the scenario generates from its fixed seed; assert the order holds in every cycle.",
+        "Run the scenario option that suppresses the settle flag in one cycle; assert PA_EN never rises in that cycle.",
+        "Record the emulator version, the toolchain lock commit and the release tag in the report.",
+        "On any assertion failure stop and open an NCR per docs/process/04-verification-and-validation.md section 10."
+      ],
+      "acceptance_criteria": "Pass if, in every one of the 50 key cycles, the key-down order is TX_KEY, T/R command, T/R settle flag, PA_EN and the key-up order has PA_EN falling before the T/R command release, and PA_EN never rises in the cycle with the suppressed settle flag; otherwise Fail. No duration is part of the criterion.",
+      "instruments": [],
+      "expected_artifacts": [
+        { "name": "txseq-order-trace.csv", "description": "Event name, TIMER0 microsecond stamp and cycle number for every recorded edge", "artifact_type": "csv" },
+        { "name": "txseq-order.log.txt", "description": "cargo nextest output with the order assertion per cycle", "artifact_type": "log" }
+      ],
+      "status": "Draft",
+      "automation_ref": "firmware/emu/src/scenarios/txseq_order.rs"
+    },
+    {
+      "id": "TC-EXAMPLE-006",
+      "title": "Keyer element timing on a bare Pico 2 development board with the Pico-based logic capture (dev-board case, supporting evidence)",
+      "requirement_ids": ["REQ-SW-KEYER-001"],
+      "verification_method": "Test",
+      "type": "Bench",
+      "setup": "Article: pico2-devboard-1. Credit: false (dev-board run, charter section 3). Credit row: SUPPORT. A dev-board case never closes a requirement (docs/process/04-verification-and-validation.md section 4); it reduces risk before hardware exists and supplies reference behavior for emulator accreditation. Configuration: bare Pico 2 board flashed with the firmware/devcheck keyer binary built from release/FW-vX.Y.Z-rcN; the owner's iambic paddle on the dit and dah inputs through a 3.5 mm TRS breakout; the key-out and sidetone PWM pins wired to channels 0 and 1 of the Pico-based logic capture; no RF hardware. Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: USB-powered 3.3 V logic only, no RF; antistatic wrist strap when handling the bare boards. Environment: room temperature 18 to 28 C; USB power from the host computer.",
+      "procedure": [
+        "Flash the devcheck keyer binary with picotool load and check it with picotool verify; record the binary SHA-256.",
+        "Run the logic capture reference pulse train check of the session and record the result (docs/process/04-verification-and-validation.md section 4, tool accreditation).",
+        "Set the keyer speed to 20 WPM with the devcheck serial command.",
+        "Start a capture at 1 MS/s on channels 0 and 1; hold the dah paddle for 2 s, release it, then hold the dit paddle for 2 s.",
+        "Export the capture to keyer-devboard-<wpm>wpm.csv and compute every element and gap length with the script named in automation_ref.",
+        "Repeat steps 3 to 5 at 5 WPM and at 50 WPM.",
+        "Record the capture firmware version, sample rate, channel map and tool versions in the report.",
+        "On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10."
+      ],
+      "acceptance_criteria": "Pass if, at 5, 20 and 50 WPM, every dit element is within plus or minus 1 percent of 1200 ms divided by WPM, every dah element within plus or minus 1 percent of three times that, and every inter-element gap within plus or minus 1 percent of one dit, each tolerance widened by one capture sample; otherwise Fail. The result is supporting evidence only and does not change the status of REQ-SW-KEYER-001.",
+      "instruments": [
+        "Pico-based logic capture (second Pico 2 with sigrok-pico firmware read by sigrok-cli; planned, ADR-009), 2 channels at 1 MS/s",
+        "Owner's iambic paddle through a 3.5 mm TRS breakout (SI-034)"
+      ],
+      "expected_artifacts": [
+        { "name": "keyer-devboard-20wpm.csv", "description": "Capture export at 20 WPM (5 and 50 WPM files alike): channel, edge time, level", "artifact_type": "csv" },
+        { "name": "keyer-devboard-analysis.log.txt", "description": "Element and gap lengths per speed with pass/fail per element", "artifact_type": "log" },
+        { "name": "devboard-setup.jpg", "description": "Photograph of the dev board, breakout and capture wiring", "artifact_type": "photo" }
+      ],
+      "status": "Draft",
+      "automation_ref": "tools/analyze_keyer_capture.py"
+    }
+  ]
+}

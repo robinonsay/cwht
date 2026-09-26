@@ -1,0 +1,122 @@
+{
+  "module": "SYS",
+  "test_cases": [
+    {
+      "id": "TC-SYS-001",
+      "title": "Straight key to PTT latency",
+      "requirement_ids": [
+        "REQ-SYS-001"
+      ],
+      "verification_method": "Test",
+      "type": "Emulation",
+      "procedure": [
+        "Load firmware in emulator",
+        "Close key GPIO at t0",
+        "Measure PTT GPIO assertion time"
+      ],
+      "acceptance_criteria": "PTT asserted no later than t0 + 5 ms in 100 of 100 trials.",
+      "status": "Active",
+      "automation_ref": "firmware/emu/scenarios/straight_key_latency.toml"
+    },
+    {
+      "id": "TC-SYS-002",
+      "title": "Transmit power into dummy load",
+      "requirement_ids": [
+        "REQ-SYS-003"
+      ],
+      "verification_method": "Test",
+      "type": "Bench",
+      "setup": "Article: CWHT-A-001, firmware v1.0.0+0abc123, enclosure lid off. Configuration: 50 ohm BNC dummy load on the antenna port, bench supply 12.0 V at 2 A limit, NanoVNA as power indicator. Safety: transmit only into the dummy load; key-down bursts of 5 s at most; PA heatsink not touched. Environment: room temperature 18 to 28 C, supply 12.0 V plus or minus 0.1 V.",
+      "procedure": [
+        "Key down 5 s at 144.0, 146.0, 148.0 MHz",
+        "Record indicated power"
+      ],
+      "acceptance_criteria": "Indicated power between 4.0 W and 6.3 W at each frequency.",
+      "instruments": [
+        "NanoVNA",
+        "50 ohm dummy load",
+        "bench supply"
+      ],
+      "expected_artifacts": [
+        {
+          "name": "power.csv",
+          "description": "Power per frequency",
+          "artifact_type": "csv"
+        }
+      ],
+      "status": "Passed",
+      "automation_ref": null
+    },
+    {
+      "id": "TC-SYS-003",
+      "title": "Console banner at 115200 baud",
+      "requirement_ids": [
+        "REQ-SYS-004"
+      ],
+      "verification_method": "Demonstration",
+      "type": "Emulation",
+      "procedure": [
+        "Boot the image in the emulator with the serial console captured",
+        "Read the banner from the capture at 115200 8N1"
+      ],
+      "acceptance_criteria": "Banner readable without framing errors.",
+      "status": "Draft",
+      "automation_ref": "firmware/emu/scenarios/console_banner.toml"
+    },
+    {
+      "id": "TC-SYS-004",
+      "title": "Iambic paddle keying across the speed range",
+      "requirement_ids": [
+        "REQ-SYS-002"
+      ],
+      "verification_method": "Test",
+      "type": "Emulation",
+      "procedure": [
+        "Load firmware in emulator",
+        "Drive dit and dah paddle GPIOs with a squeeze pattern at 5, 20 and 50 WPM",
+        "Capture the PTT waveform"
+      ],
+      "acceptance_criteria": "Element lengths match PARIS timing within 1 percent at each speed.",
+      "status": "Active",
+      "automation_ref": "firmware/emu/scenarios/iambic_speed_sweep.toml"
+    },
+    {
+      "id": "TC-SYS-005",
+      "title": "Battery endurance at the 1:9 duty cycle",
+      "requirement_ids": [
+        "REQ-SYS-005"
+      ],
+      "verification_method": "Test",
+      "type": "Bench",
+      "setup": "Article: CWHT-A-001 with charged cells, enclosure closed. Configuration: 50 ohm dummy load, keyer driven by the test harness at a 1:9 transmit-to-receive ratio. Safety: dummy load only; cells monitored for temperature by hand every 30 min. Environment: room temperature 18 to 28 C.",
+      "procedure": [
+        "Start the timed duty cycle with the multimeter logging cell voltage",
+        "Record the time at which the radio shuts down on low battery"
+      ],
+      "acceptance_criteria": "Shutdown time is 8 h or more.",
+      "instruments": [
+        "multimeter",
+        "50 ohm dummy load"
+      ],
+      "status": "Active",
+      "automation_ref": null
+    },
+    {
+      "id": "TC-SYS-006",
+      "title": "RF exposure power density calculation",
+      "requirement_ids": [
+        "REQ-SYS-006"
+      ],
+      "verification_method": "Analysis",
+      "type": "Simulation",
+      "setup": "Article: design data at tag baseline/cdr. Configuration: OET Bulletin 65 far-field formula in tools/rf_exposure.py with antenna gain from the datasheet.",
+      "procedure": [
+        "Run tools/rf_exposure.py with 5 W, the antenna gain and 20 cm",
+        "Compare the result with the 1.0 mW per square centimeter limit"
+      ],
+      "acceptance_criteria": "Computed power density at 20 cm is 1.0 mW per square centimeter or less.",
+      "status": "Active",
+      "automation_ref": "tools/rf_exposure.py"
+    }
+  ]
+}

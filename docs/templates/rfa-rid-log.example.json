@@ -1,0 +1,156 @@
+{
+  "review": "SRR",
+  "package_revision": 1,
+  "updated": "2026-10-12",
+  "items": [
+    {
+      "id": "RID-SRR-001",
+      "type": "RID",
+      "severity": "Major",
+      "review": "SRR",
+      "state": "Closed",
+      "originator": "owner",
+      "opened": "2026-10-03",
+      "product": "docs/requirements/sys/requirements.json",
+      "product_ids": ["REQ-SYS-014", "SI-018"],
+      "title": "Keying requirement omits iambic paddles",
+      "description": "REQ-SYS-014 requires only straight-key operation. Stakeholder input SI-018 states as a core requirement that the radio shall support both a straight key and iambic paddles with a built-in electronic keyer. The L1 set is therefore incomplete against its source.",
+      "requested_action": "Add an L1 requirement for iambic paddle operation with an electronic keyer (mode, speed range with units, weighting), trace it to SI-018, assign a verification method, and allocate it to CTL and SW.",
+      "assignee": "claude",
+      "due_review": "SRR",
+      "lien": false,
+      "response": "Added REQ-SYS-015 (iambic keyer, modes A and B, 5 to 50 WPM per SI-033, source SI-018, method Demonstration) and REQ-SYS-016 (key input auto-detect between straight key and paddle, method Test). Allocated both to CTL and SW in docs/design/allocation.json. Traceability report passes.",
+      "answered": "2026-10-04",
+      "evidence": [
+        { "kind": "commit", "ref": "3f2a9c1e7b5d4a6f8c0e2b1d9a7f6e5c4b3a2d10", "note": "requirements.json and allocation.json" },
+        { "kind": "requirement", "ref": "REQ-SYS-015" },
+        { "kind": "requirement", "ref": "REQ-SYS-016" },
+        { "kind": "traceability-report", "ref": "docs/reviews/SRR/traceability-report.md" }
+      ],
+      "verification": {
+        "role": "independent-reviewer",
+        "date": "2026-10-05",
+        "record": "docs/reviews/SRR/checklists/requirements-sys.md",
+        "result": "Verified",
+        "note": "Both requirements pass the SE HB App. C checklist; units and tolerances present; SI-018 traced."
+      },
+      "closed": "2026-10-05",
+      "closed_by": "owner",
+      "disposition": "Accepted",
+      "related": ["OPS-004"],
+      "history": [
+        { "date": "2026-10-03", "from": null, "to": "Open", "by": "owner", "note": "Raised at SRR session 1, slide 07." },
+        { "date": "2026-10-04", "from": "Open", "to": "Answered", "by": "claude" },
+        { "date": "2026-10-05", "from": "Answered", "to": "Verified", "by": "independent-reviewer" },
+        { "date": "2026-10-05", "from": "Verified", "to": "Closed", "by": "owner", "note": "Closed before baseline tag baseline/srr." }
+      ]
+    },
+    {
+      "id": "RID-SRR-002",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Answered",
+      "originator": "owner",
+      "opened": "2026-10-03",
+      "product": "docs/conops/conops.md",
+      "product_ids": ["OPS-007"],
+      "title": "Stuck-key scenario lacks operator indication",
+      "description": "OPS-007 (stuck key or paddle contact) describes the automatic transmit cutoff but does not say how the operator is told why the radio stopped transmitting.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "response": "OPS-007 now states that the LCD shows KEY STUCK and the sidetone changes to a fault tone until the key is released; linked to REQ-SYS-021. The ConOps was baselined at SRR (baseline/srr, SE-36), so the change was made under CR-001, approved by the owner on 2026-10-08. It is not editorial because it adds scenario content (process section 10.1).",
+      "answered": "2026-10-09",
+      "evidence": [
+        { "kind": "cr", "ref": "CR-001", "note": "docs/cm/cr/CR-001-ops-007-stuck-key-indication.md, approved by the owner 2026-10-08" },
+        { "kind": "commit", "ref": "9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b09", "note": "conops.md OPS-007, merged under CR-001 (trailer CR: CR-001)" }
+      ],
+      "related": ["CR-001"],
+      "history": [
+        { "date": "2026-10-03", "from": null, "to": "Open", "by": "owner", "note": "Raised at SRR session 1, slide 05." },
+        { "date": "2026-10-05", "from": "Open", "to": "Open", "by": "owner", "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration." },
+        { "date": "2026-10-09", "from": "Open", "to": "Answered", "by": "claude", "note": "Fix merged under CR-001." }
+      ]
+    },
+    {
+      "id": "RFA-SRR-001",
+      "type": "RFA",
+      "severity": "Blocking",
+      "review": "SRR",
+      "state": "Closed",
+      "originator": "owner",
+      "opened": "2026-10-03",
+      "product": "docs/plan/technology-assessment.md",
+      "product_ids": ["RSK-003"],
+      "title": "Confirm 5 W PA feasibility on battery",
+      "description": "Show that a 5 W CW PA at 144 MHz can be run from the proposed 2S 18650 pack (SI-023) within the thermal envelope of the aluminum enclosure, or state the constraint that changes the L1 power requirement.",
+      "requested_action": "Analysis with a power and thermal budget at the ConOps duty cycle; state the margin.",
+      "assignee": "claude",
+      "due_review": "SRR",
+      "response": "Analysis shows a boost converter to 12 V with 55 percent overall efficiency at 5 W output, 35 percent key-down duty cycle, enclosure surface rise 18 K above ambient at 25 C, margin 22 K to the 65 K limit. L1 power requirement unchanged; RSK-003 likelihood lowered.",
+      "answered": "2026-10-04",
+      "evidence": [
+        { "kind": "analysis", "ref": "docs/research/pa-power-thermal-feasibility.md" },
+        { "kind": "risk", "ref": "RSK-003", "note": "Likelihood 3 to 2." }
+      ],
+      "verification": {
+        "role": "owner",
+        "date": "2026-10-05",
+        "result": "Verified",
+        "note": "Question answered; assumptions listed."
+      },
+      "closed": "2026-10-05",
+      "closed_by": "owner",
+      "disposition": "Accepted",
+      "history": [
+        { "date": "2026-10-03", "from": null, "to": "Open", "by": "owner", "note": "Raised at SRR session 1, slide 09." },
+        { "date": "2026-10-04", "from": "Open", "to": "Answered", "by": "claude" },
+        { "date": "2026-10-05", "from": "Answered", "to": "Verified", "by": "owner" },
+        { "date": "2026-10-05", "from": "Verified", "to": "Closed", "by": "owner" }
+      ]
+    },
+    {
+      "id": "RFA-SRR-002",
+      "type": "RFA",
+      "severity": "Routine",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-10-03",
+      "product": "docs/plan/semp.md",
+      "title": "Keyer ergonomics in HSI section",
+      "description": "Extend the HSI section with the paddle and straight-key jack placement, cable strain relief, and the keyer speed control access while the radio is held in one hand.",
+      "requested_action": "Update the HSI section and add an OPS scenario for one-handed operation.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        { "date": "2026-10-03", "from": null, "to": "Open", "by": "owner", "note": "Raised at SRR session 1, slide 06." },
+        { "date": "2026-10-05", "from": "Open", "to": "Open", "by": "owner", "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration." }
+      ]
+    },
+    {
+      "id": "RID-SRR-003",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Withdrawn",
+      "originator": "owner",
+      "opened": "2026-10-03",
+      "product": "docs/requirements/sys/requirements.json",
+      "product_ids": ["REQ-SYS-008"],
+      "title": "Duplicate of RID-SRR-001",
+      "description": "REQ-SYS-008 key input description also lacks the paddle case; raised separately before RID-SRR-001 was written up.",
+      "assignee": "claude",
+      "due_review": "SRR",
+      "closed": "2026-10-03",
+      "disposition": "Withdrawn",
+      "withdrawal_reason": "Duplicate; covered by RID-SRR-001 and its new requirements REQ-SYS-015 and REQ-SYS-016.",
+      "history": [
+        { "date": "2026-10-03", "from": null, "to": "Open", "by": "owner", "note": "Raised at SRR session 1, slide 07." },
+        { "date": "2026-10-03", "from": "Open", "to": "Withdrawn", "by": "owner", "note": "Duplicate of RID-SRR-001." }
+      ]
+    }
+  ]
+}

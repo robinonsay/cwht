@@ -1,0 +1,205 @@
+# tools/: validation, traceability and review-trend tooling
+
+Three Python 3 scripts check the requirement, test case, hazard, review and evidence files of the repository and generate the matrices and trends that every review package carries (charter sections 4, 5, 7 and 9). All run from the repository root through the project virtual environment; no file is executable on its own.
+
+```sh
+.venv/bin/python tools/validate_docs.py                    # every JSON document, peer-review record and decision memo against its schema
+.venv/bin/python tools/traceability.py                     # traceability checks, report and data file
+.venv/bin/python tools/traceability.py --render            # same, after rendering expectations.md and every requirements.md
+.venv/bin/python tools/review_trend.py --date YYYY-MM-DD   # review-trend TPM (TPM-003) summary
+.venv/bin/python -m unittest discover -s tools/tests       # known-answer tests (the SWE-136 validation of 05 section 9.2)
+```
+
+**Accreditation status (SWE-136).** `validate_docs.py`, `traceability.py` and `review_trend.py` are class B evidence-generating tools (05 section 9.1). None is accredited yet: no `docs/cm/tool-validation/TV-NNN-<tool>.md` record exists, and `tools/toolchain.lock.md` section 1.2 gives TV due SRR for all three. Until the owner records the accreditation in those TV records (05 section 9.2 step 3), the output of these tools is developer evidence only and a review package cites it as such. The TV ids are assigned by Claude (software lead) when the records are written, before the SRR readiness declaration; this README names them in this paragraph in the same commit.
+
+**Dependencies.** The venv is recorded, with versions, in `tools/toolchain.lock.md` section 2: `jsonschema` (all three tools), PyYAML for YAML front matter (a subset parser in `validate_docs.py` is the fallback), and matplotlib for the `review_trend.py --write` figure only. Everything else is the standard library. `tools/requirements.txt` lists the nine direct dependencies of the venv without versions and does not list matplotlib, which arrives only as a dependency of `spicelib`; pinning every package with `==` and adding matplotlib is lock action AL-4 (05 section 9.3), an SRR readiness prerequisite (owner: Claude as maintainer of the lock).
+
+Other scripts in this directory carry their own usage in their docstrings: `render_rmm.py` (Requirements Mapping Matrix), `render_compliance.py` (NPR 7123.1D compliance matrix), `render_risk.py` (risk register), `slides/render_deck.py` (review decks), `refs/` (corpus conversion).
+
+## validate_docs.py
+
+Discovers documents by path convention and validates each against its schema (JSON Schema draft detected from `$schema`). A document at a conventional path whose schema file is absent is a failure. This is a design decision of this tool based on `docs/process/05-configuration-and-data-management.md` section 10.2, where authoritative JSON is "JSON validated by the row 9 schemas", and Table 4-1 row 9, where every schema gates validation evidence.
+
+| Document | Schema | State on 2026-09-25 |
+|---|---|---|
+| `docs/requirements/**/requirements.json` | `docs/requirements/schema.json` | validated |
+| `docs/requirements/l0-stakeholder/expectations.json` | `docs/requirements/l0-stakeholder/schema.json` | validated |
+| `docs/test_cases/**/test_cases.json` | `docs/test_cases/schema.json` | validated when a file exists |
+| `docs/risk/register.json` | `docs/risk/schema.json` | validated |
+| `docs/safety/hazards.json` | `docs/safety/schema.json` | validated |
+| `docs/process/rmm.json` | `docs/process/rmm.schema.json` | validated |
+| `docs/process/se-compliance-matrix.json` | `docs/process/se-compliance-matrix.schema.json` | validated (`render_compliance.py --check` adds the App. H cross-check) |
+| `docs/plan/tpm.json` | `docs/plan/tpm.schema.json` | validated, including every `history` entry against `history_entry` (`conventions.history_entry_shape`), so the entries `review_trend.py --write` appends are checked |
+| `docs/plan/measurements.json` | `docs/plan/measurements.schema.json` | not validated: neither file exists. The schema is due with the first commit of the file (first software sprint, SEMP section 3.6; written by `tools/measurements.py`, TV due PDR); until the schema exists the tool fails the file |
+| `docs/design/allocation.json` | `docs/design/allocation.schema.json` | not validated: neither file exists. The schema is due with the first commit of the file (preliminary at SRR, baselined at PDR, SEMP section 4.3); until the schema exists the tool fails the file |
+| `docs/reviews/*/rfa-rid-log.json` | `docs/templates/rfa-rid-log.schema.json` | validated when a log exists |
+| `docs/templates/<name>.example.json` | `docs/templates/<name>.schema.json`, else the alias for `<name>` (`requirements`, `test_cases`, `expectations`, `register`, `hazards`, `rmm`, `se-compliance-matrix`, `tpm`, `measurements`, `allocation`) | validated; `rfa-rid-log.example.json` also gets the item and history rules below |
+| `docs/reviews/*/checklists/<product-slug>.md` (YAML front matter) | built-in `PEER_REVIEW_RECORD_SCHEMA` (01 section 13): required `id` (`INSP-NNN`), `checklist` (pattern `^peer-review-checklist-[a-z]+(-[a-z]+)*$`, so hyphenated stems such as `peer-review-checklist-visual-product` are valid; a file in `docs/templates/`), `product`, `product_commit` (7 to 40 hex digits, quoted when all digits), `verdict` (`APPROVED` or `NEEDS CHANGES`), `author_agent`, `reviewer_agent`, `iteration` (1 to 3), `date`, `readiness_met` (boolean), and the integers of at least 0 `findings_major`, `findings_minor`, `findings_fixed`, `findings_deferred`, `effort_turns`, `effort_minutes` (SWE-089); optional `assurance_reviewer_agent`, `checklist_revision`, `checklist_file` | validated when a record exists |
+| `docs/reviews/*/decision-memo.md` (YAML front matter) | built-in `DECISION_MEMO_SCHEMA` (front matter of `docs/templates/decision-memo.md`): required `review`, `disposition` (null, `Approved`, `Approved with liens`), `signed` (ISO date or null); optional `package_revision`, `baseline_tag` (`baseline/<srr\|pdr\|cdr\|sar>` or null), `revoked` (ISO date or null) | validated when a memo exists |
+
+Cross-file rules applied on top of the schemas (charter sections 2, 5 and 6; `docs/process/01-lifecycle-and-reviews.md` sections 10.3, 10.4, 10.6, 12 and 13):
+
+| Rule | Failure message names |
+|---|---|
+| Every folder under `docs/reviews/` is a review token (SRR, PDR, CDR, TRR, TRR-Dn, SAR); a folder holding a log, record or memo is reported on that file, any other folder on itself; folders starting with `.` are ignored | the file or the folder |
+| A log's `review` equals its folder | the log |
+| Every item's `review` equals the log's `review` and its id starts with `<type>-<review>-` (01 section 10.4 check 2; this is the exact-`n` check of a `TRR-Dn` log: a `TRR-D1` log holding `RID-TRR-D2-001` fails). The one-line `python -c` check of 01 section 10.4 remains a fallback for a single log | the item index and id |
+| Every item history follows 01 section 10.3: the first entry is from null to Open dated `opened`; each `from` equals the previous `to`; dates never decrease; each transition is Open to Answered, Answered to Verified, Answered to Open, Verified to Open, Verified to Closed, Open or Answered to Withdrawn, or same-state in a non-terminal state; nothing follows Closed or Withdrawn; the last `to` equals `state` (`review_trend.py` computes every SE-64 measure from the history); `closed` equals the date of the entry that enters the terminal state and is null otherwise | the item index and id |
+| Every `verification.record` of a log names an existing file (the schema pattern admits only `docs/reviews/<REVIEW>/checklists/<product-slug>.md`), and that record's `product` is the item's `product` | the item index |
+| `INSP-NNN` ids are unique across all reviews; a record's `checklist_file`, when present, is the record's own path | the second holder |
+| A record's `reviewer_agent` differs from its `author_agent` (charter sections 2 and 11 rule 4; NPR 7123.1D App. G Table G-19 entrance 2) | the record |
+| A record needs `assurance_reviewer_agent` other than `none`, the author and the reviewer (SWE-088 d, required participants) when its product is a whole-product item of 07 section 2.1.1 (`docs/requirements/sw/requirements.json`, `docs/process/07-software-engineering-plan.md`, `docs/process/03-software-classification-and-rmm.md`, `docs/vv/plan.md`, `docs/design/architecture.md`) or belongs to a safety-critical (`SW-KEYER`, `SW-TXSEQ`, `SW-PWR`, `SW-SAFE`, `SW-AUDIO`, `SW-BOOT`, `SW-SCHED`) or mission-critical (`SW-SYNTH`, `SW-CFG`, `SW-DISPLAY`) module of 07 section 14.1. The module is read from a `sw-<sub>` token in the product path or the record slug, and from a path segment named `<sub>` under `firmware/` or `docs/design/sw/` | the record |
+| `verdict: APPROVED` needs `readiness_met: true` (SWE-088 b) and no body line naming a `finding-<n>` anchor together with the words `Major` and `Open` (SWE-088 b, c; 01 section 13) | the record |
+| A memo's `review` equals its folder; `disposition` and `signed` are both set or both null (01 section 12.1); `revoked` needs `signed` and is not earlier than it (01 section 12.2); `baseline_tag` needs `signed`, is set only for SRR, PDR, CDR and SAR, and equals `baseline/<review>` | the memo |
+| No `docs/reviews/*/peer-reviews/` folder exists (charter section 5 as amended 2026-09-25) | the folder |
+
+Options: `--root PATH` (default: the repository root), `--quiet` (failures only). Output is one `PASS`/`FAIL` line per document with the error path in dotted notation (`requirements[3].id: ...`). Exit 0 when every discovered document validates, 1 on any failure, 2 on a usage error.
+
+## traceability.py
+
+Of the six Class A rows of NPR 7150.2D section 3.12.1 Table 1 (SWE-052) that charter section 7 adopts, the tool enforces rows 1 (higher-level to software requirements), 5 (requirements to verifications) and 6 (requirements to nonconformances), row 2 (requirements to hazards) in part, and not yet rows 3 (requirements to design components) and 4 (design components to code). `SWE052_COVERAGE` in the source, printed as report section 1.4, lists per row the forward and backward link, the codes enforced today and the codes planned with their gates from `docs/process/03-software-classification-and-rmm.md` section 8. The tool also applies the requirement-side rules of `docs/process/02-requirements-and-traceability.md` section 8.2 and the evidence-side rules of `docs/process/04-verification-and-validation.md` section 7.3 that the catalogue below lists, then writes the report and a data file.
+
+```sh
+.venv/bin/python tools/traceability.py [--root PATH] [--output PATH] [--json PATH] [--report-only] [--quiet] [--render]
+.venv/bin/python tools/traceability.py --regression DESIGN_REF [DESIGN_REF ...]
+```
+
+| Option | Behavior |
+|---|---|
+| (none) | Reads every input below, runs every check of the catalogue, writes `docs/vv/traceability-report.md` and `docs/vv/traceability.json`; exit 0 with no violation, 1 with violations, 2 on a usage error |
+| `--output PATH` | Report path (relative to root unless absolute); the JSON is written beside it as `traceability.json` unless `--json` names another path |
+| `--report-only` | Writes the outputs and exits 0 even with violations (while drafting) |
+| `--quiet` | Prints violations only |
+| `--render` | First writes `expectations.md` beside `expectations.json` (from the JSON and the `OPS-NNN` headings of `docs/conops/conops.md`) and `requirements.md` beside each `requirements.json` (from that file alone), then runs as above (02 section 8.1). Rendered files are deterministic, carry the line "Generated from ... by `tools/traceability.py --render` (02 section 8.1)" and are never edited by hand |
+| `--regression DESIGN_REF ...` | Prints the hardware regression set of 04 section 10.5 (every `Passed` Bench case whose requirements' `design_refs` intersect the arguments, plus every live `TC-ATP` case) and exits without writing a report |
+
+Inputs (relative to root; a missing optional input is a `WARNING`, never a crash): `docs/requirements/**/requirements.json`, `docs/requirements/l0-stakeholder/stakeholder-inputs.md` (`SI-NNN` rows; a row containing `**` is a core input), `docs/requirements/l0-stakeholder/expectations.json` (`NGO-`, `MOE-`, `CON-` entries with kinds, links, text and `source_ids`), `docs/conops/conops.md` (`OPS-NNN` headings and titles; table rows and scenario sections for the TBD rule), `docs/plan/semp.md` (table rows, for the TBD rule), `docs/test_cases/**/test_cases.json`, `docs/safety/hazards.json` (`requirement_ids` and the controls' `control_req_ids`), `docs/risk/register.json` (`RSK-NNN`, validated against `docs/risk/schema.json`), `docs/plan/tpm.json` (`mops[]` and `tpms[]`), `docs/references/md/regulatory/47cfr-<part>.<section>[-<slug>].md` for Parts 1, 2, 15 and 97 (resolution of `47CFR<part>.<section>(<para>)` clauses; an extract such as `47cfr-2.106-harmonic-bands.md` resolves its section), `docs/decisions/adr/ADR-NNN-*.md`, `docs/decisions/trade-studies/TS-NNN-*.md`, `docs/icd/ICD-*.md` (table rows, for the TBD rule), `docs/vv/ncr/NCR-NNN.md` and `docs/vv/reports/TC-*-r<N>.md` (YAML front matter; every `artifacts` entry `"<path> sha256=<64 hex>"` is hashed), `docs/reviews/SAR/decision-memo.md` (existence, for `Closed`), and the rendered `.md` files (for `RENDER_STALE`). Files under `docs/templates/` are never read.
+
+Hazard trace (04 section 3; charter section 7): a requirement traces to a hazard through its own `hazard_ids` or when `hazards.json` names it in a hazard's `requirement_ids` or a control's `control_req_ids`. `HAZARD_REQ_NOT_TESTED` and `HAZARD_REQ_NOT_ON_TARGET` run on that union, and report section 9 lists the union as the controlling requirements. The message cites SWE-192 for modules `SW` and `SW-<SUB>` only; for every other module it cites 04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement.
+
+Retirement markers (02 section 11.3, until a schema CR adds `Retired`): a requirement is retired when its status is `Closed` and its tags include `retired`; a test case is retired when its status is `Blocked` and its `setup` begins `Retired by `. Retired entries count for no coverage, appear in no matrix row, and are checked by `RETIRED_INCONSISTENT`; a status `Retired` is honoured as soon as a schema admits it.
+
+Severities: `VIOLATION` sets the exit status; `WARNING` never does. One code has one severity. The plain-run severity of every rule follows the `check` column of 02 section 8.2. The `gate` column (for example T-08 set disagreement, T-17 group B words and T-20 core SI and Objective coverage as Errors at SRR) is not applied by the tool until `--gate` exists (below); until then the reviewer applies it by hand to the report's Warnings at the readiness declaration (02 section 8.1; 01 section 3.1), and the package records that manual gate run in its traceability section.
+
+### Outputs
+
+`docs/vv/traceability-report.md` is the working copy, refreshed by any plain run and never edited by hand. At package build 01 section 3.1 item 2 writes the frozen per-review record with `/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/traceability.py --output docs/reviews/<REVIEW>/traceability-report.md` (the relative path is taken from the root), which also writes `docs/reviews/<REVIEW>/traceability.json` beside it.
+
+| Section | Content |
+|---|---|
+| 1 Summary | Counts by status and evidence class, upstream artifacts consulted (1.1), open TBR list (1.2), key driving requirements (1.3), SWE-052 Table 1 coverage (1.4: one row per Class A row with the codes enforced, the codes planned with their gates, and the state Enforced, Partial or Not enforced) |
+| 2 Findings | Violations, then warnings: `code`, `location`, `message` |
+| 3 Requirements verification matrix | SE HB Appendix D, one table per requirements file, columns of 04 section 7.1: source, shall statement, success criteria (closing cases' acceptance criteria), method, evidence class, closing and supporting cases, facility, phase (credit event of 04 section 5.2), acceptance (Yes when a `TC-ATP` case cites the requirement: initial acceptance of each unit, App. D "Acceptance Requirement?"), recurring acceptance (Yes only when such a case carries `Recurring: yes` in its setup: App. D "Preflight Acceptance?"; default No), performer, results (latest credited report and NCRs), status. Retired requirements and retired cases are omitted |
+| 4 Validation matrix | SE HB Appendix E, one row per `OPS-NNN` heading and per `MOE-NNN`, filled from the live `TC-VAL` cases whose `setup` names the target after `Validates:`; phase from `Phase:` in the setup; row status `Validated` when every case is `Passed` |
+| 5, 6 | Orphan requirements (no live case), orphan test cases |
+| 7 Parent coverage | Requirements without a parent, allocation to children, requirements tree |
+| 8 Per-module coverage | Coverage, closing coverage, closure, children and open TBR per module |
+| 9 Hazard traceability | Per hazard: the controlling requirements (hazard trace union), the cases citing them, and the live software requirements without a Passed, credited Bench or OnAir closing case (the SAR list for SWE-192, 01 section 8.6) |
+| 10 Nonconformance traceability | NCR list and requirement to NCR list (SWE-052 Table 1 row 6) |
+| 11 Checks performed | The check catalogue: every code, its severity and its rule |
+
+`traceability.json` holds the same result as data: counts, coverage per module, validation row statuses, the SWE-052 coverage rows, the findings, and the measurements MSR-01 (requirements by level and status), MSR-03 (traceability gaps), MSR-04 (open TBR count) and MSR-23 (test counts by status and class) of 07 section 11.2. The planned consumer is `tools/measurements.py` (07 section 11.1), which does not exist yet: owner Claude as software lead, TV due PDR (`tools/toolchain.lock.md` section 1.2). Until it exists nothing appends these values to `docs/plan/measurements.json`.
+
+### Rule coverage
+
+This table and `CHECK_CATALOGUE` (report section 11) describe what the tool enforces today and are current as of 2026-09-25. 02 section 8.5, 04 section 7.4 and 03 section 8 bind the codes to their rules; where they differ from this table they are pending update by their owners, and this table is the statement of the tool.
+
+| Rule | Codes |
+|---|---|
+| T-01 | `SCHEMA_MISSING`, `SCHEMA_ID_PATTERN_MISSING` (warning), `SCHEMA_INVALID` (requirements, expectations including an unparsable file, test cases, hazards, risk register) |
+| T-02 | `MODULE_MISMATCH` (module equals the directory; id is exactly `<REQ\|TC>-<module>-NNN`), `MODULE_DUPLICATE`, `MODULE_UNKNOWN` (charter section 6 module sets), `ID_FORMAT` |
+| T-03 | `ID_DUPLICATE` (REQ, TC and NCR across and within files; NGO, MOE and CON within `expectations.json`; HZ within `hazards.json`; RSK within `register.json`; MOP and TPM within `tpm.json`; repeated `OPS-NNN` headings; two ADR or TS files with one number; the first definition is kept) |
+| T-05 | `L1_PARENT_NOT_NULL`, `PARENT_UNRESOLVED`, `PARENT_CYCLE`, `PARENT_MISSING`, `SELF_DERIVED_UNSUPPORTED` |
+| T-06 | `CHILD_INVERSE` |
+| T-07 | `SOURCE_UNRESOLVED` (requirement and `expectations.json` sources; `SI-`, `NGO-`, `MOE-`, `CON-`, `OPS-`, `ADR-`, `TS-`, `47CFR` Parts 1, 2, 15, 97), `SOURCE_L0_MISSING`, `SOURCE_FILE_MISSING`, `SOURCE_FORMAT_UNKNOWN`, `REGULATORY_TAG_NO_CLAUSE` |
+| T-08 | `HAZARD_ID_FORMAT`, `HAZARD_UNRESOLVED`, `HAZARD_FILE_MISSING`, `SAFETY_TAG_NO_HAZARD`, `HAZARD_CONTROL_UNTRACED` (a SW requirement named in `hazards.json` without the hazard id), `HAZARD_INVERSE` (warning; includes the control union rule), `HAZARD_REQ_NOT_TESTED` (on the hazard trace union), `HAZARD_REQ_NOT_ON_TARGET` (a Closed SW hazard requirement without Bench or OnAir evidence), `RISK_FILE_MISSING` |
+| T-09 | `REQ_UNVERIFIED`, `REQ_NO_CLOSING_CASE` (live cases only) |
+| T-10 | `TC_REQ_UNRESOLVED`, `TC_TYPE_METHOD`, `RETIRED_INCONSISTENT` (citation of a retired requirement by a live case) |
+| T-11 | `VERIFIED_WITHOUT_EVIDENCE` (every live closing case `Passed` with a `credit: true`, `result: Pass` report citing the requirement), `VERIFIED_WITH_OPEN_NCR`, `CLOSED_WITHOUT_SAR`, `CHILD_AHEAD_OF_PARENT`, `TC_STATUS_EVIDENCE`, `REPORTS_DIR_MISSING`, `FAILED_TC_WITHOUT_NCR`, `REPORT_*`, `NCR_*` |
+| T-14 | `TBD_PRESENT` (requirement and test case text, `expectations.json` text, ICD table rows, ConOps table rows and `OPS-NNN` scenario sections, SEMP table rows; in Markdown a mention of the policy terms such as `TBD and TBR`, `TBD/TBR`, `` `TBD` `` or `no TBD` is not a placeholder), `TBR_UNDOCUMENTED`, `TBR_UNMARKED`, `TBR_ON_FINAL_STATUS`, `TBR_CLOSE_BY` |
+| T-16 | `MOP_UNRESOLVED` (warning) |
+| T-17 | `SHALL_COUNT`, `MODAL_IN_DESCRIPTION`, `SHALL_IN_TITLE`, `DESCRIPTION_LENGTH`, `UNVERIFIABLE_WORD` |
+| T-19 | `RETIRED_INCONSISTENT` (prefix, live child, live citing case, tag `retired` on a status other than `Closed`, retired case citing a live requirement without `superseded by TC-...`); a retired requirement's `tbr` object is `TBR_ON_FINAL_STATUS` |
+| T-20 | `CORE_SI_UNCOVERED`, `OBJECTIVE_UNCOVERED`, `MOE_WITHOUT_OPS`, `OPS_UNCITED` (warnings, evaluated once a requirement exists) |
+| T-21 | `EXPECTATIONS_INCONSISTENT` |
+| T-22 | `INTERFACE_TAG_NO_ICD` (warning) |
+| 04 section 7.3 rules 5, 7, 8 | `VAL_TARGET_MISSING`, `VAL_TARGET_UNRESOLVED` (a mistyped target next to an existing one), `TC_SETUP_INCOMPLETE`, `REPORT_*`, `NCR_*` |
+| SWE-052 row 6, SWE-202 | `NCR_NO_REQUIREMENT` (a product NCR of severity S1 to S3 without `requirement_ids`; the message names the requirements of its test cases), `NCR_FIELD_INVALID` (severity outside S1 to S4, status outside the 04 section 10.7 lifecycle, classification other than product or procedure) |
+| 02 section 8.1 rendered files | `RENDER_STALE` (warning: rendered file absent, not written by `--render`, or different from the rendering of its JSON) |
+
+### Not implemented, with gates
+
+Each row below is a tool task of Claude as software lead; the gate's readiness declaration is blocked until its unit test passes on the fixtures (02 section 8.5; 04 section 7.4). Until the code exists, the check named in the last column is made by hand and recorded in the package.
+
+| Planned code or option | Rule and source | Gate | Manual check until then |
+|---|---|---|---|
+| `HAZARD_UNCONTROLLED` | SWE-052 row 2 (03 section 8) | before PDR | hazard analysis reviewer, PDR hazard-to-requirement table |
+| `HAZARD_INVERSE` promoted to a violation | T-08 (03 section 8; 04 section 7.3 rule 6 asks for every gate) | PDR | reviewer treats every `HAZARD_INVERSE` warning as blocking (04 section 7.4) |
+| `DESIGN_REF_UNRESOLVED`, `DESIGN_REF_MISSING`, `DESIGN_ELEMENT_ORPHAN`, `REUSED_TAG_NO_REF` | SWE-052 row 3, T-15 (03 section 8; 02 section 8.5) | before PDR | design reviewer (`peer-review-checklist-design.md`) |
+| `TAG_UNRESOLVED`, `REQ_UNTAGGED`, `DESIGN_ELEMENT_UNIMPLEMENTED` | SWE-052 row 4, T-15 (03 section 8) | before CDR | code reviewer (`peer-review-checklist-code.md`) |
+| `NCR_BLOCKS_VERIFIED` | SWE-052 row 6 (03 section 8) | before TRR | none needed: `VERIFIED_WITH_OPEN_NCR` already blocks Verified for an open NCR of any severity |
+| `HAZARD_REQ_NOT_ON_TARGET` for status `Verified` | SWE-192 at SAR (01 section 8.6); needs `--gate SAR`, because charter section 9 admits a host-verified software requirement as Verified before SAR | with `--gate` (PDR), applied at SAR | SAR package builder (Claude) confirms that report section 9 lists no requirement in "not yet tested on target" |
+| `--gate <SRR\|PDR\|CDR\|TRR\|SAR>` | 02 section 8.2 `gate` column | PDR (02 section 8.1) | reviewer applies the `gate` column to the Warnings at every readiness declaration from SRR, recorded in the package traceability section |
+| `--volatility --from <tag>` | SWE-200, MSR-02, TPM-012 (02 section 10.4) | PDR, first interval after `baseline/srr` | none before the first change after `baseline/srr` |
+| `--fix-children` | T-06 convenience | PDR | authors maintain `child_ids`; `CHILD_INVERSE` catches mismatches |
+| `BASELINE_ID_MISSING`, `TRANSITION_FORBIDDEN`, `CHANGE_UNCOVERED` | T-04, T-12, T-13 (git history, `docs/cm/cr/`) | PDR | CM reviewer against the baseline record |
+| `SYS_UNALLOCATED` | T-18 | W listing before SRR; E at PDR | requirements reviewer, check CK-REQ-B3 |
+| `KDR_WITHOUT_MOP`, `MOE_WITHOUT_MOP` | T-16, T-20 | PDR | reviewer of `docs/plan/tpm.json` |
+| `ICD_NAME`, `ICD_UNPAIRED`, `ICD_SECTION4_MISMATCH` | T-22 | PDR | interface reviewer |
+| `SYS_NO_VALIDATION_PATH`, `SECURITY_TAG_NO_SOURCE`, `STAKEHOLDERS_MISSING`, T-09 and T-10 module rule | T-07, T-21, T-09, T-10 (02 section 8.5) | before SRR | requirements reviewer, checklist sections B and E |
+| `CLOSING_CLASS`, `CLOSED_NOT_INSTALLED` (a `Closed` `REQ-SW-*` whose credited release no PCA-05 line names; the single name for this check in 02 T-11, 04 section 7.4 and 05), `VERIFIED_RELEASE_STALE`, `REPORT_RELEASE_UNRESOLVED`, `WAIVER_UNRECORDED` | 04 rules 7.3.3 and 7.3.4, T-11 (charter section 9) | CDR | procedure reviewer (04 section 8.3) |
+| `VAL_PHASE_MISSING` | 04 rule 7.3.5 | before SRR | procedure reviewer |
+| `CASE_STALE`, `DEVBOARD_CASE_CLOSING` | 04 rules 7.3.11 and 7.3.12 | PDR; before the first dev-board case becomes Active | procedure reviewer |
+| Report section for retired entries | T-19 (02 section 11.3) | PDR | reviewer reads the retired count in report section 1 |
+
+## review_trend.py
+
+Computes the review-trend TPM (`TPM-003`, key `review-trend`; NPR 7123.1D SE-64) exactly as `docs/process/01-lifecycle-and-reviews.md` section 11 defines it, from the RFA/RID logs and the `signed` dates of the decision memos. It is the only writer of the `TPM-003` history in `docs/plan/tpm.json` (01 section 11); no other script or hand edit appends to it.
+
+```sh
+.venv/bin/python tools/review_trend.py [--root PATH] [--date YYYY-MM-DD] [--json]
+.venv/bin/python tools/review_trend.py --package <REVIEW> --write [--root PATH] [--date YYYY-MM-DD]
+```
+
+| Option | Behavior |
+|---|---|
+| `--date` | Package date `T` (default: today). Every item state is evaluated at `T` from its `history` |
+| `--json` | Prints the computed result as JSON instead of the text table |
+| `--package REVIEW --write` | Also writes `docs/reviews/<REVIEW>/figures/review-trend.png` (one burndown panel per logged review: cumulative raised and cumulative closed plus withdrawn as step lines, signed gate memos marked, `T` marked) and appends one history entry per logged review to `TPM-003` in `docs/plan/tpm.json` (fields of `conventions.history_entry_shape`: `review` = the package, `date` = `T`, `cbe` = closure fraction at `T`, `status`, `evidence` = the figure, `credit: false`, plus `log_review`, `raised`, `open`, `verified_pending`, `closed`, `withdrawn`, `overdue`, `closure_fraction_at_gate`, `zone`). A rerun for the same package and date replaces that run's entries; only the history array of `TPM-003` is rewritten in the file. With no log it writes a placeholder figure and one zero-count Green entry |
+
+Inputs: `docs/reviews/*/rfa-rid-log.json` (validated against `docs/templates/rfa-rid-log.schema.json` first), `docs/reviews/*/decision-memo.md` front matter `signed`, `docs/plan/tpm.json` (with `--write`). Run `validate_docs.py` first: `review_trend.py` checks only the log schema, while `validate_docs.py` also fails a log whose history disagrees with its `state`, a log or memo outside a review-token folder, and an inconsistent memo.
+
+Decisions the tool applies where 01 section 11 leaves a reading open: the next gate of review `R` is the first review after `R` in the order SRR, PDR, CDR, TRR, TRR-D1, TRR-D2, ..., SAR whose memo is signed on or before `T`; `closure_fraction_at_gate` is undefined until then and when every raised item was withdrawn; a review is "prior" (dispositioned) once its memo is signed on or before `T`, and its Major RIDs and Blocking RFAs count as open in any state other than Closed or Withdrawn; the zones are evaluated Red first, then Green, then Yellow (an undefined closure fraction does not block Yellow), and anything else is Red; the overall zone is the worst review zone; the burndown series lists the dates on which an item was raised, closed or withdrawn (the dates where the step lines move, which reproduces the 01 section 11 known answer).
+
+Known limitations, open for the `review_trend.py` maintainer: the memo key `revoked` (01 section 12.2) is not read, so a revoked review stays dispositioned and remains a gate date; a log or memo in a folder that is not a review token is read and ranked after SAR. `validate_docs.py` fails the second case; the first needs a rule in 01 section 11 and a change to the tool.
+
+Exit 0 when every zone is Green or Yellow (and when no log exists yet), 1 when any zone is Red (a Red zone blocks the readiness declaration), 2 on a usage error or invalid input (schema failure, bad date, missing `TPM-003` with `--write`).
+
+## Tests and fixtures
+
+`tools/tests/` holds the `unittest` known-answer tests (05 section 9.2; SWE-136):
+
+- `test_validate_docs.py`: conventions, peer-review records, log cross-checks, and a repository class.
+- `test_traceability.py`: the original rule set, the exact seeded code sets, and a repository class.
+- `test_tools.py`: the pre-SRR additions (retirement markers, evidence rules, TBD scope, `--render`, front matter, matrix columns, JSON output, both tools together), one targeted test for every catalogue code that no fixture seeds with a guard test that fails when a new code has no test, and the 2026-09-25 revision classes: hazard trace union, on-target evidence, duplicate ids, module sets, schema findings, baselined Markdown TBDs, NCR fields, SWE-052 coverage, log items and history, peer-review record rules, decision memos and review folders, the new conventions, and the schema tripwires.
+- `test_review_trend.py`: the 01 section 11 known answers on `docs/templates/rfa-rid-log.example.json`, CLI, `--write`, zones.
+
+`test_render_rmm.py`, `test_render_compliance.py`, `test_render_risk.py` and `test_render_deck.py` belong to their own tools (`test_render_deck.py` also holds `LocationGuard`, which checks that `tools/slides/render_deck.py` exits 2 and writes nothing for a deck outside `docs/reviews/<REVIEW>/slides/`). The `RepositoryTests` classes check repository content, not the tools; 05 section 9.2 records them separately from the accreditation run.
+
+The fixtures are miniature repositories:
+
+- `tools/tests/fixtures/valid_project`: every rule satisfied; `validate_docs.py` and `traceability.py` exit 0 with zero findings. It holds an Active L1 requirement with an open TBR, a self-derived L2 requirement backed by `ADR-001`, a non-software hazard control closed by `Analysis accepted per RSK-001`, an `expectations.json` in the real L0 structure with its rendered `expectations.md`, rendered `requirements.md` files, a `TC-VAL` case, a `tpm.json` valid against a copy of `docs/plan/tpm.schema.json`, regulatory corpus sections of Parts 1, 2 (extract file) and 97, a credited Bench report with a hashed artifact and the CM keys of `docs/templates/verification-report.md` (`source_commit`, `firmware_elf_sha256`, `procedure_blob`, `harness_versions`; 05 section 7.3 item 1), an NCR of severity S3, and an SRR RFA/RID log whose RID is verified by the complete record `docs/reviews/SRR/checklists/requirements-sys.md`.
+- `tools/tests/fixtures/invalid_project`: seeded defects; both tools exit 1. `test_traceability.py` and `test_validate_docs.py` assert that exactly the seeded codes and the seeded failing documents are reported. Seeds added on 2026-09-25 that keep those sets: a duplicate `HZ-001` and a duplicate `RSK-001` (`ID_DUPLICATE`), and `REQ-SYS-005` named by `HZ-001` without `hazard_ids` (`HAZARD_REQ_NOT_TESTED` on the union).
+- `tools/tests/fixtures/review_trend`: a verbatim copy of `docs/templates/rfa-rid-log.example.json` as the SRR log, the SRR memo signed 2026-10-05, the record the log names, and a minimal `tpm.json` whose exact formatting the `--write` tests of `test_review_trend.py` check (it is not valid against `docs/plan/tpm.schema.json`, and `validate_docs.py` is not run on this fixture); `--write` tests run on a temporary copy.
+
+Copies that must track the repository: the `review_trend` fixture log equals `docs/templates/rfa-rid-log.example.json`, and the fixture copies of `docs/templates/rfa-rid-log.schema.json` and `docs/plan/tpm.schema.json` carry the repository constraints (`SchemaTripwireTests` compares them with every `description` removed). Any change to one of those three repository files is committed together with the re-copied fixture files and a green suite (`.venv/bin/python -m unittest discover -s tools/tests`).
+
+To add a check:
+
+1. Add the code to `CHECK_CATALOGUE` with one severity and its rule text; for a SWE-052 row, update `SWE052_COVERAGE`.
+2. Implement it in a `check_*` function.
+3. Seed one defect in `invalid_project` without changing its seeded code sets, or add a targeted test in `test_tools.py` (keep `valid_project` clean). When a fixture change alters a seeded set, extend `EXPECTED_INVALID_VIOLATIONS` in `test_traceability.py` or `EXPECTED_INVALID_FAILURES` in `test_validate_docs.py` in the same commit.
+4. Run the suite until it is green, then write or update `docs/cm/tool-validation/TV-NNN-<tool>.md` with the suite result and the commit tested, and update the tool's rows in `tools/toolchain.lock.md` sections 1.1 and 1.2 (05 section 9.2 steps 1 to 4).
+5. Update this README's tables, and ask the owners of 02 section 8.5, 03 section 8 and 04 section 7.4 to update their tables in the same change set.
+
+After any change to a fixture JSON with a rendered `.md`, re-render the fixture: `.venv/bin/python tools/traceability.py --root tools/tests/fixtures/valid_project --output <scratch path>/r.md --render`.

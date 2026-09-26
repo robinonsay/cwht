@@ -1,0 +1,27 @@
+{
+  "review": "SRR",
+  "items": [
+    {
+      "id": "RID-SRR-001",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Verified",
+      "originator": "owner",
+      "opened": "2026-10-03",
+      "product": "docs/requirements/sys/requirements.json",
+      "description": "Seeded defect: this SRR log sits in the PDR folder and its verification record does not exist.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "response": "Fixed in the fixture commit.",
+      "answered": "2026-10-04",
+      "evidence": [{ "kind": "commit", "ref": "3f2a9c1" }],
+      "verification": { "role": "independent-reviewer", "date": "2026-10-05", "record": "docs/reviews/SRR/checklists/missing-record.md", "result": "Verified" },
+      "history": [
+        { "date": "2026-10-03", "from": null, "to": "Open", "by": "owner" },
+        { "date": "2026-10-04", "from": "Open", "to": "Answered", "by": "claude" },
+        { "date": "2026-10-05", "from": "Answered", "to": "Verified", "by": "independent-reviewer" }
+      ]
+    }
+  ]
+}

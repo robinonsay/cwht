@@ -1,0 +1,4 @@
+{"hazards": [
+  {"id": "HZ-001", "title": "Unintended transmission", "requirement_ids": ["REQ-SYS-003", "REQ-SYS-555", "REQ-SYS-005"]},
+  {"id": "HZ-001", "title": "Seeded duplicate of HZ-001 (ID_DUPLICATE; the first definition is kept)", "requirement_ids": ["REQ-SYS-001"]}
+]}

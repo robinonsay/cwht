@@ -1,0 +1,106 @@
+{
+  "module": "SYS",
+  "requirements": [
+    {
+      "id": "REQ-SYS-001",
+      "title": "Transmit power",
+      "description": "The transmitter shall deliver TBD W into a 50 ohm load.",
+      "rationale": "SI-001. 47CFR97.999 is a clause of a section absent from the regulatory corpus (SOURCE_UNRESOLVED); MOP-999 is not in tpm.json (MOP_UNRESOLVED).",
+      "verification_method": "Test",
+      "status": "Active",
+      "parent_id": null,
+      "child_ids": ["REQ-RX-001", "REQ-RX-005", "REQ-SYS-007"],
+      "source_ids": ["SI-001", "NGO-001", "47CFR97.999"],
+      "mop_ids": ["MOP-999"]
+    },
+    {
+      "id": "REQ-SYS-002",
+      "title": "Receiver sensitivity",
+      "description": "The receiver shall detect a 1 uV signal.",
+      "rationale": "Needed for range. Only an SI source while expectations.json exists (SOURCE_L0_MISSING).",
+      "verification_method": "Test",
+      "status": "Active",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["SI-999"],
+      "tbr": {"owner": "Robin", "plan": "Decide sensitivity at PDR.", "close_by": "CDR"}
+    },
+    {
+      "id": "REQ-SYS-002",
+      "title": "Duplicate id",
+      "description": "The radio shall not reuse identifiers.",
+      "rationale": "Duplicate on purpose.",
+      "verification_method": "Inspection",
+      "status": "Draft"
+    },
+    {
+      "id": "REQ-SYS-003",
+      "title": "Keying",
+      "description": "The radio shall accept a straight key and shall accept iambic paddles with adequate timing.",
+      "rationale": "Two shalls and a weak word on purpose.",
+      "verification_method": "Test",
+      "status": "Verified",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["SI-001"],
+      "hazard_ids": ["HZ-999", "HAZ-1"]
+    },
+    {
+      "id": "REQ-sys-004",
+      "title": "Bad id",
+      "description": "The radio should be robust.",
+      "rationale": "",
+      "verification_method": "Analysis",
+      "status": "Draft",
+      "parent_id": null,
+      "source_ids": ["SI-001", "WHATEVER-1"]
+    },
+    {
+      "id": "REQ-SYS-005",
+      "title": "TBR on a Verified requirement",
+      "description": "The radio shall weigh at most 350 (TBR) g without the antenna.",
+      "rationale": "A tbr object on a Verified requirement is seeded on purpose (T-14).",
+      "verification_method": "Inspection",
+      "status": "Verified",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["SI-001"],
+      "tbr": {"owner": "Robin", "plan": "Enclosure trade study.", "close_by": "PDR"}
+    },
+    {
+      "id": "REQ-SYS-006",
+      "title": "The radio shall limit RF exposure",
+      "description": "The radio must keep the power density at 20 cm below 1.0 mW per square centimeter.",
+      "rationale": "Shall in the title, a group A modal verb, and an Analysis exception naming a risk that does not exist are seeded on purpose.",
+      "verification_method": "Analysis",
+      "verification_note": "Analysis accepted per RSK-999: no field-strength meter.",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": ["REQ-RX-006"],
+      "source_ids": ["SI-001"],
+      "hazard_ids": ["HZ-001"]
+    },
+    {
+      "id": "REQ-SYS-007",
+      "title": "L1 requirement with a parent",
+      "description": "The radio shall boot to receive within 2 s of power on.",
+      "rationale": "A SYS requirement with a non-null parent_id is seeded on purpose (T-05, L1_PARENT_NOT_NULL).",
+      "verification_method": "Test",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-001",
+      "child_ids": [],
+      "source_ids": ["NGO-001"]
+    },
+    {
+      "id": "REQ-SYS-008",
+      "title": "Closed without a SAR memo",
+      "description": "The enclosure shall carry the call sign label on the rear face.",
+      "rationale": "Closed while docs/reviews/SAR/decision-memo.md is absent and the Passed closing case has no report (CLOSED_WITHOUT_SAR, VERIFIED_WITHOUT_EVIDENCE, TC_STATUS_EVIDENCE).",
+      "verification_method": "Inspection",
+      "status": "Closed",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["NGO-001"]
+    }
+  ]
+}

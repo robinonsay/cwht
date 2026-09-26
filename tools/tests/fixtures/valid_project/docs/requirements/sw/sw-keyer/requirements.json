@@ -1,0 +1,44 @@
+{
+  "module": "SW-KEYER",
+  "requirements": [
+    {
+      "id": "REQ-SW-KEYER-001",
+      "title": "Straight key debounce",
+      "description": "The keyer module shall debounce the straight key input with a 2 ms window and assert PTT within 3 ms.",
+      "rationale": "Allocated from REQ-SYS-001; 2 ms + 3 ms leaves 0 ms margin to the 5 ms system budget with the hardware filter (ADR-001).",
+      "verification_method": "Test",
+      "verification_note": "Host cargo test with mocked GPIO timeline.",
+      "status": "Active",
+      "parent_id": "REQ-SYS-001",
+      "child_ids": [],
+      "source_ids": ["ADR-001"],
+      "hazard_ids": ["HZ-001"],
+      "design_refs": ["firmware/cwht-core/src/keyer/straight.rs"]
+    },
+    {
+      "id": "REQ-SW-KEYER-002",
+      "title": "Iambic mode B element timing",
+      "description": "The keyer module shall generate dits of 1200 ms divided by WPM and dahs of three dits, within 1 percent.",
+      "rationale": "Allocated from REQ-SYS-002; PARIS timing standard.",
+      "verification_method": "Test",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-002",
+      "child_ids": [],
+      "source_ids": [],
+      "design_refs": ["firmware/cwht-core/src/keyer/iambic.rs"]
+    },
+    {
+      "id": "REQ-SW-KEYER-003",
+      "title": "Keyer speed persistence",
+      "description": "The keyer module shall restore the last keyer speed from configuration memory within 100 ms of boot.",
+      "rationale": "Self-derived: ADR-001 records the decision to persist keyer settings so the radio starts with a usable keyer; no parent requirement states it (02 section 2.3).",
+      "verification_method": "Test",
+      "verification_note": "Host cargo test with a mocked configuration store.",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["ADR-001"],
+      "design_refs": ["firmware/cwht-core/src/keyer/config.rs"]
+    }
+  ]
+}

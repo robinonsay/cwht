@@ -1,0 +1,936 @@
+{
+  "title": "cwht Measures of Performance, Technical Performance Measures and leading indicators",
+  "schema": "docs/plan/tpm.schema.json",
+  "version": "0.3 (2026-09-25, preliminary for SRR; TPM definitions approved at PDR per SE-40; aligned to charter commit b8214ca)",
+  "governing": {
+    "semp_section": "docs/plan/semp.md section 7.4 (TPMs) and section 5.16 (technical assessment)",
+    "charter_sections": [
+      "4 (item 5, review trends)",
+      "5 (TPMs and leading indicators row)",
+      "6 (MOP-NNN and TPM-NNN id schemes)",
+      "9 (evidence classes and credit rules)",
+      "12 (cost model tailoring; SE-62 mass margin fully compliant, provisional allocation 350 g)"
+    ],
+    "decision_records": [
+      "ADR-020 battery-life target (TPM-008, MOP-010)",
+      "ADR-021 tinySA Ultra as the spurious-emission instrument (TPM-007, TPM-015, conventions.instruments)",
+      "ADR-022 harmonic suppression target, proposed, owner decision at SRR (TPM-007, MOP-009)",
+      "ADR-023 TCXO ceiling and band-edge guard, proposed, owner decision at SRR (TPM-006, MOP-008)",
+      "ADR-024 keyer speed range (TPM-013, MOP-012)",
+      "ADR-025 build quantity cap (TPM-014, MOP-016)"
+    ],
+    "process_documents": [
+      "docs/process/01-lifecycle-and-reviews.md section 11 (review-trend TPM, tools/review_trend.py, alert zones)",
+      "docs/process/02-requirements-and-traceability.md section 6 (MOE, MOP, TPM, KDR definitions; mops[] fields; minimum TPM set)",
+      "docs/process/04-verification-and-validation.md sections 4 to 6 (evidence classes, credit, instruments)",
+      "docs/process/07-software-engineering-plan.md sections 9.6, 11 and 14 (MC/DC method, measurements MSR-NN including MSR-13 and MSR-14, safety-critical components)"
+    ],
+    "npr_7123_1d": [
+      "SE-60 establish TPMs",
+      "SE-61 report TPMs on an agreed interval (conventions.reporting_interval)",
+      "SE-57 periodic technical reviews between life-cycle reviews (sprint closures, 01 section 2.1)",
+      "SE-62 mass margin",
+      "SE-63 power margin",
+      "SE-64 review action closure trends",
+      "SE-40 approved TPM definitions at PDR",
+      "SE-43 initial trend of leading indicators at PDR"
+    ],
+    "se_handbook": [
+      "SE HB App. J section 7.4 (required leading indicators and other trends: verification, problem report, interface and requirement trends)",
+      "SE HB section 6.7.1.2.1 (technical assessment strategy; colour-coded alert zones)"
+    ]
+  },
+  "conventions": {
+    "id_patterns": {
+      "mop": "^MOP-[0-9]{3}$",
+      "tpm": "^TPM-[0-9]{3}$"
+    },
+    "owner_of_all_measures": "Claude (lead systems engineer) measures and reports; Robin (owner, Decision Authority) receives reports and decides on red items",
+    "mop_rule": "mops[] holds the Measures of Performance selected from the MOEs of docs/requirements/l0-stakeholder/expectations.json (02 section 6.2 fields: id, title, moe_ids with at least one entry, requirement_ids, unit, threshold, target, tc_ids). Every performance TPM names the MOP it is selected from in mop_id; process and design-margin leading indicators (review trend, PCB area, requirements volatility, verification closure, NCR trend, interface maturity) carry mop_id null with a mop_note. Every MOE has at least one MOP by PDR (rule T-16 of 02); requirement_ids and tc_ids are filled as the L1 and L2 requirements and cases are written (SRR, PDR) and checked by tools/traceability.py from PDR onward",
+    "reporting_interval": "SE-61 interval agreed with the owner (one interval, stated identically in SEMP section 7.4 and the se-compliance-matrix.json SE-61 row): (1) every life-cycle review package (docs/reviews/<REVIEW>/package.md, REVIEW in SRR, PDR, CDR, TRR, TRR-Dn, SAR) carries the full TPM table with alert colour, and trend plots are rendered into docs/reviews/<REVIEW>/figures/ (review-trend.png by tools/review_trend.py per 01 section 11; the other TPMs by tools/render_tpm.py, which Claude writes before PDR when SE-43 first requires trends); (2) every software sprint closure (docs/sprints/SW-NN-<module>.md, the SE-57 periodic technical review of 01 section 2.1) reports every TPM the sprint touched with margin; (3) any TPM that changes to yellow or red between (1) and (2) is reported to the owner within one working session in a status note docs/plan/status/status-YYYY-MM-DD.md (conventions.status_note). A red TPM opens RSK-NNN in docs/risk/register.json; the corrective action is tracked as a mitigation step of that risk and presented for owner disposition at the next review (charter section 4 item 3: RFAs are raised only by the owner at a review)",
+    "status_note": "Path docs/plan/status/status-YYYY-MM-DD.md, one file per date, written by Claude: the TPM id and key, previous and new status, CBE with evidence path, cause, the RSK-NNN opened or updated, and the proposed response. The history entry for the transition uses review token status-YYYY-MM-DD and names the status note in its evidence field. Status notes are Record-class data; they live outside docs/reviews/ because every folder there is a review token (charter section 6)",
+    "status_rule": "Evaluated in this order against the margin_policy entry of the current phase (the latest phase key at or before the review; every_review applies at every review): red when the CBE meets threshold_red, or no estimate or measurement exists at a review listed in reporting_review; green when the CBE meets the phase margin_policy; yellow in every other case, that is below the phase margin_policy and not red. threshold_yellow describes the typical yellow band and never narrows this rule, so every CBE is exactly one of green, yellow or red",
+    "margin_definition": "margin = (allocation - CBE) / allocation for consumed resources (mass, power, flash, RAM, area, envelope, cost); margin = CBE - requirement for performance measures where larger is better; sign conventions are stated per TPM",
+    "tbr_rule": "A TPM whose planned value is not yet decided carries a tbr object with owner, plan and close_by; no TPM carries a TBR after its close_by review. planned_value is null while a TBR is open and the provisional value in planned_value_text is used for status until closure. Values stated in expectations.json (NGO/MOE) or in a stakeholder input are planned values, not TBRs; where the owner has not yet ratified a ConOps proposal, the TPM says so and names the ratifying review",
+    "evidence_rules": "Measurement texts name the verification method (Analysis, Test, Inspection, Demonstration) followed by the evidence class of docs/test_cases/schema.json (Simulation, HostUnit, Emulation, Inspection, Bench, OnAir); Analysis is a method, not a class, and budgets and worst-case sums are Analysis whose evidence is a Simulation case or an analysis note under docs/design/budgets.md or docs/design/analysis/. HostUnit (application logic on the host implementation of the rustos api traits with injected device models and a mock clock) is the primary software evidence (charter section 9; SI-026). Emulation is optional and secondary: event ordering only, never timing. Runs on a bare Pico 2 development board before the delivered unit exists are Bench evidence with credit: false; they inform a TPM's pre-build estimate but never close it. Run-for-record values come from the delivered unit after TRR, and a delta TRR (TRR-Dn) precedes every new run-for-record series (charter sections 3 and 9)",
+    "regulatory_citation": "47 CFR clauses are cited from the verbatim corpus docs/references/md/regulatory/<file>.md (eCFR issue 2026-09-23), for example 47 CFR 97.307(e) (corpus: 47cfr-97.307.md); the README of that directory gives the currency re-check procedure applied before CDR and before the first on-air series",
+    "history_entry_shape": {
+      "review": "SRR|PDR|CDR|TRR|TRR-Dn (the exact TRR-D1, TRR-D2, ...)|SAR|status-YYYY-MM-DD",
+      "date": "YYYY-MM-DD",
+      "cbe": "number (the TPM value in its stated units), or null only when no scalar value exists at that date (tools/review_trend.py writes null when no RFA/RID log exists)",
+      "status": "green|yellow|red",
+      "evidence": "repo path",
+      "credit": "true for a run-for-record value on the delivered unit or an analysis on baselined design data; false for dev-board, mockup or preliminary values",
+      "note": "string",
+      "tpm_specific": "additional fields allowed per TPM; review-trend records log_review, raised, open, verified_pending, closed, withdrawn, overdue, closure_fraction_at_gate and zone per logged review as specified in 01-lifecycle-and-reviews.md section 11 and written by tools/review_trend.py --write; the sub-measures of TPM-013, TPM-017, TPM-018, TPM-019 and TPM-020 are recorded as named fields (for example mcdc_tables_pct, region_pct, complexity_over_15, branch_condition_pct)"
+    },
+    "key_rule": "Every TPM carries a stable machine key used by other documents (docs/process/01-lifecycle-and-reviews.md section 11 refers to the entry keyed review-trend and section 14 to mass-margin; tools/review_trend.py locates the review-trend entry by its key); keys are lower-case words joined by hyphens, unique, and never change once a TPM is reported",
+    "schema_rule": "This file validates against docs/plan/tpm.schema.json (owned by the SEMP, 02 section 6.2) through the docs/plan/tpm.json convention of tools/validate_docs.py, which also checks every history entry against history_entry (SEMP section 4.3). Cross-references (every mop_id resolves, every tpm_ids entry names a TPM whose mop_id is that MOP, every MOE of expectations.json has a MOP) are checked by tools/traceability.py rule T-16 and by the SEMP section 7.4 check",
+    "instruments": "Owner's bench per charter section 9 and SI-013, SI-034: NanoVNA, tinySA Ultra spectrum analyzer with a calibrated 30 to 40 dB 10 W attenuator (purchase committed by the owner, SI-034 and ADR-021; its receipt is recorded by ADR before TRR, closing OQ-VV-001; charter section 9), 50 ohm BNC dummy load, adjustable bench supply, multimeter, Pico-based logic capture, diode RF probe. No oscilloscope. Calibration checks are recorded per test report and the instrument list is kept in tools/toolchain.lock.md"
+  },
+  "mops": [
+    {
+      "id": "MOP-001",
+      "title": "Unit mass without antenna",
+      "moe_ids": ["MOE-001"],
+      "requirement_ids": [],
+      "unit": "g",
+      "threshold": "350 (provisional allocation, charter section 12)",
+      "target": "300",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-001"],
+      "note": "No MOE states the pocket form factor of NGO-006 directly; MOE-001 (two people each carrying a unit while walking) is the closest. Decision OQ-SE-005 (SEMP appendix E): the owner decides at SRR whether MOE-013 (pocket portability) is added to expectations.json; Claude drafts MOE-013 for the SRR package; on approval moe_ids of MOP-001 and MOP-002 change to MOE-013"
+    },
+    {
+      "id": "MOP-002",
+      "title": "Enclosure external envelope without antenna and knobs",
+      "moe_ids": ["MOE-001"],
+      "requirement_ids": [],
+      "unit": "mm (length x width x height); cm3",
+      "threshold": "allocation set by the owner at SRR from docs/design/concept.md (NGO-026: sized by the two 18650 cells and the Pico 2 module)",
+      "target": "allocation minus 5 percent per axis",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-016"],
+      "note": "Same MOE linkage caveat and decision OQ-SE-005 as MOP-001"
+    },
+    {
+      "id": "MOP-003",
+      "title": "DC power drawn from the pack by operating mode",
+      "moe_ids": ["MOE-004"],
+      "requirement_ids": [],
+      "unit": "W per mode (receive; transmit key-down at the 5 W step; transmit key-up during the hang time; radio off with charger running)",
+      "threshold": "receive 0.5; transmit key-down 10.0; transmit key-up 1.5 (provisional allocations)",
+      "target": "receive 0.35; transmit key-down 9.0",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-002"]
+    },
+    {
+      "id": "MOP-004",
+      "title": "Carrier output power at each selectable step",
+      "moe_ids": ["MOE-001", "MOE-002", "MOE-009"],
+      "requirement_ids": [],
+      "unit": "dB deviation from the step nominal (0.5, 1, 2, 5 W) into 50 ohm at 144.05, 146.00 and 147.95 MHz",
+      "threshold": "+/-1 dB at every step and frequency (NGO-019)",
+      "target": "+/-0.5 dB",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-015"]
+    },
+    {
+      "id": "MOP-005",
+      "title": "Final-stage efficiency at the 5 W step",
+      "moe_ids": ["MOE-004"],
+      "requirement_ids": [],
+      "unit": "percent",
+      "threshold": "55",
+      "target": "60 (docs/design/concept.md working figure)",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-004"]
+    },
+    {
+      "id": "MOP-006",
+      "title": "Receiver minimum discernible signal in the 500 Hz passband",
+      "moe_ids": ["MOE-010", "MOE-001"],
+      "requirement_ids": [],
+      "unit": "dBm (more negative is better)",
+      "threshold": "-140 (NGO-012, MOE-010)",
+      "target": "-142 (NGO-012)",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-005"]
+    },
+    {
+      "id": "MOP-007",
+      "title": "Adjacent-signal tolerance: degradation of a -130 dBm signal with a -60 dBm signal at +/-2 kHz",
+      "moe_ids": ["MOE-010"],
+      "requirement_ids": [],
+      "unit": "dB degradation; audible gain pumping yes/no",
+      "threshold": "3 dB, no audible pumping (MOE-010)",
+      "target": "1 dB",
+      "tc_ids": [],
+      "tpm_ids": [],
+      "note": "Requirement-verified at SAR; not tracked as a TPM because it has no pre-build trend other than the selectivity trade (TBR, PDR)"
+    },
+    {
+      "id": "MOP-008",
+      "title": "Carrier frequency accuracy over the operating temperature span",
+      "moe_ids": ["MOE-010", "MOE-001"],
+      "requirement_ids": [],
+      "unit": "ppm (Hz at 146 MHz alongside)",
+      "threshold": "2.5 ppm (365 Hz) over the operating span, docs/design/concept.md TCXO proposal; span pending owner ratification at SRR (ConOps alignment item)",
+      "target": "1.0 ppm",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-006"]
+    },
+    {
+      "id": "MOP-009",
+      "title": "Spurious emission attenuation below the carrier at the antenna port",
+      "moe_ids": ["MOE-006"],
+      "requirement_ids": [],
+      "unit": "dBc and microwatts, worst spur from 9 kHz to 1.5 GHz, each power step, 144.05, 146.00 and 147.95 MHz",
+      "threshold": "53 dBc and 25 microwatts at 5 W (47 CFR 97.307(e), corpus: 47cfr-97.307.md; NGO-017)",
+      "target": "60 dBc (NGO-017 design target)",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-007"]
+    },
+    {
+      "id": "MOP-010",
+      "title": "Battery endurance on the defined duty cycles",
+      "moe_ids": ["MOE-004"],
+      "requirement_ids": [],
+      "unit": "hours at 1:9 transmit-to-receive; hours at 1:4",
+      "threshold": "8 h at 1:9; 6 h at 1:4 (SI-034, NGO-025, MOE-004)",
+      "target": "10 h at 1:9",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-008"]
+    },
+    {
+      "id": "MOP-011",
+      "title": "Low-battery warning lead time before cutoff at 1:9",
+      "moe_ids": ["MOE-004"],
+      "requirement_ids": [],
+      "unit": "minutes",
+      "threshold": "15 (MOE-004)",
+      "target": "20",
+      "tc_ids": [],
+      "tpm_ids": [],
+      "note": "Requirement-verified in the TPM-008 run; no separate trend"
+    },
+    {
+      "id": "MOP-012",
+      "title": "Keyer element timing error and paddle-to-element latency",
+      "moe_ids": ["MOE-005"],
+      "requirement_ids": [],
+      "unit": "percent of nominal or ms (element error); ms (latency)",
+      "threshold": "element error within +/-1 percent or +/-0.5 ms whichever is larger; latency at most 3 ms (NGO-013, MOE-005)",
+      "target": "element error within +/-0.5 percent; latency at most 2 ms",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-013"]
+    },
+    {
+      "id": "MOP-013",
+      "title": "Headphone output level cap",
+      "moe_ids": ["MOE-011"],
+      "requirement_ids": [],
+      "unit": "mVrms into 32 ohm",
+      "threshold": "100 for a full-scale sine, 150 for any signal, hardware-limited; 30 default cap (NGO-016)",
+      "target": "as threshold",
+      "tc_ids": [],
+      "tpm_ids": [],
+      "note": "Requirement-verified by Analysis at CDR and Bench at SAR; the HSI audio row of SEMP section 7.3.1 carries it"
+    },
+    {
+      "id": "MOP-014",
+      "title": "Bound on unintended transmission duration",
+      "moe_ids": ["MOE-012"],
+      "requirement_ids": [],
+      "unit": "seconds",
+      "threshold": "13 s hardware cutoff; firmware time-outs 5 s straight key, 30 s or 128 elements paddle (MOE-012; ConOps proposal pending SRR ratification)",
+      "target": "as threshold",
+      "tc_ids": [],
+      "tpm_ids": [],
+      "note": "Safety-critical behaviour verified by Test on every hazard-tracing requirement (SWE-192); its coverage evidence is TPM-017"
+    },
+    {
+      "id": "MOP-015",
+      "title": "Pre-build verification closure at CDR",
+      "moe_ids": ["MOE-003"],
+      "requirement_ids": [],
+      "unit": "percent of L1 and L2 requirements verifiable before build (Analysis, Inspection, HostUnit) whose closing case is Passed at CDR",
+      "threshold": "100 (NGO-023)",
+      "target": "100",
+      "tc_ids": [],
+      "tpm_ids": [],
+      "note": "Reported from tools/traceability.py verification matrix in the CDR package; not a separate TPM"
+    },
+    {
+      "id": "MOP-016",
+      "title": "Delivered cost per complete unit",
+      "moe_ids": ["MOE-007"],
+      "requirement_ids": [],
+      "unit": "USD per unit",
+      "threshold": "owner-approved budget per complete unit at every gate (NGO-028), on the TPM-014 budget basis: the docs/plan/cost-estimate.md envelope with the tinySA Ultra instrument line removed (USD 850 to 1670 for three radios, contingency as that model computes it; USD 283 to 557 per unit) amortized over three complete units (ADR-025 default) until the owner raises the assembled count at CDR",
+      "target": "budget minus contingency",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-014"],
+      "note": "The cost model's 2026-09-25 envelope of USD 970 to 1830 includes the USD 120 to 160 instrument line and is for three radios; the cost-model owner (Claude) moves the instrument to a separate line outside the unit budget and states the SI-035 and ADR-025 quantities before the SRR readiness declaration (SEMP appendix F)"
+    },
+    {
+      "id": "MOP-017",
+      "title": "Time for a new Technician-class operator to be on the air correctly from the handbook alone",
+      "moe_ids": ["MOE-008"],
+      "requirement_ids": [],
+      "unit": "minutes",
+      "threshold": "30 (MOE-008)",
+      "target": "15",
+      "tc_ids": [],
+      "tpm_ids": [],
+      "note": "Validation measure at SAR (TC-VAL case); no pre-build trend"
+    },
+    {
+      "id": "MOP-018",
+      "title": "RF exposure compliance distance per power step, occupational and general population tiers",
+      "moe_ids": ["MOE-009"],
+      "requirement_ids": [],
+      "unit": "m",
+      "threshold": "operators at the occupational/controlled limits of 47 CFR 1.1310 (SI-030; 97.13(c)(1) corpus 47cfr-97.13.md); non-operators at the general population limits; NGO-019 proposes 0.6 m while keying and 1.0 m during a tune carrier",
+      "target": "compliance at the antenna for the operator tier at every step",
+      "tc_ids": [],
+      "tpm_ids": [],
+      "note": "Analysis record docs/design/analysis/rf-exposure-evaluation.md, the controlled regulatory document of charter section 5 (47 CFR 97.13 and 1.1307; HZ-001), derived from docs/research/rf-exposure-evaluation.md; on record before CDR and before the first OnAir series (MOE-009); carried by the HSI RF exposure row of SEMP section 7.3.1"
+    },
+    {
+      "id": "MOP-019",
+      "title": "Firmware flash and RAM use on the release build",
+      "moe_ids": ["MOE-003"],
+      "requirement_ids": [],
+      "unit": "percent of allocated flash region; percent of SRAM",
+      "threshold": "flash at most 50 percent used; RAM at most 60 percent used at CDR and 75 percent at SAR",
+      "target": "flash at most 40 percent; RAM at most 50 percent",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-010", "TPM-011"],
+      "note": "Resource margin is a first-power-on enabler (MOE-003) and keeps the revision B path open (NGO-008, NGO-030)"
+    },
+    {
+      "id": "MOP-020",
+      "title": "Safety-critical software coverage",
+      "moe_ids": ["MOE-012"],
+      "requirement_ids": [],
+      "unit": "percent of safety-critical decisions with reviewed MC/DC independence-pair tables whose tests pass; percent region coverage of safety-critical components (MSR-13); percent branch and condition coverage on the pinned nightly (MSR-14, non-credit)",
+      "threshold": "100, 100 and 100 (charter section 10; SWE-219 as tailored, SWE-220)",
+      "target": "as threshold",
+      "tc_ids": [],
+      "tpm_ids": ["TPM-017"],
+      "note": "MSR-14 is a required but non-credit element of the SWE-219 record (charter section 10; 07 sections 9.6 and 11.2; CS-03 date pin); it never closes a requirement by itself"
+    }
+  ],
+  "tpms": [
+    {
+      "id": "TPM-001",
+      "key": "mass-margin",
+      "name": "Mass margin",
+      "category": "leading_indicator",
+      "npr_ref": "SE-62",
+      "mop_id": "MOP-001",
+      "definition": "Margin between the total unit mass allocation (assembled PCB, enclosure, two 18650 cells in holders, knobs, facade, connectors; antenna excluded) and the current best estimate of that mass.",
+      "units": "percent of allocation (grams reported alongside)",
+      "formula": "(allocation_g - cbe_g) / allocation_g * 100",
+      "data_source": "hardware/bom (per-part mass column), hardware/enclosure CAD mass properties (OpenSCAD volume times density), cell datasheet mass; at SAR the measured mass of the delivered unit",
+      "planned_value": null,
+      "planned_value_text": "Allocation provisionally 350 g for a pocket handheld (SI-001; charter section 12 records SE-62 as fully compliant with this provisional allocation); the owner sets the allocation at SRR from docs/design/concept.md and the enclosure and battery trade studies",
+      "tbr": {
+        "owner": "Robin (owner) on a proposal from Claude in docs/design/concept.md",
+        "plan": "Allocation approved in the SRR decision memo, or at PDR at the latest with the preliminary enclosure CAD and envelope (TPM-016). No enclosure trade study is planned: CNC aluminum is fixed by SI-008 and ADR-008, and the PDR trade list is TS-001 to TS-006 of docs/design/concept.md section 11.2",
+        "close_by": "PDR"
+      },
+      "margin_policy": {
+        "SRR": ">= 20 % on the allocation from a bottom-up estimate",
+        "PDR": ">= 15 %",
+        "CDR": ">= 10 % with BOM masses and CAD mass properties",
+        "SAR": ">= 0 % measured"
+      },
+      "threshold_yellow": "margin below the phase policy but above 0 %",
+      "threshold_red": "margin below 0 % (over allocation) or no estimate at PDR",
+      "measurement_method": {
+        "pre_build": "Analysis: sum of BOM part masses, CAD volume times material density, cell datasheet mass, 10 % contingency on unmodeled items until CDR; recorded in docs/design/budgets.md",
+        "post_build": "Test, Bench: kitchen or postal scale reading of the assembled unit without antenna, recorded in the SAR test report and the unit as-built record docs/vv/adp/CWHT-A-NNN/as-built.md"
+      },
+      "reporting_review": ["SRR", "PDR", "CDR", "SAR"],
+      "moe_ids": ["MOE-001"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-002",
+      "key": "power-margin",
+      "name": "Power margin by mode",
+      "category": "leading_indicator",
+      "npr_ref": "SE-63",
+      "mop_id": "MOP-003",
+      "definition": "Margin between the DC power allocation and the current best estimate of DC power drawn from the 2S 18650 pack (6.0 to 8.4 V, SI-023) in each operating mode: receive (display on, audio at 50 % volume), transmit key-down at the 5 W step, transmit key-up during the semi break-in hang time (SI-036). Charger power with the radio off is reported for information and has no margin.",
+      "units": "percent of allocation per mode (watts reported alongside)",
+      "formula": "per mode: (allocation_W - cbe_W) / allocation_W * 100; the reported TPM value is the minimum over modes",
+      "data_source": "docs/design/budgets.md power budget (per-rail, per-block currents from datasheets and LTspice operating points); at TRR and SAR the bench supply current times voltage per mode",
+      "planned_value": null,
+      "planned_value_text": "Provisional allocations: transmit key-down 10.0 W DC at 5 W RF (TPM-004 efficiency >= 60 % gives 8.3 W in the final stage plus 1.7 W for driver, synthesizer, controller and display); transmit key-up 1.5 W; receive 0.5 W. These allocations give about 18 h at 1:9 on 2 x 3000 mAh derated to 19 Wh, so the 8 h battery-life target of ADR-020 (TPM-008) has headroom. The transmit allocation is fixed with TS-003 (PA device and line-up) and TS-006 (ALC and envelope topology) of docs/design/concept.md section 11.2; the pack is fixed by SI-023 and ADR-005",
+      "tbr": {
+        "owner": "Claude (lead SE), approval by Robin",
+        "plan": "TS-003 and TS-006 fix the transmit allocation and TS-001 and TS-002 the receive allocation; approved in the PDR decision memo",
+        "close_by": "PDR"
+      },
+      "margin_policy": {
+        "SRR": ">= 20 % per mode from the concept-level estimate (docs/design/concept.md block list with datasheet currents), recorded in the SRR history entry with credit: false",
+        "PDR": ">= 20 % per mode by analysis",
+        "CDR": ">= 10 % per mode by analysis with layout parasitics and regulator efficiencies",
+        "TRR": "measured on the delivered board in receive mode before PA enable (first-power-on stages of 04 section 11.2)",
+        "SAR": ">= 0 % measured in every mode"
+      },
+      "threshold_yellow": "minimum mode margin below the phase policy but above 0 %",
+      "threshold_red": "any mode over its allocation, or transmit-mode estimate missing at PDR",
+      "measurement_method": {
+        "pre_build": "Analysis: power budget from datasheet currents and LTspice .op results for the PA, buck and LDO, recorded in docs/design/budgets.md (Simulation cases for the PA and regulators)",
+        "post_build": "Test, Bench: bench supply at pack voltage in place of the cells, current read per mode with the PA driving the 50 ohm dummy load through the attenuator, multimeter cross-check; dev-board runs before TRR are credit: false"
+      },
+      "reporting_review": ["SRR", "PDR", "CDR", "TRR", "SAR"],
+      "moe_ids": ["MOE-004"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-003",
+      "key": "review-trend",
+      "name": "Review trend: RFA and RID closure burndown",
+      "category": "leading_indicator",
+      "npr_ref": "SE-64",
+      "mop_id": null,
+      "mop_note": "Process leading indicator required by NPR 7123.1D SE-64 and charter section 4 item 5; not derived from an MOE",
+      "definition": "For each held review (SRR, PDR, CDR, TRR, TRR-Dn, SAR): RFAs and RIDs raised, their state counts (Open, Answered, Verified, Closed, Withdrawn) and severities (RID: Major, Minor; RFA: Blocking, Routine) per docs/templates/rfa-rid-log.schema.json; overdue items; the closure fraction at the next gate; open-item ages; the alert zone. Measures and burndown series exactly as 01-lifecycle-and-reviews.md section 11 defines them; computed by tools/review_trend.py (exists; known-answer test tools/tests/test_review_trend.py), which appends this TPM's history with --write.",
+      "units": "count of items; fraction closed; days",
+      "formula": "open = Open + Answered; verified_pending = Verified; closure_fraction_at_gate = closed / (raised - withdrawn) evaluated at the date of the next gate's decision memo; overdue = open or verified_pending items past due_date or whose due_review has a decision memo dated before the package date T",
+      "data_source": "docs/reviews/*/rfa-rid-log.json for every review held so far; decision memo dates",
+      "planned_value": 1.0,
+      "planned_value_text": "Blocking RFAs Closed before the decision memo of the review that raised them is signed, and Major RIDs Closed before its baseline tag (charter section 4 item 3; 01 sections 10.2 and 12.2 close both before signing); closure_fraction_at_gate >= 0.8 for the previous review at every gate; overdue = 0. NPR 7123.1D section 5.2.3.1 is met by agreement on the disposition of every RID and RFA and by closure, or a timely closure plan, for every lien. PDR liens accepted under SI-020 each name a CDR closure product; CDR liens tagged blocks-order are Closed before vendor orders",
+      "tbr": null,
+      "margin_policy": {
+        "every_review": "Green zone of 01 section 11: overdue == 0 and no Major RID or Blocking RFA open from a prior review"
+      },
+      "threshold_yellow": "01 section 11 Yellow zone: overdue > 0 with every overdue item Minor or Routine, and closure_fraction_at_gate of the previous review >= 0.8",
+      "threshold_red": "01 section 11 Red zone: any Major RID or Blocking RFA from a prior review open, or closure_fraction_at_gate < 0.8, or overdue > 3. A Red zone at readiness declaration blocks the declaration (01 section 11)",
+      "measurement_method": {
+        "pre_build": "Inspection: tools/review_trend.py over docs/reviews/*/rfa-rid-log.json at every package build; values appended to this TPM's history; burndown plot saved to docs/reviews/<REVIEW>/figures/review-trend.png",
+        "post_build": "same"
+      },
+      "reporting_review": ["SRR", "PDR", "CDR", "TRR", "TRR-Dn", "SAR"],
+      "moe_ids": [],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-004",
+      "key": "pa-efficiency",
+      "name": "PA efficiency at the 5 W step",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": "MOP-005",
+      "definition": "Drain efficiency of the final amplifier stage: RF power delivered to a 50 ohm load at 146.00 MHz divided by DC power into the final stage, at the 5 W step (thermal dissipation follows: about 4 to 7 W while keyed, docs/conops/conops.md handling row).",
+      "units": "percent",
+      "formula": "P_rf_W / P_dc_final_stage_W * 100",
+      "data_source": "hardware/sim/pa/ LTspice transient decks with automated checker (pre-build); SAR bench measurement",
+      "planned_value": 60,
+      "planned_value_text": ">= 60 % at 5 W (docs/design/concept.md working figure); larger is better",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": ">= 60 % simulated with the selected device model and ideal passives",
+        "CDR": ">= 60 % simulated with vendor models, layout parasitics and component tolerances",
+        "SAR": ">= 55 % measured"
+      },
+      "threshold_yellow": "55 % to 60 %",
+      "threshold_red": "below 55 %, or 5 W not reached within the TPM-002 transmit allocation",
+      "measurement_method": {
+        "pre_build": "Analysis, Simulation: LTspice transient with the selected transistor model, output power from the FFT of the load voltage, DC power from the supply current; the checker asserts the target",
+        "post_build": "Test, Bench: RF power read on the tinySA Ultra through the calibrated attenuator on the 50 ohm dummy load (SI-034), cross-checked with the diode RF probe and multimeter (04 section 6); bench supply current and voltage of the final-stage rail for DC power"
+      },
+      "reporting_review": ["PDR", "CDR", "SAR"],
+      "moe_ids": ["MOE-004"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-005",
+      "key": "rx-mds",
+      "name": "Receiver minimum discernible signal",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": "MOP-006",
+      "definition": "Input signal power at the antenna connector at 146.00 MHz that produces an audio output equal to the noise floor (0 dB signal-to-noise) in the receiver's 500 Hz CW passband; reported together with the passband and the implied noise figure. Band edges 144.05 and 147.95 MHz are reported at SAR for information.",
+      "units": "dBm in 500 Hz (more negative is better)",
+      "formula": "MDS_dBm = -174 + 10*log10(500) + NF_dB = -147 + NF_dB (analysis); measured directly post-build",
+      "data_source": "docs/design/budgets.md receiver noise-figure cascade; hardware/sim/rx/ LTspice noise analysis; SAR bench measurement or OnAir demonstration",
+      "planned_value": -140,
+      "planned_value_text": "<= -140 dBm in 500 Hz (noise figure <= 7 dB) per NGO-012 and MOE-010, target -142 dBm (NF <= 5 dB). The MDS value is fixed by the expectations and is not a TBR of this TPM; the selectivity architecture (roofing filter and passband implementation) is an L2 TBR carried by the REQ-RX requirements and closed by TS-001 (CW selectivity architecture, docs/design/concept.md section 11.2) at PDR (MOE-010)",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": "cascade noise-figure budget gives <= -142 dBm (2 dB margin on the -140 dBm threshold)",
+        "CDR": "LTspice noise analysis of the full front end gives <= -141 dBm",
+        "SAR": "<= -140 dBm measured, or demonstrated on air with the method recorded in the V&V report when the bench source cannot reach the level"
+      },
+      "threshold_yellow": "worse than the phase margin_policy value but no more than 3 dB worse than -140 dBm, by analysis or measurement",
+      "threshold_red": "more than 3 dB worse than -140 dBm, or no analysis at PDR",
+      "measurement_method": {
+        "pre_build": "Analysis, Simulation: Friis cascade of gain and noise figure per stage from datasheets in docs/design/budgets.md; LTspice .noise on the front end",
+        "post_build": "Test, Bench: tinySA Ultra signal generator output through a calibrated attenuator chain to the -140 dBm level, the chain characterized on the NanoVNA and its residual uncertainty recorded in tools/toolchain.lock.md; audio level read on the multimeter (AC) at the headphone jack with and without signal. If the chain cannot hold the level within +/-2 dB, the OnAir demonstration of MOE-010 (copy at the noise floor) plus the analysis value is reported with reduced confidence and the limitation stated in the V&V report"
+      },
+      "reporting_review": ["PDR", "CDR", "SAR"],
+      "moe_ids": ["MOE-010", "MOE-001"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-006",
+      "key": "frequency-stability",
+      "name": "Frequency accuracy and stability",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": "MOP-008",
+      "definition": "Maximum deviation of the transmitted and displayed carrier frequency from the true frequency over the operating temperature span and one year, including reference oscillator initial tolerance, temperature coefficient, ageing and synthesizer resolution. Operating span: -10 to +45 C as proposed by docs/conops/conops.md and NGO-026, pending the owner's ratification at SRR (the ConOps alignment item names this TPM; the earlier 0 to 40 C span of this file is withdrawn in favour of the ConOps proposal).",
+      "units": "ppm (Hz at 146 MHz reported alongside; 1 ppm = 146 Hz)",
+      "formula": "max(|f_actual - f_displayed|) / f_displayed * 1e6 over the stated envelope",
+      "data_source": "docs/design/budgets.md frequency budget (TCXO datasheet terms summed worst case plus synthesizer step); SAR bench and on-air comparison",
+      "planned_value": null,
+      "planned_value_text": "Provisional target <= +/-2.5 ppm (+/-365 Hz at 146 MHz) over the operating span and one year: the TCXO total-tolerance ceiling of ADR-023 (proposed, owner decision at SRR; specified over -10 to +50 C, which covers the -10 to +45 C operating span of NGO-026) that keeps every keying sideband inside 144.000 to 148.000 MHz with the carrier limited to 144.001 to 147.999 MHz (NGO-011); TS-002 (synthesizer and reference, SI-029, docs/design/concept.md section 11.2) fixes the grade below that ceiling",
+      "tbr": {
+        "owner": "Robin (owner) for the operating span and the ADR-023 ceiling at SRR; Claude (lead SE) for the ppm value via TS-002, approved by Robin",
+        "plan": "Span ratified in the SRR decision memo with the ConOps; ppm value fixed by the trade study and written into REQ-SYS and REQ-TX; approved in the PDR decision memo",
+        "close_by": "PDR"
+      },
+      "margin_policy": {
+        "PDR": "worst-case budget within target over the ratified span",
+        "CDR": "budget within target including synthesizer step and the firmware calibration provision",
+        "SAR": "measured within target at room temperature; the temperature span by analysis unless a chamber or outdoor cold and hot soak is available and recorded"
+      },
+      "threshold_yellow": "2.5 to 4 ppm",
+      "threshold_red": "above 4 ppm, or budget missing at PDR",
+      "measurement_method": {
+        "pre_build": "Analysis: worst-case sum of TCXO tolerance, temperature coefficient, ageing and synthesizer resolution in docs/design/budgets.md",
+        "post_build": "Test, Bench: carrier frequency read on the tinySA Ultra after its reference has been checked against a source of known accuracy (a GPS-disciplined or WWV-checked reference or a friend's calibrated transceiver; the check and its result recorded in tools/toolchain.lock.md); OnAir: zero-beat against a station of known accuracy; the NanoVNA is not used because its own reference accuracy is not established"
+      },
+      "reporting_review": ["PDR", "CDR", "SAR"],
+      "moe_ids": ["MOE-010", "MOE-001"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-007",
+      "key": "spurious-margin",
+      "name": "Harmonic and spurious suppression margin against 47 CFR 97.307(e)",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": "MOP-009",
+      "definition": "Minimum, over all harmonics (2f to 10f) and discrete spurious emissions from 9 kHz to 1.5 GHz at the antenna connector at the 5 W step and each of 144.05, 146.00 and 147.95 MHz, of the achieved attenuation below the carrier minus the attenuation 47 CFR 97.307(e) requires (corpus: 47cfr-97.307.md, eCFR issue 2026-09-23). At 5 W (37 dBm) the rule's 25 microwatt ceiling (-16 dBm) is stricter than its 40 dB clause, so the required attenuation is 53 dBc and the margin is achieved_dBc - 53. Lower power steps are reported against the same rule (25 microwatts and 40 dBc) for information. 2f, 3f and 7f are reported individually (MOE-006).",
+      "units": "dB of margin (dBc and microwatts reported alongside); larger is better",
+      "formula": "margin_dB = min_over_spurs(attenuation_dBc) - 53 at the 5 W step",
+      "data_source": "hardware/sim/tx/ LTspice PA harmonic content (FFT) combined with the low-pass filter response (pre-build); tinySA Ultra spectrum measurement through the calibrated attenuator (SI-034) and NanoVNA S21 of the built filter (post-build)",
+      "planned_value": 7,
+      "planned_value_text": ">= 7 dB margin, that is >= 60 dBc achieved at 5 W, the design target of NGO-017, MOE-006 and ADR-022 (proposed, owner decision at SRR; 53 dB regulatory floor, 60 dBc target). The analysis at PDR carries 3 dB more (>= 10 dB) to absorb component tolerances and layout parasitics found at CDR. The Bench instrument is the tinySA Ultra of ADR-021",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": ">= 10 dB by analysis with ideal filter components",
+        "CDR": ">= 7 dB by analysis with component tolerances and layout parasitics",
+        "SAR": ">= 7 dB measured on the tinySA Ultra on every unit; judged before the OnAir authorization of the on-air delta TRR and again at each unit's acceptance"
+      },
+      "threshold_yellow": "below the phase margin_policy value and at least 3 dB (by analysis or measurement)",
+      "threshold_red": "below 3 dB, or any spurious emission above -16 dBm (25 microwatts) at 5 W, or no analysis at PDR",
+      "measurement_method": {
+        "pre_build": "Analysis, Simulation: LTspice transient of the PA into the low-pass filter, FFT of the load voltage; the Python checker asserts every spur <= -16 dBm and margin >= policy",
+        "post_build": "Test, Bench: tinySA Ultra through the calibrated 30 to 40 dB 10 W attenuator on the 50 ohm dummy load, span 9 kHz to 1.5 GHz, at each of the three frequencies and each power step, attenuator and cable loss characterized on the NanoVNA and recorded; NanoVNA S21 of the assembled filter at each harmonic as a cross-check; instrument settings and results in docs/vv/reports/part97-compliance.md"
+      },
+      "reporting_review": ["PDR", "CDR", "SAR"],
+      "moe_ids": ["MOE-006"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-008",
+      "key": "battery-life",
+      "name": "Battery life on the 1:9 CW duty cycle",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": "MOP-010",
+      "definition": "Operating time from a full charge of a fresh pair of 3000 mAh 18650 cells to the low-battery cutoff on the defined duty cycle: repeating 10-minute cycles of 1 minute in transmit at the 5 W step (semi break-in, keyed at 50 % key-down within the transmit minute) and 9 minutes in receive with the display and audio on, into the dummy load (1:9 transmit-to-receive ratio, SI-034, NGO-025, MOE-004). The 1:4 ratio (2 minutes transmit in 10; threshold 6 h) is reported alongside from the same power budget and, at SAR, from a second run if time allows. This definition replaces the 3-minutes-in-10 cycle of the previous version (ConOps alignment item).",
+      "units": "hours",
+      "formula": "life_h = usable_capacity_Wh / average_power_W, where average_power_W = 0.10 * (0.5 * P_tx_keydown + 0.5 * P_tx_keyup) + 0.90 * P_rx for 1:9, and 0.20 * (...) + 0.80 * P_rx for 1:4",
+      "data_source": "TPM-002 mode powers; cell datasheet capacity derated for temperature, discharge rate and end of life; SAR bench run",
+      "planned_value": 8,
+      "planned_value_text": ">= 8 h at 1:9 (owner acceptance in SI-034, recorded as ADR-020; NGO-025; MOE-004) and >= 6 h at 1:4 (ADR-020 floor); low-battery warning >= 15 min before cutoff at 1:9 (MOP-011)",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": ">= 9.6 h at 1:9 by analysis (20 % above target)",
+        "CDR": ">= 8.8 h at 1:9 by analysis (10 % above target)",
+        "SAR": ">= 8 h at 1:9 measured"
+      },
+      "threshold_yellow": "below the phase margin_policy value and at least 8 h at 1:9",
+      "threshold_red": "below 8 h at 1:9 by analysis or measurement, or no estimate at PDR",
+      "measurement_method": {
+        "pre_build": "Analysis: from TPM-002 mode powers and derated cell capacity in docs/design/budgets.md",
+        "post_build": "Test, Bench: timed run on the duty cycle with the PA into the dummy load through the attenuator and an automated keying fixture (Pico-based) driving the key input; elapsed time, pack voltage and cutoff event recorded by the firmware event log in flash and read out over USB after the run, or streamed on the diagnostic UART if the PDR ADR selects one. The Pico 2 micro-USB is not connected during the run because it is also the charger input (SI-022) and charging pauses receive (MOE-004). Recorded in the SAR report"
+      },
+      "reporting_review": ["PDR", "CDR", "SAR"],
+      "moe_ids": ["MOE-004"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-009",
+      "key": "pcb-area",
+      "name": "PCB area utilization",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": null,
+      "mop_note": "Design-margin leading indicator for layout, thermal relief and rework access; not derived from an MOE",
+      "definition": "Sum of component courtyard areas on both sides divided by the usable board area (board outline minus enclosure keep-outs, mounting holes and edge clearance) of the single 4-layer board.",
+      "units": "percent (smaller is better)",
+      "formula": "sum(courtyard_area_mm2) / usable_area_mm2 * 100",
+      "data_source": "hardware/kicad/*.kicad_pcb parsed by tools/render_tpm.py (courtyards from footprints, outline from Edge.Cuts; written by Claude before PDR)",
+      "planned_value": 80,
+      "planned_value_text": "<= 80 % at CDR so that routing, thermal relief for the PA and access for the owner's hand-soldered through-hole parts (SI-031) remain available",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": "<= 70 % from a placement-only board with the enclosure outline",
+        "CDR": "<= 80 % on the released layout"
+      },
+      "threshold_yellow": "above the phase margin_policy value and at most 90 %",
+      "threshold_red": "above 90 %, or DRC failures caused by density",
+      "measurement_method": {
+        "pre_build": "Inspection: script over the PCB file, checked against the rendered layout image (visual closure, charter section 11)",
+        "post_build": "not applicable"
+      },
+      "reporting_review": ["PDR", "CDR"],
+      "moe_ids": [],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-010",
+      "key": "flash-margin",
+      "name": "Firmware flash margin",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": "MOP-019",
+      "definition": "Unused fraction of the flash region allocated to the application image (Pico 2 on-board QSPI flash minus the configuration copies, event log ring and reserved regions of 07 section 19 WP-SW-08), measured on the release build.",
+      "units": "percent of allocated region (kilobytes reported alongside)",
+      "formula": "(allocated_kB - image_kB) / allocated_kB * 100",
+      "data_source": "firmware/releases/vX.Y.Z/firmware.map and cargo size output recorded in firmware/releases/VDD-vX.Y.Z.md; MSR entry in docs/plan/measurements.json (07 section 11)",
+      "planned_value": 50,
+      "planned_value_text": ">= 50 % unused through SAR (growth room for revision B features such as 70 cm, NGO-008)",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": ">= 50 % estimated from the rustos image plus the driver plan of 07 section 19",
+        "CDR": ">= 50 % on the CDR build",
+        "TRR": ">= 50 % on the release candidate",
+        "SAR": ">= 50 % on the release build"
+      },
+      "threshold_yellow": "30 % to 50 %",
+      "threshold_red": "below 30 %",
+      "measurement_method": {
+        "pre_build": "Inspection: build size of the current firmware tree from the map file",
+        "post_build": "Inspection: release build size in the VDD"
+      },
+      "reporting_review": ["PDR", "CDR", "TRR", "SAR"],
+      "moe_ids": ["MOE-003"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-011",
+      "key": "ram-margin",
+      "name": "Firmware RAM margin",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": "MOP-019",
+      "definition": "Unused fraction of RP2350 SRAM after static allocation (.data, .bss), the worst-case stack depth of every stack (main and each interrupt level) and any heap, on the release build.",
+      "units": "percent of total SRAM (kilobytes reported alongside)",
+      "formula": "(sram_kB - static_kB - worstcase_stack_kB - heap_kB) / sram_kB * 100",
+      "data_source": "firmware.map for static sizes; worst-case stack from static call-graph analysis of the release ELF (tool named in tools/toolchain.lock.md) bounded by a stack-paint watermark read on the target; recorded in the VDD and docs/plan/measurements.json",
+      "planned_value": 40,
+      "planned_value_text": ">= 40 % at CDR, >= 25 % at SAR",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": ">= 40 % estimated",
+        "CDR": ">= 40 % from the map file and static stack analysis of the CDR build",
+        "TRR": ">= 25 % from the release candidate map file and static stack analysis, watermark from the dev board (credit: false)",
+        "SAR": ">= 25 % on the release build with the watermark read from the delivered unit"
+      },
+      "threshold_yellow": "25 % to 40 % before SAR; 15 % to 25 % at SAR",
+      "threshold_red": "below 25 % before SAR; below 15 % at SAR; or worst-case stack not established by CDR",
+      "measurement_method": {
+        "pre_build": "Inspection: map file for static sizes; static call-graph stack analysis of the ELF for the worst-case stack; Bench (credit: false): stack-paint watermark read from the bare Pico 2 development board under the keyer, display and fault scenarios of the HostUnit suite replayed on target. Emulation, if used, is supporting evidence only (charter section 9)",
+        "post_build": "Inspection on the release binary (map, static analysis); Test, Bench: watermark read from the delivered unit through the diagnostic path after the SAR scenario set"
+      },
+      "reporting_review": ["PDR", "CDR", "TRR", "SAR"],
+      "moe_ids": ["MOE-003"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-012",
+      "key": "requirements-volatility",
+      "name": "Requirements volatility",
+      "category": "project",
+      "npr_ref": "SE-60; NPR 7150.2D SWE-200",
+      "mop_id": null,
+      "mop_note": "Process leading indicator required by SWE-200 and charter section 7; not derived from an MOE",
+      "definition": "Per requirement level (L1, L2 hardware modules, L2 software module files), the number of requirements added, modified by a Class I change or retired since the previous baseline divided by the count at that baseline, per review interval, with the counting rule of 02 section 10.4; TBR count and closure are reported alongside.",
+      "units": "percent per review interval; TBR count",
+      "formula": "V = (added + modified_class_I + retired) / count_at_previous_baseline * 100",
+      "data_source": "git diff of docs/requirements/**/requirements.json between baseline tags, classified per 02 section 10.4; computed by tools/traceability.py --volatility --from <baseline tag> (option due PDR), stored as MSR-02 in docs/plan/measurements.json by tools/measurements.py (07 section 11.1) and mirrored here",
+      "planned_value": 10,
+      "planned_value_text": "<= 10 % per interval after the level's baseline (L1 after SRR, L2 after PDR); all L1 TBRs closed by PDR and all L2 TBRs by CDR (charter section 7)",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": "L1 volatility <= 10 %; L1 TBRs = 0",
+        "CDR": "L1 and L2 volatility <= 10 %; L2 TBRs = 0",
+        "TRR": "<= 5 %",
+        "SAR": "<= 5 %"
+      },
+      "threshold_yellow": "10 % to 20 %, or TBRs open past their close_by review with an approved plan",
+      "threshold_red": "above 20 %, or any TBR open past its close_by review without an approved plan",
+      "measurement_method": {
+        "pre_build": "Inspection: tools/traceability.py --volatility output (MSR-02 in docs/plan/measurements.json)",
+        "post_build": "same"
+      },
+      "reporting_review": ["PDR", "CDR", "TRR", "SAR"],
+      "moe_ids": [],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-013",
+      "key": "keyer-timing",
+      "name": "Keyer element timing accuracy and key-to-element latency",
+      "category": "project",
+      "npr_ref": "SE-60; stakeholder input SI-018 (core requirement: straight key and iambic paddles)",
+      "mop_id": "MOP-012",
+      "definition": "Three sub-measures of the built-in keyer and the straight-key path in the modes of NGO-013 (Straight, Iambic A, Iambic B, Ultimatic, Bug) over 5 to 50 WPM in 1 WPM steps (SI-033): (a) maximum error of dit, dah, inter-element and inter-character space durations against standard timing (dit = 1200 ms / WPM, dah = 3 dits, inter-element space = 1 dit) as a percentage of nominal or in ms; (b) latency from paddle or key contact closure to element start (sidetone onset and keying command); (c) for information until TS-006 and ADR-010 set a requirement at PDR: delay from element start to RF carrier at 90 % amplitude on the first element after the T/R transition (relay settling plus the 5 ms raised-cosine envelope of docs/design/concept.md) and on subsequent elements within the semi break-in hang time (SI-036). Dropped or added elements in 500 elements are counted (MOE-005). The hang time itself is a requirement (CON-021), not a sub-measure.",
+      "units": "percent of nominal or milliseconds (a); milliseconds (b), (c); count (dropped or added elements)",
+      "formula": "(a) max over the sweep of |measured_ms - nominal_ms| expressed as percent of nominal and in ms; (b) t_element_start - t_contact_close; (c) t_rf_90pct - t_element_start",
+      "data_source": "HostUnit tests of the keyer state machine in cwht-core with the mock clock (a, b logic part); Pico-based logic capture of the key input, sidetone and PA-enable lines on the bare Pico 2 development board before hardware (Bench, credit: false) and on the delivered unit at SAR (a, b, c)",
+      "planned_value": 1.0,
+      "planned_value_text": "(a) within +/-1 % of nominal or +/-0.5 ms, whichever is larger, over the 5 to 50 WPM range of ADR-024 (tolerance proposed in ADR-024); (b) at most 3 ms (NGO-013, MOE-005); (c) recorded, requirement set at PDR by TS-006 (ALC and envelope topology) together with the T/R relay timing of ADR-010; 0 dropped or added elements in 500",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": "(a) and (b) met in the HostUnit timing model with the mock clock across the full speed range and every mode",
+        "CDR": "(a) and (b) met in HostUnit under the worst-case scheduling load model; (c) budgeted by analysis of relay and envelope timing",
+        "TRR": "(a), (b), (c) measured on the dev board with the logic capture (credit: false)",
+        "SAR": "(a), (b) met on the delivered unit with the owner's key and paddle; (c) within its requirement; owner and a friend rate the feel acceptable in the OnAir validation (MOE-005)"
+      },
+      "threshold_yellow": "up to 2x the (a) or (b) target by analysis or on the dev board",
+      "threshold_red": "more than 2x the target, any dropped or added element in 500, or no HostUnit timing result at PDR",
+      "measurement_method": {
+        "pre_build": "Test, HostUnit: property tests of the keyer state machine across 5 to 50 WPM in every mode with the mock clock (virtual time, deterministic; SWE-186 repeatability); Bench (credit: false): scripted paddle waveforms from a Pico-based fixture into the dev board, sidetone and PA-enable lines captured by the Pico-based logic capture and compared by a Python checker. Emulation, if run, checks event ordering only (charter section 9)",
+        "post_build": "Test, Bench: same fixture and capture on the delivered unit with the owner's straight key and paddle (3.5 mm TRS, SI-034); Demonstration, OnAir: owner and a friend send PARIS and conversational text at 15 and 25 WPM in Iambic A, Iambic B and Straight (MOE-005)"
+      },
+      "reporting_review": ["PDR", "CDR", "TRR", "SAR"],
+      "moe_ids": ["MOE-005"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-014",
+      "key": "unit-cost",
+      "name": "Unit cost against the labor-free cost model",
+      "category": "project",
+      "npr_ref": "SE-60; charter section 12 (software cost estimation tailored to a labor-free cost model)",
+      "mop_id": "MOP-016",
+      "definition": "Estimated cost per delivered complete unit: parts, PCB fabrication and surface-mount assembly, CNC enclosure, printed-part consumables, shipping and duties, with contingency, amortized over the complete-unit count (three, the ADR-025 default under SI-035 and CON-024: five bare boards, three assembled, at most five complete units; the owner may raise the assembled count at CDR); instruments and labor excluded (NGO-028); compared with the owner's approved budget on the same basis.",
+      "units": "USD per unit; percent over or under budget",
+      "formula": "(parts + fab_assembly + enclosure + printing + shipping) * (1 + contingency) / complete_units",
+      "data_source": "docs/plan/cost-estimate.md cost model fed by hardware/bom pricing and vendor quotes; actual invoices at SAR",
+      "planned_value": null,
+      "planned_value_text": "Budget ceiling per complete unit set by the owner at SRR. Budget basis: the docs/plan/cost-estimate.md envelope without its tinySA Ultra instrument line (USD 850 to 1670 for three radios, contingency as that model computes it; USD 283 to 557 per unit), since the instrument is excluded from the CBE (NGO-028) and is an owner purchase (ADR-021); unit count three (ADR-025) until the owner raises it at CDR, when the budget and CBE are both recomputed for the new count. Contingency 20 % until CDR quotes, 10 % after",
+      "tbr": {
+        "owner": "Robin (owner)",
+        "plan": "Owner states the budget ceiling per unit in the SRR decision memo on the basis above; quantity per SI-035 and ADR-025",
+        "close_by": "SRR"
+      },
+      "margin_policy": {
+        "SRR": "estimate within budget with 20 % contingency",
+        "PDR": "within budget with 20 % contingency and the enclosure quote",
+        "CDR": "within budget with vendor quotes and 10 % contingency; a cost above the owner's envelope at CDR can never be a lien (01 section 12.2)",
+        "SAR": "actual within budget"
+      },
+      "threshold_yellow": "0 to 10 % over budget",
+      "threshold_red": "more than 10 % over budget, or no quote at CDR",
+      "measurement_method": {
+        "pre_build": "Analysis: cost model from DigiKey pricing at the build quantity and PCBWay online quotes",
+        "post_build": "Inspection: invoices and order confirmations in hardware/releases/"
+      },
+      "reporting_review": ["SRR", "PDR", "CDR", "SAR"],
+      "moe_ids": ["MOE-007"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-015",
+      "key": "carrier-power",
+      "name": "Carrier output power accuracy at each power step",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": "MOP-004",
+      "definition": "Deviation of the RF carrier power delivered to a 50 ohm load at the antenna connector from the nominal of each selectable step (0.5, 1, 2 and 5 W; NGO-019) at 144.05, 146.00 and 147.95 MHz, at nominal pack voltage and at the low-battery cutoff voltage. The 5 W step is the TPM-004 and TPM-007 operating point; 47 CFR 97.313(a) (corpus: 47cfr-97.313.md) requires the minimum power necessary, which the step selection and the 1 W default implement.",
+      "units": "dB deviation from nominal (watts reported alongside); the reported value is the worst case over steps, frequencies and pack voltages",
+      "formula": "max over the grid of |10*log10(P_measured_W / P_nominal_W)|",
+      "data_source": "hardware/sim/pa/ LTspice with the ALC loop model (pre-build); tinySA Ultra power reading through the calibrated attenuator, diode probe cross-check (post-build)",
+      "planned_value": 1.0,
+      "planned_value_text": "within +/-1 dB at every step, frequency and pack voltage (NGO-019); the 5 W step reaches 5 W within the TPM-002 allocation",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": "within +/-1 dB by analysis of the ALC loop over the pack voltage range",
+        "CDR": "within +/-1 dB by analysis with device and component tolerances",
+        "SAR": "within +/-1 dB measured on every unit"
+      },
+      "threshold_yellow": "1 to 1.5 dB",
+      "threshold_red": "above 1.5 dB, or the 5 W step unreachable at the cutoff voltage, or any step exceeding its nominal by more than 1 dB at the RF exposure distance of MOP-018",
+      "measurement_method": {
+        "pre_build": "Analysis, Simulation: LTspice PA and ALC loop over pack voltage 6.0 to 8.4 V at each step; checker asserts the grid",
+        "post_build": "Test, Bench: tinySA Ultra through the calibrated attenuator on the dummy load at each grid point; diode RF probe and multimeter cross-check (04 section 6); results in the SAR report and docs/vv/reports/part97-compliance.md"
+      },
+      "reporting_review": ["PDR", "CDR", "SAR"],
+      "moe_ids": ["MOE-001", "MOE-002", "MOE-009"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-016",
+      "key": "enclosure-envelope",
+      "name": "Enclosure envelope margin",
+      "category": "project",
+      "npr_ref": "SE-60",
+      "mop_id": "MOP-002",
+      "definition": "Margin between the allocated external dimensions of the enclosure (length, width, height without antenna and knobs; volume alongside) and the current best estimate from the CAD model, per axis. The allocation is set by the owner at SRR from docs/design/concept.md (NGO-026: sized by the two 18650 cells and the Pico 2 module).",
+      "units": "percent of allocation per axis (mm reported alongside); the reported value is the minimum over axes",
+      "formula": "per axis: (allocation_mm - cbe_mm) / allocation_mm * 100",
+      "data_source": "hardware/enclosure OpenSCAD bounding box exported by the OpenSCAD CLI and parsed by tools/render_tpm.py; hardware/releases/ME-ENC-rev<X>-<n>/ STEP bounding box at CDR; calipers at receipt inspection",
+      "planned_value": null,
+      "planned_value_text": "Allocation TBR: proposed from docs/design/concept.md and ratified by the owner at SRR; target 5 % margin per axis at CDR",
+      "tbr": {
+        "owner": "Robin (owner) on a proposal from Claude in docs/design/concept.md",
+        "plan": "Envelope allocation recorded in the SRR decision memo; if deferred, fixed with the enclosure trade study at PDR",
+        "close_by": "PDR"
+      },
+      "margin_policy": {
+        "SRR": "allocation stated",
+        "PDR": ">= 5 % per axis on the preliminary CAD",
+        "CDR": ">= 0 % per axis on the released STEP (fit of cells, board and connectors verified by the printed fit-check part, SI-012)",
+        "SAR": ">= 0 % measured on the delivered enclosure"
+      },
+      "threshold_yellow": "any axis within 5 % of its allocation before CDR",
+      "threshold_red": "any axis over its allocation, or no allocation at PDR",
+      "measurement_method": {
+        "pre_build": "Inspection: OpenSCAD CLI bounding-box export parsed by the script, checked against the rendered CAD image (visual closure); printed fit-check part measured with calipers",
+        "post_build": "Inspection: calipers on the delivered enclosure at receipt inspection, recorded in docs/vv/reports/receipt-inspection-<n>.md"
+      },
+      "reporting_review": ["SRR", "PDR", "CDR", "SAR"],
+      "moe_ids": ["MOE-001"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-017",
+      "key": "safety-critical-coverage",
+      "name": "Safety-critical software coverage",
+      "category": "project",
+      "npr_ref": "SE-60; NPR 7150.2D SWE-219 (tailored, charter section 10), SWE-220",
+      "mop_id": "MOP-020",
+      "definition": "For the safety-critical components named in 07 section 14.1 (keying, transmit sequencing and PA enable, safety manager and safe state, battery and charging supervision, boot path to safe state, and the mission-critical frequency control and configuration load of charter section 10): (a) fraction of boolean decisions that have an independently reviewed MC/DC independence-pair table whose named pair tests exist and pass; (b) region coverage of those components on the stable toolchain (MSR-13, credit-bearing); (c) count of functions in those components whose cyclomatic complexity exceeds 15; (d) branch and condition coverage of the same independence-pair test run on the date-pinned nightly toolchain (MSR-14, CS-03), a required but non-credit element of the SWE-219 record that is reported with credit: false and never closes a requirement by itself (charter section 10; 07 sections 9.6 and 11.2).",
+      "units": "percent (a), percent (b), count (c), percent (d)",
+      "formula": "(a) decisions_with_reviewed_passing_tables / decisions * 100; (b) covered_regions / regions * 100; (c) count(CC > 15); (d) exercised_branch_and_condition_outcomes / branch_and_condition_outcomes * 100 over the safety-critical decisions",
+      "data_source": "docs/vv/reports/TC-SW-COV-001-r<N>.md (MC/DC table with the MSR-14 branch and condition result per condition, MSR-13 coverage), MSR-13, MSR-14 and the complexity measurement in docs/plan/measurements.json (07 sections 9.6, 11, 14.3), reviewer record docs/reviews/<REVIEW>/checklists/<product-slug>.md (INSP-NNN)",
+      "planned_value": 100,
+      "planned_value_text": "(a) 100 %, (b) 100 % and (d) 100 % (or each gap dispositioned in the coverage report per 07 section 11.2) on the release build; (c) 0 (charter section 10; SWE-219 as tailored because rustc has no MC/DC instrumentation, RMM disposition T; SWE-220). A shortfall against the 100 % target in (a) or (b) is handled as 01 section 8.6 records (proposed for owner decision at SRR): the RMM SWE-219 row (disposition T) stays the relief for the method, and each shortfall is waived with rationale by the owner as Technical Authority, as the SWE-219 note provides (NPR 7150.2D section 3.7.4 note), as a numbered waiver W<n> in the CDR, TRR or SAR decision memo, entered in CSA item 12 and listed in VDD section 7 (05 section 2 product waiver). A function over complexity 15, (c), is handled by SWE-220's own clause (any exceedance reviewed and waived with rationale by the project manager or technical approval authority): a product waiver per 05 section 2, recorded as a CR-NNN with disposition Approved (waiver) or a decision-memo item W<n> and listed in the VDD, while the RMM SWE-220 row stays FC",
+      "tbr": null,
+      "margin_policy": {
+        "CDR": "every safety-critical decision listed in the detailed design decision tables with its independence pairs identified; (c) = 0",
+        "TRR": "(a) >= 95 % with a dated plan for the rest; (b) >= 95 %; (c) = 0; (d) reported",
+        "SAR": "(a) 100 %; (b) 100 %; (c) 0 or every exceedance covered by an approved SWE-220 product waiver; (d) 100 % or every gap dispositioned; any shortfall in (a) or (b) is covered by an owner waiver W<n> in the CDR, TRR or SAR decision memo (SWE-219 note; 01 section 8.6)"
+      },
+      "threshold_yellow": "(a) or (b) between 95 % and 100 % with a dated closure plan, or (c) > 0 with a SWE-220 waiver request submitted, or (d) below 100 % with every gap dispositioned",
+      "threshold_red": "(a) or (b) below 95 %, any decision without a table at TRR, (c) > 0 without a submitted waiver request, or (d) not reported at TRR or SAR",
+      "measurement_method": {
+        "pre_build": "Inspection: decision tables in docs/design/software-design.md at CDR; Test, HostUnit: independence-pair tests on the tagged build with cargo llvm-cov region coverage (stable, MSR-13) and cargo +nightly-2026-08-24 llvm-cov --branch with -Z coverage-options=condition (MSR-14, credit: false); complexity by the 07 section 8 gate script",
+        "post_build": "same on the release build whose hash appears in the VDD"
+      },
+      "reporting_review": ["CDR", "TRR", "SAR"],
+      "moe_ids": ["MOE-012"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-018",
+      "key": "verification-closure",
+      "name": "Verification closure burndown",
+      "category": "leading_indicator",
+      "npr_ref": "SE-60; SE HB App. J section 7.4 verification trends",
+      "mop_id": null,
+      "mop_note": "Process leading indicator (SE HB App. J section 7.4 verification trends: closure burndown, deviations and waivers); carries MOP-015 (pre-build closure at CDR) as its CDR value; not derived from an MOE",
+      "definition": "Per requirement level (L1, L2 hardware modules, L2 software module files): (a) requirements whose status is Verified or Closed divided by requirements that are Active, Verified or Closed; (b) requirements verifiable before build (method Analysis or Inspection, or a HostUnit closing case) with every closing case Passed, divided by all such requirements (MOP-015, NGO-023); (c) open entries in the CM deviations log docs/cm/deviations.md and open tailoring changes (CR-NNN that change an RMM or compliance-matrix row and are not yet dispositioned).",
+      "units": "percent (a), percent (b), count (c)",
+      "formula": "(a) (Verified + Closed) / (Active + Verified + Closed) * 100; (b) pre_build_verifiable_with_all_cases_passed / pre_build_verifiable * 100; (c) open deviations + open tailoring CRs",
+      "data_source": "docs/vv/traceability-report.md summary counts and closure burndown written by tools/traceability.py (04 section 7); docs/cm/deviations.md; docs/cm/cr/",
+      "planned_value": 100,
+      "planned_value_text": "(b) 100 % at CDR (MOP-015, NGO-023); (a) 100 % at SAR; (c) 0 open at every gate",
+      "tbr": null,
+      "margin_policy": {
+        "CDR": "(b) 100 %; (c) 0",
+        "TRR": "(b) 100 %; (a) reported; (c) 0",
+        "SAR": "(a) 100 %; (c) 0"
+      },
+      "threshold_yellow": "below the phase margin_policy with every missing item on a dated plan in the package",
+      "threshold_red": "(b) below 90 % at CDR, (a) below 95 % at SAR, or any open deviation without a raised RFA (05 section 6 item 11)",
+      "measurement_method": {
+        "pre_build": "Inspection: tools/traceability.py summary counts over docs/requirements/** and docs/test_cases/** and the reports under docs/vv/reports/",
+        "post_build": "same, including Bench and OnAir reports"
+      },
+      "reporting_review": ["PDR", "CDR", "TRR", "TRR-Dn", "SAR"],
+      "moe_ids": ["MOE-003"],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-019",
+      "key": "ncr-trend",
+      "name": "Nonconformance report trend",
+      "category": "leading_indicator",
+      "npr_ref": "SE-60; SE HB App. J section 7.4 problem report and discrepancy trends; NPR 7150.2D SWE-201 to SWE-204",
+      "mop_id": null,
+      "mop_note": "Process leading indicator (SE HB App. J section 7.4 problem report and discrepancy trends: number open, number closed); not derived from an MOE",
+      "definition": "Count of NCR-NNN records in docs/vv/ncr/ by severity S1 to S4 (04 section 10.3) and state (open, closed), opened and closed since the previous review, with the age of the oldest open S1 or S2 NCR.",
+      "units": "count by severity and state; days (oldest open S1 or S2)",
+      "formula": "open_by_severity = count(status != Closed); closed_since_previous = count(closed after the previous review's package date)",
+      "data_source": "docs/vv/ncr/NCR-NNN.md front matter via the requirement-to-NCR list and the NCR counts of docs/vv/traceability-report.md (tools/traceability.py, 04 section 7)",
+      "planned_value": 0,
+      "planned_value_text": "0 open S1 or S2 NCRs at every TRR, delta TRR and SAR (S1 and S2 are high severity for SWE-204); every S3 and S4 NCR dispositioned per 04 section 10 before SAR",
+      "tbr": null,
+      "margin_policy": {
+        "every_review": "0 open S1 or S2; every open S3 or S4 has a disposition plan"
+      },
+      "threshold_yellow": "an open S3 or S4 NCR without a disposition plan",
+      "threshold_red": "any open S1 or S2 NCR at a TRR, delta TRR or SAR",
+      "measurement_method": {
+        "pre_build": "Inspection: NCR files and the traceability report counts (pre-build NCRs arise from analyses, host tests and receipt inspection)",
+        "post_build": "same"
+      },
+      "reporting_review": ["PDR", "CDR", "TRR", "TRR-Dn", "SAR"],
+      "moe_ids": [],
+      "requirement_ids": [],
+      "history": []
+    },
+    {
+      "id": "TPM-020",
+      "key": "interface-maturity",
+      "name": "Interface maturity: ICD approval and TBD/TBR burndown",
+      "category": "leading_indicator",
+      "npr_ref": "SE-60; SE HB App. J section 7.4 interface trends; SEMP section 5.12 measure",
+      "mop_id": null,
+      "mop_note": "Process leading indicator (SE HB App. J section 7.4 interface trends: percent ICD approval, TBD/TBR burndown); not derived from an MOE",
+      "definition": "(a) ICDs whose front matter status is Baselined divided by ICDs identified (the interface list of docs/design/architecture.md from PDR, and before PDR the list of docs/design/concept.md section 9, plus every docs/icd/ICD-*.md file); (b) sum of tbr_open over docs/icd/ICD-*.md front matter; (c) count of TBDs in ICDs (always 0 in a baselined ICD, charter section 7).",
+      "units": "percent (a); count (b), (c)",
+      "formula": "(a) baselined_icds / identified_icds * 100; (b) sum(tbr_open); (c) count of TBD markers",
+      "data_source": "docs/icd/ICD-*.md front matter (docs/templates/icd.md fields status and tbr_open) and the interface list of docs/design/architecture.md (docs/design/concept.md section 9 before PDR), counted by tools/render_tpm.py (written by Claude before PDR)",
+      "planned_value": 100,
+      "planned_value_text": "(a) 100 % at PDR (ICDs baselined with the allocated baseline, SEMP section 5.12); (b) 0 at CDR; (c) 0 at every baseline",
+      "tbr": null,
+      "margin_policy": {
+        "PDR": "(a) 100 %; (c) 0",
+        "CDR": "(a) 100 %; (b) 0; (c) 0"
+      },
+      "threshold_yellow": "below the phase margin_policy with every open TBR carrying owner, plan and close_by",
+      "threshold_red": "any TBD in a baselined ICD, any TBR past its close_by, or (a) below 80 % at PDR",
+      "measurement_method": {
+        "pre_build": "Inspection: front-matter count over docs/icd/ by the script, checked against the architecture interface list",
+        "post_build": "not applicable (interfaces verified through their requirements)"
+      },
+      "reporting_review": ["PDR", "CDR"],
+      "moe_ids": [],
+      "requirement_ids": [],
+      "history": []
+    }
+  ]
+}

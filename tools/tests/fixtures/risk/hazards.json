@@ -1,0 +1,30 @@
+{
+  "version": "0.0.1-fixture",
+  "hazards": [
+    {
+      "id": "HZ-001",
+      "title": "Fixture critical hazard",
+      "severity": "Critical",
+      "status": "Controls proposed",
+      "related_risk_ids": [
+        "RSK-001"
+      ]
+    },
+    {
+      "id": "HZ-002",
+      "title": "Fixture catastrophic hazard",
+      "severity": "Catastrophic",
+      "status": "Controls proposed",
+      "related_risk_ids": [
+        "RSK-002"
+      ]
+    },
+    {
+      "id": "HZ-003",
+      "title": "Fixture verified hazard",
+      "severity": "Marginal",
+      "status": "Controls verified",
+      "related_risk_ids": []
+    }
+  ]
+}

@@ -1,0 +1,460 @@
+[
+  {
+    "name": "score_mismatch",
+    "ops": [
+      {
+        "risk": "RSK-001",
+        "path": [
+          "score"
+        ],
+        "set": 13
+      }
+    ],
+    "expected": [
+      "RSK-001: score 13 != likelihood x max(consequence) = 12",
+      "RSK-001: last history entry must equal the current likelihood, max consequence, score and status"
+    ]
+  },
+  {
+    "name": "red_one_active_step",
+    "ops": [
+      {
+        "risk": "RSK-001",
+        "path": [
+          "mitigation",
+          "steps",
+          1,
+          "status"
+        ],
+        "set": "Dropped"
+      }
+    ],
+    "expected": [
+      "RSK-001: Red risk needs at least 2 active mitigation steps (process section 8)"
+    ]
+  },
+  {
+    "name": "red_strategy_watch",
+    "ops": [
+      {
+        "risk": "RSK-001",
+        "path": [
+          "mitigation",
+          "strategy"
+        ],
+        "set": "Watch"
+      }
+    ],
+    "expected": [
+      "RSK-001: Red risk needs strategy Mitigate, Research or Elevate, not Watch (process section 8)"
+    ]
+  },
+  {
+    "name": "red_strategy_accept_while_mitigating",
+    "ops": [
+      {
+        "risk": "RSK-001",
+        "path": [
+          "mitigation",
+          "strategy"
+        ],
+        "set": "Accept"
+      }
+    ],
+    "expected": [
+      "RSK-001: Red risk needs strategy Mitigate, Research or Elevate, not Accept (process section 8)"
+    ]
+  },
+  {
+    "name": "red_status_watch",
+    "ops": [
+      {
+        "risk": "RSK-001",
+        "path": [
+          "status"
+        ],
+        "set": "Watch"
+      },
+      {
+        "risk": "RSK-001",
+        "path": [
+          "history",
+          -1,
+          "status"
+        ],
+        "set": "Watch"
+      }
+    ],
+    "expected": [
+      "RSK-001: Red risk cannot have status Watch (process section 9)"
+    ]
+  },
+  {
+    "name": "override_red_at_L2_S5",
+    "ops": [
+      {
+        "risk": "RSK-002",
+        "path": [
+          "mitigation",
+          "steps",
+          1,
+          "status"
+        ],
+        "set": "Dropped"
+      }
+    ],
+    "expected": [
+      "RSK-002: Red risk needs at least 2 active mitigation steps (process section 8)"
+    ]
+  },
+  {
+    "name": "override_yellow_at_L1_S5",
+    "ops": [
+      {
+        "risk": "RSK-002",
+        "path": [
+          "likelihood"
+        ],
+        "set": 1
+      },
+      {
+        "risk": "RSK-002",
+        "path": [
+          "score"
+        ],
+        "set": 5
+      },
+      {
+        "risk": "RSK-002",
+        "path": [
+          "history",
+          -1,
+          "likelihood"
+        ],
+        "set": 1
+      },
+      {
+        "risk": "RSK-002",
+        "path": [
+          "history",
+          -1,
+          "score"
+        ],
+        "set": 5
+      },
+      {
+        "risk": "RSK-002",
+        "path": [
+          "mitigation",
+          "steps",
+          1,
+          "status"
+        ],
+        "set": "Dropped"
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "aggregate_mismatch",
+    "ops": [
+      {
+        "risk": "RSK-005",
+        "path": [
+          "likelihood"
+        ],
+        "set": 4
+      },
+      {
+        "risk": "RSK-005",
+        "path": [
+          "score"
+        ],
+        "set": 8
+      },
+      {
+        "risk": "RSK-005",
+        "path": [
+          "history",
+          -1,
+          "likelihood"
+        ],
+        "set": 4
+      },
+      {
+        "risk": "RSK-005",
+        "path": [
+          "history",
+          -1,
+          "score"
+        ],
+        "set": 8
+      },
+      {
+        "risk": "RSK-005",
+        "path": [
+          "trend"
+        ],
+        "set": "Increasing"
+      }
+    ],
+    "expected": [
+      "RSK-005: aggregate likelihood 4 != max of children 3"
+    ]
+  },
+  {
+    "name": "accepted_without_acceptance",
+    "ops": [
+      {
+        "risk": "RSK-004",
+        "path": [
+          "acceptance"
+        ],
+        "delete": true
+      }
+    ],
+    "expected": [
+      "RSK-004: Accepted risk needs acceptance.decision_memo, acceptance.date and acceptance.residual_score"
+    ]
+  },
+  {
+    "name": "acceptance_without_residual",
+    "ops": [
+      {
+        "risk": "RSK-004",
+        "path": [
+          "acceptance",
+          "residual_score"
+        ],
+        "delete": true
+      }
+    ],
+    "expected": [
+      "RSK-004: Accepted risk needs acceptance.decision_memo, acceptance.date and acceptance.residual_score"
+    ]
+  },
+  {
+    "name": "residual_score_mismatch",
+    "ops": [
+      {
+        "risk": "RSK-004",
+        "path": [
+          "acceptance",
+          "residual_score"
+        ],
+        "set": 1
+      }
+    ],
+    "expected": [
+      "RSK-004: acceptance.residual_score 1 != score 4"
+    ]
+  },
+  {
+    "name": "trend_mismatch",
+    "ops": [
+      {
+        "risk": "RSK-001",
+        "path": [
+          "trend"
+        ],
+        "set": "Increasing"
+      }
+    ],
+    "expected": [
+      "RSK-001: trend should be Stable (score 12 -> 12)"
+    ]
+  },
+  {
+    "name": "realized_without_ncr_or_cr",
+    "ops": [
+      {
+        "risk": "RSK-007",
+        "path": [
+          "related",
+          "ncr_ids"
+        ],
+        "set": []
+      }
+    ],
+    "expected": [
+      "RSK-007: Realized risk needs related.ncr_ids or related.cr_ids (process section 3)"
+    ]
+  },
+  {
+    "name": "low_confidence_without_control",
+    "ops": [
+      {
+        "risk": "RSK-002",
+        "path": [
+          "mitigation",
+          "steps",
+          0,
+          "action"
+        ],
+        "set": "Fixture decision entry for the cell"
+      }
+    ],
+    "expected": [
+      "RSK-002: Low confidence without a Research strategy, a re-assessment trigger or a hazard-analysis step (process section 3)"
+    ]
+  },
+  {
+    "name": "low_confidence_reassess_trigger_only",
+    "ops": [
+      {
+        "risk": "RSK-002",
+        "path": [
+          "mitigation",
+          "steps",
+          0,
+          "action"
+        ],
+        "set": "Fixture decision entry for the cell"
+      },
+      {
+        "risk": "RSK-002",
+        "path": [
+          "mitigation",
+          "triggers",
+          0,
+          "response"
+        ],
+        "set": "Claude re-assesses this risk the same session"
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "low_confidence_research_strategy",
+    "ops": [
+      {
+        "risk": "RSK-002",
+        "path": [
+          "mitigation",
+          "steps",
+          0,
+          "action"
+        ],
+        "set": "Fixture decision entry for the cell"
+      },
+      {
+        "risk": "RSK-002",
+        "path": [
+          "mitigation",
+          "strategy"
+        ],
+        "set": "Research"
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "software_tag_missing",
+    "ops": [
+      {
+        "risk": "RSK-002",
+        "path": [
+          "tags"
+        ],
+        "set": []
+      }
+    ],
+    "expected": [
+      "RSK-002: a step artifact is under docs/requirements/sw/, docs/test_cases/sw-* or firmware/ but the risk has neither category software nor tag software (process section 5)"
+    ]
+  },
+  {
+    "name": "last_assessed_review_mismatch",
+    "ops": [
+      {
+        "risk": "RSK-001",
+        "path": [
+          "last_assessed",
+          "review"
+        ],
+        "set": "Pre-SRR"
+      }
+    ],
+    "expected": [
+      "RSK-001: last_assessed.review must equal the review of the last history entry"
+    ]
+  },
+  {
+    "name": "active_risk_without_trigger",
+    "ops": [
+      {
+        "risk": "RSK-003",
+        "path": [
+          "mitigation",
+          "triggers"
+        ],
+        "set": []
+      }
+    ],
+    "expected": [
+      "RSK-003: risk needs at least 1 trigger (process section 8)"
+    ]
+  },
+  {
+    "name": "last_history_without_safety",
+    "ops": [
+      {
+        "risk": "RSK-001",
+        "path": [
+          "history",
+          -1,
+          "safety"
+        ],
+        "delete": true
+      }
+    ],
+    "expected": [
+      "RSK-001: last history entry must carry safety equal to consequence.safety"
+    ]
+  },
+  {
+    "name": "candidate_not_in_source",
+    "ops": [
+      {
+        "risk": "RSK-001",
+        "path": [
+          "source"
+        ],
+        "set": "Fixture risk entered from candidate CAND-10"
+      }
+    ],
+    "expected": [
+      "candidate CAND-1: RSK-001.source does not name the candidate"
+    ]
+  },
+  {
+    "name": "declined_candidate_without_rationale",
+    "ops": [
+      {
+        "candidate": 2,
+        "path": [
+          "rationale"
+        ],
+        "delete": true
+      }
+    ],
+    "expected": [
+      "candidate CAND-3: Declined candidate needs a rationale of at least 20 characters"
+    ]
+  },
+  {
+    "name": "candidate_unknown_risk",
+    "ops": [
+      {
+        "candidate": 1,
+        "path": [
+          "risk_id"
+        ],
+        "set": "RSK-099"
+      }
+    ],
+    "expected": [
+      "candidate CAND-2: risk_id RSK-099 is not in the register"
+    ]
+  }
+]

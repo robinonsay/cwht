@@ -1,0 +1,13 @@
+{
+  "title": "review_trend fixture",
+  "tpms": [
+    {"id": "TPM-001", "key": "mass-margin", "history": [], "inline": [1, 2, 3]},
+    {
+      "id": "TPM-003",
+      "key": "review-trend",
+      "name": "Review trend: RFA and RID closure burndown",
+      "history": []
+    },
+    {"id": "TPM-012", "key": "volatility", "history": []}
+  ]
+}

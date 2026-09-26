@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "project": "cwht",
+    "document": "Requirements Mapping Matrix fixture (three Class A rows)",
+    "npr": "NPR 7150.2D",
+    "source_table": "tools/tests/fixtures/rmm/appendix-c.md (Table 2 excerpt, Class A column)",
+    "software_class_elected": "A",
+    "software_class_app_d_assessment": "D (fixture)",
+    "classification_record": "docs/process/03-software-classification-and-rmm.md",
+    "authority": "Owner as ETA, SMA TA, HMTA and CIO/SAISO designee",
+    "generated_on": "2026-09-25",
+    "generator": "tools/render_rmm.py (fixture)",
+    "approval": {
+      "status": "Draft for SRR",
+      "memo": "docs/reviews/SRR/decision-memo.md",
+      "approved_by": null,
+      "approved_on": null
+    }
+  },
+  "rows": [
+    {
+      "swe": "SWE-020",
+      "npr_section": "3.5.2",
+      "npr_group": "3.5",
+      "section_title": "Software Classification Assessments",
+      "short_title": "Classify systems and subsystems",
+      "requirement_text": "The project manager shall classify each system and subsystem containing software in accordance with the highest applicable software classification definitions for Classes A, B, C, D, E, and F software in Appendix D.",
+      "class_a_applicable": true,
+      "authority_npr": "Center",
+      "disposition": "FC",
+      "implementation": "Classification record docs/process/existing.md records the App. D assessment and the election.",
+      "tailoring_rationale": null,
+      "residual_risk": null,
+      "authority": "Owner as ETA, SMA TA, HMTA and CIO/SAISO designee",
+      "responsible": [
+        "Owner (PM, Decision Authority, ETA, SMA TA)",
+        "Claude (lead SE, software lead)"
+      ],
+      "status": "In place",
+      "charter_ref": "Section 1"
+    },
+    {
+      "swe": "SWE-023",
+      "npr_section": "3.7.2",
+      "npr_group": "3.7",
+      "section_title": "Safety-critical Software",
+      "short_title": "Implement NASA-STD-8739.8 requirements",
+      "requirement_text": "If a project has safety-critical software, the project manager shall implement the safety-critical software requirements contained in NASA-STD-8739.8.",
+      "class_a_applicable": true,
+      "authority_npr": "Center",
+      "disposition": "T",
+      "implementation": "Safety requirements tagged safety in docs/requirements/sw/ verified by Test.",
+      "tailoring_rationale": "The standard is not in the corpus; the para 3.2 criteria are applied through SWEHB 7.02.",
+      "residual_risk": "Residual risk: an unmapped requirement of the standard is not implemented; mitigated by independent Test and review.",
+      "authority": "Owner as ETA, SMA TA, HMTA and CIO/SAISO designee",
+      "responsible": [
+        "Claude (lead SE, software lead)",
+        "Owner (PM, Decision Authority, ETA, SMA TA)"
+      ],
+      "status": "Planned",
+      "charter_ref": "Section 10"
+    },
+    {
+      "swe": "SWE-141",
+      "npr_section": "3.6.2",
+      "npr_group": "3.6",
+      "section_title": "Software Assurance and Software Independent Verification & Validation",
+      "short_title": "IV&V on Category 1 and 2 projects",
+      "requirement_text": "For projects reaching Key Decision Point A, the program manager shall ensure that software IV&V is performed on the following categories of projects: a. Category 1 projects as defined in NPR 7120.5. b. Category 2 projects as defined in NPR 7120.5 that have Class A or Class B payload risk classification per NPR 8705.4. c. Projects selected explicitly by the NASA Chief, Safety and Mission Assurance to have software IV&V.",
+      "class_a_applicable": true,
+      "authority_npr": "HQ OSMA",
+      "disposition": "NA",
+      "implementation": "Intent preserved by independent reviewer agents (charter section 2). Independent concurrence record in docs/reviews/SRR/ is Planned for SRR.",
+      "tailoring_rationale": "IV&V is invoked for NPR 7120.5 Category 1 and 2 projects; cwht is neither.",
+      "residual_risk": "Residual risk: defects an IV&V organization would find escape; mitigated by author, reviewer and test-author independence.",
+      "authority": "Owner as ETA, SMA TA, HMTA and CIO/SAISO designee",
+      "responsible": [
+        "Owner (PM, Decision Authority, ETA, SMA TA)"
+      ],
+      "status": "In place",
+      "charter_ref": "Section 12"
+    }
+  ]
+}

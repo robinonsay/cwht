@@ -1,0 +1,1756 @@
+{
+  "generated": "2026-09-25",
+  "tool": "tools/traceability.py",
+  "result": "FAIL",
+  "violations": 255,
+  "warnings": 0,
+  "counts": {
+    "requirements": 177,
+    "requirements_retired": 2,
+    "requirements_covered": 0,
+    "requirements_verified_or_closed": 0,
+    "test_cases": 0,
+    "reports": 0,
+    "hazards": 15,
+    "ncrs": 0,
+    "expectations": 71,
+    "conops_scenarios": 22
+  },
+  "coverage_by_module": {
+    "SYS": {
+      "requirements": 177,
+      "with_any_case": 0,
+      "with_closing_case": 0,
+      "verified_or_closed": 0,
+      "with_children": 0,
+      "open_tbr": 100
+    },
+    "All": {
+      "requirements": 177,
+      "with_any_case": 0,
+      "with_closing_case": 0,
+      "verified_or_closed": 0,
+      "with_children": 0,
+      "open_tbr": 100
+    }
+  },
+  "measurements": {
+    "MSR-01": {
+      "name": "Software requirements count by level and status",
+      "by_level": {
+        "L1": {
+          "Closed": 2,
+          "Draft": 177
+        },
+        "L2": {}
+      },
+      "software_by_status": {}
+    },
+    "MSR-03": {
+      "name": "Traceability gaps",
+      "requirements_without_parent": 0,
+      "requirements_without_verification_case": 177,
+      "design_units_without_design_tag": null,
+      "functions_without_req_tag": null,
+      "note": "the firmware tag scan (02 T-15) is a PDR/CDR tool task; null until it exists"
+    },
+    "MSR-04": {
+      "name": "Open TBR count",
+      "software_requirements": 0,
+      "all_requirements": 100
+    },
+    "MSR-23": {
+      "name": "Test counts by status and class",
+      "by_status": {},
+      "by_class": {},
+      "by_class_and_status": {}
+    }
+  },
+  "swe052_coverage": [
+    {
+      "row": 1,
+      "relationship": "Higher-level requirements to the software requirements",
+      "state": "Enforced",
+      "enforced": [
+        "PARENT_MISSING",
+        "PARENT_UNRESOLVED",
+        "PARENT_CYCLE",
+        "CHILD_INVERSE",
+        "SELF_DERIVED_UNSUPPORTED",
+        "L1_PARENT_NOT_NULL",
+        "SOURCE_UNRESOLVED",
+        "SOURCE_L0_MISSING"
+      ],
+      "planned": []
+    },
+    {
+      "row": 2,
+      "relationship": "Software requirements to the system hazards",
+      "state": "Partial",
+      "enforced": [
+        "HAZARD_ID_FORMAT",
+        "HAZARD_UNRESOLVED",
+        "HAZARD_CONTROL_UNTRACED",
+        "SAFETY_TAG_NO_HAZARD",
+        "HAZARD_REQ_NOT_TESTED",
+        "HAZARD_REQ_NOT_ON_TARGET"
+      ],
+      "planned": [
+        {
+          "code": "HAZARD_UNCONTROLLED",
+          "action": "add",
+          "gate": "before PDR (03 section 8)"
+        },
+        {
+          "code": "HAZARD_INVERSE",
+          "action": "promoted to VIOLATION",
+          "gate": "PDR (03 section 8; 04 section 7.3 rule 6 asks for every gate)"
+        }
+      ]
+    },
+    {
+      "row": 3,
+      "relationship": "Software requirements to the software design components",
+      "state": "Not enforced",
+      "enforced": [],
+      "planned": [
+        {
+          "code": "DESIGN_REF_UNRESOLVED",
+          "action": "add",
+          "gate": "before PDR (03 section 8; 02 T-15)"
+        },
+        {
+          "code": "DESIGN_REF_MISSING",
+          "action": "add",
+          "gate": "before PDR (03 section 8; 02 T-15)"
+        },
+        {
+          "code": "DESIGN_ELEMENT_ORPHAN",
+          "action": "add",
+          "gate": "before PDR (03 section 8; 02 T-15)"
+        }
+      ]
+    },
+    {
+      "row": 4,
+      "relationship": "Software design components to the software code",
+      "state": "Not enforced",
+      "enforced": [],
+      "planned": [
+        {
+          "code": "TAG_UNRESOLVED",
+          "action": "add",
+          "gate": "before CDR (03 section 8; 02 T-15)"
+        },
+        {
+          "code": "REQ_UNTAGGED",
+          "action": "add",
+          "gate": "before CDR (03 section 8; 02 T-15)"
+        },
+        {
+          "code": "DESIGN_ELEMENT_UNIMPLEMENTED",
+          "action": "add",
+          "gate": "before CDR (03 section 8)"
+        }
+      ]
+    },
+    {
+      "row": 5,
+      "relationship": "Software requirements to the software verification(s)",
+      "state": "Enforced",
+      "enforced": [
+        "REQ_UNVERIFIED",
+        "REQ_NO_CLOSING_CASE",
+        "TC_REQ_UNRESOLVED",
+        "TC_TYPE_METHOD",
+        "VERIFIED_WITHOUT_EVIDENCE",
+        "TC_STATUS_EVIDENCE",
+        "REPORT_UNRESOLVED"
+      ],
+      "planned": []
+    },
+    {
+      "row": 6,
+      "relationship": "Software requirements to the software non-conformances",
+      "state": "Enforced",
+      "enforced": [
+        "NCR_FRONT_MATTER",
+        "NCR_ID_FORMAT",
+        "NCR_UNRESOLVED",
+        "NCR_NO_REQUIREMENT",
+        "NCR_FIELD_INVALID",
+        "VERIFIED_WITH_OPEN_NCR"
+      ],
+      "planned": []
+    }
+  ],
+  "validation_rows": {
+    "OPS-001": "No case",
+    "OPS-002": "No case",
+    "OPS-003": "No case",
+    "OPS-004": "No case",
+    "OPS-005": "No case",
+    "OPS-006": "No case",
+    "OPS-007": "No case",
+    "OPS-008": "No case",
+    "OPS-009": "No case",
+    "OPS-010": "No case",
+    "OPS-011": "No case",
+    "OPS-012": "No case",
+    "OPS-013": "No case",
+    "OPS-014": "No case",
+    "OPS-015": "No case",
+    "OPS-016": "No case",
+    "OPS-017": "No case",
+    "OPS-018": "No case",
+    "OPS-019": "No case",
+    "OPS-020": "No case",
+    "OPS-021": "No case",
+    "OPS-022": "No case",
+    "MOE-001": "No case",
+    "MOE-002": "No case",
+    "MOE-003": "No case",
+    "MOE-004": "No case",
+    "MOE-005": "No case",
+    "MOE-006": "No case",
+    "MOE-007": "No case",
+    "MOE-008": "No case",
+    "MOE-009": "No case",
+    "MOE-010": "No case",
+    "MOE-011": "No case",
+    "MOE-012": "No case",
+    "MOE-013": "No case"
+  },
+  "findings": [
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-002",
+      "message": "traces to HZ-004, HZ-011 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-003",
+      "message": "traces to HZ-004, HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-004",
+      "message": "traces to HZ-004 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-005",
+      "message": "traces to HZ-004 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-007",
+      "message": "traces to HZ-004 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-008",
+      "message": "traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-009",
+      "message": "traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-011",
+      "message": "traces to HZ-001, HZ-006 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-012",
+      "message": "traces to HZ-001, HZ-003, HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-013",
+      "message": "traces to HZ-003, HZ-009, HZ-012 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-017",
+      "message": "traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-018",
+      "message": "traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-019",
+      "message": "traces to HZ-001, HZ-006, HZ-012 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-020",
+      "message": "traces to HZ-001, HZ-006, HZ-012 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-034",
+      "message": "traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-047",
+      "message": "traces to HZ-010 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-048",
+      "message": "traces to HZ-004, HZ-010 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-049",
+      "message": "traces to HZ-010 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-051",
+      "message": "traces to HZ-004, HZ-010 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-052",
+      "message": "traces to HZ-004, HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-053",
+      "message": "traces to HZ-001, HZ-003, HZ-004, HZ-006, HZ-012 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-054",
+      "message": "traces to HZ-001, HZ-003, HZ-004, HZ-006, HZ-012 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-055",
+      "message": "traces to HZ-001, HZ-003, HZ-004, HZ-006, HZ-012, HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-056",
+      "message": "traces to HZ-004 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-063",
+      "message": "traces to HZ-001, HZ-006 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-064",
+      "message": "traces to HZ-001, HZ-006, HZ-012, HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-065",
+      "message": "traces to HZ-006 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-066",
+      "message": "traces to HZ-006 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-067",
+      "message": "traces to HZ-004 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-069",
+      "message": "traces to HZ-006 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-070",
+      "message": "traces to HZ-011 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-071",
+      "message": "traces to HZ-005 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-072",
+      "message": "traces to HZ-005 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-074",
+      "message": "traces to HZ-005 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-077",
+      "message": "traces to HZ-005 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-079",
+      "message": "traces to HZ-010 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-081",
+      "message": "traces to HZ-002 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-082",
+      "message": "traces to HZ-002 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-083",
+      "message": "traces to HZ-002 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-084",
+      "message": "traces to HZ-007 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-086",
+      "message": "traces to HZ-007 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-087",
+      "message": "traces to HZ-002, HZ-007 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-088",
+      "message": "traces to HZ-002 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-089",
+      "message": "traces to HZ-002 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-090",
+      "message": "traces to HZ-011 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-092",
+      "message": "traces to HZ-011, HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-093",
+      "message": "traces to HZ-002, HZ-011 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-096",
+      "message": "traces to HZ-007 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-097",
+      "message": "traces to HZ-007 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-098",
+      "message": "traces to HZ-007 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-099",
+      "message": "traces to HZ-007 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-101",
+      "message": "traces to HZ-004, HZ-007 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-105",
+      "message": "traces to HZ-009 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-107",
+      "message": "traces to HZ-009 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-118",
+      "message": "traces to HZ-003 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-119",
+      "message": "traces to HZ-004, HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-120",
+      "message": "traces to HZ-004 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-130",
+      "message": "traces to HZ-004, HZ-005 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-131",
+      "message": "traces to HZ-004, HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-132",
+      "message": "traces to HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-134",
+      "message": "traces to HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-143",
+      "message": "traces to HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-149",
+      "message": "traces to HZ-011, HZ-014 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-151",
+      "message": "traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-152",
+      "message": "traces to HZ-003, HZ-009 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-153",
+      "message": "traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-154",
+      "message": "traces to HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-155",
+      "message": "traces to HZ-003 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-156",
+      "message": "traces to HZ-003, HZ-008 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-159",
+      "message": "traces to HZ-005 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-162",
+      "message": "traces to HZ-004, HZ-010 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-163",
+      "message": "traces to HZ-004 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-166",
+      "message": "traces to HZ-007 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-167",
+      "message": "traces to HZ-002 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-169",
+      "message": "traces to HZ-005 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-170",
+      "message": "traces to HZ-005 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-171",
+      "message": "traces to HZ-006 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "HAZARD_REQ_NOT_TESTED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-179",
+      "message": "traces to HZ-004, HZ-005 with method Test but no closing case of method Test cites it (04 rule 7.3.6, the project extension of SWE-192 to every hazard-control requirement)"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-001",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-002",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-003",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-004",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-005",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-006",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-007",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-008",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-009",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-010",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-011",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-012",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-013",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-014",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-015",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-017",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-018",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-019",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-020",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-021",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-022",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-023",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-024",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-025",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-026",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-027",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-028",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-029",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-030",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-031",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-032",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-033",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-034",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-035",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-036",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-037",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-038",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-039",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-040",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-041",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-042",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-043",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-044",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-045",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-046",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-047",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-048",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-049",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-050",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-051",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-052",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-053",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-054",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-055",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-056",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-057",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-058",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-059",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-060",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-061",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-062",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-063",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-064",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-065",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-066",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-067",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-068",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-069",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-070",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-071",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-072",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-073",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-074",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-075",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-076",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-077",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-078",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-079",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-080",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-081",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-082",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-083",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-084",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-085",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-086",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-087",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-088",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-089",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-090",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-091",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-092",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-093",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-094",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-095",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-096",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-097",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-098",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-099",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-100",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-101",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-102",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-103",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-104",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-105",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-106",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-107",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-108",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-109",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-110",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-111",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-112",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-113",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-114",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-115",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-116",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-117",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-118",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-119",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-120",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-121",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-122",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-124",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-125",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-126",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-127",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-128",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-129",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-130",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-131",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-132",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-133",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-134",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-135",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-136",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-137",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-138",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-139",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-140",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-141",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-142",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-143",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-144",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-145",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-146",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-147",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-148",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-149",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-150",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-151",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-152",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-153",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-154",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-155",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-156",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-157",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-158",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-159",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-160",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-161",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-162",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-163",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-164",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-165",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-166",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-167",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-168",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-169",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-170",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-171",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-172",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-173",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-174",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-175",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-176",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-177",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-178",
+      "message": "status Draft but no live test case cites this requirement"
+    },
+    {
+      "severity": "VIOLATION",
+      "code": "REQ_UNVERIFIED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-179",
+      "message": "status Draft but no live test case cites this requirement"
+    }
+  ]
+}

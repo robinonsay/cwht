@@ -1,0 +1,305 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cwht RFA/RID Log",
+  "description": "One log per life-cycle review at docs/reviews/<REVIEW>/rfa-rid-log.json. Process: docs/process/01-lifecycle-and-reviews.md section 10 (definitions, severities, states, ownership, closure evidence). IDs are RFA-<REVIEW>-NNN and RID-<REVIEW>-NNN, never reused. Every item id and item review must name the log's own review: enforced below for the fixed tokens; for a TRR-Dn log only the form is enforced here, and the exact n is checked by the log keeper's item check (process section 10.4). tools/validate_docs.py runs this schema (Draft 7) and also checks that the log's review equals its folder name and that every verification.record exists.",
+  "type": "object",
+  "required": ["review", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "review": { "$ref": "#/definitions/reviewToken" },
+    "package_revision": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Revision of docs/reviews/<REVIEW>/package.md the log was last reconciled with"
+    },
+    "updated": { "$ref": "#/definitions/date" },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/item" }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "review": { "const": "SRR" } } },
+      "then": { "properties": { "items": { "items": { "properties": { "id": { "pattern": "^(RFA|RID)-SRR-[0-9]{3}$" }, "review": { "const": "SRR" } } } } } }
+    },
+    {
+      "if": { "properties": { "review": { "const": "PDR" } } },
+      "then": { "properties": { "items": { "items": { "properties": { "id": { "pattern": "^(RFA|RID)-PDR-[0-9]{3}$" }, "review": { "const": "PDR" } } } } } }
+    },
+    {
+      "if": { "properties": { "review": { "const": "CDR" } } },
+      "then": { "properties": { "items": { "items": { "properties": { "id": { "pattern": "^(RFA|RID)-CDR-[0-9]{3}$" }, "review": { "const": "CDR" } } } } } }
+    },
+    {
+      "if": { "properties": { "review": { "const": "TRR" } } },
+      "then": { "properties": { "items": { "items": { "properties": { "id": { "pattern": "^(RFA|RID)-TRR-[0-9]{3}$" }, "review": { "const": "TRR" } } } } } }
+    },
+    {
+      "if": { "properties": { "review": { "const": "SAR" } } },
+      "then": { "properties": { "items": { "items": { "properties": { "id": { "pattern": "^(RFA|RID)-SAR-[0-9]{3}$" }, "review": { "const": "SAR" } } } } } }
+    },
+    {
+      "if": { "properties": { "review": { "pattern": "^TRR-D[1-9][0-9]?$" } } },
+      "then": { "properties": { "items": { "items": { "properties": { "id": { "pattern": "^(RFA|RID)-TRR-D[1-9][0-9]?-[0-9]{3}$" }, "review": { "pattern": "^TRR-D[1-9][0-9]?$" } } } } } }
+    }
+  ],
+  "definitions": {
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "ISO calendar date"
+    },
+    "reviewToken": {
+      "type": "string",
+      "pattern": "^(SRR|PDR|CDR|TRR|SAR|TRR-D[1-9][0-9]?)$",
+      "description": "Review identifier per charter section 6: SRR, PDR, CDR, TRR, SAR, or a delta TRR (TRR-D1, TRR-D2, ...). Only TRR has delta reviews."
+    },
+    "itemId": {
+      "type": "string",
+      "pattern": "^(RFA|RID)-(SRR|PDR|CDR|TRR|SAR|TRR-D[1-9][0-9]?)-[0-9]{3}$"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["Open", "Answered", "Verified", "Closed", "Withdrawn"]
+    },
+    "actor": {
+      "type": "string",
+      "enum": ["owner", "claude", "independent-reviewer", "software-assurance"],
+      "description": "Role, not a person: owner = Robin; claude = main session; independent-reviewer and software-assurance = separate agent invocations"
+    },
+    "projectId": {
+      "type": "string",
+      "pattern": "^(REQ-[A-Z][A-Z0-9]*(-[A-Z][A-Z0-9]*)*|TC-[A-Z][A-Z0-9]*(-[A-Z][A-Z0-9]*)*|NGO|CON|SI|MOE|MOP|TPM|OPS|ADR|TS|RSK|HZ|NCR|CR|TV|INSP|OQ-[A-Z]+|CWHT-A)-[0-9]{3}$|^(MSR|CS|WP-SW)-[0-9]{2}$|^SW-[0-9]{2}-[a-z0-9-]+$|^ICD-[A-Z0-9]+-[A-Z0-9]+$",
+      "description": "Identifier from charter section 6 (NGO, CON, SI, MOE, MOP, TPM, OPS, REQ-<MOD>, TC-<MOD>, ICD-<A>-<B>, ADR, TS, RSK, HZ, NCR, CR, TV, INSP, MSR, CS, WP-SW, SW-NN-<module>, OQ-<AREA>, CWHT-A unit serial)"
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["kind", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["commit", "cr", "adr", "trade-study", "analysis", "test-case", "report", "figure", "traceability-report", "ncr", "risk", "requirement", "memo", "tool-validation"]
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Commit hash, project identifier, or repository path in the form required for the kind (process section 10.5); the per-kind patterns below enforce it"
+        },
+        "note": { "type": "string" }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "commit" } } }, "then": { "properties": { "ref": { "pattern": "^[0-9a-f]{7,40}$" } } } },
+        { "if": { "properties": { "kind": { "const": "cr" } } }, "then": { "properties": { "ref": { "pattern": "^CR-[0-9]{3}$" } } } },
+        { "if": { "properties": { "kind": { "const": "adr" } } }, "then": { "properties": { "ref": { "pattern": "^ADR-[0-9]{3}$" } } } },
+        { "if": { "properties": { "kind": { "const": "trade-study" } } }, "then": { "properties": { "ref": { "pattern": "^TS-[0-9]{3}$" } } } },
+        { "if": { "properties": { "kind": { "const": "tool-validation" } } }, "then": { "properties": { "ref": { "pattern": "^TV-[0-9]{3}$" } } } },
+        { "if": { "properties": { "kind": { "const": "ncr" } } }, "then": { "properties": { "ref": { "pattern": "^NCR-[0-9]{3}$" } } } },
+        { "if": { "properties": { "kind": { "const": "risk" } } }, "then": { "properties": { "ref": { "pattern": "^RSK-[0-9]{3}$" } } } },
+        { "if": { "properties": { "kind": { "const": "requirement" } } }, "then": { "properties": { "ref": { "pattern": "^REQ-[A-Z][A-Z0-9]*(-[A-Z][A-Z0-9]*)*-[0-9]{3}$" } } } },
+        { "if": { "properties": { "kind": { "const": "test-case" } } }, "then": { "properties": { "ref": { "pattern": "^TC-[A-Z][A-Z0-9]*(-[A-Z][A-Z0-9]*)*-[0-9]{3}(-r[0-9]+)?$" } } } },
+        { "if": { "properties": { "kind": { "const": "analysis" } } }, "then": { "properties": { "ref": { "pattern": "^(docs/design/analysis/|hardware/sim/|docs/research/)[^ ]+$" } } } },
+        { "if": { "properties": { "kind": { "const": "report" } } }, "then": { "properties": { "ref": { "pattern": "^docs/vv/reports/[^ ]+$" } } } },
+        { "if": { "properties": { "kind": { "const": "figure" } } }, "then": { "properties": { "ref": { "pattern": "^docs/reviews/(SRR|PDR|CDR|TRR|SAR|TRR-D[1-9][0-9]?)/figures/[^ ]+$" } } } },
+        { "if": { "properties": { "kind": { "const": "traceability-report" } } }, "then": { "properties": { "ref": { "pattern": "^docs/reviews/(SRR|PDR|CDR|TRR|SAR|TRR-D[1-9][0-9]?)/traceability-report\\.md$" } } } },
+        { "if": { "properties": { "kind": { "const": "memo" } } }, "then": { "properties": { "ref": { "pattern": "^docs/reviews/(SRR|PDR|CDR|TRR|SAR|TRR-D[1-9][0-9]?)/decision-memo\\.md$" } } } }
+      ]
+    },
+    "verification": {
+      "type": "object",
+      "required": ["role", "date", "result"],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": ["independent-reviewer", "software-assurance", "owner"]
+        },
+        "date": { "$ref": "#/definitions/date" },
+        "record": {
+          "type": "string",
+          "pattern": "^docs/reviews/(SRR|PDR|CDR|TRR|SAR|TRR-D[1-9][0-9]?)/checklists/[a-z0-9][a-z0-9._-]*\\.md$",
+          "description": "Path of the peer review record written by the verifying reviewer agent: the filled checklist docs/reviews/<REVIEW>/checklists/<product-slug>.md carrying id: INSP-NNN in its front matter (charter section 5 as amended 2026-09-25: single record, no peer-reviews/ folder). Required for RIDs. tools/validate_docs.py checks that the file exists."
+        },
+        "result": {
+          "type": "string",
+          "enum": ["Verified", "Rejected"],
+          "description": "Rejected sends the item back to Open with a history entry from Answered to Open (process section 10.3)"
+        },
+        "note": { "type": "string" }
+      }
+    },
+    "historyEntry": {
+      "type": "object",
+      "required": ["date", "from", "to", "by"],
+      "additionalProperties": false,
+      "properties": {
+        "date": { "$ref": "#/definitions/date" },
+        "from": {
+          "anyOf": [ { "$ref": "#/definitions/state" }, { "type": "null" } ],
+          "description": "null for the creating entry. Equal to to for an event that changes no state: a lien acceptance at signing (note names the decision memo) or an owner-accepted severity change (process section 10.3)"
+        },
+        "to": { "$ref": "#/definitions/state" },
+        "by": { "$ref": "#/definitions/actor" },
+        "note": { "type": "string" }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": ["id", "type", "severity", "review", "state", "originator", "opened", "product", "description", "assignee", "history"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/definitions/itemId" },
+        "type": { "type": "string", "enum": ["RFA", "RID"] },
+        "severity": {
+          "type": "string",
+          "enum": ["Major", "Minor", "Blocking", "Routine"],
+          "description": "RID: Major or Minor. RFA: Blocking or Routine."
+        },
+        "review": { "$ref": "#/definitions/reviewToken" },
+        "state": { "$ref": "#/definitions/state" },
+        "originator": { "$ref": "#/definitions/actor" },
+        "opened": { "$ref": "#/definitions/date" },
+        "product": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Repository path of the reviewed product the item is against"
+        },
+        "product_ids": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/projectId" },
+          "description": "Identifiers inside the product that the item concerns"
+        },
+        "title": { "type": "string", "maxLength": 100 },
+        "description": {
+          "type": "string",
+          "minLength": 10,
+          "description": "RID: the defect, stated so that a reader can locate and confirm it. RFA: the question or requested analysis or plan."
+        },
+        "requested_action": {
+          "type": "string",
+          "description": "What the originator wants done (RFA) or how the defect is to be corrected if the originator prescribes it (RID)"
+        },
+        "assignee": { "$ref": "#/definitions/actor" },
+        "due_review": {
+          "$ref": "#/definitions/reviewToken",
+          "description": "Gate before whose readiness declaration the item must be Closed"
+        },
+        "due_date": { "$ref": "#/definitions/date" },
+        "lien": {
+          "type": "boolean",
+          "description": "True when the item is listed as a lien in the decision memo (process section 12.2: every item still Open, Answered or Verified at signing). Never true for a Major RID or a Blocking RFA (process section 10.2)."
+        },
+        "blocks_order": {
+          "type": "boolean",
+          "description": "CDR only: true when the vendor orders may not be placed until this item is Closed"
+        },
+        "response": {
+          "type": "string",
+          "description": "Assignee's answer, fix summary, or plan"
+        },
+        "answered": { "$ref": "#/definitions/date" },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/evidence" }
+        },
+        "verification": { "$ref": "#/definitions/verification" },
+        "closed": { "$ref": "#/definitions/date" },
+        "closed_by": { "$ref": "#/definitions/actor" },
+        "disposition": {
+          "type": "string",
+          "enum": ["Accepted", "Transferred", "Withdrawn"],
+          "description": "Accepted: closure evidence accepted by the owner. Transferred: handed to a CR-NNN, NCR-NNN or RSK-NNN named in evidence. Withdrawn: by the originator."
+        },
+        "withdrawal_reason": { "type": "string", "minLength": 5 },
+        "supersedes": {
+          "$ref": "#/definitions/itemId",
+          "description": "Earlier item this one replaces (items are never reopened)"
+        },
+        "related": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/projectId" },
+          "description": "CR, NCR, RSK, HZ, ADR, TS identifiers linked to this item"
+        },
+        "history": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/historyEntry" }
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [ { "required": ["due_review"] }, { "required": ["due_date"] } ]
+        },
+        {
+          "if": { "properties": { "type": { "const": "RID" } } },
+          "then": { "properties": { "severity": { "enum": ["Major", "Minor"] } } }
+        },
+        {
+          "if": { "properties": { "type": { "const": "RFA" } } },
+          "then": { "properties": { "severity": { "enum": ["Blocking", "Routine"] } } }
+        },
+        {
+          "if": { "properties": { "severity": { "enum": ["Major", "Blocking"] } } },
+          "then": { "properties": { "lien": { "const": false } } }
+        },
+        {
+          "if": { "properties": { "state": { "enum": ["Answered", "Verified", "Closed"] } } },
+          "then": {
+            "required": ["response", "answered", "evidence"],
+            "properties": { "evidence": { "minItems": 1 } }
+          }
+        },
+        {
+          "if": { "properties": { "state": { "enum": ["Verified", "Closed"] } } },
+          "then": {
+            "required": ["verification"],
+            "properties": { "verification": { "properties": { "result": { "const": "Verified" } } } }
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": "RID" }, "state": { "enum": ["Verified", "Closed"] } }
+          },
+          "then": {
+            "properties": {
+              "verification": {
+                "required": ["record"],
+                "properties": { "role": { "enum": ["independent-reviewer", "software-assurance"] } }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": "RFA" }, "state": { "enum": ["Verified", "Closed"] } }
+          },
+          "then": {
+            "properties": { "verification": { "properties": { "role": { "const": "owner" } } } }
+          }
+        },
+        {
+          "if": { "properties": { "state": { "const": "Closed" } } },
+          "then": {
+            "required": ["closed", "closed_by", "disposition"],
+            "properties": {
+              "closed_by": { "const": "owner" },
+              "disposition": { "enum": ["Accepted", "Transferred"] }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "state": { "const": "Withdrawn" } } },
+          "then": {
+            "required": ["closed", "disposition", "withdrawal_reason"],
+            "properties": { "disposition": { "const": "Withdrawn" } }
+          }
+        },
+        {
+          "if": { "required": ["blocks_order"], "properties": { "blocks_order": { "const": true } } },
+          "then": { "properties": { "review": { "const": "CDR" } } }
+        }
+      ]
+    }
+  }
+}

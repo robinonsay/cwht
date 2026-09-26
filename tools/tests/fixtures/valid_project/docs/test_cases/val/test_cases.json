@@ -1,0 +1,21 @@
+{
+  "module": "VAL",
+  "test_cases": [
+    {
+      "id": "TC-VAL-001",
+      "title": "Straight-key QSO between two units at 5 km",
+      "requirement_ids": ["REQ-SYS-001"],
+      "verification_method": "Demonstration",
+      "type": "OnAir",
+      "setup": "Validates: OPS-001, MOE-001. Phase: SAR. Article: CWHT-A-001 and CWHT-A-002, release firmware. Configuration: shipped whip antennas, straight keys, headphones; positions logged by GPS. Safety: operators hold the radio at arm's length while transmitting; both operators licensed. Environment: open flat ground, 1.5 m antenna height, 5 km separation.",
+      "procedure": [
+        "Both operators call and complete a two-way exchange with call signs, a signal report and a 20-character text",
+        "Log copy quality and positions"
+      ],
+      "acceptance_criteria": "Two-way exchange completed with at most one character error at 5 km.",
+      "instruments": ["tinySA Ultra"],
+      "status": "Draft",
+      "automation_ref": null
+    }
+  ]
+}

@@ -1,0 +1,331 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cwht Risk Register",
+  "description": "Risk register schema for the cwht transceiver. IDs use RSK-NNN and are never reused. Each risk is the SE HB section 6.4 triplet (scenario, likelihood, consequence) written in the four-part statement format of docs/process/06-risk-and-decision-analysis.md section 4. Likelihood and the five consequence dimensions use the 1 to 5 operational scales of sections 6 and 7 of that document. score = likelihood x max(consequence dimensions). category is the single classifier; the optional tags array carries cross-cutting labels. The SWE-086 software-risk population is category software plus every risk tagged software (section 5). Review points include the delta TRRs TRR-Dn of charter section 3. The candidates array records the disposition of every candidate risk named in another artifact (section 9, Identify). tools/render_risk.py validates the register and renders docs/risk/register.md.",
+  "type": "object",
+  "required": ["version", "updated", "risks"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Register version; bumped at every review baseline (e.g. 0.1.0-pre-srr, 1.0.0-srr)"
+    },
+    "updated": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "Date (YYYY-MM-DD) of the last edit to any risk or candidate"
+    },
+    "risks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/risk" }
+    },
+    "candidates": {
+      "type": "array",
+      "description": "Disposition record of candidate risks named in other artifacts (ConOps section 8, research reports, hazard analysis, reviews); process document section 9, Identify",
+      "items": { "$ref": "#/definitions/candidate" }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "gate": {
+      "type": "string",
+      "enum": ["SRR", "PDR", "CDR", "TRR", "SAR", "Ops"],
+      "description": "Life-cycle gate (charter section 3); Ops = after SAR"
+    },
+    "review_point": {
+      "type": "string",
+      "description": "Review at which an assessment was made; Pre-SRR = Formulation work before the first gate; TRR-Dn = a delta TRR (charter section 3, 01 section 7.6), written TRR-D1, TRR-D2, ...",
+      "anyOf": [
+        { "enum": ["Pre-SRR", "SRR", "PDR", "CDR", "TRR", "SAR", "Ops"] },
+        { "pattern": "^TRR-D[1-9][0-9]?$" }
+      ]
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "id_list": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[A-Z]+(-[A-Z0-9]+)*-[0-9]{3}$" },
+      "uniqueItems": true
+    },
+    "decision_record": {
+      "type": "object",
+      "required": ["decision_memo", "date"],
+      "properties": {
+        "decision_memo": { "type": "string", "minLength": 5, "description": "Path to the review decision memo, or between reviews the ADR decision section or CR disposition block that records the owner's decision (charter section 4 item 4)" },
+        "date": { "$ref": "#/definitions/date" }
+      },
+      "additionalProperties": false
+    },
+    "candidate": {
+      "type": "object",
+      "required": ["id", "source_artifact", "summary", "disposition", "date"],
+      "properties": {
+        "id": { "type": "string", "minLength": 2, "description": "The candidate id as the source artifact writes it (e.g. REG-4, RFX-R1, R-AUD-3)" },
+        "source_artifact": { "type": "string", "minLength": 5, "description": "Repository path of the artifact that names the candidate, with section" },
+        "summary": { "type": "string", "minLength": 10, "description": "One-line restatement of the candidate" },
+        "disposition": {
+          "type": "string",
+          "enum": ["Entered", "Merged", "Declined"],
+          "description": "Entered = became a new RSK; Merged = folded into an existing RSK whose source names the candidate; Declined = not a risk, with rationale"
+        },
+        "risk_id": { "type": "string", "pattern": "^RSK-[0-9]{3}$", "description": "The RSK that carries an Entered or Merged candidate" },
+        "rationale": { "type": "string", "minLength": 20, "description": "Why the candidate was merged or declined, and the condition that would re-open it" },
+        "date": { "$ref": "#/definitions/date" }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": { "properties": { "disposition": { "enum": ["Entered", "Merged"] } } },
+          "then": { "required": ["risk_id"] }
+        },
+        {
+          "if": { "properties": { "disposition": { "enum": ["Merged", "Declined"] } } },
+          "then": { "required": ["rationale"] }
+        }
+      ]
+    },
+    "risk": {
+      "type": "object",
+      "required": [
+        "id", "title", "statement", "category",
+        "likelihood", "likelihood_rationale",
+        "consequence", "consequence_rationale",
+        "score", "assessment_confidence",
+        "owner", "source", "opened", "horizon", "last_assessed",
+        "mitigation", "status", "trend", "related", "closure_criteria", "history"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^RSK-[0-9]{3}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Short noun phrase naming the departure; no solution language"
+        },
+        "statement": {
+          "type": "object",
+          "description": "Given [condition], there is a possibility of [departure] adversely impacting [asset], leading to [consequence]. The renderer composes the sentence from the four parts.",
+          "required": ["condition", "departure", "asset", "consequence"],
+          "properties": {
+            "condition": { "type": "string", "minLength": 20, "description": "A fact true today, with the evidence or SI/REQ/artifact it rests on" },
+            "departure": { "type": "string", "minLength": 10, "description": "The single undesired event, or one failure-mode family admitted by section 4" },
+            "asset": { "type": "string", "minLength": 3, "description": "Subsystem, product, process, cost or schedule element affected (RX, TX, PWR, CTL, ME, SW-<sub>, process, ...)" },
+            "consequence": { "type": "string", "minLength": 10, "description": "Effect in one or more of the five consequence dimensions, quantified where possible" }
+          },
+          "additionalProperties": false
+        },
+        "category": {
+          "type": "string",
+          "enum": ["safety", "technical", "software", "cost", "schedule", "programmatic", "process"]
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "uniqueItems": true,
+          "description": "Optional cross-cutting labels; category stays the single classifier. Labels in use: software (a software risk of another category, section 5; required when a step artifact is under docs/requirements/sw/, docs/test_cases/sw-* or firmware/), cyber (cybersecurity risk, 07 section 16.2, SWE-154), hsi (human-systems integration, SEMP section 7.3), single-source (SEMP section 5.13), regulatory (47 CFR exposure), aggregate (likelihood is the maximum of the children in related.risk_ids), cm (configuration management, 05 section 11), spf (a single point failure accepted by the owner, process section 8)"
+        },
+        "likelihood": { "$ref": "#/definitions/level" },
+        "likelihood_rationale": {
+          "type": "string",
+          "minLength": 20,
+          "description": "Why this level; names the evidence anchor of section 6"
+        },
+        "consequence": {
+          "type": "object",
+          "description": "One level per dimension (section 7). Overall consequence = max of the five.",
+          "required": ["safety", "first_power_on", "cost", "schedule", "performance_margin"],
+          "properties": {
+            "safety": { "$ref": "#/definitions/level" },
+            "first_power_on": { "$ref": "#/definitions/level" },
+            "cost": { "$ref": "#/definitions/level" },
+            "schedule": { "$ref": "#/definitions/level" },
+            "performance_margin": { "$ref": "#/definitions/level" }
+          },
+          "additionalProperties": false
+        },
+        "consequence_rationale": {
+          "type": "string",
+          "minLength": 20,
+          "description": "Why the driving dimension has its level; mention any dimension scored 3 or higher"
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 25,
+          "description": "likelihood x max(consequence); checked by tools/render_risk.py"
+        },
+        "assessment_confidence": {
+          "type": "string",
+          "enum": ["Low", "Medium", "High"],
+          "description": "Confidence in the likelihood and consequence levels (uncertainty of the assessment); Low requires a Research strategy, a re-assessment trigger or a hazard-analysis step (section 3)"
+        },
+        "owner": {
+          "type": "string",
+          "enum": ["Robin", "Claude"],
+          "description": "Who drives the mitigation plan to closure. Acceptance of any risk is the owner's (Robin's) alone regardless of this field."
+        },
+        "source": {
+          "type": "string",
+          "minLength": 5,
+          "description": "How the risk was identified (review, analysis, SI-NNN, RFA, NCR, trade study, trigger, candidate id from another artifact)"
+        },
+        "opened": { "$ref": "#/definitions/date" },
+        "horizon": {
+          "$ref": "#/definitions/gate",
+          "description": "Gate by which the departure would have to occur to matter; likelihood is assessed against this horizon"
+        },
+        "last_assessed": {
+          "type": "object",
+          "required": ["date", "review"],
+          "properties": {
+            "date": { "$ref": "#/definitions/date" },
+            "review": { "$ref": "#/definitions/review_point" }
+          },
+          "additionalProperties": false
+        },
+        "mitigation": {
+          "type": "object",
+          "required": ["strategy", "steps", "triggers", "fallback"],
+          "properties": {
+            "strategy": {
+              "type": "string",
+              "enum": ["Mitigate", "Watch", "Accept", "Research", "Elevate"],
+              "description": "Mitigate = reduce L or C by steps; Watch = monitor triggers only (not allowed for Red); Accept = owner accepts residual (needs acceptance; not allowed for an active Red risk); Research = reduce assessment uncertainty first; Elevate = owner decision needed to choose a strategy"
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "action", "artifact", "due", "status"],
+                "properties": {
+                  "id": { "type": "string", "pattern": "^S[0-9]{1,2}$" },
+                  "action": { "type": "string", "minLength": 10 },
+                  "artifact": { "type": "string", "minLength": 3, "description": "Repo artifact the step produces or changes" },
+                  "due": { "$ref": "#/definitions/gate" },
+                  "status": { "type": "string", "enum": ["Planned", "InProgress", "Done", "Dropped"] },
+                  "evidence": { "type": "string", "description": "Link to the artifact once Done" }
+                },
+                "additionalProperties": false
+              }
+            },
+            "triggers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["condition", "response"],
+                "properties": {
+                  "condition": { "type": "string", "minLength": 10, "description": "Observable, quantified where possible" },
+                  "response": { "type": "string", "minLength": 10, "description": "What is done, by whom, by when, when the condition is observed" }
+                },
+                "additionalProperties": false
+              }
+            },
+            "fallback": {
+              "type": "string",
+              "minLength": 10,
+              "description": "Contingency if the mitigation steps fail or the departure occurs"
+            },
+            "plan_approval": {
+              "$ref": "#/definitions/decision_record",
+              "description": "Owner's approval of the mitigation plan of a Red risk (section 8); required from the first gate review at which the risk was Red"
+            }
+          },
+          "additionalProperties": false
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Proposed", "Open", "Mitigating", "Watch", "Accepted", "Realized", "Closed", "Retired"],
+          "description": "Transitions per section 9. Proposed = written by the author, awaiting the independent check; Open = checked, plan not started; Mitigating = at least one step InProgress or Done; Watch = triggers only, Yellow or Green band only; Accepted = owner accepted residual risk; Realized = departure occurred (NCR or CR opened); Closed = closure criteria met; Retired = no longer applicable"
+        },
+        "acceptance": {
+          "type": "object",
+          "description": "Required when status is Accepted",
+          "required": ["decision_memo", "date", "residual_score"],
+          "properties": {
+            "decision_memo": { "type": "string", "description": "Path to the decision memo, ADR decision section or CR disposition block recording the owner's acceptance (charter section 4 item 4)" },
+            "date": { "$ref": "#/definitions/date" },
+            "residual_score": { "type": "integer", "minimum": 1, "maximum": 25, "description": "Equals the risk's score at acceptance; checked by tools/render_risk.py" }
+          },
+          "additionalProperties": false
+        },
+        "trend": {
+          "type": "string",
+          "enum": ["New", "Increasing", "Stable", "Decreasing", "Closed"],
+          "description": "Score movement since the previous history entry; New when only one entry exists; Closed when status is Closed or Retired"
+        },
+        "related": {
+          "type": "object",
+          "description": "Traceability to other identifiers (charter section 6). Arrays may be empty until the artifacts exist; every Red risk has at least one requirement or hazard link by PDR; a Realized risk names its NCR or CR.",
+          "required": ["requirement_ids", "hazard_ids", "adr_ids", "trade_study_ids", "stakeholder_input_ids", "risk_ids"],
+          "properties": {
+            "requirement_ids": { "type": "array", "items": { "type": "string", "pattern": "^REQ-[A-Z][A-Z0-9]*(-[A-Z][A-Z0-9]*)*-[0-9]{3}$" }, "uniqueItems": true },
+            "hazard_ids": { "type": "array", "items": { "type": "string", "pattern": "^HZ-[0-9]{3}$" }, "uniqueItems": true },
+            "adr_ids": { "type": "array", "items": { "type": "string", "pattern": "^ADR-[0-9]{3}$" }, "uniqueItems": true },
+            "trade_study_ids": { "type": "array", "items": { "type": "string", "pattern": "^TS-[0-9]{3}$" }, "uniqueItems": true },
+            "tpm_ids": { "type": "array", "items": { "type": "string", "pattern": "^TPM-[0-9]{3}$" }, "uniqueItems": true },
+            "ncr_ids": { "type": "array", "items": { "type": "string", "pattern": "^NCR-[0-9]{3}$" }, "uniqueItems": true },
+            "cr_ids": { "type": "array", "items": { "type": "string", "pattern": "^CR-[0-9]{3}$" }, "uniqueItems": true },
+            "stakeholder_input_ids": { "type": "array", "items": { "type": "string", "pattern": "^SI-[0-9]{3}$" }, "uniqueItems": true },
+            "risk_ids": { "type": "array", "items": { "type": "string", "pattern": "^RSK-[0-9]{3}$" }, "uniqueItems": true, "description": "Parent, child or split-from risks" }
+          },
+          "additionalProperties": false
+        },
+        "closure_criteria": {
+          "type": "string",
+          "minLength": 20,
+          "description": "Evidence that closes the risk (verified requirement, accepted residual, retired condition)"
+        },
+        "history": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Append-only assessment log; the last entry must equal the current likelihood, max consequence, safety consequence, score, status and review",
+          "items": {
+            "type": "object",
+            "required": ["date", "review", "likelihood", "consequence", "score", "status", "note"],
+            "properties": {
+              "date": { "$ref": "#/definitions/date" },
+              "review": { "$ref": "#/definitions/review_point" },
+              "likelihood": { "$ref": "#/definitions/level" },
+              "consequence": { "$ref": "#/definitions/level", "description": "max of the five dimensions at that assessment" },
+              "safety": { "$ref": "#/definitions/level", "description": "safety dimension at that assessment, so that the per-review measures can apply the safety override; required on the last entry by tools/render_risk.py" },
+              "score": { "type": "integer", "minimum": 1, "maximum": 25 },
+              "status": { "type": "string", "enum": ["Proposed", "Open", "Mitigating", "Watch", "Accepted", "Realized", "Closed", "Retired"] },
+              "note": { "type": "string", "minLength": 5 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "Accepted" } } },
+          "then": { "required": ["acceptance"] }
+        },
+        {
+          "if": { "properties": { "status": { "const": "Realized" } } },
+          "then": {
+            "properties": {
+              "related": {
+                "anyOf": [
+                  { "required": ["ncr_ids"], "properties": { "ncr_ids": { "minItems": 1 } } },
+                  { "required": ["cr_ids"], "properties": { "cr_ids": { "minItems": 1 } } }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

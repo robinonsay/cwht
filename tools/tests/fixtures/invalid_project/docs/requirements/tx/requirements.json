@@ -1,0 +1,15 @@
+{
+  "module": "PWR",
+  "requirements": [
+    {
+      "id": "REQ-TX-001",
+      "title": "Module mismatch",
+      "description": "The PA shall draw no more than 1.5 A at 12 V.",
+      "rationale": "Directory says tx, module says PWR, id says TX.",
+      "verification_method": "Test",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-001",
+      "child_ids": []
+    }
+  ]
+}

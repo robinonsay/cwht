@@ -1,0 +1,59 @@
+{
+  "baseline": null,
+  "ngos": [
+    {
+      "id": "NGO-001",
+      "kind": "Need",
+      "parent_id": null,
+      "title": "Pocket true-CW 2 m handheld (fixture)",
+      "statement": "The owner needs a pocket-sized 2 m handheld that sends and receives true CW with a straight key or iambic paddles.",
+      "rationale": "Distilled from SI-001, SI-005 and SI-018 (fixture).",
+      "source_ids": ["SI-001", "SI-005", "SI-018"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-002",
+      "kind": "Goal",
+      "parent_id": "NGO-001",
+      "title": "Useful simplex range",
+      "statement": "Two radios complete CW contacts over open ground at several kilometres at 5 W.",
+      "rationale": "SI-003 chose 5 W for useful simplex range (fixture).",
+      "source_ids": ["SI-003"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-003",
+      "kind": "Objective",
+      "parent_id": "NGO-002",
+      "title": "5 km open-ground contact",
+      "statement": "Two units complete a two-way exchange at 5 km over open ground at the 5 W step.",
+      "rationale": "Measurable target for NGO-002; Baselined so that the T-20 Objective coverage rule is exercised (cited by MOE-001).",
+      "source_ids": ["SI-003"],
+      "status": "Baselined"
+    }
+  ],
+  "moes": [
+    {
+      "id": "MOE-001",
+      "title": "Transmit power delivered",
+      "statement": "The radio delivers its rated power into the antenna so that the range goal is met.",
+      "success_criterion": "5 W plus or minus 1 dB into a 50 ohm load across the band, measured at SAR.",
+      "rationale": "Judges NGO-002 and NGO-003 in scenario OPS-001 (fixture).",
+      "ngo_ids": ["NGO-002", "NGO-003"],
+      "ops_ids": ["OPS-001"],
+      "source_ids": ["SI-003"],
+      "status": "Draft"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "CON-001",
+      "kind": "Regulatory",
+      "title": "Part 97 applies",
+      "statement": "The radio is operated under 47 CFR Part 97 by licensed operators.",
+      "rationale": "Imposed by the FCC; no relief (fixture).",
+      "source_ids": ["SI-014", "47CFR97.7"],
+      "status": "Draft"
+    }
+  ]
+}

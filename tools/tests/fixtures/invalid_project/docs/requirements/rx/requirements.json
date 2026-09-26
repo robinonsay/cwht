@@ -1,0 +1,71 @@
+{
+  "module": "RX",
+  "requirements": [
+    {
+      "id": "REQ-RX-001",
+      "title": "Front-end gain",
+      "description": "The receiver front end shall provide 20 dB gain at 146 MHz.",
+      "verification_method": "Analysis",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-002",
+      "child_ids": []
+    },
+    {
+      "id": "REQ-RX-002",
+      "title": "Orphan parent",
+      "description": "The receiver shall reject images by 60 dB.",
+      "rationale": "Parent does not exist on purpose; TS-001 is cited while docs/decisions/trade-studies/ is absent (SOURCE_FILE_MISSING).",
+      "verification_method": "Analysis",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-999",
+      "child_ids": [],
+      "source_ids": ["TS-001"]
+    },
+    {
+      "id": "REQ-RX-003",
+      "title": "No parent and not self-derived",
+      "description": "The receiver shall mute audio within 10 ms of key down.",
+      "rationale": "Wanted by the author; no parent and no derivation statement are seeded on purpose (T-05, PARENT_MISSING).",
+      "verification_method": "Analysis",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": []
+    },
+    {
+      "id": "REQ-RX-004",
+      "title": "Self-derived without a decision record",
+      "description": "The receiver shall recover from a synthesizer unlock within 50 ms.",
+      "rationale": "Self-derived: no ADR or trade study records this and no hazard is cited; seeded for T-05 (SELF_DERIVED_UNSUPPORTED).",
+      "verification_method": "Analysis",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": []
+    },
+    {
+      "id": "REQ-RX-005",
+      "title": "Tags without their obligations",
+      "description": "The receiver shall limit headphone output to 100 mW into 32 ohm.",
+      "rationale": "Tags safety, regulatory and interface without hazard_ids, a 47CFR97 clause or an ICD id are seeded on purpose (02 section 2.3).",
+      "verification_method": "Analysis",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-001",
+      "child_ids": [],
+      "source_ids": [],
+      "tags": ["safety", "regulatory", "interface"],
+      "design_refs": []
+    },
+    {
+      "id": "REQ-RX-006",
+      "title": "Active child of a Draft parent",
+      "description": "The receiver shall present an input return loss of 10 dB or better across the band.",
+      "rationale": "Active while the parent REQ-SYS-006 is Draft; seeded for T-11 (CHILD_AHEAD_OF_PARENT).",
+      "verification_method": "Analysis",
+      "status": "Active",
+      "parent_id": "REQ-SYS-006",
+      "child_ids": [],
+      "source_ids": []
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "module": "SYS",
+  "test_cases": [
+    {
+      "id": "TC-SYS-001",
+      "title": "Power",
+      "requirement_ids": ["REQ-SYS-001", "REQ-SYS-007"],
+      "verification_method": "Test",
+      "type": "Bench",
+      "procedure": ["Key down", "Read power"],
+      "acceptance_criteria": "TBD",
+      "status": "Active"
+    },
+    {
+      "id": "TC-SYS-002",
+      "title": "Orphan test case",
+      "requirement_ids": ["REQ-SYS-404"],
+      "verification_method": "Test",
+      "type": "Bench",
+      "procedure": ["Nothing"],
+      "acceptance_criteria": "Nothing.",
+      "status": "Draft"
+    },
+    {
+      "id": "TC-SYS-003",
+      "title": "Failed without NCR or report",
+      "requirement_ids": ["REQ-RX-001", "REQ-RX-003", "REQ-RX-004", "REQ-RX-005"],
+      "verification_method": "Analysis",
+      "type": "Simulation",
+      "procedure": ["Run LTspice"],
+      "acceptance_criteria": "Gain 20 dB.",
+      "status": "Failed"
+    },
+    {
+      "id": "TC-SYS-004",
+      "title": "RF exposure calculation citing a risk that does not exist",
+      "requirement_ids": ["REQ-SYS-006", "REQ-RX-006"],
+      "verification_method": "Analysis",
+      "type": "Simulation",
+      "procedure": ["Run the far-field formula"],
+      "acceptance_criteria": "Below 1.0 mW per square centimeter.",
+      "status": "Draft"
+    },
+    {
+      "id": "TC-SYS-005",
+      "title": "Analysis case with a HostUnit evidence class (seeded)",
+      "requirement_ids": ["REQ-SYS-006"],
+      "verification_method": "Analysis",
+      "type": "HostUnit",
+      "procedure": ["Not a valid pairing of method and class (02 section 4.4)"],
+      "acceptance_criteria": "Seeded defect for T-10 (TC_TYPE_METHOD).",
+      "status": "Draft"
+    },
+    {
+      "id": "TC-SYS-006",
+      "title": "Label inspection passed without a report (seeded)",
+      "requirement_ids": ["REQ-SYS-008"],
+      "verification_method": "Inspection",
+      "type": "Inspection",
+      "procedure": ["Look at the rear face"],
+      "acceptance_criteria": "Call sign label present.",
+      "status": "Passed"
+    }
+  ]
+}

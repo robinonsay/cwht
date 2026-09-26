@@ -1,0 +1,19 @@
+{
+  "module": "SW-SAFE",
+  "requirements": [
+    {
+      "id": "REQ-SW-SAFE-001",
+      "title": "Software hazard control verified by Analysis",
+      "description": "The safety manager shall place the PA enable line low within 2 ms of a watchdog reset.",
+      "rationale": "Self-derived: SWE-134 a provision. A software hazard control with method Analysis is seeded on purpose: SWE-192 admits no Analysis exception for SW modules (V&V 7.3 rule 6).",
+      "verification_method": "Analysis",
+      "verification_note": "Analysis accepted per RSK-001: timing analysis of the reset path.",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": [],
+      "hazard_ids": ["HZ-001"],
+      "tags": ["safety"]
+    }
+  ]
+}

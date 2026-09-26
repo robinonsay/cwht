@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 """Render a review slide deck: AsciiDoc -> reveal.js HTML -> one PNG per slide.
 
-Usage: render_deck.py <deck.adoc> [--size 1920x1080]
+Usage: render_deck.py <repo>/docs/reviews/<REVIEW>/slides/<review>.adoc [--size 1920x1080]
+       render_deck.py <any path>.adoc --allow-outside-reviews [--size WxH]   (known-answer tests only)
+
+Location guard (05 section 14.1 AL-14; 01 section 3.1 item 4): the deck must be
+<repo>/docs/reviews/<REVIEW>/slides/<name>.adoc, where <REVIEW> is a review token of
+charter section 6 (SRR, PDR, CDR, TRR, TRR-Dn, SAR). Any other path exits 2 before
+anything is written, so no reveal.js/ copy lands outside a deck folder. The flag
+--allow-outside-reviews lifts the guard; only tools/tests/test_render_deck.py uses it,
+for its temporary copy of the fixture deck.
 
 Pipeline (charter section 4 item 2, section 11 rule 3):
   1. asciidoctor-revealjs (tools/slides/node_modules) converts <deck>.adoc to <deck>.html
@@ -10,15 +18,32 @@ Pipeline (charter section 4 item 2, section 11 rule 3):
   2. The Playwright Chromium headless shell screenshots every slide (URL fragment #/N)
      into <deck dir>/png/slide-NN.png. No GUI, no macOS privacy permission (rule 8).
   3. Prints the PNG paths; the author must open and inspect each one before the review.
-Exit status 1 on any failure; 2 if the headless shell is missing.
+Exit status 1 on any failure; 2 if the deck path fails the location guard or the headless shell is missing.
 """
 import glob, os, re, shutil, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.dirname(os.path.dirname(HERE))
+REVIEWS = os.path.join(REPO, "docs", "reviews")
+REVIEW_TOKEN = re.compile(r"^(SRR|PDR|CDR|TRR|SAR|TRR-D[1-9][0-9]?)$")
+ALLOW_FLAG = "--allow-outside-reviews"
 CONVERTER = os.path.join(HERE, "node_modules", ".bin", "asciidoctor-revealjs")
 REVEAL_SRC = os.path.join(HERE, "node_modules", "reveal.js")
 SHELL_GLOB = os.path.expanduser(
     "~/Library/Caches/ms-playwright/chromium_headless_shell-*/chrome-headless-shell-mac-arm64/chrome-headless-shell")
+
+
+def location_error(adoc):
+    """None when adoc is <repo>/docs/reviews/<REVIEW>/slides/<name>.adoc, else the reason."""
+    if not adoc.endswith(".adoc"):
+        return f"deck must be an .adoc file: {adoc}"
+    rel = os.path.relpath(adoc, REVIEWS)
+    parts = rel.split(os.sep)
+    if rel.startswith("..") or len(parts) != 3 or parts[1] != "slides":
+        return f"deck must be {REVIEWS}/<REVIEW>/slides/<review>.adoc, got {adoc}"
+    if not REVIEW_TOKEN.match(parts[0]):
+        return f"'{parts[0]}' is not a review token (SRR, PDR, CDR, TRR, TRR-Dn, SAR; charter section 6)"
+    return None
 
 
 def find_shell():
@@ -34,6 +59,10 @@ def main(argv):
     if "--size" in argv:
         size = argv[argv.index("--size") + 1]
     w, h = size.split("x")
+    if ALLOW_FLAG not in argv:
+        reason = location_error(adoc)
+        if reason:
+            print(f"render_deck: {reason}; nothing written", file=sys.stderr); return 2
     deck_dir = os.path.dirname(adoc)
     stem = os.path.splitext(os.path.basename(adoc))[0]
     html = os.path.join(deck_dir, stem + ".html")

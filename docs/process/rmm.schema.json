@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cwht Requirements Mapping Matrix (NPR 7150.2D App. C)",
+  "description": "One row per SWE-NNN requirement that carries an X in the Class A column of NPR 7150.2D Appendix C Table 2. The row set is generated from docs/references/md/npr-7150-2d/09-appendixc.md and cross-checked by tools/render_rmm.py --check; dispositions are authored. Disposition codes: FC fully compliant, T tailored, NA not applicable. Rows dispositioned T or NA carry a tailoring rationale and a residual-risk statement (NPR 7150.2D section 2.2.5 Note: rationale, risk evaluation, supporting material; SWE-126 a.(4)) and are approved by the owner acting as Engineering Technical Authority, SMA Technical Authority, Health and Medical Technical Authority and CIO/SAISO designee (03 sections 6.2 and 7; NPR 7150.2D App. C.3, sections 2.2.1 and 2.2.6), recorded in the review decision memo named in meta.approval.memo.",
+  "type": "object",
+  "required": ["meta", "rows"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "project",
+        "document",
+        "npr",
+        "source_table",
+        "software_class_elected",
+        "software_class_app_d_assessment",
+        "classification_record",
+        "authority",
+        "generated_on",
+        "generator",
+        "approval"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "project": { "type": "string", "const": "cwht" },
+        "document": { "type": "string", "minLength": 1 },
+        "npr": { "type": "string", "const": "NPR 7150.2D" },
+        "source_table": { "type": "string", "minLength": 1, "description": "Corpus file and column the row set was parsed from" },
+        "software_class_elected": { "type": "string", "const": "A", "description": "Owner election per charter section 1" },
+        "software_class_app_d_assessment": { "type": "string", "minLength": 1, "description": "Where App. D would place the software by the letter; recorded alongside the election" },
+        "classification_record": { "type": "string", "const": "docs/process/03-software-classification-and-rmm.md" },
+        "authority": { "type": "string", "const": "Owner as ETA, SMA TA, HMTA and CIO/SAISO designee", "description": "Capacities in which the owner approves the matrix (03 section 6.2)" },
+        "generated_on": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "generator": { "type": "string", "minLength": 1 },
+        "approval": {
+          "type": "object",
+          "required": ["status", "memo", "approved_by", "approved_on"],
+          "additionalProperties": false,
+          "properties": {
+            "status": { "type": "string", "enum": ["Draft for SRR", "Approved at SRR", "Approved at PDR", "Approved at CDR", "Approved at TRR", "Approved at SAR"] },
+            "memo": { "type": "string", "pattern": "^docs/reviews/[A-Z]+/decision-memo\\.md$", "description": "Decision memo that carries the owner signature block for this RMM version" },
+            "approved_by": { "type": ["string", "null"] },
+            "approved_on": { "type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+          }
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 100,
+      "maxItems": 100,
+      "description": "Exactly the 100 Class A rows of NPR 7150.2D App. C Table 2 (count verified against the corpus by tools/render_rmm.py --check and against the [SWE-NNN] tags of chapters 3 to 5). Change these bounds only when the governing NPR revision changes.",
+      "items": {
+        "type": "object",
+        "required": [
+          "swe",
+          "npr_section",
+          "npr_group",
+          "section_title",
+          "short_title",
+          "requirement_text",
+          "class_a_applicable",
+          "authority_npr",
+          "disposition",
+          "implementation",
+          "tailoring_rationale",
+          "residual_risk",
+          "authority",
+          "responsible",
+          "status",
+          "charter_ref"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "swe": { "type": "string", "pattern": "^SWE-[0-9]{3}$" },
+          "npr_section": { "type": "string", "pattern": "^[3-5]\\.[0-9]+(\\.[0-9]+)?$", "description": "Section number of the requirement in NPR 7150.2D, as printed in Table 2" },
+          "npr_group": { "type": "string", "pattern": "^[3-5]\\.[0-9]+$", "description": "Second-level section used for grouping in the rendered matrix" },
+          "section_title": { "type": "string", "minLength": 1, "description": "Title of npr_group as printed in Table 2" },
+          "short_title": { "type": "string", "minLength": 3, "maxLength": 80 },
+          "requirement_text": { "type": "string", "minLength": 10, "description": "Verbatim requirement statement from the corpus table (NPR 7150.2D App. C.2.c)" },
+          "class_a_applicable": { "type": "boolean", "const": true },
+          "authority_npr": { "type": "string", "minLength": 1, "description": "Authority column of Table 2 for Classes A to E (Center, HQ OSMA, Center and Center CIO, ...)" },
+          "disposition": { "type": "string", "enum": ["FC", "T", "NA"] },
+          "implementation": { "type": "string", "minLength": 20, "description": "How cwht satisfies the requirement: artifact path(s) and responsible role per the charter; for NA rows, how the intent is preserved" },
+          "tailoring_rationale": { "type": ["string", "null"], "description": "What is relieved and why. Required (non-null) when disposition is T or NA; null when FC" },
+          "residual_risk": { "type": ["string", "null"], "description": "Risk evaluation for the relief (NPR 7150.2D section 2.2.5 Note; SWE-126 a.(4)): the accepted residual risk and its mitigation or RSK-NNN link, or the statement that no residual engineering risk exists and how the intent is preserved. Required (non-null) when disposition is T or NA; null when FC" },
+          "authority": { "type": "string", "const": "Owner as ETA, SMA TA, HMTA and CIO/SAISO designee", "description": "Capacities in which the owner approves the matrix (03 section 6.2)" },
+          "responsible": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "Owner (PM, Decision Authority, ETA, SMA TA)",
+                "Claude (lead SE, software lead)",
+                "Independent reviewer agent (software assurance)",
+                "Independent test-author agent"
+              ]
+            }
+          },
+          "status": { "type": "string", "enum": ["Planned", "In place"], "description": "In place: the requirement is satisfied today by artifacts that exist in the repository. Planned: satisfaction needs an artifact or an execution that does not yet exist, named in implementation either as an absent repository path or with the label 'Planned for <gate>'. tools/render_rmm.py enforces the rule (03 section 6.3)" },
+          "charter_ref": { "type": ["string", "null"], "description": "Charter section(s) that govern this row" }
+        },
+        "if": { "properties": { "disposition": { "enum": ["T", "NA"] } } },
+        "then": { "properties": { "tailoring_rationale": { "type": "string", "minLength": 20 }, "residual_risk": { "type": "string", "minLength": 20 } } },
+        "else": { "properties": { "tailoring_rationale": { "type": "null" }, "residual_risk": { "type": "null" } } }
+      }
+    }
+  }
+}

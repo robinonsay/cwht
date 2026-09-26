@@ -1,0 +1,466 @@
+{
+  "version": "0.0.1-fixture",
+  "updated": "2026-10-03",
+  "risks": [
+    {
+      "id": "RSK-001",
+      "title": "Red by score with a hazard link",
+      "statement": {
+        "condition": "the fixture condition for RSK-001 is a fact recorded on 2026-09-20",
+        "departure": "the fixture departure of RSK-001 occurring",
+        "asset": "the fixture asset",
+        "consequence": "the fixture consequence of RSK-001"
+      },
+      "category": "technical",
+      "tags": ["regulatory"],
+      "likelihood": 3,
+      "likelihood_rationale": "Fixture likelihood rationale naming anchor level 3.",
+      "consequence": {
+        "safety": 4,
+        "first_power_on": 2,
+        "cost": 2,
+        "schedule": 2,
+        "performance_margin": 4
+      },
+      "consequence_rationale": "Fixture consequence rationale naming the driving dimension.",
+      "score": 12,
+      "assessment_confidence": "Medium",
+      "owner": "Claude",
+      "source": "Fixture risk entered from candidate CAND-1",
+      "opened": "2026-09-20",
+      "horizon": "SAR",
+      "last_assessed": { "date": "2026-10-03", "review": "SRR" },
+      "mitigation": {
+        "strategy": "Mitigate",
+        "steps": [
+          {
+            "id": "S1",
+            "action": "Fixture step one action text",
+            "artifact": "docs/design/analysis/fixture.md",
+            "due": "PDR",
+            "status": "InProgress"
+          },
+          {
+            "id": "S2",
+            "action": "Fixture step two action text",
+            "artifact": "docs/design/analysis/fixture-2.md",
+            "due": "CDR",
+            "status": "Planned"
+          }
+        ],
+        "triggers": [
+          {
+            "condition": "Fixture trigger condition observed",
+            "response": "Claude responds in the same session"
+          }
+        ],
+        "fallback": "Fixture fallback plan.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-10-03" }
+      },
+      "status": "Mitigating",
+      "trend": "Stable",
+      "related": {
+        "requirement_ids": [],
+        "hazard_ids": ["HZ-001"],
+        "adr_ids": [],
+        "trade_study_ids": [],
+        "stakeholder_input_ids": [],
+        "risk_ids": ["RSK-005"]
+      },
+      "closure_criteria": "Fixture closure criteria with enough words.",
+      "history": [
+        { "date": "2026-09-20", "review": "Pre-SRR", "likelihood": 3, "consequence": 4, "safety": 4, "score": 12, "status": "Proposed", "note": "Opened." },
+        { "date": "2026-10-03", "review": "SRR", "likelihood": 3, "consequence": 4, "safety": 4, "score": 12, "status": "Mitigating", "note": "Track pass at SRR." }
+      ]
+    },
+    {
+      "id": "RSK-002",
+      "title": "Red by the safety override at L2 and S5",
+      "statement": {
+        "condition": "the fixture condition for RSK-002 is a fact recorded on 2026-09-20",
+        "departure": "the fixture departure of RSK-002 occurring",
+        "asset": "the fixture asset",
+        "consequence": "the fixture consequence of RSK-002"
+      },
+      "category": "safety",
+      "tags": ["software"],
+      "likelihood": 2,
+      "likelihood_rationale": "Fixture likelihood rationale naming anchor level 2.",
+      "consequence": {
+        "safety": 5,
+        "first_power_on": 2,
+        "cost": 2,
+        "schedule": 2,
+        "performance_margin": 2
+      },
+      "consequence_rationale": "Fixture consequence rationale naming the driving dimension.",
+      "score": 10,
+      "assessment_confidence": "Low",
+      "owner": "Claude",
+      "source": "Fixture risk; candidate CAND-2 merged",
+      "opened": "2026-09-20",
+      "horizon": "SAR",
+      "last_assessed": { "date": "2026-10-03", "review": "SRR" },
+      "mitigation": {
+        "strategy": "Mitigate",
+        "steps": [
+          {
+            "id": "S1",
+            "action": "Hazard analysis entry for the fixture cell",
+            "artifact": "docs/safety/hazards.json",
+            "due": "SRR",
+            "status": "Planned"
+          },
+          {
+            "id": "S2",
+            "action": "Derive the fixture SW requirements",
+            "artifact": "docs/requirements/sw/sw-pwr/requirements.json",
+            "due": "PDR",
+            "status": "Planned"
+          }
+        ],
+        "triggers": [
+          {
+            "condition": "Fixture trigger condition observed",
+            "response": "Claude opens an NCR the same session"
+          }
+        ],
+        "fallback": "Fixture fallback plan.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-10-03" }
+      },
+      "status": "Open",
+      "trend": "New",
+      "related": {
+        "requirement_ids": [],
+        "hazard_ids": ["HZ-002"],
+        "adr_ids": [],
+        "trade_study_ids": [],
+        "stakeholder_input_ids": [],
+        "risk_ids": ["RSK-005"]
+      },
+      "closure_criteria": "Fixture closure criteria with enough words.",
+      "history": [
+        { "date": "2026-10-03", "review": "SRR", "likelihood": 2, "consequence": 5, "safety": 5, "score": 10, "status": "Open", "note": "Opened at SRR." }
+      ]
+    },
+    {
+      "id": "RSK-003",
+      "title": "Yellow at L1 and C5 on Watch",
+      "statement": {
+        "condition": "the fixture condition for RSK-003 is a fact recorded on 2026-09-20",
+        "departure": "the fixture departure of RSK-003 occurring",
+        "asset": "the fixture asset",
+        "consequence": "the fixture consequence of RSK-003"
+      },
+      "category": "software",
+      "likelihood": 1,
+      "likelihood_rationale": "Fixture likelihood rationale naming anchor level 1.",
+      "consequence": {
+        "safety": 1,
+        "first_power_on": 5,
+        "cost": 1,
+        "schedule": 1,
+        "performance_margin": 1
+      },
+      "consequence_rationale": "Fixture consequence rationale naming the driving dimension.",
+      "score": 5,
+      "assessment_confidence": "Medium",
+      "owner": "Claude",
+      "source": "Fixture risk for the render_risk known-answer tests",
+      "opened": "2026-09-20",
+      "horizon": "SAR",
+      "last_assessed": { "date": "2026-10-03", "review": "SRR" },
+      "mitigation": {
+        "strategy": "Watch",
+        "steps": [],
+        "triggers": [
+          {
+            "condition": "Fixture trigger condition observed",
+            "response": "Claude responds in the same session"
+          }
+        ],
+        "fallback": "Fixture fallback plan."
+      },
+      "status": "Watch",
+      "trend": "New",
+      "related": {
+        "requirement_ids": [],
+        "hazard_ids": [],
+        "adr_ids": [],
+        "trade_study_ids": [],
+        "stakeholder_input_ids": [],
+        "risk_ids": []
+      },
+      "closure_criteria": "Fixture closure criteria with enough words.",
+      "history": [
+        { "date": "2026-10-03", "review": "SRR", "likelihood": 1, "consequence": 5, "safety": 1, "score": 5, "status": "Watch", "note": "Opened at SRR on Watch." }
+      ]
+    },
+    {
+      "id": "RSK-004",
+      "title": "Green edge at score 4, accepted",
+      "statement": {
+        "condition": "the fixture condition for RSK-004 is a fact recorded on 2026-09-20",
+        "departure": "the fixture departure of RSK-004 occurring",
+        "asset": "the fixture asset",
+        "consequence": "the fixture consequence of RSK-004"
+      },
+      "category": "process",
+      "likelihood": 2,
+      "likelihood_rationale": "Fixture likelihood rationale naming anchor level 2.",
+      "consequence": {
+        "safety": 1,
+        "first_power_on": 2,
+        "cost": 1,
+        "schedule": 1,
+        "performance_margin": 1
+      },
+      "consequence_rationale": "Fixture consequence rationale naming the driving dimension.",
+      "score": 4,
+      "assessment_confidence": "Medium",
+      "owner": "Claude",
+      "source": "Fixture risk for the render_risk known-answer tests",
+      "opened": "2026-09-20",
+      "horizon": "SAR",
+      "last_assessed": { "date": "2026-10-03", "review": "SRR" },
+      "mitigation": {
+        "strategy": "Accept",
+        "steps": [],
+        "triggers": [
+          {
+            "condition": "Fixture trigger condition observed",
+            "response": "Claude responds in the same session"
+          }
+        ],
+        "fallback": "Fixture fallback plan."
+      },
+      "status": "Accepted",
+      "trend": "Stable",
+      "related": {
+        "requirement_ids": [],
+        "hazard_ids": [],
+        "adr_ids": [],
+        "trade_study_ids": [],
+        "stakeholder_input_ids": [],
+        "risk_ids": []
+      },
+      "closure_criteria": "Fixture closure criteria with enough words.",
+      "history": [
+        { "date": "2026-09-20", "review": "Pre-SRR", "likelihood": 2, "consequence": 2, "safety": 1, "score": 4, "status": "Proposed", "note": "Opened." },
+        { "date": "2026-10-03", "review": "SRR", "likelihood": 2, "consequence": 2, "safety": 1, "score": 4, "status": "Accepted", "note": "Accepted by the owner at SRR." }
+      ],
+      "acceptance": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-10-03", "residual_score": 4 }
+    },
+    {
+      "id": "RSK-005",
+      "title": "Aggregate of RSK-001, RSK-002 and a closed child",
+      "statement": {
+        "condition": "the fixture condition for RSK-005 is a fact recorded on 2026-09-20",
+        "departure": "the fixture departure of RSK-005 occurring",
+        "asset": "the fixture asset",
+        "consequence": "the fixture consequence of RSK-005"
+      },
+      "category": "technical",
+      "tags": ["aggregate"],
+      "likelihood": 3,
+      "likelihood_rationale": "Fixture likelihood rationale naming anchor level 3.",
+      "consequence": {
+        "safety": 1,
+        "first_power_on": 2,
+        "cost": 2,
+        "schedule": 2,
+        "performance_margin": 1
+      },
+      "consequence_rationale": "Fixture consequence rationale naming the driving dimension.",
+      "score": 6,
+      "assessment_confidence": "Medium",
+      "owner": "Claude",
+      "source": "Fixture risk for the render_risk known-answer tests",
+      "opened": "2026-09-20",
+      "horizon": "SAR",
+      "last_assessed": { "date": "2026-10-03", "review": "SRR" },
+      "mitigation": {
+        "strategy": "Mitigate",
+        "steps": [
+          {
+            "id": "S1",
+            "action": "Track the child risks at each review",
+            "artifact": "docs/risk/register.json",
+            "due": "SAR",
+            "status": "InProgress"
+          }
+        ],
+        "triggers": [
+          {
+            "condition": "Fixture trigger condition observed",
+            "response": "Claude responds in the same session"
+          }
+        ],
+        "fallback": "Fixture fallback plan."
+      },
+      "status": "Mitigating",
+      "trend": "Stable",
+      "related": {
+        "requirement_ids": [],
+        "hazard_ids": [],
+        "adr_ids": [],
+        "trade_study_ids": [],
+        "stakeholder_input_ids": [],
+        "risk_ids": ["RSK-001", "RSK-002", "RSK-006"]
+      },
+      "closure_criteria": "Fixture closure criteria with enough words.",
+      "history": [
+        { "date": "2026-09-20", "review": "Pre-SRR", "likelihood": 3, "consequence": 2, "safety": 1, "score": 6, "status": "Proposed", "note": "Opened." },
+        { "date": "2026-10-03", "review": "SRR", "likelihood": 3, "consequence": 2, "safety": 1, "score": 6, "status": "Mitigating", "note": "Recomputed at SRR." }
+      ]
+    },
+    {
+      "id": "RSK-006",
+      "title": "Closed cost risk",
+      "statement": {
+        "condition": "the fixture condition for RSK-006 is a fact recorded on 2026-09-20",
+        "departure": "the fixture departure of RSK-006 occurring",
+        "asset": "the fixture asset",
+        "consequence": "the fixture consequence of RSK-006"
+      },
+      "category": "cost",
+      "likelihood": 1,
+      "likelihood_rationale": "Fixture likelihood rationale naming anchor level 1.",
+      "consequence": {
+        "safety": 1,
+        "first_power_on": 1,
+        "cost": 2,
+        "schedule": 1,
+        "performance_margin": 1
+      },
+      "consequence_rationale": "Fixture consequence rationale naming the driving dimension.",
+      "score": 2,
+      "assessment_confidence": "Medium",
+      "owner": "Claude",
+      "source": "Fixture risk for the render_risk known-answer tests",
+      "opened": "2026-09-20",
+      "horizon": "SAR",
+      "last_assessed": { "date": "2026-10-03", "review": "SRR" },
+      "mitigation": {
+        "strategy": "Mitigate",
+        "steps": [
+          {
+            "id": "S1",
+            "action": "Obtain the fixture quote",
+            "artifact": "docs/plan/cost-estimate.md",
+            "due": "SRR",
+            "status": "Done",
+            "evidence": "docs/plan/cost-estimate.md"
+          }
+        ],
+        "triggers": [],
+        "fallback": "Fixture fallback plan."
+      },
+      "status": "Closed",
+      "trend": "Closed",
+      "related": {
+        "requirement_ids": [],
+        "hazard_ids": [],
+        "adr_ids": [],
+        "trade_study_ids": [],
+        "stakeholder_input_ids": [],
+        "risk_ids": ["RSK-005"]
+      },
+      "closure_criteria": "Fixture closure criteria with enough words.",
+      "history": [
+        { "date": "2026-09-20", "review": "Pre-SRR", "likelihood": 1, "consequence": 2, "safety": 1, "score": 2, "status": "Open", "note": "Opened." },
+        { "date": "2026-10-03", "review": "SRR", "likelihood": 1, "consequence": 2, "safety": 1, "score": 2, "status": "Closed", "note": "Closure criteria met." }
+      ]
+    },
+    {
+      "id": "RSK-007",
+      "title": "Realized schedule risk with an NCR",
+      "statement": {
+        "condition": "the fixture condition for RSK-007 is a fact recorded on 2026-09-20",
+        "departure": "the fixture departure of RSK-007 occurring",
+        "asset": "the fixture asset",
+        "consequence": "the fixture consequence of RSK-007"
+      },
+      "category": "schedule",
+      "likelihood": 5,
+      "likelihood_rationale": "Fixture likelihood rationale naming anchor level 5.",
+      "consequence": {
+        "safety": 1,
+        "first_power_on": 1,
+        "cost": 1,
+        "schedule": 2,
+        "performance_margin": 1
+      },
+      "consequence_rationale": "Fixture consequence rationale naming the driving dimension.",
+      "score": 10,
+      "assessment_confidence": "Medium",
+      "owner": "Claude",
+      "source": "Fixture risk for the render_risk known-answer tests",
+      "opened": "2026-09-20",
+      "horizon": "SAR",
+      "last_assessed": { "date": "2026-10-03", "review": "SRR" },
+      "mitigation": {
+        "strategy": "Mitigate",
+        "steps": [
+          {
+            "id": "S1",
+            "action": "Recover the fixture schedule",
+            "artifact": "docs/plan/schedule.md",
+            "due": "PDR",
+            "status": "Planned"
+          }
+        ],
+        "triggers": [
+          {
+            "condition": "Fixture trigger condition observed",
+            "response": "Claude responds in the same session"
+          }
+        ],
+        "fallback": "Fixture fallback plan."
+      },
+      "status": "Realized",
+      "trend": "Stable",
+      "related": {
+        "requirement_ids": [],
+        "hazard_ids": [],
+        "adr_ids": [],
+        "trade_study_ids": [],
+        "stakeholder_input_ids": [],
+        "risk_ids": [],
+        "ncr_ids": ["NCR-001"]
+      },
+      "closure_criteria": "Fixture closure criteria with enough words.",
+      "history": [
+        { "date": "2026-09-20", "review": "Pre-SRR", "likelihood": 5, "consequence": 2, "safety": 1, "score": 10, "status": "Open", "note": "Opened." },
+        { "date": "2026-10-03", "review": "SRR", "likelihood": 5, "consequence": 2, "safety": 1, "score": 10, "status": "Realized", "note": "Departure occurred; NCR-001 opened." }
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "id": "CAND-1",
+      "source_artifact": "docs/research/fixture.md (Risks)",
+      "summary": "Fixture candidate entered",
+      "disposition": "Entered",
+      "risk_id": "RSK-001",
+      "date": "2026-10-03"
+    },
+    {
+      "id": "CAND-2",
+      "source_artifact": "docs/research/fixture.md (Risks)",
+      "summary": "Fixture candidate merged",
+      "disposition": "Merged",
+      "risk_id": "RSK-002",
+      "rationale": "Same departure as RSK-002, merged into its source.",
+      "date": "2026-10-03"
+    },
+    {
+      "id": "CAND-3",
+      "source_artifact": "docs/conops/conops.md section 8",
+      "summary": "Fixture candidate declined",
+      "disposition": "Declined",
+      "rationale": "Not an uncertain event; a known design property.",
+      "date": "2026-10-03"
+    }
+  ]
+}

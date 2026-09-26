@@ -1,0 +1,136 @@
+{
+  "title": "cwht Technical Performance Measures (fixture)",
+  "schema": "docs/plan/tpm.schema.json",
+  "version": "fixture-1",
+  "governing": {
+    "semp_section": "docs/plan/semp.md section 7.4 (TPMs) and section 5.16 (technical assessment)",
+    "charter_sections": [
+      "4 (item 5, review trends)",
+      "5 (TPMs and leading indicators row)",
+      "6 (MOP-NNN and TPM-NNN id schemes)",
+      "9 (evidence classes and credit rules)",
+      "12 (cost model tailoring; SE-62 mass margin fully compliant, provisional allocation 350 g)"
+    ],
+    "decision_records": [
+      "ADR-020 battery-life target (TPM-008, MOP-010)",
+      "ADR-021 tinySA Ultra as the spurious-emission instrument (TPM-007, TPM-015, conventions.instruments)",
+      "ADR-022 harmonic suppression target, proposed, owner decision at SRR (TPM-007, MOP-009)",
+      "ADR-023 TCXO ceiling and band-edge guard, proposed, owner decision at SRR (TPM-006, MOP-008)",
+      "ADR-024 keyer speed range (TPM-013, MOP-012)",
+      "ADR-025 build quantity cap (TPM-014, MOP-016)"
+    ],
+    "process_documents": [
+      "docs/process/01-lifecycle-and-reviews.md section 11 (review-trend TPM, tools/review_trend.py, alert zones)",
+      "docs/process/02-requirements-and-traceability.md section 6 (MOE, MOP, TPM, KDR definitions; mops[] fields; minimum TPM set)",
+      "docs/process/04-verification-and-validation.md sections 4 to 6 (evidence classes, credit, instruments)",
+      "docs/process/07-software-engineering-plan.md sections 9.6, 11 and 14 (MC/DC method, measurements MSR-NN including MSR-13 and MSR-14, safety-critical components)"
+    ],
+    "npr_7123_1d": [
+      "SE-60 establish TPMs",
+      "SE-61 report TPMs on an agreed interval (conventions.reporting_interval)",
+      "SE-57 periodic technical reviews between life-cycle reviews (sprint closures, 01 section 2.1)",
+      "SE-62 mass margin",
+      "SE-63 power margin",
+      "SE-64 review action closure trends",
+      "SE-40 approved TPM definitions at PDR",
+      "SE-43 initial trend of leading indicators at PDR"
+    ],
+    "se_handbook": [
+      "SE HB App. J section 7.4 (required leading indicators and other trends: verification, problem report, interface and requirement trends)",
+      "SE HB section 6.7.1.2.1 (technical assessment strategy; colour-coded alert zones)"
+    ]
+  },
+  "conventions": {
+    "id_patterns": {
+      "mop": "^MOP-[0-9]{3}$",
+      "tpm": "^TPM-[0-9]{3}$"
+    },
+    "owner_of_all_measures": "Claude (lead systems engineer) measures and reports; Robin (owner, Decision Authority) receives reports and decides on red items",
+    "mop_rule": "mops[] holds the Measures of Performance selected from the MOEs of docs/requirements/l0-stakeholder/expectations.json (02 section 6.2 fields: id, title, moe_ids with at least one entry, requirement_ids, unit, threshold, target, tc_ids). Every performance TPM names the MOP it is selected from in mop_id; process and design-margin leading indicators (review trend, PCB area, requirements volatility, verification closure, NCR trend, interface maturity) carry mop_id null with a mop_note. Every MOE has at least one MOP by PDR (rule T-16 of 02); requirement_ids and tc_ids are filled as the L1 and L2 requirements and cases are written (SRR, PDR) and checked by tools/traceability.py from PDR onward",
+    "reporting_interval": "SE-61 interval agreed with the owner (one interval, stated identically in SEMP section 7.4 and the se-compliance-matrix.json SE-61 row): (1) every life-cycle review package (docs/reviews/<REVIEW>/package.md, REVIEW in SRR, PDR, CDR, TRR, TRR-Dn, SAR) carries the full TPM table with alert colour, and trend plots are rendered into docs/reviews/<REVIEW>/figures/ (review-trend.png by tools/review_trend.py per 01 section 11; the other TPMs by tools/render_tpm.py, which Claude writes before PDR when SE-43 first requires trends); (2) every software sprint closure (docs/sprints/SW-NN-<module>.md, the SE-57 periodic technical review of 01 section 2.1) reports every TPM the sprint touched with margin; (3) any TPM that changes to yellow or red between (1) and (2) is reported to the owner within one working session in a status note docs/plan/status/status-YYYY-MM-DD.md (conventions.status_note). A red TPM opens RSK-NNN in docs/risk/register.json; the corrective action is tracked as a mitigation step of that risk and presented for owner disposition at the next review (charter section 4 item 3: RFAs are raised only by the owner at a review)",
+    "status_note": "Path docs/plan/status/status-YYYY-MM-DD.md, one file per date, written by Claude: the TPM id and key, previous and new status, CBE with evidence path, cause, the RSK-NNN opened or updated, and the proposed response. The history entry for the transition uses review token status-YYYY-MM-DD and names the status note in its evidence field. Status notes are Record-class data; they live outside docs/reviews/ because every folder there is a review token (charter section 6)",
+    "status_rule": "Evaluated in this order against the margin_policy entry of the current phase (the latest phase key at or before the review; every_review applies at every review): red when the CBE meets threshold_red, or no estimate or measurement exists at a review listed in reporting_review; green when the CBE meets the phase margin_policy; yellow in every other case, that is below the phase margin_policy and not red. threshold_yellow describes the typical yellow band and never narrows this rule, so every CBE is exactly one of green, yellow or red",
+    "margin_definition": "margin = (allocation - CBE) / allocation for consumed resources (mass, power, flash, RAM, area, envelope, cost); margin = CBE - requirement for performance measures where larger is better; sign conventions are stated per TPM",
+    "tbr_rule": "A TPM whose planned value is not yet decided carries a tbr object with owner, plan and close_by; no TPM carries a TBR after its close_by review. planned_value is null while a TBR is open and the provisional value in planned_value_text is used for status until closure. Values stated in expectations.json (NGO/MOE) or in a stakeholder input are planned values, not TBRs; where the owner has not yet ratified a ConOps proposal, the TPM says so and names the ratifying review",
+    "evidence_rules": "Measurement texts name the verification method (Analysis, Test, Inspection, Demonstration) followed by the evidence class of docs/test_cases/schema.json (Simulation, HostUnit, Emulation, Inspection, Bench, OnAir); Analysis is a method, not a class, and budgets and worst-case sums are Analysis whose evidence is a Simulation case or an analysis note under docs/design/budgets.md or docs/design/analysis/. HostUnit (application logic on the host implementation of the rustos api traits with injected device models and a mock clock) is the primary software evidence (charter section 9; SI-026). Emulation is optional and secondary: event ordering only, never timing. Runs on a bare Pico 2 development board before the delivered unit exists are Bench evidence with credit: false; they inform a TPM's pre-build estimate but never close it. Run-for-record values come from the delivered unit after TRR, and a delta TRR (TRR-Dn) precedes every new run-for-record series (charter sections 3 and 9)",
+    "regulatory_citation": "47 CFR clauses are cited from the verbatim corpus docs/references/md/regulatory/<file>.md (eCFR issue 2026-09-23), for example 47 CFR 97.307(e) (corpus: 47cfr-97.307.md); the README of that directory gives the currency re-check procedure applied before CDR and before the first on-air series",
+    "history_entry_shape": {
+      "review": "SRR|PDR|CDR|TRR|TRR-Dn (the exact TRR-D1, TRR-D2, ...)|SAR|status-YYYY-MM-DD",
+      "date": "YYYY-MM-DD",
+      "cbe": "number (the TPM value in its stated units), or null only when no scalar value exists at that date (tools/review_trend.py writes null when no RFA/RID log exists)",
+      "status": "green|yellow|red",
+      "evidence": "repo path",
+      "credit": "true for a run-for-record value on the delivered unit or an analysis on baselined design data; false for dev-board, mockup or preliminary values",
+      "note": "string",
+      "tpm_specific": "additional fields allowed per TPM; review-trend records log_review, raised, open, verified_pending, closed, withdrawn, overdue, closure_fraction_at_gate and zone per logged review as specified in 01-lifecycle-and-reviews.md section 11 and written by tools/review_trend.py --write; the sub-measures of TPM-013, TPM-017, TPM-018, TPM-019 and TPM-020 are recorded as named fields (for example mcdc_tables_pct, region_pct, complexity_over_15, branch_condition_pct)"
+    },
+    "key_rule": "Every TPM carries a stable machine key used by other documents (docs/process/01-lifecycle-and-reviews.md section 11 refers to the entry keyed review-trend and section 14 to mass-margin; tools/review_trend.py locates the review-trend entry by its key); keys are lower-case words joined by hyphens, unique, and never change once a TPM is reported",
+    "schema_rule": "This file validates against docs/plan/tpm.schema.json (owned by the SEMP, 02 section 6.2) through the docs/plan/tpm.json convention of tools/validate_docs.py, which also checks every history entry against history_entry (SEMP section 4.3). Cross-references (every mop_id resolves, every tpm_ids entry names a TPM whose mop_id is that MOP, every MOE of expectations.json has a MOP) are checked by tools/traceability.py rule T-16 and by the SEMP section 7.4 check",
+    "instruments": "Owner's bench per charter section 9 and SI-013, SI-034: NanoVNA, tinySA Ultra spectrum analyzer with a calibrated 30 to 40 dB 10 W attenuator (purchase committed by the owner, SI-034 and ADR-021; its receipt is recorded by ADR before TRR, closing OQ-VV-001; charter section 9), 50 ohm BNC dummy load, adjustable bench supply, multimeter, Pico-based logic capture, diode RF probe. No oscilloscope. Calibration checks are recorded per test report and the instrument list is kept in tools/toolchain.lock.md"
+  },
+  "mops": [
+    {
+      "id": "MOP-001",
+      "title": "Carrier power into 50 ohm",
+      "moe_ids": [
+        "MOE-001"
+      ],
+      "requirement_ids": [
+        "REQ-SYS-003"
+      ],
+      "unit": "W",
+      "threshold": "4.0",
+      "target": "5.0",
+      "tc_ids": [
+        "TC-SYS-002"
+      ],
+      "tpm_ids": [
+        "TPM-001"
+      ]
+    }
+  ],
+  "tpms": [
+    {
+      "id": "TPM-001",
+      "key": "mass-margin",
+      "name": "Mass margin",
+      "category": "leading_indicator",
+      "npr_ref": "SE-62",
+      "mop_id": "MOP-001",
+      "definition": "Margin between the total unit mass allocation (assembled PCB, enclosure, two 18650 cells in holders, knobs, facade, connectors; antenna excluded) and the current best estimate of that mass.",
+      "units": "percent of allocation (grams reported alongside)",
+      "formula": "(allocation_g - cbe_g) / allocation_g * 100",
+      "data_source": "hardware/bom (per-part mass column), hardware/enclosure CAD mass properties (OpenSCAD volume times density), cell datasheet mass; at SAR the measured mass of the delivered unit",
+      "planned_value": null,
+      "planned_value_text": "Allocation provisionally 350 g for a pocket handheld (SI-001; charter section 12 records SE-62 as fully compliant with this provisional allocation); the owner sets the allocation at SRR from docs/design/concept.md and the enclosure and battery trade studies",
+      "tbr": {
+        "owner": "Robin (owner) on a proposal from Claude in docs/design/concept.md",
+        "plan": "Allocation approved in the SRR decision memo, or at PDR at the latest with the preliminary enclosure CAD and envelope (TPM-016). No enclosure trade study is planned: CNC aluminum is fixed by SI-008 and ADR-008, and the PDR trade list is TS-001 to TS-006 of docs/design/concept.md section 11.2",
+        "close_by": "PDR"
+      },
+      "margin_policy": {
+        "SRR": ">= 20 % on the allocation from a bottom-up estimate",
+        "PDR": ">= 15 %",
+        "CDR": ">= 10 % with BOM masses and CAD mass properties",
+        "SAR": ">= 0 % measured"
+      },
+      "threshold_yellow": "margin below the phase policy but above 0 %",
+      "threshold_red": "margin below 0 % (over allocation) or no estimate at PDR",
+      "measurement_method": {
+        "pre_build": "Analysis: sum of BOM part masses, CAD volume times material density, cell datasheet mass, 10 % contingency on unmodeled items until CDR; recorded in docs/design/budgets.md",
+        "post_build": "Test, Bench: kitchen or postal scale reading of the assembled unit without antenna, recorded in the SAR test report and the unit as-built record docs/vv/adp/CWHT-A-NNN/as-built.md"
+      },
+      "reporting_review": [
+        "SRR",
+        "PDR",
+        "CDR",
+        "SAR"
+      ],
+      "moe_ids": [
+        "MOE-001"
+      ],
+      "requirement_ids": [],
+      "history": []
+    }
+  ]
+}

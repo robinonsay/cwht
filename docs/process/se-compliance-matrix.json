@@ -1,0 +1,655 @@
+{
+  "title": "cwht NPR 7123.1D Compliance Matrix (Appendix H, Table H-1)",
+  "status": "Draft for SRR; becomes part of the functional baseline when the owner approves the SEMP (SE-06, SE-38)",
+  "revision_date": "2026-09-25",
+  "source": "docs/references/md/npr-7123-1d/14-appendixh.md (Table H-1, 62 rows). SE-01 to SE-05, SE-49 and SE-50 are deleted requirements (NPR 7123.1D App. J Table J-1, docs/references/md/npr-7123-1d/16-appendixj.md; §2.1.4.3 records SE-01 to SE-05 deleted) and have no row in Table H-1",
+  "governing_tailoring": "docs/process/00-charter.md section 1 (tailoring vs customization), section 3 (combined reviews; DR and DRR not held) and section 12 (tailoring register); NPR 7123.1D §2.2.1 (tailoring by deviation or waiver, with rationale, risk evaluation and approval), §2.2.2 (customization) and §5.2.2.2 (minimum products of a review that is not held need a waiver or deviation; a combined or resequenced review is customization); docs/process/01-lifecycle-and-reviews.md section 3.5",
+  "comply_codes": {
+    "FC": "fully compliant (NPR 7123.1D App. H.1.3). A customized form of compliance (combined reviews, consolidated documents, adjusted formality; NPR 7123.1D §2.2.2 and §5.2.2.2) is FC per charter section 1 and needs no deviation or waiver",
+    "T": "tailored: relief from part or all of the requirement (NPR 7123.1D §2.2.1.1) by a deviation (authorized before the requirement is under configuration control) or a waiver (authorized after), per §2.2.1.2 and the App. A definitions. Each T row states relief_type, a risk_evaluation on the scales of docs/process/06-risk-and-decision-analysis.md sections 6 to 8 (§2.2.1.3), the substitute practice and the approval. The tailoring approval of every T row is the owner's approval of this matrix at SRR as Decision Authority and Engineering Technical Authority (SE-06), recorded in docs/reviews/SRR/decision-memo.md; the matrix is approved before it is baselined, so every T row is a deviation",
+    "NA": "not applicable: the requirement presupposes an institution or arrangement the project does not have (contracts, contracting officer, solicitation, Government acceptance), or the NPR's own requirement text or rationale excludes the project type (SE-44). The justification names the reason and any project-scale equivalent. The minimum product of a life-cycle review that is not held is never NA: §5.2.2.2 makes it tailoring (T)"
+  },
+  "field_notes": {
+    "requirement_statement": "Verbatim NPR 7123.1 requirement statement from the Table H-1 row (App. H.1.1 third bullet). tools/render_compliance.py fails when it differs from the corpus (whitespace-normalized comparison).",
+    "rationale": "Verbatim Table H-1 rationale (App. H.1.1 fourth bullet), checked against the corpus the same way.",
+    "short_form": "Optional cwht paraphrase used only in summaries; never quoted as NASA text.",
+    "relief_type": "T rows only: deviation or waiver (NPR 7123.1D §2.2.1.2, App. A).",
+    "risk_evaluation": "T rows: likelihood, consequence and band on the 06 sections 6 to 8 scales, or 'negligible' with the reason (NPR 7123.1D §2.2.1.3).",
+    "implementation_ref": "Repository artifact (path) that evidences compliance, per the charter section 5 document tree. Files not yet written are still the committed location."
+  },
+  "approval": {
+    "submitted_by": "Claude (lead systems engineer)",
+    "approved_by": null,
+    "approval_memo": "docs/reviews/SRR/decision-memo.md (pending)"
+  },
+  "rows": [
+    {
+      "se_id": "SE-07",
+      "npr_section": "3.2.2.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Stakeholder Expectations Definition process to include activities, requirements, guidelines, and documentation, as tailored and customized for the definition of stakeholder expectations for the applicable product layer.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will gather and address stakeholder expectations. This ensures that the program/project will gain a thorough understanding of what the customer and other stakeholders expect.",
+      "short_form": "Identify and implement an ETA-approved Stakeholder Expectations Definition process.",
+      "comply": "FC",
+      "justification": "The owner is the ETA (charter section 2). Stakeholder inputs are logged verbatim with SI-NNN ids and transformed into NGOs, MOEs and ConOps scenarios OPS-NNN; baselined at SRR (MCR absorbed).",
+      "implementation_ref": "docs/requirements/l0-stakeholder/stakeholder-inputs.md; docs/requirements/l0-stakeholder/expectations.json; docs/conops/conops.md; docs/plan/semp.md"
+    },
+    {
+      "se_id": "SE-08",
+      "npr_section": "3.2.3.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Technical Requirements Definition process to include activities, requirements, guidelines, and documentation, as tailored and customized for the definition of technical requirements from the set of agreed upon stakeholder expectations for the applicable product layer.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will select and gain agreement on the technical requirements.",
+      "short_form": "Identify and implement an ETA-approved Technical Requirements Definition process.",
+      "comply": "FC",
+      "justification": "L1 requirements in JSON against docs/requirements/schema.json; writing rules of SE HB App. C; validation per SE HB §4.2.1.2.4 by an independent reviewer agent using the requirements checklist; MOPs and TPMs defined with the requirements.",
+      "implementation_ref": "docs/requirements/sys/requirements.json; docs/requirements/schema.json; docs/templates/peer-review-checklist-requirements.md; tools/traceability.py"
+    },
+    {
+      "se_id": "SE-09",
+      "npr_section": "3.2.4.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Logical Decomposition process to include activities, requirements, guidelines, and documentation, as tailored and customized for logical decomposition of the validated technical requirements of the applicable product layer.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will take the technical requirements for the program/project and glean from them what is needed to accomplish them (e.g., functional block diagrams, timing, architectures). This places the requirements into context and ensures they are understood well enough to begin the design process.",
+      "short_form": "Identify and implement an ETA-approved Logical Decomposition process.",
+      "comply": "FC",
+      "justification": "Functional and state decomposition recorded in the architecture document with allocation of L1 requirements to subsystems (RX, TX, PWR, CTL, ME, SW) and derived L2 requirements; PDR entrance product (SDR absorbed).",
+      "implementation_ref": "docs/design/architecture.md; docs/design/allocation.json; docs/requirements/{rx,tx,pwr,ctl,me,sw}/requirements.json"
+    },
+    {
+      "se_id": "SE-10",
+      "npr_section": "3.2.5.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Design Solution Definition process to include activities, requirements, guidelines, and documentation, as tailored and customized for designing product solution definitions within the applicable product layer that satisfy the derived technical requirements.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will take the information from the stakeholder expectations, requirements, and logical decomposition and perform the design function. Since all designs are unique, this will describe the general steps that are taken. The specifics for each of the program/projects will be documented in the SEMP or other equivalent program/project documentation.",
+      "short_form": "Identify and implement an ETA-approved Design Solution Definition process.",
+      "comply": "FC",
+      "justification": "Alternatives evaluated in trade studies TS-NNN and decisions recorded as ADR-NNN; preliminary design with simulation evidence at PDR; detailed design (schematic, PCB, enclosure CAD, software design) at CDR; every visual product rendered and inspected (charter section 11.3).",
+      "implementation_ref": "docs/decisions/trade-studies/; docs/decisions/adr/; hardware/kicad/; hardware/enclosure/; docs/design/architecture.md (software section); docs/design/software-design.md"
+    },
+    {
+      "se_id": "SE-11",
+      "npr_section": "3.2.6.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Product Implementation process to include activities, requirements, guidelines, and documentation, as tailored and customized for implementation of a design solution definition by making, buying, or reusing an end product of the applicable product layer.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will execute the designs, whether through buying items off the shelf or contracting to have them built, building/coding them within the Center, or reusing products already developed by another program/project. The specifics for how each program/project will make this determination for the various components/assemblies within the product hierarchy are documented in the SEMP or other equivalent program/project documentation.",
+      "short_form": "Identify and implement an ETA-approved Product Implementation process (make, buy, reuse).",
+      "comply": "FC",
+      "justification": "Buy: PCBWay turnkey fabrication and assembly, PCBWay CNC enclosure, DigiKey parts, released only by CDR approval (procurement release); receipt inspection on delivery. Make: firmware implemented per the software engineering plan on owner-developed rustos (reuse of the owner's own crates). The firmware make/buy assessment is recorded as the trade study docs/decisions/trade-studies/TS-NNN-*.md 'Firmware runtime and HAL' followed by its ADR docs/decisions/adr/ADR-NNN-*.md (06 section 14.1 class 1 item h; 07 section 17.2 and section 1.3 row t; SWE-033), an SRR entrance product.",
+      "implementation_ref": "docs/plan/semp.md; hardware/bom/; docs/process/07-software-engineering-plan.md section 17.2; docs/process/06-risk-and-decision-analysis.md section 14.1; docs/decisions/trade-studies/TS-NNN-*.md; docs/decisions/adr/ADR-NNN-*.md"
+    },
+    {
+      "se_id": "SE-12",
+      "npr_section": "3.2.7.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Product Integration process to include activities, requirements, guidelines, and documentation, as tailored and customized for the integration of lower level products into an end product of the applicable product layer in accordance with its design solution definition.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will approach the integration of products within successive levels of the product hierarchy. This ensures that planning is performed that will enable a smooth integration of products into higher level assemblies.",
+      "short_form": "Identify and implement an ETA-approved Product Integration process.",
+      "comply": "FC",
+      "justification": "Integration plan docs/plan/integration-plan.md baselined at PDR (SE-67): board plus firmware plus enclosure integration sequence (SEMP section 3.3), firmware integrated on host, emulator and a bare Pico 2 before hardware arrives, receipt inspection, and a TRR before the first powered bench test.",
+      "implementation_ref": "docs/plan/integration-plan.md; docs/vv/plan.md; docs/process/01-lifecycle-and-reviews.md"
+    },
+    {
+      "se_id": "SE-13",
+      "npr_section": "3.2.8.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Product Verification process to include activities, requirements/specifications, guidelines, and documentation, as tailored and customized for verification of end products generated by the product implementation process or product integration process against their design solution definitions.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will verify that the end products will comply with each of the technical requirements.",
+      "short_form": "Identify and implement an ETA-approved Product Verification process.",
+      "comply": "FC",
+      "justification": "Every requirement carries a verification method (Test, Analysis, Inspection, Demonstration) at definition; verification cases TC-MOD-NNN trace to requirements; verification matrix generated by tools/traceability.py; run-for-the-record on the delivered unit; reports filed per case. ETA approval: the owner approves docs/process/04-verification-and-validation.md as the verification process in the SRR decision memo (04 header).",
+      "implementation_ref": "docs/process/04-verification-and-validation.md; docs/reviews/SRR/decision-memo.md; docs/vv/plan.md; docs/test_cases/<module>/test_cases.json; docs/vv/reports/; tools/traceability.py"
+    },
+    {
+      "se_id": "SE-14",
+      "npr_section": "3.2.9.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Product Validation process to include activities, requirements, guidelines, and documentation, as tailored and customized for validation of end products generated by the product implementation process or product integration process against their stakeholder expectations.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will show that the end products will meet the stakeholder expectations in the intended environment. This is in addition to verifying they meet the stated requirements and ensures the stakeholder is getting what was expected.",
+      "short_form": "Identify and implement an ETA-approved Product Validation process.",
+      "comply": "FC",
+      "justification": "Validation against ConOps scenarios OPS-NNN and MOEs with the owner as user; validation matrix generated from expectations, scenarios and demonstration cases; OnAir demonstration class recorded at SAR. ETA approval: the owner approves docs/process/04-verification-and-validation.md as the validation process in the SRR decision memo (04 header).",
+      "implementation_ref": "docs/process/04-verification-and-validation.md; docs/reviews/SRR/decision-memo.md; docs/vv/plan.md; docs/conops/conops.md; docs/requirements/l0-stakeholder/expectations.json"
+    },
+    {
+      "se_id": "SE-15",
+      "npr_section": "3.2.10.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Product Transition process to include activities, requirements, guidelines, and documentation, as tailored and customized for transitioning end products to the next higher level product layer customer or user.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will handle the end products as they move from one location to another. This includes shipping, handling, transportation criteria, physical security, system security (including cybersecurity), and receiving facility storage needs. It ensures that receiving facilities are ready to accept the product and that no damage occurs to the product during handling and transportation.",
+      "short_form": "Identify and implement an ETA-approved Product Transition process.",
+      "comply": "FC",
+      "justification": "Transition is hand-over of accepted units to the owner and friends at SAR (ORR absorbed) with the operations handbook, version description, as-built records and flashing procedure; handling and shipping limited to vendor delivery and personal transport.",
+      "implementation_ref": "docs/ops/operations-handbook.md; firmware/releases/VDD-<version>.md; docs/reviews/SAR/"
+    },
+    {
+      "se_id": "SE-16",
+      "npr_section": "3.2.11.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Technical Planning process to include activities, requirements, guidelines, and documentation, as tailored and customized for planning the technical effort.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will perform and document all the technical planning for the program/project. This includes all plans developed for the technical effort Systems Engineering Management Plans, risk plans, integration plans, and V&V plans. This ensures that the program/project teams are thinking ahead for the work to be performed and capturing that information so it can be communicated to the rest of the team, customers, and other stakeholders.",
+      "short_form": "Identify and implement an ETA-approved Technical Planning process.",
+      "comply": "FC",
+      "justification": "Charter plus SEMP (SE HB App. J outline) plus discipline plans: CM plan, risk plan, V&V plan, software engineering plan; all in the repo and consistent with the charter by rule (charter preamble).",
+      "implementation_ref": "docs/process/00-charter.md; docs/plan/semp.md; docs/process/05-configuration-and-data-management.md; docs/vv/plan.md; docs/process/07-software-engineering-plan.md"
+    },
+    {
+      "se_id": "SE-17",
+      "npr_section": "3.2.12.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Requirements Management process to include activities, requirements, guidelines, and documentation, as tailored and customized for management of requirements throughout the system life cycle.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will handle tracking and changes to the baselined set of requirements. It defines who has authority to submit and approve changes and how requirements are tracked as they flow down to other elements in the product breakdown structure. This ensures that changes to requirements are evaluated and that their impacts are understood and communicated to the rest of the team.",
+      "short_form": "Identify and implement an ETA-approved Requirements Management process.",
+      "comply": "FC",
+      "justification": "Requirements under configuration control after SRR; changes only by CR-NNN with impact assessment and owner (CCB) approval; bidirectional traceability enforced by tools/traceability.py at every review; volatility tracked (SWE-200).",
+      "implementation_ref": "docs/process/00-charter.md section 7; docs/process/05-configuration-and-data-management.md; tools/traceability.py; docs/plan/measurements.json"
+    },
+    {
+      "se_id": "SE-18",
+      "npr_section": "3.2.13.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Interface Management process to include activities, requirements, guidelines, and documentation, as tailored and customized for management of the interfaces defined and generated during the application of the system design processes.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will manage the internal and external interfaces of their end product. This will ensure compatibility when the various parts of the system are brought together for assembly/integration.",
+      "short_form": "Identify and implement an ETA-approved Interface Management process.",
+      "comply": "FC",
+      "justification": "Internal and external interfaces recorded as ICD-<A>-<B> documents (pin maps, connectors, register maps, mechanical envelopes) baselined at PDR and changed only by CR.",
+      "implementation_ref": "docs/icd/; docs/process/05-configuration-and-data-management.md"
+    },
+    {
+      "se_id": "SE-19",
+      "npr_section": "3.2.14.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Technical Risk Management process to include activities, requirements, guidelines, and documentation, as tailored and customized for management of the risk identified during the technical effort.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will handle the technical portions of the program/project risks and report them for inclusion with the cost and schedule risk portions. It ensures that the technical aspects of risks to the program/projects successful execution are captured and reported to program/project management who will be developing the overall risk posture.",
+      "short_form": "Identify and implement an ETA-approved Technical Risk Management process.",
+      "comply": "FC",
+      "justification": "5x5 risk register with RSK-NNN ids, mitigation plans and owner acceptance; risk status is a required section of every review package; software risks included (SWE-086). ETA approval: the owner approves docs/process/06-risk-and-decision-analysis.md, the Risk Management Plan, in the SRR decision memo and re-approves it at every later gate (06 header).",
+      "implementation_ref": "docs/process/06-risk-and-decision-analysis.md; docs/reviews/SRR/decision-memo.md; docs/risk/register.json; docs/reviews/<REVIEW>/package.md; tools/render_risk.py"
+    },
+    {
+      "se_id": "SE-20",
+      "npr_section": "3.2.15.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Configuration Management process to include activities, requirements, guidelines, and documentation, as tailored and customized for configuration management.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will perform configuration management of the end products, enabling products and other work products key to the program/project. The technical products to be controlled are identified and tracked to ensure that the team knows what the configuration of their system is at all phases of the life cycle.",
+      "short_form": "Identify and implement an ETA-approved Configuration Management process.",
+      "comply": "FC",
+      "justification": "Configuration items, baselines (functional, allocated, product, as-built) as annotated git tags baseline/<review> pushed to origin (signing optional until the owner configures a key, charter section 8), CR process, and configuration audits at SAR are defined in the CM plan (SE HB App. M outline). ETA approval: the owner's approval of the CM and technical data management plan in the SRR decision memo (05 header).",
+      "implementation_ref": "docs/process/05-configuration-and-data-management.md; docs/process/00-charter.md section 8; docs/reviews/SRR/decision-memo.md"
+    },
+    {
+      "se_id": "SE-21",
+      "npr_section": "3.2.16.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Technical Data Management process to include activities, requirements, guidelines, and documentation, as tailored and customized for management of the technical data generated and used in the technical effort.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will handle all the technical data that is generated by the program/project. This will include all data needed to manage, operate, and support the system products over the life cycle. It ensures that the data is available and secure when needed.",
+      "short_form": "Identify and implement an ETA-approved Technical Data Management process.",
+      "comply": "FC",
+      "justification": "All technical data (trade studies, analyses, simulation decks, research reports, review packages) lives in the git repository under the document tree of charter section 5; access and retention are covered by the CM and data management plan. ETA approval: the owner's approval of the CM and technical data management plan in the SRR decision memo (05 header).",
+      "implementation_ref": "docs/process/05-configuration-and-data-management.md; docs/process/00-charter.md section 5; docs/reviews/SRR/decision-memo.md"
+    },
+    {
+      "se_id": "SE-22",
+      "npr_section": "3.2.17.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Technical Assessment process to include activities, requirements, guidelines, and documentation, as tailored and customized for making assessments of the progress of planned technical effort and progress toward requirements satisfaction.",
+      "rationale": "This requirement ensures that the program/project and the ETA identifies how they will assess the progress of the program/project's technical efforts, including life-cycle reviews. It ensures that the program/project team, customers, and other key stakeholders know how the effort is progressing and if additional actions are needed to resolve issues prior to becoming too costly.",
+      "short_form": "Identify and implement an ETA-approved Technical Assessment process.",
+      "comply": "FC",
+      "justification": "Event-based life-cycle reviews (SRR, PDR, CDR, TRR, SAR) with tailored entrance and success criteria, TPMs and leading indicators, RFA/RID burndown, and periodic sprint-level technical reviews.",
+      "implementation_ref": "docs/process/01-lifecycle-and-reviews.md; docs/plan/tpm.json; docs/reviews/<REVIEW>/rfa-rid-log.json"
+    },
+    {
+      "se_id": "SE-23",
+      "npr_section": "3.2.18.1",
+      "requirement_statement": "Program/Project Managers shall identify and implement an ETA-approved Decision Analysis process to include activities, requirements, guidelines, and documentation, as tailored and customized for making technical decisions.",
+      "rationale": "This requirement ensures that the program/project and the ETA identify how they will make and document key technical decisions. It helps to ensure that all team members know who can make decisions, what their authority levels are, and where to go to gain an understanding of what key decisions have been made.",
+      "short_form": "Identify and implement an ETA-approved Decision Analysis process.",
+      "comply": "FC",
+      "justification": "Trade studies TS-NNN follow SE HB §6.8 (criteria, alternatives, evaluation, selection); constraining choices become ADR-NNN the same day (charter section 11.6); owner is the Decision Authority. ETA approval: the owner approves docs/process/06-risk-and-decision-analysis.md sections 13 and 14, the decision analysis process, in the SRR decision memo (06 header).",
+      "implementation_ref": "docs/process/06-risk-and-decision-analysis.md; docs/reviews/SRR/decision-memo.md; docs/templates/trade-study.md; docs/decisions/trade-studies/; docs/decisions/adr/"
+    },
+    {
+      "se_id": "SE-24",
+      "npr_section": "4.2.1",
+      "requirement_statement": "The NASA technical team shall define the engineering activities for the periods before contract award, during contract performance, and upon contract completion in the SEMP or other equivalent program/project documentation.",
+      "rationale": "It is important for both the Government and contractor technical teams to understand what activities will be handled by which organization throughout the product life cycle. The contractor(s) will typically develop a SEMP or other equivalent program/project documentation to describe the technical activities in their portion of the project, but an overarching SEMP (or other equivalent program/project documentation) is needed that will describe all technical activities across the life cycle whether contracted or not.",
+      "short_form": "Define engineering activities before, during and after contract performance in the SEMP.",
+      "comply": "NA",
+      "justification": "No contracts. PCBWay and DigiKey supply catalog services under standard terms; there is no contracted engineering effort. Vendor deliverables are received and inspected under the Product Implementation process (SE-11). Charter section 12.",
+      "implementation_ref": "docs/process/00-charter.md section 12"
+    },
+    {
+      "se_id": "SE-25",
+      "npr_section": "4.2.3",
+      "requirement_statement": "The NASA technical team shall establish the technical inputs to the solicitation appropriate for the product(s) to be developed, including product requirements and Statement of Work tasks.",
+      "rationale": "The technical team's participation in the development of the solicitation is critical to enabling a successful contracted effort. Ensuring that the proper application of the common technical processes into the contracted effort will enhance the chances for success.",
+      "short_form": "Establish technical inputs to the solicitation (product requirements, SOW tasks).",
+      "comply": "NA",
+      "justification": "No solicitation. Fabrication and assembly orders are placed against the CDR product baseline (Gerbers, BOM, assembly drawings, CNC model) as catalog services. Charter section 12.",
+      "implementation_ref": "docs/process/00-charter.md section 12; hardware/bom/"
+    },
+    {
+      "se_id": "SE-26",
+      "npr_section": "4.2.4",
+      "requirement_statement": "The NASA technical team shall determine the technical work products to be delivered by the offeror or contractor, to include contractor documentation that specifies the contractor's SE approach to the scope of activities described by the 17 common technical processes.",
+      "rationale": "The technical team is in the best position to determine what kind of work products from the technical effort will need to be delivered. These products will eventually be used by the technical team to determine the suitability of the contracted effort in its ability to meet requirements, satisfy the stakeholder expectations, and perform as planned.",
+      "short_form": "Determine technical work products to be delivered by the offeror or contractor.",
+      "comply": "NA",
+      "justification": "No contractor. Vendor deliverables are the assembled boards, machined enclosure and parts, checked at receipt inspection against the product baseline. Charter section 12.",
+      "implementation_ref": "docs/process/00-charter.md section 12"
+    },
+    {
+      "se_id": "SE-27",
+      "npr_section": "4.2.5",
+      "requirement_statement": "The NASA technical team shall provide the requirements for technical insight and oversight activities planned in the NASA SEMP or other equivalent program/project documentation to the contracting officer for inclusion in the solicitation.",
+      "rationale": "In addition to the work description and products to be delivered, how the technical team will gain an adequate understanding of the contracted work, what authority (if any) they will have to direct or influence the work, and their participation at key life-cycle reviews. In the end the technical team needs enough information to advise the Program/Project Manager and ETA as to the adequacy of the technical work.",
+      "short_form": "Provide technical insight and oversight requirements to the contracting officer.",
+      "comply": "NA",
+      "justification": "No contracting officer and no contract. Charter section 12.",
+      "implementation_ref": "docs/process/00-charter.md section 12"
+    },
+    {
+      "se_id": "SE-28",
+      "npr_section": "4.2.7",
+      "requirement_statement": "The NASA technical team shall participate in the evaluation of offeror proposals in accordance with applicable NASA and Center source selection procedures.",
+      "rationale": "Technical personnel will need to be involved in reviewing the proposals and providing advice/guidance on their merits. These personnel may or may not be part of the technical team that will execute the program/project.",
+      "short_form": "Participate in the evaluation of offeror proposals.",
+      "comply": "NA",
+      "justification": "No proposals. Vendor choice (PCBWay, DigiKey) is a stakeholder input (SI-008, SI-009), recorded as a decision. Charter section 12.",
+      "implementation_ref": "docs/process/00-charter.md section 12; docs/requirements/l0-stakeholder/stakeholder-inputs.md"
+    },
+    {
+      "se_id": "SE-29",
+      "npr_section": "4.3.1",
+      "requirement_statement": "The NASA technical team, under the authority of the contracting officer, shall perform the technical insight and oversight activities established in the contract including modifications to the original contract.",
+      "rationale": "After the contract is awarded, the contracting officer will depend on the technical team to execute the oversight/ insight of the technical work as defined in their SEMP (or other equivalent program/project documentation) and the contract.",
+      "short_form": "Perform technical insight and oversight established in the contract.",
+      "comply": "NA",
+      "justification": "No contract. Vendor progress is tracked as order status only. Charter section 12.",
+      "implementation_ref": "docs/process/00-charter.md section 12"
+    },
+    {
+      "se_id": "SE-30",
+      "npr_section": "4.4.1",
+      "requirement_statement": "The NASA technical team shall participate in the review(s) to finalize Government acceptance of the deliverables.",
+      "rationale": "Per the agreement in the SEMP (or other equivalent program/project documentation) and the contract, the technical team will participate in the life-cycle reviews. Ultimately, this knowledge will enable the technical team to provide advice to the program/project and ETA as to the suitability of the product for acceptance.",
+      "short_form": "Participate in reviews to finalize Government acceptance of deliverables.",
+      "comply": "NA",
+      "justification": "No Government acceptance of contract deliverables. Receipt inspection of vendor goods is performed under SE-11 and any discrepancy opens an NCR-NNN. Charter section 12.",
+      "implementation_ref": "docs/process/00-charter.md section 12; docs/vv/ncr/"
+    },
+    {
+      "se_id": "SE-31",
+      "npr_section": "4.4.2",
+      "requirement_statement": "The NASA technical team shall participate in product transition as defined in the NASA SEMP or other equivalent program/project documentation.",
+      "rationale": "In accordance with the SEMP (or other equivalent program/project documentation), the technical team will participate in the execution of the final aspects of the end product either its transference in whole to the program/ project customer, its operations, and/or the final decommissioning and disposal. These activities may be performed by the same team that was involved in its development or by other technical teams.",
+      "short_form": "Participate in product transition as defined in the SEMP (contracted effort).",
+      "comply": "NA",
+      "justification": "Contracted-effort clause; no contractor-to-NASA transition exists. Transition of the end product to its users is covered by SE-15. Charter section 12.",
+      "implementation_ref": "docs/process/00-charter.md section 12; docs/ops/operations-handbook.md"
+    },
+    {
+      "se_id": "SE-32",
+      "npr_section": "5.2.1.1",
+      "requirement_statement": "The technical team shall develop and document plans for life-cycle and technical reviews for use in the program/project planning process.",
+      "rationale": "Each of the life-cycle reviews, as well as any other technical status reviews, needs to be identified and documented so that all stakeholders will know how the program/ projects progress will be assessed. This will typically be captured within the SEMP, in a separate Review Plan or other equivalent program/project documentation.",
+      "short_form": "Develop and document plans for life-cycle and technical reviews.",
+      "comply": "FC",
+      "justification": "Review plan with gates, tailored entrance and success criteria, package content, RFA/RID handling and completion criteria is documented before SRR.",
+      "implementation_ref": "docs/process/01-lifecycle-and-reviews.md; docs/process/00-charter.md sections 3 and 4"
+    },
+    {
+      "se_id": "SE-65",
+      "npr_section": "5.2.1.3",
+      "requirement_statement": "The technical team shall develop and document an approach to Human Systems Integration (HSI).",
+      "rationale": "The HSI approach ensures that system aspects that interface with humans (e.g., crew, operators, users, maintainers, assemblers, and ground support personnel) have been considered and that HSI requirements will be met.",
+      "short_form": "Develop and document an approach to Human Systems Integration.",
+      "comply": "FC",
+      "justification": "Customized (no relief): the HSI approach is a section of the SEMP covering controls, display, audio, key and paddle ergonomics (SI-018) and RF-exposure safety, instead of a stand-alone HSI plan (SE HB App. R outline used as the section outline). Charter section 12.",
+      "implementation_ref": "docs/plan/semp.md (HSI section)"
+    },
+    {
+      "se_id": "SE-33",
+      "npr_section": "5.2.1.5",
+      "requirement_statement": "The technical team shall participate in the life-cycle and technical reviews as indicated in the governing program/project management NPR.",
+      "rationale": "The technical team will be responsible for generating and presenting many of the technical topics during a life-cycle and technical review.",
+      "short_form": "Participate in life-cycle and technical reviews per the governing project management NPR.",
+      "comply": "FC",
+      "justification": "Claude prepares and presents every review package; the owner chairs and dispositions. Life cycle condensed per charter section 3 (SRR absorbs MCR; PDR absorbs SDR/MDR; TRR carries the SIR products; SAR absorbs ORR and carries the FRR products), which is customization under NPR 7123.1D §5.2.2.2; delta TRRs (TRR-Dn) precede each new run-for-record series.",
+      "implementation_ref": "docs/process/01-lifecycle-and-reviews.md; docs/reviews/<REVIEW>/package.md"
+    },
+    {
+      "se_id": "SE-34",
+      "npr_section": "5.2.2.1",
+      "requirement_statement": "The technical team shall participate in the development of entrance and success criteria for each of the respective reviews.",
+      "rationale": "The entrance and success criteria in Appendix G are provided as guidelines (not requirements). It is expected that they will be modified as needed by the program/project according to their size, complexity, type of end product being produced, formality, and risk acceptance posture. Specific names of documents may be provided for clarity, non-applicable products eliminated, and new products added as needed for clarity and completeness.",
+      "short_form": "Participate in developing entrance and success criteria for each review.",
+      "comply": "FC",
+      "justification": "Entrance and success criteria tailored from NPR 7123.1D App. G Tables G-4, G-6, G-7, G-10 and G-11 with project artifact names; owner approves them as part of the SEMP.",
+      "implementation_ref": "docs/process/01-lifecycle-and-reviews.md"
+    },
+    {
+      "se_id": "SE-35",
+      "npr_section": "5.2.2.2.a(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: MCR: Baselined stakeholder identification and expectation definitions.",
+      "rationale": "For an MCR one of the key products is capturing the stakeholder expectations. These may be identified as needs, goals, and objectives, or other methods for capturing their expectations. These are captured in a document or a database/model. After all comments from the MCR are dispositioned, the set of stakeholder expectations are updated with the approved comments and then baselined.",
+      "short_form": "MCR minimum product: baselined stakeholder identification and expectation definitions.",
+      "comply": "FC",
+      "justification": "MCR is combined with SRR (customization); the stakeholder expectations (NGO-NNN, success criteria) are an SRR entrance product and are baselined in the functional baseline.",
+      "implementation_ref": "docs/requirements/l0-stakeholder/expectations.json; docs/reviews/SRR/package.md"
+    },
+    {
+      "se_id": "SE-36",
+      "npr_section": "5.2.2.2.a(2)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: MCR: Baselined concept definition.",
+      "rationale": "Presenting one or more feasible ways of accomplishing the stakeholder expectations is a key product of the MCR. These are captured in a document or a database/model. After all comments from the MCR are dispositioned, the concept(s) are updated with the approved comments and then baselined.",
+      "short_form": "MCR minimum product: baselined concept definition.",
+      "comply": "FC",
+      "justification": "MCR combined with SRR; the ConOps (SE HB App. S outline) with nominal and off-nominal scenarios OPS-NNN is baselined at SRR.",
+      "implementation_ref": "docs/conops/conops.md; docs/reviews/SRR/package.md"
+    },
+    {
+      "se_id": "SE-37",
+      "npr_section": "5.2.2.2.a(3)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: MCR: Approved Measures of Effectiveness (MOE) definition.",
+      "rationale": "The MOE capture the stakeholders' view of what would be considered the successful achievement of each expectation. These will help in the later identification of requirements, criteria for trade studies and in the success criteria for the validation efforts.",
+      "short_form": "MCR minimum product: approved MOE definitions.",
+      "comply": "FC",
+      "justification": "MCR combined with SRR; MOE-NNN definitions are approved by the owner at SRR and drive the validation matrix.",
+      "implementation_ref": "docs/requirements/l0-stakeholder/expectations.json; docs/reviews/SRR/decision-memo.md"
+    },
+    {
+      "se_id": "SE-38",
+      "npr_section": "5.2.2.2.b(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: SRR: Baselined SEMP (or other equivalent program/project documentation) for projects, single-project programs, and one-step AO programs.",
+      "rationale": "The SEMP is a key document for the technical effort in a similar manner that the program/project plan captures the programmatic efforts. These are captured in a document or a database/model. For projects, single-project programs, and one-step AO programs after all comments from the SRR are dispositioned, the SEMP (or other equivalent program/project documentation) is updated with the approved comments and then baselined. The SEMP (or other equivalent program/project documentation) is baselined in a later phase for the other types of programs and so will be a \"Not Applicable\" in this line for uncoupled, tightly coupled, and loosely coupled programs.",
+      "short_form": "SRR minimum product: baselined SEMP for projects.",
+      "comply": "FC",
+      "justification": "The charter and SEMP are SRR entrance products and are baselined with the functional baseline; this compliance matrix is attached to the SEMP per NPR 7123.1D App. H.1.1.",
+      "implementation_ref": "docs/plan/semp.md; docs/process/00-charter.md; docs/process/se-compliance-matrix.json"
+    },
+    {
+      "se_id": "SE-39",
+      "npr_section": "5.2.2.2.b(2)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: SRR: Baselined requirements.",
+      "rationale": "The program/project requirements are a key product for the SRR. These are captured in a document or a database/model. After all comments from the SRR are dispositioned, the requirements are updated with the approved comments and then baselined.",
+      "short_form": "SRR minimum product: baselined requirements.",
+      "comply": "FC",
+      "justification": "L1 system requirements, validated by an independent reviewer agent, are baselined at SRR with a clean traceability report (no TBDs; TBRs with owner, plan and closure review).",
+      "implementation_ref": "docs/requirements/sys/requirements.json; tools/traceability.py; docs/reviews/SRR/package.md"
+    },
+    {
+      "se_id": "SE-66",
+      "npr_section": "5.2.2.2.b(3)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: SRR: Baselined Human Systems Integration approach",
+      "rationale": "An important product of the SRR is a baselined approach to HSI. This ensures that human interfaces with the products of the project have been considered and that the HSI requirements from this review will be addressed.",
+      "short_form": "SRR minimum product: baselined HSI approach.",
+      "comply": "FC",
+      "justification": "The HSI section of the SEMP (see SE-65) is baselined with the SEMP at SRR.",
+      "implementation_ref": "docs/plan/semp.md (HSI section)"
+    },
+    {
+      "se_id": "SE-40",
+      "npr_section": "5.2.2.2.c(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: MDR/SDR: Approved TPM definitions.",
+      "rationale": "A key product at the SDR is the set of TPMs that the program/project has identified as the important measures to track for their efforts. These may be associated with the key driving requirements, key performance parameters, leading or lagging indicators, or other measures that are important to periodically measure and track.",
+      "short_form": "MDR/SDR minimum product: approved TPM definitions.",
+      "comply": "FC",
+      "justification": "SDR combined with PDR (customization); TPM-NNN definitions (including mass and power margins, RFA/RID trend, software resource margins) are a PDR entrance product approved by the owner.",
+      "implementation_ref": "docs/plan/tpm.json; docs/reviews/PDR/package.md"
+    },
+    {
+      "se_id": "SE-41",
+      "npr_section": "5.2.2.2.c(2)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: MDR/SDR: Baselined architecture definition.",
+      "rationale": "One of the key products of an SDR is the proposed architecture that will accomplish the requirements. These are captured in a document or a database/model. After all comments from the SDR are dispositioned, the architecture description is updated with the approved comments and then baselined.",
+      "short_form": "MDR/SDR minimum product: baselined architecture definition.",
+      "comply": "FC",
+      "justification": "SDR combined with PDR; system architecture with its software section is baselined in the allocated baseline at PDR.",
+      "implementation_ref": "docs/design/architecture.md"
+    },
+    {
+      "se_id": "SE-42",
+      "npr_section": "5.2.2.2.c(3)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: MDR/SDR: Baselined allocation of requirements to next lower level.",
+      "rationale": "Now that the overarching architecture has been defined, it is important to show how the requirements are allocated to the architecture elements of the next lower level of the product hierarchy. These are captured in a document or a database/ model. After all comments from the SDR are dispositioned, the allocation is updated with the approved comments and then baselined.",
+      "short_form": "MDR/SDR minimum product: baselined allocation of requirements to the next lower level.",
+      "comply": "FC",
+      "justification": "SDR combined with PDR; allocation of L1 to L2 subsystem requirements (RX, TX, PWR, CTL, ME, SW) is baselined at PDR and checked by tools/traceability.py.",
+      "implementation_ref": "docs/design/allocation.json; docs/requirements/{rx,tx,pwr,ctl,me,sw}/requirements.json"
+    },
+    {
+      "se_id": "SE-43",
+      "npr_section": "5.2.2.2.c(4)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: MDR/SDR: Initial trend of required leading indicators.",
+      "rationale": "The trend is presented for the leading indicators that have been identified by the Agency as required for each program/project. These will typically be in graphical form but could also be tabular or other form appropriate for the project. At SDR this will be the initial set of trends that have been captured since SRR. Since final hardware has not been produced at this point, the trends will be on the estimated parameters.",
+      "short_form": "MDR/SDR minimum product: initial trend of required leading indicators.",
+      "comply": "FC",
+      "justification": "SDR combined with PDR; initial trends of mass margin, power margin and RFA/RID closure (since SRR) are plotted in the PDR package.",
+      "implementation_ref": "docs/plan/tpm.json; docs/reviews/PDR/package.md"
+    },
+    {
+      "se_id": "SE-44",
+      "npr_section": "5.2.2.2.c(5)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: MDR/SDR: Baselined SEMP (or other equivalent program/project documentation) for uncoupled, loosely coupled, tightly coupled, and two-step AO programs.",
+      "rationale": "The SEMP is a key document for the technical effort in a similar manner that the program plan captures the programmatic efforts. These are captured in a document or a database/model. For uncoupled, loosely coupled, tightly coupled, and two-step AO programs, after all comments from the MDR/SDR are dispositioned, the SEMP (or other equivalent program/project documentation) is updated with the approved comments and then baselined. The SEMP (or other equivalent program/project documentation) is baselined in an earlier phase for projects and single-project programs and so will be a \"Not Applicable\" in this line for those types of programs.",
+      "short_form": "MDR/SDR minimum product: baselined SEMP for uncoupled, loosely coupled, tightly coupled and two-step AO programs.",
+      "comply": "NA",
+      "justification": "Not applicable by the NPR's own rationale: the Table H-1 rationale for SE-44 states that the SEMP is baselined in an earlier phase for projects and single-project programs and that this line is Not Applicable for them. cwht is a single project (no program structure); its SEMP is baselined at SRR under SE-38 (charter section 3, SRR functional baseline) and the SDR products that PDR absorbs are SE-40 to SE-43. Charter section 12 lists SE-44 among the compliance-matrix rows for owner disposition; the owner's approval of this matrix records the NA.",
+      "implementation_ref": "docs/plan/semp.md; docs/reviews/SRR/decision-memo.md; docs/process/00-charter.md sections 3 and 12"
+    },
+    {
+      "se_id": "SE-45",
+      "npr_section": "5.2.2.2.d(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: PDR: Preliminary design solution definition.",
+      "rationale": "The key product of a PDR is the preliminary design itself. The design is captured in one or more documents, models, databases, drawings, and other means. Comments from the PDR will be captured in the final design for the next review.",
+      "short_form": "PDR minimum product: preliminary design solution definition.",
+      "comply": "FC",
+      "justification": "Preliminary schematic, block-level PCB floorplan, enclosure concept, software architecture and simulation evidence are PDR entrance products.",
+      "implementation_ref": "hardware/kicad/; hardware/sim/; docs/design/architecture.md; docs/reviews/PDR/package.md"
+    },
+    {
+      "se_id": "SE-67",
+      "npr_section": "5.2.2.2.d(2)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: PDR: Baselined integration plans",
+      "rationale": "A key product of an SIR are the integration plans. These will describe how the products of this project will be integrated. Depending on the complexity of the project this may be a stand-alone plan or incorporated into another document like the SEMP or the V&V Plan.",
+      "short_form": "PDR minimum product: baselined integration plans.",
+      "comply": "FC",
+      "justification": "Integration plan (SE HB App. H outline) baselined at PDR as a stand-alone plan referenced by the V&V plan.",
+      "implementation_ref": "docs/plan/integration-plan.md"
+    },
+    {
+      "se_id": "SE-68",
+      "npr_section": "5.2.2.2.d(3)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: PDR: Baselined Verification and Validation Plan",
+      "rationale": "At PDR the plan of how the requirements of the project products will be verified and how the stakeholder expectations of those products will be validated is baselined. This ensures that the project and its stakeholders are in agreement of how the V&V will proceed and that the results will provide adequate information to decide upon the acceptability of the design.",
+      "short_form": "PDR minimum product: baselined Verification and Validation Plan.",
+      "comply": "FC",
+      "justification": "V&V plan (SE HB App. I outline) with verification and validation matrices generated by tools/traceability.py is baselined at PDR and updated at CDR (charter section 9).",
+      "implementation_ref": "docs/vv/plan.md; tools/traceability.py"
+    },
+    {
+      "se_id": "SE-46",
+      "npr_section": "5.2.2.2.e(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: CDR: Baseline detailed design.",
+      "rationale": "The key product of a CDR is the final design. The design is captured in one or more documents, models, databases, drawings, and other means. The final design is updated with approved comments from the review, and the design is updated to represent the design that will be implemented.",
+      "short_form": "CDR minimum product: baselined detailed design.",
+      "comply": "FC",
+      "justification": "Detailed schematic, PCB, enclosure CAD, BOM, software detailed design, analysis package and test procedures form the product baseline at CDR, which is also the procurement release.",
+      "implementation_ref": "hardware/kicad/; hardware/enclosure/; hardware/bom/; docs/design/software-design.md; docs/test_cases/; docs/reviews/CDR/package.md"
+    },
+    {
+      "se_id": "SE-47",
+      "npr_section": "5.2.2.2.f(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: SIR: Updated integration plan.",
+      "rationale": "A key product of an SIR is the updated integration plans. These will describe how the products associated with this review will be integrated.",
+      "short_form": "SIR minimum product: updated integration plan.",
+      "comply": "FC",
+      "justification": "Customization, no relief: SIR is combined with TRR (charter section 3; 01-lifecycle-and-reviews.md section 1 item 3 and section 7.1). The updated integration plan is a TRR entrance product (01 section 7.3 row 10) and a TRR minimum product (01 section 7.5).",
+      "implementation_ref": "docs/plan/integration-plan.md; docs/reviews/TRR/package.md"
+    },
+    {
+      "se_id": "SE-48",
+      "npr_section": "5.2.2.2.f(2)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: SIR: Initial V&V results.",
+      "rationale": "Another key product of an SIR is the initial V&V results from any of the lower level products that are associated with this review. With the recursive nature of the SE engine, products will be integrated and verified/validated from the bottom of the product layer to the top. So, prior to integration into larger assemblies, lower level products will have been through their V&V activities. This ensures that, when they are assembled into the higher product layers, they will work as intended. Programs/projects may decide to perform V&V only at assembly levels as captured in their SEMP (or other equivalent program/project documentation) and so initial V&V results may or may not be available.",
+      "short_form": "SIR minimum product: initial V&V results.",
+      "comply": "FC",
+      "justification": "Customization, no relief: SIR is combined with TRR. Initial V&V results (Simulation, HostUnit, Emulation and Inspection credit reports on the tagged release, receipt inspection) are a TRR entrance product (01 section 7.3 row 11) and minimum product (01 section 7.5; 04 section 13).",
+      "implementation_ref": "docs/vv/reports/; docs/reviews/TRR/package.md"
+    },
+    {
+      "se_id": "SE-69",
+      "npr_section": "5.2.2.2.g(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: ORR: Preliminary V&V results",
+      "rationale": "At ORR the project should have at least preliminary results from the V&V activities. Any remaining requirements or expectations that have not been verified or validated should be discussed at the ORR.",
+      "short_form": "ORR minimum product: preliminary V&V results.",
+      "comply": "FC",
+      "justification": "ORR is combined with SAR (customization); V&V results are presented at SAR in baselined form, which exceeds the preliminary maturity required here.",
+      "implementation_ref": "docs/vv/reports/; docs/reviews/SAR/package.md"
+    },
+    {
+      "se_id": "SE-51",
+      "npr_section": "5.2.2.2.g(2)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: ORR: Baselined decommissioning plans.",
+      "rationale": "At ORR it is important to describe how the product will ultimately be decommissioned when it has accomplished its mission. This is to ensure that decommissioning will be feasible before the product is put into use. These are captured in a document or a database/model. After all comments from the ORR are dispositioned, the plan is updated with the approved comments and then baselined.",
+      "short_form": "ORR minimum product: baselined decommissioning plans.",
+      "comply": "T",
+      "justification": "Tailored (relief by deviation): no stand-alone baselined decommissioning plan is produced. The ORR is held, combined with SAR (customization under NPR 7123.1D §5.2.2.2; SE-33, SE-69), so the relief is from the product, not from the review. Substitute practice: the end-of-life section of the operations handbook states how a unit is retired (cells removed and recycled, unit serial CWHT-A-NNN marked retired in its as-built record, version record archived, repository tag kept); it is reviewed by an independent agent and baselined at SAR with the as-built baseline (01 section 3.5, scope relief). Tailoring approval: the owner's approval of this matrix at SRR (docs/reviews/SRR/decision-memo.md); the SAR decision memo records acceptance of the substitute section as the SE-51 product (charter sections 3 and 12).",
+      "relief_type": "deviation",
+      "risk_evaluation": "Likelihood 1 (Very unlikely) and consequence 2 (Minor) on the 06 section 6 and section 7 scales, score 2, Green (06 section 8): the relief removes the stand-alone document and the G-17 and G-18 plan content that has no counterpart for one handheld (resources, staffing, operations plans, spectrum-manager concurrence); the retirement steps are kept, independently reviewed and baselined in the handbook. The cell hazards themselves are carried by HZ-002 and HZ-007 in docs/safety/hazards.json. No RSK-NNN is opened.",
+      "implementation_ref": "docs/ops/operations-handbook.md (end-of-life section); docs/vv/adp/CWHT-A-NNN/as-built.md; docs/reviews/SRR/decision-memo.md; docs/reviews/SAR/decision-memo.md"
+    },
+    {
+      "se_id": "SE-52",
+      "npr_section": "5.2.2.2.g(3)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: ORR: Baselined disposal plans.",
+      "rationale": "At ORR it is also important to describe how the product will ultimately be disposed of when it has accomplished its mission. This is to ensure that disposal will be feasible before the product is put into use. These are captured in a document or a database/model. After all comments from the ORR are dispositioned, the plan is updated with the approved comments and then baselined.",
+      "short_form": "ORR minimum product: baselined disposal plans.",
+      "comply": "T",
+      "justification": "Tailored (relief by deviation): no stand-alone baselined disposal plan is produced. The ORR is held, combined with SAR (customization under NPR 7123.1D §5.2.2.2; SE-33, SE-69), so the relief is from the product, not from the review. Substitute practice: the same end-of-life section of the operations handbook fixes the disposal route (lithium cells to a battery recycler, board and enclosure as electronic waste, no hazardous materials beyond the cells), reviewed by an independent agent and baselined at SAR (01 section 3.5, scope relief). Tailoring approval: the owner's approval of this matrix at SRR (docs/reviews/SRR/decision-memo.md); the SAR decision memo records acceptance of the substitute section as the SE-52 product (charter sections 3 and 12).",
+      "relief_type": "deviation",
+      "risk_evaluation": "Likelihood 1 (Very unlikely) and consequence 2 (Minor) on the 06 section 6 and section 7 scales, score 2, Green (06 section 8): the disposal route (lithium cells to a battery recycler, board and enclosure as electronic waste) is kept in the reviewed and baselined handbook section; only the stand-alone plan and its institutional content are relieved. No RSK-NNN is opened.",
+      "implementation_ref": "docs/ops/operations-handbook.md (end-of-life section); docs/reviews/SRR/decision-memo.md; docs/reviews/SAR/decision-memo.md"
+    },
+    {
+      "se_id": "SE-53",
+      "npr_section": "5.2.2.2.h(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: FRR: Baseline V&V results.",
+      "rationale": "At FRR, the baselined V&V results for the product are presented and any remaining open work identified. This is to ensure that the product is ready for flight. Note that for some programs/projects the V&V results may need to be baselined at ORR per Center policies/procedures. Maturing and presenting a product earlier than required in the Agency NPR is at the discretion of the program/project/Center and does not require a waiver.",
+      "short_form": "FRR minimum product: baselined V&V results.",
+      "comply": "FC",
+      "justification": "Customization, no relief: FRR has no flight equivalent, so its minimum product is delivered at SAR (ORR combined) as the baselined V&V results: docs/vv/reports/vv-report.md with the verification and validation matrices (01 section 8.5; 04 section 13).",
+      "implementation_ref": "docs/vv/reports/vv-report.md; docs/reviews/SAR/traceability-report.md; docs/reviews/SAR/package.md"
+    },
+    {
+      "se_id": "SE-54",
+      "npr_section": "5.2.2.2.h(2)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: FRR: Final certification for flight/use.",
+      "rationale": "The key product at the FRR is the certification that the product is ready for flight/use. This gains agreement with all key stakeholders that the product is ready to put into the operational phase. Any remaining open items are identified and plans for closure are developed.",
+      "short_form": "FRR minimum product: final certification for flight or use.",
+      "comply": "FC",
+      "justification": "Customization, no relief: certification for use is delivered at SAR as the owner's acceptance statement in the SAR decision memo against the acceptance criteria (SWE-034) after the functional and physical configuration audits, plus the Part 97 compliance statement (01 section 8.5).",
+      "implementation_ref": "docs/reviews/SAR/decision-memo.md; docs/vv/reports/part97-compliance.md"
+    },
+    {
+      "se_id": "SE-55",
+      "npr_section": "5.2.2.2.i(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: DR: Updated decommissioning plans.",
+      "rationale": "The key product at the DR is the plan on how the product will be removed from service. The approved comments from the DR are used to baseline the plan.",
+      "short_form": "DR minimum product: updated decommissioning plans (review not held).",
+      "comply": "T",
+      "justification": "Tailored (relief by deviation): no Decommissioning Review is held (charter section 3). NPR 7123.1D §5.2.2.2 states that a minimum product of a review that is not held needs a waiver or deviation, so this is tailoring, not NA. Substitute practice: the end-of-life section of the operations handbook that substitutes for the SE-51 plan stays under configuration control (CR class) from SAR until the repository is archived; any update to it after SAR is a CR-NNN approved by the owner as CCB, and archiving the repository is the final CR-NNN citing that section and the SAR baseline (01 section 3.5). Tailoring approval: the owner's approval of this matrix at SRR (docs/reviews/SRR/decision-memo.md).",
+      "relief_type": "deviation",
+      "risk_evaluation": "Likelihood 1 (Very unlikely) and consequence 1 (Negligible) on the 06 section 6 and section 7 scales, score 1, Green (06 section 8): the only product a DR would update is the handbook end-of-life section, which stays CR-controlled after SAR, so an update without a review still goes through the owner as CCB. No RSK-NNN is opened.",
+      "implementation_ref": "docs/ops/operations-handbook.md (end-of-life section); docs/reviews/SRR/decision-memo.md; docs/process/00-charter.md section 3"
+    },
+    {
+      "se_id": "SE-56",
+      "npr_section": "5.2.2.2.j(1)",
+      "requirement_statement": "The technical team shall provide the following minimum products at the associated life-cycle review at the indicated maturity level: DRR: Updated disposal plans.",
+      "rationale": "The key product of the DRR is the plan on how the product will be disposed of after it has been decommissioned. The approved comments from the DRR are used to update the plan.",
+      "short_form": "DRR minimum product: updated disposal plans (review not held).",
+      "comply": "T",
+      "justification": "Tailored (relief by deviation): no Disposal Readiness Review is held (charter section 3). NPR 7123.1D §5.2.2.2 states that a minimum product of a review that is not held needs a waiver or deviation, so this is tailoring, not NA. Substitute practice: the disposal instructions in the end-of-life section of the operations handbook (the SE-52 substitute) stay under configuration control (CR class) from SAR until the repository is archived; any update after SAR is a CR-NNN approved by the owner as CCB (01 section 3.5). Tailoring approval: the owner's approval of this matrix at SRR (docs/reviews/SRR/decision-memo.md).",
+      "relief_type": "deviation",
+      "risk_evaluation": "Likelihood 1 (Very unlikely) and consequence 1 (Negligible) on the 06 section 6 and section 7 scales, score 1, Green (06 section 8): disposal instructions stay CR-controlled in the handbook section after SAR, so any update is approved by the owner as CCB without a DRR. No RSK-NNN is opened.",
+      "implementation_ref": "docs/ops/operations-handbook.md (end-of-life section); docs/reviews/SRR/decision-memo.md; docs/process/00-charter.md section 3"
+    },
+    {
+      "se_id": "SE-57",
+      "npr_section": "5.2.2.7",
+      "requirement_statement": "Technical teams shall monitor technical effort through periodic technical reviews.",
+      "rationale": "In addition to the life-cycle reviews, the technical teams need to periodically monitor the technical progress of their program/project. These may be held formally or informally with relevant personnel.",
+      "short_form": "Monitor the technical effort through periodic technical reviews.",
+      "comply": "FC",
+      "justification": "Between life-cycle reviews, every sprint closes with a recorded technical review (gate results, reviewer verdicts, measurements) and the owner receives a status summary; TPMs are reported at each closure.",
+      "implementation_ref": "docs/sprints/; docs/plan/tpm.json; docs/plan/measurements.json"
+    },
+    {
+      "se_id": "SE-06",
+      "npr_section": "6.1.5",
+      "requirement_statement": "The ETA shall approve the SEMP, waiver or deviation authorizations, and other key technical documents to ensure independent assessment of technical content.",
+      "rationale": "This requirement ensures that the ETA has reviewed and approved of key systems engineering documents.",
+      "short_form": "The ETA approves the SEMP, waivers or deviations, and other key technical documents.",
+      "comply": "FC",
+      "justification": "The owner holds the Engineering Technical Authority and SMA Technical Authority (charter section 2); approvals, tailoring (this matrix, the RMM) and baselines are recorded as decision memos.",
+      "implementation_ref": "docs/reviews/<REVIEW>/decision-memo.md; docs/process/rmm.json; docs/process/se-compliance-matrix.json"
+    },
+    {
+      "se_id": "SE-58",
+      "npr_section": "6.2.3",
+      "requirement_statement": "The technical teams shall define in the program/project SEMP how the required 17 common technical processes, as tailored, will be recursively applied to the various levels of program/project product layer system structure during each applicable life-cycle phase.",
+      "rationale": "The SEMP is the key document that lays out the work that the technical team needs to perform and the manner in which they will perform it. This requirement ensures that each of the 17 common technical processes is addressed and how it will be applied to the various levels in the end-item product hierarchy and their associated enabling products.",
+      "short_form": "Define in the SEMP how the 17 common technical processes, as tailored, are applied recursively to the product layers in each life-cycle phase.",
+      "comply": "FC",
+      "justification": "The SEMP maps each of the 17 processes to activities and artifacts for the three product layers (system, subsystems RX/TX/PWR/CTL/ME/SW, software modules) per phase; the software layer application is detailed in the software engineering plan.",
+      "implementation_ref": "docs/plan/semp.md; docs/process/07-software-engineering-plan.md"
+    },
+    {
+      "se_id": "SE-59",
+      "npr_section": "6.2.5",
+      "requirement_statement": "The technical team shall ensure that any technical plans and discipline plans are consistent with the SEMP (or equivalent program/project documentation) and are accomplished as fully integrated parts of the technical effort.",
+      "rationale": "Since the SEMP is the primary planning document for the SE effort, all subsequent planning documents are in alignment and consistent with the SEMP.",
+      "short_form": "Ensure technical plans and discipline plans are consistent with the SEMP and integrated into the technical effort.",
+      "comply": "FC",
+      "justification": "Every process document expands a charter section and must not contradict it (charter preamble); each author re-reads its product against the charter before returning; contradictions are reported as charter issues and resolved by the owner.",
+      "implementation_ref": "docs/process/00-charter.md; docs/process/*.md; docs/vv/plan.md"
+    },
+    {
+      "se_id": "SE-60",
+      "npr_section": "6.2.6",
+      "requirement_statement": "The technical team shall establish TPMs for the program/project that track/describe the current state versus plan.",
+      "rationale": "The measures that the program/project will use to track the progress of key aspects of the technical effort are identified and documented. These TPMs will include the required leading indicators described in other requirements of this NPR and also any project-unique measures deemed necessary to track the key performance parameters.",
+      "short_form": "Establish TPMs that track current state versus plan.",
+      "comply": "FC",
+      "justification": "TPM-NNN records with plan value, current value, margin and trend; includes key driving parameters (output power, spurious emissions margin, receiver sensitivity, battery life, mass, firmware flash/RAM usage).",
+      "implementation_ref": "docs/plan/tpm.json"
+    },
+    {
+      "se_id": "SE-61",
+      "npr_section": "6.2.7",
+      "requirement_statement": "The technical team shall report the TPMs to the Program/Project Manager on an agreed-to reporting interval.",
+      "rationale": "The selected TPMs need to be measured periodically and their trends reported to the program/project manager at the agreed-to interval as documented in the SEMP (or other equivalent program/project documentation). This ensures the PM and ETA are kept up to date on these key parameters so that decisions can be made in a timely manner.",
+      "short_form": "Report TPMs to the Project Manager on an agreed interval.",
+      "comply": "FC",
+      "justification": "Interval agreed with the owner: at every sprint closure and in every review package (event-based, no calendar interval).",
+      "implementation_ref": "docs/plan/tpm.json; docs/sprints/; docs/reviews/<REVIEW>/package.md"
+    },
+    {
+      "se_id": "SE-62",
+      "npr_section": "6.2.8.a",
+      "requirement_statement": "The technical team shall ensure that the set of TPMs include the following leading indicators: Mass margins for projects involving hardware.",
+      "rationale": "If the program/project has hardware elements, tracking of the remaining margins associated with their mass is a required leading indicator measure by the Agency. This is especially important for flight projects. For ground or other projects in which mass is not relevant, a waiver to this requirement can be documented in the SEMP or other equivalent program/project documentation.",
+      "short_form": "TPMs include mass margins for projects with hardware.",
+      "comply": "FC",
+      "justification": "Handheld form factor makes mass a stakeholder concern (SI-001); a mass budget with margin is a TPM from PDR (estimated) through SAR (measured), with the provisional allocation of 350 g recorded in the charter tailoring register (section 12).",
+      "implementation_ref": "docs/plan/tpm.json"
+    },
+    {
+      "se_id": "SE-63",
+      "npr_section": "6.2.8.b",
+      "requirement_statement": "The technical team shall ensure that the set of TPMs include the following leading indicators: Power margins for projects that are powered.",
+      "rationale": "If the program/project has elements that require power, tracking of the remaining margins associated with their power consumption is a required leading indicator measure by the Agency. This is especially important for flight projects. For ground or other projects in which power consumption is not relevant, a waiver to this requirement can be documented in the SEMP or other equivalent program/project documentation.",
+      "short_form": "TPMs include power margins for powered projects.",
+      "comply": "FC",
+      "justification": "Battery energy and peak current budgets (receive, transmit at 5 W, charging) with margin are TPMs from PDR through SAR.",
+      "implementation_ref": "docs/plan/tpm.json"
+    },
+    {
+      "se_id": "SE-64",
+      "npr_section": "6.2.9",
+      "requirement_statement": "The technical team shall ensure that a set of review trends is created and maintained that includes closure of review action documentation (RIDs, RFAs, and/or Action Items as established by the project).",
+      "rationale": "During life-cycle reviews, comments from the reviewers are captured on forms, databases, spreadsheets, or other manner. Depending on the program/project, these may be called RFAs, RIDs, Action Items, or other terminology. Whatever they are called, the disposition and closure of these comments typically called their burndown are required indicator trends by the Agency. This ensures that the approved comments are incorporated into the designs and plans in a timely manner.",
+      "short_form": "Maintain review trends including closure of RIDs, RFAs or action items.",
+      "comply": "FC",
+      "justification": "RFA/RID open and closed counts per review are logged, registered in docs/plan/tpm.json as the review-trend TPM, computed by tools/review_trend.py and plotted in each subsequent package (charter section 4.5).",
+      "implementation_ref": "docs/reviews/<REVIEW>/rfa-rid-log.json; docs/plan/tpm.json; tools/review_trend.py; docs/reviews/<REVIEW>/figures/"
+    }
+  ]
+}

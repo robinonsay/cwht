@@ -1,0 +1,84 @@
+{
+  "module": "SYS",
+  "requirements": [
+    {
+      "id": "REQ-SYS-001",
+      "title": "Straight key input",
+      "description": "The radio shall key the transmitter within 5 ms of contact closure on a straight key connected to the key jack.",
+      "rationale": "SI-018 core requirement; 5 ms keeps element timing imperceptible at 50 WPM (ADR-001).",
+      "verification_method": "Test",
+      "verification_note": "HostUnit debounce timeline; emulator scenario with GPIO stimulus; bench with dummy load.",
+      "status": "Active",
+      "parent_id": null,
+      "child_ids": ["REQ-SW-KEYER-001"],
+      "source_ids": ["SI-018", "NGO-001", "OPS-001"],
+      "hazard_ids": ["HZ-001"],
+      "tags": ["revA"],
+      "priority": "KDR"
+    },
+    {
+      "id": "REQ-SYS-002",
+      "title": "Iambic paddle input",
+      "description": "The radio shall form Morse elements from iambic paddles with a built-in keyer at any speed from 5 WPM to 50 WPM.",
+      "rationale": "SI-018 core requirement; the speed range 5 to 50 WPM is the owner's accepted range (SI-033).",
+      "verification_method": "Test",
+      "status": "Active",
+      "parent_id": null,
+      "child_ids": ["REQ-SW-KEYER-002"],
+      "source_ids": ["SI-018", "SI-033", "NGO-001", "OPS-002"],
+      "priority": "KDR"
+    },
+    {
+      "id": "REQ-SYS-003",
+      "title": "Transmit power",
+      "description": "The transmitter shall deliver 5 W plus or minus 1 dB into a 50 ohm load from 144.0 MHz to 148.0 MHz.",
+      "rationale": "SI-003; MOE-001 measures it.",
+      "verification_method": "Test",
+      "status": "Verified",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["SI-003", "NGO-002", "MOE-001", "47CFR97.313(a)"],
+      "design_refs": ["hardware/kicad/tx-pa.kicad_sch"],
+      "mop_ids": ["MOP-001"]
+    },
+    {
+      "id": "REQ-SYS-004",
+      "title": "Debug console",
+      "description": "The firmware shall expose a serial console at 115200 (TBR) baud on the USB port.",
+      "rationale": "SI-010 asks for host tests and emulation before power-on; the console carries their logs and the self-test banner of the Need. TBR: the baud rate is an estimate until the rustos console driver fixes it.",
+      "verification_method": "Demonstration",
+      "status": "Draft",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["SI-010", "NGO-001"],
+      "tbr": {"owner": "Robin", "plan": "Confirm baud rate against the rustos console driver at PDR.", "close_by": "PDR"}
+    },
+    {
+      "id": "REQ-SYS-005",
+      "title": "Battery endurance",
+      "description": "The radio shall operate for 8 (TBR) hours at a 1:9 transmit-to-receive ratio on one charge of its cells.",
+      "rationale": "SI-034 battery-life target. TBR: the 8 h value is the owner's target pending the power budget; an Active L1 requirement may carry an open TBR until PDR (charter section 7).",
+      "verification_method": "Test",
+      "verification_note": "Bench run on the delivered unit with a timed key-down duty cycle.",
+      "status": "Active",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["SI-034", "NGO-002"],
+      "tbr": {"owner": "Claude prepares the power budget; Robin decides", "plan": "Power budget analysis at PDR fixes the value; the tbr object is removed in the same CR.", "close_by": "PDR"}
+    },
+    {
+      "id": "REQ-SYS-006",
+      "title": "RF exposure at the operating position",
+      "description": "The radio shall produce a power density of at most 1.0 mW per square centimeter at 20 cm from the antenna at 5 W output.",
+      "rationale": "SI-003 and the RF exposure hazard HZ-002; the value is the controlled-environment limit at 146 MHz.",
+      "verification_method": "Analysis",
+      "verification_note": "Analysis accepted per RSK-001: no field-strength meter is available; OET Bulletin 65 far-field calculation with the antenna gain from the datasheet.",
+      "status": "Active",
+      "parent_id": null,
+      "child_ids": [],
+      "source_ids": ["SI-003", "NGO-002"],
+      "hazard_ids": ["HZ-002"],
+      "tags": ["safety"]
+    }
+  ]
+}

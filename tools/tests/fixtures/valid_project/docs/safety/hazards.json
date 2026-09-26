@@ -1,0 +1,20 @@
+{
+  "hazards": [
+    {
+      "id": "HZ-001",
+      "title": "Unintended transmission (stuck key or keyer fault)",
+      "severity": "Marginal",
+      "controls": [
+        {"id": "K1", "text": "Key-down time limit in firmware", "control_req_ids": ["REQ-SW-KEYER-001"]},
+        {"id": "K2", "text": "System keying latency budget", "control_req_ids": ["REQ-SYS-001"]}
+      ],
+      "requirement_ids": ["REQ-SYS-001", "REQ-SW-KEYER-001"]
+    },
+    {
+      "id": "HZ-002",
+      "title": "RF exposure of the operator at 5 W",
+      "severity": "Marginal",
+      "requirement_ids": ["REQ-SYS-006"]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "ngos": [
+    {
+      "id": "NGO-001",
+      "kind": "Need",
+      "parent_id": null,
+      "title": "First Need",
+      "statement": "The owner needs a pocket CW handheld for the 2 m band.",
+      "rationale": "Fixture Need one; a second Need is seeded below (T-21).",
+      "source_ids": ["SI-001"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-002",
+      "kind": "Need",
+      "parent_id": null,
+      "title": "Second Need (seeded)",
+      "statement": "A second Need is seeded to break the one-Need rule.",
+      "rationale": "Seeded defect for T-21 (exactly one Need).",
+      "source_ids": ["SI-001"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-003",
+      "kind": "Goal",
+      "parent_id": "NGO-004",
+      "title": "Goal with an Objective as parent (seeded)",
+      "statement": "The goal points at an objective instead of the Need.",
+      "rationale": "Seeded defect for T-21 (Goal parent is the Need).",
+      "source_ids": ["SI-001"],
+      "status": "Draft"
+    },
+    {
+      "id": "NGO-004",
+      "kind": "Objective",
+      "parent_id": "NGO-001",
+      "title": "Objective with the Need as parent (seeded)",
+      "statement": "The objective points at the Need instead of a Goal and is Baselined but cited by nothing.",
+      "rationale": "Seeded defect for T-21 (Objective parent is a Goal); cited by MOE-002 so that only NGO-005 is the uncovered Objective.",
+      "source_ids": ["SI-001"],
+      "status": "Baselined"
+    },
+    {
+      "id": "NGO-005",
+      "kind": "Objective",
+      "parent_id": "NGO-003",
+      "title": "Baselined Objective that nothing cites (seeded)",
+      "statement": "The objective is Baselined but no SYS requirement and no MOE cites it.",
+      "rationale": "Seeded warning for T-20 (OBJECTIVE_UNCOVERED).",
+      "source_ids": ["SI-001"],
+      "status": "Baselined"
+    }
+  ],
+  "moes": [
+    {
+      "id": "MOE-001",
+      "title": "Unresolved links (seeded)",
+      "statement": "An MOE whose NGO and OPS links do not resolve.",
+      "success_criterion": "Never met; seeded defect for T-21.",
+      "rationale": "Seeded defect for T-21 (ngo_ids and ops_ids resolution).",
+      "ngo_ids": ["NGO-999"],
+      "ops_ids": ["OPS-999"],
+      "source_ids": ["SI-001"],
+      "status": "Draft"
+    },
+    {
+      "id": "MOE-002",
+      "title": "No scenario (seeded)",
+      "statement": "An MOE with no scenario while the ConOps exists.",
+      "success_criterion": "Never met; seeded warning for T-20.",
+      "rationale": "Seeded warning for T-20 (MOE without ops_ids).",
+      "ngo_ids": ["NGO-004"],
+      "ops_ids": [],
+      "source_ids": ["SI-001"],
+      "status": "Draft"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "CON-001",
+      "kind": "Regulatory",
+      "title": "Part 97 applies",
+      "statement": "The radio is operated under 47 CFR Part 97 by licensed operators.",
+      "rationale": "Imposed by the FCC (fixture).",
+      "source_ids": ["SI-001"],
+      "status": "Draft"
+    },
+    {
+      "id": "CON-001",
+      "kind": "Process",
+      "title": "Duplicate id (seeded)",
+      "statement": "The same id is defined twice to break the uniqueness rule.",
+      "rationale": "Seeded defect for T-03 (ID_DUPLICATE in expectations.json).",
+      "source_ids": ["SI-001"],
+      "status": "Draft"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cwht Test Cases",
+  "description": "Verification case schema. IDs use TC-MODULE-NNN. 'Analysis' covers SPICE, budget and DRC checks run before hardware exists.",
+  "type": "object",
+  "required": ["module", "test_cases"],
+  "properties": {
+    "module": { "type": "string" },
+    "test_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "requirement_ids", "verification_method", "type", "procedure", "acceptance_criteria", "status"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^TC-[A-Z][A-Z0-9]*(-[A-Z][A-Z0-9]*)*-[0-9]{3}$" },
+          "title": { "type": "string" },
+          "requirement_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "verification_method": { "type": "string", "enum": ["Test", "Inspection", "Demonstration", "Analysis"] },
+          "type": { "type": "string", "enum": ["Simulation", "HostUnit", "Emulation", "Inspection", "Bench", "OnAir"] },
+          "setup": { "type": "string" },
+          "procedure": { "type": "array", "items": { "type": "string" } },
+          "acceptance_criteria": { "type": "string" },
+          "instruments": { "type": "array", "items": { "type": "string" }, "description": "Bench instruments needed, drawn from the owner's inventory where possible" },
+          "expected_artifacts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "description", "artifact_type"],
+              "properties": {
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "artifact_type": { "type": "string", "enum": ["log", "csv", "plot", "photo", "video", "serial_output", "report", "other"] }
+              },
+              "additionalProperties": false
+            }
+          },
+          "status": { "type": "string", "enum": ["Draft", "Active", "Passed", "Failed", "Blocked"] },
+          "automation_ref": { "type": ["string", "null"], "description": "Path to the script, test, or scenario that automates this case" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

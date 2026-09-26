@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cwht Requirements",
+  "description": "Requirements schema for the cwht transceiver. IDs use REQ-MODULE-NNN, e.g. REQ-SYS-001, REQ-RX-012, REQ-SW-KEYER-003. Traceability fields follow NPR 7150.2D \u00a73.12.1 Table 1 (Class A).",
+  "type": "object",
+  "required": [
+    "module",
+    "requirements"
+  ],
+  "properties": {
+    "module": {
+      "type": "string",
+      "description": "Module identifier (uppercase, e.g. SYS, RX, TX, PWR, CTL, ME, SW, VER)"
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description",
+          "rationale",
+          "verification_method",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^REQ-[A-Z][A-Z0-9]*(-[A-Z][A-Z0-9]*)*-[0-9]{3}$",
+            "description": "Unique requirement ID: REQ-MODULE-NNN"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Short title (no 'shall' language)"
+          },
+          "description": {
+            "type": "string",
+            "description": "Shall statement, <=25 words, externally observable, with a number and unit wherever one applies"
+          },
+          "rationale": {
+            "type": "string",
+            "description": "Why this requirement exists; cite the decision, research report, or regulation"
+          },
+          "verification_method": {
+            "type": "string",
+            "enum": [
+              "Test",
+              "Inspection",
+              "Demonstration",
+              "Analysis"
+            ]
+          },
+          "verification_note": {
+            "type": "string",
+            "description": "How it will be verified before power-on (e.g. LTspice .ac sweep, host cargo test, emulator scenario, DRC rule) and/or after (instrument, procedure)"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "Draft",
+              "Active",
+              "Verified",
+              "Closed"
+            ]
+          },
+          "parent_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Parent requirement ID (null for top-level)"
+          },
+          "child_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Labels: revA, revB, regulatory, safety, 70cm-ready"
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Upstream sources this requirement derives from: SI-NNN stakeholder inputs, NGO-NNN, MOE-NNN, OPS-NNN scenarios, regulation clauses (e.g. 47CFR97.307(e)), or ADR/TS ids"
+          },
+          "hazard_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "HZ-NNN hazards this requirement controls or mitigates (SWE-052 traceability to hazards)"
+          },
+          "design_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Design elements allocated to satisfy this requirement: architecture block ids, schematic sheet names, Rust module paths"
+          },
+          "mop_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "MOP-NNN / TPM-NNN measures this requirement quantifies"
+          },
+          "tbr": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "Present only while a value is To Be Resolved",
+            "properties": {
+              "owner": {
+                "type": "string"
+              },
+              "plan": {
+                "type": "string"
+              },
+              "close_by": {
+                "type": "string",
+                "enum": [
+                  "SRR",
+                  "PDR",
+                  "CDR",
+                  "TRR",
+                  "SAR"
+                ]
+              }
+            },
+            "required": [
+              "owner",
+              "plan",
+              "close_by"
+            ],
+            "additionalProperties": false
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "KDR",
+              "Baseline",
+              "Goal"
+            ],
+            "description": "KDR = key driving requirement (large cost/schedule impact), Baseline = must, Goal = desired (stated with 'should' in rationale, never in description)"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
