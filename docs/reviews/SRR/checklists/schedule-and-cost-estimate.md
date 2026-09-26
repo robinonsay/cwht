@@ -16,27 +16,31 @@ criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
 iteration: 2
-# readiness_met: false because R3 (author self-check) is still not on record; see finding-8
-readiness_met: false
-# reviewer_verdict: finding-1 and finding-2 Verified at iteration 2; every Minor finding is "Lien: fix before PDR" (convergence rule of 2026-09-26)
-# verdict: held at NEEDS CHANGES only by readiness R3 (validate_docs.py: APPROVED needs readiness_met true), as in INSP-019 and INSP-021;
-# it becomes APPROVED (with liens) on re-issue once the author self-check is filed or the owner waives it (decision 115)
+# readiness_met: true at the re-issue of 2026-09-26: R3 met by the author self-check filed at 5b1f2cf (package item R7),
+# verified by the reviewer without a further product review (package item R8); finding-8 Verified
+readiness_met: true
+# reviewer_verdict: finding-1, finding-2 and finding-8 Verified; the other Minor findings are "Lien: fix before PDR" (convergence rule of 2026-09-26)
+# verdict: APPROVED with liens finding-3 to finding-7 and finding-9 at the re-issue; no Major finding remains unresolved
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 2
 findings_minor: 7
 findings_open: 0
 findings_fixed: 0
-findings_verified: 2
+# findings_verified: finding-1, finding-2 (iteration 2) and finding-8 (re-issue)
+findings_verified: 3
+# findings_deferred: 0; the six Minor liens are in the lien table, not Deferred RIDs
 findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
-items_no: [CK-REQ-G1, CK-REQ-G6, R3]
-effort_turns: 42
-effort_minutes: 55
+# items_no: re-issue answers (iteration 2: CK-REQ-G1, CK-REQ-G6, R3)
+items_no: [CK-REQ-G1, CK-REQ-G6]
+# effort: iterations 1 and 2 (42 turns, 55 min) plus the re-issue of 2026-09-26 (6 turns, 10 min)
+effort_turns: 48
+effort_minutes: 65
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -65,7 +69,7 @@ date_closed: null
 | <a id="finding-5"></a>finding-5 | reviewer | Minor | CK-REQ-G6, CK-REQ-G1 | `schedule.md` lines 3 to 18 | The schedule is not updated for this review although SEMP section 3.6 table line 128 says "SRR, updated every review" and the SEMP section 5.0 Technical Planning measure is "slipped milestones without a recovery: 0" (line 204). The SRR target "Sat morning" (line 7) has passed with the package not ready, and the schedule records no actual, slip or recovery; package section 12 carries them instead. The risk list (lines 15 to 18) names no register id although RSK-014 (Red, expedited gates), RSK-053 (holiday closure) and RSK-038 (zero stock) are the schedule risks in `docs/risk/register.json`. Fix: add a status (actual, slip cause, recovery) per milestone or point to package section 12 as the status of record, and give each risk its RSK id. | Lien | Pending | |
 | <a id="finding-6"></a>finding-6 | reviewer | Minor | CK-REQ-G1 | `schedule.md` line 20 (Liens policy) | "No liens are carried past CDR into procurement without an explicit owner decision recorded in the CDR decision memo" admits any lien into procurement on an owner decision. `01-lifecycle-and-reviews.md` section 12.1 ("the vendor orders are placed only when those [liens tagged `blocks-order`] are Closed") and SEMP section 3.4 line 106 ("CDR liens tagged `blocks-order` are Closed before any vendor order is placed"; "CDR is not closed with open PDR liens") are stricter, and section 12.2 lists "a cost above the owner's stated envelope at CDR" among items that may never be a lien. Fix: restate the policy as the 01 section 12 rule (PDR liens closed at CDR; `blocks-order` liens Closed before any order). | Lien | Pending | |
 | <a id="finding-7"></a>finding-7 | reviewer | Minor | S2, CK-REQ-G3 | `schedule.md` lines 3 and 7 to 11 | Row 21 and row 19 cite G-4 items 14 and 15 ("Updated cost and schedule estimates", "Updated documentation of Basis of Estimate (cost and schedule)", corpus `npr-7123-1d/13-appendixg.md` line 80); the schedule gives durations (for example "Layout is the longest single task (Sat night)") with no basis, and its approval line does not cite the stakeholder input that records it (SI-020, `stakeholder-inputs.md` line 28, which the SEMP cites). Fix: add a one-line basis per phase (task list or prior run times) and cite SI-020 on the approval line. | Lien | Pending | |
-| <a id="finding-8"></a>finding-8 | reviewer | Minor | R3 | author return | Iteration 2: no author self-check of `schedule.md` or `cost-estimate.md` against checklist sections G and A8, and no acceptance criteria, came with the fix commit `a7c70d2` or exist in the repository (claude-context search for an INSP-023 author self-check found only this record). Readiness R3 is not met and `readiness_met` is false. Fix: the plan author files the self-check with the next re-review brief, or Robin extends package decision 115 to this record. | Lien | Pending (decision 115) | |
+| <a id="finding-8"></a>finding-8 | reviewer | Minor | R3 | author return | Iteration 2: no author self-check of `schedule.md` or `cost-estimate.md` against checklist sections G and A8, and no acceptance criteria, came with the fix commit `a7c70d2` or exist in the repository (claude-context search for an INSP-023 author self-check found only this record). Readiness R3 is not met and `readiness_met` is false. Fix: the plan author files the self-check with the next re-review brief, or Robin extends package decision 115 to this record. **Re-issue (2026-09-26): Verified**: the author self-check section at the end of this record (commit `5b1f2cf`) states AC-1 to AC-7 and answers R1 to R5, A8 and section G with evidence; the reviewer re-checked it (see "Re-issue"). | Verified | Pending | |
 | <a id="finding-9"></a>finding-9 | reviewer | Minor | CK-REQ-G1, S2 | `schedule.md@53de92ae` section 3, DigiKey row | The RMM SWE-016 implementation names "PCBWay and DigiKey lead times"; the DigiKey row gives no duration ("no research finding records a delivery time, so the CDR order confirmation records it"), so the DigiKey lead time is deferred to CDR rather than estimated, and the zero-stock row is a decision, not a duration. Not Major: the DigiKey items ship to the owner and do not gate PCBWay assembly, and the row states its source gap honestly. Fix: give an estimated DigiKey delivery range with a source (distributor shipping policy, dated) before PDR, replaced by the order confirmation at CDR. | Lien | Pending | |
 
 Finding rules as in the template. The reviewer writes `Pending` in the owner ruling column. "Lien" in the State column is the convergence-rule disposition "Lien: fix before PDR" (lien table below). "Verified" is a Major finding whose fix the reviewer confirmed on the committed blob. No finding is disputed. Iteration 2 added finding-8 and finding-9 (Minor); the diff of `a7c70d2` introduces no new Major defect.
@@ -79,7 +83,7 @@ Finding rules as in the template. The reviewer writes `Pending` in the owner rul
 | finding-5 | Minor | Lien: fix before PDR | Schedule author (Claude, lead SE) | PDR readiness declaration | Routine item |
 | finding-6 | Minor | Lien: fix before PDR | Schedule author (Claude, lead SE) | PDR readiness declaration | Routine item |
 | finding-7 | Minor | Lien: fix before PDR | Schedule author (Claude, lead SE) | PDR readiness declaration | Routine item |
-| finding-8 | Minor | Lien: fix before PDR (or owner waiver, decision 115) | Plan author (Claude, lead SE); Robin for a waiver | PDR readiness declaration | Routine item; R3 holds the record verdict at NEEDS CHANGES until closed or waived |
+| finding-8 | Minor | Verified at the re-issue of 2026-09-26 (author self-check, commit `5b1f2cf`); no longer a lien | Plan author (Claude, lead SE) | Closed | None |
 | finding-9 | Minor | Lien: fix before PDR | Schedule author (Claude, lead SE) | PDR readiness declaration | Routine item |
 
 ### Per-requirement validation
@@ -156,6 +160,8 @@ Author (not present): Claude main session as lead SE. Reviewer: `reviewer:INSP-0
 
 ## Verdict
 
+Re-issue (2026-09-26, HEAD `8ef95d3`): **APPROVED with liens finding-3 to finding-7 and finding-9.** Readiness R3 is met by the author self-check filed at `5b1f2cf` and finding-8 is Verified; the product blobs equal HEAD; no Major finding is open. See "Re-issue" at the end of this record.
+
 Iteration 2 (2026-09-26, HEAD `a7c70d2`, schedule blob `53de92ae`, cost blob `0dda83cb`): finding-1 and finding-2 Verified; findings 3 to 7 stay Lien: fix before PDR; finding-8 (R3) and finding-9 (DigiKey lead time) added as Minor liens. No Major finding is open and the diff introduces no new Major defect. reviewer_verdict APPROVED (with liens); the record verdict is held at NEEDS CHANGES only by readiness R3 (finding-8, decision 115), because `tools/validate_docs.py` refuses APPROVED with `readiness_met: false`; it turns APPROVED (with liens) on re-issue once the self-check is filed or Robin waives it. Package rows 19 and 21 may be rated Met with liens once the record is APPROVED.
 
 ```
@@ -227,3 +233,31 @@ MEASUREMENTS: size=2 plans, 40 lines; items=12; no=4; turns=30; minutes=40; majo
 | AC-6 | Yes | Em dash 0 in both blobs; schedule gates event-based |
 
 **Author statement.** The products meet AC-1 to AC-7 with the Minor liens finding-3 to finding-7 and finding-9 open, owned by the author and due at the PDR readiness declaration; finding-8 is answered by this section, for the reviewer to verify. No finding is disputed.
+
+## Re-issue (independent reviewer, 2026-09-26; package items R7 and R8, no further product review)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:INSP-023`); it did not author the products or the self-check and edited no product and no author section. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual pin. Convergence rule of the lead SE (charter section 4 item 3) applied: no product change is asked.
+
+**Product blobs.** `git rev-parse HEAD:<path>` at HEAD `8ef95d3` gives `schedule.md` `53de92ae211105127f56103d26884d14342190d0` and `cost-estimate.md` `0dda83cbd5ada9474562cc1741df67a31e1a7ffb`, equal to `product_files`; last product commit `a7c70d2` for both (`git log -1`). No delta verification is needed; `product_commit` stands.
+
+**Self-check verification (readiness R3, finding-8).** The author self-check section above (commit `5b1f2cf`, written by `author:plan`) lists acceptance criteria AC-1 to AC-7, restated from the governing sources because the original briefs are not in the repository, and answers R1 to R5, A8 and section G with evidence. The reviewer re-ran its checkable claims on the HEAD blobs: em dash 0, `TBD` or `TBR` 0 and 0 hits for "as appropriate" or "should consider" in both files; `schedule.md` line 5 states it is the SWE-016 (T) software schedule; `cost-estimate.md` line 3 cites the SWE-015 and SWE-151 tailoring and the life-cycle reserves; nine `FM-` rows; `cost-estimate.md` line 15 still reads "SEMP section 7" (finding-4 lien, as the author states); the cost arithmetic recomputes as in S3 and the iteration 2 paragraph (972 + 300 + 40 = 1312; 1836 + 800 + 120 = 2756). Every claim checked holds. The author answers CK-REQ-G1 "Yes, with liens" where the reviewer answers No; the reviewer's answer stands (`items_no`). R3 is met and finding-8 is Verified.
+
+| # | Criterion | Re-issue answer | Evidence |
+|---|---|---|---|
+| R1 | The product validates | Yes | As at iteration 2; `validate_docs.py` run with this re-issue |
+| R2 | traceability.py reports no violation for ids in the file | N/A | No requirement ids in either plan |
+| R3 | Author's self-check and acceptance criteria stated | Yes | Author self-check section (`5b1f2cf`), verified above; finding-8 Verified |
+| R4 | TBR fields complete; no bare TBD | Yes | 0 TBD or TBR in both blobs |
+| R5 | CR impact assessment | N/A | Not a CR |
+
+**Findings.** 9 findings: 2 Major, both Verified at iteration 2 (finding-1, finding-2); 7 Minor, of which finding-8 is Verified at this re-issue and six are liens (finding-3 to finding-7 and finding-9, "Lien: fix before PDR", owner the plan author, due the PDR readiness declaration); none open. No Major needs an owner ruling.
+
+**Verdict (re-issue).** `readiness_met: true`; reviewer verdict and record verdict APPROVED with liens finding-3 to finding-7 and finding-9. Package rows 19 and 21 may be rated Met with liens. `record_status` stays Open for the lead SE until the liens close.
+
+```
+VERDICT (re-issue, 2026-09-26): APPROVED (with liens finding-3 to finding-7, finding-9)
+PRODUCTS: docs/plan/schedule.md@53de92ae211105127f56103d26884d14342190d0, docs/plan/cost-estimate.md@0dda83cbd5ada9474562cc1741df67a31e1a7ffb (HEAD 8ef95d3, unchanged since a7c70d2)
+READINESS: R1 Yes, R2 N/A, R3 Yes (author self-check 5b1f2cf verified), R4 Yes, R5 N/A
+FINDINGS: Verified 3 (finding-1, finding-2 Major; finding-8 Minor); Lien 6 (Minor); none open
+MEASUREMENTS: claims re-checked 9; re-issue 6 turns, 10 minutes
+```

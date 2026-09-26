@@ -19,11 +19,12 @@ assurance_required: false
 assurance_reviewer_agent: none
 # iteration: stays 3 (validate_docs.py maximum); the F-02 closure of 2026-09-26 is the iteration 3 delta verification of the revision 3 blob
 iteration: 3
-readiness_met: false
+# readiness_met: true at the re-issue of 2026-09-26: R4 met by the author self-check filed at 5b1f2cf (package item R7), verified by the reviewer without a further product review (package item R8)
+readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-# verdict: held at NEEDS CHANGES only by readiness R4 (no author self-check on record; package item R7, decision 115, whose default keeps records NEEDS CHANGES; validate_docs.py refuses APPROVED without readiness_met). Zero open Major; four Minor liens
-verdict: NEEDS CHANGES
+# verdict: APPROVED with liens F-09 to F-12 (convergence rule, charter section 4 item 3). Zero open Major
+verdict: APPROVED
 findings_major: 5
 findings_minor: 7
 findings_open: 0
@@ -37,9 +38,9 @@ assurance_tasks_applied: []
 deferred_rids: []
 # items_no: iteration 2 and 3 answers (iteration 1: CK-DES-G1, CK-DES-H1, CK-REQ-G1, CK-REQ-G7)
 items_no: [CK-DES-H1, CK-REQ-G7]
-# effort: cumulative over iterations 1 (40 turns, 35 min), 2 (14 turns, 15 min), 3 (16 turns, 25 min) and the iteration 3 delta verification (12 turns, 15 min)
-effort_turns: 82
-effort_minutes: 90
+# effort: cumulative over iterations 1 (40 turns, 35 min), 2 (14 turns, 15 min), 3 (16 turns, 25 min), the iteration 3 delta verification (12 turns, 15 min) and the re-issue of 2026-09-26 (6 turns, 10 min)
+effort_turns: 88
+effort_minutes: 100
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -48,6 +49,8 @@ date_closed: null
 # Peer review record INSP-014: technology readiness and heritage assessment
 
 **Product:** `docs/plan/technology-assessment.md`, blob `97bb4c94ed67208150399b3df22a7f2ee1f5c91f` (unchanged since commit `4e3f891`). **Checklist:** `docs/templates/peer-review-checklist-design.md` revision B, as assigned. **Criterion judged:** SRR entrance row 20 of `docs/process/01-lifecycle-and-reviews.md` section 4.3 (Hard: "Technology readiness and heritage assessment, including toolchain proof"; evidence form "TRL-style table; toolchain sanity-check results"; G-4 6.16, 6.17; G-3 5.9), and review package `docs/reviews/SRR/package.md` section 2 item H1 (the technology assessment needs its record) with row 20 and item H12. **Reviewer:** reviewer:tech, independent of the author. **Date:** 2026-09-25. **Verdict:** NEEDS CHANGES (5 Major, 3 Minor).
+
+**Verdict (re-issue, 2026-09-26): APPROVED with liens F-09 to F-12.** Readiness R4 is met by the author self-check filed at `5b1f2cf`; the product blob `d46abde0` equals HEAD `8ef95d3`; no Major finding is open. See "Re-issue" at the end of this record.
 
 **Verdict (iteration 3 delta verification, 2026-09-26): reviewer verdict APPROVED (with liens); record verdict NEEDS CHANGES on readiness R4 only.** Reviewed the committed blob `d46abde0` at HEAD `12d7bb7`. F-02 is Closed: section 5.1 now agrees with lock section 1.1 row by row. No Major finding is open; four Minor findings (F-09 to F-12) are liens to fix before PDR. The record turns APPROVED when an author self-check is on record (R4; package item R7, decision 115). See "Iteration 3 delta verification".
 
@@ -300,3 +303,30 @@ MEASUREMENTS: size=26 matrix rows; turns=40; minutes=35; major=5; minor=3
 | AC-7 | Yes | Em dash 0, TBD 0 in the blob |
 
 **Author statement.** The product meets AC-1 to AC-8 with the four Minor liens F-09 to F-12 open, owned by the author and due at the PDR readiness declaration. No finding is disputed.
+
+## Re-issue (independent reviewer, 2026-09-26; package items R7 and R8, no further product review)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:tech`); it did not author the product or the self-check and edited no product and no author section. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual pin. Convergence rule of the lead SE (charter section 4 item 3) applied: no product change is asked.
+
+**Product blob.** `git rev-parse HEAD:docs/plan/technology-assessment.md` at HEAD `8ef95d3` is `d46abde01adf320630dc317d0a80aa6f197181e5`, equal to `product_blob` and `product_files`; last product commit `12d7bb7` (`git log -1`). No delta verification is needed; `product_commit` stands.
+
+**Self-check verification (readiness R4).** The author self-check section above (commit `5b1f2cf`, written by `author:tech`) lists acceptance criteria AC-1 to AC-8, restated from the governing sources because the original briefs are not in the repository, and answers design checklist sections G and H, R1 to R4, requirements checklist section G and A8 with evidence. The reviewer re-ran its checkable claims on the HEAD blob: 427 lines, em dash 0, `TBD` 0, 0 hits for "as appropriate" or "should consider"; the six tool versions it names (kicad-cli 10.0.6, rustc 1.98.0, picotool 2.3.0, jsonschema 4.26.0, FreeCAD 1.1.3, OpenSCAD 2021.01) occur in both the product and `tools/toolchain.lock.md`; `docs/vv/reports/TC-SW-TOOL-001-r2.md` exists (basis of the F-11 lien); the corpus files `npr-7123-1d/11-appendixe.md` and `nasa-se-handbook/29-appendix-g-technology-assessment-insertion.md` exist; WP-SW ids and the FW-B1 scope appear in sections 1.1 and 2. Every claim checked holds. Two notes, not findings: "49 RSK references" counts lines (49 lines carry an RSK id; 74 occurrences, 14 distinct ids); and the author answers CK-DES-H1 and CK-REQ-G7 Yes where the reviewer answers No on liens only, so the reviewer's answers (`items_no`) stand. R4 is met.
+
+| # | Criterion | Re-issue answer | Evidence |
+|---|---|---|---|
+| R1 | Figures rendered and inspected | N/A | No figure in the product |
+| R2 | `REQ-SW-*` allocated to design units | N/A | Not a design product |
+| R3 | Implemented requirements Active or CR named | N/A | Not a design product |
+| R4 | Author return lists acceptance criteria and self-check | Yes | Author self-check section (`5b1f2cf`), verified above |
+
+**Findings.** Unchanged from the iteration 3 delta verification: 12 findings; 5 Major Closed; 7 Minor, of which 3 Closed and 4 Lien (F-09 to F-12, "Lien: fix before PDR", owner the technology assessment author, due the PDR readiness declaration); Open 0; open Major 0. No Major needs an owner ruling.
+
+**Verdict (re-issue).** `readiness_met: true`; reviewer verdict and record verdict APPROVED with liens F-09 to F-12. `record_status` stays Open for the lead SE until the liens close.
+
+```
+VERDICT (re-issue, 2026-09-26): APPROVED (with liens F-09 to F-12)
+PRODUCT: docs/plan/technology-assessment.md@d46abde01adf320630dc317d0a80aa6f197181e5 (HEAD 8ef95d3, unchanged since 12d7bb7)
+READINESS: R1 N/A, R2 N/A, R3 N/A, R4 Yes (author self-check 5b1f2cf verified)
+FINDINGS: F-01 to F-08 Closed; F-09 to F-12 Minor Lien; open Major 0
+MEASUREMENTS: claims re-checked 10; re-issue 6 turns, 10 minutes
+```

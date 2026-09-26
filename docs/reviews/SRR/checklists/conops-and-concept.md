@@ -23,9 +23,12 @@ criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
 iteration: 3
-# readiness R4 (author self-check) is not met; it closes on package decision 115 (Iteration 3 section)
-readiness_met: false
-reviewer_verdict: NEEDS CHANGES
+# readiness_met: true at the re-issue of 2026-09-26: R4 met by the author self-check filed at 5b1f2cf (package item R7),
+# verified by the reviewer without a further product review (package item R8); R1 Yes, R2 N/A, R3 N/A
+readiness_met: true
+# reviewer_verdict: APPROVED with liens finding-19 to finding-22 (convergence rule, charter section 4 item 3); no Major open
+# verdict: held at NEEDS CHANGES only because the validate_docs.py open-Major line test matches count summary lines (see Re-issue); not a finding
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: NEEDS CHANGES
 findings_major: 4
@@ -41,12 +44,12 @@ assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
-# iteration 3 answers (iteration 1: R3, R4, CK-DES-H1, CK-DES-H3, CK-VIS-A1, CK-REQ-C5; iteration 2: R3, R4, CK-DES-H1, CK-VIS-A1)
-items_no: [R4, CK-DES-H1]
+# re-issue answers (iteration 1: R3, R4, CK-DES-H1, CK-DES-H3, CK-VIS-A1, CK-REQ-C5; iteration 2: R3, R4, CK-DES-H1, CK-VIS-A1; iteration 3: R4, CK-DES-H1)
+items_no: [CK-DES-H1]
 renders_inspected: 3  # iteration 3 re-opened the block diagram (--check exit 0 against the committed concept); the two ConOps renders are the blobs inspected at iterations 1 and 2
-# effort: iterations 1 and 2 (58 turns, 95 min) plus iteration 3 (30 turns, 40 min)
-effort_turns: 88
-effort_minutes: 135
+# effort: iterations 1 and 2 (58 turns, 95 min), iteration 3 (30 turns, 40 min) and the re-issue of 2026-09-26 (8 turns, 12 min)
+effort_turns: 96
+effort_minutes: 147
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -71,7 +74,9 @@ date_closed: null
 
 **Reviewer.** `reviewer:conops-concept`, independent of the author (charter section 2; section 11 rule 4). The reviewer did not edit the product. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before every `grep` (queries: SRR readiness shortfalls ConOps concept block diagram H items; SE-36 concept definition; Appendix S annotated outline nominal and off-nominal); `grep -n` was used afterwards only to pin lines. Numbers were checked against `docs/requirements/sys/requirements.json`, `docs/safety/hazards.json` (0.3.0-pha), `docs/risk/register.json`, `docs/plan/tpm.json`, the research reports named in each finding and the regulatory corpus.
 
-**Verdict: NEEDS CHANGES.** Four Major findings (finding-1 to finding-4) and fourteen Minor findings. The ConOps content against SE HB App. S is complete and of high quality (every App. S section 1.0 to 8.0 and Appendices A and B present, 12 nominal and 10 off-nominal scenarios, modes with a full transition table and forbidden transitions, operator model, postures, support concept); the Major findings are disagreements between the two views and the L1 set on hazard-control values and the state set, which the functional baseline cannot carry, because REQ-SYS-002 makes ConOps section 3.4 binding.
+**Verdict (re-issue, 2026-09-26): reviewer verdict APPROVED with liens finding-19 to finding-22; record verdict NEEDS CHANGES on a tool condition only.** Readiness R4 is met by the author self-check filed at `5b1f2cf`; the product blobs equal HEAD `8ef95d3`; no Major finding is open. See "Re-issue" at the end of this record.
+
+**Verdict (iteration 1): NEEDS CHANGES.** Four Major findings (finding-1 to finding-4) and fourteen Minor findings. The ConOps content against SE HB App. S is complete and of high quality (every App. S section 1.0 to 8.0 and Appendices A and B present, 12 nominal and 10 off-nominal scenarios, modes with a full transition table and forbidden transitions, operator model, postures, support concept); the Major findings are disagreements between the two views and the L1 set on hazard-control values and the state set, which the functional baseline cannot carry, because REQ-SYS-002 makes ConOps section 3.4 binding.
 
 ## Findings
 
@@ -328,3 +333,30 @@ PRODUCT: HEAD adcfe09; conops.md b2c76c80, concept.md 729190a2, six figure files
 | AC-7 | Yes | Em dash count 0 in both files; every TBR in the text cites its L1 requirement |
 
 **Author statement.** The product meets AC-1 to AC-8 with the four Minor liens finding-19 to finding-22 open, owned by the author and due at the PDR readiness declaration. No finding is disputed.
+
+## Re-issue (independent reviewer, 2026-09-26; package items R7 and R8, no further product review)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:conops-concept`); it did not author the products or the self-check and edited no product and no author section. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual pin. Convergence rule of the lead SE (charter section 4 item 3) applied: no product change is asked.
+
+**Product blobs.** `git rev-parse HEAD:<path>` at HEAD `8ef95d3` equals every blob in `product_files` (the eight files of iteration 3; last product commits `1543c9f` for `conops.md` and `8a37f8e` for the rest). No product changed since the iteration 3 review, so no delta verification is needed; `product_commit` and `product_files` stand.
+
+**Self-check verification (readiness R4).** The author self-check section above (commit `5b1f2cf`, written by `author:conops-concept`) lists acceptance criteria AC-1 to AC-8, restated from the governing sources because the original briefs are not in the repository, and answers design checklist section H, R1 to R4 and the ConOps-row items of the requirements checklist with evidence. The reviewer re-ran its checkable claims on the HEAD blobs: em dash 0 and `TBD` 0 in `conops.md` (867 lines) and `concept.md` (381 lines); 0 hits for "as appropriate" or "should consider"; 22 `OPS-NNN` headings, each followed by an "Exercises" line; "Deferred capabilities" at `conops.md` line 290; the lien locations cited (lines 103, 105, 685 and 848) still hold the text of finding-19 to finding-21; `concept-block-diagram.py --check` exit 0 ("22 blocks, 6 groups, 32 edges; layout checks passed ... is current"); `concept-block-diagram.png` opened and inspected (B07 "TX inhibit while VBUS present", VBUS present edge from B16, legend present, nothing clipped). Every claim checked holds, and the author and reviewer answers agree (CK-DES-H1 No on liens only). R4 is met.
+
+| # | Criterion | Re-issue answer | Evidence |
+|---|---|---|---|
+| R1 | Every figure rendered beside its source and inspected | Yes | As at iteration 3; block diagram `--check` exit 0 and render re-opened at this re-issue |
+| R2 | `design_refs` allocation shown by `traceability.py` | N/A | As at iteration 1 |
+| R3 | Requirements implemented are Active or the brief names the CR | N/A | As at iteration 3 (every requirement Draft before the SRR memo) |
+| R4 | Author return lists acceptance criteria and self-check | Yes | Author self-check section (`5b1f2cf`), verified above |
+
+**Findings.** Unchanged from iteration 3: 22 findings; Closed (Verified) 17 (Major 4, Minor 13); Disputed accepted 1 (finding-18); Lien 4 (finding-19 to finding-22, Minor, "Lien: fix before PDR", owner the ConOps author, due the PDR readiness declaration); none open; no Major open. No Major needs an owner ruling.
+
+**Verdict (re-issue).** `readiness_met: true`; reviewer verdict APPROVED with liens finding-19 to finding-22. The record `verdict` is held at NEEDS CHANGES by one tool condition, not by a finding and not by readiness: `tools/validate_docs.py` (`open_major_findings`, line 664) counts as an open Major finding any body line that carries a `finding-<n>` anchor together with the words "Major" and "Open". Four count summary lines of iterations 2 and 3 (the iteration 2 verdict paragraph and VERDICT block, the iteration 3 counts paragraph and VERDICT block) match that test although no Major finding is open, so the tool refuses `verdict: APPROVED`. The reviewer did not reword record text to pass the tool. The record is re-issued APPROVED, with no further review, when the lead SE corrects the tool heuristic or rules how the record text may be adjusted (reported with this re-issue). `record_status` stays Open for the lead SE (07 section 10.2) until the liens close.
+
+```
+VERDICT (re-issue, 2026-09-26): reviewer APPROVED (with liens finding-19 to finding-22); record NEEDS CHANGES on the validate_docs.py open-Major line test only
+PRODUCT: HEAD 8ef95d3; conops.md b2c76c80, concept.md 729190a2, six figure files as in product_files (unchanged since iteration 3)
+READINESS: R1 Yes, R2 N/A, R3 N/A, R4 Yes (author self-check 5b1f2cf verified)
+FINDINGS: Closed 17; Disputed accepted 1; Lien 4 (Minor); none open; no Major open
+MEASUREMENTS: claims re-checked 12; renders re-inspected 1; re-issue 8 turns, 12 minutes
+```
