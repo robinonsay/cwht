@@ -1,16 +1,16 @@
 {
-  "generated": "2026-09-25",
+  "generated": "2026-09-26",
   "tool": "tools/traceability.py",
   "result": "PASS",
   "violations": 0,
-  "warnings": 0,
+  "warnings": 2,
   "counts": {
-    "requirements": 177,
+    "requirements": 235,
     "requirements_retired": 2,
-    "requirements_covered": 177,
+    "requirements_covered": 235,
     "requirements_verified_or_closed": 0,
-    "test_cases": 107,
-    "reports": 0,
+    "test_cases": 170,
+    "reports": 1,
     "hazards": 15,
     "ncrs": 0,
     "expectations": 71,
@@ -18,20 +18,36 @@
   },
   "coverage_by_module": {
     "SYS": {
-      "requirements": 177,
-      "with_any_case": 177,
-      "with_closing_case": 177,
+      "requirements": 181,
+      "with_any_case": 181,
+      "with_closing_case": 181,
+      "verified_or_closed": 0,
+      "with_children": 32,
+      "open_tbr": 115
+    },
+    "SW-KEYER": {
+      "requirements": 38,
+      "with_any_case": 38,
+      "with_closing_case": 38,
       "verified_or_closed": 0,
       "with_children": 0,
-      "open_tbr": 100
+      "open_tbr": 10
+    },
+    "TX": {
+      "requirements": 16,
+      "with_any_case": 16,
+      "with_closing_case": 16,
+      "verified_or_closed": 0,
+      "with_children": 0,
+      "open_tbr": 14
     },
     "All": {
-      "requirements": 177,
-      "with_any_case": 177,
-      "with_closing_case": 177,
+      "requirements": 235,
+      "with_any_case": 235,
+      "with_closing_case": 235,
       "verified_or_closed": 0,
-      "with_children": 0,
-      "open_tbr": 100
+      "with_children": 32,
+      "open_tbr": 139
     }
   },
   "measurements": {
@@ -40,11 +56,15 @@
       "by_level": {
         "L1": {
           "Closed": 2,
-          "Draft": 177
+          "Draft": 181
         },
-        "L2": {}
+        "L2": {
+          "Draft": 54
+        }
       },
-      "software_by_status": {}
+      "software_by_status": {
+        "Draft": 38
+      }
     },
     "MSR-03": {
       "name": "Traceability gaps",
@@ -56,28 +76,32 @@
     },
     "MSR-04": {
       "name": "Open TBR count",
-      "software_requirements": 0,
-      "all_requirements": 100
+      "software_requirements": 10,
+      "all_requirements": 139
     },
     "MSR-23": {
       "name": "Test counts by status and class",
       "by_status": {
-        "Draft": 107
+        "Draft": 170
       },
       "by_class": {
-        "Bench": 71,
-        "Inspection": 11,
-        "Simulation": 25
+        "Bench": 96,
+        "HostUnit": 35,
+        "Inspection": 12,
+        "Simulation": 27
       },
       "by_class_and_status": {
         "Bench": {
-          "Draft": 71
+          "Draft": 96
+        },
+        "HostUnit": {
+          "Draft": 35
         },
         "Inspection": {
-          "Draft": 11
+          "Draft": 12
         },
         "Simulation": {
-          "Draft": 25
+          "Draft": 27
         }
       }
     }
@@ -237,5 +261,18 @@
     "MOE-012": "No case",
     "MOE-013": "No case"
   },
-  "findings": []
+  "findings": [
+    {
+      "severity": "WARNING",
+      "code": "SYS_UNALLOCATED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-125",
+      "message": "Draft SYS requirement names no receiving L2 module: no child is a live L2 requirement (child_ids empty); docs/design/allocation.json lists it under no module; the reviewer confirms or corrects the gap in V6 (02 section 2.3, T-18)"
+    },
+    {
+      "severity": "WARNING",
+      "code": "SYS_UNALLOCATED",
+      "location": "docs/requirements/sys/requirements.json REQ-SYS-148",
+      "message": "Draft SYS requirement names no receiving L2 module: no child is a live L2 requirement (child_ids empty); docs/design/allocation.json lists it under no module; the reviewer confirms or corrects the gap in V6 (02 section 2.3, T-18)"
+    }
+  ]
 }

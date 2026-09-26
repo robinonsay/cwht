@@ -1,0 +1,599 @@
+{
+  "module": "TX",
+  "requirements": [
+    {
+      "id": "REQ-TX-001",
+      "title": "Keying envelope as the only carrier modulation",
+      "description": "The transmitter shall accept the keying envelope as the only modulating input of its RF chain.",
+      "rationale": "Why: allocated from REQ-SYS-001 (A1A only). 47 CFR 97.305(a) permits CW on any frequency authorized to the control operator, the 2 m row of 97.305(c) starts other emissions at 144.1 MHz, and 97.3(c)(1) defines CW, so the carrier carries on-off keying only (CON-003, SI-004, ADR-003). The RF chain is the transmitter's (docs/design/concept.md section 5, B04 to B06), so the absence of any tone-modulation path is its property; the sidetone stays in the audio chain. Method follows the parent: Inspection, Proposed, owner decision pending at SRR as decision 30 of docs/reviews/SRR/decisions-for-owner.md, the 06 section 14.1 item (g) trade with REQ-SYS-001, 014 and 015 (trade record TS-NNN, number assigned at creation). Ops: OPS-004, OPS-005.",
+      "verification_method": "Inspection",
+      "verification_note": "Pre-build (closing): Inspection of the transmitter schematic sheets: every modulating node of the exciter, PA and synthesizer is driven only by the envelope drive or by a DC bias, and no audio net reaches the RF chain. Post-build (supporting): Bench, tinySA Ultra through the calibrated attenuator into the dummy load, max-hold of the keyed carrier for gross modulation beyond 10 kHz. Closing case: TC-TX-001.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-001",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.305(a)",
+        "47CFR97.305(c)",
+        "47CFR97.3(c)(1)",
+        "CON-003",
+        "SI-004",
+        "ADR-003"
+      ],
+      "hazard_ids": [],
+      "design_refs": [
+        "B04",
+        "B05",
+        "B06"
+      ],
+      "mop_ids": [],
+      "tbr": null,
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-002",
+      "title": "Transmit carrier frequency range",
+      "description": "The transmitter shall generate its carrier at any commanded frequency from 144.001 MHz to 147.999 MHz (TBR).",
+      "rationale": "Why: allocated from REQ-SYS-008. 47 CFR 97.301(a) grants 144 to 148 MHz in ITU Region 2 to Technician class and above (CON-001); ADR-016 sets full-band coverage and ADR-023 the 1 kHz band-edge guard (Proposed, owner decision pending at SRR). The synthesizer and exciter are transmitter blocks (docs/design/concept.md section 5, B05, B06). Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-008, tested on every unit). TBR: the guard width follows the parent. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation of the synthesizer register table at both limits. Post-build (closing): Bench on the delivered unit, tinySA Ultra through the calibrated attenuator into the dummy load, carrier marker at commanded 144.001, 146.000 and 147.999 MHz. Closing case: TC-TX-002.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-008",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.301(a)",
+        "CON-001",
+        "ADR-016",
+        "ADR-023"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B05",
+        "B06"
+      ],
+      "mop_ids": [
+        "MOP-008",
+        "TPM-006"
+      ],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "Closes with REQ-SYS-008: Robin decides the ADR-023 guard width at SRR and the frequency error budget of the synthesizer and reference trade study (TS number assigned at creation) confirms it at PDR; a changed guard is carried here by the same CR.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-003",
+      "title": "RF isolation with PA enable deasserted",
+      "description": "The transmitter shall hold antenna-port carrier power at most 1 uW (TBR) while PA_EN is deasserted with the exciter driven.",
+      "rationale": "Why: allocated from REQ-SYS-009 (no transmission outside the band-edge guard, 47 CFR 97.307(b)). The same PA-enable inhibit is the transmitter mechanism of REQ-SYS-065 (guest lock, 47 CFR 97.7; ADR-015) and REQ-SYS-154 (synthesizer fault); their firmware sides are allocated to SW at PDR. 1 uW is 14 dB below the 25 uW spurious limit of 97.307(e), so an inhibited carrier lies below the level Part 97 accepts for any unwanted emission; this author's proposal. Assumes: the exciter runs during TxPending. Ops: OPS-019, OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 2. TBR: isolation depends on the PA topology. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-006 K3; HZ-008 K4, K7.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation of the PA and envelope modulator with PA_EN low and full exciter drive. Post-build (closing): Bench on the delivered unit, fault-injection build driving the exciter with PA_EN held low, tinySA Ultra through the calibrated attenuator into the dummy load, at 144.001, 146.000 and 147.999 MHz. Closing case: TC-TX-003.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-009",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory",
+        "interface"
+      ],
+      "source_ids": [
+        "47CFR97.307(b)",
+        "47CFR97.7",
+        "ADR-023",
+        "ADR-015"
+      ],
+      "hazard_ids": [
+        "HZ-008",
+        "HZ-006"
+      ],
+      "design_refs": [
+        "B04",
+        "B07",
+        "ICD-TX-ANT"
+      ],
+      "mop_ids": [],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "The PA device trade TS-003 at PDR sizes the off-state isolation of the chosen PA and envelope modulator; Robin approves the value in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-004",
+      "title": "Reduced power steps",
+      "description": "The transmitter shall deliver commanded 0.5, 1 and 2 W steps within +/-1 dB (TBR) into 50 ohm, 144.001-147.999 MHz, 6.4-8.4 V supply.",
+      "rationale": "Why: allocated from REQ-SYS-011. 47 CFR 97.313(a) requires the minimum transmitter power necessary (CON-007), and the steps bound RF exposure (HZ-001 K1, HZ-006 K1). The PA and ALC are transmitter blocks (B04), so the transmitter holds each step; the parent keeps the system-level closure. The value is an externally imposed constraint kept at both levels; the reviewer records the level decision in V6 (WR-09). The ALC design target is +/-0.5 dB (MOP-004, TPM-015). Assumes: the supply is the protected pack at the PA. Ops: OPS-007. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 4 and 5. TBR: step set and tolerance follow the parent.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation, LTspice PA and ALC model at each step over 6.4 to 8.4 V. Post-build (closing): Bench on the delivered unit, diode RF probe across the dummy load read on the multimeter, P = Vpk^2 / 100 (04 section 6.2), at 144.05, 146.00 and 147.95 MHz with the bench supply at 6.4 and 8.4 V; tinySA Ultra through the calibrated attenuator as the secondary reading. Closing case: TC-TX-004.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-011",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.313(a)",
+        "CON-007",
+        "SI-003"
+      ],
+      "hazard_ids": [
+        "HZ-001",
+        "HZ-006"
+      ],
+      "design_refs": [
+        "B04"
+      ],
+      "mop_ids": [
+        "MOP-004",
+        "TPM-015"
+      ],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "Closes with REQ-SYS-011: Robin ratifies the step set at SRR (RFX-D1); the ALC loop analysis TS-006 at PDR confirms +/-1 dB at every step.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-005",
+      "title": "Keying envelope reproduction",
+      "description": "The transmitter shall reproduce each commanded raised-cosine envelope at the antenna port with 10-to-90 percent times within +/-10 percent (TBR) of the command.",
+      "rationale": "Why: allocated from REQ-SYS-014 (3 to 8 ms raised-cosine rises and falls; 47 CFR 97.307(a) and (b); CON-003; HZ-008 K4). Firmware ramp-step timing is allocated to SW at PDR; this bounds how the shaping network and PA (B04) distort the command, since a nonlinear PA widens the keying spectrum (docs/research/keyer-and-key-interfaces.md R6). At -10 percent the 3 ms setting becomes 2.7 ms, about 325 Hz of 26 dB bandwidth by scaling the 292 Hz of docs/research/regulatory-corpus-and-operators.md F7, inside the 350 Hz of REQ-SYS-015; this author's proposal. Method: Analysis per 04 section 6.2, Proposed, owner decision pending at SRR (06 section 14.1 item (g): SRR decision 30, trade TS-NNN). Ops: OPS-004. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7. TBR: tolerance pending TS-006.",
+      "verification_method": "Analysis",
+      "verification_note": "Analysis accepted per RSK-011: pre-build (closing) Simulation of the envelope drive through the shaping network and the PA model at the 3, 5 and 8 ms settings, 10-to-90 percent times read from the simulated RF envelope with the FFT checker of docs/research/regulatory-corpus-and-operators.md ACTION-8; no instrument of 04 section 6.1 captures the analog RF envelope (CON-016). Post-build (supporting): Bench logic capture of the envelope drive steps at each setting. Closing case: TC-TX-005.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-014",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.307(a)",
+        "47CFR97.307(b)",
+        "CON-003",
+        "ADR-023"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B04"
+      ],
+      "mop_ids": [],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "The TS-006 envelope and PA transient simulation at PDR confirms the tolerance at the 3, 5 and 8 ms settings; Robin approves it in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-006",
+      "title": "Keying sideband level",
+      "description": "The transmitter shall hold its keyed spectrum at least 60 dB below total mean power beyond 750 Hz (TBR) offset with continuous 50 WPM dits.",
+      "rationale": "Why: allocated from REQ-SYS-015 (47 CFR 97.307(a), (b); CON-003); continuous 50 WPM dits are the ADR-024 worst case. docs/research/regulatory-corpus-and-operators.md F7, in 10 Hz cells against total mean power, puts the -60 dB point at 614 Hz for the 3 ms setting and 735 Hz for a 3 ms full transition; 750 Hz adds PA distortion margin to the REQ-TX-005 tolerance. The 500 Hz of docs/research/keyer-verification-and-key-input-network.md F12 is a 30 WPM figure. With +/-370 Hz carrier error the 1 kHz guard of REQ-SYS-008 holds 630 Hz, so that guard or ADR-023 changes to match. Method: Analysis per 04 section 6.2 (ACTION-9), Proposed, owner decision pending (SRR decision 30). Ops: OPS-004, OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7. TBR: offset pending TS-006. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4.",
+      "verification_method": "Analysis",
+      "verification_note": "Analysis accepted per RSK-011: pre-build (closing) FFT of the simulated keyed RF envelope from the PA model with continuous 50 WPM dits at the 3, 5 and 8 ms settings and every tolerance corner, power in every 10 Hz cell beyond 750 Hz relative to the total mean power of the record (the F7 method; ACTION-8 checker). Post-build (supporting): Bench, tinySA Ultra max-hold at its narrowest resolution bandwidth through the calibrated attenuator; a second station's OnAir report. Closing case: TC-TX-006.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-015",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.307(a)",
+        "47CFR97.307(b)",
+        "CON-003",
+        "ADR-024",
+        "ADR-023"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B04"
+      ],
+      "mop_ids": [
+        "MOP-009"
+      ],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "The TS-006 envelope simulation with the PA model at PDR confirms the 750 Hz offset at every setting and tolerance corner; Robin approves it, or a replacement with the REQ-SYS-008 guard and ADR-023 adjusted to match, in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-007",
+      "title": "Spurious emission absolute limit",
+      "description": "The transmitter shall keep every antenna-port spurious emission at most 25 uW at every power step, 144.001-147.999 MHz and 6.4-8.4 V supply.",
+      "rationale": "Why: allocated from REQ-SYS-017. 47 CFR 97.307(e) limits every spurious emission supplied to the antenna line by a transmitter of 25 W or less between 30 and 225 MHz to 25 uW and 40 dB below the fundamental; the 25 uW figure is the tighter bound at every step (53 dB at 5 W; CON-002). Conducted spurious emissions reach the antenna port through the transmitter's harmonic filter (B02), so the transmitter holds the limit; the value is an externally imposed constraint kept at both levels (WR-09). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 10 (the filter is the accepted single point, measured on every unit). KDR: PA line-up and harmonic filter. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1, K5.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation, LTspice PA harmonic levels through the filter with vendor inductor models, combined with the NanoVNA S21 of the assembled filter. Post-build (closing): Bench on the delivered unit, tinySA Ultra through the calibrated attenuator into the dummy load, 9 kHz to 1.5 GHz, at 144.05, 146.00 and 147.95 MHz, every power step, 6.4 and 8.4 V supply, max-hold over keyed dits. Closing case: TC-TX-007.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-017",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory",
+        "interface"
+      ],
+      "source_ids": [
+        "47CFR97.307(e)",
+        "CON-002",
+        "ADR-021"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B02",
+        "B04",
+        "ICD-TX-ANT"
+      ],
+      "mop_ids": [
+        "MOP-009",
+        "TPM-007"
+      ],
+      "tbr": null,
+      "priority": "KDR"
+    },
+    {
+      "id": "REQ-TX-008",
+      "title": "Spurious emission design margin",
+      "description": "The transmitter shall keep every antenna-port spurious emission at least 60 dB (TBR) below the mean carrier power at the 5 W step.",
+      "rationale": "Why: allocated from REQ-SYS-018. ADR-022 (Proposed, owner decision pending at SRR) sets a 60 dB target, 7 dB above the 53 dB that 47 CFR 97.307(e) requires at 5 W (CON-002), because 2f, 3f and 7f fall on military, 70 cm and aeronautical services (HZ-008; 47 CFR 2.106 harmonic-band extract) and unit-to-unit variation erodes margin (docs/research/part97-regulatory-basis.md F2). The filter stopband requirements REQ-TX-009 to REQ-TX-011 are the design allocation that delivers it. Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 10. KDR: harmonic filter and PA. TBR: target pending ADR-022 and TS-003. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1, K2, K5.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation of the PA line-up and filter. Post-build (closing): Bench on the delivered unit at the 5 W step, tinySA Ultra through the calibrated attenuator into the dummy load, 9 kHz to 1.5 GHz at 144.05, 146.00 and 147.95 MHz, max-hold across the keying envelope, 2f, 3f and 7f reported with the victim service. Closing case: TC-TX-008.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-018",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory",
+        "interface"
+      ],
+      "source_ids": [
+        "47CFR97.307(e)",
+        "47CFR2.106",
+        "CON-002",
+        "ADR-022"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B02",
+        "B04",
+        "ICD-TX-ANT"
+      ],
+      "mop_ids": [
+        "MOP-009",
+        "TPM-007"
+      ],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "Closes with REQ-SYS-018: Robin decides ADR-022 at SRR; TS-003 and the filter simulation at PDR show the margin achievable, else the target is revised by CR.",
+        "close_by": "PDR"
+      },
+      "priority": "KDR"
+    },
+    {
+      "id": "REQ-TX-009",
+      "title": "Second-harmonic attenuation",
+      "description": "The transmitter shall attenuate every signal from 288 MHz to 296 MHz by at least 40 dB (TBR) between its PA output and antenna port.",
+      "rationale": "Why: allocated from REQ-SYS-018 through HZ-008 K1: 288 to 296 MHz is the second harmonic of 144 to 148 MHz and lies in the military allocation of the 47 CFR 2.106 harmonic-band extract. K1 sets 40 dB at the filter's own terminals so that the raw harmonic levels of the HZ-008 K2 PA meet the 60 dB target of REQ-TX-008 against 47 CFR 97.307(e) (docs/research/pa-device-candidates.md F16, F17). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. Constraint: the filter is named because it is the accepted single point of docs/safety/hazard-analysis.md 8.2 row 10, measured on every unit. TBR: value pending the TS-003 PA harmonic data.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation, LTspice of the filter with vendor inductor and capacitor models. Post-build (closing): Bench on the delivered unit, NanoVNA S21 from the filter test point of docs/safety/hazard-analysis.md 8.2 row 10 to the antenna port with the PA isolated by its test link, 270 to 310 MHz, normalized to the NanoVNA through calibration. Closing case: TC-TX-009.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-018",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.307(e)",
+        "47CFR2.106",
+        "ADR-022"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B02"
+      ],
+      "mop_ids": [
+        "MOP-009",
+        "TPM-007"
+      ],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "TS-003 (PA device) at PDR supplies the raw second-harmonic level and the filter simulation confirms 40 dB; Robin approves the value in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-010",
+      "title": "Third-harmonic attenuation",
+      "description": "The transmitter shall attenuate every signal from 432 MHz to 444 MHz by at least 35 dB (TBR) between its PA output and antenna port.",
+      "rationale": "Why: allocated from REQ-SYS-018 through HZ-008 K1: 432 to 444 MHz is the third harmonic of 144 to 148 MHz and falls on the 70 cm amateur band, secondary to Federal radiolocation (47 CFR 2.106 harmonic-band extract; 97.303). K1 sets 35 dB at the filter's own terminals as the stopband goal of docs/research/pa-device-candidates.md F16, F17, carried by docs/research/pa-turnkey-candidates-followup.md implication 6, toward the REQ-TX-008 target against 47 CFR 97.307(e). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. Constraint: the filter is named because it is the accepted single point of docs/safety/hazard-analysis.md 8.2 row 10. TBR: value pending the TS-003 PA harmonic data.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation, LTspice of the filter with vendor inductor and capacitor models. Post-build (closing): Bench on the delivered unit, NanoVNA S21 from the filter test point of docs/safety/hazard-analysis.md 8.2 row 10 to the antenna port with the PA isolated by its test link, 420 to 460 MHz, normalized to the NanoVNA through calibration. Closing case: TC-TX-010.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-018",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.307(e)",
+        "47CFR2.106",
+        "ADR-022"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B02"
+      ],
+      "mop_ids": [
+        "MOP-009",
+        "TPM-007"
+      ],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "TS-003 (PA device) at PDR supplies the raw third-harmonic level and the filter simulation confirms 35 dB; Robin approves the value in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-011",
+      "title": "High-order harmonic attenuation",
+      "description": "The transmitter shall attenuate every signal from 576 MHz to 1.5 GHz by at least 40 dB (TBR) between its PA output and antenna port.",
+      "rationale": "Why: allocated from REQ-SYS-018, whose rationale asks for 40 dB up to 1.5 GHz so that inductor self-resonance cannot pass a high-order harmonic (docs/research/pa-turnkey-candidates-followup.md implication 6); 576 MHz is the fourth harmonic of 144 MHz and the band includes the aeronautical allocation at 7f (1008 to 1036 MHz, 47 CFR 2.106 harmonic-band extract). The 1.5 GHz limit is the spurious search span of REQ-TX-007 (47 CFR 97.307(e)). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. Constraint: the filter is named because it is the accepted single point of docs/safety/hazard-analysis.md 8.2 row 10. TBR: value pending the filter design. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation, LTspice of the filter with vendor inductor and capacitor models. Post-build (closing): Bench on the delivered unit, NanoVNA S21 from the filter test point of docs/safety/hazard-analysis.md 8.2 row 10 to the antenna port with the PA isolated by its test link, 560 MHz to 1.5 GHz, normalized to the NanoVNA through calibration; any span above the range and dynamic range that the NanoVNA TV record verifies is measured on a borrowed vector network analyzer under the 04 section 6.3 contingency. Closing case: TC-TX-011.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-018",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.307(e)",
+        "47CFR2.106",
+        "ADR-022"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B02"
+      ],
+      "mop_ids": [
+        "MOP-009",
+        "TPM-007"
+      ],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "The filter design at PDR shows 40 dB to 1.5 GHz with the chosen inductors' self-resonance; Robin approves the value, or a lower one with the REQ-TX-008 margin shown, in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-012",
+      "title": "Spurious emissions into a mismatched load",
+      "description": "The transmitter shall keep every antenna-port spurious emission at most 25 uW at the 5 W step into any load up to SWR 2:1 (TBR).",
+      "rationale": "Why: allocated from REQ-SYS-151. 47 CFR 97.307(e) applies whatever load the antenna presents, and PA harmonic levels change with load SWR (docs/research/antenna-and-erp.md ANT-04: a hand-detuned whip shows 8 dB return loss). The PA and filter (B02, B04) set the harmonic response to the load, so the transmitter holds the limit; the value is an externally imposed constraint kept at both levels (WR-09). Ops: OPS-015. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 10. TBR: the mismatch bound follows the parent. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation of the PA and filter into 2:1 loads at four phases. Post-build (closing): Bench on the delivered unit, NanoVNA-characterized 2:1 fixtures at four phases ahead of the calibrated attenuator, tinySA Ultra 9 kHz to 1.5 GHz at 144.05, 146.00 and 147.95 MHz, levels corrected for the fixture loss. Closing case: TC-TX-012.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-151",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory",
+        "interface"
+      ],
+      "source_ids": [
+        "47CFR97.307(e)",
+        "CON-002"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B02",
+        "B04",
+        "ICD-TX-ANT"
+      ],
+      "mop_ids": [
+        "MOP-009",
+        "TPM-007"
+      ],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "Closes with REQ-SYS-151: TS-003 (PA device) at PDR confirms the harmonic levels into 2:1 by simulation; Robin approves the bound in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-013",
+      "title": "Synthesizer frequency sample for the independent frequency verification",
+      "description": "The transmitter shall output a 3.3 V sample below 20 MHz whose frequency times a fixed ratio is within 1 kHz (TBR) of the carrier.",
+      "rationale": "Why: allocated from REQ-SYS-182 through HZ-008 K7 (Proposed, SRR decision 40); REQ-SYS-154 is the Fault-safe response. The sample is counted on a timebase separate from the synthesizer reference and compared with the set frequency before PA_EN, so a frequency-word fault cannot key outside the band (47 CFR 97.307(b); docs/safety/hazard-analysis.md 8.2 row 4); counting and comparison are SW allocations at PDR. 1 kHz is one tenth of the 10 kHz window of REQ-SYS-182; 20 MHz suits an RP2350 PIO or timer input (this author's proposal). Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 2 (count versus compute). Constraint: the divided sample is the prescaled synthesizer sample REQ-SYS-182 names. TBR: ratio, ceiling and accuracy pending the synthesizer trade study.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation of the prescaler at 144.001 and 147.999 MHz input. Post-build (closing): Bench on the delivered unit, the firmware count of the sample read from the UART telemetry and multiplied by the ratio found by Inspection of the schematic, compared with the tinySA Ultra carrier marker through the calibrated attenuator at 144.001, 146.000 and 147.999 MHz: agreement within 1 kHz, and the carrier divided by the ratio below 20 MHz. Closing case: TC-TX-013.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-182",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.307(b)",
+        "ADR-023"
+      ],
+      "hazard_ids": [
+        "HZ-008"
+      ],
+      "design_refs": [
+        "B06"
+      ],
+      "mop_ids": [],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "The synthesizer and reference trade study at PDR (TS number assigned at creation) fixes the division ratio, the counting input and the sample accuracy; Robin approves them in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-014",
+      "title": "RF isolation with transmit key deasserted",
+      "description": "The transmitter shall hold antenna-port carrier power at most 1 uW (TBR) while TX_KEY is deasserted with PA_EN asserted and the exciter driven.",
+      "rationale": "Why: allocated from REQ-SYS-007: every transmitted element comes from the operator's key, since 47 CFR 97.109(d) admits automatic control only for stations Part 97 designates, such as beacons under 97.203 (CON-006). TX_KEY from the keyer is the transmitter's only keying input, so RF with TX_KEY idle would be keying from another source. It is also the transmitter half of the two conditions of REQ-SYS-120 (HZ-004 K8). 1 uW matches REQ-TX-003. Ops: OPS-004. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 2 (no single software event initiates a hazard). TBR: isolation depends on the PA topology.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation of the envelope modulator and PA with TX_KEY low. Post-build (closing): Bench on the delivered unit, fault-injection build holding PA_EN high and TX_KEY low with the exciter running, tinySA Ultra through the calibrated attenuator into the dummy load, at 144.001, 146.000 and 147.999 MHz. Closing case: TC-TX-014.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-007",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory",
+        "interface"
+      ],
+      "source_ids": [
+        "47CFR97.109(d)",
+        "47CFR97.203",
+        "CON-006"
+      ],
+      "hazard_ids": [
+        "HZ-004"
+      ],
+      "design_refs": [
+        "B04",
+        "B07",
+        "ICD-TX-ANT"
+      ],
+      "mop_ids": [],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "The PA device trade TS-003 at PDR sizes the key-up isolation of the chosen PA and envelope modulator; Robin approves the value in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-015",
+      "title": "Output power ceiling for the RF exposure evaluation",
+      "description": "The transmitter shall deliver at most 6.3 W (TBR) into 50 ohm at any power step, carrier frequency and 6.4 to 8.4 V supply.",
+      "rationale": "Why: allocated from REQ-SYS-121. The RF exposure evaluation that 47 CFR 97.13(c)(1) requires (1.1307(b), 2.1091 and 2.1093 against the 1.1310 limits; CON-004) assumes a maximum output power; 6.3 W is the 5 W step plus the +1 dB tolerance of REQ-SYS-012, the value that sets REQ-SYS-069. The PA and ALC are transmitter blocks (B04; HZ-001 K4). Assumes: ALC operating; the ALC-off 10 W case stays in the evaluation (HZ-001 K4). Ops: OPS-018, OPS-022. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (an ALC fault is bounded by REQ-SYS-156). TBR: ceiling follows REQ-SYS-012. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-001 K4, K8; HZ-006 K4.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Simulation, LTspice PA and ALC model at the 5 W step and 8.4 V. Post-build (closing): Bench on the delivered unit, diode RF probe across the dummy load read on the multimeter, P = Vpk^2 / 100 (04 section 6.2), every step at 144.05, 146.00 and 147.95 MHz with the bench supply at 6.4, 7.4 and 8.4 V; tinySA Ultra through the calibrated attenuator as the secondary reading. Closing case: TC-TX-015.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-121",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety",
+        "regulatory"
+      ],
+      "source_ids": [
+        "47CFR97.13(c)",
+        "47CFR1.1307(b)",
+        "47CFR1.1310",
+        "47CFR2.1091",
+        "47CFR2.1093",
+        "CON-004"
+      ],
+      "hazard_ids": [
+        "HZ-001",
+        "HZ-006"
+      ],
+      "design_refs": [
+        "B04"
+      ],
+      "mop_ids": [
+        "MOP-004",
+        "TPM-015",
+        "MOP-018"
+      ],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "Closes with REQ-SYS-012: TS-003 and TS-006 at PDR set the 5 W tolerance; the RF exposure evaluation is updated with the resulting ceiling before the first OnAir series.",
+        "close_by": "PDR"
+      },
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-TX-016",
+      "title": "Carrier-frequency leakage in receive",
+      "description": "The transmitter shall keep antenna-port power at the set carrier frequency at most -57 dBm (TBR) in Receive mode.",
+      "rationale": "Why: allocated from REQ-SYS-176 (Goal). 47 CFR 15.23(b) expects the builder of home-built equipment to meet the technical standards to the greatest extent practicable with good engineering practice (CON-008). The transmitter's share of receive-mode emission is leakage of its synthesizer and exciter at the set frequency through the T/R relay (B03, B05, B06); receiver local-oscillator leakage falls at other frequencies and stays with RX. -57 dBm is the parent's value; the design should meet it, hence Goal. Ops: OPS-003. TBR: value follows the parent.",
+      "verification_method": "Test",
+      "verification_note": "Pre-build (supporting): Analysis of exciter leakage through the T/R relay isolation. Post-build (closing): Bench on the delivered unit in Receive mode, tinySA Ultra at the antenna port, marker at the set frequency with the radio tuned to 144.05, 146.00 and 147.95 MHz. Closing case: TC-TX-016.",
+      "status": "Draft",
+      "parent_id": "REQ-SYS-176",
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "regulatory",
+        "interface"
+      ],
+      "source_ids": [
+        "47CFR15.23(b)",
+        "CON-008"
+      ],
+      "hazard_ids": [],
+      "design_refs": [
+        "B03",
+        "B05",
+        "B06",
+        "ICD-TX-ANT"
+      ],
+      "mop_ids": [],
+      "tbr": {
+        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "plan": "Closes with REQ-SYS-176: the receiver and T/R design at PDR confirms the limit; Robin approves it or a replacement in the PDR decision memo.",
+        "close_by": "PDR"
+      },
+      "priority": "Goal"
+    }
+  ]
+}

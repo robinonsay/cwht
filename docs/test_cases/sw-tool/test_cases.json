@@ -1,0 +1,117 @@
+{
+  "module": "SW-TOOL",
+  "test_cases": [
+    {
+      "id": "TC-SW-TOOL-001",
+      "title": "FW-B0 toolchain proof: firmware workspace host build and test, RP2350 target build, lint gate, sw_gate.sh end to end, and rustos blinky and cwht-app flashed on a bare Pico 2 (dev-board case, supporting evidence)",
+      "requirement_ids": [
+        "REQ-SYS-127",
+        "REQ-SYS-128",
+        "REQ-SYS-133"
+      ],
+      "verification_method": "Demonstration",
+      "type": "Bench",
+      "setup": "Article: pico2-devboard-1. Credit: false (dev-board run, charter section 3). Credit row: SUPPORT. Purpose: FW-B0 toolchain proof of docs/process/07-software-engineering-plan.md sections 3.1 and 3.2 (test-only module SW-TOOL, docs/process/04-verification-and-validation.md section 1). It shows that the firmware workspace firmware/ (crates cwht-app, cwht-core, cwht-hal-mock of 07 section 1.2) builds and tests on the host, builds for thumbv8m.main-none-eabihf against rustos by path, passes the lint configuration of 07 Annex B, that tools/sw_gate.sh runs end to end, and that a rustos image and the cwht-app image load over the Pico 2 USB bootrom and run. It closes no requirement: REQ-SYS-127 and REQ-SYS-128 close by Inspection (row I) and REQ-SYS-133 by Demonstration on the delivered unit (row D); this case is supporting evidence for all three. Configuration: host is the owner's Mac (macOS 26.6.2, arm64) with the tools and versions of tools/toolchain.lock.md; firmware/rust-toolchain.toml pins 1.98.0, and until that toolchain is installed (owner-approved download) the gate runs on stable only when its rustc --version equals the lock rustc row exactly; rustos at the commit of the lock rustos row, read only; the rustos blinky is built from rustos templates/pico2 copied to a scratch directory with its two git dependency lines replaced by the local path form of rustos templates/README.md; target board a bare Raspberry Pi Pico 2 (RP2350) with nothing connected except its micro-USB cable to the Mac; images loaded with picotool 2.3.0 in BOOTSEL mode. Credentials: tools per tools/toolchain.lock.md at the commit recorded in the report; no tool has a TV record yet, so all output is developer evidence (CM plan section 9.1). Safety: USB-powered 3.3 V logic only, no RF, no cells; handle the board by its edges; unplug the cable before touching the pins. Environment: room temperature 18 to 28 C; indoor lighting in which the on-board LED is plainly visible.",
+      "procedure": [
+        "Record the configuration: git rev-parse HEAD of cwht and of rustos, git status of rustos api/ and firmware/ (must be clean), rustc --version and cargo --version in firmware/, rustup toolchain list, rustup target list --installed, the cargo tool versions (nextest, llvm-cov, audit, deny, geiger) and picotool version, into versions.txt; confirm the rustos commit equals the tools/toolchain.lock.md rustos row and rustc equals its rustc row.",
+        "Host build: in firmware/ run cargo build (default members cwht-core and cwht-hal-mock) and record the output in host-build-test.txt.",
+        "Host tests: in firmware/ run cargo test and append the output to host-build-test.txt; record the number of tests run and passed.",
+        "Target build: in firmware/ run cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf; confirm that the build output carries no compiler or linker warning and that firmware/target/thumbv8m.main-none-eabihf/release/cwht-app.map exists, and record the flash and RAM use that gate G2 computes from the link map and the rustos pico2 link.ld MEMORY regions (included in step 6).",
+        "Lint and format: run cargo fmt --check, cargo clippy --workspace --exclude cwht-app --all-targets -- -D warnings and cargo clippy -p cwht-app --target thumbv8m.main-none-eabihf -- -D warnings (both included in step 6, gate G1).",
+        "Gate: run tools/sw_gate.sh (stops at the first FAIL) and tools/sw_gate.sh --keep-going (runs every step of G1 to G6 past a FAIL; setup and G0 failures stop it in both modes) and record both logs, sw-gate-full.txt and sw-gate-keep-going.txt, with every PASS, FAIL and MISSING line and the exit status.",
+        "Gate known-answer runs: run gate-known-answer.sh, which executes tools/sw_gate.sh --quick (--keep-going for KA-8) on nine copies of firmware/ in a scratch directory: KA-0 unmodified, KA-1 an unwrap in cwht-core, KA-2 a formatting defect, KA-3 a failing host test, KA-4 an unsafe block with transmute in cwht-core, KA-5 a lock rustc row that differs from the installed rustc, KA-6 an unwrap in cwht-app, KA-7 a cargo:warning line in cwht-app/build.rs, KA-8 run1-junit.xml and run2-junit.xml left from an earlier invocation in firmware/target/nextest/ together with a failing host test; record exit status and the first FAIL line of each in gate-known-answer.txt.",
+        "Fresh rustos blinky: build the copied rustos templates/pico2 with cargo build --release twice into two target directories; record both ELF SHA-256 values and compare them with each other and with the rustos root file blinky.elf in blinky-build.txt.",
+        "UF2 conversion: copy the blinky ELF and the step 4 cwht-app ELF into the report directory as rustos-blinky.elf and cwht-app.elf, run picotool uf2 convert <name>.elf <name>.uf2 --family rp2350-arm-s for each and picotool info -a on each UF2; record output and SHA-256 values in uf2-info.txt.",
+        "Blink-rate prediction: disassemble both ELFs with rust-objdump -d, count the instructions executed per spin_loop call in each delay loop, and compute the full blink period for a system clock of 4.6 MHz to 19.6 MHz (RP2350 datasheet section 8.3.1, ring oscillator at boot) and 1 to 2 cycles per instruction; record in blink-rate-prediction.txt.",
+        "Flash and observe the rustos blinky (owner and Claude): the owner writes 1 on the board if it is unmarked, holds the BOOTSEL button, plugs the micro-USB cable into the Mac, then releases BOOTSEL. Claude runs picotool info -d (the device is listed in BOOTSEL mode), then picotool load -v docs/vv/reports/TC-SW-TOOL-001-r1/rustos-blinky.uf2 and picotool reboot, and records the output. The owner counts complete off-to-on LED transitions for 60 s timed on a stopwatch, reports the count and whether on and off times look equal.",
+        "Flash and observe cwht-app (owner and Claude): the owner unplugs the cable, holds BOOTSEL, plugs it in again and releases BOOTSEL. Claude runs picotool info -d, picotool load -v docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.uf2 and picotool reboot, and records the output. The owner counts complete off-to-on LED transitions for 60 s as in step 11 and reports the count.",
+        "Record tool versions, the cwht and rustos commits, the procedure blob and every artifact SHA-256 in the report.",
+        "On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10."
+      ],
+      "acceptance_criteria": "Pass if all of the following hold: steps 2 to 4 each exit 0 and every host test of step 3 passes (at least 10 tests); step 5 reports no formatting difference and no clippy warning; tools/sw_gate.sh exits 0 in step 6 (the FW-B0 exit criterion of 07 section 3.2), with the G6 emulation step printing its SKIP line; in step 7 KA-0 exits 0 and KA-1 to KA-7 each exit 1 with the first FAIL line at the gate of the seeded defect (G1 clippy host for KA-1 and KA-4, G1 cargo fmt for KA-2, G3 run 1 for KA-3, G0 for KA-5, G1 clippy target for KA-6, G2 no compiler warning for KA-7), and KA-8 exits 1 with the G3 identical result sets line reporting FAIL; the two blinky builds of step 8 have identical SHA-256; picotool info -a in step 9 reports target chip RP2350 and image type ARM Secure with one image def block for each UF2; in steps 11 and 12 picotool load -v reports the verify passed and picotool reboot exits 0, and the owner counts 10 to 120 LED cycles in 60 s for the rustos blinky and 3 to 45 LED cycles in 60 s for cwht-app (the step 10 prediction windows, 13 to 114 and 5 to 39 cycles in 60 s, widened to round limits). Otherwise Fail; Blocked while a prerequisite is absent. The result is supporting evidence only and changes the status of no requirement.",
+      "instruments": [
+        "Host computer (owner's Mac) USB port supplying the Pico 2 over its micro-USB cable, with picotool 2.3.0 per tools/toolchain.lock.md",
+        "Stopwatch (phone clock) for the 60 s blink count; not a credited instrument, this case is credit: false"
+      ],
+      "expected_artifacts": [
+        {
+          "name": "versions.txt",
+          "description": "Commits of cwht and rustos, rustos cleanliness, rustc, cargo, rustup, cargo tool and picotool versions",
+          "artifact_type": "log"
+        },
+        {
+          "name": "host-build-test.txt",
+          "description": "cargo build and cargo test output on the host",
+          "artifact_type": "log"
+        },
+        {
+          "name": "sw-gate-full.txt",
+          "description": "tools/sw_gate.sh output with every gate result line and exit status",
+          "artifact_type": "log"
+        },
+        {
+          "name": "sw-gate-keep-going.txt",
+          "description": "tools/sw_gate.sh --keep-going output covering G0 to G6",
+          "artifact_type": "log"
+        },
+        {
+          "name": "gate-known-answer.sh",
+          "description": "Script that runs the gate on the nine seeded copies",
+          "artifact_type": "other"
+        },
+        {
+          "name": "gate-known-answer.txt",
+          "description": "Exit status and first FAIL line of KA-0 to KA-7, and the G3 comparison line of KA-8",
+          "artifact_type": "log"
+        },
+        {
+          "name": "blinky-build.txt",
+          "description": "Fresh rustos blinky build output, template diff and ELF SHA-256 comparison",
+          "artifact_type": "log"
+        },
+        {
+          "name": "rustos-blinky.elf",
+          "description": "rustos blinky ELF built fresh from templates/pico2",
+          "artifact_type": "other"
+        },
+        {
+          "name": "rustos-blinky.uf2",
+          "description": "UF2 of the rustos blinky loaded in step 11",
+          "artifact_type": "other"
+        },
+        {
+          "name": "cwht-app.elf",
+          "description": "cwht-app release ELF of step 4",
+          "artifact_type": "other"
+        },
+        {
+          "name": "cwht-app.uf2",
+          "description": "UF2 of cwht-app loaded in step 12",
+          "artifact_type": "other"
+        },
+        {
+          "name": "uf2-info.txt",
+          "description": "picotool uf2 convert and info -a output with SHA-256 values",
+          "artifact_type": "log"
+        },
+        {
+          "name": "blink-rate-prediction.txt",
+          "description": "Delay-loop disassembly excerpts and the predicted blink-period windows",
+          "artifact_type": "report"
+        },
+        {
+          "name": "flash-rustos-blinky.txt",
+          "description": "picotool info -d, load -v and reboot output for the rustos blinky, and the owner's 60 s count",
+          "artifact_type": "log"
+        },
+        {
+          "name": "flash-cwht-app.txt",
+          "description": "picotool info -d, load -v and reboot output for cwht-app, and the owner's 60 s count",
+          "artifact_type": "log"
+        }
+      ],
+      "status": "Draft",
+      "automation_ref": "tools/sw_gate.sh"
+    }
+  ]
+}
