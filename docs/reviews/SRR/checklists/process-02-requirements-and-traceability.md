@@ -182,3 +182,54 @@ MEASUREMENTS: size=776+102 lines; items=9; items_no=4; major=0; minor=8; lien=8;
 ```
 
 The record turns APPROVED (with liens), with no further finding review, when the 02 author files the self-check against section G and A8 or the owner waives R3 under package decision 115 (`tools/validate_docs.py` refuses `verdict: APPROVED` with `readiness_met: false`).
+
+## Author self-check (readiness R3; SRR package item R7)
+
+Filed by the author, `author:process` (Claude main session, lead SE, the author named in this record's front matter), on 2026-09-26 at HEAD `ade0e09`, in answer to readiness R3 ("the author's return states the self-check against sections A to G below and lists the brief's acceptance criteria") and package item R7. 01 section 13 makes this file the single peer-review record for the product and requires that no record live only in conversation, so the self-check is filed here. This section is the author's only content in the record: the front matter (including `readiness_met` and `verdict`), the findings, the readiness answers and the verdict belong to the reviewer and are unchanged. The reviewer confirms this self-check and answers R3 at the re-issue (package item R8); the author does not mark its own product reviewed (08 section 3.1).
+
+**Product files checked.** `docs/process/02-requirements-and-traceability.md@fcdc5445` (revision D), `docs/requirements/README.md@89bef4fc`. Each blob equals `git rev-parse HEAD:<path>` at `ade0e09` and equals the blob this record reviewed, so the self-check covers the reviewed product. The product files are not changed by this self-check (convergence rule).
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: author self-check and readiness R1 to R4 of a record; author self-check sections against section G items CK-REQ-G1 to G8). `grep -n` was used afterwards only to pin lines.
+
+**Acceptance criteria of the author brief.** The original author assignments for these revisions are not on record, so the criteria stated here are the ones 08 section 1 (WRITING, CITATIONS, SCOPE, COMMANDS) and section 3.1 (row "plans and process documents") impose on every author brief for a process document, plus the lead SE convergence rule of 2026-09-26. Each criterion is listed with the author's result:
+
+| # | Criterion (source) | Result | Evidence |
+|---|---|---|---|
+| AC-1 | The document expands its charter sections and contradicts neither the charter, the RMM, the compliance matrix nor an Accepted ADR (08 section 3.1; CK-REQ-G1) | Met except for the Minor liens named under CK-REQ-G1 below | Section G table below |
+| AC-2 | Decision-complete writing: no `TBD` as a value, no "as appropriate" or "should consider" without naming who decides and when, no em dash (08 section 1 WRITING) | Met | Scripted scan below |
+| AC-3 | Only corpus-verified identifiers are cited; no NASA requirement is paraphrased as a quotation (08 section 1 CITATIONS; CK-REQ-G8) | Met | Scripted id check below |
+| AC-4 | Every step names the artifact it produces or consumes with path and id scheme (08 section 1 WRITING; CK-REQ-G2) | Met; any Minor lien against it is named under CK-REQ-G2 below | Section G table below |
+| AC-5 | `tools/validate_docs.py` passes the product files (08 section 1 COMMANDS; readiness R1) | Met | Tool runs below |
+| AC-6 | Scope: the author edits neither the charter nor a schema nor another author's file (08 section 1 SCOPE) | Met | This self-check adds only this section; the product files are unchanged since the reviewed blobs |
+| AC-7 | Convergence rule (charter section 4 item 3): only Major findings change products before SRR; Minor findings are liens due PDR | Met | No Major finding is open against the product; the liens are accepted below and not fixed in this round |
+
+**Scripted scan (AC-2, AC-3).** Over both files: 0 em dashes. The one "should consider" hit (02 line 235) is inside the WR-07 banned-word list itself, not a use. `TBD` appears 11 times in 02 and not in the README, each as a rule subject (for example lines 240 WR-12, 485 T-14, 593 section 9 heading, 595 rule 1), never as a value. Every SE id cited (12 distinct) and every SWE id cited (14 distinct) exists bracketed in the corpus (0 missing).
+
+**Self-check against the checklist** (`docs/templates/peer-review-checklist-requirements.md` revision C, product type "Plans and process documents": CK-REQ-A8 and section G; A1 to A7 and sections B to F are N/A for a process document by the product-type table).
+
+| Id | Author answer | Evidence |
+|---|---|---|
+| CK-REQ-A8 | No (liens only) | Terminology follows the charter and `docs/requirements/schema.json`. Known defects, Minor: finding-4 (the section 3.0 stakeholder table lists 8 of the 10 `stakeholders` of `expectations.json`), finding-7 (section 4.6 worked-example ids collide with the real files) |
+| CK-REQ-G1 | No (liens only) | 02 expands charter sections 7, 6 and 5 (header line 3). Known disagreements, Minor: finding-1 (charter section 6 already lists the `SW` module), finding-2 (README layout facts stale at HEAD), finding-3 (section 14 statuses against section 8.5), finding-4, finding-6 (section 6.2 dated TPM and MOE state) |
+| CK-REQ-G2 | Yes | Sections 3.0 to 3.5 name what each step consumes and produces with path and id scheme; the 4.1 procedure table; section 11 id allocation and retirement |
+| CK-REQ-G3 | Yes | Section 1 roles table: Robin as Decision Authority, CCB and ETA; author; independent reviewer; test author; tool |
+| CK-REQ-G4 | No (lien only) | Tailoring mirrored except finding-5 (section 2.3 row "Reused and OSS components" and section 13 row SWE-211 state full verification where `rmm.json` gives SWE-027 and SWE-211 disposition T) |
+| CK-REQ-G5 | N/A | The cybersecurity assessment is 07 section 16 |
+| CK-REQ-G6 | Yes | Section 10.4: MSR-02 volatility with counting rule, formula, thresholds (10 % and 20 %), actions and script |
+| CK-REQ-G7 | No (lien only) | `tools/traceability.py --help` lists exactly the options section 8.1 names (`--root`, `--output`, `--json`, `--report-only`, `--quiet`, `--render`, `--regression`); `--report-only` exits 0. Known gap, Minor: finding-8 (five requirements-side codes of `CHECK_CATALOGUE` are not bound to a T-rule in section 8.5) |
+| CK-REQ-G8 | Yes | Scripted id check above (0 missing) |
+
+**Reviewer findings of this record, as the author reads them.** finding-1 to finding-8 (all Minor) are accepted as liens due PDR, owner 02 author; none is disputed. None changes a requirement, a hazard control or a traceability rule the tool enforces today.
+
+**Tool runs by the author (2026-09-26, HEAD `ade0e09`, repository root, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (after this section was added) | 1 | 47 passed, 1 failed. The one failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (INSP-008): its APPROVED `product_files` name the hazard blobs `b5ce99e9` and `37d6cc83`, and commit `ade0e09` (package item R9, hazard status edits) moved HEAD to `49ec53f8` and `c6bf757e` (record drift rule). It is outside this product and this author's scope; reported to the lead SE. This record and the product files PASS |
+| `tools/traceability.py --report-only` | 0 | 238 requirements, 170 test cases, 0 violations, 3 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and REQ-SYS-148; `HAZARD_INVERSE` REQ-SW-KEYER-039); the regenerated `docs/vv/traceability-report.md` and `docs/vv/traceability.json` are outside scope and were restored with `git checkout` |
+| `tools/render_compliance.py --check` | 0 | rows 62, FC 49, T 4, NA 9; validation PASSED and the render is current |
+| `tools/render_rmm.py --check` | 0 | `rmm.md` current |
+| `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | 65 risks, 159 candidates, 0 warnings; hazard cross-check passes |
+| `python -m unittest discover -s tools/tests` | 1 | 392 tests, 1 failure: `test_validate_docs.RepositoryTests.test_repository_exit_zero`, caused by the same INSP-008 record drift; no failure touches this product |
+
+**Author statement.** The self-check finds no Major defect and no defect beyond the reviewer's findings, which the author accepts as Minor liens due PDR without dispute. Readiness R3 is offered as met by this section, subject to the reviewer's confirmation at re-issue.
