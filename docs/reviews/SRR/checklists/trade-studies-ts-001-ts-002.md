@@ -11,7 +11,8 @@ product: docs/decisions/trade-studies/
 # Iteration 3 (independent reviewer, 2026-09-26): review baseline HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1;
 # product_commit is the last commit touching either product at that HEAD (git log -1 -- docs/decisions/trade-studies/).
 product_commit: "e597e49"
-# product_files: the committed blobs (git rev-parse HEAD:<path> at adcfe09; unchanged since e597e49) re-reviewed at iteration 3
+# product_files: the committed blobs (git rev-parse HEAD:<path> at adcfe09; unchanged since e597e49) re-reviewed at iteration 3;
+# re-issue 2026-09-26 (package item R8): both blobs re-checked equal to git rev-parse HEAD:<path> at ca22e37
 product_files: ["docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf", "docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@574cee3dda830327b0aa17af361f863da2bc546c"]
 product_size: 2 trade studies (revision 1: TS-001 686 lines, TS-002 361 lines), 3 plus 1 decision matrices
 sprint: SRR-prep
@@ -19,17 +20,22 @@ author_agent: "author:trades (Claude trade study author invocation, 2026-09-25, 
 reviewer_agent: "reviewer:trades"
 criticality: neither
 # assurance_required: true since 07 revision A.4 (blob d0f8baf6 at adcfe09, section 2.1.1 line 117 "Software plans" row names
-# TS-002, the make/buy record, Yes in every column). No paired assurance record for TS-002 exists at adcfe09
-# (07 section 22 line 856 carries its dispatch to Claude; package H1 (c)). TS-001 alone would need none.
+# TS-002, the make/buy record, Yes in every column). TS-001 alone would need none (07 section 2.1.1 trade-study row).
+# Re-issue 2026-09-26: the paired software assurance record of TS-002 is INSP-027
+# (docs/reviews/SRR/checklists/trade-study-ts-002-software-assurance.md, same blob 574cee3d, paired_record: INSP-013,
+# verdict APPROVED with 5 Minor liens); 01 section 13 paired form.
 assurance_required: true
-assurance_reviewer_agent: "pending: paired software assurance record for TS-002 not yet dispatched (07 section 2.1.1, section 22)"
+assurance_reviewer_agent: "reviewer:INSP-027 (software assurance function for TS-002; paired record INSP-027; file review by reviewer:trades)"
+paired_record: INSP-027
 iteration: 3
 readiness_met: true
-# reviewer_verdict: every finding is Closed or a Lien (convergence rule of 2026-09-26). verdict stays NEEDS CHANGES only on
-# the missing 07 section 2.1.1 assurance verdict for TS-002 (07 section 10.2 line 449 completion criteria; not a finding; see Iteration 3)
+# reviewer_verdict: every finding is Closed or a Lien (convergence rule of 2026-09-26).
+# assurance_verdict: equals the verdict of the paired record INSP-027 (01 section 13).
+# verdict: APPROVED (with liens finding-11, finding-12) at the re-issue: reviewer APPROVED, assurance APPROVED, readiness met,
+# no Major finding open (07 section 10.2 completion criteria); set by the re-issue of package item R8
 reviewer_verdict: APPROVED
-assurance_verdict: pending
-verdict: NEEDS CHANGES
+assurance_verdict: APPROVED
+verdict: APPROVED
 findings_major: 2
 findings_minor: 10
 findings_open: 0
@@ -44,9 +50,9 @@ deferred_rids: []
 # every one is Yes in iteration 2 (section "Closure (iteration 2)")
 items_no: []
 # effort: iteration 1 48 turns and 55 minutes; iteration 2 20 turns and 25 minutes; delta verification 6 turns and 15 minutes;
-# iteration 3 (independent reviewer) 32 turns and 40 minutes
-effort_turns: 106
-effort_minutes: 135
+# iteration 3 (independent reviewer) 32 turns and 40 minutes; re-issue (package item R8) 10 turns and 15 minutes
+effort_turns: 116
+effort_minutes: 150
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -57,6 +63,8 @@ date_closed: null
 **Checklist:** `docs/templates/peer-review-checklist-design.md` revision B, sections A, B and H as `docs/process/08-agent-briefing.md` section 3.1 assigns to trade studies, with the other sections marked N/A. By assignment the decision-analysis criteria of `docs/process/06-risk-and-decision-analysis.md` section 14 are applied as well. They are applied as the ten trade-study items of 06 section 16, under the ids 06 section 16 gives them (`CK-RSK-B1` to `B10`). The minimum content judged is SRR entrance row 5 (`docs/process/01-lifecycle-and-reviews.md` section 4.3: alternative concepts analyzed, with a trade summary giving criteria and scores), SRR success criterion 8 (01 section 4.4), and the SWE-033 make/buy record (NPR 7150.2D section 3.1.2; section 6.1 item t). **Gate:** SRR, package items H5 and H14 (`docs/reviews/SRR/package.md` section 2). **Answer legend:** Yes = Pass, No = Fail, N/A = not applicable. Every answer carries its evidence.
 
 **Search-first compliance:** `mcp__claude-context__search_code` was run on `/Users/robinonsay/rust/cwht` before any manual search. The queries covered the SRR H5 and H14 shortfalls with SWE-033, and the Inrad and KVG filter data with the ladder Monte Carlo. `grep -n` was used afterwards only to pin the lines the hits pointed to. Known paths were read directly.
+
+**Re-issue (2026-09-26, package item R8): verdict APPROVED (with liens finding-11 and finding-12).** The TS-002 software assurance record INSP-027 is filed and is APPROVED on the same blob, so the record gate of iteration 3 is met; see "Re-issue" at the end. The "Criticality and assurance" paragraph below is the iteration 1 text.
 
 **Criticality and assurance:** `assurance_required: false` because the single dispatch rule, the table of `docs/process/07-software-engineering-plan.md` section 2.1.1, has no trade-study row. However, the TS-002 header asks for an `assurance_reviewer_agent`, because the runtime drivers are in the call path of the 07 section 14.1 components. No assurance reviewer was dispatched with this review. The conflict goes back to Claude as a process issue (see finding-9 for the product side). This reviewer did check, as evidence, the three SWEHB `swe-033` section 7.1 tasks (items S3 to S5 below), but that check does not replace the assurance function's confirmation.
 
@@ -536,4 +544,58 @@ VERDICT (iteration 3, independent reviewer): reviewer APPROVED (with liens); rec
 PRODUCT: TS-001@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf, TS-002@574cee3dda830327b0aa17af361f863da2bc546c (HEAD adcfe09)
 FINDINGS: finding-11 Minor Lien; finding-12 Minor Lien; F-01 to F-10 Closed
 MEASUREMENTS: verified=10; lien=2; open_major=0; major=2; minor=10; iteration=3; turns=32; minutes=40
+```
+
+## Re-issue (2026-09-26, SRR package item R8; no further product review)
+
+**Scope and independence.** Written by a new invocation of `reviewer:trades` in the reviewer role. It authored neither study, it did not write INSP-027, and it edited no product file. It re-issues this record without a further product review, because the only thing holding the iteration 3 verdict was the missing TS-002 assurance verdict (the "Record gate" of iteration 3), and INSP-027 now supplies it. The convergence rule of 2026-09-26 (charter section 4 item 3) applies.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: the SRR package R8 re-issue and the readiness fields; the INSP-027 TS-002 assurance record and its verdict; the `validate_docs.py` paired-record and record-drift rules). `grep -n` then only pinned lines in `tools/validate_docs.py`.
+
+**Product state.** HEAD `ca22e37fad09f58a8890db0b14c973ec92bcad95`. `git rev-parse HEAD:<path>` and `git hash-object` equal the blobs named in `product_files`: TS-001 `2a0c40a8`, TS-002 `574cee3d` (2 of 2). `git log adcfe09..HEAD -- docs/decisions/` is empty, so no product changed and no delta verification is needed. Two cited sources changed after `adcfe09`:
+- `hazards.json` 0.4.3-pha (`ade0e09`). Only the OQ-SAF-007, 025 and 026 statuses and resolutions changed.
+- SW-KEYER `requirements.json` (`f2e02aa`). REQ-SW-KEYER-039 was added and one rationale was edited.
+
+Neither study cites the changed text. The HZ ids and titles that the studies use (HZ-001 to 005, 007, 008, 014) are unchanged.
+
+**Readiness.** R1 to R3 stay N/A. R4 stays Yes, as answered at iteration 1: the author summary listed the H5 and H14 scope and the template sections kept. `readiness_met: true`. This record was not among the R7 records (decision 115 (a)); no author self-check was due.
+
+**Pairing (07 sections 2.1.1 and 10.2; 01 section 13 paired form).**
+
+| Check | Result |
+|---|---|
+| Paired record exists and is filed | `docs/reviews/SRR/checklists/trade-study-ts-002-software-assurance.md`, `id: INSP-027`, committed at `d4cce27` |
+| It names this record | `paired_record: INSP-013` |
+| Same product blob | INSP-027 `product_files` and `product_blob` name TS-002 `574cee3dda830327b0aa17af361f863da2bc546c`, the TS-002 blob of this record, equal to HEAD |
+| Its verdict | `verdict: APPROVED`, `assurance_verdict: APPROVED`, `readiness_met: true`, 0 Major, 5 Minor liens (finding-1 to finding-5, "fix before PDR") |
+| Assurance reviewer distinct from author and file reviewer | `reviewer:INSP-027`, distinct from `author:trades` and `reviewer:trades` |
+| No INSP-013 finding re-opened | INSP-027 section "Concurrence with INSP-013": no finding re-opened; it concurs with the finding-11 lien |
+| TS-001 | Needs no assurance record (07 section 2.1.1 trade-study row: TS-001 constrains no section 14.1 component) |
+
+This record now carries `paired_record: INSP-027` and `assurance_verdict: APPROVED`, equal to the INSP-027 verdict, as 01 section 13 requires of the file review in the paired form. `assurance_reviewer_agent` names the INSP-027 reviewer.
+
+**Findings at the re-issue.** No finding changes state and no new finding is raised. There are 12 findings: F-01 to F-10 are Closed (Verified), and finding-11 and finding-12 (Minor) stay liens, "fix before PDR", owned by the trade study author and due at the PDR readiness declaration (lien table of iteration 3). No Major finding is open. The five INSP-027 liens are carried by INSP-027, not by this record.
+
+**Completion criteria (SWE-088; 07 section 10.2) at the re-issue: met.** The criteria that hold:
+- Reviewer verdict APPROVED.
+- Assurance verdict APPROVED (INSP-027).
+- Readiness met.
+- Zero open Major findings.
+- The named blobs equal HEAD.
+
+`verdict: APPROVED` (with liens finding-11 and finding-12). `record_status` stays `Open`; the software lead sets `Closed` when the liens are dispositioned (07 section 10.2).
+
+**Cross items (outside this record's scope).**
+1. Package section 2 rows H1 (d), H5 and H14 and the section 2.4 row for INSP-013: record verdict APPROVED with liens; the R8 INSP-013 part is done.
+2. The iteration 3 cross items 1 (K8 heading, decision 53) and 3 (`ASSURANCE_WHOLE_PRODUCTS` in `tools/validate_docs.py` does not list TS-002) are unchanged and remain with the package author and the tool owner.
+3. `criticality: neither` is kept as filed for this two-study record. INSP-027 records TS-002 as `safety-critical` because TS-002 constrains 07 section 14.1 components. The assurance dispatch that this difference affects is satisfied by the pairing.
+
+**Tool runs (re-issue, repository root, `.venv/bin/python`).** The results are in the verdict block below.
+
+```
+RE-ISSUE (2026-09-26, HEAD ca22e37, package item R8): VERDICT: APPROVED (with liens)
+PRODUCT: TS-001@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf, TS-002@574cee3dda830327b0aa17af361f863da2bc546c (equal to HEAD)
+PAIRING: INSP-027 (TS-002 software assurance) APPROVED with 5 Minor liens on the same blob; assurance_verdict APPROVED
+FINDINGS: F-01 to F-10 Closed (Verified); finding-11, finding-12 Minor, Lien: fix before PDR; open Major 0; new 0
+MEASUREMENTS (re-issue): blobs equal HEAD 2/2; turns=10; minutes=15; cumulative turns=116, minutes=150; iteration=3 (re-issue)
 ```
