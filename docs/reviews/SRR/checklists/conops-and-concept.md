@@ -11,7 +11,7 @@ product: docs/conops/conops.md
 # product_commit: iteration 3 review baseline, HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1 (2026-09-26);
 # iterations 1 and 2 reviewed 28e49e6 and the uncommitted working tree (blob tables in the body)
 product_commit: "adcfe09"
-# product_files: committed blobs reviewed at iteration 3 (git rev-parse HEAD:<path> at adcfe09).
+# product_files: committed blobs reviewed at iteration 3 (git rev-parse HEAD:<path> at adcfe09); equal to HEAD 860e84e at re-issue 2.
 # iteration 2 (working tree, not in the object store): conops.md@b2e93594, concept.md@f9c4af43; the six figure files are unchanged
 product_files: ["docs/conops/conops.md@b2c76c80b199bc5021535a612617871a1b20554e", "docs/conops/figures/conops-context.mmd@55ebae2e15589bf9951456dc04400b7ccb96ea27", "docs/conops/figures/conops-context.png@2e4647f81c61a1d2df05637efa3ee3d71a506e09", "docs/conops/figures/conops-modes.mmd@829a46f800db84ae5196cf3946d4376eb813fc0f", "docs/conops/figures/conops-modes.png@b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c", "docs/design/concept.md@729190a21066f27525fe5d6e5160e3fa4d22e21b", "docs/reviews/SRR/figures/concept-block-diagram.png@3ef6e911d5201ce0a88c9f2d358b6d85dc425038", "docs/reviews/SRR/figures/concept-block-diagram.py@3806a3449d3bfe3e14dde14726bc1466b94e36af"]
 product_size: ConOps 865 lines at iteration 1, 866 at iteration 2, 867 at iteration 3 (22 scenarios, 9 modes, 25 transitions, 20 causes, appendices A to D); concept 365 lines at iteration 1, 381 at iterations 2 and 3 (22 blocks, 10 functions, 18 ICDs, 6 trade studies); 3 renders
@@ -27,10 +27,11 @@ iteration: 3
 # verified by the reviewer without a further product review (package item R8); R1 Yes, R2 N/A, R3 N/A
 readiness_met: true
 # reviewer_verdict: APPROVED with liens finding-19 to finding-22 (convergence rule, charter section 4 item 3); no Major open
-# verdict: held at NEEDS CHANGES only because the validate_docs.py open-Major line test matches count summary lines (see Re-issue); not a finding
+# verdict: held at NEEDS CHANGES at the re-issue of c7aa3a3 by the validate_docs.py open-Major line test (see Re-issue); re-issued APPROVED
+# with liens finding-19 to finding-22 at re-issue 2 of iteration 3 (2026-09-26, HEAD 860e84e, package item R18), after the record state rule of 96af250
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 4
 # finding-19 is new at iteration 2; finding-20 to finding-22 are new at iteration 3 (all Minor);
 # finding-18 is withdrawn (disputed accepted) and counted in neither open nor verified;
@@ -47,9 +48,9 @@ deferred_rids: []
 # re-issue answers (iteration 1: R3, R4, CK-DES-H1, CK-DES-H3, CK-VIS-A1, CK-REQ-C5; iteration 2: R3, R4, CK-DES-H1, CK-VIS-A1; iteration 3: R4, CK-DES-H1)
 items_no: [CK-DES-H1]
 renders_inspected: 3  # iteration 3 re-opened the block diagram (--check exit 0 against the committed concept); the two ConOps renders are the blobs inspected at iterations 1 and 2
-# effort: iterations 1 and 2 (58 turns, 95 min), iteration 3 (30 turns, 40 min) and the re-issue of 2026-09-26 (8 turns, 12 min)
-effort_turns: 96
-effort_minutes: 147
+# effort: iterations 1 and 2 (58 turns, 95 min), iteration 3 (30 turns, 40 min) the re-issue of 2026-09-26 (8 turns, 12 min) and re-issue 2 (10 turns, 15 min)
+effort_turns: 106
+effort_minutes: 162
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -73,6 +74,8 @@ date_closed: null
 **Checklist.** `docs/templates/peer-review-checklist-design.md` revision B, as assigned, with `docs/templates/peer-review-checklist-visual-product.md` revision A section A and items C3 and C5 for the three renders (its product-type row 3: a render inside another product is checked in that product's record). The design checklist sections A to G and I to J address software architecture and design, ICDs and hardware; the product here is the operational and concept-level system view, so those sections are N/A and section H with the readiness criteria carries the design-checklist judgment. Because `docs/process/08-agent-briefing.md` section 3.5 names the requirements checklist (sections A, B, F; ConOps row: A3, A4, A8, B4, C5, C6, F2, G1, G2) for "expectations, ConOps and the concept", the reviewer also applied the three ConOps-row items that bear on content (B4, C5, C6) as supplementary evidence; the record's `checklist` field names the assigned template only. The mismatch between the assignment and 08 section 3.5 is reported to Claude in the return.
 
 **Reviewer.** `reviewer:conops-concept`, independent of the author (charter section 2; section 11 rule 4). The reviewer did not edit the product. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before every `grep` (queries: SRR readiness shortfalls ConOps concept block diagram H items; SE-36 concept definition; Appendix S annotated outline nominal and off-nominal); `grep -n` was used afterwards only to pin lines. Numbers were checked against `docs/requirements/sys/requirements.json`, `docs/safety/hazards.json` (0.3.0-pha), `docs/risk/register.json`, `docs/plan/tpm.json`, the research reports named in each finding and the regulatory corpus.
+
+**Verdict (re-issue 2 of iteration 3, 2026-09-26): APPROVED with liens finding-19 to finding-22; reviewer verdict APPROVED; readiness met.** The record state rule of `tools/validate_docs.py` (`96af250`, package item R18) replaced the line heuristic that held the record verdict; the product blobs equal HEAD `860e84e`. See "Re-issue 2 of iteration 3" at the end of this record.
 
 **Verdict (re-issue, 2026-09-26): reviewer verdict APPROVED with liens finding-19 to finding-22; record verdict NEEDS CHANGES on a tool condition only.** Readiness R4 is met by the author self-check filed at `5b1f2cf`; the product blobs equal HEAD `8ef95d3`; no Major finding is open. See "Re-issue" at the end of this record.
 
@@ -359,4 +362,40 @@ PRODUCT: HEAD 8ef95d3; conops.md b2c76c80, concept.md 729190a2, six figure files
 READINESS: R1 Yes, R2 N/A, R3 N/A, R4 Yes (author self-check 5b1f2cf verified)
 FINDINGS: Closed 17; Disputed accepted 1; Lien 4 (Minor); none open; no Major open
 MEASUREMENTS: claims re-checked 12; renders re-inspected 1; re-issue 8 turns, 12 minutes
+```
+
+## Re-issue 2 of iteration 3 (independent reviewer, 2026-09-26; package item R18, readiness finding R15-F2; no further product review)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:conops-concept`); it did not author the products, the self-check or the tool change, and it edited no product and no author section. Earlier sections of this record are left as written (audit trail); only the front matter fields `verdict`, `effort_turns` and `effort_minutes`, their comments and the verdict line at the top of the body changed. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ("validate_docs record state rule open Major findings structured replaces line heuristic") ran before any `grep`, which then pinned lines of `tools/validate_docs.py` and `docs/reviews/SRR/package.md`. Convergence rule of the lead SE (charter section 4 item 3) applied: no product change is asked.
+
+**Tool condition removed.** Package item R18 is done by the tool owner: `tools/validate_docs.py` (blob `3aa03681`, commit `96af250`; TV-003 run 6 at `860e84e`) replaces the line heuristic with the record state rule of its module docstring. An APPROVED record is now read from its front matter and the finding tables of its latest iteration section only; prose lines, fenced blocks and count summaries are not read. The reviewer checked the rule against this record with `validate_docs.current_findings`: the latest iteration section is the "Iteration 3" section with the author self-check and re-issue sections after it; its disposition table, lien table and the table below give 22 findings, none in state Open, the four Major findings (finding-1 to finding-4) Closed. No record text was reworded to pass the tool.
+
+**Product blobs.** `git rev-parse HEAD:<path>` at HEAD `860e84e` equals `git hash-object` of the working tree and every blob in `product_files` for all eight files; `git log 8ef95d3..HEAD` shows no commit to any of them. `concept-block-diagram.py --check` exit 0 ("22 blocks, 6 groups, 32 edges; layout checks passed ... is current"). No delta verification is needed; `product_commit` (`adcfe09`, the review baseline) and `product_files` stand.
+
+**Readiness.** Unchanged from the re-issue of `c7aa3a3`: R1 Yes, R2 N/A, R3 N/A, R4 Yes (author self-check `5b1f2cf` verified); `readiness_met: true`.
+
+**Current finding state (re-issue 2).**
+
+| Finding | Severity | State | Note |
+|---|---|---|---|
+| finding-1 | Major | Closed (Verified) | Iteration 3 disposition table |
+| finding-2 | Major | Closed (Verified) | Iteration 3 disposition table |
+| finding-3 | Major | Closed (Verified) | Iteration 3 disposition table |
+| finding-4 | Major | Closed (Verified) | Iteration 3 disposition table |
+| finding-5 to finding-17 | Minor | Closed (Verified) | Iteration 3 disposition table (13 findings) |
+| finding-18 | Minor | Disputed accepted (Withdrawn) | Iteration 2 |
+| finding-19 | Minor | Lien: fix before PDR | Owner the ConOps author; due the PDR readiness declaration |
+| finding-20 | Minor | Lien: fix before PDR | As finding-19 |
+| finding-21 | Minor | Lien: fix before PDR | As finding-19 |
+| finding-22 | Minor | Lien: fix before PDR | As finding-19, in the OPS-013 edit after decisions 37 and 38 |
+
+**Verdict (re-issue 2).** APPROVED with liens finding-19 to finding-22. The reviewer verdict, readiness and findings are those of the re-issue of `c7aa3a3`; the only change is that the tool condition which held the record verdict no longer exists. `record_status` stays Open for the lead SE (07 section 10.2) until the four liens close.
+
+```
+VERDICT (re-issue 2 of iteration 3, 2026-09-26): APPROVED (with liens finding-19 to finding-22); reviewer APPROVED; assurance not required
+PRODUCT: HEAD 860e84e; conops.md b2c76c80, concept.md 729190a2, six figure files as in product_files (unchanged since iteration 3)
+READINESS: R1 Yes, R2 N/A, R3 N/A, R4 Yes; readiness_met true
+FINDINGS: Closed 17 (Major 4, Minor 13); Disputed accepted 1; Lien 4 (Minor); none open; no Major open
+TOOL: validate_docs.py record state rule (96af250, blob 3aa03681) replaces the line heuristic; package item R18 closed for this record
+MEASUREMENTS: blobs re-checked 8; renders re-checked 1 (--check); re-issue 2 10 turns, 15 minutes; cumulative 106 turns, 162 minutes
 ```
