@@ -103,6 +103,8 @@ Currents (Derived): during an 8 kV contact discharge the jack node is held near 
 
 Stock and price signals (Low confidence, search snippets 2026-09-25 about 11:45 PDT): TPD2E001DRLR DigiKey USD 0.82 at quantity 1; PESD3V3L2BT,215 TME USD 0.41; 74LVC1G123DP,125 DigiKey USD 0.45; MAX6369KA+T DigiKey USD 5.01, 8,500 in stock; TPD2E2U06DRLR and BAT54S not checked (budget exhausted). ACTION A4 verifies all of them on the distributor sites before the BOM freeze.
 
+**Addendum 2026-09-26 (integrator; INSP-012 F-03).** The continuous +12 V abuse currents above are corrected. The TVS current is set by the abuse source, not by (12 - 6.5)/1 kΩ: R1 lies between the jack node and the pad, not in series with the TVS. With the 50 mA current-limited bench source of the REQ-SYS-049 verification note the TVS conducts about 45 to 47 mA at its 6.5 to 9 V clamp, 0.3 to 0.4 W for the 10 min case; R1 dissipates about 69 mW at 8.3 mA with the TVS open and 8 to 28 mW with the TVS clamping, not 30 mW. Whether the TPD2E2U06 takes 0.3 to 0.4 W for 10 min is checked against its absolute maximum ratings at PDR (docs/icd/ICD-CTL-KEY.md section 3.2.7.1 and its section 6 TBR row); otherwise the bench limit is lowered or a series element is added.
+
 ### F6. Debounce filter numbers and golden vectors (Sourced inputs, Proposal values)
 
 Sourced: Curtis: "The bounce is usually on the order of 5-10 milliseconds ... Dot length, at 50 wpm, is only 24 ms. The debouncing must not be so sluggish that it slows an operator"; the 8044 used 1 MΩ and 0.01 µF (10 ms) RC filters on the paddle lines and "a (pullup) resistor of from 5.6K to 100K" on the manual key pin. Ganssle (via keyer report F7): average bounce 1557 µs, maximum 6200 µs over 18 switches.
@@ -233,6 +235,8 @@ T_max (Proposal): 10 s nominal, acceptance window 7.5 to 13 s, chosen so that fi
 
 Coverage (Derived): firmware hung -> CPU watchdog (2 s) -> reset -> pads low -> PA off; firmware alive but TX_KEY stuck (logic fault, or timeouts misconfigured) -> hardware cutoff at 10 s; hand key stuck -> firmware at 5 s, hardware at 10 s; paddle stuck -> paddle watchdog within 30 s (hardware does not catch it); mono plug or headphones in the key jack at boot -> interlock; the same after boot -> reads as a continuous closure -> firmware 5 s then hardware 10 s.
 
+**Addendum 2026-09-26 (integrator; ICD-CTL-KEY review INSP-012 F-03 and hazards OQ-SAF-007).** Two corrections to this finding. (1) Headphones or a shorted TRS cable inserted after boot read as a closure on both key inputs: in Straight mode a continuous key-down (item 2 limits apply), and in the iambic modes a squeeze, which the keyer answers with an alternating element stream that retriggers the monostable of item 4 at every element, so the 13 s bound of item 4 holds for a continuous key-down only; the stream is stopped by the proposed no-gap and squeeze watchdog of HZ-004 K4 and, if adopted, by the transmission-length backstop REQ-SYS-180 (docs/conops/conops.md OPS-013 step 6). (2) The tune carrier bound is now REQ-SYS-020, at most 5.5 s after it starts, 2 s below the 7.5 s floor of the cutoff; the few-seconds tune assumption of item 4 stands.
+
 ### F14. Reconciled number set
 
 | Item | Value | Flag | Source or derivation |
@@ -322,7 +326,7 @@ Verification classes in brackets follow charter section 9.
 
 **ACTION**
 
-- A-KN1: encode the F7 and F6 vectors as `docs/test_cases/sw/keyer-golden-vectors.json` (schema: id, wpm, mode, switchpoint, inputs, expected intervals, tolerance) and generate them from a checked-in copy of `keyer_ref.py` under `tools/`, so the reference model and the Rust implementation are compared, not both written by hand.
+- A-KN1: encode the F7 and F6 vectors as `docs/test_cases/sw-keyer/keyer-golden-vectors.json` (schema: id, wpm, mode, switchpoint, inputs, expected intervals, tolerance) and generate them from a checked-in copy of `keyer_ref.py` under `tools/`, so the reference model and the Rust implementation are compared, not both written by hand.
 - A-KN2: write `docs/icd/ICD-CTL-KEY.md` from F4 and F5 (pin map, values, pad configuration bits, TVS orientation, test pads for the logic capture).
 - A-KN3: add the hazard "unintended continuous transmission from key input or TX line fault" to `docs/safety/hazard-analysis.md` with the F13 layers as controls and the coverage table as the fault tree; link RSK-012.
 - A-KN4: verify distributor stock and price for TPD2E2U06DRLR, BAT54S, 74LVC1G123DP, 10 µF X7R 16 V 1206 (with DC-bias curve) on the distributor sites with timestamps before the BOM freeze.

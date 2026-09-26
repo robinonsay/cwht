@@ -188,8 +188,10 @@ Precondition (once per machine, or click "No" once in the GUI):
 ```
 INI="$HOME/Library/Application Support/LTspice/Bottles/ltspice/drive_c/users/crossover/AppData/Roaming/LTspice.ini"
 # create the bottle if it does not exist yet: open /Applications/LTspice.app once and quit, or run the wrapper once
-grep -q CaptureAnalytics "$INI" || printf 'CaptureAnalytics=false\r\n' >> "$INI"
+iconv -f UTF-16LE -t UTF-8 "$INI" | /usr/bin/grep -q '^CaptureAnalytics=false' || { echo 'CaptureAnalytics not set: click No once in the GUI consent dialog, then re-check; never append to the UTF-16LE ini'; exit 1; }
 ```
+
+**Correction 2026-09-26 (integrator; tools/toolchain.lock.md section 1.4 items 1 and 2).** The earlier form of this precondition, `grep -q CaptureAnalytics "$INI" || printf 'CaptureAnalytics=false\r\n' >> "$INI"`, is withdrawn: the ini is UTF-16LE, so `/usr/bin/grep` never matches it (it matched in the agent zsh only because `grep` there is a shell function), and the append would write an ASCII line into the UTF-16 file and corrupt it. The check above reads the file through `iconv` and never writes it. Also recorded there: `-b` on an `.asc` schematic that carries a deck error hangs with no log, while the same error in a `.net` netlist exits 1 with the error in the log; decks for the record are netlists, and a time-out guard kills only the run's own processes.
 
 Wrapper `tools/ltspice-batch.sh` (tested as `/private/tmp/cwht-ltspice/ltspice-batch.sh`):
 

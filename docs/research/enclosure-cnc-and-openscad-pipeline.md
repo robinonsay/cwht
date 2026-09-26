@@ -150,6 +150,8 @@ doc.recompute()
 roots = [o for o in doc.Objects if hasattr(o, "Shape") and not o.InList]   # top-level result(s)
 assert len(roots) == 1, "expected one top-level solid, got %d" % len(roots)
 shape = roots[0].Shape.removeSplitter()                                     # refine coplanar faces
+if shape.ShapeType == "Compound" and len(shape.Solids) == 1:               # FreeCAD 1.1.3 returns Part::Cut as a one-solid Compound
+    shape = shape.Solids[0]                                                  # correction 2026-09-26, lock section 1.4 item 4
 assert shape.isValid() and shape.ShapeType in ("Solid", "CompSolid"), "invalid or non-solid result"
 assert len(shape.Solids) == 1, "STEP must contain exactly one solid for CNC"
 faces = [f.Surface.__class__.__name__ for f in shape.Faces]
@@ -159,6 +161,8 @@ feat = doc.addObject("Part::Feature", "EnclosureRefined"); feat.Shape = shape; d
 Part.export([feat], out)                                                    # scheme AP214/AP242 per FreeCAD Import-Export preferences
 print("wrote", out)
 ```
+
+**Correction 2026-09-26 (integrator; tools/toolchain.lock.md section 1.4 item 4; evidence `docs/cm/tool-validation/evidence/openscad-freecad-2026-09-25-listing-run2.py`).** FreeCAD 1.1.3 returns the OpenSCAD `Part::Cut` result as a `Compound` holding exactly one `Solid`, which the original assertion rejected on a correct result; the listing now unwraps it. `freecadcmd` exits 0 even when the script raises, so the caller checks a success marker (the `wrote` line) and the STEP file, never the exit status. OpenSCAD resolves a relative `-o` path against the input file's directory, so every export names an absolute output path (lock section 1.4 item 3).
 Acceptance checks recorded with the STEP: `isValid()`, exactly one solid, no BSpline faces, and STEP volume within 0.5 % of the STL mesh volume (compute the mesh volume with a five-line numpy divergence sum over the binary STL). These become Inspection evidence for the CAD requirement.
 
 Step 4, fit-check on the H2C: open `enclosure.3mf` (or `enclosure.step`) in Bambu Studio, pick "Bambu Lab H2C 0.4 nozzle" and "0.20mm Standard @BBL H2C", slice and print. The CLI-produced project file `enclosure_h2c_project.3mf` (B7) can be generated for archival, but slicing is done in the GUI until the CLI mapping issue is resolved (open item).
