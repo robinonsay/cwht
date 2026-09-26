@@ -20,6 +20,7 @@ product: docs/requirements/sw/sw-keyer/requirements.json
 # INSP-004 also covers the TX files; this assurance record covers only the SW-KEYER pair, because TX is
 # not a software product of 07 section 10.1.
 product_commit: "f2e02aa0d4bdfff8eaebbce92c32580c3dc26c30"
+# Re-issue 2026-09-26 (package item R8, no further product review): both blobs re-checked equal to git rev-parse HEAD:<path> at 1af795c
 product_files: ["docs/requirements/sw/sw-keyer/requirements.json@4d22b399f1647743dd837e731d8c05fa6be7b7bb", "docs/test_cases/sw-keyer/test_cases.json@d3c0c236651bd41332bac345fd936e199734bfe3"]
 # inputs read (not reviewed), committed blobs at the same HEAD
 input_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/process/03-software-classification-and-rmm.md@ed270f443e2ab648480017df8ad3d0221400cf4c", "docs/safety/hazards.json@37d6cc832ed8f164e5f7e6e911a8656a56720c9f", "docs/requirements/sys/requirements.json@0da73012043cd79bb75d57c521369736141d7f1f", "docs/safety/hazard-analysis.md (HEAD adcfe09, section 7 row d line 223)"]
@@ -36,34 +37,42 @@ paired_record: INSP-004
 iteration: 2
 # readiness_met: false. R1 Yes (validate_docs.py exit 0), R2 Yes, R4 Yes, R5 N/A; R3 No: no author self-check
 # against sections A to F is on record (the same gap INSP-004 records; package decision 115); unchanged at iteration 2
-readiness_met: false
+# Re-issue 2026-09-26: R3 Yes on the author self-check filed at 1af795c (package item R7), so readiness_met is true;
+# iteration stays 2 (no product review)
+readiness_met: true
 # reviewer_verdict and assurance_verdict: APPROVED (with liens) at iteration 2: finding-1 (Major) Verified on
 # f2e02aa; finding-2 to finding-6 are Minor and dispositioned "Lien: fix before PDR" (lead SE convergence
 # rule 2026-09-26). verdict: NEEDS CHANGES held only by readiness R3 (package decision 115), as INSP-023
 # iteration 2; no Major finding is open.
+# re-issue: verdict APPROVED (with liens finding-2 to finding-7): readiness met, no Major finding open
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
-verdict: NEEDS CHANGES
+verdict: APPROVED
+# re-issue: finding-7 (Minor) is new, raised from the author's exception E-1 (same defect as INSP-004 finding-20)
 findings_major: 1
-findings_minor: 5
+findings_minor: 6
 findings_open: 0
 findings_fixed: 0
 findings_verified: 1
-# findings_deferred: the five Minor liens (finding-2 to finding-6), fix before PDR
-findings_deferred: 5
+# findings_deferred: the six Minor liens (finding-2 to finding-7), fix before PDR
+findings_deferred: 6
 assurance_findings_major: 1
-assurance_findings_minor: 5
+assurance_findings_minor: 6
 assurance_tasks_applied: [swe-050 7.1 task 1, swe-184 7.1 task 1, swe-134 7.1 task 1, swe-134 7.1 task 3, swe-134 7.1 task 4, swe-134 7.1 task 5, swe-134 7.1 task 6, swe-192 7.1 task 1]
 deferred_rids: []
-items_no: [R3, CK-REQ-C4, CK-REQ-C5, SA-134-1, SA-134-6]
-effort_turns: 52
-effort_minutes: 80
+# re-issue: R3 Yes; CK-REQ-A7 No on finding-7 (lien); the others unchanged from iteration 2
+items_no: [CK-REQ-A7, CK-REQ-C4, CK-REQ-C5, SA-134-1, SA-134-6]
+# effort: iterations 1 and 2 (52 turns, 80 min) plus the re-issue (12 turns, 20 min)
+effort_turns: 64
+effort_minutes: 100
 record_status: Open
 date: 2026-09-26
 date_closed: null
 ---
 
 # Peer review record INSP-026: software assurance review of the SW-KEYER software requirements and test cases
+
+**Verdict (re-issue of iteration 2, 2026-09-26, package item R8, blobs equal to HEAD `1af795c`): APPROVED with liens finding-2 to finding-7.** Readiness R3 is now Yes: the author self-check filed at `1af795c` lists the brief's acceptance criteria and answers checklist sections A to G item by item (see "Re-issue"). The author's exception E-1 is raised as finding-7 (Minor, Lien: fix before PDR; the same defect as INSP-004 finding-20). Reviewer and assurance verdicts stay APPROVED; no Major finding is open and no finding waits on an owner ruling. The paired file review INSP-004 is re-issued the same day with `paired_record: INSP-026` and `assurance_verdict: APPROVED` (cross item X-1 done).
 
 **Products.** `docs/requirements/sw/sw-keyer/requirements.json` (blob `db2de344c66ff7caa5e72f922f87686fd3a7ce71`) and `docs/test_cases/sw-keyer/test_cases.json` (blob `f730056914aedfa003757f94284a020e79c67795`), both `git rev-parse HEAD:<path>` at the review baseline `adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1`, last changed in `cb00792`; the working tree equals HEAD for both. These are the same SW-KEYER blobs that INSP-004 iteration 3 names in its `product_files`. **Sources of record read:** `docs/process/07-software-engineering-plan.md` sections 2.1.1, 5 item 5, 7 (CS-35, CS-39), 10.2, 14.1, 14.2 and 15 (blob `d0f8baf6`, committed at `b301df2`); `docs/process/03-software-classification-and-rmm.md` sections 4.3 and 5 (blob `ed270f44`); `docs/safety/hazards.json` 0.4.2-pha (blob `37d6cc83`); `docs/safety/hazard-analysis.md` section 7 row d; the L1 parents in `docs/requirements/sys/requirements.json` (blob `0da73012`); INSP-004 at HEAD.
 
@@ -89,6 +98,7 @@ Ids follow the `finding-<n>` anchor rule of 01 section 13. Severity: Major block
 | <a id="finding-4"></a>finding-4 | assurance | Minor | SA-134-1, SA-134-6, CK-REQ-C4 | REQ-SW-KEYER-002, 024; 07 section 14.2 `SW-KEYER` row item f (line 632) | 07 section 5 item 5 (line 215) lists the key-input mode as safety-critical state, and a corrupted mode (or Straight-input setting) in RAM changes which contact keys without any operator action, the same outcome finding-1 guards against. SWE-134 f ("detects inadvertent memory modification and recovers to a known safe state") is written for the keyer only for the key-down state (REQ-SW-KEYER-030) and the paddle memories (REQ-SW-KEYER-034), matching the 07 row f, which names only those. The persisted copy is covered by the configuration guard, not the running copy. Fix: add a requirement (or extend REQ-SW-KEYER-030) that the key-input mode and Straight-input setting are held with their complements and that a disagreement forces key-down idle and the KEY inhibit until the operator reselects; cross item for the 07 author to add the mode to the row f list | Lien: fix before PDR | Pending | PDR (Routine package item; owners: SW-KEYER requirements author; 07 author for the row f text) |
 | <a id="finding-5"></a>finding-5 | assurance (iteration 2) | Minor | CK-REQ-B5, SA-134-6 | REQ-SW-KEYER-039 `hazard_ids` (requirements.json line 1147); `docs/safety/hazards.json` HZ-004 | The new REQ-SW-KEYER-039 names HZ-004, but HZ-004 in `hazards.json` 0.4.2-pha (blob `37d6cc83`, unchanged) does not list it in `requirement_ids` (recomputed; `traceability.py --report-only`: `HAZARD_INVERSE` warning for REQ-SW-KEYER-039, 0 violations), so the inverse hazard link the iteration 1 R2 evidence relied on no longer holds for every keyer safety requirement. The keyer file is correct; the gap is in the hazard record, outside the author's scope. Fix: the hazard analyst adds REQ-SW-KEYER-039 to HZ-004 `requirement_ids` (K2 and K13 controls) in the next `hazards.json` revision (cross item X-5) | Lien: fix before PDR | Pending | PDR (Routine package item; owner: hazard analyst) |
 | <a id="finding-6"></a>finding-6 | assurance (iteration 2) | Minor | CK-REQ-A1, CK-REQ-A3, V2 | REQ-SW-KEYER-039 `description` | The statement "accept two operator events as distinct only from different input samples showing different inputs, or a release and 300 ms (TBR)" is compressed: the second branch does not say that the release lies between the two presses on the same input and that 300 ms is the minimum from the first press to the second, nor that the events are control-input (button and encoder) samples; those bounds are only in the rationale, and the cases (TC-SW-KEYER-024, 029 minus and plus 10 ms) read them from there. The requirement is also self-derived and Robin's concurrence is pending in the V2 record. Not Major: the rationale, the 07 row d text and the cases agree on one meaning. Fix: restate as, for example, "The keyer firmware shall accept two control-input operator events as distinct only when they occur on different inputs in different samples, or on one input with a release between them and at least 300 ms (TBR) from the first press to the second", and record Robin's V2 concurrence with the other self-derived requirements | Lien: fix before PDR | Pending | PDR (Routine package item; owner: SW-KEYER requirements author) |
+| <a id="finding-7"></a>finding-7 | assurance (re-issue, from author exception E-1) | Minor | CK-REQ-A7 (WR-10) | REQ-SW-KEYER-024, 029, 039 `rationale` | Introduced by the `f2e02aa` fix of finding-1. 02 section 4.3 limits `rationale` to 120 words; at blob `4d22b399` REQ-SW-KEYER-024 has 198, 029 has 160 and 039 has 215 (whitespace count; none exceeded 120 at `db2de344`). The safety content is correct and agrees with 07 section 14.2 row d; only the form breaks WR-10, which 02 section 4.2 makes Minor. Same defect as INSP-004 finding-20 (paired file review); one fix closes both. Fix: state the validation rule once, in REQ-SW-KEYER-039, cite it from 024 and 029, and bring each rationale to 120 words or fewer | Lien: fix before PDR | Pending | PDR (Routine package item; owner: SW-KEYER requirements author) |
 
 ### Lien table (convergence rule, 2026-09-26)
 
@@ -99,6 +109,7 @@ Ids follow the `finding-<n>` anchor rule of 01 section 13. Severity: Major block
 | L-3 | finding-4 | Minor | Lien: fix before PDR | SW-KEYER requirements author; 07 author (row f text) | PDR | Routine item |
 | L-4 | finding-5 | Minor | Lien: fix before PDR | Hazard analyst (`hazards.json` HZ-004) | PDR | Routine item |
 | L-5 | finding-6 | Minor | Lien: fix before PDR | SW-KEYER requirements author | PDR | Routine item |
+| L-6 | finding-7 | Minor | Lien: fix before PDR | SW-KEYER requirements author (one fix with INSP-004 finding-20) | PDR | Routine item |
 
 ## Readiness criteria (all true before the review starts)
 
@@ -106,7 +117,7 @@ Ids follow the `finding-<n>` anchor rule of 01 section 13. Severity: Major block
 |---|---|---|---|
 | R1 | The product validates: `tools/validate_docs.py` exits 0 | Yes | Run 2026-09-26 at HEAD `adcfe09` before this record was written: `validate_docs: 40 passed, 0 failed, 40 checked`, including `PASS docs/test_cases/sw-keyer/test_cases.json`; the requirements file passes against `docs/requirements/schema.json` |
 | R2 | `tools/traceability.py` reports no violation for the ids in the file | Yes | `--report-only` exit 0: 237 requirements, 170 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and REQ-SYS-148, outside this product); no `HAZARD_INVERSE` warning remains for any REQ-SW-KEYER id (INSP-004 finding-16 resolved in `hazards.json` 0.4.2-pha; recomputed: every `hazard_ids` entry of the 18 safety requirements appears in the named hazard's `requirement_ids`). Iteration 2 at `f2e02aa`: exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings: the two above and `HAZARD_INVERSE` for the new REQ-SW-KEYER-039 (finding-5, Minor lien) |
-| R3 | The author's return states the self-check against sections A to G and the brief's acceptance criteria | No | No requirements-author return with a self-check was supplied with this assignment; INSP-004 records the same gap (its `items_no` holds R3) and package decision 115 lists INSP-004 |
+| R3 | The author's return states the self-check against sections A to G and the brief's acceptance criteria | Yes (re-issue 2026-09-26); No at iterations 1 and 2 | Re-issue: section "Author self-check" (filed at `1af795c`), verified in "Re-issue". Iterations 1 and 2: no requirements-author return with a self-check was supplied with this assignment; INSP-004 records the same gap (its `items_no` holds R3) and package decision 115 lists INSP-004 |
 | R4 | Every TBR has owner, plan, close_by; no TBD in the file | Yes | `grep -c -w TBD`: 0 in both files. Ten requirements carry a `tbr` object (009, 014, 017, 018, 020, 021, 022, 026, 032, 036), each with `owner`, `plan` and `close_by: PDR` (checked by script) |
 | R5 | For a CR: impact assessment attached | N/A | Not a CR |
 
@@ -264,7 +275,7 @@ ITEMS N/A: CK-REQ-G1 to G8, CK-REQ-B7, CK-REQ-C8, CK-REQ-D2, R5
 MEASUREMENTS: size=39 requirements + 43 cases; rows=39; rows_with_wr_failures=0; v_fail=V1:0 V2:0 V3:0 V4:0 V5:0 V6:0; items_no=5; major=1; minor=5; open=0; verified=1; deferred(lien)=5; iteration=2; turns=52; minutes=80
 ```
 
-Iteration 2: finding-1 is Verified on `f2e02aa`; every other finding is a Minor lien (L-1 to L-5), so the reviewer and assurance verdicts are APPROVED with liens and no Major finding is open. The record verdict stays NEEDS CHANGES only on readiness R3 (package decision 115), as INSP-023 iteration 2 does; it becomes APPROVED when R3 is met or waived. Iteration 1 text: the record verdict is NEEDS CHANGES on finding-1 (Major, Open) and, independently, readiness R3 (package decision 115). When finding-1 is fixed in the two files and verified at iteration 2 against the new committed blobs, the assurance verdict becomes APPROVED with liens L-1 to L-3; the record verdict follows once R3 is met or waived.
+Iteration 2: finding-1 is Verified on `f2e02aa`; every other finding is a Minor lien (L-1 to L-5), so the reviewer and assurance verdicts are APPROVED with liens and no Major finding is open. The record verdict stays NEEDS CHANGES only on readiness R3 (package decision 115), as INSP-023 iteration 2 does; it becomes APPROVED when R3 is met or waived. Iteration 1 text: the record verdict is NEEDS CHANGES on finding-1 (Major, then open) and, independently, readiness R3 (package decision 115). When finding-1 is fixed in the two files and verified at iteration 2 against the new committed blobs, the assurance verdict becomes APPROVED with liens L-1 to L-3; the record verdict follows once R3 is met or waived.
 
 ## Author self-check (readiness R3; package item R7; filed 2026-09-26)
 
@@ -326,3 +337,60 @@ The authoring brief is not on record. The acceptance criteria are those of the I
 ### Author's statement
 
 The self-check agrees with this record's iteration 2 reviewer and assurance answers and disputes no finding. It adds one Minor discrepancy (E-1) and one evidence observation (O-1). finding-2 to finding-6 are liens the author fixes before the PDR readiness declaration (finding-5 with the hazard analysis author). Commands: `tools/validate_docs.py` before this section: exit 1, 47 passed, 1 failed, 48 checked; the one failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (record drift against the hazard files committed at `ade0e09`), outside this record and present before the edit. `tools/traceability.py --report-only` (output to the scratchpad): exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings.
+
+## Re-issue (2026-09-26, SRR package item R8; no further product review)
+
+**Scope and independence.** Written by a new invocation of `reviewer:INSP-026` in the reviewer role, which is also the software assurance function for this record (charter section 2). It did not author the SW-KEYER requirements or test cases or the author self-check above, it is not the INSP-004 file reviewer, and it edited no product file and no author section. It re-issues this record without a further product review, as package item R8 provides once the author self-check of item R7 exists. The convergence rule of 2026-09-26 (charter section 4 item 3) applies: only Major findings change products, and every Minor finding stays a lien, "fix before PDR".
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: peer review record readiness fields R1 to R4 with the author self-check and `readiness_met`; the TC-SYS-060 bracket and INSP-025, for the sibling record). `grep -n` then only pinned lines in `tools/validate_docs.py`, `docs/process/02-requirements-and-traceability.md` and the records.
+
+**Product state.** HEAD `1af795c`. `git rev-parse HEAD:<path>` and `git hash-object` equal the blobs named in `product_files`: `requirements.json` `4d22b399`, `test_cases.json` `d3c0c236` (last changed in `f2e02aa`, the blobs iteration 2 reviewed). No product changed since iteration 2, so no delta verification is needed. One input changed: `docs/safety/hazards.json` 0.4.2-pha to 0.4.3-pha (`ade0e09`, OQ-SAF-007, 025 and 026 statuses only; no control or `control_req_ids` changed), so finding-5 stands as written (REQ-SW-KEYER-039 is still not in HZ-004 `requirement_ids`; recomputed at HEAD).
+
+**Readiness R3 against the author self-check.** R3 of `docs/templates/peer-review-checklist-requirements.md` revision C reads "The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria". The section "Author self-check" (filed at `1af795c`) meets it:
+- It lists twelve acceptance criteria (AC-1 to AC-12, those of the INSP-004 self-check restricted to SW-KEYER), each with a result and evidence on `4d22b399`; the governing sources are named in the INSP-004 self-check it points to. The authoring brief is not on record; taking the criteria from the documents the 08 section 3.1 requirements row names, with 07 section 14.2 for the SWE-134 items, is acceptable for R3, because every criterion traces to a governing document and none is weaker than the checklist.
+- It answers every item of sections A to G (B7, C8, D2, D3 and G1 to G8 as N/A with reasons), and its "No" answers (A7, C4, C5) are this record's finding-2, 3, 4 and the new finding-7.
+- It names the blob it checked, which equals `product_files` and HEAD (confirmed above), and says the test cases belong to the independent test author.
+
+**Spot checks of the author's claims at HEAD** (read-only Python over `git show HEAD:<path>`):
+- AC-5: 19 requirements with `hazard_ids`, each with both a `Depends on:` and a `Fault tolerance:` item. Agrees.
+- AC-4: `Self-derived:` leads REQ-SW-KEYER-034, 035, 036, 038 and 039. Agrees.
+- AC-7: all 39 requirements use Test. Agrees.
+- AC-9 and finding-2: no `REQ-SW-SAFE` reference in the file (0). Agrees.
+- AC-3 and E-1: rationales of REQ-SW-KEYER-024 198, 029 160 and 039 215 words. Agrees.
+- O-1: of the 19 hazard controls, REQ-SW-KEYER-019 alone has no HostUnit case; its closing case TC-SW-KEYER-019 is Bench. Agrees (see erratum below).
+
+**Author exception E-1.** Confirmed against 02 section 4.3 (120-word limit); rated Minor as WR-10 (02 section 4.2). The safety content of the three rationales is not in question (finding-1 Verified at iteration 2). Raised as finding-7, "Lien: fix before PDR" (L-6), owner the SW-KEYER requirements author; INSP-004 raises the same defect as its finding-20, and one fix closes both.
+
+**Erratum to SA-192-1 (reviewer evidence, not a product finding).** The iteration 2 evidence of SA-192-1 says each of the 19 hazard-tracing requirements has "a HostUnit and a Bench case". At `d3c0c236` 18 do; REQ-SW-KEYER-019 (the 1 kHz sampling period) has only its Bench closing case TC-SW-KEYER-019 (T-SW-TARGET), and its note names the HostUnit sampling-schedule check as supporting evidence without a case. SWE-192 task 1 asks that requirements tracing to a hazard are verified through test, which the Bench on-target case does, so the SA-192-1 answer stays Yes; only the evidence wording is corrected here. Whether a HostUnit case for the sampling schedule is wanted is the test author's call at PDR (cross item X-6).
+
+- **X-6.** Test author: decide whether REQ-SW-KEYER-019 gets a HostUnit case for the sampling schedule its note names, or the note drops the reference (PDR).
+
+**Pairing (01 section 13; 07 sections 2.1.1 and 10.2).** This record names the SW-KEYER `product` and blobs of INSP-004 and `paired_record: INSP-004`. INSP-004 is re-issued the same day with `paired_record: INSP-026`, `assurance_reviewer_agent` naming this record and `assurance_verdict: APPROVED`, which equals this record's verdict; cross item X-1 is done. X-4 (package carriage of the liens) now includes L-6.
+
+**Findings at the re-issue.**
+
+| Finding | Severity | State | Closes on |
+|---|---|---|---|
+| finding-1 | Major | Closed (Verified, iteration 2, on `f2e02aa`) | |
+| finding-2 to finding-6 | Minor | Lien: fix before PDR | L-1 to L-5 (iteration 2 lien table) |
+| finding-7 | Minor | Lien: fix before PDR (new) | L-6: SW-KEYER requirements author, PDR readiness declaration |
+
+No Major finding is open, so no finding needs an owner ruling or a package decision number. Package decision 115 (waiver of the self-check) is no longer needed for this record. The V2 concurrence of the self-derived requirements (package decision 112) governs the baseline status of the Draft file, not a finding of this record.
+
+**Answers changed at the re-issue.** R3 changes from No to Yes. CK-REQ-A7 changes from Yes to No (finding-7, lien). CK-REQ-C4, C5, SA-134-1 and SA-134-6 stay No (liens finding-2 to finding-4). R1, R2 and R4 stay Yes (R2: 0 violations; the `HAZARD_INVERSE` warning for REQ-SW-KEYER-039 is finding-5); R5 stays N/A. `readiness_met: true`. Reviewer verdict, assurance verdict and record verdict: APPROVED with liens finding-2 to finding-7.
+
+**Tool runs at the re-issue (2026-09-26, HEAD `1af795c`, repository root, `.venv/bin/python`).** `tools/traceability.py --report-only`: exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings (`HAZARD_INVERSE` REQ-SW-KEYER-039, finding-5; `SYS_UNALLOCATED` REQ-SYS-125 and 148); the rewritten `docs/vv/traceability-report.md` and `traceability.json` were restored with `git checkout` (outside this scope). `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json`: exit 0. `tools/validate_docs.py` after this re-issue (record drift check included): exit 1, 48 passed, 1 failed, 49 checked; this record PASS with no drift note; the one failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (record drift against the hazard files committed at `ade0e09`), outside this scope and present before this re-issue. `python -m unittest discover -s tools/tests`: 392 tests, 391 pass; the one failure is `test_validate_docs.RepositoryTests.test_repository_exit_zero` on the same `hazard-analysis.md` drift. HEAD moved to `09d48be` during this re-issue through other reviewers' record commits only (`git diff --name-only 1af795c 09d48be` lists 11 files, all under `docs/reviews/SRR/checklists/`), so the product blobs named here are also the blobs at `09d48be`.
+
+**Editorial change to earlier reviewer text (no content change).** The open-Major rule of `tools/validate_docs.py` (`open_major_findings`, line 664) reads any body line that names a `finding-<n>` and contains both the words "Major" and "Open" as an open Major finding. The iteration 2 verdict paragraph quoted the iteration 1 state of the Major finding with the capitalized state word; this re-issue wrote "(Major, then open)" there. No finding state, count or answer changed.
+
+**Measurements (re-issue, SWE-089).** Items re-checked: R1 to R5, six author claims, finding-5 against `hazards.json` 0.4.3-pha and the two product blobs; items answered No: 5 (CK-REQ-A7, C4, C5, SA-134-1, SA-134-6, all on liens); new findings: 1 (finding-7, Minor); effort 12 turns, 20 minutes (added to the front matter totals).
+
+```
+RE-ISSUE (2026-09-26, HEAD 1af795c, package item R8): VERDICT: APPROVED (with liens finding-2 to finding-7); reviewer APPROVED; assurance APPROVED; paired file review INSP-004
+FINDINGS: finding-1 Major Closed (iteration 2); finding-2 to finding-7 Minor, Lien: fix before PDR (L-1 to L-6); open Major 0
+READINESS: R1 Yes, R2 Yes, R3 Yes (author self-check at 1af795c verified), R4 Yes, R5 N/A; readiness_met true
+PRODUCTS: sw-keyer/requirements.json@4d22b399, sw-keyer/test_cases.json@d3c0c236 (unchanged since f2e02aa)
+MEASUREMENTS: re-issue no=5; new findings=1; turns=12; minutes=20; cumulative turns=64, minutes=100
+```
+
+`record_status` stays Open: the liens are neither Verified nor Deferred by an owner decision, and the software lead closes the record (07 section 10.2, action tracking).

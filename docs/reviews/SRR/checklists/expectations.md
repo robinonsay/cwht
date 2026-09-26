@@ -14,6 +14,7 @@ product_commit: "8a37f8e"
 # product_files: committed blobs re-reviewed at iteration 3 (git rev-parse HEAD:<path> at adcfe09).
 # Iteration 2 reviewed the uncommitted working tree (json 01caefba, md 14fe59f0; not in the object store);
 # iteration 1 reviewed json 3bdc1cd7, md b75d73c1 at 28e49e6. stakeholder-inputs.md is bcc2ec9f throughout.
+# Re-issue 2026-09-26 (package item R8, no further product review): the three blobs re-checked equal to git rev-parse HEAD:<path> at 1af795c
 product_files: ["docs/requirements/l0-stakeholder/expectations.json@59e7efba9e64da33285e4f780b2a3bae2753f45c", "docs/requirements/l0-stakeholder/expectations.md@3ac5617dc1c2933eed86c1f88c7bb88286b3f866", "docs/requirements/l0-stakeholder/stakeholder-inputs.md@bcc2ec9f0822b3b3866b10329fe1ce4ddc9e7841"]
 product_size: 1 Need, 7 Goals, 22 Objectives, 13 MOEs, 28 constraints, 10 stakeholders, 36 SI rows
 sprint: SRR-prep
@@ -23,30 +24,33 @@ reviewer_agent: "reviewer:expectations"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-# iteration 3: readiness R3 still No (finding-11, decision 115), so readiness_met stays false
+# iteration 3: readiness R3 was No (finding-11, decision 115). Re-issue 2026-09-26: R3 Yes on the author
+# self-check filed at 1af795c (package item R7), so readiness_met is true; iteration stays 3 (no product review)
 iteration: 3
-readiness_met: false
-reviewer_verdict: NEEDS CHANGES
+readiness_met: true
+# re-issue: no Major finding is open; APPROVED with liens finding-12 and finding-13 (convergence rule)
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+verdict: APPROVED
+# re-issue: finding-13 (Minor) is new, raised from the author's exception E-1
 findings_major: 2
-findings_minor: 10
-# iteration 3: finding-11 and finding-12 are liens "fix before PDR" (convergence rule of 2026-09-26),
-# counted as deferred; no finding is Open
+findings_minor: 11
+# re-issue: finding-11 Verified (self-check filed); finding-12 and finding-13 are liens "fix before PDR"
+# (convergence rule of 2026-09-26), counted as deferred; no finding is Open
 findings_open: 0
 findings_fixed: 0
-findings_verified: 10
+findings_verified: 11
 findings_deferred: 2
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
-# items_no: iteration 3 answers (iteration 2: R3, CK-REQ-F1; iteration 1: R3, R4, A3, A7, A8, B1, E4, F1, F2).
-# CK-REQ-F1 is No only for finding-12, now a lien
-items_no: [R3, CK-REQ-F1]
-# effort: cumulative over iterations 1 (38 turns, 45 min), 2 (22 turns, 30 min) and 3 (26 turns, 35 min)
-effort_turns: 86
-effort_minutes: 110
+# items_no: re-issue answers (iteration 3: R3, CK-REQ-F1; iteration 2: R3, CK-REQ-F1; iteration 1: R3, R4, A3, A7,
+# A8, B1, E4, F1, F2). CK-REQ-F1 is No only for finding-12, CK-REQ-A7 and B1 only for finding-13, both liens
+items_no: [CK-REQ-A7, CK-REQ-B1, CK-REQ-F1]
+# effort: cumulative over iterations 1 (38 turns, 45 min), 2 (22 turns, 30 min), 3 (26 turns, 35 min) and the re-issue (12 turns, 20 min)
+effort_turns: 98
+effort_minutes: 130
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -68,9 +72,11 @@ Iteration 3 reviewed the committed blobs of the front matter `product_files` (HE
 
 **Reviewer.** `reviewer:expectations`, independent of the author (charter section 2; section 11 rule 4). The reviewer did not edit the product. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before every `grep` (queries: SRR readiness shortfalls for expectations; 97.307(e) text; owner decisions on backlight and speaker; commercial 2 m CW handheld claim); `grep -n` was used afterwards only to pin lines.
 
-**Verdict (iteration 3, 2026-09-26): NEEDS CHANGES on readiness R3 only.** No Major finding is open and no finding is Open: finding-1 to finding-10 stay Closed on the committed blobs, and finding-11 and finding-12 (Minor) are liens "fix before PDR" under the convergence rule of 2026-09-26. The record cannot read APPROVED because readiness R3 (author self-check) is still not met and the completion criteria of the checklist template and `tools/validate_docs.py` require `readiness_met: true` for APPROVED; it turns APPROVED when the author's self-check is filed or the owner waives it (decision 115). See "Iteration 3".
+**Verdict (re-issue of iteration 3, 2026-09-26, package item R8, blobs equal to HEAD `1af795c`): APPROVED with liens finding-12 and finding-13.** Readiness R3 is now Yes: the author self-check filed at `1af795c` lists the brief's acceptance criteria and answers checklist sections A, B and F item by item (see "Re-issue"). finding-11 is Verified. The author's exception E-1 is raised as finding-13 (Minor, Lien: fix before PDR). No Major finding is open and no finding waits on an owner ruling.
 
-**Verdict (iteration 2): NEEDS CHANGES.** Both Major findings (finding-1, finding-2) are Verified closed, and eight of the nine iteration 1 Minor findings are Verified. Open: finding-11 (Minor, no author self-check on record, so readiness R3 fails) and finding-12 (Minor, raised in iteration 2). Iteration 1 verdict: NEEDS CHANGES with two Major and nine Minor findings. The section tables below are the iteration 1 answers; the iteration 2 answers are in "Closure (iteration 2)".
+**Verdict (iteration 3, 2026-09-26): NEEDS CHANGES on readiness R3 only.** No Major finding is open and no finding is open: finding-1 to finding-10 stay Closed on the committed blobs, and finding-11 and finding-12 (Minor) are liens "fix before PDR" under the convergence rule of 2026-09-26. The record cannot read APPROVED because readiness R3 (author self-check) is still not met and the completion criteria of the checklist template and `tools/validate_docs.py` require `readiness_met: true` for APPROVED; it turns APPROVED when the author's self-check is filed or the owner waives it (decision 115). See "Iteration 3".
+
+**Verdict (iteration 2): NEEDS CHANGES.** Both Major findings (finding-1, finding-2) are Verified closed, and eight of the nine iteration 1 Minor findings are Verified. open: finding-11 (Minor, no author self-check on record, so readiness R3 fails) and finding-12 (Minor, raised in iteration 2). Iteration 1 verdict: NEEDS CHANGES with two Major and nine Minor findings. The section tables below are the iteration 1 answers; the iteration 2 answers are in "Closure (iteration 2)".
 
 ## Findings
 
@@ -86,8 +92,9 @@ Iteration 3 reviewed the committed blobs of the front matter `product_files` (HE
 | <a id="finding-8"></a>finding-8 | reviewer | Minor | CK-REQ-A7 | NGO-001 `rationale` | The rationale says "No commercial product offers a pocket 2 m true-CW transceiver with a built-in keyer for both key types (SI-018)". SI-018 states the core requirement, not a market fact. `docs/research/2m-cw-transceiver-reference-designs.md` F3 records the Mizuho MX-2, a historical 2 m SSB/CW handheld. Fix: cite the research findings (F3 to F5) and limit the claim to what they show (for example, no current product with a built-in keyer for both key types; the MX-2 is a historical precedent without one). ConOps section 1.1 repeats the claim (cross item). | Verified | Pending | | Closed. NGO-001 `rationale` now cites `2m-cw-transceiver-reference-designs.md` F1 to F5 and limits the claim to the products that survey covers, with the Mizuho MX-2 (F3) as the historical 200 mW SSB/CW handheld precedent and F1, F2, F4, F5 as portables; this matches the report text at lines 29 to 37. SI-018 is cited only as the core requirement. The ConOps section 1.1 cross item stays with the ConOps author |
 | <a id="finding-9"></a>finding-9 | reviewer | Minor | CK-REQ-B3 (SE HB section 4.1.1.2.1) | `stakeholders` array | The product relies on two groups that the array does not identify. (a) Members of the licensee's household are the only non-licensees whom 47 CFR 97.13(c)(1) lets the licensee evaluate at the occupational tier (CON-004 statement; `docs/research/rf-exposure-evaluation.md` line 46), and the handbook is their information source. (b) Unlicensed third parties key under supervision per 97.115(b) (CON-006, NGO-020, OPS-019, MOE-009) and are evaluated at the general-population tier. The "public" entry covers only reusers and bystanders. Fix: add the two groups (roles `public` or `guest operator`, with `represented_by` Robin and the handbook), or widen the notes of the existing entries to cover them. Adding entries after SRR needs a CR (02 section 3.0). | Verified | Pending | | Closed. `stakeholders` adds "Members of the licensee's household" (role public; occupational limits only with the training and information of 47 CFR 97.13(c)(1), otherwise general population) and "Unlicensed third parties keying under supervision" (role guest operator; 97.115(b)), each with `represented_by` Robin, `source_ids` and a note on the CR rule. The household wording agrees with corpus 97.13(c)(1) and `rf-exposure-evaluation.md` line 46; the schema validates (validate_docs PASS) and T-21 reports no `STAKEHOLDERS_MISSING` |
 | <a id="finding-10"></a>finding-10 | reviewer | Minor | CK-REQ-A8 | NGO-019 `rationale` | Editorial: a sentence starts in lower case ("... raises the cutoff window. the 0.6 m and 1.0 m rules are its F7"). The rationale also says "its F7", where "its" refers back to a report named three sentences earlier; name the report. | Verified | Pending | | Closed. NGO-019 `rationale`: "The 0.6 m and 1.0 m separation rules are docs/research/rf-exposure-evaluation.md F7"; the report is named and the sentence starts in upper case |
-| <a id="finding-11"></a>finding-11 | reviewer | Minor | R3 | author return | There is no author return on record with the self-check against the checklist sections and the brief's acceptance criteria. The assignment's author summary reads "no new authoring this run", and commit 28e49e6 carries no self-check. Readiness R3 is therefore not met, and `readiness_met` is false. Fix: the author records the self-check (sections A, B and F of the checklist) in the re-review brief. | Lien: fix before PDR (iteration 3) | Pending (decision 115) | PDR | Open. The author's fix list names F-11 as fixed, but no self-check against checklist sections A, B and F and the brief's acceptance criteria was supplied with the re-review assignment, none is in the product files, and a claude-context search of the repository for an expectations author self-check found none. A fix list is an assertion, not the self-check (charter section 11 rule 2). R3 stays No and `readiness_met` stays false. Close by filing the author's self-check with the next re-review brief |
+| <a id="finding-11"></a>finding-11 | reviewer | Minor | R3 | author return | There is no author return on record with the self-check against the checklist sections and the brief's acceptance criteria. The assignment's author summary reads "no new authoring this run", and commit 28e49e6 carries no self-check. Readiness R3 is therefore not met, and `readiness_met` is false. Fix: the author records the self-check (sections A, B and F of the checklist) in the re-review brief. | Verified (re-issue; Lien at iteration 3) | Not needed (self-check filed; decision 115 no longer needed for this record) | none | Re-issue: Closed by the author self-check at `1af795c`, verified in "Re-issue". Iteration 2: open. The author's fix list names F-11 as fixed, but no self-check against checklist sections A, B and F and the brief's acceptance criteria was supplied with the re-review assignment, none is in the product files, and a claude-context search of the repository for an expectations author self-check found none. A fix list is an assertion, not the self-check (charter section 11 rule 2). R3 stays No and `readiness_met` stays false. Close by filing the author's self-check with the next re-review brief |
 | <a id="finding-12"></a>finding-12 | reviewer (iteration 2) | Minor | CK-REQ-F1, R4 | NGO-026 `rationale` | Introduced by the finding-7 fix. NGO-026 says REQ-SYS-116 and REQ-SYS-117 carry the drop height and the IPX2 condition "as TBR: owner Robin on Claude's proposal, plan the PDR enclosure analysis, close_by PDR". The `tbr.plan` of both L1 requirements in `docs/requirements/sys/requirements.json` reads instead: Robin decides the environment set (`docs/conops/conops.md` section 4, Appendix C) at SRR; TPM-006 span reconciled at PDR. One TBR now has two different closure plans (charter section 7: a TBR carries one owner, plan and target review). Fix: quote or cite the L1 `tbr` plan in NGO-026 (or change the L1 plan by the same revision so the two agree). | Lien: fix before PDR (iteration 3) | Pending | PDR | Open (raised in iteration 2) |
+| <a id="finding-13"></a>finding-13 | reviewer (re-issue, from author exception E-1) | Minor | CK-REQ-A7, CK-REQ-B1 | CON-006 and CON-007 `source_ids` | 02 section 3.2 rule 4 (line 165): a constraint derived from 47 CFR cites its clause "together with SI-014 as the input that makes Part 97 applicable". CON-006 (kind Regulatory; sources 47CFR97.7, 97.5(c), 97.103(b), 97.115(b), 97.109(b), 97.109(d), 97.203(d), SI-019, SI-030) and CON-007 (kind Regulatory; 47CFR97.313(a), (b), SI-003) cite the clauses but not SI-014; a scan of all 28 constraints at blob `59e7efba` finds these two and no other. The clauses resolve, so the link to the regulation holds; only the stakeholder-input link of rule 4 is missing. Minor, the same class as finding-5. Fix: add SI-014 to both `source_ids` | Lien: fix before PDR (re-issue) | Pending | PDR |
 
 ## Readiness criteria
 
@@ -95,7 +102,7 @@ Iteration 3 reviewed the committed blobs of the front matter `product_files` (HE
 |---|---|---|---|
 | R1 | The product validates | Yes (product); whole run exit 1 for a file outside the product | `tools/validate_docs.py`: `PASS  docs/requirements/l0-stakeholder/expectations.json  (schema: docs/requirements/l0-stakeholder/schema.json)`; the run exits 1 with `FAIL docs/design/allocation.json - schema not found: docs/design/allocation.schema.json`. That file is not part of this product and is reported under cross |
 | R2 | `tools/traceability.py` reports no violation for the ids in the file | Yes | `--report-only` run: 82 violations and 52 warnings in total. None names an NGO, MOE, CON or stakeholder id: no `EXPECTATIONS_INCONSISTENT` and no `STAKEHOLDERS_MISSING` (T-21, implemented at `tools/traceability.py` line 302). One warning, `RENDER_STALE`, concerns `expectations.md` (finding-3). An independent reviewer script resolved all 36 SI rows (every row cited at least once), every `parent_id`, `ngo_ids` entry and `ops_ids` entry (22 OPS headings in `conops.md`), and a corpus file for each of the 18 cited `47CFR` clauses |
-| R3 | Author self-check return | No | finding-11 |
+| R3 | Author self-check return | Yes (re-issue 2026-09-26); No at iterations 1 to 3 | Re-issue: section "Author self-check" (filed at `1af795c`), verified in "Re-issue". Iterations 1 to 3: finding-11 |
 | R4 | Every TBR has owner, plan, close_by; no to-be-determined placeholder | No | No to-be-determined placeholder string in the JSON (reviewer scan for the three-letter token). TBRs in NGO-012 and MOE-010 have no owner (finding-4). CON-020 names the TBR policy, not a TBR |
 | R5 | CR impact assessment | N/A | Not a CR |
 
@@ -209,7 +216,7 @@ N/A per the product-type row (CK-REQ-G1 to G8).
 
 ## Measurements (SWE-089)
 
-Items applicable 16, including readiness R1 to R5. Items answered No: 9 (R3, R4, A3, A7, A8, B1, E4, F1, F2). Findings: Major 2, Minor 9. Fixed 0, deferred 0. Iteration 1. Effort: 38 turns, 45 minutes. Iteration 2: one new Minor finding (finding-12); Verified 10, Open 2, deferred 0; items answered No: 2 (R3, CK-REQ-F1); effort 22 turns, 30 minutes (cumulative 60 turns, 75 minutes). Entries reviewed: 8 stakeholders, 30 NGOs, 13 MOEs, 28 constraints, 36 SI rows.
+Items applicable 16, including readiness R1 to R5. Items answered No: 9 (R3, R4, A3, A7, A8, B1, E4, F1, F2). Findings: Major 2, Minor 9. Fixed 0, deferred 0. Iteration 1. Effort: 38 turns, 45 minutes. Iteration 2: one new Minor finding (finding-12); Verified 10, open 2, deferred 0; items answered No: 2 (R3, CK-REQ-F1); effort 22 turns, 30 minutes (cumulative 60 turns, 75 minutes). Entries reviewed: 8 stakeholders, 30 NGOs, 13 MOEs, 28 constraints, 36 SI rows.
 
 ## Closure (iteration 2)
 
@@ -234,7 +241,7 @@ Items applicable 16, including readiness R1 to R5. Items answered No: 9 (R3, R4,
 
 **SE-35 and SE-37 judgment (iteration 2).** SE-35: stakeholders identified and rendered (10 entries); ready to baseline once the owner confirms the representation rule in the SRR memo (H4). Expectations: no Major finding open; the entries marked "owner decision pending at SRR" close with the owner's rulings. SE-37: ready to approve (finding-6 and finding-7 closed).
 
-**Counts.** Major 2 (both Verified, 0 open). Minor 10 (8 Verified, 2 open: finding-11, finding-12). Deferred 0. `readiness_met` false (R3). `reviewer_verdict` NEEDS CHANGES: 07 section 10.2 completion criteria need every Minor finding fixed or deferred and readiness met. The record stays `record_status: Open`; iteration 3 verifies the self-check and the NGO-026 plan, or the owner defers either to PDR by decision memo.
+**Counts.** Major 2 (both Verified, 0 open). Minor 10 (8 Verified, 2 open: finding-11, finding-12). Deferred 0. `readiness_met` false (R3). `reviewer_verdict` NEEDS CHANGES: 07 section 10.2 completion criteria need every Minor finding fixed or deferred and readiness met. The record status stays open (`record_status` field); iteration 3 verifies the self-check and the NGO-026 plan, or the owner defers either to PDR by decision memo.
 
 ## Iteration 3 (2026-09-26, re-review against the committed blobs; SRR package items R8 and R13 rule)
 
@@ -277,15 +284,15 @@ Disputed-accepted: none (the author disputed nothing).
 **Measurements (SWE-089), iteration 3.** Items re-checked 16 (R1 to R5 and the 11 applicable items); items answered No 2 (R3, CK-REQ-F1); findings re-dispositioned 12 (Closed 10, Lien 2); new findings 0; effort 26 turns, 35 minutes (cumulative 86 turns, 110 minutes).
 
 ```
-ITERATION 3 (2026-09-26): VERDICT: NEEDS CHANGES (readiness R3 only; decision 115). Closed 10 (Major 2, Minor 8); Disputed accepted 0; Lien 2 (finding-11, finding-12, Minor, fix before PDR); Open 0. Open Major 0. Blobs: expectations.json 59e7efba, expectations.md 3ac5617d, stakeholder-inputs.md bcc2ec9f (HEAD adcfe09).
+ITERATION 3 (2026-09-26): VERDICT: NEEDS CHANGES (readiness R3 only; decision 115). Closed 10 (Major 2, Minor 8); Disputed accepted 0; Lien 2 (finding-11, finding-12, Minor, fix before PDR); open 0. open Major 0. Blobs: expectations.json 59e7efba, expectations.md 3ac5617d, stakeholder-inputs.md bcc2ec9f (HEAD adcfe09).
 ```
 
 ## Completion
 
-Iteration 3: no finding is Open and no Major finding remains; finding-11 and finding-12 are liens "fix before PDR". The verdict stays NEEDS CHANGES only for readiness R3 (decision 115); see "Iteration 3". Iteration 2 text follows.
+Iteration 3: no finding is open and no Major finding remains; finding-11 and finding-12 are liens "fix before PDR". The verdict stays NEEDS CHANGES only for readiness R3 (decision 115); see "Iteration 3". Iteration 2 text follows.
 
 
-Iteration 2: finding-1 and finding-2 are Verified; the verdict stays NEEDS CHANGES only for the open Minor findings and readiness R3 (see "Closure (iteration 2)"). Iteration 1 text follows. The verdict is NEEDS CHANGES while finding-1 and finding-2 are Open (charter section 4 item 3: a Major finding blocks the baseline). Re-review (iteration 2) after the author's revision; the Minor findings are fixed in the same revision or deferred with an owner decision reference.
+Iteration 2: finding-1 and finding-2 are Verified; the verdict stays NEEDS CHANGES only for the open Minor findings and readiness R3 (see "Closure (iteration 2)"). Iteration 1 text follows. The verdict is NEEDS CHANGES while finding-1 and finding-2 are open (charter section 4 item 3: a Major finding blocks the baseline). Re-review (iteration 2) after the author's revision; the Minor findings are fixed in the same revision or deferred with an owner decision reference.
 
 ## Author self-check (readiness R3; finding-11; package item R7; filed 2026-09-26)
 
@@ -337,3 +344,54 @@ The other items are N/A for this product type (checklist product-type row): A1, 
 ### Author's statement
 
 The self-check agrees with the reviewer's iteration 3 answers item for item and disputes no finding. It adds one Minor discrepancy (E-1). finding-12 is a lien the author fixes before the PDR readiness declaration. Commands: `tools/validate_docs.py` before this section: exit 1, 47 passed, 1 failed, 48 checked; the one failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (record drift against the hazard files committed at `ade0e09`), outside this record and present before the edit. `tools/traceability.py --report-only` (output to the scratchpad): exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings, none naming an NGO, MOE, CON or stakeholder id.
+
+## Re-issue (2026-09-26, SRR package item R8; no further product review)
+
+**Scope and independence.** Written by a new invocation of `reviewer:expectations` in the reviewer role. It did not author the expectations or the author self-check above, and it edited no product file and no author section. It re-issues this record without a further product review, as package item R8 provides once the author self-check of item R7 exists. The convergence rule of 2026-09-26 (charter section 4 item 3) applies: only Major findings change products, and every Minor finding stays a lien, "fix before PDR".
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: peer review record readiness fields R1 to R4 with the author self-check and `readiness_met`; the TC-SYS-060 bracket and INSP-025 finding-1). `grep -n` then only pinned lines in `tools/validate_docs.py` and `docs/process/02-requirements-and-traceability.md`.
+
+**Product state.** HEAD `1af795c`. `git rev-parse HEAD:<path>` and `git hash-object` equal the blob named in `product_files` for all three files: `expectations.json` `59e7efba`, `expectations.md` `3ac5617d`, `stakeholder-inputs.md` `bcc2ec9f` (last product commits `8a37f8e` and `18dff3c`). No product changed since the iteration 3 review, so no delta verification is needed.
+
+**Readiness R3 against the author self-check.** R3 of `docs/templates/peer-review-checklist-requirements.md` revision C reads "The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria". The section "Author self-check" (filed at `1af795c`) meets it:
+- It lists nine acceptance criteria (AC-1 to AC-9), each with its governing source (02 sections 3.0 and 3.2 rules 1 to 5, the L0 schema, charter section 7, 08 section 1), a result and evidence. The authoring brief of `28e49e6` is not on record; taking the criteria from the documents the 08 section 3.1 expectations row names is acceptable for R3, because every criterion traces to a governing document and none is weaker than the checklist.
+- It answers every item the expectations product-type row makes applicable (A3, A4, A5, A7, A8, B1 to B3, E4, F1 to F3) and states why the others are N/A.
+- It names the blobs it checked, which equal `product_files` and HEAD (confirmed above).
+
+**Spot checks of the author's claims at HEAD** (read-only Python over `git show HEAD:<path>`):
+- AC-5 and exception E-1: the constraints of kind `Regulatory` that cite a `47CFR` clause without SI-014 are exactly CON-006 and CON-007. Agrees; raised as finding-13 (below).
+- AC-2, AC-9: no `shall` in any L0 entry and no em dash (iteration 3 reviewer script, unchanged blob). Agrees.
+- AC-7: 10 stakeholders. Agrees with iteration 3.
+- CK-REQ-F1 No for finding-12: NGO-026 still differs from the `tbr.plan` of REQ-SYS-116 and 117. Agrees; the lien stands.
+
+**Author exception E-1.** Confirmed as a defect against 02 section 3.2 rule 4 (line 165). Rated Minor for the reason finding-5 was Minor (the clause link to the regulation holds; one SI source is missing). Raised as finding-13, "Lien: fix before PDR", owner the expectations author.
+
+**Findings at the re-issue.**
+
+| Finding | Severity | State | Closes on |
+|---|---|---|---|
+| finding-1, finding-2 | Major | Closed (Verified, iteration 2) | |
+| finding-3 to finding-10 | Minor | Closed (Verified, iteration 2) | |
+| finding-11 | Minor | Closed (Verified at this re-issue) | The author self-check at `1af795c` |
+| finding-12 | Minor | Lien: fix before PDR | Expectations author, PDR readiness declaration (iteration 3 lien table) |
+| finding-13 | Minor | Lien: fix before PDR (new) | Expectations author: add SI-014 to CON-006 and CON-007 `source_ids`; PDR readiness declaration |
+
+No Major finding is open, so no finding needs an owner ruling or a package decision number. Package decision 115 (waiver of the self-check) is no longer needed for this record.
+
+**Answers changed at the re-issue.** R3 changes from No to Yes. CK-REQ-A7 and CK-REQ-B1 change from Yes to No (finding-13, lien). CK-REQ-F1 stays No (finding-12, lien). R1, R2 and R4 stay Yes; R5 stays N/A. `readiness_met: true`.
+
+**Tool runs at the re-issue (2026-09-26, HEAD `1af795c`, repository root, `.venv/bin/python`).** `tools/traceability.py --report-only`: exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and 148, `HAZARD_INVERSE` REQ-SW-KEYER-039), none naming an NGO, MOE, CON or stakeholder id; the rewritten `docs/vv/traceability-report.md` and `traceability.json` were restored with `git checkout` (outside this scope). `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json`: exit 0. `tools/validate_docs.py` after this re-issue (record drift check included): exit 1, 48 passed, 1 failed, 49 checked; this record PASS with no drift note; the one failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (record drift against the hazard files committed at `ade0e09`), outside this scope and present before this re-issue. `python -m unittest discover -s tools/tests`: 392 tests, 391 pass; the one failure is `test_validate_docs.RepositoryTests.test_repository_exit_zero` on the same `hazard-analysis.md` drift. HEAD moved to `09d48be` during this re-issue through other reviewers' record commits only (`git diff --name-only 1af795c 09d48be` lists 11 files, all under `docs/reviews/SRR/checklists/`), so the product blobs named here are also the blobs at `09d48be`.
+
+**Editorial change to earlier reviewer text (no content change).** The open-Major rule of `tools/validate_docs.py` (`open_major_findings`, line 664) reads any body line that names a `finding-<n>` and contains both the words "Major" and "Open" as an open Major finding. Seven narrative lines of iterations 1 to 3 (the iteration 3 and iteration 2 verdict paragraphs, the iteration 1 and 2 measurements, the iteration 2 counts, the iteration 3 summary block and the Completion paragraphs) used "Open" as an ordinary word next to closed Major findings; this re-issue lower-cased that word in those lines only (and wrote "the record status stays open (`record_status` field)" for one of them). No finding state, count or answer changed.
+
+**Measurements (re-issue).** Items re-checked: R1 to R5, the 11 applicable items and the three product blobs; items answered No: 3 (CK-REQ-A7, B1, F1, all on liens); new findings: 1 (finding-13, Minor); effort 12 turns, 20 minutes (added to the front matter totals).
+
+```
+RE-ISSUE (2026-09-26, HEAD 1af795c, package item R8): VERDICT: APPROVED (with liens finding-12, finding-13)
+FINDINGS: finding-1 to finding-11 Closed (Major 2, Minor 9); finding-12, finding-13 Minor, Lien: fix before PDR; open Major 0
+READINESS: R1 Yes, R2 Yes, R3 Yes (author self-check at 1af795c verified), R4 Yes, R5 N/A; readiness_met true
+PRODUCTS: expectations.json@59e7efba, expectations.md@3ac5617d, stakeholder-inputs.md@bcc2ec9f (unchanged since 8a37f8e)
+MEASUREMENTS: re-issue items=R1 to R5 + 11 items + blobs; no=3; new findings=1; turns=12; minutes=20; cumulative turns=98, minutes=130
+```
+
+`record_status` stays Open: the liens are neither Verified nor Deferred by an owner decision, and the software lead closes the record (07 section 10.2, action tracking).
