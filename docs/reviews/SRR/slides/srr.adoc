@@ -1,4 +1,4 @@
-= SRR pre-review session: cwht, SRR combined with MCR, package revision 8
+= SRR pre-review session: cwht, SRR combined with MCR, package revision 8 final
 :revealjs_theme: white
 :revealjs_width: 1920
 :revealjs_height: 1080
@@ -16,24 +16,24 @@
 [.lead]
 Pocket 2 m true-CW (A1A) 5 W handheld transceiver, 144.000 to 148.000 MHz
 
-Package `docs/reviews/SRR/package.md`, revision 8 of [.nw]##2026-09-26##, written at HEAD [.nw]##`b4abcc5`##, where every cited product and record is committed; revision 8 is committed on top of it. Revision 7 is at [.nw]##`8d7eca7`##; revision 6 at [.nw]##`30a6905`##.
+Package `docs/reviews/SRR/package.md`, revision 8 final of [.nw]##2026-09-26##, read from the 30 records at HEAD [.nw]##`a6e3518`##, where every cited product and record is committed. Revision 8 is at [.nw]##`27cc9d9`##; revision 7 at [.nw]##`8d7eca7`##.
 
 Chair, Decision Authority, ETA and SMA TA: Robin. Presenter: Claude (lead systems engineer).
 
 [.callout.warn]
-Pre-review session: the SRR gate review is not convened. The readiness declaration cannot be made: Hard rows S3 and 20 are Not met, S1 awaits your confirmation, and 10 Hard rows are Partially met (package section 4).
+Pre-review session: the SRR gate review is not convened. The readiness declaration cannot be made: Hard rows S3 and 20 are Not met, S1 awaits your confirmation, and 10 Hard rows are Partially met (package section 4, revision 8 final).
 
 The minutes record this session as a pre-review session, not as the gate review.
 
 [.notes]
 --
 Robin, this is a pre-review session of the cwht System Requirements Review, which also serves as the Mission Concept Review.
-Package revision 8 of 2026-09-26 was written against HEAD b4abcc5: every product and record it cites is committed there, and 29 of the 30 review records name the committed file versions; the revision itself is committed on top of b4abcc5 as a routine CM record, and it changes no product.
-Revision 8 is a status update: items R17 and R18 and the INSP-030 part of R19 (b) are done, which closes readiness findings R15-F1 to R15-F3; 26 of the 30 records are now APPROVED and every gate tool exits 0.
-The gate review is not convened, because Hard rows S3 and 20 are Not met, S1 waits for your confirmation and 10 Hard rows are Partially met.
+Package revision 8 final of 2026-09-26 is the final tabulation of revision 8, read from the 30 review records at HEAD a6e3518: every product and record it cites is committed there, all 30 records name the committed file versions, and it changes no product.
+Since revision 8 the INSP-029 re-issue is done at a6e3518, APPROVED with liens finding-3, 5, 6 and 7, and the repeat readiness review R15 ran on revision 8 with verdict NEEDS CHANGES: R15b-F1, Major, is item R20, the route for this deck, and R15b-F2, Minor, is applied. 27 of the 30 records are APPROVED and every gate tool exits 0.
+The gate review is not convened, because Hard rows S3 and 20 are Not met, S1 waits for your confirmation and 10 Hard rows are Partially met; the entrance counts are unchanged in revision 8 final.
 What this session can produce is your rulings on the 17 key decisions and the consent agenda, the owner actions, starting with the FW-B0 flash, and your adoption or rejection of the candidate RIDs.
 I present slide by slide and pause after each one for your questions, RFAs and RIDs; the top right of every slide names the package section it summarizes.
-This deck is the revision 6 deck of ef6472a with the revision 7 count edit, updated where revision 8 changed a claim; its record INSP-029 reviewed the revision 6 deck at iteration 3, and its re-issue is pending.
+This deck is the revision 8 deck of 8a03bf0, which INSP-029 re-issued APPROVED at a6e3518, updated to the revision 8 final statuses listed in package section 2.2 block "Status since the deck" (route (b) of item R20); the INSP-029 reviewer verifies this delta before the presentation.
 Evidence: docs/reviews/SRR/package.md (readiness declaration, header table, sections 2, 4 and 21); docs/process/01-lifecycle-and-reviews.md sections 3.4 and 4.2.
 Question for Robin: shall we start with the FW-B0 flash on slide 3 while the Pico 2 is at hand?
 --
@@ -89,17 +89,17 @@ Question for Robin: is the Pico 2 at hand, and shall we do OA-1 and OA-2 now?
 
 * *Purpose:* confirm the requirements respond to your NGOs, MOEs and ConOps and can be achieved, the concept is feasible, and the plans suffice to begin preliminary design
 * *Scope:* SRR absorbs the MCR; your disposition at the gate review is followed by the tag [.nw]##`baseline/srr`## (§21)
-* *Readiness:* not declarable at revision 8; the goal state, in which only your items remain, is not yet reached: the [.nw]##INSP-029## re-issue, then R15
-* *Tools:* at [.nw]##`b4abcc5`## every gate tool exits 0: `validate_docs.py` 49 passed, 400 of 400 tool tests; developer evidence until accreditation (K15)
+* *Readiness:* not declarable at revision 8 final; the goal state, in which only your items remain, is not yet reached: item R20, the deck route of R15b-F1
+* *Tools:* at [.nw]##`a6e3518`## every gate tool exits 0: `validate_docs.py` 49 passed, 400 of 400 tool tests; developer evidence until accreditation (K15)
 * *This session:* rulings on K1 to K17 and the consent agenda, owner actions, adoption of candidate RIDs
 * *At the gate review:* Approved, Approved with liens or Not approved; never a lien: an unmet Hard row or an open Major RID
 
 [.notes]
 --
 The SRR decides whether the requirements and the concept are good enough to baseline and whether the plans are good enough to start preliminary design; because it absorbs the MCR, the stakeholder expectations, the concept and the MOEs are entrance products too.
-Revision 8 re-reads the readiness items, the remaining work and the entrance rows from the 30 records at HEAD b4abcc5, after the INSP-008 re-issue on the 0.4.3-pha hazard blobs (R17), the record state rule of validate_docs.py with the INSP-002 and INSP-015 re-issues (R18) and the INSP-030 re-issue (R19 (b)).
-Every gate tool exits 0: validate_docs reports 49 passed and 0 failed, the tool suite passes 400 of 400 tests, traceability PASS with 0 violations and 3 warnings, and the risk check with the hazard cross-check and the RMM and compliance checks exit 0. No product or record content is wrong.
-The goal state, in which only your rulings, OA-1, OA-2 and your readiness confirmation remain, is still not reached: the INSP-029 re-issue (R19 (b)) and then the repeat readiness review (R15) are Claude and reviewer work.
+Revision 8 final re-reads the readiness items, the remaining work and the entrance rows from the 30 records at HEAD a6e3518, after the INSP-029 re-issue (R19 (b)) and the repeat readiness review R15 on revision 8; revision 8 had recorded R17, R18 and the INSP-030 re-issue.
+Every gate tool exits 0 at a6e3518: validate_docs reports 49 passed and 0 failed with no drift note, the tool suite passes 400 of 400 tests, traceability PASS with 0 violations and 3 warnings, and the risk check with the hazard cross-check and the RMM and compliance checks exit 0. No product or record content is wrong.
+The goal state, in which only your rulings, OA-1, OA-2 and your readiness confirmation remain, is still not reached: the one open item that is neither yours nor post-ruling work is R20, the route for this deck under readiness finding R15b-F1 (Major); the lead SE route is this update of the deck and an INSP-029 delta pass.
 Under the lead SE convergence rule of 2026-09-26, every Minor finding is a lien to fix before PDR, so only Major findings held products in this round.
 Evidence: package readiness declaration and sections 1, 2, 2.1 and 21; docs/process/01-lifecycle-and-reviews.md sections 4.1, 4.2 and 12.2.
 Question for Robin: none on this slide.
@@ -109,15 +109,14 @@ Question for Robin: none on this slide.
 
 ++++
 <div class="board">
-<div class="lane nm w12"><div class="lane-head"><span>Open</span><span>8</span></div>
-<div class="brow gap"><span class="bid">H1</span><span class="blab">Records: 5 open Major on rulings; <span class="nw">INSP-029</span> re-issue (R19)</span></div>
-<div class="brow gap"><span class="bid">H3</span><span class="blab">This deck: <span class="nw">INSP-029</span> re-issue only (R19)</span></div>
+<div class="lane nm w12"><div class="lane-head"><span>Open</span><span>7</span></div>
+<div class="brow gap"><span class="bid">H1</span><span class="blab">Records: 5 open Major, each on a ruling</span></div>
+<div class="brow gap"><span class="bid">H3</span><span class="blab">This deck: item R20 only (<span class="nw">R15b-F1</span>)</span></div>
 <div class="brow gap"><span class="bid">H5</span><span class="blab">TS-001 approved; ADR part on decisions 106 and 47</span></div>
 <div class="brow gap"><span class="bid">H7</span><span class="blab">9 SRR hazard questions Open: 8 on rulings, <span class="nw">OQ-SAF-006</span> after them</span></div>
 <div class="brow gap"><span class="bid">H12</span><span class="blab">FW-B0 Blocked: decisions 108 to 110, OA-1, then R16</span></div>
 <div class="brow gap"><span class="bid">H14</span><span class="blab">07 and TS-002 records APPROVED; decision 107 only</span></div>
 <div class="brow gap"><span class="bid">H15</span><span class="blab">Row 25: <span class="nw">INSP-004</span> APPROVED; decisions 104, 112, 30</span></div>
-<div class="brow gap"><span class="bid">H17</span><span class="blab">29 of 30 records on the blobs; <span class="nw">INSP-029</span> (R19)</span></div>
 </div>
 <div class="lane pm"><div class="lane-head"><span>Closed; your ruling left</span><span>5</span></div>
 <div class="brow gap"><span class="bid">H4</span><span class="blab">10 stakeholders listed; decision 103</span></div>
@@ -126,24 +125,26 @@ Question for Robin: none on this slide.
 <div class="brow gap"><span class="bid">H13</span><span class="blab">03 re-transcribed and approved; decision 9</span></div>
 <div class="brow gap"><span class="bid">H16</span><span class="blab">Items due closed; decisions 10, 103</span></div>
 </div>
-<div class="lane ok w08"><div class="lane-head"><span>Closed</span><span>4</span></div>
+<div class="lane ok w08"><div class="lane-head"><span>Closed</span><span>5</span></div>
 <div class="brow gap"><span class="bid">H2</span><span class="blab">Two retirements verified</span></div>
 <div class="brow gap"><span class="bid">H9</span><span class="blab">Risk check exit 0; INSP-007 APPROVED</span></div>
 <div class="brow gap"><span class="bid">H10</span><span class="blab">Seven figures re-rendered, opened</span></div>
 <div class="brow gap"><span class="bid">H11</span><span class="blab">Five ICD stubs; INSP-012 APPROVED</span></div>
+<div class="brow gap"><span class="bid">H17</span><span class="blab">30 of 30 records on the HEAD blobs</span></div>
 </div>
 </div>
-<p class="board-note">None of the 17 may be a lien (review process 12.2). "Closed" means the evidence exists at a named commit and no open Major finding stands against it.</p>
+<p class="board-note">Package revision 8 final. None of the 17 may be a lien (review process 12.2). "Closed" means the evidence exists at a named commit and no open Major finding stands against it.</p>
 ++++
 
 [.notes]
 --
-Revision 2 listed 17 Hard shortfalls and items due before the declaration; revision 8 re-rates each one against the 30 records and the products at b4abcc5.
-Eight are open; H1 is the largest: 5 open Major findings in three records, each closing only on your ruling, then one record action that needs no ruling, the re-issue of this deck's record INSP-029 (R19 (b)); R17, R18 and the INSP-030 re-issue are done.
-H3 and H17 are open on that same INSP-029 re-issue only: it verifies the revision 7 count edit of slides 7, 40 and 42, the one drift of the blob check.
+Revision 2 listed 17 Hard shortfalls and items due before the declaration; revision 8 final re-rates each one against the 30 records and the products at a6e3518.
+Seven are open; H1 is the largest: 5 open Major findings in three records, each closing only on your ruling; its record action (b), the INSP-029 re-issue, is done at a6e3518, APPROVED with liens finding-3, 5, 6 and 7.
+H3, this deck, is open on item R20 only: readiness finding R15b-F1 found that the revision 8 deck stated statuses that the final tabulation changed; this update is the route, and the INSP-029 delta pass verifies it.
+H17 is Closed in revision 8 final: all 30 records name the HEAD blobs at a6e3518. As package section 2 H17 says, this deck edit re-opens that row until INSP-029 verifies the delta.
 H5, H14 and H15 now stand only on your rulings: INSP-013, the 07 records INSP-010 and INSP-018 and the row 25 records INSP-004 and INSP-026 are APPROVED with liens; H7 has nine SRR-due hazard questions open, eight on your rulings, and OQ-SAF-007, 025 and 026 are Closed by the R9 edit, which INSP-008 verified at 2aaad2a (R17).
 Five items are closed on the product side and wait only for your ruling: the stakeholder representation rule, the ConOps items D5, D7 and D18, the three hardware backstops, the concurrence of decision 9, and decisions 10 and 103.
-Four are fully closed, among them H10, the seven package figures that the fixed generator re-rendered, and H11, the ICD stubs, whose record INSP-012 is APPROVED with liens.
+Five are fully closed, among them H10, the seven package figures that the fixed generator re-rendered, H11, the ICD stubs, whose record INSP-012 is APPROVED with liens, and H17, the evidence commit hashes.
 Evidence: package section 2 table H1 to H17 with its evidence and commit column; section 2.4.
 Question for Robin: none on this slide; the remaining work is on the next slide.
 --
@@ -155,30 +156,29 @@ Question for Robin: none on this slide; the remaining work is on the next slide.
 | Group | Items (package section 2.1) | Owner | State
 | Your rulings | R1: K1, K2, K7, K9 to K12, K14 to K17 and the rest of section 13.1 | Robin | Open
 | Your hands-on | R2: FW-B0 steps 11 and 12 and the picotool verify ([.nw]##OA-1##, [.nw]##OA-2##) | Robin; Claude runs commands | Open
-| Records | R19 (b): [.nw]##INSP-029## re-issue, verifying the revision 7 count edit | Reviewer | Pending
-| Last step | R15 repeat readiness review | Reviewer | After R19 (b)
+| This deck | R20: the deck route of readiness finding [.nw]##R15b-F1## (Major): this update, then the [.nw]##INSP-029## delta pass | Claude (lead SE); reviewer | Open
 | After the rulings | R16: installs, gate to exit 0, run 3, [.nw]##INSP-016## iteration 4; requirement, ConOps and ADR edits | Claude; reviewers | Waits on R1, R2
-| Done | R3 to R14; R17 [.nw]##INSP-008##; R18 record state rule, [.nw]##INSP-002##, [.nw]##INSP-015##; R19 (a) deck; R19 (b) [.nw]##INSP-030## | | Done
+| Done | R3 to R14; R15 repeat on revision 8; R17 [.nw]##INSP-008##; R18 record state rule, [.nw]##INSP-002##, [.nw]##INSP-015##; R19 (a) deck; R19 (b) [.nw]##INSP-030##, [.nw]##INSP-029## | | Done
 |===
 
 [.notes]
 --
-Package section 2.1 is the complete list, R1 to R19, grouped here by owner.
+Package section 2.1 is the complete list, R1 to R20 in revision 8 final, grouped here by owner.
 Your part is R1 and R2: the rulings, which since revision 6 include K7 for decisions 73 and 74, and the flash you may already have done on slide 3.
-R17 and R18 are done since revision 7: INSP-008 verified the hazard status edit and was re-issued at 2aaad2a; the record state rule of validate_docs.py at 96af250 replaced the line heuristic, INSP-002 was re-issued APPROVED at b08e55d and INSP-015 verified the tool delta at b4abcc5 with two new liens, F-08 and F-09. INSP-030 was re-issued APPROVED at 99ecccb. Together they close readiness findings R15-F1 to R15-F3.
-The Claude and reviewer part that still depends on no ruling is the INSP-029 re-issue and then the repeat readiness review R15. When they are done, the only open items that do not wait on a ruling are yours.
+Revision 8 recorded R17, R18 and the INSP-030 re-issue, which closed readiness findings R15-F1 to R15-F3. Revision 8 final records the INSP-029 re-issue at a6e3518, APPROVED with liens finding-3, 5, 6 and 7, and the repeat readiness review R15 on revision 8, verdict NEEDS CHANGES with R15b-F1 (Major, item R20) and R15b-F2 (Minor, applied).
+The Claude and reviewer part that still depends on no ruling is R20 alone: the route for this deck, which is this update to the revision 8 final statuses and then an INSP-029 delta pass. When it is done, the only open items that do not wait on a ruling are yours.
 R16 follows your rulings: after decisions 109 and 110 I install the approved toolchains, apply the rustos SAFETY-comment work item, re-run tools/sw_gate.sh to exit 0 and file run 3, and after the other rulings the authors make the requirement, ConOps and ADR edits each ruling triggers.
 R16 precedes the declaration, because Hard rows 14, 15 and 20 close only through it.
-Commits of work products are routine CM records that I make under the CM plan, not an owner action; revision 8 is committed on top of b4abcc5 and this deck update by its own commit; OA-8 covers only the gate disposition and the baseline tag.
-Evidence: package section 2.1 items R1 to R19 and the goal-state paragraph; section 2.2 OA-8.
-Question for Robin: none on this slide; the INSP-029 re-issue and R15 need no ruling.
+Commits of work products are routine CM records that I make under the CM plan, not an owner action; this deck update is committed by its own commit; OA-8 covers only the gate disposition and the baseline tag.
+Evidence: package section 2.1 items R1 to R20 and the goal-state paragraph; section 2.2 block "Status since the deck" and OA-8; section 15 items 76 and 77.
+Question for Robin: none on this slide; R20 needs no ruling.
 --
 
-== Review records: 30 records at revision 8 [.src]#§2.4, §3#
+== Review records: 30 records at revision 8 final [.src]#§2.4, §3#
 
 ++++
 <div class="board">
-<div class="lane ok"><div class="lane-head"><span>APPROVED</span><span>26</span></div>
+<div class="lane ok"><div class="lane-head"><span>APPROVED</span><span>27</span></div>
 <div class="brow"><span class="bid">001</span><span class="blab">Expectations</span></div>
 <div class="brow"><span class="bid">002</span><span class="blab">ConOps, concept</span></div>
 <div class="brow"><span class="bid">004</span><span class="blab">TX, SW-KEYER</span></div>
@@ -206,10 +206,8 @@ Question for Robin: none on this slide; the INSP-029 re-issue and R15 need no ru
 <div class="brow"><span class="bid">026</span><span class="blab">SW-KEYER assurance</span></div>
 <div class="brow"><span class="bid">027</span><span class="blab">TS-002 assurance</span></div>
 <div class="brow"><span class="bid">028</span><span class="blab">FW-B0 test files</span></div>
+<div class="brow"><span class="bid">029</span><span class="blab">This deck</span></div>
 <div class="brow"><span class="bid">030</span><span class="blab">05 assurance</span></div>
-</div>
-<div class="lane nt"><div class="lane-head"><span>Re-issue, no ruling</span><span>1</span></div>
-<div class="brow gap"><span class="bid">029</span><span class="blab">This deck: iteration 3 done, re-issue pending (R19)</span></div>
 </div>
 <div class="lane nm"><div class="lane-head"><span>Open Major</span><span>3</span></div>
 <div class="brow gap"><span class="bid">003</span><span class="blab">L1: finding-6 (decision 30)</span></div>
@@ -217,16 +215,16 @@ Question for Robin: none on this slide; the INSP-029 re-issue and R15 need no ru
 <div class="brow gap"><span class="bid">016</span><span class="blab">FW-B0: F-01 (109, 110, <span class="nw">OA-1</span>), F-02 (108)</span></div>
 </div>
 </div>
-<p class="board-note">Record numbers are INSP-NNN. No APPROVED record fails a gate tool. Every Minor finding of every record is dispositioned "Lien: fix before PDR": 122 findings plus erratum E-10, carried as lien L-6.</p>
+<p class="board-note">Record numbers are INSP-NNN. No APPROVED record fails a gate tool. Every Minor finding of every record is dispositioned "Lien: fix before PDR": 123 findings plus erratum E-10 (package revision 8 final), carried as lien L-6.</p>
 ++++
 
 [.notes]
 --
-All 30 records are filed as their front matter reads: 26 APPROVED and 4 NEEDS CHANGES.
-Since revision 7 INSP-008 was re-issued on the 0.4.3-pha hazard blobs (R17); INSP-002 moved to APPROVED after the record state rule of validate_docs.py replaced the line heuristic (R18); INSP-015 verified that tool delta and was re-issued APPROVED with two new liens, F-08 and F-09; and INSP-030 moved to APPROVED on the 05 self-check at 8ef95d3 (R19 (b)).
-One NEEDS CHANGES record is held by reviewer work only: INSP-029, this deck's record, whose iteration 3 found no new finding and Verified finding-2 and finding-4; its readiness R1 closed with R17, and its re-issue, which verifies the revision 7 count edit, is pending. It is that record's third NEEDS CHANGES, so I raise it with you here; no product change was required.
-Three are held by the five open Major findings, which close only on your rulings; no record is held by a finding that a product change of this round must fix.
-The record liens move from 120 to 122 with INSP-015 F-08 and F-09.
+All 30 records are filed as their front matter reads at a6e3518 (package revision 8 final): 27 APPROVED and 3 NEEDS CHANGES.
+Revision 8 recorded the INSP-008 re-issue on the 0.4.3-pha hazard blobs (R17), INSP-002 moving to APPROVED after the record state rule of validate_docs.py (R18), the INSP-015 delta verification of that rule with two new liens, F-08 and F-09, and INSP-030 moving to APPROVED (R19 (b)).
+Revision 8 final adds one change: INSP-029, this deck's record, was re-issued at a6e3518 without a further product review, APPROVED with liens finding-3, 5, 6 and 7, readiness met, verifying the revision 7 count edit and the revision 8 update on the 8a03bf0 blobs. Finding-7 is new and Minor: the slide 9 notes placed S3 and row 20 among the Partially met rows; this update corrects them. That record had reached its third NEEDS CHANGES, which I raise with you here; it ended at APPROVED without a product change.
+The three NEEDS CHANGES records, INSP-003, 011 and 016, are held only by the five open Major findings, which close only on your rulings; no record is held by reviewer work.
+The record liens move from 122 in revision 8 to 123 in revision 8 final with INSP-029 finding-7, plus erratum E-10.
 Evidence: package sections 2.4 (record table and totals), 2.3 and 3; docs/reviews/SRR/checklists/*.md front matter; section 20.2.
 Question for Robin: none on this slide; the only ruling left in K17 is decision 115 (b).
 --
@@ -243,8 +241,8 @@ Question for Robin: none on this slide; the only ruling left in K17 is decision 
 | [.nw]##INSP-016## | finding-2: target-only decision without an approved deviation | Decision 108 (CR-001) | K10
 |===
 
-* Blob check at [.nw]##`b4abcc5`##: 29 of 30 records name exactly the committed blobs; candidate item 57 (Major) stays Closed
-* One drift: [.nw]##INSP-029## (NEEDS CHANGES; the revision 7 count edit of slides 7, 40, 42), verified by its re-issue (R19 (b)); `validate_docs.py` exit 0
+* Blob check at [.nw]##`a6e3518`## (revision 8 final): 30 of 30 records (195 entries) name exactly the committed blobs; H17 Closed; item 57 (Major) stays Closed
+* The [.nw]##INSP-029## drift closed with its re-issue; this deck update re-opens it until the [.nw]##INSP-029## delta pass (R20)
 
 [.notes]
 --
@@ -252,7 +250,8 @@ These are the only open Major findings in the 30 records, and each closes on a r
 Decision 30 is itself the item (g) record that INSP-003 finding-6 asks for, now extended to ten regulatory requirements, three of them REQ-TX.
 INSP-011 F-02 and F-03 are Closed on the ADR correction the lead SE applied for your approval under decision 105; F-01 needs decision 106 and F-04 needs decision 47, because 05 Table 4-1 row 13 forbids editing ADR-010's decision section.
 INSP-016 finding-1 also needs the post-ruling work R16 and your flash, and finding-2 closes when you approve CR-001.
-The product-blob check compared every product file a record lists with git rev-parse HEAD:<path> at b4abcc5: the INSP-008 drift closed with its re-issue at 2aaad2a (R17), INSP-015 names the HEAD blobs of all 43 files it lists since b4abcc5, and the one drift left, INSP-029 on the revision 7 count edit, is item R19 (b) and hides no content change.
+The product-blob check compared every product file a record lists, 195 entries, with git rev-parse HEAD:<path> at a6e3518 and found no difference: the INSP-008 drift closed with its re-issue at 2aaad2a (R17), and the INSP-029 drift closed with its re-issue at a6e3518 on the 8a03bf0 deck blobs; validate_docs.py prints no drift note.
+As package section 2.3 says, a deck edit under route (b) of R20, which this update is, re-opens the INSP-029 row until its reviewer verifies the delta, and because INSP-029 is APPROVED the drift rule fails validate_docs.py until then.
 Evidence: package sections 2.3 and 2.4; section 15 items 27, 46, 52, 53, 57, 67 and 72; docs/reviews/SRR/checklists/requirements-sys.md, adrs-001-to-025.md, fw-b0-toolchain-proof.md.
 Question for Robin: none here; you rule these through K10, K11, K12 and K16.
 --
@@ -264,11 +263,11 @@ image::../figures/entrance-checklist.png[alt="Entrance criteria board: Not met 4
 [.notes]
 --
 The board shows all 39 entrance criteria, the eleven standing criteria S1 to S11 and the 28 SRR rows, under the single rating rule of package section 4: Met 24, Partially met 11, Not met 4.
-Revision 8 re-rated rows 4 and 12 Met, because INSP-002 is APPROVED at b08e55d and INSP-030 at 99ecccb and no ruling holds their content; revision 6 had re-rated rows 1, 2 and 3 Met on INSP-001.
-The Hard rows not Met each block the declaration: S1 waits for you, S3 and 20 are Not met, and 10 Hard rows are Partially met.
-Of the Partially met rows, 7, 8, 15, 22, 23 and 25 wait on your rulings only; 5 on rulings for the ADR part; 14 on rulings and the post-ruling OPS-013 edit (R16); 10 on decisions 36, 37, 41 and 42 and the post-ruling ConOps edit (R16); S11 on the INSP-029 re-issue; S3 on the rulings and the INSP-029 re-issue; row 20 on rulings, OA-1 and R16.
+The counts are those of package revision 8 final, unchanged from revision 8: render_review_figures.py --check exits 0 and no figure was re-rendered. Revision 8 re-rated rows 4 and 12 Met, because INSP-002 is APPROVED at b08e55d and INSP-030 at 99ecccb and no ruling holds their content; revision 6 had re-rated rows 1, 2 and 3 Met on INSP-001.
+The Hard rows not Met each block the declaration. Not met: S1, which waits for you; S3, on your rulings only, now that INSP-029 is re-issued; and row 20, on rulings, OA-1 and R16.
+Partially met, 10 Hard rows: 7, 8, 15, 22, 23 and 25 wait on your rulings only; 5 on rulings for the ADR part; 14 on rulings and the post-ruling OPS-013 edit (R16); 10 on decisions 36, 37, 41 and 42 and the post-ruling ConOps edit (R16); S11 on item R20, readiness finding R15b-F1, and is re-rated Met when R20 is done.
 The Soft rows S8 and S10 are the only shortfalls proposed as liens, L-2 and L-3; the dagger on S4, 8 and 24 marks evidence from tool runs whose TV records are not yet accredited.
-Evidence: package section 4 table and counts line; figure docs/reviews/SRR/figures/entrance-checklist.png, generated by tools/render_review_figures.py (blob 6f3018fd) from revision 8 and opened 2026-09-26 (package section 7).
+Evidence: package section 4 table and counts line; figure docs/reviews/SRR/figures/entrance-checklist.png, generated by tools/render_review_figures.py (blob 6f3018fd) from revision 8 and opened 2026-09-26 (package section 7); package section 4 counts line, revision 8 final.
 Question for Robin: none on this slide.
 --
 
@@ -445,7 +444,7 @@ Question for Robin: none here; the plan approvals are K4 on slide 24.
 [cols="23,20,29,28",options="header"]
 |===
 | Milestone | Planned | Status | Recovery
-| SRR package ready | [.nw]##2026-09-26## morning | Revision 8 assembled; not ready (section 2.1) | This session for rulings and [.nw]##OA-1##; [.nw]##INSP-029## re-issue; repeat readiness review
+| SRR package ready | [.nw]##2026-09-26## morning | Revision 8 final assembled; not ready (section 2.1) | R20 deck route; this session for rulings and [.nw]##OA-1##
 | PDR | [.nw]##2026-09-26## evening | Pending; SRR not yet held | Six trade studies, L2 specifications, ICDs, V&V plan
 | CDR and procurement release | [.nw]##2026-09-27## evening and night | Pending; [.nw]##RSK-014## Red | Lien rule of [.nw]##RSK-014## S2
 | Vendor delivery, TRR | 2 to 4 weeks after the order | Pending; [.nw]##RSK-053## closure [.nw]##2026-10-01## to [.nw]##10-04## | Alternates in the BOM at CDR
@@ -457,8 +456,8 @@ Question for Robin: none here; the plan approvals are K4 on slide 24.
 [.notes]
 --
 The schedule plans SRR on Saturday morning, PDR on Saturday evening and CDR with procurement release on Sunday evening and night.
-The SRR milestone is not met: revision 8 is assembled and committed, but the owner items R1 and R2, the INSP-029 re-issue of R19 (b) and the repeat readiness review R15, and then R16 remain.
-The recovery is this session for your rulings and OA-1, then the INSP-029 re-issue and the repeat readiness review.
+The SRR milestone is not met: revision 8 final is assembled and committed, the INSP-029 re-issue of R19 (b) and the repeat readiness review R15 are done, but the owner items R1 and R2, item R20, the deck route of readiness finding R15b-F1, and then R16 remain.
+The recovery is R20, this deck update and its INSP-029 delta pass, then this session for your rulings and OA-1.
 The expedited schedule itself is RSK-014, Red and owned by you, whose lien rule keeps an order from being released against unreviewed products.
 Vendor holidays from 2026-10-01 to 10-04 threaten the delivery window, and three rail parts showed zero distributor stock, so alternates must be in the BOM at CDR.
 Evidence: docs/plan/schedule.md; package section 12; docs/risk/register.json RSK-014, RSK-038, RSK-053.
@@ -875,11 +874,11 @@ Prior trend: no prior review; the SRR log is empty; [.nw]##TPM-003## Green (0 ra
 
 [cols="30,42,28",options="header"]
 |===
-| Handling | Section 15 items | Carried by
+| Handling | Section 15 items (revision 8 final) | Carried by
 | Open Major, closes on a ruling (never a lien) | 27, 46, 52, 53 | K12; K11, K16; K9, K10
-| Major, Closed | 5, 9, 26, 28, 44, 50, 51, 57, 62, 63, 67 to 69, 72 to 74 | none (67, 68, 72 to 74 in revision 8)
-| Major, carried by R items before the declaration | 61, 75 | R19 (b) [.nw]##INSP-029## re-issue; R15
-| Minor, Closed | 1, 4, 6, 12 to 22, 24, 30 to 33, 35, 36, 39, 56, 59, 64, 65, 70 | none
+| Major, Closed | 5, 9, 26, 28, 44, 50, 51, 57, 62, 63, 67 to 69, 72 to 75 | none (75 in revision 8 final)
+| Major, carried by R items before the declaration | 61, 76 | R20: deck route of [.nw]##R15b-F1##
+| Minor, Closed or applied | 1, 4, 6, 12 to 22, 24, 30 to 33, 35, 36, 39, 56, 59, 64, 65, 70; 77 applied | none (77 residual: L-4)
 | Ruled by a decision | 7 and ConOps D5, D7, D18 of item 10 | K1 (36, 37)
 | Minor, record liens | 23, 25, 29, 34, 37, 40 to 43, 45, 47 to 49, 54, 60 | L-6
 | Minor, package level | 2, 3, 8, 11, 38, 55, 58, 66, 71; Minor ConOps D items | L-4 (55, 66 in L-5)
@@ -889,9 +888,9 @@ Prior trend: no prior review; the SRR log is empty; [.nw]##TPM-003## Green (0 ra
 --
 This is the first gate, so there is no trend to report: the SRR log is empty, and the review-trend TPM computed at 2026-09-26 is Green.
 During the review you can raise an RFA, which asks for an answer, an analysis or a plan, or a RID, which names a defect in a product; I log each one in rfa-rid-log.json and in the minutes against the slide.
-Package section 15 offers 75 candidate items, items 61 to 66 being the findings of the independent readiness review of revision 4, items 67 to 71 those found at the assembly of revision 6, and items 72 to 75 the findings R15-F1 to R15-F4 of the repeat readiness review of revision 6; none is a RID until you adopt it, and this slide accounts for every one of them by its handling.
-The four open Major items are the five open Major findings of slide 8; two Major items are carried by the remaining reviewer work: item 61, the readiness finding F-01, and the open part of item 75, both by the INSP-029 re-issue and the repeat of R15; every other Major item is Closed, including items 67 and 72, closed by R17, items 68 and 73 by R18, item 74 by the INSP-030 re-issue, and item 69, the consent re-check that moved decisions 42, 73 and 74.
-Every Minor item is either Closed or a lien to fix before PDR under the convergence rule: the record liens are L-6 and the package-level items L-4, now with item 71, the stale default of decision 94; item 58, the mislabelled revision on an earlier deck, is corrected by this deck.
+Package section 15 at revision 8 final offers 77 candidate items, items 61 to 66 being the findings of the independent readiness review of revision 4, items 67 to 71 those found at the assembly of revision 6, items 72 to 75 the findings R15-F1 to R15-F4 of the repeat readiness review of revision 6, and items 76 and 77 the findings R15b-F1 and R15b-F2 of the repeat readiness review of revision 8; none is a RID until you adopt it, and this slide accounts for every one of them by its handling.
+The four open Major items are the five open Major findings of slide 8; two Major items are carried by item R20 before the declaration: item 61, the readiness finding F-01, whose last open part is R20, and item 76, R15b-F1, the deck statuses that this update brings to revision 8 final; every other Major item is Closed, including items 67 and 72, closed by R17, items 68 and 73 by R18, item 74 by the INSP-030 re-issue, item 75 by the INSP-029 re-issue at a6e3518, and item 69, the consent re-check that moved decisions 42, 73 and 74.
+Every Minor item is Closed, applied or a lien to fix before PDR under the convergence rule: the record liens are L-6 and the package-level items L-4, with item 71, the stale default of decision 94, and any residual of item 77, R15b-F2, whose stale decision-row text was applied in revision 8 final; item 58, the mislabelled revision on an earlier deck, is corrected by this deck.
 Evidence: package sections 14 and 15 (open Major sentence and item table) and section 20.1; docs/reviews/SRR/rfa-rid-log.json; docs/process/01-lifecycle-and-reviews.md section 10.
 Question for Robin: do you adopt the four open Major items as Major RIDs, and the package-level Minor items as Minor RIDs carried by L-4?
 --
@@ -998,9 +997,9 @@ Question for Robin: do you want to rule the criteria now, or at the gate review 
 | [.nw]##L-1## | 101 L1, 25 L2, 4 TPM and 17 hazard-control TBRs, each by its own plan; the 14 SRR TBRs and [.nw]##TPM-014## are ruled here | Robin decides; Claude | PDR (L2 by CDR at the latest)
 | [.nw]##L-2## | S8: [.nw]##TPM-001##, [.nw]##TPM-016## have no estimate; bottom-up estimates in `budgets.md` | Claude | PDR readiness declaration
 | [.nw]##L-3## | S10: `docs/lessons-learned.md` absent; create it with the ten entries of section 19 | Claude | PDR readiness declaration
-| [.nw]##L-4## | Package-level Minor items 2, 3, 8, 11, 38, 55, 58, 71 and the open Minor ConOps D items | Claude or author | PDR readiness declaration
+| [.nw]##L-4## | Package-level Minor items 2, 3, 8, 11, 38, 55, 58, 71, any residual of item 77 and the open Minor ConOps D items | Claude or author | PDR readiness declaration
 | [.nw]##L-5## | Cross-document items due at PDR (03 X9, X10; 04 A11; SEMP F-06, F-15; OQ-SAF due PDR; tool pins; `docs/vv` traceability copy) | Claude | PDR readiness declaration
-| [.nw]##L-6## | Every Minor finding of the 30 records: 122 findings plus erratum E-10, "fix before PDR" | Each record's owner | PDR readiness declaration
+| [.nw]##L-6## | Every Minor finding of the 30 records: 123 findings plus erratum E-10 (package revision 8 final), "fix before PDR" | Each record's owner | PDR readiness declaration
 | [.nw]##L-7## | Package-level Routine items from revision 3: ADR citations in `source_ids`, tool rows, hazard-line stamps | Claude | PDR readiness declaration
 |===
 
@@ -1009,7 +1008,8 @@ Question for Robin: do you want to rule the criteria now, or at the gate review 
 Only Soft entrance shortfalls, Minor RIDs, Routine RFAs and TBRs with owner, plan and close-by may be liens; the Hard items of section 2 close before the declaration and are not proposed as liens.
 Lien L-1 carries only the TBRs whose plans close at PDR or later; the 14 L1 TBRs due at SRR and TPM-014 are ruled in the SRR memo through the key decisions and the consent agenda.
 The Soft shortfalls S8 and S10 are liens L-2 and L-3, and L-4 and L-5 carry the package-level Minor items and the cross-document items.
-L-6 is new in revision 4: under the lead SE convergence rule, every Minor finding of every record, 122 findings in revision 8 and the INSP-011 erratum E-10, is a lien to fix before PDR, and the reviewer of the owning record verifies each fix at its next iteration; revision 8 adds INSP-015 F-08 and F-09 from the delta verification of the record state rule, which moves the count from 120 to 122.
+L-6 is new in revision 4: under the lead SE convergence rule, every Minor finding of every record, 123 findings in revision 8 final and the INSP-011 erratum E-10, is a lien to fix before PDR, and the reviewer of the owning record verifies each fix at its next iteration; revision 8 added INSP-015 F-08 and F-09 from the delta verification of the record state rule, which moved the count from 120 to 122, and revision 8 final adds INSP-029 finding-7 from its re-issue, which moves it to 123.
+L-4 now also carries any residual of item 77, readiness finding R15b-F2, whose stale decision-row text was applied in revision 8 final.
 Each accepted lien becomes a Routine RFA raised by you, and a TBR lien keeps its requirement id.
 Evidence: package sections 20.1 and 20.2 (record-by-record lien table); docs/process/01-lifecycle-and-reviews.md section 12.2.
 Question for Robin: do you accept liens L-1 to L-7 as the plan for the later request?
@@ -1048,10 +1048,10 @@ Question for Robin: which of OA-3 to OA-7 and OA-9 can you do today?
 [.callout.warn]
 Requested now: no disposition; the gate review is not convened (review process section 4.2).
 
+* *Before this session:* R20, the [.nw]##INSP-029## delta pass of this deck; the [.nw]##INSP-029## re-issue and R15 are done
 * *This session:* your rulings on K1 to K17 and the consent agenda, OA-1, OA-2 and OA-9, and your decisions on the candidate RIDs
-* *Then (reviewers):* the [.nw]##INSP-029## re-issue and R15; after your rulings, R16 (Claude and reviewers)
-* *Then (you):* confirm readiness (S1); the gate review is convened
-* *At the gate review:* the request is *Approved with liens* L-1 to L-7 (L-6 is the 122 record liens)
+* *Then:* after your rulings, R16 (Claude and reviewers); then you confirm readiness (S1) and the gate review is convened
+* *At the gate review:* the request is *Approved with liens* L-1 to L-7 (L-6: 123 record liens plus E-10, revision 8 final)
 * *After your disposition:* the decision memo is written and committed, then Claude creates and pushes [.nw]##`baseline/srr`## ([.nw]##OA-8##)
 * *Logged:* every RFA or RID you raise today goes to `rfa-rid-log.json` and the minutes
 
@@ -1059,8 +1059,8 @@ Requested now: no disposition; the gate review is not convened (review process s
 --
 I am not asking you to approve, approve with liens or reject the SRR today, because the gate review is not convened and review process section 12.2 forbids carrying a Hard shortfall or a Major finding as a lien.
 What I ask of this session is your rulings on K1 to K17 and the consent agenda, the owner actions that fall today, and your decisions on the candidate RIDs.
-After the session, the reviewers finish the INSP-029 re-issue and the repeat readiness review R15, and the reviewers and I do the post-ruling work R16, which Hard rows 14, 15 and 20 close through; then you confirm readiness and I present the gate review.
-At the gate review I will request Approved with liens, with the seven liens of the previous slide; nothing is baselined until your disposition is transcribed into the decision memo and committed, and only then do I create the baseline/srr tag.
+The INSP-029 re-issue and the repeat readiness review R15 are done; item R20, the route for this deck, closes with the INSP-029 delta pass of this update before the presentation. After the session, the reviewers and I do the post-ruling work R16, which Hard rows 14, 15 and 20 close through; then you confirm readiness and I present the gate review.
+At the gate review I will request Approved with liens, with the seven liens of the previous slide, L-6 being the 123 record liens plus E-10 of package revision 8 final; nothing is baselined until your disposition is transcribed into the decision memo and committed, and only then do I create the baseline/srr tag.
 Evidence: package sections 2.1, 20.1 and 21; docs/process/01-lifecycle-and-reviews.md sections 4.2 and 12.2.
-Question for Robin: do you agree that no disposition is recorded in this session, and that the gate review follows the repeat readiness review and your confirmation?
+Question for Robin: do you agree that no disposition is recorded in this session, and that the gate review follows the post-ruling work R16 and your confirmation?
 --
