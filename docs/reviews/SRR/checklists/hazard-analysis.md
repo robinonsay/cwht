@@ -11,11 +11,13 @@ product: docs/safety/hazard-analysis.md
 # 0.4.2-pha; the blobs are the same at both). Iteration 1 blobs (0.3.0-pha) are in the body table;
 # iteration 2 re-read the uncommitted working-tree blobs hazard-analysis.md@c20281a7d6cf64f38d678537de895ca7908fc11f
 # and hazards.json@89d0cbc323b2775d326cf7cd42bc637818ec96eb (0.4.0-pha), which are not in the object store.
-# product_files: committed blobs re-reviewed at iteration 3 (git rev-parse HEAD:<path> at adcfe09, 2026-09-26)
-product_commit: "adcfe09"
-product_files: ["docs/safety/hazard-analysis.md@b5ce99e93b96b6a2654f7cbe9ac5e23b8a2e1dbb", "docs/safety/hazards.json@37d6cc832ed8f164e5f7e6e911a8656a56720c9f"]
+# Iteration 3 read b5ce99e9 and 37d6cc83 (0.4.2-pha) at adcfe09. The iteration 3 delta verification (package item R17)
+# reads the R9 status edit ade0e09 (0.4.3-pha), the last commit touching docs/safety/ at HEAD 860e84e.
+# product_files: git rev-parse HEAD:<path> at 860e84e, 2026-09-26
+product_commit: "ade0e09"
+product_files: ["docs/safety/hazard-analysis.md@49ec53f8bbde37558c1c113a656b2125cd3fdec2", "docs/safety/hazards.json@c6bf757e815bea0f8ba8d6b90d9a618875833a24"]
 data_file: docs/safety/hazards.json
-data_file_version: 0.4.2-pha
+data_file_version: 0.4.3-pha
 product_size: 15 hazards, 117 controls at iteration 1 and 118 at iteration 2, 24 open questions at iteration 1 and 26 at iteration 2, 23 single point failure entries
 sprint: SRR-prep
 author_agent: "author:hazards (hazard analysis author, system safety engineer role; revision 0.3.0-pha for SRR readiness items H7, H8, H9)"
@@ -23,12 +25,13 @@ reviewer_agent: "reviewer:hazards"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
+# iteration: stays 3 (validate_docs.py maximum); the R17 check of ade0e09 is the iteration 3 delta verification
 iteration: 3
 readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
-# finding-14 and finding-15 are new at iteration 2, finding-16 at iteration 3.
+# finding-14 and finding-15 are new at iteration 2, finding-16 at iteration 3; the iteration 3 delta verification raises none.
 # Iteration 3: Closed (Verified) 13 (Major 3, Minor 10); Lien: fix before PDR 3 (Minor: finding-14, 15, 16),
 # counted in findings_deferred (convergence rule of 2026-09-26, charter section 4 item 3)
 findings_major: 3
@@ -42,9 +45,9 @@ deferred_rids: []
 # iteration 3 answers (iteration 1: R1, R2, CK-SAF-A7, C2, C4, C5, C6, D2, D3, D5, F1, F3, G1, G2, G3, G5;
 # iteration 2: R1, CK-SAF-D5, CK-SAF-G1); both remaining No items carry only Minor liens
 items_no: [CK-SAF-D5, CK-SAF-G1]
-# effort: iteration 1 (46 turns, 55 min), iteration 2 (28 turns, 35 min), iteration 3 (36 turns, 45 min)
-effort_turns: 110
-effort_minutes: 135
+# effort: iteration 1 (46 turns, 55 min), iteration 2 (28 turns, 35 min), iteration 3 (36 turns, 45 min), iteration 3 delta verification (14 turns, 20 min)
+effort_turns: 124
+effort_minutes: 155
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -372,4 +375,43 @@ Disputed accepted: none; the author disputed no finding.
 
 ```
 ITERATION 3 (2026-09-26): VERDICT: APPROVED (with liens). Reviewed hazard-analysis.md b5ce99e9 and hazards.json 37d6cc83 at HEAD adcfe09. Closed 13 (finding-1 to finding-13; Major 3, Minor 10); Disputed accepted 0; Liens 3 (finding-14, finding-15, finding-16: Minor, fix before PDR); open Major 0. ConOps appendix D D6 and D10 hazard parts verified.
+```
+
+## Iteration 3 delta verification (2026-09-26, R9 status edit `ade0e09`; SRR package item R17)
+
+**Scope and independence.** Delta only: the hazard analysis author's status edit at `ade0e09` (revision 0.4.3-pha, package item R9), which sets OQ-SAF-007, OQ-SAF-025 and OQ-SAF-026 to Closed on the verification recorded at iteration 3 (finding-8 row and cross item 1). Base: the iteration 3 blobs `b5ce99e9` and `37d6cc83` (`ade0e09^`). Result: `hazard-analysis.md` `49ec53f8bbde37558c1c113a656b2125cd3fdec2` and `hazards.json` `c6bf757e815bea0f8ba8d6b90d9a618875833a24`, which are the HEAD blobs at `860e84e` (no commit after `ade0e09` touches `docs/safety/`; working tree clean). The reviewer is a new invocation of `reviewer:hazards`; it authored none of the product and edited none of it (charter section 11 rule 4). The convergence rule of 2026-09-26 (charter section 4 item 3) applies: no product content changes in this round, and Minor findings stay liens due PDR.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: "OQ-SAF-007 OQ-SAF-025 OQ-SAF-026 Closed INSP-008 iteration 3 verification 0.4.3-pha"; "validate_docs record state rule readiness_met verdict product_files drift"). Manual commands afterwards only read known paths and diffs. The tool was available throughout.
+
+**Method and results.**
+- `git show ade0e09 --name-only`: only `docs/safety/hazard-analysis.md` and `docs/safety/hazards.json` change.
+- `hazards.json`, structural Python diff of `ade0e09^` against `ade0e09` (every key, list length and value): exactly 7 differences. `version` 0.4.2-pha to 0.4.3-pha; for each of OQ-SAF-007, 025 and 026, `status` Answered to Closed and `resolution` extended. Each new `resolution` keeps the old text as an unchanged prefix (appended 284, 354 and 361 characters) and cites this record's iteration 3 finding-8 row with the evidence that iteration 3 verified: the dated F13 addendum at `docs/research/keyer-verification-and-key-input-network.md` line 238 (OQ-SAF-007); finding-5 and finding-6 Closed with 0 control pairs missing their hazard or control id (OQ-SAF-025); REQ-SYS-137 and 138 cite RSK-034, REQ-SYS-010 cites RSK-011, REQ-SYS-122 names a carrying risk per hazard, and REQ-SYS-113 stays Analysis with the OQ-VV-003 condition (OQ-SAF-026). These match the iteration 3 finding-8 row word for word in substance. `close_by` stays SRR. No hazard, control, cause, level, `history`, `tbr`, single point failure or requirement link changes.
+- `hazard-analysis.md`, line diff: 5 lines. Line 3 revision 0.4.2-pha to 0.4.3-pha; line 364 (section 11.2 lead-in) appends an "Update at 0.4.3-pha" sentence; lines 376, 394 and 395 (the OQ-SAF-007, 025 and 026 rows) read "Closed (0.4.3-pha, 2026-09-26)" with "verified by INSP-008 iteration 3"; one new section 13 row (line 433) records the status-only revision. Nothing else changes.
+- Consistency: recount over `hazards.json` gives 19 SRR-due questions at 9 Closed, 1 Answered (OQ-SAF-022) and 9 Open, as the line 364 update states, and 26 questions in all with 16 Open, as package section 18.1 revision 6 states. The section 11.2 row statuses equal the JSON statuses for the three questions. No em dash and no TBD added in either file.
+- `render_risk.py --check --gate SRR --hazards docs/safety/hazards.json`: exit 0 ("register OK: 65 risks, 159 candidates, 0 warning(s), jsonschema used, gate SRR, hazard cross-check").
+
+**Observation (no finding).** The new resolutions cite "Iteration 3 finding-8 row and answer 1"; the iteration 3 section numbers the relevant text as cross item 1, not an answer. The finding-8 row alone carries the evidence, so the citation resolves; recorded here for the author's next edit, not raised.
+
+**Liens unchanged.** The edit does not touch the text of finding-14 (OQ-SAF-006 `resolution` item 3), finding-15 (section 9 item 3 and section 8.1 item 5) or finding-16 (section 9 item 3 last sentence, section 8.1 item 7 lead-in, section 11.2 column header still "Status (2026-09-25)"); all three remain as at iteration 3.
+
+| Finding | Severity | Delta verification disposition | Evidence at HEAD `860e84e` |
+|---|---|---|---|
+| finding-14 | Minor | Lien: fix before PDR | OQ-SAF-006 `resolution` unchanged by `ade0e09` |
+| finding-15 | Minor | Lien: fix before PDR | Section 9 item 3 and section 8.1 item 5 unchanged by `ade0e09` |
+| finding-16 | Minor | Lien: fix before PDR | Stale prose unchanged; the 11.2 header still reads 2026-09-25 |
+
+finding-1 to finding-13 stay Closed (Verified) from iteration 3; the delta touches none of their evidence. Disputed accepted: none.
+
+**Delta verification answers.** R3 Yes (render_risk exit 0 above). CK-SAF-G1 stays No (Minor only; finding-14). R1 Yes for this product and record: `validate_docs.py` reports `PASS docs/safety/hazards.json` and `PASS docs/reviews/SRR/checklists/hazard-analysis.md` (no record drift: `product_files` equal the HEAD blobs). The run exits 1 (48 passed, 1 failed) only on `docs/reviews/SRR/checklists/tool-validation-tv-001-to-tv-010.md`, another record whose `product_files` name `tools/validate_docs.py` and its test at blobs older than HEAD after the R18 commits; outside this product and record. All other items stand as at iteration 3.
+
+**Commands run (2026-09-26, delta verification).**
+- `git show ade0e09 -- docs/safety/`, Python structural diff and line diff as above.
+- `render_risk.py --check --gate SRR --hazards docs/safety/hazards.json`: exit 0.
+- `validate_docs.py`: exit 1, 48 passed, 1 failed (the tool-validation record above, outside this product); this record and `hazards.json` PASS.
+- `python -m unittest discover -s tools/tests`: 400 run, 1 failure (`test_validate_docs.RepositoryTests.test_repository_exit_zero`, the same repository-wide exit 1 outside this product).
+
+**Verdict.** The R9 status edit is exactly the three status changes and their citations that iteration 3 verified, with the analysis consistent and no other change. No Major finding is open; finding-14, 15 and 16 remain Minor liens (fix before PDR). Readiness met. The verdict stays APPROVED with 3 liens (convergence rule). `record_status` stays for the lead SE (07 section 10.2).
+
+```
+ITERATION 3 DELTA VERIFICATION (2026-09-26): VERDICT: APPROVED (with liens). Delta-verified ade0e09 (0.4.3-pha): OQ-SAF-007, 025, 026 Closed with the iteration 3 citations; no other change. HEAD blobs hazard-analysis.md 49ec53f8, hazards.json c6bf757e. render_risk --check exit 0. Liens 3 (finding-14, 15, 16: Minor, fix before PDR); open Major 0.
 ```
