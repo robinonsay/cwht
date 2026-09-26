@@ -15,11 +15,16 @@ checklist_file: docs/reviews/SRR/checklists/cm-plan-05-software-assurance.md
 product: docs/process/05-configuration-and-data-management.md
 # product_commit: review baseline HEAD; the product blob is git rev-parse HEAD:<path> at that commit
 # (last commit touching 05 is 0ab3d6e; the same blob INSP-006 iteration 3 verified at adcfe09)
-product_commit: "ade0e097c51f27a4d28755161becf75064fc8bee"
+# iteration 1 baseline: ade0e097c51f27a4d28755161becf75064fc8bee. Iteration 2 (re-issue, package item R19 (b), no further
+# product review): HEAD 860e84e; git log ade0e09..HEAD on 05 is empty, so the product blob is unchanged
+product_commit: "860e84e6346d09d69f83f584bc94855c638b4531"
 product_blob: "63ed566240ffc7f055b65f93f579a6bb1498e9f1"
+# product_files: re-checked at the iteration 2 re-issue equal to git rev-parse HEAD:<path> and git hash-object at HEAD 860e84e
 product_files: ["docs/process/05-configuration-and-data-management.md@63ed566240ffc7f055b65f93f579a6bb1498e9f1"]
-# inputs read (not reviewed), committed blobs at ade0e09
-input_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/process/rmm.json@30fcde240eeb6a147359de8c5d8cdd93364dc9c8", "docs/process/00-charter.md@131608b78e178432e34f8eb9fc385dae07020c6d", "docs/templates/version-description.md@030e8865c656ea0924ecd0196e7e1c6076bede3d", "docs/templates/change-request.md@c1e03e6de00f6f81dd005e9ca243da633c2e29f6", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@d582073ec6067ac9a64030ce8b5d66971c27da13", "tools/toolchain.lock.md@2687fb04594ed4489ac43bdb4522f59faab6db51", "tools/validate_docs.py@33ab5a83fc2063071e1afece416b180518d9da12", "docs/reviews/SRR/checklists/cm-plan-05.md@d688ff4b1a139a348b2dcb983d3928f794a9a23f"]
+# inputs read (not reviewed), committed blobs at HEAD 860e84e. Iteration 1 read at ade0e09: tools/toolchain.lock.md@2687fb04,
+# tools/validate_docs.py@33ab5a83, docs/reviews/SRR/checklists/cm-plan-05.md@d688ff4b (the other six are unchanged since ade0e09);
+# the cm-plan-05.md blob now read carries the 05 author self-check filed at 8ef95d3 and the INSP-006 re-issue of 09d48be
+input_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/process/rmm.json@30fcde240eeb6a147359de8c5d8cdd93364dc9c8", "docs/process/00-charter.md@131608b78e178432e34f8eb9fc385dae07020c6d", "docs/templates/version-description.md@030e8865c656ea0924ecd0196e7e1c6076bede3d", "docs/templates/change-request.md@c1e03e6de00f6f81dd005e9ca243da633c2e29f6", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@d582073ec6067ac9a64030ce8b5d66971c27da13", "tools/toolchain.lock.md@0ad60317be7e509c1e1968d2d9f4813f3904253f", "tools/validate_docs.py@3aa0368147b9af3e6e1546f808afb7aedf7f2226", "docs/reviews/SRR/checklists/cm-plan-05.md@b2cf5a0e2338cd1aadeaa82769a5602057c28426"]
 product_size: 16 sections, 672 lines; Table 4-1 with 55 rows, Tables 4-2 and 6-1; release procedure of 12 steps (section 8.1), FCA-01 to FCA-10, PCA-01 to PCA-10
 sprint: SRR-prep
 author_agent: "author:cm-plan (Claude lead SE, CM function; revision 3 of 2026-09-25 with the 2026-09-26 edits of Table 4-1 row 13 and AL-15)"
@@ -30,16 +35,19 @@ assurance_required: true
 # author (author:cm-plan) and from the file reviewer of the paired record INSP-006 (reviewer:cm-plan)
 assurance_reviewer_agent: "sa-reviewer:cm-plan (software assurance function; paired file review INSP-006 by reviewer:cm-plan)"
 paired_record: INSP-006
-iteration: 1
-# readiness_met: false on R3 only (no author self-check of 05 against section G is on record; package item R7,
-# decision 115). R1, R2, R4 hold for the product; R5 N/A.
-readiness_met: false
+# iteration 2: re-issue without a further product review (package item R19 (b); R15-F3); see "Iteration 2" at the end
+iteration: 2
+# readiness_met: iteration 1 false on R3 only (no author self-check of 05 on record). Iteration 2 true: R3 is met by the
+# 05 author self-check filed at 8ef95d3 in docs/reviews/SRR/checklists/cm-plan-05.md (package item R7; INSP-006 cross item X-5);
+# R1 and R4 Met, R2 and R5 N/A as answered at iteration 1.
+readiness_met: true
 # reviewer_verdict and assurance_verdict: APPROVED (with liens) under the lead SE convergence rule of 2026-09-26:
-# 0 Major, 4 Minor, every Minor a lien "fix before PDR". Record verdict held at NEEDS CHANGES by readiness R3 only
-# (tools/validate_docs.py refuses APPROVED without readiness_met), as in INSP-006, INSP-010 and INSP-018.
+# 0 Major, 4 Minor, every Minor a lien "fix before PDR". Iteration 1 record verdict was NEEDS CHANGES on readiness R3 only.
+# Iteration 2 record verdict APPROVED (with liens finding-1 to finding-4): reviewer and assurance APPROVED, readiness met,
+# no Major finding open, the named product blob equals HEAD (07 section 10.2; SWE-088 b, c)
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
 findings_minor: 4
 findings_open: 0
@@ -51,9 +59,11 @@ assurance_findings_major: 0
 assurance_findings_minor: 4
 assurance_tasks_applied: [swe-079 7.1 task 1, swe-080 7.1 task 1, swe-080 7.1 task 2, swe-080 7.1 task 3, swe-081 7.1 task 1, swe-081 7.1 task 2, swe-082 7.1 task 1, swe-082 7.1 task 2, swe-083 7.1 task 1, swe-084 7.1 task 1, swe-085 7.1 task 1, swe-085 7.1 task 2, swe-063 7.1 task 1, swe-063 7.1 task 2, swe-136 7.1 task 1, swe-187 7.1 task 1, swe-187 7.1 task 2, swe-013 7.1 task 1]
 deferred_rids: []
-items_no: [R3, CK-REQ-G1, CK-REQ-G3, CK-REQ-G4, SA-080-1, SA-081-2, SA-082-1, SA-063-1, SA-063-2, SA-136-1]
-effort_turns: 42
-effort_minutes: 60
+# items_no: iteration 2 answers (R3 moved from No to Yes at the re-issue; every other answer unchanged)
+items_no: [CK-REQ-G1, CK-REQ-G3, CK-REQ-G4, SA-080-1, SA-081-2, SA-082-1, SA-063-1, SA-063-2, SA-136-1]
+# effort: iteration 1 42 turns, 60 min; iteration 2 (re-issue) 20 turns, 25 min
+effort_turns: 62
+effort_minutes: 85
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -189,4 +199,68 @@ FINDINGS:
 - [Minor] SA-081-2 05 Table 4-1 row 25 and CSA item 2: safety-critical code not identified as a CI set (finding-4). Lien: fix before PDR
 ITEMS N/A: R2, R5, SA-085-2; CK-REQ-A1 to A7, B1 to B7, C1 to C8, D1 to D4, E1 to E6, F1 to F4 (product is a plan)
 MEASUREMENTS: size=672 lines; items=32; no=10; major=0; minor=4; lien=4; open_major=0; iteration=1; turns=42; minutes=60
+```
+
+## Iteration 2: re-issue (2026-09-26, SRR package item R19 (b), readiness finding R15-F3; no further product review)
+
+**Scope and independence.** Written by a new invocation of `sa-reviewer:cm-plan` in the reviewer role (software assurance function). It did not author 05, the RMM, the 05 author self-check or INSP-006, and it edited no product file and no other record; the text above this section is the iteration 1 record and is left as written (audit trail). The only hold of iteration 1 was readiness R3 ("Why" in the R3 row and the front matter comment of iteration 1); it was not a finding. The convergence rule of 2026-09-26 (charter section 4 item 3) applies: no product content changes in this run, and every Minor finding stays a lien, "fix before PDR".
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: "author self-check of 05 CM plan against checklist section G readiness R3 cm-plan-05"; the tool was available and its first hit was the INSP-006 re-issue text on R3, its fifth the INSP-006 re-issue banner). `grep -n`, `sed -n`, `awk` and `git` were used afterwards only to pin lines, read the `8ef95d3` diff and check blobs; known paths were read directly.
+
+**Product state.** HEAD `860e84e6346d09d69f83f584bc94855c638b4531`, working tree clean for this record's product. `git rev-parse HEAD:docs/process/05-configuration-and-data-management.md` = `63ed566240ffc7f055b65f93f579a6bb1498e9f1`, the blob of `product_files`; `git log ade0e09..HEAD` on 05 is empty (17 commits since the iteration 1 baseline, none touching 05). No delta verification is needed. Of the inputs, six are unchanged; three changed and were re-read: `tools/toolchain.lock.md` (`0ad60317`; only the TV-003 row for the R18 validator run changed, the git 2.50.1 and picotool v2.3.0 rows that CK-REQ-G7 relies on are unchanged, and `git --version` and `picotool version` on this machine still print them), `tools/validate_docs.py` (`3aa03681`, the R18 record state rule) and `docs/reviews/SRR/checklists/cm-plan-05.md` (`b2cf5a0e`, carrying the author self-check). No finding or answer of iteration 1 cites a changed line.
+
+**Readiness R3 against the 05 author self-check (`8ef95d3`).** R3 of `docs/templates/peer-review-checklist-requirements.md` revision C reads "The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria". This record uses the same checklist and revision on the same product blob as INSP-006, so the self-check filed in INSP-006 is the author return R3 asks for here (iteration 1 R3 row: "This record's verdict follows the INSP-006 R3 outcome"; INSP-006 re-issue cross item X-5; package item R19 (b)). Checked against the `8ef95d3` diff:
+- It is filed by `author:cm-plan` (the `author_agent` of this record) and is insertions only in `cm-plan-05.md`: 48 lines, one appended section; no reviewer field of INSP-006 or of this record was touched.
+- It lists five acceptance criteria AC-1 to AC-5, each with source and result, and states why they are taken from the governing documents (no author brief for revisions 2 and 3 is on record). Each traces to a governing document and none is weaker than the checklist.
+- It answers every applicable item for "plans and process documents" (CK-REQ-A8 and G1 to G8; A1 to F4 N/A for a plan) with evidence.
+- It names the product blob it checked, `63ed5662`, equal to this record's `product_files` and to HEAD.
+
+R3 is therefore **Yes**. The INSP-006 reviewer reached the same answer at `09d48be`.
+
+**Differences between the author's answers and this record's (observation O-5, not a finding).** The self-check was filed at `8ef95d3`, before this record existed (`898d582`), so it could not respond to finding-1 to finding-4. Its CK-REQ-G3 and CK-REQ-G4 answers are Yes, while this record answers No on finding-1 (software assurance has no part in CR assessment or release) and finding-2 (RMM SWE-136, SWE-063, SWE-085 against 05 sections 9.2, 13 and 4.4). The reviewer's answers govern (the self-check says so of its own table: "the reviewer's answers above govern"); R3 asks that the self-check be stated, not that it agree. Its author statement "disputes no finding", and nothing in it contradicts the evidence of finding-1 to finding-4. The software assurance items SA-NNN-n are SWEHB section 7.1 tasks applied by this reviewer and are outside the checklist sections A to G that R3 names. The author's item S-1 (Table 4-2 annotations) is a file-review matter carried by INSP-006 observation O-6 and lien L-2; S-3 (the assurance pairing) is discharged by this record.
+
+**Spot checks of the self-check claims used here, at HEAD `860e84e`.** 0 em dashes (U+2014) and 0 whole-word `TBD` in 05 (AC-4, R4); `git version 2.50.1 (Apple Git-155)` and `picotool v2.3.0` equal the lock (G7). The Table 4-1 matching of AC-3 was checked by this reviewer at iteration 1 (1,069 of 1,069) and is not re-run: 05 is unchanged, and files added since are outside this re-issue.
+
+**Findings at iteration 2.** No finding changes state and no new finding is raised.
+
+| Finding | Severity | State | Closes on |
+|---|---|---|---|
+| finding-1 | Minor | Lien: fix before PDR | Lien table row finding-1 (05 author; CR template owner) |
+| finding-2 | Minor | Lien: fix before PDR | Lien table row finding-2 (RMM owner; 05 author) |
+| finding-3 | Minor | Lien: fix before PDR | Lien table row finding-3 (05 author; `tools/release.sh` author) |
+| finding-4 | Minor | Lien: fix before PDR | Lien table row finding-4 (05 author with the software design author) |
+
+No Major finding exists; `findings_open` stays 0 and `findings_deferred` 4.
+
+**Answers changed at iteration 2.** R3 changes from No to Yes. Every other answer of iteration 1 stands: R1 Yes for the product, R2 N/A, R4 Yes, R5 N/A; CK-REQ-G1, G3, G4 No on the liens; SA-080-1, SA-081-2, SA-082-1, SA-063-1, SA-063-2, SA-136-1 No on the liens; every other item Yes or N/A as recorded.
+
+**Completion criteria (SWE-088 b, c; 07 section 10.2) at iteration 2: met.** Reviewer verdict APPROVED; assurance verdict APPROVED; readiness met; zero open Major findings; the named product blob equals HEAD. `verdict: APPROVED` (with liens finding-1 to finding-4). The paired file review INSP-006 already carries `paired_record: INSP-030` and `assurance_verdict: APPROVED`, equal to this record's assurance verdict (01 section 13 paired form), so no INSP-006 change follows. `record_status` stays Open for the software lead, who sets Closed when the four liens are dispositioned (07 section 10.2).
+
+**Cross items at iteration 2 (outside this record's scope, returned to Claude).**
+- **X-1 (open, unchanged).** CR-001 independent and software assurance assessment before package decision 108.
+- **X-2 (open, unchanged).** `docs/process/configuration-status.md` and `docs/cm/deviations.md` still do not exist at `860e84e`; 05 section 13 row SRR lists the first CSA.
+- **X-3 (INSP-006 part done; tool part open).** INSP-006 names this record (`09d48be`). `tools/validate_docs.py` `ASSURANCE_WHOLE_PRODUCTS` (blob `3aa03681`, line 253) still omits 05 and TS-002.
+- **X-4 (in progress elsewhere).** The INSP-008 drift is package item R17; `hazard-analysis.md` is modified in the working tree by another invocation at the time of these runs and is not part of this commit.
+- **X-6 (new).** `tools/validate_docs.py` now fails `docs/reviews/SRR/checklists/tool-validation-tv-001-to-tv-010.md` (INSP-015, APPROVED) by the record drift rule: it names `tools/validate_docs.py@33ab5a83` and `tools/tests/test_validate_docs.py@4fb5bcc7`, while HEAD holds `3aa03681` and `c70d2c93` after the R18 commit `96af250`. The INSP-015 reviewer delta-verifies the R18 change against TV-003 run 6 and re-records the blobs. Not a defect of 05.
+- **X-7.** Package section 2 row H1 (d), section 2.1 item R19 (b), section 2.4 row INSP-030, and row 12 of the entrance checklist: record verdict APPROVED with liens finding-1 to finding-4 (R15-F3 answered).
+
+**Tool runs (iteration 2, 2026-09-26, HEAD `860e84e`, repository root, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (with this record edited) | 1 | 48 passed, 1 failed, 49 checked; this record PASS as a peer_review_record with `verdict: APPROVED` (record state rule of `3aa03681`); the failure is `tool-validation-tv-001-to-tv-010.md` (cross item X-6). `hazard-analysis.md` PASS on another invocation's working-tree edit (X-4) |
+| `-m unittest discover -s tools/tests` | 1 | 400 tests, 1 failure: `test_validate_docs.RepositoryTests.test_repository_exit_zero`, the repository-content test, on the X-6 failure above |
+| `tools/traceability.py --report-only` | 0 | 238 requirements, 170 test cases, 0 violations, 3 warnings (REQ-SYS-125 and REQ-SYS-148 `SYS_UNALLOCATED`; REQ-SW-KEYER-039 `HAZARD_INVERSE`); none concerns 05; `docs/vv/traceability-report.md` and `traceability.json` restored with `git checkout` (lien L-5) |
+| `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | 65 risks, 159 candidates, 0 warnings, hazard cross-check passes; `register.md` current |
+| `git rev-parse HEAD:<05>`; `git log ade0e09..HEAD -- <05>` | 0 | `63ed5662`, equal to `product_files`; empty |
+| `git --version`; `picotool version` | 0 | `git version 2.50.1 (Apple Git-155)`; `picotool v2.3.0`; equal to the lock |
+
+**Measurements (SWE-089) at iteration 2.** Items re-checked: 1 (R3) plus the product-blob and pairing checks; items answered No: 9 (front matter `items_no`); findings 0 Major, 4 Minor, all Lien; fixed 0, verified 0, deferred 4. Iteration 2: 20 agent turns, 25 minutes (totals 62 turns, 85 minutes).
+
+```
+ITERATION 2 (2026-09-26, HEAD 860e84e, package item R19 (b)): VERDICT: APPROVED (with liens finding-1 to finding-4)
+READINESS: R1 Yes (product), R2 N/A, R3 Yes (05 author self-check at 8ef95d3), R4 Yes, R5 N/A
+PRODUCT: docs/process/05-configuration-and-data-management.md@63ed566240ffc7f055b65f93f579a6bb1498e9f1 (unchanged since ade0e09)
+FINDINGS: finding-1 to finding-4 Minor, Lien: fix before PDR; no new finding; count of open Major findings 0
+MEASUREMENTS: items=32; no=9; major=0; minor=4; lien=4; open_major=0; iteration=2; turns=62; minutes=85
 ```
