@@ -43,7 +43,8 @@ Template: `docs/templates/version-description.md`. Requirement: SWE-063 (a versi
 | `cwht-FW-vX.Y.Z.uf2` | | | Drag-and-drop flashing in BOOTSEL mode (converted from the trailer-complete ELF) |
 | `firmware.map` | | | Linker map (memory budget evidence) |
 | `picotool-info.txt` | | | Read-back of binary info |
-| `SHA256SUMS` | n/a (the manifest itself) | | Manifest of the four files above (CM plan §8.1 step 4 e) |
+| `flavours/<flavour>/cwht-FW-vX.Y.Z-<flavour>.elf` and `.uf2` (one pair per test flavour, if built) | | | Instrumented or fault-injection build for credited Bench runs only; Cargo feature named here; never delivered on a unit (CM plan §8.1, build flavours) |
+| `SHA256SUMS` | n/a (the manifest itself) | | Manifest of the files above (CM plan §8.1 step 4 e) |
 
 | Image integrity (CM plan §8.1 step 4; 07 CS-32, SWE-134 f) | Value |
 |---|---|

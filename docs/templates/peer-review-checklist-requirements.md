@@ -15,7 +15,7 @@
 # id: next free INSP-NNN (never reused, charter section 6)
 id: INSP-NNN
 checklist: peer-review-checklist-requirements
-checklist_revision: B
+checklist_revision: C
 # checklist_file: this record's own path
 checklist_file: docs/reviews/<REVIEW>/checklists/<product-slug>.md
 # product: exact path, or CR-NNN
@@ -73,14 +73,14 @@ date_closed: null
 
 | Product type | Applicable sections and items |
 |---|---|
-| Requirement files, any level (`docs/requirements/**/requirements.json`: SYS L1; RX, TX, PWR, CTL, ME and the firmware-wide SW file at L2; the software module files `docs/requirements/sw/sw-<sub>/requirements.json`, L2 module files in the charter's numbering) | A to F |
-| Change Requests that touch requirements | A to F for every added or changed requirement, plus B7 and readiness R5 |
+| Requirement files, any level (`docs/requirements/**/requirements.json`: SYS L1; RX, TX, PWR, CTL, ME and the firmware-wide SW file at L2; the software module files `docs/requirements/sw/sw-<sub>/requirements.json`, L2 module files in the charter's numbering) | A to F, and one row per requirement in the per-requirement validation table (WR-01 to WR-14 and V1 to V6) |
+| Change Requests that touch requirements | A to F for every added or changed requirement, plus B7 and readiness R5, and one per-requirement validation row for each added or changed requirement |
 | Stakeholder expectations `docs/requirements/l0-stakeholder/expectations.json` (NGO, MOE and success-criterion records) | A3, A4, A5, A7, A8; B1 to B3 (the parent is the `SI-NNN` or `CON-NNN` source); E4 (every MOE is observable and measurable); F1 to F3. Not applicable: A1, A2, A6 (NGO and MOE records are not "shall" statements and carry `NGO-`/`MOE-` ids, charter section 6), B4 to B7, C, D, E1 to E3, E5, E6, F4, G |
 | ConOps `docs/conops/conops.md` (`OPS-NNN` scenarios, SE HB App. S) | A3, A4, A8; B4 (each scenario names the NGOs and MOEs it exercises; both key types where keying is involved); C5 and C6 (state names match the architecture; off-nominal scenarios present); F2; G1, G2. Others not applicable |
 | Plans and process documents: `docs/process/07-software-engineering-plan.md`, the software section of `docs/vv/plan.md`, every `docs/process/0N-*.md`, `docs/plan/semp.md`, `docs/plan/technology-assessment.md` (SWE-087 b) | G (all items) and A8 |
 | ADRs, until a dedicated checklist exists (the section G fallback of `docs/process/08-agent-briefing.md` section 3.1); trade studies use `docs/templates/peer-review-checklist-risk.md` section B | G1, G2, G7, G8 and A8 |
 
-**Governing:** charter section 7 (writing rules, SE HB App. C), charter section 11 rule 4 (independence), SE HB §4.2.1.2.4 (six validation checks), NPR 7150.2D SWE-050, SWE-051, SWE-052, SWE-055, SWE-184, SWE-087, SWE-088, SWE-089; `docs/process/07-software-engineering-plan.md` section 10 (procedure) and section 2.1.1 (when the software assurance review is required). **Used by:** an independent reviewer agent that did not author the file; a second, software assurance reviewer where the table of plan section 2.1.1 says Yes. The assurance reviewer applies the `# 7. Software Assurance` section of the SWEHB pages for the SWEs the file implements (`docs/references/md/swehb/swe-050-*.md`, `swe-051-*.md`, `swe-184-*.md`, `swe-134-*.md`) and SWEHB topic `6-2` (checklist for general software safety requirements), writes its verdict and findings into the same record and lists the tasks applied in `assurance_tasks_applied`.
+**Governing:** charter section 7 (writing rules, SE HB App. C), charter section 11 rule 4 (independence), SE HB §4.2.1.2.4 (six validation checks), `docs/process/02-requirements-and-traceability.md` section 4.2 (writing rules WR-01 to WR-14, the single banned-word list) and section 5 (validation steps V1 to V6 and the per-requirement record row), NPR 7150.2D SWE-050, SWE-051, SWE-052, SWE-055, SWE-184, SWE-087, SWE-088, SWE-089; `docs/process/07-software-engineering-plan.md` section 10 (procedure) and section 2.1.1 (when the software assurance review is required). **Used by:** an independent reviewer agent that did not author the file; a second, software assurance reviewer where the table of plan section 2.1.1 says Yes. The assurance reviewer applies the `# 7. Software Assurance` section of the SWEHB pages for the SWEs the file implements (`docs/references/md/swehb/swe-050-*.md`, `swe-051-*.md`, `swe-184-*.md`, `swe-134-*.md`) and SWEHB topic `6-2` (checklist for general software safety requirements), writes its verdict and findings into the same record and lists the tasks applied in `assurance_tasks_applied`.
 
 Answer every item Yes, No or N/A with evidence (requirement id and field, or section number). Every No is a finding with a severity: **Major** (the requirement would be wrong, unverifiable, untraceable, unsafe or ambiguous; blocks `APPROVED`) or **Minor** (editorial or completeness item fixed before the next gate).
 
@@ -88,11 +88,75 @@ Answer every item Yes, No or N/A with evidence (requirement id and field, or sec
 
 This file, copied to `docs/reviews/<REVIEW>/checklists/<product-slug>.md`, is the single peer-review record for the product (charter section 5; plan section 10.2). The slug is `requirements-<module>` for a requirement file, `cr-NNN` for a Change Request, `plan-<document-stem>` for a plan or process document, `expectations`, `conops` or `adr-nnn` for the other product types (a trade study is reviewed with `docs/templates/peer-review-checklist-risk.md`, slug `ts-nnn-<slug>`). `<REVIEW>` is the next gate the product feeds. The front matter above is the first thing in the file, unfenced.
 
-### Findings (filled by the reviewer and the assurance reviewer)
+### Findings (filled by the reviewer and the assurance reviewer; the owner ruling column is transcribed by Claude at the review)
 
-| Finding | Origin | Severity | Item | Location | Description | State | Deferred to |
-|---|---|---|---|---|---|---|---|
-| F-01 | reviewer or assurance | Major or Minor | CK-REQ-xx | id and field, or section | what is wrong and what would fix it | Open, Fixed, Verified or Deferred | `RID-<REVIEW>-NNN` and the owner decision reference, for Deferred only |
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-1"></a>finding-1 | reviewer or assurance | Major or Minor | CK-REQ-xx or WR-NN or Vn | id and field, or section | what is wrong and what would fix it | Open, Fixed, Verified or Deferred | Pending, `Adopt as RID RID-<REVIEW>-NNN`, `Adopt as RFA RFA-<REVIEW>-NNN` or `No action` | `RID-<REVIEW>-NNN` and the owner decision reference, for Deferred only |
+
+Finding rules: ids are `finding-<n>`, numbered from 1 in this record, each with the anchor `<a id="finding-<n>"></a>` in its first cell so that `checklists/<product-slug>.md#finding-<n>` resolves (01 section 13); `tools/validate_docs.py` finds findings only by that `finding-<n>` pattern. A writing-rule failure or a failed validation step is a finding like any other: its Item names the WR id (severity per 02 section 4.2: Major for WR-01, WR-03, WR-04, WR-05, WR-07, WR-11 and WR-13, Minor for the others) or the step V1 to V6 and the CK-REQ item of the mapping below. One finding may cover several requirements when the defect and the fix are the same; its Location lists them. The reviewer writes `Pending` in the owner ruling column; Claude transcribes the owner's ruling (*Adopt as RID*, *Adopt as RFA* or *No action*, 01 section 10.1) at the review. `tools/validate_docs.py` rejects `verdict: APPROVED` while any line holding a `finding-<n>` id also holds the words `Major` and `Open`, so write the state only in the State column and keep severity and state words out of the per-requirement table below. Replace the placeholder row above; do not leave it in a filed record.
+
+### Per-requirement validation (requirement files and CRs; 02 sections 4.2 and 5; SE HB §4.2.1.2.4)
+
+One row per requirement in the file, in id order, retired entries included; for a CR, one row per added or changed requirement. With the findings table, this table is the V1 to V6 validation record that 02 section 5 requires for every L1 requirement before SRR and for every L2 requirement before PDR (02 section 12). The columns are those of 02 section 5, in its order.
+
+| Requirement | WR failures | V1 | V2 | V3 | V4 | V5 | V6 | CK-REQ items answered No | Disposition |
+|---|---|---|---|---|---|---|---|---|---|
+| REQ-<MOD>-NNN | none | Pass | Ready: customer, user | Pass | Pass | Pass | Pass | none | Pass |
+
+| Column | Allowed values and rule |
+|---|---|
+| WR failures | `none`, or the ids of the 02 section 4.2 rules the requirement fails (WR-01 to WR-14). Copy the lint hits of `tools/traceability.py` for the rules 02 marks "tool" first, then judge every rule, including the cases the lint cannot see. A retired entry reads `retired` and is checked only against 02 section 11.3 (status `Closed`, tag `retired`, no `tbr` object, `rationale` beginning `Retired by `); its V1 to V6 cells read `N/A` |
+| V1 | `Pass` when WR failures is `none` and the tool reports no violation for the id; `Fail` otherwise |
+| V2 | `Ready:` followed by the `role` values of the stakeholder groups of 02 section 3.0 (`expectations.json` `stakeholders`) whose inputs the requirement traces to, for example `Ready: customer, user, regulator`, when every `source_id` resolves, the statement reflects the cited `SI`, `NGO`, `MOE` or `OPS` entry, and the core-input coverage of the 02 section 5 V2 criterion holds; `Fail` otherwise. The named groups are the ones Robin's confirmation speaks for (02 section 3.0 representation rule). The reviewer prepares V2; Robin performs it, and his confirmation is recorded in the V2 block below |
+| V3 | `Pass`, or `Fail` followed by the failing letters of the 02 section 5 V3 criterion: (a) trace to a baselined expectation, (b) `Assumes:` items, (c) phase success criteria, (d) ICD values, (e) `Depends on:` items, (f) regulatory text, (g) `Fault tolerance:` item; for example `Fail (b, d)` |
+| V4 | `Pass` or `Fail` against the 02 section 5 V4 criterion |
+| V5 | `Pass` or `Fail` against the 02 section 5 V5 criterion |
+| V6 | `Pass` or `Fail` against the 02 section 5 V6 criterion. At SRR every T-18 unallocated listing (from `tools/traceability.py` once T-18 is implemented, otherwise the by-hand listing of the review package, 02 section 8.5) is confirmed or corrected in this column; a necessity that is not obvious is argued in the V6 notes below |
+| CK-REQ items answered No | `none`, or the section A to F item ids this requirement fails |
+| Disposition | `Pass` when every cell passes (V2 `Ready:`, WR failures `none`). Otherwise the ids of the findings that carry the failures (`finding-<n>`, every `Fail` and every WR failure is in a finding); after the owner's ruling at the review Claude replaces them with the `RID-<REVIEW>-NNN` the owner adopted, or with `Pass` once every such finding is `Verified` or ruled *No action*. `Retire finding-<n>` when the reviewer finds the requirement redundant, unnecessary or superseded and the finding states the reason; before the level's baseline the author retires it per 02 section 11.3 with a `rationale` beginning `Retired by INSP-NNN: ` (this record's id) that names `checklists/<product-slug>.md#finding-<n>`, and the cell then reads `Retire`. The final values are those of 02 section 5: `Pass`, `RID-<REVIEW>-NNN` or `Retire` |
+
+Writing rules (quick reference; 02 section 4.2 holds the pass tests and the single banned-word list, which is not copied here):
+
+| Id | Rule | Lint (02 section 4.2 "tool") | Severity of a failure | Checklist items (02 section 5 mapping) |
+|---|---|---|---|---|
+| WR-01 | Terms | tool | Major | CK-REQ-A1 |
+| WR-02 | Form and voice | reviewer | Minor | CK-REQ-A1 |
+| WR-03 | One thought | reviewer | Major | CK-REQ-A2 |
+| WR-04 | Quantified | reviewer | Major | CK-REQ-A3 |
+| WR-05 | Implementation-free | reviewer | Major | CK-REQ-A5 |
+| WR-06 | Product, not operations or tasks | reviewer | Minor | none (judged directly) |
+| WR-07 | No unverifiable or ambiguous words | tool | Major | CK-REQ-A4 |
+| WR-08 | Positive form | reviewer | Minor | none (judged directly; record why a `shall not` is admitted) |
+| WR-09 | Level and location | reviewer | Minor | CK-REQ-B1, CK-REQ-F3 |
+| WR-10 | Rationale content (02 section 4.3) | reviewer | Minor | CK-REQ-A7 |
+| WR-11 | Verification assigned at definition | reviewer | Major | CK-REQ-E1, CK-REQ-E2 |
+| WR-12 | TBD/TBR | tool | Minor | readiness R4 |
+| WR-13 | Traceability fields | reviewer | Major | CK-REQ-B1, CK-REQ-B5, CK-REQ-B6 |
+| WR-14 | Editorial and schema | tool, partly | Minor | CK-REQ-A6, CK-REQ-A8 |
+
+Validation steps (quick reference; the pass criteria are those of 02 section 5, not copied here):
+
+| Step | Question (SE HB §4.2.1.2.4) | Who | Checklist section (02 section 5 mapping) |
+|---|---|---|---|
+| V1 | Are the requirements written correctly? | Reviewer | A, plus WR-06 and WR-08 judged directly |
+| V2 | Do the requirements satisfy stakeholders? | Robin, for every stakeholder group of 02 section 3.0, with the reviewer's trace | B4 evidence and Robin's confirmation |
+| V3 | Are the requirements technically correct? | Reviewer | C |
+| V4 | Are the requirements feasible? | Reviewer | D |
+| V5 | Are the requirements verifiable? | Reviewer, test-author agent consulted | E |
+| V6 | Are the requirements redundant or over-specified? | Reviewer | F |
+
+V2 confirmation (one row per stakeholder group of 02 section 3.0; the reviewer fills the first three columns, Claude transcribes Robin's confirmation):
+
+| Stakeholder group (`name` and `role`) | `represented_by` | Requirements whose V2 cell names the group (count), and those marked `Fail` (ids) | Robin's confirmation (decision memo `docs/reviews/<REVIEW>/decision-memo.md` item and date) |
+|---|---|---|---|
+| <`name` from `expectations.json` `stakeholders`>, <`role`> | <`represented_by`> | | |
+
+V6 notes (only for requirements whose necessity is not obvious, and for every duplication between levels):
+
+| Requirement | Worst outcome if omitted, or the level that keeps a cross-level duplicate (SE HB §6.2.1.2.3) |
+|---|---|
+| REQ-<MOD>-NNN | |
 
 ## Readiness criteria (all true before the review starts)
 
@@ -190,15 +254,15 @@ Author agent (not present); reviewer agent; software assurance reviewer where th
 
 ## Completion criteria (SWE-088 b, c)
 
-`verdict: APPROVED` when: readiness R1 to R5 were true; every applicable item answered and the others listed as N/A; zero open Major findings; every Minor finding fixed, or deferred with an owner decision reference and a gate; the front matter is complete with the measurements (SWE-089) filled; where plan section 2.1.1 says Yes the assurance reviewer has returned `APPROVED` (`assurance_verdict`); and `.venv/bin/python tools/validate_docs.py` passes on the record itself. Findings stay Open in the record until the software lead marks them Verified after re-reading the corrected file. On record closure each Deferred finding becomes `RID-<REVIEW>-NNN` in the `rfa-rid-log.json` of its named gate, citing this `INSP-NNN` and the finding id, and is listed in `deferred_rids` (plan section 10.2).
+`verdict: APPROVED` when: readiness R1 to R5 were true; every applicable item answered and the others listed as N/A; for a requirement file or CR, the per-requirement validation table has a row for every requirement in scope with every WR and V1 to V6 cell filled, every `Fail` and every WR failure carried by a finding, and the V2 block names every stakeholder group of 02 section 3.0; zero open Major findings; every Minor finding fixed, or deferred with an owner decision reference and a gate; the front matter is complete with the measurements (SWE-089) filled; where plan section 2.1.1 says Yes the assurance reviewer has returned `APPROVED` (`assurance_verdict`); and `.venv/bin/python tools/validate_docs.py` passes on the record itself. Findings stay Open in the record until the software lead marks them Verified after re-reading the corrected file. On record closure each Deferred finding becomes `RID-<REVIEW>-NNN` in the `rfa-rid-log.json` of its named gate, citing this `INSP-NNN` and the finding id, and is listed in `deferred_rids` (plan section 10.2).
 
 ## Verdict format (returned by the reviewer)
 
 ```
 VERDICT: APPROVED | NEEDS CHANGES
 FINDINGS:
-- [Major] CK-REQ-A3 REQ-SW-KEYER-004 description: "quickly" is unverifiable; state the latency in ms with a bound.
-- [Minor] CK-REQ-A7 REQ-SW-KEYER-006 rationale: cite OPS-003.
+- [Major] CK-REQ-A4 (WR-07, V1) REQ-SW-KEYER-NNN description: "quickly" is unverifiable; state the latency in ms with a bound.
+- [Minor] CK-REQ-A7 (WR-10) REQ-SW-KEYER-NNN rationale: cite the OPS-NNN scenario that exercises it.
 ITEMS N/A: CK-REQ-G1 to CK-REQ-G8 (product is a requirements file)
-MEASUREMENTS: size=14 requirements; turns=3; minutes=12; major=1; minor=1
+MEASUREMENTS: size=N requirements; rows=N; rows_with_wr_failures=N; v_fail=V1:N V2:N V3:N V4:N V5:N V6:N; turns=N; minutes=N; major=N; minor=N
 ```

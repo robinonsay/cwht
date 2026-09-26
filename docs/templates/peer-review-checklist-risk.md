@@ -105,7 +105,7 @@ This file, copied to `docs/reviews/<REVIEW>/checklists/<product-slug>.md`, is th
 | CK-RSK-A1 | `/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/render_risk.py --check --gate <REVIEW> --hazards /Users/robinonsay/rust/cwht/docs/safety/hazards.json` exits 0 (validation, stale-render comparison, gate and hazard link rules in one command) | tool output, pasted |
 | CK-RSK-A2 | Every *Proposed* risk has been checked against sections 4 to 8 and moved to *Open*, or a defect is recorded as a finding | risk list above |
 | CK-RSK-A3 | Every statement has one departure or one family admitted by the section 4 family rule, a dated or cited condition, and no solution language | `statement` of each risk |
-| CK-RSK-A4 | Every likelihood rationale names its anchor; every consequence rationale names the driving dimension | `likelihood_rationale`, `consequence_rationale` |
+| CK-RSK-A4 | Every likelihood rationale names its anchor or its band-argument case (section 6, anchor availability) and meets that case's level rule; every consequence rationale names the driving dimension | `likelihood_rationale`, `consequence_rationale` |
 | CK-RSK-A5 | Every Red risk has at least two active steps with artifacts and due gates, one trigger with actor and timing, a fallback, a strategy of Mitigate, Research or Elevate, and, from its first gate review, a `plan_approval` naming the decision memo, ADR or CR that records the owner's approval | `mitigation` of each Red risk |
 | CK-RSK-A6 | Every Red risk has a REQ or HZ link (from PDR on) | `related` |
 | CK-RSK-A7 | Every hazard with unverified controls has a linked risk and the link is two-way | CK-RSK-A1 output; `docs/safety/hazards.json` `related_risk_ids` |
@@ -125,8 +125,8 @@ This file, copied to `docs/reviews/<REVIEW>/checklists/<product-slug>.md`, is th
 | CK-RSK-B5 | Every score cell links evidence and carries a confidence | evaluation matrix |
 | CK-RSK-B6 | The weighted totals recompute correctly | recomputation by the reviewer |
 | CK-RSK-B7 | The uncertainty and sensitivity statement follows 06 section 14.4, including method limitations, and its verdict is consistent with the recommendation | report section 6 |
-| CK-RSK-B8 | Every surviving alternative has its risks listed in the four-part format on the 06 section 6 and 7 scales | report section 8 |
-| CK-RSK-B9 | The recommendation is the highest total, or the deviation is explained and the criteria revised | report section 7 |
+| CK-RSK-B8 | Every surviving alternative has its risks listed in the four-part format on the 06 section 6 and 7 scales | report section 7 |
+| CK-RSK-B9 | The recommendation is the highest total, or the deviation is explained and the criteria revised | report section 8 |
 | CK-RSK-B10 | The Dissent section is present (even if "none") and the Decision section is empty until the owner decides | report sections 9 and 10 |
 
 ## Completion criteria (SWE-088 b, c)

@@ -17,8 +17,8 @@ Superseded and add the superseding ADR id; a changed decision is a new ADR.
 | Status | Proposed \| Accepted \| Superseded by ADR-MMM \| Rejected |
 | Date proposed | YYYY-MM-DD |
 | Date decided | YYYY-MM-DD |
-| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 class 1, item (a) to (g) named; trade study TS-NNN required) \| 2 (section 14.1 class 2) |
-| Decision authority | Robin, when any of these holds: the choice is class 1 (06 section 14.1 items (a) to (g)); it changes or fixes baseline content, including functional-baseline content before SRR; it spends money; it accepts a risk or approves a Red-risk mitigation plan (06 section 8; charter section 4 item 4) \| Claude, only for a class 2 choice that meets none of these (the owner sees the ADR in the next review package) |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 class 1, item (a) to (h) named; trade study TS-NNN required) \| 2 (section 14.1 class 2) |
+| Decision authority | Robin, when any of these holds: the choice is class 1 (06 section 14.1 items (a) to (h)); it changes or fixes baseline content, including functional-baseline content before SRR; it spends money; it accepts a risk or approves a Red-risk mitigation plan (06 section 8; charter section 4 item 4) \| Claude, only for a class 2 choice that meets none of these (the owner sees the ADR in the next review package) |
 | Author | Claude (or the author agent invocation) |
 | Independent reviewer | Reviewer agent invocation and date, with the checklist result (Pass / findings) |
 | Life-cycle phase | Pre-A / A / B / C / D |
@@ -50,7 +50,7 @@ Include the values chosen (numbers with units) and the scope (which modules, whi
 | B | | |
 | C | | |
 
-<!-- A class 1 choice (06 section 14.1 items (a) to (g)) requires TS-NNN: cite it here and
+<!-- A class 1 choice (06 section 14.1 items (a) to (h)) requires TS-NNN: cite it here and
 keep this table to the option names and the one-line outcome. An ADR without a TS is admitted
 only for class 2. Fill this table even when only one option is viable, and include "do
 nothing" where it is an option (SE HB §6.8.1.2.2: document a decision matrix for a major

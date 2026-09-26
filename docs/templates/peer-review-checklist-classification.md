@@ -2,7 +2,10 @@
 # Peer-review record front matter (charter section 5; docs/process/03-software-classification-and-rmm.md
 # section 3.3). To record the independent classification assessment, copy this whole file to
 # docs/reviews/<REVIEW>/checklists/classification-03-software-classification-and-rmm.md: that copy
-# is the single peer-review record of the assessment (there is no peer-reviews/ folder). Fill every
+# is the single peer-review record of the assessment (there is no peer-reviews/ folder). The software
+# assurance review of the same product is the paired record
+# docs/reviews/<REVIEW>/checklists/classification-03-software-classification-and-rmm-software-assurance.md
+# with its own INSP-NNN (07 section 10.2); each record's paired_record names the other's id. Fill every
 # field below, answer CL-1 to CL-9 and fill the findings table. Both front-matter parsers (PyYAML and
 # the subset parser of tools/validate_docs.py) strip a comment on its own line and a comment written
 # after a value (" # ..."); this template keeps each comment on its own line for readability, and
@@ -75,7 +78,7 @@ Answer CL-1 to CL-9 with **Concur** or **Dissent** (or the per-item or differenc
 
 ## Record
 
-This file, copied to `docs/reviews/<REVIEW>/checklists/classification-03-software-classification-and-rmm.md`, is the single record of the independent classification assessment (charter section 5; 03 sections 3.3 and 9). The slug follows the `<type>-<product-stem>` rule of `docs/process/01-lifecycle-and-reviews.md` section 13 with type `classification`, so it does not collide with the section G plan review of the same document (`plan-03-software-classification-and-rmm.md`). `<REVIEW>` is SRR for the first assessment and the gate of each re-run (PDR, CDR; 03 section 4.1 step 5). The SRR decision memo section 7.1 cites this record's `INSP-NNN`.
+This file, copied to `docs/reviews/<REVIEW>/checklists/classification-03-software-classification-and-rmm.md`, is the single record of the independent classification assessment (charter section 5; 03 sections 3.3 and 9). The software assurance review of the same product is filed as the paired record `docs/reviews/<REVIEW>/checklists/classification-03-software-classification-and-rmm-software-assurance.md`, with its own `INSP-NNN` and `paired_record` naming this record's id (07 section 10.2); this record's `paired_record` names the assurance record's id. The slug follows the `<type>-<product-stem>` rule of `docs/process/01-lifecycle-and-reviews.md` section 13 with type `classification`, so it does not collide with the section G plan review of the same document (`plan-03-software-classification-and-rmm.md`). `<REVIEW>` is SRR for the first assessment and the gate of each re-run (PDR, CDR; 03 section 4.1 step 5). The SRR decision memo section 7.1 cites this record's `INSP-NNN`.
 
 ### Findings (filled by the reviewer and the assurance reviewer)
 

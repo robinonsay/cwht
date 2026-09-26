@@ -24,6 +24,9 @@ section 3.5 (identity, order, owner, creation, pairing, baseline). Outline: SE H
 Copy to docs/icd/ICD-<A>-<B>.md. Fill every section; a section that does not apply reads
 "Not applicable: <reason>" and is never deleted, so a reviewer can see it was considered.
 No TBD anywhere; an estimated value is written with "(TBR)" and a row in section 6.
+The two Security expectations rows (sections 3.2.5 and 3.2.6; 02 section 3.5 Content
+row) are never deleted: ICD-CTL-KEY fills the 3.2.5 row, ICD-CTL-USB and ICD-SW-HOST fill
+the 3.2.6 row, and every other ICD marks each row Not applicable with its reason.
 Front matter is YAML in the parser subset of 04 section 7.4 (scalars and inline lists only;
 comments on their own lines once the file is filled).
 Every physical interface carries at least one rendered figure (charter section 11 rule 3).
@@ -129,6 +132,12 @@ Not applicable on cwht (no fluid interfaces).
 |---|---|---|---|---|---|---|
 | | | | | | | |
 
+<Security expectations for a signal line that could carry an injected command (02 section 3.5 Content row; 07 section 16.2). ICD-CTL-KEY fills this row here, because its key line is a signal interface and is the command-injection surface of the 07 section 16.2 row "Keying and control inputs". Every other ICD keeps the row and writes "Not applicable: " followed by the reason, for example "no signal line at this plane is read as data or commands", or writes "Stated in section 3.2.6" when the interface has a data path.>
+
+| Item | Definition | Side responsible |
+|---|---|---|
+| Security expectations | **Accepts:** <what each side accepts at the plane, with its bound; for ICD-CTL-KEY, tip and ring contact closures read as a two-bit signal that feeds only the keyer state machine (CS-30), debounced and rate-limited (CS-29)>. **Rejects:** <each input the side refuses and the response it takes, with the time limit; for ICD-CTL-KEY, no key-line gesture changes configuration or state outside the keyer (CS-30); a stuck closure ends at the key-down timeout (SWE-134 g, j)>. **Logs:** <the event-log entry each rejection or anomaly writes (07 section 16.5; SWE-210 as tailored), or "none" with the reason>. **Basis:** <07 section 16.2 row; `RSK-NNN` tagged `cyber`; the `REQ-` ids of section 4 that implement each statement> | <A>, and <B> for any statement about what the external side delivers |
+
 #### 3.2.6 Software and data
 
 | Item | Definition | Side responsible |
@@ -139,6 +148,9 @@ Not applicable on cwht (no fluid interfaces).
 | Timing (latency, period) | | |
 | Error detection and response | | |
 | Initialization and status | | |
+| Security expectations | **Accepts:** <the images, commands or data each side accepts and the check each passes, for example only a release image from `firmware/releases/` whose CRC-32 trailer verifies at boot before any safety-critical output (CS-32), or only the read-only diagnostic commands plus `reboot` (CS-33)>. **Rejects:** <each input the side refuses, with the response and the state it leaves the unit in, for example an image whose trailer fails is not run and the unit stays in its safe state>. **Logs:** <the event-log entry each rejection writes (07 section 16.5; SWE-210 as tailored), or "none" with the reason>. **Basis:** <07 section 16.2 row (asset and surface); `RSK-NNN` tagged `cyber`; the `REQ-` ids of section 4 that implement each statement> | <A>, and <B> for any statement about what the other side delivers |
+
+<Security expectations row (02 section 3.5 Content row; NPR 7123.1D App. G Table G-4 success criterion 4, system security expectations of external interfaces; charter section 12; 07 section 16.2). Required and filled in ICD-CTL-USB (firmware loading over the USB bootrom loader) and ICD-SW-HOST (bootloader and serial command set). ICD-CTL-KEY fills the row of section 3.2.5 and writes "Stated in section 3.2.5" here. Every other ICD keeps the row and writes "Not applicable: " followed by the reason, for example "the interface carries no data or command path". A row with an estimated value carries "(TBR)" and a section 6 row; no TBD.>
 
 #### 3.2.7 Environments
 

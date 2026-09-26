@@ -251,7 +251,7 @@
       "target": "budget minus contingency",
       "tc_ids": [],
       "tpm_ids": ["TPM-014"],
-      "note": "The cost model's 2026-09-25 envelope of USD 970 to 1830 includes the USD 120 to 160 instrument line and is for three radios; the cost-model owner (Claude) moves the instrument to a separate line outside the unit budget and states the SI-035 and ADR-025 quantities before the SRR readiness declaration (SEMP appendix F)"
+      "note": "The cost model (revised 2026-09-26) states the unit budget for three complete units under ADR-025 and SI-035 as USD 828 to 1644 (unit lines plus exactly 20 % contingency), with the committed USD 120 to 160 instrument line and its contingency outside it (total envelope USD 972 to 1836); SEMP appendix F item F-13 resolved"
     },
     {
       "id": "MOP-017",
@@ -353,7 +353,7 @@
       "planned_value_text": "Provisional allocations: transmit key-down 10.0 W DC at 5 W RF (TPM-004 efficiency >= 60 % gives 8.3 W in the final stage plus 1.7 W for driver, synthesizer, controller and display); transmit key-up 1.5 W; receive 0.5 W. These allocations give about 18 h at 1:9 on 2 x 3000 mAh derated to 19 Wh, so the 8 h battery-life target of ADR-020 (TPM-008) has headroom. The transmit allocation is fixed with TS-003 (PA device and line-up) and TS-006 (ALC and envelope topology) of docs/design/concept.md section 11.2; the pack is fixed by SI-023 and ADR-005",
       "tbr": {
         "owner": "Claude (lead SE), approval by Robin",
-        "plan": "TS-003 and TS-006 fix the transmit allocation and TS-001 and TS-002 the receive allocation; approved in the PDR decision memo",
+        "plan": "TS-003 and TS-006 fix the transmit allocation and TS-001 and TS-NNN-synthesizer-reference the receive allocation; approved in the PDR decision memo",
         "close_by": "PDR"
       },
       "margin_policy": {
@@ -432,6 +432,24 @@
           "overdue": 0,
           "closure_fraction_at_gate": null,
           "zone": "Green"
+        },
+        {
+          "review": "SRR",
+          "date": "2026-09-26",
+          "cbe": null,
+          "status": "green",
+          "evidence": "docs/reviews/SRR/figures/review-trend.png",
+          "credit": false,
+          "note": "SRR log docs/reviews/SRR/rfa-rid-log.json: closure fraction at T; zone reasons: overdue 0 and no Major RID or Blocking RFA open from a dispositioned review; tools/review_trend.py (process indicator, credit not applicable)",
+          "log_review": "SRR",
+          "raised": 0,
+          "open": 0,
+          "verified_pending": 0,
+          "closed": 0,
+          "withdrawn": 0,
+          "overdue": 0,
+          "closure_fraction_at_gate": null,
+          "zone": "Green"
         }
       ]
     },
@@ -442,7 +460,7 @@
       "category": "project",
       "npr_ref": "SE-60",
       "mop_id": "MOP-005",
-      "definition": "Drain efficiency of the final amplifier stage: RF power delivered to a 50 ohm load at 146.00 MHz divided by DC power into the final stage, at the 5 W step (thermal dissipation follows: about 4 to 7 W while keyed, docs/conops/conops.md handling row).",
+      "definition": "Drain efficiency of the final amplifier stage: RF power delivered to a 50 ohm load at 146.00 MHz divided by DC power into the final stage, at the 5 W step (thermal dissipation follows: the final stage dissipates about 3.3 W at 60 percent; 4 to 7 W is the whole-chain figure of docs/research/keyer-verification-and-key-input-network.md F13 item 4, at 42 to 56 percent line-up efficiency; docs/conops/conops.md handling row).",
       "units": "percent",
       "formula": "P_rf_W / P_dc_final_stage_W * 100",
       "data_source": "hardware/sim/pa/ LTspice transient decks with automated checker (pre-build); SAR bench measurement",
@@ -517,9 +535,9 @@
       "formula": "max(|f_actual - f_displayed|) / f_displayed * 1e6 over the stated envelope",
       "data_source": "docs/design/budgets.md frequency budget (TCXO datasheet terms summed worst case plus synthesizer step); SAR bench and on-air comparison",
       "planned_value": null,
-      "planned_value_text": "Provisional target <= +/-2.5 ppm (+/-365 Hz at 146 MHz) over the operating span and one year: the TCXO total-tolerance ceiling of ADR-023 (proposed, owner decision at SRR; specified over -10 to +50 C, which covers the -10 to +45 C operating span of NGO-026) that keeps every keying sideband inside 144.000 to 148.000 MHz with the carrier limited to 144.001 to 147.999 MHz (NGO-011); TS-002 (synthesizer and reference, SI-029, docs/design/concept.md section 11.2) fixes the grade below that ceiling",
+      "planned_value_text": "Provisional target <= +/-2.5 ppm (+/-365 Hz at 146 MHz) over the operating span and one year: the TCXO total-tolerance ceiling of ADR-023 (proposed, owner decision at SRR; specified over -10 to +50 C, which covers the -10 to +45 C operating span of NGO-026) that keeps every keying sideband inside 144.000 to 148.000 MHz with the carrier limited to 144.001 to 147.999 MHz (NGO-011); the synthesizer and reference trade study (TS-NNN-synthesizer-reference, number assigned at creation; SI-029, docs/design/concept.md section 11.2) fixes the grade below that ceiling",
       "tbr": {
-        "owner": "Robin (owner) for the operating span and the ADR-023 ceiling at SRR; Claude (lead SE) for the ppm value via TS-002, approved by Robin",
+        "owner": "Robin (owner) for the operating span and the ADR-023 ceiling at SRR; Claude (lead SE) for the ppm value via TS-NNN-synthesizer-reference, approved by Robin",
         "plan": "Span ratified in the SRR decision memo with the ConOps; ppm value fixed by the trade study and written into REQ-SYS and REQ-TX; approved in the PDR decision memo",
         "close_by": "PDR"
       },
