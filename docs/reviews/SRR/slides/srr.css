@@ -125,6 +125,51 @@ html, body, .reveal-viewport { background: #ffffff; }
 .reveal .tableblock caption { display: none; }
 .reveal table.dec td, .reveal table.dec th { padding: 6px 12px; }
 
+/* Key-decision tables: one or two key decisions per slide */
+.reveal table.key td, .reveal table.key th { padding: 6px 12px; }
+.reveal table.key td:first-child { width: 70px; }
+.reveal .why, .reveal .why p { font-size: 28px; color: var(--srr-ink-2); margin: 0 0 14px 0; line-height: 1.25; }
+.reveal .why strong { color: var(--srr-navy); }
+
+/* Numbered steps (opening action) */
+.reveal ol li { font-size: 30px; margin-bottom: 16px; }
+
+/* Status boards drawn in the deck (entrance, success, readiness items).
+   Lanes: nm = Not met or Open, pm = Partially met or Closed in part, ok = Met or Closed. */
+.reveal .board { display: flex; gap: 26px; align-items: stretch; margin: 0 0 14px 0; }
+.reveal .lane {
+  flex: 1 1 0;
+  border: 2px solid var(--srr-grid);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+  padding-bottom: 8px;
+}
+.reveal .lane.w12 { flex-grow: 1.25; }
+.reveal .lane.w08 { flex-grow: 0.75; }
+.reveal .lane-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 18px;
+  margin-bottom: 8px;
+  font-size: 32px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--srr-grid);
+}
+.reveal .lane.nm { border-color: #d06a6a; }
+.reveal .lane.nm .lane-head { background: var(--srr-red-bg); color: var(--srr-red); border-color: #d06a6a; }
+.reveal .lane.pm { border-color: #d9a441; }
+.reveal .lane.pm .lane-head { background: var(--srr-yellow-bg); color: var(--srr-yellow); border-color: #d9a441; }
+.reveal .lane.ok { border-color: #5cae5c; }
+.reveal .lane.ok .lane-head { background: var(--srr-green-bg); color: var(--srr-green); border-color: #5cae5c; }
+.reveal .brow { display: flex; gap: 12px; padding: 2px 16px; font-size: 28px; line-height: 1.2; }
+.reveal .brow.gap { padding-top: 5px; padding-bottom: 5px; }
+.reveal .brow .bid { flex: 0 0 64px; font-weight: 600; white-space: nowrap; }
+.reveal .brow .blab { flex: 1 1 auto; }
+.reveal .board.ids .brow .bid { flex-basis: 90px; }
+.reveal .brow .btag { flex: 0 0 auto; color: var(--srr-ink-2); }
+.reveal .board-note { font-size: 28px; color: var(--srr-ink-2); margin: 0; line-height: 1.25; }
+
 /* Images */
 .reveal img { max-width: 100%; max-height: none; margin: 0; }
 .reveal .imageblock { margin: 0; text-align: left; }
