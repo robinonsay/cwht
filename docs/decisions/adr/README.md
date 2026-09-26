@@ -2,6 +2,8 @@
 
 Records of decisions that constrain later work (charter section 5 row "Architecture Decision Records", section 6 id `ADR-NNN`, section 11 rule 6). Process: `docs/process/06-risk-and-decision-analysis.md` section 14 (decision classes, ADR versus trade study, revisiting). Template: `docs/templates/adr.md`. Decision reporting follows SE HB §6.8 (decision needed, criteria, alternatives, evaluation, recommendation, final decision) in the one-page ADR form; a decision that compares alternatives against weighted criteria is a trade study `docs/decisions/trade-studies/TS-NNN-*.md`, and the ADR then records the chosen option.
 
+**INSP-011 corrections (2026-09-25).** The independent review INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`) found the decision class, assumptions, hazard lines, section 4.1 ids and several values out of date. The Proposed ADRs (ADR-015, ADR-022, ADR-023) carry the fixes in the file, ADR-026 restates ADR-010 with the aligned values, and ADR-025's status line is corrected. The Accepted ADRs are not edited (rule 2); their corrections are held in [`reconciliation-srr.md`](reconciliation-srr.md) sections 2 to 6, which control until the owner rules on the route (ruling R-1 there). Read each Accepted ADR together with its rows in that register.
+
 ## Rules
 
 1. One ADR records one decision. File name `ADR-NNN-<slug>.md`; `NNN` is `max(existing) + 1`, three digits, never reused. `tools/traceability.py` resolves `ADR-NNN` in requirement `source_ids` to the file whose name starts with `ADR-NNN`.
@@ -24,7 +26,7 @@ Records of decisions that constrain later work (charter section 5 row "Architect
 | [ADR-007](ADR-007-pcbway-turnkey-smt-kit-model.md) | PCBWay turnkey surface-mount assembly with owner-soldered through-hole parts (kit model) | Accepted | Robin | SI-009, SI-031 | pcbway-fabrication-and-assembly F15 to F22; pcbway-export-and-vendor-questions Parts 1 to 3; display-and-ui-parts F17, F18 | RSK-004, TPM-014; charter section 12 row "Assembly model" |
 | [ADR-008](ADR-008-openscad-freecad-step-pcbway-cnc.md) | Enclosure authored in OpenSCAD, exported to STEP through headless FreeCAD, machined by PCBWay CNC in aluminum | Accepted | Robin | SI-008, SI-032 | enclosure-cnc-and-openscad-pipeline A1 to A11, B1 to B6; verification-tooling-inventory F11; antenna-and-erp F8 | HZ-003, RSK-006, ICD-TX-ANT, TPM-001, TPM-014 |
 | [ADR-009](ADR-009-straight-key-and-paddle-trs.md) | Straight key and iambic paddle on one 3.5 mm TRS jack with a built-in keyer | Accepted | Robin | SI-018, SI-034 | keyer-and-key-interfaces F1 to F3, F7, F11; keyer-verification-and-key-input-network F2 to F6, F11, F13, F14; display-and-ui-parts F17 to F19 | HZ-004, RSK-012, SW-KEYER, ICD-CTL-KEY, TPM-013 |
-| [ADR-010](ADR-010-semi-break-in-only.md) | Semi break-in only; full QSK excluded from rev A | Accepted | Robin | SI-036, SI-035 | tr-switch-candidates F4, F5, recommendation; keyer-and-key-interfaces F9; keyer-verification-and-key-input-network F11 | HZ-004, TPM-013; T/R trade study at PDR |
+| [ADR-010](ADR-010-semi-break-in-only.md) | Semi break-in only; full QSK excluded from rev A | Accepted (ADR-026 proposed to supersede it) | Robin | SI-036, SI-035 | tr-switch-candidates F4, F5, recommendation; keyer-and-key-interfaces F9; keyer-verification-and-key-input-network F11 | HZ-004, TPM-013; T/R trade study at PDR |
 | [ADR-011](ADR-011-host-first-software-verification.md) | Host-first software verification through rustos api traits; emulation optional and never for timing | Accepted | Robin | SI-026, SI-010 | rustos-toolchain-proof F2, F7, F8, F13; rp2350-emulation-options; emulator-accreditation-and-timer-irq F5 to F13; keyer-verification-and-key-input-network F8, F9 | RSK-003, ACC-EMU-001 (proposed), 04 section 4 and 5.2 |
 | [ADR-012](ADR-012-pa-device-sourcing-constraint.md) | Power-amplifier device must be stocked at DigiKey, Mouser or a PCBWay turnkey distributor | Accepted | Robin | SI-028 | pa-device-candidates F2 to F14, F16, F18, F21; pcbway-fabrication-and-assembly F17, F18 | RSK-005, TPM-004, TPM-007, TPM-014; PA trade study at PDR |
 | [ADR-013](ADR-013-synthesizer-by-cost-performance-trade.md) | Synthesizer selected by a cost and performance trade study at PDR | Accepted | Robin | SI-029 | 2m-cw-transceiver-reference-designs F16 to F21, Table 2; cw-selectivity-options 12 to 14; power-tree-and-charging F23 | RSK-002, RSK-005, TPM-002, TPM-006, TPM-008; synthesizer TS at PDR |
@@ -39,14 +41,16 @@ Records of decisions that constrain later work (charter section 5 row "Architect
 | [ADR-022](ADR-022-harmonic-suppression-target.md) | Harmonic and spurious suppression: 60 dB design target above the 53 dB regulatory floor at 5 W | Proposed, pending owner decision at SRR | Robin | SI-014, SI-003 | part97-regulatory-basis F2; pa-device-candidates F1, F16 to F18, F20; regulatory-corpus-and-operators F9; tr-switch-candidates TR-05 | RSK-001, RSK-011, TPM-007 (planned value reconciliation) |
 | [ADR-023](ADR-023-tcxo-and-band-edge-guard.md) | Frequency reference TCXO of plus or minus 2.5 ppm or better and a 1 kHz band-edge guard | Proposed, pending owner decision at SRR | Robin | SI-014, SI-024, SI-033 | regulatory-corpus-and-operators F7, F8; part97-regulatory-basis F11; keyer-verification-and-key-input-network F11, F12; 2m-cw-transceiver-reference-designs F20, F21 | RSK-002, TPM-006; ADR-013, ADR-016 |
 | [ADR-024](ADR-024-keyer-speed-range.md) | Keyer speed range 5 to 50 WPM | Accepted | Robin | SI-033, SI-018 | keyer-and-key-interfaces F4, F6; keyer-verification-and-key-input-network F7, F8, F11, F14; regulatory-corpus-and-operators F6, F7; tr-switch-candidates F4 | HZ-004, RSK-012, TPM-013, SW-KEYER |
-| [ADR-025](ADR-025-build-quantity-cap.md) | Build quantity: five boards fabricated, three assembled, a hard cap of five complete units | Accepted (SI-035 default; assembled count confirmed at CDR) | Robin | SI-035, SI-019, SI-025 | pcbway-export-and-vendor-questions F21 to F23; pcbway-fabrication-and-assembly F20, F22; part97-regulatory-basis F9 | RSK-008, TPM-014, 47 CFR 15.23 |
+| [ADR-025](ADR-025-build-quantity-cap.md) | Build quantity: five boards fabricated, three assembled, a hard cap of five complete units | Accepted | Robin | SI-035, SI-019, SI-025 | pcbway-export-and-vendor-questions F21 to F23; pcbway-fabrication-and-assembly F20, F22; part97-regulatory-basis F9 | RSK-008, TPM-014, 47 CFR 15.23 |
+| [ADR-026](ADR-026-semi-break-in-hang-and-lead-in.md) | Semi break-in only, with a 3 to 30 dit hang and a constant lead-in (supersedes ADR-010 on acceptance) | Proposed, pending owner decision at SRR (package decision 47) | Robin | SI-036, SI-035 | tr-switch-candidates F4, F5; keyer-verification-and-key-input-network F11, D-KN4 | HZ-004, HZ-005, HZ-008, REQ-SYS-044, REQ-SYS-161, TPM-013; INSP-011 F-04 |
 
 ## Decisions expected at PDR (not yet ADRs)
 
-Recorded here so the numbering plan is visible; each becomes `ADR-026` onward when decided, and each trade study produces exactly one ADR (06 section 14.2).
+Recorded here so the numbering plan is visible; each becomes `ADR-027` onward when decided (ADR-026 is the proposed successor of ADR-010), and each trade study produces exactly one ADR (06 section 14.2). The TS-001 and TS-002 drafts each produce one new ADR when decided.
 
-- Receiver architecture and CW selectivity (candidates A and B of `docs/research/cw-selectivity-options.md`): trade study, then ADR.
-- Synthesizer and TCXO grade (ADR-013 method; ADR-023 ceiling): trade study, then ADR.
+- Receiver architecture, CW selectivity and PA device-and-supply concept (candidates A and B of `docs/research/cw-selectivity-options.md`): trade study `docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md` (decided at PDR), then one ADR at the next free number.
+- Firmware runtime and HAL (make/buy, NPR 7150.2D section 6.1 item t): trade study `docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md` (decided at SRR), then one ADR at the next free number, citing ADR-004 and ADR-019.
+- Synthesizer and TCXO grade (ADR-013 method; ADR-023 ceiling): trade study, then ADR. The study takes the next free TS number when created (`TS-NNN-synthesizer-reference`, 06 section 13 item 3); the label TS-002 first proposed in `docs/design/concept.md` section 11.2 now belongs to the firmware make/buy study.
 - PA device and ALC topology (ADR-003, ADR-012, ADR-022 constraints): trade study, then ADR.
 - T/R element within semi break-in (ADR-010 scope): trade study, then ADR.
 - Power tree parts: charger, protector, holders, buck, LDO (ADR-005 proposals): trade study, then ADR.
@@ -55,12 +59,12 @@ Recorded here so the numbering plan is visible; each becomes `ADR-026` onward wh
 - rustos work packages, one ADR each when the trait shape is fixed (ADR-019).
 - Enclosure alloy, finish and the build123d comparison on the smoke-test shell (ADR-008): ADR.
 - Board thickness 1.0 mm versus 1.6 mm, via fill method, panelization (ADR-007): ADR.
-- Audio chain (PWM baseline with DNP I2S footprint, TPA6132A2, level policy) and display parts (ADR-006): trade study or ADR per 06 section 14.1.
+- Audio chain (PWM baseline with DNP I2S footprint, TPA6132A2, level policy) and display parts (ADR-006): trade study, because the display is a critical part (06 section 14.1 class 1 (b)) and the level policy touches HZ-005 (class 1 (c)), then ADR.
 - rustos pinning method (CM plan OQ-5): ADR.
 
 ## Open items for the owner at SRR (from the ADRs above)
 
-1. ADR-015, ADR-022, ADR-023 need a disposition (Proposed).
+1. ADR-015, ADR-022, ADR-023 and ADR-026 need a disposition (Proposed); ADR-026 is package decision 47.
 2. ADR-002 section 2: confirm the five-point meaning of "70 cm-ready".
 3. ADR-013 section 2: confirm the USD 15 per unit cost band for "costs are similar".
 4. ADR-020: TPM-008's duty definition and target must change to 8 h at 1:9 (TPM owner).
@@ -68,3 +72,6 @@ Recorded here so the numbering plan is visible; each becomes `ADR-026` onward wh
 6. ADR-010: TPM-013 sub-measure (b) latency of 5 ms is not reachable with a relay first-element lead-in; restate at PDR.
 7. ADR-011: `docs/process/07-software-engineering-plan.md` section 17.1 names `rp2350-emu` while the accreditation study proposes c1570/rp2350js as `ACC-EMU-001`; the PDR emulator ADR resolves it.
 8. ADR-025: confirm the SI-035 default (3 assembled) or choose 5 assembled at CDR.
+9. INSP-011 route for the Accepted ADRs: ruling R-1 of `reconciliation-srr.md` section 7 (recommended: one-time pre-baseline correction).
+10. Class 1 choices recorded without a trade study: ruling R-2 of `reconciliation-srr.md` section 7 (customization of 06 section 14.1).
+11. ADR-022: the reference point of the filter goals and the third band of REQ-TX-011 (`reconciliation-srr.md` section 5.2 row V-5).

@@ -6,9 +6,10 @@
 | Status | Proposed, pending owner decision at SRR |
 | Date proposed | 2026-09-25 |
 | Date decided | pending (SRR) |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 item (c): touches HZ-006, whose controls K3 (receive-only guest lock) and K8 (operator model OPS-A) this ADR proposes, and the receive-only guest lock of `SW-TXSEQ` in `docs/process/07-software-engineering-plan.md` section 14.1). No TS: this is a proposal from research, admitted without a TS only if the owner's SRR disposition applies the customization of `reconciliation-srr.md` section 6 item (ii); otherwise a TS-NNN is opened before the decision |
 | Decision authority | Robin (owner; the decision fixes ConOps scenarios and a firmware function in the functional baseline) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | Pending: reviewer agent invocation before SRR (01 section 3.2 row S3; 06 section 14.2) |
+| Independent reviewer | INSP-011 iteration 1 (2026-09-25): NEEDS CHANGES, findings F-01, F-02 and F-03 apply; this revision (2026-09-25, ADR author invocation applying INSP-011) carries the fixes; re-review pending in INSP-011 iteration 2 |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline: ConOps, L1) |
 | Change request | none (pre-baseline) |
@@ -19,9 +20,13 @@ With licensed friends operating loaned units (ADR-014), three lawful configurati
 
 - Driving inputs and expectations: SI-019, SI-030, SI-014, SI-025 (open design: the model must work for any licensee)
 - Requirements that constrain the decision: none yet
-- Hazards in play: none for personal safety; regulatory exposure (unlicensed transmission) is a mission and compliance hazard, handled as a requirement, not an HZ
+- Hazards in play (`docs/safety/hazards.json` 0.3.0-pha): HZ-006 (RF exposure of bystanders, household members and non-licensee holders: control K3 is the receive-only guest lock and K8 the operator model OPS-A; REQ-SYS-065, REQ-SYS-066 and REQ-TX-003 cite this ADR and carry HZ-006); HZ-008 (REQ-TX-003, RF isolation with PA enable deasserted, cites this ADR and carries HZ-008). Unlicensed transmission itself is a regulatory and mission harm handled as a requirement
 - Research consulted: `docs/research/regulatory-corpus-and-operators.md` F2 (control operator rules), F4 (unlicensed person: may listen, may key only as a supervised third party, may never operate alone), F5 (OPS-A recommended default; OPS-B records duty; OPS-C bounded), REQ-candidates OPS-02, OPS-03, FW-03 (guest lock), FW-04 (per-unit call sign, auto-ID at most 20 WPM), DOC-02 (operator rules card), RISK REG-4, REG-7, DECISION-6, DECISION-7; `docs/research/part97-regulatory-basis.md` F10 (97.119(b)(1): automatic identification at most 20 WPM)
 - Guidance consulted: 47 CFR 97.5(c), 97.103(a) and (b), 97.105(b), 97.115(b)(1), 97.119(a), (b)(1) and (e) (eCFR 2026-09-23); SE HB §6.8
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. Every friend who operates a unit holds a current license of Technician class or higher (ADR-014) and accepts station responsibility under 47 CFR 97.5(c) and 97.103(b). Confirmed by the handbook hand-over walkthrough with a licensed friend (Demonstration) at SAR.
+  2. The guest lock can be released only by a deliberate action that a guest cannot perform by accident (SWE-134 item d, two independent operator actions). Confirmed when the L2 `SW-TXSEQ` requirements are reviewed at PDR.
+  3. No FCC or ARRL interpretation narrows third-party participation (ACTION-7 of `regulatory-corpus-and-operators.md`). Re-checked at each review; a change is a revisit condition (section 7).
 
 ## 2. Decision (proposed)
 
@@ -36,7 +41,7 @@ The ConOps default is OPS-A: each cwht unit is the amateur station of the licens
 | C | No guest lock; rely on operator discipline | Not recommended: a unit set down at a gathering is the foreseeable REG-4 case; the lock costs a menu item and a stored flag |
 | D | Receive-only units for friends | Rejected: contradicts SI-019 (friends operate) |
 
-No trade study: the rule text and the owner's population (ADR-014) leave A and B as live options; the ADR presents both for the owner.
+No trade study: the rule text and the owner's population (ADR-014) leave A and B as live options; the ADR presents both for the owner. The choice is class 1 (header), so the ADR without a TS stands only under the owner's ruling on `reconciliation-srr.md` section 6.
 
 ## 4. Consequences
 
@@ -44,10 +49,12 @@ No trade study: the rule text and the owner's population (ADR-014) leave A and B
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SYS-NNN or ConOps text (OPS-A default, OPS-B records duty; candidate OPS-02; L1 author allocates) | new, traces to SI-019, SI-030, this ADR supporting | Inspection |
-| REQ-SW-NNN (receive-only guest lock; candidate FW-03) | new, traces to SI-019; candidate for SWE-134 scoping alongside the transmit inhibit | HostUnit (key events in guest mode produce no PA enable), Bench |
-| REQ-SW-NNN (per-unit stored call sign, display, auto-ID at most 20 WPM, empty call sign disables auto-ID; candidate FW-04) | new | HostUnit, Inspection |
-| Handbook item (operator rules card; candidate DOC-02) | new | Inspection |
+| ConOps text (OPS-A default, OPS-B records duty; candidate OPS-02) | not created as a requirement: ConOps scenario text and the handbook content of REQ-SYS-122 (HZ-006 control K8) | Inspection of ConOps and handbook |
+| REQ-SYS-065 (guest lock transmit inhibit) and REQ-SYS-066 (guest lock set and release); candidate FW-03 | allocated at L1, cite this ADR; hazard HZ-006 | HostUnit (key events in guest mode produce no PA enable), Bench |
+| REQ-TX-003 (RF isolation with PA enable deasserted) | allocated at L2, cites this ADR and ADR-023; hazards HZ-006, HZ-008 | |
+| REQ-SYS-006 (operator call sign shown after every power-on); candidate FW-04, stored call sign and display | allocated at L1, cites this ADR | HostUnit, Inspection |
+| Automatic identification at most 20 WPM, and an empty call sign disables it (rest of candidate FW-04) | not created: the rev A L1 set has no automatic identification memory; REQ-SYS-068 (identification reminder) covers identification | If PDR adds a message memory, the 47 CFR 97.119(b)(1) limit is written with it |
+| Handbook operator rules card (candidate DOC-02) | covered by REQ-SYS-122 (operations handbook safety content) | Inspection |
 
 ### 4.2 Interfaces, design and code
 
@@ -60,8 +67,8 @@ No trade study: the rule text and the owner's population (ADR-014) leave A and B
 
 - Verification cases to add or change: TC-SW-NNN (guest lock inhibits every transmit path, HostUnit; Bench on the unit), TC-SW-NNN (auto-ID speed cap and empty-call-sign behaviour, HostUnit), TC-VAL-NNN (a licensed friend operates a loaned unit with their own call sign following the handbook, Demonstration)
 - Evidence class implications: none new
-- Hazard analysis update required: no
-- Safety-critical software scope changed: pending: if the owner scopes the guest lock with the transmit inhibit under SWE-134, the lock joins the safety-critical set and gets MC/DC coverage
+- Hazard analysis update required: yes (HZ-006 controls K3 and K8 implement this proposal; cross item to the hazard analysis author: name ADR-015 in the HZ-006 sources when the owner decides)
+- Safety-critical software scope changed: no; the receive-only guest lock is already part of `SW-TXSEQ` in 07 section 14.1, which closes the question this line carried in the previous revision
 
 ### 4.4 Cost, schedule, risk
 
@@ -82,6 +89,6 @@ Pending. Proposed wording for the SRR decision memo: "Operator model OPS-A is th
 
 - Supersedes: none
 - Superseded by: none
-- Trade study: none
-- Review where presented: SRR (decision requested)
+- Trade study: none (see the Decision class row)
+- Review where presented: SRR (decision requested); INSP-011 findings F-01 to F-03 applied in this revision
 - Revisit conditions: an FCC or ARRL interpretation on third-party participation (ACTION-7 of the corpus report); the owner prefers OPS-B; a unit is transferred rather than lent (then that unit is simply the new owner's station under OPS-A and the design is unchanged)

@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | ID | ADR-025 |
-| Status | Accepted (by the owner's default in SI-035; assembled count confirmed at CDR) |
+| Status | Accepted |
 | Date proposed | 2026-09-25 |
 | Date decided | 2026-09-25 |
 | Decision authority | Robin (owner; the decision spends money at CDR and fixes the regulatory quantity cap) |
