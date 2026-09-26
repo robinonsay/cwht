@@ -8,7 +8,10 @@ checklist_revision: A
 # section 2.1 item R6 calls it visual-srr-deck; cross item X-3)
 checklist_file: docs/reviews/SRR/checklists/srr-deck.md
 product: docs/reviews/SRR/slides/srr.adoc
-# product_commit: HEAD at review time. Re-issue at iteration 3 (2026-09-26, item R19 (b)): delta
+# product_commit: HEAD at review time. Delta re-issue at iteration 3 (2026-09-26, item R20 route (b)):
+# delta verification of the deck update of 64e53ee (srr.adoc@adca6f79, srr.html@c80f62d3,
+# srr.css@da8d9463 unchanged) at HEAD 0674b08, whose only later commit touches package.md; working
+# tree equals HEAD for the deck and figures. Re-issue at iteration 3 (2026-09-26, item R19 (b)): delta
 # verification of the revision 7 count edit (8d7eca7, srr.adoc@3a2bc83c) and the revision 8 deck
 # update (8a03bf0, srr.adoc@bab86a20, srr.html@6a5deb8e, srr.css@da8d9463 unchanged); working tree
 # equals HEAD 8a03bf0 for the deck and figures. Iteration 3 (2026-09-26) reviews the committed deck of
@@ -17,18 +20,19 @@ product: docs/reviews/SRR/slides/srr.adoc
 # reviewed the working-tree srr.adoc@bb33e806 and srr.html@b2f8db82 on HEAD d7fdf25; iteration 2
 # the working-tree srr.adoc@6b117316 and srr.html@e2636649 (never committed; the revision 5 deck
 # of d4cce27, srr.adoc@e4bfdef6, was not reviewed by this record before iteration 3).
-product_commit: "8a03bf04a18003f6b81ba5f6d1458fcfb20e3792"
+product_commit: "0674b08139564eb8bf495c6342a4fd890f9f4a37"
 product_files:
-  - "docs/reviews/SRR/slides/srr.adoc@bab86a20a884939810ebd0cff59d58a509afe0c9"
-  - "docs/reviews/SRR/slides/srr.html@6a5deb8e8050d9edd2df8b47a5a6fe49768e7306"
+  - "docs/reviews/SRR/slides/srr.adoc@adca6f7922b75966c9ff30515164a9513f353e17"
+  - "docs/reviews/SRR/slides/srr.html@c80f62d311af0df0ee72c0559382595bfb817144"
   - "docs/reviews/SRR/slides/srr.css@da8d9463ed1f2885c345c5c466ce6e3c6d07c260"
 product_size: 42 slides
-# renders_inspected: the re-issue opened the 16 PNGs whose content changed between 8d7eca7 and
+# renders_inspected: the delta re-issue (R20) opened the 10 PNGs whose content changed between
+# a6e3518 and 64e53ee (slides 1, 4 to 8, 19, 36, 40, 42); the R19 (b) re-issue opened the 16 PNGs whose content changed between 8d7eca7 and
 # 8a03bf0 (slides 1, 4 to 10, 15, 19, 23, 36, 37, 39, 40, 42); iteration 3 opened 24 PNGs (the 23 changed at ef6472a plus slide-31, whose
 # revision 5 change was not yet reviewed by this record); iteration 1 opened all 42.
-renders_inspected: 16
+renders_inspected: 10
 sprint: SRR-prep
-author_agent: "deck author (lead SE main session; re-write from package revision 4, item R10; update to revision 6, item R19; revision 7 count edit by the package author; update to revision 8 at 8a03bf0)"
+author_agent: "deck author (lead SE main session; re-write from package revision 4, item R10; update to revision 6, item R19; revision 7 count edit by the package author; update to revision 8 at 8a03bf0; update to revision 8 final at 64e53ee, item R20 route (b))"
 reviewer_agent: "reviewer:INSP-029"
 criticality: neither
 assurance_required: false
@@ -37,6 +41,15 @@ iteration: 3
 readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
+# verdict: delta re-issue at iteration 3 (2026-09-26, item R20 route (b)). The 64e53ee update is
+# verified on the committed blobs: every changed claim is a value of package revision 8 final (and of
+# the deck amendment text at 0674b08), all 10 changed PNGs are legible and agree with the source,
+# srr.html and all 42 PNGs reproduce byte-identically from srr.adoc@adca6f79 in a scratch render.
+# finding-7 (slide 9 notes) is Verified: the notes now place S3 and row 20 among the Not met rows.
+# No new finding. finding-3, 5 and 6 stay liens "Lien: fix before PDR" (convergence rule, charter
+# section 4 item 3). Readiness R1 to R4 met (R1: validate_docs.py exit 0 after this re-issue; R2 and
+# R4: package section 2.2 records the 64e53ee render). Record verdict APPROVED (with liens); no
+# product change is required. Earlier text, kept as history:
 # verdict: re-issue at iteration 3 (2026-09-26, item R19 (b)). The revision 7 count edit and the
 # revision 8 update are verified on the committed blobs of 8a03bf0: every changed claim is in
 # package revision 8, all 16 changed PNGs are legible and agree with the source. One new Minor
@@ -58,14 +71,15 @@ findings_major: 1
 findings_minor: 6
 findings_open: 0
 findings_fixed: 0
-findings_verified: 3
-findings_deferred: 4
+findings_verified: 4
+findings_deferred: 3
 deferred_rids: []
-# items_no: current answers at the re-issue (A5: finding-3 lien; B1: package block entry for
+# items_no: current answers at the R20 delta re-issue (A5: finding-3 lien; B11: finding-5, finding-6
+# liens; B1 and B7 are Yes again). R19 (b) re-issue list: A5, B1, B7, B11, with (A5: finding-3 lien; B1: package block entry for
 # 8a03bf0, X-9; B7: finding-7 lien; B11: finding-5, finding-6 liens). Iteration 1 to 3 list: A2, A5, B1, B11.
-items_no: [CK-VIS-A5, CK-VIS-B1, CK-VIS-B7, CK-VIS-B11]
-effort_turns: 142
-effort_minutes: 180
+items_no: [CK-VIS-A5, CK-VIS-B11]
+effort_turns: 170
+effort_minutes: 215
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -75,7 +89,9 @@ date_closed: null
 
 **Product.** The SRR pre-review deck re-written from package revision 4 (package section 2.1 item R10, readiness item H3, entrance row S11): `docs/reviews/SRR/slides/srr.adoc` with its generated `srr.html`, the theme `srr.css` and the 42 renders `docs/reviews/SRR/slides/png/slide-01.png` to `slide-42.png`. Checklist `docs/templates/peer-review-checklist-visual-product.md` revision A, sections A (every render) and B (review deck); section C is N/A (the product is the deck, not the package figure set).
 
-**Re-issue at iteration 3 (2026-09-26, item R19 (b)).** The current state of this record is the last section, "Re-issue at iteration 3", with its readiness table, finding table and verdict; everything before it is history.
+**Delta re-issue at iteration 3 (2026-09-26, item R20 route (b)).** The current state of this record is the last section, "Delta re-issue at iteration 3", with its readiness table, finding table and verdict; everything before it, including the R19 (b) re-issue, is history.
+
+**Re-issue at iteration 3 (2026-09-26, item R19 (b)).** History since the R20 delta re-issue.
 
 **Iteration 3 (2026-09-26).** The current state of this record is the section "Iteration 3" below, its readiness table, the finding table and the verdict. The configuration statement, the readiness table of iteration 1, sections A and B and the per-render table that follow are the iteration 1 and 2 record of the 04:22 working-tree deck and are kept as history; section A and B answers changed at iteration 3 are marked there.
 
@@ -462,4 +478,121 @@ FINDINGS:
 READINESS: R1 Yes (validate_docs 49/0, 400 of 400 tests, every gate tool exit 0); R2 Yes (slide map; 8a03bf0 render block is the one tabulation item, X-9); R3 Yes; R4 Yes
 ITEMS N/A: CK-VIS-B14, CK-VIS-C1 to CK-VIS-C5 (product is the deck)
 MEASUREMENTS: size=42 slides; renders_inspected=16 (re-issue), 24 (iteration 3), 42 (iteration 1); items checked 22; items No 4 (A5, B1, B7, B11; all liens or the tabulation item); major=1; minor=6; open_major=0; verified=3; lien=4; new=1; iteration=3 (re-issue); turns=142; minutes=180
+```
+
+## Delta re-issue at iteration 3 (2026-09-26, delta verification of the revision 8 final deck update, item R20 route (b))
+
+Assignment (lead SE ruling on R20): route (b). The deck author updates the deck to the current status, INSP-029 performs one delta re-issue, and the package then tabulates it. The package is not a reviewed product of any record, so the tabulation trips no drift check. No product content changes other than the named files, and Minor findings are liens due PDR. Author return (deck author): the deck was updated to the package revision 8 final statuses (readiness finding R15b-F1) and committed as `64e53ee` on top of `5ebe90c`, with no push and no tag. The changed slides (PNG and notes) are 1, 4, 5, 6, 7, 8, 19, 36, 40 and 42. Slide 9 changed in its notes only, so its PNG is byte-identical. Each value is stated as in package section 2.2 block "Status since the deck". The author ran `tools/slides/render_deck.py` with exit 0 and opened the 10 changed PNGs. The iteration count stays 3: the 01 section 13 schema allows 1 to 3, and this is a delta re-issue, not a new full review.
+
+**Scope and independence.** This is a new invocation of the reviewer role (`reviewer:INSP-029`). It authored no deck, package or figure file and edited none. It wrote only this record. The delta is `git diff a6e3518 64e53ee -- docs/reviews/SRR/slides`: `srr.adoc` `bab86a20` to `adca6f79`, `srr.html` `6a5deb8e` to `c80f62d3` and exactly the 10 PNGs the author names. The review baseline is HEAD `0674b08139564eb8bf495c6342a4fd890f9f4a37`. The only commit after `64e53ee` is `0674b08`, which changes `package.md` alone. The source of truth is `package.md` at HEAD (`98aae9ea`, revision 8 final with the deck amendment). For the superseded table of the section 2.2 block "Status since the deck", the source is its revision 8 final text at `5ebe90c`.
+
+| Check | Result |
+|---|---|
+| Search first | The reviewer loaded `mcp__claude-context__search_code` and queried it on `/Users/robinonsay/rust/cwht` ("INSP-029 SRR deck checklist delta re-issue iteration verdict product_files") before any manual search. Afterwards, `grep -n`, `awk` and `sed -n` only pinned lines in files at known paths (`package.md`, `srr.adoc`, this record) |
+| Blobs reviewed (HEAD `0674b08`) | `srr.adoc` `adca6f7922b75966c9ff30515164a9513f353e17`, `srr.html` `c80f62d311af0df0ee72c0559382595bfb817144`, `srr.css` `da8d9463ed1f2885c345c5c466ce6e3c6d07c260` (unchanged). For each file, `git rev-parse HEAD:<path>` equals the committed file, and `git status --short` prints nothing |
+| Changed files | `git diff --name-status a6e3518 HEAD` lists `decisions-for-owner.md` and `package.md` (package commits `5ebe90c` and `0674b08`), plus `srr.adoc`, `srr.html` and the PNGs of slides 1, 4, 5, 6, 7, 8, 19, 36, 40 and 42. `slide-09.png` stays `723b4951`, byte-identical as claimed. No figure changed, including `figures/entrance-checklist.png`, which slide 9 embeds |
+| Reproduction | The reviewer rendered a scratch copy of `slides/` and `figures/` with `tools/slides/render_deck.py <scratch>/SRR/slides/srr.adoc --allow-outside-reviews`, exit 0, in the session scratchpad, so no repository file was written. The scratch `srr.html` hashes to `c80f62d3`, and all 42 scratch PNGs are byte-identical to the committed ones (`cmp`, 0 differences). The committed outputs are therefore the outputs of the committed source |
+| Structure | 41 `== ` sections plus the title make 42 slides, matching 42 PNGs and 42 `<section>` in `srr.html`. There are 42 `[.notes]`, 42 `Evidence:`, 42 `Question for Robin:` and 42 `class="notes"`. The 10 changed PNGs are 1920 x 1080 (header read by script). There is no em or en dash in `srr.adoc` or `srr.html` |
+| HTML agrees with source | The rendered text of `srr.html` (tags stripped) contains the new phrases "123 findings plus erratum E-10", "30 of 30 records", "195 entries", "72 to 75", "61, 76", "77 applied", "Revision 8 final assembled", "any residual of item 77", "R15 repeat on revision 8" and "delta pass" as often as `srr.adoc` does. The stale phrases "Re-issue, no ruling", "122 findings", "29 of 30" and "re-issue pending" appear in neither |
+| Stale-fact hunt | The remaining `b4abcc5` strings (slide 15 and its notes; slide 23 notes) are past facts that the package still states: the traceability re-run of revision 8, and the INSP-015 re-issue at `b4abcc5`. The remaining "122" is the "from 122 in revision 8" transition. No unchanged slide states the INSP-029 re-issue as pending, 26 APPROVED, 122 liens or R15 as still to run |
+| Slide 36 partition | All 77 items of package section 15 are placed in exactly one handling row (script: 77 entries, 77 distinct, none of 1 to 77 missing, none above 77). Item 75 is Closed, items 61 and 76 are carried by R20 and item 77 is applied, as package section 15 rows 61, 75, 76 and 77 state |
+| Visual closure | All 10 PNGs were opened with Read (table below). Every text run is legible at native size, with nothing clipped or overlapping and no missing glyph. Lane counts equal their rows: slide 5 is 7 / 5 / 5 (H17 moved to Closed); slide 7 is 27 (14 + 13 rows, 029 "This deck" added) / 3, with the Re-issue lane removed |
+
+**Tool runs (2026-09-26, repository root, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (before this re-issue, HEAD `0674b08`) | 1 | 48 passed, 1 failed. The one FAIL is this record, on the drift rule (`srr.adoc@bab86a20` against HEAD `adca6f79`, `srr.html@6a5deb8e` against `c80f62d3`): the drift that route (b) creates and this re-issue closes, as package section 2 states |
+| `python -m unittest discover -s tools/tests` (before) | 1 | 400 tests, 1 failure (the repository exit-zero test, on the same drift) |
+| `tools/slides/render_deck.py` on a scratch copy, `--allow-outside-reviews` | 0 | Byte-identical `srr.html` and 42 PNGs (reproduction row above) |
+| `tools/validate_docs.py` (after this re-issue) | 0 | 49 passed, 0 failed; this record PASS at APPROVED with no drift note |
+| `python -m unittest discover -s tools/tests` (after) | 0 | 400 tests OK |
+
+**Per-render results, delta re-issue.** Every PNG was opened with Read on 2026-09-26. "Agrees" is judged against the source slide and against `package.md` at HEAD, with the section named.
+
+| Render (blob) | Source slide | Opened | Legible | Agrees (A5) | B6 | B7 | Values checked against the package | Finding ids |
+|---|---|---|---|---|---|---|---|---|
+| `png/slide-01.png` (`6299df9f`) | Title | Yes | Yes | Yes | Yes | Yes | "package revision 8 final", read from the 30 records at `a6e3518`; revision 8 at `27cc9d9` and revision 7 at `8d7eca7` (header rows "Package revision" and "Repository commit"). The callout gives S3 and 20 Not met, S1 and 10 Hard rows Partially met, "revision 8 final" (section 4 counts line, unchanged). Notes: INSP-029 APPROVED with liens finding-3, 5, 6, 7 at `a6e3518`; R15b-F1 is R20, R15b-F2 applied; 27 of 30 APPROVED (sections 2.1 R15, 2.4) | none |
+| `png/slide-04.png` (`c0f21b26`) | Purpose, scope and readiness | Yes | Yes | Yes | Yes | Yes | Readiness is not declarable at revision 8 final, on item R20 only (section 2.1 goal-state paragraph). Tools at `a6e3518`: validate_docs 49 passed, 400 of 400 (section 2.1 R15 tool evidence at `a6e3518`) | none |
+| `png/slide-05.png` (`955aaaa2`) | Readiness items H1 to H17 | Yes | Yes | Yes | Yes | Yes | Lanes 7 / 5 / 5. H1 has 5 open Major, each on a ruling; H3 is on R20 only; H17 is Closed with 30 of 30 on the HEAD blobs; board note "Package revision 8 final" (section 2, rows H1, H3 and H17, "Closed at revision 8 final"). The notes disclose that this edit re-opens H17 until this re-issue, as section 2 H17 states. This re-issue closes it | none |
+| `png/slide-06.png` (`e7efe540`) | What remains before the declaration | Yes | Yes | Yes | Yes | Yes | R20 is Open with owner "Claude (lead SE); reviewer" (section 2.1 R20). The Done row adds R15 (repeat on revision 8) and R19 (b) INSP-029 (section 2.1 R15, R19). The R19 (b) and R15 rows are gone | none |
+| `png/slide-07.png` (`0b848ee0`) | Review records: 30 records at revision 8 final | Yes | Yes | Yes | Yes | Yes | APPROVED 27 with 029 "This deck"; Open Major 3 (003, 011, 016); 123 findings plus E-10 (package revision 8 final) (section 2.4 totals, 20.1 L-6). Notes: 27 / 3; 122 to 123 with finding-7 | finding-1 stays Verified |
+| `png/slide-08.png` (`c7cc991a`) | Open Major findings and blob check | Yes | Yes | Yes | Yes | Yes | The five open Majors are unchanged. Blob check at `a6e3518`: 30 of 30 records, 195 entries, H17 Closed, item 57 Closed (section 2.3, which counts 200 = 195 `product_files` plus 5 `product_blob`; section 2.2 notes that 195 stands). The deck edit re-opens the INSP-029 drift until the delta pass (section 2.3 and R20) | none |
+| `png/slide-19.png` (`82638812`) | Milestones and procurement | Yes | Yes | Yes | Yes | Yes | "Revision 8 final assembled; not ready (section 2.1)"; recovery "R20 deck route; this session for rulings and OA-1" (section 2.1 goal-state paragraph and R20) | none |
+| `png/slide-36.png` (`2d9fcd87`) | RFA/RID trend and candidate RIDs | Yes | Yes | Yes | Yes | Yes | 77 items. Major Closed includes 72 to 75 (75 in revision 8 final). Carried by R20: 61 and 76. Item 77 is applied, with its residual in L-4 (section 15 rows 61, 75, 76, 77) | none |
+| `png/slide-40.png` (`a1f8facc`) | Proposed liens L-1 to L-7 | Yes | Yes | Yes | Yes | Yes | L-4 adds "any residual of item 77"; L-6 is "123 findings plus erratum E-10 (package revision 8 final)" (section 20.1 L-4, L-6) | none |
+| `png/slide-42.png` (`b554c8f4`) | Requested disposition | Yes | Yes | Yes | Yes | Yes | "Before this session": R20, the INSP-029 delta pass; the INSP-029 re-issue and R15 are done. Then R16, then S1. L-6 is 123 plus E-10 (sections 2.1, 20.1, 21) | none |
+
+**Notes-only change (no PNG change).** Slide 9 (`slide-09.png` `723b4951`, byte-identical) was checked in the source against package section 4. The notes now read "Not met: S1, ...; S3, on your rulings only, now that INSP-029 is re-issued; and row 20, on rulings, OA-1 and R16". The Partially met list now has 10 Hard rows (7, 8, 15, 22, 23, 25; 5; 14; 10; S11 on R20). This matches rows S3 and 20 (Not met) and S11 (Partially met on R20) of section 4, so finding-7 is fixed. The notes of all 10 changed slides were read in full in the diff, and every claim matches the package.
+
+**Observation (not a finding).** The notes of slides 1 and 6 cite package section 2.2 block "Status since the deck" as the list of changed values. At HEAD that block says the deck now matches and points to the superseded table in the revision 8 final text at `5ebe90c`. The citation still resolves through that pointer, and every value on the slides is also stated in the package sections named in the per-render table, so no claim lacks a package source.
+
+**Findings (current state at this delta re-issue).**
+
+| Finding | Severity | Item | Location | Description and expected fix | State |
+|---|---|---|---|---|---|
+| finding-7 | Minor | CK-VIS-B7 | slide 9 notes (`srr.adoc@adca6f79` lines 267 and 268; no render) | Fixed by the deck author at `64e53ee`: S3 and row 20 now appear in a "Not met" sentence, and the Partially met sentence lists exactly the 10 Hard rows of section 4 | Verified |
+| finding-1 | Major | CK-VIS-B7 | slide 07 notes | Verified at iteration 2. The revision 8 final notes (27 APPROVED, 3 NEEDS CHANGES, held only by the 5 open Major findings) match section 2.4 | Verified |
+| finding-2 | Minor | CK-VIS-B7, CK-VIS-B13 | slide 01 | Verified at iteration 3. The new text ("revision 8 final ... read from the 30 records at HEAD `a6e3518` ... Revision 8 is at `27cc9d9`") is true | Verified |
+| finding-3 | Minor | CK-VIS-A5 | slide 21 | Unchanged (`slide-21.png` not changed) | Lien: fix before PDR |
+| finding-4 | Minor | CK-VIS-A5 | slide 10 | Verified at iteration 3; `slide-10.png` not changed | Verified |
+| finding-5 | Minor | CK-VIS-B11, CK-VIS-B10 | slides 12, 18 | Unchanged (`slide-12.png`, `slide-18.png` not changed) | Lien: fix before PDR |
+| finding-6 | Minor | CK-VIS-B11, CK-VIS-A8 | slide 39 | Unchanged (`slide-39.png` not changed) | Lien: fix before PDR |
+
+**Lien table (delta re-issue).**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-3 | Minor | Lien: fix before PDR | deck author (Claude) | PDR readiness declaration |
+| finding-5 | Minor | Lien: fix before PDR | figure owner (Claude; tool owner for the two scripts) | PDR readiness declaration |
+| finding-6 | Minor | Lien: fix before PDR | deck author; tool owner for the success-board footer | PDR readiness declaration |
+
+The INSP-029 lien count moves from 4 to 3 (finding-7 Verified). The package record total therefore moves from 123 to 122 plus E-10 when the package tabulates this re-issue (cross item X-11).
+
+**Checklist answers changed at this delta re-issue.** All other section A and B answers stand as at the R19 (b) re-issue; B14 and section C stay N/A.
+
+| Id | Answer | Evidence |
+|---|---|---|
+| CK-VIS-A1 | Yes | All 42 PNGs are committed at `64e53ee` (`git status` clean at `0674b08`) |
+| CK-VIS-A2 | Yes | Package section 2.2 records the `64e53ee` render: `render_deck.py` on `adca6f79`, exit 0 by the deck author and by the package author's reproduction. The reviewer's scratch reproduction is byte-identical |
+| CK-VIS-A4 | Yes | 10 changed PNGs opened (table above) |
+| CK-VIS-A5 | **No** (lien only) | Every checked render value matches the package; finding-3 remains |
+| CK-VIS-B1 | Yes | Package section 2.2 first block records source `adca6f79`, command, exit status, outputs (`srr.html` `c80f62d3`, 10 changed PNGs), render commit `64e53ee` and inspection |
+| CK-VIS-B2, B3, B8, B9, B12 | Yes | Structure row above: 42 of each, no notes text on any PNG, committed |
+| CK-VIS-B7 | Yes | Every changed slide and notes claim is in the package (per-render table); finding-7 Verified |
+
+**Readiness (delta re-issue).**
+
+| # | Met | Evidence |
+|---|---|---|
+| R1 | Yes | `tools/validate_docs.py` exit 0 after this re-issue, 49 passed, 0 failed; unittest suite 400 of 400. Before it, the only FAIL was this record's own drift, which route (b) creates by design (lead SE ruling) |
+| R2 | Yes | Sections 1 and 1.1 name this deck's slide numbers; there are still 42 slides and the numbering is unchanged. Section 2.2 records the `64e53ee` render (source, command, runs and exit status, outputs, render commit, inspection); the header row "Slide deck" names it |
+| R3 | Yes | `git status --short` prints nothing. `product_commit` `0674b08` holds the reviewed source, HTML and 42 PNGs of `64e53ee`; `slides/reveal.js` is git-ignored |
+| R4 | Yes | The `64e53ee` commit message and package section 2.2 list the 10 changed renders, the command, exit status 0 and the inspection of each changed PNG |
+
+**Cross items (delta re-issue; outside this product).**
+
+- X-7: unchanged; it stays with the lead SE (tell the owner in the presentation).
+- X-9, X-10: closed. The package records the `64e53ee` render, and the deck states the revision 8 final values.
+- X-11 (package author, lead SE): this re-issue Verifies finding-7, so after tabulation INSP-029 carries 3 liens and the package record total is 122 plus E-10. The deck states "123 findings plus erratum E-10 (package revision 8 final)" on slides 7, 40 and 42 (notes: "123 in revision 8 final"). Each count names the package revision it is taken from, so the slides stay true as written. The package author states the change in the tabulating revision's section 2.2, where Claude reads it at those slides. A further deck edit would re-open the drift rule for this APPROVED record, and the lead SE ruling allows only one delta re-issue.
+- X-12 (package author): when tabulating, update R20 to Done, H3 and H17, S11 (re-rated Met under the section 4 rule once R20 is done, as the slide 9 notes state), section 2.3 (INSP-029 names the `64e53ee` blobs), section 2.4 (INSP-029 at this commit, liens 3), section 15 items 61 and 76, and section 20.2.
+
+### Verdict (delta re-issue)
+
+**Delta re-issue at iteration 3: APPROVED (with liens finding-3, finding-5, finding-6); readiness met.** The route (b) deck update of `64e53ee` is verified on the committed blobs. Every changed claim on the 10 changed slides and in the changed notes is a value of the package at HEAD `0674b08`. All 10 changed renders are legible and agree with their source, and a scratch render reproduces `srr.html` and all 42 PNGs byte for byte. finding-7 is Verified, and there is no new finding. No Major finding is open. finding-1, 2, 4 and 7 are Verified. Under the convergence rule (charter section 4 item 3), finding-3, 5 and 6 stay liens "Lien: fix before PDR", and no product change is required.
+
+```
+VERDICT: APPROVED (with liens finding-3, 5, 6; delta re-issue at iteration 3, item R20 route (b))
+PRODUCT: docs/reviews/SRR/slides/srr.adoc@adca6f79, srr.html@c80f62d3, srr.css@da8d9463, png/slide-01.png to slide-42.png; deck commit 64e53ee, HEAD 0674b08
+FINDINGS:
+- [Major] finding-1 CK-VIS-B7 slide 07 notes: Verified (iteration 2), still Verified.
+- [Minor] finding-2 CK-VIS-B7 slide 01: Verified (iteration 3).
+- [Minor] finding-3 CK-VIS-A5 slide 21: decision 37 default omits OQ-SAF-004; Lien: fix before PDR.
+- [Minor] finding-4 CK-VIS-A5 slide 10: Verified (iteration 3).
+- [Minor] finding-5 CK-VIS-B11 slides 12, 18: embedded figure text about 13 to 16 px; Lien: fix before PDR.
+- [Minor] finding-6 CK-VIS-B11 slide 39: deck-drawn success board; Lien: fix before PDR.
+- [Minor] finding-7 CK-VIS-B7 slide 9 notes: Verified (fixed at 64e53ee).
+READINESS: R1 Yes (validate_docs 49/0 after this re-issue, 400 of 400 tests); R2 Yes (section 2.2 records the 64e53ee render); R3 Yes; R4 Yes
+ITEMS N/A: CK-VIS-B14, CK-VIS-C1 to CK-VIS-C5 (product is the deck)
+MEASUREMENTS: size=42 slides; renders_inspected=10 (R20 delta re-issue), 16 (R19 (b) re-issue), 24 (iteration 3), 42 (iteration 1); items No 2 (A5, B11; liens); major=1; minor=6; open_major=0; verified=4; lien=3; new=0; iteration=3 (delta re-issue); turns=170; minutes=215
 ```
