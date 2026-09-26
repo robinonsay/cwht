@@ -247,7 +247,7 @@
       "moe_ids": ["MOE-007"],
       "requirement_ids": [],
       "unit": "USD per unit",
-      "threshold": "owner-approved budget per complete unit at every gate (NGO-028), on the TPM-014 budget basis: the docs/plan/cost-estimate.md envelope with the tinySA Ultra instrument line removed (USD 850 to 1670 for three radios, contingency as that model computes it; USD 283 to 557 per unit) amortized over three complete units (ADR-025 default) until the owner raises the assembled count at CDR",
+      "threshold": "owner-approved budget per complete unit at every gate (NGO-028), on the TPM-014 budget basis: the docs/plan/cost-estimate.md envelope with the tinySA Ultra instrument line removed (USD 828 to 1644 for three radios, contingency as that model computes it; about USD 276 to 548 per unit) amortized over three complete units (ADR-025 default) until the owner raises the assembled count at CDR",
       "target": "budget minus contingency",
       "tc_ids": [],
       "tpm_ids": ["TPM-014"],
@@ -805,7 +805,7 @@
       "formula": "(parts + fab_assembly + enclosure + printing + shipping) * (1 + contingency) / complete_units",
       "data_source": "docs/plan/cost-estimate.md cost model fed by hardware/bom pricing and vendor quotes; actual invoices at SAR",
       "planned_value": null,
-      "planned_value_text": "Budget ceiling per complete unit set by the owner at SRR. Budget basis: the docs/plan/cost-estimate.md envelope without its tinySA Ultra instrument line (USD 850 to 1670 for three radios, contingency as that model computes it; USD 283 to 557 per unit), since the instrument is excluded from the CBE (NGO-028) and is an owner purchase (ADR-021); unit count three (ADR-025) until the owner raises it at CDR, when the budget and CBE are both recomputed for the new count. Contingency 20 % until CDR quotes, 10 % after",
+      "planned_value_text": "Budget ceiling per complete unit set by the owner at SRR. Budget basis: the docs/plan/cost-estimate.md envelope without its tinySA Ultra instrument line (USD 828 to 1644 for three radios, contingency as that model computes it; about USD 276 to 548 per unit), since the instrument is excluded from the CBE (NGO-028) and is an owner purchase (ADR-021); unit count three (ADR-025) until the owner raises it at CDR, when the budget and CBE are both recomputed for the new count. Contingency 20 % until CDR quotes, 10 % after",
       "tbr": {
         "owner": "Robin (owner)",
         "plan": "Owner states the budget ceiling per unit in the SRR decision memo on the basis above; quantity per SI-035 and ADR-025",
@@ -830,12 +830,12 @@
         {
           "review": "SRR",
           "date": "2026-09-25",
-          "cbe": 557,
+          "cbe": 548,
           "status": "yellow",
           "evidence": "docs/plan/cost-estimate.md",
           "credit": false,
-          "note": "Upper bound of the cost-model envelope without the tinySA Ultra line (USD 850 to 1670 for three radios with 20 % contingency; USD 283 to 557 per unit); no quotes. The budget ceiling is the owner's SRR decision (tbr close_by SRR); against the REQ-SYS-147 proposal of USD 610 per unit (TBR) the margin is 8.7 % and the status becomes green once the owner states that budget.",
-          "cbe_low_usd": 283
+          "note": "Upper bound of the cost-model envelope without the tinySA Ultra line (USD 828 to 1644 for three radios with 20 % contingency; about USD 276 to 548 per unit); no quotes. The budget ceiling is the owner's SRR decision (tbr close_by SRR); against the REQ-SYS-147 proposal of USD 610 per unit (TBR) the margin is 11.3 % and the status becomes green once the owner states that budget.",
+          "cbe_low_usd": 276
         }
       ]
     },
