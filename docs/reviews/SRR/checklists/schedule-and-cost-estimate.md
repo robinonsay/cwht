@@ -186,3 +186,44 @@ FINDINGS:
 ITEMS N/A: CK-REQ-A1 to A7, B to F (plan), CK-REQ-G5, CK-REQ-G7
 MEASUREMENTS: size=2 plans, 40 lines; items=12; no=4; turns=30; minutes=40; major=2; minor=5; lien=5; open_major=2; iteration=1
 ```
+
+## Author self-check (written by the author; package item R7, readiness R3, finding-8)
+
+**Ownership.** This section is the author's return for readiness R3 of the requirements checklist ("The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria"), filed in the record because 01 section 13 keeps no record only in conversation. It is written by `author:plan` (Claude, lead SE), not by the reviewer. The author changed nothing else in this record: the front matter, findings, readiness answers, verdict and measurements stay the reviewer's. Whether R3 is now met and finding-8 closes, and the re-issue of the record, are the reviewer's (package item R8). No product content changed with this self-check (convergence rule, charter section 4 item 3).
+
+**Products checked.** `docs/plan/schedule.md@53de92ae211105127f56103d26884d14342190d0` and `docs/plan/cost-estimate.md@0dda83cbd5ada9474562cc1741df67a31e1a7ffb` (`git rev-parse HEAD:<path>` at HEAD `d4cce27`; last commit `a7c70d2`), the blobs of iteration 2. Date 2026-09-26. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ("author self-check readiness fields R1 to R4 peer review record"; "author self-check section filed by the author against checklist, acceptance criteria listed, decision 115") ran before any `grep`.
+
+**Acceptance criteria.** The author briefs of `4e3f891`, `b301df2` and `a7c70d2` are not in the repository, so the criteria are restated from the governing sources they pointed to:
+
+| # | Acceptance criterion | Source |
+|---|---|---|
+| AC-1 | Cost table with basis covering BOM, fabrication, assembly, CNC, shipping and contingency | 01 section 4.3 row 19 (G-4 6.14, 6.15) |
+| AC-2 | Milestone list to PDR within the Phase B technical plan | 01 section 4.3 row 21 (G-4 6.22) |
+| AC-3 | Schedule carries the SWE-016 (T) content: gates with target dates, firmware milestones, dependencies (including rustos, SWE-016 d) and separate lead times | `docs/process/rmm.json` SWE-016 |
+| AC-4 | Cost model carries the SWE-015 and SWE-151 (T) content: labor-free, full life cycle (rework spin, spares), risk and other direct costs | `docs/process/rmm.json` SWE-015, SWE-151 |
+| AC-5 | Unit budget equals the TPM-014 basis and the SEMP totals | `docs/plan/tpm.json` TPM-014; SEMP section 8.0 |
+| AC-6 | No TBD, no em dash; reviews event-based | charter sections 3 and 7; NPR 7123.1D section 5.1.5 |
+| AC-7 | Only Major findings change the products before SRR; Minor findings are liens due PDR | charter section 4 item 3 (lead SE convergence rule, 2026-09-26) |
+
+**Self-check against the checklist.** `docs/templates/peer-review-checklist-requirements.md` revision C, product type "Plans and process documents": section G (all items) and A8; sections A1 to A7 and B to F are N/A for a plan.
+
+| Item | Author answer | Evidence |
+|---|---|---|
+| R1 | Yes | Markdown plans with no schema; `tools/validate_docs.py` exit 0 (run with this self-check) |
+| R2 | N/A | No requirement ids in either plan; `tools/traceability.py --report-only` exit 0, 0 violations |
+| R3 | Yes (this section) | AC-1 to AC-7 and this table |
+| R4 | Yes | `grep -c 'TBD\|TBR'` 0 in both blobs |
+| R5 | N/A | Not a CR |
+| CK-REQ-A8 | Yes | Gate names as charter section 3; USD throughout |
+| CK-REQ-G1 | Yes, with liens | RMM SWE-016 and SWE-151 content now present (finding-1, finding-2 Verified). Accepted as liens due PDR: finding-3 (shipping and duties per line, sources and dates), finding-4 (line 15 "SEMP section 7" should read section 8.0), finding-6 (lien policy to the 01 section 12 `blocks-order` rule), finding-9 (DigiKey lead-time estimate). Known cross item outside these products: `rmm.json` SWE-016 item d and SWE-015 instrument wording (record cross item 1) |
+| CK-REQ-G2 | Yes | Each FM-1 to FM-9 row names its gate, products and dependencies; each cost line names its basis and update point; 0 hits for "as appropriate", "should consider" or TBD |
+| CK-REQ-G3 | Yes, with finding-7 as a lien | Owner approval, owner decisions for long-lead substitutions and the ADR draw rule of 06 section 14.1 class 2 for the reserves are stated; SI-020 citation and a per-phase basis are finding-7, due PDR |
+| CK-REQ-G4 | Yes | `schedule.md` line 5 states it is the SWE-016 (T) schedule; `cost-estimate.md` line 3 cites the SWE-015 and SWE-151 tailoring and carries the life-cycle reserves |
+| CK-REQ-G5 | N/A | No cybersecurity content |
+| CK-REQ-G6 | No: lien | Cost: TPM-014 source and thresholds in `tpm.json`. Schedule: no actual, slip or recovery status and no RSK ids on the risk list; finding-5, due PDR |
+| CK-REQ-G7 | N/A | No tool claim |
+| CK-REQ-G8 | Yes | NPR 7123.1D section 5.1.5, SWE-015, SWE-016, SWE-151 exist in the corpus (reviewer pins, record section G) |
+| AC-1, AC-4, AC-5 | Yes | Arithmetic recomputed today: 60 + 300 + 250 + 80 = 690, 690 + 138 = 828, 828 + 120 + 24 = 972, 972 + 300 + 40 = 1312; 120 + 500 + 600 + 150 = 1370, 1370 + 274 = 1644, 1644 + 160 + 32 = 1836, 1836 + 800 + 120 = 2756; per unit 276 to 548 for three units |
+| AC-6 | Yes | Em dash 0 in both blobs; schedule gates event-based |
+
+**Author statement.** The products meet AC-1 to AC-7 with the Minor liens finding-3 to finding-7 and finding-9 open, owned by the author and due at the PDR readiness declaration; finding-8 is answered by this section, for the reviewer to verify. No finding is disputed.

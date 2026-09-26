@@ -283,3 +283,48 @@ FINDINGS: Closed 17 (finding-1 to finding-17; Major 4, Minor 13); Disputed accep
 MEASUREMENTS: items re-checked 22 findings and 10 items; items answered No 2 (R4, CK-DES-H1 on liens); renders re-inspected 1; iteration 3; 30 turns, 40 minutes
 PRODUCT: HEAD adcfe09; conops.md b2c76c80, concept.md 729190a2, six figure files as in product_files
 ```
+
+## Author self-check (written by the author; package item R7, readiness R4)
+
+**Ownership.** This section is the author's return for readiness R4 of the design checklist ("The author's return lists the brief's acceptance criteria and the self-check"), filed in the record because 01 section 13 keeps no record only in conversation. It is written by `author:conops-concept` (Claude, lead SE), not by the reviewer. The author changed nothing else in this record: the front matter, findings, readiness answers, verdict and measurements stay the reviewer's. Whether R4 is now met, and the re-issue of the record, are the reviewer's (package item R8). No product content changed with this self-check (convergence rule, charter section 4 item 3).
+
+**Product checked.** The committed blobs named in `product_files` at HEAD `d4cce27`, unchanged since the iteration 3 review (`git rev-parse HEAD:<path>`: `conops.md` `b2c76c80`, `concept.md` `729190a2`, the four ConOps figure files and the two block-diagram files as listed). Date 2026-09-26. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ("author self-check readiness fields R1 to R4 peer review record"; "author self-check section filed by the author against checklist, acceptance criteria listed, decision 115") ran before any `grep`.
+
+**Acceptance criteria.** The original author briefs of ConOps revision 2 (`28e49e6`) and of the H10 concept run (`8a37f8e`) are not in the repository, so the criteria are restated from the governing sources the briefs pointed to:
+
+| # | Acceptance criterion | Source |
+|---|---|---|
+| AC-1 | Concept developed to a level that shows technical feasibility, ready to baseline; concept summary and block sketch render | 01 section 4.3 row 4 (G-3 3.2; SE-36) |
+| AC-2 | Descope options listed in a "Deferred capabilities" section | 01 section 4.3 row 6 (G-3 5.4) |
+| AC-3 | Nominal and off-nominal `OPS-NNN` scenarios with MOE links, including straight key and paddle, headphones, tuning, charging, high SWR and stuck key | 01 section 4.3 row 10 (G-4 6.2; SE-36) |
+| AC-4 | External interfaces identified by ICD id | 01 section 4.3 row 17 (G-4 6.11) |
+| AC-5 | ConOps follows SE HB App. S; modes, flags and transitions of section 3.4 agree with the L1 set, because REQ-SYS-002 binds them | charter section 5; SE HB App. S; REQ-SYS-002 |
+| AC-6 | Every figure rendered headlessly beside its source and inspected | charter section 11 rule 3; 08 section 1 visual closure |
+| AC-7 | No TBD; a TBR only by reference to an L1 TBR with owner, plan and close_by; no em dash | charter section 7; 08 section 1 WRITING |
+| AC-8 | Only Major findings change the product before SRR; Minor findings are liens due PDR | charter section 4 item 3 (lead SE convergence rule, 2026-09-26) |
+
+**Self-check against the checklist.** Design checklist revision B section H and readiness R1 to R4, plus the ConOps row of `docs/templates/peer-review-checklist-requirements.md` (A3, A4, A8, B4, C5, C6, F2, G1, G2) that 08 section 3.5 names for "expectations, ConOps and the concept".
+
+| Item | Author answer | Evidence |
+|---|---|---|
+| R1 | Yes | `concept-block-diagram.py --check` exit 0 today ("22 blocks, 6 groups, 32 edges; layout checks passed ... is current"). The author opened all three committed renders with Read on 2026-09-26: `concept-block-diagram.png` (B07 "TX inhibit while VBUS present", VBUS present edge from B16, legend present, nothing clipped), `conops-modes.png` (the nine modes of Table 3.4-1, T01 to T25 on their edges, Fault-safe labelled latched), `conops-context.png` (actors, equipment and ICD ids of ConOps sections 3.2 and 3.3). All legible |
+| R2 | N/A | Concept-level product; no `REQ-SW-*` design allocation at SRR |
+| R3 | N/A | Every requirement is Draft before the SRR memo (08 section 3.1 Status); product and L1 set baseline together |
+| R4 | Yes (this section) | Acceptance criteria AC-1 to AC-8 and this table |
+| CK-DES-H1 | No: liens only | No contradiction found in the values bound by REQ-SYS-002: `conops.md` lines 165, 212 and 397 give 20 ms (TBR, REQ-SYS-004) and lines 165 and 218 give 128 elements or 10 s (TBR, REQ-SYS-054), equal to the L1 statements read today; USB inhibit on VBUS presence equals REQ-SYS-092. Known and accepted as liens due PDR: finding-19 (lines 105 and 685 read RSK-001 to RSK-059; RSK-064 and RSK-065 not named), finding-20 (line 103 cites `hazards.json` 0.3.0-pha), finding-22 (line 540, OPS-013 step 6 sentence), all to be fixed in the PDR revision |
+| CK-DES-H2 | Yes | As R1; every figure is referenced in the text (Figure 1.3-1, Figure 3.4-1, concept section 5) |
+| CK-DES-H3 | N/A (ConOps); Yes (concept) | `concept.md` 381 lines; the ConOps (867 lines) is outside H3 per finding-18 (withdrawn) |
+| CK-DES-H4 | Yes, with finding-21 as a lien | SE-36 in `npr-7123-1d/05-chapter5.md`; SE HB App. S in `nasa-se-handbook/41-appendix-s-concept-of-operations-annotated-outline.md`; 47 CFR citations checked by the reviewer against the regulatory corpus. finding-21 (Appendix D header names commit `400e59d`, line 848) is accepted, fix before PDR |
+| CK-REQ-A3 | Yes | Quantities carry units and bounds (for example 20 ms, 10 s, 9 min 00 s +/-5 s, 0.5 to 5 W, -10 to +45 C), each tied to its L1 requirement and TBR |
+| CK-REQ-A4 | Yes | The ConOps states no "shall" requirement; `grep -cw TBD` gives 0 in both files and `tools/traceability.py --report-only` (exit 0, 0 violations, 3 warnings none on the ConOps) raises no TBD_PRESENT or ConOps code |
+| CK-REQ-A8 | Yes | Mode names equal Table 3.4-1 and REQ-SYS-002; key types written "straight key" (11 uses) and "iambic paddle(s)" (5 uses) |
+| CK-REQ-B4 | Yes | Scripted check today: all 22 `OPS-NNN` headings carry an "Exercises" line naming at least one MOE or NGO; OPS-004 (paddle), OPS-005 (straight key) and OPS-013 exercise both key types |
+| CK-REQ-C5 | Yes | ConOps section 3.4 is the mode set REQ-SYS-002 binds; concept section 4.1 maps its proposed sub-states onto it (finding-4 Closed) |
+| CK-REQ-C6 | Yes | Ten off-nominal scenarios OPS-013 to OPS-022 plus off-nominal branches in OPS-001 and OPS-002 (AC-3) |
+| CK-REQ-F2 | Yes | Terms and enum spellings as A8; concept section 4.1 names the ConOps modes, flags and inhibits unchanged |
+| CK-REQ-G1 | Yes | The ConOps expands charter section 5 (ConOps row) and does not contradict the charter, RMM or an Accepted ADR; concept section 7.6 agrees with ADR-011 (reviewer H1 evidence) |
+| CK-REQ-G2 | Yes | Each scenario names actors, preconditions, steps, expected outcome and exercised expectations; 0 hits for "as appropriate" or "should consider" in either file |
+| AC-2, AC-4 | Yes | `conops.md` section 3.5.4 "Deferred capabilities" (line 290); ICD ids in ConOps section 3.3, the context render and concept section 9 (18 ICDs) |
+| AC-7 | Yes | Em dash count 0 in both files; every TBR in the text cites its L1 requirement |
+
+**Author statement.** The product meets AC-1 to AC-8 with the four Minor liens finding-19 to finding-22 open, owned by the author and due at the PDR readiness declaration. No finding is disputed.

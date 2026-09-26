@@ -253,3 +253,50 @@ FINDINGS:
 ITEMS N/A: CK-DES-A1 to F3, I1 to I8, J1 to J10, H2
 MEASUREMENTS: size=26 matrix rows; turns=40; minutes=35; major=5; minor=3
 ```
+
+## Author self-check (written by the author; package item R7, readiness R4)
+
+**Ownership.** This section is the author's return for readiness R4 of the design checklist ("The author's return lists the brief's acceptance criteria and the self-check"), filed in the record because 01 section 13 keeps no record only in conversation. It is written by `author:tech` (Claude, lead SE), not by the reviewer. The author changed nothing else in this record: the front matter, findings, readiness answers, verdict and measurements stay the reviewer's. Whether R4 is now met, and the re-issue of the record, are the reviewer's (package item R8). No product content changed with this self-check (convergence rule, charter section 4 item 3).
+
+**Product checked.** `docs/plan/technology-assessment.md@d46abde01adf320630dc317d0a80aa6f197181e5` (`git rev-parse HEAD:<path>` at HEAD `d4cce27`; last commit `12d7bb7`, 427 lines), the blob of the iteration 3 delta verification. Date 2026-09-26. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ("author self-check readiness fields R1 to R4 peer review record"; "author self-check section filed by the author against checklist, acceptance criteria listed, decision 115") ran before any `grep`.
+
+**Acceptance criteria.** The author brief of commit `4e3f891` and the fix briefs of revisions 2 and 3 are not in the repository, so the criteria are restated from the governing sources they pointed to:
+
+| # | Acceptance criterion | Source |
+|---|---|---|
+| AC-1 | TRL-style table for every element (RP2350, rustos heritage, RF parts, KiCad, LTspice, emulator) with heritage | 01 section 4.3 row 20 (G-4 6.16, 6.17; G-3 5.9) |
+| AC-2 | Toolchain sanity-check results, copied from `tools/toolchain.lock.md` section 1.1, and the FW-B0 toolchain proof `TC-SW-TOOL-001` | 01 section 4.3 row 20 evidence form |
+| AC-3 | Technology TRL (NPR 7123.1D App. E) kept apart from design maturity (SEMP section 6.0 DML scale), with the SE HB App. G Figure G.3-1 and G.4-3 roll-up | SEMP section 6.0; SE HB App. G |
+| AC-4 | Technology Development Plan disposition (G-3 5.8) supported by the table | 01 section 4.7; Table G-3 item 5.8 |
+| AC-5 | SRR tool validation set equal to 05 section 13 SRR row; driver work packages equal to 07 section 19 | 05 section 13; 07 sections 3.1 and 19 |
+| AC-6 | Every element below its gate maturity has a risk id | SEMP section 5.13 |
+| AC-7 | No TBD, no em dash; owner decisions named | charter section 7; 08 section 1 WRITING |
+| AC-8 | Only Major findings change the product before SRR; Minor findings are liens due PDR | charter section 4 item 3 (lead SE convergence rule, 2026-09-26) |
+
+**Self-check against the checklist.** Design checklist revision B sections G and H with readiness R1 to R4 (as assigned), plus `docs/templates/peer-review-checklist-requirements.md` section G (all items) and A8, the checklist 08 sections 3.1 and 3.5 name for the technology assessment.
+
+| Item | Author answer | Evidence |
+|---|---|---|
+| R1 | N/A | No figure in the product |
+| R2, R3 | N/A | Not a design product |
+| R4 | Yes (this section) | AC-1 to AC-8 and this table |
+| CK-DES-A1 to F3, I1 to I8, J1 to J10 | N/A | Not an architecture, design, ICD or hardware product |
+| CK-DES-G1 | Yes | Sections 2, 3.18 and 6 use WP-SW-01 to WP-SW-13 and the FW-B1 PDR scope of 07 sections 3.1 and 19 (F-05 Closed) |
+| CK-DES-G2 | Yes | No external runtime crate adopted (section 3.15) |
+| CK-DES-H1 | Yes | DML scale and App. E TRL column of section 1.1 agree with SEMP section 6.0; Green cells removed pending the on-board run (section 3.13); section 7 finding supported by the section 2 technique TRLs, with the PIO I2S exception named (F-01, F-03, F-04 Closed) |
+| CK-DES-H2 | N/A | No figures |
+| CK-DES-H3 | Yes | `wc -l` 427 |
+| CK-DES-H4 | Yes | `npr-7123-1d/11-appendixe.md` and `nasa-se-handbook/29-appendix-g-technology-assessment-insertion.md` exist in the corpus; Table G-4 items 6.16 and 6.17 cited in the header (F-08 Closed) |
+| CK-REQ-A8 | Yes | Gate, module and WP-SW names as in the charter and 07 |
+| CK-REQ-G1 | Yes | No contradiction with the charter, SEMP section 6.0, 05 section 13 or 07 section 19 found; SWE-219 stated Tailored as charter sections 10 and 12 (section 3.19) |
+| CK-REQ-G2 | Yes | Section 6 names per element the artifact and gate of each advancement step; 0 hits for "as appropriate", "should consider" or TBD |
+| CK-REQ-G3 | Yes | Header: Owner Robin approves; section 8 item 5 lists the owner decisions at SRR (decision 11, OQ-SE-006) |
+| CK-REQ-G4 | Yes | SWE-219 (Tailored) and SWE-136 through the TV records of section 5.3 are mirrored with their dispositions |
+| CK-REQ-G5 | N/A | No cybersecurity content in scope |
+| CK-REQ-G6 | N/A | No process measurement defined here; the maturity ratings are re-issued by the section 9 update rule |
+| CK-REQ-G7 | Yes, with the liens below | Versions agree with the lock today (`grep`: kicad-cli 10.0.6, rustc 1.98.0, picotool 2.3.0, jsonschema 4.26.0, FreeCAD 1.1.3, OpenSCAD 2021.01 present in both files); section 5.1 equals lock section 1.1 (F-02 Closed). Accepted as liens due PDR: F-09 (section 6 "nine records"), F-10 (section 5 preamble and section 5.3 rows 2 and 10), F-11 (section 5.2 cites `TC-SW-TOOL-001-r1` only, while `docs/vv/reports/TC-SW-TOOL-001-r2.md` exists), F-12 (section 5.4 slide-toolchain and FreeCAD cells, section 5.1 summary sentence) |
+| CK-REQ-G8 | Yes | As CK-DES-H4; no NASA requirement quoted as a paraphrase |
+| AC-6 | Yes | 49 RSK references; rustos drivers carry RSK-013, RSK-003, RSK-008; enclosure RSK-006, RSK-044 (F-07 Closed) |
+| AC-7 | Yes | Em dash 0, TBD 0 in the blob |
+
+**Author statement.** The product meets AC-1 to AC-8 with the four Minor liens F-09 to F-12 open, owned by the author and due at the PDR readiness declaration. No finding is disputed.
