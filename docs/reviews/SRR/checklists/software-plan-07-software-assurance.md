@@ -290,3 +290,49 @@ FINDINGS: finding-1 to finding-7 Closed at HEAD blob d0f8baf6; 0 open Major
 LIENS: [Minor] finding-8 07 s22 "Paired assurance record fields" row stale; [Minor] finding-9 07 s14.2 row i "07 addition" label stale (fix before PDR)
 MEASUREMENTS: iteration=3; closed=7; liens=2; open=0; turns=30; minutes=35
 ```
+
+## Author self-check (readiness R3; package item R7; filed by the author 2026-09-26)
+
+**Filed by:** the 07 author role `author:software-plan` (Claude, software lead), not the assurance reviewer `sa-reviewer:software-plan` or the file reviewer of INSP-010. This section is the author return that readiness R3 asks for (template readiness row R3: "The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria"; package decision 115 (a) default: "each author (Claude) files its self-check against the record's checklist sections before the repeat readiness review"). It writes nothing the assurance reviewer owns: the front matter, the Readiness table, the findings, the assurance task answers and the verdict are unchanged, and the assurance reviewer answers R3 on re-issue (package item R8). No product was changed (convergence rule, charter section 4 item 3).
+
+**Products checked:** the same blobs as the paired record INSP-010 and this record's iteration 3: `docs/process/07-software-engineering-plan.md` `d0f8baf6` (HEAD `ade0e09`, revision A.4, 1,010 lines) and `docs/plan/measurements.json` (89 records). The author's full A8 and G1 to G8 self-check, its acceptance criteria AC-1 to AC-5 and its tool runs are in the INSP-010 record (`docs/reviews/SRR/checklists/software-plan-07.md`, section "Author self-check"); they apply unchanged to this record and are summarised below with the assurance view.
+
+**Search-first compliance.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: author self-check section of an inspection record, readiness R1 to R4). `grep`, `sed -n`, `git` and read-only Python were used afterwards only to pin lines and recompute values.
+
+**Acceptance criteria (assurance additions to INSP-010 AC-1 to AC-5).**
+
+| # | Acceptance criterion | Source | Author result |
+|---|---|---|---|
+| AC-6 | 07 carries the software assurance plan and software safety plan content (NPR 7150.2D section 6.1 items k and l; SWEHB 5.17 and 5.18 mapped in section 15) | 07 section 2.1.1 row "Software plans"; SWE-013 | Met (finding-6 Closed) |
+| AC-7 | Section 14.1 components and SWE-134 items equal the union computed from the committed `hazards.json`; section 14.2 numbers equal the cited L1 requirements | 07 section 14.1 transcription rule; SWEHB `swe-134` 7.1 task 6 | Met in content (author item S-1 of INSP-010 on the version pointer) |
+| AC-8 | Section 2.1.1 routes every product type the assurance function must see, including 05 and the make/buy record | SWEHB `swe-013` 7.1 task 1 | Met in the plan (lines 117 and 118); the 05 assurance record itself is package item R6 |
+
+**Item-by-item self-check (author answers; the assurance reviewer's answers above govern).**
+
+| Id | Author answer | Evidence (re-checked 2026-09-26 at HEAD `ade0e09`) |
+|---|---|---|
+| CK-REQ-A8 | Yes | As INSP-010 author self-check; state names, key types, `PA_EN`, `TX_KEY` consistent; 0 em dashes |
+| CK-REQ-G1 | No, on liens finding-8 and finding-9 | Charter alignment commit `4e3f891` is current; section 22 agrees with `rmm.json`; the stale "Paired assurance record fields" row (finding-8) and the row i label (finding-9) are liens |
+| CK-REQ-G2 | No, on INSP-010 lien finding-16 | As INSP-010 author self-check |
+| CK-REQ-G3 | Yes | Section 2.1.1 routes this plan, 03, 05, the make/buy record (line 117) and safety-constraining trade studies and ADRs (line 118); separate paired assurance records are provided for in section 10.2 (finding-3 Closed) |
+| CK-REQ-G4 | Yes | 25 of 25 T and NA rows mirrored; SWE-045 and SWE-094 no longer listed as tailored |
+| CK-REQ-G5 | Yes | Section 16.2 and 16.4 as INSP-010 author self-check |
+| CK-REQ-G6 | No, on INSP-010 lien finding-15 | `tools/measurements.py --check-records`: 89 records, 80 evidence-hash failures, exit 1 |
+| CK-REQ-G7 | No, on INSP-010 lien finding-14 | Tool versions run by the author equal the lock; honest limits stated (no Rust MC/DC, emulation carries no timing credit, nightly is non-credit) |
+| CK-REQ-G8 | Yes | 88 of 88 cited SWE ids have a SWEHB page and appear in the NPR 7150.2D corpus text |
+
+**Assurance tasks: the author's position on each (the assurance reviewer's answers govern).**
+
+| Task | Author position | Evidence |
+|---|---|---|
+| SA-013-1 | Plan content in place; one execution item open | Every section 6.1 item a to y is assigned (section 1.3); the 05 assurance review that section 2.1.1 now requires is package item R6 |
+| SA-013-2 | Met | Section 15 maps SWEHB 5.17 and 5.18 (finding-6 Closed) |
+| SA-089-1 | Met in the plan; lien in the repository | Sections 10.3 and 11.1 define the MSR-20 and MSR-21 roll-up per record; the evidence-hash state is INSP-010 finding-15 (lien) |
+| SA-134-1, SA-134-4 | Met | Section 14.2 row d provides receiving-side validation of every operator override (finding-1 Closed; the SW-KEYER requirements specify the keyer-side validation of the override path per row d at `f2e02aa`, INSP-026 finding-1) |
+| SA-134-6, SA-205-2, SA-205-3 | Met in content | The author compared every hazard's `firmware_role` and `swe134_items` at the 0.4.0-pha commit `08d1496` with the committed 0.4.3-pha file at `ade0e09`: no hazard changed, none added or removed, so the union this record verified at iteration 1 and 3 still holds; 07 line 581 still names 0.4.0-pha (editorial pointer, INSP-010 author item S-1, fixed with the liens before PDR) |
+| SA-219-1 | Met | Section 9.6 decision tables, independence pairs by the test author, MSR-13 credit and MSR-14 non-credit, shortfall only by owner waiver `W<n>` |
+| SA-220-1 | Met | Sections 14.1 and 14.3 and RMM SWE-220 carry the NPR 7150.2D 3.7.5 waiver rule consistently (finding-7 Closed) |
+
+**Tool runs by the author.** As in the INSP-010 author self-check (2026-09-26, HEAD `ade0e09`): `tools/validate_docs.py` exit 1, 47 passed, 1 failed, the failure being `docs/reviews/SRR/checklists/hazard-analysis.md` (another agent's R9 work) and this record PASS; `tools/traceability.py --report-only` exit 0, 0 violations, 3 warnings, rewritten `docs/vv/` outputs restored with `git checkout`; `tools/measurements.py --check-records` exit 1 (finding-15).
+
+**Author statement.** The author has re-read 07 and `measurements.json` against checklist items A8 and G1 to G8, AC-1 to AC-8 and the assurance tasks this record applied. The author disputes no finding and accepts liens finding-8 and finding-9 for PDR.

@@ -228,3 +228,51 @@ FINDINGS:
 ITEMS N/A: CK-REQ-A1 to A7, B1 to B7, C1 to C8, D1 to D4, E1 to E6, F1 to F4 (product is a plan)
 MEASUREMENTS: size=16 sections (642 lines, 55 Table 4-1 rows); items checked=9; items No=5; major=2; minor=7; fixed=0; deferred=0; iteration=1; turns=45; minutes=40
 ```
+
+## Author self-check (readiness R3; package item R7; filed by the author 2026-09-26)
+
+**Filed by:** the 05 author role `author:cm-plan` (Claude lead SE, CM function), not the reviewer. This section is the author return that readiness R3 asks for (template readiness row R3: "The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria"; package decision 115 (a) default: "each author (Claude) files its self-check against the record's checklist sections before the repeat readiness review"). It writes nothing the reviewer owns: the front matter, the Readiness table, the findings and the verdict are unchanged, and the reviewer answers R3 on re-issue (package item R8). No product was changed (convergence rule, charter section 4 item 3).
+
+**Product checked:** `docs/process/05-configuration-and-data-management.md` blob `63ed566240ffc7f055b65f93f579a6bb1498e9f1` (`git rev-parse HEAD:<path>` at HEAD `ade0e09`, equal to this record's `product_blob`; last commit touching it `0ab3d6e`; 672 lines) and `docs/process/rmm.json` blob `30fcde24` for the rows 05 mirrors. The product is unchanged since the iteration 3 review.
+
+**Search-first compliance.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: author self-check section of an inspection record, readiness R1 to R4). `grep`, `sed -n`, `git` and read-only Python were used afterwards only to pin lines and recompute values.
+
+**Acceptance criteria.** No author brief for revisions 2 and 3 of 05 is on record (iteration 1 R3 evidence). The author therefore states here the criteria the plan was written to, taken from the governing documents that 08 section 3.1 names for "plans and process documents":
+
+| # | Acceptance criterion | Source | Author result |
+|---|---|---|---|
+| AC-1 | Every item of the applicable checklist (product-type row "Plans and process documents": G1 to G8 and A8) answers Yes, or No only on a finding that is Closed or a lien | template product-type table; charter section 4 item 3 | Met: see the item table; the No answers rest on liens finding-10 and finding-11 and on the author-found items below |
+| AC-2 | The plan covers SE HB App. M topics, the five CM functions of SE HB section 6.5.1.2, SE-20 purposes a to e and SE-21 topics, and SWE-079 to SWE-085 with their RMM dispositions | 05 header; 01 section 4.6; SRR entrance row 12 | Met: section 16 maps each; every SWE id cited is a row of `rmm.json` |
+| AC-3 | Every tracked file matches a Table 4-1 row | 05 section 4.2 matching rule; section 7.4 | Met: 1,069 of 1,069 tracked paths match at HEAD `ade0e09` (author script over `git ls-files`) |
+| AC-4 | No `TBD`, no "as appropriate", no "should consider", no em dash; every TBR has owner, plan and close_by | template readiness R4; charter writing rules | Met: 0 hits for each; "TBR" occurs only as a subject (CSA item 13, FCA-09) |
+| AC-5 | The file validates and the gate tools pass at the commit the record names | template readiness R1 | Met for 05 (Markdown, not schema-validated); tool runs below |
+
+**Item-by-item self-check (author answers; the reviewer's answers above govern).**
+
+| Id | Author answer | Evidence (re-checked 2026-09-26 at HEAD `ade0e09`) |
+|---|---|---|
+| CK-REQ-A8 | Yes | Control classes CR, Log, Record, Mixed; levels L0 to L3; identifiers `FW-vX.Y.Z`, `HW-MB-rev<X>-<n>`, `ME-ENC-rev<X>-<n>`, `CWHT-A-NNN`, `TV-NNN`, `OQ-CM-NNN` used the same way throughout; 0 em dashes (count of U+2014 in the file) |
+| CK-REQ-G1 | No, on lien finding-10 only | Charter sections 7, 8 and 11 rule 5 expanded without contradiction (the ADR row 13 exception is the finding-10 lien, bounded to the period before `baseline/srr` and ruled by package decision 105). RMM rows SWE-045, SWE-082 and SWE-085 now agree with 05 sections 3, 4.1, 8.1 and 8.3 (finding-1 and finding-7 Closed). 07 section 13 now says "the twelve steps of ... section 8.1" (07 line 573), so observation O-4 is resolved on the 07 side |
+| CK-REQ-G2 | No, on lien finding-11 and author item S-1 | Every procedure step names its artifact, path and id scheme (sections 4.4, 5.2, 8.1 to 8.4, 9.2); each open question in section 14 carries "Needed by" and a default. Status line and the row 9 dated list are finding-11 (lien); Table 4-2 record annotations are author item S-1 |
+| CK-REQ-G3 | Yes | Section 3: owner as CCB chair, ETA, baseline, waiver, release and accreditation approver, acquirer role at FCA and PCA (SWE-045); Claude as CM function and sole committer to `main` (SWE-082 c); independent reviewer duties; software assurance checks. Approval points: section 4.4 steps 4 to 6, section 5.2 Dispositioned, section 8.1 step 9, section 9.2 step 3 |
+| CK-REQ-G4 | Yes | Section 16 mirrors the RMM: SWE-045 FC, SWE-219 as tailored (FCA-08), SWE-220 waiver per NPR 7150.2D 3.7.5; author script: all 28 SWE ids cited in 05 are rows of `rmm.json` |
+| CK-REQ-G5 | Yes | CM-scope assets, surfaces and mitigations with their verification (sections 3, 4.5 history integrity, 8.1 step 4 CRC-32 trailer, 10.3, 9.2 git known-answer test, PCA-05); the software cybersecurity assessment is 07 section 16, which 05 cites (section 5.3 Cybersecurity row) |
+| CK-REQ-G6 | Yes | Table 6-1 gives the four CM metrics with computation, threshold, response and storage; volatility thresholds equal 07 section 11.2 MSR-02 (10 % and 20 %) |
+| CK-REQ-G7 | Yes | Versions run by the author on 2026-09-26 equal `tools/toolchain.lock.md`: `sw_vers` 26.6.2; `git version 2.50.1 (Apple Git-155)`; `rustc 1.98.0 (88d9e12ae 2026-08-18)`; `picotool v2.3.0`; `kicad-cli` 10.0.6; `nightly-2026-08-24` in `rustup toolchain list`. Honest limits stated (OpenSCAD cannot write STEP, kicad-cli time stamps, MC/DC for Rust via FCA-08). For the section 13 SRR TV list, the records `docs/cm/tool-validation/TV-001` to `TV-010` now exist, one per tool that section 13 names; their review and accreditation are package item H12 execution (accreditation: package decision 114), not plan content |
+| CK-REQ-G8 | Yes | Author script: every `SWE-NNN` cited in 05 (28 ids) has a page in `docs/references/md/swehb/` and appears in the NPR 7150.2D corpus text; every `SE-NN` cited (SE-17, SE-18, SE-20, SE-21, SE-67) appears in the NPR 7123.1D corpus text; no NASA text is presented as a quotation it is not |
+
+**Author-found items (offered to the reviewer; not findings until the reviewer files them).**
+
+- **S-1 (Minor in the author's view, CK-REQ-G2; stale execution annotations).** Table 4-2 (lines 175 to 183) marks records "not yet in H1" for 01, 02, 04, 06, 08, the schedule and cost estimate, the compliance matrix and the TC-SYS cases. At HEAD these records exist: INSP-019 (01), INSP-020 (02), INSP-021 (04), INSP-022 (08), INSP-023 (schedule and cost estimate), INSP-024 (compliance matrix), INSP-025 (TC-SYS). The admission rule of the table is correct; only the annotations are dated. The author proposes to fix them with finding-11 in revision 4, before PDR, as a lien; no product change in this run.
+- **S-2 (information, not a defect of 05).** Section 14 OQ-CM-001 default names "risk `RSK-NNN` entered by Claude"; the question is on the SRR decision list (package decision 15) and no branch-protection risk is in `docs/risk/register.json` at HEAD, which is correct while the question is undecided (observation O-2 stands).
+- **S-3 (cross item, not a defect of 05).** The 07 section 2.1.1 routing makes an APPROVED assurance verdict on 05 a condition of this record's APPROVED verdict; the paired record is package item R6 (or decision 118 (b)). The self-check does not discharge it.
+
+**Tool runs by the author (2026-09-26, HEAD `ade0e09`, working tree also holding other agents' uncommitted record edits).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `.venv/bin/python tools/validate_docs.py` (before this section) | 1 | 47 passed, 1 failed, 48 checked; the failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (record drift against the `ade0e09` hazards commit, another agent's R9 work); this record PASS |
+| `.venv/bin/python tools/traceability.py --report-only` | 0 | 238 requirements, 170 test cases, 0 violations, 3 warnings; none concerns 05; the rewritten `docs/vv/traceability-report.md` and `traceability.json` were restored with `git checkout` |
+| author script over `git ls-files` with the section 4.2 matching rule | 0 | 1,069 tracked paths, 0 unmatched |
+
+**Author statement.** The author has re-read 05 against checklist items A8 and G1 to G8 and against AC-1 to AC-5. The author disputes no finding, accepts liens finding-10 and finding-11 for PDR, and adds S-1 for the same revision.

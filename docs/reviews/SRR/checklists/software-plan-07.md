@@ -309,3 +309,51 @@ LIENS (fix before PDR): finding-14; finding-15, finding-16, finding-17 (new, Min
 OPEN MAJOR: none
 MEASUREMENTS: size=1010 lines + 89 records; items_checked=9; items_no=3; major=2; minor=15; open=0; verified=13; deferred(lien)=4; iteration=3; turns=96; minutes=130 (cumulative)
 ```
+
+## Author self-check (readiness R3; package item R7; filed by the author 2026-09-26)
+
+**Filed by:** the 07 author role `author:software-plan` (Claude, software lead), not the file reviewer or the assurance reviewer. This section is the author return that readiness R3 asks for (template readiness row R3: "The author's return states the self-check against sections A to G below and lists the brief's acceptance criteria"; package decision 115 (a) default: "each author (Claude) files its self-check against the record's checklist sections before the repeat readiness review"). It writes nothing the reviewer owns: the front matter, the Readiness table, the findings and the verdict are unchanged, and the reviewer answers R3 on re-issue (package item R8). No product was changed (convergence rule, charter section 4 item 3).
+
+**Products checked:** `docs/process/07-software-engineering-plan.md` blob `d0f8baf614b49e9c99d8fe2169093d02626ac50d` (`git rev-parse HEAD:<path>` at HEAD `ade0e09`; last commit touching it `b301df2`; 1,010 lines; revision A.4) and `docs/plan/measurements.json` (89 records) with its schema. Both equal the iteration 3 review blobs.
+
+**Search-first compliance.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: author self-check section of an inspection record, readiness R1 to R4). `grep`, `sed -n`, `git` and read-only Python were used afterwards only to pin lines and recompute values.
+
+**Acceptance criteria.** The author return for revisions A.3 and A.4 was a change list, not a criteria list (R3 evidence above). The author states here the criteria the plan was written to, from the governing documents 08 section 3.1 names for "plans and process documents" and from SRR entrance row 23:
+
+| # | Acceptance criterion | Source | Author result |
+|---|---|---|---|
+| AC-1 | Every applicable checklist item (A8, G1 to G8) answers Yes, or No only on a finding that is Closed or a lien | template product-type table; charter section 4 item 3 | Met: the No answers rest on liens finding-14 to finding-17 and on the author-found items below |
+| AC-2 | SWE-013 plan content: covers the life cycle with tailoring (sections 3, 20, 22), SWE-033 record (TS-002, section 17.2), SWE-037 milestones (section 3.3); NPR 7150.2D section 6.1 items a to y assigned (section 1.3); SWEHB 5.08 items 1 to 25 mapped (section 1.4) | 01 section 4.3 row 23; 01 section 4.6 | Met |
+| AC-3 | Section 22 mirrors every T and NA row of `rmm.json` (SWE-121) and every SWE id cited is an RMM row | RMM SWE-121 | Met: 25 of 25 T and NA rows present; 88 of 88 cited SWE ids are `rmm.json` rows (author script) |
+| AC-4 | Section 14.1 equals the union recomputed from the committed `hazards.json` | 07 section 14.1 transcription rule | Met in content (author item S-1 on the version pointer) |
+| AC-5 | `measurements.json` validates against `measurements.schema.json`; no `TBD`, "as appropriate", "should consider" or em dash | template readiness R1, R4 | Met: validator PASS on the file; 0 hits for each string |
+
+**Item-by-item self-check (author answers; the reviewer's answers above govern).**
+
+| Id | Author answer | Evidence (re-checked 2026-09-26 at HEAD `ade0e09`) |
+|---|---|---|
+| CK-REQ-A8 | Yes | Identifiers match charter sections 5 and 6 and 05 section 4.3 (`REQ-SW-<SUB>-NNN`, `TC-SW-<SUB>-NNN`, `SW-NN-<module>`, `CS-NN`, `MSR-NN`, `WP-SW-NN`, `FW-vX.Y.Z`); Annex D defines plan terms; 0 em dashes |
+| CK-REQ-G1 | No, on liens finding-17 and INSP-018 finding-9 | Header "Aligned to: charter at commit `4e3f891`" equals the last commit touching `00-charter.md` (`git log -1`). Section 22 agrees with `rmm.json` on every T and NA row (AC-3). The 14.2 row i "07 addition" label contradicts section 22 and `hazard-analysis.md` (finding-17, lien) |
+| CK-REQ-G2 | No, on lien finding-16 | Every section 3.4 phase, 8.4 gate, 10.2 element and 11.1 rule names its artifact, path and id scheme; section 22 open items name document, owner and gate. The "does not exist yet" statements for the schema and `tools/measurements.py` are finding-16 (lien) |
+| CK-REQ-G3 | Yes | Section 2.1 roles and independence; section 2.1.1 now routes this plan, 03, 05 and the make/buy record (line 117) and safety-constraining trade studies and ADRs (line 118) to the assurance reviewer; owner approval points in 1.3, 3.1, 3.2, 10.2 and 23 |
+| CK-REQ-G4 | Yes | Section 22 mirrors all 25 T and NA rows with relief, residual risk and plan (author script against `rmm.json`: SWE-015, 016, 017, 018, 022, 023, 027, 032, 046, 131, 141, 143, 147, 148, 151, 154, 156, 157, 159, 174, 178, 179, 210, 211, 219); no FC row is listed as tailored (finding-1 Closed) |
+| CK-REQ-G5 | Yes | Section 16.2 assets, surfaces, threats, 5x5 inputs and mitigations tied to CS-29 to CS-33; section 16.4 names the verifying case families and gate G5; residual risks tagged `cyber` |
+| CK-REQ-G6 | No, on lien finding-15 | Section 11.2 gives source, unit, threshold and rule for MSR-01 to MSR-28; 11.1 storage and format; 11.3 analysis. `tools/measurements.py --check-records` run by the author: "89 records, FAIL (80 failure(s))", which is finding-15 (lien) |
+| CK-REQ-G7 | No, on lien finding-14 | Versions run by the author equal `tools/toolchain.lock.md`: `rustc 1.98.0 (88d9e12ae 2026-08-18)`, `cargo 1.98.0`, `cargo-llvm-cov 0.9.1`, `cargo-nextest 0.9.146 (8af696ddc 2026-09-21)`, `picotool v2.3.0`, `nightly-2026-08-24` installed. Honest limits stated (no MC/DC for Rust, Miri cannot run MMIO, no timing credit from emulation). Section 8.1 cites lock rows by position incorrectly (finding-14, lien) |
+| CK-REQ-G8 | Yes | Author script: all 88 `SWE-NNN` ids cited in 07 have a page in `docs/references/md/swehb/` and appear in the NPR 7150.2D corpus text |
+
+**Author-found items (offered to the reviewer; not findings until the reviewer files them).**
+
+- **S-1 (editorial, CK-REQ-G1).** Section 14.1 (line 581) cites `hazards.json` 0.4.0-pha; the committed file at `ade0e09` is 0.4.3-pha. The author compared every hazard's `firmware_role` and `swe134_items` at the 0.4.0-pha commit `08d1496` with HEAD: no hazard changed and none was added or removed, so the section 14.1 re-transcription trigger has not fired and the component list stays correct. The pointer is updated at the next revision (A.5, before PDR) with the liens; no product change in this run.
+- **S-2 (execution, not a plan defect).** Section 22 row "Software risk tags" is due "Before the SRR readiness declaration": at HEAD none of RSK-003, 010, 013, 019, 020, 021, 023 and 063 carries the tag `software` (author script over `docs/risk/register.json`). The owner of that action is Claude as risk owner; it is a cross item for the package, not a change to 07.
+- **S-3 (information).** Section 22 row "Assurance routing of 05 and TS-002": TS-002 now has INSP-027; the 05 half remains open as package item R6 (or decision 118 (b)).
+
+**Tool runs by the author (2026-09-26, HEAD `ade0e09`, working tree also holding other agents' uncommitted record edits).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `.venv/bin/python tools/validate_docs.py` (before this section) | 1 | 47 passed, 1 failed, 48 checked; the failure is `docs/reviews/SRR/checklists/hazard-analysis.md` (another agent's R9 work); `docs/plan/measurements.json` PASS; this record PASS |
+| `.venv/bin/python tools/traceability.py --report-only` | 0 | 238 requirements, 170 test cases, 0 violations, 3 warnings; 07 defines no ids; rewritten `docs/vv/` outputs restored with `git checkout` |
+| `.venv/bin/python tools/measurements.py --check-records` | 1 | 89 records, 80 evidence-hash failures (finding-15, lien) |
+
+**Author statement.** The author has re-read 07 and `measurements.json` against checklist items A8 and G1 to G8 and against AC-1 to AC-5. The author disputes no finding, accepts liens finding-14 to finding-17 for PDR, and adds S-1 for the same revision.
