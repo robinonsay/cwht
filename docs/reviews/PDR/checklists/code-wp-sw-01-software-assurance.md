@@ -21,13 +21,17 @@ checklist_revision: B
 assurance_checklist: "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4 (revision A, branch cr/CR-012-pdr-checklist-templates at 7784672)"
 checklist_file: docs/reviews/PDR/checklists/code-wp-sw-01-software-assurance.md
 product: "rustos cwht/wp-sw-01: api/src/time/mod.rs, firmware/pico2/src/timer/ and docs/icd/rp2350/timer/ (WP-SW-01)"
-# product_commit and product_files: equal to INSP-097 (readiness R1; rule C2). The sixteen rustos blobs exist only on
-# the unmerged rustos branch cwht/wp-sw-01 (head a1cd160, unchanged since INSP-097; git rev-parse a1cd160:<path> for
-# each, 2026-09-27); the three cwht blobs are equal at 618e441 and at cwht HEAD
-product_commit: "a1cd160f3199d6e4ba9343e49641797b261a76ff"
-product_files: ["docs/decisions/adr/ADR-053-wp-sw-01-timer0-time-base-and-alarms.md@471b900f52211b6096259c62c651c19fa6df789e", "docs/sprints/SW-03-wp-sw-01-timer0.md@8fed7b88be09a0294df2c0b00b513e15876a2cbb", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:api/src/time/mod.rs@f62b496149a3813b8fd3281523f2c3c001fa97b2", "rustos:api/tests/time_contract.rs@f9293ee88a267cadc319f7c79664498ae4b0379e", "rustos:api/src/lib.rs@a189e7bdc5c3fdc3249836997691e7c7397f77b5", "rustos:firmware/pico2/src/timer/mod.rs@a1ef29c8ffaf56c1b4c23c92d9da944f958480ee", "rustos:firmware/pico2/src/timer/tests.rs@247eeb82a4623ba75bd12a94fbd5efd2e2b78c27", "rustos:firmware/pico2/src/timer/timer.rs@e24f1d525e11029df5b43521914ed84dc1bd6322", "rustos:firmware/pico2/src/timer/timer_tests.rs@e1657cab15530f62d291a7dba99ab0ec18577416", "rustos:firmware/pico2/src/common/board.rs@c69de18ce76e4bfbd6bc9041af8f92a875830659", "rustos:firmware/pico2/src/common/reg.rs@93e97f73e735698b7a12c2e5129a4ee6eda9720c", "rustos:firmware/pico2/src/common/reset.rs@4f26beb0c8b53258f1bc78f112eaf56360af4915", "rustos:firmware/pico2/src/lib.rs@dcd1c254e01474c56ce2f43a97afb26171c25579", "rustos:docs/icd/rp2350/timer/index.md@11c66ca302a4429a4a9f3d5f93180844d7acf509", "rustos:docs/icd/rp2350/timer/01_overview.md@39bb74ec115f35c8d1671f520fe1413a40fabe8c", "rustos:docs/icd/rp2350/timer/02_programming.md@be5fe7f2bc4a12e59f0a4321b965c29fe82da65f", "rustos:docs/icd/rp2350/timer/03_registers.md@ca7ea335deede210c1b4222a2a23cd1290facb1d", "rustos:docs/icd/rp2350/index.md@41ba1c62d239fc2508cc8bf87388647021607d03"]
+# product_commit and product_files: iteration 2, equal to INSP-097 iteration 2 (readiness R1; rule C2; SA-A3). The
+# sixteen rustos blobs exist only on the unmerged rustos branch cwht/wp-sw-01 (head 58fe739; git rev-parse
+# 58fe739:<path> for each, 2026-09-27); the three cwht blobs are equal at cwht HEAD a244b05. Eight blobs drifted from
+# iteration 1 (ADR-053, SW-03, sprint index, api time/mod.rs, timer/mod.rs, timer/tests.rs, timer/timer_tests.rs,
+# pico2 lib.rs); the other eleven are unchanged
+product_commit: "58fe739e964435996001ed61a47423409010a09d"
+product_files: ["docs/decisions/adr/ADR-053-wp-sw-01-timer0-time-base-and-alarms.md@71f0b629402dbe8c596825b21e97d4a1905c7b0d", "docs/sprints/SW-03-wp-sw-01-timer0.md@1cea48ef0db4fb9558c1a8d51698395fc7c520b8", "docs/sprints/index.md@7ae0cbcc6087d45ab4df10cac623d453ca13c395", "rustos:api/src/time/mod.rs@3c6c567381ecbb37a39bb9bdb16f3e2012cb955a", "rustos:api/tests/time_contract.rs@f9293ee88a267cadc319f7c79664498ae4b0379e", "rustos:api/src/lib.rs@a189e7bdc5c3fdc3249836997691e7c7397f77b5", "rustos:firmware/pico2/src/timer/mod.rs@4004047d3c725929ff3e806377b394bd10f201ee", "rustos:firmware/pico2/src/timer/tests.rs@ed14e12ea380af12f91382589f4f3af8feba3542", "rustos:firmware/pico2/src/timer/timer.rs@e24f1d525e11029df5b43521914ed84dc1bd6322", "rustos:firmware/pico2/src/timer/timer_tests.rs@bbe9427594a88e8547e27daacd5c1fe03218421b", "rustos:firmware/pico2/src/common/board.rs@c69de18ce76e4bfbd6bc9041af8f92a875830659", "rustos:firmware/pico2/src/common/reg.rs@93e97f73e735698b7a12c2e5129a4ee6eda9720c", "rustos:firmware/pico2/src/common/reset.rs@4f26beb0c8b53258f1bc78f112eaf56360af4915", "rustos:firmware/pico2/src/lib.rs@5393076ccf56ebfa2ea17056284f8f7cb341f044", "rustos:docs/icd/rp2350/timer/index.md@11c66ca302a4429a4a9f3d5f93180844d7acf509", "rustos:docs/icd/rp2350/timer/01_overview.md@39bb74ec115f35c8d1671f520fe1413a40fabe8c", "rustos:docs/icd/rp2350/timer/02_programming.md@be5fe7f2bc4a12e59f0a4321b965c29fe82da65f", "rustos:docs/icd/rp2350/timer/03_registers.md@ca7ea335deede210c1b4222a2a23cd1290facb1d", "rustos:docs/icd/rp2350/index.md@41ba1c62d239fc2508cc8bf87388647021607d03"]
+# product_files_iteration_1: the blobs iteration 1 reviewed at rustos a1cd160 and cwht 618e441
+product_files_iteration_1: ["docs/decisions/adr/ADR-053-wp-sw-01-timer0-time-base-and-alarms.md@471b900f52211b6096259c62c651c19fa6df789e", "docs/sprints/SW-03-wp-sw-01-timer0.md@8fed7b88be09a0294df2c0b00b513e15876a2cbb", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:api/src/time/mod.rs@f62b496149a3813b8fd3281523f2c3c001fa97b2", "rustos:api/tests/time_contract.rs@f9293ee88a267cadc319f7c79664498ae4b0379e", "rustos:api/src/lib.rs@a189e7bdc5c3fdc3249836997691e7c7397f77b5", "rustos:firmware/pico2/src/timer/mod.rs@a1ef29c8ffaf56c1b4c23c92d9da944f958480ee", "rustos:firmware/pico2/src/timer/tests.rs@247eeb82a4623ba75bd12a94fbd5efd2e2b78c27", "rustos:firmware/pico2/src/timer/timer.rs@e24f1d525e11029df5b43521914ed84dc1bd6322", "rustos:firmware/pico2/src/timer/timer_tests.rs@e1657cab15530f62d291a7dba99ab0ec18577416", "rustos:firmware/pico2/src/common/board.rs@c69de18ce76e4bfbd6bc9041af8f92a875830659", "rustos:firmware/pico2/src/common/reg.rs@93e97f73e735698b7a12c2e5129a4ee6eda9720c", "rustos:firmware/pico2/src/common/reset.rs@4f26beb0c8b53258f1bc78f112eaf56360af4915", "rustos:firmware/pico2/src/lib.rs@dcd1c254e01474c56ce2f43a97afb26171c25579", "rustos:docs/icd/rp2350/timer/index.md@11c66ca302a4429a4a9f3d5f93180844d7acf509", "rustos:docs/icd/rp2350/timer/01_overview.md@39bb74ec115f35c8d1671f520fe1413a40fabe8c", "rustos:docs/icd/rp2350/timer/02_programming.md@be5fe7f2bc4a12e59f0a4321b965c29fe82da65f", "rustos:docs/icd/rp2350/timer/03_registers.md@ca7ea335deede210c1b4222a2a23cd1290facb1d", "rustos:docs/icd/rp2350/index.md@41ba1c62d239fc2508cc8bf87388647021607d03"]
 # inputs read (not reviewed), blobs at cwht HEAD 1353bb3
-input_files: ["docs/reviews/PDR/checklists/code-wp-sw-01.md@f3ffb1088e51b5767e8833a814f0c9cfbc62ad19 (INSP-097 iteration 1, committed 9d3734c)", "docs/process/07-software-engineering-plan.md@bfe05f4327e79fa15c24d2cf8c14249804f946a8 (sections 2.1.1, 7, 9.5, 9.6, 10.2, 14, 15, 19)", "docs/safety/hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0 (HZ-004)", "docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7", "docs/process/03-software-classification-and-rmm.md (section 4.3 HZ-004 row)", "docs/plan/pdr-work-plan.md (sections 1, 3.1, 3.8 WP-PDR-41, 5)"]
+input_files: ["docs/reviews/PDR/checklists/code-wp-sw-01.md@88654178e2160fd0c661b63cc1e453ea4f4ed7a3 (INSP-097 iteration 2, committed 134e555)", "docs/reviews/PDR/checklists/code-wp-sw-01.md@f3ffb1088e51b5767e8833a814f0c9cfbc62ad19 (INSP-097 iteration 1, committed 9d3734c)", "rustos:firmware/pico2/src/irq/vectors.rs at 58fe739 (WP-SW-09 product of INSP-096, read for the TIMER0 slots the lib.rs hunk moves)", "docs/process/07-software-engineering-plan.md@bfe05f4327e79fa15c24d2cf8c14249804f946a8 (sections 2.1.1, 7, 9.5, 9.6, 10.2, 14, 15, 19)", "docs/safety/hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0 (HZ-004)", "docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7", "docs/process/03-software-classification-and-rmm.md (section 4.3 HZ-004 row)", "docs/plan/pdr-work-plan.md (sections 1, 3.1, 3.8 WP-PDR-41, 5)"]
 paired_record: INSP-097
 # product_type: code (07 section 2.1.1 row "Code", Yes for a safety-critical component). Task set applied: the
 # section B row "Every product type", the row "code", the section 7.1 tasks of the other SWEs the package implements
@@ -43,40 +47,42 @@ author_agent: "author:WP-PDR-41 wave 1a (Claude, firmware developer role)"
 reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-01"
 assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-01 (software assurance function; paired file review INSP-097 by reviewer:WP-PDR-41-code)"
-iteration: 1
+iteration: 2
 readiness_met: true
-# reviewer_verdict and assurance_verdict: NEEDS CHANGES. This record raises no Major of its own; it concurs, under the
-# assurance lens and with the same severity, with the open Major INSP-097 finding-1 (the missed-match gap at
-# now == at), which leaves swe-134 7.1 task 2 and swe-087 7.1 task 4 answered No for SWE-134 items g, j and k (07
-# section 2.1.1: the assurance review of a safety-critical product cannot be APPROVED with an open Major against a
-# SWE-134 item). Iteration 2 is a delta that verifies the finding-1 fix and re-reads findings 1 and 2 of this record
-reviewer_verdict: NEEDS CHANGES
-assurance_verdict: NEEDS CHANGES
-# verdict: set by Claude as software lead (07 section 10.2); held at NEEDS CHANGES. Both reviews are NEEDS CHANGES,
-# and under the lead SE convention of 2026-09-27 (INSP-031 practice) the record verdict also stays held while the
-# sixteen reviewed rustos blobs exist only on the unmerged rustos branch cwht/wp-sw-01; it is set in the pin-move CR
-# merge commit (PCR-4), or the commit right after it, when the blobs reach a configuration cwht consumes
+# reviewer_verdict and assurance_verdict: APPROVED at iteration 2 (delta, rule C1). The concurred Major INSP-097
+# finding-1 is Verified at 58fe739 (independent re-run, mutation check and hunk read, section "Iteration 2"); no Major
+# is open against a SWE-134 item. Findings 1 and 2 of this record were not addressed by revision 2 and become liens
+# (rule C1); new Minor finding-3 (the planned dev-board case for the now == at edge cannot reach it) is a lien at
+# once. Iteration 1 was NEEDS CHANGES on the concurred finding-1
+reviewer_verdict: APPROVED
+assurance_verdict: APPROVED
+# verdict: set by Claude as software lead (07 section 10.2); held at NEEDS CHANGES. Both reviews are APPROVED at
+# iteration 2, but under the lead SE convention of 2026-09-27 (INSP-031 practice) the record verdict stays held while
+# the sixteen reviewed rustos blobs exist only on the unmerged rustos branch cwht/wp-sw-01; it is set in the pin-move
+# CR merge commit (PCR-4), or the commit right after it, when the blobs reach a configuration cwht consumes
 verdict: NEEDS CHANGES
 findings_major: 0
-findings_minor: 2
-findings_open: 2
+findings_minor: 3
+findings_open: 3
 findings_fixed: 0
 findings_verified: 0
 findings_deferred: 0
 assurance_findings_major: 0
-assurance_findings_minor: 2
+assurance_findings_minor: 3
 assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-060 7.1 task 1", "swe-060 7.1 task 2", "swe-061 7.1 task 1", "swe-061 7.1 task 2", "swe-207 7.1 task 1", "swe-185 7.1 task 1", "swe-135 7.1 task 1", "swe-135 7.1 task 2", "swe-135 7.1 task 3", "swe-135 7.1 task 4", "swe-135 7.1 task 5", "swe-135 7.1 task 6", "swe-135 7.1 task 7", "swe-134 7.1 task 2", "swe-087 7.1 task 4", "swe-062 7.1 task 1", "swe-062 7.1 task 2", "swe-219 7.1 task 1", "swe-220 7.1 task 1", "swe-220 7.1 task 2", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-052 7.1 task 2", "swe-087 7.1 task 1", "swe-087 7.1 task 2", "swe-088 7.1 task 1", "swe-088 7.1 task 2", "swe-089 7.1 task 1", "swe-080 7.1 task 2", "swe-080 7.1 task 3", "swe-081 7.1 task 2", "swe-187 7.1 task 1"]
 swe134_items_checked: [a, b, c, d, e, f, g, h, i, j, k, l]
 deferred_rids: []
-items_no: ["swe-134 7.1 task 2", "swe-087 7.1 task 4", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "SA-C-g", "SA-C-i", "SA-C-j", "SA-C-k", "SA-D1"]
-effort_turns: 45
-effort_minutes: 80
+# items_no at iteration 2: SA-C-g, SA-C-j and swe-087 7.1 task 4 are Yes (INSP-097 finding-1 Verified); the rest
+# are carried by the Minor liens finding-1 and finding-2; SA-D6 was answered No at iteration 1 and omitted here then
+items_no: ["swe-134 7.1 task 2", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "SA-C-i", "SA-C-k", "SA-D1", "SA-D6"]
+effort_turns: 65
+effort_minutes: 115
 record_status: Open
 date: 2026-09-27
 date_closed: null
 ---
 
-# Peer review record INSP-103: software assurance pair of INSP-097, code review of WP-SW-01 TIMER0 time base and alarms (rustos `api::time` and `pico2::timer`), iteration 1
+# Peer review record INSP-103: software assurance pair of INSP-097, code review of WP-SW-01 TIMER0 time base and alarms (rustos `api::time` and `pico2::timer`), iterations 1 and 2
 
 **Product.** rustos branch `cwht/wp-sw-01` at `a1cd160` (parent `cwht/wp-sw-09` `9305f59`), the sixteen rustos blobs of `product_files`, with ADR-053, SW-03 and the sprint index at cwht `618e441`. Identity checked on 2026-09-27: `git -C /Users/robinonsay/rust/rustos rev-parse cwht/wp-sw-01` is `a1cd160` (the head has not moved since INSP-097); `git rev-parse a1cd160:<path>` equals every rustos blob; the three cwht blobs are equal at `618e441` and at `HEAD`. The product was read with `git show` and exercised in a detached scratch worktree of the rustos repository made with `git worktree add --detach` at `a1cd160` (removed after the review). The owner's rustos working tree was not read or changed.
 
@@ -264,4 +270,93 @@ TASKS APPLIED: 34 (front matter)
 TASKS N/A (relief): swe-134 7.1 task 3 (07 section 9.7), swe-211 7.1 task 1 (charter section 12), swe-187 7.1 task 2 (07 section 9.8)
 SWE-134 ITEMS CHECKED: a to l (c, d, f, l N/A for a driver; g, i, j, k No)
 MEASUREMENTS: size=1429 lines added, 19 files; tasks=37; tasks_no=4; turns=45; minutes=80; major=0 (plus INSP-097 finding-1 concurred); minor=2
+```
+
+## Iteration 2: assurance delta on the drifted blobs (2026-09-27, cwht HEAD `a244b05`, rustos `58fe739`)
+
+**Scope (rule C1; SA-A3).** INSP-097 iteration 2 (`134e555`) moved to rustos `cwht/wp-sw-01` at `58fe739` and verified its finding-1 (Major) and finding-2 (Minor). This delta reads every hunk of the eight blobs that drifted from iteration 1 and verifies the concurred Major under the assurance lens: ADR-053 `471b900f` to `71f0b629`; SW-03 `8fed7b88` to `1cea48ef`; `docs/sprints/index.md` `fb217bcb` to `7ae0cbcc`; rustos `api/src/time/mod.rs` `f62b4961` to `3c6c5673`, `timer/mod.rs` `a1ef29c8` to `4004047d`, `timer/tests.rs` `247eeb82` to `ed14e12e`, `timer/timer_tests.rs` `e1657cab` to `bbe94275`, `firmware/pico2/src/lib.rs` `dcd1c254` to `5393076c`. The other eleven blobs are unchanged (`git rev-parse 58fe739:<path>` equals iteration 1), `timer.rs` (`e24f1d5`) among them. Findings 1 and 2 of this record are re-read for state, not re-reviewed. Checklist as at iteration 1.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-41, of revision 2, of the rustos fix commits or of INSP-097, and edited no product file. The rustos repository was read with `git show` and `git diff`, and exercised in a detached scratch worktree at `58fe739` (`git worktree add --detach` in the scratchpad, removed after the review; `git worktree list` shows none left). The owner's rustos working tree was not read or changed. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: INSP-097 iteration 2 finding-1 verification) ran before any `grep`; `grep` afterwards only pinned lines in known files.
+
+### Assurance re-runs and checks, iteration 2
+
+| # | Command or check (scratch worktree at `58fe739`, `RUSTUP_AUTO_INSTALL=0`, `--offline`; no download) | Result |
+|---|---|---|
+| T1 | `git rev-parse 58fe739:<path>` for the sixteen rustos paths; `git rev-parse HEAD:<path>` for the three cwht paths | all nineteen equal `product_files` and INSP-097 iteration 2 |
+| T2 | `git diff a1cd160 58fe739 --` the five drifted rustos files; `git diff <old> <new>` of the three cwht blobs; every hunk read | hunks as in the table below |
+| T3 | `cargo +1.98.0 test --offline -p pico2 --lib`; `cargo +1.98.0 test --offline -p api` | pico2 75 passed, 0 failed (includes `after_arm_armed_and_late_is_missed`, `after_arm_armed_and_not_late_is_pending`, `schedule_still_armed_when_the_time_equals_the_target_is_due_and_disarmed`); api `irq_contract` 4, `time_contract` 5 passed |
+| T4 | Mutation check of the fix: `now >= at` set back to `now > at` in the worktree copy of `timer/mod.rs`, T3 re-run, then `git checkout` of the file | 2 failed (`after_arm_armed_and_late_is_missed`, `schedule_still_armed_when_the_time_equals_the_target_is_due_and_disarmed`), 73 passed: the new unit test and the new driver test each detect the iteration 1 behaviour; worktree clean afterwards |
+| T5 | `cargo llvm-cov --offline -p pico2 -p api --summary-only` (cargo-llvm-cov 0.9.1) | `api/src/time/mod.rs` regions and lines 100 %; `timer/mod.rs` regions and lines 100 %; `timer.rs` regions 98.05 % (3 of 154), lines 96.55 % (3 of 87). The text report shows a non-zero count on every line of `timer.rs`; the three missed regions and lines are the `match N` arms of `irq()` (lines 88 to 92) counted per monomorphized `Rp2350Alarm::<N>` (each arm count 1). The blob is unchanged, so the difference from the 100 % line figure of S2 is a counting of the same arms, not new uncovered code. Development-build measurement, not the credited MSR-13 figure |
+| T6 | `cargo +1.98.0 clippy --offline -p pico2 -p api --all-targets --message-format=short -- -W clippy::pedantic`, filtered to `timer/` and `time/` | `module_inception` at `timer/mod.rs:32`; `cast_possible_truncation` at `timer_tests.rs:16`; both INSP-097 finding-5 (lien); no lint on a line revision 2 adds or changes |
+| T7 | `git show 58fe739:firmware/pico2/src/irq/vectors.rs` for the slots the `lib.rs` hunk moves | `with_device_interrupts` sets `t[16]` to `t[19]` to `TIMER0_IRQ_0` to `TIMER0_IRQ_3`, the lines `Rp2350Alarm::<N>::irq()` returns (`timer.rs:87-94`); the extern declarations moved with them |
+
+### Hunks read, under the assurance lens
+
+| Blob | Hunk | Assurance reading |
+|---|---|---|
+| `api/src/time/mod.rs` | ALM-1 and ALM-2 (lines 17 to 26) | ALM-1 is stated against the clock at the start of the call and allows `Due` for a target reached during the call, always with the alarm not armed and nothing latched; ALM-2 allows `Armed` with the fire latched before return. Both outcomes the driver can produce at `now == at` are within the contract, and neither leaves a silent wait (SWE-134 j, k). The `schedule_at` error clause is unchanged: finding-1 of this record stands |
+| `timer/mod.rs` | `AfterArm` docs; truth table; `after_arm` `now >= at` | The decision now classifies `armed && now >= at` as `Missed`; the disarm on `Missed` discards a fire latched after the read, so a `Due` result never leaves a latched fire (ALM-1). Under a comparator that does fire on a write in the matching microsecond, `ARMED` is clear and `INTR` set, the row `0 1 any` gives `Pending` and `Armed` is returned with one fire latched (ALM-2). Safe under both behaviours; SWE-134 g (read-back) and j (bounded response) now hold at the edge |
+| `timer/tests.rs` | L pair `(199, 200)` Pending against `(200, 200)` Missed; `(201, 200)` kept | The MC/DC pair of condition L sits on the `>=` edge (SWE-219 task 1), confirmed sensitive by T4 |
+| `timer/timer_tests.rs` | `schedule_still_armed_when_the_time_equals_the_target_is_due_and_disarmed` | Time 99 at the plan read (so `plan_arm` arms) and 100 after the write, `ARMED` 1, target 100: `Due`, then disarm and `INTR` clear as the last two writes; exercises the full `schedule` path of the edge, confirmed sensitive by T4 |
+| `firmware/pico2/src/lib.rs` | `Vector`, the device-interrupt slots and their extern block move to `irq::vectors` (merge `698929d` of `cwht/wp-sw-09` at `c6e5100`, INSP-096 finding-1) | No behaviour change for this package: slots 16 to 19 keep `TIMER0_IRQ_0` to `TIMER0_IRQ_3` (T7). The moved `unsafe` extern block and `unsafe impl Sync` are WP-SW-09 sites reviewed under INSP-096 and its assurance pair INSP-102; this package adds no `unsafe` site (S5 holds) |
+| ADR-053 | status date; section 2 items 1 and 2; section 3 row A; section 4.3 evidence and dev-board case; new section 8 | Section 2 and row A match the code. Section 4.3 "Hazard analysis update required: no" is unchanged: finding-2 of this record stands. The new dev-board case for the `now == at` edge cannot reach that edge: finding-3 |
+| SW-03 | product row; "Phase 1, revision 2"; phase 3 line | Accurate to the rustos history (`698929d`, `58fe739`) and to the rule C1 scope; the evidence line (75 `pico2` tests) matches T3 |
+| `docs/sprints/index.md` | five product and status cells | SW-03 row names `58fe739`, as T1; the other four rows are other packages (not assessed here) |
+
+### Findings (current state at iteration 2)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| INSP-097 finding-1 (concurred) | reviewer (INSP-097) | Major | SA-C-g, SA-C-j, SA-C-k; `swe-134 7.1 task 2`; `swe-087 7.1 task 4` | `timer/mod.rs:165-184`; `timer/tests.rs:60-68`; `timer_tests.rs:119-127` | missed-match check treated `armed` with `now == at` as pending | Verified (`58fe739`; T3, T4, hunk table) | | |
+| finding-1 | assurance | Minor | SA-C-k; `swe-134 7.1 task 2` | `api/src/time/mod.rs` `schedule_at` error clause (line 138 at `3c6c567`); `api/tests/time_contract.rs` | no contract clause or check for the alarm state after a non-`TooFar` `Err` | Open (lien, rule C1; not addressed by revision 2, ADR-053 section 8) | Pending | CDR readiness declaration |
+| finding-2 | assurance | Minor | SA-D1; SA-C-i; `swe-205 7.1 task 1`; `swe-134 7.1 task 6` | ADR-053 section 4.3 "Hazard analysis update required: no" (unchanged at `71f0b629`) | shared TIMER0 counter is an unrecorded common cause of the HZ-004 K3 and K4 firmware controls, bounded by K5 and K7 | Open (lien, rule C1; X-2 to WP-PDR-16b stands) | Pending | CDR readiness declaration |
+| <a id="finding-3"></a>finding-3 | assurance | Minor | `swe-062 7.1 task 1`; SA-C-g (hardware evidence) | ADR-053 section 4.3, dev-board check bullet (at `71f0b629`) | The new dev-board case, "a target equal to the time read at arming returns `Due` (the `now >= at` edge ...)", cannot reach the `after_arm` edge it names. `schedule` reads the time itself before arming (`timer.rs:178`, `plan_arm(read_time(regs), at)`), and the counter never decreases, so a target equal to an earlier caller read gives `at <= now` and `plan_arm` returns `Due` before `ALARMn` is written (`timer/mod.rs:132-134`). The case passes 10 000 times with or without the fix (T4 shows the host tests, not this case, detect it), and the pass criterion "returns `Due`" is also narrower than ALM-2, which allows `Armed` with the fire latched before return when a write in the matching microsecond fires. The fix is verified by analysis and host tests; the gap is in the hardware evidence of section 12.8.3 behaviour the ADR plans. Fix: the test author arms for `t + k` with `k` swept over the first few microseconds after a time read `t`, so the `ALARMn` write lands in the matching microsecond in some repetitions, and accepts `Due`, or `Armed` with `take_fired()` true within a stated bound, and fails only on `Armed` with no fire within that bound; ADR-053 section 4.3 is reworded to match | Open (lien, rule C1; for the phase 2 test author, SW-03 lines 52 to 55) | Pending | CDR readiness declaration |
+
+### Items re-answered at iteration 2
+
+| Id | Iteration 2 answer | Evidence |
+|---|---|---|
+| SA-C-g | Yes | Read-back of `ARMED` and `INTR` after the arm now treats `armed && now >= at` as a missed match and disarms (T3, T4); finding-3 is a lien on the planned hardware evidence, not on the code |
+| SA-C-j | Yes | No path leaves a 2^32 µs wait: `Due` at and before the start of the call (`plan_arm`), `Due` or `Armed` with the fire latched at the edge (`after_arm`) |
+| SA-C-k | No (Minor, lien) | The `now == at` gap is closed; the missing error-state clause of the contract (finding-1) remains as a lien |
+| `swe-087 7.1 task 4` | Yes | INSP-097 finding-1 Verified; no Major open on the code inspection of a safety-critical driver |
+| `swe-134 7.1 task 2` | No (Minor liens only) | Items a, b, e, g, h, j hold; c, d, f, l N/A; i (finding-2) and k (finding-1) carried as Minor liens due at the CDR readiness declaration |
+| `swe-219 7.1 task 1` | Yes | The L pair is on the `>=` edge and T4 shows it detects the iteration 1 comparator |
+| `swe-062 7.1 task 1` | Yes | T3: 75 pico2 and 9 api contract tests pass; the planned dev-board case is corrected by finding-3 (lien), and the dev-board check is still a phase 2 item, not due at this review |
+| SA-E1 | Yes | `swe-087` tasks 1 and 2, `swe-088` task 2: the earlier Major (INSP-097 finding-1) is addressed and verified with evidence (T3, T4); findings 1 and 2 of this record are not closed and are carried as liens with an owner and a due event |
+| SA-A3 | Yes | This record and INSP-097 iteration 2 name the same product commit `58fe739` and the same nineteen blobs (T1) |
+
+### Cross items, iteration 2 (returned to Claude)
+
+- **X-5 (to INSP-097, its reviewer's own record):** INSP-097 carries `assurance_verdict: pending` at iteration 2; its reviewer copies `assurance_verdict: APPROVED` (INSP-103 iteration 2). This record does not edit INSP-097.
+- **X-6 (to the phase 2 test author of SW-03 and the ADR-053 author):** finding-3, the dev-board case for the `now == at` edge.
+- **X-7 (to the lead SE, PDR package section 15):** three liens of this record (findings 1, 2 and 3), owner the firmware developer (findings 1 and 3, with the test author for 3) and WP-PDR-16b with the ADR-053 author (finding-2), due at the CDR readiness declaration.
+
+### Measurements (SWE-089), iteration 2
+
+Lines reviewed: the 53 changed lines of the four package files in `698929d..58fe739`, the `lib.rs` hunk (3 added, 146 removed lines), the unchanged `timer.rs` `schedule` path and `irq/vectors.rs` slot table as context, and the changed lines of ADR-053, SW-03 and the sprint index. Unsafe sites added by the package: none. Findings: 1 new (Minor), 0 new Major; the concurred Major Verified. Effort of this iteration: about 20 turns and 35 minutes (front matter totals include iteration 1).
+
+### Commands, iteration 2
+
+| # | Command | Exit |
+|---|---|---|
+| 1 | `git -C /Users/robinonsay/rust/rustos worktree add --detach <scratchpad>/rustos-sa2-wp-sw-01 58fe739`; removed with `git worktree remove --force` after T6 | 0 |
+| 2 | T3 to T6 in that worktree (T4 edits only the worktree copy and restores it with `git checkout`) | 0 (T4 run: 101, expected) |
+| 3 | `/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/validate_docs.py` | see the commit of this record |
+
+### Completion criteria and verdict, iteration 2
+
+`assurance_verdict: APPROVED`. The concurred Major INSP-097 finding-1 is Verified at `58fe739` by independent re-run, a mutation check that shows both new tests detect the iteration 1 behaviour, and a reading of every drifted hunk; no Major is open against a SWE-134 item of this safety-critical driver. Findings 1 and 2 of this record were not addressed by revision 2 and, with new finding-3, are Minor liens due at the CDR readiness declaration (rule C1). The record `verdict` stays held at `NEEDS CHANGES` under the lead SE convention of 2026-09-27 until the owner's merge of `cwht/wp-sw-01` and the PCR-4 pin-move CR bring `58fe739` into a configuration cwht consumes.
+
+```
+ASSURANCE VERDICT: APPROVED (iteration 2, delta)
+PRODUCT: rustos cwht/wp-sw-01 blobs of product_files at 58fe739, ADR-053@71f0b629, SW-03@1cea48ef, sprint index@7ae0cbcc; PAIRED RECORD: INSP-097 (iteration 2)
+PRODUCT TYPE: code; CRITICALITY: safety-critical
+FINDINGS:
+- [Major, concurred] INSP-097 finding-1: Verified at 58fe739 (T3, T4).
+- [Minor, lien] finding-1 SA-C-k: contract error-state clause for a non-TooFar Err.
+- [Minor, lien] finding-2 SA-D1: common cause of HZ-004 K3 and K4 on the shared TIMER0 counter not recorded.
+- [Minor, lien, new] finding-3 swe-062: dev-board case for the now == at edge cannot reach it (plan_arm returns Due first).
+SWE-134 ITEMS CHECKED: a to l (c, d, f, l N/A; g, j now Yes; i, k No on Minor liens)
+MEASUREMENTS: iteration 2 turns=20; minutes=35; major new=0; minor new=1; record verdict held (unmerged rustos branch)
 ```
