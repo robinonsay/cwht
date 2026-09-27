@@ -18,7 +18,7 @@ sprint: PDR-prep
 author_agent: "author:WP-PDR-05 (Claude, CM function)"
 reviewer_agent: "reviewer:WP-PDR-05 (independent reviewer, CM lens)"
 # criticality and assurance: the CSA report is not a product type of 07 section 2.1.1 (it is a CM record,
-# Table 4-1 row 35, Log); the software CM plan 05 is, and its change is reviewed in cm-plan-05.md (INSP-036)
+# Table 4-1 row 35, Log); the software CM plan 05 is, and its change is reviewed in cm-plan-05.md (INSP-039)
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
