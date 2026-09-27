@@ -1,0 +1,313 @@
+---
+id: CR-006
+title: Build one assembled unit first and decide on further units after its evaluation
+status: Submitted
+class: I
+originator: Owner
+date_opened: 2026-09-27
+phase: Pre-A/A
+configuration_at_origination: baseline/srr (tag on 779f93f); HEAD 72e1863 on main
+baseline_affected: baseline/srr
+affected_cis: [2, 3, 5, 6, 7, 13, 14, 17, 18, 34, 52]
+affected_paths: [docs/requirements/l0-stakeholder/expectations.json, docs/requirements/l0-stakeholder/expectations.md, docs/requirements/sys/requirements.json, docs/requirements/sys/requirements.md, docs/test_cases/sys/test_cases.json, docs/test_cases/sys/test_cases.md, docs/conops/conops.md, docs/plan/cost-estimate.md, docs/plan/schedule.md, docs/plan/semp.md, docs/plan/tpm.json, docs/process/01-lifecycle-and-reviews.md, docs/process/rmm.json, docs/process/rmm.md, docs/design/concept.md, docs/decisions/adr/ADR-025-build-quantity-cap.md, docs/decisions/adr/README.md, docs/risk/register.json, docs/risk/register.md, docs/vv/traceability-report.md, docs/vv/traceability.json]
+affected_ids: [CON-024, NGO-027, NGO-028, MOE-001, MOE-002, MOE-007, OPS-004, OPS-006, OPS-012, REQ-SYS-029, REQ-SYS-030, REQ-SYS-037, REQ-SYS-125, REQ-SYS-147, TC-SYS-025, TC-SYS-098, ADR-025, TPM-014, MOP-016, RSK-004, RSK-052, SWE-151]
+related: [SI-035, SI-019, SI-031, CR-003, ADR-007, ADR-025, RSK-008, RSK-038, RSK-065, TC-SYS-087]
+target_release: none
+branch: cr/CR-006-build-sequence-one-unit-first
+disposition: null
+disposition_date: null
+relook_trigger: null
+relook_by: null
+merge_sha: null
+date_closed: null
+---
+
+# CR-006: Build one assembled unit first and decide on further units after its evaluation
+
+Template: `docs/templates/change-request.md`. Process: `docs/process/05-configuration-and-data-management.md` §5.1 to §5.3 and `docs/process/02-requirements-and-traceability.md` §10.2 and §10.3. File location: this file, committed on `main` with `Refs: CR-006`; the product changes go on the branch `cr/CR-006-build-sequence-one-unit-first` after disposition. Status: **Submitted**. The independent review of section 6 is required before the owner's disposition (SRR close-out lesson recorded for CR-002 and CR-004 in `docs/cm/deviations.md` entries 1 and 2).
+
+Source: owner input 5 of 2026-09-27, transcribed verbatim with the lead SE reading in `docs/plan/status/status-2026-09-27.md` (commit `72e1863`), section 2 and section 3 row 5. The owner's words on this point: "we're going to build one circuit board" and "we're going to do basically one item at a time". Status note section 3 row 5 names this CR.
+
+Scope boundary with CR-003. CR-003 (Submitted, in revision) owns the enclosure: which option is built first (option C, printed PETG with a conductive coating and a heatsink), its acceptance criteria and the CNC fallback from PCBWay. CR-006 owns the number of boards fabricated and assembled and every product that counts radios. Where both touch the same file (`docs/plan/cost-estimate.md`, `docs/plan/tpm.json` TPM-014, `docs/plan/schedule.md`, `docs/conops/conops.md` OPS-012, `docs/design/concept.md`, RSK-052), CR-003 changes the enclosure lines and CR-006 changes the quantities; section 5 gives the implementation order. CR-006 does not repeat the enclosure sequence.
+
+## 1. Description of the change
+
+### 1.0 The reading this CR implements
+
+1. **First build.** PCBWay fabricates five bare boards, its minimum fabrication quantity (`docs/research/pcbway-fabrication-and-assembly.md` F20: "Fabrication quote quantities start at 5 pieces"), and assembles one of them (F20: "1 piece is possible with a setup fee"). The first build is one complete unit, `CWHT-A-001`, in the enclosure that CR-003 accepts for it. The four unassembled boards are kept.
+2. **Further units.** Whether any further unit is built is an owner decision taken after the first unit has been evaluated. This CR proposes the decision point (section 12 Q4) and the options (section 3.2), and it decides nothing about further units.
+3. **Unchanged.** The cap of at most five complete units across every revision, none marketed (REQ-SYS-125, 47 CFR 15.23(a)), stays. The intent to hand radios to friends (SI-019) stays: a friend can operate `CWHT-A-001` as their own station (OPS-006, operator model OPS-A), and further units remain possible within the cap. The acceptance test procedure of `docs/process/04-verification-and-validation.md` §11.1 stays a CDR product. Line 83 of 04 already admits a friend's radio as the second station of OnAir runs, so 04 does not change.
+4. **What changes.** ADR-025 and SI-035 set five boards fabricated and three assembled, and SRR decision 86 kept three as the planning value with up to five decided at CDR. SRR decision 90 amortizes the unit budget over three units. After this CR the assembled count of the first build is one, and every product that divides by three units, or needs a second cwht unit, is restated.
+
+### 1.1 L0 expectations (Table 4-1 row 5; Class I statements)
+
+| Id and field | Before | After |
+|---|---|---|
+| CON-024 title | Build quantity: five boards, three to five assembled, at most five units | Build quantity: five boards, one assembled first, at most five units |
+| CON-024 statement | Five bare boards are fabricated, three to five are assembled, and at most five complete units are built. | Five bare boards are fabricated, one is assembled in the first build, further boards are assembled only by owner decision after the first unit's evaluation, and at most five complete units are built. |
+| NGO-027 statement | PCBWay fabricates five boards and assembles all surface-mount parts on three to five of them from parts stocked at DigiKey, Mouser or PCBWay's turnkey distributors; the owner hand-solders the through-hole parts and modules with exposed pads; at most five complete units are built; no part is consignment-only or hidden-pad for the owner. | PCBWay fabricates five boards and assembles all surface-mount parts on one of them in the first build, from parts stocked at DigiKey, Mouser or PCBWay's turnkey distributors; further boards are assembled only by owner decision after the first unit's evaluation; the owner hand-solders the through-hole parts and modules with exposed pads; at most five complete units are built; no part is consignment-only or hidden-pad for the owner. |
+| NGO-028 statement | The delivered cost per complete unit, including amortized fabrication, assembly setup, enclosure, parts, shipping and contingency and excluding instruments and labor, stays within the owner-approved budget of USD 610 (TBR) per complete unit amortized over three units (SRR decision 90) at every gate, against the SRR unit-budget estimate of USD 828 to 1644 for three units. | The delivered cost per complete unit, including amortized fabrication, assembly setup, enclosure, parts, shipping and contingency and excluding instruments and labor, stays within the owner-approved budget of USD 610 (TBR) per complete unit amortized over the units assembled in the first build (SRR decision 90 as amended by CR-006) at every gate, against the current estimate in docs/plan/cost-estimate.md. |
+| MOE-001 success_criterion | Two units at 1.5 m above open, flat ground each complete a two-way exchange (both call signs, a signal report and a 20-character text copied with at most one character error) at 5.0 km at the 5 W step with the range reference antenna, and at 2.0 km at the 2 W step with the pocket reference antenna and its 48 cm counterpoise; positions, power step, antenna and copy quality are logged. Target values per NGO-009; MOPs MOP-004 (carrier power), MOP-006 (receiver MDS) and MOP-008 (frequency accuracy) in docs/plan/tpm.json. | The unit and a second 2 m CW station, each at 1.5 m above open, flat ground, complete a two-way exchange (both call signs, a signal report and a 20-character text copied with at most one character error at each end) at 5.0 km at the unit's 5 W step with the range reference antenna, and at 2.0 km at the 2 W step with the pocket reference antenna and its 48 cm counterpoise. The second station is a second cwht unit when one exists; otherwise it is a licensed friend's 2 m CW transceiver whose carrier power is measured on the owner's bench before the run by the MOP-004 method, whose receiver sensitivity is its manufacturer's specification, and whose antenna is the range reference antenna or one of recorded gain. Positions, power steps, antennas and copy quality are logged. When the second station is not a cwht unit, the cwht-to-cwht case is shown by Analysis from the measured carrier power and MDS of the unit and the path loss logged on the run. Target values per NGO-009; MOPs MOP-004 (carrier power), MOP-006 (receiver MDS) and MOP-008 (frequency accuracy) in docs/plan/tpm.json. |
+| MOE-002 success_criterion | With one unit at least 100 m above the intervening terrain and a line-of-sight path, two units complete the two-way exchange of MOE-001 at 30 km at the 5 W step and repeat it at the 0.5 W step; the receiving operator reports no distortion or gain pumping on the strong signal. Target values per NGO-010. | With one station at least 100 m above the intervening terrain and a line-of-sight path, the unit and a second station as defined in MOE-001 complete the two-way exchange of MOE-001 at 30 km with the unit at its 5 W step and repeat it with the unit at its 0.5 W step; each receiving operator reports no distortion or gain pumping on the strong signal. Target values per NGO-010. |
+| MOE-007 success_criterion | The actual delivered cost per complete unit (parts, fabrication, assembly, enclosure, printed parts, shipping and duties, divided by the units built) is within the owner-approved budget at SAR: USD 610 (TBR) per complete unit amortized over three units, fixed by SRR decision 90 (TPM-014, REQ-SYS-147); the SRR estimate in docs/plan/cost-estimate.md is a unit budget of USD 828 to 1644 for three units (about USD 276 to 548 per unit). | The actual delivered cost per complete unit (parts, fabrication of the whole bare-board lot, assembly, the delivered enclosure, printed parts, shipping and duties, divided by the units assembled in the first build) is within the owner-approved budget at SAR: USD 610 (TBR) per complete unit amortized over the units assembled in the first build, one under CR-006 (SRR decision 90 as amended by CR-006; TPM-014, REQ-SYS-147). An enclosure option evaluated and not delivered is reported as a separate line and not charged to the unit. The estimate is the current docs/plan/cost-estimate.md. |
+
+Class II edits in the same file: the rationale of CON-024, NGO-027, NGO-028, MOE-001, MOE-002 and MOE-007 gains one sentence citing CR-006 and the new stakeholder input of section 1.5, and their `source_ids` gain that SI. The MOE-001 and MOE-002 statements (the owner's expectation, "The owner and a friend, each holding a cwht unit ...") do not change. The statements of NGO-001, NGO-002, NGO-007, NGO-009 and NGO-010 and the other MOEs do not change: NGO-002 and NGO-009 state the capability the design must give two radios, which one unit and a characterized second station demonstrate in each direction; MOE-005, MOE-008, MOE-011 and MOE-013 name "a unit" or "the owner and a friend", which one unit meets when its users take turns; MOE-003 already makes subsequent units conditional ("each subsequent unit").
+
+### 1.2 L1 system requirements (Table 4-1 row 7)
+
+**REQ-SYS-147** (Class I: `description`).
+
+| Field | Before | After |
+|---|---|---|
+| description | The transceiver shall cost at most USD 610 (TBR) per complete unit, amortized over three units, excluding instruments and labor. | The transceiver shall cost at most USD 610 (TBR) per complete unit, amortized over the units of its first build, excluding instruments and labor. |
+| rationale | Why: NGO-028, MOE-007 and MOP-016; the SRR envelope is USD 323 to 610 per unit for three units (docs/plan/cost-estimate.md). SRR decision 90 (owner ruling 2026-09-26) fixes the budget at USD 610 per unit (TPM-014), with the instrument line outside it; SRR decision 86 (same ruling) keeps three assembled units as the planning value. Ops: OPS-012. TBR: the CDR quotes confirm the value. | Why: NGO-028, MOE-007 and MOP-016. SRR decision 90 (owner ruling 2026-09-26) fixes the budget at USD 610 per unit (TPM-014), with the instrument line outside it. CR-006 (owner input 2026-09-27) makes the first build one assembled unit out of five fabricated boards, so the whole board lot and the assembly setup fall on that unit; the indicative first-build estimate is USD 276 to 600 before the enclosure (docs/plan/cost-estimate.md). Further units, if the owner builds them, are costed by their own quotes. Ops: OPS-012. TBR: the PDR and CDR quotes confirm the value. |
+| source_ids | NGO-028, MOE-007, OPS-012 | NGO-028, MOE-007, OPS-012, SI-039 (section 1.5) |
+| tbr | owner: Robin decides at SRR on Claude's proposal; Claude produces the closing evidence; plan: SRR decision 90 (owner ruling 2026-09-26) set USD 610 per unit; the CDR quotes confirm it.; close_by: PDR | owner: Robin; Claude produces the closing evidence. plan: SRR decision 90 set USD 610 per unit and CR-006 sets the amortization basis to the first build; the PDR quotes (RSK-052 S1) test the value and Robin confirms or changes it in the PDR memo; the CDR quotes confirm it. close_by: PDR |
+| verification_method, verification_note, priority, parent_id, hazard_ids, tags | as baselined | unchanged |
+
+Word count of the new statement: 24 (WR-14 limit 25). "The units of its first build" keeps the statement valid if the owner raises the first-build count at CDR (section 12 Q2); the number one lives in CON-024, not in the requirement.
+
+**Class II edits** (`verification_note`, `rationale`, `source_ids`; 02 §10.2):
+
+| Requirement | Field | Before (the part that changes) | After |
+|---|---|---|---|
+| REQ-SYS-037 | verification_note | Post-build (closing): Bench, a second unit at 5 W through a NanoVNA-characterized 10 dB attenuator into the antenna port for 60 s at 80 percent duty (5 s key-downs), ... | Post-build (closing): Bench, a 2 m source of at least 5 W (a second cwht unit if one exists, otherwise a borrowed or owner 2 m transceiver sending an unmodulated carrier), its power measured first, through a NanoVNA-characterized pad of 6 to 10 dB chosen so that +27 to +28 dBm reaches the antenna port, for 60 s at 80 percent duty (5 s key-downs), ... (remainder unchanged) |
+| REQ-SYS-029 | verification_note | Post-build (supporting): Bench, tinySA Ultra generator as the wanted signal and an unkeyed second unit through a combiner and attenuators as the interferer, ... | Post-build (supporting): Bench, tinySA Ultra generator as the wanted signal and a steady carrier from a second 2 m transmitter (a second cwht unit if one exists, otherwise a borrowed 2 m transceiver at its lowest power) through a combiner and attenuators as the interferer, ... (remainder unchanged) |
+| REQ-SYS-030 | verification_note | Post-build (supporting): Demonstration, owner listening for pumping with a keyed second unit through a combiner and attenuators. | Post-build (supporting): Demonstration, owner listening for pumping with a keyed second 2 m CW transmitter (a second cwht unit if one exists, otherwise a borrowed 2 m CW transceiver) through a combiner and attenuators. |
+| REQ-SYS-125 | rationale, source_ids | "... SRR decision 86 (same ruling) confirms five boards fabricated and three to five assembled. Ops: OPS-012." | "... SRR decision 86 (same ruling) confirmed five boards fabricated and three to five assembled; CR-006 (SI-039, ADR-NNN of section 1.5) changes the first build to five fabricated and one assembled, with further units by owner decision within this cap. Ops: OPS-012." `source_ids` gain SI-039 and ADR-NNN; ADR-025 stays because the cap originated there. The statement, method and closing case TC-SYS-087 are unchanged. |
+
+REQ-SYS-029 and REQ-SYS-030 close by Analysis (TC-SYS-019, TC-SYS-020), so their edit changes supporting evidence only. REQ-SYS-037 closes by Bench on TC-SYS-025, whose change is section 1.3.
+
+### 1.3 Test cases citing L1 requirements (Table 4-1 row 17, under CR from SRR)
+
+**TC-SYS-025** (Receiver survival of +27 dBm at the antenna port; Bench; REQ-SYS-037). Today it cannot run with one unit: its setup names "a second cwht unit (CWHT-A-002) at its 5 W step as the source" and states "If no second unit is available the case is Blocked".
+
+| Part | Before (the part that changes) | After |
+|---|---|---|
+| setup, Configuration | a second cwht unit (CWHT-A-002) at its 5 W step as the source, its power measured with the diode probe first, through a 10 dB pad rated 10 W or more (NanoVNA-characterized) into the unit under test's antenna port; ... If no second unit is available the case is Blocked (04 section 8.3 item 5). | a 2 m source of at least 5 W: a second cwht unit at its 5 W step if one exists, otherwise a borrowed or owner 2 m transceiver sending an unmodulated carrier (CW, or FM with no audio), make and model recorded; its power measured with the diode probe first; through a pad of 6 to 10 dB rated 10 W or more (NanoVNA-characterized), chosen from the measured power so that +27 to +28 dBm reaches the unit under test's antenna port; ... If no such source is available the case is Blocked (04 section 8.3 item 5). |
+| setup, Safety | the second unit transmits only into the 10 dB pad and the unit under test's antenna port, or into the dummy load for its power check, never into an open port; ... the tinySA generator is disconnected before the second unit keys | the source transmits only into the pad and the unit under test's antenna port, or into the dummy load for its power check, with its own antenna removed, never into an open port; ... the tinySA generator is disconnected before the source keys |
+| procedure step 2 | Measure the second unit's 5 W step power into the dummy load with the diode probe; compute the level delivered through the pad. | Measure the source's power into the dummy load with the diode probe; choose the pad and compute the level delivered through it. |
+| procedure step 4 | Connect the second unit through the pad to the unit under test; key the second unit with its straight key for 5 s on and 1.25 s off for 60 s (80 percent duty). | Connect the source through the pad to the unit under test; key the source for 5 s on and 1.25 s off for 60 s (80 percent duty). |
+| procedure step 5 | Repeat the 60 s run keyed with the second unit's paddle at 50 WPM in squeezes of at most 1.5 s separated by 0.5 s releases (below the 2 s squeeze limit of REQ-SYS-184, ...). | Repeat the 60 s run keyed in bursts of at most 1.5 s separated by 0.5 s releases: with the paddle at 50 WPM when the source is a cwht unit (below the 2 s squeeze limit of REQ-SYS-184, ...), otherwise with the source's key or PTT. |
+| instruments | Second cwht unit CWHT-A-002 as a characterized 5 W source (fixture), with a 10 dB pad rated 10 W or more | A 2 m source of at least 5 W as a characterized fixture (a second cwht unit if one exists, otherwise a borrowed or owner 2 m transceiver, make and model recorded in the report), with pads of 6 to 10 dB rated 10 W or more |
+| acceptance_criteria, requirement_ids, verification_method, type | as baselined | unchanged |
+
+**TC-SYS-098** (Unit cost from the labor-free cost model with CDR quotes; Simulation; REQ-SYS-147).
+
+| Part | Before | After |
+|---|---|---|
+| setup, Configuration | tools/budgets/cost_model.py (planned) sums the quotes for the ordered quantity with the stated contingency and divides by three units. | tools/budgets/cost_model.py (planned) sums the quotes for the ordered quantity (the whole bare-board lot, the assembly of the first build and the delivered enclosure) with the stated contingency and divides by the units assembled in the first build (one under CR-006); an enclosure option evaluated and not delivered is reported as a separate line. |
+| procedure step 2 | Run tools/budgets/cost_model.py and save the cost per complete unit amortized over three units, excluding instruments and labor. | Run tools/budgets/cost_model.py and save the cost per complete unit amortized over the units assembled in the first build, excluding instruments and labor. |
+| acceptance_criteria | Pass if the cost per complete unit amortized over three units, excluding instruments and labor, is at most USD 610 with the CDR quotes; otherwise Fail. | Pass if the cost per complete unit amortized over the units assembled in the first build, excluding instruments and labor, is at most USD 610 with the CDR quotes; otherwise Fail. |
+
+No other case needs a second cwht unit: a search of every `docs/test_cases/**/test_cases.json` for "second unit", "CWHT-A-002" to "CWHT-A-005", "second station", "two units" and "friend" at `72e1863` returns TC-SYS-025 and TC-SYS-087 only. TC-SYS-087 (build quantity cap) keeps its criteria (at most five complete units, serials `CWHT-A-001` to `CWHT-A-005`); at CDR it reads five fabricated and one assembled. No OnAir case exists yet; the PDR V&V plan writes them with the second-station rule of MOE-001 (section 4, Verification row).
+
+### 1.4 ConOps (Table 4-1 row 6; Class I because OPS scenarios change)
+
+| Location in `docs/conops/conops.md` at `72e1863` | Before | After |
+|---|---|---|
+| Line 41, constraints table row CON-014, CON-015, CON-024 | ...; five boards, three to five assembled, at most five units. | ...; five boards, one assembled first, further units by owner decision, at most five units. (The enclosure words of the same cell belong to CR-003.) |
+| Line 369, support table row "Spares" | Spare cells; the two spare bare boards of the five-board run; printed knobs; no spare assembled boards beyond the build quantity | Spare cells; the four spare bare boards of the five-board run; printed knobs; no spare assembled board |
+| Line 427, OPS-004 Actors | the operator (licensee, own call sign); a friend with a second unit 2 to 5 km away over open ground, or on a hilltop at 30 km. | the operator (licensee, own call sign); a friend with a second 2 m CW station (a second cwht unit when one exists) 2 to 5 km away over open ground, or on a hilltop at 30 km. |
+| Line 455, OPS-006 step 1 | The friend, now the station licensee and control operator of that unit, operates from their own location or alongside the owner; both units on the air are two independent stations. | The friend, now the station licensee and control operator of that unit, operates from their own location or alongside the owner; the friend's unit and any other station on the air are independent stations. |
+| Line 528, OPS-012 Preconditions | ...; five boards ordered, three to five assembled; ... | ...; five boards ordered, one assembled; ... (CR-003 changes other words of OPS-012) |
+| Line 849, Appendix C row "Board and build" | ...; five boards, three to five assembled, at most five units ... Quantity fixed by SI-035 and confirmed (SRR package decision 86; three assembled as the planning value, up to five decided at CDR); ... | ...; five boards, one assembled first, at most five units ... Quantity set by SI-035, confirmed by SRR package decision 86 and changed by CR-006 (SI-039): one assembled in the first build, further units by owner decision after its evaluation; ... |
+| Line 853, Appendix C row "Cost" | USD 970 to 1830 for three radios (SRR estimate); per-unit budget ... Ratified: USD 610 per unit (TBR), instruments outside the unit budget (SRR package decision 90) | Indicative USD 276 to 600 for the first unit before its enclosure (CR-006 estimate); per-unit budget ... Ratified: USD 610 per unit (TBR), instruments outside the unit budget (SRR package decision 90), amortized over the first build (CR-006) |
+
+OPS-001 to OPS-022 need no other change: line 627 ("two units in two places need two licensees") and line 334 ("Two units talking are two independent stations") state the rule for whenever two units exist.
+
+### 1.5 Decision records and the stakeholder input log
+
+1. **New stakeholder input** (Table 4-1 row 4, Record): one entry, the next free id (SI-039 at `72e1863`), dated 2026-09-27, quoting the owner's input verbatim from the status note with its source. It is the origin that 02 §10.3 item 3 requires for the L0 changes above. The same entry serves CR-003's revision; whichever CR is implemented first adds it, and the other cites it. SI-035 is not edited (the log is never edited after the fact).
+2. **New ADR** (Table 4-1 row 13, Record): the next free id (ADR-028 at `72e1863`, written ADR-NNN in this file), "Build sequence: five boards fabricated, one assembled first, further units by owner decision, cap of five complete units", decision class 2 (spends money), decision authority Robin, Form 1 with the SI-039 transcription. It carries ADR-025's cap text and 15.23 basis forward unchanged and supersedes ADR-025's assembled count. ADR-025's Status line becomes "Superseded by ADR-NNN" (the one editable line, README rule 2); `docs/decisions/adr/README.md` index row 46 gets the new status and the new row, and the SRR ruling list (line 79) gains a dated note that CR-006 supersedes the assembled count of decision 86.
+3. **SRR decision memo**: not edited (Record). The CR-006 disposition block is the decision memo for this change (05 §2, CCB row); it supersedes the assembled count of SRR decision 86 and the amortization basis of SRR decision 90.
+
+### 1.6 Plans, design concept and tailoring text
+
+| Location at `72e1863` | Change |
+|---|---|
+| `docs/plan/cost-estimate.md` line 5 (basis) | "three radios (owner plus friends), 5 bare boards minimum order" becomes "one radio in the first build (CR-006), 5 bare boards minimum order, one assembled; further units priced by their own quotes". |
+| same, line 10 (assembly line) | "PCBWay turnkey assembly, 3 boards incl. parts, stencil, setup, 300 to 500" becomes "1 board, 140 to 320" with the basis of section 4 (Cost row). |
+| same, line 11 (enclosure line) | Quantity from "3 sets" to one set; the construction, lines and prices are CR-003's. |
+| same, line 12 (DigiKey and other items) | 80 to 150 for three units becomes 30 to 60 for one unit. |
+| same, lines 13 to 18 (subtotals, contingency, totals) | Recomputed for one unit (section 4, Cost row). |
+| same, line 20 (spares reserve basis) | "The two unassembled bare boards of ADR-025 are the board spares" becomes "The four unassembled bare boards of the first build (CR-006) are the board spares". |
+| `docs/plan/schedule.md` section 3, new last row, and "Schedule risks and levers" | Add: "Further units: none scheduled; the owner decides after the first unit's evaluation (CR-006); a further build is a new PCBWay order with the lead times of this section (about 3 to 4 weeks)". No first-build duration changes (section 4, Schedule row). |
+| `docs/plan/semp.md` line 45 (§ constraints) and line 422 (resources) | "three radios" and "three complete units under ADR-025" become the one-unit first build under CR-006 with the section 4 figures; "build quantity five bare boards, three assembled by default" becomes "five bare boards, one assembled first". Appendix F items F-04 and F-13 (lines 475, 484) are resolved history and are not edited. |
+| `docs/plan/semp.md` line 102 (§3.4 PRR paragraph) and `docs/process/01-lifecycle-and-reviews.md` line 168 (§3.5 PRR row) | The customization stays (no PRR is held before the CDR order, which builds one unit). The sentence "cwht builds at most five complete units (SI-035, ADR-025) in one vendor batch from the single CDR release, with no qualification unit followed by a production run" no longer holds if further units follow. Replacement: "the first build is one unit (CR-006); if the owner decides to build further units after its evaluation, that decision carries the Table G-8 intent: production documentation at the then-current release, incorporation of the dispositions of every NCR raised on CWHT-A-001, the acceptance test procedure of 04 §11.1, and supplier lead times". SEMP customization table row 2 (line 435) keeps its text. This edits the rationale of a customization, not its disposition. |
+| `docs/design/concept.md` lines 313 and 384 | "5 boards fabricated, 3 assembled as the planning value and up to 5 decided at CDR" becomes "5 boards fabricated, 1 assembled first, further units by owner decision after its evaluation (CR-006)". |
+| `docs/process/rmm.json` SWE-151 `implementation` (line 325) and `rmm.md` render | "three-unit prototype build" becomes "one-unit first build (CR-006)". Log commit with `Refs: CR-006` (05 §5.1 row 3: implementation-path update; disposition, `tailoring_rationale` and `residual_risk` unchanged). |
+| `docs/plan/tpm.json` TPM-014 `definition` and `planned_value_text` (lines 803, 808), MOP-016 `threshold` and note (lines 250, 254) | "amortized over the complete-unit count (three, the ADR-025 default ...)" and "USD 828 to 1644 for three radios" become the first-build basis of REQ-SYS-147 with the section 4 figures. Table 4-1 row 34 puts TPM definitions under CR only from PDR, so this edit is made with the PDR cost revision under `Refs: CR-006`. |
+
+### 1.7 Risk register (Table 4-1 row 14, Log; updated by the risk owner with `Refs: CR-006`)
+
+| Risk | Change | Score before and after |
+|---|---|---|
+| RSK-004 (turnkey assembly defects) | Step S4 "Order 5 bare boards and 3 assembled boards (SI-035) so that a single defective board does not stop the project" becomes "Order 5 bare boards and 1 assembled board (CR-006); the PDR quote also prices the assembly of a second board, so that a defective board is replaced by one order with a known price and lead time". The trigger response "the owner uses a spare board" becomes "the owner orders the assembly of one more board". | L3, C4 (driving first_power_on 4), score 12, unchanged: a defect on the one board still stops a core function; the schedule dimension stays 3 (a new one-board assembly order is one vendor iteration, 3 to 6 weeks). |
+| RSK-052 (fabrication and assembly cost above the cost model) | Condition "the BOM of five boards" becomes "the BOM of the assembled board"; consequence "fewer assembled units" is removed; fallback "Assemble three units instead of five" becomes "The owner raises the per-unit ceiling or defers the enclosure fallback; no fewer-units lever remains at one unit". | L4, C3, score 12, unchanged: no quote exists (anchor level 4), and the first-build total spend falls while the per-unit margin shrinks (section 4, Cost row). |
+| RSK-038 (parts out of stock at the CDR order) | None to the text. Its thresholds of "3 times the build quantity" now resolve to three unit sets instead of nine; a further build re-runs the stock check at its own order. | 12, unchanged until the PDR stock check. |
+| New candidate CR006-R1 | "The only assembled unit is damaged in bring-up or in a stress case, which halts the V&V campaign until another board is assembled." Stress cases on `CWHT-A-001`: TC-SYS-012 (SWR 10:1 survival, REQ-SYS-013), TC-SYS-025 (+27 dBm, REQ-SYS-037), TC-SYS-033 (key-input abuse, REQ-SYS-049), TC-SYS-035 (ESD, REQ-SYS-050), TC-SYS-057 (headphone short, REQ-SYS-079), TC-SYS-062 (reverse cell, REQ-SYS-086), TC-SYS-072 (antenna-port load, REQ-SYS-105), TC-SYS-079 (drop, REQ-SYS-116), TC-SYS-080 (rain, REQ-SYS-117). Mitigation: the PDR V&V plan and the TRR test configuration record run these cases after every non-destructive closing case; the PDR quote prices one more board assembly. Fallback: order that assembly. | Proposed L2 (each case tests a requirement the design analyses close before build), C3 (schedule 3: one assembly order of 3 to 6 weeks; cost 3: USD 140 to 320, one board at the section 4 assembly line), score 6, Green. |
+| New candidate CR006-R2 | "No 2 m CW second station is available for the OnAir validation of MOE-001 and MOE-002." Entered after the owner answers section 12 Q5; if a friend's 2 m CW transceiver is available the candidate is closed as not a risk. | Not scored until Q5 is answered; the performance margin dimension would be 4 (an MOE not validated at SAR). |
+
+RSK-008, RSK-065 and the other risks naming SI-019 or the build quantity (RSK-002, RSK-025, RSK-034) need no change: RSK-002 already covers "a cwht and another station"; RSK-034's exposure to hand assembly falls from up to five units to one in the first build, with no re-score proposed because its likelihood band is per activity; RSK-065 concerns lending, which one unit still allows.
+
+## 2. Reason
+
+Owner input 5 of 2026-09-27 (status note section 2, verbatim; section 3 row 5, lead SE reading): one circuit board first, one item at a time, the cheapest route first. The functional baseline states three assembled units in CON-024, NGO-027, NGO-028, MOE-007 and REQ-SYS-147. It also states two cwht units in the success criteria of MOE-001 and MOE-002 and in the closing Bench setup of TC-SYS-025. Left as baselined, those items would require an order the owner has declined (TC-SYS-098 would divide by three units that do not exist) or would leave a closing case Blocked at SAR (TC-SYS-025, "If no second unit is available the case is Blocked"). The origin for 02 §10.3 item 3 is the new SI entry of section 1.5.
+
+Not making the change: the CDR order would contradict the baseline and be a departure without a record, or the baseline would force three assembled boards against the owner's direction. Either way, REQ-SYS-037 and MOE-001 and MOE-002 could not close with the hardware the owner will build.
+
+## 3. Alternatives considered
+
+### 3.1 First-build quantity (the PCBWay order)
+
+| Option | Description | Assessment |
+|---|---|---|
+| A (proposed; the owner's direction) | 5 bare boards fabricated (PCBWay minimum), 1 assembled, 4 kept bare | Lowest first-build spend (section 4, Cost row). The four bare boards serve as fit-check blanks for the printed enclosure and the CNC fallback (same outline and holes), and as substrates for owner hand-built partial boards (for example the output filter populated by hand for NanoVNA characterization, within SI-031's simple-pad limit). They can also serve a later PCBWay assembly if PCBWay accepts boards from an earlier lot; that acceptance is unknown (research F10 says PCBWay assembles only boards it fabricated, and the lot boards are PCBWay-fabricated) and is a vendor question for the PDR quote. Weakness: one defect or one damaged unit stops the campaign until another assembly (CR006-R1). |
+| B | 5 fabricated, 2 assembled (one bench spare) | Removes most of CR006-R1 and gives TC-SYS-025 a cwht source. It costs one more board's parts and placement, about USD 80 to 180 (section 4) and contradicts "we're going to build one circuit board". Kept open as a CDR choice once the PDR quote shows the price step (section 12 Q2); not proposed. |
+| C | 5 fabricated, 3 assembled (ADR-025 today) | Declined by the owner input. |
+| D | 5 fabricated, 0 assembled by PCBWay; the owner or a local house assembles | Rejected: the owner does not solder hidden-pad or QFN parts (SI-031, ADR-007, REQ-SYS-137). |
+| E | 10 fabricated for a lower unit price | Rejected: no use for the extra boards, and research R-REG-01 warns against building spares toward the 15.23 cap. |
+
+### 3.2 Further units (the owner decides after the first unit's evaluation; nothing is decided here)
+
+| Option | Description | Notes |
+|---|---|---|
+| F1 | A new PCBWay turnkey order of 1 to 4 boards at the then-current revision | Needs a new fabrication lot of 5 unless PCBWay assembles stored lot boards. Priced by its own quotes. The five-unit cap counts `CWHT-A-001` (REQ-SYS-125). |
+| F2 | PCBWay assembles 1 to 4 of the kept lot boards | Only if the vendor accepts them (PDR quote question); valid only while the board revision is unchanged. |
+| F3 | No further unit | The owner lends `CWHT-A-001` to a friend as that friend's station (OPS-006, OPS-A). |
+
+Recommendation: decide at SAR of `CWHT-A-001` (section 12 Q4), when the full verification and validation record shows whether the design needs a revision. Record the decision by a new ADR (class 2, spends money). If the design changes, a CDR delta review is held (05 §8.4 maintenance rule for a hardware fix) before the order. That decision carries the PRR intent of section 1.6.
+
+### 3.3 Alternatives for the evidence that needed a second unit
+
+| Item | Alternative | Why not proposed |
+|---|---|---|
+| MOE-001, MOE-002 | Keep "two units" and defer the validation until a second unit exists | SAR could not validate two MOEs with the hardware the owner builds. The proposed wording keeps the two-unit case through Analysis and lets a second cwht unit replace the reference station whenever one exists. If no friend has a 2 m CW station (Q5), this alternative becomes the fallback: the MOEs stay open at SAR as a lien, and the lien becomes an input to the further-build decision. |
+| TC-SYS-025 | Leave the case Blocked until a second unit exists | REQ-SYS-037 (a safety-adjacent receiver protection requirement, SRR decisions 57 and 61) would have no closing evidence at SAR. Any 2 m transmitter of at least 5 W reproduces the stress; the cwht keying pattern matters only for the transient burst step, which the proposed step 5 keeps when a cwht source exists. |
+| REQ-SYS-147 | Keep "amortized over three units" as a planning basis | Not verifiable: TC-SYS-098 and MOE-007 divide actual cost by units built. |
+| REQ-SYS-147 | State a first-build spend ceiling instead of a per-unit ceiling | Loses the per-radio meaning of MOE-007 ("what a serious hobby radio should cost"). Offered to the owner in Q3. |
+
+## 4. Impact assessment (CM plan §5.3)
+
+| Field | Assessment (numbers, IDs, paths) |
+|---|---|
+| Performance margins | TPM-014 and MOP-016 only. Before: CBE USD 276 to 548 per unit over three units including the CNC enclosure line; margin 11.3 % at the upper bound against USD 610 (`tpm.json` TPM-014 history, 2026-09-25). After, indicative and without quotes: USD 276 to 600 for the first unit before its enclosure (Cost row). Margin at the upper bound is 1.7 % before any enclosure cost, so an enclosure above USD 10 at the upper bound makes TPM-014 Yellow (0 to 10 % over) until the PDR quotes. At the lower bound USD 334 remains for the enclosure. No technical TPM changes: power, thermal, link, spurious, mass and volume budgets are per unit and do not depend on the count. TPM-006 and MOP-008 keep the worst-case two-station frequency offset (RSK-002 covers "a cwht and another station"). |
+| Safety | No hazard changes. HZ-015 (bench fire during owner hand assembly): exposure falls from three to five hand assemblies to one in the first build; noted for the PDR hazard analysis re-issue, no re-issue now. The stress cases of CR006-R1 run on the only unit, and the V&V plan's ordering rule (Risk row) controls schedule loss, not a hazard. The TC-SYS-025 source keeps the baselined safety line (never into an open port; bystanders 0.6 m or more), with the source's own antenna removed. No component of the 07 §14.1 safety-critical or mission-critical tables changes. RF exposure evaluation (row 48, not yet written): no change; the bystander-between-two-operators case of `docs/research/rf-exposure-evaluation.md` applies to any second station. Hazard analysis re-issue: no. |
+| Risk | RSK-004 S4 and trigger text, score 12 unchanged; RSK-052 condition, consequence and fallback text, score 12 unchanged; RSK-038 thresholds resolve to three unit sets, score 12 unchanged; new candidates CR006-R1 (proposed L2 x C3 = 6, Green) and CR006-R2 (scored after Q5). Details in section 1.7. |
+| Software classification and tailoring | Classification unchanged. `rmm.json` SWE-151 implementation text only ("three-unit prototype build" to "one-unit first build"), a log commit under 05 §5.1 row 3. The PRR customization (SEMP §3.4 line 102, 01 §3.5 line 168, SEMP customization row 2) keeps its disposition; its rationale is restated (section 1.6). No compliance-matrix row changes: `docs/process/se-compliance-matrix.json` has no row citing SI-035, ADR-025 or the PRR. |
+| Interfaces | None: no ICD changes; no external interface (key jack, headphone jack, antenna connector, USB, battery) changes. |
+| Operations and ConOps | OPS-004 (Actors), OPS-006 (step 1) and OPS-012 (Preconditions) change (section 1.4), which makes this CR Class I. ConOps table rows at lines 41, 369, 849 and 853 change. The operations handbook (row 47, `docs/ops/`) does not exist yet; none of its planned content depends on the count. |
+| Cybersecurity | None: neither the USB firmware-load path nor the key-input command path changes (07 §16). |
+| Verification | Modified: TC-SYS-025 (Bench; setup, safety line, steps 2, 4 and 5, instruments; acceptance unchanged) and TC-SYS-098 (Simulation; setup, step 2, acceptance). Invalidated: none (all are Draft; no run exists). Added: none. Supporting evidence of REQ-SYS-029 and REQ-SYS-030 (Bench and Demonstration) takes a second 2 m transmitter in place of a second unit. PDR V&V plan (row 16, CR from PDR, not yet written) is written on this basis: single test article `CWHT-A-001`; the stress cases of CR006-R1 run after every non-destructive closing case; the OnAir cases for MOE-001 and MOE-002 use the second-station rule of section 1.1 and a link-budget Analysis case for the cwht-to-cwht path. The TRR test configuration record (row 33) names one article. The ATP module (04 §11.1) stays a CDR product; its SWE-193 cases run on `CWHT-A-001` at stage 4. No decision table or independence-pair test changes (07 §9.6). |
+| Cost | Indicative, no quotes; the PDR cost revision replaces it with quotes (RSK-052 S1). First build, one unit, before its enclosure: bare boards, 5 pieces USD 60 to 120 (line 9, unchanged). Assembly of 1 board incl. parts, stencil and setup USD 140 to 320: parts USD 80 to 180, from the line 10 basis of USD 80 to 120 per board with the upper bound raised 1.5 times for one-board minimum-order and attrition effects (research F17, R-PCB-05); stencil, setup and labor USD 60 to 140, the whole non-parts part of the three-board line (USD 300 to 500 less USD 240 to 360 of parts) taken as fixed. Items PCBWay does not source USD 30 to 60 (line 12 per unit, rounded up for single-quantity prices). Subtotal USD 230 to 500; contingency 20 % USD 46 to 100; total USD 276 to 600. Enclosure: option C first, priced by CR-003's PDR trade; the CNC fallback enclosure is a reserve line priced there, drawn only if option C fails its acceptance criteria; if drawn, the delivered unit carries the CNC cost and the option C spend moves to a separate evaluation line (MOE-007 after-text). For comparison, the same lines for three units excluding the enclosure were USD 440 to 770 plus 20 %, which is USD 176 to 308 per unit: the per-unit cost before the enclosure rises by USD 100 to 292, while the first-build spend falls from USD 828 to 1644 (three units with CNC) to USD 276 to 600 plus one enclosure. Instrument line (USD 144 to 192 with contingency) and life-cycle reserves (rework spin USD 300 to 800, spares USD 40 to 120) unchanged. BOM delta: none (quantities only). |
+| Schedule | First build: no change. The section 3 durations of `docs/plan/schedule.md` (quote 1 business day, parts import 5 to 7 working days, turnkey assembly about 3 working days, shipping about 3 days) do not depend on one versus three boards, and the parts import governs. Further units: none scheduled; a further build after SAR adds its own order cycle of about 3 to 4 weeks. Disposition target: before PDR, about Tue 2026-09-29 (05 §5.2 Class I target: the next review or 14 days); PDR products that depend on this CR (cost estimate, V&V plan, TPM-014) are marked "at risk" until then (status note row 9). Dependency: none for approval. CR-003 shares files (Documentation row); the implementation order is in section 5. |
+| Requirements and traceability | L1 Class I: REQ-SYS-147 (`description`, with `rationale`, `tbr` plan and `source_ids`). L1 Class II: REQ-SYS-029, REQ-SYS-030, REQ-SYS-037 (`verification_note`), REQ-SYS-125 (`rationale`, `source_ids`). L0 Class I: CON-024 (title, statement), NGO-027 and NGO-028 (statements), MOE-001, MOE-002 and MOE-007 (success criteria); Class II: their rationales and `source_ids`. Parents and children: REQ-SYS-147 and REQ-SYS-125 have no parent and no children; the verification_note edits of REQ-SYS-029, 030 and 037 do not touch their L2 children. Allocation unchanged. Coverage unchanged: the closing cases stay TC-SYS-025, TC-SYS-087, TC-SYS-098, TC-SYS-019 and TC-SYS-020. Orphans or uncovered requirements created: none, confirmed by `tools/traceability.py` on the CR branch before the Implemented state. Volatility (02 §10.4, N_start 190 L1 requirements at `baseline/srr`): A = 0, M = 1 (REQ-SYS-147), R = 0, V = 1 / 190 = 0.5 %; with CR-003 as submitted (A 3, M 2) the cumulative value is 6 / 190 = 3.2 %, below the 10 % yellow threshold. |
+| Regulatory | 47 CFR 15.23(a): the cap of at most five complete units, none marketed, is unchanged (REQ-SYS-125); the first build of one unit is further inside it, and four bare boards are not complete units. RSK-065 (lending) unchanged. Part 97: none (no emission, power or identification change). |
+| Documentation | With this CR (branch, after disposition): `expectations.json` and `.md`; `requirements.json` and `.md` (sys); `test_cases.json` and `.md` (sys); `conops.md`; `cost-estimate.md`; `schedule.md`; `semp.md`; `01-lifecycle-and-reviews.md`; `concept.md`; new SI entry in `stakeholder-inputs.md` (Record); new ADR and ADR-025 status line, ADR README (Records); traceability report regenerated. Log commits with `Refs: CR-006`: `risk/register.json` and `.md`, `rmm.json` and `rmm.md`. At PDR on this basis: `tpm.json` TPM-014 and MOP-016 with `tpm-status.png`, the V&V plan, the integration plan (one board), the hazard analysis re-issue (HZ-015 note), the PDR quote request (A-PCB-09) with the three vendor questions of section 12 Q2 and Q8, the PDR equipment list (the second 2 m station and the TC-SYS-025 source). At CDR: release package `HW-MB-revA-1` order notes (5 fabricated, 1 assembled, leftover-parts instruction), BOM spares column. Shared with CR-003: `cost-estimate.md`, `tpm.json` TPM-014, `schedule.md`, `conops.md` (line 41 and OPS-012), `concept.md`, `semp.md`, RSK-052. No VDD exists. |
+| Released units | None: no unit is built or delivered; the serial register will issue `CWHT-A-001` only. |
+
+Classification rationale: Class I proposed. The change affects baselined requirements (REQ-SYS-147 statement), L0 statements and success criteria, cost, verification evidence (TC-SYS-025 and TC-SYS-098 configurations) and OPS scenarios, each of which the 05 §2 Class I definition names.
+
+## 5. Implementation plan
+
+| Step | Artifact and path | When | Responsible | Done (SHA) |
+|---|---|---|---|---|
+| 1 | New SI entry (section 1.5 item 1) in `docs/requirements/l0-stakeholder/stakeholder-inputs.md`, unless CR-003's revision has added it | First implementing commit, on `main` (Record, `Refs: CR-006`) | Claude (configuration manager) | |
+| 2 | New ADR-NNN, ADR-025 Status line, ADR README rows (section 1.5 item 2) | After disposition, on the CR branch | Claude (technical data manager), owner's Form 1 disposition | |
+| 3 | L0: `expectations.json`, render `expectations.md` (section 1.1) | After disposition, CR branch | Claude (requirements author) | |
+| 4 | L1: `requirements.json` (sys), render `requirements.md` (section 1.2) | After disposition, CR branch | Claude (requirements author) | |
+| 5 | Test cases TC-SYS-025, TC-SYS-098, render `test_cases.md` (section 1.3) | After disposition, CR branch | Claude (test author) | |
+| 6 | ConOps rows and scenarios (section 1.4) | After disposition, CR branch | Claude (ConOps author) | |
+| 7 | `cost-estimate.md`, `schedule.md`, `semp.md`, `01-lifecycle-and-reviews.md`, `concept.md` (section 1.6) | After disposition, CR branch; the cost numbers are those of the PDR revision if the quotes are in by then | Claude (plan owners) | |
+| 8 | `tools/traceability.py`, regenerated `docs/vv/traceability-report.md` and `traceability.json`; `tools/validate_docs.py` | Before the Implemented state, CR branch | Claude | |
+| 9 | Risk register (section 1.7), `rmm.json` SWE-151 text and `rmm.md` | After disposition, on `main`, `Refs: CR-006` (Log) | Claude (risk owner; RMM author) | |
+| 10 | TPM-014 and MOP-016 definitions and `tpm-status.png`; V&V plan, integration plan, hazard analysis note, PDR quote request and equipment list | PDR products, written on this basis | Claude (PDR product authors) | |
+| 11 | CDR release package order quantities and notes | CDR | Claude (hardware release), owner orders | |
+
+Order with CR-003. The CRs are dispositioned independently. The CR merged second rebases its hunks in the shared files onto the first: CR-003 owns the enclosure line and words, and CR-006 owns the quantities and the amortization basis. If both are approved before the PDR cost revision, one commit per file on each branch keeps the hunks separable (charter rule: never commit another agent's hunk).
+
+**Effectivity.** Hardware: the revision A first build, that is, the first PCBWay order at the CDR procurement release (`HW-MB-revA-1`). No later order is covered: a further build takes effect only through the owner's further-build ADR (section 3.2). Documents: the functional-baseline changes are effective at the merge of `cr/CR-006-build-sequence-one-unit-first` (effective baseline = `baseline/srr` + CR-006); the allocated-baseline products of step 10 are written on this basis and enter `baseline/pdr` with it. Units: none exist, so no rework, re-flash or recall. The five-unit cap is not affected.
+
+## 6. Independent review of the impact assessment
+
+Required (Class I). Not yet performed. The reviewer must not have authored this CR, CR-003 or any implementing commit.
+
+| Item | Reviewer (agent invocation) | Date | Finding | Resolution |
+|---|---|---|---|---|
+| Impact assessment, class | pending | | | |
+
+Reviewer concurrence: pending.
+
+## 7. CCB disposition (owner)
+
+| Field | Value |
+|---|---|
+| Decision | pending |
+| Class confirmed | pending (proposed Class I by Claude on 2026-09-27) |
+| Date | pending |
+| Conditions | pending |
+| Rationale | pending |
+| Waiver scope (if Approved (waiver)) | not applicable |
+| Re-look trigger and re-look-by review (if Deferred) | pending |
+| Source | pending |
+
+Disposition history:
+
+| Date | Decision | New target | Source |
+|---|---|---|---|
+| | | | |
+
+## 8. Implementation record
+
+| Commit | Files | Trailer check (`CR: CR-006` present) |
+|---|---|---|
+| none yet | | |
+
+Traceability report after implementation: pending; renders regenerated: pending.
+
+## 9. Verification of implementation
+
+| Impact item | Planned closure (from §4/§5) | Evidence the independent verifier checks | Result |
+|---|---|---|---|
+| L0 statements | Step 3 | The six before-strings of section 1.1 are gone and the after-strings are present in `expectations.json`; `tools/validate_docs.py` exit 0; the `.md` equals the render | pending |
+| REQ-SYS-147 and Class II edits | Step 4 | Section 1.2 after-strings present; REQ-SYS-147 word count 25 or fewer; `requirements.md` equals the render | pending |
+| TC-SYS-025, TC-SYS-098 | Step 5 | No setup, step or instrument of either case requires a second cwht unit; a search of `docs/test_cases/` for "CWHT-A-002" returns nothing; acceptance of TC-SYS-025 unchanged | pending |
+| ConOps | Step 6 | The seven locations of section 1.4 carry the after-text; a search of `conops.md` for "three to five assembled" and "two spare bare boards" returns nothing | pending |
+| Plans and concept | Step 7 | A search of `cost-estimate.md`, `semp.md` (outside Appendix F), `schedule.md`, `concept.md`, `tpm.json` and `rmm.json` for "three radios", "three units", "three complete units", "3 boards", "3 sets" and "three-unit" returns nothing outside dated history; `cost-estimate.md` arithmetic re-added: subtotal, contingency and total | pending |
+| Decision records | Steps 1, 2 | The SI entry quotes the status note verbatim; ADR-025's only change is its Status line; the new ADR carries the cap text and cites SI-039 | pending |
+| Traceability | Step 8 | `tools/traceability.py` zero violations; volatility record shows L1 M = 1 for this CR | pending |
+| Risk register, RMM | Step 9 | RSK-004 S4, RSK-052 text as in section 1.7; CR006-R1 entered or its candidate row dispositioned; `tools/render_risk.py` and `tools/render_rmm.py --check` exit 0 | pending |
+| PDR products | Step 10 | The PDR V&V plan names one test article and orders the CR006-R1 stress cases last; TPM-014 uses the first-build basis | pending (PDR) |
+| Order quantities | Step 11 | TC-SYS-087 run at CDR reads 5 fabricated and 1 assembled | pending (CDR) |
+
+Independent verifier (agent invocation): pending.
+
+## 10. Closure
+
+| Field | Value |
+|---|---|
+| Owner merge approval | pending |
+| Merge commit | pending |
+| Waiver entered in CSA item 12 and affected VDDs | not applicable |
+| CSA regenerated | pending |
+| Date closed | pending |
+
+## 11. History
+
+| Date | State | By | Commit on main | Note |
+|---|---|---|---|---|
+| 2026-09-27 | Submitted | Claude (CR author) | this file's first commit | Raised from owner input 5 of 2026-09-27 (`docs/plan/status/status-2026-09-27.md`, `72e1863`); independent impact review requested before disposition |
+
+## 12. Questions for the owner (answer with the disposition)
+
+| # | Question | Recommendation |
+|---|---|---|
+| Q1 | Approve CR-006 as Class I? This includes the L0 changes to CON-024, NGO-027, NGO-028 and MOE-001, 002 and 007, and superseding the assembled count of SRR decision 86 and the amortization basis of decision 90. | Approve as Class I after the section 6 review. |
+| Q2 | PCBWay order: 5 bare boards (the minimum), 1 assembled, 4 kept bare. Confirm, or keep a second assembled board open until the PDR quote shows its price? | Confirm 1 as you directed. The PDR quote request also prices 2 assembled and asks whether PCBWay will later assemble boards of the same lot, so a choice at CDR rests on numbers. |
+| Q3 | Unit cost: keep USD 610 (TBR) per complete unit, now amortized over the one-unit first build (indicative USD 276 to 600 before the enclosure, 1.7 % margin at the upper bound), or set a first-build spend ceiling instead? | Keep USD 610 per unit and let the PDR quotes test it. If the quoted upper bound with option C exceeds it, you decide at PDR between a higher ceiling and a cheaper configuration. |
+| Q4 | When do you decide on further units? | At SAR of `CWHT-A-001`, recorded by an ADR, with a CDR delta review first if the design changes. |
+| Q5 | Does a licensed friend have a 2 m transceiver that sends and receives CW (an all-mode rig) for the on-air range runs of MOE-001 and MOE-002? | If yes, validate with it plus the link-budget Analysis. If no, those two MOEs stay open at SAR as a lien, and the lien becomes an input to the Q4 decision. |
+| Q6 | For TC-SYS-025, do you own or can you borrow a 2 m transmitter of at least 5 W (an ordinary FM handheld is enough; it sends a steady carrier into the pad, never over the air)? | Yes; it is recorded in the PDR equipment list. |
+| Q7 | Accept that the survival and abuse tests (SWR 10:1, +27 dBm, key-input abuse, ESD, headphone short, reverse cell, antenna-port load, drop, rain) run on the only unit, last in the campaign, and that a failure there pauses V&V until one more board is assembled? | Accept, with the ordering rule in the PDR V&V plan and the one-more-board price on file from the PDR quote. |
+| Q8 | Ask PCBWay to ship the unused turnkey parts with the board (by default they are not returned, research F17)? | Yes: ask in the quote. The parts serve rework and any later build. |
