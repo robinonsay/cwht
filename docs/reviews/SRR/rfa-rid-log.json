@@ -2,5 +2,725 @@
   "review": "SRR",
   "package_revision": 8,
   "updated": "2026-09-26",
-  "items": []
+  "items": [
+    {
+      "id": "RID-SRR-001",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/plan/tpm.json",
+      "product_ids": [
+        "TPM-002"
+      ],
+      "title": "TPM-002 receive allocation below the research budget",
+      "description": "TPM-002 allocates 0.5 W to receive against the 1.44 W receive budget of the power research (package section 15 item 2), so the allocation does not match its own basis.",
+      "requested_action": "Re-allocate the TPM-002 receive power at PDR with the power allocation of decision 98 (SRR decision 98, owner ruling 2026-09-26: approve with the PDR TPM definitions) and the RSK-058 S1 step; an independent reviewer verifies.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "related": [
+        "RSK-058"
+      ],
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 2: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-002",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/plan/tpm.json",
+      "title": "tpm.json instruments convention names an ADR for the tinySA receipt",
+      "description": "docs/plan/tpm.json conventions.instruments (line 69 at b301df2) says the tinySA Ultra receipt is recorded by ADR before TRR; charter section 9 records it by a receipt-inspection report and a TV-NNN record (package section 15 item 3).",
+      "requested_action": "Reword the convention to the charter section 9 record (receipt-inspection report plus TV-NNN before TRR); editorial per 05 section 2 while unbaselined, otherwise under a CR.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 3: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-003",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/requirements/sys/requirements.json",
+      "product_ids": [
+        "REQ-SYS-054",
+        "REQ-SYS-053"
+      ],
+      "title": "REQ-SYS-054 paddle watchdog against the ruled no-gap form of HZ-004 K4",
+      "description": "REQ-SYS-054 states 128 consecutive identical paddle elements or 10 s; SRR decision 37 (owner ruling 2026-09-26, as recommended) rules the HZ-004 K4 no-gap watchdog (no key-up gap of 7 dits or 500 ms for 30 s, 128 identical elements) with the 2 s squeeze limit and the 5 s manual timeout including the Bug dah, so the requirement as written no longer matches the ruling (package section 15 item 7).",
+      "requested_action": "Rewrite REQ-SYS-054 to the no-gap form, add or edit the squeeze-limit requirement of OQ-SAF-002, confirm REQ-SYS-053 covers the Bug dah, update the citing test cases and the ConOps Table 3.4-4 row 3 (decision 42 (a)); performed in package item R16 before baseline/srr and verified by the L1 requirements reviewer (INSP-003).",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "related": [
+        "HZ-004"
+      ],
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 7: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-004",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "tools/review_trend.py",
+      "title": "Review-trend plot repeats x-axis date labels",
+      "description": "tools/review_trend.py repeats the x-axis date labels of docs/reviews/<REVIEW>/figures/review-trend.png when a log is empty (package section 15 item 8; cosmetic).",
+      "requested_action": "Fix the date axis so each date is labelled once, add a known-answer test in tools/tests/test_review_trend.py, re-render and inspect the plot; the tool validation record of the tool is updated. Include the single-date case seen when the secretary opened the render of 2026-09-26 (21 items raised on one date): the step lines draw no visible line or marker, and the '0 closed + withdrawn' annotation sits on the date labels.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 8: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-005",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/decisions/adr/ADR-015-operator-model-ops-a-guest-lock.md",
+      "product_ids": [
+        "ADR-015"
+      ],
+      "title": "ADR-015 section 2 overstates the guest lock",
+      "description": "ADR-015 section 2 still reads \"no risk of unlicensed transmission\", which overstates the receive-only guest lock (ConOps appendix D item D9; package section 15 item 10).",
+      "requested_action": "Restate as no transmission by accident, release being a deliberate licensee action under the operator rules card, consistent with SRR decisions 17 and 19 (owner ruling 2026-09-26: accept ADR-015; guest lock option a) and the ADR correction route of decision 105.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 10 (ConOps appendix D item D9): the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-006",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/safety/hazards.json",
+      "title": "Hazard phases differ from the ConOps modes",
+      "description": "docs/safety/hazards.json phase names differ from the ConOps modes (Transmit, Firmware load), and Self-test, Bench-test and Fault-safe have no phase (ConOps appendix D item D11; package section 15 item 10).",
+      "requested_action": "Adopt ConOps Table 3.4-5 as the mapping or rename the phases to the mode names; the hazard analysis reviewer (INSP-008) verifies.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 10 (ConOps appendix D item D11): the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-007",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/safety/hazards.json",
+      "product_ids": [
+        "HZ-001"
+      ],
+      "title": "HZ-001 K6 does not cite OPS-022",
+      "description": "HZ-001 control K6 names the handheld-at-face off-nominal scenario but does not cite OPS-022 (ConOps appendix D item D12; package section 15 item 10).",
+      "requested_action": "Cite OPS-022 in HZ-001 K6; the hazard analysis reviewer (INSP-008) verifies.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 10 (ConOps appendix D item D12): the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-008",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/plan/tpm.json",
+      "product_ids": [
+        "MOP-001",
+        "MOP-002",
+        "TPM-001",
+        "TPM-016",
+        "MOE-013"
+      ],
+      "title": "Pocket-carry MOPs and TPMs parent to the range MOE",
+      "description": "MOP-001, MOP-002, TPM-001 and TPM-016 parent to MOE-001 (contact range) instead of the pocket-carry MOE (ConOps appendix D item D13; package section 15 item 10).",
+      "requested_action": "Re-parent them to MOE-013 as SRR decision 96 rules (owner ruling 2026-09-26: add and re-parent); run tools/validate_docs.py and tools/traceability.py.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 10 (ConOps appendix D item D13): the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-009",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/research/rf-exposure-evaluation.md",
+      "title": "RF exposure research F3 sentence contradicts its Table 2",
+      "description": "The F3 reading sentence under Table 2 of docs/research/rf-exposure-evaluation.md says every 0.5 W and 1 W row gives 0.29 m or less for a continuous carrier, while Table 2 gives 0.41 m for a 1 W carrier (ConOps appendix D item D14; package section 15 item 10).",
+      "requested_action": "Correct the sentence to 0.41 m for a 1 W carrier (0.26 m or less keying CW at 1 W; 0.29 m for the 0.5 W carrier) so ADR-014, HZ-006 and the handbook do not inherit the error.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "related": [
+        "HZ-006",
+        "ADR-014"
+      ],
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 10 (ConOps appendix D item D14): the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-010",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/decisions/adr/ADR-014-licensed-operators-only.md",
+      "product_ids": [
+        "ADR-014"
+      ],
+      "title": "ADR-014 exposure tier basis under OPS-B",
+      "description": "ADR-014 section 2 asserts the occupational tier \"as licensees under 97.13(c)(1)\", which holds under OPS-A but not by the household clause under OPS-B (ConOps appendix D item D15; package section 15 item 10).",
+      "requested_action": "Cite the OET 65 Supplement B controlled-environment statement and the OPS-B tier row of ConOps appendix C, consistent with SRR decision 18 (owner ruling 2026-09-26: keep the 1 W limit for OPS-B until a dated owner record confirms the controlled-environment basis).",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 10 (ConOps appendix D item D15): the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-011",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/process/04-verification-and-validation.md",
+      "product_ids": [
+        "MOE-010",
+        "MOE-006"
+      ],
+      "title": "No weak-signal source for the MOE-010 bench part",
+      "description": "04 section 6.3 does not establish the weak-signal source that the MOE-010 bench part needs, and the MOE-006 span needs the tinySA Ultra lower frequency limit confirmed (ConOps appendix D item D17; package section 15 item 10).",
+      "requested_action": "Open an OQ-VV question for the weak-signal source with close_by PDR, and confirm the MOE-006 span in the tinySA TV record.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 10 (ConOps appendix D item D17): the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-012",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/process/rmm.json",
+      "title": "RMM meta does not disposition NPR 8705.2",
+      "description": "docs/process/rmm.json meta carries no note dispositioning NPR 8705.2 (04 section 18 alignment item A3; package section 15 item 11).",
+      "requested_action": "Add a meta note: not applicable, cwht is not a human-rated space system, citing 01 section 3.5; run tools/render_rmm.py --check. The RMM is approved at SRR (decision 6), so after baseline/srr the change is Log class per decision 10 (c) or a CR.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 11 (04 alignment item A3): the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-013",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/process/rmm.json",
+      "title": "RMM row SWE-071 cites a stale-test flag planned for PDR",
+      "description": "docs/process/rmm.json row SWE-071 says a stale-test flag is planned for PDR with no process rule, while 04 section 8.2 and rule 7.3.11 CASE_STALE define it (04 section 18 alignment item A4; package section 15 item 11).",
+      "requested_action": "Cite 04 section 8.2 and rule 7.3.11 in row SWE-071; run tools/render_rmm.py --check.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 11 (04 alignment item A4): the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RID-SRR-014",
+      "type": "RID",
+      "severity": "Minor",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/reviews/SRR/figures/risk-matrix.py",
+      "title": "Package figure generators outside the tool set",
+      "description": "The figure generators docs/reviews/SRR/figures/risk-matrix.py and concept-block-diagram.py have no TV record and no place in 05 section 13 (INSP-015 cross item 4); related INSP-009 finding-7: two script sets outside the 03 placement rule (package section 15 item 38).",
+      "requested_action": "Fold both generators into tools/render_review_figures.py with known-answer tests, or give each a TV record and a 03 placement; re-render and inspect the figures.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Adopted at SRR session 1, slide 36, from package section 15 item 38: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) adopts the candidate RIDs of section 15 as the package recommends; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RFA-SRR-001",
+      "type": "RFA",
+      "severity": "Routine",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/requirements/sys/requirements.json",
+      "product_ids": [
+        "TPM-001",
+        "TPM-002",
+        "TPM-006",
+        "TPM-016"
+      ],
+      "title": "L-1: close the TBRs carried to PDR",
+      "description": "Close the TBRs of package section 13 that the SRR carries: 101 L1 requirement TBRs and 25 L2 requirement TBRs (close_by PDR; the requirement TBRs are also listed by REQ id as TBR liens in the decision memo), the 4 TPM TBRs of TPM-001, TPM-002, TPM-006 and TPM-016, and the 17 hazard-control TBRs. The 14 L1 TBRs with close_by SRR and TPM-014 are not liens: they close in the SRR decision memo (package section 13; decision 90).",
+      "requested_action": "Robin decides each value on Claude's evidence per the plan in its tbr object; the closed values are recorded in the PDR decision memo (L2 TBRs by CDR at the latest, charter section 7).",
+      "assignee": "owner",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Raised at SRR session 1, slide 40, as the Routine RFA for proposed lien L-1 of package section 20.1: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) accepts liens L-1 to L-7; package section 20.1 records each accepted lien as a Routine RFA raised by the owner (01 section 3.1 item 5)."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RFA-SRR-002",
+      "type": "RFA",
+      "severity": "Routine",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/plan/tpm.json",
+      "product_ids": [
+        "TPM-001",
+        "TPM-016"
+      ],
+      "title": "L-2: mass and envelope estimates for TPM-001 and TPM-016",
+      "description": "Soft entrance criterion S8 is not met: TPM-001 and TPM-016 have no current best estimate at SRR (package sections 4 and 20.1).",
+      "requested_action": "Produce the bottom-up mass estimate and the CAD envelope in docs/design/budgets.md and enter the estimates in docs/plan/tpm.json before the PDR readiness declaration.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Raised at SRR session 1, slide 40, as the Routine RFA for proposed lien L-2 of package section 20.1: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) accepts liens L-1 to L-7; package section 20.1 records each accepted lien as a Routine RFA raised by the owner (01 section 3.1 item 5)."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RFA-SRR-003",
+      "type": "RFA",
+      "severity": "Routine",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/lessons-learned.md",
+      "title": "L-3: create the lessons-learned file",
+      "description": "Soft entrance criterion S10 is not met: docs/lessons-learned.md does not exist (package sections 4 and 20.1).",
+      "requested_action": "Create docs/lessons-learned.md with the ten entries of package section 19 before the PDR readiness declaration.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Raised at SRR session 1, slide 40, as the Routine RFA for proposed lien L-3 of package section 20.1: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) accepts liens L-1 to L-7; package section 20.1 records each accepted lien as a Routine RFA raised by the owner (01 section 3.1 item 5)."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RFA-SRR-004",
+      "type": "RFA",
+      "severity": "Routine",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/reviews/SRR/package.md",
+      "title": "L-4: package-level Minor items not held by a record",
+      "description": "Close the L-4 items of package section 20.1 that are not logged as their own RIDs: section 15 item 58 (deck title named package revision 3; the deck of 64e53ee reads revision 8 final, so the fix is to be verified), item 71 (decision 94 text on the cargo tools against technology-assessment section 3.20) and the residual of item 77 (the K17 preamble and decision 114 texts of decisions-for-owner.md). Section 15 items 2, 3, 8, 11 and 38 and the Open ConOps appendix D items D9, D11 to D15 and D17 are logged as RID-SRR-001, 002, 004 to 014; item 55 is carried under L-5 (RFA-SRR-005).",
+      "requested_action": "Fix each item in its product and have an independent reviewer verify it before the PDR readiness declaration.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Raised at SRR session 1, slide 40, as the Routine RFA for proposed lien L-4 of package section 20.1: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) accepts liens L-1 to L-7; package section 20.1 records each accepted lien as a Routine RFA raised by the owner (01 section 3.1 item 5)."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RFA-SRR-005",
+      "type": "RFA",
+      "severity": "Routine",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/reviews/SRR/package.md",
+      "title": "L-5: cross-document items due at PDR",
+      "description": "Close the cross-document items of package section 20.1 L-5: 03 X9 and X10; 04 A11; SEMP F-06 and F-15; the OQ-SAF questions with close_by PDR; the tools/requirements.txt pins of section 15 item 55 (05 section 13 SRR row AL-4); and the docs/vv/ traceability working copy of section 15 item 66.",
+      "requested_action": "Carry out the action stated in each item before the PDR readiness declaration; the owning reviewer verifies.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Raised at SRR session 1, slide 40, as the Routine RFA for proposed lien L-5 of package section 20.1: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) accepts liens L-1 to L-7; package section 20.1 records each accepted lien as a Routine RFA raised by the owner (01 section 3.1 item 5)."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RFA-SRR-006",
+      "type": "RFA",
+      "severity": "Routine",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/reviews/SRR/checklists/",
+      "title": "L-6: record liens of the 30 SRR review records",
+      "description": "Close every Minor finding of the 30 review records INSP-001 to INSP-030 dispositioned \"Lien: fix before PDR\" under the lead SE convergence rule of 2026-09-26: 122 findings plus the INSP-011 erratum E-10, listed record by record in package section 20.2.",
+      "requested_action": "Fix each finding in its product; the reviewer of the owning record verifies it at the record's next iteration, before the PDR readiness declaration.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Raised at SRR session 1, slide 40, as the Routine RFA for proposed lien L-6 of package section 20.1: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) accepts liens L-1 to L-7; package section 20.1 records each accepted lien as a Routine RFA raised by the owner (01 section 3.1 item 5)."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RFA-SRR-007",
+      "type": "RFA",
+      "severity": "Routine",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/reviews/SRR/package.md",
+      "title": "L-7: package-level Routine items carried from revision 3",
+      "description": "Close the L-7 items of package section 20.1: ADR citations in source_ids where the ADR 4.1 tables list a requirement (REQ-SYS-011, 063, 064, 092, 146, 175, 178, 182, REQ-TX-004; ADR-026 after decision 47); the ADR-to-requirement back-reference in tools/traceability.py; the 05 section 9.2 known-answer rows for unsafe_audit.py, complexity_gate.py and measurements.py with a section 13 note on TV-011 to TV-013; the measurements.py result lines that begin with PASS; validate_docs.py ASSURANCE_WHOLE_PRODUCTS to list 05 and TS-002; the REQ-SYS-122 verification note (OQ-SAF-019); the hazard-line version stamps of the Proposed ADR-015, 022, 023 and 026.",
+      "requested_action": "Fix each item in its product or tool; an independent reviewer verifies before the PDR readiness declaration.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": true,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Raised at SRR session 1, slide 40, as the Routine RFA for proposed lien L-7 of package section 20.1: the owner's approval (\"I approve of this and the SRR.\", minutes 2026-09-26, Disposition) accepts liens L-1 to L-7; package section 20.1 records each accepted lien as a Routine RFA raised by the owner (01 section 3.1 item 5)."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Open",
+          "by": "owner",
+          "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    }
+  ]
 }
