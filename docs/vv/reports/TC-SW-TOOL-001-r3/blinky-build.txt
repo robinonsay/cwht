@@ -1,0 +1,53 @@
+# Fresh rustos blinky build, run 3 (2026-09-26 19:29 CDT)
+Source: /Users/robinonsay/rust/rustos-wp-sw-licence/templates/pico2 at branch commit 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c, copied to a scratch directory; CARGO_NET_OFFLINE=true.
+## Template diff (package name and the two dependency lines, git form replaced by the local path form of templates/README.md, pointed at the worktree)
+2c2
+< name = "{{project-name}}"
+---
+> name = "blinky"
+11,12c11,12
+< api = { git = "https://github.com/robinonsay/rustos" }
+< pico2 = { git = "https://github.com/robinonsay/rustos" }
+---
+> api = { path = "/Users/robinonsay/rust/rustos-wp-sw-licence/api" }
+> pico2 = { path = "/Users/robinonsay/rust/rustos-wp-sw-licence/firmware/pico2" }
+(diff exit 1)
+## rustc (default toolchain, no pin in the template):
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+## Build 1: cargo build --release --target-dir target-r1
+     Locking 2 packages to latest Rust 1.98.0 compatible versions
+   Compiling pico2 v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/firmware/pico2)
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/api)
+   Compiling blinky v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/rustos-blinky-r3)
+warning: linker stdout: Memory region         Used Size  Region Size  %age Used
+                    FLASH:        2008 B         4 MB      0.05%
+                      RAM:        8200 B       520 KB      1.54%
+  |
+  = note: `#[warn(linker_messages)]` on by default
+
+warning: `blinky` (bin "blinky") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.98s
+exit=0
+## Build 2: cargo build --release --target-dir target-r2
+   Compiling pico2 v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/firmware/pico2)
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/api)
+   Compiling blinky v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/rustos-blinky-r3)
+warning: linker stdout: Memory region         Used Size  Region Size  %age Used
+                    FLASH:        2008 B         4 MB      0.05%
+                      RAM:        8200 B       520 KB      1.54%
+  |
+  = note: `#[warn(linker_messages)]` on by default
+
+warning: `blinky` (bin "blinky") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.46s
+exit=0
+## SHA-256 (build 1, build 2, run 2 rustos-blinky.elf)
+3c0ac0747a761bf9880e21f80ba613cfcb5e8f5ddddbdea7af85dbf8952bbd08  <scratch>/rustos-blinky-r3/target-r1/thumbv8m.main-none-eabihf/release/blinky
+3c0ac0747a761bf9880e21f80ba613cfcb5e8f5ddddbdea7af85dbf8952bbd08  <scratch>/rustos-blinky-r3/target-r2/thumbv8m.main-none-eabihf/release/blinky
+ef16271deaaf37714cca58bc3cb789f4c94f8a9f98a1c4b343b676e5716ba8c1  docs/vv/reports/TC-SW-TOOL-001-r2/rustos-blinky.elf
+## Loadable sections against run 2
+.vector_table run3 4c0cda104a5ae51c4f1a09217d38b4082585197ed894372cedd2d4152f7ed5f0 run2 4c0cda104a5ae51c4f1a09217d38b4082585197ed894372cedd2d4152f7ed5f0 identical
+.boot_info run3 ab45fee7fef6bf144e6cb84545f008d427f5411e9ad3e555e5132761e9147c02 run2 ab45fee7fef6bf144e6cb84545f008d427f5411e9ad3e555e5132761e9147c02 identical
+.text run3 72bb86a37300d06560ebc8a2720c749a67d32bc0a771c9fb19378db126ca72d9 run2 72bb86a37300d06560ebc8a2720c749a67d32bc0a771c9fb19378db126ca72d9 identical
+.rodata run3 367b8604a83b926111f1bc63299092a46e65c5eb35b9a3c53650b989c36468ed run2 367b8604a83b926111f1bc63299092a46e65c5eb35b9a3c53650b989c36468ed identical
+.data run3 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 run2 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 identical

@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Record | TV-008 |
-| Status | **Validated** (2026-09-25; re-validated 2026-09-26 with the seeded conversion and render failures, INSP-015 finding-5; re-run at commit `400e59d` on 2026-09-26, SRR package item R5). Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Validated** (2026-09-25; re-validated 2026-09-26 with the seeded conversion and render failures, INSP-015 finding-5; re-run at commit `400e59d` on 2026-09-26, SRR package item R5). Independent review and owner accreditation pending (sections 8 and 9). Update 2026-09-26 (SRR decision 114, owner ruling 2026-09-26): **Reviewed** (INSP-015 APPROVED with liens, section 8) and **Accredited** (section 9) |
 | Class | B, evidence-generating (CM plan section 9.1: its PNGs are the record of the presented review, charter section 4 item 2) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9 |
 | Due | SRR (CM plan section 13) |
@@ -74,7 +74,9 @@ Not required for class B. The known-answer runs gave identical results. PNG byte
 
 ## 8. Independent review (CM plan section 9.2 step 3)
 
-Pending. The reviewer re-runs section 3 and opens the four inspection PNGs. Reviewer invocation, date and result are recorded here.
+Done; the result is recorded below. The reviewer re-runs section 3 and opens the four inspection PNGs. Reviewer invocation, date and result are recorded here.
+
+Result (2026-09-26, recorded by Claude, software lead and tool owner, under SRR decision 114; CM plan section 9.2 step 3 as the INSP-015 closure asks): independent review record **INSP-015** (`docs/reviews/SRR/checklists/tool-validation-tv-001-to-tv-010.md`), reviewer agent `reviewer:tools`, author `author:tool-validation`, checklist `peer-review-checklist-code` revision B. Iteration 1 and 2 NEEDS CHANGES; iteration 3 (review baseline `adcfe09`) **APPROVED with liens**; re-issued APPROVED with liens after the delta verification of `96af250` and `860e84e` (record commit `b4abcc5`, `product_commit` `99ecccb`). Findings F-01 to F-06 Closed; open liens, Minor, "Lien: fix before PDR": F-07 (the TV-003 and TV-010 status lines, the README and two lock rows still called committed blobs uncommitted). No Major finding is open. Checklist item TV-S9 was No only for the owner's accreditation, which section 9 now records.
 
 ## 9. Accreditation (owner)
 
@@ -83,3 +85,4 @@ Proposed scope statement **ACC-DECK-001**: "Accredited for purposes 1 to 4 for `
 | Decision | Date | Recorded by |
 |---|---|---|
 | Pending (owner, at SRR, after section 8) | | |
+| **Accredited** as proposed: **ACC-DECK-001**, purposes 1 to 4 for `tools/slides/render_deck.py` at git blob `b42425e9e9d2ca2b860284914b78ccbabecd38a0` (commit `28e49e6`) with the Chromium headless shell 1223 (Chrome for Testing 148.0.7778.96, binary SHA-256 `aa25f2e7...d2dd7b`) and the converter versions of section 1, for decks whose every PNG is inspected by the author (limitation 1). Ruling: SRR decision 114 (owner ruling 2026-09-26; the recommendation "Accredit each record as proposed (INSP-015 APPROVED)" adopted by the owner's statement "I concur with your recommendations for the key decisions", `docs/reviews/SRR/minutes.md` 2026-09-26, key decision K15). | 2026-09-26 | Claude (software lead and tool owner), transcribing the owner's ruling (charter section 2) |

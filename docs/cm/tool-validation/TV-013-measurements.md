@@ -47,9 +47,10 @@
 |---|---|---|---|---|
 | 1 | 2026-09-26 02:32 | working tree on `400e59d`, identities of section 1 | 16 (`CoverageTests` 2, `DiffRunsTests` 3, `LinkMapTests` 5, `RecordsTests` 5, `UsageTests` 1), 0 skipped | pass |
 | Gate integration | 2026-09-26 02:37 | working tree on `400e59d`; rustos `c54d35a` | `tools/sw_gate.sh --keep-going` steps G2 link map, G3 identical result sets, G6 measurements | pass: FLASH 1608 B (0.04 percent), RAM 8200 B (1.54 percent), equal to the TC-SW-TOOL-001-r1 values; G3 run sets identical, all passed; G6 MSR-13 cwht-core lines 17 of 17 and cwht-hal-mock 53 of 53, MSR-14 and the emulation report NOT PRODUCED (nightly components and emulator absent) |
+| Gate integration, TC-SW-TOOL-001 run 3 | 2026-09-26 19:28 | HEAD `0bcea39` (git archive, blob `abe25acb` unchanged); rustos branch `2ec64c0` | `tools/sw_gate.sh` steps G2 link map, G3 identical result sets, G6 measurements, both modes | pass: FLASH 1608 B (0.04 percent), RAM 8200 B (1.54 percent), unchanged; G3 run sets identical, all passed; G6 MSR-13 cwht-core 17 of 17 lines and cwht-hal-mock 53 of 53; MSR-14 now produced (nightly `llvm-tools` installed under SRR decision 109): branches 4 of 4, lines 70 of 70, regions 70 of 70; emulation report NOT PRODUCED (SKIP stub) |
 | Repository records | 2026-09-26 | `400e59d`, `docs/plan/measurements.json` | `--check-records` | exit 1: 80 evidence entries of 89 records fail the preservation rule at `1d423e5`, the first commit containing the records: 56 name evidence committed later with the recorded hash (at HEAD "equal to the record"), 24 name evidence whose file changed before or after (at HEAD "differs from the record"). A finding against the records file (07 section 11.1: a record is superseded at the commit when its evidence changes), not a tool defect |
 
-Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt` (run 1); `evidence/sw-gate-2026-09-26.log.txt` (gate integration).
+Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt` (run 1); `evidence/sw-gate-2026-09-26.log.txt` (gate integration). Run 3 gate integration: `docs/vv/reports/TC-SW-TOOL-001-r3/sw-gate-keep-going.txt`.
 
 ## 5. Reproducibility
 
@@ -82,3 +83,4 @@ Proposed scope statement **ACC-MEASURE-001**: "Accredited for purposes 1 to 6 fo
 | Decision | Date | Recorded by |
 |---|---|---|
 | Pending (owner, after section 8; due PDR, CM plan section 13) | | |
+| Not decided at SRR: SRR decision 114 (owner ruling 2026-09-26) covers TV-001 to TV-010 only, and this record has no independent review yet (section 8). The accreditation stays pending to its due gate; until then this tool's output is developer evidence (CM plan section 9.1). | 2026-09-26 | Claude (software lead and tool owner) |

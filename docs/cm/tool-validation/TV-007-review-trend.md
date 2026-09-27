@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Record | TV-007 |
-| Status | **Validated** (2026-09-25; re-run at commit `400e59d` on 2026-09-26, SRR package item R5). Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Validated** (2026-09-25; re-run at commit `400e59d` on 2026-09-26, SRR package item R5). Independent review and owner accreditation pending (sections 8 and 9). Update 2026-09-26 (SRR decision 114, owner ruling 2026-09-26): **Reviewed** (INSP-015 APPROVED with liens, section 8) and **Accredited** (section 9) |
 | Class | B, evidence-generating (CM plan section 9.1) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9; the tool computes the review-trend TPM (TPM-003) of charter section 4 item 5 and NPR 7123.1D SE-64 as 01 section 11 defines it |
 | Due | SRR (CM plan section 13) |
@@ -70,7 +70,9 @@ Not required for class B. Runs 1 and 2 gave identical results.
 
 ## 8. Independent review (CM plan section 9.2 step 3)
 
-Pending. Reviewer invocation, date and result are recorded here.
+Done; the result is recorded below. Reviewer invocation, date and result are recorded here.
+
+Result (2026-09-26, recorded by Claude, software lead and tool owner, under SRR decision 114; CM plan section 9.2 step 3 as the INSP-015 closure asks): independent review record **INSP-015** (`docs/reviews/SRR/checklists/tool-validation-tv-001-to-tv-010.md`), reviewer agent `reviewer:tools`, author `author:tool-validation`, checklist `peer-review-checklist-code` revision B. Iteration 1 and 2 NEEDS CHANGES; iteration 3 (review baseline `adcfe09`) **APPROVED with liens**; re-issued APPROVED with liens after the delta verification of `96af250` and `860e84e` (record commit `b4abcc5`, `product_commit` `99ecccb`). Findings F-01 to F-06 Closed; open liens, Minor, "Lien: fix before PDR": F-07 (the TV-003 and TV-010 status lines, the README and two lock rows still called committed blobs uncommitted). No Major finding is open. Checklist item TV-S9 was No only for the owner's accreditation, which section 9 now records.
 
 ## 9. Accreditation (owner)
 
@@ -79,3 +81,4 @@ Proposed scope statement **ACC-TREND-001**: "Accredited for purposes 1 to 3 for 
 | Decision | Date | Recorded by |
 |---|---|---|
 | Pending (owner, at SRR, after section 8) | | |
+| **Accredited** as proposed: **ACC-TREND-001**, purposes 1 to 3 for `tools/review_trend.py` at git blob `04493157ae1c3245ca600bf1c29069dfe3192810` (commit `28e49e6`) with `tools/validate_docs.py` at blob `2bedc2a7`, under the TV-001 interpreter and matplotlib 3.11.2, subject to limitation 2. Ruling: SRR decision 114 (owner ruling 2026-09-26; the recommendation "Accredit each record as proposed (INSP-015 APPROVED)" adopted by the owner's statement "I concur with your recommendations for the key decisions", `docs/reviews/SRR/minutes.md` 2026-09-26, key decision K15). | 2026-09-26 | Claude (software lead and tool owner), transcribing the owner's ruling (charter section 2) |

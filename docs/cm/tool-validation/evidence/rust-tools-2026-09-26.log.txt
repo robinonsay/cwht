@@ -1,0 +1,486 @@
+# Rust tool installs (SRR decision 109, owner ruling 2026-09-26) and lock section 1.1 sanity checks, 2026-09-26
+# Procedure of the checks: rust-tools-2026-09-26.sh. Scratch paths are shown in full where a tool printed them.
+
+================================================================ 0a. state before the installs
+2026-09-27T00:18:45Z
+2026-09-26 19:18:45 CDT
+rustup 1.29.0 (28d1352db 2026-03-05)
+info: This is the version for the rustup toolchain manager, not the rustc compiler.
+info: the currently active `rustc` version is `rustc 1.98.0 (88d9e12ae 2026-08-18)`
+stable-aarch64-apple-darwin (active, default)
+nightly-aarch64-apple-darwin
+nightly-2026-08-24-aarch64-apple-darwin
+---
+cargo-aarch64-apple-darwin
+clippy-aarch64-apple-darwin
+rust-docs-aarch64-apple-darwin
+rust-std-aarch64-apple-darwin
+rustc-aarch64-apple-darwin
+rustfmt-aarch64-apple-darwin
+---
+cargo
+cargo-audit
+cargo-clippy
+cargo-cov
+cargo-deny
+cargo-fmt
+cargo-geiger
+cargo-generate
+cargo-llvm-cov
+cargo-miri
+cargo-nextest
+cargo-nm
+cargo-objcopy
+cargo-objdump
+cargo-profdata
+cargo-readobj
+cargo-size
+cargo-strip
+clippy-driver
+rls
+rust-analyzer
+rust-ar
+rust-as
+rust-cov
+rust-gdb
+rust-gdbgui
+rust-ld
+rust-lld
+rust-lldb
+rust-nm
+rust-objcopy
+rust-objdump
+rust-profdata
+rust-readobj
+rust-size
+rust-strip
+rustc
+rustdoc
+rustfmt
+rustup
+---
+ls: /Users/robinonsay/.cargo/advisory-db: No such file or directory
+ls: /Users/robinonsay/.cargo/advisory-dbs: No such file or directory
+cargo-audit-audit 0.22.2
+cargo-deny 0.20.2
+
+================================================================ 0b. install 1 (rustup toolchain 1.98.0)
+== install 1 start 2026-09-26 19:18:54 CDT
+$ rustup toolchain install 1.98.0 --profile minimal --component clippy,rustfmt,llvm-tools --target thumbv8m.main-none-eabihf
+info: syncing channel updates for 1.98.0-aarch64-apple-darwin
+info: latest update on 2026-08-20 for version 1.98.0 (88d9e12ae 2026-08-18)
+info: downloading 7 components
+
+  1.98.0-aarch64-apple-darwin installed - rustc 1.98.0 (88d9e12ae 2026-08-18)
+
+info: checking for self-update (current version: 1.29.0)
+info: downloading self-update (new version: 1.29.1)
+exit 0
+== end 19:19:02
+NOTE: rustup's default auto-self-update downloaded rustup 1.29.1 after install 1 (not in decision 109; recorded as a finding in the lock; later rustup calls pass --no-self-update or run behind the guard).
+
+================================================================ 0c. install 2 (nightly-2026-08-24 miri, llvm-tools)
+== install 2 start 2026-09-26 19:19:18 CDT
+$ rustup toolchain install nightly-2026-08-24 --component miri --component llvm-tools --no-self-update
+info: syncing channel updates for nightly-2026-08-24-aarch64-apple-darwin
+info: latest update on 2026-08-24 for version 1.100.0-nightly (fb6531d55 2026-08-23)
+info: downloading 2 components
+
+  nightly-2026-08-24-aarch64-apple-darwin updated - rustc 1.100.0-nightly (fb6531d55 2026-08-23) (from rustc 1.100.0-nightly (fb6531d55 2026-08-23))
+
+exit 0
+== end 19:19:22
+
+================================================================ 0d. install 3 (rust-code-analysis-cli)
+== install 3 start 2026-09-26 19:19:31 CDT
+$ cargo +stable install rust-code-analysis-cli --locked
+    Updating crates.io index
+  Installing rust-code-analysis-cli v0.0.25
+    Updating crates.io index
+warning: package `crossbeam-channel v0.5.6` in Cargo.lock is yanked in registry `crates-io`
+  |
+  = help: consider running without --locked
+    Updating crates.io index
+    Finished `release` profile [optimized] target(s) in 14.12s
+  Installing /Users/robinonsay/.cargo/bin/rust-code-analysis-cli
+   Installed package `rust-code-analysis-cli v0.0.25` (executable `rust-code-analysis-cli`)
+exit 0
+== end 19:19:46
+
+================================================================ 0e. install 4 (RustSec advisory databases)
+== install 4 start 2026-09-26 19:19:56 CDT (cwd firmware/, RUSTUP_AUTO_INSTALL=0)
+$ cargo audit
+    Fetching advisory database from `https://github.com/RustSec/advisory-db.git`
+      Loaded 1271 security advisories (from /Users/robinonsay/.cargo/advisory-db)
+    Updating crates.io index
+    Scanning Cargo.lock for vulnerabilities (5 crate dependencies)
+exit 0
+$ cargo deny fetch
+exit 0
+== end 19:20:01
+/Users/robinonsay/.cargo/advisory-db:
+total 96
+drwxr-xr-x@  16 robinonsay  staff    512 Sep 26 19:20 .
+drwxr-xr-x   15 robinonsay  staff    480 Sep 26 19:20 ..
+-rw-r--r--@   1 robinonsay  staff    217 Sep 26 19:20 .duplicate-id-guard
+drwxr-xr-x@  13 robinonsay  staff    416 Sep 26 19:20 .git
+drwxr-xr-x@   6 robinonsay  staff    192 Sep 26 19:20 .github
+-rw-r--r--@   1 robinonsay  staff    452 Sep 26 19:20 CODE_OF_CONDUCT.md
+-rw-r--r--@   1 robinonsay  staff   5357 Sep 26 19:20 CONTRIBUTING.md
+-rw-r--r--@   1 robinonsay  staff   1800 Sep 26 19:20 EXAMPLE_ADVISORY.md
+-rw-r--r--@   1 robinonsay  staff   3931 Sep 26 19:20 HOWTO_UNMAINTAINED.md
+-rw-r--r--@   1 robinonsay  staff   1299 Sep 26 19:20 LICENSE.txt
+drwxr-xr-x@   4 robinonsay  staff    128 Sep 26 19:20 LICENSES
+-rw-r--r--@   1 robinonsay  staff   4643 Sep 26 19:20 MAINTAINERS_GUIDE.md
+-rw-r--r--@   1 robinonsay  staff   8002 Sep 26 19:20 README.md
+drwxr-xr-x@ 944 robinonsay  staff  30208 Sep 26 19:20 crates
+drwxr-xr-x@   5 robinonsay  staff    160 Sep 26 19:20 rust
+-rw-r--r--@   1 robinonsay  staff     81 Sep 26 19:20 support.toml
+
+/Users/robinonsay/.cargo/advisory-dbs:
+total 0
+drwxr-xr-x@  4 robinonsay  staff  128 Sep 26 19:20 .
+drwxr-xr-x  15 robinonsay  staff  480 Sep 26 19:20 ..
+drwxr-xr-x@ 16 robinonsay  staff  512 Sep 26 19:20 advisory-db-3157b0e258782691
+-rw-r--r--@  1 robinonsay  staff    0 Sep 26 19:20 db.lock
+advisory-db HEAD e2111519ba6d14a5da59a7b2e5c8083ae8a37c01 2026-09-25T19:51:57+02:00
+/Users/robinonsay/.cargo/advisory-dbs/advisory-db-3157b0e258782691/
+HEAD e2111519ba6d14a5da59a7b2e5c8083ae8a37c01 2026-09-25T19:51:57+02:00
+
+================================================================ 0f. state after the installs
+2026-09-26 19:20:12 CDT
+rustup 1.29.1 (d95a37b6a 2026-08-13)
+stable-aarch64-apple-darwin (active, default)
+nightly-aarch64-apple-darwin
+nightly-2026-08-24-aarch64-apple-darwin
+1.98.0-aarch64-apple-darwin
+-- firmware/
+1.98.0-aarch64-apple-darwin (overridden by '/Users/robinonsay/rust/cwht/firmware/rust-toolchain.toml')
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+clippy 0.1.98 (88d9e12ae1 2026-08-18)
+rustfmt 1.9.0-stable (88d9e12ae1 2026-08-18)
+cargo-aarch64-apple-darwin
+clippy-aarch64-apple-darwin
+llvm-tools-aarch64-apple-darwin
+rust-std-aarch64-apple-darwin
+rust-std-thumbv8m.main-none-eabihf
+rustc-aarch64-apple-darwin
+rustfmt-aarch64-apple-darwin
+aarch64-apple-darwin
+thumbv8m.main-none-eabihf
+-- nightly-2026-08-24
+rustc 1.100.0-nightly (fb6531d55 2026-08-23)
+cargo-aarch64-apple-darwin
+clippy-aarch64-apple-darwin
+llvm-tools-aarch64-apple-darwin
+miri-aarch64-apple-darwin
+rust-docs-aarch64-apple-darwin
+rust-std-aarch64-apple-darwin
+rustc-aarch64-apple-darwin
+rustfmt-aarch64-apple-darwin
+miri 0.1.0 (fb6531d550 2026-08-23)
+-- rca
+rust-code-analysis-cli 0.0.25
+-rwxr-xr-x@ 1 robinonsay  staff  10645872 Sep 26 19:19 /Users/robinonsay/.cargo/bin/rust-code-analysis-cli
+438b2884ce78ae7079a0e14b2a5bce21c377f8297b05a28c0e175bf90fce6b57  /Users/robinonsay/.cargo/bin/rust-code-analysis-cli
+cargo-audit v0.22.2:
+    cargo-audit
+cargo-binutils v0.4.0:
+    cargo-cov
+    cargo-nm
+    cargo-objcopy
+    cargo-objdump
+    cargo-profdata
+    cargo-readobj
+    cargo-size
+    cargo-strip
+    rust-ar
+    rust-as
+    rust-cov
+    rust-ld
+    rust-lld
+    rust-nm
+    rust-objcopy
+    rust-objdump
+    rust-profdata
+    rust-readobj
+    rust-size
+    rust-strip
+cargo-deny v0.20.2:
+    cargo-deny
+cargo-geiger v0.13.0:
+    cargo-geiger
+cargo-generate v0.23.14:
+    cargo-generate
+cargo-llvm-cov v0.9.1:
+    cargo-llvm-cov
+cargo-nextest v0.9.146:
+    cargo-nextest
+rust-code-analysis-cli v0.0.25:
+    rust-code-analysis-cli
+-- repo root
+stable-aarch64-apple-darwin (default)
+gcc-ld
+llc
+llvm-ar
+llvm-as
+llvm-cov
+llvm-dis
+llvm-link
+llvm-nm
+llvm-objcopy
+llvm-objdump
+llvm-profdata
+llvm-readobj
+llvm-size
+llvm-strip
+opt
+rust-lld
+rust-objcopy
+wasm-component-ld
+
+================================================================ 0g. Miri probe, reverted rust-src downloads, download guard
+== Miri setup probe, 2026-09-26 19:21 CDT, empty scratch directory, RUSTUP_AUTO_INSTALL=0 CARGO_NET_OFFLINE=true
+$ cargo +nightly-2026-08-24 miri setup </dev/null
+Running `"rustup" "component" "add" "rust-src"` to install the `rust-src` component for the selected toolchain.
+info: downloading component rust-src
+Preparing a sysroot for Miri (target: aarch64-apple-darwin)...
+error: no matching package named `wasip1` found
+location searched: crates.io index
+required by package `std v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/std)`
+    ... which satisfies path dependency `std` (locked to 0.0.0) of package `custom-local-sysroot v0.0.0 (/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/.tmpUsFtdD)`
+note: offline mode (via `--offline`) can sometimes cause surprising resolution failures
+help: if this error is too confusing you may wish to retry without `--offline`
+fatal error: failed to build sysroot: sysroot build failed
+(exit status of cargo miri setup: non-zero; the pipe to head masked the number)
+Finding: cargo-miri ran `rustup component add rust-src` on its own (RUSTUP_AUTO_INSTALL=0 does not stop an explicit
+rustup call), which downloaded the rust-src component: not an approved install (decision 109). Reverted at 19:21:19
+(rustup component remove rust-src --toolchain nightly-2026-08-24, local, no network). The sysroot build needs std's
+dependency crates from crates.io (first missing: wasip1): a further download, not approved. Miri therefore cannot run
+with the decision 109 install set alone. Later runs set MIRI_AUTO_OPS=no so cargo-miri makes no automatic install.
+2026-09-26 19:21:19 CDT
+$ rustup component remove rust-src --toolchain nightly-2026-08-24
+info: removing component rust-src
+exit 0
+cargo-aarch64-apple-darwin
+clippy-aarch64-apple-darwin
+llvm-tools-aarch64-apple-darwin
+miri-aarch64-apple-darwin
+rust-docs-aarch64-apple-darwin
+rust-std-aarch64-apple-darwin
+rustc-aarch64-apple-darwin
+rustfmt-aarch64-apple-darwin
+ls: /Users/robinonsay/.cache/miri: No such file or directory
+/Users/robinonsay/Library/Caches/org.rust-lang.miri:
+lib
+19:21:33 removed empty ~/Library/Caches/org.rust-lang.miri created by the probe (rmdir, empty dirs only)
+$ MIRI_AUTO_OPS=no RUSTUP_AUTO_INSTALL=0 CARGO_NET_OFFLINE=true cargo +nightly-2026-08-24 miri setup
+Running `"rustup" "component" "add" "rust-src"` to install the `rust-src` component for the selected toolchain.
+info: downloading component rust-src
+Preparing a sysroot for Miri (target: aarch64-apple-darwin)...
+error: no matching package named `wasip1` found
+location searched: crates.io index
+required by package `std v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/std)`
+    ... which satisfies path dependency `std` (locked to 0.0.0) of package `custom-local-sysroot v0.0.0 (/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/.tmpxiO9LS)`
+note: offline mode (via `--offline`) can sometimes cause surprising resolution failures
+help: if this error is too confusing you may wish to retry without `--offline`
+fatal error: failed to build sysroot: sysroot build failed
+exit 1
+1
+lib
+2026-09-26 19:22:19 CDT
+Finding 2: MIRI_AUTO_OPS=no did not stop the explicit 'miri setup' from running 'rustup component add rust-src' (second unapproved download of rust-src). Reverted:
+$ rustup component remove rust-src --toolchain nightly-2026-08-24
+info: removing component rust-src
+exit 0
+0
+/Users/robinonsay/Library/Caches/org.rust-lang.miri
+/Users/robinonsay/Library/Caches/org.rust-lang.miri/lib
+/Users/robinonsay/Library/Caches/org.rust-lang.miri/lib/rustlib
+removed empty miri cache dirs
+From here every command that could reach Miri runs with a PATH guard: a 'rustup' shim that refuses component add, toolchain install and self update and forwards every other rustup subcommand.
+== guard test 19:22:31
+$ PATH=<guard>:$PATH MIRI_AUTO_OPS=no RUSTUP_AUTO_INSTALL=0 CARGO_NET_OFFLINE=true cargo +nightly-2026-08-24 miri setup
+Running `"rustup" "component" "add" "rust-src"` to install the `rust-src` component for the selected toolchain.
+rustup-guard: refused 'rustup component add rust-src' (not an approved install, SRR decision 109)
+fatal error: failed to install the `rust-src` component for the selected toolchain
+exit 1
+rust-src installed count: 0
+ls: /Users/robinonsay/Library/Caches/org.rust-lang.miri: No such file or directory
+
+
+================================================================ identity 2026-09-26 19:43:55 CDT, cwht HEAD bfea9c701be33479eed85e44b28a0bd636231421
+rustup 1.29.1 (d95a37b6a 2026-08-13)
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+clippy 0.1.98 (88d9e12ae1 2026-08-18)
+rustc 1.100.0-nightly (fb6531d55 2026-08-23)
+rust-code-analysis-cli 0.0.25
+cargo-audit-audit 0.22.2
+cargo-deny 0.20.2
+cargo-llvm-cov 0.9.1
+cargo-nextest 0.9.146 (8af696ddc 2026-09-21)
+cargo-geiger 0.13.0
+cargo-size 0.4.0
+
+================================================================ 1. rustc / cargo and clippy on the pinned toolchain 1.98.0 (lock section 1.3; fixture tools/tests/fixtures/rust/)
+   Compiling kat-target v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/sanity/rust/kat-target)
+    Finished `release` profile [optimized] target(s) in 0.43s
+exit=0
+   Compiling kat-target v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/sanity/rust/kat-target)
+    Finished `release` profile [optimized] target(s) in 0.42s
+exit=0
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  <scratch>/t1/thumbv8m.main-none-eabihf/release/kat-target
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  <scratch>/t2/thumbv8m.main-none-eabihf/release/kat-target
+stored elf_sha256: 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=0
+test tests::seeded_failure ... FAILED
+---- tests::seeded_failure stdout ----
+thread 'tests::seeded_failure' (9053610) panicked at src/lib.rs:57:9:
+    tests::seeded_failure
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=101
+exit=0
+error: this comparison involving the minimum or maximum element for this type contains a case that is always true or always false
+   = note: `#[deny(clippy::absurd_extreme_comparisons)]` on by default
+error: could not compile `kat-host` (lib) due to 1 previous error
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+error: used `unwrap()` on an `Option` value
+   = note: requested on the command line with `-D clippy::unwrap-used`
+error: could not compile `kat-host` (lib) due to 1 previous error
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+
+================================================================ 2. rust-code-analysis-cli end to end through tools/complexity_gate.py (07 section 8.3; TV-012 limitation 1)
+Fixture: tools/tests/fixtures/complexity_gate/src (hand-computed CC in rca.json: straight 1, branchy 5,
+at_limit 15, over_limit 16, with_closure, ping, pong, fact; app.rs target-only). Plus a scratch file
+loops.rs for the question of TV-012 limitation 1 (is a bare loop a decision?).
+rca exit=0
+file       function       analyzer  stored  agree
+app.rs     extra                 2       2  yes
+app.rs     halt                  2       1  NO
+app.rs     main                  1       2  NO
+core.rs    <anonymous>           2       2  yes
+core.rs    at_limit             16      15  NO
+core.rs    branchy               5       5  yes
+core.rs    fact                  2       2  yes
+core.rs    over_limit           17      16  NO
+core.rs    ping                  2       2  yes
+core.rs    pong                  1       1  yes
+core.rs    straight              1       1  yes
+core.rs    uses_string           1       1  yes
+core.rs    with_closure          2       2  yes
+loops.rs   bare_loop             2    None  n/a (scratch)
+loops.rs   one_if                2    None  n/a (scratch)
+loops.rs   one_while             2    None  n/a (scratch)
+disagreements with the stored hand-computed values: 4
+$ /Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/complexity_gate.py --max 15 --input rca-real.json --root .
+FAIL CS-38 src/app.rs:9 halt CC 2 > 1 in a // @target-only file (straight-line target-only code; CS-11 board take allowance included)
+FAIL CS-38 src/app.rs:13 extra CC 2 > 1 in a // @target-only file (straight-line target-only code; CS-11 board take allowance included)
+FAIL CS-17 src/core.rs:11 at_limit CC 16 > 15 (SWE-220; 07 section 14.3 waiver absent)
+FAIL CS-17 src/core.rs:16 over_limit CC 17 > 15 (SWE-220; 07 section 14.3 waiver absent)
+REPORT CS-19 call cycle (name-based): fact -> fact
+REPORT CS-19 call cycle (name-based): ping -> pong -> ping
+MSR-17 functions 16, max_cc 17, mean_cc 3.75, above_12 2, above_15 2, above_yellow 2, above_max 2, target_only_above_1 2
+complexity_gate: FAIL (4 failure(s), 2 CS-19 report(s))
+exit=1
+
+================================================================ 3. nightly-2026-08-24 (MSR-14, non-credit): branch and condition coverage; Miri
+running 2 tests
+test tests::false_any ... ok
+test tests::true_true ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+    1|       |//! Seeded unexercised condition outcome: in `both`, `b` is never evaluated as false with `a` true.
+    2|      2|pub fn both(a: bool, b: bool) -> u8 {
+    3|      2|    if a && b { 1 } else { 0 }
+                          ^1  ^1         ^1
+  ------------------
+  |  Branch (3:8): [True: 1, False: 1]
+  |  Branch (3:13): [True: 1, False: 0]
+  ------------------
+    4|      2|}
+    5|       |#[cfg(test)]
+    6|       |mod tests {
+    7|       |    use super::both;
+    8|       |    #[test]
+    9|      1|    fn true_true() { assert_eq!(both(true, true), 1); }
+   10|       |    #[test]
+   11|      1|    fn false_any() { assert_eq!(both(false, true), 0); }
+   12|       |}
+
+exit=0
+Miri: not run. It needs the rust-src component and a sysroot build that fetches std's dependency crates
+(probe of 2026-09-26 19:21, evidence rust-tools-2026-09-26.log.txt section 0); neither is in decision 109.
+
+================================================================ 4. cargo-audit: seeded advisory lock against a clean lock (offline, --no-fetch)
+id = "RUSTSEC-2021-0003"
+package = "smallvec"
+[versions]
+patched = [">= 0.6.14, < 1.0.0", ">= 1.6.1"]
+unaffected = ["< 0.6.3"]
+
+    Scanning seeded.lock for vulnerabilities (2 crate dependencies)
+Crate:     smallvec
+Version:   1.6.0
+Title:     Buffer overflow in SmallVec::insert_many
+ID:        RUSTSEC-2021-0003
+error: 1 vulnerability found!
+exit=1
+    Scanning clean.lock for vulnerabilities (2 crate dependencies)
+exit=0
+
+================================================================ 5. cargo-deny: a policy allowing MIT only flags the seeded GPL-3.0-only crate and nothing else
+error[rejected]: failed to satisfy license requirements
+  ┌─ /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/sanity/deny/seeded/Cargo.toml:5:12
+5 │ license = "GPL-3.0-only"
+  │            rejected: license is not explicitly allowed
+  ├ GPL-3.0-only - GNU General Public License v3.0 only:
+  ├ seeded v0.1.0
+exit=4
+
+================================================================ 6. cargo-llvm-cov on the pinned 1.98.0 with its rustup-tracked llvm-tools: 100 percent, then a seeded uncovered branch
+<scratch>/cov/src/lib.rs 13 0 100.00% 3 0 100.00% 7 0 100.00% 0 0 -
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL 13 0 100.00% 3 0 100.00% 7 0 100.00% 0 0 -
+exit=0
+    6|      0|        1
+exit=1
+
+================================================================ 7. cargo-nextest: failing test named, exit non-zero; clean run exit 0 with the stored count (fixture kat-host)
+        FAIL [   0.009s] (4/4) kat-host tests::seeded_failure
+     Summary [   0.009s] 4 tests run: 3 passed, 1 failed, 0 skipped
+        FAIL [   0.009s] (4/4) kat-host tests::seeded_failure
+exit=100
+     Summary [   0.010s] 3 tests run: 3 passed, 0 skipped
+exit=0
+
+================================================================ 8. cargo-geiger: a crate with one unsafe block reports exactly one unsafe expression and zero unsafe functions
+Metric output format: x/y=z%
+    x = safe code found in the crate
+    y = total code found in the crate
+    z = percentage of safe ratio as defined by x/y
+Symbols:
+    :) = No `unsafe` usage found, declares #![forbid(unsafe_code)]
+    ?  = No `unsafe` usage found, missing #![forbid(unsafe_code)]
+    !  = `unsafe` usage found
+Functions  Expressions  Impls  Traits  Methods  Dependency
+    1/1=100.00%     0/1=0.00%          0/0=100.00%        0/0=100.00%     0/0=100.00%  !  geiger-kat 0.0.0
+    1/1=100.00%     0/1=0.00%          0/0=100.00%        0/0=100.00%     0/0=100.00%
+exit=0
+
+================================================================ 9. cargo-binutils: cargo size section sizes equal the section sizes of the lld link map (cwht-app of TC-SW-TOOL-001 run 3)
+.boot_info     map     20  cargo size 20      equal
+.bss           map      4  cargo size 4       equal
+.data          map      0  cargo size 0       equal
+.rodata        map      0  cargo size 0       equal
+.text          map   1316  cargo size 1316    equal
+.vector_table  map    272  cargo size 272     equal
+sections compared 6, differing 0
+
+================================================================ end 19:44:01

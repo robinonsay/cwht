@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Record | TV-012 |
-| Status | **Validated** (2026-09-26) on the working-tree file identified in section 1, not yet committed, for its own logic on analyzer output in the documented format; the analyzer `rust-code-analysis-cli` is not installed (lock section 1.1), so the end-to-end check of limitation 1 is open. Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Validated** (2026-09-26) on the working-tree file identified in section 1, not yet committed, for its own logic on analyzer output in the documented format; the analyzer `rust-code-analysis-cli` is not installed (lock section 1.1), so the end-to-end check of limitation 1 is open. Independent review and owner accreditation pending (sections 8 and 9). Update 2026-09-26: the analyzer is installed (SRR decision 109); the end-to-end check ran and failed on the CC counting convention (section 4, limitation 1), so limitation 1 stays open |
 | Class | B, evidence-generating (CM plan section 9.1: gate G5 output, MSR-17, SWE-220 evidence) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9; implements 07 CS-17, CS-19 (reporting) and CS-38 enforcement "G" and the waiver rule of 07 section 14.3 |
 | Due | CDR, with `rust-code-analysis-cli` (CM plan section 13 CDR row); filed at SRR with the gate scripts of SRR package item R3 |
@@ -47,8 +47,10 @@
 |---|---|---|---|---|
 | 1 | 2026-09-26 02:32 | working tree on `400e59d`, identities of section 1 | 9 (`GateKnownAnswerTests` 5, `ParseKnownAnswerTests` 3, `UsageTests` 1), 0 skipped | pass |
 | Gate integration | 2026-09-26 02:37 | working tree on `400e59d` | `tools/sw_gate.sh --keep-going` step G5 complexity | MISSING: `rust-code-analysis-cli` not installed; the gate no longer reports `tools/complexity_gate.py` missing |
+| End-to-end check (limitation 1) | 2026-09-26 19:44 | HEAD `bfea9c7`, tool blob `9214fefb` (committed in `3de1e2d`, unchanged); `rust-code-analysis-cli` 0.0.25, installed 2026-09-26 under SRR decision 109 (owner ruling 2026-09-26) | the analyzer run on a scratch copy of `tools/tests/fixtures/complexity_gate/src/`, own CC of each function through this tool compared with the hand-computed values of `rca.json`, plus three scratch functions (bare `loop`, one `if`, one `while`) | **fail**: the format is understood (no input error; closures and nested spaces handled; 9 of 13 functions agree), but the analyzer's counting convention differs from the hand-computed one in 4 functions: a `match` counts every arm, `_` included (`at_limit` 16 against 15, `over_limit` 17 against 16); a bare `loop` counts as a decision (`halt` 2 against 1; scratch `bare_loop` 2); a `let ... else` does not count (`main` 1 against 2) |
+| Gate integration, TC-SW-TOOL-001 run 3 | 2026-09-26 19:28 | HEAD `0bcea39` (git archive), rustos branch `2ec64c0` | `tools/sw_gate.sh` step G5 complexity | FAIL: the gate passes three paths to one `--paths` option, which 0.0.25 rejects (`Found argument ... which wasn't expected`), so this tool read empty input and exited 2 (input error); with one `--paths` per path (diagnostic, outside the gate) this tool reports one CS-38 failure, `safe_state_halt` CC 2 (its bare `loop`), MSR-17 functions 52, max CC 5 |
 
-Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt`; `evidence/sw-gate-2026-09-26.log.txt`.
+Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt`; `evidence/sw-gate-2026-09-26.log.txt`. End-to-end check: `evidence/rust-tools-2026-09-26.log.txt` section 2 (procedure `evidence/rust-tools-2026-09-26.sh`). Run 3 gate: `docs/vv/reports/TC-SW-TOOL-001-r3/sw-gate-full.txt`, `sw-gate-keep-going.txt`, `complexity-diagnostic.txt`.
 
 ## 5. Reproducibility
 
@@ -56,7 +58,7 @@ Not required for class B. Deterministic function of the input.
 
 ## 6. Limitations
 
-1. **Analyzer format and counting unverified end to end.** The input format and the own-CC derivation follow the rust-code-analysis FuncSpace serialization as documented in the tool header; no real analyzer output has been read yet. Before any output is cited for the record, the 07 section 8.3 sanity check runs: `rust-code-analysis-cli` on five reference functions with hand-computed CC 1, 2, 5, 15 and 16 must give those values through this tool, which also settles whether the analyzer counts a bare `loop` (the CS-19 halt loops of `cwht-app`) as a decision; that result decides whether CS-38 needs a rule for halt loops (cross item to the 07 owner).
+1. **Analyzer format and counting unverified end to end.** The input format and the own-CC derivation follow the rust-code-analysis FuncSpace serialization as documented in the tool header; no real analyzer output has been read yet. Before any output is cited for the record, the 07 section 8.3 sanity check runs: `rust-code-analysis-cli` on five reference functions with hand-computed CC 1, 2, 5, 15 and 16 must give those values through this tool, which also settles whether the analyzer counts a bare `loop` (the CS-19 halt loops of `cwht-app`) as a decision; that result decides whether CS-38 needs a rule for halt loops (cross item to the 07 owner). **Result 2026-09-26** (section 4, end-to-end check): the check fails on counting convention, not on format: rust-code-analysis-cli 0.0.25 counts every `match` arm (so a 15-arm match is CC 16, not 15), counts a bare `loop` as a decision (so the CS-19 halt loops are CC 2 and fail CS-38 as written) and does not count `let ... else`. Until the 07 owner fixes the CC convention for CS-17 and CS-38 (accept the analyzer's counts, or have this tool normalize them) and `rca.json` is re-derived from real analyzer output, analyzer-fed results of this tool are not cited for the record, and the limitation stays open.
 2. The CS-38 allowance recognizes the board take by the text `::take()` in the function body; the driver-construction arms that CR-001 proposes (INSP-016 finding-2) have no allowance and fail until a waiver or a CS-38 change exists.
 3. CS-19 is name-based: two functions with one name are one node (a false cycle is possible), and a cycle through a function pointer, trait object or macro is not seen. It reports only; the reviewer decides (CS-19 enforcement R).
 4. A waiver is matched by function name and file suffix; the memo check is textual (the id as a word in the memo).
@@ -80,3 +82,4 @@ Proposed scope statement **ACC-COMPLEXITY-001**: "Accredited for purposes 1 to 5
 | Decision | Date | Recorded by |
 |---|---|---|
 | Pending (owner, after section 8 and limitation 1; due CDR, CM plan section 13) | | |
+| Not decided at SRR: SRR decision 114 (owner ruling 2026-09-26) covers TV-001 to TV-010 only, and this record has no independent review yet (section 8). The accreditation stays pending to its due gate; until then this tool's output is developer evidence (CM plan section 9.1). | 2026-09-26 | Claude (software lead and tool owner) |

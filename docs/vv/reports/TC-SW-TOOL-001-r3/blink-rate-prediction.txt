@@ -1,0 +1,55 @@
+# Blink-rate prediction, run 3 (2026-09-26 19:29 CDT)
+The run 2 prediction (docs/vv/reports/TC-SW-TOOL-001-r2/blink-rate-prediction.txt) holds for run 3 when the
+executable bytes are unchanged. .text of both images against run 2 (from cwht-app-build.txt and blinky-build.txt):
+cwht-app .text run3 670287e1872188ac65895af535f464cafc09260fe0a87d2e804dea1f5a926250 run2 670287e1872188ac65895af535f464cafc09260fe0a87d2e804dea1f5a926250 identical
+cwht-app .text                1316   268435748
+rustos-blinky .text run3 72bb86a37300d06560ebc8a2720c749a67d32bc0a771c9fb19378db126ca72d9 run2 72bb86a37300d06560ebc8a2720c749a67d32bc0a771c9fb19378db126ca72d9 identical
+## delay loops (rust-objdump -d, spin_loop call sites), run 3
+### cwht-app
+100001a4:      	movt	r3, #0x4c
+100001a8:      	subs	r3, #0x1
+100001aa:      	yield
+100001ac:      	bne	0x100001a8 <_RNvCsbP7JVVMsAgw_8cwht_app4main+0x84> @ imm = #-0x8
+100001ae:      	eor	r2, r2, #0x1
+100001b2:      	b	0x10000196 <_RNvCsbP7JVVMsAgw_8cwht_app4main+0x72> @ imm = #-0x20
+100001b4:      	clrex
+100001b8:      	yield
+100001ba:      	b	0x100001b8 <_RNvCsbP7JVVMsAgw_8cwht_app4main+0x94> @ imm = #-0x6
+
+--
+100001c4:      	push	{r7, lr}
+100001c6:      	mov	r7, sp
+100001c8:      	yield
+100001ca:      	b	0x100001c8 <_RNvNtCs3Mo3VzDWASZ_4core9panicking9panic_fmt+0x4> @ imm = #-0x6
+
+### rustos-blinky
+100001b6:      	mov	r3, r2
+100001b8:      	str	r1, [r0, #-8]
+100001bc:      	yield
+100001be:      	subs	r3, #0x40
+100001c0:      	yield
+100001c2:      	yield
+100001c4:      	yield
+100001c6:      	yield
+100001c8:      	yield
+100001ca:      	yield
+100001cc:      	yield
+100001ce:      	yield
+100001d0:      	yield
+100001d2:      	yield
+100001d4:      	yield
+100001d6:      	yield
+100001d8:      	yield
+100001da:      	yield
+100001dc:      	yield
+100001de:      	yield
+100001e0:      	yield
+100001e2:      	yield
+100001e4:      	yield
+100001e6:      	yield
+100001e8:      	yield
+100001ea:      	yield
+100001ec:      	yield
+100001ee:      	yield
+100001f0:      	yield
+100001f2:      	yield

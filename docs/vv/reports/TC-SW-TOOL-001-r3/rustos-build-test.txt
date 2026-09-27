@@ -1,0 +1,68 @@
+== rustos worktree build and test 2026-09-26 19:26:32 CDT, c54d35a + uncommitted work item edits
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+$ cargo build
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/api)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.32s
+exit 0
+$ cargo test
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/api)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.14s
+     Running unittests src/lib.rs (target/debug/deps/api-f1ce788862a78ad4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests api
+
+running 3 tests
+test api/src/common/mod.rs - common::ErrorType (line 16) ... ignored
+test api/src/device/mod.rs - device::define_board (line 188) ... ignored
+test api/src/gpio/mod.rs - gpio (line 17) ... ignored
+
+test result: ok. 0 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 0.41s; merged doctests compilation took 0.17s
+exit 0
+$ cargo pico2 (build -p pico2 --target thumbv8m.main-none-eabihf)
+   Compiling pico2 v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/firmware/pico2)
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/api)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.39s
+exit 0
+$ cargo build -p pico2 --release --target thumbv8m.main-none-eabihf
+   Compiling pico2 v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/firmware/pico2)
+   Compiling api v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/api)
+    Finished `release` profile [optimized] target(s) in 0.38s
+exit 0
+$ cargo clippy -p api
+    Checking api v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/api)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.08s
+exit 
+$ cargo clippy -p pico2 --target thumbv8m.main-none-eabihf
+    = help: you should either use `panic!()` or add a call pausing or sleeping the thread to the loop body
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#empty_loop
+
+warning: `pico2` (lib) generated 13 warnings (run `cargo clippy --fix --lib -p pico2 -- ` to apply 8 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.34s
+exit 
+$ cargo doc -p api -p pico2 --no-deps --target thumbv8m.main-none-eabihf
+ Documenting api v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/api)
+ Documenting pico2 v0.1.0 (/Users/robinonsay/rust/rustos-wp-sw-licence/firmware/pico2)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.25s
+   Generated /Users/robinonsay/rust/rustos-wp-sw-licence/target/thumbv8m.main-none-eabihf/doc/api/index.html and 1 other file
+# clippy warning set of rustos pico2 (thumbv8m.main-none-eabihf), c54d35a export against the branch worktree (counts per message)
+## c54d35a
+   1 warning: `pico2` (lib) generated 13 warnings (run `cargo clippy --fix --lib -p pico2 -- ` to apply 8 suggestions)
+   2 warning: casting raw pointers to the same type and constness is unnecessary (`*const u32` -> `*const u32`)
+   2 warning: empty `loop {}` wastes CPU cycles
+   1 warning: module has the same name as its containing module
+   1 warning: unnecessary parentheses
+   7 warning: unneeded `return` statement
+## branch 2ec64c0 (worktree)
+   1 warning: `pico2` (lib) generated 13 warnings (run `cargo clippy --fix --lib -p pico2 -- ` to apply 8 suggestions)
+   2 warning: casting raw pointers to the same type and constness is unnecessary (`*const u32` -> `*const u32`)
+   2 warning: empty `loop {}` wastes CPU cycles
+   1 warning: module has the same name as its containing module
+   1 warning: unnecessary parentheses
+   7 warning: unneeded `return` statement
+## diff: none (identical)

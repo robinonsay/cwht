@@ -1,0 +1,6 @@
+$ rust-code-analysis-cli --metrics --output-format json --paths "$FW" --paths "$RUSTOS/api" --paths "$RUSTOS/firmware/pico2" | tools/complexity_gate.py --max 15   (diagnostic: the gate command with one --paths per path)
+rca exit 0; bytes   172505; stderr lines        0
+FAIL CS-38 firmware/cwht-app/src/main.rs:54 safe_state_halt CC 2 > 1 in a // @target-only file (straight-line target-only code; CS-11 board take allowance included)
+MSR-17 functions 52, max_cc 5, mean_cc 1.38, above_12 0, above_15 0, above_yellow 0, above_max 0, target_only_above_1 2
+complexity_gate: FAIL (1 failure(s), 0 CS-19 report(s))
+complexity_gate exit 1

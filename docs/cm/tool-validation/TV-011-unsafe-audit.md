@@ -46,8 +46,9 @@ Commands and digest as in TV-002 section 1 (procedure `evidence/python-tools-202
 |---|---|---|---|---|
 | 1 | 2026-09-26 02:32 | working tree on `400e59d`, identities of section 1 | 14 (`CheckTests` 4, `LexerTests` 3, `ScanKnownAnswerTests` 4, `SignatureTests` 2, `UsageTests` 1), 0 skipped | pass |
 | Gate integration | 2026-09-26 02:37 | working tree on `400e59d`; rustos `c54d35a` | `tools/sw_gate.sh --keep-going` step G5 unsafe audit | FAIL as specified: 37 sites in rustos `api` and `pico2` (block 16, fn 11, impl 1, extern 3, attribute 6), 36 without a SAFETY comment, `firmware/unsafe-audit.md` absent; 0 sites in the cwht crates |
+| Gate integration, TC-SW-TOOL-001 run 3 | 2026-09-26 19:28 | HEAD `0bcea39` (git archive, blob `cc3aaa2a` unchanged); rustos branch `2ec64c0` (SRR decision 110 work item, not merged) | `--check` on the committed list (before), `--write`, `--check`; then gate G5 unsafe audit in both modes | as expected: before regeneration the committed list (blob `b232d77a`) differs from the scan, 74 failures (37 scanned sites the list lacks, because every line moved and the layout path is the worktree's; 37 listed sites the scan lacks), and the scan itself finds 0 sites without SAFETY; after `--write` the same 37 sites (block 16, fn 11, impl 1, extern 3, attribute 6, same items), 0 without SAFETY, 37 unsigned (a note until CDR); `PASS G5 unsafe audit` in both gate runs |
 
-Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt` (run 1); `evidence/sw-gate-2026-09-26.log.txt` (gate integration). The gate result is a finding against the rustos sources and the absent list, not a tool defect: CS-06 requires the SAFETY comments (rustos work, owner) and CS-07 the generated list.
+Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt` (run 1); `evidence/sw-gate-2026-09-26.log.txt` (gate integration). Run 3 gate integration: `docs/vv/reports/TC-SW-TOOL-001-r3/unsafe-audit.txt`, `sw-gate-keep-going.txt`. The gate result is a finding against the rustos sources and the absent list, not a tool defect: CS-06 requires the SAFETY comments (rustos work, owner) and CS-07 the generated list.
 
 ## 5. Reproducibility
 
@@ -79,3 +80,4 @@ Proposed scope statement **ACC-UNSAFE-001**: "Accredited for purposes 1 to 5 for
 | Decision | Date | Recorded by |
 |---|---|---|
 | Pending (owner, after section 8; due CDR, CM plan section 13) | | |
+| Not decided at SRR: SRR decision 114 (owner ruling 2026-09-26) covers TV-001 to TV-010 only, and this record has no independent review yet (section 8). The accreditation stays pending to its due gate; until then this tool's output is developer evidence (CM plan section 9.1). | 2026-09-26 | Claude (software lead and tool owner) |

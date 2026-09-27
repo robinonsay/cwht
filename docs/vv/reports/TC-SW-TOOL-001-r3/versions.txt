@@ -1,0 +1,71 @@
+# TC-SW-TOOL-001 run 3: configuration record (2026-09-26 19:28 CDT)
+## cwht (git archive of HEAD into the temporary layout; committed content only)
+0bcea39554d684ba28d6680208a523fd79a8ebba
+## blobs as run (git rev-parse HEAD:<path>)
+54b138005b3f3d86e148446c7b0295845cd69e8d  tools/sw_gate.sh
+abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a  tools/measurements.py
+cc3aaa2ad82a52a63615c6af082567007b2d7e6e  tools/unsafe_audit.py
+9214fefb76f95f0494f906607ef06428260d1c75  tools/complexity_gate.py
+17f102aa9bdc286ae5e563ef055ac017b3c8337f  tools/emu_run.sh
+0ad60317be7e509c1e1968d2d9f4813f3904253f  tools/toolchain.lock.md
+fee1e7246af59d5e8a43ed1b9cdf483854053fdc  docs/test_cases/sw-tool/test_cases.json
+7799f6b63e26e8fca0c2cb68270c3ff9d7841d05  firmware/Cargo.toml
+784605ca28b94ea0d3ace66a5797c11cbbced80d  firmware/Cargo.lock
+4cd6de9c2f49c9da254ca05cb31973286c9ac2c8  firmware/deny.toml
+ca29c2548ff35887352c340bf5c5b49475758ddb  firmware/rust-toolchain.toml
+e32006a582bc49af6b2b12e8856015173210afd0  firmware/cwht-app/src/main.rs
+b232d77a76b2cddc854d03984edee09092047667  firmware/unsafe-audit.md
+## temporary lock copy: the only difference from HEAD (the rustos row, deviation D12)
+206c206
+< | `rustos` (firmware platform, Cargo path dependency) | commit SHA on the owner's machine; remote `git@github.com:robinonsay/rustos.git` | `git -C /Users/robinonsay/rust/rustos rev-parse HEAD` | `c54d35aa8e7f9ad30f6508bca458a59c1fc009db` (`c54d35a`, "Fix build"), unchanged at the second observation | Every VDD records the `rustos` commit used for the build. Moving the pin after the first release tag is a CR (CM plan Table 4-1 row 26). Pinning method decision: CM plan §14 OQ-CM-005. |
+---
+> | `rustos` (firmware platform, Cargo path dependency) | commit SHA on the owner's machine; remote `git@github.com:robinonsay/rustos.git` | `git -C /Users/robinonsay/rust/rustos rev-parse HEAD` | `2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c` (`2ec64c0`, branch cwht/wp-sw-licence-manifest-safety, TC-SW-TOOL-001 run 3 temporary copy), unchanged at the second observation | Every VDD records the `rustos` commit used for the build. Moving the pin after the first release tag is a CR (CM plan Table 4-1 row 26). Pinning method decision: CM plan §14 OQ-CM-005. |
+(diff exit 1)
+## rustos: /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/rustos -> /Users/robinonsay/rust/rustos-wp-sw-licence
+branch cwht/wp-sw-licence-manifest-safety, HEAD 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c; parent c54d35aa8e7f9ad30f6508bca458a59c1fc009db (the lock pin c54d35aa8e7f9ad30f6508bca458a59c1fc009db)
+status of api/ firmware/ Cargo.toml Cargo.lock .cargo LICENSE (empty = clean):
+(end of status)
+owner checkout /Users/robinonsay/rust/rustos: HEAD c54d35aa8e7f9ad30f6508bca458a59c1fc009db (unchanged; its working tree not read or written)
+## toolchain in firmware/ (firmware/rust-toolchain.toml pin 1.98.0, installed under SRR decision 109)
+1.98.0-aarch64-apple-darwin (overridden by '/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/cwht/firmware/rust-toolchain.toml')
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+clippy 0.1.98 (88d9e12ae1 2026-08-18)
+rustfmt 1.9.0-stable (88d9e12ae1 2026-08-18)
+rustup 1.29.1 (d95a37b6a 2026-08-13)
+stable-aarch64-apple-darwin (active, default)
+nightly-aarch64-apple-darwin
+nightly-2026-08-24-aarch64-apple-darwin
+1.98.0-aarch64-apple-darwin
+aarch64-apple-darwin
+thumbv8m.main-none-eabihf
+## 1.98.0 components
+cargo-aarch64-apple-darwin
+clippy-aarch64-apple-darwin
+llvm-tools-aarch64-apple-darwin
+rust-std-aarch64-apple-darwin
+rust-std-thumbv8m.main-none-eabihf
+rustc-aarch64-apple-darwin
+rustfmt-aarch64-apple-darwin
+## nightly-2026-08-24 components
+cargo-aarch64-apple-darwin
+clippy-aarch64-apple-darwin
+llvm-tools-aarch64-apple-darwin
+miri-aarch64-apple-darwin
+rust-docs-aarch64-apple-darwin
+rust-std-aarch64-apple-darwin
+rustc-aarch64-apple-darwin
+rustfmt-aarch64-apple-darwin
+## cargo tools
+cargo-nextest 0.9.146 (8af696ddc 2026-09-21)
+cargo-llvm-cov 0.9.1
+cargo-audit-audit 0.22.2
+cargo-deny 0.20.2
+cargo-geiger 0.13.0
+cargo-size 0.4.0
+rust-code-analysis-cli 0.0.25
+## RustSec databases
+~/.cargo/advisory-db e2111519ba6d14a5da59a7b2e5c8083ae8a37c01 2026-09-25T19:51:57+02:00
+/Users/robinonsay/.cargo/advisory-dbs/advisory-db-3157b0e258782691/ e2111519ba6d14a5da59a7b2e5c8083ae8a37c01 2026-09-25T19:51:57+02:00
+## picotool
+picotool v2.3.0 (Darwin, AppleClang-21.0.0.21000099, Release)

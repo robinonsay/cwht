@@ -1,0 +1,49 @@
+# cwht-app rebuild identity, run 3 (2026-09-26 19:29 CDT)
+## Clean build 1: CARGO_TARGET_DIR=<scratch>/cwht-app-t1 cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf
+   Compiling api v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/rustos/api)
+   Compiling pico2 v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/rustos/firmware/pico2)
+   Compiling cwht-app v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/cwht/firmware/cwht-app)
+   Compiling cwht-core v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/cwht/firmware/cwht-core)
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.61s
+exit=0
+## Clean build 2: CARGO_TARGET_DIR=<scratch>/cwht-app-t2 cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf
+   Compiling api v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/rustos/api)
+   Compiling pico2 v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/rustos/firmware/pico2)
+   Compiling cwht-app v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/cwht/firmware/cwht-app)
+   Compiling cwht-core v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r3/r3/cwht/firmware/cwht-core)
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.65s
+exit=0
+## SHA-256 (clean build 1, clean build 2, gate G2 build, run 2 cwht-app.elf)
+388d1d16dae55d33fcc0c69d33689abcf6d056bcc16e44a18abab2ac2300a5bf  <scratch>/cwht-app-t1/thumbv8m.main-none-eabihf/release/cwht-app
+388d1d16dae55d33fcc0c69d33689abcf6d056bcc16e44a18abab2ac2300a5bf  <scratch>/cwht-app-t2/thumbv8m.main-none-eabihf/release/cwht-app
+388d1d16dae55d33fcc0c69d33689abcf6d056bcc16e44a18abab2ac2300a5bf  <scratch>/r3/cwht/firmware/target/thumbv8m.main-none-eabihf/release/cwht-app
+622cbe2a6b8e5d2a12ac5a94306a49dd7ecde1f31c5eb937e3e85b6066b9802f  docs/vv/reports/TC-SW-TOOL-001-r2/cwht-app.elf
+## Loadable sections: rust-objcopy -O binary, then SHA-256 (gate build of run 3, and run 2)
+.vector_table run3 9f974c936a3c9fa2a311bf03491aff90f2e8e7cb9eaeaed8ab9f46333c28b9ea run2 9f974c936a3c9fa2a311bf03491aff90f2e8e7cb9eaeaed8ab9f46333c28b9ea identical
+.boot_info run3 ab45fee7fef6bf144e6cb84545f008d427f5411e9ad3e555e5132761e9147c02 run2 ab45fee7fef6bf144e6cb84545f008d427f5411e9ad3e555e5132761e9147c02 identical
+.text run3 670287e1872188ac65895af535f464cafc09260fe0a87d2e804dea1f5a926250 run2 670287e1872188ac65895af535f464cafc09260fe0a87d2e804dea1f5a926250 identical
+.rodata run3 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 run2 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 identical
+.data run3 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 run2 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 identical
+## rust-size -A (gate build of run 3)
+target/thumbv8m.main-none-eabihf/release/cwht-app  :
+section              size        addr
+.vector_table         272   268435456
+.boot_info             20   268435728
+.text                1316   268435748
+.rodata                 0   268437064
+.data                   0   536870912
+.bss                    4   536870912
+.stack               8192   536870920
+.debug_loc           1062           0
+.debug_abbrev        1990           0
+.debug_info         14248           0
+.debug_aranges        280           0
+.debug_ranges        1496           0
+.debug_str          12522           0
+.comment              153           0
+.ARM.attributes        56           0
+.debug_frame          524           0
+.debug_line          8213           0
+Total               50348
+
+
