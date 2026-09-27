@@ -138,3 +138,19 @@ Recorded:
 - CR-004 (the lock pin moved from `c54d35a` to `2ec64c0`) is approved under item 1.
 - Under items 4 and 5, the changed tools are re-validated, and their accreditations are extended once the independent review of each validation record is complete.
 - Item 6 is an owner action in the GitHub settings. The tag waits for the owner to confirm it is done.
+
+### Close-out decisions A to C and repository protection
+
+The third close-out run left three records with an open Major, all waiting on the owner (INSP-010 finding-21, INSP-018 finding-10, INSP-016 F-01), and the independent baseline check (`baseline-check.md`, a048fdb) returned NOT READY FOR TAG. The presenter put three items to the owner with a recommendation:
+- A. Amend CR-005 so that the +1 CS-38 allowance covers all three unbounded loops that CS-19 names: the main loop in `cwht-app::main` as well as the panic handler and `safe_state_halt`. The presenter's close-out item 4 recommendation had named only the two halt loops.
+- B. Narrow the gate G5 Miri command to the host-compilable crates, as 07 section 8.1 states (today `api`). Making `pico2` host-compilable, with its target-only `link_section` attributes under `cfg_attr`, is a lien due at FW-B1.
+- C. Confirm CR-004 and CR-005 as Class I. Log the three CRs that were dispositioned before their independent impact review (CR-002, CR-004, CR-005) in `docs/cm/deviations.md`, and perform all three impact reviews before the tag. This closes RFA-SRR-008 early.
+
+The owner asked what the GitHub protection of close-out item 6 meant. The presenter explained it: decision 15, protection of `main` and of the `baseline/*` and `release/*` tags against force-push, deletion and tag moves. The repository is public, so rulesets are available. The presenter then gave the settings.
+
+Owner statement, verbatim: "Done and added. I approve the other recommendations"
+
+Recorded:
+- Items A to C are ruled as recommended.
+- The owner confirms that the repository protection of close-out item 6 is in place (precondition P8).
+- The presenter's anonymous check (GitHub REST API, 2026-09-27) shows branch `main` reported as `protected: true`. Rulesets are not visible without authentication, so the tag rule rests on the owner's confirmation.
