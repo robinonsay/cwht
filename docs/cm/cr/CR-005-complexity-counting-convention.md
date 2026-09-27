@@ -73,10 +73,10 @@ Classification rationale: Class II proposed. The change fixes the counting conve
 
 | Step | Artifact and path | Responsible | Done (SHA) |
 |---|---|---|---|
-| 1 | 07 CS-17, CS-38, sections 8.1 to 8.4, revision A.6 (section 1 item 5) | Claude (07 author) | the commit that adds this file |
-| 2 | `tools/complexity_gate.py` let-else addition, CS-38 halt-loop allowance and the CR-001 step 3 per-file allowance (section 1 item 4) | Claude (tool owner) | the commit that adds this file |
-| 3 | `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (real analyzer output, known answers per rule) | Claude (tool owner) | the commit that adds this file |
-| 4 | TV-012 run 2 and end-to-end check on an export of the step 1 to 3 commit; firmware and rustos `2ec64c0` run | Claude (tool owner) | the TV-012 commit (section 8) |
+| 1 | 07 CS-17, CS-38, sections 8.1 to 8.4, revision A.6 (section 1 item 5) | Claude (07 author) | `e34a27b` |
+| 2 | `tools/complexity_gate.py` let-else addition, CS-38 halt-loop allowance and the CR-001 step 3 per-file allowance (section 1 item 4) | Claude (tool owner) | `e34a27b` (blob `9cdc9195`) |
+| 3 | `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (real analyzer output, known answers per rule) | Claude (tool owner) | `e34a27b` |
+| 4 | TV-012 run 2 and end-to-end check on an export of the step 1 to 3 commit; firmware and rustos `2ec64c0` run | Claude (tool owner) | runs on `e34a27b`; recorded in the TV-012 commit (section 8) |
 | 5 | Independent review of the TV-012 re-validation (INSP-015 delta); ACC-COMPLEXITY-001 then takes effect per the owner's close-out concurrence | independent reviewer; Claude records | pending |
 
 Verification of the implementation: the INSP-015 delta reviewer re-runs TV-012 section 3, re-derives the known answers from the fixture sources under the section 1 item 1 convention and checks the gate run of section 9.
@@ -108,7 +108,8 @@ Disposition history:
 
 | Commit | Files | Trailer check (`CR: CR-005` present) |
 |---|---|---|
-| the commit that adds this file | `docs/process/07-software-engineering-plan.md` (step 1), `tools/complexity_gate.py` (step 2), `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (step 3) | yes |
+| `e34a27b` (the commit that adds this file) | `docs/process/07-software-engineering-plan.md` (step 1), `tools/complexity_gate.py` (step 2), `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (step 3) | yes |
+| the TV-012 run 2 commit | `docs/cm/tool-validation/TV-012-complexity-gate.md` (step 4); this file (sections 5, 8, 9, 11) | yes |
 
 Traceability report after implementation: not affected (no requirement, test case or hazard changes); renders regenerated: none.
 
@@ -116,8 +117,8 @@ Traceability report after implementation: not affected (no requirement, test cas
 
 | Impact item | Planned closure (from §4/§5) | Evidence (report path, TC id, analysis file) | Result |
 |---|---|---|---|
-| Convention and allowance in the tool | Steps 2 and 3 | TV-012 run 2 (section 4) | pending (TV-012 commit) |
-| Gate G5 complexity on the firmware and rustos `2ec64c0` | Step 4 | TV-012 section 4 | pending (TV-012 commit) |
+| Convention and allowance in the tool | Steps 2 and 3 | TV-012 run 2 (section 4): 18 known-answer tests, 0 skipped, pass on an export of `e34a27b`; the analyzer's output on the fixture is byte-identical to `rca.json`; mutation check discriminates each rule | pass (author run); independent check pending (INSP-015 delta) |
+| Gate G5 complexity on the firmware and rustos `2ec64c0` | Step 4 | TV-012 section 4, run 2 gate row (export of `e34a27b`, clean export of rustos `2ec64c0`, one `--paths` per root) | CS-17: no failure (52 functions, max CC 5, mean 1.46). CS-38: **one failure**, `cwht-app` `main` CC 4 (analyzer 2, of which 1 is the CS-19 main `loop`, plus 2 `let ... else`) against allowance 3 (1 + 2 CS-11 failure arms). `safe_state_halt` passes on the halt-loop allowance. Open for the owner: the ruling covers the two halt loops, not the CS-19 main loop (TV-012 limitation 8) |
 
 Independent verifier (agent invocation): pending (INSP-015 delta).
 
@@ -135,4 +136,5 @@ Independent verifier (agent invocation): pending (INSP-015 delta).
 
 | Date | State | By | Commit on main | Note |
 |---|---|---|---|---|
-| 2026-09-26 | Dispositioned | Claude (07 author and tool owner), transcribing the owner | this file's first commit | Written after the owner approved it as SRR close-out item 4 (the close-out item served as the request); steps 1 to 3 applied in the same commit |
+| 2026-09-26 | Dispositioned | Claude (07 author and tool owner), transcribing the owner | `e34a27b` | Written after the owner approved it as SRR close-out item 4 (the close-out item served as the request); steps 1 to 3 applied in the same commit |
+| 2026-09-26 | Dispositioned | Claude (tool owner) | the TV-012 run 2 commit | Step 4 done: TV-012 run 2 pass; gate G5 CS-38 fails on the `cwht-app::main` main loop, which the ruling does not cover (section 9); owner decision requested |
