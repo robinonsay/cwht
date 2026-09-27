@@ -1,0 +1,70 @@
+## Owner-approved actions, SRR minutes close-out items 2, 3, 12 (owner concurrence 2026-09-26)
+2026-09-26 20:49:02 CDT
+### item 3: rustup
+rustup 1.29.1 (d95a37b6a 2026-08-13)
+info: This is the version for the rustup toolchain manager, not the rustc compiler.
+info: the currently active `rustc` version is `rustc 1.98.0 (88d9e12ae 2026-08-18)`
+$ rustup set auto-self-update disable
+info: auto-self-update mode set to disable
+exit 0
+### item 12: brew pin
+$ brew pin python@3.13
+exit 0
+python@3.13
+### item 2: rust-src and Miri sysroot
+$ rustup component add rust-src --toolchain nightly-2026-08-24
+info: downloading component rust-src
+exit 0
+cargo-aarch64-apple-darwin
+clippy-aarch64-apple-darwin
+llvm-tools-aarch64-apple-darwin
+miri-aarch64-apple-darwin
+rust-docs-aarch64-apple-darwin
+rust-src
+rust-std-aarch64-apple-darwin
+rustc-aarch64-apple-darwin
+rustfmt-aarch64-apple-darwin
+
+2026-09-26 20:50:32 CDT
+$ cargo +nightly-2026-08-24 miri setup   (cwd /Users/robinonsay/rust/cwht/firmware)
+Preparing a sysroot for Miri (target: aarch64-apple-darwin)...
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded miniz_oxide v0.9.1
+  Downloaded rustc-literal-escaper v0.0.8
+  Downloaded getopts v0.2.24
+  Downloaded addr2line v0.27.1
+  Downloaded gimli v0.34.0
+   Compiling compiler_builtins v0.1.160 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
+   Compiling core v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/core)
+   Compiling libc v0.2.189
+   Compiling object v0.39.1
+   Compiling std v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/std)
+   Compiling test v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/test)
+   Compiling rustc-std-workspace-core v1.99.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-core)
+   Compiling alloc v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc)
+   Compiling memchr v2.8.3
+   Compiling adler2 v2.0.1
+   Compiling rustc-demangle v0.1.28
+   Compiling cfg-if v1.0.4
+   Compiling rustc-literal-escaper v0.0.8
+   Compiling unwind v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/unwind)
+   Compiling rustc-std-workspace-alloc v1.99.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-alloc)
+   Compiling panic_unwind v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
+   Compiling panic_abort v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
+   Compiling gimli v0.34.0
+   Compiling std_detect v0.1.5 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
+   Compiling miniz_oxide v0.9.1
+   Compiling hashbrown v0.17.1
+   Compiling addr2line v0.27.1
+   Compiling rustc-std-workspace-std v1.99.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-std)
+   Compiling proc_macro v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/proc_macro)
+   Compiling getopts v0.2.24
+   Compiling sysroot v0.0.0 (/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/src/rust/library/sysroot)
+   Compiling custom-local-sysroot v0.0.0 (/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/.tmpyXtZ0g)
+    Finished `custom_sysroot` profile [optimized] target(s) in 10.02s
+A sysroot for Miri is now available in `/Users/robinonsay/Library/Caches/org.rust-lang.miri`.
+exit 0
+miri 0.1.0 (fb6531d550 2026-08-23)
+lib
+2026-09-26 20:50:42 CDT

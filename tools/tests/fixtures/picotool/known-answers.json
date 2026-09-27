@@ -14,7 +14,16 @@
     "must_contain": [" name:                cwht-kat-fixture", " binary start:        0x10000000", " target chip:         RP2350", " image type:          ARM Secure", " block type:          image def"]
   },
   "verify": {
-    "command": "picotool load kat-target.uf2, then picotool verify kat-target.elf (pass) and picotool verify on a copy with one byte changed (fail)",
-    "status": "blocked: picotool verify compares a file with the flash of a connected device in BOOTSEL mode; it needs the owner's Pico 2 (owner action, with the FW-B0 flash steps of TC-SW-TOOL-001)"
+    "command": "picotool load kat-target.uf2, then picotool verify kat-target.elf (pass) and picotool verify kat-target-1byte.elf, a copy with one byte changed (fail); needs the owner's Pico 2 in BOOTSEL mode",
+    "status": "pass: TC-SW-TOOL-001 run 4, OA-2, 2026-09-26 19:23 CDT, with the owner (Pico 2 marked 1, chip id 0xf9c6e0eff60605d1, RP2350, 4096K flash); evidence docs/vv/reports/TC-SW-TOOL-001-r4/oa2-verify.txt, image-identity.txt, kat-target-1byte.elf (docs/vv/reports/TC-SW-TOOL-001-r4.md step OA-2; lock section 1.1 picotool row)",
+    "load": {"file": "kat-target.uf2", "exit": 0},
+    "true_image": {"file": "kat-target.elf", "exit": 0, "must_contain": ["  OK"]},
+    "altered_image": {
+      "file": "kat-target-1byte.elf (kept in docs/vv/reports/TC-SW-TOOL-001-r4/, not in this fixture)",
+      "sha256": "a669b565b9a3cf9f40b3e21758613ac1f4c494ed8da1cf460a798b61fc076b73",
+      "change": "exactly one byte: file offset 0x1002f, flash address 0x1000002f, 0xab to 0x54 (cmp -l: offset 65584, octal 253 to 124)",
+      "exit": 245,
+      "must_contain": ["  First mismatch at 0x1000002f", "ERROR: The device contents did not match the file"]
+    }
   }
 }
