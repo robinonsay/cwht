@@ -17,18 +17,23 @@ product: docs/process/07-software-engineering-plan.md
 # Post-SRR-ruling delta (2026-09-26, package item R16): the review baseline moves to HEAD ebe5873 after delta
 # verification of 4364ebb (07 revision A.5 and CR-001 disposition, SRR decisions 108 and 115 (b)); earlier baselines:
 # adcfe09 (iteration 3), 1af795c (re-issue R8). See "Post-SRR-ruling delta".
-product_commit: "ebe5873a5151c19e141958e31cf9559f78f5154c"
+# close-out delta (2026-09-26, SRR close-out item 4, CR-005): review baseline moves to HEAD 3b45ed7 after delta verification
+# of e34a27b (07 revision A.6); earlier baseline ebe5873 (post-SRR-ruling delta). See "Close-out delta (CR-005)".
+product_commit: "3b45ed7936c2e08ca53feaf080a57271c8dd2261"
 # re-issue 2026-09-26 (package item R8, no further product review): all five blobs re-checked equal to git rev-parse HEAD:<path>
 # and git hash-object at HEAD 1af795c; git log adcfe09..HEAD on the five paths is empty
 # post-SRR-ruling delta: 07 blob d0f8baf6 (iteration 3 and R8) replaced by 37d472b5 (4364ebb); CR-001 added as a product
 # (it changes 07 CS-11, CS-12, CS-38); every blob equals git rev-parse HEAD:<path> and git hash-object at ebe5873
-product_files: ["docs/process/07-software-engineering-plan.md@37d472b501578504b7fa23422c4f74193647e458", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@0f4cca4cb1e2562af05a7c435f41e6ba82d17f26", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b", "docs/plan/measurements.schema.json@c30b7f3e7466bf4e4474afd031c2c9c91db42be8", "tools/tests/fixtures/measurements/valid.json@3938cd57aaeb99e1c5065594c915c99014d34026", "tools/tests/fixtures/measurements/invalid.json@15231171b06297dfd45632bef5d22757374b0970"]
+# close-out delta: 07 blob 37d472b5 replaced by a9f92d82 (e34a27b); CR-005 added as a product (it changes 07 CS-17, CS-38 and
+# section 8); every blob equals git rev-parse HEAD:<path> and git hash-object at 3b45ed7
+product_files: ["docs/process/07-software-engineering-plan.md@a9f92d8268deed6a38a677c3a324a9ea99e602aa", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@0f4cca4cb1e2562af05a7c435f41e6ba82d17f26", "docs/cm/cr/CR-005-complexity-counting-convention.md@b1b197ab9890cf97406f65a765d805a7a9a97c09", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b", "docs/plan/measurements.schema.json@c30b7f3e7466bf4e4474afd031c2c9c91db42be8", "tools/tests/fixtures/measurements/valid.json@3938cd57aaeb99e1c5065594c915c99014d34026", "tools/tests/fixtures/measurements/invalid.json@15231171b06297dfd45632bef5d22757374b0970"]
 # product_blob: git hash-object of each reviewed file. Iteration 1 (2026-09-25): 07 1b8864b0121f3f8547e1b194d63b41752ab946b9,
 # measurements.json 9bb5989e7080c55e8c97d82e64256a07f9b8788f (07 revision A.3, 960 lines; 47 records).
 # Iteration 2 (2026-09-26): 07 eba15bcb8ab0cecfd8bc155bd749bc89fdcddb34 (revision A.4, uncommitted on HEAD 28e49e6),
 # measurements.json 5e2d1755. Iteration 3 (values below): the committed blobs at HEAD adcfe09.
 # post-SRR-ruling delta: 07 revision A.5 blob at HEAD ebe5873 (iteration 3 blob d0f8baf6)
-product_blob: "37d472b501578504b7fa23422c4f74193647e458"
+# close-out delta: 07 revision A.6 blob at HEAD 3b45ed7 (post-SRR-ruling delta blob 37d472b5)
+product_blob: "a9f92d8268deed6a38a677c3a324a9ea99e602aa"
 product_second: docs/plan/measurements.json
 product_second_blob: "5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b"
 product_size: 07 revision A.5 as committed at 4364ebb, 23 sections and annexes A to D, 1011 lines (A.4 1010 lines); CR-001 132 lines; measurements.json 89 records (62 current after supersession); schema 256 lines
@@ -51,19 +56,22 @@ readiness_met: true
 # reviewer_verdict: every finding is Closed or Lien (convergence rule of 2026-09-26), no Major open.
 # verdict: APPROVED (with liens finding-14 to finding-17) at the re-issue: reviewer APPROVED, assurance APPROVED
 # (INSP-018), readiness met, no Major finding open, named blobs equal HEAD (07 section 10.2; SWE-088)
-reviewer_verdict: APPROVED
+# close-out delta: NEEDS CHANGES on finding-21 (Major, open; the fix needs an owner ruling, TC-SW-TOOL-001 run 5 item B9)
+reviewer_verdict: NEEDS CHANGES
 # assurance_verdict copied from the paired record INSP-018 (assurance_verdict APPROVED, re-read at HEAD 1af795c)
 assurance_verdict: APPROVED
-verdict: APPROVED
-findings_major: 2
+# close-out delta: verdict NEEDS CHANGES (open Major finding-21); readiness stays met
+verdict: NEEDS CHANGES
+# close-out delta: finding-21 (Major) new and Open; finding-19 (Minor lien) Verified closed by e34a27b
+findings_major: 3
 # counts cover iterations 1 to 3: finding-14 new at iteration 2; finding-15 to finding-17 (Minor) new at
 # iteration 3. Open 0; verified (Closed) 13 = finding-1 to finding-13; deferred = 4 liens (finding-14 to 17)
 # post-SRR-ruling delta: finding-18 to finding-20 (Minor) new, all Lien: fix before PDR; deferred = 7 liens
 findings_minor: 18
-findings_open: 0
-findings_fixed: 13
-findings_verified: 13
-findings_deferred: 7
+findings_open: 1
+findings_fixed: 14
+findings_verified: 14
+findings_deferred: 6
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -71,12 +79,14 @@ deferred_rids: []
 # items_no at iteration 3 (iteration 1: G1, G2, G3, G4, G6, G7; iteration 2: G6, G7); the No answers
 # now rest on Minor liens only (G1 finding-17, G6 finding-15 and finding-16, G7 finding-14)
 # post-SRR-ruling delta: G2 added (finding-19); G1 also rests on finding-18 and finding-20
+# close-out delta: G1 and G2 now also rest on finding-21 (G2 no longer on finding-19, closed)
 items_no: [CK-REQ-G1, CK-REQ-G2, CK-REQ-G6, CK-REQ-G7]
 # effort cumulative: iteration 1 42 turns, 55 min; iteration 2 24 turns, 35 min; iteration 3 30 turns, 40 min;
 # re-issue (package item R8) 6 turns, 15 min
 # post-SRR-ruling delta 14 turns, 30 min
-effort_turns: 116
-effort_minutes: 175
+# close-out delta (CR-005) 22 turns, 40 min
+effort_turns: 138
+effort_minutes: 215
 record_status: Open
 date: 2026-09-25
 date_updated: 2026-09-26
@@ -88,6 +98,8 @@ date_closed: null
 **Products:** `docs/process/07-software-engineering-plan.md` revision A.3 (working tree on HEAD `28e49e6`, blob `1b8864b0121f3f8547e1b194d63b41752ab946b9`; last commit touching it `4e3f891`) and `docs/plan/measurements.json` (untracked, blob `9bb5989e7080c55e8c97d82e64256a07f9b8788f`), reviewed as one product. **Checklist:** `docs/templates/peer-review-checklist-requirements.md` revision C, section G (CK-REQ-G1 to G8) and CK-REQ-A8, per 08 section 3.1 "plans and process documents" and 07 section 10.1 row b. **Minimum content judged:** SRR entrance row 23 (`docs/process/01-lifecycle-and-reviews.md` section 4.3: "Software plans (preliminary) covering the life cycle with approved tailoring", SWE-013, SWE-033, SWE-037; evidence "Plan outline; acquisition-vs-development record; software review milestones", Hard), the NPR 7150.2D chapter 6 records (section 6.1 items a to y) and 01 section 4.6 rows SWE-013, SWE-033, SWE-037, SWE-087 b, SWE-089. **SRR context:** package `docs/reviews/SRR/package.md` section 2 items H1 (07 record), H14 (07 section 14 reconciliation, SWE-033 trade study) and H16 (SWE-089 measurements file).
 
 **Re-issue (2026-09-26, package item R8): verdict APPROVED (with liens finding-14 to finding-17).** The author self-check (package item R7, filed at `8ef95d3`) meets readiness R3, the only hold of iteration 3; the paired assurance record INSP-018 reads `assurance_verdict: APPROVED`, and the product blobs equal HEAD. See "Re-issue" at the end.
+
+**Close-out delta (2026-09-26, SRR close-out item 4, CR-005): verdict NEEDS CHANGES on finding-21 (Major, open, owner decision B9).** Commit `e34a27b` (07 revision A.6) applies close-out item 4 as ruled and closes finding-19; it leaves the CS-19 main loop of `cwht-app::main` without a CS-38 allowance, so the plan cannot be met by its own composition root. See "Close-out delta (CR-005)" at the end.
 
 **Search-first compliance.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: section G plan items and the 07 record; hazard analysis section 6.2 determination and the union rule). The tool was available. `grep -n`, `sed -n` and read-only Python over the JSON files were used afterwards only to pin the lines and values the hits and the product pointed at.
 
@@ -119,6 +131,7 @@ Severity: Major blocks the baseline; Minor is fixed before the next review. Iter
 | <a id="finding-18"></a>F-18 (finding-18) | Minor | CK-REQ-G1 | 07 section 1.2 paragraph after the table (line 31: 'they carry no decisions beyond the board `take()` match (CS-38)'); section 9.5 item 3 (line 401: 'the one exception, the board `take()` match of CS-11, is listed in the MC/DC table with its `None` arm dispositioned `target-only: Inspection`') | Found at the post-SRR-ruling delta (2026-09-26). Commit `4364ebb` applied SRR decision 108 (CR-001) to CS-11, CS-12, CS-38, the section 1.2 `cwht-app` row and the section 8.2 complexity row, but not to these two passages, which still name the board `take()` as the only target-only decision. The admitted driver-construction `Err` arms are target-only decisions on the safe-state entry path of the safe-state manager (CR-001 section 4 Safety field), so section 9.5 item 3 no longer lists every exception that the MC/DC table must disposition. Minor, not Major: CS-11 constrains each arm to `safe_state_halt()` alone, CR-001 section 5 requires the code reviewer to inspect each arm, and no MC/DC showing is due before CDR. Fix: name the driver-construction failure arms of CS-11 (CR-001) in both passages and list them in the MC/DC table with the `target-only: Inspection` disposition. | Lien | Lien: fix before PDR (new at the post-SRR-ruling delta). |
 | <a id="finding-19"></a>F-19 (finding-19) | Minor | CK-REQ-G2, CK-REQ-G7 | 07 section 8.4 row G5 pass criterion (line 356: 'no target-only CC > 1'); CS-38 Enforcement column (line 300: '`tools/complexity_gate.py` reports CC above 1 in files tagged `// @target-only`') | Found at the post-SRR-ruling delta. The amended CS-38 text (SRR decision 108) lets `main` exceed CC 1 by the number of admitted failure arms, counted against a per-file allowance, and the section 8.2 threshold now says 'beyond the CS-38 allowance'; the G5 pass criterion and the CS-38 enforcement cell still say CC above 1 fails, so the gate procedure and the rule disagree and `cwht-app` with its `take()` and `output_from_handle` arms cannot pass G5 as written. Minor: the discrepancy is conservative (the gate fails closed) and CR-001 step 3, the `complexity_gate.py` allowance, is still open with the tool owner. Fix: state 'no target-only CC above the CS-38 allowance (CR-001)' in the G5 row and the CS-38 enforcement cell, with CR-001 step 3. | Lien | Lien: fix before PDR (new at the post-SRR-ruling delta). |
 | <a id="finding-20"></a>F-20 (finding-20) | Minor | CK-REQ-G1 | 07 section 10.2 row 'Readiness criteria' (line 446: 'transcribed as a waiver in the SRR decision memo `docs/reviews/SRR/decision-memo.md` when it is written') | Found at the post-SRR-ruling delta. The decision memo was committed at `0bcea39`, after `4364ebb`, and its section 8.2 'Decision 115 (b): readiness waiver for the FW-B0 record' carries the waiver, so the conditional clause is stale. The waiver content otherwise matches the ruling ('(b) Waive INSP-016 R3 for FW-B0 only, recorded in the SRR memo'): INSP-016 only, R3 only, FW-B0 only, ends at INSP-016 closure. Fix: replace 'when it is written' with the memo section 8.2 citation. | Lien | Lien: fix before PDR (new at the post-SRR-ruling delta). |
+| <a id="finding-21"></a>F-21 (finding-21) | Major | CK-REQ-G1, CK-REQ-G2 | 07 section 1.2 `cwht-app` row (line 21: "the main loop that calls the `SW-SCHED` dispatcher"); CS-19 (line 266: "the only unbounded loops are the main loop in `cwht-app::main` and the halt loop in the panic handler and `safe_state_halt`"); CS-17 measure (line 264) and CS-38 (line 300) as amended by CR-005 at `e34a27b`; section 8.4 G5 pass criterion (line 356) | Found at the close-out delta (2026-09-26). Under revision A.6 the plan contradicts itself for `cwht-app::main`: section 1.2 and CS-19 require `main` to hold the unbounded main loop, the CS-17 measure (CR-005 item 1) counts that bare `loop` as a decision, and CS-38 admits only the CS-11 failure arms and the two CS-19 halt loops, so no conforming `main` can meet CS-38 and the G5 pass criterion. Shown on the FW-B0 composition: `firmware/cwht-app/src/main.rs:30` `main` CC 4 (analyzer 2, of which 1 is the main `loop`, plus 2 `let ... else`) against allowance 3; `tools/complexity_gate.py` FAIL, reproduced by this reviewer on clean exports of HEAD `3b45ed7` and rustos `2ec64c0` (TV-012 limitation 8; TC-SW-TOOL-001 run 5 item B9). CS-38 also says "per-file allowance" while the tool (CR-005 item 4) checks each function against its own share; under the pooled reading the file would pass (4 against 4), so the text does not fix the pass criterion. 07 applies close-out item 4 as ruled; the gap is in the scope of the ruling, so the fix needs an owner decision. Expected fix: the owner rules on B9 (for example +1 CS-38 allowance for the CS-19 main loop of `cwht-app::main`), applied by CR to CS-38, the section 8.2 complexity row and the G5 criterion, with CS-38 stating that each allowance item is credited to the function that holds it | Open | Open: owner decision B9 (TC-SW-TOOL-001 run 5 section on blockers; CR-005 section 9), then a CR to 07 and `tools/complexity_gate.py`. |
 
 ## Readiness criteria (all true before the review starts)
 
@@ -498,4 +511,77 @@ NEW: finding-18, finding-19, finding-20 (Minor, Lien: fix before PDR); open Majo
 PRODUCT: 07@37d472b5, CR-001@0f4cca4c, measurements.json@5e2d1755, schema@c30b7f3e, valid.json@3938cd57, invalid.json@15231171 (equal to HEAD, 6/6)
 PAIRING: INSP-018 assurance_verdict APPROVED (delta re-issue on 37d472b5 is cross item X-4)
 MEASUREMENTS (delta): turns=14; minutes=30; cumulative turns=116, minutes=175; findings major=2, minor=18, deferred(lien)=7
+```
+
+## Close-out delta (CR-005) (2026-09-26, SRR close-out item 4; reviewer role, new invocation)
+
+**Scope and independence.** Written by a new invocation in the reviewer role (engineering lens) after the owner ruled the twelve SRR close-out items as recommended (`docs/reviews/SRR/minutes.md`, section "Close-out decisions (after the first close-out run)", commit `dd39332`; owner statement "I concur with your recommendations"). It did not author 07, CR-001, CR-005, `tools/complexity_gate.py`, TV-012, `measurements.json`, the schema or the fixtures, and it edited no product file. Earlier sections are history and are not rewritten; the front matter comments name the superseded values. This record reviews the plan (07) and CR-005 as the change request that amends it; the re-validation of `tools/complexity_gate.py` (TV-012 run 2) is reviewed in INSP-015, not here, so this delta does not make ACC-COMPLEXITY-001 effective.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: CR-005 complexity counting convention CS-19 halt-loop allowance CS-38). `grep -n`, `sed -n`, `git log`, `git show` and read-only runs were used afterwards only to pin lines.
+
+**Commits examined.** `git log ebe5873..HEAD` on the six earlier product paths lists one commit: `e34a27b` "CR-005: complexity counting convention and CS-19 halt-loop allowance (SRR close-out item 4)" (trailer `CR: CR-005`). It changes 07 (13 lines, revision A.6, blob `37d472b5` to `a9f92d82`) and adds CR-005 (later updated by `fb22b7a` for step 4; blob at HEAD `b1b197ab`). CR-001, `measurements.json`, the schema and both fixtures are unchanged. HEAD `3b45ed7936c2e08ca53feaf080a57271c8dd2261`; each blob in `product_files` equals `git rev-parse HEAD:<path>` and `git hash-object <path>` (7 of 7). Every hunk of `e34a27b` on 07 was read.
+
+**Delta verification against the ruling.** Close-out item 4, verbatim: "CS-17 and CS-38 complexity counting convention: the counts of `rust-code-analysis-cli` are the measure; `tools/complexity_gate.py` adds one for each `let ... else`; the two CS-19 halt loops (the panic handler and `safe_state_halt`) get a +1 CS-38 allowance by the CR-001 mechanism; the limit stays 15. This is applied by a change request."
+
+| Change in `e34a27b` | Check | Result |
+|---|---|---|
+| 07 CS-17 (line 264) | States the measure as the `rust-code-analysis-cli` 0.0.25 count plus one per `let ... else`, limit 15 and yellow 12 unchanged; equals CR-005 section 1 item 1. The claim "no function is under-counted against the textbook count" was probed by this reviewer with the installed analyzer on a scratch file (no install, no download): `?` counts (one per operator), `if let` and `while let` count, `&&` and `\|\|` count, a `match` guard counts in addition to its arm, closure decisions also count in the enclosing function; each is equal to or above the textbook count | Correct |
+| 07 CS-38 (line 300) and its enforcement cell | Adds the two CS-19 halt loops to the CR-001 allowance "by the same mechanism" and names the CS-17 measure; the enforcement cell now reports CC above the CS-38 allowance. Equals CR-005 section 1 item 2 | Correct as ruled; the main loop is not covered (finding-21) |
+| 07 section 8.1 complexity row (line 324) | Installed under SRR decision 109, one `--paths` per root, the convention stated as in CS-17 | Correct |
+| 07 section 8.2 complexity row (line 340) | Threshold names the CS-11 arms (CR-001) and the CS-19 halt loops (CR-005) | Correct as ruled (finding-21) |
+| 07 section 8.3 sanity check | The known answers are derived by hand under the CS-17 convention for the TV-012 reference functions, including a per-arm `match`, a bare `loop` and a `let ... else` | Correct; the known answers themselves belong to INSP-015 |
+| 07 section 8.4 G5 pass criterion (line 356) | "no target-only CC above the CS-38 allowance (CR-001, CR-005)" | Correct; closes finding-19 |
+| 07 revision row A.6 (line 884) | Cites CR-005, item 4, `dd39332` and names the finding-19 fix | Correct |
+| CR-005 front matter and sections 1 to 11 | Dispositioned, Approved 2026-09-26, rationale quotes the ruling verbatim; class confirmed Pending (the ruling named none), as CR-004; section 9 records the CS-38 failure honestly and asks the owner | Correct |
+
+No change goes beyond the ruling. No em dash in 07 or CR-005 (`grep -c`, 0 and 0).
+
+**Finding-19 closed.** The CS-38 enforcement cell and the G5 pass criterion now state the allowance, as finding-19 asked; finding-19 (Minor lien) is Verified, closed by `e34a27b`. Its table row above keeps its earlier state as history.
+
+**New Major finding-21 (real defect).** 07 section 1.2 (line 21) makes the main loop part of `cwht-app`, CS-19 (line 266) names it as a permitted unbounded loop, the CS-17 measure now counts its bare `loop`, and CS-38 grants an allowance only for the CS-11 arms and the two halt loops. A `main` that conforms to the plan therefore fails CS-38 and G5. Reproduced by this reviewer: clean `git archive` exports of cwht HEAD `3b45ed7` (`firmware`, `tools`) and rustos `2ec64c0` under the scratchpad (the owner's rustos working tree was not read), `rust-code-analysis-cli --metrics --output-format json --paths <cwht>/firmware --paths <rustos>/api --paths <rustos>/firmware/pico2` (exit 0) piped to `tools/complexity_gate.py --max 15`: `FAIL CS-38 .../cwht-app/src/main.rs:30 main CC 4 > 3`, `MSR-17 functions 52, max_cc 5, mean_cc 1.46`, `complexity_gate: FAIL (1 failure(s))`, the same result as TV-012 run 2 and TC-SW-TOOL-001 run 5 (B9). The same finding notes that CS-38 says "per-file allowance" while the tool credits each item to its own function; the pooled reading would pass this file, so the plan text does not decide the gate. 07 applies close-out item 4 faithfully, and the defect lies in the ruled scope, so the fix is an owner decision (B9) applied by CR. It blocks the baseline because gate G5 (precondition P6) cannot pass on conforming code. It is not a Minor lien: the convergence rule (charter section 4 item 3) keeps only real defects Major, and this one is the cause of the G5 failure.
+
+**Earlier liens.** finding-14 to finding-18 and finding-20 are unchanged in `e34a27b` (07 lines 31, 331, 401, 446, 465, 492, 623 and 854 re-read at `a9f92d82`); they stay "Lien: fix before PDR".
+
+**Lien table (close-out delta).**
+
+| Finding | Severity | Disposition | Owner | Due | Package carrier |
+|---|---|---|---|---|---|
+| finding-14 to finding-18, finding-20 | Minor | Lien: fix before PDR (unchanged) | 07 author (Claude, software lead) | PDR readiness declaration | lien L-6 (RFA-SRR-006) |
+| finding-19 | Minor | Verified, closed by `e34a27b` | n/a | n/a | n/a |
+| finding-21 | Major | Open: owner decision B9, then CR to 07 and `tools/complexity_gate.py` | Robin (decision); 07 author and tool owner (Claude) apply | before the `baseline/srr` tag (precondition P6) | TC-SW-TOOL-001 run 5 B9 |
+
+**Observations at the delta (not findings).**
+- **O-11 (CR-001 step 3).** CR-005 section 1 item 4 says it completes CR-001 implementation step 3; CR-001 (blob `0f4cca4c`, unchanged) still shows step 3 open. Cross item X-6.
+- **O-12 (pairing).** INSP-018 reads `assurance_verdict: APPROVED` and still names 07 blob `37d472b5`; its delta against `a9f92d82` belongs to the assurance reviewer (X-7). This record copies the verdict as read at HEAD `3b45ed7`.
+
+**Cross items (outside this record's scope).**
+- **X-6.** CR-001 owner: record step 3 done at `e34a27b` (CR-005 item 4).
+- **X-7.** Software assurance reviewer: delta of INSP-018 against 07 `a9f92d82` and CR-005.
+- **X-8.** Owner: decide B9 (finding-21); 07 author and tool owner then apply it by CR and re-validate TV-012.
+
+**Tool runs (2026-09-26, HEAD `3b45ed7`, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (before this update) | 1 | 46 passed, 4 failed of 50; this record FAIL on product drift (07 `37d472b5` against HEAD `a9f92d82`), as expected before the delta; the other three failures are other records' drift |
+| `tools/traceability.py --report-only` | 0 | 245 requirements, 173 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, REQ-SYS-148); `docs/vv/` outputs restored with `git checkout` |
+| `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | register current |
+| `tools/render_rmm.py --check` | 0 | 100 rows, `rmm.md` current |
+| `tools/render_compliance.py --check` | 0 | current |
+| `tools/measurements.py --check-records` | 1 | 89 records, 80 failures: finding-15, unchanged |
+| `-m unittest discover -s tools/tests` | 1 | 415 run, 1 failure: `test_repository_exit_zero` (the validator failures above) |
+| complexity gate on clean exports (finding-21) | 1 | CS-17 pass (52 functions, max CC 5); CS-38 FAIL `cwht-app` `main` CC 4 > 3 |
+
+**Answers changed at the delta.** CK-REQ-G1 No (finding-17, 18, 20, and finding-21). CK-REQ-G2 No (finding-21; finding-19 closed). CK-REQ-G6 No (finding-15, 16). CK-REQ-G7 No (finding-14). Readiness R1 to R4 Met for this product (R1: the product files pass their schema checks; R2: 07 and CR-005 define no traced id), R5 N/A. `readiness_met: true`.
+
+**Completion criteria at the delta: not met.** One Major finding is open (finding-21). Reviewer verdict NEEDS CHANGES; the assurance verdict as read from INSP-018 is APPROVED; readiness met; named blobs equal HEAD. `verdict: NEEDS CHANGES`.
+
+```
+CLOSE-OUT DELTA (2026-09-26, HEAD 3b45ed7, SRR close-out item 4): VERDICT: NEEDS CHANGES (finding-21 Major open)
+DELTA: e34a27b (07 A.6 CS-17, CS-38, s8.1 to s8.4; CR-005) applies close-out item 4 as ruled
+CLOSED: finding-19 (Minor lien) Verified by e34a27b
+NEW: finding-21 (Major): CS-19 main loop of cwht-app::main has no CS-38 allowance; G5 cannot pass on conforming code (owner decision B9)
+PRODUCT: 07@a9f92d82, CR-001@0f4cca4c, CR-005@b1b197ab, measurements.json@5e2d1755, schema@c30b7f3e, valid.json@3938cd57, invalid.json@15231171 (equal to HEAD, 7/7)
+PAIRING: INSP-018 assurance_verdict APPROVED (delta on a9f92d82 is cross item X-7)
+MEASUREMENTS (delta): turns=22; minutes=40; cumulative turns=138, minutes=215; findings major=3, minor=18, open=1, deferred(lien)=6
 ```
