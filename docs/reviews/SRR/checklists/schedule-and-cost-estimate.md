@@ -5,10 +5,12 @@ checklist_revision: C
 checklist_file: docs/reviews/SRR/checklists/schedule-and-cost-estimate.md
 product: docs/plan/schedule.md, docs/plan/cost-estimate.md
 # product_commit: the author's fix commit a7c70d2 (INSP-023 finding-1, finding-2), HEAD at iteration 2; iteration 1 reviewed b301df2 at HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
-product_commit: "a7c70d2568ea19f862bf2f52e87742d7a0f3ab96"
+# post-SRR-ruling delta (2026-09-26, package item R16): product_commit is d4c9366, the one commit since a7c70d2 that touched the products (schedule.md only)
+product_commit: "d4c93660d1aacb553d0c3992d66daba4677e9073"
 # product_files: committed blobs verified at iteration 2 (git rev-parse HEAD:<path> at HEAD a7c70d2); iteration 1 reviewed schedule.md@2773cfb109cf1715bb4cb20f5e9faeb89274728e and cost-estimate.md@1fcb9ece64e111342e37e391c808f0955eb18090
-product_files: ["docs/plan/schedule.md@53de92ae211105127f56103d26884d14342190d0", "docs/plan/cost-estimate.md@0dda83cbd5ada9474562cc1741df67a31e1a7ffb"]
-product_size: 2 plans (schedule.md 62 lines at iteration 2: 5 gate rows, 9 firmware milestone rows, rustos dependency section, 9 lead-time rows, 4 risks, lien policy; cost-estimate.md 25 lines, 13 table rows)
+# iteration 2 and re-issue product_files named schedule.md@53de92ae and cost-estimate.md@0dda83cb; post-SRR-ruling delta: git rev-parse HEAD:<path> at e88823f
+product_files: ["docs/plan/schedule.md@82b44894a7613459e41d6827f181d13172390539", "docs/plan/cost-estimate.md@0dda83cbd5ada9474562cc1741df67a31e1a7ffb"]
+product_size: 2 plans (schedule.md 68 lines at the post-SRR-ruling delta, 9 gate and phase rows, 11 lead-time rows, 5 risks; at iteration 2 62 lines: 5 gate rows, 9 firmware milestone rows, rustos dependency section, 9 lead-time rows, 4 risks, lien policy; cost-estimate.md 25 lines, 13 table rows)
 sprint: SRR-prep
 author_agent: "author:plan (Claude main session, lead SE; schedule.md at 4e3f891, cost-estimate.md revised at b301df2; both revised at a7c70d2 for finding-1 and finding-2)"
 reviewer_agent: "reviewer:INSP-023"
@@ -21,11 +23,13 @@ iteration: 2
 readiness_met: true
 # reviewer_verdict: finding-1, finding-2 and finding-8 Verified; the other Minor findings are "Lien: fix before PDR" (convergence rule of 2026-09-26)
 # verdict: APPROVED with liens finding-3 to finding-7 and finding-9 at the re-issue; no Major finding remains unresolved
+# post-SRR-ruling delta: APPROVED with liens finding-3 to finding-7, finding-9 and finding-10 (new Minor); no Major finding open
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 findings_major: 2
-findings_minor: 7
+# post-SRR-ruling delta: finding-10 (Minor) is new, a lien
+findings_minor: 8
 findings_open: 0
 findings_fixed: 0
 # findings_verified: finding-1, finding-2 (iteration 2) and finding-8 (re-issue)
@@ -38,9 +42,9 @@ assurance_tasks_applied: []
 deferred_rids: []
 # items_no: re-issue answers (iteration 2: CK-REQ-G1, CK-REQ-G6, R3)
 items_no: [CK-REQ-G1, CK-REQ-G6]
-# effort: iterations 1 and 2 (42 turns, 55 min) plus the re-issue of 2026-09-26 (6 turns, 10 min)
-effort_turns: 48
-effort_minutes: 65
+# effort: iterations 1 and 2 (42 turns, 55 min), the re-issue of 2026-09-26 (6 turns, 10 min) and the post-SRR-ruling delta (14 turns, 25 min)
+effort_turns: 62
+effort_minutes: 90
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -71,6 +75,7 @@ date_closed: null
 | <a id="finding-7"></a>finding-7 | reviewer | Minor | S2, CK-REQ-G3 | `schedule.md` lines 3 and 7 to 11 | Row 21 and row 19 cite G-4 items 14 and 15 ("Updated cost and schedule estimates", "Updated documentation of Basis of Estimate (cost and schedule)", corpus `npr-7123-1d/13-appendixg.md` line 80); the schedule gives durations (for example "Layout is the longest single task (Sat night)") with no basis, and its approval line does not cite the stakeholder input that records it (SI-020, `stakeholder-inputs.md` line 28, which the SEMP cites). Fix: add a one-line basis per phase (task list or prior run times) and cite SI-020 on the approval line. | Lien | Pending | |
 | <a id="finding-8"></a>finding-8 | reviewer | Minor | R3 | author return | Iteration 2: no author self-check of `schedule.md` or `cost-estimate.md` against checklist sections G and A8, and no acceptance criteria, came with the fix commit `a7c70d2` or exist in the repository (claude-context search for an INSP-023 author self-check found only this record). Readiness R3 is not met and `readiness_met` is false. Fix: the plan author files the self-check with the next re-review brief, or Robin extends package decision 115 to this record. **Re-issue (2026-09-26): Verified**: the author self-check section at the end of this record (commit `5b1f2cf`) states AC-1 to AC-7 and answers R1 to R5, A8 and section G with evidence; the reviewer re-checked it (see "Re-issue"). | Verified | Pending | |
 | <a id="finding-9"></a>finding-9 | reviewer | Minor | CK-REQ-G1, S2 | `schedule.md@53de92ae` section 3, DigiKey row | The RMM SWE-016 implementation names "PCBWay and DigiKey lead times"; the DigiKey row gives no duration ("no research finding records a delivery time, so the CDR order confirmation records it"), so the DigiKey lead time is deferred to CDR rather than estimated, and the zero-stock row is a decision, not a duration. Not Major: the DigiKey items ship to the owner and do not gate PCBWay assembly, and the row states its source gap honestly. Fix: give an estimated DigiKey delivery range with a source (distributor shipping policy, dated) before PDR, replaced by the order confirmation at CDR. | Lien | Pending | |
+| <a id="finding-10"></a>finding-10 | reviewer (post-SRR-ruling delta) | Minor | CK-REQ-G1, S1 | `cost-estimate.md@0dda83cb` enclosure line ("PCBWay CNC aluminum enclosure, 3 sets, anodized", USD 250 to 600) against `schedule.md@82b44894` rows "At PDR", "Sat 2026-10-03 to Sun 2026-10-04" and section 3 | The rebaselined schedule (SI-037, SI-038) orders two enclosure prototypes: option B (catalog extruded box from DigiKey or Mouser, face and end plates cut by PCBWay in the board order) and option C (owner-printed case, conductive coating, purchased heatsink), with the option A CNC box as fallback. The cost estimate still prices only the CNC box, so the enclosure line no longer states what the approved plan buys (catalog boxes, plates, heatsinks, coating). Not Major: the line's ceiling of USD 600 plausibly covers both prototypes, the unit budget of SRR decision 90 is TBR until the CDR quotes, and the PDR enclosure trade study prices the options. Fix: restate the enclosure line (and the DigiKey line) for options B and C with the fallback, sourced to the PDR trade study, before PDR. | Lien | Pending | |
 
 Finding rules as in the template. The reviewer writes `Pending` in the owner ruling column. "Lien" in the State column is the convergence-rule disposition "Lien: fix before PDR" (lien table below). "Verified" is a Major finding whose fix the reviewer confirmed on the committed blob. No finding is disputed. Iteration 2 added finding-8 and finding-9 (Minor); the diff of `a7c70d2` introduces no new Major defect.
 
@@ -85,6 +90,7 @@ Finding rules as in the template. The reviewer writes `Pending` in the owner rul
 | finding-7 | Minor | Lien: fix before PDR | Schedule author (Claude, lead SE) | PDR readiness declaration | Routine item |
 | finding-8 | Minor | Verified at the re-issue of 2026-09-26 (author self-check, commit `5b1f2cf`); no longer a lien | Plan author (Claude, lead SE) | Closed | None |
 | finding-9 | Minor | Lien: fix before PDR | Schedule author (Claude, lead SE) | PDR readiness declaration | Routine item |
+| finding-10 | Minor | Lien: fix before PDR (post-SRR-ruling delta) | Cost estimate author (Claude, lead SE) | PDR readiness declaration | Routine item |
 
 ### Per-requirement validation
 
@@ -159,6 +165,8 @@ Author (not present): Claude main session as lead SE. Reviewer: `reviewer:INSP-0
 4. Package section 4 rows 19 and 21 are rated Met with no review record; with finding-1 and finding-2 open they meet the package's "Partially met" definition (both rows are Soft, so a lien is possible once the Major findings close).
 
 ## Verdict
+
+Post-SRR-ruling delta (2026-09-26, products at `d4c9366`, HEAD `e88823f`): **APPROVED with liens finding-3 to finding-7, finding-9 and finding-10.** The schedule rebaseline of `d4c9366` applies the owner-approved rebaseline (SI-038) and the enclosure input (SI-037) correctly; its dates and lead-time windows recompute; no Major finding is open. finding-10 (Minor, the cost estimate still prices only the CNC enclosure) is a new lien. See "Post-SRR-ruling delta".
 
 Re-issue (2026-09-26, HEAD `8ef95d3`): **APPROVED with liens finding-3 to finding-7 and finding-9.** Readiness R3 is met by the author self-check filed at `5b1f2cf` and finding-8 is Verified; the product blobs equal HEAD; no Major finding is open. See "Re-issue" at the end of this record.
 
@@ -261,3 +269,40 @@ READINESS: R1 Yes, R2 N/A, R3 Yes (author self-check 5b1f2cf verified), R4 Yes, 
 FINDINGS: Verified 3 (finding-1, finding-2 Major; finding-8 Minor); Lien 6 (Minor); none open
 MEASUREMENTS: claims re-checked 9; re-issue 6 turns, 10 minutes
 ```
+
+## Post-SRR-ruling delta (independent reviewer, 2026-09-26, SRR package item R16; products at `d4c9366`, HEAD `e88823f`)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:INSP-023`, engineering lens). It authored neither product, no SI row and no ruling, edited no product and no author section, and wrote only this section, the verdict paragraph added at the top of "Verdict", the finding-10 rows and the front matter. Trigger: the owner approved the SRR on 2026-09-26 (Approved with liens) and, after the disposition, approved the schedule rebaseline and gave the enclosure input (`docs/reviews/SRR/minutes.md`, "Schedule and enclosure inputs": "`docs/plan/schedule.md` is updated after the close-out run, with an INSP-023 delta re-issue"). Convergence rule (charter section 4 item 3): only open Major findings and the ruled R16 work change products; new Minor findings are liens due PDR. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (queries: post-SRR-ruling delta sections; the old weekend gate dates) ran before any `grep -n` pin.
+
+**Delta.** `git log --oneline a7c70d2..HEAD -- docs/plan/schedule.md docs/plan/cost-estimate.md` lists one commit, `d4c9366`, which changes `schedule.md` only (3 diff hunks, +25 -19; blob `53de92ae` to `82b44894`); `cost-estimate.md` is unchanged (`0dda83cb`). Its L0 hunks belong to INSP-001. Every changed line of `schedule.md` was read; the table groups them by topic.
+
+| Hunk | Applies | Check | Result |
+|---|---|---|---|
+| Title and approval paragraph | SI-038; minutes "Schedule and enclosure inputs" | The owner quote is an exact substring of `minutes.md`; the four rebaseline dates equal the minutes' bullet list; the original 2026-09-25 approval is kept as history, not rewritten; SI-020 now cited on the approval line (part of finding-7) | Correct |
+| Gate table: SRR row | SRR disposition; minutes "OA-1 and OA-2 performed" | "Approved with liens" and OA-1, OA-2 Pass agree with the minutes and memo section 9 | Correct |
+| Gate table: PDR, enclosure-trade, CDR, procurement, option C, vendor and TRR rows | SI-037 (B and C prototypes, catalog box first, PCBWay-cut plates, no owner machining); SI-038 dates | Weekdays recomputed from 2026-09-26 = Saturday: 09-29 Tue, 09-30 Wed, 10-03 Sat, 10-04 Sun, 10-05 Mon. The option definitions match the minutes' final owner direction ("I like that suggestion") | Correct |
+| FM-1 row | OA-1 performed; close-out item 1 (CR-004) | Pass and the CR-004 pin move `c54d35a` to `2ec64c0` agree with the minutes' close-out record | Correct |
+| Section 3 lead times | Rebaseline; `pcbway-fabrication-and-assembly.md` F17, F21; A10 | Recomputed: parts import from 10-06 plus 5 to 7 working days gives 10-12 to 10-14; assembly 3 working days gives about 10-15 to 10-19; courier 3 days plus a weekend gives boards about 10-20 to 10-23; CNC 13 to 15 days from 10-05 gives 10-18 to 10-20, delivered about 10-22 to 10-25; TRR window 10-22 to 10-27 equals the owner-approved window | Correct |
+| Risks 2 and 5 | SI-037 | Layout window between PDR and CDR; option A fallback moves TRR by its lead time | Correct |
+
+No em dash, TBD or TBR in either blob. The DigiKey row still has no duration (finding-9 lien, unchanged).
+
+**Findings after the delta.** finding-1, finding-2 (Major) and finding-8 stay Verified. finding-3, 4, 6 and 9 are unchanged liens. finding-5 is partly answered (the SRR actual and the slip recovery are now recorded; the risks still carry no RSK id) and stays a lien. finding-7 is partly answered (SI-020 is cited on the approval line; no basis per phase) and stays a lien. New: finding-10 (Minor, cost estimate enclosure line against the B and C plan), lien due PDR. No Major finding is open or new; no owner ruling is needed.
+
+**Readiness at the delta.** R1 Yes (`validate_docs.py` PASS for this record), R2 N/A (no requirement ids), R3 Yes (unchanged), R4 Yes (no TBD or TBR), R5 N/A. `readiness_met: true`. `items_no` unchanged (CK-REQ-G1, G6).
+
+**Cross items (reported to the lead SE; outside this scope).** (1) `docs/risk/register.json` RSK-014 condition still states the Saturday and Sunday gate dates of SI-020; its owner updates it to SI-038 at the next risk pass. (2) `docs/plan/technology-assessment.md` section 6 says the schedule places the Phase B content on Saturday 2026-09-26. (3) `docs/decisions/adr/ADR-001-class-a-rigor-and-review-gates.md` section 1 records the original weekend schedule as history; no change needed unless its owner wants a pointer to SI-038.
+
+**Tool runs (2026-09-26, HEAD `e88823f`, repository root, `.venv/bin/python`).** `tools/validate_docs.py` after this section: this record PASS; `traceability.py` not needed (no requirement ids).
+
+**Measurements (delta).** Diff hunks read 3 of 3 (44 changed lines); dates recomputed 14; new findings 1 (Minor); effort 14 turns, 25 minutes (added to the front matter totals).
+
+```
+POST-SRR-RULING DELTA (2026-09-26, products at d4c9366, HEAD e88823f, package item R16): VERDICT: APPROVED (with liens finding-3 to finding-7, finding-9, finding-10)
+PRODUCTS: docs/plan/schedule.md@82b44894a7613459e41d6827f181d13172390539, docs/plan/cost-estimate.md@0dda83cbd5ada9474562cc1741df67a31e1a7ffb
+READINESS: R1 Yes, R2 N/A, R3 Yes, R4 Yes, R5 N/A; readiness_met true
+FINDINGS: Verified 3 (finding-1, finding-2 Major; finding-8 Minor); Lien 7 (Minor); open Major 0
+MEASUREMENTS: hunks=3 (44 lines); new findings=1; turns=14; minutes=25
+```
+
+`record_status` stays Open.
