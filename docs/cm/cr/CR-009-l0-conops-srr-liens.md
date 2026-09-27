@@ -24,11 +24,11 @@ date_closed: null
 
 # CR-009: Fix the SRR peer review liens of the L0 set, the ConOps and the concept
 
-Template: `docs/templates/change-request.md`. Process: `docs/process/05-configuration-and-data-management.md` §5.1 to §5.3 and `docs/process/02-requirements-and-traceability.md` §10.2 and §10.3. File location: this file, committed on `main` with `Refs: CR-009`. The product changes are prototyped on the branch `cr/CR-009-l0-conops-srr-liens` at commit `f511e02` (05 §5.2, Submitted: "Branch ... may be opened for prototyping; nothing merges"). Status: **Submitted**. The independent review of section 6 is required before the owner's disposition (PDR work plan rule C6, lesson L4). Originating work package: WP-PDR-10 of `docs/plan/pdr-work-plan.md` (revision 2), which closes carried items C-009, C-010, C-011 and C-013 to C-017.
+Template: `docs/templates/change-request.md`. Process: `docs/process/05-configuration-and-data-management.md` §5.1 to §5.3 and `docs/process/02-requirements-and-traceability.md` §10.2 and §10.3. File location: this file, committed on `main` with `Refs: CR-009`. The product changes are prototyped on the branch `cr/CR-009-l0-conops-srr-liens` at commit `9001813` (05 §5.2, Submitted: "Branch ... may be opened for prototyping; nothing merges"). Status: **Submitted**. The independent review of section 6 is required before the owner's disposition (PDR work plan rule C6, lesson L4). Originating work package: WP-PDR-10 of `docs/plan/pdr-work-plan.md` (revision 2), which closes carried items C-009, C-010, C-011 and C-013 to C-017.
 
 ## 1. Description of the change
 
-Every change below fixes a Minor finding that the SRR peer review records carry as "Lien: fix before PDR" (`docs/reviews/SRR/checklists/expectations.md`, record INSP-001; `docs/reviews/SRR/checklists/conops-and-concept.md`, record INSP-002). No numeric value, mode, transition, requirement, hazard control or test case changes. The prototype commit `f511e02` holds the exact text; the tables below give each before and after.
+Every change below fixes a Minor finding that the SRR peer review records carry as "Lien: fix before PDR" (`docs/reviews/SRR/checklists/expectations.md`, record INSP-001; `docs/reviews/SRR/checklists/conops-and-concept.md`, record INSP-002). No numeric value, mode, transition, requirement, hazard control or test case changes. The prototype commit `9001813` holds the exact text; the tables below give each before and after.
 
 ### 1.1 L0 expectations (`expectations.json`, re-rendered `expectations.md`)
 
@@ -93,7 +93,7 @@ The SRR records INSP-001 (liens finding-12, 13, 15, 16) and INSP-002 (liens find
 | Verification | No TC invalidated. The closing case of the band-edge clause of MOE-006 is written by the V&V plan and TC-VAL authors at PDR (WP-PDR-43); it takes the OPS-020 step 5 procedure (5 W, paddle, Transmit-keyed, max hold over bursts). REQ-SYS-015 stays closed by Analysis (SRR decision 30). Evidence class unchanged. No decision table or independence-pair test is affected. |
 | Cost | None: no BOM, fabrication or instrument change; the calibrated attenuator is already required by MOE-006. |
 | Schedule | None on vendors or gates. Order: this CR is dispositioned and merged before WP-PDR-02 implements CR-003 and CR-006 on `expectations.json` and `conops.md` (plan section 5.3 writer order WP-PDR-10, then WP-PDR-02); the §6 review and the disposition are requested for B1a Tue 09-29 (section 7). If the disposition is later than CR-003's, the CR merged second rebases its hunks (CR-003 touches CON-015, CON-026, NGO-006, NGO-007, MOE-013, OPS-012, the ConOps section 4 rows and the section 8 risk cell at line 704, and concept lines 26 to 379; CR-006 touches CON-024, NGO-009, NGO-010, NGO-027, NGO-028, MOE-001, MOE-002, MOE-007 and ConOps lines 41, 369, 427, 455, 528, 849 and 853, all at `39a6b13`; no entry or line in common with this CR except the revision-history tables of the ConOps and the concept, where each CR appends its own row). |
-| Requirements and traceability | L1: none added, modified, deleted or retired. L0 Class I: NGO-021 (`statement`), MOE-012 (`success_criterion`); Class II: NGO-021 and NGO-026 (`rationale`), CON-006 and CON-007 (`source_ids`, SI-014 added per 02 §3.2 rule 4). ConOps Class I: OPS-020 step 5. Parents and children: none change; SI-014 already exists. Volatility (02 §10.4, N_start 190 L1 requirements at `baseline/srr`): A = 0, M = 0, R = 0, contribution 0 %. `tools/traceability.py --root <branch worktree>` at `f511e02`: exit 0, 245 requirements, 173 test cases, 0 violations, 2 warnings (SYS_UNALLOCATED REQ-SYS-125 and REQ-SYS-148, both present on `main`), no RENDER_STALE. |
+| Requirements and traceability | L1: none added, modified, deleted or retired. L0 Class I: NGO-021 (`statement`), MOE-012 (`success_criterion`); Class II: NGO-021 and NGO-026 (`rationale`), CON-006 and CON-007 (`source_ids`, SI-014 added per 02 §3.2 rule 4). ConOps Class I: OPS-020 step 5. Parents and children: none change; SI-014 already exists. Volatility (02 §10.4, N_start 190 L1 requirements at `baseline/srr`): A = 0, M = 0, R = 0, contribution 0 %. `tools/traceability.py --root <branch worktree>` at `9001813`: exit 0, 245 requirements, 173 test cases, 0 violations, 2 warnings (SYS_UNALLOCATED REQ-SYS-125 and REQ-SYS-148, both present on `main`), no RENDER_STALE. |
 | Regulatory | None: 47 CFR 97.307 and 97.3(a)(8) are applied as before; the SI-014 citation in CON-006 and CON-007 adds the stakeholder input that makes Part 97 applicable (02 §3.2 rule 4) and changes no clause. |
 | Documentation | With this CR (branch): `expectations.json` and its rendering `expectations.md` (re-rendered by `tools/traceability.py --render`); `conops.md` revision 5; `concept.md` revision 3. After merge: the SRR records INSP-001 and INSP-002 get their delta iterations (plan WP-PDR-10), and the SRR log secretary moves the items (WP-PDR-15). The traceability report on `main` is regenerated at the next Log commit of `docs/vv/`. No VDD or package manifest exists. |
 | Released units | None: no unit exists. |
@@ -104,16 +104,16 @@ Classification rationale: Class I, because NGO-021's statement, MOE-012's succes
 
 | Step | Artifact and path | Responsible | Done (SHA) |
 |---|---|---|---|
-| 1 | L0 fixes of section 1.1 in `expectations.json`; `expectations.md` re-rendered | Claude (L0 author, WP-PDR-10) | Prototyped on the branch at `f511e02` |
-| 2 | ConOps revision 5 (section 1.2) | Claude (ConOps author, WP-PDR-10) | Prototyped on the branch at `f511e02` |
-| 3 | Concept revision 3 (section 1.3) | Claude (concept author, WP-PDR-10) | Prototyped on the branch at `f511e02` |
-| 4 | `tools/traceability.py` and `tools/validate_docs.py` on the branch | Claude | Run at `f511e02`: traceability exit 0 (0 violations); validate_docs 50 of 50 passed |
+| 1 | L0 fixes of section 1.1 in `expectations.json`; `expectations.md` re-rendered | Claude (L0 author, WP-PDR-10) | Prototyped on the branch at `9001813` |
+| 2 | ConOps revision 5 (section 1.2) | Claude (ConOps author, WP-PDR-10) | Prototyped on the branch at `9001813` |
+| 3 | Concept revision 3 (section 1.3) | Claude (concept author, WP-PDR-10) | Prototyped on the branch at `9001813` |
+| 4 | `tools/traceability.py` and `tools/validate_docs.py` on the branch | Claude | Run at `9001813`: traceability exit 0 (0 violations, 2 warnings, no RENDER_STALE); validate_docs 48 of 50, the two failures being the record drift rule on INSP-001 and INSP-002, which name the `baseline/srr` blobs; they clear when the step 6 delta iterations name the frozen blobs below, before the merge; the schema check of `expectations.json` passes |
 | 5 | After approval: rebase the branch onto `main` if `main` moved these files, re-render, re-run step 4, merge `--no-ff` with the owner's merge approval | Claude (CM) | |
 | 6 | Delta iterations of INSP-001 and INSP-002 verify each finding on the frozen blobs (below) | Independent reviewer (new invocations of `reviewer:expectations` and `reviewer:conops-concept`) | |
 
-Frozen products for review (plan rule C2), at branch commit `f511e02`: `docs/requirements/l0-stakeholder/expectations.json@60df49c9767802b7dc7fb1d1b4f73cc758301f98`, `docs/requirements/l0-stakeholder/expectations.md@4de665a1217ed4d0b9347e91a1a74133e5fc4ac3`, `docs/conops/conops.md@8415dba2dc5e753c7bf538c35b524463b0cd656d`, `docs/design/concept.md@ee0d6e92e85c890a27a9f44e090e9d972f2696da`.
+Frozen products for review (plan rule C2), at branch commit `9001813`: `docs/requirements/l0-stakeholder/expectations.json@60df49c9767802b7dc7fb1d1b4f73cc758301f98`, `docs/requirements/l0-stakeholder/expectations.md@4de665a1217ed4d0b9347e91a1a74133e5fc4ac3`, `docs/conops/conops.md@8415dba2dc5e753c7bf538c35b524463b0cd656d`, `docs/design/concept.md@ee0d6e92e85c890a27a9f44e090e9d972f2696da`.
 
-Verification of the implementation (what the independent reviewer checks): each before and after of section 1 against the blob; that no other line of the four files changed (`git diff ab2af2d f511e02`); REQ-SYS-184's mode scope against NGO-021 and MOE-012; SI-014 in CON-006 and CON-007 and no other regulatory constraint missing it; that the NGO-026 citation matches the `tbr` objects of REQ-SYS-116 and REQ-SYS-117; each re-checked Appendix D status against the named record or file at `ab2af2d`; OPS-020 step 5 against REQ-SYS-054, REQ-SYS-187, MOE-006 and Table 3.4-4 row 3; `tools/traceability.py` with no RENDER_STALE and no violation naming an L0 id or `OPS-020`; the concept section 5 block unchanged (the render `docs/reviews/SRR/figures/concept-block-diagram.png` stays current).
+Verification of the implementation (what the independent reviewer checks): each before and after of section 1 against the blob; that no other line of the four files changed (`git diff ab2af2d 9001813`); REQ-SYS-184's mode scope against NGO-021 and MOE-012; SI-014 in CON-006 and CON-007 and no other regulatory constraint missing it; that the NGO-026 citation matches the `tbr` objects of REQ-SYS-116 and REQ-SYS-117; each re-checked Appendix D status against the named record or file at `ab2af2d`; OPS-020 step 5 against REQ-SYS-054, REQ-SYS-187, MOE-006 and Table 3.4-4 row 3; `tools/traceability.py` with no RENDER_STALE and no violation naming an L0 id or `OPS-020`; the concept section 5 block unchanged (the render `docs/reviews/SRR/figures/concept-block-diagram.png` stays current).
 
 ## 6. Independent review of the impact assessment
 
@@ -152,7 +152,7 @@ Not yet implemented (the branch holds a prototype only).
 
 | Commit | Files | Trailer check (`CR: CR-009` present) |
 |---|---|---|
-| `f511e02` (prototype, branch `cr/CR-009-l0-conops-srr-liens`) | `expectations.json`, `expectations.md`, `conops.md`, `concept.md` | Present |
+| `9001813` (prototype, branch `cr/CR-009-l0-conops-srr-liens`) | `expectations.json`, `expectations.md`, `conops.md`, `concept.md` | Present |
 
 Traceability report after implementation: to be regenerated at merge; renders regenerated: `docs/requirements/l0-stakeholder/expectations.md`.
 
@@ -178,7 +178,8 @@ Independent verifier (agent invocation): pending.
 
 | Date | State | By | Commit on main | Note |
 |---|---|---|---|---|
-| 2026-09-27 | Draft, then Submitted | Claude (WP-PDR-10 author) | this file's commit | Created with the impact assessment complete; product prototype on the branch at `f511e02` |
+| 2026-09-27 | Draft, then Submitted | Claude (WP-PDR-10 author) | `1f7d138` | Created with the impact assessment complete; product prototype on the branch at `9001813` |
+| 2026-09-27 | Submitted | Claude (WP-PDR-10 author) | this file's commit | Prototype commit message corrected (validate_docs result) by amending the unpushed branch commit `f511e02` to `9001813`; the four product blobs are unchanged; section 5 step 4 corrected to the post-commit validate_docs result |
 
 ## 12. Questions for the owner (answer with the disposition)
 
