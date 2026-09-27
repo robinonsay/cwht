@@ -20,6 +20,7 @@ microseconds (float), so element timing is exact to below 1 us (F8: TIMER0 has 1
 
 from __future__ import annotations
 
+import bisect
 import math
 from collections import deque
 from dataclasses import dataclass, field
@@ -579,10 +580,17 @@ def stream_with_gap_every(wpm: float, seconds: float, every_s: float, gap_dits: 
 
 
 # ---------------------------------------------------------------------------------------------
-# Revision 2: the self-referenced watchdog (note section 6.2; INSP-071 finding-1, INSP-075 findings
-# 1 and 2). It reads only the TX_KEY read-back and uses no keyer parameter, in every key mode.
-#   Reference interval r: the shortest key-up interval that ended in the preceding REF_WINDOW_S
-#     seconds, the current interval included.
+# Revision 3: the self-referenced watchdog (note section 6.2; INSP-071 finding-1, INSP-075 findings
+# 1, 2 and 6). It reads only the TX_KEY read-back and uses no keyer parameter, in every key mode.
+# Revision 2 took r as the minimum of the window, so one short key-up interval set it for 10 s
+# (INSP-075 finding-6); revision 3 filters read-back glitches and takes a quantile.
+#   Glitch length G (GLITCH_MS): a key-up interval shorter than G is bridged (the key-down on either
+#     side is one element); a key-down pulse shorter than G is a glitch pulse: it is not an element
+#     for (i-a) or (i-b), it still counts as key-down for the (ii) window, and the key-up interval
+#     it sits in is left out of the reference set. The gap tests apply to each pulse-free part.
+#   Reference interval r: the lower quartile (nearest rank, REF_QUANTILE) of the key-up intervals
+#     without a glitch pulse that ended in the preceding REF_WINDOW_S seconds, the current interval
+#     included. With no such interval only the ABS_GAP_S gap qualifies.
 #   Qualifying gap: a key-up interval of at least GAP_FACTOR * r or at least ABS_GAP_S.
 #   Word gap: a key-up interval of at least WORD_FACTOR * r or at least ABS_GAP_S.
 #   (i-a) count_limit consecutive key-down elements of equal duration with no word gap between
@@ -592,7 +600,7 @@ def stream_with_gap_every(wpm: float, seconds: float, every_s: float, gap_dits: 
 #     key-up interval before it.
 #   (ii) window_s seconds without a qualifying gap.
 # "Equal" means the two durations differ by at most SAME_TOL of the longer one. Edges are quantised
-# to the 1 ms read-back sample.
+# to the 1 ms read-back sample. glitch_ms=0 with ref_quantile=None reproduces the revision 2 rule.
 # ---------------------------------------------------------------------------------------------
 REF_WINDOW_S = 10.0
 GAP_FACTOR = 2.0
@@ -600,6 +608,8 @@ WORD_FACTOR = 4.0
 ABS_GAP_S = 2.0
 SAME_TOL = 0.25
 MAX_PERIOD = 6
+GLITCH_MS = 10.0
+REF_QUANTILE = 0.25
 
 
 def _same(a: float, b: float, tol: float) -> bool:
@@ -610,82 +620,159 @@ def watchdog_relative(stream, window_s: float = 30.0, count_limit: int = 128,
                       ref_window_s: float = REF_WINDOW_S, gap_factor: float = GAP_FACTOR,
                       word_factor: float = WORD_FACTOR, abs_gap_s: float = ABS_GAP_S,
                       same_tol: float = SAME_TOL, max_period: int = MAX_PERIOD,
+                      glitch_ms: float = GLITCH_MS, ref_quantile=REF_QUANTILE,
                       quantise_ms: bool = True, detail: bool = False):
-    """Apply the revision 2 watchdog to a key-down stream [(start_us, end_us, typ)].
+    """Apply the revision 3 watchdog to a key-down stream [(start_us, end_us, typ)].
 
     The element type label is not used: the monitor sees only TX_KEY. Returns
     (max_span_s, max_count, trip_time_s or None, trip_cause); max_count is the larger of the
     (i-a) and (i-b) counts. With detail=True a fifth item gives the separate maxima.
+    ref_quantile=None takes the minimum (revision 2); glitch_ms=0 disables the glitch filter.
     """
     if quantise_ms:
-        stream = [(math.floor(s / 1000.0) * 1000.0, math.floor(e / 1000.0) * 1000.0, t)
-                  for s, e, t in stream]
-        stream = [(s, e, t) for s, e, t in stream if e > s]
+        stream = [(math.floor(s / 1000.0) * 1000.0, math.floor(e / 1000.0) * 1000.0)
+                  for s, e, _t in stream]
+    else:
+        stream = [(s, e) for s, e, _t in stream]
+    glitch = glitch_ms * 1000.0
+    bridged = []
+    for s, e in stream:
+        if e <= s:
+            continue
+        if bridged and s - bridged[-1][1] < glitch - 1e-6:
+            bridged[-1] = (bridged[-1][0], max(bridged[-1][1], e))
+        else:
+            bridged.append((s, e))
     win = window_s * 1e6
     ref_win = ref_window_s * 1e6
     abs_gap = abs_gap_s * 1e6
-    gaps = deque()     # (end_us, length_us), lengths increasing: sliding-window minimum
+    ref_fifo = deque()   # (end_us, length_us) of clean key-up intervals, in time order
+    ref_sorted = []      # the same lengths, sorted
     hist = deque(maxlen=max_period + 1)   # (duration, preceding gap) of recent elements
     runs = [0] * (max_period + 1)         # runs[p]: consecutive matches at period p
     wstart = None
     count_a = 0
     prev_len = None
-    prev_end = None
+    prev_el_end = None   # end of the last element (glitch pulses excluded)
+    last_end = None      # end of the last key-down of any kind
+    dirty = False        # a glitch pulse lies in the current key-up interval
     max_span, max_a, max_b = 0.0, 0, 0
     trip = None
-    for s, e, _typ in stream:
+
+    def ref_now():
+        if not ref_sorted:
+            return None
+        if ref_quantile is None:
+            return ref_sorted[0]
+        return ref_sorted[max(0, math.ceil(ref_quantile * len(ref_sorted)) - 1)]
+
+    def gap_is(part, factor):
+        r = ref_now()
+        return part >= abs_gap - 1e-6 or (r is not None and part >= factor * r - 1e-6)
+
+    for s, e in bridged:
         d = e - s
-        if prev_end is None:
-            g = math.inf
-            qualifying = word = True
+        part = math.inf if last_end is None else s - last_end
+        while ref_fifo and ref_fifo[0][0] < s - ref_win:
+            _t_end, old = ref_fifo.popleft()
+            del ref_sorted[bisect.bisect_left(ref_sorted, old)]
+        if d < glitch - 1e-6:
+            # glitch pulse: no element; the pulse-free part before it may still qualify
+            if wstart is None or gap_is(part, gap_factor):
+                wstart = s
+            dirty = True
         else:
-            g = s - prev_end
-            while gaps and gaps[-1][1] >= g:
-                gaps.pop()
-            gaps.append((s, g))
-            while gaps[0][0] < s - ref_win:
-                gaps.popleft()
-            ref = gaps[0][1]
-            qualifying = g >= gap_factor * ref - 1e-6 or g >= abs_gap - 1e-6
-            word = g >= word_factor * ref - 1e-6 or g >= abs_gap - 1e-6
-        if qualifying:
-            wstart = s
-        # (i-a) equal durations, reset by a word gap or a different duration
-        if word or prev_len is None or not _same(d, prev_len, same_tol):
-            count_a = 1
-        else:
-            count_a += 1
-        prev_len = d
-        # (i-b) periodic run; an element after a gap of 2 s or more (or the first) starts afresh
-        hist.append((d, g))
-        best_b = 1
-        for p in range(1, max_period + 1):
-            if len(hist) > p and math.isfinite(g) and g < abs_gap:
-                dp, gp = hist[-1 - p]
-                if math.isfinite(gp) and _same(d, dp, same_tol) and _same(g, gp, same_tol):
-                    runs[p] += 1
+            if prev_el_end is None:
+                g = math.inf
+                qualifying = word = True
+            else:
+                g = s - prev_el_end
+                if not dirty:
+                    ref_fifo.append((s, g))
+                    bisect.insort(ref_sorted, g)
+                qualifying = gap_is(part, gap_factor)
+                word = gap_is(part, word_factor)
+            if qualifying or wstart is None:
+                wstart = s
+            # (i-a) equal durations, reset by a word gap or a different duration
+            if word or prev_len is None or not _same(d, prev_len, same_tol):
+                count_a = 1
+            else:
+                count_a += 1
+            prev_len = d
+            # (i-b) periodic run; an element after a gap of 2 s or more (or the first) starts afresh
+            hist.append((d, g))
+            best_b = 1
+            for p in range(1, max_period + 1):
+                if len(hist) > p and math.isfinite(g) and g < abs_gap:
+                    dp, gp = hist[-1 - p]
+                    if math.isfinite(gp) and _same(d, dp, same_tol) and _same(g, gp, same_tol):
+                        runs[p] += 1
+                    else:
+                        runs[p] = 0
                 else:
                     runs[p] = 0
-            else:
-                runs[p] = 0
-            if runs[p] > 0:
-                best_b = max(best_b, runs[p] + p)
+                if runs[p] > 0:
+                    best_b = max(best_b, runs[p] + p)
+            max_a = max(max_a, count_a)
+            max_b = max(max_b, best_b)
+            if trip is None:
+                if count_a >= count_limit:
+                    trip = (e / 1e6, "count")
+                elif best_b >= count_limit:
+                    trip = (e / 1e6, "period")
+            prev_el_end = e
+            dirty = False
         span = e - wstart
         max_span = max(max_span, span)
-        max_a = max(max_a, count_a)
-        max_b = max(max_b, best_b)
-        if trip is None:
-            if count_a >= count_limit:
-                trip = (e / 1e6, "count")
-            elif best_b >= count_limit:
-                trip = (e / 1e6, "period")
-            elif span >= win:
-                trip = (max(s, wstart + win) / 1e6, "window")
-        prev_end = e
+        if trip is None and span >= win:
+            trip = (max(s, wstart + win) / 1e6, "window")
+        last_end = e
     out = (max_span / 1e6, max(max_a, max_b), (trip[0] if trip else None),
            (trip[1] if trip else None))
     if detail:
         return out + ({"count_a": max_a, "period_b": max_b},)
+    return out
+
+
+def watchdog_rev2(stream, **kw):
+    """The withdrawn revision 2 rule (minimum reference, no glitch filter), kept for comparison."""
+    return watchdog_relative(stream, glitch_ms=0.0, ref_quantile=None, **kw)
+
+
+def perturb_short_interval(stream, every_s: float, kind: str, wpm: float, short_dits: float = 0.4):
+    """Insert a short key-up or key-down interval into a fault stream every every_s seconds
+    (note section 6.2, INSP-075 finding-6 variants).
+
+    kind "up1" / "up15": a 1 ms / 15 ms key-up break in the middle of the element in progress;
+    "down1": a 1 ms key-down pulse in the middle of the next space; "short": the next space
+    shortened to short_dits dits (the rest of the stream moves earlier).
+    """
+    dit = dit_us(wpm)
+    out, nxt, shift = [], every_s * 1e6, 0.0
+    for i, (s, e, t) in enumerate(stream):
+        s, e = s - shift, e - shift
+        due = s >= nxt or (kind in ("up1", "up15") and e > nxt)
+        if due and kind in ("up1", "up15"):
+            brk = 1000.0 if kind == "up1" else 15000.0
+            if e - s > brk + 2000.0:
+                mid = s + (e - s) / 2.0
+                out += [(s, mid, t), (mid + brk, e, t)]
+                nxt += every_s * 1e6
+                continue
+        elif due and kind == "down1" and i + 1 < len(stream):
+            nxt_s = stream[i + 1][0] - shift
+            mid = (e + nxt_s) / 2.0
+            out += [(s, e, t), (mid, mid + 1000.0, t)]
+            nxt += every_s * 1e6
+            continue
+        elif due and kind == "short" and i + 1 < len(stream):
+            gap = stream[i + 1][0] - shift - e
+            shift += max(0.0, gap - short_dits * dit)
+            out.append((s, e, t))
+            nxt += every_s * 1e6
+            continue
+        out.append((s, e, t))
     return out
 
 
