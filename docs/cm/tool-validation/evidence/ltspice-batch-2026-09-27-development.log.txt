@@ -90,3 +90,27 @@ CWHT_LTSPICE_VERSION=26.1.1 -version                              rc=4
 CWHT_LTSPICE_SUPPORT=/nonexistent -version                        rc=3 ("LTspice not installed")
 -version                                                          rc=3 (bottle precondition)
 CWHT_LTSPICE_LOCK_WAIT=2 -version, lock held by another shell     rc=5 ("waiting up to 2 s", "busy")
+
+## 7. 11:01 to 11:02. Orphaned LTspice.exe processes from the 2026-09-25 hang checks.
+$ pgrep -fl LTspice.exe
+92195 C:\Program Files\ADI\LTspice\LTspice.exe -b Z:\var\folders\7r\frnl9vtn153bhbn6cgk07_2m0000gn\T\kat-ltspice.RZ63Eg\rc-hang-error.asc LIMIT=30
+93179 C:\Program Files\ADI\LTspice\LTspice.exe -b Z:\var\folders\7r\frnl9vtn153bhbn6cgk07_2m0000gn\T\kat-ltspice.lCte06\rc-hang-error.asc LIMIT=30
+$ ps -o pid,ppid,lstart,etime,command -p 92195,93179
+92195     1 Fri Sep 25 23:21:10 2026     01-11:40:42 C:\Program Files\ADI\LTspice\LTspice.exe -b Z:\var\...\kat-ltspice.RZ63Eg\rc-hang-error.asc
+93179     1 Fri Sep 25 23:22:13 2026     01-11:39:39 C:\Program Files\ADI\LTspice\LTspice.exe -b Z:\var\...\kat-ltspice.lCte06\rc-hang-error.asc
+=> TV-014 finding 3: the 2026-09-25 guard matched the POSIX directory (/var/folders/.../kat-ltspice.XXXXXX)
+   with pkill -f and pgrep -f; LTspice.exe carries the Windows form (Z:\var\...\kat-ltspice.XXXXXX\), so
+   the hung processes of runs 3 and 4 (lock section 1.1 LTspice row, 23:20 and 23:22) were never killed and
+   the transcript's "processes of this run still alive (expected none): none" was a false negative.
+   (kat-ltspice.lCte06 is the run 4 directory named in docs/cm/tool-validation/evidence/ltspice-2026-09-25.log.txt.)
+   Both were running, hung, through the development runs of sections 2 and 3, so they were present during
+   the sequential runs that kept the ini key as well as during the concurrent runs.
+$ shasum -a 256 <bottle LTspice.ini>     (before)
+6d505653ade0569c4e431b4917cee6c1bb75f9b713d27d4ac0e2c8f338897d50
+$ kill 92195 93179; sleep 3; pgrep -fl LTspice.exe
+no LTspice.exe left
+$ shasum -a 256 <bottle LTspice.ini>     (after; unchanged, 420 bytes, modified 10:50)
+6d505653ade0569c4e431b4917cee6c1bb75f9b713d27d4ac0e2c8f338897d50
+$ (name match check, 11:0x) a stand-in process whose argv holds "Z:\var\folders\x\T\cwht-lts.Qz9x1A\rc.asc":
+pgrep -f 'cwht-lts\.Qz9x1A' -> its pid; pgrep -f 'LTspice\.exe.*cwht-lts\.[A-Za-z0-9]{6}' -> its pid; pkill -f 'cwht-lts\.Qz9x1A' -> gone
+   Wrapper fixed in b41e544 (blob 102b93d4): match on the unique run directory name in either path form.

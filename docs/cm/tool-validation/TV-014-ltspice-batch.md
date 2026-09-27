@@ -1,22 +1,22 @@
-# TV-014: LTspice 26.0.2 through tools/ltspice-batch.sh (git blob 884df077, commit 41d150e)
+# TV-014: LTspice 26.0.2 through tools/ltspice-batch.sh (git blob 102b93d4, commit b41e544)
 
 | Field | Value |
 |---|---|
 | Record | TV-014 |
-| Status | **Not yet validated.** Known-answer run 1 (2026-09-27 10:57, commit `41d150e`) passed the 18 cases that stop before LTspice runs; the 11 cases that run LTspice and procedure part D are blocked because the bottle `LTspice.ini` lost `CaptureAnalytics=false` during development (finding 2; owner action OA-TV014-1). Run 2 follows the owner's restore. Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Not yet validated.** Known-answer run 2 (2026-09-27 11:03, commit `b41e544`) passed the 18 cases that stop before LTspice runs; the 11 cases that run LTspice and procedure part D are blocked because the bottle `LTspice.ini` lost `CaptureAnalytics=false` during development (finding 2; owner action OA-TV014-1). Run 3 follows the owner's restore. Independent review and owner accreditation pending (sections 8 and 9) |
 | Class | B, evidence-generating (CM plan section 9.1: LTspice through the CrossOver wrapper, Analysis-class simulation evidence) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6, validated and accredited simulation tools) through CM plan section 9; ADR-018 (telemetry opt-out) |
 | Due | PDR (CM plan section 13 PDR row). It blocks every LTspice result cited as evidence (`docs/plan/pdr-work-plan.md` WP-PDR-07, WP-PDR-19 to 26 and 28) until accredited (owner decision OD-24b) |
-| Lock rows | `tools/toolchain.lock.md` section 1 rows LTspice and LTspice Wine layer; section 1.1 row LTspice; section 1.2 row `tools/ltspice-batch.sh`; section 1.4 findings 12 and 13; section 5 |
+| Lock rows | `tools/toolchain.lock.md` section 1 rows LTspice and LTspice Wine layer; section 1.1 row LTspice; section 1.2 row `tools/ltspice-batch.sh`; section 1.4 findings 12 to 14; section 5 |
 | Author | Claude, tool owner (WP-PDR-07, wave 0) |
 
 ## 1. Identification
 
 | Item | Identity | State |
 |---|---|---|
-| `tools/ltspice-batch.sh` | git blob `884df07740749e6523a273270ab3cc603c2904d4`, SHA-256 `4f6248eefb9ea30ba666f6f13805231e2fbbfb214e1849276ed0489e122b2de6`, mode 100755 | committed in `41d150e` |
-| `tools/tests/test_ltspice_batch.py` | git blob `220db90b08d01acde4c9334dfc9060fd37050990`, SHA-256 `25e8bbd268e7c14cc2872ba6fc0d60abb5958d47647bd6ce33837f22ada6798d` | committed in `41d150e` |
-| `tools/tests/fixtures/ltspice/` | 12 files, tree digest `069f03eed71724c5312ad51f1c40ec032023258ee38a5fcf7a57caf7a0992835` (SHA-256 of the sorted `shasum -a 256` list; the list is in the run 1 transcript) | committed in `41d150e` (the three 2026-09-25 decks unchanged; `known-answers.json` gained the `wrapper` block, its earlier blocks unchanged) |
+| `tools/ltspice-batch.sh` | git blob `102b93d49a01b31d91088f0e2c5a23c2e7a6eddc`, SHA-256 `a6acffa675e007481d7b37a1b5ce5150a1d236ed2cab78bf4d964c9219265152`, mode 100755 | committed in `b41e544` (first version, blob `884df077`, in `41d150e`; changed for finding 3) |
+| `tools/tests/test_ltspice_batch.py` | git blob `c44104477c05eeb36493da9f35e3b75e2e241eb7`, SHA-256 `841a3b931688f33a0f67025e0b358cd3f8c488d4cb3409117aa75069f3750a32` | committed in `b41e544` (first version, blob `220db90b`, in `41d150e`) |
+| `tools/tests/fixtures/ltspice/` | 12 files, tree digest `069f03eed71724c5312ad51f1c40ec032023258ee38a5fcf7a57caf7a0992835` (SHA-256 of the sorted `shasum -a 256` list; the list is in the run 1 and run 2 transcripts) | committed in `41d150e` (the three 2026-09-25 decks unchanged; `known-answers.json` gained the `wrapper` block, its earlier blocks unchanged) |
 | LTspice program | `26.0.2` (`tools/ltspice-batch.sh -version`; bare command `wine --bottle=ltspice --wait-children 'C:\Program Files\ADI\LTspice\LTspice.exe' -version`, 2026-09-25) | lock section 1 |
 | LTspice bundle | `26.0.2.1` (`defaults read /Applications/LTspice.app/Contents/Info.plist CFBundleShortVersionString`, 2026-09-27) | lock section 1 |
 | `LTspice.exe` in the bottle | SHA-256 `a94eb1789084db9f46375cce05110e03578f9cdb931867a0faaca5b200793f06` (`drive_c/Program Files/ADI/LTspice/LTspice.exe`, 2026-09-27; RSK mitigation step S1 asks for this pin) | recorded here first; lock section 1 row |
@@ -76,8 +76,9 @@ Its part C is `CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -v -s t
 
 | Run | Date and time (CDT) | Commit tested | Result |
 |---|---|---|---|
-| 1 | 2026-09-27 10:57 | HEAD `e119181` with the wrapper, test module and fixtures unchanged from `41d150e` (every identity "unchanged from HEAD") | **Blocked, not a pass.** 29 tests, 18 passed (`UsageTests` 6, `HygieneTests` 5, `InstallAndVersionTests` 2, `LockTests` 1, `PreconditionTests` 4 including `test_bottle_without_key`, which ran because the bottle ini lacks the key), 11 skipped (`LTspiceRunTests` 10, `TimeoutGuardTests` 1: "bottle precondition not met"); part B: key count 0 in the bottle ini (420 bytes, modified 10:50); part D not run. Transcript `evidence/ltspice-batch-2026-09-27-run1.log.txt` |
-| 2 | after OA-TV014-1 | to be recorded | pending |
+| 1 | 2026-09-27 10:57 | HEAD `e119181` with the wrapper (blob `884df077`), test module (blob `220db90b`) and fixtures unchanged from `41d150e` | Superseded by run 2 (the wrapper changed for finding 3). **Blocked, not a pass.** 29 tests, 18 passed (`UsageTests` 6, `HygieneTests` 5, `InstallAndVersionTests` 2, `LockTests` 1, `PreconditionTests` 4 including `test_bottle_without_key`, which ran because the bottle ini lacks the key), 11 skipped (`LTspiceRunTests` 10, `TimeoutGuardTests` 1: "bottle precondition not met"); part B: key count 0 in the bottle ini (420 bytes, modified 10:50); part D not run. Transcript `evidence/ltspice-batch-2026-09-27-run1.log.txt` |
+| 2 | 2026-09-27 11:03 | HEAD `b41e544`, every identity of section 1 "unchanged from HEAD" | **Blocked, not a pass.** Same outcome as run 1: 29 tests, 18 passed, 11 skipped (bottle precondition not met); part B key count 0; part D not run. Transcript `evidence/ltspice-batch-2026-09-27-run2.log.txt` |
+| 3 | after OA-TV014-1 | to be recorded | pending |
 
 Development observations on draft wrapper blobs (not a validation run): the AC, transient and include known answers passed on 2026-09-27 at 10:49 (f(-3 dB) 999.999642341 Hz; V(out)(tau) 0.632120367773 V, error 3.0e-7; t(0.5 V) 0.693147653 ms, error 6.8e-7), and the seeded deck error, floating net, include escape, ini and version faults gave the expected exits (`evidence/ltspice-batch-2026-09-27-development.log.txt` section 2). The 2026-09-25 sanity check of the bare command (lock section 1.1) reproduced the same f(-3 dB) value.
 
@@ -85,13 +86,14 @@ Development observations on draft wrapper blobs (not a validation run): the AC, 
 
 | # | Finding | Evidence | Consequence |
 |---|---|---|---|
-| 1 | LTspice 26.0.2 under CrossOver exits 0 and writes only a log ("Could not open input deck for reading") when a Windows path it must open or write reaches 260 characters (MAX_PATH): the netlist of a schematic under the session scratchpad (`Z:\private\tmp\claude-501\...\rc-lowpass.net`, 264 characters) was never written and nothing was simulated. An exit status of 0 therefore does not prove a run | `evidence/ltspice-batch-2026-09-27-development.log.txt` section 1; procedure part D (run 2) | The wrapper runs every deck in a short directory under `getconf DARWIN_USER_TEMP_DIR`, refuses a run whose longest output path would reach 260 characters, requires a `.raw` or `.op.raw` after `-b`, and fails on "Could not open" in the log. Lock section 1.4 finding 12 |
-| 2 | LTspice rewrites its whole `LTspice.ini` when it exits. Four wrapper runs started at the same moment (draft without a lock, 10:50) left the ini truncated to two recent-file entries: the `[Options]` section with `CaptureAnalytics=false` (the owner-ratified opt-out of ADR-018) was lost. Sequential runs had kept the key | `evidence/ltspice-batch-2026-09-27-development.log.txt` sections 3 to 5; run 1 part B | The wrapper holds an flock(2) lock for the whole run, so runs through it never overlap, and re-checks the key after each run (exit 3, outputs not copied). The author did not edit the ini (08 briefing: if the key check fails, stop and report). No LTspice process has run since the loss, so no consent dialog was raised and no usage data sent. Owner action OA-TV014-1 restores the key; RSK cross item (the risk of a silent telemetry re-enable by a concurrent or crashed run). Lock section 1.4 finding 13 |
-| 3 | LTspice `-b` on a schematic that carries a deck error does not exit (2026-09-25, lock section 1.4 finding 2) | lock section 1.1 LTspice row | Covered by the time-out guard case; decks for the record remain netlists or are netlisted first |
+| 1 | LTspice 26.0.2 under CrossOver exits 0 and writes only a log ("Could not open input deck for reading") when a Windows path it must open or write reaches 260 characters (MAX_PATH): the netlist of a schematic under the session scratchpad (`Z:\private\tmp\claude-501\...\rc-lowpass.net`, 264 characters) was never written and nothing was simulated. An exit status of 0 therefore does not prove a run | `evidence/ltspice-batch-2026-09-27-development.log.txt` section 1; procedure part D (run 3) | The wrapper runs every deck in a short directory under `getconf DARWIN_USER_TEMP_DIR`, refuses a run whose longest output path would reach 260 characters, requires a `.raw` or `.op.raw` after `-b`, and fails on "Could not open" in the log. Lock section 1.4 finding 12 |
+| 2 | LTspice rewrites its whole `LTspice.ini` when it exits. Four wrapper runs started at the same moment (draft without a lock, 10:50) left the ini truncated to two recent-file entries: the `[Options]` section with `CaptureAnalytics=false` (the owner-ratified opt-out of ADR-018) was lost. Sequential runs had kept the key. The two hung 2026-09-25 processes of finding 3 were running throughout, during the sequential runs as well, so the concurrent exits are the only observed difference | `evidence/ltspice-batch-2026-09-27-development.log.txt` sections 3 to 5 and 7; runs 1 and 2 part B | The wrapper holds an flock(2) lock for the whole run, so runs through it never overlap, and re-checks the key after each run (exit 3, outputs not copied). The author did not edit the ini (08 briefing: if the key check fails, stop and report). No LTspice process has run since the loss, so no consent dialog was raised and no usage data sent. Owner action OA-TV014-1 restores the key; RSK cross item (the risk of a silent telemetry re-enable by a concurrent or crashed run). Lock section 1.4 finding 13 |
+| 3 | `LTspice.exe` shows its deck as a Windows path (`Z:\var\folders\...\<dir>\rc-hang-error.asc`), so a time-out guard that matches the POSIX run directory with `pkill -f` or `pgrep -f` misses it. The 2026-09-25 hang checks used that match: two `LTspice.exe` processes they started (23:21:10 and 23:22:13, directories `kat-ltspice.RZ63Eg` and `kat-ltspice.lCte06`, parent `launchd`) were still running, hung, at 2026-09-27 11:02, and the transcript line "processes of this run still alive (expected none): none" was a false negative. The first wrapper blob `884df077` had the same defect | `evidence/ltspice-batch-2026-09-27-development.log.txt` section 7 | The wrapper (blob `102b93d4`) matches the unique directory name, which both path forms carry, and fails with exit 124 naming any survivor after SIGKILL; the time-out test looks for survivors in either form. The two orphans were terminated by PID at 11:02 (`kill`, SIGTERM), the bottle ini unchanged (SHA-256 before and after). The lock section 1.1 LTspice row statement "killed at 30 s" for 2026-09-25 is corrected by lock section 1.4 finding 14 |
+| 4 | LTspice `-b` on a schematic that carries a deck error does not exit (2026-09-25, lock section 1.4 finding 2) | lock section 1.1 LTspice row | Covered by the time-out guard case; decks for the record remain netlists or are netlisted first |
 
 ## 5. Reproducibility
 
-Not required for class B. Observed: the f(-3 dB) value 999.999642341 Hz was identical in the 2026-09-25 runs 3 and 4, the 2026-09-27 sequential run and each of the four concurrent runs (development log sections 2 and 3). Run 2 records whether it repeats.
+Not required for class B. Observed: the f(-3 dB) value 999.999642341 Hz was identical in the 2026-09-25 runs 3 and 4, the 2026-09-27 sequential run and each of the four concurrent runs (development log sections 2 and 3). Run 3 records whether it repeats.
 
 ## 6. Limitations
 
@@ -100,7 +102,7 @@ Not required for class B. Observed: the f(-3 dB) value 999.999642341 Hz was iden
 3. The failure-string list of the wrapper (header, `FAIL_STRINGS`) is empirical. A deck's checker must still confirm that every measurement it needs is present in the log or the raw file.
 4. The post-run key check cannot be exercised by a seeded fault without editing the owner's bottle ini; it is verified by inspection of the code and by the observed incident of finding 2.
 5. The lock covers runs made through the wrapper. A bare `wine` run (the pre-wrapper command of the 08 briefing) bypasses it; from this commit every LTspice run is made through the wrapper (08 briefing COMMANDS line; lock section 1 row).
-6. The time-out kill matches the run's unique directory and then the launcher's process tree. A process LTspice might start without the path in its command line and outside that tree would survive; none was seen.
+6. The time-out kill matches the run's unique directory name and then the launcher's process tree. A process LTspice might start without the name in its command line and outside that tree would survive; the wrapper then reports it and fails, but does not kill it.
 7. The wrapper runs on macOS only (`getconf DARWIN_USER_TEMP_DIR`, `/usr/bin/lockf`, `defaults`).
 8. Output is developer evidence until section 9 records the accreditation (CM plan section 9.1).
 
@@ -113,12 +115,12 @@ Not required for class B. Observed: the f(-3 dB) value 999.999642341 Hz was iden
 
 ## 8. Independent review (CM plan section 9.2 step 3)
 
-Pending. Record: `docs/reviews/PDR/checklists/tool-validation-tv-014-to-tv-019.md` (one record for TV-014 to TV-019, one section per tool; `docs/plan/pdr-work-plan.md` WP-PDR-07), with the code checklist and the tool-validation checklist of WP-PDR-03. The reviewer re-runs the procedure after run 2 (or reads the run 2 transcript), recomputes the analytic answers of section 3 from the circuit values, and checks each seeded fault against the wrapper code.
+Pending. Record: `docs/reviews/PDR/checklists/tool-validation-tv-014-to-tv-019.md` (one record for TV-014 to TV-019, one section per tool; `docs/plan/pdr-work-plan.md` WP-PDR-07), with the code checklist and the tool-validation checklist of WP-PDR-03. The reviewer re-runs the procedure after run 3 (or reads the run 3 transcript), recomputes the analytic answers of section 3 from the circuit values, and checks each seeded fault against the wrapper code.
 
 ## 9. Accreditation (owner)
 
-Proposed scope statement **ACC-LTSPICE-001**: "Accredited for purposes 1 to 4 for `tools/ltspice-batch.sh` at git blob `884df07740749e6523a273270ab3cc603c2904d4` (commit `41d150e`) with LTspice 26.0.2 (bundle 26.0.2.1, `LTspice.exe` SHA-256 `a94eb178...793f06`) in the CrossOver bottle 25.0.1.38665, within the limitations of section 6."
+Proposed scope statement **ACC-LTSPICE-001**: "Accredited for purposes 1 to 4 for `tools/ltspice-batch.sh` at git blob `102b93d49a01b31d91088f0e2c5a23c2e7a6eddc` (commit `b41e544`) with LTspice 26.0.2 (bundle 26.0.2.1, `LTspice.exe` SHA-256 `a94eb178...793f06`) in the CrossOver bottle 25.0.1.38665, within the limitations of section 6."
 
 | Decision | Date | Recorded by |
 |---|---|---|
-| Pending (owner, OD-24b at B0, after run 2 passes and the section 8 review is APPROVED) | | |
+| Pending (owner, OD-24b at B0, after run 3 passes and the section 8 review is APPROVED) | | |
