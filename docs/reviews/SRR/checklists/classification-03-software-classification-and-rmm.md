@@ -7,13 +7,16 @@ checklist: peer-review-checklist-classification
 checklist_revision: A
 checklist_file: docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm.md
 product: docs/process/03-software-classification-and-rmm.md
-# product_commit: the commit reviewed at iteration 3 re-issue 1, the post-SRR-ruling delta (review baseline HEAD 1e56df4,
+# product_commit at iteration 3 re-issue 2 (post-SRR-ruling delta 2, 2026-09-26): 7d735e5, the last commit touching the three
+# products (SRR decision 107 applied to SWE-033, finding-11); review baseline HEAD 5122a6b; blobs equal git rev-parse HEAD:<path>.
+# Earlier: the commit reviewed at iteration 3 re-issue 1, the post-SRR-ruling delta (review baseline HEAD 1e56df4,
 # 2026-09-26); iteration 3 reviewed HEAD adcfe09. Iteration 3 text kept below: the commit reviewed at iteration 3 (review baseline HEAD adcfe09, 2026-09-26). The committed blobs
 # reviewed are in product_files (git rev-parse HEAD:<path>); the working tree equals HEAD for all three. The iteration 2
 # blobs (03 fdc8d076, rmm.json 78c3b236, rmm.md fe374a48) and the iteration 1 blobs named in the body (Product
 # paragraph) are not in the object store (SRR package section 2.3).
-product_commit: "1e56df4d3e78c7ca36d10a6834213431bc51993a"
-product_files: ["docs/process/03-software-classification-and-rmm.md@ed270f443e2ab648480017df8ad3d0221400cf4c", "docs/process/rmm.json@37c6f24df49040c9cdbdf394d9a1370daddc4783", "docs/process/rmm.md@5e6dd864a6fd467c5bba96515e22523dbe06c80c"]
+product_commit: "7d735e55401d31c9182d8b1a150d6ab23cd797d6"
+product_files: ["docs/process/03-software-classification-and-rmm.md@ed270f443e2ab648480017df8ad3d0221400cf4c", "docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7", "docs/process/rmm.md@54e351f4df231d1a1e74e6eef4bd07db9a408fa0"]
+# iteration 3 re-issue 1 product_files named rmm.json 37c6f24d and rmm.md 5e6dd864 (03 ed270f44 unchanged)
 # inputs read at iteration 3 re-issue 1 (not reviewed): hazards.json 0.5.0-pha (SHA-256 27228162...fed76de5) and 07 at the HEAD
 # blobs below; iteration 3 read hazards.json 0.4.2-pha (blob 37d6cc83) and 07 (blob d0f8baf6)
 input_files: ["docs/safety/hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0", "docs/process/07-software-engineering-plan.md@37d472b501578504b7fa23422c4f74193647e458"]
@@ -29,34 +32,39 @@ assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:classification (INSP-017)"
 # iteration: stays 3 (the schema maximum); the post-SRR-ruling delta is iteration 3 re-issue 1, precedent INSP-005
 iteration: 3
-# readiness_met: false at iteration 3 re-issue 1: R2 (render_rmm.py --check) exits 1 at HEAD on SWE-033 (finding-11);
+# readiness_met: true at iteration 3 re-issue 2: R2 met (render_rmm.py --check exit 0 after 7d735e5, finding-11 Verified); R1 met for
+# the product; R3 difference carried as lien finding-10 (convergence rule). Earlier: false at iteration 3 re-issue 1: R2 (render_rmm.py --check) exits 1 at HEAD on SWE-033 (finding-11);
 # R1 to R3 were met at iteration 3
-readiness_met: false
-reviewer_verdict: NEEDS CHANGES
-# assurance_verdict: the INSP-017 verdict as filed at HEAD 1e56df4 (iteration 3, APPROVED) when iteration 3 re-issue 1 was written
+readiness_met: true
+reviewer_verdict: APPROVED
+# assurance_verdict: the INSP-017 verdict as filed at HEAD 5122a6b (APPROVED on rmm.json 30fcde24; its delta re-issue is observation O-9)
+# at iteration 3 re-issue 2; earlier: the INSP-017 verdict as filed at HEAD 1e56df4 (iteration 3, APPROVED) when iteration 3 re-issue 1 was written
 assurance_verdict: APPROVED
-verdict: NEEDS CHANGES
-# finding-10 (Minor) and finding-11 (Major) are new at iteration 3 re-issue 1 (post-SRR-ruling delta); finding-7 is new at iteration 2; finding-8 and finding-9 are new at iteration 3 (Minor)
+# verdict: APPROVED with liens finding-5, 7, 8, 9, 10, 12 at iteration 3 re-issue 2 (no Major open; convergence rule)
+verdict: APPROVED
+# finding-12 (Minor) is new at iteration 3 re-issue 2; finding-10 (Minor) and finding-11 (Major) are new at iteration 3 re-issue 1 (post-SRR-ruling delta); finding-7 is new at iteration 2; finding-8 and finding-9 are new at iteration 3 (Minor)
 findings_major: 2
-findings_minor: 9
-# findings_open: finding-11 (Major) at iteration 3 re-issue 1
-findings_open: 1
+findings_minor: 10
+# findings_open: none at iteration 3 re-issue 2 (finding-11 Verified at 7d735e5); finding-11 (Major) was open at iteration 3 re-issue 1
+findings_open: 0
 findings_fixed: 0
-findings_verified: 5
+# findings_verified: finding-1, 2, 3, 4, 6, and finding-11 at iteration 3 re-issue 2
+findings_verified: 6
 # findings_deferred: the four Minor findings carried as "Lien: fix before PDR" under the convergence rule of 2026-09-26
-# (charter section 4 item 3): finding-5, finding-7, finding-8, finding-9; finding-10 added at iteration 3 re-issue 1
-findings_deferred: 5
+# (charter section 4 item 3): finding-5, finding-7, finding-8, finding-9; finding-10 added at iteration 3 re-issue 1;
+# finding-12 added at iteration 3 re-issue 2
+findings_deferred: 6
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
-# iteration 3 re-issue 1 answers No: R2 (finding-11), CL-4 (finding-8, finding-10), with the iteration 3 answers that ride as liens;
+# iteration 3 re-issue 2: R2 Yes (finding-11 Verified), CL-8 No (finding-12, lien); iteration 3 re-issue 1 answers No: R2 (finding-11), CL-4 (finding-8, finding-10), with the iteration 3 answers that ride as liens;
 # iteration 3 answers that ride as liens (iteration 2: R1, CL-3, S1; iteration 1: R1, CL-3, CL-7, CL-8, S1, S5)
-items_no: [R2, CL-3, CL-4, S1, S5]
+items_no: [CL-3, CL-4, CL-8, S1, S5]
 # effort: iteration 1 38 turns and 55 minutes; iteration 2 22 turns and 30 minutes; iteration 3 30 turns and 40 minutes;
-# iteration 3 re-issue 1 (post-SRR-ruling delta) 22 turns and 35 minutes
-effort_turns: 112
-effort_minutes: 160
+# iteration 3 re-issue 1 (post-SRR-ruling delta) 22 turns and 35 minutes; iteration 3 re-issue 2 18 turns and 30 minutes
+effort_turns: 130
+effort_minutes: 190
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -372,4 +380,76 @@ No image was produced at this iteration, so no render needed inspection.
 
 ```
 ITERATION 3 RE-ISSUE 1 (2026-09-26, post-SRR-ruling delta): VERDICT: NEEDS CHANGES. Reviewed HEAD 1e56df4: 03 ed270f44 (unchanged), rmm.json 37c6f24d, rmm.md 5e6dd864; delta commit 9bdf33c applies SRR decisions 6, 7 and 8 correctly. New: finding-11 Major (SWE-033 status, render_rmm.py --check exit 1, since 0bcea39); finding-10 Minor lien (decisions 9 and 40 and hazards.json 0.5.0-pha not applied in 03 and SWE-134). Closed 5; Lien 5 Minor (finding-5, 7, 8, 9, 10). Unresolved Major: finding-11.
+```
+
+## Post-SRR-ruling delta 2 (iteration 3 re-issue 2, independent reviewer, 2026-09-26)
+
+**Scope and baseline.** `reviewer:classification`, a new invocation of the same role, independent of the author of 03, `rmm.json`, `rmm.md` and of the commits verified here; no product was edited. Earlier sections of this record are left as written; only the front matter fields and their comments changed, and this section was appended. Trigger: SRR package item R16 applied the fix of finding-11 (Major) at `7d735e5`, and the lead SE applied SRR decision 10 (c) to 05 at `0834da2`, which changes the control class of the `rmm.json` rows this record reviews. The owner approved the SRR on 2026-09-26 (Approved with liens; `docs/reviews/SRR/minutes.md`); every decision is ruled as its Recommendation cell in `docs/reviews/SRR/decisions-for-owner.md` states. Review baseline HEAD `5122a6b` (HEAD `ab38255` at the tool runs; `ab38255` touches only the INSP-013 record). Blobs reviewed, each equal to `git rev-parse HEAD:<path>` and `git hash-object`: 03 `ed270f443e2ab648480017df8ad3d0221400cf4c` (unchanged since iteration 3), `rmm.json` `e326ddd1b7296d7d7fe172be6f33535cee3192d7`, `rmm.md` `54e351f4df231d1a1e74e6eef4bd07db9a408fa0`. Inputs unchanged since re-issue 1: `hazards.json` `81cacde4` (0.5.0-pha), 07 `37d472b5`. The convergence rule (charter section 4 item 3) applies: only open Major findings and ruled R16 work change products; a new Minor finding is a lien due PDR.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: post-SRR-ruling delta re-issue records and `product_commit`; the `validate_docs.py` record state rule and latest-iteration section). `grep -n` then pinned lines only.
+
+**Commits since `product_commit` `1e56df4` that touched the products** (`git log 1e56df4..HEAD` over the three products and both inputs): one, `7d735e5` (`rmm.json` and `rmm.md`; 5 insertions, 5 deletions). 03, `hazards.json` and 07 are untouched.
+
+**Delta verification of `7d735e5` (SRR decision 107; finding-11).** Reviewer's field walk of `rmm.json` from `adcfe09` (blob `30fcde24`, iteration 3) to HEAD: 100 rows both sides, same SWE ids; the changed fields are exactly SWE-033 `implementation` and `status` (this commit), the nine `tailoring_rationale` fields and `meta.approval` already verified at re-issue 1 (`9bdf33c`). No `disposition`, `residual_risk`, `authority` or other row changed.
+
+| Change | Ruling or finding cited | Check | Result |
+|---|---|---|---|
+| SWE-033 `status` "Planned" to "In place" | finding-11 (Major); SRR decision 107, Recommendation cell "Approve A0 with the four revisit triggers of TS-002 section 8" (owner ruling 2026-09-26) | Every path the row names exists at HEAD: `docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md` (status row line 6 "Decided 2026-09-26 ... SRR decision 107"), `docs/reviews/SRR/decision-memo.md`, `docs/decisions/adr/ADR-027-firmware-runtime-rustos-a0.md` (committed at `2362183`). The 03 section 6.3 status rule ("satisfied today by artifacts that exist") holds | Correct; finding-11 fixed |
+| SWE-033 `implementation`: adds "(SRR decision 107, owner ruling 2026-09-26: option A0 with the four TS-002 section 8 revisit triggers), and the decision is recorded in ... ADR-027" | Decision 107 | TS-002 section 8 lists exactly four revisit triggers; the decision 107 source cell names ADR-027 as the resulting ADR | Correct; `disposition` FC, `tailoring_rationale` and `residual_risk` null unchanged |
+| `rmm.md` re-rendered: status table Planned 60, In place 40 (SWE-033 added); row SWE-033 | none (render) | `render_rmm.py --check` exit 0: "rmm.json OK: 100 rows; FC=75, T=17, NA=8; In place=40 [SWE-033, ...]"; "rmm.md is current" | Correct |
+
+No change applies a ruling wrongly and none introduces a Major defect. The commit trailer is "Refs: SRR", not the artifact id (03 section 6.4 item 7 pre-SRR form "Refs: <artifact id>"); the body names decision 107 and ADR-027, so the trace is complete (observation O-8, not a finding).
+
+**Effect of `0834da2` (05, SRR decision 10 (c)) on this product.** 05 Table 4-1 row 3 (03, `rmm.json`, `rmm.md`, compliance matrix) is now Mixed: after SRR a `status` move and implementation-path update of an `rmm.json` row are Log class with `Refs: <artifact id>`; dispositions, rationale, residual risk, the 03 record and the compliance matrix stay CR. The decision 10 Recommendation cell is "Approve (a) to (c)", and item (c) is "the rmm.json status moves and implementation-path updates as Log class after SRR (03 item X7)", so 05 now applies the ruling (INSP-006 verifies the 05 text). 03 was not updated with it: section 6.4 item 7 (line 312) still states "After SRR the vehicle is a Class II `CR-NNN`" with the X7 relief as "Proposed", and section 6.5 item X7 (line 335) is still "Open". This is finding-12.
+
+**New finding at iteration 3 re-issue 2.**
+
+| Finding | Origin | Severity | Item | Location | Description | State | Deferred to | Disposition |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-12"></a>finding-12 (F-12, new at iteration 3 re-issue 2) | reviewer | Minor | CL-8 | 03 section 6.4 item 7 (line 312); section 6.5 item X7 (line 335) | 03 still names a Class II `CR-NNN` as the post-SRR vehicle for an `rmm.json` status move and marks X7 Open, while 05 Table 4-1 row 3 and the new section 5.1 row (`0834da2`) make it a Log commit under SRR decision 10 (c) (owner ruling 2026-09-26). 03 itself says "The lead SE decides X7 before SRR and this item is updated to the decision", so the text is stale, not a second rule; the ruling and 05 govern, and following 03 would only board a change that needs no board (more conservative, no loss of control). Minor under the convergence rule. Fix (03 author): update item 7 to the decision 10 (c) vehicle citing 05 row 3, mark X7 Resolved (SRR decision 10 (c), `0834da2`); rides with finding-10 (rulings not applied to 03) | Lien | PDR | Lien: fix before PDR (convergence rule, charter section 4 item 3). Owner: 03 author |
+
+**Disposition of every finding at HEAD `5122a6b`.**
+
+| Finding | Severity | Iteration 3 re-issue 2 disposition | Evidence |
+|---|---|---|---|
+| finding-1 | Major | Closed (Verified) | 03 unchanged; stays closed |
+| finding-2, finding-3, finding-4, finding-6 | Minor | Closed (Verified) | 03 unchanged; `rmm.json` SWE-022, 023, 219 rationale unchanged since `9bdf33c` |
+| finding-5, finding-7, finding-8, finding-9, finding-10 | Minor | Lien: fix before PDR | Unchanged. finding-9 now also covers 03 section 6.1 line 246 "In place 37" (HEAD 40); finding-10 unchanged |
+| finding-11 | Major | Verified (fixed at `7d735e5`) | SWE-033 In place under SRR decision 107; `render_rmm.py --check` exit 0 at HEAD |
+| finding-12 (new) | Minor | Lien: fix before PDR | See the new-finding table |
+
+**Answers that changed at iteration 3 re-issue 2** (all others stand as at re-issue 1).
+
+| Item | Answer | Evidence |
+|---|---|---|
+| R2 | Met | `render_rmm.py --check` exit 0 (In place 40, `rmm.md` current) |
+| R3 | Not met in full (lien finding-10) | Unchanged; carried as a lien under the convergence rule, so `readiness_met` is set on R1 and R2 as re-issue 1 stated |
+| S3 | Yes | SWE-033 status now matches the approved compliance state (decision 107) |
+| CL-8 | No (finding-12, lien) | 03 section 6.4 item 7 and X7 against 05 row 3 |
+
+**Observations (not findings).**
+- **O-8.** `7d735e5` carries "Refs: SRR" rather than the artifact id; the body cites decision 107 and ADR-027. From `baseline/srr`, 05 row 3 requires `Refs: <artifact id>` on such a Log commit.
+- **O-9 (cross item, INSP-017 reviewer).** INSP-017, the software assurance record of this product, names `rmm.json` `30fcde24` and fails the record drift rule at HEAD (`validate_docs.py`). Its `assurance_verdict` APPROVED is carried here as filed (07 section 10.2). Its reviewer should issue the delta re-issue on `rmm.json` `e326ddd1` and `rmm.md` `54e351f4` (changes `9bdf33c` and `7d735e5`); if that re-issue does not return APPROVED, this record's `verdict` returns to NEEDS CHANGES.
+- **O-10 (cross item, lead SE).** Package item R16 and the lien list should add finding-12 with finding-10 (03 author, before PDR).
+
+**Lien table (L-1 to L-5 stand; one row added).**
+
+| Lien | Finding | Severity | Product location | Fix | Owner | Due |
+|---|---|---|---|---|---|---|
+| L-6 | finding-12 | Minor | 03 section 6.4 item 7, section 6.5 X7 | Apply SRR decision 10 (c) as 05 row 3 states; mark X7 Resolved | 03 author | Before PDR |
+
+**Commands run (2026-09-26, iteration 3 re-issue 2, repository root, `.venv/bin/python`).**
+- `tools/validate_docs.py`: before this update exit 1 (43 passed, 7 failed); this record passed then only because its NEEDS CHANGES verdict exempted it from the drift rule. After the update this record PASSes with the HEAD blobs; the remaining failures are other records (drift to R16 products).
+- `tools/traceability.py --report-only --output <scratchpad>/tr.md`: exit 0; 245 requirements, 173 test cases, 4 violations, 2 warnings (outside this product); `docs/vv/traceability-report.md` and `traceability.json` restored with `git checkout`.
+- `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json`: exit 0; 65 risks, 159 candidates, 0 warnings.
+- `tools/render_rmm.py --check`: exit 0; 100 rows, FC 75, T 17, NA 8, In place 40; `rmm.md` current.
+- `tools/render_compliance.py --check`: exit 0.
+- `python -m unittest discover -s tools/tests`: 400 tests, 1 failure, `test_validate_docs.RepositoryTests.test_repository_exit_zero` (the repository `validate_docs.py` failures in other records).
+
+No image was produced, so no render needed inspection.
+
+**Verdict.** finding-11, the only open Major, is fixed at `7d735e5` and verified; no Major finding is open; the Minor findings finding-5, 7, 8, 9, 10 and 12 are liens due PDR. Under the convergence rule the reviewer verdict is APPROVED with liens, readiness is met, the assurance verdict (INSP-017, as filed) is APPROVED, so the record verdict is APPROVED, subject to observation O-9.
+
+```
+ITERATION 3 RE-ISSUE 2 (2026-09-26, post-SRR-ruling delta 2): VERDICT: APPROVED (with liens finding-5, 7, 8, 9, 10, 12). Reviewed HEAD 5122a6b: 03 ed270f44 (unchanged), rmm.json e326ddd1, rmm.md 54e351f4; delta commit 7d735e5 applies SRR decision 107 to SWE-033 correctly and fixes finding-11 (Verified; render_rmm.py --check exit 0). New: finding-12 Minor lien (03 section 6.4 item 7 and X7 not updated to SRR decision 10 (c), applied in 05 at 0834da2). Open Major 0. Cross: INSP-017 delta re-issue (O-9).
 ```
