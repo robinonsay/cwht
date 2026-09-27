@@ -1,0 +1,4 @@
+#!/bin/bash
+# Test double for tools/scad2step.py (TV-015): an OpenSCAD of another version.
+echo "OpenSCAD version 2019.05" >&2
+exit 0

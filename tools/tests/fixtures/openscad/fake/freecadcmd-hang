@@ -1,0 +1,3 @@
+#!/bin/bash
+# Test double for tools/scad2step.py (TV-015): a freecadcmd that never returns (time-out guard).
+sleep 60

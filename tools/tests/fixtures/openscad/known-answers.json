@@ -29,5 +29,73 @@
     "bounding_box_mm": {"x": [0.0, 30.0], "y": [0.0, 20.0], "z": [0.0, 10.0]},
     "bounding_box_tolerance_mm": 0.01,
     "measurement": "solid count, validity, face types and volume printed by freecadcmd from the exported shape; bounding box measured independently of FreeCAD from the CARTESIAN_POINT entities referenced by VERTEX_POINT entities of cube.step"
+  },
+  "scad2step": {
+    "description": "Known answers of tools/scad2step.py (TV-015, 2026-09-27). The cube values are the hand-derived step_export values above; the mesh volume is the hand value for the 64-sided hole of cube.scad: 30 x 20 x 10 - 32 sin(2 pi / 64) x 3^2 x 10 = 5717.711 mm^3 (0.008 % above the solid). Seeded-fault outcomes were derived from the ADR-008 restricted dialect and confirmed on the first development run (the FreeCAD behaviour notes say which were observed rather than predicted).",
+    "command": ".venv/bin/python tools/scad2step.py --scad cube.scad --csg <out>/cube.csg --step <out>/cube.step",
+    "freecad_mode_command": "CWHT_CSG=<abs csg> CWHT_STL=<abs stl> CWHT_STEP=<abs step> /Applications/FreeCAD.app/Contents/Resources/bin/freecadcmd tools/scad2step.py",
+    "exit_codes": {
+      "pass": 0,
+      "check": 1,
+      "usage": 2,
+      "missing": 3,
+      "version": 4,
+      "timeout": 124
+    },
+    "cube": {
+      "exit": 0,
+      "root": "Compound",
+      "solids": 1,
+      "valid": "True",
+      "faces": 7,
+      "cylinders": 1,
+      "bspline": 0,
+      "volume_mm3": 5717.257,
+      "stl_volume_mm3": 5717.711,
+      "stl_volume_tolerance_mm3": 0.01,
+      "stl_error_limit_pct": 0.5,
+      "bounding_box_mm": {
+        "x": [
+          0.0,
+          30.0
+        ],
+        "y": [
+          0.0,
+          20.0
+        ],
+        "z": [
+          0.0,
+          10.0
+        ]
+      },
+      "bounding_box_tolerance_mm": 0.01
+    },
+    "seeded": {
+      "two-roots.scad": {
+        "exit": 1,
+        "marker": "SCAD2STEP FAIL C2: expected one top-level object, got 2"
+      },
+      "two-solids.scad": {
+        "exit": 1,
+        "marker_prefix": "SCAD2STEP FAIL C3: invalid or non-solid result (ShapeType Compound"
+      },
+      "nonuniform-scale.scad": {
+        "exit": 1,
+        "marker": "SCAD2STEP FAIL C2: expected one top-level object, got 2",
+        "note": "observed: FreeCAD 1.1.3 keeps the unscaled cylinder as a second root, so C2 stops the run before C5"
+      },
+      "twist.scad": {
+        "exit": 1,
+        "marker_prefix": "SCAD2STEP FAIL C5: ",
+        "note": "observed: 4 BSplineSurface side faces"
+      },
+      "cube.csg with the taller.scad mesh": {
+        "exit": 1,
+        "marker_prefix": "SCAD2STEP FAIL C7: ",
+        "stl_volume_mm3": 6289.482,
+        "note": "30 x 20 x 11 - 32 sin(2 pi / 64) x 3^2 x 11 = 6289.482 mm^3, 9.098 % above the solid"
+      }
+    },
+    "reproducibility": "two conversions of cube.scad give STEP files that differ only in the time-stamp argument of FILE_NAME (CM plan section 9.2 step 1, class A)"
   }
 }

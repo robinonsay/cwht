@@ -1,0 +1,28 @@
+{
+  "title": "render_tpm known-answer fixture (TV-017): seven TPMs, one per status case of tools/render_tpm.py",
+  "tpms": [
+    {"id": "TPM-001", "key": "own-green", "name": "Own PDR entry, green", "units": "percent of allocation (grams alongside)", "planned_value": 15, "reporting_review": ["SRR", "PDR"],
+     "history": [
+       {"review": "SRR", "date": "2026-09-25", "cbe": 22, "status": "green", "evidence": "a.md", "credit": false},
+       {"review": "PDR", "date": "2026-10-06", "cbe": 18.5, "status": "green", "evidence": "b.md", "credit": true}]},
+    {"id": "TPM-002", "key": "own-yellow-after-status-note", "name": "Status note then own PDR entry, yellow", "units": "dB of margin", "planned_value": 7, "reporting_review": ["PDR", "CDR"],
+     "history": [
+       {"review": "status-2026-09-30", "date": "2026-09-30", "cbe": 2, "status": "red", "evidence": "docs/plan/status/status-2026-09-30.md", "credit": false},
+       {"review": "PDR", "date": "2026-10-06", "cbe": 5, "status": "yellow", "evidence": "c.md", "credit": false}]},
+    {"id": "TPM-003", "key": "review-trend", "name": "Review trend", "units": "count of items", "planned_value": 1.0, "reporting_review": ["SRR", "PDR"],
+     "history": [
+       {"review": "PDR", "date": "2026-10-06", "cbe": 0.5, "status": "green", "evidence": "review-trend.png", "credit": false}]},
+    {"id": "TPM-004", "key": "carried-srr-reporting", "name": "Only an SRR entry, PDR is a reporting review", "units": "hours", "planned_value": 8, "reporting_review": ["PDR"],
+     "history": [
+       {"review": "SRR", "date": "2026-09-25", "cbe": 9.5, "status": "yellow", "evidence": "d.md", "credit": false}]},
+    {"id": "TPM-005", "key": "no-history-reporting", "name": "No history, PDR is a reporting review", "units": "ppm", "planned_value": null, "reporting_review": ["PDR"], "history": []},
+    {"id": "TPM-006", "key": "not-due", "name": "No PDR entry, PDR is not a reporting review", "units": "percent", "planned_value": 100, "reporting_review": ["CDR", "TRR-Dn"],
+     "history": [
+       {"review": "SRR", "date": "2026-09-25", "cbe": null, "status": "green", "evidence": "e.md", "credit": false},
+       {"review": "TRR-D2", "date": "2027-02-01", "cbe": 97, "status": "yellow", "evidence": "f.md", "credit": true}]},
+    {"id": "TPM-007", "key": "late-entry-ignored", "name": "PDR entry dated after the as-of date", "units": "USD per unit", "planned_value": null, "reporting_review": ["SRR", "PDR"],
+     "history": [
+       {"review": "SRR", "date": "2026-09-25", "cbe": 548, "status": "yellow", "evidence": "g.md", "credit": false},
+       {"review": "PDR", "date": "2026-10-07", "cbe": 500, "status": "green", "evidence": "h.md", "credit": false}]}
+  ]
+}

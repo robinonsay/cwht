@@ -1,0 +1,45 @@
+{
+  "description": "Hand-derived rows of tools/render_tpm.py for tpm.json at --review PDR --date 2026-10-06 and at --review TRR-D2 --date 2027-02-01 (TV-017), written from the status rule of the tool docstring and conventions.status_rule of docs/plan/tpm.json before the first run. Fields: id, status, reason, cbe, entry_review, entry_date, credit.",
+  "PDR@2026-10-06": [
+    ["TPM-001", "green", "entry", 18.5, "PDR", "2026-10-06", true],
+    ["TPM-002", "yellow", "entry", 5, "PDR", "2026-10-06", false],
+    ["TPM-003", "green", "entry", 0.5, "PDR", "2026-10-06", false],
+    ["TPM-004", "red", "no estimate at a reporting review", 9.5, "SRR", "2026-09-25", false],
+    ["TPM-005", "red", "no estimate at a reporting review", null, null, null, null],
+    ["TPM-006", "not due", "not a reporting review", null, "SRR", "2026-09-25", false],
+    ["TPM-007", "red", "no estimate at a reporting review", 548, "SRR", "2026-09-25", false]
+  ],
+  "TRR-D2@2027-02-01": [
+    ["TPM-001", "not due", "not a reporting review", 18.5, "PDR", "2026-10-06", true],
+    ["TPM-002", "not due", "not a reporting review", 5, "PDR", "2026-10-06", false],
+    ["TPM-003", "not due", "not a reporting review", 0.5, "PDR", "2026-10-06", false],
+    ["TPM-004", "not due", "not a reporting review", 9.5, "SRR", "2026-09-25", false],
+    ["TPM-005", "not due", "not a reporting review", null, null, null, null],
+    ["TPM-006", "yellow", "entry", 97, "TRR-D2", "2027-02-01", true],
+    ["TPM-007", "not due", "not a reporting review", 500, "PDR", "2026-10-07", false]
+  ],
+  "PDR@2026-10-06_counts": {"green": 2, "yellow": 1, "red": 3, "not due": 1},
+  "PDR@2026-10-06_trend_files": ["tpm-trend-carried-srr-reporting.png", "tpm-trend-late-entry-ignored.png", "tpm-trend-own-green.png", "tpm-trend-own-yellow-after-status-note.png"],
+  "PDR@2026-10-06_trend_points": {
+    "own-green": [["SRR", "2026-09-25", 22.0, "green"], ["PDR", "2026-10-06", 18.5, "green"]],
+    "own-yellow-after-status-note": [["status-2026-09-30", "2026-09-30", 2.0, "red"], ["PDR", "2026-10-06", 5.0, "yellow"]],
+    "carried-srr-reporting": [["SRR", "2026-09-25", 9.5, "yellow"]],
+    "late-entry-ignored": [["SRR", "2026-09-25", 548.0, "yellow"]],
+    "not-due": []
+  },
+  "chip_rgb": {"green": [46, 125, 50], "yellow": [242, 194, 0], "red": [198, 40, 40], "not due": [158, 158, 158]},
+  "table_px": [1920, 1080],
+  "trend_px": [1600, 900],
+  "seeded": [
+    {"name": "duplicate key", "tpm": 1, "set": {"key": "own-green"}, "message": "TPM-002: missing or duplicate key 'own-green'"},
+    {"name": "duplicate id", "tpm": 1, "set": {"id": "TPM-001"}, "message": "duplicate id TPM-001"},
+    {"name": "bad id", "tpm": 0, "set": {"id": "TPM-1"}, "message": "bad TPM id 'TPM-1'"},
+    {"name": "status blue", "tpm": 0, "entry": 1, "set": {"status": "blue"}, "message": "TPM-001 history[1]: status 'blue' is not green, yellow or red"},
+    {"name": "cbe string", "tpm": 0, "entry": 1, "set": {"cbe": "18.5"}, "message": "TPM-001 history[1]: cbe '18.5' is neither a number nor null"},
+    {"name": "cbe boolean", "tpm": 0, "entry": 1, "set": {"cbe": true}, "message": "TPM-001 history[1]: cbe True is neither a number nor null"},
+    {"name": "credit string", "tpm": 0, "entry": 0, "set": {"credit": "no"}, "message": "TPM-001 history[0]: credit 'no' is not true or false"},
+    {"name": "bad review token", "tpm": 0, "entry": 0, "set": {"review": "MCR"}, "message": "TPM-001 history[0]: review token 'MCR' is not a gate or status-YYYY-MM-DD token"},
+    {"name": "bad date", "tpm": 0, "entry": 0, "set": {"date": "25-09-2026"}, "message": "TPM-001 history[0]: date '25-09-2026' is not YYYY-MM-DD"},
+    {"name": "dates out of order", "tpm": 0, "entry": 1, "set": {"date": "2026-09-01"}, "message": "TPM-001 history[1]: date 2026-09-01 is earlier than the entry before it (2026-09-25)"}
+  ]
+}

@@ -34,6 +34,15 @@
     "revision_note": "Revised 2026-09-25 after the first run (evidence docs/cm/tool-validation/evidence/kicad-cli-2026-09-25.log.txt, run 1, FAIL). The first expected z range [0, 1.6] assumed the total board thickness and the first measurement took every CARTESIAN_POINT, which includes the axis placement points of the two hole cylinders at z = -0.046 mm. With --board-only kicad-cli 10.0.6 exports the substrate body only, whose thickness is the dielectric of the KiCad default 2-layer stackup, 1.6 - 2 x 0.035 (copper) - 2 x 0.010 (mask) = 1.51 mm (the same stackup values as the bundled RaspberryPi-HAT template board); copper and mask are exported only with --include-pads, --include-tracks or --include-soldermask. x and y were predicted correctly and are unchanged."
   },
   "normalized_exports": {
-    "status": "blocked until tools/normalize_fab.py exists (TV due PDR); SHA256SUMS.normalized is not stored yet"
+    "status": "active from 2026-09-27 (TV-016, WP-PDR-07); replaces the 2026-09-25 entry 'blocked until tools/normalize_fab.py exists'",
+    "commands": "the CM plan section 8.2 step 2 commands F3 (Gerber, with the layer list F.Cu,In1.Cu,In2.Cu,B.Cu,F.Mask,B.Mask,F.Silkscreen,B.Silkscreen,F.Paste,B.Paste,Edge.Cuts), F6 (drill with map and report) and F7 (CPL) on clean.kicad_pcb, plus the step and bom commands above; then tools/normalize_fab.py --check expected/clean-SHA256SUMS.normalized <out>",
+    "expected_file": "expected/clean-SHA256SUMS.normalized",
+    "provenance": "make_expected_normalized.sh (2026-09-27): one kicad-cli 10.0.6 export normalized with grep -v and perl written from the CM plan section 8.2 table, independently of tools/normalize_fab.py, then shasum -a 256",
+    "files": 18,
+    "gerber_files": ["clean-B_Cu.gbr", "clean-B_Mask.gbr", "clean-B_Paste.gbr", "clean-B_Silkscreen.gbr", "clean-Edge_Cuts.gbr", "clean-F_Cu.gbr", "clean-F_Mask.gbr", "clean-F_Paste.gbr", "clean-F_Silkscreen.gbr"],
+    "gerber_note": "The fixture board has two copper layers: kicad-cli 10.0.6 skips In1.Cu and In2.Cu without a message and writes 9 Gerbers and the job file (a misspelt name prints 'Invalid layer name' and is also skipped; observed 2026-09-27)",
+    "raw_files_differing": 16,
+    "raw_files_differing_note": "Of the 18 files only clean-cpl.csv and clean-bom.csv are byte-identical between two exports taken at least 1.1 s apart; the 16 others carry the export time",
+    "seeded_fault": "the first coordinate digit of clean-F_Cu.gbr changed by one byte: normalize_fab --check exits 1 naming CHANGED clean-F_Cu.gbr and nothing else"
   }
 }
