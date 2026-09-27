@@ -26,6 +26,12 @@ Runs the tool on the two seeded fixtures under tools/tests/fixtures/:
                      (STAKEHOLDERS_MISSING, T-21) and two Draft SYS requirements
                      that name no receiving L2 module (SYS_UNALLOCATED, T-18)
 
+    InspectionRouteTests (CR-002 step 5, SRR close-out item 5) holds the known
+    answers of the Inspection route of 04 rule 7.3.6 as amended at d992052,
+    each built in memory from valid_project so that neither fixture's seeded
+    sets change: an accepted SYS control, a missing or misplaced note, a
+    missing closing Inspection case, and the excluded SW and SW-<SUB> modules.
+
     tools/tests/test_tools.py holds the tests added with the pre-SRR rule set
     (02 section 8.5 rows T-03, T-05, T-07, T-08, T-16, T-19, T-20, T-21), and
     tools/tests/test_traceability_srr_rules.py the known-answer tests of
@@ -272,6 +278,82 @@ class InvalidProjectTests(unittest.TestCase):
 
     def test_report_verdict_fail(self) -> None:
         self.assertIn("Result: **FAIL**", traceability.build_report(self.project))
+
+
+class InspectionRouteTests(unittest.TestCase):
+    """CR-002 step 5: 04 rule 7.3.6 (amended at d992052) admits Inspection for a non-software hazard control.
+
+    The route needs all three of: module other than SW and SW-<SUB>, method
+    Inspection with a live closing case of method Inspection, and a
+    verification_note beginning 'Inspection accepted per CR-002'. Each case
+    starts from valid_project (zero findings) and converts the non-software
+    hazard control REQ-SYS-006 (HZ-002) and its case TC-SYS-006, or the
+    software hazard control REQ-SW-KEYER-001 (HZ-001) and its case
+    TC-SW-KEYER-001, to Inspection in memory.
+    """
+
+    NOTE = "Inspection accepted per CR-002 (SRR decision 113): checklist inspection of the controlled document."
+
+    def converted(self, req_id: str, tc_id: str, note: str, case_method: str = "Inspection") -> traceability.Project:
+        project = traceability.load_project(VALID)
+        req = project.requirements[req_id]
+        req.verification_method = "Inspection"
+        req.verification_note = note
+        case = project.test_cases[tc_id]
+        case.verification_method = case_method
+        case.type = "Inspection" if case_method == "Inspection" else case.type
+        traceability.run_checks(project)
+        return project
+
+    def test_accepted_non_software_control(self) -> None:
+        project = self.converted("REQ-SYS-006", "TC-SYS-006", self.NOTE)
+        self.assertFalse(project.is_software(project.requirements["REQ-SYS-006"]))
+        self.assertEqual(["TC-SYS-006"], [tc.id for tc in project.closing_cases(project.requirements["REQ-SYS-006"])])
+        self.assertEqual([], [f"{f.code} {f.location}: {f.message}" for f in project.findings], "the converted fixture stays free of findings")
+
+    def test_missing_note_is_rejected(self) -> None:
+        for note in ("", "Analysis accepted per RSK-001: far-field calculation.", "Checked by Inspection accepted per CR-002.", "Inspection accepted per CR-0021"):
+            with self.subTest(note=note):
+                project = self.converted("REQ-SYS-006", "TC-SYS-006", note)
+                hits = findings_for(project, "HAZARD_REQ_NOT_TESTED", "REQ-SYS-006")
+                self.assertEqual(1, len(hits))
+                self.assertIn("does not begin 'Inspection accepted per CR-002'", hits[0].message)
+                self.assertIn("04 rule 7.3.6", hits[0].message)
+                self.assertEqual({"HAZARD_REQ_NOT_TESTED"}, codes(project.findings))
+
+    def test_missing_closing_inspection_case_is_rejected(self) -> None:
+        project = self.converted("REQ-SYS-006", "TC-SYS-006", self.NOTE, case_method="Analysis")
+        hits = findings_for(project, "HAZARD_REQ_NOT_TESTED", "REQ-SYS-006")
+        self.assertEqual(1, len(hits))
+        self.assertIn("no closing case of method Inspection", hits[0].message)
+
+    def test_excluded_software_module(self) -> None:
+        project = self.converted("REQ-SW-KEYER-001", "TC-SW-KEYER-001", self.NOTE)
+        req = project.requirements["REQ-SW-KEYER-001"]
+        self.assertEqual("SW-KEYER", req.module)
+        self.assertTrue(project.is_software(req))
+        hits = findings_for(project, "HAZARD_REQ_NOT_TESTED", "REQ-SW-KEYER-001")
+        self.assertEqual(1, len(hits), "SWE-192: no Inspection route for SW-<SUB>")
+        self.assertIn("SWE-192", hits[0].message)
+        self.assertNotIn("04 rule 7.3.6", hits[0].message)
+
+    def test_excluded_module_sw(self) -> None:
+        project = traceability.load_project(VALID)
+        req = project.requirements["REQ-SW-KEYER-001"]
+        req.module = "SW"
+        req.verification_method = "Inspection"
+        req.verification_note = self.NOTE
+        self.assertTrue(project.is_software(req))
+        project.findings.clear()
+        traceability.check_hazard_verification(project, req, f"{req.file} {req.id}", ["HZ-001"])
+        hits = [f for f in project.findings if f.code == "HAZARD_REQ_NOT_TESTED"]
+        self.assertEqual(1, len(hits), "SWE-192: no Inspection route for module SW")
+        self.assertIn("SWE-192", hits[0].message)
+
+    def test_catalogue_states_the_route(self) -> None:
+        rule = {code: text for code, _, text in traceability.CHECK_CATALOGUE}["HAZARD_REQ_NOT_TESTED"]
+        self.assertIn("'Inspection accepted per CR-002'", rule)
+        self.assertIn("Modules SW and SW-<SUB>: SWE-192, no exception", rule)
 
 
 class WordListTests(unittest.TestCase):

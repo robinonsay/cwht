@@ -163,6 +163,9 @@ SELF_DERIVED = re.compile(r"self-derived", re.IGNORECASE)
 SELF_DERIVED_PREFIX = "Self-derived:"
 RETIRED_PREFIX = "Retired by "
 HAZARD_ANALYSIS_NOTE = re.compile(r"^Analysis accepted per (RSK-[0-9]{3})")
+# CR-002 (SRR decision 113): 04 rule 7.3.6 as amended at d992052 admits Inspection for a
+# non-software hazard-tracing requirement that states a documentary or physical property.
+HAZARD_INSPECTION_NOTE = re.compile(r"^Inspection accepted per CR-002\b")
 SOFTWARE_MODULE = re.compile(r"^SW(-[A-Z][A-Z0-9]*)*$")
 RETIRED = "Retired"
 RETIRED_TAG = "retired"  # charter section 6: status Closed plus tag retired until the schemas carry Retired
@@ -260,7 +263,7 @@ CHECK_CATALOGUE: tuple[tuple[str, str, str], ...] = (
     ("REGULATORY_TAG_NO_CLAUSE", VIOLATION, "a requirement tagged regulatory cites no 47 CFR clause (Part 1, 2, 15 or 97) in source_ids (02 section 2.3)"),
     ("HAZARD_ID_FORMAT", VIOLATION, "a hazard id does not match HZ-NNN"),
     ("HAZARD_UNRESOLVED", VIOLATION, "a hazard id is not defined in docs/safety/hazards.json, or hazards.json names a requirement (requirement_ids or a control's control_req_ids) that does not exist"),
-    ("HAZARD_REQ_NOT_TESTED", VIOLATION, "a hazard-tracing requirement (its own hazard_ids, or named by a hazard's requirement_ids or a control's control_req_ids in docs/safety/hazards.json; 04 section 3) has no closing case of method Test. Modules SW and SW-<SUB>: SWE-192, no exception. Other modules: 04 rule 7.3.6 (project extension of SWE-192 to every hazard-control requirement), which also accepts method Analysis with a verification_note beginning 'Analysis accepted per RSK-NNN' naming a risk in docs/risk/register.json"),
+    ("HAZARD_REQ_NOT_TESTED", VIOLATION, "a hazard-tracing requirement (its own hazard_ids, or named by a hazard's requirement_ids or a control's control_req_ids in docs/safety/hazards.json; 04 section 3) has no closing case of method Test. Modules SW and SW-<SUB>: SWE-192, no exception. Other modules: 04 rule 7.3.6 (project extension of SWE-192 to every hazard-control requirement), which also accepts method Inspection with a closing case of method Inspection and a verification_note beginning 'Inspection accepted per CR-002' (a documentary or physical property, CR-002), or method Analysis with a verification_note beginning 'Analysis accepted per RSK-NNN' naming a risk in docs/risk/register.json"),
     ("HAZARD_CONTROL_UNTRACED", VIOLATION, "a requirement of module SW or SW-<SUB> is named by a hazard of docs/safety/hazards.json (requirement_ids or a control's control_req_ids) but its hazard_ids does not list that hazard (SWE-052 Table 1 row 2 is bidirectional; 02 section 2.3 tag obligations)"),
     ("HAZARD_REQ_NOT_ON_TARGET", VIOLATION, "a hazard-tracing requirement of module SW or SW-<SUB> has status Closed but no Passed closing case of type Bench or OnAir with a credited report citing it (SWE-192 as 01 section 8.6 applies it at SAR: verified through test on the target; Closed is reached only at SAR, charter section 9)"),
     ("REQ_UNVERIFIED", VIOLATION, "a Draft or Active requirement has no test case citing it (orphan requirement; 02 T-09)"),
@@ -1488,9 +1491,12 @@ def check_hazard_verification(project: Project, req: Requirement, where: str, tr
 
     Software modules (SW, SW-<SUB>): SWE-192, no exception, and a Closed
     requirement also has on-target (Bench or OnAir) evidence. Any other module
-    (04 rule 7.3.6, the project extension of SWE-192) may use method Analysis
-    when its verification_note begins 'Analysis accepted per RSK-NNN' and that
-    risk exists in docs/risk/register.json.
+    (04 rule 7.3.6, the project extension of SWE-192) may instead use method
+    Inspection, with a live closing case of method Inspection and a
+    verification_note beginning 'Inspection accepted per CR-002' (a documentary
+    or physical property; CR-002, SRR decision 113, 04 as amended at d992052),
+    or method Analysis when its verification_note begins 'Analysis accepted per
+    RSK-NNN' and that risk exists in docs/risk/register.json.
     """
     hazards = ", ".join(trace)
     software = project.is_software(req)
@@ -1504,6 +1510,13 @@ def check_hazard_verification(project: Project, req: Requirement, where: str, tr
         return
     if software:
         project.violation("HAZARD_REQ_NOT_TESTED", where, f"software requirement traces to {hazards} but has method {req.verification_method or '(unset)'}; SWE-192 requires Test with no exception")
+        return
+    if req.verification_method == "Inspection":
+        # CR-002 route; closing_cases() already requires the case method to equal Inspection.
+        if HAZARD_INSPECTION_NOTE.match(req.verification_note) is None:
+            project.violation("HAZARD_REQ_NOT_TESTED", where, f"traces to {hazards} with method Inspection but its verification_note does not begin 'Inspection accepted per CR-002' ({basis}; CR-002)")
+        elif not project.closing_cases(req):
+            project.violation("HAZARD_REQ_NOT_TESTED", where, f"traces to {hazards} by Inspection accepted per CR-002, but no closing case of method Inspection cites it ({basis}; CR-002)")
         return
     note = HAZARD_ANALYSIS_NOTE.match(req.verification_note)
     if req.verification_method != "Analysis" or note is None:
