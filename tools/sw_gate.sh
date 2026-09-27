@@ -13,7 +13,8 @@
 #   G4 traceability         tools/traceability.py (report written under firmware/target, not
 #                           over docs/vv/traceability-report.md)
 #   G5 static analysis      cargo audit; cargo deny; cargo geiger; unsafe audit; complexity;
-#                           Miri (nightly, non-credit, MSR-08)
+#                           Miri (nightly, non-credit, MSR-08) on the host-compilable crates
+#                           of 07 section 8.1 (today rustos api only; see the G5 Miri comment)
 #   G6 coverage, emulation  cargo llvm-cov (stable, MSR-13, 100 percent lines and regions of
 #                           the workspace host crates); branch and condition coverage (nightly,
 #                           MSR-14); tools/emu_run.sh (SKIP line until the PDR emulator ADR)
@@ -322,8 +323,18 @@ else
     command -v rust-code-analysis-cli >/dev/null 2>&1 || missing "G5 complexity: rust-code-analysis-cli not installed (cargo install is an owner-approved download)"
     [ -f "$ROOT/tools/complexity_gate.py" ] || missing "G5 complexity: tools/complexity_gate.py not written (07 CS-17, CS-38)"
 fi
+# Miri runs only on the host-compilable crates of 07 section 8.1 (Miri row): the host tests of
+# rustos api and of the host-compilable pico2 decision functions (CS-38). pico2 has none today:
+# its two target-only statics (rustos 2ec64c0 firmware/pico2/src/lib.rs:149 link_section
+# ".boot_info", :539 ".vector_table") are ELF section names that the Mach-O host rejects
+# ("invalid Mach-O section specifier"), so pico2 is not built for the host, as cwht-app is not
+# (G1). Scope set by SRR close-out item B (owner ruling 2026-09-27, minutes.md "Close-out
+# decisions A to C"; INSP-016 F-15, TC-SW-TOOL-001 run 5 item B11). The exclusion ends at
+# FW-B1: lien, pico2 made host-compilable by applying the two link_section attributes only for
+# the target (cfg_attr), a change by the owner as rustos maintainer plus a CR moving the lock's
+# rustos pin; then -p pico2 is added back here.
 if rustup component list --installed --toolchain "$NIGHTLY" 2>/dev/null | grep -q '^miri'; then
-    step "G5 Miri (nightly, non-credit, MSR-08)" fwrun cargo "+$NIGHTLY" miri test -p api -p pico2 --lib
+    step "G5 Miri (nightly, non-credit, MSR-08)" fwrun cargo "+$NIGHTLY" miri test -p api --lib
 else
     missing "G5 Miri: component miri not installed on $NIGHTLY (07 CS-03; owner-approved download)"
 fi

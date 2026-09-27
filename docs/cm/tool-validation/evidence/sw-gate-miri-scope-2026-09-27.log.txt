@@ -1,0 +1,117 @@
+# sw-gate-miri-scope-2026-09-27.log.txt: output of sw-gate-miri-scope-2026-09-27.sh, 2026-09-27
+# cwht HEAD 31272e0981901bc1bf9fd9dc3428e4930c552d6c (archive) with the changed tools/sw_gate.sh overlaid
+# rustos 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c (archive; tree 39d8d8a9d54c7e3dc1b5b675a7dffe7cc743612d)
+# env: guard first on PATH, CARGO_NET_OFFLINE=true, MIRI_AUTO_OPS=no, RUSTUP_AUTO_INSTALL=0, stdin /dev/null; no guard refusal in any run
+
+## run clean (expected PASS, exit 0): exit 0
+# block extracted from <SP>/miri-b/cwht/tools/sw_gate.sh (sha256 cd804ba04e3c506cd2e0dc69fd01a5dceb4b8cae91529d27a5bd445e6bf8dcf1):
+if rustup component list --installed --toolchain "$NIGHTLY" 2>/dev/null | grep -q '^miri'; then
+    step "G5 Miri (nightly, non-credit, MSR-08)" fwrun cargo "+$NIGHTLY" miri test -p api --lib
+else
+    missing "G5 Miri: component miri not installed on $NIGHTLY (07 CS-03; owner-approved download)"
+fi
+# which rustup: <SP>/miri-b/guard/rustup
+---- G5 Miri (nightly, non-credit, MSR-08): fwrun cargo +nightly-2026-08-24 miri test -p api --lib
+   Compiling api v0.1.0 (<SP>/miri-b/rustos/api)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.11s
+     Running unittests src/lib.rs (target/miri/aarch64-apple-darwin/debug/build/api/e7ace621206ba692/out/api-e7ace621206ba692)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+PASS G5 Miri (nightly, non-credit, MSR-08)
+# FAIL_COUNT=0 MISSING_COUNT=0
+
+## run KA-M1 seeded out-of-bounds read in api (expected FAIL, exit 1): exit 1
+# block extracted from <SP>/miri-ka/cwht/tools/sw_gate.sh (sha256 cd804ba04e3c506cd2e0dc69fd01a5dceb4b8cae91529d27a5bd445e6bf8dcf1):
+if rustup component list --installed --toolchain "$NIGHTLY" 2>/dev/null | grep -q '^miri'; then
+    step "G5 Miri (nightly, non-credit, MSR-08)" fwrun cargo "+$NIGHTLY" miri test -p api --lib
+else
+    missing "G5 Miri: component miri not installed on $NIGHTLY (07 CS-03; owner-approved download)"
+fi
+# which rustup: <SP>/miri-b/guard/rustup
+---- G5 Miri (nightly, non-credit, MSR-08): fwrun cargo +nightly-2026-08-24 miri test -p api --lib
+   Compiling api v0.1.0 (<SP>/miri-ka/rustos/api)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.09s
+     Running unittests src/lib.rs (target/miri/aarch64-apple-darwin/debug/build/api/a6ebf539c05702c5/out/api-a6ebf539c05702c5)
+
+running 1 test
+test seeded_miri_known_answer::seeded_out_of_bounds_read ... error: Undefined Behavior: memory access failed: attempting to access 1 byte, but got alloc42028+0x3 which is at or beyond the end of the allocation of size 3 bytes
+  --> <SP>/miri-ka/rustos/api/src/lib.rs:95:26
+   |
+95 |         let v = unsafe { *a.as_ptr().add(3) };
+   |                          ^^^^^^^^^^^^^^^^^^ Undefined Behavior occurred here
+   |
+   = help: this indicates a bug in the program: it performed an invalid operation, and caused Undefined Behavior
+   = help: see https://doc.rust-lang.org/nightly/reference/behavior-considered-undefined.html for further information
+help: alloc42028 was allocated here:
+  --> <SP>/miri-ka/rustos/api/src/lib.rs:93:13
+   |
+93 |         let a = [1_u8, 2, 3];
+   |             ^
+   = note: this is on thread `seeded_miri_known_answer::seeded_out_of_bounds_read`
+   = note: stack backtrace:
+           0: seeded_miri_known_answer::seeded_out_of_bounds_read
+               at <SP>/miri-ka/rustos/api/src/lib.rs:95:26: 95:44
+           1: seeded_miri_known_answer::seeded_out_of_bounds_read::{closure#0}
+               at <SP>/miri-ka/rustos/api/src/lib.rs:92:35: 92:35
+
+note: some details are omitted, run with `MIRIFLAGS=-Zmiri-backtrace=full` for a verbose backtrace
+
+error: aborting due to 1 previous error
+
+error: test failed, to rerun pass `-p api --lib`
+
+Caused by:
+  process didn't exit successfully: `/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/cargo-miri runner <SP>/miri-ka/cwht/firmware/target/miri/aarch64-apple-darwin/debug/build/api/a6ebf539c05702c5/out/api-a6ebf539c05702c5` (exit status: 1)
+note: test exited abnormally; to see the full output pass --no-capture to the harness.
+FAIL G5 Miri (nightly, non-credit, MSR-08)
+# FAIL_COUNT=1 MISSING_COUNT=0
+
+## run KA-M2 superseded command -p api -p pico2 (expected FAIL, exit 1): exit 1
+# block extracted from <SP>/miri-ka2/cwht/tools/sw_gate.sh (sha256 286e3af994707f272fc702db4272582c669bf24a2ffb05d68e365c8d6a58f36e):
+if rustup component list --installed --toolchain "$NIGHTLY" 2>/dev/null | grep -q '^miri'; then
+    step "G5 Miri (nightly, non-credit, MSR-08)" fwrun cargo "+$NIGHTLY" miri test -p api -p pico2 --lib
+else
+    missing "G5 Miri: component miri not installed on $NIGHTLY (07 CS-03; owner-approved download)"
+fi
+# which rustup: <SP>/miri-b/guard/rustup
+---- G5 Miri (nightly, non-credit, MSR-08): fwrun cargo +nightly-2026-08-24 miri test -p api -p pico2 --lib
+   Compiling pico2 v0.1.0 (<SP>/miri-ka2/rustos/firmware/pico2)
+   Compiling api v0.1.0 (<SP>/miri-ka2/rustos/api)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.66s
+     Running unittests src/lib.rs (target/miri/aarch64-apple-darwin/debug/build/api/50d2a39bcea8ae5a/out/api-50d2a39bcea8ae5a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests src/lib.rs (target/miri/aarch64-apple-darwin/debug/build/pico2/5275b716fbab0951/out/pico2-5275b716fbab0951)
+error: invalid Mach-O section specifier
+   --> <SP>/miri-ka2/rustos/firmware/pico2/src/lib.rs:149:25
+    |
+149 | #[unsafe(link_section = ".boot_info")]
+    |                         ^^^^^^^^^^^^ not a valid Mach-O section specifier
+    |
+    = note: a Mach-O section specifier requires a segment and a section, separated by a comma
+    = help: an example of a valid Mach-O section specifier is `__TEXT,__cstring`
+
+error: invalid Mach-O section specifier
+   --> <SP>/miri-ka2/rustos/firmware/pico2/src/lib.rs:539:25
+    |
+539 | #[unsafe(link_section = ".vector_table")]
+    |                         ^^^^^^^^^^^^^^^ not a valid Mach-O section specifier
+    |
+    = note: a Mach-O section specifier requires a segment and a section, separated by a comma
+    = help: an example of a valid Mach-O section specifier is `__TEXT,__cstring`
+
+error: aborting due to 2 previous errors
+
+error: test failed, to rerun pass `-p pico2 --lib`
+
+Caused by:
+  process didn't exit successfully: `/Users/robinonsay/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/cargo-miri runner <SP>/miri-ka2/cwht/firmware/target/miri/aarch64-apple-darwin/debug/build/pico2/5275b716fbab0951/out/pico2-5275b716fbab0951` (exit status: 1)
+note: test exited abnormally; to see the full output pass --no-capture to the harness.
+FAIL G5 Miri (nightly, non-credit, MSR-08)
+# FAIL_COUNT=1 MISSING_COUNT=0
