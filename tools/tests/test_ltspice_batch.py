@@ -318,9 +318,10 @@ class TimeoutGuardTests(WrapperCase):
             self.assertGreaterEqual(elapsed, case["timeout_s"])
             self.assertLess(elapsed, case["timeout_s"] + 15)
             self.assertIsNone(sentinel.poll(), "the sentinel process was killed")
-            # Processes of any wrapper run directory (runs are serialized by the lock, so while this
-            # test's run held it, only this run could have started LTspice through the wrapper).
-            left = subprocess.run(["pgrep", "-f", "LTspice\\.exe.*cwht-lts\\.[A-Za-z0-9]{6}/"],
+            # LTspice.exe processes of any wrapper run directory, in either path form (the Windows form
+            # Z:\\...\\cwht-lts.XXXXXX\\ is what LTspice.exe shows, TV-014 finding 3). Runs are serialized by
+            # the lock, so while this test's run held it only this run could have started one.
+            left = subprocess.run(["pgrep", "-f", "LTspice\\.exe.*cwht-lts\\.[A-Za-z0-9]{6}"],
                                   capture_output=True, text=True).stdout.split()
             self.assertEqual(left, [], "LTspice processes of a wrapper run survive")
             self.assertFalse(os.path.exists(os.path.join(self.work, "rc-hang-error.log")))

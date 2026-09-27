@@ -27,8 +27,9 @@
 #     never written (SI-027, ADR-018). If CWHT_LTSPICE_INI_CHECK names a file, that file must carry the
 #     key as well (a known-answer hook: it can only add a failure, never waive the bottle check).
 #  5. Run with a time-out (default 120 s, -t to change). On time-out only this run's processes are
-#     killed: those whose command line holds the unique run directory, then the launcher's own process
-#     tree; never a machine-wide 'pkill LTspice.exe'.
+#     killed: those whose command line holds the unique run directory name (LTspice.exe carries it in a
+#     Windows path, so a match on the POSIX path misses it: TV-014 finding 3), then the launcher's own
+#     process tree; never a machine-wide 'pkill LTspice.exe'. Survivors are reported after a SIGKILL.
 #  6. Result checks: the bottle ini still holds CaptureAnalytics=false after the run (else exit 3, no
 #     outputs copied); LTspice exit status 0; a .log exists (-b); the log carries none of the failure
 #     strings below; a -b run wrote <deck>.raw or <deck>.op.raw; no netlist written by the run holds a
@@ -127,9 +128,14 @@ TMPBASE="$(getconf DARWIN_USER_TEMP_DIR 2>/dev/null)"
 [ -n "$TMPBASE" ] && [ -d "$TMPBASE" ] || TMPBASE="${TMPDIR:-/tmp}/"
 RUN=$(mktemp -d "${TMPBASE%/}/cwht-lts.XXXXXX") || die 3 "cannot create a run directory"
 RUN=$(cd "$RUN" && pwd -P)
+# LTspice.exe shows the deck as a Windows path (Z:\var\...\cwht-lts.XXXXXX\deck), the wine launcher
+# as a POSIX path, so processes of this run are matched on the unique directory name, never on the
+# POSIX path (TV-014 finding 3).
+RUNID=$(basename "$RUN")
+RUNPAT=$(printf '%s' "$RUNID" | sed 's/\./\\./g')
 cleanup() { [ "${CWHT_LTSPICE_KEEP:-0}" = "1" ] && say "run directory kept: $RUN" || rm -rf "$RUN"; }
 trap cleanup EXIT
-trap 'pkill -f -- "$RUN" 2>/dev/null; exit 130' INT TERM
+trap 'pkill -f -- "$RUNPAT" 2>/dev/null; exit 130' INT TERM
 
 BASE=""
 if [ "$MODE" != "-version" ]; then
@@ -228,10 +234,10 @@ TIMED_OUT=0
 while kill -0 "$PID" 2>/dev/null; do
   if [ $(( $(date +%s) - START )) -ge "$TIMEOUT" ]; then
     TIMED_OUT=1
-    pkill -f -- "$RUN" 2>/dev/null
+    pkill -f -- "$RUNPAT" 2>/dev/null
     kill_tree "$PID"
     sleep 1
-    pkill -9 -f -- "$RUN" 2>/dev/null
+    pkill -9 -f -- "$RUNPAT" 2>/dev/null
     break
   fi
   sleep 0.2
@@ -248,10 +254,12 @@ fi
 
 if [ "$TIMED_OUT" = 1 ]; then
   sleep 1
-  if pgrep -f -- "$RUN" >/dev/null 2>&1; then
-    say "time-out after $TIMEOUT s; WARNING: processes of this run survive: $(pgrep -f -- "$RUN" | tr '\n' ' ')"
+  if pgrep -f -- "$RUNPAT" >/dev/null 2>&1; then
+    say "time-out after $TIMEOUT s; WARNING: processes of this run survive: $(pgrep -f -- "$RUNPAT" | tr '\n' ' ')"
+    say "result: FAIL (time-out, processes left) deck=${DECK_NAME:-none} sha256=${DECK_SHA:-none} elapsed=${ELAPSED}s"
+    exit 124
   else
-    say "time-out after $TIMEOUT s; this run's processes killed (matched on $RUN), none left"
+    say "time-out after $TIMEOUT s; this run's processes killed (matched on $RUNID), none left"
   fi
   say "result: FAIL (time-out) deck=${DECK_NAME:-none} sha256=${DECK_SHA:-none} elapsed=${ELAPSED}s"
   exit 124
