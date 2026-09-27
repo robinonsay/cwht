@@ -1,11 +1,45 @@
 #!/bin/bash
-# Test double of the LTspice bundle's wine for one seeded fault of TV-014 (known-answers.json
-# "wrapper.seeded_no_version_line"), used only through CWHT_LTSPICE_SUPPORT=<this fake-support dir>.
-# It never runs LTspice. Given '... -b <deck>' (the deck is the last argument), it writes <deck>.log
-# WITHOUT the "LTspice <version> for MacOS" first line and a <deck>.raw, then exits 0, so that the
-# wrapper's only failing check is the log version line (expected: exit 4).
+# Test double of the LTspice bundle's wine (TV-014), used only through CWHT_LTSPICE_SUPPORT=<this
+# fake-support dir>. It never runs LTspice. Given '... -b <deck>' (the deck is the last argument), it
+# writes <deck>.log and a <deck>.raw, then exits 0. By default the log has NO "LTspice <version> for
+# MacOS" first line, so that the wrapper's only failing check is the log version line (known answer
+# "wrapper.seeded_no_version_line", expected exit 4). Controls, read by this double only (never by the
+# wrapper; known answer "wrapper.wine_session"):
+#   CWHT_FAKE_WINE_VERSION_LINE=1  the log starts with "LTspice 26.0.2 for MacOS" (a run the wrapper passes)
+#   CWHT_FAKE_WINE_SERVICE=1       start a detached stand-in for a Wine service (/bin/sleep, parent launchd)
+#                                  whose current directory is <fake-support>/prefix/drive_c/windows, as
+#                                  services.exe has in the bottle; its PID goes to <fake-support>/prefix/service.pid
+#   CWHT_FAKE_WINE_FDLOG=<file>    write to <file> the open files of this process and of the service
+#                                  (lsof) and the PIDs holding the wrapper lock file open (INSP-038 finding-20)
+#   CWHT_FAKE_WINE_EXIT=<n>        exit status (default 0)
+#   CWHT_FAKE_WINE_HANG=1          become /bin/sleep 300 (exec) instead of exiting (the wrapper's time-out ends it)
 deck="${@: -1}"
 base="${deck%.*}"
-printf 'Circuit: %s\nDirect Newton iteration for .op point succeeded.\nTotal elapsed time: 0.001 seconds.\n' "$deck" > "$base.log"
-printf 'seeded raw output of the test double\n' > "$base.raw"
-exit 0
+here="$(cd "$(dirname "$0")/.." && pwd -P)"
+svc=""
+if [ "${CWHT_FAKE_WINE_SERVICE:-0}" = 1 ]; then
+  mkdir -p "$here/prefix/drive_c/windows"
+  ( cd "$here/prefix/drive_c/windows" && { /bin/sleep 300 </dev/null >/dev/null 2>&1 & echo $! > "$here/prefix/service.pid"; } )
+  svc=$(cat "$here/prefix/service.pid")
+fi
+if [ -n "${CWHT_FAKE_WINE_FDLOG:-}" ]; then
+  lock="$(getconf DARWIN_USER_TEMP_DIR)cwht-ltspice.lock"
+  {
+    echo "double=$$ wrapper=$PPID service=${svc:-none}"
+    echo "lock_holders=$(lsof -n -w -t "$lock" 2>/dev/null | tr '\n' ' ')"
+    echo "## lsof -p double"
+    lsof -n -w -p $$ -F fn 2>/dev/null
+    if [ -n "$svc" ]; then echo "## lsof -p service"; lsof -n -w -p "$svc" -F fn 2>/dev/null; fi
+  } > "$CWHT_FAKE_WINE_FDLOG"
+fi
+if [ "$1" != "-version" ] && [ "${@: -2:1}" = "-b" ]; then
+  if [ "${CWHT_FAKE_WINE_VERSION_LINE:-0}" = 1 ]; then
+    printf 'LTspice 26.0.2 for MacOS\nCircuit: %s\nTotal elapsed time: 0.001 seconds.\n' "$deck" > "$base.log"
+  else
+    printf 'Circuit: %s\nDirect Newton iteration for .op point succeeded.\nTotal elapsed time: 0.001 seconds.\n' "$deck" > "$base.log"
+  fi
+  printf 'seeded raw output of the test double\n' > "$base.raw"
+fi
+# exec, so that the time-out kill of the launcher process (the wrapper's kill_tree) ends the sleep itself
+[ "${CWHT_FAKE_WINE_HANG:-0}" = 1 ] && exec /bin/sleep 300
+exit "${CWHT_FAKE_WINE_EXIT:-0}"

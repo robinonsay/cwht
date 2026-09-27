@@ -187,6 +187,55 @@
       "kept": [
         "rc-step-tran.plt"
       ]
+    },
+    "seeded_lock_descriptor": {
+      "env": {
+        "CWHT_LTSPICE_SUPPORT": "fake-support",
+        "CWHT_FAKE_WINE_VERSION_LINE": "1",
+        "CWHT_FAKE_WINE_SERVICE": "1"
+      },
+      "deck": "rc-step-tran.net",
+      "exit": 0,
+      "lock_file_name": "cwht-ltspice.lock",
+      "basis": "INSP-038 finding-20: bash 3.2 applies 'exec cmd 9>&-' by saving fd 9 to fd 10 without close-on-exec, so the wine child of blob 64e1c723 and every Wine service it started held the lock as fd 10 and kept it after the run. The wine double writes the open files of itself and of a stand-in service (lsof) and the PIDs that hold the lock file open (CWHT_FAKE_WINE_FDLOG); expected: neither process holds any descriptor on the lock file, and the wrapper does (it is the lock holder). Fails on the line of blob 64e1c723 (fd 10 on the lock); added 2026-09-27 for TV-014 run 5"
+    },
+    "wine_session": {
+      "env": {
+        "CWHT_LTSPICE_SUPPORT": "fake-support",
+        "CWHT_FAKE_WINE_VERSION_LINE": "1",
+        "CWHT_FAKE_WINE_SERVICE": "1"
+      },
+      "deck": "rc-step-tran.net",
+      "prefix": "fake-support/prefix",
+      "paths": {
+        "normal": {
+          "env": {},
+          "args": [],
+          "exit": 0
+        },
+        "error": {
+          "env": {
+            "CWHT_FAKE_WINE_EXIT": "3"
+          },
+          "args": [],
+          "exit": 1
+        },
+        "timeout": {
+          "env": {
+            "CWHT_FAKE_WINE_HANG": "1"
+          },
+          "args": [
+            "-t",
+            "2"
+          ],
+          "exit": 124
+        }
+      },
+      "stderr_ended": "Wine session of the bottle ended",
+      "stderr_before": "was running before this run",
+      "stderr_foreign": "not started by this run is open",
+      "integration_wait_s": 10,
+      "basis": "TV-014 finding 5: the Wine services (services.exe, winedevice.exe, plugplay.exe, svchost.exe, explorer.exe, rpcss.exe) outlive a run. The wrapper ends the bottle's session with 'WINEPREFIX=<prefix> <bundle>/bin/wineserver -k' after the normal, error and time-out paths when this run started the session and no other LTspice.exe is open, and SIGKILLs a process of the session that survives 5 s. With the doubles (fake-support/bin/wine starts a detached stand-in service in fake-support/prefix; fake-support/bin/wineserver ends it on -k, or does nothing with CWHT_FAKE_WINESERVER_NOOP=1): the service is gone after the wrapper exits and wineserver.log holds '-k' with WINEPREFIX=<prefix>; a session running before the launch, or an LTspice.exe of another process, is left alone and no -k is sent. Integration (CWHT_LTSPICE_INTEGRATION=1, real LTspice): no process of the ltspice bottle's session remains 10 s after a run on each path, checked while the test holds the wrapper lock; added 2026-09-27 for TV-014 run 5"
     }
   }
 }

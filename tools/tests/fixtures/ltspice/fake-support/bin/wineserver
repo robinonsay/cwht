@@ -1,0 +1,12 @@
+#!/bin/bash
+# Test double of the LTspice bundle's wineserver (TV-014, known answer "wrapper.wine_session"), used only
+# through CWHT_LTSPICE_SUPPORT=<this fake-support dir>. It appends each call and its WINEPREFIX to
+# <fake-support>/wineserver.log. For -k it ends the stand-in service that bin/wine started (PID in
+# <fake-support>/prefix/service.pid), as the real 'wineserver -k' ends the bottle's Wine processes,
+# unless CWHT_FAKE_WINESERVER_NOOP=1 (a wineserver that ends nothing: the wrapper's SIGKILL fallback must).
+here="$(cd "$(dirname "$0")/.." && pwd -P)"
+echo "wineserver $* WINEPREFIX=${WINEPREFIX:-}" >> "$here/wineserver.log"
+if [ "${1:-}" = "-k" ] && [ "${CWHT_FAKE_WINESERVER_NOOP:-0}" != 1 ] && [ -f "$here/prefix/service.pid" ]; then
+  kill "$(cat "$here/prefix/service.pid")" 2>/dev/null
+fi
+exit 0

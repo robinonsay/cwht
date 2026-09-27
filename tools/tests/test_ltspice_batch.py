@@ -4,19 +4,22 @@ Every case reads its expected value from tools/tests/fixtures/ltspice/known-answ
 block) and runs the wrapper on a temporary copy of the fixture directory, because LTspice writes
 beside its deck.
 
-Classes that never start LTspice (they stop at a check that precedes the run, or test the ASCII raw
-reader of the -ascii known answer on a stored sample):
-  UsageTests, HygieneTests, InstallAndVersionTests, LockTests, PreconditionTests, AsciiRawReaderTests.
-Classes that pass the bottle precondition: LTspiceRunTests (run LTspice) and OutputCheckTests (a test
-double in place of the bundle's wine). They are skipped, with the reason, when the bottle
-precondition (CaptureAnalytics=false in the bottle LTspice.ini) is not met; the TV-014 procedure
-counts a skip as "not run", never as a pass.
-TimeoutGuardTests (about 20 s) runs only with CWHT_LTSPICE_SLOW=1 and the bottle precondition met.
+The everyday suite never starts the real LTspice (so it never holds the wrapper lock for more than a
+fraction of a second and never starts a Wine session of the bottle):
+  UsageTests, HygieneTests, InstallAndVersionTests, LockTests, PreconditionTests, AsciiRawReaderTests
+  stop at a check that precedes the launch, or test the ASCII raw reader on a stored sample;
+  OutputCheckTests and WineSessionDoubleTests launch the test doubles of fake-support/bin (wine and
+  wineserver) in place of the bundle's, with CWHT_LTSPICE_SUPPORT set, and need the bottle precondition
+  (CaptureAnalytics=false in the bottle LTspice.ini, read only) because the wrapper checks it first.
+Integration classes run the real LTspice only when CWHT_LTSPICE_INTEGRATION=1 is set (the TV-014
+procedure sets it): LTspiceRunTests, WineSessionIntegrationTests and, with CWHT_LTSPICE_SLOW=1 as well,
+TimeoutGuardTests (about 45 s). Every skip carries its reason; the TV-014 procedure counts a skip as
+"not run", never as a pass.
 
 Run from the repository root:
 
     .venv/bin/python -m unittest discover -s tools/tests -p test_ltspice_batch.py -v
-    CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -s tools/tests -p test_ltspice_batch.py -v
+    CWHT_LTSPICE_INTEGRATION=1 CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -s tools/tests -p test_ltspice_batch.py -v
 """
 from __future__ import annotations
 
@@ -55,11 +58,81 @@ def bottle_ready() -> bool:
 READY = bottle_ready()
 NOT_READY = ("bottle precondition not met (LTspice absent or CaptureAnalytics=false missing from the bottle "
              "LTspice.ini); owner action, ADR-018")
+INTEGRATION = os.environ.get("CWHT_LTSPICE_INTEGRATION") == "1"
+NOT_INTEGRATION = ("real-LTspice integration case: set CWHT_LTSPICE_INTEGRATION=1 to run it (the TV-014 procedure "
+                   "does; the everyday suite uses the test doubles only)")
+BOTTLE = os.path.expanduser("~/Library/Application Support/LTspice/Bottles/ltspice")
+LOCK_WAIT_MAX_S = 1800
 
 
 def lockfile() -> str:
     d = subprocess.run(["getconf", "DARWIN_USER_TEMP_DIR"], capture_output=True, text=True).stdout.strip()
     return (d or tempfile.gettempdir() + "/") + "cwht-ltspice.lock"
+
+
+def session_pids(prefix: str) -> list[int]:
+    """PIDs of this user's processes in the Wine session of the prefix, by the wrapper's rule (step 5a).
+
+    A process belongs to it when its current directory is inside the prefix (the Wine services run in
+    C:\\windows) or is the prefix's wineserver directory /tmp/.wine-<uid>/server-<dev>-<inode>.
+    """
+    try:
+        pre = os.path.realpath(prefix)
+        st = os.stat(pre)
+    except OSError:
+        return []
+    srv = os.path.join(os.path.realpath("/tmp"), f".wine-{os.getuid()}", f"server-{st.st_dev:x}-{st.st_ino:x}")
+    out = subprocess.run(["lsof", "-n", "-w", "-u", str(os.getuid()), "-a", "-d", "cwd", "-F", "pn"],
+                         capture_output=True, text=True).stdout
+    pids, pid = [], None
+    for line in out.splitlines():
+        if line.startswith("p"):
+            pid = int(line[1:])
+        elif line.startswith("n") and pid is not None:
+            n = line[1:]
+            if (n + "/").startswith(pre + "/") or n == srv:
+                pids.append(pid)
+    return sorted(set(pids))
+
+
+def readtext(path: str) -> str:
+    with open(path, encoding="utf-8", errors="replace") as f:
+        return f.read()
+
+
+def alive(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    # A zombie is not alive for this purpose (ps shows state Z).
+    state = subprocess.run(["ps", "-o", "state=", "-p", str(pid)], capture_output=True, text=True).stdout.strip()
+    return bool(state) and not state.startswith("Z")
+
+
+class HeldLock:
+    """Holds the wrapper lock (blocking wait, as a wrapper run would; never a skip)."""
+
+    def __enter__(self) -> "HeldLock":
+        self.f = open(lockfile(), "w")
+        t0 = time.time()
+        while True:
+            try:
+                fcntl.flock(self.f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                break
+            except BlockingIOError:
+                if time.time() - t0 > LOCK_WAIT_MAX_S:
+                    self.f.close()
+                    raise AssertionError(f"the wrapper lock stayed held for more than {LOCK_WAIT_MAX_S} s")
+                time.sleep(0.5)
+        self.waited = time.time() - t0
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        fcntl.flock(self.f, fcntl.LOCK_UN)
+        self.f.close()
 
 
 def read_ascii_raw(data: bytes) -> dict[str, list[float]]:
@@ -145,6 +218,8 @@ class WrapperCase(unittest.TestCase):
         e.pop("CWHT_LTSPICE_SUPPORT", None)
         e.pop("CWHT_LTSPICE_EXPECT_BUNDLE", None)
         e.pop("CWHT_LTSPICE_EXPECT_EXE_SHA256", None)
+        for k in [k for k in e if k.startswith("CWHT_FAKE_")]:
+            e.pop(k)
         e.update(env or {})
         return subprocess.run(["/bin/bash", TOOL, *args], cwd=self.work, capture_output=True, text=True,
                               env=e, timeout=timeout)
@@ -241,18 +316,12 @@ class InstallAndVersionTests(WrapperCase):
 
 class LockTests(WrapperCase):
     def test_busy_when_lock_held(self) -> None:
+        # If another run holds the lock, wait for it (HeldLock) instead of skipping (TV-014 run 4).
         case = KA["seeded_busy"]
-        with open(lockfile(), "w") as f:
-            try:
-                fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            except BlockingIOError:
-                self.skipTest("another LTspice run holds the lock now")
-            try:
-                t0 = time.time()
-                r = self.run_tool("-version", env=case["env"])
-                waited = time.time() - t0
-            finally:
-                fcntl.flock(f, fcntl.LOCK_UN)
+        with HeldLock():
+            t0 = time.time()
+            r = self.run_tool("-version", env=case["env"])
+            waited = time.time() - t0
         self.assertEqual(r.returncode, case["exit"], r.stderr)
         self.assertIn("busy", r.stderr)
         self.assertGreaterEqual(waited, 1.5)
@@ -310,6 +379,7 @@ class AsciiRawReaderTests(unittest.TestCase):
 
 
 @unittest.skipUnless(READY, NOT_READY)
+@unittest.skipUnless(INTEGRATION, NOT_INTEGRATION)
 class LTspiceRunTests(WrapperCase):
     def test_version(self) -> None:
         r = self.run_tool("-version")
@@ -418,7 +488,145 @@ class OutputCheckTests(WrapperCase):
 
 
 @unittest.skipUnless(READY, NOT_READY)
-@unittest.skipUnless(os.environ.get("CWHT_LTSPICE_SLOW") == "1", "set CWHT_LTSPICE_SLOW=1 to run the time-out guard (about 20 s)")
+@unittest.skipUnless(os.access(WINE, os.X_OK), "LTspice not installed")
+class WineSessionDoubleTests(WrapperCase):
+    """Lock descriptor and Wine session end, with the wine and wineserver doubles (never the real LTspice)."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.support = os.path.join(self.work, "fake-support")
+        self.prefix = os.path.join(self.support, "prefix")
+        self.extra: list[subprocess.Popen] = []
+
+    def tearDown(self) -> None:
+        pid_file = os.path.join(self.prefix, "service.pid")
+        if os.path.exists(pid_file):
+            try:
+                os.kill(int(readtext(pid_file).strip()), 9)
+            except (ProcessLookupError, ValueError):
+                pass
+        for p in self.extra:
+            p.kill()
+            p.wait()
+        super().tearDown()
+
+    def env(self, case: dict, **extra: str) -> dict:
+        e = {k: (os.path.join(self.work, v) if k == "CWHT_LTSPICE_SUPPORT" else v) for k, v in case["env"].items()}
+        e.update(extra)
+        return e
+
+    def service_pid(self) -> int:
+        return int(readtext(os.path.join(self.prefix, "service.pid")).strip())
+
+    def wineserver_calls(self) -> list[str]:
+        path = os.path.join(self.support, "wineserver.log")
+        return readtext(path).splitlines() if os.path.exists(path) else []
+
+    def test_child_holds_no_lock_descriptor(self) -> None:
+        # INSP-038 finding-20: fails on the line of blob 64e1c723 (the double and its service hold fd 10).
+        case = KA["seeded_lock_descriptor"]
+        fdlog = os.path.join(self.tmp, "fdlog.txt")
+        r = self.run_tool("-b", case["deck"], env=self.env(case, CWHT_FAKE_WINE_FDLOG=fdlog))
+        self.assertEqual(r.returncode, case["exit"], r.stderr)
+        text = readtext(fdlog)
+        head = dict(kv.split("=", 1) for kv in text.splitlines()[0].split())
+        holders = text.splitlines()[1].split("=", 1)[1].split()
+        self.assertIn(head["wrapper"], holders, "the wrapper does not hold the lock file open during the run")
+        self.assertNotIn(head["double"], holders, "the wine child holds the lock file open")
+        self.assertNotIn(head["service"], holders, "the Wine service stand-in holds the lock file open")
+        self.assertIn("## lsof -p service", text)
+        self.assertIn("/.stdout", text, "lsof did not list the double's descriptors")
+        self.assertNotIn(case["lock_file_name"], text, "a descriptor on the lock file is open in the child")
+
+    def _run_path(self, name: str) -> None:
+        case = KA["wine_session"]
+        path = case["paths"][name]
+        t0 = time.time()
+        r = self.run_tool(*path["args"], "-b", case["deck"], env=self.env(case, **path["env"]))
+        self.assertEqual(r.returncode, path["exit"], r.stderr)
+        self.assertIn(case["stderr_ended"], r.stderr)
+        self.assertFalse(alive(self.service_pid()), "the Wine service stand-in outlived the run")
+        self.assertEqual(session_pids(self.prefix), [])
+        calls = self.wineserver_calls()
+        self.assertEqual(len(calls), 1, calls)
+        self.assertTrue(calls[0].startswith("wineserver -k WINEPREFIX="), calls)
+        self.assertEqual(os.path.realpath(calls[0].split("WINEPREFIX=", 1)[1]), os.path.realpath(self.prefix))
+        self.assertLess(time.time() - t0, 30)
+
+    def test_session_ended_after_normal_run(self) -> None:
+        self._run_path("normal")
+
+    def test_session_ended_after_error_exit(self) -> None:
+        self._run_path("error")
+
+    def test_session_ended_after_timeout(self) -> None:
+        self._run_path("timeout")
+
+    def test_survivor_killed_when_wineserver_leaves_it(self) -> None:
+        case = KA["wine_session"]
+        r = self.run_tool("-b", case["deck"], env=self.env(case, CWHT_FAKE_WINESERVER_NOOP="1"))
+        self.assertEqual(r.returncode, EXIT["pass"], r.stderr)
+        self.assertIn(case["stderr_ended"], r.stderr)
+        self.assertFalse(alive(self.service_pid()), "the SIGKILL fallback did not end the survivor")
+        self.assertEqual(len(self.wineserver_calls()), 1)
+
+    def test_session_running_before_is_left(self) -> None:
+        case = KA["wine_session"]
+        d = os.path.join(self.prefix, "drive_c")
+        os.makedirs(d)
+        before = subprocess.Popen(["/bin/sleep", "120"], cwd=d)
+        self.extra.append(before)
+        time.sleep(0.3)
+        r = self.run_tool("-b", case["deck"], env=self.env(case))
+        self.assertEqual(r.returncode, EXIT["pass"], r.stderr)
+        self.assertIn(case["stderr_before"], r.stderr)
+        self.assertIsNone(before.poll(), "a process of a session running before the launch was ended")
+        self.assertEqual(self.wineserver_calls(), [])
+
+    def test_foreign_ltspice_exe_leaves_session(self) -> None:
+        case = KA["wine_session"]
+        foreign = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(120)",
+                                    "C:\\Program Files\\ADI\\LTspice\\LTspice.exe"])
+        self.extra.append(foreign)
+        time.sleep(0.3)
+        r = self.run_tool("-b", case["deck"], env=self.env(case))
+        self.assertEqual(r.returncode, EXIT["pass"], r.stderr)
+        self.assertIn(case["stderr_foreign"], r.stderr)
+        self.assertEqual(self.wineserver_calls(), [])
+        self.assertTrue(alive(self.service_pid()), "the session was ended although another LTspice.exe is open")
+
+
+def assert_no_bottle_session_after(test: unittest.TestCase, what: str) -> None:
+    """Holding the wrapper lock (so no other run can start one), wait and require no bottle process."""
+    with HeldLock():
+        time.sleep(KA["wine_session"]["integration_wait_s"])
+        left = session_pids(BOTTLE)
+        detail = subprocess.run(["ps", "-o", "pid,ppid,etime,command", "-p", ",".join(map(str, left))],
+                                capture_output=True, text=True).stdout if left else ""
+    test.assertEqual(left, [], f"processes of the ltspice bottle remain {KA['wine_session']['integration_wait_s']} s "
+                               f"after the {what} run:\n{detail}")
+
+
+@unittest.skipUnless(READY, NOT_READY)
+@unittest.skipUnless(INTEGRATION, NOT_INTEGRATION)
+class WineSessionIntegrationTests(WrapperCase):
+    """Real LTspice: no process of the bottle's Wine session outlives a run (TV-014 finding 5)."""
+
+    def test_no_bottle_process_after_normal_and_error_runs(self) -> None:
+        with HeldLock():
+            self.assertEqual(session_pids(BOTTLE), [], "a Wine session of the bottle runs before the test")
+        for what, deck, code in (("normal", "rc-step-tran.net", EXIT["pass"]),
+                                 ("error", KA["seeded_deck_error"]["deck"], KA["seeded_deck_error"]["exit"])):
+            with self.subTest(path=what):
+                r = self.run_tool("-b", deck)
+                self.assertEqual(r.returncode, code, r.stderr)
+                self.assertIn(KA["wine_session"]["stderr_ended"], r.stderr)
+                assert_no_bottle_session_after(self, what)
+
+
+@unittest.skipUnless(READY, NOT_READY)
+@unittest.skipUnless(INTEGRATION, NOT_INTEGRATION)
+@unittest.skipUnless(os.environ.get("CWHT_LTSPICE_SLOW") == "1", "set CWHT_LTSPICE_SLOW=1 to run the time-out guard (about 45 s)")
 class TimeoutGuardTests(WrapperCase):
     def test_hang_is_killed_and_only_this_run(self) -> None:
         case = KA["timeout_guard"]
@@ -441,6 +649,8 @@ class TimeoutGuardTests(WrapperCase):
                                   capture_output=True, text=True).stdout.split()
             self.assertEqual(left, [], "LTspice processes of a wrapper run survive")
             self.assertFalse(os.path.exists(os.path.join(self.work, "rc-hang-error.log")))
+            self.assertIn(KA["wine_session"]["stderr_ended"], r.stderr)
+            assert_no_bottle_session_after(self, "time-out")
         finally:
             sentinel.kill()
             sentinel.wait()

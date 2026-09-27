@@ -34,6 +34,18 @@
 #     killed: those whose command line holds the unique run directory name (LTspice.exe carries it in a
 #     Windows path, so a match on the POSIX path misses it: TV-014 finding 3), then the launcher's own
 #     process tree; never a machine-wide 'pkill LTspice.exe'. Survivors are reported after a SIGKILL.
+#     The wine child gets no descriptor of the lock (it is closed before exec: INSP-038 finding-20).
+#  5a. Wine session end (TV-014 finding 5): LTspice.exe starts the bottle's Wine services (services.exe,
+#     winedevice.exe, plugplay.exe, svchost.exe, explorer.exe, rpcss.exe) and its wineserver, which
+#     outlive the run. After every run that reached the launch (normal exit, error and time-out, and on
+#     INT or TERM), the wrapper ends that session with the bundle's own wineserver, headless:
+#     'WINEPREFIX=<bottle> <bundle>/bin/wineserver -k' (kills the processes of the bottle's server and
+#     ends it; bundle bin directory, CrossOver 25.0.1), waits up to 5 s, and SIGKILLs a process of the
+#     session that is still there. It does so only when this run started the session (no process of it
+#     existed at launch, while this run held the lock) and no LTspice.exe other than this run's is open
+#     (the owner's LTspice). A process belongs to the session when its current directory is inside the
+#     bottle (the services run in C:\windows) or is the bottle's wineserver directory
+#     /tmp/.wine-<uid>/server-<dev>-<inode> (lsof, read only). Survivors are reported as a WARNING.
 #  6. Result checks: the bottle ini still holds CaptureAnalytics=false after the run (else exit 3, no
 #     outputs copied); LTspice exit status 0; a .log exists (-b); the log carries none of the failure
 #     strings below; a -b run wrote <deck>.raw or <deck>.op.raw; no netlist written by the run holds a
@@ -57,7 +69,9 @@
 # (seconds to wait for another run, default 600); CWHT_LTSPICE_INI_CHECK
 # (additional ini that must also carry the key; test hook); CWHT_LTSPICE_KEEP=1 keeps the run directory
 # for inspection; CWHT_LTSPICE_SUPPORT (bundle SharedSupport/ltspice directory; test hook for the
-# not-installed case and the log-without-version-line case). CWHT_LTSPICE_EXPECT_BUNDLE and
+# not-installed case and the test doubles of wine and wineserver in tools/tests/fixtures/ltspice/
+# fake-support; with it set, the Wine session of step 5a is the one of <CWHT_LTSPICE_SUPPORT>/prefix, so a
+# test double never ends the real bottle's session). CWHT_LTSPICE_EXPECT_BUNDLE and
 # CWHT_LTSPICE_EXPECT_EXE_SHA256 (known-answer hooks): a second expected bundle build or LTspice.exe
 # SHA-256 that must also match; like CWHT_LTSPICE_INI_CHECK they can only add a failure, never replace
 # the locked values LOCK_BUNDLE and LOCK_EXE_SHA256 below.
@@ -66,6 +80,12 @@ set -u
 SUPPORT="${CWHT_LTSPICE_SUPPORT:-/Applications/LTspice.app/Contents/SharedSupport/ltspice}"
 APP_PLIST="/Applications/LTspice.app/Contents/Info.plist"
 WINE="$SUPPORT/bin/wine"
+WINESERVER="$SUPPORT/bin/wineserver"
+if [ -n "${CWHT_LTSPICE_SUPPORT:-}" ]; then
+  PREFIX="$SUPPORT/prefix"
+else
+  PREFIX="$HOME/Library/Application Support/LTspice/Bottles/ltspice"
+fi
 EXE='C:\Program Files\ADI\LTspice\LTspice.exe'
 INI="$HOME/Library/Application Support/LTspice/Bottles/ltspice/drive_c/users/crossover/AppData/Roaming/LTspice.ini"
 EXE_FILE="$HOME/Library/Application Support/LTspice/Bottles/ltspice/drive_c/Program Files/ADI/LTspice/LTspice.exe"
@@ -131,6 +151,52 @@ kill_tree() {  # $1 = pid; kill the process and its descendants, children first
 abs_path() {  # absolute path of an existing file
   ( cd "$(dirname "$1")" 2>/dev/null && printf '%s/%s\n' "$(pwd -P)" "$(basename "$1")" )
 }
+session_pids() {  # PIDs of this user's processes in the Wine session of PREFIX (step 5a); read only
+  local pre srv
+  pre=$(cd "$PREFIX" 2>/dev/null && pwd -P) || return 0
+  srv="$(cd /tmp && pwd -P)/.wine-$(id -u)/server-$(printf '%x-%x' $(stat -f '%d %i' "$pre"))"
+  lsof -n -w -u "$(id -u)" -a -d cwd -F pn 2>/dev/null | awk -v pre="$pre/" -v srv="$srv" -v me="$$" '
+    /^p/ { pid = substr($0, 2) }
+    /^n/ { n = substr($0, 2); if ((index(n "/", pre) == 1 || n == srv) && pid != me) print pid }'
+}
+foreign_ltspice() {  # PIDs of LTspice.exe processes whose command line does not name this run's directory
+  local p
+  for p in $(pgrep -f 'LTspice\.exe' 2>/dev/null); do
+    ps -o command= -p "$p" 2>/dev/null | /usr/bin/grep -q -F -- "$RUNID" || echo "$p"
+  done
+}
+LAUNCHED=0
+SESSION_BEFORE=""
+SESSION_DONE=0
+end_session() {  # step 5a; runs once, and only after the launch
+  local left others i
+  [ "$LAUNCHED" = 1 ] && [ "$SESSION_DONE" = 0 ] || return 0
+  SESSION_DONE=1
+  if [ -n "$SESSION_BEFORE" ]; then
+    say "note: a Wine session of the bottle was running before this run (PIDs $SESSION_BEFORE); not started by this run, so it is left running"
+    return 0
+  fi
+  others=$(foreign_ltspice | tr '\n' ' ')
+  if [ -n "$others" ]; then
+    say "note: an LTspice.exe not started by this run is open (PIDs $others); the Wine session is left running"
+    return 0
+  fi
+  [ -n "$(session_pids)" ] || return 0
+  WINEPREFIX="$PREFIX" "$WINESERVER" -k >/dev/null 2>&1
+  i=0
+  while [ "$i" -lt 25 ] && [ -n "$(session_pids)" ]; do sleep 0.2; i=$((i + 1)); done
+  left=$(session_pids | tr '\n' ' ')
+  if [ -n "$left" ]; then
+    kill -9 $left 2>/dev/null
+    sleep 0.5
+    left=$(session_pids | tr '\n' ' ')
+  fi
+  if [ -n "$left" ]; then
+    say "WARNING: processes of the bottle's Wine session survive its end: $left"
+  else
+    say "Wine session of the bottle ended (wineserver -k), no process of it left"
+  fi
+}
 
 # --- 1. deck hygiene and run directory ----------------------------------------------------------
 # The run directory lives in the per-user temporary directory (short, /var/folders/.../T/), not in a
@@ -144,9 +210,9 @@ RUN=$(cd "$RUN" && pwd -P)
 # POSIX path (TV-014 finding 3).
 RUNID=$(basename "$RUN")
 RUNPAT=$(printf '%s' "$RUNID" | sed 's/\./\\./g')
-cleanup() { [ "${CWHT_LTSPICE_KEEP:-0}" = "1" ] && say "run directory kept: $RUN" || rm -rf "$RUN"; }
+cleanup() { end_session; [ "${CWHT_LTSPICE_KEEP:-0}" = "1" ] && say "run directory kept: $RUN" || rm -rf "$RUN"; }
 trap cleanup EXIT
-trap 'pkill -f -- "$RUNPAT" 2>/dev/null; exit 130' INT TERM
+trap 'pkill -f -- "$RUNPAT" 2>/dev/null; end_session; exit 130' INT TERM
 
 BASE=""
 if [ "$MODE" != "-version" ]; then
@@ -202,8 +268,10 @@ fi
 # LTspice rewrites its whole LTspice.ini (recent-file list) when it exits. On 2026-09-27 four
 # concurrent runs truncated the ini to the recent-file list and removed CaptureAnalytics=false
 # (TV-014 finding 2), so every run holds an exclusive flock(2) lock, shared by all sessions of the
-# user, from before the precondition check until after the post-run ini check. The lock is released
-# by the kernel when this shell exits, so a killed wrapper leaves no stale lock.
+# user, from before the precondition check until after the post-run ini check and the session end
+# (step 5a). Only this shell holds the lock descriptor (fd 9): the wine child closes it before exec
+# (step 5, INSP-038 finding-20), so the lock is released by the kernel when this shell exits and a
+# killed wrapper leaves no stale lock, even when Wine processes outlive it.
 LOCKFILE="${TMPBASE%/}/cwht-ltspice.lock"
 case "$LOCK_WAIT" in ''|*[!0-9]*) die 2 "CWHT_LTSPICE_LOCK_WAIT needs a whole number of seconds" ;; esac
 exec 9>"$LOCKFILE" || die 3 "cannot open the lock file $LOCKFILE"
@@ -254,8 +322,11 @@ fi
 # Close the lock descriptor as its own step before exec (INSP-038 finding-20): with "exec cmd 9>&-" bash 3.2
 # first duplicates fd 9 to fd 10 without close-on-exec, so wine and the Wine services it starts inherit the lock
 # and keep it after the run.
+# Step 5a needs to know whether a Wine session of the bottle is already running (not this run's).
+SESSION_BEFORE=$(session_pids | tr '\n' ' ')
 ( exec 9>&-; cd "$RUN" && exec "$WINE" --bottle=ltspice --wait-children "$EXE" "$@" ) > "$RUN/.stdout" 2> "$RUN/.stderr" &
 PID=$!
+LAUNCHED=1
 START=$(date +%s)
 TIMED_OUT=0
 while kill -0 "$PID" 2>/dev/null; do
@@ -272,6 +343,7 @@ done
 wait "$PID" 2>/dev/null
 RC=$?
 ELAPSED=$(( $(date +%s) - START ))
+end_session
 INI_AFTER=ok
 ini_has_key "$INI" || INI_AFTER=lost
 if [ "$INI_AFTER" = lost ]; then
