@@ -29,3 +29,27 @@ Consequences for the record: the five open Major findings that waited on these r
 ### Owner requests
 
 The owner asked for a plain-language summary of the L1 and L2 requirements and of the ConOps. It is provided as `docs/reviews/SRR/plain-language-summary.md`, a reading aid that is not a controlled product, after an independent fact check against the sources.
+
+### Traceability approach
+
+The owner asked how bidirectional traceability of requirements to design, code, test and V&V will work. The presenter answered from charter section 7, 02 sections 7 and 8, 03 section 8, 04 section 5 and 07 CS-24:
+- the link table and its enforcement gates;
+- the `@req`, `@design` and `@verify` code tags;
+- the orphan checks;
+- the credit rules for Verified and Closed;
+- the verification and validation matrices;
+- `--regression` change impact.
+
+The presenter also recommended adding a requirement field to the safety-critical hardware parts (the hardware transmit timer, the cell protection ICs and the headphone limiter) at PDR.
+
+### Disposition
+
+Owner statement, verbatim: "I approve of this and the SRR."
+
+Recorded by the presenter:
+- The traceability approach is approved, including the PDR requirement field on safety-critical hardware parts.
+- SRR disposition: **Approved with liens**, the requested disposition of package section 21, with liens L-1 to L-7 of section 20.1.
+- The approval adopts the consent agenda of section 13.1.2 as recommended, adopts the candidate RIDs of section 15 as the package recommends, approves the proposed tailoring of section 17, and confirms readiness (row S1).
+- OA-1 and OA-2, the FW-B0 flash and picotool verify, were not performed. They are recorded as deferred to PDR under the owner's approval, as a tailoring of the owner part of entrance row 20. The owner was told so in the same exchange and may reverse it.
+- The post-ruling work R16 is performed next and verified by the reviewers.
+- The baseline tag `baseline/srr` is applied after R16 is verified, so that the functional baseline carries the rulings.
