@@ -3,7 +3,8 @@
 # is the single field list; docs/process/08-agent-briefing.md section 3.2). Checklist:
 # docs/templates/peer-review-checklist-requirements.md revision C, section G and CK-REQ-A8, as PDR work plan
 # WP-PDR-03 names. Product: the new tool validation checklist template of CR-012 (Submitted, Class II),
-# frozen on branch cr/CR-012-pdr-checklist-templates at ac9b7a5 (rule C2). The 08 delta and the CR-012
+# frozen on branch cr/CR-012-pdr-checklist-templates at ac9b7a5 for iteration 1 and at 7784672 for the
+# iteration 2 delta (rule C2). The 08 delta and the CR-012
 # checks shared by the three WP-PDR-03 records are in INSP-031
 # (docs/reviews/PDR/checklists/template-peer-review-checklist-analysis.md).
 id: INSP-033
@@ -11,9 +12,10 @@ checklist: peer-review-checklist-requirements
 checklist_revision: C
 checklist_file: docs/reviews/PDR/checklists/template-peer-review-checklist-tool-validation.md
 product: docs/templates/peer-review-checklist-tool-validation.md
-product_commit: "ac9b7a5cfc61aa03e5520c13be505a68f206f6fe"
-product_files: ["docs/templates/peer-review-checklist-tool-validation.md@c94fa383a952cde434da7f63eb00ae5d699996d6", "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921", "docs/templates/peer-review-checklist-software-assurance.md@22b7b6afd241d7bd2deddfe45d9318cab5f0243b", "docs/process/08-agent-briefing.md@56c540113110b0d8916219d3cb531d6a76587713", "docs/cm/cr/CR-012-pdr-checklist-templates.md@02f2796402b0c6643686ffbe3cf4318cf4698155"]
-product_size: 1 template (249 lines, sections R, A to H, per-record and per-purpose tables)
+# product_commit: iteration 2 delta at the branch head 7784672 (iteration 1: ac9b7a5)
+product_commit: "778467249fe42d59706e3c4beb7bcb893d7b2671"
+product_files: ["docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900", "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4", "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921", "docs/process/08-agent-briefing.md@56c540113110b0d8916219d3cb531d6a76587713", "docs/cm/cr/CR-012-pdr-checklist-templates.md@91c8c6261a4b2bd9b3d789676c1188b54f022ddd"]
+product_size: 1 template (257 lines, sections R, A to H, per-record and per-purpose tables)
 sprint: PDR-prep
 author_agent: "author:WP-PDR-03 (Claude as checklist owner)"
 reviewer_agent: "reviewer:WP-PDR-03-templates"
@@ -22,24 +24,34 @@ reviewer_agent: "reviewer:WP-PDR-03-templates"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+iteration: 2
 readiness_met: true
-reviewer_verdict: NEEDS CHANGES
+# reviewer_verdict: APPROVED at iteration 2 (finding-1 and finding-2 Verified; finding-3 Minor lien, rule C1)
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
+# verdict: held at NEEDS CHANGES on the completion criterion "validate_docs.py passes on the record" only.
+# The reviewed blobs are on the CR branch, not in main HEAD; tools/validate_docs.py fails an APPROVED record
+# whose product_files are not in HEAD (record drift rule; same hold as INSP-031). The software lead sets
+# APPROVED when CR-012 merges with these blobs unchanged (section "Iteration 2", "Record verdict")
 verdict: NEEDS CHANGES
 findings_major: 2
 findings_minor: 1
-findings_open: 3
+# findings_open: 0 at iteration 2; finding-3 (Minor) is a lien due the CDR readiness declaration (PDR work
+# plan rule C1, lesson L1), listed in the iteration 2 lien table, not a Deferred RID
+findings_open: 0
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 2
 findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
-items_no: [CK-REQ-G1, CK-REQ-G7]
-effort_turns: 16
-effort_minutes: 30
+# items_no: empty at iteration 2 (CK-REQ-G1 and CK-REQ-G7 were No on finding-1 and finding-2, now Verified;
+# CK-REQ-G8 was "Yes, with finding-3")
+items_no: []
+# effort: iteration 1 (16 turns, 30 min) plus iteration 2 delta (14 turns, 20 min)
+effort_turns: 30
+effort_minutes: 50
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -103,4 +115,45 @@ FINDINGS:
 - [Minor] CK-REQ-G8 TV-G3-3 cites 07 section 9.4 item 3; the fallback is item 6.
 ITEMS N/A: CK-REQ-G5
 MEASUREMENTS: size=1 template; items=9; items_no=2; turns=16; minutes=30; major=2; minor=1
+```
+
+## Iteration 2: delta verification of the Major fixes (2026-09-27, branch head `7784672`)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the Major fixes only. Product: `docs/templates/peer-review-checklist-tool-validation.md` blob `7be809d4ceb9a202473eb19da3627fe0cd427900` at `7784672` (`git ls-tree 7784672` checked for all five `product_files` blobs; the CR-012 blob `91c8c626` checked with `git ls-tree 4552943`). `git diff --stat ac9b7a5 7784672`: 2 files, 25 insertions, 14 deletions (this template and the software assurance template, whose delta is in INSP-032). The fix commit carries the trailer `CR: CR-012` (CR-012 section 5 step 6).
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-03, CR-012 or the fix commit, and edited no product file.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: WP-PDR-03 checklist templates review record path; iteration 2 delta verification record practice). `grep -n` was used afterwards only to pin lines.
+
+### Verification of finding-1 and finding-2 (Major)
+
+| Finding | Fix at blob `7be809d4` | Check | Result |
+|---|---|---|---|
+| finding-1: the reviewer was told to write section 8 of each TV record (against 08 sections 1 and 3.2 and 07 section 10.2), drifting its own `product_files`, with a circular completion criterion | Record paragraph (line 115): "The reviewer edits no TV record", citing 08 section 1 INDEPENDENCE and section 3.2 and 07 section 10.2. After this record is filed, the TV record author (Claude as software lead and tool owner) writes section 8; the owner's accreditation goes into section 9 and the lock. Those edits go in commits confined to sections 8 and 9, the status line and the README and lock status rows. A reviewer then re-issues the record at the same iteration and re-pins `product_files`. Completion criteria (line 244): the section 8 condition is removed and replaced by the statement that it is not a condition of this verdict | The 08 quotation "A reviewer never edits the product it reviews" is verbatim in 08 section 1 (INDEPENDENCE line). The SRR precedent holds: TV-004 section 8 line 72 reads "recorded by Claude, software lead and tool owner". The re-issue practice exists: INSP-015 "Re-issue 2 of iteration 3, post-SRR-ruling delta", which verified sections 8 and 9 after `b2d3538`. No other place in the template still assigns a TV record write to the reviewer (TV-F1 to TV-F5 only inspect the record, the index, the lock and the CR file). The circularity is gone: the record can be APPROVED and valid at filing, and the later author edits are handled by the re-issue | Verified |
+| finding-2: a fixture directory listed by tree hash in `product_files` fails every APPROVED record under the record drift rule | Front matter lines 28 to 37: fixture files are listed one by one by blob, from `git ls-tree -r`; the new field `fixture_trees` carries each directory's tree hash, and its comment says the validator does not read it. R1 (line 141) follows | Reproduced on a `git archive` export of `7784672` made a git work tree. A filled copy of the template, `tool-validation-tv-012-complexity-gate.md`, had verdict APPROVED, `product_files` holding TV-012, `tools/complexity_gate.py`, `tools/tests/test_complexity_gate.py`, every file of `tools/tests/fixtures/complexity_gate/` by blob and `tools/toolchain.lock.md`, and `fixture_trees` holding the directory tree. Committed, `validate_docs.py --root <probe>` gave PASS under the drift rule. Negative control: the same record with the directory `tools/tests/fixtures/complexity_gate@23f23d9d` added to `product_files` gave FAIL ("is not in HEAD; record drift rule"). 01 section 13 lets templates carry fields the validator does not check, so `fixture_trees` breaks no field-list rule | Verified |
+
+**Readiness at iteration 2.** R1 Yes (the filled APPROVED copy above passes with the drift rule applied). R2 N/A. R3 Yes (author summary; CR-012 sections 8 and 9 at `91c8c626`). R4 Yes (`grep -n TBD` on the blob: none; no em dash). R5 Yes (CR-012 section 4). `readiness_met: true`.
+
+**Answers changed at the delta.** CK-REQ-G1 becomes Yes (finding-1 Verified; the template now agrees with 08 sections 1 and 3.2 and 07 section 10.2). CK-REQ-G7 becomes Yes (finding-2 Verified; the `product_files` guidance is true of `tools/validate_docs.py`). CK-REQ-G8 stays "Yes, with finding-3".
+
+**Scan of the delta for new defects.** None found.
+
+### Findings (iteration 2; current state of every finding of this record)
+
+| Finding | Severity | State | Disposition |
+|---|---|---|---|
+| finding-1 | Major | Verified | Closed at iteration 2 on blob `7be809d4` (table above) |
+| finding-2 | Major | Verified | Closed at iteration 2 on blob `7be809d4` (table above) |
+| finding-3 | Minor | Lien: fix before CDR | TV-G3-3 (line 225) still cites "07 section 9.4 item 3"; not addressed at `7784672` (author election, rule C1). Owner: Claude as checklist owner; due the CDR readiness declaration; listed in PDR package section 15. The 04 section 5.2 `T-SW-ORDER` cross item stays with the 04 writer |
+
+### Record verdict
+
+The reviewer's verdict is APPROVED, with lien finding-3. The record `verdict` stays NEEDS CHANGES only because the reviewed blobs are on the CR branch, not in `main` HEAD. An APPROVED record would therefore fail the record drift rule of `tools/validate_docs.py` (the same hold as INSP-031). The software lead sets `verdict: APPROVED` when CR-012 merges with these blobs unchanged.
+
+```
+VERDICT (iteration 2, 2026-09-27): reviewer APPROVED (with lien finding-3); record verdict NEEDS CHANGES (held: branch-only blobs)
+PRODUCT: cr/CR-012-pdr-checklist-templates at 7784672; peer-review-checklist-tool-validation.md 7be809d4
+FINDINGS: finding-1, finding-2 Major Verified; finding-3 Minor lien due CDR; no Major open
+ITEMS N/A: CK-REQ-G5
+MEASUREMENTS: blobs re-checked 5; probe records 2 (positive, negative control); new findings 0; iteration 2 14 turns, 20 minutes; cumulative 30 turns, 50 minutes
 ```
