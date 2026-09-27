@@ -1,0 +1,153 @@
+option,openings,source,fundamental_mhz,harmonics_to_1500,min_se_db,at_mhz,uncertainty_db,limiting_term,verdict,fail_span_mhz,basis
+A,rev0,XOSC 12 MHz (clk_ref),12.0,125,15.9,1500.0,6.0,openings and joints,fail,899.94 to 1500.00,clock plan section 2
+A,rev0,clk_usb and clk_adc 48 MHz,48.0,31,16.0,1488.1,6.0,openings and joints,fail,911.94 to 1488.10,clock plan section 2
+A,rev0,clk_sys 150 MHz,150.0,10,15.9,1500.0,6.0,openings and joints,fail,899.94 to 1500.00,clock plan section 2
+A,rev0,TCXO 25 MHz,25.0,60,15.9,1500.0,6.0,openings and joints,fail,900.00 to 1500.00,clock plan section 2; TS-007
+A,rev0,SPI SCK 18.75 MHz (synthesizer),18.75,80,15.9,1500.0,6.0,openings and joints,fail,899.94 to 1500.00,clock plan rule 4
+A,rev0,QSPI SCK 37.5 MHz,37.5,40,15.9,1500.0,6.0,openings and joints,fail,899.94 to 1500.00,clock plan section 2
+A,rev0,"QSPI SCK 12.5 MHz (boot, flash program)",12.5,120,15.9,1500.0,6.0,openings and joints,fail,899.94 to 1500.00,clock plan section 2
+A,rev0,PCM1808 SCKI 12.5 MHz (only if TS-001 keeps B),12.5,120,15.9,1500.0,6.0,openings and joints,fail,899.94 to 1500.00,clock plan section 2
+A,rev0,BFO 9.0 to 10.7 MHz (IF-dependent),9.85,166,15.9,1498.01,6.0,openings and joints,fail,896.35 to 1498.01,"clock plan section 4 (IF 9.000 to 10.7 MHz, WP-PDR-19)"
+A,rev0,"prescaler 18 MHz (TX only, 144 to 148 / 8)",18.0,84,15.9,1496.66,6.0,openings and joints,fail,900.00 to 1496.66,clock plan section 2
+A,rev0,5 V buck 2.4 MHz (synchronised),2.4,625,15.9,1500.0,6.0,openings and joints,fail,895.14 to 1500.00,clock plan rule 6
+A,rev0,charger boost 1.5 MHz +/-10 % (off in operation),1.5,1111,15.9,1500.0,6.0,openings and joints,fail,895.05 to 1500.00,clock plan section 2; power research F20
+A,rev0,R-1 RP2350 core regulator 3 MHz typ,3.0,624,15.9,1500.0,6.0,openings and joints,fail,895.20 to 1500.00,"clock plan 2.1 R-1 (no min or max: +/-20 % assumed, Low)"
+A,rev0,"R-2 Pico 2 RT6150, about 2 MHz (Low)",2.0,1000,15.9,1500.0,6.0,openings and joints,fail,895.00 to 1500.00,"clock plan 2.1 R-2; display research F10 (about 2 MHz, Low)"
+A,rev0,R-3 TPA6130A2 charge pump 300 to 500 kHz,0.4,4999,15.9,1500.0,6.0,openings and joints,fail,894.80 to 1500.00,clock plan 2.1 R-3
+A,rev0,R-4 I2C SCL 357 to 397 kHz,0.377,4201,15.9,1499.84,6.0,openings and joints,fail,894.69 to 1499.84,clock plan 2.1 R-4
+A,rev0,audio and sidetone PWM 150 kHz,0.15,10000,15.9,1500.0,6.0,openings and joints,fail,894.66 to 1500.00,clock plan section 2
+A,rev0,"RP2350 ROSC 4.6 to 24 MHz (boot only, rule 11)",14.3,325,15.9,1496.49,6.0,openings and joints,fail,897.90 to 1496.49,clock plan revision 2 section 2 (off in operation)
+A,rev0,R-5 RP2350 LPOSC 32.768 kHz +/-20 %,0.032768,57220,15.9,1499.99,6.0,openings and joints,fail,894.66 to 1499.99,clock plan revision 2 section 2.1 R-5
+A,rev1,XOSC 12 MHz (clk_ref),12.0,125,25.4,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+A,rev1,clk_usb and clk_adc 48 MHz,48.0,31,25.5,1488.1,6.0,openings and joints,not shown,,clock plan section 2
+A,rev1,clk_sys 150 MHz,150.0,10,25.4,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+A,rev1,TCXO 25 MHz,25.0,60,25.4,1500.0,6.0,openings and joints,not shown,,clock plan section 2; TS-007
+A,rev1,SPI SCK 18.75 MHz (synthesizer),18.75,80,25.4,1500.0,6.0,openings and joints,not shown,,clock plan rule 4
+A,rev1,QSPI SCK 37.5 MHz,37.5,40,25.4,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+A,rev1,"QSPI SCK 12.5 MHz (boot, flash program)",12.5,120,25.4,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+A,rev1,PCM1808 SCKI 12.5 MHz (only if TS-001 keeps B),12.5,120,25.4,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+A,rev1,BFO 9.0 to 10.7 MHz (IF-dependent),9.85,166,25.4,1498.01,6.0,openings and joints,not shown,,"clock plan section 4 (IF 9.000 to 10.7 MHz, WP-PDR-19)"
+A,rev1,"prescaler 18 MHz (TX only, 144 to 148 / 8)",18.0,84,25.4,1496.66,6.0,openings and joints,not shown,,clock plan section 2
+A,rev1,5 V buck 2.4 MHz (synchronised),2.4,625,25.4,1500.0,6.0,openings and joints,not shown,,clock plan rule 6
+A,rev1,charger boost 1.5 MHz +/-10 % (off in operation),1.5,1111,25.4,1500.0,6.0,openings and joints,not shown,,clock plan section 2; power research F20
+A,rev1,R-1 RP2350 core regulator 3 MHz typ,3.0,624,25.4,1500.0,6.0,openings and joints,not shown,,"clock plan 2.1 R-1 (no min or max: +/-20 % assumed, Low)"
+A,rev1,"R-2 Pico 2 RT6150, about 2 MHz (Low)",2.0,1000,25.4,1500.0,6.0,openings and joints,not shown,,"clock plan 2.1 R-2; display research F10 (about 2 MHz, Low)"
+A,rev1,R-3 TPA6130A2 charge pump 300 to 500 kHz,0.4,4999,25.4,1500.0,6.0,openings and joints,not shown,,clock plan 2.1 R-3
+A,rev1,R-4 I2C SCL 357 to 397 kHz,0.377,4201,25.4,1499.84,6.0,openings and joints,not shown,,clock plan 2.1 R-4
+A,rev1,audio and sidetone PWM 150 kHz,0.15,10000,25.4,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+A,rev1,"RP2350 ROSC 4.6 to 24 MHz (boot only, rule 11)",14.3,325,25.4,1496.49,6.0,openings and joints,not shown,,clock plan revision 2 section 2 (off in operation)
+A,rev1,R-5 RP2350 LPOSC 32.768 kHz +/-20 %,0.032768,57220,25.4,1499.99,6.0,openings and joints,not shown,,clock plan revision 2 section 2.1 R-5
+B,rev0,XOSC 12 MHz (clk_ref),12.0,125,16.1,1500.0,6.0,openings and joints,fail,923.94 to 1500.00,clock plan section 2
+B,rev0,clk_usb and clk_adc 48 MHz,48.0,31,16.2,1488.1,6.0,openings and joints,fail,959.94 to 1488.10,clock plan section 2
+B,rev0,clk_sys 150 MHz,150.0,10,16.1,1500.0,6.0,openings and joints,fail,1049.93 to 1500.00,clock plan section 2
+B,rev0,TCXO 25 MHz,25.0,60,16.1,1500.0,6.0,openings and joints,fail,925.00 to 1500.00,clock plan section 2; TS-007
+B,rev0,SPI SCK 18.75 MHz (synthesizer),18.75,80,16.1,1500.0,6.0,openings and joints,fail,918.69 to 1500.00,clock plan rule 4
+B,rev0,QSPI SCK 37.5 MHz,37.5,40,16.1,1500.0,6.0,openings and joints,fail,937.44 to 1500.00,clock plan section 2
+B,rev0,"QSPI SCK 12.5 MHz (boot, flash program)",12.5,120,16.1,1500.0,6.0,openings and joints,fail,924.94 to 1500.00,clock plan section 2
+B,rev0,PCM1808 SCKI 12.5 MHz (only if TS-001 keeps B),12.5,120,16.1,1500.0,6.0,openings and joints,fail,924.94 to 1500.00,clock plan section 2
+B,rev0,BFO 9.0 to 10.7 MHz (IF-dependent),9.85,166,16.1,1498.01,6.0,openings and joints,fail,917.99 to 1498.01,"clock plan section 4 (IF 9.000 to 10.7 MHz, WP-PDR-19)"
+B,rev0,"prescaler 18 MHz (TX only, 144 to 148 / 8)",18.0,84,16.1,1496.66,6.0,openings and joints,fail,918.00 to 1496.66,clock plan section 2
+B,rev0,5 V buck 2.4 MHz (synchronised),2.4,625,16.1,1500.0,6.0,openings and joints,fail,919.14 to 1500.00,clock plan rule 6
+B,rev0,charger boost 1.5 MHz +/-10 % (off in operation),1.5,1111,16.1,1500.0,6.0,openings and joints,fail,918.00 to 1500.00,clock plan section 2; power research F20
+B,rev0,R-1 RP2350 core regulator 3 MHz typ,3.0,624,16.1,1500.0,6.0,openings and joints,fail,918.00 to 1500.00,"clock plan 2.1 R-1 (no min or max: +/-20 % assumed, Low)"
+B,rev0,"R-2 Pico 2 RT6150, about 2 MHz (Low)",2.0,1000,16.1,1500.0,6.0,openings and joints,fail,918.00 to 1500.00,"clock plan 2.1 R-2; display research F10 (about 2 MHz, Low)"
+B,rev0,R-3 TPA6130A2 charge pump 300 to 500 kHz,0.4,4999,16.1,1500.0,6.0,openings and joints,fail,918.00 to 1500.00,clock plan 2.1 R-3
+B,rev0,R-4 I2C SCL 357 to 397 kHz,0.377,4201,16.1,1499.84,6.0,openings and joints,fail,917.90 to 1499.84,clock plan 2.1 R-4
+B,rev0,audio and sidetone PWM 150 kHz,0.15,10000,16.1,1500.0,6.0,openings and joints,fail,917.91 to 1500.00,clock plan section 2
+B,rev0,"RP2350 ROSC 4.6 to 24 MHz (boot only, rule 11)",14.3,325,16.1,1496.49,6.0,openings and joints,fail,920.92 to 1496.49,clock plan revision 2 section 2 (off in operation)
+B,rev0,R-5 RP2350 LPOSC 32.768 kHz +/-20 %,0.032768,57220,14.3,0.03,6.0,wall,fail,0.03 to 1499.99,clock plan revision 2 section 2.1 R-5
+B,rev1,XOSC 12 MHz (clk_ref),12.0,125,25.6,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+B,rev1,clk_usb and clk_adc 48 MHz,48.0,31,25.6,1488.1,6.0,openings and joints,not shown,,clock plan section 2
+B,rev1,clk_sys 150 MHz,150.0,10,25.6,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+B,rev1,TCXO 25 MHz,25.0,60,25.6,1500.0,6.0,openings and joints,not shown,,clock plan section 2; TS-007
+B,rev1,SPI SCK 18.75 MHz (synthesizer),18.75,80,25.6,1500.0,6.0,openings and joints,not shown,,clock plan rule 4
+B,rev1,QSPI SCK 37.5 MHz,37.5,40,25.6,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+B,rev1,"QSPI SCK 12.5 MHz (boot, flash program)",12.5,120,25.6,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+B,rev1,PCM1808 SCKI 12.5 MHz (only if TS-001 keeps B),12.5,120,25.6,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+B,rev1,BFO 9.0 to 10.7 MHz (IF-dependent),9.85,166,25.6,1498.01,6.0,openings and joints,not shown,,"clock plan section 4 (IF 9.000 to 10.7 MHz, WP-PDR-19)"
+B,rev1,"prescaler 18 MHz (TX only, 144 to 148 / 8)",18.0,84,25.6,1496.66,6.0,openings and joints,not shown,,clock plan section 2
+B,rev1,5 V buck 2.4 MHz (synchronised),2.4,625,25.6,1500.0,6.0,openings and joints,not shown,,clock plan rule 6
+B,rev1,charger boost 1.5 MHz +/-10 % (off in operation),1.5,1111,25.6,1500.0,6.0,openings and joints,not shown,,clock plan section 2; power research F20
+B,rev1,R-1 RP2350 core regulator 3 MHz typ,3.0,624,25.6,1500.0,6.0,openings and joints,not shown,,"clock plan 2.1 R-1 (no min or max: +/-20 % assumed, Low)"
+B,rev1,"R-2 Pico 2 RT6150, about 2 MHz (Low)",2.0,1000,25.6,1500.0,6.0,openings and joints,not shown,,"clock plan 2.1 R-2; display research F10 (about 2 MHz, Low)"
+B,rev1,R-3 TPA6130A2 charge pump 300 to 500 kHz,0.4,4999,25.6,1500.0,6.0,openings and joints,not shown,,clock plan 2.1 R-3
+B,rev1,R-4 I2C SCL 357 to 397 kHz,0.377,4201,25.6,1499.84,6.0,openings and joints,not shown,,clock plan 2.1 R-4
+B,rev1,audio and sidetone PWM 150 kHz,0.15,10000,25.6,1500.0,6.0,openings and joints,not shown,,clock plan section 2
+B,rev1,"RP2350 ROSC 4.6 to 24 MHz (boot only, rule 11)",14.3,325,25.6,1496.49,6.0,openings and joints,not shown,,clock plan revision 2 section 2 (off in operation)
+B,rev1,R-5 RP2350 LPOSC 32.768 kHz +/-20 %,0.032768,57220,14.3,0.03,6.0,wall,fail,0.03 to 0.05,clock plan revision 2 section 2.1 R-5
+C1,rev0,XOSC 12 MHz (clk_ref),12.0,125,17.0,1500.0,6.0,openings and joints,fail,1031.93 to 1500.00,clock plan section 2
+C1,rev0,clk_usb and clk_adc 48 MHz,48.0,31,17.0,1488.1,6.0,openings and joints,fail,1055.93 to 1488.10,clock plan section 2
+C1,rev0,clk_sys 150 MHz,150.0,10,17.0,1500.0,6.0,openings and joints,fail,1049.93 to 1500.00,clock plan section 2
+C1,rev0,TCXO 25 MHz,25.0,60,17.0,1500.0,6.0,openings and joints,fail,1025.00 to 1500.00,clock plan section 2; TS-007
+C1,rev0,SPI SCK 18.75 MHz (synthesizer),18.75,80,17.0,1500.0,6.0,openings and joints,fail,1031.18 to 1500.00,clock plan rule 4
+C1,rev0,QSPI SCK 37.5 MHz,37.5,40,17.0,1500.0,6.0,openings and joints,fail,1049.93 to 1500.00,clock plan section 2
+C1,rev0,"QSPI SCK 12.5 MHz (boot, flash program)",12.5,120,17.0,1500.0,6.0,openings and joints,fail,1024.93 to 1500.00,clock plan section 2
+C1,rev0,PCM1808 SCKI 12.5 MHz (only if TS-001 keeps B),12.5,120,17.0,1500.0,6.0,openings and joints,fail,1024.93 to 1500.00,clock plan section 2
+C1,rev0,BFO 9.0 to 10.7 MHz (IF-dependent),9.85,166,17.0,1498.01,6.0,openings and joints,fail,1024.40 to 1498.01,"clock plan section 4 (IF 9.000 to 10.7 MHz, WP-PDR-19)"
+C1,rev0,"prescaler 18 MHz (TX only, 144 to 148 / 8)",18.0,84,17.0,1496.66,6.0,openings and joints,fail,1022.11 to 1496.66,clock plan section 2
+C1,rev0,5 V buck 2.4 MHz (synchronised),2.4,625,12.4,2.4,6.0,wall,fail,2.40 to 1500.00,clock plan rule 6
+C1,rev0,charger boost 1.5 MHz +/-10 % (off in operation),1.5,1111,8.9,1.35,6.0,wall,fail,1.35 to 1500.00,clock plan section 2; power research F20
+C1,rev0,R-1 RP2350 core regulator 3 MHz typ,3.0,624,12.4,2.4,6.0,wall,fail,2.40 to 1500.00,"clock plan 2.1 R-1 (no min or max: +/-20 % assumed, Low)"
+C1,rev0,"R-2 Pico 2 RT6150, about 2 MHz (Low)",2.0,1000,9.5,1.5,6.0,wall,fail,1.50 to 1500.00,"clock plan 2.1 R-2; display research F10 (about 2 MHz, Low)"
+C1,rev0,R-3 TPA6130A2 charge pump 300 to 500 kHz,0.4,4999,2.9,0.3,6.0,wall,fail,0.30 to 1500.00,clock plan 2.1 R-3
+C1,rev0,R-4 I2C SCL 357 to 397 kHz,0.377,4201,3.3,0.36,6.0,wall,fail,0.36 to 1499.84,clock plan 2.1 R-4
+C1,rev0,audio and sidetone PWM 150 kHz,0.15,10000,1.6,0.15,6.0,wall,fail,0.15 to 1500.00,clock plan section 2
+C1,rev0,"RP2350 ROSC 4.6 to 24 MHz (boot only, rule 11)",14.3,325,17.0,4.6,6.0,wall,fail,4.60 to 1496.49,clock plan revision 2 section 2 (off in operation)
+C1,rev0,R-5 RP2350 LPOSC 32.768 kHz +/-20 %,0.032768,57220,0.3,0.03,6.0,wall,fail,0.03 to 1499.99,clock plan revision 2 section 2.1 R-5
+C1,rev1,XOSC 12 MHz (clk_ref),12.0,125,24.5,12.0,6.0,wall,not shown,,clock plan section 2
+C1,rev1,clk_usb and clk_adc 48 MHz,48.0,31,26.2,1488.1,6.0,openings and joints,pass,,clock plan section 2
+C1,rev1,clk_sys 150 MHz,150.0,10,26.2,1500.0,6.0,openings and joints,pass,,clock plan section 2
+C1,rev1,TCXO 25 MHz,25.0,60,26.2,1500.0,6.0,openings and joints,pass,,clock plan section 2; TS-007
+C1,rev1,SPI SCK 18.75 MHz (synthesizer),18.75,80,26.2,1500.0,6.0,openings and joints,pass,,clock plan rule 4
+C1,rev1,QSPI SCK 37.5 MHz,37.5,40,26.2,1500.0,6.0,openings and joints,pass,,clock plan section 2
+C1,rev1,"QSPI SCK 12.5 MHz (boot, flash program)",12.5,120,24.8,12.5,6.0,wall,not shown,,clock plan section 2
+C1,rev1,PCM1808 SCKI 12.5 MHz (only if TS-001 keeps B),12.5,120,24.8,12.5,6.0,wall,not shown,,clock plan section 2
+C1,rev1,BFO 9.0 to 10.7 MHz (IF-dependent),9.85,166,22.2,9.0,6.0,wall,not shown,,"clock plan section 4 (IF 9.000 to 10.7 MHz, WP-PDR-19)"
+C1,rev1,"prescaler 18 MHz (TX only, 144 to 148 / 8)",18.0,84,26.2,1496.66,6.0,openings and joints,pass,,clock plan section 2
+C1,rev1,5 V buck 2.4 MHz (synchronised),2.4,625,12.4,2.4,6.0,wall,fail,2.40 to 4.80,clock plan rule 6
+C1,rev1,charger boost 1.5 MHz +/-10 % (off in operation),1.5,1111,8.9,1.35,6.0,wall,fail,1.35 to 6.75,clock plan section 2; power research F20
+C1,rev1,R-1 RP2350 core regulator 3 MHz typ,3.0,624,12.4,2.4,6.0,wall,fail,2.40 to 6.00,"clock plan 2.1 R-1 (no min or max: +/-20 % assumed, Low)"
+C1,rev1,"R-2 Pico 2 RT6150, about 2 MHz (Low)",2.0,1000,9.5,1.5,6.0,wall,fail,1.50 to 6.00,"clock plan 2.1 R-2; display research F10 (about 2 MHz, Low)"
+C1,rev1,R-3 TPA6130A2 charge pump 300 to 500 kHz,0.4,4999,2.9,0.3,6.0,wall,fail,0.30 to 6.80,clock plan 2.1 R-3
+C1,rev1,R-4 I2C SCL 357 to 397 kHz,0.377,4201,3.3,0.36,6.0,wall,fail,0.36 to 6.79,clock plan 2.1 R-4
+C1,rev1,audio and sidetone PWM 150 kHz,0.15,10000,1.6,0.15,6.0,wall,fail,0.15 to 6.75,clock plan section 2
+C1,rev1,"RP2350 ROSC 4.6 to 24 MHz (boot only, rule 11)",14.3,325,17.0,4.6,6.0,wall,fail,4.60 to 4.60,clock plan revision 2 section 2 (off in operation)
+C1,rev1,R-5 RP2350 LPOSC 32.768 kHz +/-20 %,0.032768,57220,0.3,0.03,6.0,wall,fail,0.03 to 6.82,clock plan revision 2 section 2.1 R-5
+D,rev0,XOSC 12 MHz (clk_ref),12.0,125,17.0,1500.0,6.0,openings and joints,fail,1031.93 to 1500.00,clock plan section 2
+D,rev0,clk_usb and clk_adc 48 MHz,48.0,31,17.0,1488.1,6.0,openings and joints,fail,1055.93 to 1488.10,clock plan section 2
+D,rev0,clk_sys 150 MHz,150.0,10,17.0,1500.0,6.0,openings and joints,fail,1049.93 to 1500.00,clock plan section 2
+D,rev0,TCXO 25 MHz,25.0,60,17.0,1500.0,6.0,openings and joints,fail,1025.00 to 1500.00,clock plan section 2; TS-007
+D,rev0,SPI SCK 18.75 MHz (synthesizer),18.75,80,17.0,1500.0,6.0,openings and joints,fail,1031.18 to 1500.00,clock plan rule 4
+D,rev0,QSPI SCK 37.5 MHz,37.5,40,17.0,1500.0,6.0,openings and joints,fail,1049.93 to 1500.00,clock plan section 2
+D,rev0,"QSPI SCK 12.5 MHz (boot, flash program)",12.5,120,17.0,1500.0,6.0,openings and joints,fail,1024.93 to 1500.00,clock plan section 2
+D,rev0,PCM1808 SCKI 12.5 MHz (only if TS-001 keeps B),12.5,120,17.0,1500.0,6.0,openings and joints,fail,1024.93 to 1500.00,clock plan section 2
+D,rev0,BFO 9.0 to 10.7 MHz (IF-dependent),9.85,166,17.0,1498.01,6.0,openings and joints,fail,1024.40 to 1498.01,"clock plan section 4 (IF 9.000 to 10.7 MHz, WP-PDR-19)"
+D,rev0,"prescaler 18 MHz (TX only, 144 to 148 / 8)",18.0,84,17.0,1496.66,6.0,openings and joints,fail,1026.00 to 1496.66,clock plan section 2
+D,rev0,5 V buck 2.4 MHz (synchronised),2.4,625,12.4,2.4,6.0,wall,fail,2.40 to 1500.00,clock plan rule 6
+D,rev0,charger boost 1.5 MHz +/-10 % (off in operation),1.5,1111,8.9,1.35,6.0,wall,fail,1.35 to 1500.00,clock plan section 2; power research F20
+D,rev0,R-1 RP2350 core regulator 3 MHz typ,3.0,624,12.4,2.4,6.0,wall,fail,2.40 to 1500.00,"clock plan 2.1 R-1 (no min or max: +/-20 % assumed, Low)"
+D,rev0,"R-2 Pico 2 RT6150, about 2 MHz (Low)",2.0,1000,9.5,1.5,6.0,wall,fail,1.50 to 1500.00,"clock plan 2.1 R-2; display research F10 (about 2 MHz, Low)"
+D,rev0,R-3 TPA6130A2 charge pump 300 to 500 kHz,0.4,4999,2.9,0.3,6.0,wall,fail,0.30 to 1500.00,clock plan 2.1 R-3
+D,rev0,R-4 I2C SCL 357 to 397 kHz,0.377,4201,3.3,0.36,6.0,wall,fail,0.36 to 1499.84,clock plan 2.1 R-4
+D,rev0,audio and sidetone PWM 150 kHz,0.15,10000,1.6,0.15,6.0,wall,fail,0.15 to 1500.00,clock plan section 2
+D,rev0,"RP2350 ROSC 4.6 to 24 MHz (boot only, rule 11)",14.3,325,17.0,4.6,6.0,wall,fail,4.60 to 1496.49,clock plan revision 2 section 2 (off in operation)
+D,rev0,R-5 RP2350 LPOSC 32.768 kHz +/-20 %,0.032768,57220,0.3,0.03,6.0,wall,fail,0.03 to 1499.99,clock plan revision 2 section 2.1 R-5
+D,rev1,XOSC 12 MHz (clk_ref),12.0,125,24.5,12.0,6.0,wall,not shown,,clock plan section 2
+D,rev1,clk_usb and clk_adc 48 MHz,48.0,31,26.3,1488.1,6.0,openings and joints,pass,,clock plan section 2
+D,rev1,clk_sys 150 MHz,150.0,10,26.3,1500.0,6.0,openings and joints,pass,,clock plan section 2
+D,rev1,TCXO 25 MHz,25.0,60,26.3,1500.0,6.0,openings and joints,pass,,clock plan section 2; TS-007
+D,rev1,SPI SCK 18.75 MHz (synthesizer),18.75,80,26.3,1500.0,6.0,openings and joints,pass,,clock plan rule 4
+D,rev1,QSPI SCK 37.5 MHz,37.5,40,26.3,1500.0,6.0,openings and joints,pass,,clock plan section 2
+D,rev1,"QSPI SCK 12.5 MHz (boot, flash program)",12.5,120,24.8,12.5,6.0,wall,not shown,,clock plan section 2
+D,rev1,PCM1808 SCKI 12.5 MHz (only if TS-001 keeps B),12.5,120,24.8,12.5,6.0,wall,not shown,,clock plan section 2
+D,rev1,BFO 9.0 to 10.7 MHz (IF-dependent),9.85,166,22.2,9.0,6.0,wall,not shown,,"clock plan section 4 (IF 9.000 to 10.7 MHz, WP-PDR-19)"
+D,rev1,"prescaler 18 MHz (TX only, 144 to 148 / 8)",18.0,84,26.3,1496.66,6.0,openings and joints,pass,,clock plan section 2
+D,rev1,5 V buck 2.4 MHz (synchronised),2.4,625,12.4,2.4,6.0,wall,fail,2.40 to 4.80,clock plan rule 6
+D,rev1,charger boost 1.5 MHz +/-10 % (off in operation),1.5,1111,8.9,1.35,6.0,wall,fail,1.35 to 6.75,clock plan section 2; power research F20
+D,rev1,R-1 RP2350 core regulator 3 MHz typ,3.0,624,12.4,2.4,6.0,wall,fail,2.40 to 6.00,"clock plan 2.1 R-1 (no min or max: +/-20 % assumed, Low)"
+D,rev1,"R-2 Pico 2 RT6150, about 2 MHz (Low)",2.0,1000,9.5,1.5,6.0,wall,fail,1.50 to 6.00,"clock plan 2.1 R-2; display research F10 (about 2 MHz, Low)"
+D,rev1,R-3 TPA6130A2 charge pump 300 to 500 kHz,0.4,4999,2.9,0.3,6.0,wall,fail,0.30 to 6.80,clock plan 2.1 R-3
+D,rev1,R-4 I2C SCL 357 to 397 kHz,0.377,4201,3.3,0.36,6.0,wall,fail,0.36 to 6.79,clock plan 2.1 R-4
+D,rev1,audio and sidetone PWM 150 kHz,0.15,10000,1.6,0.15,6.0,wall,fail,0.15 to 6.75,clock plan section 2
+D,rev1,"RP2350 ROSC 4.6 to 24 MHz (boot only, rule 11)",14.3,325,17.0,4.6,6.0,wall,fail,4.60 to 4.60,clock plan revision 2 section 2 (off in operation)
+D,rev1,R-5 RP2350 LPOSC 32.768 kHz +/-20 %,0.032768,57220,0.3,0.03,6.0,wall,fail,0.03 to 6.82,clock plan revision 2 section 2.1 R-5

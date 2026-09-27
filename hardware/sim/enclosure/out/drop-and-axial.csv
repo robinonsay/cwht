@@ -1,0 +1,28 @@
+id,face,case,carrier,unit,load_1000g,load_2000g,capacity,margin_1000g,margin_2000g,verdict,design,rule
+D1,-Z back,unit on the guard frame,printed guard frame and ribs,MPa,3.52,7.04,45.0,12.79,6.39,pass,rev1,rule 4 (3 mm ribs)
+D2,-Z back,heat sink on its pocket ledges,back-shell ledges 160 mm2,MPa,3.07,6.13,45.0,14.68,7.34,pass,rev0,
+D3,-Z back,cells on the back-shell ribs,"two rib pairs, 216 mm2",MPa,4.36,8.72,45.0,10.32,5.16,pass,rev0,
+D4,-Z back,board and holders on the boss tops,six boss annuli,MPa,3.38,6.76,45.0,13.31,6.65,pass,rev0,
+D5,+Z front,unit on the front face,"front shell, 8000 mm2",MPa,0.46,0.92,45.0,97.86,48.93,pass,rev1,rule 17 (knob tops 0.5 mm below the face)
+D6,+Z front,"heat sink toward the board, no post (revision 0)","board in bending, 48 mm span",MPa,569.61,1139.23,400.0,0.7,0.35,fail,rev0,
+D7,+Z front,"heat sink toward the board, two posts (rule 18)",board in compression at 2 posts,MPa,8.67,17.35,250.0,28.82,14.41,pass,rev1,rule 18
+D8,+Z front,posts under the heat-sink load (rule 18),two printed posts,MPa,8.67,17.35,45.0,5.19,2.59,pass,rev1,rule 18
+D9,+Z front,"cells and holders toward the board, no post (revision 0)","board in bending, 74.5 mm span",MPa,2086.44,4172.89,400.0,0.19,0.1,fail,rev0,
+D10,+Z front,"cells and holders, four posts (rule 18)",four printed posts,MPa,10.24,20.47,45.0,4.4,2.2,pass,rev1,rule 18
+D11,+Z front,board pulls on the inserts,six M3 inserts in pull-out,N,57.23,114.45,500.0,8.74,4.37,pass,rev0,
+D12,+Z front,display glass on its pocket floor,front-shell pocket,MPa,0.04,0.09,45.0,1026.99,513.49,pass,rev0,
+D13,+/-Y side,cells sideways on the rib pairs,two rib pairs,MPa,4.36,8.72,45.0,10.32,5.16,pass,rev0,
+D14,"+/-X, +/-Y","board and holders in-plane on the bosses, plain bosses (revision 0)",boss root in bending,MPa,35.78,71.55,60.0,1.68,0.84,fail,rev0,
+D15,"+/-X, +/-Y","board and holders in-plane, gusseted bosses (rule 20)",boss root with four gussets,MPa,8.94,17.89,60.0,6.71,3.35,pass,rev1,rule 20
+D16,+X end,"whip fitted, corner impact: moment on the port block, pocket bearing",printed pocket face 144 mm2,MPa,4.63,4.63,45.0,9.72,9.72,pass,rev0,rule 6 (block captured between the shells)
+D17,+X end,"whip fitted, corner impact: moment on the port block, screws alone",two M3 inserts in pull-out,N,333.33,333.33,500.0,1.5,1.5,pass,rev0,
+D18,+X end,"end-on, connector strikes first: block on its pocket (revision 0)",pocket face 20 x 12 mm,MPa,15.33,30.66,45.0,2.94,1.47,not shown,rev0,
+D19,+X end,end-on: block with its 20 x 20 mm flange (rule 6),pocket face 20 x 20 mm,MPa,9.2,18.39,45.0,4.89,2.45,pass,rev1,rule 6
+D20,+/-X ends,cells along X on the holder end walls and end ribs (rule 19),holder end walls on ribs,MPa,1.68,3.36,40.0,23.79,11.89,pass,rev1,rule 19
+
+id,item,value,allowance,verdict,rule
+A1,key jack: plug fully seated through the -X wall,"nose recess 0.35 to 1.65 mm; overmold <= 7.0 mm in a 9.0 mm opening, radial room 0.35 mm with the nose off-centre by the S2 worst case","recess > 0 (the end face lands, not the jack); recess <= 2.0 mm (the overmold's first 2 mm); radial room > 0",pass,rule 21
+A2,headphone jack: plug fully seated through the -X wall,"nose recess 0.35 to 1.65 mm; overmold <= 7.0 mm in a 9.0 mm opening, radial room 0.35 mm with the nose off-centre by the S2 worst case","recess > 0 (the end face lands, not the jack); recess <= 2.0 mm (the overmold's first 2 mm); radial room > 0",pass,rule 21
+A3,micro-USB: plug fully seated through the O1 shroud,receptacle face 2.8 to 4.6 mm behind the outer face; shroud keeps 12.6 x 10.6 mm to the receptacle face plane,overmold (10.6 x 8.5 mm) enters up to its 8.0 mm length; S5b radial clearance held over the depth,pass,rule O1 (shroud end flange at the receptacle face plane)
+A4,"encoder bushing thread engagement through the front wall, 7 mm bushing",thread beyond a fully engaged nut: -1.00 mm worst case (needs 7.1 mm plus 0.9 mm of stack),>= 0 mm (full nut engagement at the worst case),fail,rule 22 (bushing >= 9 mm; inner jam nut set to the wall at assembly)
+A5,"encoder bushing thread engagement through the front wall, 9 mm bushing (rule 22)",thread beyond a fully engaged nut: 1.00 mm worst case (needs 7.1 mm plus 0.9 mm of stack),>= 0 mm (full nut engagement at the worst case),pass,rule 22 (bushing >= 9 mm; inner jam nut set to the wall at assembly)

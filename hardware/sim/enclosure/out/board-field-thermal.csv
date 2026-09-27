@@ -1,0 +1,12 @@
+option,r_hs_k_per_w,tj_central_c,tj_max_c,pad_top_central_c,hs_node_central_c,inner_wall_node_central_c,boss_screw_on_copper_central_c,boss_screw_on_copper_max_c,boss_standoff_variant_central_c,boss_standoff_variant_range_c,wall_central_c,wall_range_c,m8_limit_c,hdt_needed_for_walls_c,hdt_needed_for_m8_c,worst_inputs
+C1,5.5,98.1,105.4,85.8,68.2,51.7,79.7,91.9,52.2,50.3 to 56.1,64.0,58.1 to 71.5,64.0,76.5,96.9,coverage=0.6;h_in=5.0;h_out=6.0;h_gap=20.0;q_rf=2.3
+C1,6.11,99.9,107.7,87.6,70.3,52.0,81.4,94.0,52.6,50.6 to 56.6,64.8,58.7 to 72.7,64.0,77.7,99.0,coverage=0.6;h_in=5.0;h_out=6.0;h_gap=20.0;q_rf=2.3
+D,3.3,98.3,104.8,86.0,60.9,54.6,83.1,93.7,53.8,51.4 to 58.0,64.1,58.4 to 71.4,64.0,76.4,98.7,coverage=0.6;h_in=5.0;h_out=6.0;h_gap=20.0;q_rf=2.3
+
+k9_option,sensor_point,tj_at_92c,tj_at_95c,tj_at_98c
+A,"PA thermal pad (top side, next to the device; K9 text of HZ-003)",104.3,107.3,110.3
+A,heat sink or enclosure hot node (REQ-SYS-181 'heat-sink' reading),132.8,135.8,138.8
+C1,"PA thermal pad (top side, next to the device; K9 text of HZ-003)",104.3,107.3,110.3
+C1,heat sink or enclosure hot node (REQ-SYS-181 'heat-sink' reading),131.9,134.9,137.9
+D,"PA thermal pad (top side, next to the device; K9 text of HZ-003)",104.3,107.3,110.3
+D,heat sink or enclosure hot node (REQ-SYS-181 'heat-sink' reading),137.0,140.0,143.0

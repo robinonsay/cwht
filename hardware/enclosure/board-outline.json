@@ -1,6 +1,6 @@
 {
   "id": "cwht-board-outline-envelope",
-  "revision": "0 (PDR draft, WP-PDR-27; AT RISK CR-003 and CR-006)",
+  "revision": "1 (PDR draft, WP-PDR-27, TS-011 revision 1; AT RISK CR-003 and CR-006)",
   "status": "Draft planning data for WP-PDR-37 (floorplan, KiCad outline) and WP-PDR-39 (cwht-case-c.scad, cwht-case-cnc.scad). Values are the TS-011 and TS-004 author's proposals; they change only through the WP-PDR-27 author until the TS-011 decision, then by the ADR that records it.",
   "sources": [
     "docs/decisions/trade-studies/TS-011-enclosure.md",
@@ -9,7 +9,8 @@
     "docs/icd/ICD-PWR-CELL.md 3.2.2 (Keystone 1043P 77 x 20.65 x 14.86 mm, pair about 41.3 x 77 mm)",
     "docs/icd/ICD-CTL-USB.md 3.2.2 (wall opening 12.0 x 10.0 mm, opening centre about 2.3 mm above the carrier PCB)",
     "docs/icd/ICD-TX-ANT.md 3.2.2 (SMA bulkhead jack, HEX 8 nut, counterpoise within 20 mm)",
-    "docs/reviews/PDR/owner-actions.md 2.4 (planning outline 130 x 62 mm)"
+    "docs/reviews/PDR/owner-actions.md 2.4 (planning outline 130 x 62 mm)",
+    "hardware/sim/enclosure/board_field_thermal.py and drop_and_axial.py (TS-011 revision 1)"
   ],
   "units": "mm",
   "frame": "Enclosure frame: origin at the outer corner of the back face at the key-jack end; +X along the length toward the antenna end (REQ-SYS-175: antenna port on the +X end face), +Y across the width, +Z from the back face (cell door and heatsink guard) to the front face (display and knobs). Board frame: origin at the board's lower-left corner seen from the top side, axes parallel to the enclosure frame.",
@@ -108,6 +109,37 @@
       "diameter": 5.0,
       "rule": "one printed post under each front-panel button (positions set by WP-PDR-37 with WP-PDR-39 at the button locations); bottom-side copper-free contact pad 6 mm diameter",
       "basis": "TS-004 section 4 stiffness (tolerance_stack.py L3): a 1.0 mm board deflects 3.17 mm under 10 N at the middle of a 120 mm span and 0.76 mm across the 74.5 mm span of the six-boss layout; the posts bring the button deflection under 0.3 mm"
+    },
+    "boss_gussets": "four 1.5 mm gussets from each boss to the back wall (TS-011 revision 1 rule 20; drop row D15)",
+    "front_shell_posts": {
+      "rule": "TS-011 revision 1 rule 18 (drop rows D7, D8, D10): printed front-shell posts, 6 mm diameter, bear on 6 mm copper-free pads on the board top",
+      "centres_board_frame": [
+        [
+          100.0,
+          18.0
+        ],
+        [
+          100.0,
+          44.0
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          15.0,
+          42.0
+        ],
+        [
+          65.0,
+          20.0
+        ],
+        [
+          65.0,
+          42.0
+        ]
+      ],
+      "note": "the first two are within 10 mm of the PA pad edge; the other four are over the holder bodies (the button support posts count if WP-PDR-37 places the buttons there). These posts touch the board where it runs hot; they pass M8 only with the rule 15 filament"
     }
   },
   "keepouts_bottom": [
@@ -163,6 +195,19 @@
       "name": "mounting screw heads",
       "centres": "each mounting hole",
       "diameter": 7.0
+    },
+    {
+      "name": "front-shell post pads (rule 18): copper-free, no parts",
+      "centres": "mounting.front_shell_posts.centres_board_frame",
+      "diameter": 6.0
+    },
+    {
+      "name": "PA thermal sensors NTC-1 and NTC-2 (rule 14)",
+      "centres": "thermal_sensors.sensors",
+      "size": [
+        3.0,
+        3.0
+      ]
     }
   ],
   "heatsink": {
@@ -178,9 +223,14 @@
     "base_thickness_min": 3.0,
     "overall_height_max": 23.0,
     "fin_tip_recess_behind_guard_min": 2.5,
-    "in_situ_thermal_resistance_max_k_per_w": 5.5,
-    "note": "The base sits on the gap pad under the board; the fins pass through an opening in the back wall and end at least 2.5 mm behind a printed guard 2.0 mm thick carried on a raised frame, so the heatsink and guard use up to 10 mm of the REQ-SYS-103 Z allowance beyond the 30 mm case (40 mm total). The in-situ value includes the guard; the catalog free-air rating must be lower (TS-011 section 8 design rule 3).",
-    "guard_thickness": 2.0
+    "in_situ_thermal_resistance_max_k_per_w": 6.11,
+    "in_situ_thermal_resistance_design_point_k_per_w": 5.5,
+    "catalog_natural_convection_max_k_per_w_at_30k_rise": 4.28,
+    "in_situ_basis": "6.11 K/W is the REQ-SYS-112 pass threshold of TS-011 M4 (45 C, 4.1 W, iteration 1 chain 9.74 K/W below the heat sink); the catalog value comes from the guard model of board_field_thermal.py at a convection fraction of 0.8 (3.83 at 0.7, 4.71 at 0.9, Low). The in-situ value is measured on the printed guard coupon before the case is committed (TS-011 section 8 rule 3)",
+    "note": "The base sits on the gap pad under the board; the fins pass through an opening in the back wall and end at least 2.5 mm behind a printed guard 2.0 mm thick carried on a raised frame, so the heatsink and guard use up to 10 mm of the REQ-SYS-103 Z allowance beyond the 30 mm case (40 mm total). The in-situ value includes the guard; the catalog free-air rating must be lower (TS-011 revision 1 section 8 rule 3). A front-face drop drives the heat sink toward the board: two front-shell posts over the PA region carry it (rule 18).",
+    "guard_thickness": 2.0,
+    "guard_slot_width": 6.0,
+    "guard_rib_width": 3.0
   },
   "port_block": {
     "type": "6061 block, PCBWay CNC, ordered with the board at CDR (TS-011 C1); D-hole for the SMA bulkhead thread (anti-rotation), M3 counterpoise hole within 20 mm of the port axis, two M3 clearance holes to heat-set inserts in the end-wall boss",
@@ -193,7 +243,13 @@
       "y": 35.0,
       "z": 23.5
     },
-    "pcb_connection": "RG-316 pigtail about 35 mm long from the jack to board pads (owner-soldered, SI-031), compliant, so the port block tolerance does not load a board joint (mechanical-tolerance-stack.md stack S1)"
+    "pcb_connection": "RG-316 pigtail about 35 mm long from the jack to board pads (owner-soldered, SI-031), compliant, so the port block tolerance does not load a board joint (mechanical-tolerance-stack.md stack S1)",
+    "inner_flange": [
+      20.0,
+      20.0,
+      2.0
+    ],
+    "inner_flange_basis": "TS-011 revision 1 rule 6: the flange bears on the pocket in an end-on +X drop (drop rows D18, D19)"
   },
   "end_faces": {
     "plus_x": [
@@ -205,17 +261,17 @@
     ],
     "minus_x": [
       {
-        "feature": "key jack opening, diameter 9.0 (planning)",
+        "feature": "key jack opening, diameter 9.0 (planning); nose face 1.0 mm behind the outer face (rule 21); coated collar 6 mm deep behind the wall (shielding rule O2)",
         "y": 18.0,
         "z": 21.9
       },
       {
-        "feature": "headphone jack opening, diameter 9.0 (planning)",
+        "feature": "headphone jack opening, diameter 9.0 (planning); nose face 1.0 mm behind the outer face (rule 21); coated collar 6 mm deep behind the wall (shielding rule O2)",
         "y": 52.0,
         "z": 21.9
       },
       {
-        "feature": "micro-USB opening 12.6 x 10.6 (proposed change from ICD-CTL-USB 12.0 x 10.0, stack S5)",
+        "feature": "micro-USB opening 12.6 x 10.6 (proposed change from ICD-CTL-USB 12.0 x 10.0, stack S5), continued by a coated shroud of the same section to the receptacle face plane, closed there by a flange cut to the receptacle shell and bonded to it by a conductive gasket (shielding rule O1)",
         "y": 35.0,
         "z": 21.2
       },
@@ -250,5 +306,40 @@
       "every internal part"
     ],
     "status": "Preliminary, by design rule. The scripted finger check on the assembly model (WP-PDR-39 model, TC-SYS-077 procedure, TV record per CR-003 R3-F3) generates the set that WP-PDR-28b uses."
+  },
+  "thermal_sensors": {
+    "rule": "TS-011 revision 1 section 8 rule 14 (INSP-087 finding-1): both PA thermal sensors sit on the board, on the top-side copper of the PA thermal pad, within 2 mm of the PA device's edge; none sits on the heat sink or on any removable part, so no sensor wire crosses to the heat sink, and a lifted heat sink or gap pad raises both readings with the junction",
+    "sensors": [
+      {
+        "id": "NTC-1",
+        "function": "REQ-SYS-118 firmware thermistor (HZ-003 K2), read by the SW-SAFE thermal unit",
+        "centre_board_frame": [
+          104.5,
+          31.0
+        ],
+        "keepout": [
+          3.0,
+          3.0
+        ]
+      },
+      {
+        "id": "NTC-2",
+        "function": "REQ-SYS-181 firmware-independent cut-off sensor (HZ-003 K9: 'a second NTC at the PA'), feeding the comparator that removes the PA-path enable",
+        "centre_board_frame": [
+          100.0,
+          35.5
+        ],
+        "keepout": [
+          3.0,
+          3.0
+        ]
+      }
+    ],
+    "trip_relation": "junction to sensor is RthJC 3.0 K/W: at 4.1 W the 95 C +/-3 C cut-off acts at a junction of 104.3 to 110.3 C in every option (107.3 C nominal); a heat-sink sensor would act at 131.9 to 143.0 C (board_field_thermal.py item 3)",
+    "routing": "board traces only; NTC-2 and its comparator are routed apart from the NTC-1 ADC path (independence of K9 from firmware, 07 section 14.1)"
+  },
+  "case_filament": {
+    "rule": "TS-011 revision 1 rule 15 (INSP-081 finding-2): heat-deflection temperature at 0.45 MPa at least 99 C, which a PC-class filament meets (recalled typical values, Low; the owner fetches the TDS); PETG (69 C) fails M8 at the bosses and the board-facing walls at the REQ-SYS-112 condition",
+    "status": "needs a CON-015 change (an L0 constraint, CR-003 observation on the PETG wording); owner decision at B1b"
   }
 }

@@ -102,14 +102,23 @@ def draw(d: dict, results) -> None:
     hx0, hy0 = hs["position_x_y_in_board_frame"]
     a1.add_patch(Rectangle((ox + hx0, oy + hy0), hs["footprint"][0], hs["footprint"][1], fc="#bfbfbf", ec="#404040", hatch="||",
                            alpha=0.8))
-    a1.text(ox + hx0 + hs["footprint"][0] / 2, oy + 52, f"heatsink {hs['footprint'][0]:.0f} x {hs['footprint'][1]:.0f}\n<= 5.5 K/W in situ",
+    a1.text(ox + hx0 + hs["footprint"][0] / 2, oy + 52, f"heatsink {hs['footprint'][0]:.0f} x {hs['footprint'][1]:.0f}\n<= {hs['in_situ_thermal_resistance_max_k_per_w']:.1f} K/W in situ (M4)",
             ha="center", fontsize=8.5, bbox=dict(fc="white", ec="none", alpha=0.85))
     pad = d["keepouts_bottom"][2]
     a1.add_patch(Rectangle((ox + pad["x"][0], oy + pad["y"][0]), 15, 15, fc="#f4b183", ec="#c55a11", lw=1.5))
-    a1.text(ox + 100, oy + 31, "PA pad\n15 x 15", ha="center", va="center", fontsize=8)
+    a1.text(ox + 96.5, oy + 26.5, "PA pad\n15 x 15", ha="center", va="center", fontsize=6.5)
     for hx, hy in d["mounting"]["holes"]:
         a1.add_patch(Circle((ox + hx, oy + hy), d["mounting"]["boss_diameter_bottom_keepout"] / 2, fc="#ffe699", ec="#7f6000"))
         a1.add_patch(Circle((ox + hx, oy + hy), 1.6, fc="white", ec="k"))
+    for sen in d.get("thermal_sensors", {}).get("sensors", []):
+        sx, sy = sen["centre_board_frame"]
+        a1.add_patch(Rectangle((ox + sx - 1.5, oy + sy - 1.5), 3, 3, fc="#c00000", ec="k", lw=0.6))
+        a1.text(ox + sx + 2.2, oy + sy, sen["id"], fontsize=6.5, va="center", color="#c00000")
+    for px, py in d["mounting"].get("front_shell_posts", {}).get("centres_board_frame", []):
+        a1.plot(ox + px, oy + py, marker="^", ms=6, mfc="none", mec="#7030a0", mew=1.2)
+    a1.plot([], [], "^", mfc="none", mec="#7030a0", label="front-shell posts (rule 18)")
+    a1.plot([], [], "s", color="#c00000", label="PA sensors NTC-1, NTC-2 (rule 14)")
+    a1.legend(loc="upper right", fontsize=7.5, framealpha=0.9)
     a1.add_patch(Rectangle((lx - wall - 10, 25), 12, 20, fc="#a5a5a5", ec="k"))
     a1.text(lx + 1.5, 35, "SMA\n(+X end)", va="center", fontsize=8.5)
     a1.text(-1.5, 35, "KEY, USB,\nPHONES\n(-X end)", va="center", ha="right", fontsize=8.5)
