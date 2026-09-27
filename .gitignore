@@ -30,6 +30,11 @@ tools/slides/node_modules/
 # retained V&V evidence must not be dropped by the *.log / *.raw rules above
 !docs/vv/**/*.log
 !docs/vv/**/*.raw
+# tool validation evidence and simulation results the owner reviews (owner request 2026-09-27: every LTspice result viewable)
+!docs/cm/tool-validation/evidence/**/*.log
+!docs/cm/tool-validation/evidence/**/*.raw
+!hardware/sim/**/results/**/*.log
+!hardware/sim/**/results/**/*.raw
 
 # reveal.js runtime copied next to each deck by tools/slides/render_deck.py (regenerated; PNG renders are the record)
 docs/reviews/*/slides/reveal.js/
