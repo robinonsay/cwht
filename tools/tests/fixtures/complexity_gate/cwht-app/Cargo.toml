@@ -1,0 +1,12 @@
+# Fixture manifest for tools/tests/test_complexity_gate.py (TV-012): names the package cwht-app so
+# that tools/complexity_gate.py credits the CS-19 main loop of cwht-app::main (07 CS-19, CS-38;
+# CR-005 amendment of 2026-09-27, SRR close-out item A). Never built.
+[package]
+name = "cwht-app"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[[bin]]
+name = "cwht-app"
+path = "src/main.rs"

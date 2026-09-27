@@ -20,10 +20,17 @@ also accepted) from standard input or --input, and applies:
     (board take) or `let Ok(..) = .. else { .. }` (driver construction)
     statement whose else block is exactly `safe_state_halt()` (CR-001);
   - one for the bare `loop` of each CS-19 halt loop: the `#[panic_handler]`
-    function and the function `safe_state_halt` (CR-005).
-  Each function is checked against its own share, so one function's allowance
-  never covers another function's decision. A two-arm `match` failure branch
-  is not recognized (the analyzer counts both arms): it fails closed.
+    function and the function `safe_state_halt` (CR-005);
+  - one for the bare `loop` of the CS-19 main loop in `cwht-app::main`
+    (CR-005 amendment of 2026-09-27, SRR close-out item A): the top-level
+    function `main` (not a method, not nested) of a file that is a binary
+    crate root (a `[[bin]]` `path`, default `src/main.rs`) of the package
+    whose nearest `Cargo.toml` names it `cwht-app`.
+  Each item is credited once, to the function that holds it: a second bare
+  `loop` in the same function is not covered, and one function's allowance
+  never covers another function's decision (no pooling across functions). A
+  two-arm `match` failure branch is not recognized (the analyzer counts both
+  arms): it fails closed.
 * CS-19: a name-based call graph of the analysed functions (calls written as
   `name(` or `.name(` outside comments and literals) is searched for cycles;
   each cycle is REPORTed for the reviewer (07 CS-19 enforcement "G ... reports
@@ -39,8 +46,10 @@ alone). A function's own CC is its "sum" less the "sum" of its direct child
 spaces (closures and nested functions are their own spaces). An own CC below 1
 means the input is not in this format and stops the run (exit 2), as does an
 input with no function space: an empty pipe is never a pass. The fixture
-analyzer output tools/tests/fixtures/complexity_gate/rca.json is real
-rust-code-analysis-cli 0.0.25 output on the fixture sources (TV-012 section 3).
+analyzer outputs tools/tests/fixtures/complexity_gate/rca.json and
+rca-main-loop.json are real rust-code-analysis-cli 0.0.25 output on the
+fixture sources (TV-012 section 3). A function space that is a direct child of
+the file space is top-level (the CS-19 main-loop rule needs it).
 
 A `let ... else` is recognized in the comment- and literal-masked source: a
 statement-initial `let` whose statement reaches, at bracket depth 0 and before
@@ -70,6 +79,7 @@ import argparse
 import json
 import re
 import sys
+import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -84,6 +94,8 @@ ELSE = re.compile(r"else(?![A-Za-z0-9_])")
 HALT_BODY = re.compile(r"^safe_state_halt\s*\(\s*\)\s*;?$")
 BARE_LOOP = re.compile(r"(?<![A-Za-z0-9_])loop\s*\{")
 HALT_FN = "safe_state_halt"
+MAIN_CRATE = "cwht-app"  # 07 CS-19: the main loop in `cwht-app::main` (CR-005 amendment, SRR close-out item A)
+MAIN_FN = "main"
 PANIC_ATTR = re.compile(r"#\[\s*panic_handler\s*\]")
 CALL = re.compile(r"(?<![A-Za-z0-9_])([a-z_][a-z0-9_]*)\s*(?:::<[^>]*>)?\s*\(")
 NOT_CALLS = frozenset({"if", "while", "for", "match", "return", "loop", "fn", "in", "as", "let", "move", "unsafe", "ref", "mut", "where", "impl", "dyn", "else", "break", "continue", "some", "ok", "err"})
@@ -103,10 +115,12 @@ class Function:
     rca_cc: int = 0  # own CC as the analyzer reports it
     let_else: int = 0  # `let ... else` statements credited to this function (CR-005)
     children: tuple[tuple[int, int], ...] = ()  # line ranges of the direct child spaces
+    top_level: bool = False  # a direct child of the file space (not a method, not nested in a function or module)
     target_only: bool = False
-    allowed: int | None = None  # CS-38 allowance for target-only functions: 1 + arms + halt_loop
+    allowed: int | None = None  # CS-38 allowance for target-only functions: 1 + arms + halt_loop + main_loop
     arms: int = 0  # admitted CS-11 failure arms (CR-001)
     halt_loop: int = 0  # CS-19 halt loop allowance (CR-005)
+    main_loop: int = 0  # CS-19 main loop allowance of `cwht-app::main` (CR-005 amendment, SRR close-out item A)
 
 
 @dataclass
@@ -149,7 +163,7 @@ def own_cc(space: dict) -> float:
     return cc_sum(space) - sum(cc_sum(child) for child in space.get("spaces") or [])
 
 
-def walk(space: dict, file: str, out: list[Function]) -> None:
+def walk(space: dict, file: str, out: list[Function], depth: int = 0) -> None:
     for child in space.get("spaces") or []:
         if child.get("kind") == "function":
             own = own_cc(child)
@@ -157,8 +171,8 @@ def walk(space: dict, file: str, out: list[Function]) -> None:
                 raise InputError(f"{file}: function '{child.get('name')}' has own CC {own}; the input is not in the assumed format")
             kids = tuple((int(k.get("start_line", 0)), int(k.get("end_line", 0))) for k in child.get("spaces") or [])
             cc = int(round(own))
-            out.append(Function(file, str(child.get("name") or "<closure>"), int(child.get("start_line", 0)), int(child.get("end_line", 0)), cc, rca_cc=cc, children=kids))
-        walk(child, file, out)
+            out.append(Function(file, str(child.get("name") or "<closure>"), int(child.get("start_line", 0)), int(child.get("end_line", 0)), cc, rca_cc=cc, children=kids, top_level=depth == 0))
+        walk(child, file, out, depth + 1)
 
 
 def functions_of(units: list[dict]) -> list[Function]:
@@ -263,6 +277,44 @@ def is_panic_handler(f: Function, code_lines: list[str]) -> bool:
     return False
 
 
+_MANIFESTS: dict[Path, tuple[str | None, frozenset[Path]]] = {}
+
+
+def package_of(path: Path) -> tuple[str | None, frozenset[Path]]:
+    """Package name and binary crate roots from the nearest Cargo.toml above path (Cargo's rule).
+
+    The roots are each `[[bin]]` `path`, and `src/main.rs` when there is no `[[bin]]` table or one
+    without a `path`. A manifest that cannot be read or parsed, or has no `[package]` name, gives
+    (None, no roots): the CS-19 main-loop allowance is then not credited (fails closed)."""
+    for folder in path.resolve().parents:
+        manifest = folder / "Cargo.toml"
+        if not manifest.is_file():
+            continue
+        if folder not in _MANIFESTS:
+            try:
+                data = tomllib.loads(manifest.read_text(encoding="utf-8"))
+            except (OSError, UnicodeDecodeError, tomllib.TOMLDecodeError):
+                data = {}
+            package = data.get("package")
+            name = package.get("name") if isinstance(package, dict) else None
+            bins = [b for b in data.get("bin") or [] if isinstance(b, dict)]
+            roots = {(folder / b["path"]).resolve() for b in bins if isinstance(b.get("path"), str)}
+            if not bins or any(not isinstance(b.get("path"), str) for b in bins):
+                roots.add((folder / "src" / "main.rs").resolve())
+            _MANIFESTS[folder] = (name if isinstance(name, str) else None, frozenset(roots))
+        return _MANIFESTS[folder]
+    return None, frozenset()
+
+
+def is_cwht_app_main(f: Function, path: Path) -> bool:
+    """The function of 07 CS-19 that holds the main loop: `cwht-app::main`, the top-level `main` of a
+    binary crate root of the package `cwht-app` (CR-005 amendment of 2026-09-27)."""
+    if f.name != MAIN_FN or not f.top_level:
+        return False
+    name, roots = package_of(path)
+    return name == MAIN_CRATE and path.resolve() in roots
+
+
 def apply_source_rules(functions: list[Function], base: Path) -> dict[str, str]:
     """Add the CR-005 let-else count to each function's CC and mark target-only functions with their
     CS-38 allowance (CR-001, CR-005); return {file: masked code} for the call graph."""
@@ -290,7 +342,9 @@ def apply_source_rules(functions: list[Function], base: Path) -> dict[str, str]:
                 body = "\n".join(code_lines[i - 1] for i in sorted(mine) if 0 < i <= len(code_lines))
                 if (f.name == HALT_FN or is_panic_handler(f, code_lines)) and BARE_LOOP.search(body):
                     f.halt_loop = 1
-                f.allowed = 1 + f.arms + f.halt_loop
+                elif is_cwht_app_main(f, path) and BARE_LOOP.search(body):
+                    f.main_loop = 1
+                f.allowed = 1 + f.arms + f.halt_loop + f.main_loop
     return masked
 
 
@@ -372,14 +426,16 @@ def waiver_for(f: Function, waivers: list[dict]) -> dict | None:
 
 
 def allowances(functions: list[Function]) -> dict[str, dict[str, int]]:
-    """Per-file CS-38 allowance of CR-001 and CR-005: the admitted items of every tagged file."""
+    """Per-file CS-38 allowance of CR-001 and CR-005: the admitted items of every tagged file (reported;
+    each function is checked against its own items only)."""
     out: dict[str, dict[str, int]] = {}
     for f in functions:
         if f.target_only:
-            a = out.setdefault(f.file, {"allowance": 0, "cs11_failure_arms": 0, "cs19_halt_loops": 0})
+            a = out.setdefault(f.file, {"allowance": 0, "cs11_failure_arms": 0, "cs19_halt_loops": 0, "cs19_main_loops": 0})
             a["cs11_failure_arms"] += f.arms
             a["cs19_halt_loops"] += f.halt_loop
-            a["allowance"] += f.arms + f.halt_loop
+            a["cs19_main_loops"] += f.main_loop
+            a["allowance"] += f.arms + f.halt_loop + f.main_loop
     return out
 
 
@@ -402,9 +458,9 @@ def evaluate(functions: list[Function], limit: int, yellow: int, waivers: list[d
             if w:
                 notes.append(f"WAIVED CS-38 {where} CC {f.cc} > {f.allowed} under {w['id']} ({w['memo']})")
             else:
-                fails.append(f"CS-38 {where} CC {f.cc} > {f.allowed} in a {TARGET_ONLY} file (straight-line target-only code; allowance {f.arms} CS-11 failure arm(s) and {f.halt_loop} CS-19 halt loop(s), CR-001 and CR-005)")
+                fails.append(f"CS-38 {where} CC {f.cc} > {f.allowed} in a {TARGET_ONLY} file (straight-line target-only code; allowance {f.arms} CS-11 failure arm(s), {f.halt_loop} CS-19 halt loop(s) and {f.main_loop} CS-19 main loop(s), CR-001 and CR-005)")
     for file, a in sorted(allowances(functions).items()):
-        notes.append(f"ALLOWANCE CS-38 {file}: {a['allowance']} ({a['cs11_failure_arms']} CS-11 failure arm(s), {a['cs19_halt_loops']} CS-19 halt loop(s); CR-001, CR-005)")
+        notes.append(f"ALLOWANCE CS-38 {file}: {a['allowance']} ({a['cs11_failure_arms']} CS-11 failure arm(s), {a['cs19_halt_loops']} CS-19 halt loop(s), {a['cs19_main_loops']} CS-19 main loop(s); CR-001, CR-005)")
     ccs = [f.cc for f in functions]
     msr = {
         "functions": len(ccs),

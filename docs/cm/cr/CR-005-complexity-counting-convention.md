@@ -2,7 +2,7 @@
 id: CR-005
 title: Fix the CS-17 and CS-38 complexity counting convention and the CS-19 halt-loop allowance
 status: Dispositioned
-class: II
+class: I
 originator: Claude
 date_opened: 2026-09-26
 phase: Pre-A/A
@@ -11,7 +11,7 @@ baseline_affected: baseline/srr
 affected_cis: [2, 28]
 affected_paths: [docs/process/07-software-engineering-plan.md, tools/complexity_gate.py, tools/tests/test_complexity_gate.py, tools/tests/fixtures/complexity_gate/, docs/cm/tool-validation/TV-012-complexity-gate.md]
 affected_ids: [CS-17, CS-19, CS-38, MSR-17, TC-SW-TOOL-001, TV-012]
-related: [CR-001, INSP-015, INSP-016, INSP-018, RSK-019]
+related: [CR-001, INSP-010, INSP-015, INSP-016, INSP-018, RSK-019, RFA-SRR-008]
 target_release: none
 branch: cr/CR-005-complexity-counting-convention
 disposition: Approved
@@ -67,7 +67,7 @@ TV-012 end-to-end check of 2026-09-26 19:44 (section 4; `tools/toolchain.lock.md
 | Documentation | 07 CS-17, CS-38, sections 8.1 to 8.4 rows, revision A.6; `tools/complexity_gate.py` header; TV-012; `tools/README.md` complexity section (tools README owner); `tools/toolchain.lock.md` rust-code-analysis-cli sanity-check row (lock owner). |
 | Released units | None. |
 
-Classification rationale: Class II proposed. The change fixes the counting convention of an existing coding-standard measure and adds an allowance for loops the standard already requires; no requirement, ICD, hazard control, test case or released image changes (CM plan §2).
+Classification rationale: Class II proposed. The change fixes the counting convention of an existing coding-standard measure and adds an allowance for loops the standard already requires; no requirement, ICD, hazard control, test case or released image changes (CM plan §2). Superseded 2026-09-27: the owner confirmed Class I under SRR close-out item C (section 7; section 12).
 
 ## 5. Implementation plan
 
@@ -78,6 +78,10 @@ Classification rationale: Class II proposed. The change fixes the counting conve
 | 3 | `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (real analyzer output, known answers per rule) | Claude (tool owner) | `e34a27b` |
 | 4 | TV-012 run 2 and end-to-end check on an export of the step 1 to 3 commit; firmware and rustos `2ec64c0` run | Claude (tool owner) | runs on `e34a27b`; recorded in the TV-012 commit (section 8) |
 | 5 | Independent review of the TV-012 re-validation (INSP-015 delta); ACC-COMPLEXITY-001 then takes effect per the owner's close-out concurrence | independent reviewer; Claude records | pending |
+| 6 | Amendment 1 (section 12): 07 CS-38, section 8.2 complexity threshold, section 11.2 MSR-17 threshold, section 14.3 waiver rule, revision A.7 | Claude (07 author) | the amendment 1 commit (section 8) |
+| 7 | Amendment 1: `tools/complexity_gate.py` CS-19 main-loop credit for `cwht-app::main`; `tools/tests/test_complexity_gate.py` class `MainLoopTests`; fixture `tools/tests/fixtures/complexity_gate/cwht-app/` and `rca-main-loop.json` (real analyzer output) | Claude (tool owner) | the amendment 1 commit (section 8) |
+| 8 | Amendment 1: TV-012 run 3 (tests, end-to-end check, mutation check against blob `9cdc9195`) and the gate run on the firmware and rustos `2ec64c0` | Claude (tool owner) | pending |
+| 9 | Independent review of the impact assessment (section 6, Class I) and of the TV-012 run 3 re-validation (INSP-015 delta) | independent reviewers; Claude records | pending |
 
 Verification of the implementation: the INSP-015 delta reviewer re-runs TV-012 section 3, re-derives the known answers from the fixture sources under the section 1 item 1 convention and checks the gate run of section 9.
 
@@ -85,12 +89,14 @@ Verification of the implementation: the INSP-015 delta reviewer re-runs TV-012 s
 
 Not required: Class II, no requirement, ICD, hazard or test impact. The implementation is reviewed through TV-012 (INSP-015 delta, step 5).
 
+Superseded 2026-09-27 (SRR close-out item C, minutes `786822a`): CR-005 is Class I, so an independent review of this impact assessment, sections 4 and 12.3 together, is required. The CR was dispositioned before that review; the departure is logged as `docs/cm/deviations.md` entry 3 (RFA-SRR-008). A separate reviewer agent performs the review before the `baseline/srr` tag and records it here. Reviewer invocation, date and result: pending.
+
 ## 7. CCB disposition (owner)
 
 | Field | Value |
 |---|---|
 | Decision | Approved |
-| Class confirmed | Pending: Class II proposed by Claude; the ruling did not name a class |
+| Class confirmed | Class I, confirmed by the owner on 2026-09-27 under SRR close-out item C (`docs/reviews/SRR/minutes.md` section "Close-out decisions A to C and repository protection", commit `786822a`, owner statement "I approve the other recommendations"); proposed Class II by Claude on 2026-09-26 |
 | Date | 2026-09-26 |
 | Conditions | None |
 | Rationale | SRR close-out item 4, verbatim: "CS-17 and CS-38 complexity counting convention: the counts of `rust-code-analysis-cli` are the measure; `tools/complexity_gate.py` adds one for each `let ... else`; the two CS-19 halt loops (the panic handler and `safe_state_halt`) get a +1 CS-38 allowance by the CR-001 mechanism; the limit stays 15. This is applied by a change request." Recorded in the minutes: "Under items 4 and 5, the changed tools are re-validated, and their accreditations are extended once the independent review of each validation record is complete." |
@@ -103,6 +109,7 @@ Disposition history:
 | Date | Decision | New target | Source |
 |---|---|---|---|
 | 2026-09-26 | Approved (SRR close-out item 4) | none | owner ruling at the SRR close-out, transcribed by Claude |
+| 2026-09-27 | Amended (SRR close-out item A: the +1 CS-38 allowance covers the CS-19 main loop of `cwht-app::main` as well; section 12) and Class I confirmed (item C); Dispositioned-before-Assessed logged as `docs/cm/deviations.md` entry 3; impact review by an independent agent before the `baseline/srr` tag (RFA-SRR-008) | none | owner ruling 786822a, transcribed by Claude (07 author and tool owner) |
 
 ## 8. Implementation record
 
@@ -110,6 +117,7 @@ Disposition history:
 |---|---|---|
 | `e34a27b` (the commit that adds this file) | `docs/process/07-software-engineering-plan.md` (step 1), `tools/complexity_gate.py` (step 2), `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (step 3) | yes |
 | the TV-012 run 2 commit | `docs/cm/tool-validation/TV-012-complexity-gate.md` (step 4); this file (sections 5, 8, 9, 11) | yes |
+| the amendment 1 commit | this file (front matter class, sections 4, 5, 6, 7, 8, 11 and 12), `docs/process/07-software-engineering-plan.md` (step 6), `tools/complexity_gate.py`, `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (step 7) | yes |
 
 Traceability report after implementation: not affected (no requirement, test case or hazard changes); renders regenerated: none.
 
@@ -138,3 +146,40 @@ Independent verifier (agent invocation): pending (INSP-015 delta).
 |---|---|---|---|---|
 | 2026-09-26 | Dispositioned | Claude (07 author and tool owner), transcribing the owner | `e34a27b` | Written after the owner approved it as SRR close-out item 4 (the close-out item served as the request); steps 1 to 3 applied in the same commit |
 | 2026-09-26 | Dispositioned | Claude (tool owner) | the TV-012 run 2 commit | Step 4 done: TV-012 run 2 pass; gate G5 CS-38 fails on the `cwht-app::main` main loop, which the ruling does not cover (section 9); owner decision requested |
+| 2026-09-27 | Dispositioned | Claude (07 author and tool owner), transcribing the owner | the amendment 1 commit | Amendment 1 (SRR close-out item A) and Class I (item C) recorded (section 12); steps 6 and 7 applied in the same commit; section 6 impact review pending |
+
+## 12. Amendment 1 (2026-09-27): the CS-19 main loop of `cwht-app::main` (SRR close-out item A) and Class I (item C)
+
+This section amends the CR. Sections 1 to 11 keep their original text except where a note or row dated 2026-09-27 says otherwise.
+
+### 12.1 Source
+
+`docs/reviews/SRR/minutes.md`, section "Close-out decisions A to C and repository protection" (commit `786822a`). The presenter's recommendation, verbatim:
+
+> A. Amend CR-005 so that the +1 CS-38 allowance covers all three unbounded loops that CS-19 names: the main loop in `cwht-app::main` as well as the panic handler and `safe_state_halt`. The presenter's close-out item 4 recommendation had named only the two halt loops.
+
+> C. Confirm CR-004 and CR-005 as Class I. Log the three CRs that were dispositioned before their independent impact review (CR-002, CR-004, CR-005) in `docs/cm/deviations.md`, and perform all three impact reviews before the tag. This closes RFA-SRR-008 early.
+
+Owner statement, verbatim: "Done and added. I approve the other recommendations". Recorded in the minutes: "Items A to C are ruled as recommended."
+
+### 12.2 Change
+
+1. **Allowance (section 1 item 2, amended).** Before: the two CS-19 halt loops (the panic handler and `safe_state_halt`) each add one to the CS-38 allowance. After: all three unbounded loops that 07 CS-19 names add one each: the main loop in `cwht-app::main` as well as the two halt loops. Each item is credited once, to the function that holds it, and is never pooled across functions: a second bare `loop` in `main`, or a bare `loop` in any other target-only function, still fails CS-38.
+2. **Tool (section 1 item 4, amended).** `tools/complexity_gate.py` credits one for a bare `loop` in the body of `cwht-app::main`, identified as the top-level function `main` (a direct child of the file space: not a method, not nested in a function or module) of a file that is a binary crate root (a `[[bin]]` `path`, `src/main.rs` by default) of the package whose nearest `Cargo.toml` names it `cwht-app`. A manifest that cannot be read or has no package name gives no credit (fails closed). The FAIL, ALLOWANCE and JSON outputs gain the main-loop count (`cs19_main_loops`).
+3. **Plan text (section 1 item 5, amended).** 07 CS-38 names the three loops and the per-function crediting; the CS-38 enforcement cell, the section 8.2 complexity threshold, the section 11.2 MSR-17 threshold and the section 14.3 waiver rule say "above the function's own CS-38 allowance" in place of "above 1"; revision A.7. The section 8.4 G5 pass criterion and CS-19 are unchanged. This closes INSP-010 finding-21 and INSP-018 finding-10.
+4. **Tool validation (section 1 item 6, amended).** TV-012 run 3: the known-answer tests gain class `MainLoopTests` on a new fixture package `cwht-app` with real analyzer output; the end-to-end and mutation checks re-run; ACC-COMPLEXITY-001 extended per the owner's concurrence (item A).
+5. **Class.** Class I, confirmed by the owner (item C); section 6 now requires the independent impact review, performed before the tag.
+
+### 12.3 Impact assessment of the amendment
+
+| Field | Assessment |
+|---|---|
+| Performance margins | None. MSR-17 unchanged by the amendment: 52 functions, max CC 5, mean 1.46 on the firmware and rustos `2ec64c0`; only the CS-38 verdict on `main` changes. |
+| Safety | None: no code or behavior changes. The allowance admits exactly the one bare `loop` in `cwht-app::main` that 07 section 1.2 and CS-19 already require; any other decision in `main` still fails CS-38. No hazard control or 07 section 14.1 module changes. |
+| Verification | TC-SW-TOOL-001 gate G5 complexity: expected to pass (no CS-17 and no CS-38 failure), shown by TV-012 run 3. No test case changes. |
+| Documentation | 07 (step 6); TV-012 (step 8); `tools/README.md` complexity section and `tools/toolchain.lock.md` TV-012 row (their owners; cross items). |
+| Other fields of section 4 | Unchanged by the amendment. |
+
+### 12.4 Resolution of the open item
+
+Section 9 row "Gate G5 complexity on the firmware and rustos `2ec64c0`" left open for the owner the CS-19 main loop, which the ruling did not cover, and TV-012 limitation 8 recorded the same gap. Both are resolved by this amendment. The run 3 evidence is recorded in section 9 and in TV-012 section 4.
