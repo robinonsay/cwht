@@ -13,40 +13,48 @@ checklist: peer-review-checklist-code
 checklist_revision: B
 checklist_file: docs/reviews/PDR/checklists/tool-validation-tv-013.md
 product: docs/cm/tool-validation/TV-013-measurements.md
-product_commit: "71bf509c948fbc8d4ae9b863f2a0226f0bf1bba0"
-product_files: ["docs/cm/tool-validation/TV-013-measurements.md@9a7e2b552a4b5c10fa585b244c722b22ef9b2c6b", "docs/cm/tool-validation/evidence/measurements-2026-09-27.log.txt@8868280979b422742e7d04f6ee5869ffa37c8dd2", "tools/measurements.py@abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a", "tools/tests/test_measurements.py@7e7ba2bbdb3569ba42924b6d974bcdb70f69f58b", "tools/tests/fixtures/measurements/invalid.json@15231171b06297dfd45632bef5d22757374b0970", "tools/tests/fixtures/measurements/junit/empty.xml@a5e08f193d942833cc2b5283ff72e8740f7fa773", "tools/tests/fixtures/measurements/junit/run1.xml@cb071c37b1f13fa52fe0a9958aaababfb736f54b", "tools/tests/fixtures/measurements/junit/run2-diff.xml@7294a61c042aa6105dc84d79a702afc7518a4efb", "tools/tests/fixtures/measurements/junit/run2-same.xml@cb071c37b1f13fa52fe0a9958aaababfb736f54b", "tools/tests/fixtures/measurements/lcov/branch-condition.json@e569b1722f7fa5237f8c1b149a38e714d45b3f70", "tools/tests/fixtures/measurements/lcov/lcov.info@9368449affe9f81534ec020dcf2c983436ff343c", "tools/tests/fixtures/measurements/linkmap/cwht-app.map@e5557024967701cbee3661601e39572bf22afa80", "tools/tests/fixtures/measurements/linkmap/link.ld@8ab6e6e242e3daf0449ff34cb58f75168acabf40", "tools/tests/fixtures/measurements/linkmap/over-red-line.map@ab15c48a1463c8b124198eae273ea02d2877ea57", "tools/tests/fixtures/measurements/linkmap/small.ld@f6be72a5bfa9bcfbe99761771549e9fd95b810d1", "tools/tests/fixtures/measurements/records/records.json@5b760ab006e936e10d28130373b1c525c4dc79c1", "tools/tests/fixtures/measurements/valid.json@3938cd57aaeb99e1c5065594c915c99014d34026", "tools/toolchain.lock.md@82005d1b780e272dbf38cd8621d9707996e08f12", "docs/cm/tool-validation/README.md@b267ce08f53a5db8e32eb8cb217435a3efaf1833"]
-fixture_trees: ["tools/tests/fixtures/measurements@39141b58900149f3506c2caedfa9bf8512d89669"]
+# product_commit: iteration 2 (delta, 2026-09-27) reviews the blobs frozen at c827202 (TV-013, run 3 evidence,
+# lock, README) with the test module and the two new fixtures of c28dd60 (equal at c827202 and HEAD); tool blob
+# abe25acb unchanged. Iteration 1 reviewed 71bf509: TV-013 9a7e2b55, test module 7e7ba2bb, fixture tree
+# 39141b58 (13 files), lock 82005d1b, README b267ce08
+product_commit: "c827202144e73328b816e666e48dbcd1b3afaae8"
+product_files: ["docs/cm/tool-validation/TV-013-measurements.md@71a676ef74ba9990dc307d97ed82015f06be5ec2", "docs/cm/tool-validation/evidence/measurements-2026-09-27.log.txt@8868280979b422742e7d04f6ee5869ffa37c8dd2", "docs/cm/tool-validation/evidence/measurements-2026-09-27-r3.log.txt@eff9035ff7a85ac9c7e7778d755ed5f028510909", "tools/measurements.py@abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a", "tools/tests/test_measurements.py@7ccc293e102f58c62d676b94074bc17b3232e166", "tools/tests/fixtures/measurements/invalid.json@15231171b06297dfd45632bef5d22757374b0970", "tools/tests/fixtures/measurements/junit/empty.xml@a5e08f193d942833cc2b5283ff72e8740f7fa773", "tools/tests/fixtures/measurements/junit/run1.xml@cb071c37b1f13fa52fe0a9958aaababfb736f54b", "tools/tests/fixtures/measurements/junit/run2-diff.xml@7294a61c042aa6105dc84d79a702afc7518a4efb", "tools/tests/fixtures/measurements/junit/run2-same.xml@cb071c37b1f13fa52fe0a9958aaababfb736f54b", "tools/tests/fixtures/measurements/junit/run-failing.xml@13eb0ded84967e44f211202655fc0b66c42bd120", "tools/tests/fixtures/measurements/junit/run-skipped.xml@11e505175f394fbe934624cffc91371ea0faf775", "tools/tests/fixtures/measurements/lcov/branch-condition.json@e569b1722f7fa5237f8c1b149a38e714d45b3f70", "tools/tests/fixtures/measurements/lcov/lcov.info@9368449affe9f81534ec020dcf2c983436ff343c", "tools/tests/fixtures/measurements/linkmap/cwht-app.map@e5557024967701cbee3661601e39572bf22afa80", "tools/tests/fixtures/measurements/linkmap/link.ld@8ab6e6e242e3daf0449ff34cb58f75168acabf40", "tools/tests/fixtures/measurements/linkmap/over-red-line.map@ab15c48a1463c8b124198eae273ea02d2877ea57", "tools/tests/fixtures/measurements/linkmap/small.ld@f6be72a5bfa9bcfbe99761771549e9fd95b810d1", "tools/tests/fixtures/measurements/records/records.json@5b760ab006e936e10d28130373b1c525c4dc79c1", "tools/tests/fixtures/measurements/valid.json@3938cd57aaeb99e1c5065594c915c99014d34026", "tools/toolchain.lock.md@b45c8654476be36b3b1918fbe9ff2040ac6c941e", "docs/cm/tool-validation/README.md@87fb1e8cab28baf623981a3386fb260f5263d1be"]
+fixture_trees: ["tools/tests/fixtures/measurements@ed4414ecd9336349d4ba03cd8257b0079d470d8d"]
 tv_ids: [TV-013]
 tool_class: B
 tool_kind: repository-tool
 acc_proposed: [ACC-MEASURE-001]
-product_size: 1 record (87 lines), 6 purposes, 16 known-answer tests, 13 fixture files; tool 456 lines, test module 227 lines
+product_size: 1 record (92 lines), 6 purposes, 18 known-answer tests, 15 fixture files; tool 456 lines, test module 256 lines
 sprint: PDR-prep
 author_agent: "author:SRR R3 and WP-PDR-08 (Claude as software lead and tool owner)"
 tool_author_agent: "author:SRR R3 (Claude as tool maintainer)"
-reviewer_agent: "reviewer:WP-PDR-08-tv-013 (independent, iteration 1)"
+reviewer_agent: "reviewer:WP-PDR-08-tv-013-iter2 (independent; authored no part of WP-PDR-08 or the tool; iteration 1 by reviewer:WP-PDR-08-tv-013)"
 criticality: neither
 # assurance_required: the TV template (CR-012) says false; PDR work plan WP-PDR-08 names "independent reviewer
 # plus SA". Section H is answered here as the template directs; the separate SA invocation the plan names is
 # requested from the lead SE (return fix_requests "SA pair needed").
 assurance_required: true
 assurance_reviewer_agent: "pending (separate invocation, PDR work plan WP-PDR-08)"
-iteration: 1
+iteration: 2
 readiness_met: true
-reviewer_verdict: NEEDS CHANGES
+reviewer_verdict: APPROVED
 assurance_verdict: pending
+# verdict: held at NEEDS CHANGES until the separate SA invocation of WP-PDR-08 is filed and APPROVED (fix request
+# "SA pair needed"); the reviewer lens is APPROVED with liens finding-2 to finding-4
 verdict: NEEDS CHANGES
 findings_major: 1
 findings_minor: 3
-findings_open: 4
+# findings_open: no finding is Open; finding-1 Verified, finding-2 to finding-4 liens due CDR (rule C1)
+findings_open: 0
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_tasks_applied: [swe-136 7.1 task 1, swe-070 7.1 task 1]
 deferred_rids: []
-items_no: [TV-B3, TV-C2, TV-D2, TV-F3, TV-G1-2]
-effort_turns: 20
-effort_minutes: 30
+# items_no: at iteration 2 (TV-C2 and TV-D2 of iteration 1 are Yes; TV-B3 stays No for finding-2 only)
+items_no: [TV-B3, TV-F3, TV-G1-2]
+effort_turns: 28
+effort_minutes: 42
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -229,4 +237,72 @@ FINDINGS:
 ITEMS N/A: TV-A2, TV-D3, TV-F5, TV-H2, G2 to G4
 RE-RUN: unittest discover -p test_measurements.py on an export of 71bf509; exit 0; 16 tests; same as run 2
 MEASUREMENTS: size=1 record, 6 purposes; turns=20; minutes=30; major=1; minor=3
+```
+
+## Iteration 2: delta verification of finding-1 (Major) (2026-09-27)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the Major fix only. Products at the frozen blobs of `product_files`: TV-013 blob `71a676ef`, evidence `measurements-2026-09-27-r3.log.txt` blob `eff9035f`, lock `b45c8654` and README `87fb1e8c` (from `c827202`); test module `7ccc293e`, fixtures `junit/run-failing.xml` `13eb0ded` and `junit/run-skipped.xml` `11e50517`, fixture tree `ed4414ec` (15 files) (from `c28dd60`). Each blob was recomputed with `git rev-parse c827202:<path>` and `git rev-parse HEAD:<path>` at HEAD `c827202`: all equal to the brief. The tool itself is unchanged (`tools/measurements.py` blob `abe25acb`, the blob of iteration 1). The delta was read as `git diff 71bf509 c827202` on TV-013, the test module, the fixture directory, the lock and the README (WP-PDR-08 hunks only).
+
+**Independence (rule C4).** This invocation authored neither the tool nor any part of WP-PDR-08, did not write iteration 1 of this record, and edited no product file. **Search first:** as INSP-040 iteration 2 (`mcp__claude-context__search_code` first; `grep -n` only to pin lines). **Software assurance participant:** not performed here (fix request "SA pair needed").
+
+### Reviewer checks (iteration 2)
+
+| Check | Command | Exit | Result | Same as record? |
+|---|---|---|---|---|
+| TV-C5 re-run, twice | `git archive c827202 tools` into the scratchpad; `.venv/bin/python -m unittest discover -s tools/tests -p test_measurements.py` | 0, 0 | `Ran 18 tests`, `OK`, both passes | yes (run 3: 18 OK twice) |
+| Mutation 1 of iteration 1 | in the export, `measurements.py:189` changed to `ok = bool(a) and a == b`; module re-run | 1 | `FAILED (failures=2)`: `test_identical_failing_runs_fail` and `test_identical_skipped_runs_fail` | yes (run 3 mutation check, log lines 51 to 56) |
+| Expected output by hand | read `junit/run-failing.xml` and `run-skipped.xml` against `measurements.py:185` to `:192` | n/a | each file has 3 cases, one `failure` (or `skipped`) on `cwht-core::heartbeat` `spin_wait_counts`; compared with itself: `passed in both: 2`, no DIFF line, one `NOT PASSED ('cwht-core::heartbeat', 'spin_wait_counts', 'failure'|'skipped')`, `FAIL identical result sets, all passed (SWE-186)`, exit 1; equal to the stored assertions | yes |
+
+The export and the mutated copy were in the scratchpad only.
+
+### Verification of finding-1 (Major)
+
+| # | Expected fix element (iteration 1) | Product now | Independent check | Result |
+|---|---|---|---|---|
+| 1 | A known answer with two identical JUnit files holding a failed case: exit 1 and the `NOT PASSED` line | `test_identical_failing_runs_fail` with `junit/run-failing.xml`, asserting exit 1 and the exact three output lines | Hand derivation and reviewer run above; the pair is identical and non-empty, so only the "all passed" clause can fail it | Holds |
+| 2 | One with identical skipped cases, if skipped is to fail | `test_identical_skipped_runs_fail` with `junit/run-skipped.xml`; TV-013 section 3 states a skipped case is not passed | Same; a mutation treating `skipped` as passed would also be caught by this test | Holds |
+| 3 | Re-run and record TV-013 run 3 | Section 4 row 3 at `c28dd60`, 18 tests twice, mutation check; section 1 identifies the new test blob and fixture tree; section 3 pass criteria now 18 tests, `DiffRunsTests` 5; lock section 1.1 row and lock log row updated | Evidence log `eff9035f` equals the row (identities, two passes of 18 OK, mutation 2 of 18 fail); reviewer run agrees | Holds |
+
+**finding-1: Verified.** Purpose 2 now has a known answer for each of its three clauses (identical, non-empty, all passed), and the iteration 1 mutation is killed. TV-C2 is Yes. TV-D2 is also Yes now: the lock section 1.1 row names run 3 at a commit.
+
+### Scan of the delta for new defects
+
+No new finding. The two tests compare a file with itself (same path twice); that isolates the "all passed" clause as intended, and the "identical" clause remains covered by `test_seeded_difference_fails`. The run 3 record, the evidence log and the lock row agree.
+
+### Findings (iteration 2; current state of every finding of this record)
+
+| Finding | Severity | State | Disposition |
+|---|---|---|---|
+| finding-1 | Major | Verified | Closed at iteration 2 on test module `7ccc293e`, fixtures `13eb0ded` and `11e50517`, TV-013 `71a676ef` run 3 |
+| finding-2 | Minor | Lien: fix before CDR | Untested clauses of purposes 3, 4 and 6 (mutation 2 still survives: the new tests do not touch `--check-records`). Owner: Claude as tool owner (WP-PDR-08; the tool change rides on the WP-PDR-09 C-185 revision of `tools/measurements.py`, X-2); due the CDR readiness declaration; listed in PDR package section 15 |
+| finding-3 | Minor | Lien: fix before CDR | Silent MSR-18/19 re-derivation skip and `crate_of` fallback (observed again in the INSP-040 iteration 2 reviewer run: `MSR-13 /: lines 5/6`). Same owner, due and route |
+| finding-4 | Minor | Lien: fix before CDR | Partly fixed: lock section 1.1 row now names run 3. Still stale: TV-013 title ("working tree on 400e59d"), section 1 column "State against commit `400e59d`" row for the tool ("untracked (new)"), lock section 1.2 row ("untracked"), README row TV-013 ("working-tree blob `abe25acb`, new"; no run 3) and common owner action 3. Same owner and due |
+
+Findings by severity: 1 Major (Verified), 3 Minor (liens). Zero Major findings remain.
+
+### Checklist answers changed at iteration 2
+
+| Id | Iteration 1 | Iteration 2 | Evidence |
+|---|---|---|---|
+| TV-C2 | No | Yes | identical failing and skipped runs seeded |
+| TV-D2 | No | Yes | lock section 1.1 row names run 3 at `c28dd60` |
+| TV-B3 | No | No (finding-2 only, lien) | purpose 2 now fully exercised |
+| TV-F3 | No | No (finding-4, lien) | README row and lock section 1.2 row still stale |
+| TV-G1-2 | No | No (finding-2, lien) | unchanged |
+
+### Measurements (SWE-089), iteration 2
+
+Items re-checked: finding-1 expected-fix elements 3; product blobs 8 identities; reviewer runs 3 (two passes, one mutation). New findings: 0. Findings verified: 1 (Major). Iteration 2 effort: 8 turns, 12 minutes; cumulative 28 turns, 42 minutes (front matter).
+
+### Record verdict
+
+**Reviewer verdict: APPROVED**, with liens finding-2 to finding-4. The record `verdict` stays NEEDS CHANGES until the separate software assurance invocation of WP-PDR-08 is filed and APPROVED (SA pair needed). This APPROVED reviewer lens covers tool blob `abe25acb`; the WP-PDR-09 C-185 change of `tools/measurements.py` is a re-validation trigger (TV-013 section 7) and needs its own delta iteration of this record.
+
+```
+VERDICT (iteration 2, 2026-09-27): reviewer APPROVED (with liens finding-2 to finding-4); record verdict NEEDS CHANGES (held: SA pair not filed)
+PRODUCT: TV-013 71a676ef at c827202; tool abe25acb; test module 7ccc293e and fixture tree ed4414ec at c28dd60
+FINDINGS: finding-1 Major Verified; finding-2 to finding-4 Minor, lien due CDR; no Major open
+ITEMS N/A: TV-A2, TV-D3, TV-F5, TV-H2, G2 to G4 (unchanged)
+RE-RUN: unittest discover -p test_measurements.py on an export of c827202, twice; exit 0; 18 tests OK; mutation 1 fails 2 of 18; same as run 3
+MEASUREMENTS: elements verified=3; new findings=0; iteration 2 turns=8, minutes=12; cumulative turns=28, minutes=42
 ```
