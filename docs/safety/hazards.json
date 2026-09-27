@@ -1,5 +1,5 @@
 {
-  "version": "0.4.3-pha",
+  "version": "0.5.0-pha",
   "updated": "2026-09-26",
   "baseline": null,
   "phase": "PHA",
@@ -104,7 +104,7 @@
           "b",
           "c"
         ],
-        "statement": "Firmware controls when RF exists (keying and PA enable), the selected power step, its default and the deliberate action to select 5 W, and the tune-carrier level and timeout (criterion b); the key-down timeouts that bound duty provide mitigation (criterion c). The 6 min and 30 min key-down accumulator and the on-screen separation reminder are convenience functions, not safety-critical (owner decision RFX-D4 pending).",
+        "statement": "Firmware controls when RF exists (keying and PA enable), the selected power step, its default and the deliberate action to select 5 W, and the tune-carrier level and timeout (criterion b); the key-down timeouts that bound duty provide mitigation (criterion c). The 6 min and 30 min key-down accumulator and the on-screen separation reminder are convenience functions, not safety-critical (RFX-D4, ratified at SRR as a convenience function: package decision 33, owner ruling 2026-09-26).",
         "safety_critical": true,
         "components": [
           "PA enable and TX sequencer (power step, tune timeout, TX permit)",
@@ -127,7 +127,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Operator-selectable output steps 0.5, 1, 2 and 5 W, each within +/-1 dB into 50 ohm; default 1 W at first boot and after any configuration reset; the selected step persists thereafter; selecting 5 W requires a deliberate action distinct from tuning and volume (SWE-134 d). Proposed, owner decision pending at SRR (RFX-D1, RFX-D2).",
+          "text": "Operator-selectable output steps 0.5, 1, 2 and 5 W, each within +/-1 dB into 50 ohm; default 1 W at first boot and after any configuration reset; the selected step persists thereafter; selecting 5 W requires a deliberate action distinct from tuning and volume (SWE-134 d). Adopted at SRR (RFX-D1, RFX-D2; package decisions 22 and 23, owner ruling 2026-09-26).",
           "control_req_ids": [
             "REQ-SYS-011",
             "REQ-SYS-063",
@@ -141,7 +141,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Tune carrier at the 0.5 W step by default, ending automatically 5 s +/-0.5 s after it starts (proposed), which keeps it below the 7.5 s floor of the hardware cutoff so that the cutoff never ends a legitimate tune; raising the tune level is a deliberate action. REQ-SYS-020 now bounds every tune carrier to at most 5.5 s (TBR) after it starts, 2 s below the 7.5 s floor of REQ-SYS-055, which removes the conflict of the research value (10 s +/-1 s could be cut by every unit whose T_max is below 11 s). Proposed, owner decision pending at SRR (package decision 36, RFX-D3 together with D-KN2; OQ-SAF-005).",
+          "text": "Tune carrier at the 0.5 W step by default, ending automatically 5 s +/-0.5 s after it starts, which keeps it below the 7.5 s floor of the hardware cutoff so that the cutoff never ends a legitimate tune; raising the tune level is a deliberate action. REQ-SYS-020 now bounds every tune carrier to at most 5.5 s (TBR) after it starts, 2 s below the 7.5 s floor of REQ-SYS-055, which removes the conflict of the research value (10 s +/-1 s could be cut by every unit whose T_max is below 11 s). Adopted at SRR as option a (package decision 36, RFX-D3 together with D-KN2, owner ruling 2026-09-26; OQ-SAF-005 closed).",
           "control_req_ids": [
             "REQ-SYS-019",
             "REQ-SYS-020"
@@ -150,8 +150,8 @@
           "tbr": [
             {
               "item": "5 s tune timeout (RFX-D3 and D-KN2 consistency)",
-              "owner": "Claude proposes; Robin decides at SRR",
-              "plan": "Robin chooses at SRR (package decision 36) between (a) a 5 s +/-0.5 s tune timeout, recommended; (b) a T_max floor above 11 s with the 13 s thermal and exposure bounds re-derived; (c) a tune carrier that drops TX_KEY periodically, not recommended because it removes the hardware bound from the tune carrier. The RF exposure evaluation and the PA thermal analysis confirm the value at PDR.",
+              "owner": "Claude produces the closing evidence; Robin approves the confirmed value at PDR",
+              "plan": "Ruled at SRR on 2026-09-26: option a, a 5 s +/-0.5 s tune timeout (package decision 36). The RF exposure evaluation and the PA thermal analysis confirm the value at PDR.",
               "close_by": "PDR"
             }
           ],
@@ -166,7 +166,8 @@
           "control_req_ids": [
             "REQ-SYS-053",
             "REQ-SYS-054",
-            "REQ-SW-KEYER-026"
+            "REQ-SW-KEYER-026",
+            "REQ-SYS-184"
           ],
           "status": "Proposed"
         },
@@ -244,7 +245,7 @@
           "type": "Hardware interlock",
           "allocation": "CTL",
           "independent_of_firmware": true,
-          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of firmware, after 180 s (TBR) of continuous transmit, so a toggling key stream that retriggers the K9 cutoff on every edge cannot hold the carrier duty beyond 180 s without a second fault. Proposed, owner decision pending at SRR (package decision 38); if the owner declines, REQ-SYS-180 is retired by the SRR decision memo and this control becomes Dropped.",
+          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of firmware, within 150 s to 180 s (TBR) of continuous transmit, so a toggling key stream that retriggers the K9 cutoff on every edge cannot hold the carrier duty beyond 180 s without a second fault. Adopted at SRR with the 150 s to 180 s window (package decision 38, owner ruling 2026-09-26).",
           "control_req_ids": [
             "REQ-SYS-180"
           ],
@@ -268,13 +269,14 @@
         "REQ-SYS-180",
         "REQ-SW-KEYER-026",
         "REQ-TX-004",
-        "REQ-TX-015"
+        "REQ-TX-015",
+        "REQ-SYS-184"
       ],
       "residual_risk": {
         "severity": "Marginal",
         "likelihood": "E",
         "level": "Low",
-        "condition": "K1 to K4 verified; the RF exposure evaluation accepted by the owner (RFX-D6) with the analogy validity carried as an accepted risk in the register. Exceeding the occupational limit then needs an ALC fault, a carrier beyond every timeout and the radio at the face together."
+        "condition": "K1 to K4 verified; the RF exposure evaluation accepted by the owner (RFX-D6; the SAR analogy was accepted at SRR, package decision 32) with the analogy validity carried as an accepted risk in the register. Exceeding the occupational limit then needs an ALC fault, a carrier beyond every timeout and the radio at the face together."
       },
       "verification_note": "K1, K2: HostUnit tests of step selection, default, persistence, confirmation logic and the tune timeout on the injected clock as the closing Test (SWE-192); Bench power per step into the dummy load at 6.0, 7.4 and 8.4 V with the tinySA Ultra and a calibrated attenuator, and the tune duration by logic capture. K3, K9, K10: as HZ-004 K3, K4, K5 and K12. K4: Simulation (behavioural PA model) then Bench. K5, K6, K7: Inspection against the RF exposure evaluation, the ConOps, the REQ-SYS-122 handbook checklist and the rendered enclosure legend. K8: Inspection at PDR, CDR and TRR. The SAR figure itself closes by the Analysis method (REQ-SYS-121, accepted per RSK-016) with Simulation-class evidence (the OET 65 Supplement B recipe and the SAR analogy in a checked calculation); no Test exists at project scale.",
       "single_point_failures": [],
@@ -291,16 +293,7 @@
         "SI-030",
         "SI-034"
       ],
-      "decisions_pending": [
-        "RFX-D1: power steps 0.5, 1, 2, 5 W within +/-1 dB (recommendation yes)",
-        "RFX-D2: default 1 W and deliberate action for 5 W (recommendation yes)",
-        "RFX-D3 with D-KN2: tune carrier 0.5 W default with a timeout below the 7.5 s floor of the hardware cutoff; the research value of 10 s conflicts with the cutoff, recommendation 5 s +/-0.5 s, which REQ-SYS-020 now carries as at most 5.5 s (TBR) (package decision 36; OQ-SAF-005)",
-        "RFX-D4: key-down accumulator and posture line classified as convenience, not SWE-134 (recommendation convenience)",
-        "RFX-D5: mobile-leaning posture as the primary ConOps scenario (recommendation yes)",
-        "RFX-D6: accept SAR by analogy at the high database value as the portable-posture evidence (recommendation yes)",
-        "RFX-D9: engraved enclosure legend (recommendation engrave)",
-        "Package decision 38: transmission-length backstop HZ-004 K12 (REQ-SYS-180), this hazard's K10; no change of the Marginal-E residual if declined"
-      ],
+      "decisions_pending": [],
       "sources": [
         "docs/research/rf-exposure-evaluation.md F1, F2, F3, F4, F5, F6, F7, F8, F9",
         "docs/research/antenna-and-erp.md F4, F9",
@@ -347,6 +340,15 @@
           "risk": "Medium",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: L2 back-links REQ-SW-KEYER-026 (K3), REQ-TX-004 (K1) and REQ-TX-015 (K4, K8) added to the controls; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Marginal",
+          "likelihood": "C",
+          "risk": "Medium",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 22, 23 (power steps, 1 W default, deliberate 5 W), 36 (tune option a), 33 (accumulator a convenience function), 31 (posture), 32 (SAR analogy), 34 (engraved legend) and 38 (backstop K10, 150 s to 180 s) ruled as recommended; K1, K2 and K10 texts state the rulings; requirements written after the rulings linked: REQ-SYS-184 (squeeze limit) added to K3; no change to severity, likelihood, initial risk or status"
         }
       ]
     },
@@ -463,9 +465,11 @@
           "type": "Hardware interlock",
           "allocation": "PWR",
           "independent_of_firmware": true,
-          "text": "Secondary 2S over-voltage protector (TI BQ29209 class) opening the charge path at 4.30 V (TBR) per cell with 15 mA balancing, as a third layer independent of the charger, the 4.25 V protector and firmware, on its own cell sense connections (K9) (D-PWR-03, recommended yes). No requirement implements it: REQ-SYS-083 is the 4.25 V protector (K2), and its rationale allocates this layer to the power subsystem at PDR; the L1 requirement is requested in OQ-SAF-008.",
-          "control_req_ids": [],
-          "status": "Requirement pending",
+          "text": "Secondary 2S over-voltage protector (TI BQ29209 class) opening the charge path at 4.30 V (TBR) per cell with 15 mA balancing, as a third layer independent of the charger, the 4.25 V protector and firmware, on its own cell sense connections (K9) (D-PWR-03, adopted at SRR with the order to write this requirement: package decision 72, owner ruling 2026-09-26). Implemented by REQ-SYS-185 (Further cell over-voltage layer, 4.30 V to 4.35 V TBR), written after the ruling; REQ-SYS-083 stays the 4.25 V protector (K2) (OQ-SAF-008 answered).",
+          "control_req_ids": [
+            "REQ-SYS-185"
+          ],
+          "status": "Proposed",
           "note": "Does not count toward the residual until its requirement exists (section 3.5)."
         },
         {
@@ -547,9 +551,11 @@
           "type": "Design",
           "allocation": "PWR",
           "independent_of_firmware": true,
-          "text": "Separate Kelvin sense connections: each protection layer (charger cell sensing and balancing, the 4.25 V protector, the 4.30 V secondary protector and the firmware dividers) takes its own sense trace from each cell terminal at the holder tab, with its own series resistor, so that one open or high-resistance sense connection blinds at most one layer. The current proposal shares one MID sense net (300 ohm, HZ-007 K3) among all layers. Requirement pending (OQ-SAF-009).",
-          "control_req_ids": [],
-          "status": "Requirement pending"
+          "text": "Separate Kelvin sense connections: each protection layer (charger cell sensing and balancing, the 4.25 V protector, the 4.30 V secondary protector and the firmware dividers) takes its own sense trace from each cell terminal at the holder tab, with its own series resistor, so that one open or high-resistance sense connection blinds at most one layer. The current proposal shares one MID sense net (300 ohm, HZ-007 K3) among all layers. Adopted at SRR as a requirement to be written (package decision 72, owner ruling 2026-09-26); implemented by REQ-SYS-186 (Separate cell-sense paths per protection layer: per-cell detection retained in all but one layer after any single sense connection opens or exceeds 10 kohm, TBR), written after the ruling (OQ-SAF-009 answered).",
+          "control_req_ids": [
+            "REQ-SYS-186"
+          ],
+          "status": "Proposed"
         }
       ],
       "requirement_ids": [
@@ -562,21 +568,23 @@
         "REQ-SYS-093",
         "REQ-SYS-122",
         "REQ-SYS-130",
-        "REQ-SYS-167"
+        "REQ-SYS-167",
+        "REQ-SYS-185",
+        "REQ-SYS-186"
       ],
       "residual_risk": {
         "severity": "Catastrophic",
-        "likelihood": "D",
-        "level": "Serious",
-        "condition": "With the allocated controls (charger regulation K1, 4.25 V protector K2, firmware dual sensing and insertion check K4 and K5) an overcharge needs two independent device failures, except through the shared MID sense net: one open or high-resistance MID sense connection plus a cell imbalance (common with mixed cells, C6) blinds the per-cell detection of every layer while the charger holds the pack at 8.4 V, which is one fault plus a common condition (D, Low confidence: the firmware disagreement check may catch a floating MID input). Serious needs the owner's acceptance in a decision memo (section 3.4). With K3 (OQ-SAF-008) and the Kelvin sense constraint K9 (OQ-SAF-009) allocated and verified by Test with a bench supply substituting for each cell, an overcharge needs three independent devices on independent sense paths to fail and the residual becomes Catastrophic-E, Medium, accepted by the owner at SAR under the RSK-007 acceptance record."
+        "likelihood": "E",
+        "level": "Medium",
+        "condition": "With the allocated controls (charger regulation K1, 4.25 V protector K2, firmware dual sensing and insertion check K4 and K5) and the two controls that SRR package decision 72 ordered and the requirements author wrote after the ruling, the 4.30 V further layer K3 (REQ-SYS-185) and the separate cell-sense paths K9 (REQ-SYS-186), all verified by Test with a bench supply substituting for each cell, an overcharge needs three independent devices on independent sense paths to fail (E): Catastrophic-E, Medium, accepted by the owner at SAR under the RSK-007 acceptance record (section 3.4). Before 0.5.0-pha, with K3 and K9 requirement pending, the level was Catastrophic-D, Serious, because one open or high-resistance MID sense connection plus a cell imbalance blinded every layer. The cells themselves (a defective cell venting under a normal charge) remain the accepted single point of hazard-analysis.md section 8.2 row 18."
       },
       "verification_note": "K1, K2, K3: Inspection of the register map and thresholds against the datasheets before power-on; Bench with a bench supply substituting for each cell as the closing Test: charger VREG and termination, protector over-voltage trip and release, secondary protector trip, JEITA behaviour with the NTC heated and cooled. K4, K5: HostUnit fault-injection tests as the closing Test (SWE-192) and Bench. K6, K7, K9: Inspection of the layout, the sense routing and the enclosure model, plus a Bench thermal measurement of cell temperature during a charge that follows a 5 minute key-down; K9 also Bench, one sense connection opened at a time with a bench supply per cell, each layer confirmed to trip on its own. K8: Inspection of the handbook.",
       "single_point_failures": [
-        "Shared MID sense net and holder junction (300 ohm series, HZ-007 K3): the charger, the 4.25 V protector, the 4.30 V secondary protector and the firmware dividers all sense the cell junction through one net, so one open or high-resistance sense connection blinds per-cell over-voltage detection in every layer; removed as a single point only by the K9 Kelvin sense constraint (requirement pending, OQ-SAF-009)",
+        "Shared MID sense net and holder junction (300 ohm series, HZ-007 K3): the charger, the 4.25 V protector, the 4.30 V secondary protector and the firmware dividers all sense the cell junction through one net, so one open or high-resistance sense connection blinds per-cell over-voltage detection in every layer; removed as a single point by the separate cell-sense paths of K9 (REQ-SYS-186, SRR package decision 72; OQ-SAF-009 answered) once verified",
         "Cell NTC decoupled from the cell: charger JEITA and firmware lock-out then both read board temperature; mitigated by placement design and a bench thermal check, single point for the temperature window",
         "The cells themselves (counterfeit, damaged or mismatched cells are outside the design's control): user guidance and the insertion check only"
       ],
-      "fault_tolerance": "Overcharge: single-fault tolerant with the allocated controls (charger regulation and the 4.25 V protector are independent devices), with the shared MID sense net as a named single point for per-cell detection; two-fault tolerant only when the 4.30 V secondary protector K3 has its requirement and each layer has its own Kelvin sense route K9, both requirement pending until the PDR allocation. Temperature window: single-fault tolerant (charger JEITA and the firmware lock-out share one NTC, a named single point).",
+      "fault_tolerance": "Overcharge: single-fault tolerant with the allocated controls (charger regulation and the 4.25 V protector are independent devices), with the shared MID sense net as a named single point for per-cell detection; two-fault tolerant once the 4.30 V further layer K3 (REQ-SYS-185) and the separate cell-sense paths K9 (REQ-SYS-186), ordered by SRR package decision 72 and written after the ruling, are verified. Temperature window: single-fault tolerant (charger JEITA and the firmware lock-out share one NTC, a named single point).",
       "status": "Controls proposed",
       "related_risk_ids": [
         "RSK-007"
@@ -587,11 +595,7 @@
         "SI-023"
       ],
       "decisions_pending": [
-        "D-PWR-01: charger IC BQ25887 (recommended) versus MP2672A versus BQ25792",
-        "D-PWR-03: S-8252 plus dual N-FET (recommended) and BQ29209 second OV layer (recommended yes); a yes needs the L1 requirement of OQ-SAF-008",
-        "SRR or PDR: separate Kelvin sense route per protection layer (K9, recommended yes)",
-        "D-PWR-07: receive while charging with charging paused (recommended default)",
-        "PDR trade study TS-NNN battery and charger (RSK-007 S2), mandatory because the choice touches this hazard (06 section 14.1 class 1c)"
+        "PDR trade study TS-NNN battery and charger (RSK-007 S2), mandatory because the choice touches this hazard (06 section 14.1 class 1c); it confirms at PDR the SRR rulings of package decisions 70 (BQ25887), 72 (S-8252 plus BQ29209) and 75 (receive with charging paused)"
       ],
       "sources": [
         "docs/research/power-tree-and-charging.md F5, F11, F12, F13, F15, F16, F22, F24",
@@ -626,6 +630,15 @@
           "risk": "High",
           "status": "Controls proposed",
           "note": "Revision 0.3.0-pha: REQ-SYS-130 (safe state first, charging disabled on a latched fault) traced to K4 and K5, which answers the HAZARD_INVERSE warning its HZ-002 link raised; residual unchanged"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Catastrophic",
+          "likelihood": "B",
+          "risk": "High",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 70, 72 (S-8252 plus BQ29209, with the 4.30 V layer and Kelvin sense requirements ordered for K3 and K9) and 75 ruled as recommended; K3 and K9 stay requirement pending until the requirements author writes them (OQ-SAF-008, OQ-SAF-009); requirements written after the rulings linked: REQ-SYS-185 traced as K3 and REQ-SYS-186 as K9 (both now Proposed); by the section 3.5 rule the residual moves from Catastrophic-D, Serious to Catastrophic-E, Medium; no change to severity, likelihood, initial risk or status"
         }
       ]
     },
@@ -749,7 +762,8 @@
           "control_req_ids": [
             "REQ-SYS-053",
             "REQ-SYS-054",
-            "REQ-SW-KEYER-026"
+            "REQ-SW-KEYER-026",
+            "REQ-SYS-184"
           ],
           "status": "Proposed"
         },
@@ -816,7 +830,7 @@
           "type": "Hardware interlock",
           "allocation": "TX",
           "independent_of_firmware": true,
-          "text": "Hardware over-temperature cut-off independent of firmware: a thermal fuse or PTC on the PA supply, or a comparator on a second NTC at the PA that forces the PA-path enable low above a fixed threshold (95 C TBR at the sensor) with hysteresis. Brought forward from PDR as an SRR decision (recommended adopt); without it the thermistor-failure branch has no independent control. Implemented by REQ-SYS-181 (Hardware PA over-temperature cut-off, Draft, 95 C TBR; OQ-SAF-012). Proposed, owner decision pending at SRR (package decision 39); if the owner declines, REQ-SYS-181 is retired by the SRR decision memo and this control becomes Dropped.",
+          "text": "Hardware over-temperature cut-off independent of firmware: a thermal fuse or PTC on the PA supply, or a comparator on a second NTC at the PA that forces the PA-path enable low above a fixed threshold (95 C TBR at the sensor) with hysteresis. Brought forward from PDR and adopted at SRR with 95 C +/-3 C and 100 ms (package decision 39, owner ruling 2026-09-26); without it the thermistor-failure branch would have no independent control. Implemented by REQ-SYS-181 (Hardware PA over-temperature cut-off, Draft, 95 C +/-3 C TBR; OQ-SAF-012 closed).",
           "control_req_ids": [
             "REQ-SYS-181"
           ],
@@ -824,8 +838,8 @@
           "tbr": [
             {
               "item": "95 C cut-off threshold",
-              "owner": "Claude proposes; Robin decides at SRR",
-              "plan": "Set above the 85 C firmware inhibit (REQ-SYS-118) and below the device rating by the PDR thermal analysis; recorded in the ADR that adopts the cut-off; the adoption itself is package decision 39 (REQ-SYS-181 tbr, close_by SRR).",
+              "owner": "Claude produces the closing evidence; Robin approves the confirmed value at PDR",
+              "plan": "Adopted at SRR on 2026-09-26 at 95 C +/-3 C (package decision 39). The PDR thermal analysis confirms the threshold above the 85 C firmware inhibit (REQ-SYS-118) and below the device rating; recorded in the ADR that adopts the cut-off element.",
               "close_by": "PDR"
             }
           ]
@@ -835,7 +849,7 @@
           "type": "Hardware interlock",
           "allocation": "CTL",
           "independent_of_firmware": true,
-          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of firmware, after 180 s (TBR) of continuous transmit, so a toggling key stream that retriggers the K8 cutoff dissipates at most 180 s of PA heat, inside the 5 minute continuous key-down thermal design case of K1; it does not bound normal keying with pauses longer than the hang time, which K2 and K9 bound. Proposed, owner decision pending at SRR (package decision 38); if the owner declines, REQ-SYS-180 is retired by the SRR decision memo and this control becomes Dropped.",
+          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of firmware, within 150 s to 180 s (TBR) of continuous transmit, so a toggling key stream that retriggers the K8 cutoff dissipates at most 180 s of PA heat, inside the 5 minute continuous key-down thermal design case of K1; it does not bound normal keying with pauses longer than the hang time, which K2 and K9 bound. Adopted at SRR with the 150 s to 180 s window (package decision 38, owner ruling 2026-09-26).",
           "control_req_ids": [
             "REQ-SYS-180"
           ],
@@ -857,19 +871,20 @@
         "REQ-SYS-156",
         "REQ-SYS-180",
         "REQ-SYS-181",
-        "REQ-SW-KEYER-026"
+        "REQ-SW-KEYER-026",
+        "REQ-SYS-184"
       ],
       "residual_risk": {
         "severity": "Critical",
         "likelihood": "E",
         "level": "Low",
-        "condition": "Every control that has a requirement verified, the hardware over-temperature cut-off K9 (REQ-SYS-181, Proposed, package decision 39) included: the thermal budget by the 5 minute key-down test (RSK-006 closure), the firmware thermal protection by HostUnit and Bench, and K9 by its Bench fault-injection Test. A burn or a junction past its rating during long keying in a pocket then needs the thermistor reading cold plus a cut-off failure (two independent faults, E); a stuck continuous carrier is bounded by K8 at 13 s and a toggling stream by K10 at 180 s (TBR). If the owner declines package decision 39, REQ-SYS-181 is retired, K9 becomes Dropped and the residual is Critical-D, Medium: a thermistor that reads cold (single point failure row 8 of hazard-analysis.md section 8.2) leaves no control independent of firmware. Section 3.4 accepts that Medium only with the listed controls allocated and verified and the owner's acceptance at SAR, and the SRR decision memo then records row 8 as an accepted single point."
+        "condition": "Every control that has a requirement verified, the hardware over-temperature cut-off K9 (REQ-SYS-181, adopted at SRR, package decision 39) included: the thermal budget by the 5 minute key-down test (RSK-006 closure), the firmware thermal protection by HostUnit and Bench, and K9 by its Bench fault-injection Test. A burn or a junction past its rating during long keying in a pocket then needs the thermistor reading cold plus a cut-off failure (two independent faults, E); a stuck continuous carrier is bounded by K8 at 13 s and a toggling stream by K10 within 150 s to 180 s (TBR). The decline case recorded before SRR (Critical-D, Medium; hazard-analysis.md section 8.3) does not apply: the owner adopted package decision 39 on 2026-09-26."
       },
       "verification_note": "K1, K7: Simulation (thermal budget, resistance chain junction to ambient) then Bench (5 minute key-down into the dummy load inside the enclosure, NTC logged, surface temperature by multimeter thermocouple); REQ-SYS-112 closes by the Analysis method accepted per RSK-006 because no junction measurement exists at project scale. K2: HostUnit with injected sensor values (threshold, hysteresis, latency, out-of-range readings) as the closing Test (SWE-192) and Bench with the sensor signal injected at its test pad while keyed into the dummy load. K3, K8, K10: as HZ-004 K3, K4, K5 and K12. K4, K5: Simulation (PA model at load extremes with the filter) and Bench (power per step across 6.0 to 8.4 V; mismatch fixtures characterised with the NanoVNA). K6: Inspection. K9 (REQ-SYS-181, if package decision 39 adopts it): Simulation or Analysis of the threshold and hysteresis as supporting evidence; Bench as the closing Test, a fault-injection build with the firmware inhibit and fold-back disabled, the cut-off sensor replaced at its test pad by the resistance for 90 C and then 100 C while keyed into the dummy load at 0.5 W, the PA-path enable and the monitor-port RF logged; the closing case is assigned by the independent test author (REQ-SYS-181 verification note).",
       "single_point_failures": [
-        "PA thermistor reading cold: defeats K2 during normal long keying; the hardware key-down cutoff K8 does not act on normal keying, so without K9 no control independent of firmware remains; the range and plausibility check (SWE-134 g) and the RP2350 on-die sensor cross-check reduce but do not remove it; removed by the hardware over-temperature cut-off K9 (REQ-SYS-181) if the owner adopts package decision 39; an accepted single point if declined"
+        "PA thermistor reading cold: defeats K2 during normal long keying; the hardware key-down cutoff K8 does not act on normal keying, so without K9 no control independent of firmware remains; the range and plausibility check (SWE-134 g) and the RP2350 on-die sensor cross-check reduce but do not remove it; removed by the hardware over-temperature cut-off K9 (REQ-SYS-181), adopted at SRR (package decision 39, owner ruling 2026-09-26)"
       ],
-      "fault_tolerance": "Thermistor-failure branch (normal long keying, not a stuck carrier, with the thermistor reading cold): single-fault tolerant with the hardware over-temperature cut-off K9 (REQ-SYS-181), which does not share the thermistor or any firmware path; zero-fault tolerant if package decision 39 declines K9, because the hardware key-down cutoff bounds only a continuous carrier. Single-fault tolerant for a stuck continuous carrier (hardware cutoff K8, 13 s), for a toggling stream (K10, 180 s TBR, with package decision 38) and for a thermal-path shortfall (thermistor plus firmware inhibit).",
+      "fault_tolerance": "Thermistor-failure branch (normal long keying, not a stuck carrier, with the thermistor reading cold): single-fault tolerant with the hardware over-temperature cut-off K9 (REQ-SYS-181), which does not share the thermistor or any firmware path; K9 was adopted at SRR (package decision 39), which removes the zero-fault case that a decline would have left, because the hardware key-down cutoff bounds only a continuous carrier. Single-fault tolerant for a stuck continuous carrier (hardware cutoff K8, 13 s), for a toggling stream (K10, 150 s to 180 s TBR, adopted with package decision 38) and for a thermal-path shortfall (thermistor plus firmware inhibit).",
       "status": "Controls proposed",
       "related_risk_ids": [
         "RSK-006",
@@ -883,10 +898,8 @@
         "SI-013"
       ],
       "decisions_pending": [
-        "Package decision 39 (SRR, brought forward from PDR): hardware over-temperature cut-off K9 independent of firmware (thermal fuse, PTC or comparator on a second NTC), REQ-SYS-181, recommended adopt; a decline leaves the residual at Critical-D, Medium",
-        "Antenna DECISION-5: directional coupler with SWR fold-back versus PA ruggedness alone",
-        "PA device baseline (pa-device-candidates.md decision 5) fixes RthJC (2.5 C/W RD07MUS2B, 4.4 C/W AFT05MS004N) and therefore the thermal budget",
-        "Package decision 38: transmission-length backstop HZ-004 K12 (REQ-SYS-180), this hazard's K10; no change of the residual level if declined"
+        "Antenna DECISION-5 (package decision 60, ruled at PDR): directional coupler with SWR fold-back versus PA ruggedness alone",
+        "PA device baseline (pa-device-candidates.md decision 5) fixes RthJC (2.5 C/W RD07MUS2B, 4.4 C/W AFT05MS004N) and therefore the thermal budget; the device is selected at PDR (TS-003; package decision 58 set the interim ranking at SRR)"
       ],
       "sources": [
         "docs/research/pa-device-candidates.md F3, F8, F18, F19, F20",
@@ -934,6 +947,15 @@
           "risk": "Serious",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: L2 back-link REQ-SW-KEYER-026 added to K3; REQ-SYS-113 listed as a section 8.1 item 7 exception; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Critical",
+          "likelihood": "C",
+          "risk": "Serious",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 39 (hardware over-temperature cut-off K9, 95 C +/-3 C, 100 ms) and 38 (backstop K10) adopted; the decline case of hazard-analysis.md section 8.3 no longer applies; OQ-SAF-012 closed; requirements written after the rulings linked: REQ-SYS-184 (squeeze limit) added to K3; no change to severity, likelihood, initial risk or status"
         }
       ]
     },
@@ -1060,13 +1082,14 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Straight-on-tip mode is selected only by an explicit menu action, never by automatic detection; the selection is accepted while the KEY inhibit is active (REQ-SYS-163), because a mono plug holds the ring closed, and the REQ-SYS-052 key-closed interlock then re-runs on the inputs the new mode uses before transmit can be armed; the ring contact is then ignored, which makes a mono plug safe (SWE-134 d). Mode changes only by menu (D-KN8).",
+          "text": "Straight-on-tip mode is selected only by an explicit menu action, never by automatic detection; the selection is accepted while the KEY inhibit is active (REQ-SYS-163), because a mono plug holds the ring closed, and the REQ-SYS-052 key-closed interlock then re-runs on the inputs the new mode uses before transmit can be armed; the ring contact is then ignored, which makes a mono plug safe (SWE-134 d). Mode changes only by menu (D-KN8). The keyer accepts the two operator events of this selection as distinct only under REQ-SW-KEYER-039 (self-derived, concurred by SRR package decision 112).",
           "control_req_ids": [
             "REQ-SYS-056",
             "REQ-SYS-163",
             "REQ-SW-KEYER-002",
             "REQ-SW-KEYER-024",
-            "REQ-SW-KEYER-025"
+            "REQ-SW-KEYER-025",
+            "REQ-SW-KEYER-039"
           ],
           "status": "Proposed"
         },
@@ -1075,7 +1098,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Manual-closure timeout T_sw = 5 s (configurable 2 to 6 s, always below the hardware cutoff minimum of 7.5 s): any manually timed continuous closure (Straight mode and the Bug-mode dah contact) confirmed for longer than T_sw drops TX_KEY through the normal envelope fall, keeps the sidetone on so the operator hears the fault, shows 'KEY?' and re-arms when the contact is confirmed open (SWE-134 j; D-KN3). REQ-SYS-053 covers 'any continuous manually timed key closure', the Bug-mode dah contact included (OQ-SAF-004 closed); the 5 s value is its TBR (package decision 37).",
+          "text": "Manual-closure timeout T_sw = 5 s (configurable 2 to 6 s, always below the hardware cutoff minimum of 7.5 s): any manually timed continuous closure (Straight mode and the Bug-mode dah contact) confirmed for longer than T_sw drops TX_KEY through the normal envelope fall, keeps the sidetone on so the operator hears the fault, shows 'KEY?' and re-arms when the contact is confirmed open (SWE-134 j; D-KN3). REQ-SYS-053 covers 'any continuous manually timed key closure', the Bug-mode dah contact included (OQ-SAF-004 closed); the 5 s value, the Bug-mode dah included, was ruled at SRR (package decision 37, owner ruling 2026-09-26) and stays TBR to PDR with its 2 to 6 s range.",
           "control_req_ids": [
             "REQ-SYS-053",
             "REQ-SYS-067",
@@ -1089,11 +1112,12 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "No-gap paddle watchdog, run by the safe-state manager on the TX_KEY read-back and not by the keyer engine, so that a keyer fault that produces a stream does not also disable it: keying stops, with the sidetone continuing and an alert shown, when (i) 128 consecutive identical elements are sent; (ii) TX_KEY has had no key-up interval of at least 7 dit times at the selected speed or 500 ms, whichever is shorter, for 30 s, whatever the element pattern; or (iii) both paddle contacts have stayed closed for more than 2 s in Iambic A, Iambic B or Ultimatic mode (a squeeze from headphones or a shorted TRS cable inserted after boot). Items (ii) and (iii) redefine REQ-SYS-054, which today counts identical elements only (OQ-SAF-001, OQ-SAF-002). Proposed, owner decision pending at SRR (package decision 37, D-KN3).",
+          "text": "No-gap paddle watchdog, run by the safe-state manager on the TX_KEY read-back and not by the keyer engine, so that a keyer fault that produces a stream does not also disable it: keying stops, with the sidetone continuing and an alert shown, when (i) 128 consecutive identical elements are sent; (ii) TX_KEY has had no key-up interval of at least 7 dit times at the selected speed or 500 ms, whichever is shorter, for 30 s, whatever the element pattern; or (iii) both paddle contacts have stayed closed for more than 2 s in Iambic A, Iambic B or Ultimatic mode (a squeeze from headphones or a shorted TRS cable inserted after boot). Adopted at SRR as the paddle watchdog (package decision 37, D-KN3, owner ruling 2026-09-26), replacing the 10 s elapsed-time cap of REQ-SYS-054 as written before SRR. Implemented after the ruling by REQ-SYS-054 (Paddle watchdog, reworded to items (i) and (ii)) and REQ-SYS-184 (Paddle squeeze limit, item (iii)), both Draft with TBR (OQ-SAF-001, OQ-SAF-002 answered).",
           "control_req_ids": [
-            "REQ-SYS-054"
+            "REQ-SYS-054",
+            "REQ-SYS-184"
           ],
-          "status": "Requirement pending",
+          "status": "Proposed",
           "tbr": [
             {
               "item": "No-gap interval (7 dit times or 500 ms) and 30 s window",
@@ -1115,7 +1139,7 @@
           "type": "Hardware interlock",
           "allocation": "TX",
           "independent_of_firmware": true,
-          "text": "Independent hardware PA-enable cutoff: a retriggerable monostable (Nexperia 74LVC1G123 class, 1 Mohm, 10 uF) watches TX_KEY; each key-down edge starts a pulse of T_max = 10 s nominal (acceptance 7.5 to 13 s); the PA path is enabled only while TX_KEY AND Q are both true, so a TX_KEY that stays high longer than T_max from any cause loses the PA until the line falls and rises again; the cutoff acts on the envelope modulator control node, not on the LDMOS gate bias alone (SWE-134 i; D-KN2). Because every TX_KEY edge restarts the pulse, K5 bounds a continuous key-down only; a toggling TX_KEY stream retriggers it indefinitely (K12). The T_max value, its window and the 74LVC1G123 part are Proposed, owner decision pending at SRR (D-KN2, package decision 36).",
+          "text": "Independent hardware PA-enable cutoff: a retriggerable monostable (Nexperia 74LVC1G123 class, 1 Mohm, 10 uF) watches TX_KEY; each key-down edge starts a pulse of T_max = 10 s nominal (acceptance 7.5 to 13 s); the PA path is enabled only while TX_KEY AND Q are both true, so a TX_KEY that stays high longer than T_max from any cause loses the PA until the line falls and rises again; the cutoff acts on the envelope modulator control node, not on the LDMOS gate bias alone (SWE-134 i; D-KN2). Because every TX_KEY edge restarts the pulse, K5 bounds a continuous key-down only; a toggling TX_KEY stream retriggers it indefinitely (K12). The T_max value, its window and the 74LVC1G123 part with a timing capacitor chosen from its DC-bias curve (R-KN1) were adopted at SRR (D-KN2, package decision 36 option a, owner ruling 2026-09-26).",
           "control_req_ids": [
             "REQ-SYS-055"
           ],
@@ -1176,7 +1200,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Key inputs sampled at 1 kHz and debounced (closure accepted after 2 consecutive 1 ms samples, opening after 5, fixed counts that are not operator-configurable per REQ-SW-KEYER-020 and 021, TBR; the fixed-count choice is an owner decision at SRR) with stuck-input detection; the HZ-010 network attenuates RF pickup by about 70 dB before the Schmitt hysteresis (SWE-134 g). Key-down is withheld while a key input reads closed with no plug present (REQ-SW-KEYER-036).",
+          "text": "Key inputs sampled at 1 kHz and debounced (closure accepted after 2 consecutive 1 ms samples, opening after 5, fixed counts that are not operator-configurable per REQ-SW-KEYER-020 and 021, TBR; SRR package decision 48, ruled on consent on 2026-09-26, exposes the debounce in the menu, which these fixed counts do not yet reflect: OQ-SAF-027) with stuck-input detection; the HZ-010 network attenuates RF pickup by about 70 dB before the Schmitt hysteresis (SWE-134 g). Key-down is withheld while a key input reads closed with no plug present (REQ-SW-KEYER-036).",
           "control_req_ids": [
             "REQ-SYS-048",
             "REQ-SYS-051",
@@ -1224,16 +1248,16 @@
           "type": "Hardware interlock",
           "allocation": "CTL",
           "independent_of_firmware": true,
-          "text": "Transmission-length backstop independent of firmware: a second monostable watches the T/R transmit drive and removes the PA-path enable at the same node as K5 when the drive has stayed in transmit continuously for 180 s (TBR), re-arming only when the drive returns to receive (hang time expired); proposed with it, the PA-path gate also requires the T/R transmit drive, so a TX_KEY stream with T/R in receive gives no PA output (confirmed at PDR). It is the only hardware element that bounds a toggling TX_KEY stream (hazard-analysis.md section 5, coverage rows 4 to 8). Brought forward from PDR to SRR for the owner's decision (package decision 38). Alternatives rejected: a leaky-integrator duty limiter on TX_KEY misses continuous dits (50 percent duty) and a PARIS loop (44 percent); a cutoff that re-arms only after a minimum TX_KEY low time cannot serve 5 to 50 WPM, because the 240 ms intra-character gap at 5 WPM is longer than the 168 ms word space at 50 WPM. Implemented by REQ-SYS-180 (Transmission-length hardware backstop, Draft, 180 s TBR; OQ-SAF-003), shared as HZ-001 K10, HZ-003 K10, HZ-006 K10, HZ-012 K6 and HZ-014 K8. Proposed, owner decision pending at SRR; if the owner declines, REQ-SYS-180 is retired by the SRR decision memo and this control becomes Dropped.",
+          "text": "Transmission-length backstop independent of firmware: a second monostable watches the T/R transmit drive and removes the PA-path enable at the same node as K5 when the drive has stayed in transmit continuously for 150 s to 180 s (TBR), re-arming only when the drive returns to receive (hang time expired); proposed with it, the PA-path gate also requires the T/R transmit drive, so a TX_KEY stream with T/R in receive gives no PA output (confirmed at PDR). It is the only hardware element that bounds a toggling TX_KEY stream (hazard-analysis.md section 5, coverage rows 4 to 8). Brought forward from PDR and adopted at SRR with the 150 s to 180 s window (package decision 38, owner ruling 2026-09-26). Alternatives rejected: a leaky-integrator duty limiter on TX_KEY misses continuous dits (50 percent duty) and a PARIS loop (44 percent); a cutoff that re-arms only after a minimum TX_KEY low time cannot serve 5 to 50 WPM, because the 240 ms intra-character gap at 5 WPM is longer than the 168 ms word space at 50 WPM. Implemented by REQ-SYS-180 (Transmission-length hardware backstop, Draft, 150 s to 180 s TBR; OQ-SAF-003 closed), shared as HZ-001 K10, HZ-003 K10, HZ-006 K10, HZ-012 K6 and HZ-014 K8.",
           "control_req_ids": [
             "REQ-SYS-180"
           ],
           "status": "Proposed",
           "tbr": [
             {
-              "item": "180 s transmission-length limit",
-              "owner": "Claude proposes; Robin decides at SRR",
-              "plan": "Set at SRR against the longest legitimate over without a pause longer than the hang time (up to 2500 ms, REQ-SYS-044); confirmed at PDR by timing Simulation of the monostable over tolerance; kept above the 120 s bench test-mode timeout (K13) so that firmware acts first.",
+              "item": "150 s to 180 s transmission-length window",
+              "owner": "Claude produces the closing evidence; Robin approves the confirmed window at PDR",
+              "plan": "Adopted at SRR on 2026-09-26 with the 150 s to 180 s window (package decision 38); confirmed at PDR by timing Simulation of the monostable over tolerance; the 150 s floor stays above the 120 s bench test-mode timeout (K13, package decision 41) so that firmware acts first.",
               "close_by": "PDR"
             }
           ]
@@ -1243,19 +1267,23 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Bench test modes (full-scale tone, PARIS string into the dummy load, continuous carrier under the tune limits, watchdog demonstration; ConOps section 3.5.2 item 2): entry only by a menu action plus a confirmation (SWE-134 d; REQ-SYS-007 covers the confirmed entry for keying), the transmitter forced to the 0.5 W step, automatic exit after 120 s (TBR) and on every reset, never persisted in the configuration store, and a 'TEST' indication for the whole mode. A PARIS loop has 7-dit word spaces, so K4 does not see it and K5 is retriggered; K13 and K12 are its controls. Requirement pending for the forced step, the timeout, the reset exit and the non-persistence (OQ-SAF-016; package decision 41); REQ-SYS-179 implements the menu-plus-confirmation entry.",
+          "text": "Bench test modes (full-scale tone, PARIS string into the dummy load, continuous carrier under the tune limits, watchdog demonstration; ConOps section 3.5.2 item 2): entry only by a menu action plus a confirmation (SWE-134 d; REQ-SYS-007 covers the confirmed entry for keying), the transmitter forced to the 0.5 W step, automatic exit after 120 s (TBR) and on every reset, never persisted in the configuration store, and a 'TEST' indication for the whole mode. A PARIS loop has 7-dit word spaces, so K4 does not see it and K5 is retriggered; K13 and K12 are its controls. Adopted at SRR (package decision 41, with the ConOps Bench-test limits ratified by package decision 42, owner ruling 2026-09-26); the forced step, the 120 s timeout and the reset exit with non-persistence are REQ-SYS-187, REQ-SYS-188 and REQ-SYS-190, written after the ruling (OQ-SAF-016 answered); REQ-SYS-179 implements the menu-plus-confirmation entry. The test-mode generator start uses the same distinct-event rule, REQ-SW-KEYER-039 (SRR package decision 112).",
           "control_req_ids": [
             "REQ-SYS-007",
             "REQ-SYS-179",
             "REQ-SW-KEYER-028",
-            "REQ-SW-KEYER-029"
+            "REQ-SW-KEYER-029",
+            "REQ-SYS-187",
+            "REQ-SYS-188",
+            "REQ-SYS-190",
+            "REQ-SW-KEYER-039"
           ],
-          "status": "Requirement pending",
+          "status": "Proposed",
           "tbr": [
             {
               "item": "120 s test-mode timeout",
               "owner": "Claude",
-              "plan": "Set at PDR from the longest bench measurement a test mode must support (element timing at 5 WPM, about 60 s) and kept below the K12 backstop.",
+              "plan": "Ruled at SRR on 2026-09-26 at 120 s (package decisions 41 and 42); confirmed at PDR from the longest bench measurement a test mode must support (element timing at 5 WPM, about 60 s) and kept below the 150 s floor of the K12 backstop.",
               "close_by": "PDR"
             }
           ]
@@ -1303,21 +1331,26 @@
         "REQ-SW-KEYER-035",
         "REQ-SYS-183",
         "REQ-SW-KEYER-034",
-        "REQ-SW-KEYER-036"
+        "REQ-SW-KEYER-036",
+        "REQ-SYS-184",
+        "REQ-SYS-187",
+        "REQ-SYS-188",
+        "REQ-SYS-190",
+        "REQ-SW-KEYER-039"
       ],
       "residual_risk": {
         "severity": "Critical",
         "likelihood": "D",
         "level": "Medium",
-        "condition": "Critical-D, Medium, with every control that has a requirement verified, the transmission-length backstop K12 (REQ-SYS-180, Proposed, package decision 38) included: a toggling key stream from a single cause (headphones or a shorted TRS cable inserted after boot in Iambic A, a held paddle lever, an iambic memory fault, a test-mode PARIS loop, a release with a periodic output on TX_KEY) is ended by K12 after 180 s (TBR) of continuous transmit even when firmware K4 cannot act, so a longer transmission needs a firmware fault plus a backstop failure, and a continuous carrier longer than 13 s needs a firmware fault plus a cutoff failure (both E). The level is set by the shorted envelope pass element single point (R-KN5), which bypasses K5 and K12 alike, and becomes Critical-E, Low, once R-KN5 closes at PDR. K4 items (ii) and (iii) and the K13 forced step, timeout, reset exit and non-persistence are requirement pending (OQ-SAF-001, OQ-SAF-002, OQ-SAF-016; package decisions 37 and 41) and do not count (section 3.5). If the owner declines package decision 38, REQ-SYS-180 is retired by the SRR decision memo, K12 becomes Dropped and the residual reverts to Critical-C, Serious, set by coverage rows 4 to 8 of hazard-analysis.md section 5, which then have only software (K4, K13) and operator procedure (K11) controls. Section 3.4 accepts a Serious residual only with the owner's acceptance in a decision memo, at least two independent controls of which one is neither software nor procedure, and every control verified by Test; the toggling-stream branch fails the second condition, so the decline cannot be accepted as a residual: the SRR decision memo records it as a decision the section 3.4 response does not allow and names the alternative hardware control or design change, with its requirement, to be allocated before PDR (OQ-SAF-003)."
+        "condition": "Critical-D, Medium, with every control that has a requirement verified, the transmission-length backstop K12 (REQ-SYS-180, adopted at SRR, package decision 38) included: a toggling key stream from a single cause (headphones or a shorted TRS cable inserted after boot in Iambic A, a held paddle lever, an iambic memory fault, a test-mode PARIS loop, a release with a periodic output on TX_KEY) is ended by K12 within 150 s to 180 s (TBR) of continuous transmit even when firmware K4 cannot act, so a longer transmission needs a firmware fault plus a backstop failure, and a continuous carrier longer than 13 s needs a firmware fault plus a cutoff failure (both E). The level is set by the shorted envelope pass element single point (R-KN5), which bypasses K5 and K12 alike, and becomes Critical-E, Low, once R-KN5 closes at PDR. K4 items (ii) and (iii) and the K13 forced step, timeout, reset exit and non-persistence were adopted at SRR (package decisions 37 and 41) and are now implemented by REQ-SYS-054 and REQ-SYS-184 (K4) and REQ-SYS-187, REQ-SYS-188 and REQ-SYS-190 (K13), so they count toward this level (section 3.5); the level itself is still set by R-KN5. The decline case recorded before SRR (Critical-C, Serious, for coverage rows 4 to 8; hazard-analysis.md section 8.3) does not apply: the owner adopted package decision 38 on 2026-09-26."
       },
       "verification_note": "K1 to K4, K7 to K9, K13: HostUnit tests with golden vectors, fault injection and the injected clock as the closing Test (SWE-192, no exception for software controls), including every stream case of the hazard-analysis.md section 5 coverage table (single lever held, both contacts closed after boot in each iambic mode, a keyer-memory fault that alternates elements, a PARIS loop in test mode) and replays of recorded normal sending that must not trip K4; Emulation scenarios for event ordering only (ACC-EMU-001 scope); Bench logic capture of TX_KEY and PA_EN with the PA disconnected (stage 6 of the power-on sequence). K5, K12: Simulation of the monostable timing windows including capacitor DC-bias derating; Bench as the closing Test: a fault-injection build holds TX_KEY high (K5), or holds the T/R drive in transmit while toggling TX_KEY (K12), with the PA disconnected, and the logic capture times the PA-path enable; repeated at every unit's ATP. K6: Inspection of the schematic; Bench at power-on stages 4 and 6 (bootloader and reset states read low). K10, K11: Inspection of ICD-CTL-KEY and of the handbook against the REQ-SYS-122 checklist; Bench demonstration of the abort actions.",
       "single_point_failures": [
         "Hardware cutoff timing capacitor (10 uF ceramic with DC-bias derating): a value loss shortens T_max; with the tune carrier of REQ-SYS-020 (at most 5.5 s, TBR; OQ-SAF-005) the margin to the 7.5 s floor is 2 s and a further loss interrupts legitimate tune carriers and long manual key-downs (nuisance, R-KN1); an open capacitor lengthens T_max toward indefinite, a latent loss of the backstop detected only by the Bench timing test at TRR and each ATP",
         "Envelope modulator pass element shorted (PA fed regardless of the control node): the cutoff K5, the backstop K12 and the ALC all lose authority because they act on that node; single point unless the cutoff also removes gate bias or a second series element is added (PDR decision R-KN5)",
-        "Without K12, no hardware element bounds a toggling TX_KEY stream (a held paddle lever, a squeeze from headphones or a shorted TRS cable inserted after boot in an iambic mode, an iambic memory fault, a bench test-mode PARIS loop, a periodic output on TX_KEY from a pin-map error): K5 is retriggered by every edge, so firmware K4 and K13 are the only automatic controls and a pin-map error can defeat both; removed by K12 (REQ-SYS-180) if the owner adopts package decision 38; stays a single point if declined (OQ-SAF-003)"
+        "Without K12, no hardware element bounds a toggling TX_KEY stream (a held paddle lever, a squeeze from headphones or a shorted TRS cable inserted after boot in an iambic mode, an iambic memory fault, a bench test-mode PARIS loop, a periodic output on TX_KEY from a pin-map error): K5 is retriggered by every edge, so firmware K4 and K13 are the only automatic controls and a pin-map error can defeat both; removed by K12 (REQ-SYS-180), adopted at SRR (package decision 38, owner ruling 2026-09-26; OQ-SAF-003 closed)"
       ],
-      "fault_tolerance": "Continuous key-down (TX_KEY held high from any cause): single-fault tolerant with dissimilar controls (firmware timeout K3 or watchdog K4, hardware monostable K5, reset-safe pad states K6): no single software fault sustains a continuous carrier beyond 13 s. Toggling TX_KEY stream: zero-fault tolerant in hardware, because K5 is retriggered by every edge; bounded only by firmware K4 and the test-mode guard K13, which a pin-map error can defeat; single-fault tolerant once the transmission-length backstop K12 (REQ-SYS-180, package decision 38) is adopted and verified. SWE-134 i (no single software event initiates the hazard) holds for initiation through the two software conditions K8; it holds for sustaining a toggling stream only with K12.",
+      "fault_tolerance": "Continuous key-down (TX_KEY held high from any cause): single-fault tolerant with dissimilar controls (firmware timeout K3 or watchdog K4, hardware monostable K5, reset-safe pad states K6): no single software fault sustains a continuous carrier beyond 13 s. Toggling TX_KEY stream: zero-fault tolerant in hardware, because K5 is retriggered by every edge; bounded only by firmware K4 and the test-mode guard K13, which a pin-map error can defeat; single-fault tolerant with the transmission-length backstop K12 (REQ-SYS-180), adopted at SRR (package decision 38) and credited once verified. SWE-134 i (no single software event initiates the hazard) holds for initiation through the two software conditions K8; it holds for sustaining a toggling stream only with K12.",
       "status": "Controls proposed",
       "related_risk_ids": [
         "RSK-024"
@@ -1331,12 +1364,7 @@
         "SI-036"
       ],
       "decisions_pending": [
-        "D-KN2 (package decision 36): adopt the hardware cutoff with T_max 10 s; 74LVC1G123 (recommended) versus LTC6993-2; the 7.5 s floor must stay above the tune timeout, REQ-SYS-020 at most 5.5 s (OQ-SAF-005)",
-        "D-KN3 (package decision 37): firmware manual-closure timeout 5 s (including the Bug-mode dah contact) and the no-gap paddle watchdog with squeeze limit (128 identical elements; 30 s without a key-up interval of 7 dit times or 500 ms; both contacts closed over 2 s)",
-        "D-KN8 (package decision 44): mono plug handled by interlock plus menu, no automatic mode change, for rev A",
-        "Package decision 38 (SRR, brought forward from PDR): transmission-length backstop K12 on the T/R drive, REQ-SYS-180, 180 s TBR (recommended adopt); a decline leaves the toggling-stream branch at Critical-C, Serious, which section 3.4 does not accept with firmware as the only automatic control",
-        "Package decision 41 (SRR): bench test-mode guard K13 (menu plus confirmation, forced 0.5 W, 120 s timeout, exit on reset, never persisted)",
-        "R-KN5: cutoff node versus PA topology (bias-only cutoff may not silence a driven LDMOS)"
+        "R-KN5 (PDR): cutoff node versus PA topology (bias-only cutoff may not silence a driven LDMOS); it also sets the shorted envelope pass element single point that holds the residual at Critical-D"
       ],
       "sources": [
         "docs/research/keyer-verification-and-key-input-network.md F2, F6, F11, F13, F14 (F13 coverage statement for headphones after boot holds only in Straight mode; correction requested in OQ-SAF-007)",
@@ -1392,6 +1420,15 @@
           "risk": "High",
           "status": "Controls proposed",
           "note": "Revision 0.4.2-pha (ConOps appendix D item D10, SRR package H6 and R14): K2 text states that the Straight-on-tip selection is accepted while the KEY inhibit is active (REQ-SYS-163) and that the REQ-SYS-052 interlock then re-runs on the newly used inputs, replacing 'after the interlock has passed', which a mono plug can never satisfy; no change to control_req_ids, severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Critical",
+          "likelihood": "B",
+          "risk": "High",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 36 (cutoff T_max 10 s, 7.5 to 13 s, 74LVC1G123), 37 (5 s manual timeout with the Bug dah; the K4 no-gap paddle watchdog with the 2 s squeeze limit), 38 (backstop K12, 150 s to 180 s), 41 (bench test-mode guard K13), 42 (ConOps classes and Bench-test limits) and 44 (interlock plus menu) ruled as recommended; the decline case no longer applies; OQ-SAF-003 closed; K4 items (ii), (iii) and the K13 guard stay requirement pending until written (OQ-SAF-001, 002, 016); K9 debounce conflict with decision 48 raised as OQ-SAF-027; requirements written after the rulings linked: REQ-SYS-184 added to K4 and REQ-SYS-187, 188, 190 to K13 (both now Proposed); REQ-SW-KEYER-039 (distinct operator events, decision 112) added to K2 and K13; residual level unchanged (R-KN5); no change to severity, likelihood, initial risk or status"
         }
       ]
     },
@@ -1571,11 +1608,13 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Full-scale test tone only in the bench test mode: entry by a menu action plus a confirmation, automatic exit after 60 s (TBR) and on every reset, never persisted; the hardware ceiling K1 still bounds it to 100 mVrms; the bench rule of hazard-analysis.md section 10 keeps headphones off the ear during the tone. Requirement pending (OQ-SAF-016).",
+          "text": "Full-scale test tone only in the bench test mode: entry by a menu action plus a confirmation, automatic exit after 60 s (TBR) and on every reset, never persisted; the hardware ceiling K1 still bounds it to 100 mVrms; the bench rule of hazard-analysis.md section 10 keeps headphones off the ear during the tone. Adopted at SRR with the bench test-mode guard (package decisions 41 and 42, owner ruling 2026-09-26); implemented by REQ-SYS-179 (entry), REQ-SYS-189 (60 s tone limit, TBR) and REQ-SYS-190 (not retained over reset or power-on), written after the ruling (OQ-SAF-016 answered).",
           "control_req_ids": [
-            "REQ-SYS-179"
+            "REQ-SYS-179",
+            "REQ-SYS-189",
+            "REQ-SYS-190"
           ],
-          "status": "Requirement pending"
+          "status": "Proposed"
         }
       ],
       "requirement_ids": [
@@ -1594,7 +1633,9 @@
         "REQ-SYS-169",
         "REQ-SYS-170",
         "REQ-SYS-179",
-        "REQ-SW-KEYER-033"
+        "REQ-SW-KEYER-033",
+        "REQ-SYS-189",
+        "REQ-SYS-190"
       ],
       "residual_risk": {
         "severity": "Marginal",
@@ -1618,10 +1659,7 @@
         "SI-019"
       ],
       "decisions_pending": [
-        "Audio D2: maximum level policy (a) 100 mVrms sine ceiling, 150 mV worst-case pattern, 30 mV default cap with acknowledged unlock and 20 h expiry (recommended)",
-        "Audio D4: no-headphones behaviour, amplifier shutdown plus LCD indicator with the keyer live (recommended) versus refusing to transmit",
-        "Audio D5: mono plug accepted with a protected shorted channel (recommended, pending the amplifier short-circuit data)",
-        "Audio D6: H.870 dose accumulator (recommended no for rev A)"
+        "Short-circuit analysis of the headphone amplifier with a TS plug (RSK-039 S1), on which SRR package decision 66 accepted mono plugs under protection"
       ],
       "sources": [
         "docs/research/audio-output-and-hearing-safety.md F7, F9, F10, F11, F18, F19, F21, F22, F23, F24, F25, F26, F27, F28, F29",
@@ -1657,6 +1695,15 @@
           "risk": "High",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: L2 back-link REQ-SW-KEYER-033 added to K4; REQ-SYS-075, 157 and 158 listed as section 8.1 item 7 exceptions; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Critical",
+          "likelihood": "B",
+          "risk": "High",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 63, 64 (level policy option a), 65, 66, 67 and 41 with 42 (full-scale tone in the guarded Bench-test mode, 60 s) ruled as recommended; K9 stays requirement pending (OQ-SAF-016); requirements written after the rulings linked: REQ-SYS-189 and REQ-SYS-190 added to K9 (now Proposed); no change to severity, likelihood, initial risk or status"
         }
       ]
     },
@@ -1715,7 +1762,7 @@
           "b",
           "c"
         ],
-        "statement": "Firmware controls the power step, its default and the deliberate action to select 5 W, the tune-carrier level and timeout, and the licensee-settable receive-only guest lock (criterion b, and c as mitigation). These functions are added to the safety-critical scope of the PA enable and TX sequencer component (a delta to 03 section 4.3 for the owner's concurrence at SRR). The 6 and 30 minute key-down accumulator and the separation reminder remain convenience functions (RFX-D4).",
+        "statement": "Firmware controls the power step, its default and the deliberate action to select 5 W, the tune-carrier level and timeout, and the licensee-settable receive-only guest lock (criterion b, and c as mitigation). These functions are added to the safety-critical scope of the PA enable and TX sequencer component (a delta to 03 section 4.3, concurred by the owner at SRR: package decision 9, owner ruling 2026-09-26). The 6 and 30 minute key-down accumulator and the separation reminder remain convenience functions (RFX-D4; package decision 33).",
         "safety_critical": true,
         "components": [
           "PA enable and TX sequencer (power step, guest lock, tune timeout)",
@@ -1751,7 +1798,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Tune carrier at the 0.5 W step by default ending 5 s +/-0.5 s after it starts (proposed, shared with HZ-001 K2; RFX-12a; REQ-SYS-020 now bounds it to at most 5.5 s (TBR), 2 s below the 7.5 s floor of the hardware cutoff, package decision 36, OQ-SAF-005): a 0.5 W carrier at the face of a non-licensee is 21.9 percent of the general-population SAR limit and its bystander distance is 0.29 m.",
+          "text": "Tune carrier at the 0.5 W step by default ending 5 s +/-0.5 s after it starts (adopted at SRR as option a, package decision 36, owner ruling 2026-09-26; shared with HZ-001 K2; RFX-12a; REQ-SYS-020 bounds it to at most 5.5 s (TBR), 2 s below the 7.5 s floor of the hardware cutoff; OQ-SAF-005 closed): a 0.5 W carrier at the face of a non-licensee is 21.9 percent of the general-population SAR limit and its bystander distance is 0.29 m.",
           "control_req_ids": [
             "REQ-SYS-019",
             "REQ-SYS-020"
@@ -1807,7 +1854,8 @@
           "control_req_ids": [
             "REQ-SYS-053",
             "REQ-SYS-054",
-            "REQ-SW-KEYER-026"
+            "REQ-SW-KEYER-026",
+            "REQ-SYS-184"
           ],
           "status": "Proposed"
         },
@@ -1849,7 +1897,7 @@
           "type": "Hardware interlock",
           "allocation": "CTL",
           "independent_of_firmware": true,
-          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of firmware, after 180 s (TBR) of continuous transmit, so a single firmware fault that produces a toggling key stream cannot defeat the source-based averaging for longer than 180 s. Proposed, owner decision pending at SRR (package decision 38); if the owner declines, REQ-SYS-180 is retired by the SRR decision memo and this control becomes Dropped.",
+          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of firmware, within 150 s to 180 s (TBR) of continuous transmit, so a single firmware fault that produces a toggling key stream cannot defeat the source-based averaging for longer than 180 s. Adopted at SRR with the 150 s to 180 s window (package decision 38, owner ruling 2026-09-26).",
           "control_req_ids": [
             "REQ-SYS-180"
           ],
@@ -1877,13 +1925,14 @@
         "REQ-SW-KEYER-026",
         "REQ-TX-003",
         "REQ-TX-004",
-        "REQ-TX-015"
+        "REQ-TX-015",
+        "REQ-SYS-184"
       ],
       "residual_risk": {
         "severity": "Critical",
         "likelihood": "D",
         "level": "Medium",
-        "condition": "K1 to K4, K6 and K9 verified. An exceedance then needs a licensee to hand over a unit set to 5 W without the guest lock and a guest to run a carrier at the face beyond the tune timeout: an operator rule violation plus a deliberate 5 W selection. The Medium residual is accepted only with the RF exposure evaluation (RFX-18) at PDR; if the owner excludes guest keying entirely (RFX-D8: guests listen only, guest lock mandatory on hand-over) the residual falls to Critical-E, Low."
+        "condition": "K1 to K4, K6 and K9 verified. An exceedance then needs a licensee to hand over a unit set to 5 W without the guest lock and a guest to run a carrier at the face beyond the tune timeout: an operator rule violation plus a deliberate 5 W selection. The Medium residual is accepted only with the RF exposure evaluation (RFX-18) at PDR. The owner allowed guest keying at SRR, restricted to 0.5 W and 1 W under a present, supervising control operator (RFX-D8; package decision 20, owner ruling 2026-09-26), so the Critical-D, Medium residual stands; excluding guest keying would have lowered it to Critical-E, Low."
       },
       "verification_note": "K1 to K3, K6: HostUnit tests (defaults, confirmation gesture, tune timeout on the injected clock, guest-lock inhibit path producing no PA_EN on key events) as the closing Test (SWE-192); Emulation for event ordering only; Bench (power per step into the dummy load; guest lock demonstrated on the delivered unit). K4, K7, K8: Inspection of the handbook against the REQ-SYS-122 checklist, the rules card, the ConOps and the rendered legend by an independent reviewer. K5: HostUnit accumulator arithmetic against synthetic keying and Inspection of the display content. K9, K10: as HZ-004 K5 and K12. The general-population SAR figures close by the Analysis method (REQ-SYS-121, accepted per RSK-016) with Simulation-class evidence; the MPE distances likewise, with the antenna gain measured on the Bench at TRR.",
       "single_point_failures": [
@@ -1899,14 +1948,7 @@
         "SI-030",
         "SI-034"
       ],
-      "decisions_pending": [
-        "RFX-D2, RFX-D3 as HZ-001 (package decisions 23 and 36; tune timeout 5 s proposed, REQ-SYS-020 at most 5.5 s TBR, OQ-SAF-005)",
-        "RFX-D8: allow non-licensees to key the radio at all (recommendation yes, restricted to 0.5 W and 1 W under supervision); a no lowers the residual to Low",
-        "DECISION-6: operator model OPS-A (recommended) versus OPS-B",
-        "DECISION-7: include the receive-only guest lock FW-03 (recommended yes)",
-        "SRR concurrence: power-step selection, tune timeout and guest lock added to the safety-critical scope of the PA enable and TX sequencer component (delta to 03 section 4.3)",
-        "Package decision 38: transmission-length backstop HZ-004 K12 (REQ-SYS-180), this hazard's K10; no change of the residual level if declined"
-      ],
+      "decisions_pending": [],
       "sources": [
         "docs/research/rf-exposure-evaluation.md F1, F3, F4, F6, F7, RFX-11, RFX-12, RFX-13, RFX-15",
         "docs/research/regulatory-corpus-and-operators.md F2, F3, F4, F5, F9, OPS-02, OPS-03, FW-03, DOC-02",
@@ -1954,6 +1996,15 @@
           "risk": "Serious",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: L2 back-links REQ-TX-003 (K3), REQ-TX-004 (K1), REQ-TX-015 (K4) and REQ-SW-KEYER-026 (K6) added; REQ-SYS-172 listed as a section 8.1 item 7 exception; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Critical",
+          "likelihood": "C",
+          "risk": "Serious",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 20 (guest keying allowed at 0.5 W and 1 W under supervision), 17 (OPS-A), 19 (guest lock, option a), 23, 36, 38 and 9 (safety-critical scope of the TX sequencer) ruled as recommended; the Critical-D, Medium residual stands because guest keying is allowed; requirements written after the rulings linked: REQ-SYS-184 (squeeze limit) added to K6; no change to severity, likelihood, initial risk or status"
         }
       ]
     },
@@ -2057,7 +2108,7 @@
           "type": "Hardware interlock",
           "allocation": "PWR",
           "independent_of_firmware": true,
-          "text": "2S protection IC (ABLIC S-8252 class) with a dual N-channel FET in the pack negative lead: over-discharge detect 2.50 V and release 3.00 V per cell, discharge over-current at 0.200 V across the FETs (about 5 to 10 A with a 20 to 40 mohm pair), load short at 0.500 V, internal delay timers, quiescent current below 10 uA (D-PWR-03). The protector class, its thresholds and the dual N-FET are Proposed, owner decision pending at SRR (D-PWR-03, package decision 72).",
+          "text": "2S protection IC (ABLIC S-8252 class) with a dual N-channel FET in the pack negative lead: over-discharge detect 2.50 V and release 3.00 V per cell, discharge over-current at 0.200 V across the FETs (about 5 to 10 A with a 20 to 40 mohm pair), load short at 0.500 V, internal delay timers, quiescent current below 10 uA (D-PWR-03). The protector class, its thresholds and the dual N-FET were adopted at SRR (D-PWR-03, package decision 72, owner ruling 2026-09-26).",
           "control_req_ids": [
             "REQ-SYS-084",
             "REQ-SYS-085"
@@ -2088,11 +2139,12 @@
           "type": "Design",
           "allocation": "PWR",
           "independent_of_firmware": false,
-          "text": "Reverse and mismatch protection: the protector FETs stay off unless both cells are within window (blocks the reversed-cell and grossly mismatched cases); 300 ohm in series with the MID sense; per-cell dividers referenced to pack negative; firmware enables the rails only after both cells read 2.5 to 4.3 V and their difference is below 300 mV (TBR as HZ-002 K5).",
+          "text": "Reverse and mismatch protection: the protector FETs stay off unless both cells are within window (blocks the reversed-cell and grossly mismatched cases); 300 ohm in series with the MID sense, with a sense path per protection layer so that one failed sense connection blinds at most one layer (REQ-SYS-186, SRR package decision 72); per-cell dividers referenced to pack negative; firmware enables the rails only after both cells read 2.5 to 4.3 V and their difference is below 300 mV (TBR as HZ-002 K5).",
           "control_req_ids": [
             "REQ-SYS-086",
             "REQ-SYS-087",
-            "REQ-SYS-166"
+            "REQ-SYS-166",
+            "REQ-SYS-186"
           ],
           "status": "Proposed"
         },
@@ -2162,7 +2214,8 @@
         "REQ-SYS-099",
         "REQ-SYS-101",
         "REQ-SYS-122",
-        "REQ-SYS-166"
+        "REQ-SYS-166",
+        "REQ-SYS-186"
       ],
       "residual_risk": {
         "severity": "Catastrophic",
@@ -2174,7 +2227,7 @@
       "single_point_failures": [
         "Protector FET pair (a shorted FET removes the over-current and over-discharge cut): the fuse backs over-current and short; nothing in hardware backs over-discharge except the firmware soft cut-off, which is a dissimilar software layer",
         "Holder leaf-spring contact (high resistance heats at 2 A; an open contact stops the radio safely)",
-        "Shared MID sense net (HZ-002 K9): one open or high-resistance sense connection blinds per-cell under-voltage detection in the protector and the firmware alike, so one cell can be driven below 2.5 V while the pack reads above 6.0 V; the damage shows at the next charge, whose consequence HZ-002 carries; removed only by the Kelvin sense constraint (OQ-SAF-009)"
+        "Shared MID sense net (HZ-002 K9): one open or high-resistance sense connection blinds per-cell under-voltage detection in the protector and the firmware alike, so one cell can be driven below 2.5 V while the pack reads above 6.0 V; the damage shows at the next charge, whose consequence HZ-002 carries; removed by the separate cell-sense paths of HZ-002 K9 and this hazard's K3 (REQ-SYS-186, SRR package decision 72; OQ-SAF-009 answered) once verified"
       ],
       "fault_tolerance": "Single-fault tolerant for short and over-current (protector plus fuse, independent devices); single-fault tolerant for over-discharge (protector plus firmware soft cut-off, dissimilar); reverse insertion is blocked by the protector window and detected by firmware before any rail is enabled.",
       "status": "Controls proposed",
@@ -2187,10 +2240,7 @@
         "SI-023"
       ],
       "decisions_pending": [
-        "D-PWR-03: protection topology (S-8252 plus dual N-FET recommended)",
-        "D-PWR-04: two Keystone 1043P holders (recommended) versus a dual holder with unverified terminals",
-        "D-PWR-08: mechanical power switch (recommended) versus soft power",
-        "A-PWR-03: dual N-FET, fuse or PTC and reverse-polarity P-FET selection with stock; a PDR design action, not an SRR decision: the part selection follows the topology ruling of package decision 72 (D-PWR-03) and closes the K1 trip-level TBR at PDR"
+        "A-PWR-03: dual N-FET, fuse or PTC and reverse-polarity P-FET selection with stock; a PDR design action, not an SRR decision: the part selection follows the topology ruled at SRR by package decision 72 (D-PWR-03) and closes the K1 trip-level TBR at PDR"
       ],
       "sources": [
         "docs/research/power-tree-and-charging.md F11, F12, F13, F14, F15, F16, F17, F22, F23, F24, PWR-PROT-01, PWR-SENSE-01",
@@ -2225,6 +2275,15 @@
           "risk": "High",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: Software causes C9 (soft cut-off or lock-out inaction) and C10 (rails enabled outside the window) added; K1 tagged Proposed, owner decision pending at SRR (D-PWR-03, package decision 72); A-PWR-03 marked a PDR action; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Catastrophic",
+          "likelihood": "B",
+          "risk": "High",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 72, 73 and 74 ruled as recommended; K1 text states the ruling; A-PWR-03 stays a PDR action; requirements written after the rulings linked: REQ-SYS-186 added to K3 (separate sense path per layer); no change to severity, likelihood, initial risk or status"
         }
       ]
     },
@@ -2293,11 +2352,11 @@
           "c",
           "e"
         ],
-        "statement": "Frequency control causes or contributes to the out-of-band fundamental of C7 (criterion a): one fault in the frequency-word path can put 5 W on 150 to 174 MHz, which the harmonic filter passes. The proposed independent frequency verification K7 mitigates it (criterion c) and detects, reports and inhibits (criterion e). This supersedes the PHA 0.1.0 determination that frequency control is mission-critical only, whose basis (a firmware fault moves the harmonic level by at most 3 dB) covered harmonics only; the change is a proposed delta to 03 section 4.3 for the owner's concurrence at SRR (hazard-analysis.md section 6.3 item 6). The ALC set-point and the keying envelope remain mission-critical: an ALC or envelope fault raises harmonics by at most 3 dB or widens the keying sidebands, both absorbed by the 7 dB filter margin and the 1 kHz band-edge guard.",
+        "statement": "Frequency control causes or contributes to the out-of-band fundamental of C7 (criterion a): one fault in the frequency-word path can put 5 W on 150 to 174 MHz, which the harmonic filter passes. The independent frequency verification K7, adopted at SRR (package decision 40), mitigates it (criterion c) and detects, reports and inhibits (criterion e). This supersedes the PHA 0.1.0 determination that frequency control is mission-critical only, whose basis (a firmware fault moves the harmonic level by at most 3 dB) covered harmonics only; the change is the delta to 03 section 4.3 that the owner concurred with at SRR (package decision 9, owner ruling 2026-09-26; hazard-analysis.md section 6.3 item 6). The ALC set-point and the keying envelope remain mission-critical: an ALC or envelope fault raises harmonics by at most 3 dB or widens the keying sidebands, both absorbed by the 7 dB filter margin and the 1.2 kHz band-edge guard (package decision 25).",
         "safety_critical": true,
         "components": [
-          "Frequency control (SW-SYNTH: frequency-word computation, calibration application, band-edge limit, register write with read-back; proposed safety-critical for C7)",
-          "Frequency verification unit (SW-SAFE, independent of SW-SYNTH; proposed, REQ-SYS-182, package decision 40)",
+          "Frequency control (SW-SYNTH: frequency-word computation, calibration application, band-edge limit, register write with read-back; safety-critical for C7 by package decision 9)",
+          "Frequency verification unit (SW-SAFE, independent of SW-SYNTH; REQ-SYS-182, adopted at SRR by package decision 40)",
           "PA enable and TX sequencer (frequency-verified PA_EN prerequisite)"
         ]
       },
@@ -2362,7 +2421,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Raised-cosine keying envelope, 5 ms 10-to-90 percent (3 to 8 ms configurable, not speed-adaptive, no mid-ramp reversal, minimum radiated element one full ramp) giving a measured 26 dB bandwidth not above 350 Hz at 50 WPM with continuous dits; carrier limited to 144.001 to 147.999 MHz with a TCXO reference of +/-2.5 ppm or better independent of the Pico 2 crystal; necessary bandwidth documented as 208HA1A.",
+          "text": "Raised-cosine keying envelope, 5 ms 10-to-90 percent (3 to 8 ms configurable, not speed-adaptive, no mid-ramp reversal, minimum radiated element one full ramp) giving a measured 26 dB bandwidth not above 350 Hz at 50 WPM with continuous dits; carrier limited to 144.0012 to 147.9988 MHz (TBR; the 1.2 kHz guard ratified by SRR package decision 25) with a TCXO reference of +/-2.5 ppm or better independent of the Pico 2 crystal; necessary bandwidth documented as 208HA1A.",
           "control_req_ids": [
             "REQ-SYS-008",
             "REQ-SYS-009",
@@ -2406,7 +2465,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Independent frequency verification before PA_EN: a sample of the transmit synthesizer output, divided by a hardware prescaler, is counted by a PIO or timer unit that is separate from the synthesizer driver and uses the RP2350 crystal timebase rather than the synthesizer reference; PA_EN is permitted only when the counted frequency agrees with the set frequency within 10 kHz (TBR) and the set frequency, held with its complement, lies inside 144.001 to 147.999 MHz; a disagreement enters Fault-safe with the cause shown. It catches the gross errors of C7 and C8 that REQ-SYS-009 cannot; the 1 kHz guard stays with REQ-SYS-008, REQ-SYS-009 and the TCXO. A hardware band-selective element on the TX path was rejected: attenuating 156.8 MHz while passing 148 MHz with at most 0.5 dB loss needs a high-order filter with loss the 5 W budget cannot carry. Implemented by REQ-SYS-182 (Independent frequency verification before and during transmit, Draft, 10 kHz TBR; OQ-SAF-013), the measurement and the transmit permit, and REQ-SYS-154, the Fault-safe response to a disagreement found during transmission. Proposed, owner decision pending at SRR (package decision 40, taken with decision 9); if the owner declines, REQ-SYS-182 is retired by the SRR decision memo and this control becomes Dropped.",
+          "text": "Independent frequency verification before PA_EN: a sample of the transmit synthesizer output, divided by a hardware prescaler, is counted by a PIO or timer unit that is separate from the synthesizer driver and uses the RP2350 crystal timebase rather than the synthesizer reference; PA_EN is permitted only when the counted frequency agrees with the set frequency within 10 kHz (TBR) and the set frequency, held with its complement, lies inside the guard of REQ-SYS-008, 144.0012 to 147.9988 MHz (TBR, package decision 25); a disagreement enters Fault-safe with the cause shown. It catches the gross errors of C7 and C8 that REQ-SYS-009 cannot; the 1.2 kHz guard stays with REQ-SYS-008, REQ-SYS-009 and the TCXO. A hardware band-selective element on the TX path was rejected: attenuating 156.8 MHz while passing 148 MHz with at most 0.5 dB loss needs a high-order filter with loss the 5 W budget cannot carry. Implemented by REQ-SYS-182 (Independent frequency verification before and during transmit, Draft, 10 kHz TBR; OQ-SAF-013 closed), the measurement and the transmit permit, and REQ-SYS-154, the Fault-safe response to a disagreement found during transmission. Adopted at SRR with the 10 kHz window and 100 ms (package decision 40, taken with decision 9, which classifies this unit and the frequency-word path safety-critical; owner ruling 2026-09-26).",
           "control_req_ids": [
             "REQ-SYS-154",
             "REQ-SYS-182",
@@ -2455,15 +2514,15 @@
         "severity": "Critical",
         "likelihood": "E",
         "level": "Low",
-        "condition": "Harmonic branch: filter response and transmitter spectrum verified by Bench (tinySA Ultra) on every unit before on-air use, so a harmonic exceedance needs a filter component failure after acceptance and a nearby victim receiver (E). Frequency-control branch: with the independent frequency verification K7 (REQ-SYS-182 with the REQ-SYS-154 response, Proposed, package decision 40 taken with decision 9) verified, a gross frequency-word fault in SW-SYNTH is caught before PA_EN and during transmission by a count that shares neither that component nor the synthesizer reference, so an out-of-band carrier needs the frequency-control fault plus a failure of the verification (E): Critical-E, Low. If the owner declines package decision 40, REQ-SYS-182 is retired, K7 becomes Dropped (REQ-SYS-154 remains, its off-frequency detection no longer independent of SW-SYNTH) and the residual is Critical-D, Medium: a single frequency-word fault that escapes REQ-SYS-008 and REQ-SYS-009 in SW-SYNTH and the HZ-014 configuration guard places 5 W out of band, and an interference event also needs a victim within range (one fault plus an uncommon condition). Section 3.4 accepts that Medium only with the listed controls allocated and verified and the owner's acceptance at SAR, and the SRR decision memo then records single point failure row 4 of hazard-analysis.md section 8.2 as an accepted single point; concurrence with decision 9 alone does not change the level (section 6.3 item 6)."
+        "condition": "Harmonic branch: filter response and transmitter spectrum verified by Bench (tinySA Ultra) on every unit before on-air use, so a harmonic exceedance needs a filter component failure after acceptance and a nearby victim receiver (E). Frequency-control branch: with the independent frequency verification K7 (REQ-SYS-182 with the REQ-SYS-154 response, adopted at SRR, package decision 40 taken with decision 9) verified, a gross frequency-word fault in SW-SYNTH is caught before PA_EN and during transmission by a count that shares neither that component nor the synthesizer reference, so an out-of-band carrier needs the frequency-control fault plus a failure of the verification (E): Critical-E, Low. The decline case recorded before SRR (Critical-D, Medium; hazard-analysis.md section 8.3) does not apply: the owner adopted package decision 40 and concurred with decision 9 on 2026-09-26."
       },
       "verification_note": "K1: Simulation (S-parameter simulation with vendor inductor models including self-resonance, tolerance corners; checker on the LTspice output) then Bench (NanoVNA S21 of the filter, including its response from 148 to 174 MHz; tinySA Ultra with attenuator for the transmitter at 5 W into the dummy load, 2f, 3f and 7f reported individually). K2, K3: Inspection (device data, sourcing) and Bench (power per step across 6.0 to 8.4 V, harmonic levels during the keying ramp with max-hold). K4: Simulation (FFT of the captured envelope, reference budget) and Bench (tinySA at the band edges, off-air reference); REQ-SYS-010 closes by the Analysis method accepted per RSK-002 (no frequency counter). K5: Inspection of the TRR procedure and reports. K6: Simulation (harmonic table) and Bench birdie survey. K7 (REQ-SYS-182, REQ-SYS-154): Inspection of the schematic and the software design for the independence of the counter, its timebase and its component from SW-SYNTH; HostUnit with injected counter readings (in band, wrong divider, corrupted word, out-of-range calibration, counter fault) as the closing Test (SWE-192); Bench, a fault-injection build commanding a frequency word for 156.8 MHz with the PA disconnected, PA_EN confirmed low and the fault shown. Regulatory requirements are verified on the delivered unit, never by Analysis alone (charter section 9; 06 section 14.1 class 1g), except the RSK-002 frequency-accuracy acceptance.",
       "single_point_failures": [
         "Low-pass filter (a single open or shorted element removes the attenuation at 2f or 3f): detected only by measurement; accepted for a hand-built series of at most 5 units with a Bench measurement of every unit at ATP and a filter test point for the NanoVNA (RSK-011 S3)",
         "ALC forward-power detector (a failed detector reading low drives full output, 10 W at full charge): bounded by device saturation and the filter margin; firmware plausibility check on the detector reading (SWE-134 g)",
-        "Frequency-word path in SW-SYNTH (a single software fault can place 5 W on 150 to 174 MHz, which the harmonic filter passes; REQ-SYS-009 checks the set frequency in the same component): removed by the independent frequency verification K7 (REQ-SYS-182) if the owner adopts package decision 40; an accepted single point if declined (OQ-SAF-013)"
+        "Frequency-word path in SW-SYNTH (a single software fault can place 5 W on 150 to 174 MHz, which the harmonic filter passes; REQ-SYS-009 checks the set frequency in the same component): removed by the independent frequency verification K7 (REQ-SYS-182), adopted at SRR (package decision 40, owner ruling 2026-09-26; OQ-SAF-013 closed)"
       ],
-      "fault_tolerance": "Zero-fault tolerant in hardware for the filter (a single filter, measured per unit); single-fault tolerant for over-power (ALC plus device saturation plus 7 dB filter margin); single-fault tolerant for band-edge crossing by keying sidebands or reference drift (1 kHz guard plus TCXO plus firmware frequency limits); single-fault tolerant for a gross frequency-control fault with K7 (REQ-SYS-182), and zero-fault tolerant for it if package decision 40 declines K7, because the only other check (REQ-SYS-009) is in the same component.",
+      "fault_tolerance": "Zero-fault tolerant in hardware for the filter (a single filter, measured per unit); single-fault tolerant for over-power (ALC plus device saturation plus 7 dB filter margin); single-fault tolerant for band-edge crossing by keying sidebands or reference drift (1.2 kHz guard, package decision 25, plus TCXO plus firmware frequency limits); single-fault tolerant for a gross frequency-control fault with K7 (REQ-SYS-182, adopted at SRR, package decision 40); without K7 it would be zero-fault tolerant, because the only other check (REQ-SYS-009) is in the same component.",
       "status": "Controls proposed",
       "related_risk_ids": [
         "RSK-001",
@@ -2480,12 +2539,8 @@
       ],
       "decisions_pending": [
         "PA device selected by TS-001 at PDR (recommended PD54008L-E; the RD07MUS2B line-up of pa-device-candidates.md decision 5 is excluded by ADR-012 as consignment-only); sourcing route per SI-028",
-        "ALC topology: gate-bias loop (recommended) versus drive-level control (pa-device-candidates.md decision 8), recorded with the filter goal in an ADR",
-        "DECISION-8: declare A1A at 50 WPM as 208HA1A (recommended)",
-        "DECISION-9: TCXO +/-2.5 ppm with the 1 kHz guard (recommended) versus a looser reference with a wider guard",
-        "DECISION-11: envelope convention 5 ms 10-to-90 percent raised cosine (reconciled keyer report) versus 5 ms full transition (regulatory report); the hazard analysis uses the reconciled 10-to-90 convention",
-        "DECISION-10: owner browser check of the current 2.106 page images for the five harmonic rows",
-        "Package decisions 40 and 9 (SRR): adopt the independent frequency verification K7 (REQ-SYS-182) and classify frequency control and the verification unit as safety-critical (hazard-analysis.md section 6.3 item 6), recommended adopt and concur",
+        "ALC topology: gate-bias loop (recommended) versus drive-level control (pa-device-candidates.md decision 8), recorded with the filter goal in an ADR; package decision 59, ruled at PDR with TS-006",
+        "DECISION-10: owner browser check of the current 2.106 page images for the five harmonic rows; package decision 35 confirmed the plan at SRR, done before PDR",
         "PDR: prescaler, counter unit (PIO or timer) and timebase for K7, independent of the synthesizer reference"
       ],
       "sources": [
@@ -2539,6 +2594,15 @@
           "risk": "Serious",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: the 11 REQ-TX back-links added to K1, K2, K4, K5 and K7; RSK-046 named in related_risk_ids (OQ-SAF-020 item 3); REQ-SYS-014, 015 and REQ-TX-005, 006 listed as section 8.1 item 7 exceptions; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Critical",
+          "likelihood": "C",
+          "risk": "Serious",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 40 (independent frequency verification K7, 10 kHz, 100 ms), 9 (frequency control and the verification unit safety-critical), 25 (1.2 kHz band-edge guard: K4 and K7 carry 144.0012 to 147.9988 MHz), 27, 28 and 29 ruled as recommended; the decline case no longer applies; OQ-SAF-013 closed and OQ-SAF-014 answered on the owner side; no change to severity, likelihood, risk or status"
         }
       ]
     },
@@ -2694,9 +2758,7 @@
         "SI-031"
       ],
       "decisions_pending": [
-        "Antenna DECISION-1: SMA jack with the ANT-02 load path (recommended) versus BNC bulkhead",
-        "Antenna DECISION-2: Signal Stick SMA-M plus 48 cm tail as the pocket reference (recommended)",
-        "Antenna DECISION-5: SWR fold-back detector versus PA ruggedness alone (PDR)"
+        "Antenna DECISION-5: SWR fold-back detector versus PA ruggedness alone (package decision 60, ruled at PDR)"
       ],
       "sources": [
         "docs/research/antenna-and-erp.md F7, F8, ANT-01, ANT-02, ANT-03, ANT-04, ANT-05, ANT-R1, ANT-R6",
@@ -2723,6 +2785,15 @@
           "risk": "Serious",
           "status": "Controls proposed",
           "note": "Revised after independent review: verification note names evidence classes; RSK-025 linked (the register carries HZ-009 in RSK-025, not RSK-018)"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Marginal",
+          "likelihood": "B",
+          "risk": "Serious",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 80 (SMA jack) and 81 (reference antennas) ruled as recommended; SWR fold-back stays a PDR decision (60); no change to severity, likelihood, risk or status"
         }
       ]
     },
@@ -2832,7 +2903,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Debounce 2 ms make and 5 ms open at a 1 kHz sample rate (fixed counts of 2 and 5 consecutive samples per REQ-SW-KEYER-020 and 021, not operator-configurable, TBR until the owner's key and paddle bounce is captured, closing by PDR with REQ-SYS-048); a persistent closure is handled by the HZ-004 interlock and timeouts. A key input that reads closed with no plug present withholds key-down (REQ-SW-KEYER-036).",
+          "text": "Debounce 2 ms make and 5 ms open at a 1 kHz sample rate (fixed counts of 2 and 5 consecutive samples per REQ-SW-KEYER-020 and 021, not operator-configurable (SRR package decision 48 exposes the debounce in the menu, which these fixed counts do not yet reflect: OQ-SAF-027), TBR until the owner's key and paddle bounce is captured, closing by PDR with REQ-SYS-048); a persistent closure is handled by the HZ-004 interlock and timeouts. A key input that reads closed with no plug present withholds key-down (REQ-SW-KEYER-036).",
           "control_req_ids": [
             "REQ-SYS-048",
             "REQ-SYS-162",
@@ -2912,9 +2983,8 @@
         "SI-034"
       ],
       "decisions_pending": [
-        "D-KN7: abuse bound -5 V to +12 V and the BAT54S secondary clamp",
         "ANT-06: common-mode chokes on the key and headphone lines (yes recommended); a PDR design action, not an SRR decision: no package section 13.1 row carries it, and the part is chosen at PDR to meet the attenuation of REQ-SYS-051 (K4)",
-        "A-KN5: bench capture of the owner's key and paddle bounce and contact resistance; covered by package decision 50 (keyer timing, thresholds and latencies: the debounce closes by the bench capture before PDR)"
+        "A-KN5: bench capture of the owner's key and paddle bounce and contact resistance before PDR; package decision 50 ruled at SRR that the debounce TBR closes by it"
       ],
       "sources": [
         "docs/research/keyer-verification-and-key-input-network.md F2, F3, F4, F5, F6, F10, CTL-KEY-03, CTL-KEY-04",
@@ -2949,6 +3019,15 @@
           "risk": "Serious",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: former C4 split into C4 (erratum E9, Design) and the Software cause C6 (pad configuration); Software cause C7 (debounce or stuck-input misclassification) added; L2 back-links REQ-SW-KEYER-019 to 021 added to K3; ANT-06 marked a PDR action and A-KN5 mapped to package decision 50; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Marginal",
+          "likelihood": "B",
+          "risk": "Serious",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 49 and 50 ruled as recommended; the operator-exposed debounce of decision 48 against the fixed counts of K3 raised as OQ-SAF-027; no change to severity, likelihood, risk or status"
         }
       ]
     },
@@ -3042,7 +3121,7 @@
           "type": "Design",
           "allocation": "PWR",
           "independent_of_firmware": true,
-          "text": "The radio never transmits from USB power alone: the PA rail comes only from the protected pack; with no cells inserted only the Pico 2 is powered from VBUS, so firmware loading with the cells removed cannot energise the transmitter (F22). REQ-SYS-149 (No transmitter supply from USB alone: transmitter supply below 0.5 V TBR while powered from USB with the cells removed) states the topology as a measurable limit (OQ-SAF-011 closed); owner decision D-PWR-07 pending at SRR (package decision 75).",
+          "text": "The radio never transmits from USB power alone: the PA rail comes only from the protected pack; with no cells inserted only the Pico 2 is powered from VBUS, so firmware loading with the cells removed cannot energise the transmitter (F22). REQ-SYS-149 (No transmitter supply from USB alone: transmitter supply below 0.5 V TBR while powered from USB with the cells removed) states the topology as a measurable limit (OQ-SAF-011 closed); D-PWR-07 adopted at SRR (package decision 75, owner ruling 2026-09-26: receive allowed with charging paused, transmit inhibited by hardware, recorded by ADR).",
           "control_req_ids": [
             "REQ-SYS-149"
           ],
@@ -3115,9 +3194,8 @@
         "SI-034"
       ],
       "decisions_pending": [
-        "D-PWR-02: input budget policy, 500 mA default with DCP detection later (recommended)",
-        "D-PWR-07: receive while charging with charging paused (recommended default); transmit inhibited by hardware whenever USB power is present in all options",
-        "PDR: node of the hardware inhibit (the PA-path gate shared with HZ-004 K5 recommended) and its own VBUS sense divider"
+        "PDR: node of the hardware inhibit (the PA-path gate shared with HZ-004 K5 recommended) and its own VBUS sense divider",
+        "DCP detection above 500 mA only after TS-005 qualifies the VBUS path (package decision 71 ruled the 500 mA default at SRR; TS-005 at PDR)"
       ],
       "sources": [
         "docs/research/power-tree-and-charging.md F1, F2, F4, F5, F22, F24, PWR-USB-01, PWR-USB-02, PWR-PATH-01, R-PWR-01",
@@ -3152,6 +3230,15 @@
           "risk": "Serious",
           "status": "Controls proposed",
           "note": "Revision 0.3.0-pha (SRR readiness H7): OQ-SAF-011 closed; K3 moved from Requirement pending to Proposed on REQ-SYS-149; K6 text records the REQ-SYS-002 hazard link; residual unchanged"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Marginal",
+          "likelihood": "B",
+          "risk": "Serious",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 71 (500 mA default) and 75 (receive with charging paused, hardware transmit inhibit) ruled as recommended; K3 text states the ruling; no change to severity, likelihood, risk or status"
         }
       ]
     },
@@ -3216,7 +3303,7 @@
           "type": "Software",
           "allocation": "SW",
           "independent_of_firmware": false,
-          "text": "Tune carrier at the 0.5 W step by default ending 5 s +/-0.5 s after it starts (proposed; REQ-SYS-020 now bounds it to at most 5.5 s (TBR), below the 7.5 s floor of the hardware cutoff, package decision 36, OQ-SAF-005); power steps with a 1 W default (HZ-001 K1 and K2).",
+          "text": "Tune carrier at the 0.5 W step by default ending 5 s +/-0.5 s after it starts (adopted at SRR as option a, package decision 36, owner ruling 2026-09-26; REQ-SYS-020 bounds it to at most 5.5 s (TBR), below the 7.5 s floor of the hardware cutoff; OQ-SAF-005 closed); power steps with a 1 W default (HZ-001 K1 and K2).",
           "control_req_ids": [
             "REQ-SYS-019",
             "REQ-SYS-020",
@@ -3234,7 +3321,8 @@
           "control_req_ids": [
             "REQ-SYS-053",
             "REQ-SYS-054",
-            "REQ-SW-KEYER-026"
+            "REQ-SW-KEYER-026",
+            "REQ-SYS-184"
           ],
           "status": "Proposed"
         },
@@ -3276,7 +3364,7 @@
           "type": "Hardware interlock",
           "allocation": "CTL",
           "independent_of_firmware": true,
-          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of firmware, after 180 s (TBR) of continuous transmit, which bounds the time a toggling key stream keeps transmit voltage on the port and the antenna tip without operator intent. Proposed, owner decision pending at SRR (package decision 38); if the owner declines, REQ-SYS-180 is retired by the SRR decision memo and this control becomes Dropped.",
+          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of firmware, within 150 s to 180 s (TBR) of continuous transmit, which bounds the time a toggling key stream keeps transmit voltage on the port and the antenna tip without operator intent. Adopted at SRR with the 150 s to 180 s window (package decision 38, owner ruling 2026-09-26).",
           "control_req_ids": [
             "REQ-SYS-180"
           ],
@@ -3293,7 +3381,8 @@
         "REQ-SYS-064",
         "REQ-SYS-122",
         "REQ-SYS-180",
-        "REQ-SW-KEYER-026"
+        "REQ-SW-KEYER-026",
+        "REQ-SYS-184"
       ],
       "residual_risk": {
         "severity": "Marginal",
@@ -3314,9 +3403,7 @@
         "SI-019"
       ],
       "decisions_pending": [
-        "Antenna DECISION-2 (package decision 81): reference antenna choice (Signal Stick recommended)",
-        "ANT-03: counterpoise attachment point and insulated wire; a PDR design action (enclosure and antenna interface), not an SRR decision; the counterpoise tail of the pocket reference antenna is part of package decision 81",
-        "Package decision 36: tune carrier and hardware cutoff window (REQ-SYS-020 at most 5.5 s TBR); package decision 38: backstop HZ-004 K12 (REQ-SYS-180), this hazard's K6; no change of the residual level if either is declined"
+        "ANT-03: counterpoise attachment point and insulated wire; a PDR design action (enclosure and antenna interface), not an SRR decision; the counterpoise tail of the pocket reference antenna was ruled at SRR with package decision 81"
       ],
       "sources": [
         "docs/research/tr-switch-candidates.md F1 (RF voltages and currents at 5 W and under mismatch)",
@@ -3360,6 +3447,15 @@
           "risk": "Medium",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: L2 back-link REQ-SW-KEYER-026 added to K2; ANT-03 marked a PDR action and antenna DECISION-2 mapped to package decision 81; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Marginal",
+          "likelihood": "C",
+          "risk": "Medium",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decisions 36 (tune option a), 38 (backstop K6) and 81 (reference antenna and tail) ruled as recommended; requirements written after the rulings linked: REQ-SYS-184 (squeeze limit) added to K2; no change to severity, likelihood, initial risk or status"
         }
       ]
     },
@@ -3502,8 +3598,7 @@
         "SI-032"
       ],
       "decisions_pending": [
-        "Enclosure report DECISION: alloy 6061 with bead blast plus Type II anodize (recommended)",
-        "Enclosure report DECISION: OpenSCAD restricted dialect plus FreeCAD STEP versus build123d (prototype both at PDR)"
+        "Enclosure report DECISION: OpenSCAD restricted dialect plus FreeCAD STEP versus build123d (prototype both at PDR; package decision 84, ruled at PDR)"
       ],
       "sources": [
         "docs/research/enclosure-cnc-and-openscad-pipeline.md implications (DFM rules, drawing requirement, tolerances, anodize, fit-check prints)",
@@ -3530,6 +3625,15 @@
           "risk": "Serious",
           "status": "Controls proposed",
           "note": "Revised after independent review: verification note names evidence classes; RSK-018 linked"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Marginal",
+          "likelihood": "B",
+          "risk": "Serious",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decision 83 (6061 with bead blast and Type II anodize) ruled as recommended; the CAD dialect stays a PDR decision (84); no change to severity, likelihood, risk or status"
         }
       ]
     },
@@ -3696,7 +3800,7 @@
           "type": "Hardware interlock",
           "allocation": "CTL",
           "independent_of_firmware": true,
-          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of the loaded image, after 180 s (TBR) with the T/R drive in transmit, which bounds a periodic TX_KEY output from a release pin-map error (C5; hazard-analysis.md section 5, coverage row 8) that the K3 cutoff does not see; with it the PA-path gate is proposed to require the T/R transmit drive, so a periodic TX_KEY with T/R in receive gives no PA output (confirmed at PDR). Proposed, owner decision pending at SRR (package decision 38); if the owner declines, REQ-SYS-180 is retired by the SRR decision memo and this control becomes Dropped.",
+          "text": "The transmission-length backstop of HZ-004 K12 (REQ-SYS-180) ends antenna-port RF, independently of the loaded image, within 150 s to 180 s (TBR) with the T/R drive in transmit, which bounds a periodic TX_KEY output from a release pin-map error (C5; hazard-analysis.md section 5, coverage row 8) that the K3 cutoff does not see; with it the PA-path gate is proposed to require the T/R transmit drive, so a periodic TX_KEY with T/R in receive gives no PA output (confirmed at PDR). Adopted at SRR with the 150 s to 180 s window (package decision 38, owner ruling 2026-09-26).",
           "control_req_ids": [
             "REQ-SYS-180"
           ],
@@ -3722,13 +3826,13 @@
         "severity": "Critical",
         "likelihood": "E",
         "level": "Low",
-        "condition": "An unsafe state after a load needs a bad image that passes the integrity check plus a hardware backstop failure for a continuous key-down (E). A release whose pin map drives TX_KEY and PA_EN with a periodic output and escapes the acceptance cases is ended by K8 (HZ-004 K12, REQ-SYS-180, Proposed, package decision 38) after 180 s (TBR), so a sustained unsafe transmission also needs a backstop failure (E): Critical-E, Low, with every control that has a requirement verified. If the owner declines package decision 38, REQ-SYS-180 is retired, K8 becomes Dropped and the residual is Critical-D, Medium (the periodic output has no hardware bound; a process lapse plus an uncommon error), which section 3.4 accepts only with the listed controls allocated and verified and the owner's acceptance at SAR; the HZ-004 decline record applies to the same branch."
+        "condition": "An unsafe state after a load needs a bad image that passes the integrity check plus a hardware backstop failure for a continuous key-down (E). A release whose pin map drives TX_KEY and PA_EN with a periodic output and escapes the acceptance cases is ended by K8 (HZ-004 K12, REQ-SYS-180, adopted at SRR, package decision 38) within 150 s to 180 s (TBR), so a sustained unsafe transmission also needs a backstop failure (E): Critical-E, Low, with every control that has a requirement verified. The decline case recorded before SRR (Critical-D, Medium; hazard-analysis.md section 8.3) does not apply: the owner adopted package decision 38 on 2026-09-26."
       },
       "verification_note": "K1, K2, K6: HostUnit (CRC and range-check logic, defaults; REQ-SW-BOOT-* and REQ-SW-CFG-* cases) as the closing Test (SWE-192); Emulation of the non-USB parts (corrupt image and corrupted configuration scenarios, boot-to-safe-state ordering) as supporting ordering evidence only (credit: false, ACC-EMU-001); Bench at stage 4 of the power-on sequence as the SWE-193 credit run of TC-SW-BOOT and TC-SW-CFG on every unit (SWE-134 a safe-state report, corrupt image rejected, defaults restored). K3, K4: Inspection of the schematic and Bench (PA_EN and TX_KEY low in bootloader mode; no RF with USB applied; no PA rail with USB only). K5: Inspection of the VDD, the release script and the ATP records. K7: Inspection of the ADR. K8: as HZ-004 K12.",
       "single_point_failures": [
         "Release script writing the CRC trailer (a wrong trailer on a good image blocks the unit, which is fail-safe); the bootrom itself is Raspberry Pi's and outside the project's control"
       ],
-      "fault_tolerance": "Single-fault tolerant for a continuous key-down (the pull-downs and the hardware cutoff are independent of the image) and during the load itself (hardware transmit inhibit on VBUS); single-fault tolerant for a periodic TX_KEY from a release pin-map error with K8 (HZ-004 K12, REQ-SYS-180), zero-fault tolerant in hardware for it if package decision 38 declines the backstop.",
+      "fault_tolerance": "Single-fault tolerant for a continuous key-down (the pull-downs and the hardware cutoff are independent of the image) and during the load itself (hardware transmit inhibit on VBUS); single-fault tolerant for a periodic TX_KEY from a release pin-map error with K8 (HZ-004 K12, REQ-SYS-180, adopted at SRR, package decision 38).",
       "status": "Controls proposed",
       "related_risk_ids": [
         "RSK-015"
@@ -3740,8 +3844,7 @@
         "SI-026"
       ],
       "decisions_pending": [
-        "PDR ADR: RP2350 secure boot on or off for rev A (recommended off, irreversible)",
-        "Package decision 38 (SRR): HZ-004 K12 transmission-length backstop (REQ-SYS-180), this hazard's K8, which bounds the pin-map stream case"
+        "PDR ADR: RP2350 secure boot on or off for rev A (recommended off, irreversible); package decision 95, ruled at PDR"
       ],
       "sources": [
         "docs/process/04-verification-and-validation.md section 11.1 (SWE-193 acceptance cases) and section 11.2 stage 4",
@@ -3787,6 +3890,15 @@
           "risk": "High",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: L2 back-link REQ-SW-KEYER-022 added to K6; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Critical",
+          "likelihood": "B",
+          "risk": "High",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): decision 38 (backstop K8 shared from HZ-004 K12) adopted; the decline case no longer applies; secure boot stays a PDR decision (95); no change to severity, likelihood, risk or status"
         }
       ]
     },
@@ -3935,8 +4047,8 @@
         "SI-035"
       ],
       "decisions_pending": [
-        "Owner (package decision 100): confirm or obtain a temperature-controlled station with a stand and auto-sleep, and a fume extractor (K1, K2); without them the fire case stays zero-fault tolerant",
-        "Owner: solder alloy for hand assembly (lead-free recommended, matching the PCBWay RoHS process)"
+        "Owner (package decision 100, needed by CDR; the SRR consent agenda confirmed the plan only): confirm or obtain a temperature-controlled station with a stand and auto-sleep, and a fume extractor (K1, K2); without them the fire case stays zero-fault tolerant",
+        "Owner: solder alloy for hand assembly (lead-free recommended, matching the PCBWay RoHS process), recorded in the handbook (package decision 100)"
       ],
       "sources": [
         "docs/plan/semp.md section 7.1 (hazard scope: the owner's hand soldering, burns, fumes, damage to assembled parts)",
@@ -3973,6 +4085,15 @@
           "risk": "Serious",
           "status": "Controls proposed",
           "note": "Revision 0.4.0-pha after INSP-008: K1 split into the station (K1, Hardware interlock) and the practice (K6, Operator procedure); residual condition states that the Serious residual does not meet the section 3.4 Serious terms and gives the path to PDR; no change to severity, likelihood, risk or status"
+        },
+        {
+          "date": "2026-09-26",
+          "review": "SRR",
+          "severity": "Catastrophic",
+          "likelihood": "D",
+          "risk": "Serious",
+          "status": "Controls proposed",
+          "note": "Revision 0.5.0-pha (SRR owner rulings of 2026-09-26, package item R16): no SRR ruling changes this hazard: package decision 100 is needed by CDR and the consent agenda confirmed its plan only; decisions_pending restated; no change to severity, likelihood, risk or status"
         }
       ]
     }
@@ -3997,9 +4118,9 @@
       ],
       "subject": "Redefine REQ-SYS-054 as a no-gap paddle watchdog",
       "request": "REQ-SYS-054 counts identical elements only, so a toggling stream of alternating elements is caught by neither it nor the hardware cutoff. Proposed wording: 'The transceiver shall stop keying when the transmit key line has had no key-up interval of at least 7 dit times at the selected speed or 500 ms, whichever is shorter (TBR), for 30 s (TBR), or after 128 consecutive identical paddle elements, whatever the element pattern.' Split into two requirements if one shall per statement requires it. Rationale to name HZ-004 K4 and to state that the watchdog runs on the TX_KEY read-back in a unit separate from the keyer engine.",
-      "status": "Open",
+      "status": "Answered",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Not answered: REQ-SYS-054 still counts identical elements (128 or 10 s, TBR); its rationale names the no-gap form as an alternative. Owner ruling: package decision 37 (D-KN3). Remaining: after an adopting ruling the requirements author rewords REQ-SYS-054 and HZ-004 K4 leaves Requirement pending; after a declining ruling K4 items (ii) and (iii) are Dropped and a stream that K4 (i) misses rests on the backstop HZ-004 K12 (REQ-SYS-180) in hardware."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Not answered: REQ-SYS-054 still counts identical elements (128 or 10 s, TBR); its rationale names the no-gap form as an alternative. Owner ruling: package decision 37 (D-KN3). Remaining: after an adopting ruling the requirements author rewords REQ-SYS-054 and HZ-004 K4 leaves Requirement pending; after a declining ruling K4 items (ii) and (iii) are Dropped and a stream that K4 (i) misses rests on the backstop HZ-004 K12 (REQ-SYS-180) in hardware. Update at 0.5.0-pha (2026-09-26): owner ruling made. Package decision 37 (D-KN3) adopted the no-gap form of HZ-004 K4 with the 2 s squeeze limit, replacing the 10 s elapsed-time cap (docs/reviews/SRR/minutes.md, key decision K1). Remaining: the requirements author rewords REQ-SYS-054 to the ruled form (package item R16); HZ-004 K4 item (ii) then leaves Requirement pending and this question is Answered, then Closed on the reviewer's verification. Carried from OQ-SAF-003 (Minor, lien: fix before PDR): add the toggling-stream cause and the REQ-SYS-180 bound to the REQ-SYS-055 rationale. Answered at 0.5.0-pha (2026-09-26) in the requirements author's R16 edit of docs/requirements/sys/requirements.json (commit cd61450): REQ-SYS-054 (Paddle watchdog) reads 'end keying until both paddles open after 128 consecutive identical elements or 30 s (TBR) without 7-dit or 500 ms (TBR) gaps' and names HZ-004 K4; the REQ-SYS-055 rationale now states that a toggling stream restarts the cutoff and is ended in hardware by REQ-SYS-180 (the Minor item carried from OQ-SAF-003). HZ-004 K4 is Proposed. Closes when the requirements reviewer (INSP-003) verifies the committed file."
     },
     {
       "id": "OQ-SAF-002",
@@ -4016,9 +4137,9 @@
       ],
       "subject": "New requirement: squeeze limit for both paddle contacts closed",
       "request": "No requirement stops keying when both paddle contacts stay closed (headphones or a shorted TRS cable inserted after boot in Iambic A, Iambic B or Ultimatic). Proposed wording: 'The transceiver shall stop keying when both paddle contacts have been closed continuously for more than 2 s (TBR) in any iambic or Ultimatic mode.' TBR plan: check against the longest squeezed character at 5 WPM (C, 11 dit times, 2.64 s); if normal squeezing trips it, the limit becomes the longer of 2 s and 16 dit times.",
-      "status": "Open",
+      "status": "Answered",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Not answered: no requirement stops keying on a sustained squeeze of both paddle contacts. Owner ruling: package decision 37 (the 2 s squeeze limit is part of the recommended option). Remaining: the requirements author writes the squeeze-limit requirement after an adopting ruling; HZ-004 K4 item (iii) stays Requirement pending until then."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Not answered: no requirement stops keying on a sustained squeeze of both paddle contacts. Owner ruling: package decision 37 (the 2 s squeeze limit is part of the recommended option). Remaining: the requirements author writes the squeeze-limit requirement after an adopting ruling; HZ-004 K4 item (iii) stays Requirement pending until then. Update at 0.5.0-pha (2026-09-26): owner ruling made. Package decision 37 adopted the 2 s squeeze limit (key decision K1). Remaining: the requirements author writes the squeeze-limit requirement (package item R16); HZ-004 K4 item (iii) then leaves Requirement pending. Answered at 0.5.0-pha (2026-09-26) in the requirements author's R16 edit (commit cd61450): REQ-SYS-184 (Paddle squeeze limit, 2 s TBR, Iambic A, Iambic B and Ultimatic) implements HZ-004 K4 item (iii) and is traced in K4 and the shares HZ-001 K3, HZ-003 K3, HZ-006 K6, HZ-012 K2. Closes when INSP-003 verifies the committed file."
     },
     {
       "id": "OQ-SAF-003",
@@ -4041,9 +4162,9 @@
       ],
       "subject": "New requirement: hardware transmission-length backstop on the T/R drive",
       "request": "The only hardware element that can bound a toggling TX_KEY stream is a transmission-length backstop. Proposed wording: 'The transceiver shall remove power-amplifier enable, independently of firmware, when the transmit/receive drive has remained in transmit continuously for 180 s (TBR), and hold it removed until the drive returns to receive.' Also add the stream causes to the REQ-SYS-055 rationale. If the owner declines at SRR, record the Critical-C, Serious residual of the toggling-stream branch as a decision the section 3.4 response does not allow, and plan the alternative before PDR.",
-      "status": "Open",
+      "status": "Closed",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Requirement side answered: REQ-SYS-180 (Transmission-length hardware backstop, Draft, 180 s TBR) implements HZ-004 K12 and is traced as a control of HZ-001 K10, HZ-003 K10, HZ-004 K12, HZ-006 K10, HZ-012 K6 and HZ-014 K8; its rationale states the toggling-stream cause that REQ-SYS-055 cannot bound. Owner ruling: package decision 38. Remaining: the ruling; the REQ-SYS-055 rationale still names only a hung firmware and no stream cause (requirements author, Minor, no ruling needed). The residual that holds if the owner declines is recorded in the HZ-004 and HZ-014 residual_risk conditions and in hazard-analysis.md section 8.3."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Requirement side answered: REQ-SYS-180 (Transmission-length hardware backstop, Draft, 180 s TBR) implements HZ-004 K12 and is traced as a control of HZ-001 K10, HZ-003 K10, HZ-004 K12, HZ-006 K10, HZ-012 K6 and HZ-014 K8; its rationale states the toggling-stream cause that REQ-SYS-055 cannot bound. Owner ruling: package decision 38. Remaining: the ruling; the REQ-SYS-055 rationale still names only a hung firmware and no stream cause (requirements author, Minor, no ruling needed). The residual that holds if the owner declines is recorded in the HZ-004 and HZ-014 residual_risk conditions and in hazard-analysis.md section 8.3. Closed at 0.5.0-pha (2026-09-26): package decision 38 adopted REQ-SYS-180 with the 150 s to 180 s window (owner ruling, docs/reviews/SRR/minutes.md, key decision K2); HZ-004 K12 and its shares HZ-001 K10, HZ-003 K10, HZ-006 K10, HZ-012 K6 and HZ-014 K8 state the adoption, and the decline case of hazard-analysis.md section 8.3 does not apply. The Minor REQ-SYS-055 rationale item is carried to OQ-SAF-001 (lien: fix before PDR)."
     },
     {
       "id": "OQ-SAF-004",
@@ -4085,9 +4206,9 @@
       ],
       "subject": "Tune timeout conflicts with the hardware cutoff window",
       "request": "REQ-SYS-020 holds TX_KEY high for 10 s +/-1 s; REQ-SYS-055 removes PA enable after 7.5 to 13 s of continuous key-down (10 s nominal), so every unit whose T_max is below 11 s, including the nominal 10 s unit, can cut a tune that REQ-SYS-020 allows to run to 11 s, which per the ConOps Fault-safe row ends in Fault-safe, and a unit at the 7.5 s floor can never meet REQ-SYS-020. The REQ-SYS-055 rationale ('the window keeps above ... the 10 s tune carrier') is false. Recommended: REQ-SYS-020 'The transceiver shall end every tune carrier 5 s +/-0.5 s (TBR) after it starts', with the exposure and thermal rationale restated (a shorter carrier only lowers both). Alternatives for the owner: a T_max floor above 11 s with the 13 s bounds re-derived; a tune carrier that drops TX_KEY periodically (not recommended: it removes the hardware bound from the tune).",
-      "status": "Open",
+      "status": "Closed",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Requirement side answered: REQ-SYS-020 reads 'at most 5.5 s (TBR) after it starts' with the exposure and thermal rationale restated, and the REQ-SYS-055 rationale places the 7.5 s floor 2 s above the 5.5 s tune bound, the false sentence removed; HZ-001 K2, HZ-006 K2 and HZ-012 K1 now quote the current requirement. Owner ruling: package decision 36 (RFX-D3 with D-KN2; option a is the written requirement). Remaining: the ruling; after it the SEMP section 7.3.1 Power steps row and docs/design/concept.md (sections 4, 8, F9.1 and 14 item 2), which still state 10 s, are corrected by their authors (SRR package section 15 items 14 and 15)."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Requirement side answered: REQ-SYS-020 reads 'at most 5.5 s (TBR) after it starts' with the exposure and thermal rationale restated, and the REQ-SYS-055 rationale places the 7.5 s floor 2 s above the 5.5 s tune bound, the false sentence removed; HZ-001 K2, HZ-006 K2 and HZ-012 K1 now quote the current requirement. Owner ruling: package decision 36 (RFX-D3 with D-KN2; option a is the written requirement). Remaining: the ruling; after it the SEMP section 7.3.1 Power steps row and docs/design/concept.md (sections 4, 8, F9.1 and 14 item 2), which still state 10 s, are corrected by their authors (SRR package section 15 items 14 and 15). Closed at 0.5.0-pha (2026-09-26): package decision 36 ruled option a (tune ending 5 s +/-0.5 s, at most 5.5 s; cutoff T_max 10 s, 7.5 to 13 s, 74LVC1G123), the value REQ-SYS-020 already carries (owner ruling, key decision K1). The SEMP section 7.3.1 and docs/design/concept.md value corrections are SRR package section 15 items 14 and 15, carried by their authors under package item R16, not by this hazard request."
     },
     {
       "id": "OQ-SAF-006",
@@ -4109,9 +4230,9 @@
       ],
       "subject": "ConOps corrections: tune duration, squeeze case and stream bounds",
       "request": "(1) Tune row of section 3.4 and section 3.5.1 item 8: tune duration per OQ-SAF-005 (5 s proposed). (2) OPS-013 step 1 covers power-on only; add the after-boot cases: headphones or a shorted TRS cable read as a continuous closure in Straight mode (step 2 limits apply) and as a squeeze in the iambic modes, stopped by the squeeze limit in 2 s. (3) OPS-013 step 3 and the Transmit-keyed row: the paddle watchdog becomes the no-gap watchdog of OQ-SAF-001. (4) OPS-013 expected outcome 'no transmission longer than 13 s from any single cause' holds only for a continuous key-down; a toggling stream is bounded by firmware (30 s, 2 s) and, if adopted, by the 180 s backstop. (5) Section 3.5.2 item 2 test modes: forced 0.5 W, 120 s timeout, exit on reset, never persisted (OQ-SAF-016).",
-      "status": "Open",
+      "status": "Answered",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Item (1) answered: docs/conops/conops.md section 3.4 Tune row, section 3.5.1 item 8 and rule F7 state 5 s +/-0.5 s (at most 5.5 s). Items (2) to (5) not answered: OPS-013 step 1 covers switch-on only and has no after-boot squeeze case; OPS-013 step 3 keeps 128 elements or 30 s; the OPS-013 expected outcome and rule F7 still bound every single cause at 13 s, which holds for a continuous key-down only; the Bench-test keyed tests run up to 60 s per activation with no forced 0.5 W step. Owner rulings: package decisions 37 (items 2 and 3), 38 (item 4) and 41 (item 5). Remaining: the ConOps author edits OPS-013, section 3.4 and section 3.5.2 after the rulings; the item 4 correction that the 13 s bound covers a continuous key-down only is needed whatever decision 38 says. Checked again at hazards.json 0.4.0-pha (2026-09-25): still not answered. If the ConOps author has not made the edit before the SRR readiness declaration, the owner re-dates this question in the SRR decision memo (proposed close_by PDR) and this file records the new close_by; until then it blocks package item H7 (package section 18.1). Update 2026-09-26 (integrator): items (2) and (4) answered in docs/conops/conops.md: OPS-013 step 6 adds the after-boot headphone or shorted-cable case (Straight mode continuous closure; squeeze in the iambic modes, stopped by the proposed K4 items (ii) and (iii) if decision 37 adopts them, and by REQ-SYS-180 if decision 38 adopts it), and the OPS-013 expected outcome and rule F7 now bound a continuous key-down only at 13 s. Items (3) and (5) wait on package decisions 37 and 41."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Item (1) answered: docs/conops/conops.md section 3.4 Tune row, section 3.5.1 item 8 and rule F7 state 5 s +/-0.5 s (at most 5.5 s). Items (2) to (5) not answered: OPS-013 step 1 covers switch-on only and has no after-boot squeeze case; OPS-013 step 3 keeps 128 elements or 30 s; the OPS-013 expected outcome and rule F7 still bound every single cause at 13 s, which holds for a continuous key-down only; the Bench-test keyed tests run up to 60 s per activation with no forced 0.5 W step. Owner rulings: package decisions 37 (items 2 and 3), 38 (item 4) and 41 (item 5). Remaining: the ConOps author edits OPS-013, section 3.4 and section 3.5.2 after the rulings; the item 4 correction that the 13 s bound covers a continuous key-down only is needed whatever decision 38 says. Checked again at hazards.json 0.4.0-pha (2026-09-25): still not answered. If the ConOps author has not made the edit before the SRR readiness declaration, the owner re-dates this question in the SRR decision memo (proposed close_by PDR) and this file records the new close_by; until then it blocks package item H7 (package section 18.1). Update 2026-09-26 (integrator): items (2) and (4) answered in docs/conops/conops.md: OPS-013 step 6 adds the after-boot headphone or shorted-cable case (Straight mode continuous closure; squeeze in the iambic modes, stopped by the proposed K4 items (ii) and (iii) if decision 37 adopts them, and by REQ-SYS-180 if decision 38 adopts it), and the OPS-013 expected outcome and rule F7 now bound a continuous key-down only at 13 s. Items (3) and (5) wait on package decisions 37 and 41. Answered at 0.5.0-pha (2026-09-26) by docs/conops/conops.md revision 3 after the owner rulings (package decisions 37, 38, 41 and 42): item (3) Table 3.4-1 Transmit-keyed row, Table 3.4-4 row 3, OPS-013 steps 3 and 6 and section 3.5.1 item 10 state the ruled no-gap paddle watchdog with the 2 s squeeze limit; item (4) OPS-013 step 4, the expected outcome and rule F7 bound a toggling stream by the watchdog and by the adopted REQ-SYS-180 backstop (150 s to 180 s); item (5) the Bench-test row, T15, section 3.5.2 item 2, rule F7 and Appendix C state the forced 0.5 W step, the 120 s keyed-test timeout, the 60 s full-scale tone, the exit on reset and non-persistence. No re-dating under decision 116 is needed. Closes when the ConOps reviewer (INSP-002) verifies revision 3."
     },
     {
       "id": "OQ-SAF-007",
@@ -4149,8 +4270,9 @@
       ],
       "subject": "New requirement: third overcharge layer at 4.30 V",
       "request": "HZ-002 K3 (secondary 4.30 V protector) has no implementing requirement; REQ-SYS-083 is the 4.25 V protector. Proposed wording: 'The transceiver shall open the charge path when any cell exceeds 4.30 V (TBR), independently of the charger, the 4.25 V protector and firmware.' Reconcile the REQ-SYS-083 rationale, which allocates this layer to the power subsystem at PDR; if the allocation stays at PDR, the two-fault tolerance claim is withdrawn until then (as this revision does).",
-      "status": "Open",
-      "close_by": "PDR"
+      "status": "Answered",
+      "close_by": "PDR",
+      "resolution": "Update at 0.5.0-pha (2026-09-26): package decision 72 adopted the S-8252 plus BQ29209 topology and ordered this requirement (owner ruling, key decision K7). Remaining: the requirements author writes it (package item R16); HZ-002 K3 then leaves Requirement pending. Answered at 0.5.0-pha (2026-09-26) in the requirements author's R16 edit (commit cd61450): REQ-SYS-185 (Further cell over-voltage layer, 4.30 V to 4.35 V TBR, independent of the charger, the 4.25 V protector and firmware) implements HZ-002 K3; the REQ-SYS-083 rationale names it. Closes when INSP-003 verifies the committed file."
     },
     {
       "id": "OQ-SAF-009",
@@ -4168,8 +4290,9 @@
       ],
       "subject": "Design constraint: separate Kelvin sense route per protection layer",
       "request": "The charger, the 4.25 V protector, the 4.30 V protector and the firmware dividers share one MID sense net, a single point for per-cell detection. Proposed wording: 'The transceiver shall connect each cell-protection function to each cell terminal through a sense path of its own, so that an open or high-resistance sense connection disables at most one function.' L1 constraint or recorded PWR allocation with PDR closure.",
-      "status": "Open",
-      "close_by": "PDR"
+      "status": "Answered",
+      "close_by": "PDR",
+      "resolution": "Update at 0.5.0-pha (2026-09-26): package decision 72 ordered the Kelvin sense requirement (owner ruling, key decision K7). Remaining: the requirements author writes it (package item R16); HZ-002 K9 then leaves Requirement pending. Answered at 0.5.0-pha (2026-09-26) in the requirements author's R16 edit (commit cd61450): REQ-SYS-186 (Separate cell-sense paths per protection layer) implements HZ-002 K9 and is also traced in HZ-007 K3; its rationale names HZ-002 K9 only, and adding HZ-007 K3 to its control list is a request to the requirements author. Closes when INSP-003 verifies the committed file."
     },
     {
       "id": "OQ-SAF-010",
@@ -4229,9 +4352,9 @@
       ],
       "subject": "New requirement: hardware over-temperature cut-off",
       "request": "HZ-003 is re-rated Critical and the thermistor-failure branch has no control independent of firmware. Proposed wording: 'The transceiver shall remove power-amplifier enable, independently of firmware, when the PA heat-sink temperature exceeds 95 C (TBR).' Link REQ-SYS-112 and REQ-SYS-113 unchanged (HZ-003 K1 now uses their numbers).",
-      "status": "Open",
+      "status": "Closed",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Requirement side answered: REQ-SYS-181 (Hardware PA over-temperature cut-off, Draft, 95 C TBR) implements HZ-003 K9 and is traced as its control; REQ-SYS-112 and REQ-SYS-113 are unchanged. Owner ruling: package decision 39. Remaining: the ruling. The residual that holds if the owner declines is recorded in the HZ-003 residual_risk condition and in hazard-analysis.md section 8.3."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Requirement side answered: REQ-SYS-181 (Hardware PA over-temperature cut-off, Draft, 95 C TBR) implements HZ-003 K9 and is traced as its control; REQ-SYS-112 and REQ-SYS-113 are unchanged. Owner ruling: package decision 39. Remaining: the ruling. The residual that holds if the owner declines is recorded in the HZ-003 residual_risk condition and in hazard-analysis.md section 8.3. Closed at 0.5.0-pha (2026-09-26): package decision 39 adopted REQ-SYS-181 with 95 C +/-3 C and 100 ms (owner ruling, key decision K2); HZ-003 K9 states the adoption and the decline case of hazard-analysis.md section 8.3 does not apply."
     },
     {
       "id": "OQ-SAF-013",
@@ -4249,9 +4372,9 @@
       ],
       "subject": "New requirement: independent frequency verification before transmit",
       "request": "A single frequency-control software fault can put 5 W on 150 to 174 MHz, which the harmonic filter passes, and REQ-SYS-009 checks the set frequency inside the same component. Proposed wording: 'The transceiver shall inhibit transmission unless an independent measurement of the transmit synthesizer output frequency agrees with the set carrier frequency within 10 kHz (TBR).' Link HZ-008 with the safety tag; add HZ-008 C7 to the REQ-SYS-009 rationale.",
-      "status": "Open",
+      "status": "Closed",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Requirement side answered: REQ-SYS-182 (Independent frequency verification before and during transmit, Draft, 10 kHz TBR) implements HZ-008 K7 with REQ-SYS-154 as the Fault-safe response, both traced as K7 controls; the REQ-SYS-009 rationale names HZ-008 cause C7 and REQ-SYS-182. Owner ruling: package decision 40, taken with decision 9 (OQ-SAF-014). Remaining: the rulings. The residual that holds if the owner declines is recorded in the HZ-008 residual_risk condition and in hazard-analysis.md section 8.3."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Requirement side answered: REQ-SYS-182 (Independent frequency verification before and during transmit, Draft, 10 kHz TBR) implements HZ-008 K7 with REQ-SYS-154 as the Fault-safe response, both traced as K7 controls; the REQ-SYS-009 rationale names HZ-008 cause C7 and REQ-SYS-182. Owner ruling: package decision 40, taken with decision 9 (OQ-SAF-014). Remaining: the rulings. The residual that holds if the owner declines is recorded in the HZ-008 residual_risk condition and in hazard-analysis.md section 8.3. Closed at 0.5.0-pha (2026-09-26): package decision 40 adopted REQ-SYS-182 with the 10 kHz window and 100 ms, and decision 9 classified frequency control and the verification unit safety-critical (owner ruling, key decision K2); HZ-008 K7 states the adoption and the decline case of hazard-analysis.md section 8.3 does not apply."
     },
     {
       "id": "OQ-SAF-014",
@@ -4274,7 +4397,7 @@
       "request": "hazard-analysis.md section 6.3 item 6 proposes frequency control (SW-SYNTH frequency-word path) and the frequency verification unit as safety-critical by criterion a for HZ-008 C7. If the owner concurs, change together: 03 sections 4.2 (HZ-008 row and the exclusion paragraph), 4.3 (mission-critical paragraph, which also still says 'band-edge limits 144 to 148 MHz') and 5; 07 section 14.1 (SW-SYNTH row) and 14.2 (SW-SYNTH module row); SEMP section 7.1 ('the mission-critical frequency control'); charter section 10 ('mission-critical frequency control'); rmm.json rows SWE-134, SWE-205, SWE-219, SWE-220. If the owner does not concur, the independent verification K7 must still be adopted for the residual to leave Critical-D.",
       "status": "Open",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Not answered: the owner's concurrence is pending. Owner ruling: package decision 9. Remaining: after the ruling the lead SE changes 03 sections 4.2, 4.3 and 5, 07 section 14, SEMP section 7.1, charter section 10 (a charter edit needs the owner's approval) and rmm.json together; 03 section 4.3 still reads 'band-edge limits 144 to 148 MHz'."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Not answered: the owner's concurrence is pending. Owner ruling: package decision 9. Remaining: after the ruling the lead SE changes 03 sections 4.2, 4.3 and 5, 07 section 14, SEMP section 7.1, charter section 10 (a charter edit needs the owner's approval) and rmm.json together; 03 section 4.3 still reads 'band-edge limits 144 to 148 MHz'. Update at 0.5.0-pha (2026-09-26): the owner concurred (package decision 9, key decision K2): frequency control (the SW-SYNTH frequency-word path) and the frequency verification unit are safety-critical, and hazard-analysis.md sections 6.2 and 6.3 and HZ-008 drop the word proposed. Remaining: the lead SE's joint edit of 03 sections 4.2, 4.3 and 5, 07 section 14, SEMP section 7.1, charter section 10 (owner approval) and rmm.json (package item R16)."
     },
     {
       "id": "OQ-SAF-015",
@@ -4313,9 +4436,9 @@
       ],
       "subject": "Bench test-mode guard requirements; REQ-SYS-007 hazard link",
       "request": "ConOps section 3.5.2 item 2 test modes are firmware-originated streams and a full-scale tone. Requirements needed: entry only by a menu action plus a confirmation (REQ-SYS-007 covers the confirmed entry for keying); transmitter forced to the 0.5 W step; automatic exit after 120 s (TBR) for keying modes and 60 s (TBR) for the full-scale tone, and on every reset; never persisted in the configuration store. Add HZ-004 to REQ-SYS-007 hazard_ids with the safety tag.",
-      "status": "Open",
+      "status": "Answered",
       "close_by": "SRR",
-      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Partly answered: REQ-SYS-179 (Bench test mode entry) requires a menu selection followed by a separate confirmation and lists HZ-004 and HZ-005; REQ-SYS-007 lists HZ-004 with the safety tag. Not answered: no requirement forces the 0.5 W step, ends the mode after 120 s (keying) or 60 s (full-scale tone) or on every reset, or forbids persisting it, so HZ-004 K13 and HZ-005 K9 stay Requirement pending. Owner ruling: package decision 41. Remaining: the requirements author writes those requirements after an adopting ruling; the ConOps Bench-test limits follow (OQ-SAF-006 item 5)."
+      "resolution": "Reconciled 2026-09-25 against SRR package section 18.1 (hazards.json 0.3.0-pha). Partly answered: REQ-SYS-179 (Bench test mode entry) requires a menu selection followed by a separate confirmation and lists HZ-004 and HZ-005; REQ-SYS-007 lists HZ-004 with the safety tag. Not answered: no requirement forces the 0.5 W step, ends the mode after 120 s (keying) or 60 s (full-scale tone) or on every reset, or forbids persisting it, so HZ-004 K13 and HZ-005 K9 stay Requirement pending. Owner ruling: package decision 41. Remaining: the requirements author writes those requirements after an adopting ruling; the ConOps Bench-test limits follow (OQ-SAF-006 item 5). Update at 0.5.0-pha (2026-09-26): owner ruling made. Package decision 41 adopted the guard (forced 0.5 W, 120 s timeout, exit on reset, not persistent) and decision 42 ratified the ConOps Bench-test limits with it; docs/conops/conops.md revision 3 states them. Remaining: the requirements author writes the requirements (package item R16); HZ-004 K13 and HZ-005 K9 then leave Requirement pending. Answered at 0.5.0-pha (2026-09-26) in the requirements author's R16 edit (commit cd61450): REQ-SYS-187 (forced 0.5 W step), REQ-SYS-188 (120 s TBR mode timeout), REQ-SYS-189 (60 s TBR full-scale tone limit) and REQ-SYS-190 (not retained over reset or power-on), with REQ-SYS-179 (entry), implement HZ-004 K13 and HZ-005 K9, both now Proposed. Closes when INSP-003 verifies the committed file."
     },
     {
       "id": "OQ-SAF-017",
@@ -4385,7 +4508,7 @@
       "request": "No requirement implements HZ-015 K1, K2, K4 and K5. Proposed wording: 'The transceiver's hardware release package shall include a hand-assembly procedure stating the soldering-station, fume-extraction, eye-protection, hygiene, ESD and cell-removal precautions of docs/safety/hazards.json HZ-015.' Add HZ-015 to REQ-SYS-137 and REQ-SYS-138 hazard_ids (HZ-015 K3). The Inspection method of these requirements meets the open 04 section 7.3 rule 6 conflict already noted on REQ-SYS-122.",
       "status": "Open",
       "close_by": "PDR",
-      "resolution": "State on 2026-09-25 (hazards.json 0.3.0-pha): partly answered; REQ-SYS-137 and REQ-SYS-138 list HZ-015 (K3) and RSK-034 carries the hazard. Open: the hand-assembly procedure requirement for K1, K2, K4 and K5 and the owner's confirmation of the bench equipment (package decision 100), by PDR. 0.4.0-pha: K1 split into the station (K1, Hardware interlock) and the practice (K6, Operator procedure); the requirement covers both, and K1 is proposed to close by Test (auto-sleep timing, read with the multimeter thermocouple if OQ-VV-003 confirms one or with the station's own readout). Carried from OQ-SAF-017 at 0.4.1-pha (2026-09-26; Minor, lien: fix before PDR): when the hand-assembly procedure requirement is written, the requirements author also changes the REQ-SYS-122 verification note to select the handbook controls by the control list its rationale names rather than by control type, so that HZ-015 K2, K4 and K6 (Operator procedure, allocated to the release-package procedure) are not in the handbook checklist."
+      "resolution": "State on 2026-09-25 (hazards.json 0.3.0-pha): partly answered; REQ-SYS-137 and REQ-SYS-138 list HZ-015 (K3) and RSK-034 carries the hazard. Open: the hand-assembly procedure requirement for K1, K2, K4 and K5 and the owner's confirmation of the bench equipment (package decision 100), by PDR. 0.4.0-pha: K1 split into the station (K1, Hardware interlock) and the practice (K6, Operator procedure); the requirement covers both, and K1 is proposed to close by Test (auto-sleep timing, read with the multimeter thermocouple if OQ-VV-003 confirms one or with the station's own readout). Carried from OQ-SAF-017 at 0.4.1-pha (2026-09-26; Minor, lien: fix before PDR): when the hand-assembly procedure requirement is written, the requirements author also changes the REQ-SYS-122 verification note to select the handbook controls by the control list its rationale names rather than by control type, so that HZ-015 K2, K4 and K6 (Operator procedure, allocated to the release-package procedure) are not in the handbook checklist. SRR (2026-09-26): package decision 100 is needed by CDR; the consent agenda confirmed its plan only (package section 13.1.2 re-check item (d)), so the owner's station confirmation stays open; the hand-assembly requirement stays due at PDR."
     },
     {
       "id": "OQ-SAF-020",
@@ -4494,7 +4617,8 @@
       "subject": "Add the 150 to 174 MHz allocation and the 156.8 MHz channel to the corpus",
       "request": "HZ-008 C7 names VHF public-safety and maritime services at 150 to 174 MHz, including 156.8 MHz distress, safety and calling, as victims of an out-of-band fundamental. docs/references/md/regulatory/ carries only the harmonic rows of 47 CFR 2.106; add the 2.106 rows covering 150.8 to 174 MHz and the Part 80 channel rule so the victim services can be cited verbatim (Low confidence until then).",
       "status": "Open",
-      "close_by": "PDR"
+      "close_by": "PDR",
+      "resolution": "SRR (2026-09-26): package decision 35 (needed by PDR) confirmed the plan: the owner adds the rows to the corpus before PDR."
     },
     {
       "id": "OQ-SAF-025",
@@ -4544,6 +4668,27 @@
       "status": "Closed",
       "close_by": "SRR",
       "resolution": "Raised at hazards.json 0.4.0-pha (2026-09-25) from INSP-008 finding-3. Remaining: the requirements author (and the risk manager for any register change) acts before the SRR readiness declaration; the owner's acceptance of the section 8.1 item 7 table for SRR entrance row 15 rests on the corrected citations. If not done by then, the owner re-dates it in the SRR decision memo (proposed close_by PDR). Answered 2026-09-26 (integrator, awaiting the INSP-008 reviewer's verification): (1) REQ-SYS-137 and 138 cite RSK-034; (2) REQ-SYS-010 cites RSK-011; (3) REQ-SYS-122 names per hazard the risk that carries it (RSK-016, RSK-007, RSK-006, RSK-024, RSK-017, RSK-025, RSK-018); hazard-analysis.md section 8.1 item 7 table updated to match; (4) REQ-SYS-113 stays Analysis because no surface-temperature instrument is credited: its note makes the surface reading conditional on OQ-VV-003, and the conversion to Test is made by CR if OQ-VV-003 confirms a thermocouple. Closed 2026-09-26 at hazards.json 0.4.3-pha (SRR package item R9): verified by INSP-008 iteration 3 (docs/reviews/SRR/checklists/hazard-analysis.md, Iteration 3 finding-8 row and answer 1): REQ-SYS-137 and 138 cite RSK-034, REQ-SYS-010 cites RSK-011, REQ-SYS-122 names a carrying risk per hazard, REQ-SYS-113 stays Analysis with the OQ-VV-003 condition stated."
+    },
+    {
+      "id": "OQ-SAF-027",
+      "raised": "2026-09-26",
+      "addressee": "Requirements author (REQ-SYS, REQ-SW-KEYER); lead SE",
+      "hazard_ids": [
+        "HZ-004",
+        "HZ-010"
+      ],
+      "control_refs": [
+        "HZ-004 K9",
+        "HZ-010 K3"
+      ],
+      "targets": [
+        "docs/requirements/sw/sw-keyer/requirements.json REQ-SW-KEYER-020, REQ-SW-KEYER-021",
+        "docs/requirements/sys/requirements.json REQ-SYS-048, REQ-SYS-162"
+      ],
+      "subject": "Operator-set debounce ruled by decision 48 versus the fixed debounce counts",
+      "request": "SRR package decision 48, ruled on consent on 2026-09-26, exposes the switchpoint and the debounce in the operator menu, while REQ-SW-KEYER-020 and REQ-SW-KEYER-021 fix the counts at 2 and 5 samples, not operator-configurable, and HZ-004 K9 and HZ-010 K3 rest on the fixed counts. Either bound the operator-set debounce so that the make filter stays inside the 2 ms of REQ-SW-KEYER-017 and the break filter at 6 samples or fewer, and state that range in REQ-SYS-048, REQ-SYS-162, REQ-SW-KEYER-020 and REQ-SW-KEYER-021 (the hazard analysis then restates K9 and K3), or raise a CR for the owner to keep the counts fixed. Until then the controls keep the fixed counts.",
+      "status": "Open",
+      "close_by": "PDR"
     }
   ]
 }
