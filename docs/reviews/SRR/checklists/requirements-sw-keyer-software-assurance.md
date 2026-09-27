@@ -19,10 +19,16 @@ product: docs/requirements/sw/sw-keyer/requirements.json
 # and test_cases.json@f730056914aedfa003757f94284a020e79c67795 (both last changed in cb00792).
 # INSP-004 also covers the TX files; this assurance record covers only the SW-KEYER pair, because TX is
 # not a software product of 07 section 10.1.
-product_commit: "f2e02aa0d4bdfff8eaebbce92c32580c3dc26c30"
+# iteration 2 and the R8 re-issue named product_commit f2e02aa0d4bdfff8eaebbce92c32580c3dc26c30 and the blobs
+# requirements.json@4d22b399f1647743dd837e731d8c05fa6be7b7bb and test_cases.json@d3c0c236651bd41332bac345fd936e199734bfe3.
+# Iteration 3 (post-SRR-ruling delta, 2026-09-26): product_commit is ebe5873, the last commit that touched the
+# products (cd61450 requirements, ebe5873 test cases, package item R16); product_files are git rev-parse HEAD:<path> at ebe5873
+product_commit: "ebe5873a5151c19e141958e31cf9559f78f5154c"
 # Re-issue 2026-09-26 (package item R8, no further product review): both blobs re-checked equal to git rev-parse HEAD:<path> at 1af795c
-product_files: ["docs/requirements/sw/sw-keyer/requirements.json@4d22b399f1647743dd837e731d8c05fa6be7b7bb", "docs/test_cases/sw-keyer/test_cases.json@d3c0c236651bd41332bac345fd936e199734bfe3"]
+product_files: ["docs/requirements/sw/sw-keyer/requirements.json@f9141160c4d92ad80ae91144c2499b22292d4b16", "docs/test_cases/sw-keyer/test_cases.json@2716ca3f53d349c84f2a4a717a3b7daa1566792f"]
 # inputs read (not reviewed), committed blobs at the same HEAD
+# iteration 3 also read (committed at ebe5873): docs/reviews/SRR/decisions-for-owner.md@a8931d91,
+# docs/reviews/SRR/minutes.md@f3ee2271, docs/safety/hazards.json 0.5.0-pha@81cacde4, docs/design/allocation.json@442de2fd
 input_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/process/03-software-classification-and-rmm.md@ed270f443e2ab648480017df8ad3d0221400cf4c", "docs/safety/hazards.json@37d6cc832ed8f164e5f7e6e911a8656a56720c9f", "docs/requirements/sys/requirements.json@0da73012043cd79bb75d57c521369736141d7f1f", "docs/safety/hazard-analysis.md (HEAD adcfe09, section 7 row d line 223)"]
 product_size: 39 requirements (REQ-SW-KEYER-001 to 039, all Draft; 19 tagged safety with hazard_ids; 039 added at f2e02aa); 43 test cases (TC-SW-KEYER-001 to 043, all Draft; 35 HostUnit, 8 Bench)
 sprint: SRR-prep
@@ -34,7 +40,8 @@ assurance_required: true
 # from the paired file reviewer reviewer:requirements-l2 (INSP-004)
 assurance_reviewer_agent: "reviewer:INSP-026 (software assurance function; paired file review INSP-004 by reviewer:requirements-l2)"
 paired_record: INSP-004
-iteration: 2
+# iteration 3: post-SRR-ruling delta verification of cd61450 and ebe5873 (package item R16)
+iteration: 3
 # readiness_met: false. R1 Yes (validate_docs.py exit 0), R2 Yes, R4 Yes, R5 N/A; R3 No: no author self-check
 # against sections A to F is on record (the same gap INSP-004 records; package decision 115); unchanged at iteration 2
 # Re-issue 2026-09-26: R3 Yes on the author self-check filed at 1af795c (package item R7), so readiness_met is true;
@@ -45,32 +52,39 @@ readiness_met: true
 # rule 2026-09-26). verdict: NEEDS CHANGES held only by readiness R3 (package decision 115), as INSP-023
 # iteration 2; no Major finding is open.
 # re-issue: verdict APPROVED (with liens finding-2 to finding-7): readiness met, no Major finding open
+# iteration 3: verdict APPROVED (with liens finding-2, 3, 4, 6, 7, 8, 9, 10): no Major finding open, readiness met;
+# finding-5 Verified (hazards.json 0.5.0-pha, bfea9c7, SRR decision 112); finding-8, 9, 10 new Minor liens
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
 verdict: APPROVED
 # re-issue: finding-7 (Minor) is new, raised from the author's exception E-1 (same defect as INSP-004 finding-20)
+# iteration 3: finding-8, finding-9, finding-10 (Minor) are new
 findings_major: 1
-findings_minor: 6
+findings_minor: 9
 findings_open: 0
 findings_fixed: 0
-findings_verified: 1
-# findings_deferred: the six Minor liens (finding-2 to finding-7), fix before PDR
-findings_deferred: 6
+# findings_verified: finding-1 (iteration 2) and finding-5 (iteration 3)
+findings_verified: 2
+# findings_deferred: the eight Minor liens (finding-2, 3, 4, 6, 7, 8, 9, 10), fix before PDR (SRR lien L-6)
+findings_deferred: 8
 assurance_findings_major: 1
-assurance_findings_minor: 6
+assurance_findings_minor: 9
 assurance_tasks_applied: [swe-050 7.1 task 1, swe-184 7.1 task 1, swe-134 7.1 task 1, swe-134 7.1 task 3, swe-134 7.1 task 4, swe-134 7.1 task 5, swe-134 7.1 task 6, swe-192 7.1 task 1]
 deferred_rids: []
 # re-issue: R3 Yes; CK-REQ-A7 No on finding-7 (lien); the others unchanged from iteration 2
-items_no: [CK-REQ-A7, CK-REQ-C4, CK-REQ-C5, SA-134-1, SA-134-6]
-# effort: iterations 1 and 2 (52 turns, 80 min) plus the re-issue (12 turns, 20 min)
-effort_turns: 64
-effort_minutes: 100
+# iteration 3: CK-REQ-F1 No on finding-9 (lien); the others unchanged
+items_no: [CK-REQ-A7, CK-REQ-C4, CK-REQ-C5, CK-REQ-F1, SA-134-1, SA-134-6]
+# effort: iterations 1 and 2 (52 turns, 80 min) plus the re-issue (12 turns, 20 min) plus iteration 3 (22 turns, 35 min)
+effort_turns: 86
+effort_minutes: 135
 record_status: Open
 date: 2026-09-26
 date_closed: null
 ---
 
 # Peer review record INSP-026: software assurance review of the SW-KEYER software requirements and test cases
+
+**Verdict (iteration 3, post-SRR-ruling delta, 2026-09-26, blobs equal to HEAD `ebe5873`): APPROVED with liens finding-2, 3, 4, 6, 7, 8, 9 and 10.** The two product commits since the re-issue (`cd61450`, `ebe5873`, package item R16) apply the owner rulings correctly and introduce no Major defect; finding-5 is Verified (SRR decision 112, `bfea9c7`); three new Minor liens are raised (see "Post-SRR-ruling delta (2026-09-26, iteration 3)" at the end).
 
 **Verdict (re-issue of iteration 2, 2026-09-26, package item R8, blobs equal to HEAD `1af795c`): APPROVED with liens finding-2 to finding-7.** Readiness R3 is now Yes: the author self-check filed at `1af795c` lists the brief's acceptance criteria and answers checklist sections A to G item by item (see "Re-issue"). The author's exception E-1 is raised as finding-7 (Minor, Lien: fix before PDR; the same defect as INSP-004 finding-20). Reviewer and assurance verdicts stay APPROVED; no Major finding is open and no finding waits on an owner ruling. The paired file review INSP-004 is re-issued the same day with `paired_record: INSP-026` and `assurance_verdict: APPROVED` (cross item X-1 done).
 
@@ -394,3 +408,78 @@ MEASUREMENTS: re-issue no=5; new findings=1; turns=12; minutes=20; cumulative tu
 ```
 
 `record_status` stays Open: the liens are neither Verified nor Deferred by an owner decision, and the software lead closes the record (07 section 10.2, action tracking).
+
+## Post-SRR-ruling delta (2026-09-26, iteration 3)
+
+**Scope and independence.** Written by a new invocation of `reviewer:INSP-026` in the reviewer role, which is also the software assurance function for this record (charter section 2). The owner approved the SRR on 2026-09-26 (disposition Approved with liens L-1 to L-7, `docs/reviews/SRR/minutes.md`) and ruled every decision of `docs/reviews/SRR/decisions-for-owner.md` as recommended. This section delta-verifies every commit since the re-issue that touched the products, under the assurance lens. This reviewer authored none of the changed files and edited no product, no author section and no earlier reviewer text; the sections above are the historical record and are unchanged except the front matter fields that carry the current state and the dated verdict line added above the re-issue verdict. The convergence rule of 2026-09-26 (charter section 4 item 3) applies: only a Major finding changes a product, and every Minor finding is a lien, "fix before PDR", carried by SRR lien L-6.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: SRR decision 48 menu tunables debounce and decision 50 debounce values ratified). `grep -n` then only pinned decision rows 9, 37, 41, 43, 44, 47, 48, 50 and 112 in `decisions-for-owner.md`, OQ-SAF-027 in `hazards.json` and the checklist item wording; read-only Python over `git show <rev>:<path>` produced the field-level diffs, the rationale word counts, the HZ-004 control links and the `allocation.json` rows.
+
+**Commits reviewed.** `git log f2e02aa..HEAD -- <both products>` lists four commits; `5f647f2` and `1af795c` change neither product (records only; `git show --stat`), so two product commits are in scope:
+- `cd61450` "Requirements: apply SRR owner rulings of 2026-09-26 to L1 and L2 (package item R16)": `requirements.json` 4d22b399 to f9141160 (18 insertions, 17 deletions), 16 field changes in 13 requirements; no statement (`description`), `verification_method`, `hazard_ids` or `tags` changed; one `source_ids` change.
+- `ebe5873` "Test cases: apply SRR owner rulings of 2026-09-26 to TC-SYS, TC-TX and TC-SW-KEYER (package item R16)": `test_cases.json` d3c0c236 to 2716ca3f, the `setup` field of four cases only; no step, acceptance criterion, `requirement_ids` or type changed.
+
+**Delta verification, change by change** (each against the Recommendation cell of the cited decision, which is the ruling text).
+
+| Location | Change | Ruling cited | Assurance judgment |
+|---|---|---|---|
+| REQ-SW-KEYER-007, 010 `rationale` | "D-KN1, Proposed, owner decision pending at SRR" becomes "adopted by SRR decision 43" | 43: all five modes, Iambic A default | Correct; no behavior change |
+| REQ-SW-KEYER-020, 021 `rationale` | Records that decision 50 ratified 2 ms make and 5 ms break (TBR until the bounce capture) and that decision 48 names the debounce among the menu tunables, which the fixed counts do not provide; the conflict is carried to PDR | 50: ratify, debounce closes by the bench capture; 48: expose switchpoint and debounce only | Decision 50 applied correctly. Decision 48 is not applied to the statements; the author states the conflict instead of changing a safety requirement, and the hazard analyst raised OQ-SAF-027 (`hazards.json` 0.5.0-pha). From the assurance side this is the right handling: an operator-set make filter above 2 samples would break REQ-SW-KEYER-017 and the fixed counts on which HZ-004 K9 and HZ-010 K3 rest, so the safer fixed count stands until the owner decides. The unresolved disagreement between the file and a ruling is finding-9 (Minor). Both rationales now exceed 120 words (finding-10) |
+| REQ-SW-KEYER-022 `rationale`, `tbr.plan` | Decision 50 ratified the 500 ms interlock; TBR kept to PDR for the HostUnit bounce study | 50 | Correct; TBR complete (owner, plan, `close_by: PDR`) |
+| REQ-SW-KEYER-024 `rationale` | D-KN8 "adopted by SRR decision 44 ... menu selection only in revision A"; the override command path is safety-critical "as SRR decision 9 ... concurs" | 44: menu only in revision A; 9: override command path safety-critical as 03 proposes | Correct. The receiving-side validation of finding-1 is kept word for word (menu output an untrusted request, one-sample and one-queued-event rejection), and it now holds with the concurrence rather than regardless of it, so the SWE-134 d implementation is unchanged |
+| REQ-SW-KEYER-026 `rationale`, `tbr.plan` | D-KN3 "adopted by SRR decision 37"; TBR plan: 5 s adopted, the HostUnit study at PDR confirms it "and fixes the configurable range (2 to 6 s)" | 37: 5 s manual timeout including the Bug dah | 5 s and the Bug dah agree with the ruling. The retained "configurable range (2 to 6 s)" is not among the tunables decision 48 exposes; part of finding-9 |
+| REQ-SW-KEYER-032 `rationale`, `tbr`, `source_ids` | Decision 47 adopted the 3 to 30 dit range and accepted ADR-026 (superseding ADR-010, hang kept in SW-KEYER); ADR-026 added to `source_ids` | 47: adopt as written and accept ADR-026 | Correct; statement "3 to 30 dits (TBR) of the displayed speed" equals the ruling; ADR-010 kept in `source_ids` as history, ADR-026 added (SRR lien L-7 item) |
+| REQ-SW-KEYER-034, 035, 036, 038, 039 `rationale` | "Robin's concurrence is pending in the V2 record" becomes "Robin concurred ... by SRR decision 112" | 112: concur with all five | Correct; closes the V2 part of finding-6 (the statement part stays) |
+| TC-SW-KEYER-019, 038 `setup` | The paddle-watchdog note now names REQ-SYS-054 and the 2 s squeeze limit REQ-SYS-184, "adopted by SRR decision 37" | 37: the HZ-004 K4 no-gap watchdog with the 2 s squeeze limit | Correct. Single-paddle PARIS at 50 and 20 WPM has word gaps of 7 dits and no squeeze, so neither case reaches the watchdog or the squeeze limit; TC-SW-KEYER-038 straight-key holds of at most 4 s stay below the 5 s of REQ-SW-KEYER-026 |
+| TC-SW-KEYER-037 `setup` | "bench test modes force it: REQ-SYS-187, HZ-004 K13, adopted by SRR decision 41" | 41: forced 0.5 W, 120 s timeout, exit on reset, not persistent | Correct; the case keys the generator for 30 s (step 8) and waits 60 s unconfirmed (step 6), both inside the 120 s mode timeout of REQ-SYS-188, and step 6 restarts through reset as REQ-SYS-190 requires |
+| TC-SW-KEYER-034 `setup` | The "TBR values" sentence adds REQ-SW-KEYER-036 | none cited | Correct in substance: REQ-SW-KEYER-036 is in the case's `requirement_ids` and carries a TBR, so the sentence was incomplete before. The change cites no decision and the commit message does not list it (observation 4) |
+
+No change weakens a safety requirement, removes a hazard link or a closing case, or alters an acceptance criterion. `traceability.py --report-only` at HEAD reports no violation or warning for any REQ-SW-KEYER or TC-SW-KEYER id. **No new Major defect.**
+
+**Findings resolved by the rulings.** No Major finding was open at the re-issue (finding-1 Verified at iteration 2), so no Major closes here. Two Minor findings are affected:
+- finding-5 is **Verified**: `hazards.json` 0.5.0-pha (`bfea9c7`, package item R16) adds REQ-SW-KEYER-039 to HZ-004 `requirement_ids` and to the `control_req_ids` of K2 and K13 (recomputed at HEAD), as SRR decision 112 (owner ruling 2026-09-26) directs; the `HAZARD_INVERSE` warning is gone (`traceability.py --report-only`, below).
+- finding-6 is **partly resolved**: the V2 concurrence it named is recorded by SRR decision 112 in `cd61450`; the compressed statement of REQ-SW-KEYER-039 is unchanged at f9141160, so the lien stands for the statement only.
+
+**New findings (Minor, liens due PDR).**
+- **finding-8** (SA-134-1, CK-REQ-B5, V6). SRR decision 41 adds REQ-SYS-188 (bench test mode left at most 120 s after entry, HZ-004 K13), and `allocation.json` 0.3.0-srr allocates it to `SW-SAFE` and `SW-KEYER` with the note "SW-KEYER owns the test-mode generator (REQ-SW-KEYER-029); SW-SAFE the mode timeout". No REQ-SW-KEYER requirement is its child (`child_ids` empty), and neither REQ-SW-KEYER-028 nor 029 states that the PARIS generator stops, with key-down idle, when the test mode ends (timeout, exit or reset); HZ-004 K13 lists 028, 029 and 039 as its keyer controls. Minor because the L2 file is Draft with its baseline at PDR, the timeout itself belongs to the `SW-SAFE` file that does not exist yet, and the L1 note for the sibling REQ-SYS-184 already plans the SW child at PDR. Fix: add a keyer requirement (or extend REQ-SW-KEYER-029) that the generator stops and key-down goes idle within 1 ms of the test mode ending, tagged `safety` with HZ-004, with a HostUnit case and the on-target step in TC-SW-KEYER-037.
+- **finding-9** (CK-REQ-F1). SRR decision 48 rules that the switchpoint and the debounce are exposed in the menu and the other timing values stay build-time defaults. REQ-SW-KEYER-020 and 021 still fix the debounce counts as "not operator-configurable", REQ-SW-KEYER-037 range-checks no debounce setting, and the REQ-SW-KEYER-026 TBR plan still names a "configurable range (2 to 6 s)" for the manual-closure timeout, which decision 48 does not expose. The file thus disagrees with an owner ruling in two directions. The author recorded the debounce conflict and OQ-SAF-027 tracks it, so it is visible and the safe fixed counts hold meanwhile. Assurance condition for the resolution: if the owner keeps the debounce operator-set, the range must keep the make filter inside the 2 ms of REQ-SW-KEYER-017 and the break filter at 6 samples or fewer, REQ-SW-KEYER-037 must reject out-of-range debounce values as safety-critical loaded data (SWE-134 item 3 task, SA-134-3), and HZ-004 K9 and HZ-010 K3 are restated; otherwise a CR records the owner keeping the counts fixed. The 026 plan either drops "configurable" or the owner adds the timeout to the tunables.
+- **finding-10** (CK-REQ-A7, WR-10). `cd61450` lengthened the rationales of REQ-SW-KEYER-020 from 116 to 174 words and 021 from 120 to 156, past the 120-word limit of 02 section 4.3; 024 (208), 029 (160) and 039 (220) stay over it (finding-7). Same defect class as finding-7; one fix closes both.
+
+**Findings at iteration 3.**
+
+| Finding | Severity | State | Closes on |
+|---|---|---|---|
+| finding-1 | Major | Closed (Verified, iteration 2, on `f2e02aa`) | |
+| finding-2 | Minor | Lien: fix before PDR | L-1 (unchanged; the `SW-SAFE` file is still Planned) |
+| finding-3 | Minor | Lien: fix before PDR | L-2 (unchanged; no ruling addresses key-down at a mode change) |
+| finding-4 | Minor | Lien: fix before PDR | L-3 (unchanged) |
+| finding-5 | Minor | Verified (iteration 3; `bfea9c7`, SRR decision 112) | |
+| finding-6 | Minor | Lien: fix before PDR (statement only; V2 concurrence recorded by SRR decision 112 in `cd61450`) | L-5 |
+| finding-7 | Minor | Lien: fix before PDR | L-6 (with finding-10) |
+| finding-8 | Minor | Lien: fix before PDR (new) | L-7: SW-KEYER requirements author and test author, with the `SW-SAFE` file |
+| finding-9 | Minor | Lien: fix before PDR (new) | L-8: owner ruling on OQ-SAF-027 at PDR; SW-KEYER requirements author; hazard analyst for K9, K3 |
+| finding-10 | Minor | Lien: fix before PDR (new) | L-9: SW-KEYER requirements author (one fix with finding-7) |
+
+L-7 to L-9 are this record's lien numbers and are carried by SRR lien L-6 (every Minor finding of the review records, fix before PDR). No Major finding is open and none waits on an owner ruling.
+
+**Answers changed at iteration 3.** CK-REQ-B5 stays Yes and its only exception (finding-5) is Verified. CK-REQ-F1 changes from Yes to No (finding-9, lien). SA-134-6 stays No, now on finding-4 alone. SA-134-1 stays No (finding-4, finding-8). CK-REQ-A7 stays No (finding-7, finding-10). SA-134-3 stays Yes for the settings the file defines; finding-9 records the condition for a debounce setting. R1 to R4 stay Yes, R5 N/A; `readiness_met: true`.
+
+**Observations (not findings).**
+4. The TC-SW-KEYER-034 `setup` change in `ebe5873` (REQ-SW-KEYER-036 added to the TBR-values sentence) applies no SRR decision and is not in the commit message; it is a correct completeness fix, noted for configuration traceability.
+5. `traceability.py --report-only` at HEAD reports four `HAZARD_REQ_NOT_TESTED` violations on REQ-SYS-122, 124, 137 and 138, retyped Inspection by SRR decision 113 (CR-002) in `cd61450`. They are outside this product; cross item X-7.
+
+**Cross items.**
+- **X-7.** L1 author and the INSP-001 reviewer: REQ-SYS-122, 124, 137, 138 fail rule 7.3.6 after the decision 113 retype (4 violations at `ebe5873`).
+- **X-8.** INSP-004 (paired file review of the same blobs): note blobs f9141160 and 2716ca3f and findings 8 to 10 when it records its post-ruling delta; the assurance verdict to copy is APPROVED.
+- **X-9.** Hazard analyst: resolve OQ-SAF-027 with the owner before PDR (finding-9) and add the finding-8 keyer requirement to HZ-004 K13 once written.
+
+**Tool runs at iteration 3 (2026-09-26, HEAD `ebe5873`, repository root, `.venv/bin/python`).** `tools/traceability.py --report-only`: exit 0 (report-only mode), 245 requirements, 173 test cases, 4 violations (REQ-SYS-122, 124, 137, 138, observation 5), 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, 148); none on a REQ-SW-KEYER or TC-SW-KEYER id and no `HAZARD_INVERSE` warning; `docs/vv/traceability-report.md` and `traceability.json` restored with `git checkout`. `tools/validate_docs.py` with this section: exit 1, 39 passed, 11 failed, 50 checked; this record PASS (no drift: both `product_files` blobs equal HEAD); the eleven failures are other SRR records (drift against the R16 product commits, being re-issued by their own reviewers concurrently), outside this scope.
+
+**Measurements (iteration 3, SWE-089).** Items re-checked: 16 requirement field changes, 4 case setup changes, 9 rulings, finding-5 and finding-6; items answered No: 6 (CK-REQ-A7, C4, C5, F1, SA-134-1, SA-134-6, all on liens); new findings: 3 Minor; verified: 1 (finding-5); effort 22 turns, 35 minutes (added to the front matter totals).
+
+```
+ITERATION 3 (2026-09-26, HEAD ebe5873, post-SRR-ruling delta, package item R16): VERDICT: APPROVED (with liens finding-2, 3, 4, 6, 7, 8, 9, 10); reviewer APPROVED; assurance APPROVED
+DELTA: cd61450 (requirements.json 4d22b399 -> f9141160), ebe5873 (test_cases.json d3c0c236 -> 2716ca3f); rulings 9, 37, 41, 43, 44, 47, 48, 50, 112 checked; no new Major
+FINDINGS: finding-1 Major Closed; finding-5 Minor Verified (decision 112, bfea9c7); finding-8, 9, 10 Minor new liens; open Major 0
+MEASUREMENTS: size=39 requirements + 43 cases; items_no=6; major=1; minor=9; open=0; verified=2; deferred(lien)=8; turns=22; minutes=35; cumulative turns=86, minutes=135
+```
