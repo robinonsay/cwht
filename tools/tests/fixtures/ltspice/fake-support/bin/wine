@@ -1,0 +1,11 @@
+#!/bin/bash
+# Test double of the LTspice bundle's wine for one seeded fault of TV-014 (known-answers.json
+# "wrapper.seeded_no_version_line"), used only through CWHT_LTSPICE_SUPPORT=<this fake-support dir>.
+# It never runs LTspice. Given '... -b <deck>' (the deck is the last argument), it writes <deck>.log
+# WITHOUT the "LTspice <version> for MacOS" first line and a <deck>.raw, then exits 0, so that the
+# wrapper's only failing check is the log version line (expected: exit 4).
+deck="${@: -1}"
+base="${deck%.*}"
+printf 'Circuit: %s\nDirect Newton iteration for .op point succeeded.\nTotal elapsed time: 0.001 seconds.\n' "$deck" > "$base.log"
+printf 'seeded raw output of the test double\n' > "$base.raw"
+exit 0

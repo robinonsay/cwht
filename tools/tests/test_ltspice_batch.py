@@ -4,9 +4,11 @@ Every case reads its expected value from tools/tests/fixtures/ltspice/known-answ
 block) and runs the wrapper on a temporary copy of the fixture directory, because LTspice writes
 beside its deck.
 
-Classes that never start LTspice (they stop at a check that precedes the run):
-  UsageTests, HygieneTests, InstallAndVersionTests, LockTests, PreconditionTests.
-Classes that run LTspice: LTspiceRunTests. They are skipped, with the reason, when the bottle
+Classes that never start LTspice (they stop at a check that precedes the run, or test the ASCII raw
+reader of the -ascii known answer on a stored sample):
+  UsageTests, HygieneTests, InstallAndVersionTests, LockTests, PreconditionTests, AsciiRawReaderTests.
+Classes that pass the bottle precondition: LTspiceRunTests (run LTspice) and OutputCheckTests (a test
+double in place of the bundle's wine). They are skipped, with the reason, when the bottle
 precondition (CaptureAnalytics=false in the bottle LTspice.ini) is not met; the TV-014 procedure
 counts a skip as "not run", never as a pass.
 TimeoutGuardTests (about 20 s) runs only with CWHT_LTSPICE_SLOW=1 and the bottle precondition met.
@@ -60,6 +62,57 @@ def lockfile() -> str:
     return (d or tempfile.gettempdir() + "/") + "cwht-ltspice.lock"
 
 
+def read_ascii_raw(data: bytes) -> dict[str, list[float]]:
+    """Traces of an LTspice ASCII raw file (written with -ascii), as {name: values}.
+
+    Fails (AssertionError) when the file is not an ASCII raw file: a 'Binary:' data section, no
+    'Variables:' or 'Values:' section, a point count other than 'No. Points:', a point index out of
+    order, or a value that is not a decimal number. The header may be UTF-16LE (as in the binary raw
+    file, research F8) or 8-bit text; both are accepted.
+    """
+    if data[:2] == b"\xff\xfe":
+        text = data[2:].decode("utf-16-le")
+    elif len(data) > 1 and data[1] == 0:
+        text = data.decode("utf-16-le")
+    else:
+        text = data.decode("ascii")
+    lines = text.replace("\r", "").split("\n")
+    if any(line.startswith("Binary:") for line in lines):
+        raise AssertionError("the raw file has a Binary: data section, so it is not an ASCII raw file")
+    stripped = [line.strip() for line in lines]
+    if "Variables:" not in stripped or "Values:" not in stripped:
+        raise AssertionError("the raw file has no Variables: or Values: section")
+    iv, ival = stripped.index("Variables:"), stripped.index("Values:")
+    names = [line.split()[1] for line in lines[iv + 1:ival] if line.strip()]
+    tokens = " ".join(lines[ival + 1:]).split()
+    width = len(names) + 1
+    if not names or len(tokens) % width:
+        raise AssertionError(f"{len(tokens)} value tokens do not form points of {width} tokens")
+    points = len(tokens) // width
+    for line in lines[:iv]:
+        if line.startswith("No. Points:") and int(line.split(":", 1)[1]) != points:
+            raise AssertionError(f"header says {line.split(':', 1)[1].strip()} points, the file holds {points}")
+    traces: dict[str, list[float]] = {n: [] for n in names}
+    for p in range(points):
+        row = tokens[p * width:(p + 1) * width]
+        if int(row[0]) != p:
+            raise AssertionError(f"point index {row[0]} where {p} was expected")
+        for name, value in zip(names, row[1:]):
+            traces[name].append(float(value))
+    return traces
+
+
+def value_at(xs: list[float], ys: list[float], x: float) -> float:
+    """Linear interpolation of ys at x on the ascending axis xs (LTspice may store |t| with a sign flag)."""
+    xs = [abs(v) for v in xs]
+    for k in range(1, len(xs)):
+        if xs[k - 1] <= x <= xs[k]:
+            if xs[k] == xs[k - 1]:
+                return ys[k]
+            return ys[k - 1] + (ys[k] - ys[k - 1]) * (x - xs[k - 1]) / (xs[k] - xs[k - 1])
+    raise AssertionError(f"{x} is outside the axis {xs[0]} to {xs[-1]}")
+
+
 def meas(log_text: str, name: str) -> float:
     """Value of a .meas line: 'name: ... AT <x>' gives x; 'name: expr=<v> at <t>' gives v."""
     for line in log_text.splitlines():
@@ -90,6 +143,8 @@ class WrapperCase(unittest.TestCase):
         e.pop("CWHT_LTSPICE_INI_CHECK", None)
         e.pop("CWHT_LTSPICE_VERSION", None)
         e.pop("CWHT_LTSPICE_SUPPORT", None)
+        e.pop("CWHT_LTSPICE_EXPECT_BUNDLE", None)
+        e.pop("CWHT_LTSPICE_EXPECT_EXE_SHA256", None)
         e.update(env or {})
         return subprocess.run(["/bin/bash", TOOL, *args], cwd=self.work, capture_output=True, text=True,
                               env=e, timeout=timeout)
@@ -167,6 +222,22 @@ class InstallAndVersionTests(WrapperCase):
         self.assertEqual(r.returncode, case["exit"], r.stderr)
         self.assertIn("is not the locked version", r.stderr)
 
+    @unittest.skipUnless(os.access(WINE, os.X_OK), "LTspice not installed")
+    def test_bundle_build_other_than_lock(self) -> None:
+        case = KA["seeded_bundle_build"]
+        r = self.run_tool("-version", env=case["env"])
+        self.assertEqual(r.returncode, case["exit"], r.stderr)
+        self.assertIn("LTspice bundle build is", r.stderr)
+        self.assertIn(case["stderr_must_contain"], r.stderr)
+
+    @unittest.skipUnless(os.access(WINE, os.X_OK), "LTspice not installed")
+    def test_exe_sha256_other_than_lock(self) -> None:
+        case = KA["seeded_exe_sha256"]
+        r = self.run_tool("-version", env=case["env"])
+        self.assertEqual(r.returncode, case["exit"], r.stderr)
+        self.assertIn(case["stderr_must_contain"], r.stderr)
+        self.assertIn("expected " + case["env"]["CWHT_LTSPICE_EXPECT_EXE_SHA256"], r.stderr)
+
 
 class LockTests(WrapperCase):
     def test_busy_when_lock_held(self) -> None:
@@ -214,6 +285,30 @@ class PreconditionTests(WrapperCase):
         self.assertIn("never append", r.stderr)
 
 
+class AsciiRawReaderTests(unittest.TestCase):
+    """The reader of the -ascii known answer, on a stored sample in the LTspice ASCII raw layout."""
+
+    SAMPLE = ("Title: * sample\r\nPlotname: Transient Analysis\r\nFlags: real forward\r\n"
+              "No. Variables: 3\r\nNo. Points: 3\r\nVariables:\r\n\t0\ttime\ttime\r\n"
+              "\t1\tV(in)\tvoltage\r\n\t2\tV(out)\tvoltage\r\nValues:\r\n"
+              "0\t\t0.000000000000000e+000\r\n\t1.0e+000\r\n\t0.0e+000\r\n"
+              "1\t\t1.000000000000000e-003\r\n\t1.0e+000\r\n\t6.0e-001\r\n"
+              "2\t\t-2.000000000000000e-003\r\n\t1.0e+000\r\n\t8.0e-001\r\n")
+
+    def test_reads_text_and_utf16_forms(self) -> None:
+        for data in (self.SAMPLE.encode("ascii"), b"\xff\xfe" + self.SAMPLE.encode("utf-16-le")):
+            with self.subTest(utf16=data[:2] == b"\xff\xfe"):
+                t = read_ascii_raw(data)
+                self.assertEqual(list(t), ["time", "V(in)", "V(out)"])
+                self.assertAlmostEqual(value_at(t["time"], t["V(out)"], 0.0015), 0.7, places=12)
+
+    def test_rejects_binary_and_truncated_files(self) -> None:
+        with self.assertRaises(AssertionError):
+            read_ascii_raw(self.SAMPLE.replace("Values:", "Binary:").encode("ascii"))
+        with self.assertRaises(AssertionError):
+            read_ascii_raw(self.SAMPLE[:-len("\t8.0e-001\r\n")].encode("ascii"))
+
+
 @unittest.skipUnless(READY, NOT_READY)
 class LTspiceRunTests(WrapperCase):
     def test_version(self) -> None:
@@ -259,6 +354,15 @@ class LTspiceRunTests(WrapperCase):
         self.assertLessEqual(abs(t - case["thalf"]["expected_s"]) / case["thalf"]["expected_s"],
                              case["thalf"]["tolerance_fraction"], t)
 
+    def test_ascii_raw_known_answer(self) -> None:
+        case = KA["ascii"]
+        r = self.run_tool("-ascii", "-b", case["deck"])
+        self.assertEqual(r.returncode, EXIT["pass"], r.stderr)
+        with open(os.path.join(self.work, case["raw"]), "rb") as f:
+            traces = read_ascii_raw(f.read())
+        v = value_at(traces["time"], traces[case["trace"]], case["at_s"])
+        self.assertLessEqual(abs(v - case["expected_v"]) / case["expected_v"], case["tolerance_fraction"], v)
+
     def test_relative_include_is_copied(self) -> None:
         case = KA["include"]
         r = self.run_tool("-b", case["deck"])
@@ -299,6 +403,18 @@ class LTspiceRunTests(WrapperCase):
             self.assertFalse(os.path.exists(os.path.join(self.work, name)), name)
         for name in case["kept"]:
             self.assertTrue(os.path.exists(os.path.join(self.work, name)), name)
+
+
+@unittest.skipUnless(READY, NOT_READY)
+class OutputCheckTests(WrapperCase):
+    """Result checks that need an output LTspice does not produce on demand (a test double runs)."""
+
+    def test_log_without_version_line(self) -> None:
+        case = KA["seeded_no_version_line"]
+        env = {k: os.path.join(self.work, v) for k, v in case["env"].items()}
+        r = self.run_tool("-b", case["deck"], env=env)
+        self.assertEqual(r.returncode, case["exit"], r.stderr)
+        self.assertIn(case["stderr_must_contain"], r.stderr)
 
 
 @unittest.skipUnless(READY, NOT_READY)

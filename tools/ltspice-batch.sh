@@ -20,9 +20,13 @@
 #     $(getconf DARWIN_USER_TEMP_DIR)cwht-ltspice.lock held for the rest of the run (waits up to
 #     CWHT_LTSPICE_LOCK_WAIT seconds, default 600). LTspice rewrites its whole ini at exit, and
 #     concurrent exits truncated it and removed the telemetry opt-out (TV-014 finding 2).
-#  3. Installation and version: the bundle's wine must exist and the bundle version must start with
-#     the locked program version (CWHT_LTSPICE_VERSION, default 26.0.2); after a -b run the .log first
-#     line must read "LTspice <version> for MacOS"; -version must print exactly that version.
+#  3. Installation and identity against the lock (tools/toolchain.lock.md section 1): the bundle's wine
+#     must exist; the bundle version (CFBundleShortVersionString) must start with the locked program
+#     version (CWHT_LTSPICE_VERSION, default 26.0.2) and must equal the locked bundle build LOCK_BUNDLE
+#     exactly (26.0.2.1: another 26.0.2.x build fails); the SHA-256 of LTspice.exe in the bottle must
+#     equal LOCK_EXE_SHA256, checked before every run; after a -b run the .log first line must read
+#     exactly "LTspice <version> for MacOS" (a log without that line fails, exit 4); -version must
+#     print exactly that version.
 #  4. Precondition: CaptureAnalytics=false in the bottle's UTF-16LE LTspice.ini, read through iconv and
 #     never written (SI-027, ADR-018). If CWHT_LTSPICE_INI_CHECK names a file, that file must carry the
 #     key as well (a known-answer hook: it can only add a failure, never waive the bottle check).
@@ -45,15 +49,18 @@
 #
 # Exit status: 0 pass; 1 LTspice failed (non-zero exit, no log, failure string in the log, no raw
 # output, NC_ net); 2 usage error or deck refused by the hygiene checks; 3 precondition failed
-# (LTspice not installed, telemetry opt-out absent before or after the run); 4 version differs from
-# the lock; 5 busy (the lock was not free within CWHT_LTSPICE_LOCK_WAIT); 124 time-out (run killed,
+# (LTspice not installed, telemetry opt-out absent before or after the run); 4 version, bundle build
+# or LTspice.exe SHA-256 differs from the lock, or a -b log carries no version line; 5 busy (the lock was not free within CWHT_LTSPICE_LOCK_WAIT); 124 time-out (run killed,
 # counted as a failure).
 #
 # Environment: CWHT_LTSPICE_VERSION (locked program version, default 26.0.2); CWHT_LTSPICE_LOCK_WAIT
 # (seconds to wait for another run, default 600); CWHT_LTSPICE_INI_CHECK
 # (additional ini that must also carry the key; test hook); CWHT_LTSPICE_KEEP=1 keeps the run directory
 # for inspection; CWHT_LTSPICE_SUPPORT (bundle SharedSupport/ltspice directory; test hook for the
-# not-installed case).
+# not-installed case and the log-without-version-line case). CWHT_LTSPICE_EXPECT_BUNDLE and
+# CWHT_LTSPICE_EXPECT_EXE_SHA256 (known-answer hooks): a second expected bundle build or LTspice.exe
+# SHA-256 that must also match; like CWHT_LTSPICE_INI_CHECK they can only add a failure, never replace
+# the locked values LOCK_BUNDLE and LOCK_EXE_SHA256 below.
 set -u
 
 SUPPORT="${CWHT_LTSPICE_SUPPORT:-/Applications/LTspice.app/Contents/SharedSupport/ltspice}"
@@ -61,6 +68,10 @@ APP_PLIST="/Applications/LTspice.app/Contents/Info.plist"
 WINE="$SUPPORT/bin/wine"
 EXE='C:\Program Files\ADI\LTspice\LTspice.exe'
 INI="$HOME/Library/Application Support/LTspice/Bottles/ltspice/drive_c/users/crossover/AppData/Roaming/LTspice.ini"
+EXE_FILE="$HOME/Library/Application Support/LTspice/Bottles/ltspice/drive_c/Program Files/ADI/LTspice/LTspice.exe"
+# Locked identities (tools/toolchain.lock.md section 1 LTspice row; TV-014 section 1). Not overridable.
+LOCK_BUNDLE="26.0.2.1"
+LOCK_EXE_SHA256="a94eb1789084db9f46375cce05110e03578f9cdb931867a0faaca5b200793f06"
 VERSION="${CWHT_LTSPICE_VERSION:-26.0.2}"
 LOCK_WAIT="${CWHT_LTSPICE_LOCK_WAIT:-600}"
 TIMEOUT=120
@@ -201,14 +212,27 @@ if ! /usr/bin/lockf -s -t 0 9; then
   /usr/bin/lockf -s -t "$LOCK_WAIT" 9 || die 5 "busy: another LTspice run held the lock for more than $LOCK_WAIT s"
 fi
 
-# --- 3. installation and version against the lock (bundle) -------------------------------------
+# --- 3. installation and identity against the lock (bundle build, LTspice.exe) ------------------
 [ -x "$WINE" ] || die 3 "LTspice not installed: $WINE is not executable (tools/toolchain.lock.md section 1)"
+must_equal() {  # $1 = identity, $2 = observed, $3 = expected; exact string comparison
+  [ "$2" = "$3" ] || die 4 "$1 is $2, expected $3 (tools/toolchain.lock.md section 1; a change is a CR plus a new TV record)"
+}
 if [ -z "${CWHT_LTSPICE_SUPPORT:-}" ]; then
   BUNDLE=$(defaults read "$APP_PLIST" CFBundleShortVersionString 2>/dev/null || echo unknown)
   case "$BUNDLE" in
     "$VERSION"|"$VERSION".*) ;;
     *) die 4 "LTspice bundle version $BUNDLE is not the locked version $VERSION (tools/toolchain.lock.md section 1; a version change is a CR plus a new TV record)" ;;
   esac
+  must_equal "LTspice bundle build" "$BUNDLE" "$LOCK_BUNDLE"
+  if [ -n "${CWHT_LTSPICE_EXPECT_BUNDLE:-}" ]; then
+    must_equal "LTspice bundle build" "$BUNDLE" "$CWHT_LTSPICE_EXPECT_BUNDLE"
+  fi
+fi
+[ -f "$EXE_FILE" ] || die 3 "LTspice not installed: $EXE_FILE not found in the bottle (tools/toolchain.lock.md section 1)"
+EXE_SHA=$(shasum -a 256 "$EXE_FILE" 2>/dev/null | cut -d ' ' -f 1)
+must_equal "LTspice.exe SHA-256" "${EXE_SHA:-unreadable}" "$LOCK_EXE_SHA256"
+if [ -n "${CWHT_LTSPICE_EXPECT_EXE_SHA256:-}" ]; then
+  must_equal "LTspice.exe SHA-256" "${EXE_SHA:-unreadable}" "$CWHT_LTSPICE_EXPECT_EXE_SHA256"
 fi
 
 # --- 4. precondition: telemetry opt-out --------------------------------------------------------
@@ -293,7 +317,9 @@ if [ "$MODE" = "-b" ]; then
   if [ -f "$LOG" ] && [ "$VLINE" != "LTspice $VERSION for MacOS" ]; then
     case "$VLINE" in
       "LTspice "*" for MacOS") fail 4 "log names '$VLINE', locked version is $VERSION" ;;
-      *) : ;;  # an error log may start with the error text; the failure string check covers it
+      # A log that does not start with the version line does not establish which LTspice ran. An error
+      # log such as "Could not open ..." already failed on its failure string (exit 1 kept, first failure).
+      *) fail 4 "log first line is not a version line 'LTspice $VERSION for MacOS' (got '$VLINE'); the version of this run is not established" ;;
     esac
   fi
   [ -f "$RUN/$BASE.raw" ] || [ -f "$RUN/$BASE.op.raw" ] || fail 1 "no raw output written"
