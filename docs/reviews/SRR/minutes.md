@@ -94,3 +94,5 @@ Lead SE disposition:
   - (B) a catalog extruded-aluminum box from DigiKey or Mouser, machined by the owner or by PCBWay secondary operations;
   - (C) an H2C print with a conductive metal coating;
   - (D) a hybrid of an extruded aluminum body with printed front and end parts.
+
+Owner preference, verbatim: "I like option C plus we could buy a heat sink to place in the enclosure." This is recorded with SI-037 as the owner's preferred enclosure concept: an H2C-printed case with a conductive metal coating and a purchased heatsink. It becomes the planning baseline of the PDR enclosure trade study. The study confirms it with a thermal analysis and a shielding measurement, or reports the gap. CR-003 makes REQ-SYS-109 solution-neutral and amends REQ-SYS-124 ("marked into its enclosure metal") so that a printed case can comply.
