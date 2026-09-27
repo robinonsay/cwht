@@ -19,7 +19,9 @@ product: docs/process/03-software-classification-and-rmm.md
 # Post-SRR-ruling delta (2026-09-26) reviews the committed blobs at HEAD 5122a6bd262665a79ac03a9b687731f48f75041c:
 # 03 ed270f44... (unchanged), rmm.json e326ddd1... and rmm.md 54e351f4... (commits 9bdf33c and 7d735e5).
 # The iteration 3 value was product_commit adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1 with rmm.json@30fcde24 and rmm.md@7337d1bf.
-product_commit: "5122a6bd262665a79ac03a9b687731f48f75041c"
+# SRR close-out delta (2026-09-26): no product change since 5122a6b (git log 5122a6b..6257cfe on the three paths is empty);
+# blobs re-checked equal to git rev-parse HEAD:<path> and git hash-object at 6257cfe. The post-SRR-ruling delta value was 5122a6b.
+product_commit: "6257cfec5e24b2d793a97be45a26831453fb1a5c"
 product_files: ["docs/process/03-software-classification-and-rmm.md@ed270f443e2ab648480017df8ad3d0221400cf4c", "docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7", "docs/process/rmm.md@54e351f4df231d1a1e74e6eef4bd07db9a408fa0"]
 # inputs read (not reviewed) at iteration 3: hazards.json 0.4.2-pha (SHA-256 6b69a00f64f399e07d18cf4ee1ebe246074b804f998acedcb78d864e498cf3c7)
 # and 07 and hazard-analysis.md, committed blobs at HEAD adcfe09
@@ -52,8 +54,9 @@ assurance_findings_minor: 9
 assurance_tasks_applied: [swe-020 7.1 task 1, swe-125 7.1 task 1, swe-125 7.1 task 2, swe-139 7.1 task 1, swe-176 7.1 task 1, swe-205 7.1 task 1, swe-205 7.1 task 2, swe-205 7.1 task 3, swe-205 7.1 task 4, swe-134 7.1 task 4, swe-134 7.1 task 6]
 deferred_rids: []
 items_no: [R1, R3, CL-2, CL-3, CL-4, CL-5, CL-9, CK-REQ-G1, SA-205-1, SA-134-4, SA-176-1]
-effort_turns: 105
-effort_minutes: 140
+# effort: cumulative; SRR close-out delta added 6 turns and 15 minutes
+effort_turns: 111
+effort_minutes: 155
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -334,4 +337,41 @@ PRODUCT: docs/process/03-software-classification-and-rmm.md@ed270f44 (unchanged)
 DELTA: 9bdf33c applies decisions 6, 7, 8 correctly; 7d735e5 applies decision 107 and fixes INSP-009 finding-11 (Major, paired record)
 FINDINGS: new finding-9 Minor (03 section 6.4 item 7 and 6.5 f, g, X7 stale after decision 10 (c) and 6ea6b1d); new finding-10 Minor (9bdf33c beyond 03 section 6.4 item 3); both Lien: fix before PDR
 MEASUREMENTS: turns=105; minutes=140; major=1; minor=9; closed=5; lien=5; open_major=0
+```
+
+## SRR close-out delta (2026-09-26, HEAD `6257cfe`; software assurance reviewer, new invocation)
+
+**Scope and independence.** Same role (`sa-reviewer:classification`, software assurance lens), new invocation, after the owner ruled the twelve SRR close-out items as recommended (`docs/reviews/SRR/minutes.md`, section "Close-out decisions (after the first close-out run)", commit `dd39332`; "I concur with your recommendations"). This reviewer authored none of 03, `rmm.json`, `rmm.md`, CR-004, CR-005, CR-002 or INSP-009, and edited no product. Earlier sections are history and are not rewritten. Convergence rule (charter section 4 item 3) applies. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search in this invocation; `git log`, `git hash-object`, `grep -n` and read-only Python were used afterwards only to pin lines.
+
+**Commits since `product_commit` `5122a6b` that touched the product files.** `git log 5122a6b..6257cfe -- docs/process/03-software-classification-and-rmm.md docs/process/rmm.json docs/process/rmm.md` is empty. The three blobs are unchanged (03 `ed270f44`, `rmm.json` `e326ddd1`, `rmm.md` `54e351f4`) and equal `git rev-parse HEAD:<path>` and `git hash-object <path>` (3 of 3). `product_files` lists no tool, so neither the `tools/traceability.py` blob change (`0a867523` to `12de3545`, `c774851`, close-out item 5) nor `tools/complexity_gate.py` (`e34a27b`, item 4) is a product of this record. Their tool validation records are reviewed elsewhere, and this record does not make any accreditation extension effective.
+
+**Close-out rulings checked against the unchanged product.** None of the twelve items amends 03 or the RMM, and none leaves either one wrong:
+- Item 4 and CR-005 keep the SWE-220 limit at 15, so the `rmm.json` SWE-220 row ("limit 15 ... rust-code-analysis") still holds. The 03 line 197 row for `tools/complexity_gate.py` (category B tool, CC-16 known answer) matches TV-012.
+- Item 1 and CR-004 (rustos pin `c54d35a` to `2ec64c0`) do not change the image composition that `rmm.json` SWE-027 names ("cwht-app, cwht-core, rustos api and pico2, and Rust core").
+- Items 2, 3 and 12 are dev-tool installs and pins inside the SWE-027 dev-tool register scope.
+- Item 7 (CR-002 Class I) and item 9 (decision 48 clarification) change no classification, criterion or SWE-134 allocation in 03 section 4 or 5.
+
+No new finding. No open Major (finding-1 Closed since iteration 2).
+
+**Liens unchanged.** finding-3, finding-7, finding-8, finding-9 and finding-10 stay "Lien: fix before PDR". The concurrence with INSP-009 finding-10 also stands.
+
+**Readiness and tasks at the delta.** R1 Yes (this record passes `validate_docs.py`), R2 Yes (`render_rmm.py --check` exit 0), R3 as at the post-SRR-ruling delta; `readiness_met: true`. SA answers unchanged.
+
+### Tool runs (2026-09-26, SRR close-out delta, `.venv/bin/python`)
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` | 1 | this record PASS; the remaining failures are other records (drift on CR-002, TV-001, TV-002, the lock, `traceability.py` and `sw_gate.sh`), none caused by this product |
+| `tools/traceability.py --report-only` | 0 | 245 requirements, 173 test cases, 0 violations (the four HAZARD_REQ_NOT_TESTED of the prior delta are gone after `c774851`), 2 warnings (REQ-SYS-125, REQ-SYS-148); `docs/vv/` outputs restored with `git checkout` |
+| `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | 65 risks, register current |
+| `tools/render_rmm.py --check` | 0 | 100 rows; FC 75, T 17, NA 8; In place 40; `rmm.md` current |
+| `tools/render_compliance.py --check` | 0 | validation passed, rendered file current |
+| `-m unittest discover -s tools/tests` | 1 | 415 tests, 1 failure: `test_repository_exit_zero`, on the `validate_docs.py` failures above |
+
+```
+SRR CLOSE-OUT DELTA (2026-09-26, HEAD 6257cfe): VERDICT: APPROVED (with liens finding-3, 7, 8, 9, 10)
+PRODUCT: 03@ed270f44, rmm.json@e326ddd1, rmm.md@54e351f4 (unchanged since 5122a6b; equal to HEAD, 3/3)
+DELTA: no commit touched the product files; close-out items 1 to 12 leave 03 and the RMM correct
+FINDINGS: none new; open Major 0
+MEASUREMENTS: turns=111; minutes=155 (cumulative)
 ```
