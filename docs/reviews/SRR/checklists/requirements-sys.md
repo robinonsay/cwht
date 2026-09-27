@@ -13,7 +13,8 @@ product: docs/requirements/sys/requirements.json
 # product_commit: the review baseline of iteration 3 (HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1); iterations 1 and 2 reviewed working trees over 28e49e6
 # re-issue 2026-09-26 (package item R8): product_commit is the last commit touching the four files, 0f5a529 (TC-SYS-060, INSP-025 finding-1)
 # post-SRR-ruling delta 2026-09-26 (package item R16): product_commit is ebe5873, the last commit touching the four files (cd61450 L1 and allocation, ebe5873 TC-SYS); was 0f5a529 at the re-issue
-product_commit: "ebe5873"
+# P9 status delta 2026-09-27: product_commit is 61a3cb7 (188 L1 status fields Draft to Active; allocation.json and test_cases.json unchanged since the delta)
+product_commit: "61a3cb7"
 # product_files: blobs re-reviewed at iteration 2 (2026-09-26, working tree, uncommitted; none is in the object store); iteration 1 blobs are in the body table
 # product_files at iteration 2 (working tree): ["docs/requirements/sys/requirements.json@522890d1f1de8225ff6aebf5ac2d048e5cf21e89", "docs/requirements/sys/requirements.md@d4b1addfdacea96119b984acfec4a6495c5569ab", "docs/design/allocation.json@b80f6829bdcf73b577810f3124ca2d269ce74023", "docs/test_cases/sys/test_cases.json@201ca96f51657f25049570738e04c9f4152130dc"]
 # product_files at the iteration 3 pre-check (integrator, 400e59d): ["docs/requirements/sys/requirements.json@0da73012043cd79bb75d57c521369736141d7f1f", "docs/design/allocation.json@3526c8ee8ceecd139ece3e23ade786196a3ce22c"]
@@ -23,9 +24,10 @@ product_commit: "ebe5873"
 # 0f5a529 blob, delta-verified at the re-issue (section "Re-issue") and reviewed by INSP-025 iteration 2
 # product_files at the re-issue: ["docs/requirements/sys/requirements.json@0da73012043cd79bb75d57c521369736141d7f1f", "docs/requirements/sys/requirements.md@95cdc4650ee6ff6cc42dec4ba29b38fa305c915e", "docs/design/allocation.json@3526c8ee8ceecd139ece3e23ade786196a3ce22c", "docs/test_cases/sys/test_cases.json@de113d6a82c772ab60a3e06f4908b95415f33552"]
 # product_files at the post-SRR-ruling delta (git rev-parse HEAD:<path> at ebe5873, equal at 7c7959f): the four blobs delta-verified in section "Post-SRR-ruling delta"
-product_files: ["docs/requirements/sys/requirements.json@52768afc4f5c3948ca4a2c93be6fd6b9de1c0d33", "docs/requirements/sys/requirements.md@21d25ea38766d079f188555061b8372a5b0c977c", "docs/design/allocation.json@442de2fd078f55fbc91a4d8cfd90750154ad07f1", "docs/test_cases/sys/test_cases.json@a18824aaf62d5139cdc558e52174726bd5d2f673"]
+# product_files at the post-SRR-ruling delta: requirements.json@52768afc4f5c3948ca4a2c93be6fd6b9de1c0d33, requirements.md@21d25ea38766d079f188555061b8372a5b0c977c, the last two as below
+product_files: ["docs/requirements/sys/requirements.json@f128235ee109cdc325e37c32000ebf9d6027454d", "docs/requirements/sys/requirements.md@553f7f48aaaea5934f73e59a64d0e0d3b9a7ba5d", "docs/design/allocation.json@442de2fd078f55fbc91a4d8cfd90750154ad07f1", "docs/test_cases/sys/test_cases.json@a18824aaf62d5139cdc558e52174726bd5d2f673"]
 # product_size: iteration 1 was 182 requirements, 178 allocation records, 110 cases; iteration 3 and the re-issue 183 requirements (181 Draft, 2 retired), 179 allocation records with 2 gaps and 2 exclusions, 110 TC-SYS cases
-product_size: 190 requirements (188 Draft, 2 retired), 186 allocation records with 2 gaps and 2 exclusions, 113 TC-SYS cases
+product_size: 190 requirements (188 Active, 2 retired), 186 allocation records with 2 gaps and 2 exclusions, 113 TC-SYS cases
 sprint: SRR-prep
 author_agent: "author:requirements-sys (Claude main session in the requirements author role; allocation.json by the same author; TC-SYS cases by the independent test-author invocation)"
 reviewer_agent: "reviewer:requirements-sys"
@@ -783,4 +785,24 @@ READINESS: R1 Yes, R2 Yes (CR-002 hand check of 4 interim HAZARD_REQ_NOT_TESTED)
 PRODUCTS: requirements.json@52768afc, requirements.md@21d25ea3, allocation.json@442de2fd (cd61450); test_cases.json@a18824aa (ebe5873)
 CROSS: X-DELTA-1 hazard-analysis 8.1 (CR-002 step 4); X-DELTA-2 traceability rule 7.3.6 (CR-002 step 5) before the tag; X-DELTA-3 memo 8.3 and the REQ-SYS-180 to 182 TBRs
 MEASUREMENTS: delta no=4; new findings=5; turns=40; minutes=60; cumulative turns=187, minutes=260
+```
+
+## P9 status delta (2026-09-27, baseline record P9; product at `61a3cb7`)
+
+**Scope and independence.** Written by a new invocation of `reviewer:requirements-sys` in the reviewer role, engineering lens. It authored none of the products and did not make commit `61a3cb7`. Only the front matter product fields and this section changed; no history was rewritten. Convergence rule (charter section 4 item 3): only open Major findings and ruled work change products; new Minor findings are liens due PDR.
+
+**Commits since `ebe5873` on the four product files.** `git log ebe5873..HEAD` over each file: `requirements.json` and `requirements.md` were touched only by `61a3cb7` ("L1 requirements Draft to Active: SRR functional baseline (decision memo; baseline record P9)"); `allocation.json` and `test_cases.json` were not touched (blobs unchanged).
+
+**Hunk check.** A script compared every record of `requirements.json` at `61a3cb7^` and `61a3cb7` field by field: same 190 ids in the same order, top-level keys unchanged, the only differing field is `status`, changed on 188 records from `Draft` to `Active`; the 2 retired records are unchanged; no other field differs. `requirements.md`: a word diff shows 376 `Draft` to `Active` tokens (the status cells of the 188 requirements, 2 per requirement in the rendering) and the summary row `Status Draft 188` to `Status Active 188`; nothing else. The change applies the SRR functional baseline (baseline record P9, the owner's SRR approval in `docs/reviews/SRR/minutes.md`) correctly and introduces no defect.
+
+**Tool re-run.** `tools/traceability.py --report-only` at HEAD `61a3cb7`: exit 0, 245 requirements, 173 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and REQ-SYS-148); the report files were restored with `git checkout`. V6: these are the two leaf gaps already confirmed at finding-20 (Verified); the warning now fires because the requirements are Active; the gaps are unchanged and confirmed again. No `RENDER_STALE`, so the rendering matches the JSON.
+
+**Findings.** None new. No finding changes state. Counts unchanged: Closed (Verified) 23, open 0, Lien 8 (finding-12, 25, 26, 27, 28, 29, 30, 31, fix before PDR).
+
+```
+P9 STATUS DELTA (2026-09-27, product at 61a3cb7, baseline record P9): VERDICT: APPROVED (with liens; readiness met)
+FINDINGS: open Major 0; Closed 23; Lien 8 (finding-12, 25, 26, 27, 28, 29, 30, 31, fix before PDR); new 0
+READINESS: R1 Yes, R2 Yes, R3 Yes, R4 Yes, R5 N/A; readiness_met true
+PRODUCTS: requirements.json@f128235e, requirements.md@553f7f48 (61a3cb7); allocation.json@442de2fd; test_cases.json@a18824aa (unchanged)
+CHANGE: status only, 188 Draft to Active, 2 retired unchanged; no other field changed
 ```
