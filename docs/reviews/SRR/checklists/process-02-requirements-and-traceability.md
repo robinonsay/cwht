@@ -11,7 +11,9 @@ checklist_file: docs/reviews/SRR/checklists/process-02-requirements-and-traceabi
 product: docs/process/02-requirements-and-traceability.md
 # product_commit: last commit touching 02 at the review baseline HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
 # (docs/requirements/README.md was last touched at 4e3f8913366c60e79a9ace6a1b4f36f24adc3479); the working tree equals HEAD for both files
-product_commit: "b301df2f96aa979b602c0c4cde9c7f85da979843"
+# close-out delta (2026-09-26): review baseline moves to HEAD ab494e9; git log b301df2..HEAD on both product paths is empty,
+# so the blobs below are unchanged (earlier baseline b301df2). See "Close-out delta".
+product_commit: "ab494e9cf9950f76c42cfb1413b5aa6e591e1053"
 # product_files: git rev-parse HEAD:<path> at adcfe09 (record drift rule, package section 2.3, R13)
 product_files: ["docs/process/02-requirements-and-traceability.md@fcdc544555477f0115535348f8ce388453a9034f", "docs/requirements/README.md@89bef4fc2a310767db3655c60f16849ef59eba0c"]
 product_size: 02 in 14 sections, 776 lines; README.md 102 lines (layout, related-artifact table of 11 rows, procedure, commands, identifier rules)
@@ -43,8 +45,9 @@ assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-A8, CK-REQ-G1, CK-REQ-G4, CK-REQ-G7]
-effort_turns: 51
-effort_minutes: 65
+# close-out delta 6 turns, 15 min
+effort_turns: 57
+effort_minutes: 80
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -263,3 +266,23 @@ MEASUREMENTS: re-issue items=R1 to R5 + blobs; no=0; new findings=0; turns=6; mi
 ```
 
 `record_status` stays Open: the liens are neither Verified nor Deferred by an owner decision, and the software lead closes the record (07 section 10.2, action tracking).
+
+## Close-out delta (reviewer; SRR close-out; 2026-09-26)
+
+Written by a new invocation in the reviewer role (engineering lens), not the author (charter section 11 rule 4). Context: the owner approved the SRR with liens and ruled the twelve close-out items as recommended (`docs/reviews/SRR/minutes.md`, section "Close-out decisions (after the first close-out run)", commit `dd39332`; owner statement "I concur with your recommendations"). Earlier sections are history and are not rewritten. **Search first:** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: 02 requirements traceability rule hazard control requirement verified by Test, Inspection accepted per CR-002) ran before any `grep`; `grep` and `git` were used afterwards only to pin lines and blobs.
+
+**Commits examined.** `git log --oneline b301df2..HEAD -- docs/process/02-requirements-and-traceability.md docs/requirements/README.md` prints nothing at HEAD `ab494e9cf9950f76c42cfb1413b5aa6e591e1053`: no close-out commit touched a product of this record. `git rev-parse HEAD:<path>` and `git hash-object <path>` equal the reviewed blobs (`02@fcdc5445`, `README.md@89bef4fc`, 2 of 2). `tools/traceability.py` is not in this record's `product_files`; its change at `c774851` (CR-002 step 5, close-out item 5) and its re-validation (TV-002 run 5, `bf654e6`) are reviewed in INSP-015, so this delta is not the CM plan section 9.2 step 3 review of TV-002 and does not make the ACC-TRACE-001 extension effective.
+
+**Consistency with the close-out changes.** 02 names the hazard rule only by reference (line 548: T-08 row, "`HAZARD_REQ_NOT_TESTED` (04 rule 7.3.6)"), and 04 rule 7.3.6 holds the Inspection route of CR-002 that `c774851` implements; 02 therefore stays consistent with the tool, and the README names no rule text that changed. Items 7 to 11 of the close-out change no process rule in 02. No new finding; finding-1 to finding-8 (Minor) stay "Lien: fix before PDR", unchanged.
+
+**Tool runs (2026-09-26, HEAD `3b45ed7` and `ab494e9`, repository root, `.venv/bin/python`).** `tools/validate_docs.py`: this record PASS (46 passed, 4 failed of 50 at `3b45ed7`; the failures are other records' drift, outside this product). `tools/traceability.py --report-only` exit 0: 245 requirements, 173 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, REQ-SYS-148), with `docs/vv/traceability-report.md` and `traceability.json` restored by `git checkout`. `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` exit 0; `tools/render_rmm.py --check` exit 0; `tools/render_compliance.py --check` exit 0; `python -m unittest discover -s tools/tests` exit 1: 415 tests, 1 failure, `test_validate_docs.RepositoryTests.test_repository_exit_zero` (the other records' failures above).
+
+**Readiness at the delta.** R1 Yes, R2 Yes, R3 Yes, R4 Yes (0 em dashes; `TBD` only as a rule subject), R5 N/A. `readiness_met: true`. Open Major findings: none. Verdict unchanged: APPROVED (with liens).
+
+```
+CLOSE-OUT DELTA (2026-09-26, HEAD ab494e9): VERDICT: APPROVED (with liens finding-1 to finding-8)
+DELTA: no commit since b301df2 touched 02 or docs/requirements/README.md; traceability.py (c774851) is not a product of this record (INSP-015)
+FINDINGS: new 0; open Major 0
+PRODUCTS: 02@fcdc5445, docs/requirements/README.md@89bef4fc (equal to HEAD, 2/2)
+MEASUREMENTS (delta): turns=6; minutes=15; cumulative turns=57, minutes=80
+```
