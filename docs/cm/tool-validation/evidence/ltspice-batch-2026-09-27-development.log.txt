@@ -1,0 +1,92 @@
+# tools/ltspice-batch.sh development observations, 2026-09-27 (tool owner, WP-PDR-07). Transcript excerpts,
+# copied from the author's command output; times are CDT. The wrapper blobs of these runs are earlier
+# working-tree drafts (no lock, run directory under $TMPDIR); they are development evidence only and are
+# not the TV-014 known-answer run (TV-014 section 4). They ground TV-014 findings 1 and 2.
+
+## 1. 10:47. Bare wine command (no wrapper) on rc-lowpass.asc copied into the session scratchpad
+##    (a long path under /private/tmp/claude-501/...). Windows path of the netlist it writes:
+##    echo -n "Z:<scratchpad>/lt1/rc-lowpass.net" | wc -c   ->   264
+$ /Applications/LTspice.app/Contents/SharedSupport/ltspice/bin/wine --bottle=ltspice --wait-children 'C:\Program Files\ADI\LTspice\LTspice.exe' -b <scratchpad>/lt1/rc-lowpass.asc
+rc=0
+files in <scratchpad>/lt1: rc-lowpass.asc rc-lowpass.log      (no .net, no .raw)
+rc-lowpass.log, UTF-16LE (od: "C \0 o \0 u \0 l \0 d \0 ..."), through iconv:
+Could not open input deck for reading: Z:\private\tmp\claude-501\-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c\2a2f8354-4494-41be-9d32-dba9c4d2f3be\scratchpad\lt1\rc-lowpass.log
+=> TV-014 finding 1: LTspice exits 0 without simulating when a Windows path reaches 260 characters
+   (MAX_PATH); the failure is visible only in the log. The same deck under $TMPDIR (/var/folders/.../T/,
+   short) ran normally (section 2).
+
+## 2. 10:49 to 10:50. Draft wrapper, sequential runs on a copy of tools/tests/fixtures/ltspice/ in
+##    $TMPDIR/cwht-kat-dev (bottle ini carried CaptureAnalytics=false at every start).
+$ ltspice-batch.sh -version
+26.0.2
+ltspice-batch: result: PASS version=26.0.2 elapsed=1s                                     rc=0
+$ ltspice-batch.sh -b rc-lowpass.asc
+ltspice-batch: result: PASS deck=rc-lowpass.asc sha256=3767cc5d40d4a2058eee507dbe16865133b91dd89848f32b70defc11a861a299 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=2s outputs=[rc-lowpass.db rc-lowpass.log rc-lowpass.net rc-lowpass.op.raw rc-lowpass.raw]   rc=0
+  log: f3db: mag(V(out))=1/sqrt(2) AT 999.999642341
+$ ltspice-batch.sh -b rc-step-tran.net                                                     rc=0
+  log: vtau: V(out) =0.632120367773 at 0.001
+       thalf: V(out)=0.5  AT 0.000693147653313
+  (analytic 0.6321206 V and 0.6931472 ms: errors 3.0e-7 and 6.8e-7 relative)
+$ ltspice-batch.sh -b rc-include.net                                                       rc=0
+  log: f3db: mag(V(out))=1/sqrt(2) AT 999.999642341
+$ ltspice-batch.sh -b rc-include-escape.net
+ltspice-batch: include path with a '..' component refused: ../ltspice/sub/rc-parts.inc (in rc-include-escape.net); decks for the record are self-contained below their directory   rc=2
+$ ltspice-batch.sh -b rc-seeded-error.net
+ltspice-batch: result: FAIL (log reports: More than one analysis specified.; LTspice exited 1; no raw output written) ...   rc=1
+$ ltspice-batch.sh -netlist rc-nc-error.asc
+ltspice-batch: result: FAIL (netlist holds floating nets: NC_01 (research F9)) ...          rc=1
+  rc-nc-error.net: "R1 in NC_01 1k"
+$ ltspice-batch.sh -b rc-nc-error.asc
+ltspice-batch: result: FAIL (netlist holds floating nets: NC_01 (research F9)) ... ltspice_exit=0 ...   rc=1
+$ ltspice-batch.sh -netlist rc-lowpass.asc
+ltspice-batch: result: PASS ... outputs=[rc-lowpass.net]                                  rc=0
+$ CWHT_LTSPICE_INI_CHECK=ini-without-key.ini ltspice-batch.sh -version                     rc=3
+$ CWHT_LTSPICE_INI_CHECK=ini-with-key.ini ltspice-batch.sh -version                        rc=0
+$ CWHT_LTSPICE_INI_CHECK=ini-ascii-key.ini ltspice-batch.sh -version                       rc=3
+$ CWHT_LTSPICE_VERSION=26.1.1 ltspice-batch.sh -version                                    rc=4
+
+## 3. 10:50. Draft wrapper without a lock, four runs started at the same time (bash, '&' then 'wait'),
+##    each with its own -o directory:
+$ for i in 1 2 3 4; do ( ltspice-batch.sh -o par$i -b rc-lowpass.asc ... ) & done; wait
+run 1 rc=0
+run 3 rc=0
+run 2 rc=0
+run 4 rc=0
+  each par<i>/rc-lowpass.log: f3db: mag(V(out))=1/sqrt(2) AT 999.999642341
+
+## 4. Immediately after (next command, the time-out guard trial): both runs stopped at the precondition.
+B rc=3 after 0 s
+ltspice-batch: precondition failed: CaptureAnalytics=false not found in the bottle LTspice.ini (SI-027, ADR-018); answer 'No' once in the LTspice consent dialog, never append to the UTF-16LE file
+A rc=3   (same message)
+
+## 5. Bottle ini, read only:
+$ ls -la <bottle LTspice.ini>
+-rw-r--r--@ 1 robinonsay  staff  420 Sep 27 10:50 .../drive_c/users/crossover/AppData/Roaming/LTspice.ini
+$ file <bottle LTspice.ini>
+Unicode text, UTF-16, little-endian text, with CRLF line terminators
+$ iconv -f UTF-16LE -t UTF-8 <bottle LTspice.ini> | tr -d '\r'
+[Recent File List]
+File8=Z:\var\folders\7r\frnl9vtn153bhbn6cgk07_2m0000gn\T\kat-ltspice.p0JfEq\rc-seeded-error.asc
+File9=Z:\var\folders\7r\frnl9vtn153bhbn6cgk07_2m0000gn\T\kat-ltspice.p0JfEq\rc-lowpass.asc
+$ ... | grep -n Capture            (no output)
+=> TV-014 finding 2: the ini was rewritten at 10:50, the minute of the four concurrent runs, and now holds
+   only two recent-file entries: the [Options] section with CaptureAnalytics=false (and every other
+   setting) is gone. Every run of section 2 had checked the key at its start and every sequential run
+   left it in place; the only change between the last good check and the loss is the concurrent run.
+   LTspice rewrites the whole ini when it exits, so overlapping exits can truncate it. No LTspice
+   process has run since: the wrapper refuses at the precondition (exit 3), so no consent dialog was
+   raised and no usage data can have been sent. The ini was not touched by the author (the 08 briefing
+   rule: if the key check fails, stop and report; the key is owner-ratified, ADR-018).
+   Wrapper change made the same hour: an flock(2) lock on $(getconf DARWIN_USER_TEMP_DIR)cwht-ltspice.lock
+   serializes every run, and a post-run check of the key fails the run (exit 3) if it is gone.
+
+## 6. About 10:55. Refusal paths of the draft wrapper with the lock (before its run directory moved to the per-user temporary directory), bottle key absent:
+usage (no arguments, -b without deck, -t x)                      rc=2 each
+-netlist rc-step-tran.net                                         rc=2 ("-netlist needs a schematic (.asc)")
+-b missing.net                                                    rc=2 ("deck not found")
+-b rc-include-escape.net                                          rc=2
+-b <215-character name>.net                                       rc=2 ("Windows path of the outputs would be 297 characters (limit 259)")
+CWHT_LTSPICE_VERSION=26.1.1 -version                              rc=4
+CWHT_LTSPICE_SUPPORT=/nonexistent -version                        rc=3 ("LTspice not installed")
+-version                                                          rc=3 (bottle precondition)
+CWHT_LTSPICE_LOCK_WAIT=2 -version, lock held by another shell     rc=5 ("waiting up to 2 s", "busy")

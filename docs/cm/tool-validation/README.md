@@ -20,7 +20,7 @@ Every record carries, in this order, the fields of CM plan section 9.2 step 1 an
 
 ## Index
 
-| Record | Tool and version | Class | Due (CM plan section 13) | Status (2026-09-26) |
+| Record | Tool and version | Class | Due (CM plan section 13) | Status (2026-09-26; TV-014 onward 2026-09-27) |
 |---|---|---|---|---|
 | [TV-001](TV-001-python-jsonschema.md) | venv Python 3.13.5 with jsonschema 4.26.0 | B | SRR | Validated (re-validated 2026-09-26 after INSP-015 finding-1; section 3 re-run at commit `400e59d`, R5); reviewed (INSP-015 APPROVED with liens F-07 to F-09) and **Accredited** 2026-09-26 (SRR decision 114, owner ruling 2026-09-26; section 9 of the record) |
 | [TV-002](TV-002-traceability.md) | `tools/traceability.py` (blob `0a867523`, committed in `400e59d`) | B | SRR | Validated; re-run at `400e59d` (R5); reviewed (INSP-015 APPROVED with liens F-07 to F-09) and **Accredited** 2026-09-26 (SRR decision 114, owner ruling 2026-09-26; section 9 of the record) |
@@ -35,6 +35,7 @@ Every record carries, in this order, the fields of CM plan section 9.2 step 1 an
 | [TV-011](TV-011-unsafe-audit.md) | `tools/unsafe_audit.py` (working-tree blob `cc3aaa2a`, new, R3) | B | CDR (filed at SRR: gate G5 of TC-SW-TOOL-001-r2) | Validated; review and accreditation pending (not covered by SRR decision 114) |
 | [TV-012](TV-012-complexity-gate.md) | `tools/complexity_gate.py` (blob `9214fefb`, R3, committed in `3de1e2d`); `rust-code-analysis-cli` 0.0.25 installed 2026-09-26 (SRR decision 109) | B | CDR (filed at SRR: gate G5) | Validated on hand-written analyzer output; end-to-end check open (limitation 1); analyzer installed 2026-09-26 (SRR decision 109) and the end-to-end check run: fail on the CC counting convention (limitation 1 open); review and accreditation pending (not covered by SRR decision 114) |
 | [TV-013](TV-013-measurements.md) | `tools/measurements.py` (working-tree blob `abe25acb`, new, R3) | B | PDR (filed at SRR: gates G2, G3 and G6 of TC-SW-TOOL-001-r2) | Validated; review and accreditation pending (not covered by SRR decision 114) |
+| [TV-014](TV-014-ltspice-batch.md) | LTspice 26.0.2 (bundle 26.0.2.1) through `tools/ltspice-batch.sh` (blob `884df077`, commit `41d150e`) | B | PDR | Not yet validated: run 1 (2026-09-27) blocked, the bottle ini lost `CaptureAnalytics=false` during development (TV-014 finding 2); run 2 after owner action OA-TV014-1; review and accreditation (OD-24b) pending |
 
 The sanity checks of the tools whose TV records fall due at PDR, CDR or TRR (kicad-cli, LTspice, the Rust toolchain, clippy, picotool, OpenSCAD with FreeCAD, and the rest of `tools/toolchain.lock.md` section 1.1) are recorded in the lock, not here.
 
