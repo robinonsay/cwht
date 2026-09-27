@@ -6,9 +6,11 @@ checklist_file: docs/reviews/SRR/checklists/process-04-verification-and-validati
 product: docs/process/04-verification-and-validation.md
 # product_commit: the review baseline HEAD (the product files were last changed at b301df2 (04) and 4e3f891 (docs/vv/README.md))
 # product_commit at the close-out delta (2026-09-26): HEAD 26011f1; the iteration 1 baseline was adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
-product_commit: "26011f1a03958859a1ae48be8b155aebafe1ec45"
+# product_commit at the close-out item C delta (2026-09-27): HEAD 08922d9 (was 26011f1)
+product_commit: "08922d986bf59dfc31e1f3c2202ab70bf0c9d0f3"
 # product_files: HEAD blobs delta-verified at the post-SRR-ruling delta (2026-09-26, HEAD ebe5873): 04 changed at d992052 (CR-002 step 1, SRR decision 113), CR-002 added at d992052 and reviewed as the change record of that edit; iteration 2 verified 04 blob 76bb24c3f3f43c1f7d3eb1b1be156824488153a8 at 33ac1ce; iteration 1 reviewed 04 blob ecff54d70d1c3bb8c90be0803f4b9720596adfc0 at adcfe09
-product_files: ["docs/process/04-verification-and-validation.md@0b197bba692237ed9860ba49c4422f12fa8512dc", "docs/vv/README.md@878869d346d936e4ad38ef5a51ef18175a0774fa", "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@36224b454743671097e638252b1c7fe5c1de2949"]
+product_files: ["docs/process/04-verification-and-validation.md@0b197bba692237ed9860ba49c4422f12fa8512dc", "docs/vv/README.md@878869d346d936e4ad38ef5a51ef18175a0774fa", "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@c007177f7c3a50bc9ad2f0e4fcdeb798f530c045"]
+# close-out item C delta (2026-09-27, HEAD 08922d9): CR-002 changed at 8b86c16 (36224b45 to c007177f, section 6 independent Class I impact review, SRR close-out item C, RFA-SRR-008); 04 and README unchanged
 # close-out delta (2026-09-26, HEAD 26011f1): CR-002 changed at bf654e6 (73070823 to 36224b45, SRR close-out items 5 and 7); 04 and README unchanged
 product_size: 18 sections (601 lines) plus docs/vv/README.md (35 lines) plus CR-002 (150 lines, delta only)
 sprint: SRR-prep
@@ -22,6 +24,7 @@ iteration: 2
 # readiness_met: true at the re-issue of 2026-09-26 (package item R8): R3 met by the author self-check filed at ca22e37 and confirmed by the reviewer; see Re-issue
 readiness_met: true
 # post-SRR-ruling delta (2026-09-26, HEAD ebe5873): CR-002 step 1 verified, no new Major; new Minor finding-6 and finding-7 (CR-002) are liens due PDR; verdict stays APPROVED
+# close-out item C delta (2026-09-27, HEAD 08922d9): 8b86c16 verified (CR-002 section 6 filled by the independent reviewer); new Minor finding-10 is a lien due PDR; no Major open; verdict stays APPROVED
 # close-out delta (2026-09-26, HEAD 26011f1): bf654e6 verified, finding-7 Verified (CR-002 step 5 landed before the tag at c774851); new Minor finding-8 and finding-9 are liens due PDR; no Major open; verdict stays APPROVED
 # reviewer_verdict: finding-1 Verified at iteration 2; every Minor finding is "Lien: fix before PDR" (convergence rule of 2026-09-26)
 # verdict: APPROVED (with liens finding-2 to finding-4, fix before PDR) at the re-issue of 2026-09-26 without a further product review;
@@ -30,7 +33,7 @@ reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 findings_major: 1
-findings_minor: 8
+findings_minor: 9
 findings_open: 0
 findings_fixed: 0
 findings_verified: 3
@@ -42,8 +45,8 @@ assurance_tasks_applied: []
 deferred_rids: []
 # items_no: R3 answered Yes at the re-issue (finding-5 Verified)
 items_no: [CK-REQ-G1, CK-REQ-G7]
-effort_turns: 105
-effort_minutes: 135
+effort_turns: 117
+effort_minutes: 150
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -400,4 +403,74 @@ COMMITS: bf654e6 (CR-002 step 5 record and Class I confirmation): applies close-
 FINDINGS: finding-7 Verified (c774851, bf654e6); finding-1 and finding-5 Verified (unchanged); finding-2, 3, 4, 6 Lien (unchanged); new finding-8 and finding-9 Minor, Lien: fix before PDR; open Major 0
 PRODUCT: docs/process/04-verification-and-validation.md@0b197bba, docs/vv/README.md@878869d3, docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@36224b45
 MEASUREMENTS: commits=1; new major=0; new minor=2; verified=1; lien=6; open_major=0; turns=20; minutes=25; cumulative turns=105, minutes=135
+```
+
+## Close-out item C delta (reviewer; SRR close-out item C; 2026-09-27, HEAD `08922d9`)
+
+Written by `reviewer:INSP-021`, the reviewer role of this record, not the author (charter section 11 rule 4; 08 section 3.1); the reviewer edited no product and authored neither CR-002 nor its section 6 review. Trigger: record drift reported by `tools/validate_docs.py`: `product_files` named CR-002 at blob `36224b45` while HEAD holds `c007177f` (SRR package section 2.3, R13). Ruling in force: close-out item C (`docs/reviews/SRR/minutes.md`, section "Close-out decisions A to C and repository protection", commit `786822a`), which reads in part "perform all three impact reviews before the tag. This closes RFA-SRR-008 early." Convergence rule (charter section 4 item 3): only open Major findings and ruled work change products before the gate; new Minor findings are liens due PDR. Everything above this section stands as recorded.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: CR-002 independent Class I impact review section 6 RFA-SRR-008) ran before any `grep`; `grep`, `sed -n`, `git log` and `git show` were used afterwards only to pin lines, commits and blobs.
+
+**Commits in scope.** `git log --oneline 26011f1..HEAD` over the three product files prints one commit, `8b86c16` ("CM: independent Class I impact reviews of CR-002, CR-004 and CR-005 ..."), which changes CR-002 in one hunk (2 insertions, 2 deletions, section 6 only). Its CR-004 and CR-005 hunks are not this record's products. 04 is unchanged (blob `0b197bba`) and `docs/vv/README.md` is unchanged (blob `878869d3`). Reviewed blobs at HEAD `08922d9`: 04 `0b197bba`, README `878869d3`, CR-002 `c007177f`; the working tree equals HEAD for all three. This record covers no tool validation record, so it makes no accreditation effective.
+
+**Delta verification of `8b86c16` against CR-002 (`git show 8b86c16 -- docs/cm/cr/CR-002-inspection-for-documentary-requirements.md`).**
+
+| Change (CR-002 line at HEAD) | Check | Result |
+|---|---|---|
+| Section 6 table row (line 90): "Impact assessment" pending row filled as "Impact assessment, class", reviewer, date 2026-09-27, findings 1 to 3, resolution | Item C orders the review before the tag; the row names a separate reviewer and cites item C and `docs/cm/deviations.md` entry 4 for acting in place of the INSP-003 reviewer (entry 4 and its closure at `bb2485e` confirm). Evidence pinned: `docs/safety/hazard-analysis.md` lines 257 to 259, 261, 310, 110 and 169 and `docs/safety/hazards.json` HZ-015 `verification_note` and `residual_risk.condition` still state or imply the Analysis route (finding-1 of the review, same scope as INSP-008 finding-17); CR-002 `affected_cis` is `[2, 7, 15, 17, 28]` and omits rows 30 and 40 (its finding-2); 04 line 280 still lists the Inspection route as missing (its finding-3, the same defect as this record's finding-9). Class I agrees with close-out item 7. Known answer re-run: `unittest discover -s tools/tests -k InspectionRouteTests` ran 6 tests, OK. The review's statement that no finding changes the owner's basis holds: at HEAD the four requirements, three closing cases, 04 rule 7.3.6 and the tool carry the change and `tools/traceability.py --report-only` gives 0 violations | Correct |
+| Section 6 concurrence line (line 92): "pending" replaced by "Concur with comments (findings 1 to 3, Minor) ..." | The superseded value is kept inside the line ("Before this review the line read: pending."); consistent with the table row | Correct |
+
+No new defect of Major weight: the commit records a review that the ruling ordered, changes no requirement, method, hazard control, risk, RMM or compliance row, and its three findings are Minor and already carried as liens. 0 em dashes in blob `c007177f`; no `TBD`, `TBR`, "as appropriate" or "should consider" added; the new citations (`786822a`, deviations entry 4, `0da559a`, `d992052`, `cd61450`, `ebe5873`, `c774851`, `bfea9c7`, `bf654e6`, `26011f1`) resolve. One documentary gap remains (finding-10).
+
+**Effect on earlier findings.**
+- Cross item X6 of the post-SRR-ruling and close-out deltas (CR-002 section 6 pending): resolved by `8b86c16`; deviations entries 1 and 4 closed at `bb2485e`. RFA-SRR-008 is Answered in `docs/reviews/SRR/rfa-rid-log.json`; its verification is the owner's.
+- finding-8 (Minor): stays a lien; `8b86c16` did not touch lines 64, 70, 121 or 131, and line 131's "pending" INSP-015 verification is still stale.
+- finding-9 (Minor): stays a lien; the impact review raised the same defect as its finding-3, owner the 04 maintainer, due PDR.
+- finding-6 (Minor): stays a lien; step 4 (hazard analysis section 8.1) is still open (line 261 unchanged), now also carried by the review's finding-1 and INSP-008 finding-17 to PDR. Cross item X5 stands with that re-dating.
+- finding-1, finding-5 and finding-7 stay Verified; finding-2 to finding-4 stay liens (04 unchanged).
+
+### Delta findings (2026-09-27, HEAD `08922d9`)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-10"></a>finding-10 | reviewer | Minor | CK-REQ-G7 | CR-002 line 86 (section 6 lead paragraph) and line 90 (section 6 table row) | `8b86c16` filled the section 6 table but left the lead paragraph reading "Not yet performed ... The independent reviewer of INSP-003 reviews this section together with step 2", which now contradicts the row below it, and it replaced the row's "pending (INSP-003 reviewer)" cell without keeping the prior value, unlike the concurrence line and unlike CR-005 section 6, which carries a dated "Superseded 2026-09-27" note. Fix: add a dated note after the lead paragraph that the review is recorded below under item C in place of the INSP-003 reviewer (deviations entry 4), and record the prior cell value | Lien: fix before PDR | Not needed | |
+
+### Lien table (close-out item C delta)
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-2 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE) | PDR readiness declaration |
+| finding-3 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE) | PDR readiness declaration |
+| finding-4 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE); `tools/traceability.py` owner if implemented instead of re-dated | PDR readiness declaration |
+| finding-6 | Minor | Lien: fix before PDR | CR-002 originator (Claude) | PDR readiness declaration (step 4 part carried with INSP-008 finding-17 and the CR-002 impact review finding-1) |
+| finding-8 | Minor | Lien: fix before PDR | CR-002 originator (Claude) | PDR readiness declaration |
+| finding-9 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE) | PDR readiness declaration |
+| finding-10 | Minor | Lien: fix before PDR | CR-002 originator (Claude, configuration manager) | PDR readiness declaration |
+
+### Cross items (close-out item C delta; for the integrating session)
+
+- X5 stands: CR-002 step 4 (hazard analysis section 8.1) is open at HEAD `08922d9`; CR-002 section 4 row Schedule still places it before the `baseline/srr` tag, while INSP-008 finding-17 and the CR-002 impact review finding-1 carry it to PDR. The baseline record should show it as a lien, not a tag blocker, or the CR Schedule row should be re-dated by a dated note.
+- X6: resolved by `8b86c16` and `bb2485e`.
+
+**Tool runs (2026-09-27, HEAD `08922d9`, repository root, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (before this section) | 1 | 49 passed, 1 failed; the one failure is this record (record drift on CR-002) |
+| `tools/validate_docs.py` (after writing this section) | 0 | 50 passed, 0 failed, 50 checked; this record PASS as APPROVED with the three `product_files` blobs at HEAD (record drift check included) |
+| `tools/traceability.py --report-only` | 0 | 245 requirements, 173 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, REQ-SYS-148); `docs/vv/traceability-report.md` and `traceability.json` restored with `git checkout` |
+| `unittest discover -s tools/tests -k InspectionRouteTests` | 0 | 6 tests, OK |
+| `unittest discover -s tools/tests` | 0 | 424 tests, OK |
+| `tools/render_rmm.py --check` | 0 | `docs/process/rmm.md` is current |
+| `tools/render_compliance.py --check` | 0 | validation passed, render current |
+| `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | `docs/risk/register.md` is current |
+
+**Measurements (delta).** Commits verified: 1 (`8b86c16`, CR-002 part; `bb2485e` read for the deviations closure); product hunks checked: 1 in CR-002; items re-checked: CK-REQ-G1, G7, A8, R1, R4; findings verified: 0; new findings: 1 Minor, 0 Major; effort 12 turns, 15 minutes (added to the front matter totals).
+
+```
+CLOSE-OUT ITEM C DELTA (2026-09-27, HEAD 08922d9, SRR close-out item C, RFA-SRR-008): VERDICT: APPROVED (with liens)
+COMMITS: 8b86c16 (CR-002 section 6 independent Class I impact review): applies close-out item C correctly; no new Major
+FINDINGS: finding-1, 5, 7 Verified (unchanged); finding-2, 3, 4, 6, 8, 9 Lien (unchanged); new finding-10 Minor, Lien: fix before PDR; open Major 0
+PRODUCT: docs/process/04-verification-and-validation.md@0b197bba, docs/vv/README.md@878869d3, docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@c007177f
+MEASUREMENTS: commits=1; new major=0; new minor=1; verified=0; lien=7; open_major=0; turns=12; minutes=15; cumulative turns=117, minutes=150
 ```
