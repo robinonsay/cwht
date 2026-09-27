@@ -107,7 +107,7 @@ Reviewer concurrence: pending.
 | Field | Value |
 |---|---|
 | Decision | Approved |
-| Class confirmed | Pending: Class I proposed by Claude; the ruling did not name a class |
+| Class confirmed | Class I, confirmed by the owner on 2026-09-27 under SRR close-out item C (`docs/reviews/SRR/minutes.md` section "Close-out decisions A to C and repository protection", commit `786822a`, owner statement "I approve the other recommendations"); proposed Class I by Claude on 2026-09-26 |
 | Date | 2026-09-26 |
 | Conditions | None |
 | Rationale | SRR close-out item 1 (owner ruling 2026-09-26): merge the rustos branch `cwht/wp-sw-licence-manifest-safety`, and approve the change request that moves the lock pin to the merged commit (CR-004) and regenerates `firmware/unsafe-audit.md` in the same commit. Recorded in the minutes: "CR-004 (the lock pin moved from `c54d35a` to `2ec64c0`) is approved under item 1." |
@@ -120,6 +120,7 @@ Disposition history:
 | Date | Decision | New target | Source |
 |---|---|---|---|
 | 2026-09-26 | Approved (SRR close-out item 1) | none | owner ruling at the SRR close-out, transcribed by Claude |
+| 2026-09-27 | Approved, Class I confirmed (SRR close-out item C); Dispositioned-before-Assessed logged as `docs/cm/deviations.md` entry 2; impact review to be performed by an independent agent before the `baseline/srr` tag (RFA-SRR-008) | none | owner ruling 786822a, transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -154,3 +155,4 @@ Independent verifier (agent invocation): pending.
 | Date | State | By | Commit on main | Note |
 |---|---|---|---|---|
 | 2026-09-26 | Dispositioned | Claude (configuration manager and tool owner), transcribing the owner | this file's first commit | Written after the owner approved it as SRR close-out item 1 (the close-out item served as the request) and merged rustos to `2ec64c0`; steps 2 and 3 applied in the same commit |
+| 2026-09-27 | Dispositioned | Claude (configuration manager), transcribing the owner | this change | Class I confirmed under SRR close-out item C (786822a); deviations entry 2 added; section 6 review still pending |
