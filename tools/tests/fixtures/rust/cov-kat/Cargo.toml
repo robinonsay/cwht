@@ -1,0 +1,13 @@
+# TV-021 known-answer fixture for cargo-llvm-cov (stable, credit-bearing region coverage, MSR-13).
+# Committed from the scratch fixture of docs/cm/tool-validation/evidence/rust-tools-2026-09-26.sh section 6.
+[package]
+name = "cov-kat"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[features]
+# Drops the test of the else arm, so line 6 (`1`) is never executed.
+seeded-gap = []
+
+[workspace]

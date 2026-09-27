@@ -1,0 +1,7 @@
+# Same profile as firmware/.config/nextest.toml (07 Annex B; gate G3).
+[profile.ci]
+retries = 0
+fail-fast = false
+
+[profile.ci.junit]
+path = "junit.xml"

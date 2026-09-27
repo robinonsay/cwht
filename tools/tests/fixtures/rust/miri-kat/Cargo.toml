@@ -1,0 +1,12 @@
+# TV-023 known-answer fixture for Miri on nightly-2026-08-24 (MSR-08, CS-03; non-credit).
+[package]
+name = "miri-kat"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[features]
+# Adds a test that reads one element past the end of a four-element array through a raw pointer.
+seeded-oob = []
+
+[workspace]

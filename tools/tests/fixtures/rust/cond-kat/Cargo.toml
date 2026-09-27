@@ -1,0 +1,17 @@
+# TV-023 known-answer fixture for branch and condition coverage on nightly-2026-08-24 (MSR-14, non-credit).
+# Committed from the scratch fixture of docs/cm/tool-validation/evidence/rust-tools-2026-09-26.sh section 3,
+# with a feature that closes the seeded gap so that the complete case is also a known answer.
+[package]
+name = "cond-kat"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[features]
+# Adds the test true_false, which evaluates `b` as false with `a` true: every condition outcome covered.
+complete = []
+
+[lib]
+path = "src/lib.rs"
+
+[workspace]

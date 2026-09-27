@@ -1,0 +1,24 @@
+# X10 seeded-fault self-test of the HostUnit harness (03 section 6.5 item X10; 03 section 4.3.1 host test
+# harness row; TV-022). The tests use the real cwht-core and cwht-hal-mock of firmware/ by path, and
+# through them rustos `api` at ../../rustos (the firmware workspace dependency), so this fixture is built
+# only in a clean export layout (<dir>/cwht = git archive of cwht, <dir>/rustos = git archive of the
+# rustos pin of tools/toolchain.lock.md section 3), never against the owner's rustos working tree.
+[package]
+name = "harness-seeded"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[features]
+# Masks condition b of decision KAT/D01, so the c2 independence pair can no longer show that b
+# independently affects the outcome: exactly the test d01_c2_false must fail.
+seeded-pair = []
+# Replaces the healthy mock output of heartbeat_through_mock_toggles with one that fails after one
+# write: exactly that test must fail.
+seeded-mock-fault = []
+
+[dev-dependencies]
+cwht-core = { path = "../../../../../firmware/cwht-core" }
+cwht-hal-mock = { path = "../../../../../firmware/cwht-hal-mock" }
+
+[workspace]

@@ -1,0 +1,44 @@
+{
+  "description": "Known answers of the fixtures added for TV-020 to TV-023 (WP-PDR-08; CM plan section 9.2; 07 sections 8.3, 9.6 and 17.3; 03 section 6.5 item X10). Every check runs on a git archive export of the commit tested, with rustos exported from the lock section 3 pin object beside it (<dir>/cwht, <dir>/rustos), offline (CARGO_NET_OFFLINE=true, RUSTUP_AUTO_INSTALL=0, MIRI_AUTO_OPS=no) and with a rustup shim that refuses installs. Procedure: docs/cm/tool-validation/evidence/rust-tv-2026-09-27.sh. The kat-target and kat-host answers stay in known-answers.json.",
+  "toolchains": {
+    "stable_pin": "rustc 1.98.0 (88d9e12ae 2026-08-18), cargo 1.98.0 (797e8a9bc 2026-08-05), clippy 0.1.98 (88d9e12ae1 2026-08-18)",
+    "nightly_pin": "rustc 1.100.0-nightly (fb6531d55 2026-08-23), miri 0.1.0 (fb6531d550 2026-08-23)",
+    "cargo_llvm_cov": "cargo-llvm-cov 0.9.1",
+    "cargo_nextest": "cargo-nextest 0.9.146 (8af696ddc 2026-09-21)"
+  },
+  "cov-kat": {
+    "tool": "cargo +1.98.0 llvm-cov (TV-021)",
+    "clean": "--summary-only --fail-under-lines 100 --fail-under-regions 100: exit 0; TOTAL lines 13 of 13, functions 3 of 3, regions 7 of 7 (100.00 percent each)",
+    "seeded-gap": "--features seeded-gap --text --fail-under-lines 100 --fail-under-regions 100: exit 1; exactly one line with count 0, line 6 (`1`)"
+  },
+  "cond-kat": {
+    "tool": "RUSTFLAGS=-Zcoverage-options=condition cargo +nightly-2026-08-24 llvm-cov --branch --text (TV-023, MSR-14, non-credit)",
+    "seeded": "exit 0; Branch (3:8): [True: 1, False: 1]; Branch (3:13): [True: 1, False: 0] (the unexercised False outcome of b)",
+    "complete": "--features complete: exit 0; Branch (3:8): [True: 2, False: 1]; Branch (3:13): [True: 1, False: 1]"
+  },
+  "miri-kat": {
+    "tool": "cargo +nightly-2026-08-24 miri test (TV-023, MSR-08, non-credit)",
+    "clean": "exit 0; test result ok, 2 passed",
+    "seeded-oob": "exit 1; test tests::seeded_out_of_bounds_read stops with 'Undefined Behavior: memory access failed: attempting to access 4 bytes, but got alloc<N>+0x10 which is at or beyond the end of the allocation of size 16 bytes' (alloc<N> varies with the Miri run and is not part of the answer)"
+  },
+  "harness-seeded": {
+    "tool": "cargo +1.98.0 nextest run --profile ci (TV-022; 03 section 6.5 item X10); reference runner cargo +1.98.0 test",
+    "clean": "exit 0; 5 tests run, 5 passed; JUnit 5 testcases, 0 failed",
+    "seeded-pair": "exit 100; exactly one failure, harness-seeded::harness d01_c2_false; JUnit 5 testcases, failed ['d01_c2_false']; cargo test exit 101 with 4 passed, 1 failed",
+    "seeded-mock-fault": "exit 100; exactly one failure, harness-seeded::harness heartbeat_through_mock_toggles; JUnit 5 testcases, failed ['heartbeat_through_mock_toggles']",
+    "seeded-pair,seeded-mock-fault": "exit 100; exactly two failures; JUnit failed ['d01_c2_false', 'heartbeat_through_mock_toggles']"
+  },
+  "rustos-blinky": {
+    "tool": "cargo +1.98.0 build --release (TV-020; 07 sections 8.3 and 17.3)",
+    "source": "rustos templates/pico2 at the lock section 3 pin 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c with the three-line Cargo.toml diff of docs/vv/reports/TC-SW-TOOL-001-r3/blinky-build.txt (package name; api and pico2 as path dependencies into the export)",
+    "same_layout": "two clean builds in one layout (different target directories) give byte-identical ELF files",
+    "reference": "docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf, ELF SHA-256 3c0ac0747a761bf9880e21f80ba613cfcb5e8f5ddddbdea7af85dbf8952bbd08, loadable image (rust-objcopy -O binary) SHA-256 c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df, 2008 bytes",
+    "layout_dependence": "the crate disambiguator hashes in the symbol names (for example _RNvCs<hash>_5pico2...) are derived from the absolute path of each path dependency, and the linker places functions in symbol order, so builds in layouts at different absolute paths may place main and rust_begin_unwind in a different order: equal loadable size (2008 bytes) and sections, different bytes. The ELF hash of the reference is therefore reproduced only at the reference's own absolute path"
+  },
+  "cwht-app": {
+    "tool": "cargo +1.98.0 build -p cwht-app --release --locked --target thumbv8m.main-none-eabihf (TV-020, MSR-28)",
+    "reference": "docs/vv/reports/TC-SW-TOOL-001-r3/cwht-app.elf (built at 0bcea39; firmware/ sources unchanged since, only firmware/unsafe-audit.md differs), ELF SHA-256 388d1d16dae55d33fcc0c69d33689abcf6d056bcc16e44a18abab2ac2300a5bf, loadable image SHA-256 828bca3546099ab8c65131c87bed5fc355208d0aade12cf315e9915c836e61f4",
+    "same_layout": "two clean builds in one layout give byte-identical ELF files",
+    "cross_layout": "the loadable image is byte-identical across layouts and equal to the reference; the ELF differs across layouts because the release profile keeps debug information, which names the build path"
+  }
+}
