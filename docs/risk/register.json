@@ -97,7 +97,8 @@
             "response": "Owner stops the test per the TRR procedure; Claude opens an NCR and looks for oscillation with the tinySA Ultra through the characterized attenuator, or with the NanoVNA as a receiver through 40 dB of attenuation if the analyzer is not yet characterized"
           }
         ],
-        "fallback": "Operate at reduced output power (CR to the 5 W requirement) if the PA is stable only at lower supply voltage; otherwise a second board spin funded from the cost-estimate contingency (RSK-008)."
+        "fallback": "Operate at reduced output power (CR to the 5 W requirement) if the PA is stable only at lower supply voltage; otherwise a second board spin funded from the cost-estimate contingency (RSK-008).",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -197,7 +198,8 @@
             "response": "Apply the RSK-005 alternate-part procedure the same session"
           }
         ],
-        "fallback": "Widen the CW filter to 1 kHz nominal (CR against the selectivity requirement) and rely on receiver incremental tuning; contacts remain possible with reduced propagation advantage (SI-004)."
+        "fallback": "Widen the CW filter to 1 kHz nominal (CR against the selectivity requirement) and rely on receiver incremental tuning; contacts remain possible with reduced propagation advantage (SI-004).",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -305,7 +307,8 @@
             "response": "Claude revises the emulator trade study and proposes the fallback to the owner in the next review package"
           }
         ],
-        "fallback": "HostUnit on cwht-core plus dev-board checks for cwht-app, and Bench verification of every timing requirement (07 section 9.4 item 3); the Emulation class is recorded as unused in the V&V plan by CR."
+        "fallback": "HostUnit on cwht-core plus dev-board checks for cwht-app, and Bench verification of every timing requirement (07 section 9.4 item 3); the Emulation class is recorded as unused in the V&V plan by CR.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -416,7 +419,8 @@
             "response": "Claude opens NCR-NNN; the owner uses a spare board and requests a rework quote from PCBWay"
           }
         ],
-        "fallback": "Rework by PCBWay or a local assembly house; if not feasible, second board spin (RSK-008)."
+        "fallback": "Rework by PCBWay or a local assembly house; if not feasible, second board spin (RSK-008).",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -509,7 +513,8 @@
             "response": "Owner executes the early buy immediately or Claude switches to the alternate; a CR is opened if the baselined BOM changes"
           }
         ],
-        "fallback": "Redesign the affected stage around the alternate device; accept a one-iteration schedule slip."
+        "fallback": "Redesign the affected stage around the alternate device; accept a one-iteration schedule slip.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -607,7 +612,8 @@
             "response": "Owner stops the test; Claude opens an NCR and revisits the budget"
           }
         ],
-        "fallback": "Firmware limits key-down duty cycle or reduces PA drive when hot; the owner accepts reduced sustained power through a CR."
+        "fallback": "Firmware limits key-down duty cycle or reduces PA drive when hot; the owner accepts reduced sustained power through a CR.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -726,7 +732,8 @@
             "response": "Owner recalls the unit and removes its cells; Claude opens an NCR and re-assesses this risk the same session"
           }
         ],
-        "fallback": "Delete on-board charging: the cells are already removable (SI-023) and are charged in an external 18650 charger; CR to the PWR requirements and to the charging role of the USB connector in ADR-004."
+        "fallback": "Delete on-board charging: the cells are already removable (SI-023) and are charged in an external 18650 charger; CR to the PWR requirements and to the charging role of the USB connector in ADR-004.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Increasing",
@@ -825,7 +832,8 @@
             "response": "Claude opens an NCR and determines whether the fix is firmware, a BOM alternate, hand rework or a respin; the owner decides on the respin"
           }
         ],
-        "fallback": "Fund the second spin from contingency, treat the first board as the prototype and re-baseline the SAR milestone in docs/plan/schedule.md."
+        "fallback": "Fund the second spin from contingency, treat the first board as the prototype and re-baseline the SAR milestone in docs/plan/schedule.md.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -1126,7 +1134,8 @@
             "response": "Owner stops on-air use; Claude opens an NCR and re-runs the filter analysis against the measured PA spectrum"
           }
         ],
-        "fallback": "04 section 6.3 no branch: spurious requirement verified by Analysis plus the NanoVNA filter measurement, OnAir authorization recorded by the owner in the TRR-Dn decision memo, and this risk kept open until a measurement with the characterized chain or a borrowed instrument is obtained."
+        "fallback": "04 section 6.3 no branch: spurious requirement verified by Analysis plus the NanoVNA filter measurement, OnAir authorization recorded by the owner in the TRR-Dn decision memo, and this risk kept open until a measurement with the characterized chain or a borrowed instrument is obtained.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -1224,7 +1233,8 @@
             "response": "Claude corrects the keyer before CDR and re-runs S2; an open result is a CDR lien"
           }
         ],
-        "fallback": "First release supports straight-key mode only with the iambic keyer delivered by firmware update; CR to the keyer requirements with owner approval."
+        "fallback": "First release supports straight-key mode only with the iambic keyer delivered by firmware update; CR to the keyer requirements with owner approval.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -1408,7 +1418,8 @@
             "response": "Claude presents the lien burndown first on the CDR agenda; the owner decides which liens block procurement"
           }
         ],
-        "fallback": "Accept the schedule slip: CDR is reconvened when the Hard products are complete and the vendor order moves by the same amount; the cost of the slip is calendar time only."
+        "fallback": "Accept the schedule slip: CDR is reconvened when the Hard products are complete and the vendor order moves by the same amount; the cost of the slip is calendar time only.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -1616,7 +1627,8 @@
             "response": "The owner cannot authorize the on-air series (charter section 3); Claude reports the miss in the TRR-Dn package"
           }
         ],
-        "fallback": "Limit the delivered units to the highest power step the evaluation clears in the hand-held posture (CR to the 5 W requirement for portable use), with 5 W permitted only on an external antenna at the evaluated distance."
+        "fallback": "Limit the delivered units to the highest power step the evaluation clears in the hand-held posture (CR to the 5 W requirement for portable use), with 5 W permitted only on an external antenna at the evaluated distance.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -1717,7 +1729,8 @@
             "response": "Claude re-tunes the default cap and the fade ramp before CDR"
           }
         ],
-        "fallback": "Fixed series resistor pad in the headphone line sized so that the most sensitive earbud cannot exceed the 85 dB(A)-class level, accepting reduced loudness on low-sensitivity headphones; CR to the audio requirements."
+        "fallback": "Fixed series resistor pad in the headphone line sized so that the most sensitive earbud cannot exceed the 85 dB(A)-class level, accepting reduced loudness on low-sensitivity headphones; CR to the audio requirements.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -2303,7 +2316,8 @@
             "response": "Claude root-causes it before CDR and adds the case to S3"
           }
         ],
-        "fallback": "The hardware cutoff alone bounds any carrier to 13 s; if the firmware controls are not verified by TRR, the on-air delta TRR is not held and bench use continues into the dummy load only."
+        "fallback": "The hardware cutoff alone bounds any carrier to 13 s; if the firmware controls are not verified by TRR, the on-air delta TRR is not held and bench use continues into the dummy load only.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -2403,7 +2417,8 @@
             "response": "Claude opens an NCR; the owner decides between a printed boss collar and a second CNC order"
           }
         ],
-        "fallback": "A printed (H2C) antenna-boss collar until a second CNC order, and a flexible whip only (HZ-009 K5); CR to the ME requirements."
+        "fallback": "A printed (H2C) antenna-boss collar until a second CNC order, and a flexible whip only (HZ-009 K5); CR to the ME requirements.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Increasing",
@@ -2485,7 +2500,8 @@
             "response": "Owner stops the test; Claude opens an NCR and revisits the budget"
           }
         ],
-        "fallback": "A firmware key-down duty limit or thermal fold-back (RSK-006 S3) keeps the surface below 48 C, accepted by the owner through a CR with the handbook warning, or an insulating grip sleeve printed on the H2C (SI-012)."
+        "fallback": "A firmware key-down duty limit or thermal fold-back (RSK-006 S3) keeps the surface below 48 C, accepted by the owner through a CR with the handbook warning, or an insulating grip sleeve printed on the H2C (SI-012).",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -2581,7 +2597,8 @@
             "response": "Claude opens an NCR and evaluates BOM alternates; the owner decides between rework and a CR to the requirement"
           }
         ],
-        "fallback": "Operate at the achieved power through a CR to the 5 W requirement accepted by the owner; otherwise a PA rework or respin funded from the cost-estimate contingency (RSK-008)."
+        "fallback": "Operate at the achieved power through a CR to the 5 W requirement accepted by the owner; otherwise a PA rework or respin funded from the cost-estimate contingency (RSK-008).",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -2664,7 +2681,8 @@
             "response": "Owner recalls the unit; Claude opens an NCR against the operator model and re-assesses this risk"
           }
         ],
-        "fallback": "Loaned units ship with the guest lock enabled and no call sign stored, so that transmitting needs the licensee's own setup action; CR to the SW requirements."
+        "fallback": "Loaned units ship with the guest lock enabled and no call sign stored, so that transmitting needs the licensee's own setup action; CR to the SW requirements.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -2747,7 +2765,8 @@
             "response": "Claude revises the RF Exposure Evaluation before the next gate and re-assesses RSK-016 and RSK-030"
           }
         ],
-        "fallback": "Hold the on-air delta TRR until the affected requirements and the RF Exposure Evaluation are revised to the current text by CR."
+        "fallback": "Hold the on-air delta TRR until the affected requirements and the RF Exposure Evaluation are revised to the current text by CR.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -3162,7 +3181,8 @@
             "response": "The owner stops assembly; Claude opens an NCR and re-assesses this risk and HZ-015 in the same session before assembly resumes"
           }
         ],
-        "fallback": "The through-hole and exposed-pad parts are assembled by a third party (PCBWay through-hole assembly or a local service) through a CR that changes the SI-031 assembly split, which removes the owner's hand assembly."
+        "fallback": "The through-hole and exposed-pad parts are assembled by a third party (PCBWay through-hole assembly or a local service) through a CR that changes the SI-031 assembly split, which removes the owner's hand assembly.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -3463,7 +3483,8 @@
             "response": "Claude proposes the alternate in the same session; the owner decides any early buy; a CR is opened if the baselined BOM changes"
           }
         ],
-        "fallback": "Substitute the alternate through a CR and re-layout the affected stage; accept a one-iteration slip of the order."
+        "fallback": "Substitute the alternate through a CR and re-layout the affected stage; accept a one-iteration slip of the order.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -3548,7 +3569,8 @@
             "response": "Claude adds per-channel series resistors (audio report D5 option) by CR before CDR"
           }
         ],
-        "fallback": "Add per-channel series resistance and a secondary clamp by CR, and state TRS-only headphones in the handbook until then."
+        "fallback": "Add per-channel series resistance and a secondary clamp by CR, and state TRS-only headphones in the handbook until then.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Increasing",
@@ -3631,7 +3653,8 @@
             "response": "Claude proposes a frequency change, spread spectrum or added filtering by ADR before CDR"
           }
         ],
-        "fallback": "Move clocks, add filtering and shielding by CR, and document any residual birdie frequency in the handbook."
+        "fallback": "Move clocks, add filtering and shielding by CR, and document any residual birdie frequency in the handbook.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -3856,7 +3879,8 @@
             "response": "Claude corrects the model and reprints before the CNC order"
           }
         ],
-        "fallback": "Pigtail the SMA jack, adjust standoffs or re-machine the affected part by CR."
+        "fallback": "Pigtail the SMA jack, adjust standoffs or re-machine the affected part by CR.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -4012,7 +4036,8 @@
             "response": "Claude lengthens the ramp within 3 to 8 ms or changes the envelope node in the ALC and envelope study (TS-NNN) before PDR closes"
           }
         ],
-        "fallback": "Lengthen the envelope ramp by configuration and cap the keyer speed for the affected range by CR."
+        "fallback": "Lengthen the envelope ramp by configuration and cap the keyer speed for the affected range by CR.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -4101,7 +4126,8 @@
             "response": "Claude opens an NCR and blocks transmit in the release"
           }
         ],
-        "fallback": "Widen the guard by CR and restrict the tuning range until the frequency path is verified."
+        "fallback": "Widen the guard by CR and restrict the tuning range until the frequency path is verified.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -4181,7 +4207,8 @@
             "response": "Claude adds a firmware pack-voltage power limit and a hardware drive clamp by CR before CDR"
           }
         ],
-        "fallback": "Lower the pack-voltage lockout threshold or add a regulated PA rail (an alternative of the ALC and envelope study, TS-NNN) by CR."
+        "fallback": "Lower the pack-voltage lockout threshold or add a regulated PA rail (an alternative of the ALC and envelope study, TS-NNN) by CR.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -4258,7 +4285,8 @@
             "response": "Claude adds a second protection stage or a limiter before CDR"
           }
         ],
-        "fallback": "Add a limiter stage and accept a small noise-figure penalty by CR."
+        "fallback": "Add a limiter stage and accept a small noise-figure penalty by CR.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Increasing",
@@ -4342,7 +4370,8 @@
             "response": "Claude stops the release package and fixes the cause before the owner uploads anything"
           }
         ],
-        "fallback": "Generate the package manually with the locked kicad-cli commands and have the owner compare the PCBWay viewer against the KiCad render before paying."
+        "fallback": "Generate the package manually with the locked kicad-cli commands and have the owner compare the PCBWay viewer against the KiCad render before paying.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "New",
@@ -4556,7 +4585,8 @@
             "response": "Claude presents the descope options of docs/design/concept.md section 12 to the owner at the next gate"
           }
         ],
-        "fallback": "Assemble three units instead of five, or drop via fill where the thermal analysis allows."
+        "fallback": "Assemble three units instead of five, or drop via fill where the thermal analysis allows.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Increasing",
@@ -5005,7 +5035,8 @@
             "response": "Claude proposes lower-current parts or a duty change to the owner before PDR closes"
           }
         ],
-        "fallback": "Select lower-current RX parts or reduce the 5 W transmit duty in the requirement by CR with the owner's approval."
+        "fallback": "Select lower-current RX parts or reduce the 5 W transmit duty in the requirement by CR with the owner's approval.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "Stable",
@@ -5396,7 +5427,8 @@
             "response": "Claude re-runs the S1 contract suite against the mock and the dev board before cwht moves to the new pinned commit"
           }
         ],
-        "fallback": "Credit the affected requirements by Bench on the delivered unit only and restrict HostUnit credit to application logic that calls no mocked trait."
+        "fallback": "Credit the affected requirements by Bench on the delivered unit only and restrict HostUnit credit to application logic that calls no mocked trait.",
+        "plan_approval": { "decision_memo": "docs/reviews/SRR/decision-memo.md", "date": "2026-09-26" }
       },
       "status": "Proposed",
       "trend": "New",

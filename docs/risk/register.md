@@ -303,7 +303,7 @@ Given the radio is powered by two user-replaceable 18650 Li-ion cells in series 
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-001, SI-019; SEMP section 7.1 hazard scope (lithium battery charging, over-discharge, short circuit and thermal runaway); SRR research candidate pass 2026-09-25 merged R-PWR-05, R-PWR-06 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 4 (no analysis yet): the cell, charger and protection design does not exist yet; protected cells, a 2S charger IC with balancing and thermistor monitoring and reverse-insertion protection are requirements and research proposals, not an analysed design, user-replaceable cells add insertion causes and the thermal environment next to the PA is unusual. 06 section 6 case (a): a design-analysis risk takes the anchor its facts meet, so no band argument below it is recorded. Confidence stays Low until the battery and charger trade study (S2) selects the parts; the hazard analysis (HZ-002, HZ-007) exists.
 
@@ -365,7 +365,7 @@ Given the kit model has the owner hand-solder the through-hole parts and exposed
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Hazard link rule (06 section 1) for HZ-015, added in docs/safety/hazards.json 0.2.0-pha (hazard analysis OQ-SAF-020: no risk carried it); opened 2026-09-25 by the integrating session |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Band argument (06 section 6 case (c), a procedure hazard): HZ-015 rates the uncontrolled fire case D (Remote: not expected in the fleet life of at most five units but credible) and the treatable-burn case C; before the TRR horizon that is the 5 % to 20 % band of 06 section 6 (level 2, Unlikely). No design-analysis anchor applies, so the probability band decides and confidence is Low (the owner's iron is not recorded).
 
@@ -421,7 +421,7 @@ Given SI-010 requires the radio to work at first power-on, the entire hardware d
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-010 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Aggregate of RSK-001, RSK-003, RSK-004, RSK-006, RSK-012, RSK-013, RSK-014, RSK-024 and RSK-027; a first-spin board with zero defects is uncommon even with full simulation. Anchor level 4; recomputed at each review as the maximum likelihood of the children (process section 16 item 8, enforced by tools/render_risk.py).
 
@@ -481,7 +481,7 @@ Given the transmitter covers the full US 2 m band (SI-024, ADR-016); REQ-SYS-008
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidates RF-3 (docs/research/part97-regulatory-basis.md Risks) and REG-6 (docs/research/regulatory-corpus-and-operators.md Risks) entered as one family, with the HZ-008 C7 out-of-band fundamental branch of OQ-SAF-020 (docs/safety/hazard-analysis.md section 12); the HZ-008 back-link is a pending action on the hazard analysis; SRR ADR candidate pass 2026-09-25 merged ADR021-R1 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 4 (no analysis yet), scored at the worst member of the family (06 section 4): the software fault path of the SW-SYNTH frequency word has no independent check and no analysis (docs/safety/hazard-analysis.md section 8.2 row 4, HZ-008 C7), and the band-edge members rest on requirements (guard, TCXO grade, firmware inhibit) with no frequency error budget yet (S2 due PDR). 06 section 6 case (a): a design-analysis risk takes the anchor its facts meet. Package decision 40 (independent frequency verification) is the step that removes the unchecked path; likelihood is re-assessed on the SRR ruling (S1).
 
@@ -538,7 +538,7 @@ Given the SMA antenna jack on the end of a pocket radio sees 2 to 4 N.m from a 5
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Split from RSK-018 on 2026-09-25 after independent review (process section 4: antenna-port retention and sharp edges harm different assets and have different driving dimensions); hazard link rule (process section 1) for HZ-009; ConOps section 8 candidate ANT-R1 (docs/research/antenna-and-erp.md) merged 2026-09-25 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 4 (no analysis yet): pocket carry (SI-001) makes side loads routine and no load analysis exists; the fit-check print catches geometry but not material strength. 06 section 6 case (a): a design-analysis risk takes the anchor its facts meet.
 
@@ -596,7 +596,7 @@ Given the owner approved SRR on Saturday morning, PDR on Saturday evening and CD
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SI-020 (expedited schedule approved by the owner); opened 2026-09-25 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** The gate dates are fixed and the product volume for CDR is large; no analysis of the work volume against the windows exists yet. Anchor level 4.
 
@@ -652,7 +652,7 @@ Given the receiver selectivity is a 500 Hz CW filter and the transmit and receiv
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-004, SI-005, SI-019 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** A +/-2.5 ppm reference alone consumes more than the filter half-bandwidth; without a tighter reference, receiver incremental tuning or a wider filter the departure is likely. Anchor level 4: no frequency error budget exists yet.
 
@@ -710,7 +710,7 @@ Given the 5 W PA (TX) is verified before fabrication only by LTspice simulation 
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-003, SI-010, SI-013; condition updated the same day for SI-034; SRR research candidate pass 2026-09-25 merged REFDES-7, PADEV-10, PADEV-13, PATK-10, PATK-12, RF-1; SRR ADR candidate pass 2026-09-25 merged ADR012-R1 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Single simulation chain (LTspice) with device models not validated against measured data at VHF and no prototype stage before the turnkey build. Anchor level 3: an analysis will exist but model fidelity is unconfirmed.
 
@@ -773,7 +773,7 @@ Given the PA dissipates on the order of 4 to 7 W of heat at 5 W RF output (40 to
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-001, SI-003, SI-008; SRR research candidate pass 2026-09-25 merged PATK-11, R-PCB-10 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Several watts in a pocket enclosure is a tight thermal design; no thermal budget exists yet and the PCB-to-enclosure interface is undefined. Anchor level 3.
 
@@ -833,7 +833,7 @@ Given 47 CFR 97.307(e) limits spurious emissions of a transmitter of 25 W or les
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-013, SI-014, SI-021; re-assessed the same day for SI-034; 04 section 6.3 names this risk as 'Part 97 compliance verified by analysis only'; SRR research candidate pass 2026-09-25 merged RF-5 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** The instrument decision is made (SI-034) but the measurement chain is unproven; until the attenuator and analyzer are characterized the detection probability of a PA or filter deviation from simulation (RSK-001, RSK-004) is unknown. Anchor level 3: a measurement path exists but its fidelity is unconfirmed.
 
@@ -892,7 +892,7 @@ Given the radio transmits up to 5 W at 144 to 148 MHz with the whip within 20 cm
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Hazard link rule (process section 1) for HZ-001, HZ-006 and HZ-012 of docs/safety/hazards.json; SI-030; opened 2026-09-25; ConOps section 8 candidate RFX-R2 (docs/research/rf-exposure-evaluation.md, continuous tune carrier near a non-licensee) merged 2026-09-25; SRR research candidate pass 2026-09-25 merged ANT-R5, REG-2, RFX-R4, RFX-R5 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** The controls are defined in the hazard analysis and the evaluation follows a published method (OET 65), but no evaluation has been performed and the power-step accuracy that every control rests on is unconfirmed. Anchor level 3.
 
@@ -952,7 +952,7 @@ Given receive audio and sidetone are delivered to headphones of 16 to 64 ohm wit
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Hazard link rule (process section 1) for HZ-005 of docs/safety/hazards.json; charter section 10 (audio output limiting is safety-critical); opened 2026-09-25; ConOps section 8 candidate R-AUD-3 (docs/research/audio-output-and-hearing-safety.md, earbuds louder than the EN model) merged 2026-09-25 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** The controls are defined in the hazard analysis and are conventional (passive ceiling, limiter, mute ramp, enable sequencing), but no level budget exists and the earbud sensitivity spread is wide. Anchor level 3.
 
@@ -1010,7 +1010,7 @@ Given keying drives PA enable and is a safety-critical software function (charte
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Split from RSK-012 on 2026-09-25 after independent review (process section 4: a safety departure cannot share a family with keyer usability); hazard link rule (process section 1) for HZ-004 and HZ-010; ConOps section 8 candidates R1 (docs/research/keyer-and-key-interfaces.md), R-KN3 (docs/research/keyer-verification-and-key-input-network.md) and ANT-R4 key-lead pickup (docs/research/antenna-and-erp.md) merged 2026-09-25; SRR research candidate pass 2026-09-25 merged R-UI-07, R3, R-KN1, R-KN5 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Stuck-contact and mono-plug keying at power-on are documented field problems of CW radios (Elecraft, QRP Labs; docs/research/keyer-and-key-interfaces.md R1); the controls are defined but none is designed. Anchor level 3.
 
@@ -1069,7 +1069,7 @@ Given the aluminum enclosure is the PA heatsink (ADR-008) and the PA dissipates 
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Split from RSK-006 on 2026-09-25 after independent review (process section 4: the surface burn harms a different asset than the junction over-temperature); hazard link rule (process section 1) for HZ-003 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Several watts spread over a pocket-sized aluminum shell is close to the touch limit and no budget exists yet. Anchor level 3.
 
@@ -1124,7 +1124,7 @@ Given Emulation is the optional, secondary pre-power-on evidence class for whole
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-007, SI-010; re-scoped the same day to the secondary evidence class of charter section 9 (SI-026); listed in 07 section 21 as 'Emulator fidelity'; SRR research candidate pass 2026-09-25 merged EMUACC-R1, EMUACC-R2, EMUACC-R3, EMUACC-R4, EMUOPT-R1, EMUOPT-R2, EMUOPT-R3; plan candidate SEP21-EMU (SRR plan-table pass 2026-09-25) |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** rp2350-emu models a subset of peripherals and has no accreditation record; PIO and precise timer behavior are the least likely to be faithful, and a boot failure of a bare-metal rustos image is plausible. Anchor level 4: no fidelity assessment exists.
 
@@ -1185,7 +1185,7 @@ Given charter section 9 makes HostUnit (application logic on the host implementa
 | Last assessed | 2026-09-25 (SRR) |
 | Source | ADR-011 section 4.4 (candidate ADR011-R1, new risk proposed); 07 section 21 row 'Host mock diverges from silicon' (plan candidate SEP21-MOCK); opened 2026-09-25 after INSP-007 finding F-03 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 4 (no analysis yet): no contract test compares any mock with the silicon, and a mock written from the same reading of the datasheet as the driver can share its misreading. 06 section 6 case (a) applies to this verification-fidelity risk as it does to RSK-003.
 
@@ -1238,7 +1238,7 @@ Given PCBWay assembles all surface-mount parts under the kit model (SI-031, ADR-
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-009, SI-010, SI-011; condition updated the same day for SI-031; SRR research candidate pass 2026-09-25 merged R-PCB-01, R-PCB-02 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Turnkey assembly defect rates on fine-pitch and exposed-pad parts are non-negligible and no DFM review has been done yet. Anchor level 3.
 
@@ -1297,7 +1297,7 @@ Given without level control a 7 V class PA delivers about 6.4 W to 10 W at a ful
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidate PADEV-11 (docs/research/pa-device-candidates.md implication 11) entered |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** The over-power figure rests on a graph-read vendor analysis and the ALC is not designed. Anchor level 3.
 
@@ -1350,7 +1350,7 @@ Given the CDR order follows the expedited schedule of SI-020 and the kit model o
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidates R-AUD-4 (docs/research/audio-output-and-hearing-safety.md Risks), R-UI-06 (docs/research/display-and-ui-parts.md Risk candidates), TR-R10 and TR-R14 (docs/research/tr-switch-candidates.md implications 10 and 14), R-PWR-04 (docs/research/power-tree-and-charging.md implication 15), CWSEL-7 and CWSEL-9 (docs/research/cw-selectivity-options.md implications 7 and 9) entered as one family; SRR ADR candidate pass 2026-09-25 merged ADR010-R1 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Zero stock is already observed for three rail parts and two codecs on 2026-09-25, with no second source chosen yet (a known deficiency without a mitigation in progress). Anchor level 4.
 
@@ -1404,7 +1404,7 @@ Given both 3.5 mm jacks are identical switched TRS parts on a pocket radio (docs
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidates R-AUD-5 (docs/research/audio-output-and-hearing-safety.md Risks), CTL-KEY-06-R (docs/research/keyer-and-key-interfaces.md implication 6, inline RISK-candidate) and R7 (docs/research/keyer-and-key-interfaces.md section 4.4) entered as one family |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 4 (no analysis yet): protection proposals exist (TPD2E2U06, 1 kohm series, BAT54S, divider network), but the short-circuit and cross-plug cases have no analysis. 06 section 6 case (a): a design-analysis risk takes the anchor its facts meet.
 
@@ -1458,7 +1458,7 @@ Given the Pico 2 module's 12 MHz crystal (12th harmonic) and 48 MHz USB clock (3
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidates R-UI-01 and R-UI-09 (docs/research/display-and-ui-parts.md Risk candidates) and R-PWR-03 (docs/research/power-tree-and-charging.md implication 14) entered as one family |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 4 (no analysis yet): the coincident harmonics are a derived fact; their level after layout and filtering has no analysis yet. 06 section 6 case (a): a design-analysis risk takes the anchor its facts meet.
 
@@ -1513,7 +1513,7 @@ Given the board, the machined enclosure and panel-mounted parts meet at several 
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidates R-UI-05 and R-UI-08 (docs/research/display-and-ui-parts.md Risk candidates), ENC-R2 (docs/research/enclosure-cnc-and-openscad-pipeline.md Implications, RISK-candidate 2), ANT-R6 (docs/research/antenna-and-erp.md Risks) and R-PCB-06 (docs/research/pcbway-fabrication-and-assembly.md Risks) entered as one family; SRR ADR candidate pass 2026-09-25 merged ADR008-R2 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 4 (no analysis yet): each interface has a documented error mode and no tolerance analysis or fit-check exists yet. 06 section 6 case (a): a design-analysis risk takes the anchor its facts meet.
 
@@ -1569,7 +1569,7 @@ Given the receiver input must see at most about 1 mW during transmit (docs/resea
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidates REFDES-12 (docs/research/2m-cw-transceiver-reference-designs.md implication 12) and TR-R12 (docs/research/tr-switch-candidates.md implication 12) entered as one family |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 4 (no analysis yet): no isolation or fault-case analysis exists yet for the relay baseline. 06 section 6 case (a): a design-analysis risk takes the anchor its facts meet.
 
@@ -1622,7 +1622,7 @@ Given the cost model (docs/plan/cost-estimate.md) is a rough order of magnitude 
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidates R-PCB-05 (docs/research/pcbway-fabrication-and-assembly.md Risks) and R-PCB-09 (docs/research/pcbway-export-and-vendor-questions.md implication 10) entered as one family |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 4 (no analysis yet): no quote exists and the markup factors come from vendor and secondary sources. 06 section 6 case (a): a design-analysis risk takes the anchor its facts meet.
 
@@ -1674,7 +1674,7 @@ Given the PA device and the frequency synthesizer are single-source ICs with no 
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-009, SI-019; SEMP section 5.13 (single-source parts open a risk); SRR research candidate pass 2026-09-25 merged REFDES-6, PATK-9 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Two single-source parts over a multi-month window from Formulation to order; RF power devices in particular have shown distributor stock gaps. Anchor level 3.
 
@@ -1731,7 +1731,7 @@ Given SI-018 requires support for both a straight key and iambic paddles on stan
 | Last assessed | 2026-09-26 (SRR) |
 | Source | Formulation risk identification 2026-09-25 against SI-005, SI-018; SRR research candidate pass 2026-09-25 merged R4, R5, R8, R-KN4 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Keyer timing is well understood, but feel is subjective and no human-in-the-loop test has been run yet; key-type handling through one jack is a common source of field complaints. Anchor level 3.
 
@@ -1791,7 +1791,7 @@ Given the 5 W carrier output (SI-003, ADR-003) is predicted before fabrication o
 | Last assessed | 2026-09-25 (SRR) |
 | Source | Split from RSK-001 on 2026-09-25 after independent review (process section 4: the output-power shortfall is a non-safety departure and cannot share the HZ-008 safety family); SRR research candidate pass 2026-09-25 merged REFDES-8 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** A single simulation chain with unvalidated VHF device models and no prototype stage; output power is sensitive to matching and device spread. Anchor level 3.
 
@@ -1848,7 +1848,7 @@ Given units are loaned to licensed friends (SI-019, SI-030, ADR-014) and may be 
 | Last assessed | 2026-09-25 (SRR) |
 | Source | ConOps section 8 candidate REG-4 (docs/research/regulatory-corpus-and-operators.md, Risks); hazard analysis section 12 HZ-006 row (unlicensed operation); entered 2026-09-25 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** The research report rates the likelihood moderate in the 'play radio' use case (SI-019); the guest lock that removes the main pathway is proposed but not yet a requirement. Anchor level 3.
 
@@ -1904,7 +1904,7 @@ Given the regulatory requirements cite 47 CFR Parts 1, 2 and 97 from the eCFR is
 | Last assessed | 2026-09-25 (SRR) |
 | Source | ConOps section 8 candidates REG-3 (docs/research/part97-regulatory-basis.md), REG-5 (docs/research/regulatory-corpus-and-operators.md) and RFX-R3 (docs/research/rf-exposure-evaluation.md), entered as one failure-mode family (process section 4) on 2026-09-25 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** The cited sections were amended three times in four years and two guidance documents are pending; the re-check is planned but not performed. Anchor level 3.
 
@@ -1958,7 +1958,7 @@ Given REQ-SYS-014 and REQ-SYS-015 set a raised-cosine envelope and a measured 26
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidates R6 (docs/research/keyer-and-key-interfaces.md section 4.4) and R-KN6 (docs/research/keyer-verification-and-key-input-network.md RISK-candidate list) entered as one family |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** Anchor level 3 (margin below 2x): a 5 ms raised cosine gives 226 to 292 Hz computed 26 dB bandwidth against the 350 Hz limit (docs/research/regulatory-corpus-and-operators.md F7), a margin of 1.2x to 1.5x, below the 2x of anchor 2; the PA is not selected and its linearity with the shaped drive is the open factor. 06 section 6 case (a): a design-analysis risk takes the anchor its facts meet.
 
@@ -2012,7 +2012,7 @@ Given the fabrication and assembly package is generated headless by kicad-cli 10
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR research candidate pass 2026-09-25: candidates VTI-6, VTI-7, VTI-9, VTI-10 and VTI-11 (docs/research/verification-tooling-inventory.md implications 6, 7, 9, 10 and 11) and R-PCB-08 (docs/research/pcbway-export-and-vendor-questions.md implication 9) entered as one family |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** The silent-loss modes are demonstrated on a fixture and the checks that catch them are not yet implemented. Anchor level 3.
 
@@ -2065,7 +2065,7 @@ Given TPM-002 allocates 0.5 W in receive, 10.0 W at 5 W key-down and 1.5 W in th
 | Last assessed | 2026-09-25 (SRR) |
 | Source | SRR TPM entry 2026-09-25: TPM-002 red on the concept-level estimate (conventions.reporting_interval of docs/plan/tpm.json: a red TPM opens a risk); docs/research/power-tree-and-charging.md F23; SRR ADR candidate pass 2026-09-25 merged ADR020-R1 |
 | Strategy | Mitigate |
-| Plan approval | pending (owner approves Red plans at the next review, process section 8) |
+| Plan approval | 2026-09-26, memo docs/reviews/SRR/decision-memo.md |
 
 **Likelihood rationale.** One derived budget exists; the expected build has 19 % margin and the high-current build fails. Anchor level 3.
 
