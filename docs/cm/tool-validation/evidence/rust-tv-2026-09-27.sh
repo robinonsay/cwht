@@ -203,7 +203,7 @@ for feat in none seeded-pair seeded-mock-fault seeded-pair,seeded-mock-fault; do
   if [ "$feat" = none ]; then F=""; else F="--features $feat"; fi
   echo "---- features: $feat"
   ( cd "$HS" && run cargo +1.98.0 nextest run --locked --profile ci --target-dir "$W/hs" $F 2>&1 | grep -E "FAIL \[|Summary|^exit" )
-  junit "$W/hs/nextest/ci/junit.xml"
+  junit "$HS/target/nextest/ci/junit.xml"   # nextest keeps its store under the workspace target/, not --target-dir
 done
 echo "---- reference runner: cargo test --features seeded-pair"
 ( cd "$HS" && run cargo +1.98.0 test --locked --target-dir "$W/hs" --features seeded-pair 2>&1 | grep -E "FAILED|test result|^exit" | head -4 )
