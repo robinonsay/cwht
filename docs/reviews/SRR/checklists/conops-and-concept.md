@@ -8,13 +8,13 @@ checklist_file: docs/reviews/SRR/checklists/conops-and-concept.md
 # product: the SE-36 concept definition, reviewed as one product: the ConOps (operational view) with
 # its figures, the concept description (technical view) and the concept block diagram render.
 product: docs/conops/conops.md
-# product_commit: iteration 3 review baseline, HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1 (2026-09-26);
-# iterations 1 and 2 reviewed 28e49e6 and the uncommitted working tree (blob tables in the body)
-product_commit: "adcfe09"
-# product_files: committed blobs reviewed at iteration 3 (git rev-parse HEAD:<path> at adcfe09); equal to HEAD 860e84e at re-issue 2.
+# product_commit: post-SRR-ruling delta baseline bfea9c7 (ConOps revision 3, SRR package item R16), blobs equal to HEAD 6136712 (2026-09-26);
+# iteration 3 reviewed HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1; iterations 1 and 2 reviewed 28e49e6 and the uncommitted working tree (blob tables in the body)
+product_commit: "bfea9c7"
+# product_files: committed blobs at the post-SRR-ruling delta (git rev-parse HEAD:<path> at 6136712); only conops.md changed since adcfe09 (was b2c76c80 at iteration 3 and re-issues 1 and 2).
 # iteration 2 (working tree, not in the object store): conops.md@b2e93594, concept.md@f9c4af43; the six figure files are unchanged
-product_files: ["docs/conops/conops.md@b2c76c80b199bc5021535a612617871a1b20554e", "docs/conops/figures/conops-context.mmd@55ebae2e15589bf9951456dc04400b7ccb96ea27", "docs/conops/figures/conops-context.png@2e4647f81c61a1d2df05637efa3ee3d71a506e09", "docs/conops/figures/conops-modes.mmd@829a46f800db84ae5196cf3946d4376eb813fc0f", "docs/conops/figures/conops-modes.png@b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c", "docs/design/concept.md@729190a21066f27525fe5d6e5160e3fa4d22e21b", "docs/reviews/SRR/figures/concept-block-diagram.png@3ef6e911d5201ce0a88c9f2d358b6d85dc425038", "docs/reviews/SRR/figures/concept-block-diagram.py@3806a3449d3bfe3e14dde14726bc1466b94e36af"]
-product_size: ConOps 865 lines at iteration 1, 866 at iteration 2, 867 at iteration 3 (22 scenarios, 9 modes, 25 transitions, 20 causes, appendices A to D); concept 365 lines at iteration 1, 381 at iterations 2 and 3 (22 blocks, 10 functions, 18 ICDs, 6 trade studies); 3 renders
+product_files: ["docs/conops/conops.md@36f0eb9ecb3059a6c556a4c367a1f8f940c6aa06", "docs/conops/figures/conops-context.mmd@55ebae2e15589bf9951456dc04400b7ccb96ea27", "docs/conops/figures/conops-context.png@2e4647f81c61a1d2df05637efa3ee3d71a506e09", "docs/conops/figures/conops-modes.mmd@829a46f800db84ae5196cf3946d4376eb813fc0f", "docs/conops/figures/conops-modes.png@b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c", "docs/design/concept.md@729190a21066f27525fe5d6e5160e3fa4d22e21b", "docs/reviews/SRR/figures/concept-block-diagram.png@3ef6e911d5201ce0a88c9f2d358b6d85dc425038", "docs/reviews/SRR/figures/concept-block-diagram.py@3806a3449d3bfe3e14dde14726bc1466b94e36af"]
+product_size: ConOps 865 lines at iteration 1, 866 at iteration 2, 867 at iteration 3, 878 at revision 3 (post-SRR-ruling delta; 22 scenarios, 9 modes, 25 transitions, 20 causes, appendices A to D); concept 365 lines at iteration 1, 381 at iterations 2 and 3 (22 blocks, 10 functions, 18 ICDs, 6 trade studies); 3 renders
 sprint: SRR-prep
 author_agent: "author:conops-concept (Claude main session, lead systems engineer: ConOps revision 2 at commit 28e49e6, fixes committed at 8a37f8e, appendix D statuses at 1543c9f; concept description and the three renders revised by the H10 author run, committed at 8a37f8e)"
 reviewer_agent: "reviewer:conops-concept"
@@ -26,21 +26,24 @@ iteration: 3
 # readiness_met: true at the re-issue of 2026-09-26: R4 met by the author self-check filed at 5b1f2cf (package item R7),
 # verified by the reviewer without a further product review (package item R8); R1 Yes, R2 N/A, R3 N/A
 readiness_met: true
-# reviewer_verdict: APPROVED with liens finding-19 to finding-22 (convergence rule, charter section 4 item 3); no Major open
+# reviewer_verdict: NEEDS CHANGES at the post-SRR-ruling delta of 2026-09-26 (HEAD 6136712): new Major finding-23 (ConOps revision 3 bench-test guard
+# scope against SRR decision 41, REQ-SYS-187, REQ-SYS-188) and finding-24 (concept not updated for the SRR rulings); finding-22 Closed by decisions 37 and 38.
+# Earlier: APPROVED with liens finding-19 to finding-22 (convergence rule, charter section 4 item 3); no Major open
 # verdict: held at NEEDS CHANGES at the re-issue of c7aa3a3 by the validate_docs.py open-Major line test (see Re-issue); re-issued APPROVED
 # with liens finding-19 to finding-22 at re-issue 2 of iteration 3 (2026-09-26, HEAD 860e84e, package item R18), after the record state rule of 96af250
-reviewer_verdict: APPROVED
+reviewer_verdict: NEEDS CHANGES
 assurance_verdict: not-required
-verdict: APPROVED
-findings_major: 4
+verdict: NEEDS CHANGES
+findings_major: 6
 # finding-19 is new at iteration 2; finding-20 to finding-22 are new at iteration 3 (all Minor);
 # finding-18 is withdrawn (disputed accepted) and counted in neither open nor verified;
 # findings_deferred counts the four liens (finding-19 to finding-22, "Lien: fix before PDR")
+# post-SRR-ruling delta: finding-22 Closed (verified 18); liens finding-19 to finding-21 (deferred 3); finding-23 and finding-24 new Major, Open
 findings_minor: 18
-findings_open: 0
+findings_open: 2
 findings_fixed: 0
-findings_verified: 17
-findings_deferred: 4
+findings_verified: 18
+findings_deferred: 3
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -48,9 +51,10 @@ deferred_rids: []
 # re-issue answers (iteration 1: R3, R4, CK-DES-H1, CK-DES-H3, CK-VIS-A1, CK-REQ-C5; iteration 2: R3, R4, CK-DES-H1, CK-VIS-A1; iteration 3: R4, CK-DES-H1)
 items_no: [CK-DES-H1]
 renders_inspected: 3  # iteration 3 re-opened the block diagram (--check exit 0 against the committed concept); the two ConOps renders are the blobs inspected at iterations 1 and 2
-# effort: iterations 1 and 2 (58 turns, 95 min), iteration 3 (30 turns, 40 min) the re-issue of 2026-09-26 (8 turns, 12 min) and re-issue 2 (10 turns, 15 min)
-effort_turns: 106
-effort_minutes: 162
+# effort: iterations 1 and 2 (58 turns, 95 min), iteration 3 (30 turns, 40 min) the re-issue of 2026-09-26 (8 turns, 12 min), re-issue 2 (10 turns, 15 min)
+# and the post-SRR-ruling delta (22 turns, 35 min)
+effort_turns: 128
+effort_minutes: 197
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -74,6 +78,8 @@ date_closed: null
 **Checklist.** `docs/templates/peer-review-checklist-design.md` revision B, as assigned, with `docs/templates/peer-review-checklist-visual-product.md` revision A section A and items C3 and C5 for the three renders (its product-type row 3: a render inside another product is checked in that product's record). The design checklist sections A to G and I to J address software architecture and design, ICDs and hardware; the product here is the operational and concept-level system view, so those sections are N/A and section H with the readiness criteria carries the design-checklist judgment. Because `docs/process/08-agent-briefing.md` section 3.5 names the requirements checklist (sections A, B, F; ConOps row: A3, A4, A8, B4, C5, C6, F2, G1, G2) for "expectations, ConOps and the concept", the reviewer also applied the three ConOps-row items that bear on content (B4, C5, C6) as supplementary evidence; the record's `checklist` field names the assigned template only. The mismatch between the assignment and 08 section 3.5 is reported to Claude in the return.
 
 **Reviewer.** `reviewer:conops-concept`, independent of the author (charter section 2; section 11 rule 4). The reviewer did not edit the product. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before every `grep` (queries: SRR readiness shortfalls ConOps concept block diagram H items; SE-36 concept definition; Appendix S annotated outline nominal and off-nominal); `grep -n` was used afterwards only to pin lines. Numbers were checked against `docs/requirements/sys/requirements.json`, `docs/safety/hazards.json` (0.3.0-pha), `docs/risk/register.json`, `docs/plan/tpm.json`, the research reports named in each finding and the regulatory corpus.
+
+**Verdict (post-SRR-ruling delta, 2026-09-26): NEEDS CHANGES.** ConOps revision 3 (`bfea9c7`) applies the SRR rulings correctly except the bench-test guard of SRR decision 41, which section 3.4 scopes to keyed tests from test start instead of the whole mode from entry (new Major finding-23); the concept description was not updated for the rulings and contradicts REQ-SYS-008 and REQ-SYS-054 at HEAD (new Major finding-24). finding-22 is Closed by decisions 37 and 38; finding-19 to finding-21 stay liens. See "Post-SRR-ruling delta" at the end of this record.
 
 **Verdict (re-issue 2 of iteration 3, 2026-09-26): APPROVED with liens finding-19 to finding-22; reviewer verdict APPROVED; readiness met.** The record state rule of `tools/validate_docs.py` (`96af250`, package item R18) replaced the line heuristic that held the record verdict; the product blobs equal HEAD `860e84e`. See "Re-issue 2 of iteration 3" at the end of this record.
 
@@ -398,4 +404,71 @@ READINESS: R1 Yes, R2 N/A, R3 N/A, R4 Yes; readiness_met true
 FINDINGS: Closed 17 (Major 4, Minor 13); Disputed accepted 1; Lien 4 (Minor); none open; no Major open
 TOOL: validate_docs.py record state rule (96af250, blob 3aa03681) replaces the line heuristic; package item R18 closed for this record
 MEASUREMENTS: blobs re-checked 8; renders re-checked 1 (--check); re-issue 2 10 turns, 15 minutes; cumulative 106 turns, 162 minutes
+```
+
+## Post-SRR-ruling delta (independent reviewer, 2026-09-26; SRR package item R16)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:conops-concept`); it did not author the products, and it edited no product and no author section. Earlier sections of this record are left as written (audit trail); the front matter fields `product_commit`, `product_files`, `product_size`, `reviewer_verdict`, `verdict`, the finding counts and the effort fields, their comments and a new dated verdict line at the top of the body changed. The owner approved the SRR on 2026-09-26 with every key decision K1 to K17 and every consent-agenda decision ruled as recommended (`docs/reviews/SRR/minutes.md` "Rulings" and "Disposition"; the ruling text is the "Recommendation" cell of `docs/reviews/SRR/decisions-for-owner.md`). Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ("ConOps revision 3 SRR owner rulings 2026-09-26 change log decision"; "decisions-for-owner recommendation paddle watchdog no-gap squeeze limit decision 37 Bench-test 120 s decision 41"; "validate_docs current_findings latest iteration section heading record state rule") ran before any `grep`, which then pinned lines.
+
+**Commits delta-verified.** `git log adcfe09..HEAD` over the eight product files lists one commit, `bfea9c7` (ConOps revision 3 and hazard analysis 0.5.0-pha, package item R16), which changes `docs/conops/conops.md` only (123 insertions, 112 deletions; blob `b2c76c80` to `36f0eb9e`). The other seven product files have the iteration 3 blobs at HEAD `6136712`. The reviewer read every hunk of `git diff --word-diff adcfe09 HEAD -- docs/conops/conops.md` and checked each changed value against the ruling it cites and against the L1 statements at HEAD (`docs/requirements/sys/requirements.json` after `cd61450`: REQ-SYS-002, 004, 008, 009, 020, 034, 053, 054, 055, 068, 069, 096, 097, 131, 154, 161, 179 to 184, 187 to 190) and `docs/safety/hazards.json` 0.5.0-pha (HZ-004 K4 and K13). `concept-block-diagram.py --check` exit 0 ("22 blocks, 6 groups, 32 edges; layout checks passed ... is current"). The render blobs are those inspected at iterations 1 to 3; `conops-modes.mmd` labels the Bench-test edge "T14 test menu / T15 exit or inhibit", which carries no value that the rulings changed, so no re-render is needed.
+
+**Change-by-change verification of `bfea9c7` (ConOps revision 3).**
+
+| Change (ConOps location at `36f0eb9e`) | Ruling cited | Check | Result |
+|---|---|---|---|
+| Paddle watchdog: Transmit-keyed row (line 173), Table 3.4-4 row 3, section 3.5.1 item 10, OPS-013 steps 3 and 6, Appendix C stuck-key row (line 833): 128 identical elements, or 30 s (TBR) without a key-up interval of 7 dit times or 500 ms, whichever is shorter, or a squeeze over 2 s (TBR) in Iambic A, Iambic B or Ultimatic | Decision 37 ("the HZ-004 K4 no-gap watchdog with the 2 s squeeze limit") | Equals REQ-SYS-054 and REQ-SYS-184 as reworded at `cd61450` and HZ-004 K4 items (i) to (iii). OPS-013 step 3 figures re-computed at dit = 1.2/WPM s: 128 dits span 255 dit units, 306/WPM s, so 6.1 s at 50 WPM, 20.4 s at 15 WPM and 30 s at about 10 WPM; 128 dahs span 511 units, 613/WPM s, so 12.3 s at 50 WPM and 30 s at about 20 WPM | Correct |
+| Manual-closure timeout 5 s including the Bug-mode dah (Table 3.4-4 row 2, OPS-013 step 2) | Decision 37 | Equals REQ-SYS-053 ("any continuous manually timed key closure") | Correct |
+| Tune 5 s +/-0.5 s, at most 5.5 s; cutoff 10 s (7.5 to 13 s) marked ratified (Tune row, F7, section 3.5.1 item 8, Appendix C) | Decision 36 (option a) | Equals REQ-SYS-020 and REQ-SYS-055 | Correct |
+| Transmission-length backstop 150 s to 180 s (TBR); hardware over-temperature cut-off 95 C +/-3 C within 100 ms (TBR); independent frequency verification within 10 kHz, 100 ms (TBR) (section 2.3 protection row, Transmit-keyed row, F7, OPS-013 step 4, OPS-014 step 4, OPS-020 step 2, paragraph after Table 3.4-4 at line 245) | Decisions 38, 39, 40 | Equal to REQ-SYS-180, 181, 182 and 154; the missing Table 3.4-4 rows are carried as a TBR with owner, plan and close_by (Appendix D item D19), as the charter permits | Correct |
+| Bench-test: forced 0.5 W step and 120 s (TBR) for keyed tests, full-scale tone 60 s (TBR), exit on reset and never stored (Bench-test row line 175, T15 line 197, F7, section 3.5.2 item 2 line 291, Appendix C line 836, revision history line 17) | Decisions 41 and 42 | Tone limit equals REQ-SYS-189; reset exit equals REQ-SYS-190. The step and the timeout do not equal REQ-SYS-187 and REQ-SYS-188 | **Defect: finding-23 (Major)** |
+| Mode classes, PRACTICE flag, row 10 latched class ratified (Table 3.4-4 preamble, Table 3.4-3) | Decision 42 option (a) | Matches the Recommendation cell | Correct |
+| Band-edge guard 144.0012 to 147.9988 MHz (TBR) (section 2.3, Table 3.4-4 row 7, F4, OPS-020 steps 2 and 5, Appendix C line 826); keying-sideband budget 750 + 370 = 1120 Hz within 1200 Hz | Decision 25 | Equals REQ-SYS-008 and REQ-SYS-009; +/-2.5 ppm at 148 MHz is 370 Hz; arithmetic holds | Correct |
+| Constant lead-in of at most 12 ms (TBR) on every element (Transmit-keyed row, OPS-004 step 1, OPS-005 step 1, glossary, Appendix C) | Decision 47 | Equals REQ-SYS-161 | Correct |
+| Operator model OPS-A, OPS-B by dated record at 0.5 W and 1 W until a dated owner record, guest keying at 0.5 W and 1 W supervised, two-step guest lock without a credential (section 3.7, OPS-006 step 5, OPS-019 steps 2 and 5, OPS-022 step 3, section 7, Appendix C) | Decisions 17 to 20 | Match the four Recommendation cells | Correct |
+| Accumulator and reminder are convenience functions; reminder values TBR (section 3.5.1 item 5) | Decision 33 | Matches; REQ-SYS-069 TBR close_by PDR | Correct |
+| Only switchpoint and debounce operator-set (section 3.5.1 item 3, Appendix C debounce row with OQ-SAF-027) | Decisions 48 and 50 | Match | Correct |
+| Birdie-free range 144.010 to 147.999 MHz (OPS-003 step 4) | Decision 57 | Equals REQ-SYS-034 | Correct |
+| Low-battery, cell 60 C, 6 h floor (OPS-010 step 2, OPS-014 step 5, Appendix C) | Decision 76 | Equals REQ-SYS-096 to REQ-SYS-099 | Correct |
+| Environment set, IPX2 (section 4, OPS-011 step 4, Appendix C) | Decision 85 | Matches; REQ-SYS-114 to REQ-SYS-117 | Correct |
+| Appendix C statuses of decisions 18 to 29, 31, 32, 36, 43 to 50, 53, 54, 56, 59, 61, 63 to 67, 70 to 81, 85 to 87, 90, 96 | Each named decision | Each status checked against its Recommendation cell (script extract of `decisions-for-owner.md`) | Correct |
+| Appendix D D5, D7, D9, D13, D15, D18 statuses; new D19 | Decisions 17, 18, 19, 36, 37, 96 | Statuses hold at HEAD: REQ-SYS-054 and REQ-SYS-184 at `cd61450`; MOP-001 and MOP-002 re-parenting and the ADR-014 citation are routed to their authors | Correct (the header commit is still finding-21) |
+
+Also checked: no em dash and no `TBD` in `conops.md` (878 lines); the text "If both are declined" is gone.
+
+**New findings.**
+
+| Finding | Severity | Item | Location | Description and expected fix | State |
+|---|---|---|---|---|---|
+| <a id="finding-23"></a>finding-23 | Major | CK-DES-H1; CK-REQ-C5 | `conops.md` Table 3.4-1 Bench-test row (line 175), Table 3.4-2 T15 (line 197), section 3.5.2 item 2 (line 291), Appendix C Bench-test limits row (line 836), revision history row 3 (line 17) | SRR decision 41 adopted the bench test-mode guard of HZ-004 K13: "forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles", for the mode. REQ-SYS-187 holds the transmitter at 0.5 W "for the whole bench test mode, whatever step was set before entry", and REQ-SYS-188 leaves the mode "at most 120 s (TBR) after entering it". Revision 3 scopes both to keyed tests only: keyed tests "run at the forced 0.5 W step, end by themselves 120 s (TBR) after the test starts", and T15 exits on "120 s (TBR) for a keyed test". The continuous-carrier test stays "under the Tune limits (step and timeout)", and the Tune row (line 174) lets the operator raise the step above 0.5 W. So the ConOps allows a carrier above 0.5 W in Bench-test, which REQ-SYS-187 forbids. It also allows a keyed test to run past 120 s from mode entry, for example started 100 s after entry, where REQ-SYS-188 has already ended the mode. REQ-SYS-002 makes section 3.4 binding, so the functional baseline carries two scopes for one HZ-004 K13 control (the same defect class as finding-1). Fix: in the Bench-test row, T15, section 3.5.2 item 2 and the Appendix C row, state the 0.5 W step for the whole mode (the carrier test runs at 0.5 W with the Tune timeout) and the 120 s (TBR) mode timeout from entry (REQ-SYS-188); keep the 60 s tone limit (REQ-SYS-189); cite decision 41 | Open |
+| <a id="finding-24"></a>finding-24 | Major | CK-DES-H1 | `docs/design/concept.md` (blob `729190a2`, unchanged since `8a37f8e`): F2.1 (line 163) and section 7 reference paragraph (line 215) "144.001 to 147.999 MHz"; section 11.1 frequency-reference row (line 294) "1 kHz guard"; F3.6 (line 164), section 8 row "Unintended or prolonged transmission" (line 239) and section 14 item 3 (line 367) "128 ... or 10 s of them" with "30 s alternative pending D-KN3"; 16 "[Proposed, owner decision pending at SRR]" markers (convention line 5; for example line 59 Tune, lines 297 to 305) | The rulings changed the L1 set under the concept, and no R16 commit updated the concept. The concept now contradicts REQ-SYS-008 and REQ-SYS-009 (144.0012 to 147.9988 MHz, the 1.2 kHz guard of decision 25), REQ-SYS-054 as reworded at `cd61450` (the no-gap watchdog of decision 37, which replaces the 10 s cap) and ConOps revision 3 on the same values. That is the defect of finding-2, now reintroduced. The decision 37 row itself says concept F3.6 and section 8 "are corrected by the ruling", and package item R16 (b) includes "rationales dropping 'owner decision pending'". Section 8, the single-point-failure and fault-tolerance philosophy, also omits the three independent layers adopted by decisions 38 to 40 (REQ-SYS-180 to REQ-SYS-182). Fix: revise the concept for the rulings (decisions 25, 36, 37, 38 to 40, 41 and the ratified rows of section 11.1): guard values, the stuck-key set, the section 8 layers, and the pending markers replaced by the decision numbers; re-run `concept-block-diagram.py --check` | Open |
+
+**Current finding state (post-SRR-ruling delta).**
+
+| Finding | Severity | State | Note |
+|---|---|---|---|
+| finding-1 | Major | Closed (Verified) | Iteration 3; `conops.md` Table 3.4-4 preamble still gives 20 ms (TBR, REQ-SYS-004) |
+| finding-2 | Major | Closed (Verified) | Iteration 3 for the values it named; in the ConOps, revision 3 replaced them with the decision 37 values, which were checked above. The stale concept text is finding-24 |
+| finding-3 | Major | Closed (Verified) | Iteration 3; concept unchanged |
+| finding-4 | Major | Closed (Verified) | Iteration 3; concept unchanged |
+| finding-5 to finding-17 | Minor | Closed (Verified) | Iteration 3 disposition table (13 findings) |
+| finding-18 | Minor | Disputed accepted (Withdrawn) | Iteration 2 |
+| finding-19 | Minor | Lien: fix before PDR | Not fixed: `conops.md` lines 113 and 695 still read "RSK-001 to RSK-059"; `register.json` 0.6.0-pre-srr holds RSK-001 to RSK-065 |
+| finding-20 | Minor | Lien: fix before PDR | Not fixed: line 111 cites `hazards.json` 0.3.0-pha; HEAD is 0.5.0-pha, and D6 and D10 cite 0.4.2-pha |
+| finding-21 | Minor | Lien: fix before PDR | Not fixed: the Appendix D header (line 858) still names commit `400e59d`, and the revised D5 and D18 statuses cite `cd61450` |
+| finding-22 | Minor | Closed (Verified) | Closed by SRR decisions 37 and 38 (owner ruling 2026-09-26) as applied at `bfea9c7`. OPS-013 step 6 (line 550) no longer reads "If both are declined"; it states that REQ-SYS-184 stops a squeeze over 2 s and that REQ-SYS-180 bounds any stream that defeats the firmware watchdog in hardware, which equals `docs/safety/hazard-analysis.md` 0.5.0-pha (decline cases recorded as not applying) |
+| finding-23 | Major | Open | New, above |
+| finding-24 | Major | Open | New, above |
+
+Open Major findings closed by the rulings: none were open at this record's last re-issue (finding-1 to finding-4 Closed at iteration 3). The one ruling-dependent lien, finding-22, is Closed.
+
+**Readiness.** R1 Yes: the render blobs are unchanged and `--check` exits 0. R2 N/A. R3 N/A: every requirement stays Draft until the SRR baseline memo moves the L1 set. R4 Yes for this delta: the `bfea9c7` commit message and the ConOps revision history row 3 list each change against its decision, and they served as the acceptance criteria checked above. `readiness_met: true`.
+
+**Verdict (post-SRR-ruling delta): NEEDS CHANGES.** Two Major findings are open (finding-23, finding-24). The convergence rule (charter section 4 item 3) sends a Major finding open at iteration 3 to the owner's ruling (01 section 10.1). The reviewer's recommendation is to apply both fixes as R16 author work before `baseline/srr` is tagged: finding-23 is a four-location wording change in the ConOps, and finding-24 is the concept revision that decision 37 and item R16 (b) already call for. The reviewer re-issues this record by delta verification of those commits, with no further full review. finding-19 to finding-21 stay liens due at the PDR readiness declaration (owner: the ConOps author). `record_status` stays Open for the lead SE (07 section 10.2).
+
+```
+VERDICT (post-SRR-ruling delta, 2026-09-26): NEEDS CHANGES (open Major finding-23, finding-24); assurance not required
+PRODUCT: bfea9c7 (ConOps revision 3), blobs equal to HEAD 6136712; conops.md 36f0eb9e, concept.md 729190a2 (unchanged), six figure files unchanged
+COMMITS VERIFIED: bfea9c7 (only product commit since adcfe09); 16 change groups checked against their rulings, 15 correct, 1 defective (finding-23)
+FINDINGS: 24 total; Closed 18 (Major 4, Minor 14, finding-22 closed by decisions 37 and 38); Disputed accepted 1; Lien 3 (finding-19 to finding-21); Open 2 Major (finding-23, finding-24)
+MEASUREMENTS: diff hunks read 28; L1 requirements checked 26; decision Recommendation cells checked 44; renders re-checked 1 (--check); delta 22 turns, 35 minutes; cumulative 128 turns, 197 minutes
 ```
