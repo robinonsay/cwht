@@ -326,7 +326,7 @@
       "type": "RID",
       "severity": "Minor",
       "review": "SRR",
-      "state": "Open",
+      "state": "Answered",
       "originator": "owner",
       "opened": "2026-09-26",
       "product": "docs/decisions/adr/ADR-014-licensed-operators-only.md",
@@ -353,6 +353,27 @@
           "to": "Open",
           "by": "owner",
           "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        },
+        {
+          "date": "2026-09-26",
+          "from": "Open",
+          "to": "Answered",
+          "by": "claude",
+          "note": "Fix delivered at commit 5122a6b (ADR-014 erratum line, SRR decision 18); recorded by the review secretary."
+        }
+      ],
+      "response": "Fixed by the ADR-014 erratum line at commit 5122a6b (end of section 1, with a section 8 change-log entry): under OPS-B the occupational tier rests on the OET 65 Supplement B controlled-environment statement (corpus docs/references/md/regulatory/oet65-supplement-b-extracts.md lines 126 to 127), not on the 47 CFR 97.13(c)(1) household clause, and a unit lent under OPS-B is operated at the 0.5 W and 1 W steps only until a dated owner record confirms that basis (ConOps section 3.7 and Appendix C row \"OPS-B exposure tier\"), as SRR decision 18 rules. Section 2 of the ADR is unchanged. Made before the baseline/srr tag under the 05 Table 4-1 row 13 pre-baseline correction allowance with SRR decisions 105 and 18. Checked by the INSP-011 post-SRR-ruling delta 2 (docs/reviews/SRR/checklists/adrs-001-to-025.md, commit 877ffac, reviewer:adrs, which did not author the erratum): the erratum applies SRR decision 18 as ruled, section 2 is unchanged, no new finding. That record's product is the ADR set docs/decisions/adr/, not this item's product (ADR-014 file), so tools/validate_docs.py does not accept it as verification.record (tools/README.md rule: the record's product is the item's product); the Answered to Verified transition waits for a verifying record whose product is this item's product, or for the owner's direction on the rule.",
+      "answered": "2026-09-26",
+      "evidence": [
+        {
+          "kind": "commit",
+          "ref": "5122a6b",
+          "note": "ADR-014 erratum line for SRR decision 18 (product not yet under the baseline/srr tag, 01 section 10.5 row commit)"
+        },
+        {
+          "kind": "adr",
+          "ref": "ADR-014",
+          "note": "docs/decisions/adr/ADR-014-licensed-operators-only.md, blob 09c4e328 at 5122a6b"
         }
       ]
     },
@@ -719,6 +740,38 @@
           "to": "Open",
           "by": "owner",
           "note": "Lien accepted in docs/reviews/SRR/decision-memo.md; due before the PDR readiness declaration."
+        }
+      ]
+    },
+    {
+      "id": "RFA-SRR-008",
+      "type": "RFA",
+      "severity": "Routine",
+      "review": "SRR",
+      "state": "Open",
+      "originator": "owner",
+      "opened": "2026-09-26",
+      "product": "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md",
+      "product_ids": [
+        "CR-002"
+      ],
+      "title": "Independent Class I impact review of CR-002 (deviations.md entry 1)",
+      "description": "CR-002 (Class I, confirmed by close-out item 7) was approved by the owner as SRR decision 113 before its impact assessment had the independent review that 05 section 5.2 requires for a Class I CR (the Assessed state), so it reached Dispositioned without that review; the departure is docs/cm/deviations.md entry 1. Perform the independent review of CR-002 section 4 and record it.",
+      "requested_action": "An independent reviewer agent that did not author CR-002 (the INSP-003 reviewer, per the deviations.md entry 1 closure plan) reviews CR-002 section 4 (impact assessment) and records findings and concurrence or objections in CR-002 section 6. If the review finds an impact that changes the owner's basis, CR-002 returns to Submitted for re-disposition. Close docs/cm/deviations.md entry 1 by a dated closure line citing this RFA. The owner verifies the answer.",
+      "assignee": "claude",
+      "due_review": "PDR",
+      "lien": false,
+      "related": [
+        "CR-002",
+        "INSP-003"
+      ],
+      "history": [
+        {
+          "date": "2026-09-26",
+          "from": null,
+          "to": "Open",
+          "by": "owner",
+          "note": "Raised by the owner's close-out ruling on item 8 (\"Raise an RFA for the independent impact review of CR-002, which was approved before that review, due before PDR.\"), owner statement \"I concur with your recommendations\", docs/reviews/SRR/minutes.md section \"Close-out decisions (after the first close-out run)\", commit dd39332; assignee Claude (lead SE); links docs/cm/deviations.md entry 1; raised after the memo was signed, so recorded by decision memo amendment A-6, not as a section 6 lien; recorded by the review secretary."
         }
       ]
     }
