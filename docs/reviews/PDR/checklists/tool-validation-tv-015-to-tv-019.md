@@ -20,13 +20,19 @@ checklist_revision: B
 checklist_tool_validation: "docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/tool-validation-tv-015-to-tv-019.md
 product: docs/cm/tool-validation/TV-015-openscad-freecad-scad2step.md
-# product_commit: the freeze commit 2bfe001 on main (no branch-only products). Every blob below was recomputed
-# with git rev-parse 2bfe001:<path> and HEAD:<path> at HEAD c91a9eb: all equal (d9c7f69 later changed only
-# the LTspice rows of tools/toolchain.lock.md, blob 83bc0520; see the Products paragraph). Fixture directories are listed
-# file by file (template rule for product_files) with their trees in fixture_trees.
-product_commit: "2bfe001"
-product_files: ["docs/cm/tool-validation/TV-015-openscad-freecad-scad2step.md@787a117598ee417f97482dd8ae2e38ba6f160ddd", "docs/cm/tool-validation/TV-016-kicad-cli-normalize-fab.md@88ccf56a0fa28677cdfae43b4840d895e0bee5d4", "docs/cm/tool-validation/TV-017-render-tpm.md@be08df365b75f33c11bb6bf4dc10b5139c28d4f9", "docs/cm/tool-validation/TV-018-csa.md@c28685d58aca44be7985d3185078f5e4d37ed72a", "docs/cm/tool-validation/TV-019-check-commit-msg.md@ff88029f7102bcea04548a1ddc5b49978a6abb55", "tools/scad2step.py@d0277ec8d89967576869be95ee5d0300e1f6af51", "tools/normalize_fab.py@f3eaac395b279bceb32fb3ba850632acfe426782", "tools/render_tpm.py@f37985d67e94998c9de4f790dccac7592f9ccd34", "tools/csa.py@dd9b6fede610f61d033d88222450981315559ed5", "tools/check_commit_msg.py@5488dd98b21220261835a74112b49a508865c346", "tools/tests/test_scad2step.py@2e2fc392ccb5a0cba20e7f519527c2e58134f118", "tools/tests/test_normalize_fab.py@707a22d594671b9125fd5f8134c57d290121e413", "tools/tests/test_kicad_cli.py@780117af30155408b4c4f56574d72cfd261c0b88", "tools/tests/test_render_tpm.py@a6b93352bffd5c15907e4e37209cfe5911c8b17d", "tools/tests/test_csa.py@58672f3ac0b09aadcdabad0ef9d9f28c55ddf041", "tools/tests/test_check_commit_msg.py@d8595b98493088523e448b29e6d99bd2242e9998", "tools/tests/fixtures/openscad/cube.scad@e8898580965f6859f3b53a04fc7bd251cf60e264", "tools/tests/fixtures/openscad/fake/freecadcmd-hang@ba333283d69d18c538cbf78abdc2e0cb19009906", "tools/tests/fixtures/openscad/fake/freecadcmd-silent@00296ab1f43668b73d64243f077c554d31963a28", "tools/tests/fixtures/openscad/fake/openscad-other-version@a66d1f86bfa22033f85cf3f1f7865b07629ed0b1", "tools/tests/fixtures/openscad/known-answers.json@59be16ad719ef3b44d58d829399e8ee03e1845cd", "tools/tests/fixtures/openscad/nonuniform-scale.scad@2c2acb9791a4be0241726bed5c373cda72c5660b", "tools/tests/fixtures/openscad/smoke-shell.scad@3eb43ab5a7966009b5c1dc7dac1c4ae0d4e74465", "tools/tests/fixtures/openscad/taller.scad@4f2a3c9931659257fd4ed5312679b262a78e4869", "tools/tests/fixtures/openscad/twist.scad@36b987989ecdb0122f9f1bb198a3ac78ec6dcb10", "tools/tests/fixtures/openscad/two-roots.scad@edc84f75775682d2d932dcb7def1d19b285db162", "tools/tests/fixtures/openscad/two-solids.scad@396df8f7118b47015112056d3333ce1fce94546e", "tools/tests/fixtures/kicad/clean.kicad_pcb@08d65d3ae7687e6baedf5c168ebeac7f4427580c", "tools/tests/fixtures/kicad/clean.kicad_pro@03cbb6fd496b0e79d5e369d61124be5952c93ea2", "tools/tests/fixtures/kicad/clean.kicad_sch@9bb4d4dcb272867eff63e8a3039ea188cc1461b9", "tools/tests/fixtures/kicad/expected/clean-SHA256SUMS.normalized@d284adf576e474910423d46f9d2479d5e8c85a78", "tools/tests/fixtures/kicad/expected/clean-bom.csv@fd602389e1258c1c02078ca40b24ea3bc298b8de", "tools/tests/fixtures/kicad/expected/clean-cpl.csv@7a1a4c15539d546cda94f4979e4ed2d6eae85e48", "tools/tests/fixtures/kicad/fp-lib-table@2b914a6732f05f444afd43c7838192cb05de60a4", "tools/tests/fixtures/kicad/known-answers.json@f4216971be847fd54ed72fd2b8fdb16ce85ae7dc", "tools/tests/fixtures/kicad/make_expected_normalized.sh@b57067605a0764f2d3db1272defc9fdac1e26389", "tools/tests/fixtures/kicad/make_fixture_pcb.py@871a5f3265d1f132ac7ca86739febd172d0a009e", "tools/tests/fixtures/kicad/make_fixture_sch.py@91cd3ada3a13c2da60f5d84f1fbe89a4c18333f8", "tools/tests/fixtures/kicad/seeded.kicad_pcb@c01cfa3852c400949a5f379b203898cc64c71e5c", "tools/tests/fixtures/kicad/seeded.kicad_pro@71defdc94a9f98a968ca58078df25fa263ab1625", "tools/tests/fixtures/kicad/seeded.kicad_sch@1b1252e79fdad538bf362a36980da1fff68add20", "tools/tests/fixtures/kicad/sym-lib-table@3d6388dc92e476be0048119177a9307c3b0bcebe", "tools/tests/fixtures/render_tpm/expected.json@c6b4787ff14a61e564c9b0852759ac5fbc64ee35", "tools/tests/fixtures/render_tpm/tpm.json@e89f170457ee4ea1e9320cbb956771838897f1e6", "tools/tests/fixtures/csa/build_repo.py@6cd4a56bb3b1a4d937ba14688e56b09865926633", "tools/tests/fixtures/csa/cm-plan-05.md@a8595764b288e038b1df20589d1873976ddc1907", "tools/tests/fixtures/csa/expected.json@443c7a8c3ebe3b3eb18156e1b960d40cc94d0004", "tools/tests/fixtures/csa/hand-csa-9fd0962.json@44992dde659f654f754535f1fae513e34ba8023b", "docs/cm/tool-validation/evidence/pdr-tools-2026-09-27.sh@15cc6a048046c7a9b6fd3b368bd0ff408bd9ec2b", "docs/cm/tool-validation/evidence/scad2step-2026-09-27-run1.log.txt@c685c14fe70ec787602facda8753c2b79c6cf409", "docs/cm/tool-validation/evidence/kicad-normalize-fab-2026-09-27-run1.log.txt@a01a63ad6c337052dca10987b5a952df2b52470b", "docs/cm/tool-validation/evidence/render-tpm-2026-09-27-run1.log.txt@f178d683b734125ffe6e60d6e8b3cdb33721538e", "docs/cm/tool-validation/evidence/csa-2026-09-27-run1.log.txt@16673d791f19a867acbce400a4bf4cb944400a40", "docs/cm/tool-validation/evidence/check-commit-msg-2026-09-27-run1.log.txt@ca94682c8d3ab12c93106e49f49ba0d5d1e00834", "docs/cm/tool-validation/evidence/render-tpm-fixture-tpm-status.png@40d42ca79ca08be026647ccacc6d41fc13278ab7", "docs/cm/tool-validation/evidence/render-tpm-fixture-trend-own-yellow-after-status-note.png@6bfb3e19679cbe5a219be60cbd35170b9844141e", "docs/cm/tool-validation/README.md@763f10829dfc372ead42f7fda9ad2b43d4b871ed", "tools/toolchain.lock.md@4e978efc474adaf34337affe75addc51d5ab3d59", "tools/README.md@053e6df2b63350629a264324dcf7444f18f2b4cb"]
-fixture_trees: ["tools/tests/fixtures/openscad@d9ab4c7d7ca8e5adf348b5074f581ef7e9b00b41", "tools/tests/fixtures/kicad@03063f2a45abd42f532e4b035cfac71fe578de90", "tools/tests/fixtures/render_tpm@9a6aff2536b65027c9fc4eb0a424a92fd139dcc9", "tools/tests/fixtures/csa@92fd0e50c0d61bf2c8e71b9e6b7dc518c6733d30"]
+# product_commit (iteration 2): the re-freeze commit 99feb43 on main (no branch-only products); run 2 of TV-015
+# tested 989d257. Every blob of product_files was recomputed with git rev-parse 99feb43:<path> and HEAD:<path> at
+# HEAD 1353bb3 (a status-note commit after 99feb43): 64 of 64 equal. Against iteration 1 (product_files_iteration_1,
+# freeze 2bfe001), ten identities changed or were added, all by the finding-1 fix (989d257, 99feb43): TV-015
+# 4669c5ec, test_scad2step.py bd38fe2b, known-answers.json 05520747, the four API double files (new), the run 2 log
+# (new), the TV README 9400963d and the lock 6c7eba57. The lock also carries the d9c7f69 LTspice rows (blob 83bc0520
+# at iteration 1); 83bc0520..6c7eba57 touches only the TV-015 rows (sections 1.1, 1.2, 5, one history row).
+# tools/scad2step.py is unchanged (d0277ec8). The TV-016 to TV-019 products are unchanged from 2bfe001. Fixture
+# directories are listed file by file with their trees in fixture_trees.
+product_commit: "99feb43"
+product_files: ["docs/cm/tool-validation/TV-015-openscad-freecad-scad2step.md@4669c5ec30bb91eb778dc4dc3a6d03e5a1d600c1", "docs/cm/tool-validation/TV-016-kicad-cli-normalize-fab.md@88ccf56a0fa28677cdfae43b4840d895e0bee5d4", "docs/cm/tool-validation/TV-017-render-tpm.md@be08df365b75f33c11bb6bf4dc10b5139c28d4f9", "docs/cm/tool-validation/TV-018-csa.md@c28685d58aca44be7985d3185078f5e4d37ed72a", "docs/cm/tool-validation/TV-019-check-commit-msg.md@ff88029f7102bcea04548a1ddc5b49978a6abb55", "tools/scad2step.py@d0277ec8d89967576869be95ee5d0300e1f6af51", "tools/normalize_fab.py@f3eaac395b279bceb32fb3ba850632acfe426782", "tools/render_tpm.py@f37985d67e94998c9de4f790dccac7592f9ccd34", "tools/csa.py@dd9b6fede610f61d033d88222450981315559ed5", "tools/check_commit_msg.py@5488dd98b21220261835a74112b49a508865c346", "tools/tests/test_scad2step.py@bd38fe2b5cf7cf75aac65d6f19d2c96633b56119", "tools/tests/test_normalize_fab.py@707a22d594671b9125fd5f8134c57d290121e413", "tools/tests/test_kicad_cli.py@780117af30155408b4c4f56574d72cfd261c0b88", "tools/tests/test_render_tpm.py@a6b93352bffd5c15907e4e37209cfe5911c8b17d", "tools/tests/test_csa.py@58672f3ac0b09aadcdabad0ef9d9f28c55ddf041", "tools/tests/test_check_commit_msg.py@d8595b98493088523e448b29e6d99bd2242e9998", "tools/tests/fixtures/openscad/cube.scad@e8898580965f6859f3b53a04fc7bd251cf60e264", "tools/tests/fixtures/openscad/fake/freecadcmd-hang@ba333283d69d18c538cbf78abdc2e0cb19009906", "tools/tests/fixtures/openscad/fake/freecadcmd-silent@00296ab1f43668b73d64243f077c554d31963a28", "tools/tests/fixtures/openscad/fake/freecadcmd-api-double@e6de6ad25391e85fbfe15e799046aacba0494ff6", "tools/tests/fixtures/openscad/fake/freecad_api/FreeCAD.py@ccdc3e1b62b4acc379ef939f2521d72c6c495b65", "tools/tests/fixtures/openscad/fake/freecad_api/Part.py@549f799f7d356fc8e7385a3f16d1754c9ffc488a", "tools/tests/fixtures/openscad/fake/freecad_api/importCSG.py@e8d4a46d903c35f9814783ca56172c0363cb30e3", "tools/tests/fixtures/openscad/fake/openscad-other-version@a66d1f86bfa22033f85cf3f1f7865b07629ed0b1", "tools/tests/fixtures/openscad/known-answers.json@055207479ceb25b6f868da342ce73d4bda19b5ac", "tools/tests/fixtures/openscad/nonuniform-scale.scad@2c2acb9791a4be0241726bed5c373cda72c5660b", "tools/tests/fixtures/openscad/smoke-shell.scad@3eb43ab5a7966009b5c1dc7dac1c4ae0d4e74465", "tools/tests/fixtures/openscad/taller.scad@4f2a3c9931659257fd4ed5312679b262a78e4869", "tools/tests/fixtures/openscad/twist.scad@36b987989ecdb0122f9f1bb198a3ac78ec6dcb10", "tools/tests/fixtures/openscad/two-roots.scad@edc84f75775682d2d932dcb7def1d19b285db162", "tools/tests/fixtures/openscad/two-solids.scad@396df8f7118b47015112056d3333ce1fce94546e", "tools/tests/fixtures/kicad/clean.kicad_pcb@08d65d3ae7687e6baedf5c168ebeac7f4427580c", "tools/tests/fixtures/kicad/clean.kicad_pro@03cbb6fd496b0e79d5e369d61124be5952c93ea2", "tools/tests/fixtures/kicad/clean.kicad_sch@9bb4d4dcb272867eff63e8a3039ea188cc1461b9", "tools/tests/fixtures/kicad/expected/clean-SHA256SUMS.normalized@d284adf576e474910423d46f9d2479d5e8c85a78", "tools/tests/fixtures/kicad/expected/clean-bom.csv@fd602389e1258c1c02078ca40b24ea3bc298b8de", "tools/tests/fixtures/kicad/expected/clean-cpl.csv@7a1a4c15539d546cda94f4979e4ed2d6eae85e48", "tools/tests/fixtures/kicad/fp-lib-table@2b914a6732f05f444afd43c7838192cb05de60a4", "tools/tests/fixtures/kicad/known-answers.json@f4216971be847fd54ed72fd2b8fdb16ce85ae7dc", "tools/tests/fixtures/kicad/make_expected_normalized.sh@b57067605a0764f2d3db1272defc9fdac1e26389", "tools/tests/fixtures/kicad/make_fixture_pcb.py@871a5f3265d1f132ac7ca86739febd172d0a009e", "tools/tests/fixtures/kicad/make_fixture_sch.py@91cd3ada3a13c2da60f5d84f1fbe89a4c18333f8", "tools/tests/fixtures/kicad/seeded.kicad_pcb@c01cfa3852c400949a5f379b203898cc64c71e5c", "tools/tests/fixtures/kicad/seeded.kicad_pro@71defdc94a9f98a968ca58078df25fa263ab1625", "tools/tests/fixtures/kicad/seeded.kicad_sch@1b1252e79fdad538bf362a36980da1fff68add20", "tools/tests/fixtures/kicad/sym-lib-table@3d6388dc92e476be0048119177a9307c3b0bcebe", "tools/tests/fixtures/render_tpm/expected.json@c6b4787ff14a61e564c9b0852759ac5fbc64ee35", "tools/tests/fixtures/render_tpm/tpm.json@e89f170457ee4ea1e9320cbb956771838897f1e6", "tools/tests/fixtures/csa/build_repo.py@6cd4a56bb3b1a4d937ba14688e56b09865926633", "tools/tests/fixtures/csa/cm-plan-05.md@a8595764b288e038b1df20589d1873976ddc1907", "tools/tests/fixtures/csa/expected.json@443c7a8c3ebe3b3eb18156e1b960d40cc94d0004", "tools/tests/fixtures/csa/hand-csa-9fd0962.json@44992dde659f654f754535f1fae513e34ba8023b", "docs/cm/tool-validation/evidence/pdr-tools-2026-09-27.sh@15cc6a048046c7a9b6fd3b368bd0ff408bd9ec2b", "docs/cm/tool-validation/evidence/scad2step-2026-09-27-run1.log.txt@c685c14fe70ec787602facda8753c2b79c6cf409", "docs/cm/tool-validation/evidence/scad2step-2026-09-27-run2.log.txt@b9285807521d35f2a33fe0f86b2dff7860339f10", "docs/cm/tool-validation/evidence/kicad-normalize-fab-2026-09-27-run1.log.txt@a01a63ad6c337052dca10987b5a952df2b52470b", "docs/cm/tool-validation/evidence/render-tpm-2026-09-27-run1.log.txt@f178d683b734125ffe6e60d6e8b3cdb33721538e", "docs/cm/tool-validation/evidence/csa-2026-09-27-run1.log.txt@16673d791f19a867acbce400a4bf4cb944400a40", "docs/cm/tool-validation/evidence/check-commit-msg-2026-09-27-run1.log.txt@ca94682c8d3ab12c93106e49f49ba0d5d1e00834", "docs/cm/tool-validation/evidence/render-tpm-fixture-tpm-status.png@40d42ca79ca08be026647ccacc6d41fc13278ab7", "docs/cm/tool-validation/evidence/render-tpm-fixture-trend-own-yellow-after-status-note.png@6bfb3e19679cbe5a219be60cbd35170b9844141e", "docs/cm/tool-validation/README.md@9400963d35c6c840d3a95ee01d34ebaebed62d98", "tools/toolchain.lock.md@6c7eba57a9777632226ac0d3ff1db2ee360d7396", "tools/README.md@053e6df2b63350629a264324dcf7444f18f2b4cb"]
+product_files_iteration_1: ["docs/cm/tool-validation/TV-015-openscad-freecad-scad2step.md@787a117598ee417f97482dd8ae2e38ba6f160ddd", "docs/cm/tool-validation/TV-016-kicad-cli-normalize-fab.md@88ccf56a0fa28677cdfae43b4840d895e0bee5d4", "docs/cm/tool-validation/TV-017-render-tpm.md@be08df365b75f33c11bb6bf4dc10b5139c28d4f9", "docs/cm/tool-validation/TV-018-csa.md@c28685d58aca44be7985d3185078f5e4d37ed72a", "docs/cm/tool-validation/TV-019-check-commit-msg.md@ff88029f7102bcea04548a1ddc5b49978a6abb55", "tools/scad2step.py@d0277ec8d89967576869be95ee5d0300e1f6af51", "tools/normalize_fab.py@f3eaac395b279bceb32fb3ba850632acfe426782", "tools/render_tpm.py@f37985d67e94998c9de4f790dccac7592f9ccd34", "tools/csa.py@dd9b6fede610f61d033d88222450981315559ed5", "tools/check_commit_msg.py@5488dd98b21220261835a74112b49a508865c346", "tools/tests/test_scad2step.py@2e2fc392ccb5a0cba20e7f519527c2e58134f118", "tools/tests/test_normalize_fab.py@707a22d594671b9125fd5f8134c57d290121e413", "tools/tests/test_kicad_cli.py@780117af30155408b4c4f56574d72cfd261c0b88", "tools/tests/test_render_tpm.py@a6b93352bffd5c15907e4e37209cfe5911c8b17d", "tools/tests/test_csa.py@58672f3ac0b09aadcdabad0ef9d9f28c55ddf041", "tools/tests/test_check_commit_msg.py@d8595b98493088523e448b29e6d99bd2242e9998", "tools/tests/fixtures/openscad/cube.scad@e8898580965f6859f3b53a04fc7bd251cf60e264", "tools/tests/fixtures/openscad/fake/freecadcmd-hang@ba333283d69d18c538cbf78abdc2e0cb19009906", "tools/tests/fixtures/openscad/fake/freecadcmd-silent@00296ab1f43668b73d64243f077c554d31963a28", "tools/tests/fixtures/openscad/fake/openscad-other-version@a66d1f86bfa22033f85cf3f1f7865b07629ed0b1", "tools/tests/fixtures/openscad/known-answers.json@59be16ad719ef3b44d58d829399e8ee03e1845cd", "tools/tests/fixtures/openscad/nonuniform-scale.scad@2c2acb9791a4be0241726bed5c373cda72c5660b", "tools/tests/fixtures/openscad/smoke-shell.scad@3eb43ab5a7966009b5c1dc7dac1c4ae0d4e74465", "tools/tests/fixtures/openscad/taller.scad@4f2a3c9931659257fd4ed5312679b262a78e4869", "tools/tests/fixtures/openscad/twist.scad@36b987989ecdb0122f9f1bb198a3ac78ec6dcb10", "tools/tests/fixtures/openscad/two-roots.scad@edc84f75775682d2d932dcb7def1d19b285db162", "tools/tests/fixtures/openscad/two-solids.scad@396df8f7118b47015112056d3333ce1fce94546e", "tools/tests/fixtures/kicad/clean.kicad_pcb@08d65d3ae7687e6baedf5c168ebeac7f4427580c", "tools/tests/fixtures/kicad/clean.kicad_pro@03cbb6fd496b0e79d5e369d61124be5952c93ea2", "tools/tests/fixtures/kicad/clean.kicad_sch@9bb4d4dcb272867eff63e8a3039ea188cc1461b9", "tools/tests/fixtures/kicad/expected/clean-SHA256SUMS.normalized@d284adf576e474910423d46f9d2479d5e8c85a78", "tools/tests/fixtures/kicad/expected/clean-bom.csv@fd602389e1258c1c02078ca40b24ea3bc298b8de", "tools/tests/fixtures/kicad/expected/clean-cpl.csv@7a1a4c15539d546cda94f4979e4ed2d6eae85e48", "tools/tests/fixtures/kicad/fp-lib-table@2b914a6732f05f444afd43c7838192cb05de60a4", "tools/tests/fixtures/kicad/known-answers.json@f4216971be847fd54ed72fd2b8fdb16ce85ae7dc", "tools/tests/fixtures/kicad/make_expected_normalized.sh@b57067605a0764f2d3db1272defc9fdac1e26389", "tools/tests/fixtures/kicad/make_fixture_pcb.py@871a5f3265d1f132ac7ca86739febd172d0a009e", "tools/tests/fixtures/kicad/make_fixture_sch.py@91cd3ada3a13c2da60f5d84f1fbe89a4c18333f8", "tools/tests/fixtures/kicad/seeded.kicad_pcb@c01cfa3852c400949a5f379b203898cc64c71e5c", "tools/tests/fixtures/kicad/seeded.kicad_pro@71defdc94a9f98a968ca58078df25fa263ab1625", "tools/tests/fixtures/kicad/seeded.kicad_sch@1b1252e79fdad538bf362a36980da1fff68add20", "tools/tests/fixtures/kicad/sym-lib-table@3d6388dc92e476be0048119177a9307c3b0bcebe", "tools/tests/fixtures/render_tpm/expected.json@c6b4787ff14a61e564c9b0852759ac5fbc64ee35", "tools/tests/fixtures/render_tpm/tpm.json@e89f170457ee4ea1e9320cbb956771838897f1e6", "tools/tests/fixtures/csa/build_repo.py@6cd4a56bb3b1a4d937ba14688e56b09865926633", "tools/tests/fixtures/csa/cm-plan-05.md@a8595764b288e038b1df20589d1873976ddc1907", "tools/tests/fixtures/csa/expected.json@443c7a8c3ebe3b3eb18156e1b960d40cc94d0004", "tools/tests/fixtures/csa/hand-csa-9fd0962.json@44992dde659f654f754535f1fae513e34ba8023b", "docs/cm/tool-validation/evidence/pdr-tools-2026-09-27.sh@15cc6a048046c7a9b6fd3b368bd0ff408bd9ec2b", "docs/cm/tool-validation/evidence/scad2step-2026-09-27-run1.log.txt@c685c14fe70ec787602facda8753c2b79c6cf409", "docs/cm/tool-validation/evidence/kicad-normalize-fab-2026-09-27-run1.log.txt@a01a63ad6c337052dca10987b5a952df2b52470b", "docs/cm/tool-validation/evidence/render-tpm-2026-09-27-run1.log.txt@f178d683b734125ffe6e60d6e8b3cdb33721538e", "docs/cm/tool-validation/evidence/csa-2026-09-27-run1.log.txt@16673d791f19a867acbce400a4bf4cb944400a40", "docs/cm/tool-validation/evidence/check-commit-msg-2026-09-27-run1.log.txt@ca94682c8d3ab12c93106e49f49ba0d5d1e00834", "docs/cm/tool-validation/evidence/render-tpm-fixture-tpm-status.png@40d42ca79ca08be026647ccacc6d41fc13278ab7", "docs/cm/tool-validation/evidence/render-tpm-fixture-trend-own-yellow-after-status-note.png@6bfb3e19679cbe5a219be60cbd35170b9844141e", "docs/cm/tool-validation/README.md@763f10829dfc372ead42f7fda9ad2b43d4b871ed", "tools/toolchain.lock.md@4e978efc474adaf34337affe75addc51d5ab3d59", "tools/README.md@053e6df2b63350629a264324dcf7444f18f2b4cb"]
+fixture_trees: ["tools/tests/fixtures/openscad@35e89b482be8449c31385e3712aa42268477955a", "tools/tests/fixtures/kicad@03063f2a45abd42f532e4b035cfac71fe578de90", "tools/tests/fixtures/render_tpm@9a6aff2536b65027c9fc4eb0a424a92fd139dcc9", "tools/tests/fixtures/csa@92fd0e50c0d61bf2c8e71b9e6b7dc518c6733d30"]
 tv_ids: [TV-015, TV-016, TV-017, TV-018, TV-019]
 # tool_class: per record (05 section 9.1): TV-015 A; TV-016 A (kicad-cli exports) and B (ERC, DRC,
 # normalize_fab.py); TV-017, TV-018, TV-019 B. The field holds the highest class of the set
@@ -35,11 +41,15 @@ tool_class: A
 # FreeCAD, kicad-cli), so section G2 is answered for them too
 tool_kind: repository-tool
 acc_proposed: [ACC-SCAD2STEP-001, ACC-KICAD-001, ACC-NORMFAB-001, ACC-TPM-001, ACC-CSA-001, ACC-COMMITMSG-001]
+# product_size: iteration 1 text kept. Iteration 2 delta (2bfe001..99feb43 over the TV-015 products): tool unchanged;
+# test module +81 lines (6 tests, 28 in all); fixture 11 to 15 files (+187 lines: double 14, stand-ins 173) and
+# known-answers.json +48; TV-015 +30 -13 lines; run 2 log 73 lines; lock +4 -3; README +1 -1
 product_size: 5 records (514 lines), 17 purposes, 118 known-answer tests (22 + 38 + 12 + 33 + 13, 0 skipped), 32 fixture files in 4 trees; 5 tools 1990 lines, 6 test modules 1579 lines
 sprint: PDR-prep
 author_agent: "author:WP-PDR-07 wave 1a (Claude as tool owner)"
 tool_author_agent: "author:WP-PDR-07 wave 1a (Claude as tool owner)"
-reviewer_agent: "reviewer:WP-PDR-07-tv-015-to-tv-019-iter1 (independent; authored no part of WP-PDR-07, of TV-015 to TV-019 or of the five tools)"
+reviewer_agent: "reviewer:WP-PDR-07-tv-015-to-tv-019-iter2 (independent; authored no part of WP-PDR-07, of TV-015 to TV-019, of the five tools or of the finding-1 fix)"
+reviewer_agent_iteration_1: "reviewer:WP-PDR-07-tv-015-to-tv-019-iter1 (independent; authored no part of WP-PDR-07, of TV-015 to TV-019 or of the five tools)"
 # criticality: neither (03 sections 4.3.1 and 6.1.1: no tool is a safety-critical or mission-critical
 # component). 07 section 2.1.1: TV records have no row; code of a "Neither" component needs no assurance review
 # unless the file holds unsafe (Python has none). The swe-136 and swe-070 section 7.1 tasks are answered in
@@ -47,33 +57,45 @@ reviewer_agent: "reviewer:WP-PDR-07-tv-015-to-tv-019-iter1 (independent; authore
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
-# readiness_met: false only for R3 (validate_docs exits 1 on eight other records' drift; test_repository_exit_zero
-# fails for that reason); R1, R2, R4, R5 are met and the review was held on the frozen products
-readiness_met: false
-reviewer_verdict: NEEDS CHANGES
+iteration: 2
+# readiness_met (iteration 2): true. R1, R2, R4 and R5 are met on the re-frozen products. R3 still fails, and only
+# for other records: validate_docs exits 1 on eight other records' drift (97 passed, 8 failed at 1353bb3; this record
+# PASS) and test_validate_docs.RepositoryTests.test_repository_exit_zero fails for that reason (550 tests, 1
+# failure). Iteration 1 held R3 against readiness; this iteration reads it as "No, not attributable to this
+# product", as INSP-040 and INSP-041 iteration 2 did for the same condition (section "Iteration 2", R3 row).
+# Iteration 1 value: false
+readiness_met: true
+# reviewer_verdict (iteration 2): APPROVED. finding-1 (Major) Verified; findings 2 to 11 are Minor and Open, liens due
+# at the CDR readiness declaration (plan rule C1; PDR package section 15). Iteration 1: NEEDS CHANGES
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+# verdict: APPROVED. No software assurance pair is required (07 section 2.1.1: code of a "Neither" component
+# without unsafe; TV records have no row; cross item X-7), and every reviewed blob is on main (no cr/ branch blob),
+# so the record verdict follows the reviewer verdict. Accreditation stays the owner's decision (05 section 9.2 step 3)
+verdict: APPROVED
 findings_major: 1
 findings_minor: 10
-findings_open: 11
+findings_open: 10
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: [swe-136 7.1 task 1, swe-070 7.1 task 1]
 unsafe_sites_reviewed: 0
 deferred_rids: []
-items_no: [TV-A2, TV-B2, TV-B3, TV-C2, TV-E1, TV-F1, TV-G1-1, CK-CODE-E1, CK-CODE-E9, CK-CODE-G1]
-effort_turns: 85
-effort_minutes: 55
+# items_no (iteration 2): TV-F1 is Yes for every record now (it was No for TV-015 only, finding-1). TV-B3 and TV-C2
+# stay No for TV-017 and TV-018 (Minor findings 5, 6, 7), and are Yes for TV-015
+items_no: [TV-A2, TV-B2, TV-B3, TV-C2, TV-E1, TV-G1-1, CK-CODE-E1, CK-CODE-E9, CK-CODE-G1]
+# effort (cumulative; iteration 2: 34 turns, 40 minutes)
+effort_turns: 119
+effort_minutes: 95
 record_status: Open
 date: 2026-09-27
 date_closed: null
 ---
 
-# Peer review record INSP-088: tool validation TV-015 to TV-019 (WP-PDR-07 wave 1a tools), iteration 1
+# Peer review record INSP-088: tool validation TV-015 to TV-019 (WP-PDR-07 wave 1a tools), iterations 1 and 2
 
 **Products:** the five TV records `docs/cm/tool-validation/TV-015-openscad-freecad-scad2step.md` to `TV-019-check-commit-msg.md`, the five tools, their six known-answer modules, the four fixture trees, the procedure and the six run 1 transcripts, the two inspected renders, the TV index, `tools/toolchain.lock.md` and `tools/README.md`, all at the freeze commit `2bfe001` on `main` (`product_files`; each blob recomputed with `git rev-parse 2bfe001:<path>` and `HEAD:<path>` at HEAD `c91a9eb`: all 32 path identities of the brief equal, and the fixture trees `d9ab4c7d`, `03063f2a`, `9a6aff25`, `92fd0e50` equal). After that check, `d9c7f69` (TV-014 run 4) changed `tools/toolchain.lock.md` to blob `83bc0520`. `git diff 2bfe001 HEAD -- tools/toolchain.lock.md` touches only the LTspice rows (sections 1, 1.1, 1.2, 1.4 finding 15, the section 5 TV-014 row, history). No row this record cites changed, so the reviewed blob stays `4e978efc`. **Checklists:** the tool validation checklist of WP-PDR-03 (revision A, blob `7be809d4`, CR-012 branch), applied item by item to each record in sections A to H below, and the code checklist revision B for the five sources (section "Code review").
 
@@ -334,4 +356,107 @@ FINDINGS:
 ITEMS N/A: TV-C4 (TV-017 to TV-019, no 05 section 9.2 row), TV-D3 (class B records), TV-F5 (first records), TV-G2 (TV-017 to TV-019), TV-G3, TV-G4, TV-H1; Rust-specific code items listed above
 RE-RUN: the six modules; exit 0 each; 22, 24, 14, 12, 33, 13 tests, 0 skipped; same as runs 1
 MEASUREMENTS: size=5 records, 17 purposes, 118 tests, 32 fixture files, 1990 tool LOC; turns=85; minutes=55; major=1; minor=10; unsafe_sites=0
+```
+
+## Iteration 2: delta verification of finding-1 (Major) (2026-09-27, HEAD `1353bb3`)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the finding-1 fix only. The author left the Minor findings 2 to 11 untouched, and they are not re-reviewed. The fix takes the second route that finding-1 offered: seeded C4 and C6 cases run through a test double of the `FreeCAD`, `Part` and `importCSG` modules. The author did not narrow the purpose.
+
+**Products.** The ten identities the fix changed or added, at the re-freeze commit `99feb43` on `main`. TV-015 run 2 tested `989d257`.
+- `TV-015` blob `4669c5ec`.
+- `tools/tests/test_scad2step.py` blob `bd38fe2b`.
+- `known-answers.json` blob `05520747`.
+- `fake/freecadcmd-api-double` blob `e6de6ad2` (mode 100755).
+- `fake/freecad_api/FreeCAD.py` blob `ccdc3e1b`, `Part.py` blob `549f799f` and `importCSG.py` blob `e8d4a46d`.
+- The run 2 log, blob `b9285807`.
+- The TV README, blob `9400963d`.
+- The lock, blob `6c7eba57`.
+
+The tool `tools/scad2step.py` is unchanged: blob `d0277ec8` at `2bfe001`, `989d257`, `99feb43` and HEAD. The fixture tree is `35e89b48` (15 files). Its digest was recomputed from `git ls-files | sort | shasum -a 256`: `72b0ab2d...`, equal to the run 2 transcript. The SHA-256 of the test module and the tool were recomputed too: `78c7480b...` and `004c0b3f...`, equal. `git rev-parse 99feb43:<path>` equals `HEAD:<path>` for all 64 `product_files`. `git diff --stat 99feb43 HEAD` touches only `docs/plan/status/status-2026-09-27.md`. `git status --short` shows no change under `tools/` or `docs/cm/`. The lock diff `83bc0520..6c7eba57` changes 3 rows and adds 1 row, all TV-015: section 1.1 line 96, section 1.2 line 128, section 5 line 270 and a history row. The LTspice rows are as `d9c7f69` left them. The TV-016 to TV-019 products are unchanged since `2bfe001`. The checklists are the same as iteration 1: tool validation checklist revision A (blob `7be809d4`, CR-012 branch, not merged) and the code checklist revision B.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-07, of TV-015, of the tool, of the test double or of iteration 1 of this record. It edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search, with the query "INSP-088 tool validation TV-015 scad2step review record finding-1 C4 C6". `grep -n` then only pinned lines in the plan, `tools/validate_docs.py`, the tool and TV-015. **Headless.** The runs wrote only to the session scratchpad and to `mktemp` directories. Nothing was downloaded or installed. **LTspice:** not run. `test_ltspice_batch.py` was left out of every run.
+
+### Verification of finding-1, case by case (rule C7)
+
+The cases are the finding-1 locations, the two refusals purpose 2 claims (C4, and C6 with its three raise statements, one of which has two operands), the "exit 1 and no STEP left" rule, and the checks the fix needs to be a valid known answer: hand-derived expected values, no dependence on the fixture's own tool output, and a control case.
+
+| # | Case | Reviewer check | Result |
+|---|---|---|---|
+| 1 | C4 is reached: a CompSolid of two solids is refused with exit 1 and `SCAD2STEP FAIL C4:` | Code path read: the CompSolid of the double passes C3 (`ShapeType` in `("Solid", "CompSolid")`, valid) and fails at line 138 (`len(shape.Solids) != 1`). A Compound of two solids would stop at C3, so a CompSolid is the only shape that reaches C4, and the double uses it. `test_c4_compsolid_of_two_solids` asserts exit 1, the marker `SCAD2STEP FAIL C4: STEP must hold exactly one solid, got 2` on stdout and its text on stderr, no STEP left, and no export logged | Yes |
+| 2 | C6 "FreeCAD wrote no STEP file" (line 146) is reached | `c6-no-file`: the double's `Part.export` logs "not written" and writes nothing; the test expects the line 147 marker | Yes |
+| 3 | C6 read-back check (line 149), both operands: `len(back.Solids) != 1` and `not back.isValid()` | `c6-two-solids` (2 solids, valid) exercises the first operand alone. `c6-invalid` (1 solid, not valid) exercises the second alone. The expected markers `holds 2 solid(s), valid True` and `holds 1 solid(s), valid False` are the line 150 format string filled in by hand | Yes |
+| 4 | C6 volume check (line 152), with the tolerance on both sides | Shape 6000 mm^3, so the limit is 1e-6 x 6000 = 0.006 mm^3. The control reads back 6000.003 (0.003 inside the limit), and it passes. `c6-volume` reads back 6000.012 (0.012 outside), and it fails with `STEP volume 6000.012000 differs from the shape volume 6000.000000` (`:.6f`, hand-filled). The two cases bracket the limit, so the comparison direction and the scale are fixed | Yes |
+| 5 | "No STEP left" after each refusal, with a STEP that existed | The double logs each export. `export_logged` is true for `c6-two-solids`, `c6-invalid` and `c6-volume`, so the file existed and was removed. For C4, a stale STEP placed at `--step` before the run is gone afterwards | Yes, see observation O-1 |
+| 6 | The control case shows the double reaches PASS when no fault is seeded, so a refusal is not an artefact of the double | `test_control_case_passes`: exit 0, `SCAD2STEP PASS wrote <step>`, STEP present, and every KAT field equal to the hand values. The box mesh volume of 6000.000 over 12 facets is the product 30 x 20 x 10. C7 passes at 0 % error. `freecad=1.1.3` | Yes |
+| 7 | The expected values are hand-derived, not taken from tool output | `known-answers.json` block `scad2step.api_double` holds the raise format strings filled in by hand. The reviewer filled in the format strings of lines 139, 147, 150 and 153 independently and got the same six markers | Yes |
+| 8 | The checks run are the tool's own at blob `d0277ec8`, not a copy | The driver passes `os.path.abspath(__file__)` to the `freecadcmd` hook (line 275). The double runs `"$CWHT_FAKE_PYTHON" "$@"` with `PYTHONPATH` set to `fake/freecad_api/`, so `_in_freecad()` is true and `freecad_convert()` of the tool file runs. The stand-ins model shapes only. They contain no check logic | Yes |
+| 9 | Reviewer mutation check (independent of the author's) | 14 mutants of scratch copies of the tool, each run with `-k ApiDoubleTests` against the committed module and fixture. Killed (at least one test fails): remove C4; move C4 after the export; remove the C6 no-file check; remove the whole read-back check; drop the solids operand; drop the `isValid()` operand; remove the volume check; compare the read-back with itself; tolerance 1e-5; tolerance 1e-7 (the control fails). 10 of 10 check-logic mutants were killed. The 3 single-layer no-STEP mutants survived, and their combination was killed (O-1) | Yes |
+| 10 | TV-015 purpose 2 (finding-1 location, line 31) | It now names the three C6 sub-cases. It says C2, C3, C5 and C7 are validated with FreeCAD 1.1.3, and C4 and C6 against the double (limitation 2). The purpose is no wider than its known answer | Yes |
+| 11 | TV-015 section 3 (finding-1 location, line 63) | Sentence replaced by the `ApiDoubleTests` table (six cases, stand-in shape and expected result for each) and the author mutation note. The markers in the table equal `known-answers.json`. Pass criteria: 28 tests. The per-class counts (6, 9, 5, 3, 1, 2, 1, 1) add to 28 and equal the run 2 transcript | Yes |
+| 12 | TV-015 limitation 2 (finding-1 location, line 98) | It states what the double shows (the check logic, exit 1, no STEP) and what it does not show (that FreeCAD 1.1.3 can produce such a result, or that the stand-in reproduces FreeCAD's reporting). This is consistent with the code | Yes |
+| 13 | ACC-SCAD2STEP-001 (finding-1 location, line 119) | The scope now bounds purpose 2: C2, C3, C5 and C7 validated with FreeCAD 1.1.3; C4 and C6 "as check logic against the FreeCAD API test double only (limitation 2)". The rest is unchanged | Yes |
+| 14 | TV-015 run 2 result, tied to a commit (INSP-015 F-02) | Run 2 row: 13:48 CDT, `989d257`, 28 of 28, 0 skipped, part D normalized `f2b3afbf...` equal to run 1. The transcript agrees line for line: part A all "unchanged from HEAD", 0 untracked, versions 2021.01 and 1.1.3, `Ran 28 tests`, `RESULT normalized STEP identical` | Yes |
+| 15 | Index rows (TV-F3) | README TV-015 row, lock section 1.2 row (blob `bd38fe2b`, 28 tests), section 5 row and the header all say Validated with run 2 at `989d257`. The section 1.1 row and the history row describe run 2 and limit C4 and C6 to check logic | Yes |
+| 16 | Re-validation trigger covers the double | TV-015 section 7 first trigger: any change of `tools/tests/fixtures/openscad/`, which contains `fake/freecad_api/` | Yes |
+| 17 | No em dashes added | 0 in the added lines of the ten changed files | Yes |
+
+**Result: finding-1 Verified.** TV-B3, TV-C2 and TV-F1 are Yes for TV-015. The same holds for the INSP-015 F-01 class: the purpose and the scope are no wider than the known answers.
+
+**Observation O-1 (no finding).** A refusal removes the STEP in two places: FreeCAD mode (`_fail`, and the stale-file removal at line 114) and the driver (line 292). The `ApiDoubleTests` fail only when both are removed. That is sufficient for the accredited entry point, the driver named in ACC-SCAD2STEP-001. For the `freecadcmd tools/scad2step.py` form that 05 section 8.2 step 3 prints, only the FreeCAD-mode layer applies, and no test isolates it. That form is outside the proposed scope, and cross item X-3 already routes the 05 wording.
+
+**Code checklist on the added test code (CK-CODE, language-neutral items).** The double exits 0 like the real `freecadcmd` (lock section 1.4 finding 4). When `CWHT_FAKE_PYTHON` is unset it prints a line and gives no marker, which is the "no marker" path, exit 1. An unknown case raises. The stand-ins model only the attributes FreeCAD mode uses: Version, ParamGet, newDocument, addObject, Shape.ShapeType, Solids, Faces[].Surface, Volume, isValid, removeSplitter, Part.export, Part.read and importCSG.insert. `HOOKS` in the module now clears the three `CWHT_FAKE_*` variables. No finding.
+
+### Readiness criteria (iteration 2)
+
+| # | Answer | Evidence |
+|---|---|---|
+| R1 | Yes | 64 of 64 `product_files` equal at `99feb43` and HEAD; `git ls-tree -r 99feb43 tools/tests/fixtures/openscad` gives the 15 files, tree `35e89b48`; nothing uncommitted under the product paths |
+| R2 | Yes | `.venv/bin/python -m unittest discover -v -s tools/tests -p test_scad2step.py`, 13:56 CDT at HEAD `1353bb3` (every TV-015 blob equal to `99feb43`): 28 run, 28 passed, 0 skipped, 32.2 s |
+| R3 | No, not attributable to this product | 13:59 to 14:00 CDT: the 20 modules other than `test_ltspice_batch.py`, one by one: 550 tests, all pass except `test_validate_docs.RepositoryTests.test_repository_exit_zero`. `validate_docs.py`: 97 passed, 8 failed, and this record passes. The 8 failures are record drift of other records: the SRR ADR, TS and 02 records; INSP-015 on the TV README and lock (drift since before iteration 1; each TV status update moves those blobs); and the PDR `cm-plan-05-software-assurance`, `configuration-status` and `lessons-learned` records on CR-007. Read as INSP-040 and INSP-041 iteration 2 read it |
+| R4 | Yes | Case 15 |
+| R5 | Yes | The author summary lists the route, the added cases, the mutation check, run 2 with commit and counts, and the scope change |
+
+### Per-record result (iteration 2)
+
+| TV record | Commit tested | Reviewer re-run (command, exit, result) | Items answered No (TV-015) | Finding ids |
+|---|---|---|---|---|
+| TV-015 | `989d257` (run 2); re-frozen at `99feb43` | R2 row above: exit 0, 28 of 28, 0 skipped. Mutation check, case 9 | TV-A2, TV-B2, CK-CODE-E1 (Minor findings 2 to 4; TV-B3, TV-C2 and TV-F1 now Yes) | finding-1 Verified; finding-2 to finding-4 Open (liens) |
+
+TV-016 to TV-019: unchanged products, not re-reviewed (rule C1).
+
+### Findings (iteration 2; current state of every finding)
+
+| Finding | Origin | Severity | Item | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | TV-B3, TV-C2, TV-F1 | Verified (iteration 2; route 2, seeded C4 and C6 through the FreeCAD API test double at `989d257`, TV-015 re-frozen at `99feb43`) | N/A | |
+| finding-2 | reviewer | Minor | TV-A2 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+| finding-3 | reviewer | Minor | CK-CODE-E1, CK-CODE-E6 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+| finding-4 | reviewer | Minor | TV-B2 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+| finding-5 | reviewer | Minor | TV-B3, TV-C2 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+| finding-6 | reviewer | Minor | TV-B3, CK-CODE-E1 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+| finding-7 | reviewer | Minor | TV-C2, R5 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+| finding-8 | reviewer | Minor | TV-E1 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+| finding-9 | reviewer | Minor | TV-G1-1 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+| finding-10 | reviewer | Minor | TV-E1, CK-CODE-E1 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+| finding-11 | reviewer | Minor | CK-CODE-E9, CK-CODE-G1 | Open (lien, plan rule C1) | Pending | CDR readiness declaration |
+
+No new finding.
+
+### Cross items (iteration 2)
+
+- X-1 still applies. TV-015 section 8, and the README and lock section 5 "pending" cells, name `tool-validation-tv-014-to-tv-019.md`. The TV author's section 8 entry should name INSP-088 and this path. After that, a reviewer re-issue at this iteration confirms that the diff is confined to sections 8 and 9, the status line and the status rows (TV template, "The reviewer edits no TV record"). From that edit until the re-issue, the record drift rule fails this APPROVED record.
+- X-7 still applies: no software assurance pair. The added files are Python test code of a "Neither" component with no `unsafe`.
+
+### Completion criteria (SWE-088), iteration 2
+
+No Major finding is open, and readiness is met (R3 not attributable). Findings 2 to 11 are Minor liens due at the CDR readiness declaration (plan rule C1; PDR package section 15). `reviewer_verdict: APPROVED`, `assurance_verdict: not-required` and `verdict: APPROVED`. TV-015 to TV-019 can each move to Reviewed, with no open Major. Accreditation (ACC-SCAD2STEP-001, ACC-KICAD-001, ACC-NORMFAB-001, ACC-TPM-001, ACC-CSA-001, ACC-COMMITMSG-001) is the owner's decision (05 section 9.2 step 3).
+
+```
+ITERATION 2 (2026-09-27, HEAD 1353bb3, product commit 99feb43, run 2 at 989d257): VERDICT: APPROVED (reviewer APPROVED; assurance not required)
+FINDINGS:
+- [Major] finding-1: Verified (C4 and the three C6 raises, both read-back operands, reached through the FreeCAD API test double; control passes; 10 of 10 check-logic mutants killed; purpose 2, section 3, limitation 2 and ACC-SCAD2STEP-001 bounded to check logic).
+- [Minor] finding-2 to finding-11: Open, not in the delta (liens due the CDR readiness declaration).
+OBSERVATION: O-1 the no-STEP rule is covered only jointly by the FreeCAD-mode and driver layers (driver is the accredited entry point).
+RE-RUN: test_scad2step.py exit 0, 28 of 28, 0 skipped; 20 modules 550 tests, 1 failure (repository drift, not this product); validate_docs 97 passed, 8 failed (other records), this record PASS
+MEASUREMENTS: blobs equal HEAD 64/64; cases 17/17 Yes; mutants 14 (10 check-logic killed, 3 single-layer survived, 1 combined killed); major open=0; minor open=10; turns=34; minutes=40 (cumulative 119 and 95); iteration=2
 ```
