@@ -4,12 +4,13 @@ checklist: peer-review-checklist-risk
 checklist_revision: A
 checklist_file: docs/reviews/SRR/checklists/risk-register-06.md
 product: docs/risk/register.json
-# product_commit: HEAD at iteration 3 re-issue 2 (post-SRR-ruling delta, review baseline ebe5873); iteration 3 re-issue 1 baseline was adcfe09; iteration 1 and 2 base commit was 28e49e6
-product_commit: "ebe5873a5151c19e141958e31cf9559f78f5154c"
-# product_files: committed blobs reviewed at iteration 3 re-issue 2 (git rev-parse HEAD:<path> at ebe5873, 2026-09-26; register changed only in 9bdf33c since adcfe09, 06 unchanged);
+# product_commit: the WP-PDR-18 Track pass commit at iteration 3 re-issue 3 (finding-18 delta, 2026-09-27); re-issue 2 baseline was ebe5873; re-issue 1 baseline was adcfe09; iteration 1 and 2 base commit was 28e49e6
+product_commit: "4df6606ec6f32c1865a9d3e695c2629e1100e58d"
+# product_files: committed blobs reviewed at iteration 3 re-issue 3 (git rev-parse 4df6606:<path>, identical at HEAD 5dc09ba, 2026-09-27; 06 unchanged);
+# iteration 3 re-issue 2 blobs (ebe5873): register.json 0c25c0c5, register.md a3a983e5, 06 7a92d21f;
 # iteration 3 re-issue 1 blobs (adcfe09): register.json 57f64995, register.md 77b864a0, 06 7a92d21f;
 # iteration 2 working-tree blobs: register.json 2903601e, register.md 761f3731, 06 7a92d21f (06 unchanged)
-product_files: ["docs/risk/register.json@0c25c0c5b6ca801b02e47c29c19bb8ed44aa5c79", "docs/risk/register.md@a3a983e5cdf7e769666fab26d5f2e7f3b373db1f", "docs/process/06-risk-and-decision-analysis.md@7a92d21f24a1733d70ae083576e708274bfd1a6d"]
+product_files: ["docs/risk/register.json@6685aa0eadc9e8bd806f1920e20d2209e8ae130e", "docs/risk/register.md@f8c28b363035cc3ce4cb15a5f7c0056f95febbf7", "docs/process/06-risk-and-decision-analysis.md@7a92d21f24a1733d70ae083576e708274bfd1a6d"]
 product_size: 65 active risks and 159 candidates; plan 06 (17 sections) (iteration 1: 59 and 130)
 sprint: SRR-prep
 author_agent: "author:risk-manager (Claude main session, lead SE and risk manager; register 0.5.1-pre-srr, SRR readiness items H9 and F6)"
@@ -22,20 +23,20 @@ readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
-# finding-17 is new at iteration 3, finding-18 at iteration 3 re-issue 2; findings_deferred counts the three liens (finding-16, finding-17, finding-18: Lien, fix before PDR)
+# finding-17 is new at iteration 3, finding-18 at iteration 3 re-issue 2 and Fixed at re-issue 3; findings_deferred counts the two remaining liens (finding-16, finding-17: Lien, fix before PDR)
 findings_major: 4
 findings_minor: 14
 findings_open: 0
-findings_fixed: 15
+findings_fixed: 16
 findings_verified: 0
-findings_deferred: 3
+findings_deferred: 2
 deferred_rids: []
-# iteration 3 re-issue 2 answers (re-issue 1: CK-REQ-G1; iteration 2: CK-RSK-A10, CK-REQ-G1; iteration 1: CK-RSK-A1, A2, A3, A4, A7, A8, A10, A11, CK-REQ-G1, G2, G4, G6)
-items_no: [CK-RSK-A2, CK-REQ-G1]
-effort_turns: 116
-effort_minutes: 170
+# iteration 3 re-issue 3 answers (re-issue 2: CK-RSK-A2, CK-REQ-G1; re-issue 1: CK-REQ-G1; iteration 2: CK-RSK-A10, CK-REQ-G1; iteration 1: CK-RSK-A1, A2, A3, A4, A7, A8, A10, A11, CK-REQ-G1, G2, G4, G6)
+items_no: [CK-REQ-G1]
+effort_turns: 124
+effort_minutes: 180
 record_status: Open
-date: 2026-09-26
+date: 2026-09-27
 date_closed: null
 ---
 
@@ -384,6 +385,39 @@ New-defect scan of the `9bdf33c` hunks: no em dash in `register.json` or `regist
 
 **Cross items (outside the product; for Claude to route).** (1) `tools/traceability.py` rule `HAZARD_REQ_NOT_TESTED` against the CR-002 (decision 113) Inspection method for documentary hazard controls (REQ-SYS-122, 124, 137, 138). (2) `docs/process/rmm.json` SWE-033 status (render_rmm check). (3) The register Track pass of finding-18 should precede the INSP-008 and hazard analysis re-check of the HZ-001 and HZ-008 risk links, since RSK-030 moves to *Accepted*, which the hazard link rule no longer counts as carrying HZ-001 (RSK-016 and others still carry it; `--hazards` to be re-run after the pass).
 
+## Finding-18 delta (iteration 3 re-issue 3, independent reviewer, 2026-09-27)
+
+**Scope and independence.** `reviewer:WP-PDR-18-risk-register`, a new invocation that authored no register entry, no part of the Track pass and no part of 06, and edited no product file. Trigger: `docs/plan/pdr-work-plan.md` WP-PDR-18 names an "INSP-007 delta for the SRR liens" beside the PDR record. The Track pass commit `4df6606` (Log class, 05 Table 4-1 row 14) moved `register.json` from `0c25c0c5` to `6685aa0e` and `register.md` from `a3a983e5` to `f8c28b36`; 06 is unchanged (blob `7a92d21f`). The full check of that commit is `docs/reviews/PDR/checklists/risk-register.md` (INSP-036, iteration 1, APPROVED with five Minor liens); this delta records only what it means for the liens of this record. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep -n`.
+
+| Finding | Re-issue 3 result | Evidence | State |
+|---|---|---|---|
+| finding-18 (a) RSK-030 | *Accepted*, `acceptance` {decision memo, 2026-09-26, residual score 4}, S1 Done, citation clause moved to S3 (due PDR) | INSP-036 rule C7 table | Fixed |
+| finding-18 (b) SRR-due steps | RSK-028 S2, RSK-030 S1, RSK-046 S1 Done with the memo as evidence; no step due SRR is Planned or InProgress in the register | INSP-036 rule C7 table | Fixed |
+| finding-18 (c) RSK-008 | Dated note and condition clause for decision 11 | INSP-036 rule C7 table | Fixed |
+| finding-18 RSK-016, RSK-046 wording | RSK-046 rationale re-assessed on REQ-SYS-182 in the past tense; the RSK-016 wording this record quoted sits in a 2026-09-25 history note, and the Track entry records decisions 17 to 20 in the past tense (history is append-only) | INSP-036 rule C7 table | Fixed |
+| finding-18 (d) statuses | 0 Proposed; 55 Open, 9 Mitigating, 1 Accepted; INSP-036 re-performs the Analyze check at the 06 section 9 path and passes all 65 | INSP-036 CK-RSK-A2 | Fixed |
+| finding-16, finding-17 | 06 unchanged (blob `7a92d21f`); C-140 and C-141 are WP-PDR-18 final-pass outputs | `git log 4df6606^..HEAD -- docs/process/06-risk-and-decision-analysis.md` empty | Lien (unchanged) |
+
+Cross item (3) of re-issue 2 is answered: *Accepted* is an active status for the hazard link rule (`tools/render_risk.py` line 67, `INACTIVE = {"Closed", "Retired"}`), and `render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` exits 0 on the Track pass blob.
+
+**Re-issue 3 answers** (items not listed keep their earlier answer).
+
+| Item | Answer | Evidence |
+|---|---|---|
+| CK-RSK-A1 | Yes | `render_risk.py --check --gate SRR --hazards docs/safety/hazards.json`: "register OK: 65 risks, 159 candidates, 0 warning(s), jsonschema used, gate SRR, hazard cross-check", exit 0 |
+| CK-RSK-A2 | Yes | No risk is *Proposed* (finding-18 (d) Fixed) |
+| CK-RSK-A10 | Yes | The rulings named in finding-18 are transcribed with dated `history` entries citing their decision numbers |
+| CK-REQ-G1 | No | finding-16 and finding-17 (liens, unchanged) |
+
+**Lien table (re-issue 3).**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-16 | Minor | Lien: fix before PDR (unchanged) | Risk manager (06 author) | PDR readiness declaration (WP-PDR-18 final pass, C-140, C-141) |
+| finding-17 | Minor | Lien: fix before PDR (unchanged) | Risk manager (06 author) | PDR readiness declaration (WP-PDR-18 final pass, C-140, C-141) |
+
+**Counts after re-issue 3.** 18 findings: Closed or Fixed 16 (Major 4, Minor 12), Lien 2 (Minor), none open. Open Major 0. Verdict APPROVED with liens under the convergence rule. The software lead sets the Fixed findings Verified and closes the record after finding-16 and finding-17 are fixed.
+
 ## Verdict (returned by the reviewer)
 
 ```
@@ -391,4 +425,5 @@ ITERATION 1 (2026-09-25): VERDICT: NEEDS CHANGES. Major 4, Minor 11, all Open.
 ITERATION 2 (2026-09-25): VERDICT: NEEDS CHANGES (readiness R1 not met, outside the product). Closed 14, all four Major among them; the first finding closed with the author's dispute accepted. Still open: 2 Minor (finding-9 package and 07 text, dispute not accepted; finding-16 new, 06 section 17 hazard row). No Major remains.
 ITERATION 3 (2026-09-26): VERDICT: APPROVED (with liens). Committed blobs register.json 57f64995, register.md 77b864a0, 06 7a92d21f. finding-9 Closed; Liens 2 (finding-16, finding-17 new: 06 stale alignment rows, fix before PDR). No Major remains; readiness met.
 ITERATION 3 RE-ISSUE 2 (2026-09-26, post-SRR-ruling delta at HEAD ebe5873): VERDICT: APPROVED (with liens). Committed blobs register.json 0c25c0c5, register.md a3a983e5, 06 7a92d21f. Delta 9bdf33c applies SRR decision 14 correctly (plan_approval on exactly the 32 Red risks). finding-18 new Minor: rulings 32, 17, 9 and 40, 11 not yet transcribed into the register and the 65 risks still Proposed; Lien: fix before PDR. Liens 3 (finding-16, 17, 18). Open Major 0.
+ITERATION 3 RE-ISSUE 3 (2026-09-27, finding-18 delta on the WP-PDR-18 Track pass 4df6606): VERDICT: APPROVED (with liens). Committed blobs register.json 6685aa0e, register.md f8c28b36, 06 7a92d21f. finding-18 Fixed (full check in INSP-036). Liens 2 (finding-16, 17). Open Major 0.
 ```
