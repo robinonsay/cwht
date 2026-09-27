@@ -16,7 +16,7 @@
 | 5 | **Tue 09-29 morning, hard deadline** | Send the PCBWay email and run the instant quotes (OA-4, OD-04); answers are due 09-30, before the factory closes 10-01 to 10-04 (`docs/plan/schedule.md` §3) | 2 | 30 min |
 | 6 | Tue 09-29, session B1a | Answer the B1a rows of section 8 | 8 | 20 min |
 
-Section 1 is the CR disposition brief of WP-PDR-01. Sections 2 to 7 are the WP-PDR-04 outputs (a) to (f); section 8 is output (g).
+Section 1 is the CR disposition brief of WP-PDR-01. Sections 2 to 7 are the WP-PDR-04 outputs (a) to (f); section 8 is output (g). Section 11 is the charter edit list of WP-PDR-13 (OD-31).
 
 ## 1. CR disposition brief (written by WP-PDR-01)
 
@@ -448,7 +448,7 @@ The recommendation and source of each row are those of plan §6.1; this table on
 | OD-09 | TBR values batch 2 | B3 Sun 10-04 |
 | OD-22 | Keyer HSI verdict and mockup evaluation (bench session Sat 10-03) | B3 Sun 10-04 |
 | OD-24b | TV records cited by F1 products | B3 Sun 10-04 |
-| OD-31 | Charter edits drafted by WP-PDR-13 and WP-PDR-17 | B3 Sun 10-04 |
+| OD-31 | Charter edits drafted by WP-PDR-13 and WP-PDR-17 (section 11, CE-1 to CE-3) | B3 Sun 10-04 |
 | OD-35 | As SMA TA, concurrence in the re-run safety-critical determination | B3 Sun 10-04 |
 | OD-37 | Dispositions of PCR-5, PCR-6 and the remaining PCR-9 | B3 Sun 10-04 |
 | OD-11 | Close the Verified SRR log items; verify RFA-SRR-008 | B4 Tue 10-06 |
@@ -483,3 +483,17 @@ The recommendation and source of each row are those of plan §6.1; this table on
 | (e) PDR equipment list draft | 6 | C-209 (OA-6) and C-210 (OQ-VV-002) prompts; C-061 equipment confirmation (OQ-SAF-019); OD-26, OD-19, OD-22, OD-32; CR-003 §5 step 19; CR-006 §12 Q5, Q6 and its §4 equipment list items; OQ-VV-003; RID-SRR-011 source question |
 | (f) regulatory corpus additions | 7 | C-062 (OQ-SAF-024 corpus rows); OD-24a; DECISION-10 check (OD-39) |
 | (g) owner decision list | 8 | Plan §6.1 OD-01 to OD-39 ordered by session; C-091 and C-092 prompts (OD-28) |
+
+## 11. Charter edit list for the owner (written by WP-PDR-13; OD-31, C-113)
+
+**Why this list.** The charter changes only by your hand (charter §1; agents never edit `docs/process/00-charter.md`, 08 §1 SCOPE). The SRR records and rulings left three charter wording items due before PDR. Each is drafted below with the exact text to replace, for your decision at session B3, Sun 10-04 (OD-31), before freeze F1. Charter read at blob `41575d21` (last changed at `6ea6b1d`). WP-PDR-17 may add edits to this list for OD-31 (plan section 6.1). If you approve an edit, make it in the charter yourself, or tell Claude "apply CE-n as drafted" and Claude transcribes your words into the status note, and you commit the charter change. Nothing below changes a process, a requirement, a baseline or a tailoring disposition.
+
+| Id | Charter location | Before (verbatim) | After (proposed) | Source | Recommendation |
+|---|---|---|---|---|---|
+| CE-1 | §12 tailoring register, row "Human Systems Integration (SE-65/66)", Rationale cell | "HSI approach is a section of the SEMP covering controls, display, audio, key/paddle ergonomics and RF-exposure safety." | "HSI approach is SEMP §7.3.1, covering controls, display, audio, key/paddle ergonomics and RF-exposure safety, instead of the stand-alone HSI Plan that NPR 7123.1D §5.2.1.3 strongly recommends for Category 1 and Class A programs and projects (applied to cwht because of the owner's Class A and Criticality-1 election, charter §1); that section leaves the location to the project manager, who chose a SEMP section at SRR (decision 2) because cwht has one operator population with one set of tasks, no crew, habitat, manpower or personnel-selection domains, and HSI content that fits one section on the SE HB App. R outline." | SRR decision 2 ("add the rationale to the charter section 12 HSI row", `docs/reviews/SRR/decisions-for-owner.md`); SEMP Appendix F item F-08 and Appendix E OQ-SE-001; SEMP §7.3.1 rationale paragraph; carried item C-113 | Approve. It records a decision you already made; the disposition stays Customized |
+| CE-2 | §10, closing parenthesis of the safety-critical component sentence | "(SRR decisions 9 and 10 (a); the single authoritative component list is `docs/process/07-software-engineering-plan.md` §14.1, updated from the hazard analysis)" | "(SRR decisions 9, 10 (a) and 40; the determination record is `docs/process/03-software-classification-and-rmm.md` §4.3 and the single authoritative component list is `docs/process/07-software-engineering-plan.md` §14.1, both re-run from the hazard analysis at PDR and CDR)" | 03 §6.5 item g (as revised by CR-010); CR-010 §12 Q3; 07 §22 rows "Menu override command path ruling" and "Frequency-control determination"; SRR decision 40 adopted REQ-SYS-182 and so created the frequency verification unit the sentence already names | Approve, with CR-010. If you reject CR-010, CE-2 still holds: decision 40 is your ruling of 2026-09-26 either way |
+| CE-3 | §3, paragraph after the life-cycle table, first sentence | "Entrance and success criteria for SRR, PDR, CDR, TRR and SAR are tailored from NPR 7123.1D App. G Tables G-4, G-6, G-7, G-10 and G-11," | "Entrance and success criteria for SRR, PDR, CDR, TRR and SAR are tailored from NPR 7123.1D App. G Tables G-3 and G-4 (SRR), G-5 and G-6 (PDR), G-7 (CDR), G-10 with SIR Table G-9 items (TRR) and G-11 with Table G-12 items (SAR), as `docs/process/01-lifecycle-and-reviews.md` §4.3, §5.3, §6.3, §7.3 and §8.3 name them," (the rest of the sentence unchanged) | INSP-024 finding-3 and cross item X-2 (`docs/reviews/SRR/checklists/compliance-matrix.md`): the compliance matrix row SE-34 copies the short list, while 01 uses Tables G-3, G-5, G-9 items and G-12 items as well; the SE-34 row itself is corrected by the compliance matrix writer (PDR work plan WP-PDR-12) to the same list | Approve. It makes the charter name every table 01 already tailors |
+
+**Items checked and not needed.** The charter §5 artifact rows that 07 §22 carried as a charter issue (`docs/sprints/index.md`, `docs/design/sw/<module>.md`, `firmware/devcheck/`, `firmware/emu/`, `firmware/THIRD-PARTY-NOTICES.md`, the per-run report directories, the compliance matrix schema) and the status-note row of SEMP Appendix F item F-09 are already in charter §5 since `6ea6b1d`; no edit is drafted for them.
+
+**Reply format.** "OD-31: CE-1 approve, CE-2 approve, CE-3 approve" (or reject or amend any one). Claude transcribes the reply verbatim into the dated status note (section 9), and the SEMP Appendix E and F rows, 07 §22 and 03 §6.5 item g record the outcome through their writers.
