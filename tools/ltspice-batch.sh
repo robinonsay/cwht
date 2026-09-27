@@ -41,11 +41,16 @@
 #     INT or TERM), the wrapper ends that session with the bundle's own wineserver, headless:
 #     'WINEPREFIX=<bottle> <bundle>/bin/wineserver -k' (kills the processes of the bottle's server and
 #     ends it; bundle bin directory, CrossOver 25.0.1), waits up to 5 s, and SIGKILLs a process of the
-#     session that is still there. It does so only when this run started the session (no process of it
-#     existed at launch, while this run held the lock) and no LTspice.exe other than this run's is open
-#     (the owner's LTspice). A process belongs to the session when its current directory is inside the
-#     bottle (the services run in C:\windows) or is the bottle's wineserver directory
-#     /tmp/.wine-<uid>/server-<dev>-<inode> (lsof, read only). Survivors are reported as a WARNING.
+#     session that is still there, naming each PID so killed. It does so only when this run started the
+#     session (no process of it existed at launch, while this run held the lock) and no LTspice.exe other
+#     than this run's is open (the owner's LTspice). A process belongs to the session only when both hold
+#     (INSP-038 finding-21): its current directory is inside the bottle (the services run in C:\windows)
+#     or is the bottle's wineserver directory /tmp/.wine-<uid>/server-<dev>-<inode> (lsof, read only);
+#     and it is a Wine process of the bundle, that is, its executable name (ps comm, argv[0]) is a Windows
+#     path ending in .exe (Wine names its processes so: C:\windows\system32\services.exe, observed with
+#     CrossOver 25.0.1 on 2026-09-27) or lies under the bundle directory (its wineserver). Any other
+#     process in the bottle (a shell or an editor opened there) is never signalled and is named in a
+#     note. Survivors are reported as a WARNING.
 #  6. Result checks: the bottle ini still holds CaptureAnalytics=false after the run (else exit 3, no
 #     outputs copied); LTspice exit status 0; a .log exists (-b); the log carries none of the failure
 #     strings below; a -b run wrote <deck>.raw or <deck>.op.raw; no netlist written by the run holds a
@@ -151,13 +156,33 @@ kill_tree() {  # $1 = pid; kill the process and its descendants, children first
 abs_path() {  # absolute path of an existing file
   ( cd "$(dirname "$1")" 2>/dev/null && printf '%s/%s\n' "$(pwd -P)" "$(basename "$1")" )
 }
-session_pids() {  # PIDs of this user's processes in the Wine session of PREFIX (step 5a); read only
+bottle_pids() {  # PIDs of this user's processes whose current directory is in PREFIX or its wineserver directory; read only
   local pre srv
   pre=$(cd "$PREFIX" 2>/dev/null && pwd -P) || return 0
   srv="$(cd /tmp && pwd -P)/.wine-$(id -u)/server-$(printf '%x-%x' $(stat -f '%d %i' "$pre"))"
   lsof -n -w -u "$(id -u)" -a -d cwd -F pn 2>/dev/null | awk -v pre="$pre/" -v srv="$srv" -v me="$$" '
     /^p/ { pid = substr($0, 2) }
     /^n/ { n = substr($0, 2); if ((index(n "/", pre) == 1 || n == srv) && pid != me) print pid }'
+}
+SUPPORT_P=$(cd "$SUPPORT" 2>/dev/null && pwd -P) || SUPPORT_P="$SUPPORT"
+exe_name() {  # $1 = pid; the executable name of the process (ps comm: argv[0]), empty when it has ended
+  ps -o comm= -p "$1" 2>/dev/null
+}
+is_wine() {  # $1 = pid; true for a Wine process of the bundle (INSP-038 finding-21): its executable name is a
+  # Windows path of a .exe (Wine sets argv[0] so), or a program under the bundle directory (the wineserver)
+  case "$(exe_name "$1")" in
+    [A-Za-z]:\\*.[eE][xX][eE]) return 0 ;;
+    "$SUPPORT"/*|"$SUPPORT_P"/*) return 0 ;;
+  esac
+  return 1
+}
+session_pids() {  # PIDs of the Wine session of PREFIX (step 5a): Wine processes of the bundle in the bottle; read only
+  local p
+  for p in $(bottle_pids); do is_wine "$p" && echo "$p"; done
+}
+named() {  # PIDs from stdin as "PID (executable name)" on one line
+  local p
+  while read -r p; do [ -n "$p" ] && printf '%s (%s) ' "$p" "$(exe_name "$p")"; done
 }
 foreign_ltspice() {  # PIDs of LTspice.exe processes whose command line does not name this run's directory
   local p
@@ -169,7 +194,7 @@ LAUNCHED=0
 SESSION_BEFORE=""
 SESSION_DONE=0
 end_session() {  # step 5a; runs once, and only after the launch
-  local left others i
+  local left others i killed bystanders
   [ "$LAUNCHED" = 1 ] && [ "$SESSION_DONE" = 0 ] || return 0
   SESSION_DONE=1
   if [ -n "$SESSION_BEFORE" ]; then
@@ -187,15 +212,20 @@ end_session() {  # step 5a; runs once, and only after the launch
   while [ "$i" -lt 25 ] && [ -n "$(session_pids)" ]; do sleep 0.2; i=$((i + 1)); done
   left=$(session_pids | tr '\n' ' ')
   if [ -n "$left" ]; then
+    # Named before the signal: only Wine processes of the bundle in the bottle (session_pids), re-listed just now.
+    killed=$(printf '%s\n' $left | named)
     kill -9 $left 2>/dev/null
+    say "SIGKILL sent to the Wine processes of the session still present 5 s after wineserver -k: $killed"
     sleep 0.5
-    left=$(session_pids | tr '\n' ' ')
+    left=$(session_pids | named)
   fi
   if [ -n "$left" ]; then
-    say "WARNING: processes of the bottle's Wine session survive its end: $left"
+    say "WARNING: Wine processes of the bottle's session survive its end: $left"
   else
-    say "Wine session of the bottle ended (wineserver -k), no process of it left"
+    say "Wine session of the bottle ended (wineserver -k), no Wine process of it left"
   fi
+  bystanders=$(bottle_pids | while read -r i; do is_wine "$i" || echo "$i"; done | named)
+  [ -z "$bystanders" ] || say "note: processes in the bottle that are not Wine processes were left running (never signalled): $bystanders"
 }
 
 # --- 1. deck hygiene and run directory ----------------------------------------------------------

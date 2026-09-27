@@ -62,6 +62,8 @@ INTEGRATION = os.environ.get("CWHT_LTSPICE_INTEGRATION") == "1"
 NOT_INTEGRATION = ("real-LTspice integration case: set CWHT_LTSPICE_INTEGRATION=1 to run it (the TV-014 procedure "
                    "does; the everyday suite uses the test doubles only)")
 BOTTLE = os.path.expanduser("~/Library/Application Support/LTspice/Bottles/ltspice")
+SUPPORT = os.path.dirname(os.path.dirname(WINE))
+SERVICE_NAME = "C:\\windows\\system32\\services.exe"
 LOCK_WAIT_MAX_S = 1800
 
 
@@ -70,12 +72,32 @@ def lockfile() -> str:
     return (d or tempfile.gettempdir() + "/") + "cwht-ltspice.lock"
 
 
-def session_pids(prefix: str) -> list[int]:
-    """PIDs of this user's processes in the Wine session of the prefix, by the wrapper's rule (step 5a).
+def exe_name(pid: int) -> str:
+    """Executable name of a process as the wrapper reads it (ps comm, that is argv[0]); '' once it has ended."""
+    return subprocess.run(["ps", "-o", "comm=", "-p", str(pid)], capture_output=True, text=True).stdout.strip("\n")
+
+
+def is_wine(pid: int, support: str) -> bool:
+    """The wrapper's Wine-process rule (step 5a, INSP-038 finding-21): the executable name is a Windows path
+    of a .exe (Wine sets argv[0] so) or lies under the bundle directory `support` (its wineserver)."""
+    name = exe_name(pid)
+    if re.fullmatch(r"[A-Za-z]:\\.*\.[eE][xX][eE]", name, flags=re.S):
+        return True
+    return any(name.startswith(d.rstrip("/") + "/") for d in {support, os.path.realpath(support)})
+
+
+def session_pids(prefix: str, support: str) -> list[int]:
+    """PIDs of the Wine session of the prefix, by the wrapper's rule (step 5a).
 
     A process belongs to it when its current directory is inside the prefix (the Wine services run in
-    C:\\windows) or is the prefix's wineserver directory /tmp/.wine-<uid>/server-<dev>-<inode>.
+    C:\\windows) or is the prefix's wineserver directory /tmp/.wine-<uid>/server-<dev>-<inode>, and it is a
+    Wine process of the bundle `support` (is_wine).
     """
+    return [p for p in bottle_pids(prefix) if is_wine(p, support)]
+
+
+def bottle_pids(prefix: str) -> list[int]:
+    """PIDs of this user's processes whose current directory is inside the prefix or its wineserver directory."""
     try:
         pre = os.path.realpath(prefix)
         st = os.stat(pre)
@@ -546,7 +568,7 @@ class WineSessionDoubleTests(WrapperCase):
         self.assertEqual(r.returncode, path["exit"], r.stderr)
         self.assertIn(case["stderr_ended"], r.stderr)
         self.assertFalse(alive(self.service_pid()), "the Wine service stand-in outlived the run")
-        self.assertEqual(session_pids(self.prefix), [])
+        self.assertEqual(session_pids(self.prefix, self.support), [])
         calls = self.wineserver_calls()
         self.assertEqual(len(calls), 1, calls)
         self.assertTrue(calls[0].startswith("wineserver -k WINEPREFIX="), calls)
@@ -570,12 +592,79 @@ class WineSessionDoubleTests(WrapperCase):
         self.assertFalse(alive(self.service_pid()), "the SIGKILL fallback did not end the survivor")
         self.assertEqual(len(self.wineserver_calls()), 1)
 
+    def wine_standin(self, cwd: str) -> subprocess.Popen:
+        """A process the wrapper counts as a Wine process: /bin/sleep named C:\\windows\\system32\\services.exe."""
+        os.makedirs(cwd, exist_ok=True)
+        p = subprocess.Popen(["/bin/bash", "-c", f"exec -a '{SERVICE_NAME}' /bin/sleep 120"], cwd=cwd)
+        self.extra.append(p)
+        return p
+
+    def bystander(self, cwd: str) -> subprocess.Popen:
+        """A non-Wine process of the user whose current directory is in the prefix (a shell or editor there)."""
+        os.makedirs(cwd, exist_ok=True)
+        p = subprocess.Popen(["/bin/sleep", "120"], cwd=cwd)
+        self.extra.append(p)
+        return p
+
+    def test_standin_is_counted_as_wine(self) -> None:
+        # The doubles stand for Wine processes only through their executable name (finding-21 rule).
+        s = self.wine_standin(os.path.join(self.prefix, "drive_c", "windows"))
+        b = self.bystander(os.path.join(self.prefix, "drive_c", "users"))
+        time.sleep(0.3)
+        self.assertEqual(exe_name(s.pid), SERVICE_NAME)
+        self.assertTrue(is_wine(s.pid, self.support))
+        self.assertFalse(is_wine(b.pid, self.support))
+        self.assertEqual(session_pids(self.prefix, self.support), [s.pid])
+
+    def test_non_wine_bystander_after_launch_survives(self) -> None:
+        # INSP-038 finding-21: on blob bdc4513f the SIGKILL fallback killed this bystander (status 137).
+        case = KA["wine_session"]
+        by = case["bystander"]
+        env = dict(os.environ)
+        for k in [k for k in env if k.startswith(("CWHT_LTSPICE_", "CWHT_FAKE_"))]:
+            env.pop(k)
+        env.update(self.env(case, **by["env"]))
+        w = subprocess.Popen(["/bin/bash", TOOL, *by["args"], "-b", case["deck"]], cwd=self.work, env=env,
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        try:
+            time.sleep(by["start_after_launch_s"])
+            b = self.bystander(os.path.join(self.work, by["cwd"]))
+            out, err = w.communicate(timeout=60)
+        finally:
+            if w.poll() is None:
+                w.kill()
+                w.wait()
+        self.assertEqual(w.returncode, by["exit"], err)
+        self.assertIsNone(b.poll(), f"the non-Wine bystander was ended (status {b.returncode}):\n{err}")
+        self.assertFalse(alive(self.service_pid()), "the SIGKILL fallback did not end the Wine stand-in")
+        sig = [line for line in err.splitlines() if by["stderr_sigkill"] in line]
+        self.assertEqual(len(sig), 1, err)
+        self.assertIn(f"{self.service_pid()} ({SERVICE_NAME})", sig[0])
+        self.assertNotIn(str(b.pid), sig[0])
+        self.assertIn(case["stderr_ended"], err)
+        note = [line for line in err.splitlines() if by["stderr_note"] in line]
+        self.assertEqual(len(note), 1, err)
+        self.assertIn(f"{b.pid} (/bin/sleep)", note[0])
+        self.assertEqual(len(self.wineserver_calls()), 1)
+
+    def test_non_wine_bystander_before_launch_does_not_stop_session_end(self) -> None:
+        # A non-Wine process in the prefix at the launch is not a running session (finding-21 rule applied
+        # to SESSION_BEFORE): the session is still ended, and the bystander is left running.
+        case = KA["wine_session"]
+        b = self.bystander(os.path.join(self.work, case["bystander"]["cwd"]))
+        time.sleep(0.3)
+        r = self.run_tool("-b", case["deck"], env=self.env(case))
+        self.assertEqual(r.returncode, EXIT["pass"], r.stderr)
+        self.assertNotIn(case["stderr_before"], r.stderr)
+        self.assertIn(case["stderr_ended"], r.stderr)
+        self.assertIn(case["bystander"]["stderr_note"], r.stderr)
+        self.assertFalse(alive(self.service_pid()), "the Wine service stand-in outlived the run")
+        self.assertIsNone(b.poll(), "the non-Wine bystander was ended")
+        self.assertEqual(len(self.wineserver_calls()), 1)
+
     def test_session_running_before_is_left(self) -> None:
         case = KA["wine_session"]
-        d = os.path.join(self.prefix, "drive_c")
-        os.makedirs(d)
-        before = subprocess.Popen(["/bin/sleep", "120"], cwd=d)
-        self.extra.append(before)
+        before = self.wine_standin(os.path.join(self.prefix, "drive_c"))
         time.sleep(0.3)
         r = self.run_tool("-b", case["deck"], env=self.env(case))
         self.assertEqual(r.returncode, EXIT["pass"], r.stderr)
@@ -596,11 +685,18 @@ class WineSessionDoubleTests(WrapperCase):
         self.assertTrue(alive(self.service_pid()), "the session was ended although another LTspice.exe is open")
 
 
+def wine_pids_anywhere(support: str) -> list[int]:
+    """PIDs of this user's Wine processes of the bundle whatever their current directory (is_wine)."""
+    out = subprocess.run(["ps", "-U", str(os.getuid()), "-o", "pid="], capture_output=True, text=True).stdout
+    return sorted(p for p in map(int, out.split()) if p != os.getpid() and is_wine(p, support))
+
+
 def assert_no_bottle_session_after(test: unittest.TestCase, what: str) -> None:
-    """Holding the wrapper lock (so no other run can start one), wait and require no bottle process."""
+    """Holding the wrapper lock (so no other run can start one), wait and require no Wine process of the
+    bottle's session and no Wine process of the bundle anywhere (INSP-038 finding-21, reviewer note 2)."""
     with HeldLock():
         time.sleep(KA["wine_session"]["integration_wait_s"])
-        left = session_pids(BOTTLE)
+        left = sorted(set(session_pids(BOTTLE, SUPPORT)) | set(wine_pids_anywhere(SUPPORT)))
         detail = subprocess.run(["ps", "-o", "pid,ppid,etime,command", "-p", ",".join(map(str, left))],
                                 capture_output=True, text=True).stdout if left else ""
     test.assertEqual(left, [], f"processes of the ltspice bottle remain {KA['wine_session']['integration_wait_s']} s "
@@ -614,7 +710,7 @@ class WineSessionIntegrationTests(WrapperCase):
 
     def test_no_bottle_process_after_normal_and_error_runs(self) -> None:
         with HeldLock():
-            self.assertEqual(session_pids(BOTTLE), [], "a Wine session of the bottle runs before the test")
+            self.assertEqual(session_pids(BOTTLE, SUPPORT), [], "a Wine session of the bottle runs before the test")
         for what, deck, code in (("normal", "rc-step-tran.net", EXIT["pass"]),
                                  ("error", KA["seeded_deck_error"]["deck"], KA["seeded_deck_error"]["exit"])):
             with self.subTest(path=what):

@@ -235,7 +235,23 @@
       "stderr_before": "was running before this run",
       "stderr_foreign": "not started by this run is open",
       "integration_wait_s": 10,
-      "basis": "TV-014 finding 5: the Wine services (services.exe, winedevice.exe, plugplay.exe, svchost.exe, explorer.exe, rpcss.exe) outlive a run. The wrapper ends the bottle's session with 'WINEPREFIX=<prefix> <bundle>/bin/wineserver -k' after the normal, error and time-out paths when this run started the session and no other LTspice.exe is open, and SIGKILLs a process of the session that survives 5 s. With the doubles (fake-support/bin/wine starts a detached stand-in service in fake-support/prefix; fake-support/bin/wineserver ends it on -k, or does nothing with CWHT_FAKE_WINESERVER_NOOP=1): the service is gone after the wrapper exits and wineserver.log holds '-k' with WINEPREFIX=<prefix>; a session running before the launch, or an LTspice.exe of another process, is left alone and no -k is sent. Integration (CWHT_LTSPICE_INTEGRATION=1, real LTspice): no process of the ltspice bottle's session remains 10 s after a run on each path, checked while the test holds the wrapper lock; added 2026-09-27 for TV-014 run 5"
+      "bystander": {
+        "env": {
+          "CWHT_FAKE_WINE_HANG": "1",
+          "CWHT_FAKE_WINESERVER_NOOP": "1"
+        },
+        "args": [
+          "-t",
+          "3"
+        ],
+        "exit": 124,
+        "cwd": "fake-support/prefix/drive_c/users",
+        "start_after_launch_s": 1.0,
+        "stderr_sigkill": "SIGKILL sent to the Wine processes of the session",
+        "stderr_note": "not Wine processes were left running (never signalled)",
+        "basis": "INSP-038 finding-21: the session end SIGKILLed every process of the user whose current directory was in the bottle 5 s after wineserver -k, a non-Wine bystander as well, and reported 'no process of it left' (reviewer check on blob bdc4513f: /bin/sleep bystander, wait status 137). Expected now: a /bin/sleep started in the prefix before the launch, or 1 s after it, is not a member of the session (its executable name is neither a Windows .exe path nor under the bundle); the wine double hangs (-t 3, exit 124) and the wineserver double ends nothing, so the SIGKILL fallback runs: the stand-in service (executable name C:\\windows\\system32\\services.exe) is SIGKILLed and named with its PID, the bystander survives and is named in the note, and a bystander before the launch does not stop the session end. Fails on blob bdc4513f (bystander killed): procedure part G; added 2026-09-27 for TV-014 run 6"
+      },
+      "basis": "TV-014 finding 5: the Wine services (services.exe, winedevice.exe, plugplay.exe, svchost.exe, explorer.exe, rpcss.exe) outlive a run. The wrapper ends the bottle's session with 'WINEPREFIX=<prefix> <bundle>/bin/wineserver -k' after the normal, error and time-out paths when this run started the session and no other LTspice.exe is open, and SIGKILLs a Wine process of the session that survives 5 s (a process belongs to the session when its current directory is in the bottle or its wineserver directory and its executable name is a Windows .exe path or lies under the bundle: INSP-038 finding-21; the stand-in service is named C:\\windows\\system32\\services.exe). With the doubles (fake-support/bin/wine starts a detached stand-in service in fake-support/prefix; fake-support/bin/wineserver ends it on -k, or does nothing with CWHT_FAKE_WINESERVER_NOOP=1): the service is gone after the wrapper exits and wineserver.log holds '-k' with WINEPREFIX=<prefix>; a session running before the launch, or an LTspice.exe of another process, is left alone and no -k is sent. Integration (CWHT_LTSPICE_INTEGRATION=1, real LTspice): no process of the ltspice bottle's session remains 10 s after a run on each path, checked while the test holds the wrapper lock; added 2026-09-27 for TV-014 run 5"
     }
   }
 }
