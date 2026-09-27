@@ -13,11 +13,13 @@ product: docs/safety/hazard-analysis.md
 # and hazards.json@89d0cbc323b2775d326cf7cd42bc637818ec96eb (0.4.0-pha), which are not in the object store.
 # Iteration 3 read b5ce99e9 and 37d6cc83 (0.4.2-pha) at adcfe09. The iteration 3 delta verification (package item R17)
 # reads the R9 status edit ade0e09 (0.4.3-pha), the last commit touching docs/safety/ at HEAD 860e84e.
-# product_files: git rev-parse HEAD:<path> at 860e84e, 2026-09-26
-product_commit: "ade0e09"
-product_files: ["docs/safety/hazard-analysis.md@49ec53f8bbde37558c1c113a656b2125cd3fdec2", "docs/safety/hazards.json@c6bf757e815bea0f8ba8d6b90d9a618875833a24"]
+# product_files: git rev-parse HEAD:<path> at 860e84e, 2026-09-26 (iteration 3 delta verification: 49ec53f8, c6bf757e).
+# Post-SRR-ruling delta (2026-09-26, package item R16): product_commit is bfea9c7 (0.5.0-pha, the owner rulings applied),
+# the only commit after ade0e09 that touches docs/safety/; product_files: git rev-parse HEAD:<path> at ebe5873, 2026-09-26.
+product_commit: "bfea9c7"
+product_files: ["docs/safety/hazard-analysis.md@52c8ce16856499afc1b701e1ddb103788fcb1af9", "docs/safety/hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0"]
 data_file: docs/safety/hazards.json
-data_file_version: 0.4.3-pha
+data_file_version: 0.5.0-pha
 product_size: 15 hazards, 117 controls at iteration 1 and 118 at iteration 2, 24 open questions at iteration 1 and 26 at iteration 2, 23 single point failure entries
 sprint: SRR-prep
 author_agent: "author:hazards (hazard analysis author, system safety engineer role; revision 0.3.0-pha for SRR readiness items H7, H8, H9)"
@@ -25,7 +27,8 @@ reviewer_agent: "reviewer:hazards"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-# iteration: stays 3 (validate_docs.py maximum); the R17 check of ade0e09 is the iteration 3 delta verification
+# iteration: stays 3 (validate_docs.py maximum); the R17 check of ade0e09 is the iteration 3 delta verification;
+# the post-SRR-ruling delta of bfea9c7 (package item R16) is recorded in its own dated section, iteration unchanged
 iteration: 3
 readiness_met: true
 reviewer_verdict: APPROVED
@@ -34,20 +37,24 @@ verdict: APPROVED
 # finding-14 and finding-15 are new at iteration 2, finding-16 at iteration 3; the iteration 3 delta verification raises none.
 # Iteration 3: Closed (Verified) 13 (Major 3, Minor 10); Lien: fix before PDR 3 (Minor: finding-14, 15, 16),
 # counted in findings_deferred (convergence rule of 2026-09-26, charter section 4 item 3)
+# Post-SRR-ruling delta: finding-14 Closed (Verified) by bfea9c7 (SRR decisions 37 and 116); finding-17 to finding-21 new,
+# all Minor, Lien: fix before PDR. Totals: Closed (Verified) 14 (Major 3, Minor 11); Lien 7 (Minor: finding-15, 16, 17 to 21)
 findings_major: 3
-findings_minor: 13
+findings_minor: 18
 findings_open: 0
 findings_fixed: 0
-findings_verified: 13
-findings_deferred: 3
+findings_verified: 14
+findings_deferred: 7
 assurance_tasks_applied: [swe-205 7.1 task 1, swe-205 7.1 task 2, swe-205 7.1 task 3, swe-205 7.1 task 4]
 deferred_rids: []
 # iteration 3 answers (iteration 1: R1, R2, CK-SAF-A7, C2, C4, C5, C6, D2, D3, D5, F1, F3, G1, G2, G3, G5;
 # iteration 2: R1, CK-SAF-D5, CK-SAF-G1); both remaining No items carry only Minor liens
-items_no: [CK-SAF-D5, CK-SAF-G1]
-# effort: iteration 1 (46 turns, 55 min), iteration 2 (28 turns, 35 min), iteration 3 (36 turns, 45 min), iteration 3 delta verification (14 turns, 20 min)
-effort_turns: 124
-effort_minutes: 155
+# post-SRR-ruling delta: CK-SAF-G1 now Yes (finding-14 closed); B6, B7, C4, D3, E3 No on Minor liens only
+items_no: [CK-SAF-B6, CK-SAF-B7, CK-SAF-C4, CK-SAF-D3, CK-SAF-D5, CK-SAF-E3]
+# effort: iteration 1 (46 turns, 55 min), iteration 2 (28 turns, 35 min), iteration 3 (36 turns, 45 min), iteration 3 delta verification (14 turns, 20 min),
+# post-SRR-ruling delta (42 turns, 55 min)
+effort_turns: 166
+effort_minutes: 210
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -93,9 +100,14 @@ date_closed: null
 | <a id="finding-11"></a>finding-11 (F-11) | reviewer | Minor | CK-SAF-G5 | analysis section 10 | No provision covers HZ-011 at the bench, although bench firmware loads and USB logging put USB power on the unit near keyed steps. The Firmware load row names only HZ-014. Fix: add a rule (USB disconnected before any keyed step, or the VBUS inhibit case passed first) with its named abort. | Verified | Pending | | Closed. Section 10 row "USB power near keyed steps" (HZ-011, HZ-014): USB disconnected before any keyed step unless the REQ-SYS-092 inhibit case has passed on that unit, with a named abort (power switch off, USB unplugged, NCR). |
 | <a id="finding-12"></a>finding-12 (F-12) | reviewer | Minor | CK-SAF-A7 | `hazards.json` HZ-004 K5, HZ-007 K1 `text` | Two control texts rest on undecided owner decisions without the section 3.6 tag "Proposed, owner decision pending at SRR". HZ-004 K5 carries T_max 10 s and the 74LVC1G123 part (D-KN2, package decision 36). HZ-007 K1 carries the S-8252 protector thresholds (D-PWR-03, package decision 72). Fix: add the tag. | Verified | Pending | | Closed. HZ-004 K5 and HZ-007 K1 `text` end with "Proposed, owner decision pending at SRR" naming D-KN2, package decision 36 and D-PWR-03, package decision 72; both decisions verified in package section 13.1 (Stuck-key and Power groups). |
 | <a id="finding-13"></a>finding-13 (F-13) | reviewer | Minor | CK-SAF-G2 | `hazards.json` HZ-007, HZ-010, HZ-012 `decisions_pending` | Four items have no package section 13.1 row: A-PWR-03 (HZ-007), ANT-06 common-mode chokes and A-KN5 bounce capture (HZ-010), and ANT-03 counterpoise attachment (HZ-012). Fix: name the package decision that consolidates each (as done for decisions 36 to 41), or mark each as a PDR action rather than an SRR decision. | Verified | Pending | | Closed. `decisions_pending`: A-PWR-03 (HZ-007), ANT-06 (HZ-010) and ANT-03 (HZ-012) are marked PDR design actions with the reason; A-KN5 maps to package decision 50, whose section 13.1 row covers the debounce TBR closing by the bench capture of the owner's key and paddle. |
-| <a id="finding-14"></a>finding-14 (F-14) | reviewer (iteration 2) | Minor | CK-SAF-G1 | `hazards.json` OQ-SAF-006 `resolution` | The resolution says "OPS-013 step 3 keeps 128 elements or 30 s", and the 0.4.0-pha re-check adds only "still not answered". `docs/conops/conops.md` OPS-013 step 3 now reads "128 consecutive identical elements or 10 s (TBR)" with 30 s as the D-KN3 alternative (package decision 37). Item (3) is still unanswered (the step is not the no-gap watchdog of OQ-SAF-001), so the status is right, but the evidence quoted for it is stale. Fix: restate the item (3) evidence from the current ConOps text. | Lien | Not needed | PDR | New at iteration 2; iteration 3: Lien: fix before PDR (see Iteration 3). |
+| <a id="finding-14"></a>finding-14 (F-14) | reviewer (iteration 2) | Minor | CK-SAF-G1 | `hazards.json` OQ-SAF-006 `resolution` | The resolution says "OPS-013 step 3 keeps 128 elements or 30 s", and the 0.4.0-pha re-check adds only "still not answered". `docs/conops/conops.md` OPS-013 step 3 now reads "128 consecutive identical elements or 10 s (TBR)" with 30 s as the D-KN3 alternative (package decision 37). Item (3) is still unanswered (the step is not the no-gap watchdog of OQ-SAF-001), so the status is right, but the evidence quoted for it is stale. Fix: restate the item (3) evidence from the current ConOps text. | Verified | Not needed | PDR | New at iteration 2; iteration 3: Lien: fix before PDR (see Iteration 3). Post-SRR-ruling delta (2026-09-26): Closed (Verified) at `bfea9c7`, SRR decisions 37 and 116 (owner ruling 2026-09-26); see Post-SRR-ruling delta. |
 | <a id="finding-15"></a>finding-15 (F-15) | reviewer (iteration 2) | Minor | CK-SAF-D5 | analysis section 9 item 3 (Marginal Analysis cases), section 8.1 item 5 | The Marginal Analysis-closing list gives REQ-SYS-050, 106, 110 and 111. A recompute of every `control_req_ids` entry of a Marginal hazard whose `verification_method` is not Test also finds REQ-SYS-168 (cell cover pinch gap, HZ-013 K3; method Analysis, "Analysis accepted per RSK-018"; RSK-018 carries HZ-013). It is missing from item 3, and section 8.1 item 5 names only REQ-SYS-110 and 111 for HZ-013. The acceptance itself is correctly recorded in the requirement; only the analysis list is incomplete. The gap was present at iteration 1 and was not raised then. Fix: add REQ-SYS-168 to section 9 item 3 and to the HZ-013 ids of section 8.1 item 5. | Lien | Not needed | PDR | New at iteration 2; iteration 3: Lien: fix before PDR (see Iteration 3). |
 | <a id="finding-16"></a>finding-16 (F-16) | reviewer (iteration 3) | Minor | CK-SAF-D5, CK-SAF-G1 | analysis section 9 item 3 (line 310), section 8.1 item 7 lead-in (line 245), section 11.2 table header (line 366) | Text left stale by the 0.4.1-pha question closures. Section 9 item 3 ends: "Two of those requirement notes cite a risk that no longer carries the hazard (REQ-SYS-050 cites RSK-012 ... REQ-SYS-106 cites RSK-018 ...; OQ-SAF-017)". The committed `requirements.json` (blob `0da73012`) has REQ-SYS-050 "Analysis accepted per RSK-024 (HZ-010)" and REQ-SYS-106 "Analysis accepted per RSK-025 (HZ-009)", and section 11.2 records OQ-SAF-017 Closed, so the section contradicts both. Section 8.1 item 7 still calls its table "the complete list at 0.4.0-pha" and says rows whose risk does not carry the hazard "say so" and that OQ-SAF-026 "asks for the correction", although every row now names a risk that carries its hazard and OQ-SAF-026 is Answered. The 11.2 status column is headed "Status (2026-09-25)" but carries 2026-09-26 statuses. The data are right; only the prose is stale. Fix: delete the last sentence of section 9 item 3 (or restate it as resolved at 0.4.1-pha), restate the item 7 lead-in at the current revision, and re-date the 11.2 column header. | Lien | Not needed | PDR | New at iteration 3: Lien: fix before PDR (see Iteration 3). |
+| <a id="finding-17"></a>finding-17 (F-17) | reviewer (post-SRR-ruling delta) | Minor | CK-SAF-C4, CK-SAF-D5 | analysis section 8.1 item 7 rows REQ-SYS-137 and 138, REQ-SYS-122 and REQ-SYS-124 and the paragraph under the table; section 9 item 3; `hazards.json` HZ-015 `verification_note` and `residual_risk.condition` | 0.5.0-pha does not apply SRR decision 113 (owner ruling 2026-09-26, CR-002). The committed requirements (`cd61450`) give REQ-SYS-122, 124, 137 and 138 method Inspection with a note beginning "Inspection accepted per CR-002" and closing Inspection cases TC-SYS-085, 086 and 091, and 04 rule 7.3.6 now admits that route with no risk carried. The analysis still lists the four as Analysis-closing exceptions accepted per RSK-034, RSK-016 or "one risk per hazard", the paragraph under the table says the documentation and label controls "close by the Analysis method accepted per RSK-016", section 9 item 3 states the non-software rule without the Inspection route, and HZ-015 says REQ-SYS-137 and 138 "close today by the Analysis method, accepted per RSK-004 ... re-pointing to RSK-034 is requested in OQ-SAF-026" (stale since 0.4.1-pha as well). The data links and the requirements are right; the analysis text is not. Fix: move the four requirements out of the Analysis exception table into a stated CR-002 Inspection group, restate section 9 item 3 with the rule 7.3.6 wording, and restate the HZ-015 K3 method text. | Lien | Not needed | PDR | New at the post-SRR-ruling delta: Lien: fix before PDR. |
+| <a id="finding-18"></a>finding-18 (F-18) | reviewer (post-SRR-ruling delta) | Minor | CK-SAF-D3 | `hazards.json` HZ-004 K2 and K13 `control_req_ids` (REQ-SW-KEYER-039); `open_questions` | 0.5.0-pha links REQ-SW-KEYER-039 (SRR decision 112) to HZ-004 K2 and K13, and the requirement's `hazard_ids` lists HZ-004, but its rationale names neither HZ-004 nor K2 or K13 (script check over every `control_req_ids` pair: these 2 pairs of 0 before). The analysis raises no request for the correction, as it did for REQ-SYS-186 and HZ-007 K3 in OQ-SAF-009. Fix: raise the request to the SW-KEYER requirements author (an open question or an addition to an existing one) so that the rationale names HZ-004 K2 and K13. | Lien | Not needed | PDR | New at the post-SRR-ruling delta: Lien: fix before PDR. |
+| <a id="finding-19"></a>finding-19 (F-19) | reviewer (post-SRR-ruling delta) | Minor | CK-SAF-B6 | `hazards.json` last `history` entry (2026-09-26, SRR) of HZ-002, HZ-004 and HZ-005 | Each new entry contradicts itself: HZ-002 says "K3 and K9 stay requirement pending until the requirements author writes them" and then "REQ-SYS-185 traced as K3 and REQ-SYS-186 as K9 (both now Proposed)"; HZ-004 says "K4 items (ii), (iii) and the K13 guard stay requirement pending until written" and then "REQ-SYS-184 added to K4 and REQ-SYS-187, 188, 190 to K13 (both now Proposed)"; HZ-005 says "K9 stays requirement pending" and then "REQ-SYS-189 and REQ-SYS-190 added to K9 (now Proposed)". The controls are Proposed, which is right; the earlier clause was left from the pre-`cd61450` draft. History is append-only (the older entries are unchanged, checked), so the fix is an appended entry or a dated correction note that states the controls Proposed, not a rewrite of an entry that a later review has read. | Lien | Not needed | PDR | New at the post-SRR-ruling delta: Lien: fix before PDR. |
+| <a id="finding-20"></a>finding-20 (F-20) | reviewer (post-SRR-ruling delta) | Minor | CK-SAF-B7 | analysis section 4 table, HZ-008 row, Related risks column | The row reads "RSK-001, RSK-011"; `hazards.json` HZ-008 `related_risk_ids` is RSK-001, RSK-011, RSK-046 (since 0.4.0-pha; section 12 line 413 lists all three). 0.5.0-pha edited this row for decisions 9 and 40 and left the column. Present since 0.4.0-pha and not raised at iterations 2 and 3. Every other row equals the JSON (script check of severity, likelihood, initial, residual and related risks for all 15 hazards). Fix: add RSK-046. | Lien | Not needed | PDR | New at the post-SRR-ruling delta: Lien: fix before PDR. |
+| <a id="finding-21"></a>finding-21 (F-21) | reviewer (post-SRR-ruling delta) | Minor | CK-SAF-E2, CK-SAF-E3 | analysis section 6.2 lead-in; section 8.2 note under the table; section 11.1 (line 355) | Version and alignment text not carried to 0.5.0-pha. Section 6.2 says the table "is generated from `hazards.json` 0.4.0-pha" and that 0.4.0-pha changes no component, while 0.5.0-pha rewords the HZ-008 `firmware_role.components` (the word "proposed" removed; the component set and criteria are unchanged, so the recompute of the table still gives no difference). The section 8.2 note still counts "the 23 entries of `hazards.json` 0.4.0-pha" (still 23 at 0.5.0-pha). Section 11.1 records the 07 row h band edge "144.001 to 147.999 MHz" as checked and aligned; after SRR decision 25 the analysis section 7 row h and HZ-008 K4, K7 read 144.0012 to 147.9988 MHz, while 07 (lines 605, 622, 642) and 03 (lines 123, 184, 233) still carry 144.001 to 147.999 MHz, a difference that no section 6.3 or 11.1 item and no open question carries (OQ-SAF-014 covers the decision 9 edit only). Fix: re-date the two lead-ins at 0.5.0-pha and list the band-edge difference in section 11.1 with the request to the lead SE (for example as an addition to OQ-SAF-014). | Lien | Not needed | PDR | New at the post-SRR-ruling delta: Lien: fix before PDR. |
 
 ## Per-hazard results
 
@@ -414,4 +426,129 @@ finding-1 to finding-13 stay Closed (Verified) from iteration 3; the delta touch
 
 ```
 ITERATION 3 DELTA VERIFICATION (2026-09-26): VERDICT: APPROVED (with liens). Delta-verified ade0e09 (0.4.3-pha): OQ-SAF-007, 025, 026 Closed with the iteration 3 citations; no other change. HEAD blobs hazard-analysis.md 49ec53f8, hazards.json c6bf757e. render_risk --check exit 0. Liens 3 (finding-14, 15, 16: Minor, fix before PDR); open Major 0.
+```
+
+## Post-SRR-ruling delta (2026-09-26, hazard analysis 0.5.0-pha at `bfea9c7`; SRR package item R16)
+
+**Scope and independence.** The owner approved the SRR on 2026-09-26 (disposition Approved with liens L-1 to L-7; `docs/reviews/SRR/minutes.md`). Key decisions K1 to K17 and the consent agenda were ruled as recommended; the ruling text is the "Recommendation" cell of `docs/reviews/SRR/decisions-for-owner.md`. This section delta-verifies every commit after this record's previous `product_commit` (`ade0e09`) that touches the products. `git log ade0e09..HEAD -- docs/safety/` gives one commit, `bfea9c7` ("ConOps revision 3 and hazard analysis 0.5.0-pha: apply the SRR owner rulings of 2026-09-26 (package item R16)"). Its hazard blobs are the HEAD blobs at `ebe5873`: `docs/safety/hazard-analysis.md` `52c8ce16856499afc1b701e1ddb103788fcb1af9` and `docs/safety/hazards.json` `81cacde47d4f2066ecac3947f3acf65e646b1ad0` (working tree clean for both). The ConOps part of `bfea9c7` belongs to INSP-002 and is read here only as evidence for OQ-SAF-006. The requirements commit `cd61450` is read only for the requirements that 0.5.0-pha links. The reviewer is a new invocation of `reviewer:hazards`; it authored none of the product and edits none of it (charter section 11 rule 4). The convergence rule of 2026-09-26 (charter section 4 item 3) applies: a Minor finding is a lien due PDR. Iteration stays 3; the earlier sections are unchanged.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: "hazard analysis 0.5.0-pha SRR owner rulings 2026-09-26 decision"). `grep -n` and read-only Python came afterwards, only to pin lines and recompute values. The tool was available throughout.
+
+**Method.**
+- `git show --stat bfea9c7` and `git diff ade0e09 bfea9c7 -- docs/safety/` (word diff of the analysis, 158 lines changed).
+- A structural Python diff of `hazards.json` at `ade0e09` against HEAD: 200 differences. Every hazard, control, `history`, `tbr`, `open_questions` and `firmware_role` change was read against the decision it cites.
+- Each ruled value was checked against the decision row and the committed requirement text (`requirements.json` at HEAD).
+- Recomputed at HEAD:
+  - control union against `requirement_ids`: 15 of 15 exact;
+  - forward links: every `control_req_ids` requirement lists the hazard in `hazard_ids`, 0 missing;
+  - rationale pairs: 2 missing, see finding-18;
+  - section 4 table against the JSON: finding-20;
+  - control status count: 118 controls, 109 Proposed and 9 Requirement pending (HZ-002 K7, HZ-005 K3, HZ-007 K5, HZ-008 K3, HZ-015 K1, K2, K4, K5, K6), each with an open question;
+  - `single_point_failures`: 23;
+  - open questions: 27, with 13 Closed, 7 Answered and 7 Open;
+  - `history`: append-only, since every entry present at `ade0e09` is an unchanged prefix;
+  - no TBD and no em dash added.
+
+**Rulings applied (verified; decision numbers per the decision list, owner ruling 2026-09-26).**
+
+| Decision | Ruling (Recommendation cell) | Where 0.5.0-pha applies it | Check |
+|---|---|---|---|
+| 36 | Option a with the 74LVC1G123 | HZ-001 K2, HZ-004 K5, HZ-006 K2, HZ-012 K1; section 8.2 row 1; OQ-SAF-005 Closed | Correct: tune 5 s +/-0.5 s (at most 5.5 s), T_max 10 s (7.5 to 13 s), as REQ-SYS-020 and REQ-SYS-055 read |
+| 37 | 5 s manual timeout with the Bug dah; K4 no-gap watchdog with the 2 s squeeze limit | HZ-004 K3, K4; section 5 coverage rows 4 to 6; section 7 row j; OQ-SAF-001, 002 Answered | Correct: K4 items (i) to (iii) equal REQ-SYS-054 ("128 consecutive identical elements or 30 s (TBR) without 7-dit or 500 ms (TBR) gaps") and REQ-SYS-184 ("more than 2 s (TBR)"); `tbr` close_by PDR (L1) |
+| 38 | Adopt REQ-SYS-180, 150 s to 180 s | HZ-004 K12 and the shares HZ-001 K10, HZ-003 K10, HZ-006 K10, HZ-012 K6, HZ-014 K8; section 8.2 row 3; section 8.3 outcome; OQ-SAF-003 Closed | Correct; the K12 `tbr` keeps the 150 s floor above the 120 s test-mode timeout |
+| 39 | Adopt REQ-SYS-181, 95 C +/-3 C, 100 ms | HZ-003 K9; section 8.2 row 8; OQ-SAF-012 Closed | Correct |
+| 40 with 9 | Adopt REQ-SYS-182, 10 kHz, 100 ms; frequency control safety-critical | HZ-008 K7, `firmware_role`, residual; sections 6.2, 6.3 item 6; section 8.2 row 4; OQ-SAF-013 Closed, OQ-SAF-014 updated | Correct. The lead SE's 03, 07, SEMP, charter and `rmm.json` edit stays with OQ-SAF-014 (package item R16); that is a package item, so CK-SAF-G1 holds |
+| 33 | Accumulator a convenience function | Section 6.2 closing paragraph; HZ-001, HZ-006 `firmware_role.statement` | Correct |
+| 41, 42 | Adopt the bench test-mode guard; ratify Table 3.4-4 classes and the Bench-test limits (option a) | HZ-004 K13 (forced 0.5 W, 120 s TBR, exit on reset, not persistent), HZ-005 K9 (tone 60 s TBR); OQ-SAF-016 Answered | Correct: equals REQ-SYS-187 to 190 and ConOps revision 3 (line 17 and line 833) |
+| 17 to 20 | OPS-A default, OPS-B at 1 W until a dated record, guest lock option a, guest keying at 0.5 and 1 W supervised | Section 2 (line 23); HZ-006 residual and section 8.2 row 20 | Correct; HZ-006 stays Critical-D Medium as the decision 20 row says |
+| 25 | 1.2 kHz guard, 144.0012 to 147.9988 MHz (TBR) | HZ-008 K4, K7, fault tolerance; section 7 row h; section 6.2 mission-critical paragraph | Correct against REQ-SYS-008 at HEAD; the 03 and 07 difference is not recorded (finding-21) |
+| 70, 72 to 76 | BQ25887; S-8252 plus BQ29209 with both requirements; two 1043P; buck with SYNC and mechanical switch; receive while charging paused with hardware TX inhibit; battery floor and limits | HZ-002 K3, K9 (REQ-SYS-185, 186), HZ-007 K1, K3, HZ-011 K3; section 8.2 rows 5, 21; OQ-SAF-008, 009 Answered | Correct |
+| 72 (residual) | (as above) | HZ-002 residual Catastrophic-D Serious to Catastrophic-E Medium | Correct by section 3.5 (a control with an existing requirement counts toward the residual) and the section 3.3 E anchor (three independent devices on separate sense paths). Catastrophic-E is Medium in the section 3.4 matrix, and section 4 and section 8.1 item 3 agree. Severity, likelihood and initial risk are unchanged |
+| 44, 48 | Menu only; expose switchpoint and debounce | HZ-004 K2; HZ-004 K9 and HZ-010 K3 raise OQ-SAF-027 (decision 48 against the fixed debounce counts of REQ-SW-KEYER-020, 021) | Correct; the conflict is carried as a question to PDR, not hidden |
+| 112 | Concur with the self-derived SW-KEYER requirements | REQ-SW-KEYER-039 linked to HZ-004 K2 and K13 | Link correct; the rationale gap is finding-18 |
+| 116 | Do not re-date OQ-SAF-006 | OQ-SAF-006 Answered from ConOps revision 3 | Correct: ConOps lines 547 to 551 and 833 state the ruled watchdog, squeeze limit, backstop and Bench-test limits |
+| 113 | CR-002, Inspection for documentary requirements | Not applied | finding-17 |
+
+**Earlier findings.** No Major finding was open; finding-1 to finding-13 stay Closed (Verified). The rulings resolve one lien:
+
+| Finding | Severity | Post-SRR-ruling disposition | Evidence at HEAD |
+|---|---|---|---|
+| finding-14 | Minor | Closed (Verified), `bfea9c7`, SRR decisions 37 and 116 | The OQ-SAF-006 `resolution` now answers item (3) from the current ConOps text (the ruled no-gap watchdog with the 2 s squeeze limit, ConOps lines 547 and 833). The stale "128 elements or 30 s" sentence stays only in the dated 2026-09-25 part of the append-only resolution |
+| finding-15 | Minor | Lien: fix before PDR | Not fixed: REQ-SYS-168 is still absent from section 9 item 3 and section 8.1 item 5 (0 occurrences in the analysis) |
+| finding-16 | Minor | Lien: fix before PDR | Partly fixed. The 11.2 header now reads "Status (2026-09-25; rows changed at 0.5.0-pha dated 2026-09-26)". Section 9 item 3 still ends with the RSK-012 and RSK-018 sentence, and the section 8.1 item 7 lead-in still says "complete list at 0.4.0-pha" and that OQ-SAF-026 "asks for the correction" |
+
+**New defects scan.** No new Major defect. Every ruled value matches its decision row and the committed requirement. No control counts toward a residual without an implementing requirement. No decline case is left in force. The five new defects are Minor text and trace-note defects; the data links are correct:
+- finding-17: decision 113 (CR-002) is not applied in the analysis text.
+- finding-18: the REQ-SW-KEYER-039 rationale does not name HZ-004 K2 or K13.
+- finding-19: the new HZ-002, HZ-004 and HZ-005 history notes contradict themselves.
+- finding-20: the section 4 HZ-008 related risks omit RSK-046.
+- finding-21: stale version lead-ins, and the 03 and 07 band-edge difference is not recorded.
+
+The findings table above holds each finding in full.
+
+**R2 and the CR-002 route.** `traceability.py --report-only --output <scratchpad>/tr.md` exits 0 with 245 requirements, 173 test cases, 4 violations and 2 warnings. All 4 violations are `HAZARD_REQ_NOT_TESTED` on REQ-SYS-122, 124, 137 and 138. The tool does not yet accept the CR-002 Inspection route. 04 section 7.4 row 7.3.6 plans that route for PDR and requires a manual check until then. The reviewer checked each by hand:
+- the method is Inspection;
+- the `verification_note` begins "Inspection accepted per CR-002 (SRR decision 113";
+- each has a closing Inspection case: TC-SYS-085 (REQ-SYS-122), TC-SYS-086 (REQ-SYS-124) and TC-SYS-091 (REQ-SYS-137, 138).
+
+Each meets rule 7.3.6 as amended, so R2 holds for this product. There is no `HAZARD_INVERSE`, and no other hazard code appears. The tool change is a cross item, not a finding against this product.
+
+**Lien table** (convergence rule; each is carried by the package as a Routine item).
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-15 | Minor | Lien: fix before PDR | Hazard analysis author | PDR readiness declaration |
+| finding-16 | Minor | Lien: fix before PDR | Hazard analysis author | PDR readiness declaration |
+| finding-17 | Minor | Lien: fix before PDR | Hazard analysis author (apply SRR decision 113 to sections 8.1 item 7, 9 item 3 and HZ-015) | PDR readiness declaration |
+| finding-18 | Minor | Lien: fix before PDR | Hazard analysis author (raise the request); SW-KEYER requirements author (rationale) | PDR readiness declaration |
+| finding-19 | Minor | Lien: fix before PDR | Hazard analysis author (appended correction, no rewrite) | PDR readiness declaration |
+| finding-20 | Minor | Lien: fix before PDR | Hazard analysis author | PDR readiness declaration |
+| finding-21 | Minor | Lien: fix before PDR | Hazard analysis author; lead SE for the 03 and 07 band-edge text | PDR readiness declaration |
+
+**Answers that change** (all others stand as at iteration 3 and its delta verification).
+
+| Item | Answer | Evidence |
+|---|---|---|
+| R1 | Yes for this product and record | `validate_docs.py`: `PASS docs/safety/hazards.json` and, after this record's `product_files` update, `PASS docs/reviews/SRR/checklists/hazard-analysis.md`. The repository run exits 1 only on other records outside this product: their `product_files` drift after the R16 commits, `classification-03-software-classification-and-rmm.md` has iteration 4, and `requirements-sys.md` has an open Major |
+| R2 | Yes (with the manual CR-002 check above) | 4 `HAZARD_REQ_NOT_TESTED`, each meeting rule 7.3.6 by the CR-002 route |
+| R3 | Yes | `render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` exit 0: "register OK: 65 risks, 159 candidates, 0 warning(s), jsonschema used, gate SRR, hazard cross-check" |
+| R4 | Yes | Header line 3 and section 13 line 437 state 0.5.0-pha and list the changes by decision; they agree with the diff |
+| R5 | Yes | No TBD; every `tbr` object has owner, plan and close_by |
+| CK-SAF-A6 | Yes | 9 Requirement pending controls, each with an open question; HZ-002 and HZ-004 residuals count only controls with requirements |
+| CK-SAF-B6 | No (Minor only) | finding-19; append-only holds |
+| CK-SAF-B7 | No (Minor only) | finding-20 |
+| CK-SAF-C4 | No (Minor only) | finding-17 (the requirements meet rule 7.3.6; the analysis table misstates the route) |
+| CK-SAF-D1, D2 | Yes | Union exact; 0 forward and 0 inverse gaps |
+| CK-SAF-D3 | No (Minor only) | finding-18 |
+| CK-SAF-D5 | No (Minor only) | finding-15, 16, 17 |
+| CK-SAF-E2 | Yes | Recompute of the section 6.2 union gives no difference; the stale lead-in is finding-21 |
+| CK-SAF-E3 | No (Minor only) | finding-21 (band-edge difference to 03 and 07 not carried) |
+| CK-SAF-G1 | Yes | finding-14 closed; the only SRR-due Open question, OQ-SAF-014, waits on the package item R16 edit of decision 9 |
+
+**Commands run (2026-09-26, post-SRR-ruling delta).**
+- `git log --oneline ade0e09..HEAD -- docs/safety/` (one commit, `bfea9c7`); `git show --stat bfea9c7`; `git diff --word-diff ade0e09 bfea9c7 -- docs/safety/hazard-analysis.md`; Python structural diff and recomputes as above.
+- `traceability.py --report-only --output <scratchpad>/tr.md`: exit 0, 4 violations (the CR-002 cases), 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, 148). `docs/vv/traceability-report.md` and `docs/vv/traceability.json` were not written.
+- `render_risk.py --check --gate SRR --hazards docs/safety/hazards.json`: exit 0.
+- `render_rmm.py --check`: exit 1 on SWE-033 status "Planned" with every path present (`docs/process/rmm.json`, outside this product).
+- `render_compliance.py --check`: exit 0 ("validation PASSED and rendered file is current").
+- `validate_docs.py`: this record and `hazards.json` PASS; the repository run exits 1 on other records (R1 row above).
+- `python -m unittest discover -s tools/tests`: 400 run, 1 failure (`test_validate_docs.RepositoryTests.test_repository_exit_zero`, the same repository-wide validator exit outside this product).
+
+**Rendered visuals.** This product has no rendered visual, and this review produced none.
+
+**Cross items (outside this record's scope; for the lead SE).**
+1. `tools/traceability.py` does not yet accept the CR-002 Inspection route for rule 7.3.6 (04 section 7.4 row 7.3.6, CR-002 implementation step 3). Until it does, the 4 `HAZARD_REQ_NOT_TESTED` violations need the manual check recorded above in every gate traceability review.
+2. 03 (lines 123, 184, 233) and 07 (lines 605, 622, 642) still carry 144.001 to 147.999 MHz after SRR decision 25. The 03 lines also still carry "proposed" for the frequency-word path after decision 9. Both belong with the OQ-SAF-014 joint edit.
+3. The REQ-SW-KEYER-039 rationale should name HZ-004 K2 and K13 (finding-18). The REQ-SYS-186 rationale should name HZ-007 K3 as an implemented control (already requested in OQ-SAF-009).
+4. `render_rmm.py --check` fails on `rmm.json` row SWE-033, which is outside this product.
+
+**Verdict.** `bfea9c7` applies the owner's SRR rulings to the hazard analysis correctly:
+- every ruled value equals its decision row and the committed requirement;
+- the decline cases are retired;
+- the HZ-002 re-rating follows sections 3.3 to 3.5.
+
+No Major finding is open. finding-14 closes. finding-15 and finding-16 stay liens, and finding-17 to finding-21 are new Minor liens. All seven are fixed before PDR. Readiness is met, and the verdict stays APPROVED with 7 liens (convergence rule). `record_status` stays for the lead SE (07 section 10.2).
+
+```
+POST-SRR-RULING DELTA (2026-09-26): VERDICT: APPROVED (with liens). Delta-verified bfea9c7 (0.5.0-pha, SRR owner rulings, package item R16). HEAD blobs hazard-analysis.md 52c8ce16, hazards.json 81cacde4. Closed 14 (finding-1 to finding-14; Major 3, Minor 11); Liens 7 (finding-15 to finding-21: Minor, fix before PDR); open Major 0.
 ```
