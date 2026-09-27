@@ -70,6 +70,32 @@
       },
       "bounding_box_tolerance_mm": 0.01
     },
+    "smoke_shell": {
+      "description": "Research B2 half-shell (smoke-shell.scad), hand-derived before the run from the source: a rounded rectangle offset(r) offset(-r) square([l, w]) has area l w - (4 - pi) r^2. Outer 110 x 62, r 4, 18 high: 6806.266 mm^2 x 18 = 122512.78; pocket 106 x 58, r 2, from z 2 to the rim (16 high): 6144.566 x 16 = 98313.06; four 2.5 mm floor holes 2 deep: 4 x 9.817 = 39.27; four bosses (6 mm less 2.5 mm, 6 high): 4 x 140.19 = 560.77; solid volume 24721.22 mm^3. Faces: 16 cylindrical (4 outer corners, 4 pocket corners, 4 holes through floor and boss, 4 boss outsides) and 15 planar (4 outer sides, rim, bottom, 4 pocket sides, pocket floor, 4 boss tops), 31 in all. Bounding box x -55..55, y -31..31, z 0..18.",
+      "exit": 0,
+      "solids": 1,
+      "valid": "True",
+      "faces": 31,
+      "cylinders": 16,
+      "bspline": 0,
+      "volume_mm3": 24721.22,
+      "volume_tolerance_mm3": 0.05,
+      "bounding_box_mm": {
+        "x": [
+          -55.0,
+          55.0
+        ],
+        "y": [
+          -31.0,
+          31.0
+        ],
+        "z": [
+          0.0,
+          18.0
+        ]
+      },
+      "bounding_box_tolerance_mm": 0.01
+    },
     "seeded": {
       "two-roots.scad": {
         "exit": 1,

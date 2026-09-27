@@ -14,6 +14,7 @@ the TV-015 procedure counts a skip as "not run"):
   ConversionTests      the cube known answer through the driver and through the CM plan form
                        (freecadcmd tools/scad2step.py with the environment); the FreeCAD version
                        checks of the driver (bundle) and of FreeCAD mode (C1)
+  SmokeShellTests      the research B2 half-shell (linear_extrude, offset, bosses) known answer
   SeededCsgTests       C2, C3, C5 and C7 faults each fail with their marker and leave no STEP
   ReproducibilityTests two conversions differ only in the FILE_NAME time stamp (class A)
 
@@ -256,6 +257,29 @@ class ConversionTests(unittest.TestCase):
         r = run("--scad", os.path.join(FIXTURE, "cube.scad"), "--step", os.path.join(self.tmp.name, "o.step"),
                 env=clean_env(CWHT_SCAD2STEP_EXPECT_OPENSCAD="OpenSCAD version 2021.02"))
         self.assertEqual(r.returncode, EXIT["version"])
+
+
+@unittest.skipUnless(HAVE_TOOLS, "OpenSCAD 2021.01 or FreeCAD 1.1.3 not installed at the locked path")
+class SmokeShellTests(unittest.TestCase):
+    """The research B2 half-shell: linear_extrude, offset, difference, union and cylinders (WP-PDR-07)."""
+
+    def test_smoke_shell_known_answer(self):
+        e = KA["smoke_shell"]
+        with tempfile.TemporaryDirectory() as t:
+            step = os.path.join(t, "shell.step")
+            r = run("--scad", os.path.join(FIXTURE, "smoke-shell.scad"), "--step", step)
+            self.assertEqual(r.returncode, e["exit"], r.stdout + r.stderr)
+            k = kat(r.stdout)
+            for key in ("solids", "valid", "faces", "cylinders", "bspline"):
+                with self.subTest(key=key):
+                    self.assertEqual(k[key], str(e[key]))
+            self.assertLessEqual(abs(float(k["volume"]) - e["volume_mm3"]), e["volume_tolerance_mm3"])
+            self.assertLessEqual(float(k["stl_error_pct"]), 0.5)
+            with open(step) as fh:
+                box = step_box(fh.read())
+            for a in "xyz":
+                for j in (0, 1):
+                    self.assertLessEqual(abs(box[a][j] - e["bounding_box_mm"][a][j]), e["bounding_box_tolerance_mm"])
 
 
 @unittest.skipUnless(HAVE_TOOLS, "OpenSCAD 2021.01 or FreeCAD 1.1.3 not installed at the locked path")
