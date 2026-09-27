@@ -16,8 +16,12 @@ product: docs/cm/tool-validation/TV-002-traceability.md
 # Iteration 2 (2026-09-27): delta verification of finding-1 (Major) on TV-002 run 7. product_commit is the CR-011
 # branch head 2b004b1 (commits 709e95f test module, 2b004b1 TV-002 and run 7 evidence); iteration 1 read 4774562.
 # The tool blob d4cde9f5 is unchanged; the CR-011 file is on main, unchanged at d597899b.
+# Iteration 3 (2026-09-27): drift delta (rule C1). The CR-011 file moved on main d597899b -> 892670b6 (7bb994f,
+# revision 2) -> 49461a58 (86ff3b0, section 6.1) -> b636fc94 (0bbb1e2, revision 3); it is not on the branch.
+# product_files names the main blob b636fc94 (git rev-parse main:<path> at 0a5ad04); the other 12 entries and
+# both fixture trees equal git rev-parse 2b004b1:<path>, the cr/CR-011 branch tip, unchanged.
 product_commit: "2b004b17bf94ecf3dc3591cbc34892e6620ad8a7"
-product_files: ["docs/cm/tool-validation/TV-002-traceability.md@94ae3af57e6d5527ccd5ff76ab7aa8724fb0b395", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r7.py@e6f3785628ee376a921a1176883f475c086ab656", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r7.log.txt@1e30bb222b51ecdf3800f6bb5c4a243ce94f0ef3", "tools/tests/test_traceability.py@6ead56414127f9c13cd39e3662a2118e2acd470e", "tools/traceability.py@d4cde9f54386373017f21825d4fd7cc0a42ac373", "tools/tests/test_tools.py@f8289a443f6ca2d837ab2df07df5a3dfc0722f27", "tools/README.md@d61156d8966178e958df4539adab60e8c0ff8b0d", "docs/process/02-requirements-and-traceability.md@d4934d0e7c9648c13ea7d50c1b28faba45b86c00", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.py@220ae2e0118fe13e8237b628d6192a0c67e3c44e", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.log.txt@e26b24368088c56bf18c920b34a12e5dfdd1966a", "docs/vv/traceability-report.md@f49f4215b34179caca551dcfd9a348fdf17c288e", "docs/vv/traceability.json@0f0ea6ef18bdcabd3cba6ef9d6853296de6c476f", "docs/cm/cr/CR-011-traceability-pdr-rules.md@d597899b9f442bfc9c3983cb28f15998eb78c197"]
+product_files: ["docs/cm/tool-validation/TV-002-traceability.md@94ae3af57e6d5527ccd5ff76ab7aa8724fb0b395", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r7.py@e6f3785628ee376a921a1176883f475c086ab656", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r7.log.txt@1e30bb222b51ecdf3800f6bb5c4a243ce94f0ef3", "tools/tests/test_traceability.py@6ead56414127f9c13cd39e3662a2118e2acd470e", "tools/traceability.py@d4cde9f54386373017f21825d4fd7cc0a42ac373", "tools/tests/test_tools.py@f8289a443f6ca2d837ab2df07df5a3dfc0722f27", "tools/README.md@d61156d8966178e958df4539adab60e8c0ff8b0d", "docs/process/02-requirements-and-traceability.md@d4934d0e7c9648c13ea7d50c1b28faba45b86c00", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.py@220ae2e0118fe13e8237b628d6192a0c67e3c44e", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.log.txt@e26b24368088c56bf18c920b34a12e5dfdd1966a", "docs/vv/traceability-report.md@f49f4215b34179caca551dcfd9a348fdf17c288e", "docs/vv/traceability.json@0f0ea6ef18bdcabd3cba6ef9d6853296de6c476f", "docs/cm/cr/CR-011-traceability-pdr-rules.md@b636fc94634dea3ae514e2e87ab384792ec2711e"]
 # fixture_trees: git trees at product_commit (git rev-parse 4774562:<dir>, equal at 2b004b1); the unchanged identities of TV-002
 # section 1 (validate_docs.py 3aa03681, test_traceability_srr_rules.py 86606485) were checked at the same commit
 fixture_trees: ["tools/tests/fixtures/valid_project@bcd898307e93113336cf9b1045d7a8ce827f42cc", "tools/tests/fixtures/invalid_project@6a046bae3fe2a86c2e4b00a41954f1946b5e3b1f"]
@@ -25,7 +29,7 @@ tv_ids: [TV-002]
 tool_class: B
 tool_kind: repository-tool
 acc_proposed: [ACC-TRACE-002]
-product_size: "iteration 2: 1 record (TV-002 at 2b004b1, 226 lines), 9 purposes, 235 known-answer tests (86 + 32 + 117), 74 fixture files (42 + 32, unchanged), 4 evidence files (run 6 and run 7); tool 4156 lines (unchanged). Iteration 1: 191-line record, 8 purposes, 229 tests"
+product_size: "iteration 3: CR-011 file drift d597899b -> b636fc94, 9 hunks (74 insertions, 12 deletions); other 12 blobs unchanged. Iteration 2: 1 record (TV-002 at 2b004b1, 226 lines), 9 purposes, 235 known-answer tests (86 + 32 + 117), 74 fixture files (42 + 32, unchanged), 4 evidence files (run 6 and run 7); tool 4156 lines (unchanged). Iteration 1: 191-line record, 8 purposes, 229 tests"
 sprint: PDR-prep
 author_agent: "author:WP-PDR-06 (Claude as tool owner and software lead, CR-011)"
 tool_author_agent: "author:WP-PDR-06 (Claude as tool owner, CR-011)"
@@ -34,13 +38,16 @@ criticality: neither
 # assurance_required: the TV template (CR-012) says false and makes section H this reviewer's task; PDR work plan
 # WP-PDR-06 names a separate SA second review (tool used for credit), requested from the lead SE ("SA pair needed")
 assurance_required: true
-assurance_reviewer_agent: "pending: separate software assurance invocation, record docs/reviews/PDR/checklists/code-tools-traceability-software-assurance.md (plan WP-PDR-06)"
-iteration: 2
+# assurance pair filed since iteration 2: INSP-051 (tool-validation-tv-002-software-assurance.md, db43b82),
+# assurance_verdict APPROVED at iteration 1, its own record verdict held; it also names the CR file at d597899b
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-06-tv-002 (INSP-051, docs/reviews/PDR/checklists/tool-validation-tv-002-software-assurance.md)"
+iteration: 3
 readiness_met: true
 reviewer_verdict: APPROVED
-assurance_verdict: pending
-# verdict: held at NEEDS CHANGES (a) until the SA pair is APPROVED and (b) while the reviewed blobs are on the CR-011
-# branch only (record drift rule; the INSP-037 hold); set APPROVED at the CR-011 merge with these blobs unchanged.
+assurance_verdict: APPROVED
+# verdict: held at NEEDS CHANGES while the reviewed blobs are on the CR-011 branch only (lead SE convention; record
+# drift rule; the INSP-037 hold). Hold (a) of iteration 2 (SA pair not filed) is cleared by INSP-051. The software
+# lead sets APPROVED at the CR-011 merge with every product_files blob equal to the merged blob.
 verdict: NEEDS CHANGES
 findings_major: 1
 findings_minor: 4
@@ -52,8 +59,8 @@ assurance_tasks_applied: [swe-136 7.1 task 1, swe-070 7.1 task 1]
 deferred_rids: []
 # items_no: TV-B2 answered Yes at iteration 2 (finding-1 Verified); the rest are the Minor liens
 items_no: [TV-B3, TV-D1, TV-D2, TV-E1, TV-E2, TV-F3, TV-F5]
-effort_turns: 62
-effort_minutes: 90
+effort_turns: 76
+effort_minutes: 110
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -279,4 +286,49 @@ FINDINGS: finding-1 Major Verified; finding-2 to finding-5 Minor, lien due CDR; 
 ITEMS N/A: TV-D3 (class B), TV-G2 to TV-G4 (repository tool)
 RE-RUN: run 7 procedure at 2b004b1, exit 0, 235 tests, 6 of 6 mutants killed, output equal to the committed log; 6 reviewer mutants killed
 MEASUREMENTS: elements verified=7; tool runs=3; new findings=0; iteration 2 turns=32, minutes=45; cumulative turns=62, minutes=90
+```
+
+## Iteration 3: drift delta on the CR-011 file (2026-09-27)
+
+**Scope (rule C1).** A delta that verifies the drifted blob only; no Major was open. Iterations 1 and 2 named `docs/cm/cr/CR-011-traceability-pdr-rules.md` at `d597899b` (revision 1, `b01b9cd`). That blob is on neither `main` nor the branch tip: the file lives on `main` only (`git rev-parse 2b004b1:<path>` fails), where it moved to `892670b6` (`7bb994f`, revision 2), `49461a58` (`86ff3b0`, section 6.1 impact review round 1) and `b636fc94` (`0bbb1e2`, revision 3), the blob at `main` `0a5ad04`. The brief named `49461a58`; `main` moved again before this iteration started, so this delta reads the whole span `d597899b` to `b636fc94`. The other 12 `product_files` entries and both `fixture_trees` equal `git rev-parse 2b004b1:<path>` at the branch tip `2b004b1` (checked one by one), so the answers of iterations 1 and 2 stand for them and no tool re-run is needed.
+
+**Independence (rule C4).** This invocation authored no part of CR-011 (any revision or its section 6), TV-002, the tool or the test module, wrote neither iteration 1 nor 2 of this record, and edited no product file.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran first (query: CR-011 revision and section 6.1 impact review with INSP-043 and TV-002). Afterwards `git rev-parse`, `git log`, `git diff --word-diff d597899b b636fc94` and `grep` only pinned blobs and lines.
+
+### Hunks read (`git diff d597899b b636fc94`, 9 hunks, 74 insertions, 12 deletions)
+
+| # | Hunk | Content | Check against this record's lens (TV-002, purposes, runs, INSP-043) | Result |
+|---|---|---|---|---|
+| H1 | front matter `affected_paths`, `related` | adds the run 7 evidence paths; `related` adds CR-003, CR-006, CR-008, CR-009 | the two paths are the run 7 files of `product_files` (blobs `e6f37856`, `1e30bb22` at `2b004b1`) | consistent |
+| H2 | revision 2 and revision 3 paragraphs | revision 2: branch head `4774562` to `2b004b1`, test module `95f1719b` to `6ead5641`, TV-002 purpose 9 and run 7, tool `d4cde9f5` unchanged; revision 3: IR-F1 resolved, branch head and product files unchanged | `git rev-parse 4774562:tools/tests/test_traceability.py` = `95f1719b`; branch tip = `2b004b1`; tool blob unchanged; matches iteration 2 scope | consistent |
+| H3 | section 1 plain-run severity | seven new codes are plain-run violations (`BASELINE_ID_MISSING`, `TRANSITION_FORBIDDEN`, `CHANGE_UNCOVERED`, `CLOSED_NOT_INSTALLED`, `CASE_STALE`, `DEVBOARD_CASE_CLOSING`, `VAL_PHASE_MISSING`); `TBR_DUE_AT_GATE` only under `--gate`; the other new rules warnings in a plain run | `CHECK_CATALOGUE` of blob `d4cde9f5`: all seven have severity `VIOLATION`, none is in blob `12de3545`; `TBR_DUE_AT_GATE` text is "under --gate R"; the T-15, T-16, T-20, T-22, hazard, safety-part and ADR codes are `WARNING` with `GATE_ERROR_FROM`. TV-002 purposes 6 and 7 list the same codes and make no contrary severity claim; R-3 and R-4 (0 plain-run violations) agree with "on today's `main` merged with the branch the seven codes find nothing" | consistent; the CR now states the tool correctly |
+| H4 | section 4 Verification, Schedule, Requirements and traceability, Documentation rows | run 7: 235 tests (86 + 32 + 117), 0 skipped, export of `709e95f`, M1 to M6 killed, R-4 equal to R-3; effect on open requirement CRs and the merge condition; Documentation routes the lock section 1.1 and 5 rows to WP-PDR-09 and the tool-validation README TV-002 row to the tool owner, both as the INSP-043 finding-4 lien | run 7 figures equal V7 of iteration 2 and TV-002 R-4; the trial numbers on CR-008 and CR-009 concern other CRs and are outside this record's lens (IR-F1 re-check of section 6.2); the README row now has an owner, which answers the "routed nowhere" clause of finding-4 in the CR, but the row itself still lags, so the lien stands | consistent; see note (i) |
+| H5 | new section 4.1 | author trials and the merge condition table | outside this record's lens (impact on other CRs); no claim about TV-002, its runs or its purposes | not assessed here |
+| H6 | section 5 steps 3a and 5, verification line | step 3a names `6ead5641`, `94ae3af5`, `709e95f`, `2b004b1`; step 5 states INSP-042 (reviewer APPROVED at `4774562`), INSP-043 (reviewer APPROVED at iteration 2 on `2b004b1`, commits `d9a78e0`, `b77a9e5`) and the deltas the moved blobs need, including this CR file; verification line: 235 tests (run 7 selection), 229 (run 6), mutation checks of runs 6 and 7 | blobs equal `product_files`; `git log` of this record gives `d9a78e0` and `b77a9e5` with those scopes; the delta it foresees for this record is this iteration | consistent |
+| H7 | sections 6.1 and 6.2 (impact review round 1, author response) | IR-F1 (Major) to IR-F5 (Minor); IR-F1 accepted in revision 3, IR-F2 to IR-F5 open, IR-F1 re-check pending | IR-F2 says INSP-043 names `tools/README.md@d61156d8`, which `main` changed at `573f9f5`, so the merged README blob will differ; that is a further delta at the merge under rule C2, as iteration 2 already states. The rest concerns the CR's impact assessment, not TV-002 | noted; see note (ii) |
+| H8 | section 7 proposed Conditions | merge only with a 0-violation plain run on the merge commit; CR-008 and later requirement CRs conditions | owner disposition text, outside this lens | not assessed here |
+| H9 | sections 8, 9 and 11 | commits `709e95f`, `2b004b1` added to the implementation table; report "not regenerated after `4411a09`" with R-4 equal to R-3; author check at `2b004b1`: 477 tests, 1 failure (`test_repository_exit_zero`), 3 skipped, `validate_docs.py` 48 passed, 2 failed (INSP-015, INSP-020); section 9 cites INSP-043 checks V3 to V9 and adds a plain-run row per later merge; history rows for revisions 2 and 3 | equal to V6 (report made at `4411a09`), V9 and TV-002 R-4 of this record; V3 to V9 exist in this record | consistent |
+
+**Notes, no finding.** (i) finding-4 keeps its lien: the CR now routes the tool-validation README TV-002 row to the tool owner and the lock rows to WP-PDR-09, but on the branch and on `main` those rows still lag runs 6 and 7. (ii) At the merge `tools/README.md` auto-merges to a blob no record has read (IR-F2), and this CR file will likely move again (IR-F1 re-check, IR-F2 to IR-F5, disposition); each such move of a `product_files` blob needs a further drift delta before the software lead sets the record verdict (rule C2), or the CR file may be dropped from `product_files` as context, as CR-011 section 5 step 5 allows. (iii) No hunk changes a claim that iterations 1 and 2 relied on: the tool blob, the test modules, the fixtures, TV-002 and the run 6 and run 7 evidence are unchanged, and the CR text now agrees with them where revision 1 did not (H3).
+
+### Findings (iteration 3)
+
+No new finding. finding-1 (Major) stays Verified. finding-2 to finding-5 (Minor) stay liens due at the CDR readiness declaration, as the iteration 2 table states. Zero Major findings open.
+
+### Measurements (SWE-089), iteration 3
+
+Blobs re-checked: 13 `product_files` entries and 2 fixture trees; drifted blobs 1; hunks read 9 of 9 (74 insertions, 12 deletions); claims cross-checked against the tool catalogue, TV-002 and this record 6 hunks (3 outside the lens); tool runs 0 (tool, tests and fixtures unchanged). New findings: 0. Iteration 3 effort: 14 turns, 20 minutes; cumulative 76 turns, 110 minutes (front matter).
+
+### Record verdict (iteration 3)
+
+**Reviewer verdict: APPROVED**, with liens finding-2 to finding-5. The software assurance pair INSP-051 is now filed with `assurance_verdict: APPROVED`, which clears hold (a) of iteration 2. The record `verdict` stays NEEDS CHANGES for hold (b): 12 of the reviewed blobs are on the unmerged CR-011 branch only (lead SE convention). The software lead sets `verdict: APPROVED` at the CR-011 merge when every `product_files` blob equals the merged blob; any change before then (for example the merged `tools/README.md` or a further revision of this CR file) needs another drift delta (rule C2).
+
+```
+VERDICT (iteration 3, 2026-09-27): reviewer APPROVED (liens finding-2 to finding-5); record verdict NEEDS CHANGES (held: branch-only blobs until the CR-011 merge)
+PRODUCT: CR-011 file d597899b -> b636fc94 (main 0a5ad04, 0bbb1e2 revision 3); other 12 blobs at branch tip 2b004b1, unchanged
+FINDINGS: no new finding; finding-1 Major Verified; finding-2 to finding-5 Minor liens due CDR
+ITEMS N/A: TV-D3 (class B), TV-G2 to TV-G4 (repository tool)
+RE-RUN: none needed (tool, tests, fixtures, TV-002 and evidence unchanged); 9 of 9 hunks read
+MEASUREMENTS: hunks=9; blobs checked=13 + 2 trees; new findings=0; iteration 3 turns=14, minutes=20; cumulative turns=76, minutes=110
 ```
