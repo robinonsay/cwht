@@ -15,36 +15,42 @@ checklist_revision: B
 checklist_analysis: "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/analysis-shielding-estimate.md
 product: docs/design/analysis/shielding-estimate.md
-product_commit: "70a3a33"
-product_files: ["docs/design/analysis/shielding-estimate.md@e600e9ee005978f36d2f88c402df5ca6b428c58d", "hardware/sim/enclosure/shielding_estimate.py@3cc126cb05b96bf03d58b149863e1818cbe15f2b", "hardware/sim/enclosure/out/shielding.csv@023cb5c89e2fee02c2c3800f59d2349661232b4a", "hardware/sim/enclosure/out/bond.csv@7af39c6bc5d525f4485db1fb111a6f2a156003e6", "docs/reviews/PDR/figures/shielding-estimate.png@3370418db7029defa93a6f4c3f5d99dcd84f7daf"]
+# product_commit (iteration 2): 70d11ef, the WP-PDR-27 revision 1 commit that fixes finding-1 (re-freeze F0,
+# rule C2). Every blob below equals git rev-parse 70d11ef:<path>, HEAD:<path> and git hash-object at HEAD d1148c2;
+# all are on main. product_files_iteration_1 keeps the 70a3a33 blobs.
+product_commit: "70d11ef54a5bc477cda9e9fa01e7295e1365f147"
+product_files: ["docs/design/analysis/shielding-estimate.md@57bb7ba55bb4fcf2e482e1b5a4e87403ea47ba1b", "hardware/sim/enclosure/shielding_estimate.py@eb20c66932aa713becff2ea46a47fce33787609f", "hardware/sim/enclosure/out/shielding.csv@0005f90864b8cce33e87b6bfc3bd1187604c66af", "hardware/sim/enclosure/out/shielding-sources.csv@b01ea4208df24424df0cd4f377d262422c187888", "hardware/sim/enclosure/out/bond.csv@7af39c6bc5d525f4485db1fb111a6f2a156003e6", "docs/reviews/PDR/figures/shielding-estimate.png@8f7aef711b529fa10e606538f7f472374e9c690e"]
+product_files_iteration_1: ["docs/design/analysis/shielding-estimate.md@e600e9ee005978f36d2f88c402df5ca6b428c58d", "hardware/sim/enclosure/shielding_estimate.py@3cc126cb05b96bf03d58b149863e1818cbe15f2b", "hardware/sim/enclosure/out/shielding.csv@023cb5c89e2fee02c2c3800f59d2349661232b4a", "hardware/sim/enclosure/out/bond.csv@7af39c6bc5d525f4485db1fb111a6f2a156003e6", "docs/reviews/PDR/figures/shielding-estimate.png@3370418db7029defa93a6f4c3f5d99dcd84f7daf"]
 analysis_kind: [other, worst-case]
 product_size: 4 options x 9 frequencies x 2 readings plus 2 variants (36 CSV rows); 8 bond cases; 1 checker; 1 plot
 tools_used: ["venv Python 3.13.5 (TV-001 accredits the interpreter; numpy 2.5.3 and matplotlib 3.11.2 are class B entries of tools/toolchain.lock.md section 2 without a TV record; no TV record covers hardware/sim/enclosure/*.py; developer evidence per 05 section 9.1)"]
-values_proposed: ["REQ-SYS-177: 20 dB (keep), with the owner's choice of scope (a), (b) or (c) for the 1.5 and 2.2 MHz converter fundamentals (not supported as stated: finding-1)", "REQ-SYS-109: 0.1 ohm (keep), with coating Rs <= 0.03 ohm/sq and two bond points per coated part (supported, AT RISK on CR-003 revision 3; finding-3)"]
-renders_inspected: 1
+values_proposed: ["REQ-SYS-177: 20 dB (keep), with the owner's choice of scope (a), (b) or (c) and the not-shown cases named in the PCR-9 ruling (revision 1; the 12.5 MHz to 1.5 GHz pass of C1 and D is not supported with a plug inserted: finding-5)", "REQ-SYS-109: 0.1 ohm (keep), with coating Rs <= 0.03 ohm/sq and two bond points per coated part (supported, AT RISK on CR-003 revision 3; finding-3)"]
+renders_inspected: 2
 sprint: PDR-prep
 author_agent: "author:WP-PDR-27 wave 1a (Claude as ME designer)"
-reviewer_agent: "reviewer:WP-PDR-27-analysis-shielding-iter1 (independent; authored no part of WP-PDR-27)"
+reviewer_agent: "reviewer:WP-PDR-27-analysis-shielding-iter1 (independent; authored no part of WP-PDR-27); iteration 2 by reviewer:WP-PDR-27-analysis-shielding-iter2 (independent; authored no part of WP-PDR-27 and no part of its revision 1)"
 # criticality: a hardware enclosure analysis; it sets no value of a 07 section 14.1 component
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+iteration: 2
 readiness_met: true
+# reviewer_verdict (iteration 2): NEEDS CHANGES; finding-1 (Major) Verified; new finding-5 (Major) Open: the rule O2
+# jack-collar credit that the fix relies on does not hold with a plug inserted; findings 2 to 4 and 6 Minor, Open
 reviewer_verdict: NEEDS CHANGES
 assurance_verdict: not-required
 verdict: NEEDS CHANGES
-findings_major: 1
+findings_major: 2
 findings_minor: 3
 findings_open: 4
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_tasks_applied: []
 deferred_rids: []
-items_no: [CK-ANA-A5, CK-ANA-B1, CK-ANA-B3, CK-ANA-E3, CK-ANA-E5, CK-ANA-F1]
-effort_turns: 30
-effort_minutes: 45
+items_no: [CK-ANA-A5, CK-ANA-B1, CK-ANA-B3, CK-ANA-E5, CK-ANA-F1]
+effort_turns: 55
+effort_minutes: 85
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -209,3 +215,65 @@ CK-ANA-G1 to G6 (not a deck, budget, thermal, RF exposure, cascade or timing ana
 ## Measurements (SWE-089)
 
 Items checked 40 (A1 to A6, B1 to B6, C1 to C5, D1 to D4, E1 to E7, F1 to F4, G7-1, G7-2, H1 to H3, I1, I2) plus readiness 6; items answered No 6; findings 1 Major, 3 Minor; fixed 0, deferred 0; iteration 1; renders inspected 1; inputs checked 11; effort about 30 turns and 45 minutes (session shared with INSP-081, 072, 074).
+
+## Iteration 2: delta verification of finding-1 (Major) (2026-09-27, HEAD `d1148c2`)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the fix of finding-1 only. Findings 2 to 4 (Minor) were not addressed by the author (note change log, revision 1 row) and are not re-reviewed. Product: the 6 blobs of front matter `product_files`, committed as `70d11ef` (note revision 1, re-freeze F0). Each equals `git rev-parse 70d11ef:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` (6 of 6). `git log 70d11ef..HEAD` shows no later change to any product file. No blob is on a `cr/` branch. Checklist as iteration 1: `peer-review-checklist-analysis.md` revision A, blob `0386cc6e`, still only on `cr/CR-012-pdr-checklist-templates` at `7784672` (not merged at `d1148c2`).
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-27 and no part of revision 1. It edited no product file.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search. `grep` then only pinned lines in known paths (the note, the script, `docs/design/analysis/clock-plan.md`). The rustos tree was not read.
+
+**Reproduction.** On a `git archive 70d11ef` export in the scratchpad: `shielding_estimate.py --check` exit 0, `CHECK PASS`; the regenerated `shielding.csv`, `shielding-sources.csv`, `bond.csv` and `shielding-estimate.png` hash to the frozen blobs (4 of 4 byte-identical). Reviewer runs of the note's own `total_se` (lower of plane wave and H field) at 600, 900, 1050, 1200 and 1500 MHz for A and C1 with the `rev0` and `rev1` opening sets reproduce the section 4.1 table to 0.1 dB, and C1 `rev1` gives 24.5 dB at 12 MHz, 22.2 dB at 9 MHz, 20.0 dB at 6.8 MHz and 19.0 dB at 6 MHz, as the note states. Hand check of the rule O1 to O3 terms at 1.5 GHz (lambda 200 mm): USB mouth 7.5 mm with 5 mm depth 40.7 dB; jack collar 9 mm with 8 mm depth 45.2 dB; encoder contact slot 3 mm with 2 mm depth 48.7 dB; against 19.6 dB for the revision 0 USB opening (15.6 mm, 2 mm). The 8 to 9 dB recovery at 1.5 GHz follows.
+
+### Verification of finding-1, case by case (rule C7)
+
+| # | Case the finding named | Check | Result |
+|---|---|---|---|
+| 1 | Every harmonic to 1.5 GHz of every clock of the WP-PDR-20 clock plan | Section 2 source row and `CLOCK_SOURCES`: 19 sources, checked against `clock-plan.md` revision 2 (`4153acf`) section 2 (every row whose status is fixed, proposed, option, tx-only, off in operation or boot) and section 2.1 (R-1 to R-5). The rejected rows (TCXO 26 and 27 MHz, SPI d 26 to 48, audio PWM 146.484 kHz, free-running buck, PCM1808 12.288 MHz) are correctly left out. Tolerance band ends taken (for example ROSC 14.3 MHz +/-67.8 % gives 4.6 to 24.0 MHz; R-4 0.377 MHz +/-5.3 % gives 357 to 397 kHz). Harmonics to 1500 MHz at the nominal and both band ends (`per_source`) | Yes (allowed-but-unproposed divisors: observation O-1 below) |
+| 2 | The converter harmonics between 1.5 and 12 MHz | In the set through the harmonics of the buck, charger, R-1 to R-5, PWM and ROSC; section 4.2 gives the fail spans (for example charger boost 1.35 to 6.75 MHz) | Yes |
+| 3 | Report every case below 20 dB | Section 4.1 bold cells; section 4.2 per-source verdicts (9 sources fail for C1 and D from 0.03 to 6.8 MHz; B fails R-5); section 4.3 checker verdicts; section 5 status column; the revision 0 "marginal" statement withdrawn | Yes |
+| 4 | Opening design rules that recover the upper range, or the scope question to the owner | Rules O1 to O3 (section 7 item 2; TS-011 rule 16) and the owner question (section 7 item 3, options (a) to (c), with the finding that board shield cans alone no longer close it), plus the 1.5 GHz edge to the CDR analysis or a named acceptance (item 4) | Yes, for the unplugged state (the plug-inserted state: new finding-5, Major) |
+| 5 | A margin below its uncertainty reported as not shown (E3) | Section 3 verdict rule with 6 dB; `per_source` applies it per harmonic; section 5 status column; XOSC, QSPI 12.5 MHz, PCM1808 and BFO "not shown" for C1 and D; every source "not shown" for A and B at 1.5 GHz. The 6 dB covers the H-field wall term at a 5 mm source (reviewer: 24.2 dB at 12 MHz for r = 10 mm against 18.9 dB for 5 mm, a 5.3 dB shift) | Yes |
+| 6 | TC-SYS-107 is closed on CDR design data, not a TRR measurement | Section 7 item 4 says so and puts the near-field probe measurement as supporting data | Yes |
+
+**Result: finding-1 Verified** for what it asked. The rule that carries its upper-range result has a defect in the plug-inserted state, raised as finding-5.
+
+### Findings (iteration 2)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | CK-ANA-F1, E3, E5 | note sections 2 to 5, 7, 9; script `CLOCK_SOURCES`, `per_source` | See iteration 1 | Verified (iteration 2, revision 1 at 70d11ef) | n/a | |
+| finding-2 | reviewer | Minor | CK-ANA-A5 | note section 1 | Not in the delta (section 3 now cites it for the 6 dB uncertainty; the direction of the rounding is still not stated in section 1) | Open | Pending | CDR readiness declaration (lien) |
+| finding-3 | reviewer | Minor | CK-ANA-B1 | note section 6 | Not in the delta | Open | Pending | CDR readiness declaration (lien) |
+| finding-4 | reviewer | Minor | CK-ANA-B3 | note section 3 | Not in the delta | Open | Pending | CDR readiness declaration (lien) |
+| <a id="finding-5"></a>finding-5 | reviewer | Major | CK-ANA-F1, E5 | note section 2 row "Other openings" (revision 1 set), section 7 item 2 rule O2 and the item 2 conclusion "C1 and D pass from 12.5 MHz to 1.5 GHz"; section 4.2 "pass" rows; script `OPENINGS["rev1"]` (jack holes `(0.009, depth + 0.006)`); TS-011 rule 16 and the M5 cells | **The rule O2 below-cutoff credit does not hold with a plug in the jack, which is the operating state.** O2 gives each 9 mm jack opening 8 mm of waveguide-below-cutoff depth (27.3 x 8 / 9 = 24.3 dB). Below-cutoff attenuation exists only for an empty opening. With a 3.5 mm plug inserted, its metal sleeve runs through the collar into the jack and is connected to board ground at the jack's sleeve contact, so the collar and the sleeve form a coaxial line, which has no cutoff. The key jack holds the key or paddle plug in every transmit and receive state, and REQ-SYS-117 itself names the "plugs inserted" state; TC-SYS-107 covers "every aperture" at the worst-case corner. The reviewer ran the note's own `total_se` with the O1 and O3 terms kept and the two jack terms changed: with the depth credit removed (9 mm, no depth) C1 gives 21.3 dB at 900 MHz, 20.1 at 1050, 19.1 at 1200 and 17.3 dB at 1500 MHz (A 21.1, 20.0, 19.0, 17.2 dB); with the wall depth only (2 mm) C1 gives 22.0 dB at 1500 MHz (A 20.7). So with a plug in, every source whose harmonics reach about 1.1 GHz is a fail or at best not shown, not the "pass" of section 4.2, and a coaxial penetration can leak more than this aperture estimate. That changes the answer the owner gets at PCR-9: under option (a), C1 and D do not meet 20 dB from 10 MHz up with the key plugged in, and under option (c) A does not either. **Why Major:** the proposed REQ-SYS-177 ruling (rule C10) and TS-011 M5 and condition 3 rest on a pass that does not hold in the operating state (E5), and a case TC-SYS-107 names is not analysed (F1). **Fix:** add the plug-inserted state as a case for both jacks (and the USB with a cable, whose plug shell mates the O1-bonded receptacle shell, which the note should state). Either give a rule that closes the penetration at the wall (for example the jack's sleeve contact, or a metal-bodied panel jack, bonded all round to the collar or coating; or a filtered, grounded entry) and credit it by a stated model, or report the plug-inserted cases as fail or not shown and carry them by name into the PCR-9 question and TS-011 M5 and condition 3 | Open | Pending | |
+
+One Major finding is open, so the reviewer verdict is NEEDS CHANGES (iteration 3 is a delta on finding-5; rule C1 allows it).
+
+### Observation (not a finding)
+
+- O-1. The clock plan also allows SPI SCK = 150 / d for every even d from 2 to 24 and QSPI SCK = 150 / CLKDIV for CLKDIV 1 to 24 ("allowed (clear set)"); only the proposed values are modelled. An allowed divisor below about 7 MHz (SPI d 22 or 24, 6.8 and 6.25 MHz; QSPI CLKDIV 22 to 24) would fail in C1 and D like the other sources below 7 MHz; above it every allowed value falls in the band the note already covers. No verdict changes; the note could say the model covers the proposed values and name the bound.
+
+### Visual closure (iteration 2)
+
+`docs/reviews/PDR/figures/shielding-estimate.png` (revised, three panels) opened with the Read tool. Left: wall-only shielding against frequency from 0.02 MHz for five coating classes (H field) and 6061, with the 0.03 ohm/sq plane-wave line and the labelled 20 dB line. Middle: the total (lower of plane wave and H field) for A and C1 with the revision 0 openings (dotted) and rules O1 to O3 (solid), 0.02 to 1500 MHz, with the fail band below 20 dB and the not-shown band 20 to 26 dB shaded and labelled; the C1 curve crosses 20 dB near 7 MHz and ends near 26 dB; the revision 0 curves end near 16 to 17 dB. Right: per-source lowest totals for C1 (plain) and A (hatched) coloured by verdict, with values and verdicts written at each bar; the values match section 4.2 (for example C1 8.9 fail for the charger boost, 26.2 pass for clk_sys, A 25.4 not shown). Long source names are cut at 38 characters on the axis ("R-3 TPA6130A2 charge pump 300 to 500 k"), cosmetic. The plug-inserted state of finding-5 is not shown in the figure.
+
+### Cross items (iteration 2, returned to Claude)
+
+- X-4. INSP-081 (TS-011) iteration 2 carries finding-5 as its cross item X-5: TS-011 section 1 finding 3, the M5 cells and condition 3 change with the fix.
+- X-5. The `checklist` field still names `peer-review-checklist-design` (X-1 of iteration 1); switch it after CR-012 merges.
+- X-3 of iteration 1 (TC-SYS-107 `automation_ref`) still applies.
+
+### Completion criteria (SWE-088), iteration 2
+
+Not met on the reviewer side: finding-5 (Major) is open. `reviewer_verdict: NEEDS CHANGES`; record `verdict: NEEDS CHANGES`. Findings 2 to 4 are Minor liens due at the CDR readiness declaration (plan rule C1).
+
+```
+ITERATION 2 (2026-09-27, HEAD d1148c2, product commit 70d11ef): REVIEWER VERDICT: NEEDS CHANGES; RECORD VERDICT: NEEDS CHANGES
+FINDINGS:
+- [Major] finding-1: Verified (19 clock-plan sources with every harmonic to 1.5 GHz and the band ends; cases below 20 dB reported; rules O1 to O3 and the PCR-9 question; not-shown rule at 6 dB).
+- [Major] finding-5 (new): the rule O2 jack-collar below-cutoff credit does not hold with a plug inserted; C1 17.3 dB at 1.5 GHz without it (Open).
+- [Minor] finding-2 to finding-4: Open, not in the delta (liens).
+MEASUREMENTS: blobs equal HEAD 6/6; checker CHECK PASS exit 0; outputs byte-identical 4/4; cases 6 (6 Yes, 1 with a new Major); reviewer model runs 5 frequencies x 2 options x 4 opening sets; renders inspected 1; major open=1; minor open=3; turns=25; minutes=40 (cumulative 55 and 85); iteration=2
+```
