@@ -17,8 +17,11 @@ checklist_revision: B
 checklist_tool_validation: "docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/tool-validation-tv-014-to-tv-019.md
 product: docs/cm/tool-validation/TV-014-ltspice-batch.md
-# product_commit: iteration 3 re-issue 2 (the delta after the owner's route (1) decision of 2026-09-27, status note
-# section 9, "with a fix loop") reviews f47360a (the author's run 5 record commit): wrapper bdc4513f (b893382
+# product_commit: iteration 3 re-issue 3 (the second delta of the owner's route (1) fix loop, on the finding-21 fix)
+# reviews bd78bd5 (the author's run 6 record commit): wrapper 88b71475 and test module e90b0ef1 of 45531ac, fixture
+# tree f1497c52, run 6 procedure 72dfa2d7 and transcript f87f8fac, TV-014 9c6d477a, lock be96420b, TV README
+# f4757da2, tools/README.md a5e9cab6; every product blob is unchanged at HEAD 7126a80 (the one later commit touches
+# WP-PDR-27 only). Iteration 3 re-issue 2 reviewed f47360a (the author's run 5 record commit): wrapper bdc4513f (b893382
 # finding-20 fix plus the d1148c2 session end), test module 6c4e00e5, fixture tree 61c74693, run 5 procedure
 # 4f61ee30 and transcript aa6d45ea; every product blob is unchanged at HEAD c0f5244 (later commits touch other
 # work packages only). Iteration 3 re-issue 1 reviewed HEAD d9c7f69
@@ -28,19 +31,19 @@ product: docs/cm/tool-validation/TV-014-ltspice-batch.md
 # aa746f0 freeze of iteration 2 except the TV README (87fb1e8c) and the lock (b45c8654), which c827202
 # (WP-PDR-08) changed on rows other than LTspice. Iteration 2 reviewed aa746f0 and iteration 1 b362395 (blobs
 # in the front matter of dfde624 and 3e9d30f)
-product_commit: "f47360aa74a71011b3759e20a7f66d7cd14ac381"
-product_files: ["tools/ltspice-batch.sh@bdc4513ff1b63aa76717e0cf669ae2a08b1b841a", "tools/tests/test_ltspice_batch.py@6c4e00e574a25c76545f750da17e85c5ce83ab65", "tools/tests/fixtures/ltspice/known-answers.json@61cdbf6d56648dfe09109720326a115130902837", "tools/tests/fixtures/ltspice/fake-support/bin/wine@512487a9c79bfa86b3c3798b0e8df0031af0fc0a", "tools/tests/fixtures/ltspice/fake-support/bin/wineserver@6d853df3c6e169d489e38deb281685261b900282", "tools/tests/fixtures/ltspice/rc-step-tran.net@bd19be4123841c512402ffec3009d815ded2de02", "docs/cm/tool-validation/TV-014-ltspice-batch.md@af5459238be32c3392b8ef4f8df749f34aa2a3a8", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run5.sh@4f61ee309fe761b6ba1c0286730b8ef6392ec36f", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run5.log.txt@aa6d45ea1f13098a27645ffa1287e50cba4d21e5", "docs/cm/tool-validation/README.md@dbce2cf3fa2cd568f553e9808e79b2666dd2455a", "tools/toolchain.lock.md@00f60986972ff929732d0c5bb8b8c103a8ca6592", "tools/README.md@59f86b76b7ff1128312be303e3643c0618d5c1be"]
-fixture_trees: ["tools/tests/fixtures/ltspice@61c7469324e49d2b473c316aad8e84abf9addba2"]
+product_commit: "bd78bd586fb9fe873d67bb1418217fddaa6cdec4"
+product_files: ["tools/ltspice-batch.sh@88b71475464bf97ff4e21ec188443edd9c74837b", "tools/tests/test_ltspice_batch.py@e90b0ef1468c4118d6b5116a68e19c6bd2b50a54", "tools/tests/fixtures/ltspice/known-answers.json@84ecdd0ab4773e4be4871cff6f14860fd170f608", "tools/tests/fixtures/ltspice/fake-support/bin/wine@42177aad7ef4ab945c870836c93e7735e5c4f350", "tools/tests/fixtures/ltspice/fake-support/bin/wineserver@6d853df3c6e169d489e38deb281685261b900282", "tools/tests/fixtures/ltspice/rc-step-tran.net@bd19be4123841c512402ffec3009d815ded2de02", "docs/cm/tool-validation/TV-014-ltspice-batch.md@9c6d477af267f9595b7850e9cf8c8f8aec25f2df", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run6.sh@72dfa2d7395ee6c31b38db7859036da3edbcea1b", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run6.log.txt@f87f8fac8c22aff08e425174296fee11d50178d5", "docs/cm/tool-validation/README.md@f4757da23bcd4f8220e51de21cc76321cf33fb94", "tools/toolchain.lock.md@be96420b699fe659e7360194d2ce054263121915", "tools/README.md@a5e9cab6415d6d94a33fef03a18f4a408fc4ca29"]
+fixture_trees: ["tools/tests/fixtures/ltspice@f1497c5258ed078d44ccc7bb0d4ef95573c871ee"]
 tv_ids: [TV-014]
 tool_class: B
 # tool_kind: the wrapper is a repository tool (G1) around an external tool (G2); both subsections answered
 tool_kind: repository-tool
 acc_proposed: [ACC-LTSPICE-001]
-product_size: 1 record (TV-014), 4 purposes, 43 known-answer tests, 14 fixture files, 435-line wrapper
+product_size: 1 record (TV-014), 4 purposes, 46 known-answer tests, 14 fixture files, 465-line wrapper
 sprint: PDR-prep
 author_agent: "author:WP-PDR-07 (Claude as tool owner)"
 tool_author_agent: "author:WP-PDR-07 (Claude as tool owner)"
-reviewer_agent: "reviewer:WP-PDR-07-tool-validation-iter5 (independent; authored no part of WP-PDR-07, TV-014, the wrapper, the tests, run 5 or earlier iterations; iteration 3 re-issue 1 by reviewer:WP-PDR-07-tool-validation-iter4; iteration 1 by reviewer:WP-PDR-07-tool-validation-iter1, iteration 2 by reviewer:WP-PDR-07-tool-validation-iter2, iteration 3 by reviewer:WP-PDR-07-tool-validation-iter3)"
+reviewer_agent: "reviewer:WP-PDR-07-tool-validation-iter6 (independent; authored no part of WP-PDR-07, TV-014, the wrapper, the tests, the doubles, runs 5 and 6, the finding-20 or finding-21 fix or earlier iterations; iteration 3 re-issue 2 by reviewer:WP-PDR-07-tool-validation-iter5; iteration 3 re-issue 1 by reviewer:WP-PDR-07-tool-validation-iter4; iteration 1 by reviewer:WP-PDR-07-tool-validation-iter1, iteration 2 by reviewer:WP-PDR-07-tool-validation-iter2, iteration 3 by reviewer:WP-PDR-07-tool-validation-iter3)"
 # criticality: neither (03 sections 4.3.1 and 6.1.1: no tool is a safety-critical or mission-critical
 # component). 07 section 2.1.1: code of a "Neither" component needs no assurance review unless the file holds
 # unsafe (a shell script has none); the tool validation template has no 2.1.1 row. The swe-136 and swe-070
@@ -50,9 +53,12 @@ assurance_required: false
 assurance_reviewer_agent: none
 # iteration: stays 3 (the schema maximum); the owner-authorized iteration 4 of rule C1 route (1) is recorded as
 # "iteration 3 re-issue 1" (precedent INSP-009); the delta after the owner's route (1) decision (status note section 9,
-# "with a fix loop") is "iteration 3 re-issue 2"
+# "with a fix loop") is "iteration 3 re-issue 2", and its second delta, on the finding-21 fix, "iteration 3 re-issue 3"
 iteration: 3
-# readiness_met: false at iteration 3 re-issue 2: R2 is now met (run 5 and the reviewer re-run at 14:30 CDT: 43 run,
+# readiness_met: false at iteration 3 re-issue 3: R2 is met (run 6 and the reviewer re-run at 14:59 CDT: 46 run, 45
+# passed, only the permitted skip) and no Major is open, but R3 is not: validate_docs.py exits 1 on the same 10 other
+# records (record drift after other work packages, finding-17 class; this record PASS) and the everyday suite fails
+# only test_validate_docs.RepositoryTests.test_repository_exit_zero for that reason. At iteration 3 re-issue 2: R2 is now met (run 5 and the reviewer re-run at 14:30 CDT: 43 run,
 # 42 passed, only the permitted skip), but R3 is not (validate_docs.py exits 1 on 10 other records, finding-17 class,
 # not attributable to this record) and Major finding-21 is Open. At iteration 3 re-issue 1: R2 is not met: run 4 is not a pass (busy-lock case skipped, part D
 # not completed) and the reviewer re-run at 13:37 CDT fails 20 of 35 cases with exit 5 because the wrapper lock is
@@ -62,14 +68,21 @@ iteration: 3
 # (finding-17). Iteration 3 is the last iteration; finding-1 stays Open, so the record is escalated to the owner
 # (rule C1; 07 sections 3.4 phase 3 and 10.2)
 readiness_met: false
-reviewer_verdict: NEEDS CHANGES
+# reviewer_verdict: APPROVED at iteration 3 re-issue 3 (finding-21 Verified; finding-1 and finding-20 re-checked on
+# run 6 and held Verified; no Major open). The 14 open Minor findings become liens under rule C1, owner the tool owner
+# (WP-PDR-07), due at the CDR readiness declaration unless fixed before
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
+# verdict: held at NEEDS CHANGES only because readiness R3 does not hold (validate_docs.py exits 1 on 10 other
+# records; tools/validate_docs.py refuses an APPROVED verdict with readiness_met false). The lead SE sets verdict
+# APPROVED, with readiness_met true, in the commit that makes validate_docs.py exit 0 (or the commit right after it),
+# provided no product blob has changed; OD-24b (accreditation) may go to the owner on the reviewer verdict
 verdict: NEEDS CHANGES
 findings_major: 5
 findings_minor: 17
-findings_open: 15
+findings_open: 14
 findings_fixed: 0
-findings_verified: 7
+findings_verified: 8
 findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
@@ -77,14 +90,14 @@ assurance_tasks_applied: [swe-136 7.1 task 1, swe-070 7.1 task 1]
 unsafe_sites_reviewed: 0
 deferred_rids: []
 items_no: [R3, TV-A1, TV-C2, TV-D1, TV-E1, TV-F1, TV-F3, TV-G1-2, TV-G2-2, CK-CODE-C2]
-effort_turns: 34
-effort_minutes: 45
+effort_turns: 36
+effort_minutes: 40
 record_status: Open
 date: 2026-09-27
 date_closed: null
 ---
 
-# Peer review record INSP-038: tool validation TV-014 (LTspice through tools/ltspice-batch.sh), WP-PDR-07, iterations 1 to 3, iteration 3 re-issue 1 (owner-authorized iteration 4) and iteration 3 re-issue 2 (delta on run 5)
+# Peer review record INSP-038: tool validation TV-014 (LTspice through tools/ltspice-batch.sh), WP-PDR-07, iterations 1 to 3, iteration 3 re-issue 1 (owner-authorized iteration 4), iteration 3 re-issue 2 (delta on run 5) and iteration 3 re-issue 3 (delta on the finding-21 fix and run 6)
 
 **Products:** `docs/cm/tool-validation/TV-014-ltspice-batch.md` (blob `246877af`) and every file it validates or cites as evidence, at commit `b362395` (`product_files`; each blob recomputed with `git rev-parse b362395:<path>` and `git rev-parse HEAD:<path>` at HEAD `091bceb`: all equal). Fixture tree `b9f9eca1` at `41d150e`, `b41e544`, `b362395` and HEAD (unchanged since it was committed). **Checklists:** the tool validation checklist of WP-PDR-03 (revision A, blob `7be809d4`, CR-012 branch; applied item by item below) and the code checklist revision B for the wrapper source (section "Code review"). **Acceptance criteria (rule C7):** every clause of 05 section 9.2 step 1 (the TV record fields) and the LTspice row of the 05 section 9.2 known-answer table (stored -3 dB frequency within 1 %, `.log` first line names the version, seeded-error netlist exits 1, `rc-hang-error.asc` time-out guard that kills only its own processes, the `iconv` precondition never appended to); 05 section 9.1 class B (known answer with a seeded fault, TV record before first cited use); 05 section 9.2 steps 3 to 5; every item of the tool validation checklist for `tool_kind` repository-tool plus G2; the INSP-015 finding classes F-01, F-02, F-04, F-05.
 
@@ -661,4 +674,114 @@ GATING: the default suite never starts the real LTspice (code, and a 0.2 s proce
 RE-RUN: CWHT_LTSPICE_INTEGRATION=1 CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -v -s tools/tests -p test_ltspice_batch.py; exit 0; 43 run, 42 passed, 1 skipped (permitted); direct wrapper runs rc-lowpass.asc 0, rc-step-tran.net 0, rc-seeded-error.net 1; no bottle Wine process and no LTspice.exe 10 s after the last run
 KEY CHECK: CaptureAnalytics=false on line 3, count 1, before (14:26:43, 14:30:20, 14:33:27) and after (14:29:51, 14:32:38, 14:33:50) every reviewer run
 MEASUREMENTS: size=1 record, 4 purposes, 43 tests, 14 fixture files, 435 LOC; turns=34; minutes=45; major=5; minor=17; unsafe_sites=0
+```
+
+## Iteration 3 re-issue 3: delta on finding-21 (Major) on run 6, with finding-1 and finding-20 re-checked (2026-09-27)
+
+**Authority and scope (rule C1).** Second delta of the fix loop the owner chose with route (1) ("No, that is unacceptable. We need to actually run the circuit simulations of the amplifiers and filters in LT Spice. So uh, how can we fix this?"; status note `docs/plan/status/status-2026-09-27.md` section 9). The iteration 3 re-issue 2 next step asked for one more delta on finding-21 (and finding-22 if fixed). This delta verifies finding-21 on the fix commit `45531ac` and run 6, re-checks finding-1 (run 6 meets the section 3 criterion) and finding-20 (the lock is not inherited; the regression case fails on the old blob), and reviews the changed session end and the test gating. The front matter keeps `iteration: 3` (schema maximum; precedent INSP-009). Of the Minor findings only finding-19 (the ACC-LTSPICE-001 blob) and finding-22 (partly addressed by the fix) were re-checked.
+
+**Products (rule C2).** Commit `bd78bd5` (the author's run 6 record commit) on the fix `45531ac`: wrapper `88b71475` (465 lines, SHA-256 `6b66ad75...f280`), test module `e90b0ef1` (46 cases, SHA-256 `68095b07...92ea`), fixture tree `f1497c52` (14 files; `known-answers.json` `84ecdd0a`, `fake-support/bin/wine` `42177aad`), run 6 procedure `72dfa2d7` and transcript `f87f8fac`, TV-014 `9c6d477a`, lock `be96420b`, TV README `f4757da2`, `tools/README.md` `a5e9cab6`. Every blob recomputed with `git rev-parse HEAD:<path>` at HEAD `7126a80` equals `bd78bd5` (the one later commit touches WP-PDR-27 only); the working-tree wrapper and test module hash to the same blobs (`git hash-object`, `shasum -a 256`).
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-07, TV-014, the wrapper, the tests, the doubles, runs 5 and 6, the finding-20 or finding-21 fix, or any earlier iteration of this record, and edited no product file.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: "INSP-038 finding-21 session end SIGKILL non-Wine process bottle"; "LTspice amplifier or filter deck netlist hardware/sim checker"; "rule C1 review verdict APPROVED Minor findings become liens record_status readiness_met"). `grep -n` afterwards only pinned lines in known files.
+
+**Headless and bottle safety.** LTspice was reached only through `tools/ltspice-batch.sh`; no GUI, AppleScript, System Events or screen capture; nothing was downloaded. Before the first run (14:55:42 CDT): no `LTspice.exe`, no Wine-named process and no process with its current directory in the bottle or its wineserver directory (reviewer probe below), no other session running the wrapper or `test_ltspice_batch`, lock free (`lockf -k -s -t 0` exit 0, no holder). Key check `iconv -f UTF-16LE -t UTF-8 "$INI" | tr -d '\r' | grep -c '^CaptureAnalytics=false$'` = 1 (line 3) at 14:55:42 (ini 12418 bytes, modified 14:48), 14:58:04 and 14:58:42 (before and after the default suite), 14:59:11 (before the integration run), 15:01:49 (after it; ini 12422 bytes, modified 15:00: LTspice rewrote its recent-file list, key kept), 15:02:32 and 15:02:50 (before and after the first direct runs), 15:03:00 and 15:03:13 (before and after the second), 15:03:37 (final). The reviewer signalled one process only: its own `/usr/bin/tail -f /dev/null` bystander (PID 67807, parent launchd, name checked with `ps -o comm=` first), ended with SIGTERM after the double check below; every other reviewer bystander was a `/bin/sleep` of 25 s or 40 s that expired by itself. Deviation: in the first direct-run loop the exit status was lost to the shell (`PIPESTATUS` under zsh); the three decks were run again at 15:03:00 to record it (same PASS, PASS, FAIL).
+
+**Reviewer probe (read only, scratchpad `probe.sh` and `mon2.sh`).** Lists every process of the user whose current directory is in the ltspice bottle or its wineserver directory `/private/tmp/.wine-501/server-<dev>-<inode>` whatever its name (`lsof -d cwd`, then `ps -o comm=`), every process whose executable name is a Windows path or lies under `/Applications/LTspice.app`, and every command line naming `LTspice.exe` or the bundle's `SharedSupport/ltspice`. It is wider than the wrapper's rule on purpose.
+
+### Verification of the Major findings
+
+| Finding | State | Evidence |
+|---|---|---|
+| finding-21 | **Verified** | **Code** (`88b71475` lines 159 to 186 and 196 to 229): membership is now `session_pids` = `bottle_pids` (current directory in the bottle or its wineserver directory, unchanged) filtered by `is_wine` (`ps -o comm=` is a Windows path ending in `.exe`, case-insensitive, or starts with the bundle directory `$SUPPORT/` or its physical path). The same `session_pids` feeds `SESSION_BEFORE` (line 356), the wait loop and the SIGKILL fallback; the SIGKILLed PIDs are named with their executable name before the signal ("SIGKILL sent to the Wine processes of the session still present 5 s after wineserver -k: PID (name)"); the "no Wine process of it left" line no longer claims the whole bottle; non-Wine processes in the bottle are only listed in a note, never passed to `kill`. `wineserver -k` itself reaches only clients of the bottle's Wine server, that is Wine processes. Header step 5a, `tools/README.md` and TV-014 limitation 10 state the rule. **Regression cases on the old blob** (reviewer, scratch copies of the HEAD test module `e90b0ef1` and fixture tree, test doubles only, 14:56:25 to 14:56:58): with the wrapper of `d1148c2` (`bdc4513f`, `git cat-file`, `git hash-object` rechecked) `test_non_wine_bystander_after_launch_survives` FAIL ("the non-Wine bystander was ended (status -9)", message "no process of it left") and `test_non_wine_bystander_before_launch_does_not_stop_session_end` FAIL ("was running before this run", session end skipped), `test_standin_is_counted_as_wine` ok; with `88b71475` all three ok. This reproduces run 6 part G. **Independent reviewer check with the doubles** (fresh fixture copy, `CWHT_FAKE_WINE_SERVICE=1 CWHT_FAKE_WINE_HANG=1 CWHT_FAKE_WINESERVER_NOOP=1`, `-t 3`, 14:57:29), with bystanders the author's cases do not use: a `/bin/bash -c 'sleep 25; :'` (a shell and its child) in `fake-support/prefix/drive_c/windows`, the stand-in service's own directory, and a `/usr/bin/tail -f /dev/null` in `drive_c/users`, both started 1 s after the launch: exit 124; "SIGKILL sent ... 67799 (C:\windows\system32\services.exe)" (the stand-in only); "no Wine process of it left"; note "... left running (never signalled): 67805 (/bin/bash) 67807 (/usr/bin/tail) 67809 (sleep)"; bash and tail alive afterwards, the stand-in gone, one `-k` call with `WINEPREFIX` equal to the double's prefix. **Real bottle** (15:02:32 to 15:02:50): a `/bin/sleep 40` with its current directory in the ltspice bottle's `drive_c/users` started 0.5 s before the launch and a second one 1 s after it, then `tools/ltspice-batch.sh -b rc-step-tran.net`: exit 0, PASS, "Wine session of the bottle ended (wineserver -k), no Wine process of it left", note naming both sleeps; both still running afterwards (they expired at 40 s), so neither the check at the launch nor the session end treated them as Wine. **Basis of the rule on the real session**: the reviewer's sampler (every 0.3 s through the 158 s integration run) saw in the bottle or its wineserver directory only `.../SharedSupport/ltspice/lib/wine/../../bin/wineserver`, `.../SharedSupport/ltspice/bin/wineserver`, `C:\windows\system32\` `services.exe`, `winedevice.exe`, `plugplay.exe`, `svchost.exe`, `explorer.exe`, `rpcss.exe`, `wineboot.exe` and `C:\Program Files\ADI\LTspice\LTspice.exe`, each matched by the rule, plus 13 single-sample PIDs that had ended before `ps` read their name (transient, for example the wrapper's own `cd "$PREFIX"` command substitution; never signalled, since an empty name is not Wine); outside the bottle `.../bin/wineloader`, `.../x86_64-windows/winewrapper.exe` and `C:\windows\system32\winemenubuilder.exe`, also matched by the rule and covered by the integration check's "anywhere" list. This confirms the author's 14:39 observation independently |
+| finding-1 | **Verified** (held) | Run 6 (`f87f8fac`, 14:46:59 to 14:51, HEAD `45531ac`, part A every identity "unchanged from HEAD", 0 fixture files differing) meets the TV-014 section 3 criterion as revised for 46 cases: part C exit 0, 46 run, 45 passed, the one skip `test_bottle_without_key` (permitted), `LockTests.test_busy_when_lock_held` ran, the three finding-21 cases ran; part D exit 0 at a 262-character Windows path with the `.raw` beside the deck; part E nothing in the bottle, no Wine process of the bundle, no `LTspice.exe`, only the part E `lockf` on the lock file, lock free after; part F exit 1; part G exit 1; key count 1 in part B and after C, D and E. **Reviewer reproduction:** `CWHT_LTSPICE_INTEGRATION=1 CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -v -s tools/tests -p test_ltspice_batch.py` (14:59:11 to 15:01:49): exit 0, 46 run in 157.9 s, 45 passed, 1 skipped (`test_bottle_without_key`, permitted); every `LTspiceRunTests` case, `WineSessionIntegrationTests`, `TimeoutGuardTests`, the busy-lock case and the ten `WineSessionDoubleTests` passed. Direct wrapper runs on scratch copies of the fixture decks (15:03:00 to 15:03:13): `-b rc-lowpass.asc` (the RC low-pass filter) exit 0 PASS, `f3db ... AT 999.999642341`; `-b rc-step-tran.net` exit 0 PASS, `vtau` 0.632120367773 V, `thalf` 0.693147653313 ms; `-b rc-seeded-error.net` exit 1 "More than one analysis specified."; each printed "no Wine process of it left". The values equal those whose analytic answers re-issue 2 recomputed (1/(2 pi R C) = 999.99964 Hz, 1 - e^-1 = 0.63212056 V, 1 ms ln 2 = 0.69314718 ms), each inside its criterion |
+| finding-20 | **Verified** (held) | Launch line unchanged since `b893382` (`( exec 9>&-; cd "$RUN" && exec "$WINE" ... )`, line 357 of `88b71475`). **Regression case on the old blob with the current test module** (scratch copy, test doubles only, 14:56:25): wrapper of `b893382^` (`64e1c723`, `git cat-file`, `git hash-object` rechecked) with test module `e90b0ef1` and fixture tree `f1497c52`: `test_child_holds_no_lock_descriptor` FAIL, "'65890' unexpectedly found in ['65845', '65890', ...] : the wine child holds the lock file open"; with `88b71475`: ok. Lock free after each case (`lockf -k -s -t 0` exit 0), no stand-in or bystander left (`pgrep`) |
+
+### Review of the session end (step 5a) and the test gating
+
+**Does the default suite ever start the real LTspice? No.** By code: the three new cases use the doubles only (`WrapperCase.env` sets `CWHT_LTSPICE_SUPPORT` to the work copy's `fake-support`; `test_standin_is_counted_as_wine` runs no wrapper), and `wine_pids_anywhere` is called only from `assert_no_bottle_session_after`, which only the integration classes use. By observation: the default suite (`env -u CWHT_LTSPICE_INTEGRATION -u CWHT_LTSPICE_SLOW .venv/bin/python -m unittest discover -s tools/tests -p test_ltspice_batch.py -v`, 14:58:04 to 14:58:42, exit 0, 46 run, 32 passed, 14 skipped, 13 with the integration reason and the permitted one) was sampled every 0.2 s for any process whose executable name lies under `/Applications/LTspice.app` and any command line naming the bundle's `SharedSupport/ltspice/bin/wine`: none. The only Windows-named processes seen were the doubles' stand-ins (`C:\windows\system32\services.exe`, 9 PIDs; `/bin/sleep` under `exec -a`, current directory in the work copies' fake prefix).
+
+**Does the cleanup ever touch a Wine process it did not start, or any non-Wine process? No non-Wine process; a foreign Wine process only in the residual race below.** Non-Wine processes: no path of `end_session` passes a PID to `kill` that is not in `session_pids`, and each such PID is re-read from `ps` just before the signal; shown on the doubles and on the real bottle above. Wine processes it did not start: the session end is skipped when a Wine process of the bottle existed at the launch (`SESSION_BEFORE`, now Wine processes only, so a parked shell no longer suppresses it) or when any command line naming `LTspice.exe` other than this run's is present at the end (`foreign_ltspice`, unchanged). The test doubles never reach the real bottle (`PREFIX` is `<CWHT_LTSPICE_SUPPORT>/prefix` whenever the hook is set). The integration and direct runs of this delta left nothing: 10 s after the last run, holding the lock (15:03:25 to 15:03:35), the reviewer probe found no process in the bottle or its wineserver directory under any name, no Wine-named or bundle process anywhere and no `LTspice.exe`; the test module's `session_pids`, `bottle_pids` and `wine_pids_anywhere` all `[]`; the lock file open only by the probe's `lockf`, free afterwards (exit 0).
+
+**finding-22: partly fixed, stays Open (Minor).** The `SESSION_BEFORE` half is fixed by the finding-21 rule (the before-launch bystander case and the reviewer's real-bottle check). The `foreign_ltspice` half is unchanged (`pgrep -f 'LTspice\.exe'` on any command line), and TV-014 limitation 10 now states the residual (it can only skip a session end, never signal a process). Remaining fix: match `LTspice.exe` as the executable name of a Wine process (`is_wine` plus `comm` ending in `LTspice.exe`) rather than any argument.
+
+### Other observations (not findings; for the author and lead SE)
+
+1. Residual race, inherent to `wineserver -k`: if the owner opens LTspice from the Finder while a wrapper run is in progress and its `LTspice.exe` does not yet exist when `foreign_ltspice` runs (the GUI's start-up, or the sub-second gap between that check and `-k`), `wineserver -k` ends the owner's starting session. Nothing is lost but the start; the owner's ini write is the TV-014 finding 2 mechanism the lock already addresses for wrapper runs. Worth one sentence in TV-014 limitation 10 ("do not open the LTspice GUI while a wrapper run is in progress").
+2. The integration check's `wine_pids_anywhere` counts the everyday suite's stand-ins (`/bin/sleep` named `C:\windows\system32\services.exe`) of another session as Wine processes, so an everyday suite run by another session during a TV run can fail `WineSessionIntegrationTests` or part E. The error is fail-safe (a false failure, never a false pass) and the procedure already asks for no other LTspice work in the window; the finding-22 fix could also check the stand-ins' executable path (`/bin/sleep`) out of the rule in the test helper, or TV-014 section 3 can say that a TV run needs no concurrent `tools/tests` suite.
+3. `is_wine` would count a non-Wine process that sets its argv[0] to a Windows `.exe` path and sits in the bottle (TV-014 limitation 10 says so: deliberate imitation only). Accepted.
+4. finding-5 (the procedure prints the parts' exits instead of computing PASS or FAIL) stays open; run 6's closing line again made the check quick.
+
+### Reviewer re-runs (commands, exits)
+
+| Command | Exit | Result |
+|---|---|---|
+| pre-run probe (14:55:42): key check; `ps` for LTspice or Wine names; `pgrep` for wrapper or test runs; `lockf -k -s -t 0 <lock> true`; `probe.sh` | 0 | key count 1 (line 3); no LTspice, Wine or bottle process; no other run; lock free |
+| scratch copies (test module `e90b0ef1`, fixture tree `f1497c52`) with wrapper `64e1c723` (`b893382^`) and `88b71475`: `-k test_child_holds_no_lock_descriptor` (14:56:25) | 1, 0 | FAIL on `64e1c723` ("the wine child holds the lock file open"); ok on HEAD |
+| same copies with wrapper `bdc4513f` (`d1148c2`) and `88b71475`: `-k bystander -k standin` (14:56:30 to 14:56:58) | 1, 0 | `bdc4513f`: both bystander cases FAIL (bystander status -9; session end skipped), stand-in rule ok; HEAD: 3 ok |
+| wrapper `88b71475` on a fixture copy with the doubles, `-t 3`, NOOP wineserver, bash, sleep and tail bystanders in the fake prefix 1 s after the launch (14:57:29) | 124 | stand-in SIGKILLed and named; three bystanders named in the note and alive; one `-k` |
+| default suite with a 0.2 s process monitor (14:58:04 to 14:58:42) | 0 | 46 run, 32 passed, 14 skipped (13 integration, 1 permitted); no process of the LTspice bundle started |
+| `CWHT_LTSPICE_INTEGRATION=1 CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -v -s tools/tests -p test_ltspice_batch.py` with a 0.3 s bottle sampler (14:59:11 to 15:01:49) | 0 | 46 run, 45 passed, 1 skipped (`test_bottle_without_key`, permitted); every sampled bottle process with a name matched the Wine rule |
+| `tools/ltspice-batch.sh -b` on scratch copies of `rc-lowpass.asc`, `rc-step-tran.net`, `rc-seeded-error.net` (15:02:32 to 15:02:45, again 15:03:00 to 15:03:13 for the exits) | 0, 0, 1 | PASS (f3db 999.999642341 Hz), PASS (vtau 0.632120367773 V), FAIL "More than one analysis specified."; each "no Wine process of it left" |
+| real-bottle bystanders: `/bin/sleep 40` in the bottle's `drive_c/users` before and 1 s after the launch of `-b rc-step-tran.net` (15:02:45 to 15:02:50) | 0 | PASS; session ended; both sleeps named in the note and alive afterwards |
+| `lockf -k -t 600 <lock>` holding 10 s, then `probe.sh` and `lsof <lock>`; test helpers `session_pids`, `bottle_pids`, `wine_pids_anywhere` (15:03:25 to 15:03:37) | 0 | nothing in the bottle or its wineserver directory, no Wine-named or bundle process, no `LTspice.exe`; helpers `[]`; lock free afterwards (`lockf -k -s -t 0` exit 0); key count 1 |
+| `env -u CWHT_LTSPICE_INTEGRATION -u CWHT_LTSPICE_SLOW .venv/bin/python -m unittest discover -s tools/tests` (15:04:46 to 15:06:42) | 1 | 596 run, 1 failure (`test_validate_docs.RepositoryTests.test_repository_exit_zero`, the whole-repository `validate_docs.py` case), 14 skipped |
+| `.venv/bin/python tools/validate_docs.py` (with this record) | 1 | this record PASS; the same 10 other records FAIL on record drift as at re-issue 2 (`cm-plan-05-software-assurance`, `configuration-status`, `lessons-learned`, `tool-validation-tv-015-to-tv-019`, `ts-004-board-thickness-and-panelization`, `adrs-001-to-025`, `process-02-requirements-and-traceability`, `tool-validation-tv-001-to-tv-010`, `trade-studies-ts-001-ts-002`, `trade-study-ts-002-software-assurance`), present before this record was edited |
+
+No process of the ltspice bottle, no Wine process of the bundle anywhere and no `LTspice.exe` remained after the reviewer's runs (15:03:35); the reviewer's scratch copies and fixture work directories were deleted.
+
+### Findings (iteration 3 re-issue 3 state)
+
+Only finding-1, finding-20, finding-21, finding-19 and finding-22 were checked; every other row is as in iteration 3 re-issue 2 (rule C1).
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | TV-C5, TV-D1, TV-C2, TV-C4; R2 | TV-014 section 4 row 6; run 6 transcript `f87f8fac` | Run 6 meets the section 3 pass criterion (46 run, 45 passed, only the permitted skip, parts D to G as expected); reviewer re-run 45 of 46 passed | Verified | Pending | |
+| finding-2 | reviewer | Major | TV-B3, TV-C2 | `test_ascii_raw_known_answer` | As iteration 3 re-issue 2; passed again in run 6 and in the reviewer re-run | Verified | Pending | |
+| finding-3 | reviewer | Major | TV-B3, TV-F1 | wrapper identity checks | As iteration 2 | Verified | Pending | |
+| finding-4 | reviewer | Minor | TV-C2, TV-D1 | as iteration 1 | Not re-checked (delta); lien | Open | Pending | |
+| finding-5 | reviewer | Minor | TV-C1, TV-D1 | run 6 procedure closing line | Not re-checked (delta); lien | Open | Pending | |
+| finding-6 | reviewer | Minor | CK-CODE-C2 | wrapper output copy | Not re-checked (delta); lien | Open | Pending | |
+| finding-7 | reviewer | Minor | TV-G1-2 | as iteration 1 | Not re-checked (delta); lien | Open | Pending | |
+| finding-8 | reviewer | Minor | TV-E1, TV-C2 | as iteration 1 | Not re-checked (delta); lien | Open | Pending | |
+| finding-9 | reviewer | Minor | TV-E1, TV-G2-2 | as iteration 1 | Not re-checked (delta); lien | Open | Pending | |
+| finding-10 | reviewer | Minor | TV-E1, TV-D1 | as iteration 1 | Not re-checked (delta); lien | Open | Pending | |
+| finding-11 | reviewer | Minor | TV-F1, CK-CODE-G1 | as iteration 2 | Not re-checked (delta); lien | Open | Pending | |
+| finding-12 | reviewer | Minor | TV-F3, TV-D2 | lock section 5 TV-014 row | As iteration 2 | Verified | Pending | |
+| finding-13 | reviewer | Minor | TV-A2 | as iteration 1 | Not re-checked (delta); lien | Open | Pending | |
+| finding-14 | reviewer | Minor | TV-F4, R5 | as iteration 1 | Not re-checked (delta); lien | Open | Pending | |
+| finding-15 | reviewer | Minor | TV-G2-2, TV-A6 | run 6 procedure part D | Part D runs through the wrapper (unchanged from run 5) | Verified | Pending | |
+| finding-16 | reviewer | Minor | TV-C1 | as iteration 1 | Not re-checked (delta); lien | Open | Pending | |
+| finding-17 | reviewer | Minor | R3, TV-F3 | INSP-015 record drift | Not re-checked (delta); `validate_docs.py` still fails on `tool-validation-tv-001-to-tv-010` among 10 records; lien | Open | Pending | |
+| finding-18 | reviewer | Minor | TV-C2, CK-CODE-H1 | as iteration 2 | Not re-checked (delta); lien | Open | Pending | |
+| finding-19 | reviewer | Minor | TV-F1 | TV-014 section 9 at `9c6d477a` | ACC-LTSPICE-001 names the one run 6 blob `88b71475` (commit `45531ac`), test module `e90b0ef1`, fixture tree `f1497c52`; lock section 5 and the TV README name the same blob | Verified | Pending | |
+| finding-20 | reviewer | Major | CK-CODE-C2, TV-G1-2, TV-E1, TV-C2 | wrapper line 357 at `88b71475`; `test_child_holds_no_lock_descriptor` | Lock descriptor closed before exec; regression case fails on `64e1c723` with the current test module and passes on HEAD | Verified | Pending | |
+| finding-21 | reviewer | Major | CK-CODE-C2, TV-G1-2, TV-E1, TV-C2 | wrapper `88b71475` lines 159 to 186 and 196 to 229; `WineSessionDoubleTests` | Session membership is Wine processes of the bundle only; SIGKILLed PIDs named; non-Wine processes never signalled and named in a note; bystander cases fail on `bdc4513f` and pass on HEAD; reviewer checks on the doubles and on the real bottle | Verified | Pending | |
+| finding-22 | reviewer | Minor | TV-E1, TV-C2 | wrapper `foreign_ltspice` (lines 187 to 192) | `SESSION_BEFORE` half fixed by the finding-21 rule; the `LTspice.exe` guard still matches any command line (skips a session end, never signals); stated in TV-014 limitation 10; lien | Open | Pending | |
+
+### Liens (rule C1)
+
+The 14 open Minor findings (finding-4 to finding-11, finding-13, finding-14, finding-16 to finding-18 and finding-22) become liens with this first APPROVED reviewer verdict: owner the tool owner (WP-PDR-07), due at the CDR readiness declaration, each closed by a delta of this record on its fix or by an owner deferral. finding-17 is also the reason the record verdict is held (readiness R3), so its route (an INSP-015 delta re-issue through the lead SE) gates the record verdict, not the accreditation.
+
+### Next step
+
+OD-24b (accreditation of ACC-LTSPICE-001 at wrapper blob `88b71475`) can go to the owner on this reviewer verdict: TV-014 section 9 names the blob of run 6 and of this re-run. The record `verdict` is set APPROVED by the lead SE, with `readiness_met: true`, when `validate_docs.py` exits 0 and no product blob has changed (else a delta of this record on the changed blobs). Until OD-24b is recorded, LTspice output stays developer evidence (TV-014 limitation 8), but the simulations of the amplifiers and filters can be run now through the wrapper: the known answers pass, and the post-run cleanup ends only the Wine session the run started.
+
+### Verdict (iteration 3 re-issue 3)
+
+```
+VERDICT: APPROVED (reviewer verdict; record verdict held at NEEDS CHANGES for readiness R3 only: validate_docs.py exits 1 on 10 other records)
+PRODUCT: TV-014 at bd78bd586fb9fe873d67bb1418217fddaa6cdec4 (wrapper blob 88b71475 of 45531ac, test module e90b0ef1, fixture tree f1497c52; run 6 procedure 72dfa2d7, transcript f87f8fac); blobs unchanged at HEAD 7126a80
+FINDINGS:
+- [Major] finding-21 Verified: members of the session are Wine processes of the bundle only (cwd in the bottle and Windows .exe or bundle executable name); SIGKILLed PIDs named; non-Wine processes never signalled. Bystander cases fail on bdc4513f, pass on 88b71475; reviewer bash/tail bystanders (doubles) and /bin/sleep bystanders in the real bottle survived and were named.
+- [Major] finding-1 Verified (held): run 6 meets the 46-case criterion; reviewer re-run 46 run, 45 passed, only the permitted skip.
+- [Major] finding-20 Verified (held): test_child_holds_no_lock_descriptor fails on b893382^ (64e1c723) with the current test module and passes on 88b71475.
+- [Minor] finding-19 Verified (ACC-LTSPICE-001 names 88b71475); finding-22 partly fixed, stays Open.
+- [Major] finding-2, finding-3 Verified; [Minor] finding-12, finding-15 Verified; finding-4 to finding-11, finding-13, finding-14, finding-16 to finding-18, finding-22 Open: liens under rule C1 (tool owner, CDR readiness declaration).
+GATING: the default suite never starts the real LTspice (code, and a 0.2 s monitor over the whole suite: no bundle process).
+CLEANUP: never signals a non-Wine process (code, doubles, real bottle); a foreign Wine session is left when it ran at launch or its LTspice.exe is open at the end (residual start-up race: observation 1).
+RE-RUN: CWHT_LTSPICE_INTEGRATION=1 CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -v -s tools/tests -p test_ltspice_batch.py; exit 0; 46 run, 45 passed, 1 skipped (permitted); direct wrapper runs rc-lowpass.asc 0, rc-step-tran.net 0, rc-seeded-error.net 1; nothing of the bottle, no Wine process of the bundle and no LTspice.exe 10 s after the last run
+KEY CHECK: CaptureAnalytics=false on line 3, count 1, before (14:55:42, 14:58:04, 14:59:11, 15:02:32, 15:03:00) and after (14:58:42, 15:01:49, 15:02:50, 15:03:13, 15:03:37) every reviewer run
+MEASUREMENTS: size=1 record, 4 purposes, 46 tests, 14 fixture files, 465 LOC; turns=36; minutes=40; major=5; minor=17; unsafe_sites=0
 ```
