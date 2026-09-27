@@ -11,12 +11,14 @@ product: docs/conops/conops.md
 # product_commit: post-SRR-ruling delta 2 (2026-09-26): dd3372c (ConOps revision 4, concept revision 2; INSP-002 finding-23 and finding-24), blobs equal to HEAD dd3372c.
 # Earlier: post-SRR-ruling delta baseline bfea9c7 (ConOps revision 3, SRR package item R16), blobs equal to HEAD 6136712 (2026-09-26);
 # iteration 3 reviewed HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1; iterations 1 and 2 reviewed 28e49e6 and the uncommitted working tree (blob tables in the body)
-product_commit: "dd3372c"
+# PDR lien delta (2026-09-27, WP-PDR-10 review): 9001813 on branch cr/CR-009-l0-conops-srr-liens (ConOps revision 5, concept revision 3; CR-009 prototype)
+product_commit: "9001813"
 # product_files: committed blobs at post-SRR-ruling delta 2 (git rev-parse HEAD:<path> at dd3372c); dd3372c changed conops.md (36f0eb9e to 6c3fbb2b) and concept.md (729190a2 to 6f026f92) only.
 # Earlier: committed blobs at the post-SRR-ruling delta (git rev-parse HEAD:<path> at 6136712); only conops.md changed since adcfe09 (was b2c76c80 at iteration 3 and re-issues 1 and 2).
 # iteration 2 (working tree, not in the object store): conops.md@b2e93594, concept.md@f9c4af43; the six figure files are unchanged
-product_files: ["docs/conops/conops.md@6c3fbb2be814f5d0a5b2979968e309f6a846445a", "docs/conops/figures/conops-context.mmd@55ebae2e15589bf9951456dc04400b7ccb96ea27", "docs/conops/figures/conops-context.png@2e4647f81c61a1d2df05637efa3ee3d71a506e09", "docs/conops/figures/conops-modes.mmd@829a46f800db84ae5196cf3946d4376eb813fc0f", "docs/conops/figures/conops-modes.png@b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c", "docs/design/concept.md@6f026f92ae4f090dc85e94e554a0845514adbce9", "docs/reviews/SRR/figures/concept-block-diagram.png@3ef6e911d5201ce0a88c9f2d358b6d85dc425038", "docs/reviews/SRR/figures/concept-block-diagram.py@3806a3449d3bfe3e14dde14726bc1466b94e36af"]
-product_size: ConOps 865 lines at iteration 1, 866 at iteration 2, 867 at iteration 3, 878 at revision 3 (post-SRR-ruling delta), 879 at revision 4 (post-SRR-ruling delta 2; 22 scenarios, 9 modes, 25 transitions, 20 causes, appendices A to D); concept 365 lines at iteration 1, 381 at iterations 2 and 3, 389 at revision 2 (post-SRR-ruling delta 2) (22 blocks, 10 functions, 18 ICDs, 6 trade studies); 3 renders
+# PDR lien delta: git rev-parse cr/CR-009-l0-conops-srr-liens:<path>; conops.md 6c3fbb2b to 8415dba2 and concept.md 6f026f92 to ee0d6e92, the six figure files unchanged
+product_files: ["docs/conops/conops.md@8415dba2dc5e753c7bf538c35b524463b0cd656d", "docs/conops/figures/conops-context.mmd@55ebae2e15589bf9951456dc04400b7ccb96ea27", "docs/conops/figures/conops-context.png@2e4647f81c61a1d2df05637efa3ee3d71a506e09", "docs/conops/figures/conops-modes.mmd@829a46f800db84ae5196cf3946d4376eb813fc0f", "docs/conops/figures/conops-modes.png@b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c", "docs/design/concept.md@ee0d6e92e85c890a27a9f44e090e9d972f2696da", "docs/reviews/SRR/figures/concept-block-diagram.png@3ef6e911d5201ce0a88c9f2d358b6d85dc425038", "docs/reviews/SRR/figures/concept-block-diagram.py@3806a3449d3bfe3e14dde14726bc1466b94e36af"]
+product_size: ConOps 865 lines at iteration 1, 866 at iteration 2, 867 at iteration 3, 878 at revision 3 (post-SRR-ruling delta), 879 at revision 4 (post-SRR-ruling delta 2), 880 at revision 5 (PDR lien delta; 22 scenarios, 9 modes, 25 transitions, 20 causes, appendices A to D); concept 365 lines at iteration 1, 381 at iterations 2 and 3, 389 at revision 2 (post-SRR-ruling delta 2), 390 at revision 3 (PDR lien delta) (22 blocks, 10 functions, 18 ICDs, 6 trade studies); 3 renders
 sprint: SRR-prep
 author_agent: "author:conops-concept (Claude main session, lead systems engineer: ConOps revision 2 at commit 28e49e6, fixes committed at 8a37f8e, appendix D statuses at 1543c9f; concept description and the three renders revised by the H10 author run, committed at 8a37f8e)"
 reviewer_agent: "reviewer:conops-concept"
@@ -28,6 +30,8 @@ iteration: 3
 # readiness_met: true at the re-issue of 2026-09-26: R4 met by the author self-check filed at 5b1f2cf (package item R7),
 # verified by the reviewer without a further product review (package item R8); R1 Yes, R2 N/A, R3 N/A
 readiness_met: true
+# reviewer_verdict: APPROVED with liens finding-19 and finding-27 at the PDR lien delta of 2026-09-27 (products at 9001813 on the CR-009 branch):
+# finding-20, 21, 25, 26 Verified; finding-19 not verified (section 8 part); finding-27 new Minor. Earlier:
 # reviewer_verdict: APPROVED with liens finding-19 to finding-21, finding-25 and finding-26 at post-SRR-ruling delta 2 of 2026-09-26 (HEAD dd3372c): finding-23 and
 # finding-24 Closed (Verified) at dd3372c; finding-25 and finding-26 new Minor liens due PDR (convergence rule, charter section 4 item 3); no Major open.
 # Earlier: NEEDS CHANGES at the post-SRR-ruling delta of 2026-09-26 (HEAD 6136712): new Major finding-23 (ConOps revision 3 bench-test guard
@@ -44,22 +48,24 @@ findings_major: 6
 # findings_deferred counts the four liens (finding-19 to finding-22, "Lien: fix before PDR")
 # post-SRR-ruling delta: finding-22 Closed (verified 18); liens finding-19 to finding-21 (deferred 3); finding-23 and finding-24 new Major, Open
 # post-SRR-ruling delta 2: finding-23 and finding-24 Closed (verified 20); finding-25 and finding-26 new Minor liens (deferred 5); open 0
-findings_minor: 20
+# PDR lien delta: finding-20, 21, 25, 26 Verified (verified 24); finding-19 stays a lien; finding-27 new Minor lien (deferred 2); open 0
+findings_minor: 21
 findings_open: 0
 findings_fixed: 0
-findings_verified: 20
-findings_deferred: 5
+findings_verified: 24
+findings_deferred: 2
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 # re-issue answers (iteration 1: R3, R4, CK-DES-H1, CK-DES-H3, CK-VIS-A1, CK-REQ-C5; iteration 2: R3, R4, CK-DES-H1, CK-VIS-A1; iteration 3: R4, CK-DES-H1)
+# PDR lien delta: CK-DES-H1 No (finding-19, finding-27)
 items_no: [CK-DES-H1]
 renders_inspected: 3  # iteration 3 re-opened the block diagram (--check exit 0 against the committed concept); the two ConOps renders are the blobs inspected at iterations 1 and 2
 # effort: iterations 1 and 2 (58 turns, 95 min), iteration 3 (30 turns, 40 min) the re-issue of 2026-09-26 (8 turns, 12 min), re-issue 2 (10 turns, 15 min)
-# and the post-SRR-ruling delta (22 turns, 35 min), post-SRR-ruling delta 2 (24 turns, 35 min)
-effort_turns: 152
-effort_minutes: 232
+# and the post-SRR-ruling delta (22 turns, 35 min), post-SRR-ruling delta 2 (24 turns, 35 min), the PDR lien delta (25 turns, 50 min)
+effort_turns: 177
+effort_minutes: 282
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -83,6 +89,8 @@ date_closed: null
 **Checklist.** `docs/templates/peer-review-checklist-design.md` revision B, as assigned, with `docs/templates/peer-review-checklist-visual-product.md` revision A section A and items C3 and C5 for the three renders (its product-type row 3: a render inside another product is checked in that product's record). The design checklist sections A to G and I to J address software architecture and design, ICDs and hardware; the product here is the operational and concept-level system view, so those sections are N/A and section H with the readiness criteria carries the design-checklist judgment. Because `docs/process/08-agent-briefing.md` section 3.5 names the requirements checklist (sections A, B, F; ConOps row: A3, A4, A8, B4, C5, C6, F2, G1, G2) for "expectations, ConOps and the concept", the reviewer also applied the three ConOps-row items that bear on content (B4, C5, C6) as supplementary evidence; the record's `checklist` field names the assigned template only. The mismatch between the assignment and 08 section 3.5 is reported to Claude in the return.
 
 **Reviewer.** `reviewer:conops-concept`, independent of the author (charter section 2; section 11 rule 4). The reviewer did not edit the product. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before every `grep` (queries: SRR readiness shortfalls ConOps concept block diagram H items; SE-36 concept definition; Appendix S annotated outline nominal and off-nominal); `grep -n` was used afterwards only to pin lines. Numbers were checked against `docs/requirements/sys/requirements.json`, `docs/safety/hazards.json` (0.3.0-pha), `docs/risk/register.json`, `docs/plan/tpm.json`, the research reports named in each finding and the regulatory corpus.
+
+**Verdict (PDR lien delta, 2026-09-27, WP-PDR-10 review, products at `9001813` on branch `cr/CR-009-l0-conops-srr-liens`): APPROVED with liens finding-19 and finding-27.** ConOps revision 5 and concept revision 3 fix finding-20, finding-21, finding-25 and finding-26, each Verified on the branch blobs and effective when CR-009 is approved and merged. finding-19 is only partly fixed (range and version right; RSK-064 and RSK-065 still absent from section 8 with no reason given) and stays a lien due at the PDR readiness declaration. New Minor finding-27 (concept Status line) is a lien due at the CDR readiness declaration (plan rule C1). No Major finding is open. See "PDR lien delta".
 
 **Verdict (post-SRR-ruling delta 2, 2026-09-26): APPROVED with liens finding-19 to finding-21, finding-25 and finding-26; reviewer verdict APPROVED; readiness met.** Commit `dd3372c` (ConOps revision 4, concept revision 2) fixes finding-23 and finding-24, which are Closed (Verified); the two new findings are Minor liens due at the PDR readiness declaration (convergence rule, charter section 4 item 3). See "Post-SRR-ruling delta 2" at the end of this record.
 
@@ -119,8 +127,8 @@ Severity: Major blocks the baseline; Minor is fixed before the next review. The 
 | <a id="finding-17"></a>F-17 (finding-17) | Minor | CK-VIS-A1; visual-product R3 | `conops-modes.mmd`, `conops-modes.png`, `concept.md`, `concept-block-diagram.png` (modified) and `concept-block-diagram.py` (untracked) | The renders and their sources are not committed, so the record cannot name a commit that holds the reviewed product and CK-VIS-A1 ("is committed") is not met. Package section 2 item H17 tracks the commit. Fix: commit the files when the findings are dispositioned and re-issue the record's `product_commit`. | Verified | Iteration 3: Closed. All eight product files are committed (`git status` clean at HEAD `adcfe09`; conops.md, conops-modes.mmd and .png, concept.md, concept-block-diagram.png and .py last changed at `8a37f8e`, appendix D at `1543c9f`) and `product_commit` and `product_files` now name the HEAD blobs. Iteration 2: Open. Not refuted: the working-tree files are still modified or untracked (`git diff --stat HEAD` lists conops.md, conops-modes.mmd and .png, concept.md, concept-block-diagram.png; the .py is untracked). The author cannot commit under its assignment; tracked by package section 2 item H17 (Robin authorizes, Claude commits). Closes when the commit exists and `product_commit` is re-issued |
 | <a id="finding-18"></a>F-18 (finding-18) | Minor | CK-DES-H3 | `docs/conops/conops.md` (865 lines) | The design checklist limits a file to 500 lines with an index linking sub-files. The ConOps exceeds it; the concept (365 lines) meets it. Fix: split the ConOps (for example scenarios in `docs/conops/scenarios.md` and appendices C and D in their own file, indexed from `conops.md`), or have the owner rule H3 not applicable to the ConOps. | Withdrawn | Disputed accepted. The author's sources are right: 08 section 3.5 names the requirements checklist (sections A, B, F), which has no file-length rule, as the ConOps checklist, and CK-DES-H3 is a presentation rule for design files; charter section 5 maps the ConOps to `docs/conops/conops.md` with scenarios OPS-NNN, and `tools/traceability.py` reads OPS headings and the TBD scan only from that path (`CONOPS` constant, line 91; codes EXPECTATIONS_INCONSISTENT, VAL_TARGET_UNRESOLVED, TBD_PRESENT). The finding misapplied H3 to an operational product; withdrawn. H3 is N/A for the ConOps and Yes for the concept (381 lines) |
 | <a id="finding-19"></a>F-19 (finding-19) | Minor | CK-DES-H1 | ConOps section 2.2 `register.json` row and section 8 lead-in (line 684) | New at iteration 2. Both say "RSK-001 to RSK-059"; `docs/risk/register.json` in the working tree now holds RSK-001 to RSK-065 (65 risks). Of the new entries, RSK-064 (open or cold owner-soldered joint in a power path, the Assembly phase of the Off row) and RSK-065 (lending units treated as outside the 47 CFR 15.23 exemption, the loan scenario) bear on operations, and the section 8 table names neither. Fix: cite the register without a fixed upper id (or update it to RSK-065), and add RSK-064 and RSK-065 to the section 8 table or say why they are not operational. | Lien | Iteration 3: Lien: fix before PDR. Not fixed at HEAD: `conops.md` line 105 and line 685 still read "RSK-001 to RSK-059" while `docs/risk/register.json` 0.6.0-pre-srr holds RSK-001 to RSK-065 (`register.md` summary: 65 active); section 8 still names neither RSK-064 nor RSK-065. Iteration 2: Open |
-| <a id="finding-20"></a>F-20 (finding-20) | Minor | CK-DES-H1 | ConOps section 2.2 `hazards.json` row (line 103) | New at iteration 3. The row cites "`docs/safety/hazards.json` (version 0.3.0-pha)"; the committed file is 0.4.2-pha (HZ-001 to HZ-015 unchanged). Appendix D items D6 and D10 of the same file cite 0.4.2-pha, so the ConOps names two versions of one input. Fix: cite 0.4.2-pha, or cite the file without a version as section 2.2 does for other inputs. | Lien | Lien: fix before PDR |
-| <a id="finding-21"></a>F-21 (finding-21) | Minor | CK-DES-H4 | ConOps Appendix D status column header (line 848) | New at iteration 3. The header reads "Status (2026-09-26, products at commit 400e59d)", but the D6 and D10 statuses cite `hazards.json` 0.4.2-pha and the section 7 rows of `hazard-analysis.md` at 0.4.2-pha, which first exist at `1543c9f` (`git show 400e59d:docs/safety/hazards.json` is 0.4.0-pha). The evidence commit named for the statuses does not hold all of the evidence (charter section 11 rule 2). Fix: name the commit that holds every cited product (`1543c9f` or later), or date each status by its own commit. | Lien | Lien: fix before PDR |
+| <a id="finding-20"></a>F-20 (finding-20) | Minor | CK-DES-H1 | ConOps section 2.2 `hazards.json` row (line 103) | New at iteration 3. The row cites "`docs/safety/hazards.json` (version 0.3.0-pha)"; the committed file is 0.4.2-pha (HZ-001 to HZ-015 unchanged). Appendix D items D6 and D10 of the same file cite 0.4.2-pha, so the ConOps names two versions of one input. Fix: cite 0.4.2-pha, or cite the file without a version as section 2.2 does for other inputs. | Verified | PDR lien delta: Verified at `9001813` (effective at the CR-009 merge). Earlier: Lien: fix before PDR |
+| <a id="finding-21"></a>F-21 (finding-21) | Minor | CK-DES-H4 | ConOps Appendix D status column header (line 848) | New at iteration 3. The header reads "Status (2026-09-26, products at commit 400e59d)", but the D6 and D10 statuses cite `hazards.json` 0.4.2-pha and the section 7 rows of `hazard-analysis.md` at 0.4.2-pha, which first exist at `1543c9f` (`git show 400e59d:docs/safety/hazards.json` is 0.4.0-pha). The evidence commit named for the statuses does not hold all of the evidence (charter section 11 rule 2). Fix: name the commit that holds every cited product (`1543c9f` or later), or date each status by its own commit. | Verified | PDR lien delta: Verified at `9001813` (effective at the CR-009 merge). Earlier: Lien: fix before PDR |
 | <a id="finding-22"></a>F-22 (finding-22) | Minor | CK-DES-H1 | ConOps OPS-013 step 6, last sentence (line 540) | New at iteration 3 (text not quoted at iteration 2). "If both are declined, firmware alone bounds a toggling stream" contradicts the same step, which says "REQ-SYS-054 as written counts identical elements only": with the HZ-004 K4 no-gap watchdog (decision 37) and REQ-SYS-180 (decision 38) both declined, no L1 requirement bounds an alternating squeeze stream from a shorted TRS cable in an iambic mode, and `docs/safety/hazard-analysis.md` section 8.2 row 3 records it as "open single point if declined". The ConOps also overstates the Expected outcome in that case. The underlying choice is already before the owner (package decisions 37 and 38, OQ-SAF-006), so the defect is the sentence, not the hazard record. Fix: state that with both declined no requirement bounds the stream and it is the open single point of hazard-analysis section 8.3, in the OPS-013 edit that R9 (OQ-SAF-006) already schedules after the rulings. | Lien | Lien: fix before PDR |
 
 ## Readiness criteria
@@ -550,4 +558,78 @@ PRODUCT: dd3372c (ConOps revision 4, concept revision 2), blobs equal to HEAD dd
 COMMITS VERIFIED: dd3372c (only product commit since bfea9c7); 7 ConOps change groups and 8 concept change groups checked, all correct
 FINDINGS: 26 total; Closed 20 (Major 6, Minor 14); Disputed accepted 1; Lien 5 (finding-19 to 21, 25, 26); Open 0
 MEASUREMENTS: diff hunks read 21; L1 requirements checked 20; decision Recommendation cells checked 38; renders re-checked 1 (--check); delta 24 turns, 35 minutes; cumulative 152 turns, 232 minutes
+```
+
+## PDR lien delta (independent reviewer, 2026-09-27, iteration 3 re-issue 5, WP-PDR-10 review; products at `9001813` on branch `cr/CR-009-l0-conops-srr-liens`)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:conops-concept`, engineering lens), as the independent reviewer of PDR work package WP-PDR-10 (`docs/plan/pdr-work-plan.md` revision 2, section 3.4: "Reviewer: INSP-001 and INSP-002 delta iterations"; rules C1, C2, C4 and C7 of section 5.1). It authored no part of WP-PDR-10, CR-009 or the prototype commit, and it edited no product and no author section. Earlier sections are left as written; the front matter fields `product_commit`, `product_files`, `product_size`, the finding counts, `items_no`, the effort fields and their comments, the State cells of finding-20 and finding-21 in the findings table, and a new dated verdict line at the top of the body changed. `iteration` stays 3: this is a delta verification of the liens finding-19 to finding-21, finding-25 and finding-26 (carried items C-013 to C-017), not a new full review. The ConOps baseline check at PDR (`docs/reviews/PDR/checklists/conops.md`) is a separate, later review. The record is written on the CR branch, where the products it names are committed (CR-009 section 5 steps 4 and 6).
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: "WP-PDR-10 L0 ConOps concept SRR liens reviewer checklist"; "carried items C-009 C-013 INSP-002 finding-19 finding-25 lien"; "validate_docs record drift product_files blob compare working tree"). `grep -n` then only pinned lines in the two products, the plan and the named evidence files at `ab2af2d`; every value check is a read-only Python script over `git show <commit>:<path>`.
+
+**Products (frozen, plan rule C2).** `git rev-parse cr/CR-009-l0-conops-srr-liens:<path>`: `conops.md@8415dba2` (880 lines, revision 5), `concept.md@ee0d6e92` (390 lines, revision 3); the six figure files keep the blobs of post-SRR-ruling delta 2. The change description read is `docs/cm/cr/CR-009-l0-conops-srr-liens.md` at blob `a84ca441` on `main`; CR-009 is not a product of this record and its section 6 impact review is separate (plan rule C6). `git log ab2af2d..main -- docs/conops docs/design/concept.md` is empty, so `main` has not moved the two files since the branch point.
+
+**Delta.** `git diff ab2af2d 9001813` changes 18 lines of `conops.md` (status line, revision history row 5, the two section 2.2 rows, OPS-020 step 5, the section 8 lead paragraph, the Appendix D header and rows D5, D6, D9 to D15, D17 to D19) and 3 lines of `concept.md` (revision line, revision history row 3, section 15 "Feeds"). Every hunk was read with `--word-diff=plain` and equals the "After" cell of CR-009 sections 1.2 and 1.3; nothing else changed. The section 5 Mermaid block of the concept is unchanged and `docs/reviews/SRR/figures/concept-block-diagram.py --check` exits 0 on the worktree; the reviewer re-opened `concept-block-diagram.png` (blob `3ef6e911`) and it is the render inspected at iterations 1 to 3.
+
+### Acceptance criteria (rule C7: every case the expected fix names)
+
+| Finding | Case | Check at `ab2af2d` (the commit the products cite) | Result |
+|---|---|---|---|
+| finding-19 | Section 2.2 register row: range without a stale upper id, or updated | "RSK-001 to RSK-065 at 0.6.0-pre-srr" with "checked at version 0.6.0-pre-srr for revision 5" (line 115): `register.json` at `ab2af2d` is version 0.6.0-pre-srr with 65 risks, RSK-001 to RSK-065 | Correct |
+| finding-19 | Section 8 lead paragraph range | Same range and version (line 697) | Correct |
+| finding-19 | RSK-064 and RSK-065 added to the section 8 table, or the reason they are not operational stated | Not done. The section 8 table (lines 699 to 725, blob `8415dba2`) names neither RSK-064 (open or cold owner-soldered joint in a power path; the Assembly phase of the Off row of Table 3.4-5 and the receipt and bring-up of OPS-012) nor RSK-065 (lending units treated as outside the 47 CFR 15.23 exemption; the loan scenario), and no sentence says why. The section 2.2 row adds "section 8 cites each entry by id", which reads as if every register entry were covered. CR-009 section 1.2 records only the range part of the fix | Not verified (finding-19 stays a lien) |
+| finding-20 | One version of the hazard file named as the current input | Section 2.2 row (line 113) cites "checked at version 0.5.0-pha" and "HZ-001 to HZ-015 at 0.5.0-pha": `hazards.json` at `ab2af2d` is 0.5.0-pha with 15 hazards, unchanged on `main` since `bfea9c7`. Rows D11 and D12 cite 0.5.0-pha. Rows D6 and D10 name 0.4.2-pha only as the revision at which the hazard edit was made (a dated event), not as the input version | Verified |
+| finding-21 | The Appendix D header names the commit that holds every cited product | Header (line 860) names `ab2af2d` for the revision 5 re-check and keeps `400e59d` and `cd61450` as the history of revision 4 | Verified |
+| finding-21 | Each status true at the named commit (every row) | D1 to D4, D8, D16 (unchanged, Closed): REQ-SYS-002 rationale lists the nine modes, the four flags and F1 to F9 and cites OPS-022; REQ-SYS-003 rationale names the KEY inhibit; REQ-SYS-005 rationale names the Latched class and T24; REQ-SYS-007 rationale cites REQ-SYS-179 and has no pending note; REQ-SYS-121 cites OPS-022; REQ-SYS-102, 103, 114 to 117 cite MOE-013. D5 and D18: REQ-SYS-054 reads "end keying until both paddles open"; `requirements-sys.md` (INSP-003) post-SRR-ruling delta has the decision 37 row (line 728) and finding-27 and finding-28 as liens. D6 and D10: INSP-008 iteration 3 (`hazard-analysis.md` record, the two "ConOps appendix D item D6/D10, hazard part: verified" bullets). D9: ADR-015 section 2 still reads "no risk of unlicensed transmission" and has no erratum line. D11, D12: `hazards.json` 0.5.0-pha phases unchanged and HZ-001 K6 does not cite OPS-022. D13: MOP-001, MOP-002, TPM-001 and TPM-016 `moe_ids` are ["MOE-001"] in `tpm.json`. D14: the "All rows for the 0.5 W and 1 W steps ... 0.29 m or less" sentence is still in `docs/research/rf-exposure-evaluation.md` line 94. D15: ADR-014 line 29 carries the erratum of 2026-09-26 citing OET 65 Supplement B (decision 18, RID-SRR-010). D17: 04 has no OQ-VV question for a weak-signal source. D7 and D19 unchanged in substance; the named PDR work packages (WP-PDR-14, 16, 29, 30, 43, 23 with 32) each list the item in their outputs in plan section 3 | Verified |
+| finding-25 | The step states the power step the band-edge measurement covers | "at the 5 W step, the worst case" (line 643) | Verified |
+| finding-25 | If 5 W, keyed through Transmit-keyed, not Bench-test | Paddle in Transmit-keyed (T10 under the Arm condition); Bench-test excluded because REQ-SYS-187 holds 0.5 W for the whole mode (decision 41) | Verified |
+| finding-25 | The paddle stream stays within the REQ-SYS-054 limits | 50 WPM is inside REQ-SYS-041 (5 to 50 WPM). One dit plus its space is 48 ms at 50 WPM, so the 128-element watchdog ends a burst after about 6.1 s; the step keys in bursts, and its clear condition "releasing both paddles" equals Table 3.4-4 row 3 ("Both paddle contacts are confirmed open") and the REQ-SYS-054 statement. The 2 s squeeze limit does not arise (one paddle) and the 30 s no-gap limit is not reached (a 1-dit gap every 48 ms) | Verified |
+| finding-25 | Consistent with MOE-006, REQ-SYS-015 and the regulation | MOE-006 names the guard limits, 50 WPM, the calibrated attenuator and the -26 dB level, and no mode or step, so the step fills in the MOE rather than contradicting it; REQ-SYS-015 is stated at 50 WPM; the -26 dB level equals 47 CFR 97.3(a)(8) (corpus: 47cfr-97.3.md line 31, eCFR issue 2026-09-23) | Verified |
+| finding-26 | Section 15 says the section 7 and 14 values are the ruled or TBR L1 values | Line 390 now names the three kinds of the conventions paragraph (line 5): owner decisions with `SI-NNN`, SRR rulings with the decision number, TBR with close_by PDR | Verified |
+
+Observation (no finding): OPS-020 step 5 does not bound the number of 5 W bursts by the 1:9 transmit cycle of TPM-008 (SI-034). The HOT inhibit (OPS-014), REQ-SYS-118 and REQ-SYS-181 bound the PA temperature whatever the operator does, and the procedure-level duty is a matter for the TC-VAL case that WP-PDR-43 writes from this step (CR-009 section 4, Verification). Noted for that author.
+
+"Verified" means verified on the branch blobs named above; the fix enters the functional baseline only when the owner approves CR-009 and it merges. If the branch is rebased (CR-009 section 5 step 5) and a product blob changes, the next delta re-checks the changed hunks. Note for the rebase: `main` now holds `register.json` 0.7.0-pre-pdr (WP-PDR-18, `4df6606`), still 65 risks; the version-stamped wording of section 2.2 and section 8 stays true as written.
+
+### New findings
+
+| Finding | Severity | Item | Location | Description and expected fix | State |
+|---|---|---|---|---|---|
+| <a id="finding-27"></a>finding-27 | Minor | CK-DES-H1 | `concept.md` line 3 (Status), blob `ee0d6e92` | The Status line still reads "Draft for SRR (concept definition ...)", while the revision line of the same file now says revision 2 is "in the functional baseline `baseline/srr`" and CR-009 changed the ConOps Status line to "Functional baseline (`baseline/srr`, revision 4)". The two lines of one file disagree about its state. Fix: state the concept's baseline status on line 3 as the ConOps line does; fold it into CR-009 if CR-009 is revised for finding-19, otherwise at the next concept change | Lien: fix before CDR (plan rule C1) |
+
+**Current finding state (PDR lien delta).**
+
+| Finding | Severity | State | Note |
+|---|---|---|---|
+| finding-1 to finding-4 | Major | Closed (Verified) | Iteration 3 |
+| finding-5 to finding-17 | Minor | Closed (Verified) | Iteration 3 disposition table |
+| finding-18 | Minor | Disputed accepted (Withdrawn) | Iteration 2 |
+| finding-19 | Minor | Lien: fix before PDR (range and version fixed at `9001813`; RSK-064 and RSK-065 not addressed) | Author adds the two rows to the section 8 table or states why they are not operational, and aligns CR-009 section 1.2; the next delta verifies |
+| finding-20 | Minor | Verified (PDR lien delta, `9001813`; effective at the CR-009 merge) | Above |
+| finding-21 | Minor | Verified (PDR lien delta, `9001813`; effective at the CR-009 merge) | Above |
+| finding-22 | Minor | Closed (Verified) | Post-SRR-ruling delta |
+| finding-23 | Major | Closed (Verified) | Post-SRR-ruling delta 2 |
+| finding-24 | Major | Closed (Verified) | Post-SRR-ruling delta 2 |
+| finding-25 | Minor | Verified (PDR lien delta, `9001813`; effective at the CR-009 merge) | Above |
+| finding-26 | Minor | Verified (PDR lien delta, `9001813`; effective at the CR-009 merge) | Above |
+| finding-27 | Minor | Lien: fix before CDR (new) | Above |
+
+Open Major: 0.
+
+**Checklist answers at the delta.** CK-DES-H1 stays No (finding-19, finding-27). CK-DES-H2 Yes (figures unchanged, `--check` exit 0, render re-opened). CK-DES-H4 Yes (finding-21 Verified; REQ-SYS-041, 054, 184, 187, SRR decision 41 and 47 CFR 97.3(a)(8) resolve). Supplementary CK-REQ-C5 Yes (finding-25 Verified). CK-VIS items unchanged (no render changed). Readiness: R1 Yes (render current); R2 N/A; R3 N/A; R4 Yes (the author's acceptance criteria are CR-009 sections 1.2 and 1.3 and its section 5 "Verification of the implementation" list, each item checked above). `readiness_met: true`.
+
+**Verdict (PDR lien delta): APPROVED with liens finding-19 and finding-27.** No Major finding is open (plan rule C1). finding-19 is not closed: WP-PDR-10 does not close carried item C-013 until the section 8 part is fixed and verified.
+
+**Tool runs (2026-09-27, branch worktree at `9001813`, `.venv/bin/python`).** `tools/traceability.py --report-only --root <worktree>`: exit 0, 245 requirements, 173 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, 148), none naming an OPS id, no `RENDER_STALE`; report files restored with `git checkout`. `docs/reviews/SRR/figures/concept-block-diagram.py --check`: exit 0. `tools/validate_docs.py --root <worktree>` after this delta and the INSP-001 delta: see the return of this review (the two record drift failures of CR-009 section 5 step 4 clear).
+
+**Cross items (outside this record's scope).**
+- X-1, for the CR-009 author: amend CR-009 section 1.2 (finding-19 row) when the section 8 part is fixed, and consider folding INSP-001 finding-17 and this record's finding-27 into the same revision. Because the product blobs change, the CR-009 section 6 reviewer and this record's next delta both work on the new blobs.
+- X-2, for the CR-009 section 6 reviewer: section 4 row Documentation says the INSP-001 and INSP-002 deltas come "After merge"; section 5 steps 4 and 6 place them before the merge, as done here.
+
+**Measurements (delta).** Hunks read 21 (18 ConOps, 3 concept); Appendix D rows re-checked 19; L1 requirements checked 14; evidence files checked at `ab2af2d` 9 (`hazards.json`, `register.json`, `tpm.json`, ADR-014, ADR-015, the RF exposure research file, 04, the INSP-003 and INSP-008 records); renders re-checked 1; findings verified 4; new findings 1 (Minor); effort 25 turns, 50 minutes (added to the front matter totals).
+
+```
+VERDICT (PDR lien delta, 2026-09-27, WP-PDR-10 review): APPROVED (with liens finding-19, finding-27; readiness met); assurance not required
+PRODUCT: 9001813 on cr/CR-009-l0-conops-srr-liens (ConOps revision 5, concept revision 3); conops.md 8415dba2, concept.md ee0d6e92, six figure files unchanged
+FINDINGS: finding-20, 21, 25, 26 Minor Verified on the branch blobs (effective at the CR-009 merge); finding-19 Minor Lien: fix before PDR (section 8 part not done); finding-27 Minor new, Lien: fix before CDR; open Major 0
+MEASUREMENTS: hunks=21; Appendix D rows=19; turns=25; minutes=50; cumulative turns=177, minutes=282
 ```

@@ -12,14 +12,16 @@ product: docs/requirements/l0-stakeholder/expectations.json
 # at the iteration 3 review baseline HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
 # Post-SRR-ruling delta (2026-09-26, package item R16): product_commit is d4c9366, the one commit since 8a37f8e that touched the three files
 # Close-out delta (2026-09-26, SRR close-out, finding-14 fix): product_commit is b087a9f, the one commit since d4c9366 that touched the three files
-product_commit: "b087a9f"
+# PDR lien delta (2026-09-27, WP-PDR-10 review): product_commit is 9001813 on branch cr/CR-009-l0-conops-srr-liens (CR-009 prototype)
+product_commit: "9001813"
 # product_files: committed blobs re-reviewed at iteration 3 (git rev-parse HEAD:<path> at adcfe09).
 # Iteration 2 reviewed the uncommitted working tree (json 01caefba, md 14fe59f0; not in the object store);
 # iteration 1 reviewed json 3bdc1cd7, md b75d73c1 at 28e49e6. stakeholder-inputs.md is bcc2ec9f throughout.
 # Re-issue 2026-09-26 (package item R8, no further product review): the three blobs re-checked equal to git rev-parse HEAD:<path> at 1af795c
 # Re-issue product_files named json 59e7efba, md 3ac5617d, stakeholder-inputs bcc2ec9f. Post-SRR-ruling delta: git rev-parse HEAD:<path> at bec5c34 (blobs of d4c9366)
 # Post-SRR-ruling delta named json afaf242a, md ac48c275, stakeholder-inputs 362250fb. Close-out delta: git rev-parse HEAD:<path> at b087a9f
-product_files: ["docs/requirements/l0-stakeholder/expectations.json@52b6cf5e8f7b4b9fec7ed4c6aa68313967d7104c", "docs/requirements/l0-stakeholder/expectations.md@f460c1fb300a29533cf7abdd19ae768130299a5f", "docs/requirements/l0-stakeholder/stakeholder-inputs.md@362250fbaa62c937ffc391477ff9c71f1d41514c"]
+# Close-out delta named json 52b6cf5e, md f460c1fb, stakeholder-inputs 362250fb. PDR lien delta: git rev-parse cr/CR-009-l0-conops-srr-liens:<path> (frozen blobs, plan rule C2)
+product_files: ["docs/requirements/l0-stakeholder/expectations.json@60df49c9767802b7dc7fb1d1b4f73cc758301f98", "docs/requirements/l0-stakeholder/expectations.md@4de665a1217ed4d0b9347e91a1a74133e5fc4ac3", "docs/requirements/l0-stakeholder/stakeholder-inputs.md@362250fbaa62c937ffc391477ff9c71f1d41514c"]
 product_size: 1 Need, 7 Goals, 22 Objectives, 13 MOEs, 28 constraints, 10 stakeholders, 38 SI rows (SI-037 and SI-038 added at d4c9366)
 sprint: SRR-prep
 author_agent: "author:expectations (Claude main session, lead systems engineer; commit 28e49e6)"
@@ -35,21 +37,24 @@ readiness_met: true
 # re-issue: no Major finding is open; APPROVED with liens finding-12 and finding-13 (convergence rule)
 # post-SRR-ruling delta: NEEDS CHANGES on finding-14 (Major, MOE-006 band-edge test at the pre-decision-25 guard limits)
 # close-out delta: finding-14 Verified on b087a9f; APPROVED with liens finding-12, 13, 15, 16 (convergence rule)
+# PDR lien delta: finding-12, 13, 15 Verified on the CR-009 branch blobs; APPROVED with liens finding-16 and finding-17 (new Minor)
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 # re-issue: finding-13 (Minor) is new, raised from the author's exception E-1
 # post-SRR-ruling delta: finding-14 (Major), finding-15 and finding-16 (Minor) are new
+# PDR lien delta: finding-17 (Minor) is new
 findings_major: 3
-findings_minor: 13
+findings_minor: 14
 # re-issue: finding-11 Verified (self-check filed); finding-12 and finding-13 are liens "fix before PDR"
 # (convergence rule of 2026-09-26), counted as deferred; no finding is Open
 # post-SRR-ruling delta: finding-14 Open; finding-12, 13, 15, 16 liens (deferred)
 # close-out delta: finding-14 Verified (b087a9f); no finding is Open
+# PDR lien delta: finding-12, 13, 15 Verified (15 verified); liens finding-16 and finding-17 (deferred 2)
 findings_open: 0
 findings_fixed: 0
-findings_verified: 12
-findings_deferred: 4
+findings_verified: 15
+findings_deferred: 2
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -57,11 +62,12 @@ deferred_rids: []
 # items_no: re-issue answers (iteration 3: R3, CK-REQ-F1; iteration 2: R3, CK-REQ-F1; iteration 1: R3, R4, A3, A7,
 # A8, B1, E4, F1, F2). CK-REQ-F1 is No only for finding-12, CK-REQ-A7 and B1 only for finding-13, both liens
 # post-SRR-ruling delta adds CK-REQ-F2 (finding-14); close-out delta returns CK-REQ-F2 to Yes (finding-14 Verified)
-items_no: [CK-REQ-A7, CK-REQ-B1, CK-REQ-F1]
+# PDR lien delta: CK-REQ-A7 returns to Yes (finding-13 Verified); B1 No for finding-16, F1 No for finding-17
+items_no: [CK-REQ-B1, CK-REQ-F1]
 # effort: cumulative over iterations 1 (38 turns, 45 min), 2 (22 turns, 30 min), 3 (26 turns, 35 min), the re-issue (12 turns, 20 min)
-# the post-SRR-ruling delta (30 turns, 45 min) and the close-out delta (12 turns, 15 min)
-effort_turns: 140
-effort_minutes: 190
+# the post-SRR-ruling delta (30 turns, 45 min), the close-out delta (12 turns, 15 min) and the PDR lien delta (20 turns, 40 min)
+effort_turns: 160
+effort_minutes: 230
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -82,6 +88,8 @@ Iteration 3 reviewed the committed blobs of the front matter `product_files` (HE
 **Checklist.** `docs/templates/peer-review-checklist-requirements.md` revision C, product-type row "Stakeholder expectations": applicable A3, A4, A5, A7, A8; B1 to B3; E4; F1 to F3; readiness R1 to R5. Not applicable (per that row): A1, A2, A6, B4 to B7, C1 to C8, D1 to D4, E1 to E3, E5, E6, F4, G1 to G8. The per-requirement validation table and the V2 block apply to requirement files and CRs only; this record carries a per-entry results table instead (section "Per-entry results").
 
 **Reviewer.** `reviewer:expectations`, independent of the author (charter section 2; section 11 rule 4). The reviewer did not edit the product. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before every `grep` (queries: SRR readiness shortfalls for expectations; 97.307(e) text; owner decisions on backlight and speaker; commercial 2 m CW handheld claim); `grep -n` was used afterwards only to pin lines.
+
+**Verdict (PDR lien delta, 2026-09-27, WP-PDR-10 review, products at `9001813` on branch `cr/CR-009-l0-conops-srr-liens`): APPROVED with liens finding-16 and finding-17.** The CR-009 prototype fixes finding-12, finding-13 and finding-15 as their expected fixes ask; each is Verified on the branch blobs and takes effect in the baseline when CR-009 is approved and merged. finding-16 stays a lien routed to CR-003 (WP-PDR-02). One new Minor finding, finding-17 (a residual unscoped squeeze clause in the NGO-021 rationale), is a lien due at the CDR readiness declaration (plan rule C1). No Major finding is open. See "PDR lien delta".
 
 **Verdict (close-out delta, 2026-09-26, products at `b087a9f`): APPROVED with liens finding-12, finding-13, finding-15 and finding-16.** Commit `b087a9f` changes only the MOE-006 band-edge guard limits to 144.0012 and 147.9988 MHz (TBR), as finding-14's expected fix asked (SRR decision 25 (a)), and re-renders `expectations.md`; finding-14 is Verified and no Major finding is open. See "Close-out delta".
 
@@ -108,11 +116,12 @@ Iteration 3 reviewed the committed blobs of the front matter `product_files` (HE
 | <a id="finding-9"></a>finding-9 | reviewer | Minor | CK-REQ-B3 (SE HB section 4.1.1.2.1) | `stakeholders` array | The product relies on two groups that the array does not identify. (a) Members of the licensee's household are the only non-licensees whom 47 CFR 97.13(c)(1) lets the licensee evaluate at the occupational tier (CON-004 statement; `docs/research/rf-exposure-evaluation.md` line 46), and the handbook is their information source. (b) Unlicensed third parties key under supervision per 97.115(b) (CON-006, NGO-020, OPS-019, MOE-009) and are evaluated at the general-population tier. The "public" entry covers only reusers and bystanders. Fix: add the two groups (roles `public` or `guest operator`, with `represented_by` Robin and the handbook), or widen the notes of the existing entries to cover them. Adding entries after SRR needs a CR (02 section 3.0). | Verified | Pending | | Closed. `stakeholders` adds "Members of the licensee's household" (role public; occupational limits only with the training and information of 47 CFR 97.13(c)(1), otherwise general population) and "Unlicensed third parties keying under supervision" (role guest operator; 97.115(b)), each with `represented_by` Robin, `source_ids` and a note on the CR rule. The household wording agrees with corpus 97.13(c)(1) and `rf-exposure-evaluation.md` line 46; the schema validates (validate_docs PASS) and T-21 reports no `STAKEHOLDERS_MISSING` |
 | <a id="finding-10"></a>finding-10 | reviewer | Minor | CK-REQ-A8 | NGO-019 `rationale` | Editorial: a sentence starts in lower case ("... raises the cutoff window. the 0.6 m and 1.0 m rules are its F7"). The rationale also says "its F7", where "its" refers back to a report named three sentences earlier; name the report. | Verified | Pending | | Closed. NGO-019 `rationale`: "The 0.6 m and 1.0 m separation rules are docs/research/rf-exposure-evaluation.md F7"; the report is named and the sentence starts in upper case |
 | <a id="finding-11"></a>finding-11 | reviewer | Minor | R3 | author return | There is no author return on record with the self-check against the checklist sections and the brief's acceptance criteria. The assignment's author summary reads "no new authoring this run", and commit 28e49e6 carries no self-check. Readiness R3 is therefore not met, and `readiness_met` is false. Fix: the author records the self-check (sections A, B and F of the checklist) in the re-review brief. | Verified (re-issue; Lien at iteration 3) | Not needed (self-check filed; decision 115 no longer needed for this record) | none | Re-issue: Closed by the author self-check at `1af795c`, verified in "Re-issue". Iteration 2: open. The author's fix list names F-11 as fixed, but no self-check against checklist sections A, B and F and the brief's acceptance criteria was supplied with the re-review assignment, none is in the product files, and a claude-context search of the repository for an expectations author self-check found none. A fix list is an assertion, not the self-check (charter section 11 rule 2). R3 stays No and `readiness_met` stays false. Close by filing the author's self-check with the next re-review brief |
-| <a id="finding-12"></a>finding-12 | reviewer (iteration 2) | Minor | CK-REQ-F1, R4 | NGO-026 `rationale` | Introduced by the finding-7 fix. NGO-026 says REQ-SYS-116 and REQ-SYS-117 carry the drop height and the IPX2 condition "as TBR: owner Robin on Claude's proposal, plan the PDR enclosure analysis, close_by PDR". The `tbr.plan` of both L1 requirements in `docs/requirements/sys/requirements.json` reads instead: Robin decides the environment set (`docs/conops/conops.md` section 4, Appendix C) at SRR; TPM-006 span reconciled at PDR. One TBR now has two different closure plans (charter section 7: a TBR carries one owner, plan and target review). Fix: quote or cite the L1 `tbr` plan in NGO-026 (or change the L1 plan by the same revision so the two agree). | Lien: fix before PDR (iteration 3) | Pending | PDR | Open (raised in iteration 2) |
-| <a id="finding-13"></a>finding-13 | reviewer (re-issue, from author exception E-1) | Minor | CK-REQ-A7, CK-REQ-B1 | CON-006 and CON-007 `source_ids` | 02 section 3.2 rule 4 (line 165): a constraint derived from 47 CFR cites its clause "together with SI-014 as the input that makes Part 97 applicable". CON-006 (kind Regulatory; sources 47CFR97.7, 97.5(c), 97.103(b), 97.115(b), 97.109(b), 97.109(d), 97.203(d), SI-019, SI-030) and CON-007 (kind Regulatory; 47CFR97.313(a), (b), SI-003) cite the clauses but not SI-014; a scan of all 28 constraints at blob `59e7efba` finds these two and no other. The clauses resolve, so the link to the regulation holds; only the stakeholder-input link of rule 4 is missing. Minor, the same class as finding-5. Fix: add SI-014 to both `source_ids` | Lien: fix before PDR (re-issue) | Pending | PDR |
+| <a id="finding-12"></a>finding-12 | reviewer (iteration 2) | Minor | CK-REQ-F1, R4 | NGO-026 `rationale` | Introduced by the finding-7 fix. NGO-026 says REQ-SYS-116 and REQ-SYS-117 carry the drop height and the IPX2 condition "as TBR: owner Robin on Claude's proposal, plan the PDR enclosure analysis, close_by PDR". The `tbr.plan` of both L1 requirements in `docs/requirements/sys/requirements.json` reads instead: Robin decides the environment set (`docs/conops/conops.md` section 4, Appendix C) at SRR; TPM-006 span reconciled at PDR. One TBR now has two different closure plans (charter section 7: a TBR carries one owner, plan and target review). Fix: quote or cite the L1 `tbr` plan in NGO-026 (or change the L1 plan by the same revision so the two agree). | Verified (PDR lien delta, `9001813`; effective at the CR-009 merge; was Lien: fix before PDR) | Pending | PDR | Open (raised in iteration 2) |
+| <a id="finding-13"></a>finding-13 | reviewer (re-issue, from author exception E-1) | Minor | CK-REQ-A7, CK-REQ-B1 | CON-006 and CON-007 `source_ids` | 02 section 3.2 rule 4 (line 165): a constraint derived from 47 CFR cites its clause "together with SI-014 as the input that makes Part 97 applicable". CON-006 (kind Regulatory; sources 47CFR97.7, 97.5(c), 97.103(b), 97.115(b), 97.109(b), 97.109(d), 97.203(d), SI-019, SI-030) and CON-007 (kind Regulatory; 47CFR97.313(a), (b), SI-003) cite the clauses but not SI-014; a scan of all 28 constraints at blob `59e7efba` finds these two and no other. The clauses resolve, so the link to the regulation holds; only the stakeholder-input link of rule 4 is missing. Minor, the same class as finding-5. Fix: add SI-014 to both `source_ids` | Verified (PDR lien delta, `9001813`; effective at the CR-009 merge; was Lien: fix before PDR) | Pending | PDR |
 | <a id="finding-14"></a>finding-14 | reviewer (post-SRR-ruling delta) | Major | CK-REQ-F1, CK-REQ-F2 | MOE-006 `success_criterion` | See "Post-SRR-ruling delta" | Verified (close-out delta, b087a9f) | Not needed (applies SRR decision 25) | |
-| <a id="finding-15"></a>finding-15 | reviewer (post-SRR-ruling delta) | Minor | CK-REQ-F1 | NGO-021 `statement`; MOE-012 `success_criterion` | See "Post-SRR-ruling delta" | Lien: fix before PDR (post-SRR-ruling delta) | Pending | PDR |
+| <a id="finding-15"></a>finding-15 | reviewer (post-SRR-ruling delta) | Minor | CK-REQ-F1 | NGO-021 `statement`; MOE-012 `success_criterion` | See "Post-SRR-ruling delta" | Verified (PDR lien delta, `9001813`; effective at the CR-009 merge; was Lien: fix before PDR) | Pending | PDR |
 | <a id="finding-16"></a>finding-16 | reviewer (post-SRR-ruling delta) | Minor | CK-REQ-B1, CK-REQ-F1 | CON-015, NGO-006 `statement`; SI-037 | See "Post-SRR-ruling delta" | Lien: fix before PDR (post-SRR-ruling delta) | Pending | PDR |
+| <a id="finding-17-row"></a>finding-17 | reviewer (PDR lien delta) | Minor | CK-REQ-F1 | NGO-021 `rationale` | See "PDR lien delta" | Lien: fix before CDR (PDR lien delta) | Not needed | CDR |
 
 ## Readiness criteria
 
@@ -524,3 +533,70 @@ MEASUREMENTS: fields=1 + rendering; new findings=0; turns=12; minutes=15; cumula
 ```
 
 `record_status` stays Open.
+
+## PDR lien delta (2026-09-27, iteration 3 re-issue 4, WP-PDR-10 review; products at `9001813` on branch `cr/CR-009-l0-conops-srr-liens`)
+
+**Scope and independence.** Written by a new invocation of `reviewer:expectations` in the reviewer role (engineering lens), as the independent reviewer of PDR work package WP-PDR-10 (`docs/plan/pdr-work-plan.md` revision 2, section 3.4: "Reviewer: INSP-001 and INSP-002 delta iterations"; rules C1, C2, C4 and C7 of section 5.1). It authored no part of WP-PDR-10, of CR-009 or of the prototype commit, and it edited no product file and no earlier section of this record except the current-state cells (front matter, the verdict paragraph added above the close-out verdict, the State cells of finding-12, finding-13 and finding-15 and the new finding-17 row of the findings table). Everything above this section is kept as history. `iteration` stays 3: this is a delta verification of liens, not a new full review. The record is written on the CR branch, where the products it names are committed (CR-009 section 5 steps 4 and 6: the delta names the frozen blobs before the merge, which clears the record drift failure the author reported at step 4).
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: "WP-PDR-10 L0 ConOps concept SRR liens reviewer checklist"; "carried items C-009 C-013 INSP-002 finding-19 finding-25 lien"; "validate_docs record drift product_files blob compare working tree"). `grep -n` then only pinned lines; every other check is a read-only Python script over `git show <commit>:<path>`.
+
+**Products (frozen, plan rule C2).** `git rev-parse cr/CR-009-l0-conops-srr-liens:<path>` equals the brief: `expectations.json@60df49c9`, `expectations.md@4de665a1`; `stakeholder-inputs.md@362250fb` is unchanged since `b087a9f`. The change description read is `docs/cm/cr/CR-009-l0-conops-srr-liens.md` at blob `a84ca441` on `main` (commit `1479b30`); CR-009 is not a product of this record, and its section 6 impact review is a separate review (plan rule C6). `git log ab2af2d..main -- docs/requirements/l0-stakeholder/` is empty, so `main` has not moved the L0 files since the branch point and no rebase is pending for them.
+
+**Delta.** `git diff ab2af2d 9001813 -- docs/requirements/l0-stakeholder/` changes 6 lines in `expectations.json` and 6 in `expectations.md`: NGO-021 `statement` and `rationale`, NGO-026 `rationale`, MOE-012 `success_criterion`, CON-006 and CON-007 `source_ids`. Each hunk equals the "After" cell of CR-009 section 1.1 and no other field of any entry changed. The `.md` word diff carries the same edits as the JSON.
+
+### Acceptance criteria (rule C7: every case the expected fix names)
+
+| Finding | Case | Check | Result |
+|---|---|---|---|
+| finding-12 | NGO-026 states one closure plan for the REQ-SYS-116 and REQ-SYS-117 TBRs, the L1 one | NGO-026 `rationale` (`expectations.json` line 336 on the branch) no longer states an owner, plan or close_by of its own; it says the `tbr` object of each requirement "holds the one owner, plan and close_by of its TBR (charter section 7)". The L1 `tbr` at `ab2af2d`: plan "SRR decision 85 ... adopted the environment set (TBR) ...; the TPM-006 span is reconciled at PDR", close_by PDR. On the WP-PDR-11 branch (`c629198`) only the `tbr.owner` wording changes ("Robin approves on Claude's proposal at PDR"); the citation stays true in both, which is the reason CR-009 section 3 gives for citing rather than quoting | Verified |
+| finding-13 | SI-014 in CON-006 and in CON-007 `source_ids` | Present in both (CON-006 after `47CFR97.203(d)`; CON-007 after `47CFR97.313(b)`) | Verified |
+| finding-13 | No other constraint that cites a 47 CFR clause lacks SI-014 (02 section 3.2 rule 4) | Script over all 28 constraints: the eight of kind Regulatory (CON-001 to CON-008) each cite a `47CFR` clause and SI-014; none of the 20 other constraints cites a `47CFR` clause | Verified |
+| finding-15 | NGO-021 `statement` carries the REQ-SYS-184 mode scope | "a squeeze of both paddle contacts held longer than 2 s in Iambic A, Iambic B or Ultimatic mode stops keying" equals the REQ-SYS-184 scope at `ab2af2d` ("in Iambic A, Iambic B or Ultimatic mode") | Verified |
+| finding-15 | MOE-012 `success_criterion` carries it at both mentions | The limit list ("2 s for a squeeze of both paddle contacts in Iambic A, Iambic B or Ultimatic mode") and the summary ("a squeeze in those modes within 2 s") | Verified |
+| finding-15 | The Bug-mode squeeze stays bounded | The NGO-021 rationale adds "in Bug mode a squeeze is bounded by the 5 s manual timeout of REQ-SYS-053 and by REQ-SYS-054"; REQ-SYS-053 (manual closure including the Bug dah, 5 s) and REQ-SYS-054 (128 identical elements or 30 s without a qualifying gap) at `ab2af2d` agree | Verified |
+| finding-15 | Every other squeeze statement in the L0 file | Script: 7 squeeze clauses in the file (NGO-021 statement 1, rationale 4; MOE-012 criterion 2). One NGO-021 rationale clause is still unscoped: "a toggling stream from live firmware is bounded at 30 s by the watchdog and at 2 s for a squeeze". Raised as finding-17 (Minor); the two fields finding-15 located are fixed | Verified for the located fields; residual is finding-17 |
+| All | Rendering and schema | `tools/traceability.py --report-only` on the branch worktree: no `RENDER_STALE`, no violation naming an L0 id; `tools/validate_docs.py`: `expectations.json` PASS against its schema | Verified |
+
+finding-16 (carried item C-012) is not in this delta: plan section 10.1 routes it to WP-PDR-02 through CR-003 revision 3 section 1.4, as CR-009 section 1.1 states. It stays a lien.
+
+"Verified" here means verified on the branch blobs named above. The fix enters the functional baseline only when the owner approves CR-009 and it merges (CR-009 section 5 step 5). If the branch is rebased and any of the three product blobs changes, the next delta re-checks the changed hunks before the merge.
+
+### New findings
+
+| Finding | Severity | State | Location | Description | Expected fix | Citation |
+|---|---|---|---|---|---|---|
+| <a id="finding-17"></a>finding-17 | Minor | Lien: fix before CDR | NGO-021 `rationale`, sentence beginning "A toggling key line restarts the cutoff" (`expectations.json` line 286 on the branch, blob `60df49c9`) | The sentence says a toggling stream from live firmware "is bounded at 30 s by the watchdog and at 2 s for a squeeze". Two sentences earlier the same rationale now scopes the 2 s limit to Iambic A, Iambic B and Ultimatic, and REQ-SYS-184 applies only there; in Bug mode a squeeze is bounded by REQ-SYS-053 and REQ-SYS-054. The residual clause restates the unscoped limit that finding-15 removed from the statement and the criterion. No value is wrong, and the hazard stays bounded. | Write "and at 2 s for a squeeze in those modes"; if CR-009 is revised before its disposition (for example for INSP-002 finding-19), fold it in there, otherwise at the next L0 change | REQ-SYS-184; CK-REQ-F1; plan rule C1 (a Minor raised after the first APPROVED verdict is a lien due at the CDR readiness declaration) |
+
+**Findings after the delta.**
+
+| Finding | Severity | State | Closes on |
+|---|---|---|---|
+| finding-1, finding-2 | Major | Verified (iteration 2) | |
+| finding-3 to finding-11 | Minor | Verified | |
+| finding-12 | Minor | Verified (PDR lien delta, branch blob `60df49c9`; effective at the CR-009 merge) | |
+| finding-13 | Minor | Verified (PDR lien delta, branch blob `60df49c9`; effective at the CR-009 merge) | |
+| finding-14 | Major | Verified (close-out delta, `b087a9f`) | |
+| finding-15 | Minor | Verified (PDR lien delta, branch blob `60df49c9`; effective at the CR-009 merge) | |
+| finding-16 | Minor | Lien: fix before PDR | CON-015 and NGO-006 through CR-003 (WP-PDR-02, carried item C-012) |
+| finding-17 | Minor | Lien: fix before CDR (new) | NGO-021 rationale residual clause |
+
+Open Major: 0.
+
+**Answers changed at the delta.** CK-REQ-A7 returns to Yes (finding-13 Verified). CK-REQ-B1 stays No (finding-16 only). CK-REQ-F1 stays No (finding-17; finding-12 and finding-15 Verified). CK-REQ-A3, A4, A5, A8, B2, B3, E4, F2 and F3 stay Yes (no changed field bears on them; the new NGO-021 and MOE-012 wording keeps each bound numeric). R1 Yes (`validate_docs.py` passes this record and `expectations.json` on the branch). R2 Yes (no violation or warning names an NGO, MOE, CON or SI id). R3 Yes: the author's acceptance criteria are the CR-009 section 1.1 before and after table and its section 5 "Verification of the implementation" list, each item checked above. R4 Yes (every TBR keeps owner, plan and close_by; NGO-026 now defers to the one L1 plan). R5 N/A. `readiness_met: true`.
+
+**Tool runs (2026-09-27, branch worktree at `9001813`, `.venv/bin/python`).** `tools/traceability.py --report-only --root <worktree>`: exit 0, 245 requirements, 173 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and REQ-SYS-148, both present on `main`), no `RENDER_STALE`; the rewritten `docs/vv/traceability-report.md` and `traceability.json` were restored with `git checkout`. `tools/validate_docs.py --root <worktree>` before this delta: exit 1, 48 passed, 2 failed, 50 checked (the record drift failures of this record and INSP-002 that CR-009 section 5 step 4 reports); after this delta and the INSP-002 delta: see the INSP-002 record, same run.
+
+**Cross items (outside this record's scope).**
+- X-1, for the CR-009 section 6 reviewer: CR-009 section 4 row Documentation says the INSP-001 and INSP-002 delta iterations come "After merge", while section 5 steps 4 and 6 place them before the merge on the frozen blobs. This delta followed section 5. The CR author may align the section 4 row.
+
+**Measurements (delta).** Hunks read 12 (6 JSON, 6 rendering); entries checked 28 constraints, 3 NGO and MOE entries, 5 L1 requirements (REQ-SYS-053, 054, 116, 117, 184) at `ab2af2d` and on the WP-PDR-11 branch; findings verified 3 (finding-12, 13, 15); new findings 1 (finding-17, Minor); effort 20 turns, 40 minutes (added to the front matter totals).
+
+```
+PDR LIEN DELTA (2026-09-27, products at 9001813 on cr/CR-009-l0-conops-srr-liens, WP-PDR-10 review): VERDICT: APPROVED (liens finding-16, finding-17)
+FINDINGS: finding-12, 13, 15 Minor Verified on the branch blobs (effective at the CR-009 merge); finding-16 Minor Lien: fix before PDR (WP-PDR-02); finding-17 Minor new, Lien: fix before CDR; open Major 0
+READINESS: R1 Yes, R2 Yes, R3 Yes, R4 Yes, R5 N/A; readiness_met true
+PRODUCTS: expectations.json@60df49c9, expectations.md@4de665a1, stakeholder-inputs.md@362250fb
+MEASUREMENTS: hunks=12; findings verified=3; new findings=1; turns=20; minutes=40; cumulative turns=160, minutes=230
+```
+
+`record_status` stays Open: finding-16 and finding-17 are liens, and the software lead closes the record (07 section 10.2).
