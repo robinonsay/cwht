@@ -4,13 +4,14 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 ## Summary
 
-- Cases: 113; live SYS requirements covered: 188 of 188 (retired REQ-SYS-016 and REQ-SYS-123 are not cited).
-- By method: Analysis 22, Demonstration 6, Inspection 14, Test 71.
-- By evidence class: Bench 77, Inspection 14, Simulation 22.
+- Cases: 114; live SYS requirements covered: 189 of 189 (retired REQ-SYS-016 and REQ-SYS-123 are not cited).
+- By method: Analysis 23, Demonstration 6, Inspection 14, Test 71.
+- By evidence class: Bench 77, Inspection 14, Simulation 23.
 - Credit rows (04 section 5.2): Test requirements close by Bench on the delivered unit (T-HW); Analysis by Simulation (A); Inspection by Inspection (I); Demonstration by owner-operated Bench runs (D). The diode-probe characterization case carries SUPPORT and never closes a requirement.
 - The HostUnit and Emulation evidence named in the requirements' verification notes closes the REQ-SW children allocated at PDR and is authored with those modules; Simulation and dev-board runs named as pre-build evidence are supporting cases to be added with the design.
 - Planned scripts and fixtures named in `automation_ref`, `setup` and `instruments` (for example `tools/analyze_logic_capture.py`, `tools/tinysa_scan_check.py`, `tools/rf_probe_power.py`, `hardware/sim/checks/*`, `docs/vv/fixtures/*`) do not exist yet; each is a prerequisite of the case becoming Active.
-- Revision 2026-09-26 (SRR package item R16, owner rulings of 2026-09-26): SRR decision 25 moves every transmit test frequency to the 144.0012 and 147.9988 MHz guard limits (TC-SYS-008, 009, 110); SRR decision 37 rewrites TC-SYS-038 for the no-gap paddle watchdog of REQ-SYS-054 and the 2 s squeeze limit of new REQ-SYS-184, and keeps every squeeze in TC-SYS-012, 014, 025, 027 and 028 at or below 1.5 s; SRR decision 41 adds TC-SYS-113 for new REQ-SYS-187 to 190 and replaces the bench test-mode generator at 5 W or 1 W, which REQ-SYS-187 now holds at 0.5 W, by the keying fixture, tune carriers or hand keying in TC-SYS-014, 036, 049, 067, 100 and 105, and fits TC-SYS-007, 022, 042, 051, 053, 057 and 104 to the 120 s mode and 60 s tone limits; SRR decision 72 adds TC-SYS-111 (REQ-SYS-185) and TC-SYS-112 (REQ-SYS-186); SRR decision 113 (CR-002) retypes TC-SYS-085, 086 and 091 to Inspection with credit row I; the TBR lines of TC-SYS-108 to 110 cite SRR decisions 38 to 40. This file was regenerated from the JSON in the same commit.
+- Revision 2026-09-26 (SRR package item R16, owner rulings of 2026-09-26): SRR decision 25 moves every transmit test frequency to the 144.0012 and 147.9988 MHz guard limits (TC-SYS-008, 009, 110); SRR decision 37 rewrites TC-SYS-038 for the no-gap paddle watchdog of REQ-SYS-054 and the 2 s squeeze limit of new REQ-SYS-184, and keeps every squeeze in TC-SYS-012, 014, 025, 027 and 028 at or below 1.5 s; SRR decision 41 adds TC-SYS-113 for new REQ-SYS-187 to 190 and replaces the bench test-mode generator at 5 W or 1 W, which REQ-SYS-187 now holds at 0.5 W, by the keying fixture, tune carriers or hand keying in TC-SYS-014, 036, 067, 100 and 105, and fits TC-SYS-007, 022, 042, 049 (the generator kept at 0.5 W in four 110 s entries), 051, 053, 057 and 104 to the 120 s mode and 60 s tone limits (corrected by CR-008, INSP-025 finding-12); SRR decision 72 adds TC-SYS-111 (REQ-SYS-185) and TC-SYS-112 (REQ-SYS-186); SRR decision 113 (CR-002) retypes TC-SYS-085, 086 and 091 to Inspection with credit row I; the TBR lines of TC-SYS-108 to 110 cite SRR decisions 38 to 40. This file was regenerated from the JSON in the same commit.
+- Revision 2026-09-27 (CR-008, SRR liens of INSP-025 and INSP-003, on branch `cr/CR-008-srr-liens-l1-and-tc-sys` pending disposition): TC-SYS-003 and 008 read the tinySA level at every RF-off point with the attenuator S21 and calibration-output steps (finding-2); the RF-off criterion of TC-SYS-003, 008, 047, 066, 082, 083, 101, 108, 109 and 110 is corrected for the attenuator and increased by the tinySA level accuracy (finding-3); TC-SYS-064 approaches each threshold from its violating side by the fixture setting accuracy (finding-4); TC-SYS-061 cites the room-temperature REQ-SYS-083 and new TC-SYS-116 closes new REQ-SYS-194, the 0 C to 45 C span by Analysis (finding-5); TC-SYS-073 names its checker (finding-7); 57 Bench cases list a setup photograph (finding-8); TC-SYS-060 guards every temperature point inward (finding-9); TC-SYS-036 and 105 leave 10-dit word spaces and show full-length keying on the capture (finding-10); TC-SYS-111 judges the charge path by the 1 mA level of REQ-SYS-185 with the other cell at 3.70 V (finding-11); no acceptance value is the test author's any longer: tolerances come from the requirements CR-008 amends (TC-SYS-013, 030, 031, 050, 056, 064, 065, 102, 111, 112) and one-sided time bounds are applied with the section 8.2 decision rule (TC-SYS-034, 038, 113) (INSP-003 finding-25 and finding-31). This file was regenerated from the JSON in the same commit.
 
 ## Case index
 
@@ -76,7 +77,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | TC-SYS-058 | BOM, schematic and ICD inspection: cell holders, antenna connector, controller module and key-jack wiring | Inspection | Inspection | REQ-SYS-080, REQ-SYS-104, REQ-SYS-126, REQ-SYS-174 |
 | TC-SYS-059 | Charge termination voltage per cell and charge time of a 3000 mAh pack from low-battery power-down | Test | Bench | REQ-SYS-081, REQ-SYS-091 |
 | TC-SYS-060 | Charge temperature window 0 C to 45 C and cell over-temperature power-down at 60 C | Test | Bench | REQ-SYS-082, REQ-SYS-099 |
-| TC-SYS-061 | Independent cell over-voltage protection between 4.25 and 4.30 V | Test | Bench | REQ-SYS-083 |
+| TC-SYS-061 | Independent cell over-voltage protection between 4.25 and 4.30 V at room temperature | Test | Bench | REQ-SYS-083 |
 | TC-SYS-062 | Independent cell under-voltage disconnect at 2.50 V and survival of a reversed cell | Test | Bench | REQ-SYS-084, REQ-SYS-086 |
 | TC-SYS-063 | Pack over-current and short-circuit trip level from the protector threshold, FET resistance and fuse rating | Analysis | Simulation | REQ-SYS-085 |
 | TC-SYS-064 | Cell insertion check, dual-path cell-voltage check and rails held off for out-of-window cells | Test | Bench | REQ-SYS-087, REQ-SYS-088, REQ-SYS-166 |
@@ -129,6 +130,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | TC-SYS-111 | Further cell over-voltage layer opening the charge path at a threshold within 4.30 to 4.35 V, independent of the charger, the 4.25 V protector and firmware | Test | Bench | REQ-SYS-185 |
 | TC-SYS-112 | Per-cell voltage detection kept in every other protection layer after any single cell-sense connection opens or reaches 10 kohm | Test | Bench | REQ-SYS-186 |
 | TC-SYS-113 | Bench test mode guard: forced 0.5 W step, exit within 120 s, full-scale test tone ended within 60 s, and the mode inactive after every reset and power-on | Test | Bench | REQ-SYS-187, REQ-SYS-188, REQ-SYS-189, REQ-SYS-190 |
+| TC-SYS-116 | Independent cell over-voltage threshold within 4.25 to 4.30 V from 0 C to 45 C by datasheet computation | Analysis | Simulation | REQ-SYS-194 |
 
 ## Requirement coverage
 
@@ -324,6 +326,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | REQ-SYS-188 | Test | TC-SYS-113 |
 | REQ-SYS-189 | Test | TC-SYS-113 |
 | REQ-SYS-190 | Test | TC-SYS-113 |
+| REQ-SYS-194 | Analysis | TC-SYS-116 |
 
 ## Cases
 
@@ -418,28 +421,29 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | Status | Draft |
 | Automation | `tools/analyze_mode_trace.py` |
 
-**Setup.** Article: CWHT-A-001, enclosure lid off for test-point access, running the fault-injection test build of release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (a build flavour of the release commit whose injection commands arrive over the UART test pads from the host serial terminal through the 3.3 V serial adapter, or over USB serial only in steps that expect no carrier, because USB VBUS sets the USB flag and the hardware transmit inhibit of REQ-SYS-092, and which toggles the injection-marker test pad at the instant of each injection); the release image is restored and checked with picotool verify at the end of the case. Configuration: as part 1 (TC-SYS-002); every forbidden attempt is made with the straight key and then with the paddle where it involves keying (SI-018). Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. RF-off level: the acceptance criteria use -57 dBm, the value of REQ-SYS-183 marked TBR (close by PDR); a change returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2). Hazard controls exercised: HZ-004, HZ-011 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: every transmission goes into the 50 ohm dummy load or the calibrated power attenuator, connected before power-on, never into an open antenna port; key-down duty kept within the load rating recorded in the report; anyone other than the operator stays 0.6 m or more from the unit and load while keying and 1.0 m or more during a tune carrier (NGO-019); the bench supply current limit is set before each power-on; antistatic wrist strap while the lid is off; the PA area is not touched after key-down runs. Safety: cells and cell simulators are handled per the operations handbook battery section: current limit set before connection, cell terminals never shorted, cells on a non-flammable surface and attended during every charge or discharge run; a cell warm to the touch above about 45 C ends the run. Environment: room temperature 18 to 28 C; the cells or cell simulators named in Configuration; dummy load on the antenna port.
+**Setup.** Article: CWHT-A-001, enclosure lid off for test-point access, running the fault-injection test build of release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (a build flavour of the release commit whose injection commands arrive over the UART test pads from the host serial terminal through the 3.3 V serial adapter, or over USB serial only in steps that expect no carrier, because USB VBUS sets the USB flag and the hardware transmit inhibit of REQ-SYS-092, and which toggles the injection-marker test pad at the instant of each injection); the release image is restored and checked with picotool verify at the end of the case. Configuration: as part 1 (TC-SYS-002), except that the antenna port goes to the calibrated power attenuator and the tinySA Ultra (zero span at the set frequency, max-hold) for every attempt of F1 to F4, so that the RF-off level of REQ-SYS-183 is read at each; every forbidden attempt is made with the straight key and then with the paddle where it involves keying (SI-018). Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. RF-off level: the acceptance criteria use -57 dBm, the value of REQ-SYS-183 marked TBR (close by PDR); a change returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2). Hazard controls exercised: HZ-004, HZ-011 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: every transmission goes into the 50 ohm dummy load or the calibrated power attenuator, connected before power-on, never into an open antenna port; key-down duty kept within the load rating recorded in the report; anyone other than the operator stays 0.6 m or more from the unit and load while keying and 1.0 m or more during a tune carrier (NGO-019); the bench supply current limit is set before each power-on; antistatic wrist strap while the lid is off; the PA area is not touched after key-down runs. Safety: cells and cell simulators are handled per the operations handbook battery section: current limit set before connection, cell terminals never shorted, cells on a non-flammable surface and attended during every charge or discharge run; a cell warm to the touch above about 45 C ends the run. Environment: room temperature 18 to 28 C; the cells or cell simulators named in Configuration; dummy load on the antenna port.
 
 **Procedure.**
 
 1. Run the logic-capture reference pulse-train check of this session and record the result (docs/process/04-verification-and-validation.md section 4).
-2. Wire the UART telemetry test pad to a logic-capture channel and confirm that the sigrok-cli UART decoder prints the telemetry lines (REQ-SYS-150).
-3. F1: hold the straight key closed during Self-test, then the paddle dit lever; after a forced Self-test failure (display-check injection) key both again in Fault-safe.
-4. F2 flags: with GUEST, then PRACTICE, then USB present, then LOWBATT (pack at 6.3 V) set in turn, key with the straight key and the paddle and select Tune.
-5. F2 inhibits: with KEY (plug closed at switch-on), HOT (PA sensor substituted at its 90 C equivalent) and GUARD (tuned to 147.9995 MHz) active in turn, key with both keys and select Tune.
-6. F2 USB power alone: remove the cells, apply USB, key with both keys and select Tune.
-7. F3: attempt a key closure, a Tune selection and a test-menu entry from Charging, Firmware-update, Fault-safe and Self-test.
-8. F4: tune to 144.0005 MHz and key with both keys.
-9. F5: in Fault-safe with the cause still present, pulse RUN (controller reset); confirm the unit re-enters Fault-safe and does not reach Receive.
-10. F6: set GUEST, perform a configuration reset, then load the release UF2; confirm GUEST remains set after each.
-11. F7: start one Tune and read its carrier duration from TX_KEY; with the fault build holding TX_KEY high, read the longest carrier duration.
-12. F8: insert and remove a TS plug and a TRS plug in each key-input mode; confirm the mode never changes without a menu selection.
-13. F9: hold the straight key closed and send the bootloader host command; confirm Firmware-update is not entered while PA_EN is high.
-14. Export the capture and run tools/analyze_mode_trace.py.
-15. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
-16. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
+2. Connect the calibrated power attenuator and the tinySA Ultra to the antenna port; measure the attenuator and cable S21 on the NanoVNA from 9 kHz (or the NanoVNA lower limit) to 1.5 GHz and save the Touchstone file; run the tinySA Ultra internal calibration-output check; record both.
+3. Wire the UART telemetry test pad to a logic-capture channel and confirm that the sigrok-cli UART decoder prints the telemetry lines (REQ-SYS-150).
+4. F1: hold the straight key closed during Self-test, then the paddle dit lever; after a forced Self-test failure (display-check injection) key both again in Fault-safe; read the tinySA level at the set frequency for each attempt.
+5. F2 flags: with GUEST, then PRACTICE, then USB present, then LOWBATT (pack at 6.3 V) set in turn, key with the straight key and the paddle and select Tune; read the tinySA level at the set frequency for each attempt.
+6. F2 inhibits: with KEY (plug closed at switch-on), HOT (PA sensor substituted at its 90 C equivalent) and GUARD (tuned to 147.9995 MHz) active in turn, key with both keys and select Tune; read the tinySA level at the set frequency for each attempt.
+7. F2 USB power alone: remove the cells, apply USB, key with both keys and select Tune; read the tinySA level at the set frequency for each attempt.
+8. F3: attempt a key closure, a Tune selection and a test-menu entry from Charging, Firmware-update, Fault-safe and Self-test.
+9. F4: tune to 144.0005 MHz and key with both keys; read the tinySA level at the set frequency for each attempt.
+10. F5: in Fault-safe with the cause still present, pulse RUN (controller reset); confirm the unit re-enters Fault-safe and does not reach Receive.
+11. F6: set GUEST, perform a configuration reset, then load the release UF2; confirm GUEST remains set after each.
+12. F7: start one Tune and read its carrier duration from TX_KEY; with the fault build holding TX_KEY high, read the longest carrier duration.
+13. F8: insert and remove a TS plug and a TRS plug in each key-input mode; confirm the mode never changes without a menu selection.
+14. F9: hold the straight key closed and send the bootloader host command; confirm Firmware-update is not entered while PA_EN is high.
+15. Export the capture and run tools/analyze_mode_trace.py.
+16. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
+17. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if PA_EN stays low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra (the RF-off level of REQ-SYS-183) for every attempt of F1 to F4 and F3's forbidden entries do not occur; the Fault-safe latch survives the reset (F5); GUEST survives the configuration reset and the firmware load (F6); the Tune carrier lasts at most 5.5 s and no carrier lasts more than 13 s (F7); the key-input mode never changes without a menu selection (F8); and Firmware-update is never entered while PA_EN is high (F9); otherwise Fail.
+**Acceptance criteria.** Pass if PA_EN stays low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) for every attempt of F1 to F4 and F3's forbidden entries do not occur; the Fault-safe latch survives the reset (F5); GUEST survives the configuration reset and the firmware load (F6); the Tune carrier lasts at most 5.5 s and no carrier lasts more than 13 s (F7); the key-input mode never changes without a menu selection (F8); and Firmware-update is never entered while PA_EN is high (F9); otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -458,6 +462,9 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `forbidden-attempts.csv` (csv): Attempt, mode, keying source, PA_EN, RF reading and result
 - `forbidden-capture.sr` (other): Raw logic capture
+- `forbidden-attenuator-s21.s2p` (other): Attenuator and cable S21 of the session
+- `forbidden-tinysa-traces.png` (plot): tinySA zero-span traces of every F1 to F4 attempt
+- `tc-sys-003-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-004: Transmit armed only after a power-on self-test in which every check has passed
 
@@ -504,6 +511,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `selftest-results.csv` (csv): Forced check, telemetry result, display message, PA_EN per closure
 - `selftest-capture.sr` (other): Raw logic capture
+- `tc-sys-004-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-005: Carrier end within 20 ms on every inhibit, flag and latched fault, a distinct message per fault type, and Fault-safe left only through acknowledgment after clearance or by switch-off or power removal
 
@@ -627,6 +635,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `keysource-edges.csv` (csv): Interval, mode, TX_KEY edge count
 - `keysource-capture.sr` (other): Raw logic captures
+- `tc-sys-007-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-008: Transmit carrier placed from 144.0012 to 147.9988 MHz and inhibited outside that range
 
@@ -645,12 +654,12 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 2. Measure the attenuator and cable S21 on the NanoVNA from 9 kHz (or the NanoVNA lower limit) to 1.5 GHz and save the Touchstone file; run the tinySA Ultra internal calibration-output check; record both.
 3. Tune to 144.0012 MHz, close the straight key for 3 s and read the tinySA marker at the carrier peak (span 20 kHz, narrowest RBW).
 4. Repeat at 146.000 and 147.9988 MHz, and at 144.0012 MHz keyed by the paddle dah lever for 3 s.
-5. Tune to 144.0005 MHz, then 147.9995 MHz, and, if the tuning allows them, 144.0011, 147.9989, 143.999 and 148.000 MHz; at each close the straight key for 3 s and then the paddle dah lever for 3 s, and read the display transmit-state field.
+5. Tune to 144.0005 MHz, then 147.9995 MHz, and, if the tuning allows them, 144.0011, 147.9989, 143.999 and 148.000 MHz; at each close the straight key for 3 s and then the paddle dah lever for 3 s, and read the display transmit-state field and the tinySA level at the set frequency (zero span, max-hold).
 6. Export the capture and the tinySA traces.
 7. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 8. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if at each set frequency from 144.0012 to 147.9988 MHz the unit keys and the carrier marker lies within the set frequency +/-(2.5 ppm plus the tinySA reference accuracy) (REQ-SYS-008), and at every set frequency outside 144.0012 to 147.9988 MHz PA_EN stays low, no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra (the RF-off level of REQ-SYS-183) and the display shows the guard inhibit (REQ-SYS-009); otherwise Fail.
+**Acceptance criteria.** Pass if at each set frequency from 144.0012 to 147.9988 MHz the unit keys and the carrier marker lies within the set frequency +/-(2.5 ppm plus the tinySA reference accuracy) (REQ-SYS-008), and at every set frequency outside 144.0012 to 147.9988 MHz PA_EN stays low, no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) and the display shows the guard inhibit (REQ-SYS-009); otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -664,6 +673,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `guard-markers.csv` (csv): Set frequency, keying source, marker frequency, PA_EN and RF level
 - `guard-traces.png` (plot): tinySA traces at each set frequency
+- `tc-sys-008-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-009: Carrier frequency error budget over temperature and one-year aging
 
@@ -835,7 +845,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 6. Record tool versions, the design-data tag and the commit of every deck, model, script and checker in the report.
 7. On any assertion or checker failure, or any difference between the analyzed values and the design data, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if at each of the 3, 5 and 8 ms settings the simulated rise and fall are raised cosines (normalized envelope within 5 percent of full scale of the ideal raised cosine at every sample), the 10-to-90 percent times equal the setting within +/-0.5 ms, and the 26 dB bandwidth of continuous dits at 50 WPM is at most 350 Hz, nominal and at every tolerance corner; otherwise Fail. The 5 percent and 0.5 ms shape tolerances are the test author's, because REQ-SYS-014 states none.
+**Acceptance criteria.** Pass if at each of the 3, 5 and 8 ms settings the simulated rise and fall are raised cosines (normalized envelope within 5 percent of full scale of the ideal raised cosine at every sample), the 10-to-90 percent times equal the setting within +/-0.5 ms, and the 26 dB bandwidth of continuous dits at 50 WPM is at most 350 Hz, nominal and at every tolerance corner; otherwise Fail. The 5 percent and +/-0.5 ms tolerances are those of REQ-SYS-014.
 
 **Expected artifacts.**
 
@@ -884,6 +894,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 - `spurious-traces.png` (plot): tinySA traces per segment and combination
 - `attenuator-s21.s2p` (other): Attenuator and cable S21 of the session
 - `spurious-check.log.txt` (log): tools/tinysa_scan_check.py output with pass/fail
+- `tc-sys-014-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-015: Tune carrier at 0.5 W unless a higher step is confirmed, ended within 5.5 s
 
@@ -924,6 +935,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `tune-power.csv` (csv): Operating step, confirmation, probe reading and power
 - `tune-durations.csv` (csv): Activation, step and carrier duration
+- `tc-sys-015-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-016: Reception of A1A signals from 144.000 to 148.000 MHz
 
@@ -959,6 +971,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `rx-range.csv` (csv): Frequency, audio RMS with and without carrier
+- `tc-sys-016-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-017: Receiver minimum discernible signal from the noise-figure and filter-loss cascade
 
@@ -1132,6 +1145,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `birdie-survey.csv` (csv): Tuned frequency and audio RMS
 - `birdie-sources.csv` (csv): Response frequency, level and probable source
+- `tc-sys-022-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-023: Receive filter-centre calibration trim over +/-500 Hz in 10 Hz steps, retained across a power cycle
 
@@ -1231,6 +1245,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `overload.csv` (csv): Source power, delivered level, readings before and after
+- `tc-sys-025-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-026: Keying the transmitter with the owner's straight key and with the iambic paddle
 
@@ -1302,6 +1317,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `keyer-modes-compare.csv` (csv): Mode, pattern, element index, model and captured edges, difference
 - `keyer-modes-capture.sr` (other): Raw captures per mode
+- `tc-sys-027-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-028: Keyer speed range 5 to 50 WPM in 1 WPM steps and element and space timing accuracy
 
@@ -1337,6 +1353,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `keyer-speed.csv` (csv): WPM, element type, nominal, measured and error
+- `tc-sys-028-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-029: Paddle-to-element latency and sidetone onset latency for key and paddle
 
@@ -1371,6 +1388,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `latency-paddle.csv` (csv): Closure, speed, key type, element and sidetone latencies
+- `tc-sys-029-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-030: Semi break-in hang time of 3 to 30 dits at the displayed speed
 
@@ -1393,7 +1411,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 6. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 7. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if for every speed and setting the time from the last key-up to the return to receive equals the setting times 1200/WPM ms within +/-1 percent or +/-0.5 ms, whichever is larger, for both key types; otherwise Fail. The tolerance is the test author's, taken from REQ-SYS-042, because REQ-SYS-044 states none.
+**Acceptance criteria.** Pass if for every speed and setting the time from the last key-up to the return to receive equals the setting times 1200/WPM ms within +/-1 percent or +/-0.5 ms, whichever is larger, for both key types; otherwise Fail. The tolerance is that of REQ-SYS-044.
 
 **Instruments and fixtures.**
 
@@ -1405,6 +1423,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `hang.csv` (csv): WPM, setting, key type, nominal and measured hang
+- `tc-sys-030-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-031: Sidetone frequency from 300 Hz to 1000 Hz in 10 Hz steps
 
@@ -1427,7 +1446,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 6. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 7. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if the menu offers 300 to 1000 Hz in 10 Hz steps and each measured tone is within +/-5 Hz of its setting for both key types; otherwise Fail. The +/-5 Hz tolerance (half a step) is the test author's, because REQ-SYS-045 states none.
+**Acceptance criteria.** Pass if the menu offers 300 to 1000 Hz in 10 Hz steps and each measured tone is within +/-5 Hz of its setting for both key types; otherwise Fail. The +/-5 Hz tolerance is that of REQ-SYS-045.
 
 **Instruments and fixtures.**
 
@@ -1438,6 +1457,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `sidetone.csv` (csv): Setting, key type, measured frequency
+- `tc-sys-031-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-032: CW pitch equals sidetone: frequency-plan analysis of receive LO, BFO and trim against the sidetone setting
 
@@ -1501,6 +1521,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `key-thresholds.csv` (csv): Contact, resistance, state before and after abuse
 - `key-abuse.csv` (csv): Contact, voltage, duration, supply current
+- `tc-sys-033-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-034: Key closure accepted after 2 ms of continuous contact and opening after 5 ms of continuous break
 
@@ -1522,7 +1543,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 5. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 6. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if the number of accepted closures and openings equals the number of physical operations, every accepted closure follows at least 2 ms of continuous contact and occurs within 2 ms +0.25 ms of its start (REQ-SYS-048), and every accepted opening follows at least 5 ms of continuous break and occurs within 5 ms +0.25 ms of its start (REQ-SYS-162), for both key types; otherwise Fail. The +0.25 ms acceptance window is the test author's, because the requirements state none.
+**Acceptance criteria.** Pass if the number of accepted closures and openings equals the number of physical operations, every accepted closure follows at least 2 ms of continuous contact (REQ-SYS-048) and every accepted opening follows at least 5 ms of continuous break (REQ-SYS-162), each duration measured from the capture less one capture sample period (the decision rule of docs/process/04-verification-and-validation.md section 8.2), for both key types; otherwise Fail. The delay from 2 ms and 5 ms to each acceptance is recorded as data; its bound is the keying latency of REQ-SYS-043.
 
 **Instruments and fixtures.**
 
@@ -1533,6 +1554,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `debounce.csv` (csv): Operation, key type, bounce duration, continuous interval, acceptance delay
+- `tc-sys-034-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-035: Electrostatic discharge tolerance at the key jack, headphone jack and antenna port from clamp ratings and return paths
 
@@ -1569,7 +1591,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | Status | Draft |
 | Automation | `tools/analyze_logic_capture.py` |
 
-**Setup.** Article: CWHT-A-001 in its enclosure, firmware at the released version release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (recorded as vX.Y.Z+<short SHA> in the report). Configuration: 1.5 m unshielded leads on the key jack (open at the far end for the first run, then with the paddle attached) and on the headphone jack into the 32 ohm load; logic capture on both key inputs at the test pads through short shielded probe leads; transmission at 5 W from tune carriers at the confirmed 5 W step (REQ-SYS-019, each ended by the 5.5 s limit of REQ-SYS-020 and restarted after 5 s) while the key inputs are untouched; the test-mode PARIS generator named in the REQ-SYS-051 verification_note is not used because REQ-SYS-187 holds every bench test mode at the 0.5 W step (SRR decision 41 (owner ruling 2026-09-26)). The reference-antenna block runs only after the OnAir authorization in docs/reviews/TRR-Dn/decision-memo.md (04 section 6.3). Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. Hazard controls exercised: HZ-004, HZ-010 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: every transmission goes into the 50 ohm dummy load or the calibrated power attenuator, connected before power-on, never into an open antenna port; key-down duty kept within the load rating recorded in the report; anyone other than the operator stays 0.6 m or more from the unit and load while keying and 1.0 m or more during a tune carrier (NGO-019); the bench supply current limit is set before each power-on; antistatic wrist strap while the lid is off; the PA area is not touched after key-down runs. Antenna block: operator 0.6 m or more from the antenna of any bystander, identification per 47 CFR 97.119 at least every 10 min and at the end, a clear frequency in 144.000 to 144.100 MHz after listening for 60 s. Environment: room temperature 18 to 28 C; pack at 7.4 V +/-0.05 V from the bench supply; dummy load, then the reference antenna.
+**Setup.** Article: CWHT-A-001 in its enclosure, firmware at the released version release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (recorded as vX.Y.Z+<short SHA> in the report). Configuration: 1.5 m unshielded leads on the key jack (open at the far end for the first run, then with the paddle attached) and on the headphone jack into the 32 ohm load; logic capture on both key inputs at the test pads through short shielded probe leads; transmission at 5 W from tune carriers at the confirmed 5 W step (REQ-SYS-019, each ended by the 5.5 s limit of REQ-SYS-020 and restarted after 5 s) while the key inputs are untouched; the bench test mode is not used because REQ-SYS-187 holds it at the 0.5 W step (SRR decision 41 (owner ruling 2026-09-26)), as the REQ-SYS-051 verification_note states. The reference-antenna block runs only after the OnAir authorization in docs/reviews/TRR-Dn/decision-memo.md (04 section 6.3). Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. Hazard controls exercised: HZ-004, HZ-010 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: every transmission goes into the 50 ohm dummy load or the calibrated power attenuator, connected before power-on, never into an open antenna port; key-down duty kept within the load rating recorded in the report; anyone other than the operator stays 0.6 m or more from the unit and load while keying and 1.0 m or more during a tune carrier (NGO-019); the bench supply current limit is set before each power-on; antistatic wrist strap while the lid is off; the PA area is not touched after key-down runs. Antenna block: operator 0.6 m or more from the antenna of any bystander, identification per 47 CFR 97.119 at least every 10 min and at the end, a clear frequency in 144.000 to 144.100 MHz after listening for 60 s. Environment: room temperature 18 to 28 C; pack at 7.4 V +/-0.05 V from the bench supply; dummy load, then the reference antenna.
 
 **Procedure.**
 
@@ -1577,12 +1599,12 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 2. Into the dummy load, with the key-jack lead open at its far end, transmit tune carriers at the confirmed 5 W step for 5 min (each carrier ended by the 5.5 s limit and restarted after 5 s); capture both key inputs for the whole 5 min.
 3. Repeat with the paddle at the far end of the lead, untouched.
 4. Connect the reference antenna (Signal Stick half-wave with its counterpoise), confirm the OnAir authorization, and repeat both runs.
-5. Keyed checks at 5 W: with the straight key on the lead, key it by hand for 1 min into the dummy load; then with the paddle on the lead send PARIS by hand at 20 WPM for 1 min in Iambic A; confirm the key inputs follow only the contacts.
+5. Keyed checks at 5 W: with the straight key on the lead, key it by hand for 1 min into the dummy load; then with the paddle on the lead send PARIS by hand at 20 WPM for 1 min in Iambic A, leaving word spaces of at least 10 dits (0.6 s) so that the 420 ms qualifying gap of the REQ-SYS-054 watchdog occurs in every word; confirm the key inputs follow only the contacts.
 6. Run tools/analyze_logic_capture.py to count key-input edges during each run.
 7. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 8. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if neither key input changes state during any tune-carrier run into the dummy load or the reference antenna, and during the hand-keyed minutes the inputs change only with the contacts; otherwise Fail.
+**Acceptance criteria.** Pass if neither key input changes state during any tune-carrier run into the dummy load or the reference antenna, and during the hand-keyed minutes the inputs change only with the contacts; and the capture shows TX_KEY keying through the whole of each hand-keyed minute; otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -1597,6 +1619,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `rf-immunity.csv` (csv): Run, load, lead termination, key-input edge count
+- `tc-sys-036-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-037: Key-input mode changes only by menu selection, selection accepted with a closed input, and the key-closed interlock
 
@@ -1635,6 +1658,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `keymode.csv` (csv): Condition, input, open time, PA_EN response, mode
+- `tc-sys-037-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-038: Straight-key timeout, paddle watchdog and paddle squeeze limit, each holding the transmitter unkeyed until the contacts read open
 
@@ -1665,7 +1689,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 14. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 15. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if (REQ-SYS-053) for every manually timed hold the transmitter is unkeyed from 5.0 s +0.1 s after the accepted closure until the contact opens and the closure made 1 s after the release keys the transmitter; (REQ-SYS-054) in every held-lever run, alternating run without a qualifying gap and 0.8-times gap run, keying ends at the first of the end of the 128th consecutive identical element (no 129th begins) and 30 s after the end of the last qualifying gap (no TX_KEY rise begins later than 30.0 s +0.1 s after it), keying does not end in the 1.2-times gap runs, PA_EN and TX_KEY do not rise from the end of keying until both paddle contacts read open, and the dit sent 1 s after both contacts read open keys the transmitter; the fault-injected stream ends under the same 30 s bound; (REQ-SYS-184) for every 3 s squeeze and every plug insertion in Iambic A, Iambic B and Ultimatic, no TX_KEY rise begins later than 2.0 s +0.1 s after both contacts read closed, TX_KEY stays low while both stay closed, and after the dit contact opens the held dah contact keys dahs, while every 1.5 s squeeze and every squeezed character at 25 WPM is keyed completely as tools/keyer_ref.py predicts; otherwise Fail. The +0.1 s windows are the test author's, because the requirements state none. The 5 WPM squeezed-character results and the behaviour after the end of the fault-injected stream (both contacts open throughout) are recorded as data and do not decide the result.
+**Acceptance criteria.** Pass if (REQ-SYS-053) for every manually timed hold the transmitter is unkeyed no later than 5 s after the accepted closure until the contact opens and the closure made 1 s after the release keys the transmitter; (REQ-SYS-054) in every held-lever run, alternating run without a qualifying gap and 0.8-times gap run, keying ends at the first of the end of the 128th consecutive identical element (no 129th begins) and 30 s after the end of the last qualifying gap (no TX_KEY rise begins later than 30 s after it), keying does not end in the 1.2-times gap runs, PA_EN and TX_KEY do not rise from the end of keying until both paddle contacts read open, and the dit sent 1 s after both contacts read open keys the transmitter; the fault-injected stream ends under the same 30 s bound; (REQ-SYS-184) for every 3 s squeeze and every plug insertion in Iambic A, Iambic B and Ultimatic, no TX_KEY rise begins later than 2 s after both contacts read closed, TX_KEY stays low while both stay closed, and after the dit contact opens the held dah contact keys dahs, while every 1.5 s squeeze and every squeezed character at 25 WPM is keyed completely as tools/keyer_ref.py predicts; otherwise Fail. Each time is measured from the capture edges with one capture sample period added (the decision rule of docs/process/04-verification-and-validation.md section 8.2), against the 5 s, 30 s and 2 s bounds of the requirements. The 5 WPM squeezed-character results and the behaviour after the end of the fault-injected stream (both contacts open throughout) are recorded as data and do not decide the result.
 
 **Instruments and fixtures.**
 
@@ -1683,6 +1707,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 - `stuckkey.csv` (csv): Run, mode, speed, element count, qualifying gaps with lengths, time from the last qualifying gap or from both contacts closing to the last TX_KEY rise, PA_EN rises before the contacts read open, keying after the release
 - `stuckkey-capture.sr` (other): Raw logic capture of the contacts, keyer test point, TX_KEY and PA_EN
 - `stuckkey-picotool-verify.log.txt` (log): picotool verify output for the fault-injection build and for the restored release image
+- `tc-sys-038-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-039: Hardware transmit cutoff independent of firmware, 7.5 s to 13 s into a continuous key-down
 
@@ -1722,6 +1747,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `cutoff-durations.csv` (csv): Run, supply, keying source, RF duration and PA_EN duration
 - `cutoff-zero-span.png` (plot): tinySA zero-span traces
+- `tc-sys-039-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-040: Enclosure CAD and BOM: operator control set, external envelope and antenna-port face
 
@@ -1784,6 +1810,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `tuning.csv` (csv): Detent time, rate, frequency before and after, step
+- `tc-sys-041-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-042: Headphone level set in at least 32 steps from mute to the active cap
 
@@ -1815,6 +1842,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `volume-steps.csv` (csv): Detent and RMS level
+- `tc-sys-042-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-043: Status display content in Receive, Transmit-keyed and Tune, and every setting within two menu levels
 
@@ -1910,6 +1938,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `fivewatt-sequences.csv` (csv): Sequence, displayed step, probe reading and power
+- `tc-sys-045-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-046: Defaults at first power-on and after a configuration reset: 1 W, Iambic A, 15 WPM, 600 Hz, 8-dit hang, 5 ms envelope
 
@@ -1975,7 +2004,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 9. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 10. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if every sequence other than the held combination followed by the confirmation leaves the lock state unchanged on both a locked and an unlocked unit (REQ-SYS-066), and while locked, before and after the power cycle and the configuration reset, PA_EN stays low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra (the RF-off level of REQ-SYS-183) for every keying, tune and test-mode attempt (REQ-SYS-065); otherwise Fail.
+**Acceptance criteria.** Pass if every sequence other than the held combination followed by the confirmation leaves the lock state unchanged on both a locked and an unlocked unit (REQ-SYS-066), and while locked, before and after the power cycle and the configuration reset, PA_EN stays low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) for every keying, tune and test-mode attempt (REQ-SYS-065); otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -1989,6 +2018,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `guestlock-sequences.csv` (csv): Sequence, starting state, resulting state
 - `guestlock-rf.csv` (csv): Attempt, PA_EN and RF level while locked
+- `tc-sys-047-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-048: Identification reminder 9 min 00 s +/-5 s after the first transmission following the previous reminder
 
@@ -2023,6 +2053,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `id-reminder.csv` (csv): Run, first key-down time, reminder time, interval
+- `tc-sys-048-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-049: Separation reminder per step and mode, and cumulative key-down time over 6 min and 30 min windows
 
@@ -2082,7 +2113,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 6. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 7. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if VBUS current, with the meter accuracy added, is at most 500 mA in every state (REQ-SYS-090); the charge state is indicated in every charge phase with the switch off and with it on (REQ-SYS-070); and with the switch on and USB present the charge current into the pack is at most 5 mA (REQ-SYS-093); otherwise Fail. The 5 mA paused-charge threshold is the test author's, because REQ-SYS-093 states none.
+**Acceptance criteria.** Pass if VBUS current, with the meter accuracy added, is at most 500 mA in every state (REQ-SYS-090); the charge state is indicated in every charge phase with the switch off and with it on (REQ-SYS-070); and with the switch on and USB present the charge current into the pack, with the meter accuracy added, is below 5 mA (REQ-SYS-093); otherwise Fail. The 5 mA level is that of REQ-SYS-093.
 
 **Instruments and fixtures.**
 
@@ -2127,6 +2158,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `audio-ceiling.csv` (csv): Pattern, channel, RMS reading
+- `tc-sys-051-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-052: Headphone output ceiling under every single component failure in the output path
 
@@ -2187,6 +2219,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `audio-cap.csv` (csv): State, power cycle, channel, RMS
+- `tc-sys-053-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-054: Receive audio mute at key-down, hold through transmit and hang, and restore fade
 
@@ -2262,7 +2295,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 6. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 7. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if the amplifier enable is low whenever the jack reads no plug, allowing at most 20 ms after each removal edge, and is never high at power-on without a plug; otherwise Fail. The 20 ms allowance is the test author's, because REQ-SYS-077 states none.
+**Acceptance criteria.** Pass if the amplifier enable is low whenever the jack reads no plug, allowing at most 20 ms after each removal edge, and is never high at power-on without a plug; otherwise Fail. The 20 ms is that of REQ-SYS-077, measured with one capture sample period added.
 
 **Instruments and fixtures.**
 
@@ -2274,6 +2307,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `amp-off.csv` (csv): Event, detect state, enable state, delay
+- `tc-sys-056-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-057: Channel balance into 16 to 64 ohm at the active cap, and survival of a headphone contact short to sleeve
 
@@ -2307,6 +2341,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `audio-load.csv` (csv): Load, channel, RMS, before and after short
+- `tc-sys-057-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-058: BOM, schematic and ICD inspection: cell holders, antenna connector, controller module and key-jack wiring
 
@@ -2369,6 +2404,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `charge-full.csv` (csv): Time, VBUS current, cell voltages
+- `tc-sys-059-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-060: Charge temperature window 0 C to 45 C and cell over-temperature power-down at 60 C
 
@@ -2379,17 +2415,17 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | Status | Draft |
 | Automation | none (manual) |
 
-**Setup.** Article: CWHT-A-001, enclosure lid off for test-point access, firmware at the released version release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (recorded as vX.Y.Z+<short SHA> in the report). Configuration: cells replaced by the two-cell simulator fixture unless a step names the owner's cells; USB through the USB breakout fixture; charge current read on the multimeter in series with the pack lead; charge state and events read from the display and the UART telemetry. The cell NTC is replaced by the NTC substitution fixture at the equivalents of T_cold_stop, 0 C, T_cold_run, 43, 45, 47, 58 and 62 C, where T_cold_stop is -2 C (the lower bound of the 0 C +/-2 C threshold of REQ-SYS-082) minus the fixture resistor tolerance expressed in degrees at -2 C, and T_cold_run is +2 C (the upper bound) plus the fixture resistor tolerance expressed in degrees at +2 C, each computed in the report from the adopted NTC datasheet curve (the method TC-SYS-109 uses for T_trip), so that a cold threshold anywhere within the stated tolerance passes and one outside it fails whatever the fixture resistor error; the 0 C and 45 C equivalents named in the REQ-SYS-082 verification note are recorded as data. Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. TBR values: the acceptance criteria use the values of REQ-SYS-082, REQ-SYS-099 as written, including those marked TBR (close by PDR); a change at PDR returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2, SWE-071). Hazard controls exercised: HZ-002, HZ-007 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: cells and cell simulators are handled per the operations handbook battery section: current limit set before connection, cell terminals never shorted, cells on a non-flammable surface and attended during every charge or discharge run; a cell warm to the touch above about 45 C ends the run. Environment: room temperature 18 to 28 C; the cells or cell simulators named in Configuration; dummy load on the antenna port.
+**Setup.** Article: CWHT-A-001, enclosure lid off for test-point access, firmware at the released version release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (recorded as vX.Y.Z+<short SHA> in the report). Configuration: cells replaced by the two-cell simulator fixture unless a step names the owner's cells; USB through the USB breakout fixture; charge current read on the multimeter in series with the pack lead; charge state and events read from the display and the UART telemetry. The cell NTC is replaced by the NTC substitution fixture at the equivalents of T_cold_stop, 0 C, T_cold_run, T_warm_run, 45 C, T_warm_stop, T_hot_on and T_hot_off. With e the fixture resistor tolerance expressed in degrees at each point, computed in the report from the adopted NTC datasheet curve (the method TC-SYS-109 uses for T_trip), the points are guarded inward per the decision rule of docs/process/04-verification-and-validation.md section 8.2: T_cold_stop = -2 C + e and T_cold_run = +2 C - e (the 0 C +/-2 C threshold of REQ-SYS-082), T_warm_run = 43 C + e and T_warm_stop = 47 C - e (the 45 C +/-2 C threshold), T_hot_on = 58 C + e and T_hot_off = 62 C - e (the 60 C +/-2 C threshold of REQ-SYS-099). A unit that passes therefore has every threshold within its stated tolerance whatever the fixture resistor error; a compliant unit whose threshold lies within e of a tolerance limit can fail, the accepted guard band of the decision rule. The 0 C and 45 C equivalents named in the REQ-SYS-082 verification note are recorded as data. Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. TBR values: the acceptance criteria use the values of REQ-SYS-082, REQ-SYS-099 as written, including those marked TBR (close by PDR); a change at PDR returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2, SWE-071). Hazard controls exercised: HZ-002, HZ-007 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: cells and cell simulators are handled per the operations handbook battery section: current limit set before connection, cell terminals never shorted, cells on a non-flammable surface and attended during every charge or discharge run; a cell warm to the touch above about 45 C ends the run. Environment: room temperature 18 to 28 C; the cells or cell simulators named in Configuration; dummy load on the antenna port.
 
 **Procedure.**
 
 1. With the switch off and USB applied, step the NTC fixture through T_cold_stop, 0 C and T_cold_run; read the charge current at each after 30 s.
-2. Step through 43, 45 and 47 C; read the charge current at each.
-3. With the switch on (no USB) in Receive, set 58 C and read the pack current; then set 62 C and read it.
+2. Step through T_warm_run, 45 C and T_warm_stop; read the charge current at each.
+3. With the switch on (no USB) in Receive, set T_hot_on and read the pack current; then set T_hot_off and read it.
 4. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 5. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if charging is stopped at T_cold_stop and 47 C and runs at T_cold_run and 43 C (thresholds within 0 C +/-2 C and 45 C +/-2 C; the 0 C and 45 C readings are data only) (REQ-SYS-082), and the loads are powered at 58 C and powered down at 62 C (REQ-SYS-099); otherwise Fail.
+**Acceptance criteria.** Pass if charging is stopped at T_cold_stop and T_warm_stop and runs at T_cold_run and T_warm_run (the 0 C and 45 C readings are data only) (REQ-SYS-082), and the loads are powered at T_hot_on and powered down at T_hot_off (REQ-SYS-099); otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -2401,9 +2437,10 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `cell-temp.csv` (csv): Equivalent temperature, state, charge or pack current
-- `cell-temp-bracket.txt` (report): T_cold_stop and T_cold_run derivation from the NTC datasheet curve and fixture resistor tolerance
+- `cell-temp-bracket.txt` (report): Derivation of every guarded point (T_cold_stop to T_hot_off) from the NTC datasheet curve and the fixture resistor tolerance
+- `tc-sys-060-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
-### TC-SYS-061: Independent cell over-voltage protection between 4.25 and 4.30 V
+### TC-SYS-061: Independent cell over-voltage protection between 4.25 and 4.30 V at room temperature
 
 | Field | Value |
 |---|---|
@@ -2422,7 +2459,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 4. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 5. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if for each cell the protector stops the charge path at a cell voltage from 4.25 V to 4.30 V at room temperature with the meter accuracy included, with the charger and firmware not acting; otherwise Fail. The 0 C to 45 C span of the requirement is covered by the supporting threshold analysis named in its verification_note.
+**Acceptance criteria.** Pass if for each cell the protector stops the charge path at a cell voltage from 4.25 V to 4.30 V at 18 C to 28 C with the meter accuracy included, with the charger and firmware not acting; otherwise Fail. The 0 C to 45 C span is REQ-SYS-194, closed by TC-SYS-116.
 
 **Instruments and fixtures.**
 
@@ -2433,6 +2470,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `cell-ov.csv` (csv): Cell, voltage step, FET state
+- `tc-sys-061-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-062: Independent cell under-voltage disconnect at 2.50 V and survival of a reversed cell
 
@@ -2470,6 +2508,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `cell-uv.csv` (csv): Cell, voltage, pack current
 - `cell-reverse.csv` (csv): Switch state, current
+- `tc-sys-062-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-063: Pack over-current and short-circuit trip level from the protector threshold, FET resistance and fuse rating
 
@@ -2505,18 +2544,18 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | Status | Draft |
 | Automation | none (manual) |
 
-**Setup.** Article: CWHT-A-001, enclosure lid off for test-point access, firmware at the released version release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (recorded as vX.Y.Z+<short SHA> in the report). Configuration: cells replaced by the two-cell simulator fixture unless a step names the owner's cells; USB through the USB breakout fixture; charge current read on the multimeter in series with the pack lead; charge state and events read from the display and the UART telemetry. For the dual-path check a divider resistor of one measurement path is substituted to offset that path by 150 mV (docs/vv/fixtures/, planned). Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. TBR values: the acceptance criteria use the values of REQ-SYS-087, REQ-SYS-088, REQ-SYS-166 as written, including those marked TBR (close by PDR); a change at PDR returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2, SWE-071). Hazard controls exercised: HZ-002, HZ-007 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: cells and cell simulators are handled per the operations handbook battery section: current limit set before connection, cell terminals never shorted, cells on a non-flammable surface and attended during every charge or discharge run; a cell warm to the touch above about 45 C ends the run. Environment: room temperature 18 to 28 C; the cells or cell simulators named in Configuration; dummy load on the antenna port.
+**Setup.** Article: CWHT-A-001, enclosure lid off for test-point access, firmware at the released version release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (recorded as vX.Y.Z+<short SHA> in the report). Configuration: cells replaced by the two-cell simulator fixture unless a step names the owner's cells; USB through the USB breakout fixture; charge current read on the multimeter in series with the pack lead; charge state and events read from the display and the UART telemetry. Test points: each threshold is approached from its violating side by the fixture setting accuracy a, the cell-simulator setting uncertainty plus the multimeter accuracy recorded in the report (04 section 8.2): cells apart by 300 mV + a, one cell at 2.5 V - a and at 4.3 V + a, and a dual-path offset of 100 mV + a, made by substituting a divider resistor of one measurement path (docs/vv/fixtures/, planned). Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. TBR values: the acceptance criteria use the values of REQ-SYS-087, REQ-SYS-088, REQ-SYS-166 as written, including those marked TBR (close by PDR); a change at PDR returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2, SWE-071). Hazard controls exercised: HZ-002, HZ-007 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: cells and cell simulators are handled per the operations handbook battery section: current limit set before connection, cell terminals never shorted, cells on a non-flammable surface and attended during every charge or discharge run; a cell warm to the touch above about 45 C ends the run. Environment: room temperature 18 to 28 C; the cells or cell simulators named in Configuration; dummy load on the antenna port.
 
 **Procedure.**
 
-1. Set the cells to 3.70 V and 4.10 V (400 mV apart), switch off, apply USB; read the charge current after 30 s.
-2. Set 2.40 V and 3.70 V; apply USB; read. Set 4.40 V and 3.70 V; apply USB; read.
-3. Set both at 3.70 V; start a charge; substitute the divider resistor during the charge; read the charge current and the displayed cause.
-4. Remove USB; set one cell to 2.40 V; switch on; read the 5 V and 3.3 V rails with the multimeter. Repeat with one cell at 4.40 V.
+1. Set the cells to 3.70 V and 3.70 V + (300 mV + a), switch off, apply USB; read the charge current after 30 s.
+2. Set 2.5 V - a and 3.70 V; apply USB; read. Set 4.3 V + a and 3.70 V; apply USB; read.
+3. Set both at 3.70 V; start a charge; substitute the divider resistor for the 100 mV + a offset during the charge; read the charge current and the displayed cause.
+4. Remove USB; set one cell to 2.5 V - a; switch on; read the 5 V and 3.3 V rails with the multimeter. Repeat with one cell at 4.3 V + a.
 5. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 6. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if no charge current flows (at most 5 mA) with cells 400 mV apart or with either cell outside 2.5 V to 4.3 V (REQ-SYS-087), charging stops with the cell-sense cause shown when the two measurements differ by 150 mV (REQ-SYS-088), and the regulated rails stay below 0.5 V at switch-on with either cell at 2.40 V or 4.40 V (REQ-SYS-166); otherwise Fail. The 5 mA and 0.5 V thresholds are the test author's (0.5 V follows REQ-SYS-149).
+**Acceptance criteria.** Pass if, with the meter accuracy added to each reading, the charge current is below 5 mA with the cells 300 mV + a apart and with either cell at 2.5 V - a or 4.3 V + a (REQ-SYS-087), it falls below 5 mA with the cell-sense cause shown when the two measurements differ by 100 mV + a (REQ-SYS-088), and the regulated rails stay below 0.5 V at switch-on with either cell at 2.5 V - a or 4.3 V + a (REQ-SYS-166); otherwise Fail. The 5 mA and 0.5 V levels are those of the requirements.
 
 **Instruments and fixtures.**
 
@@ -2527,6 +2566,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `cell-supervision.csv` (csv): Condition, charge current, rails, displayed cause
+- `tc-sys-064-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-065: Charge safety timer of 15 h and constant-voltage current-fall supervision
 
@@ -2547,7 +2587,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 4. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 5. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if the timer run stops charging at most 15 h after the charge start (REQ-SYS-089), and the current-fall run stops charging 60 min +/-2 min after constant-voltage entry with the charge current having fallen by less than 20 mA (REQ-SYS-167); otherwise Fail. The +/-2 min window is the test author's, because REQ-SYS-167 states none.
+**Acceptance criteria.** Pass if the timer run stops charging at most 15 h after the charge start (REQ-SYS-089), and the current-fall run stops charging 60 min +/-2 min after constant-voltage entry with the charge current having fallen by less than 20 mA (REQ-SYS-167); otherwise Fail. The +/-2 min tolerance is that of REQ-SYS-167; charging stopped means a charge current below 5 mA, the level of REQ-SYS-087, 088 and 093.
 
 **Instruments and fixtures.**
 
@@ -2559,6 +2599,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `charge-timers.csv` (csv): Run, time, charge current, events
+- `tc-sys-065-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-066: Hardware transmit inhibit with USB present, and no transmitter supply from USB alone
 
@@ -2581,7 +2622,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 6. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 7. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if with USB present no carrier at the set frequency above -57 dBm at the antenna port (the RF-off level of REQ-SYS-183) appears for the commanded TX_KEY or either key (REQ-SYS-092), and with the cells removed the transmitter rail stays below 0.5 V in the bootloader and application states while TX_KEY is asserted (REQ-SYS-149); otherwise Fail.
+**Acceptance criteria.** Pass if with USB present no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) appears for the commanded TX_KEY or either key (REQ-SYS-092), and with the cells removed the transmitter rail stays below 0.5 V in the bootloader and application states while TX_KEY is asserted (REQ-SYS-149); otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -2598,6 +2639,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `usb-inhibit.csv` (csv): State, stimulus, PA_EN, RF level, transmitter rail
+- `tc-sys-066-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-067: Battery life of at least 8 h at 1:9 and the low-battery warning at least 15 min before transmit inhibit
 
@@ -2635,6 +2677,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `battery-19.csv` (csv): Time, cell voltages, events
 - `battery-19-telemetry.log.txt` (serial_output): Telemetry of the run
+- `tc-sys-067-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-068: Battery life of at least 6 h at 1:4
 
@@ -2670,6 +2713,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `battery-14.csv` (csv): Time, cell voltages, events
+- `tc-sys-068-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-069: Low-battery transmit inhibit at 3.20 V, low-battery power-down at 3.00 V and high pack-voltage transmit lockout at 8.60 V
 
@@ -2705,6 +2749,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `pack-thresholds.csv` (csv): Cell or pack voltage, key type, PA_EN, pack current
+- `tc-sys-069-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-070: Pack current with the switch off and loads removed by the mechanical power switch
 
@@ -2735,6 +2780,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `off-state.csv` (csv): Reading, value, range accuracy
+- `tc-sys-070-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-071: Unit mass with cells fitted and without the antenna
 
@@ -2763,6 +2809,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `mass.csv` (csv): Reading number and mass
+- `tc-sys-071-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-072: Antenna-port bending moment of 4.0 N m without jack rotation, and counterpoise attachment position and resistance
 
@@ -2809,23 +2856,25 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | Requirements | REQ-SYS-106 |
 | Method / class | Analysis / Simulation |
 | Status | Draft |
-| Automation | none (manual) |
+| Automation | `hardware/sim/checks/sma_mating_life.py` |
 
-**Setup.** Article: design data at tag baseline/cdr: the SMA jack datasheet (mating durability, recommended torque, return-loss specification) and the torque stated in docs/ops/operations-handbook.md. Configuration: Reviewer computation recorded in docs/design/analysis/; NanoVNA return loss at receipt and at SAR is supporting data. Credit row: A. Analysis closed by Simulation on the CDR design data and confirmed at SAR by the physical configuration audit of every analyzed value (docs/process/04-verification-and-validation.md sections 5.1 item 5 and 5.2); the post-build readings named in the verification_note are supporting data only. TBR values: the acceptance criteria use the values of REQ-SYS-106 as written, including those marked TBR (close by PDR); a change at PDR returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2, SWE-071). Hazard controls exercised: HZ-009 (from the cited requirements; docs/safety/hazards.json). Risk acceptance: the verification_note of REQ-SYS-106 (RSK-018) begins 'Analysis accepted per RSK-NNN'; that risk carries the hazard control not closed by Test (docs/process/04-verification-and-validation.md section 3, rule 7.3.6). Tools: Python per tools/toolchain.lock.md Safety: not applicable (design data only). Environment: not applicable.
+**Setup.** Article: design data at tag baseline/cdr: the SMA jack datasheet (mating durability, recommended torque, return-loss specification) and the torque stated in docs/ops/operations-handbook.md. Configuration: hardware/sim/checks/sma_mating_life.py (planned) computes the return-loss change and checks the rating and torque against the criteria from the datasheet and handbook values entered in its input table, and the result is recorded in docs/design/analysis/; NanoVNA return loss at receipt and at SAR is supporting data. Credit row: A. Analysis closed by Simulation on the CDR design data and confirmed at SAR by the physical configuration audit of every analyzed value (docs/process/04-verification-and-validation.md sections 5.1 item 5 and 5.2); the post-build readings named in the verification_note are supporting data only. TBR values: the acceptance criteria use the values of REQ-SYS-106 as written, including those marked TBR (close by PDR); a change at PDR returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2, SWE-071). Hazard controls exercised: HZ-009 (from the cited requirements; docs/safety/hazards.json). Risk acceptance: the verification_note of REQ-SYS-106 (RSK-018) begins 'Analysis accepted per RSK-NNN'; that risk carries the hazard control not closed by Test (docs/process/04-verification-and-validation.md section 3, rule 7.3.6). Tools: Python per tools/toolchain.lock.md Safety: not applicable (design data only). Environment: not applicable.
 
 **Procedure.**
 
 1. Read the jack datasheet mating-cycle rating and the condition under which its return-loss specification holds after that rating.
 2. Read the handbook mating torque and compare it with 0.45 to 0.56 N m and with the datasheet recommended torque.
 3. Compute the change of return loss at 144 to 148 MHz from the datasheet return-loss specification before and after the rated cycles.
-4. Record tool versions, the design-data tag and the commit of every deck, model, script and checker in the report.
-5. On any assertion or checker failure, or any difference between the analyzed values and the design data, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
+4. Run hardware/sim/checks/sma_mating_life.py on the entered values and save its output.
+5. Record tool versions, the design-data tag and the commit of every deck, model, script and checker in the report.
+6. On any assertion or checker failure, or any difference between the analyzed values and the design data, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
 **Acceptance criteria.** Pass if the jack is rated for at least 500 mating cycles at a torque range that contains 0.45 to 0.56 N m, the handbook states a torque inside 0.45 to 0.56 N m, and the datasheet return-loss specification after the rated cycles implies a change of at most 1 dB at 144 to 148 MHz; otherwise Fail.
 
 **Expected artifacts.**
 
 - `mating-life-analysis.md` (report): Datasheet values, handbook torque and the computation
+- `mating-life-check.log.txt` (log): hardware/sim/checks/sma_mating_life.py output with pass/fail
 
 ### TC-SYS-074: Fully seated plugs at the key jack, headphone jack and micro-USB receptacle through the enclosure openings
 
@@ -3079,6 +3128,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `pa-temp-trip.csv` (csv): Equivalent temperature, keying source, PA_EN and latency
 - `pa-sensor-fault.csv` (csv): Fault, state, latency to Fault-safe
+- `tc-sys-081-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-082: Safe state first on reset, panic and latched fault; RF off in reset, bootloader and firmware load; hang recovery within 2 s
 
@@ -3106,7 +3156,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 11. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 12. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if PA_EN is low, TX_KEY low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra (the RF-off level of REQ-SYS-183) throughout the reset, bootloader and firmware-load states (REQ-SYS-119); after every reset, panic and latched fault PA_EN is low, TX_KEY low (key up), the T/R drive at receive, the amplifier enable low (audio muted) and the charger enable low (charging disabled) before the first edge on any other captured output, in the keyed and in the charging steps (REQ-SYS-130); and every hang ends in a reset into SafeState at most 2 s after the hang marker (REQ-SYS-131); otherwise Fail.
+**Acceptance criteria.** Pass if PA_EN is low, TX_KEY low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) throughout the reset, bootloader and firmware-load states (REQ-SYS-119); after every reset, panic and latched fault PA_EN is low, TX_KEY low (key up), the T/R drive at receive, the amplifier enable low (audio muted) and the charger enable low (charging disabled) before the first edge on any other captured output, in the keyed and in the charging steps (REQ-SYS-130); and every hang ends in a reset into SafeState at most 2 s after the hang marker (REQ-SYS-131); otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -3126,6 +3176,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 - `reset-safe-order.csv` (csv): Event, configuration (keyed or charging), first edges in order, marker-to-reset time
 - `reset-charge-current.csv` (csv): Charging step, charge current before and after each event
 - `reset-safe-capture.sr` (other): Raw logic capture
+- `tc-sys-082-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-083: RF output only while both the keyer key-down and the separately maintained PA permit are asserted
 
@@ -3149,7 +3200,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 7. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 8. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if with either condition forced alone PA_EN stays low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra (the RF-off level of REQ-SYS-183) in every repetition, and RF is present only while both conditions are asserted; otherwise Fail.
+**Acceptance criteria.** Pass if with either condition forced alone PA_EN stays low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) in every repetition, and RF is present only while both conditions are asserted; otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -3164,6 +3215,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `two-conditions.csv` (csv): Condition, repetition, PA_EN and RF level
+- `tc-sys-083-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-084: RF exposure evaluation on record and reference antenna gain
 
@@ -3333,6 +3385,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `integrity.csv` (csv): Image or configuration case, result, PA_EN, settings read
+- `tc-sys-089-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-090: Firmware update through the micro-USB receptacle with the cells removed
 
@@ -3363,6 +3416,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `fwupdate.log.txt` (serial_output): picotool verify output and boot banner
+- `tc-sys-090-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-091: Assembly split: every surface-mount part placed by PCBWay, only through-hole parts and exposed-pad modules for the owner
 
@@ -3474,6 +3528,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `monitor-port.s2p` (other): Antenna-to-monitor S-parameters in both states
 - `monitor-port.csv` (csv): Frequency, state and attenuation
+- `tc-sys-094-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-095: Boot banner over USB serial and telemetry on the UART test pads without USB
 
@@ -3510,6 +3565,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `boot-banner.log.txt` (serial_output): USB serial logs of three boots
 - `uart-telemetry.log.txt` (serial_output): Decoded UART telemetry without USB
+- `tc-sys-095-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-096: Requirements met after assembly with only the stored firmware calibration of pitch centre and reference trim
 
@@ -3546,6 +3602,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `no-alignment-record.txt` (report): Calibration values stored and the as-built action list
+- `tc-sys-096-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-097: 70 cm readiness: band-dependent blocks partitioned and a reserved band control
 
@@ -3666,6 +3723,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `mismatch-spurious.csv` (csv): Fixture phase, frequency and corrected emission levels
 - `mismatch-power.csv` (csv): Load (four 2:1 fixtures and the 25 ohm and 100 ohm loads), keying source, tinySA or probe reading and delivered power
+- `tc-sys-100-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-101: Synthesizer unlock or off-frequency fault and forward-power detector fault responses
 
@@ -3690,7 +3748,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 8. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 9. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if for loss of lock and for the 12 kHz offset, at key-down and during the over, the unit enters Fault-safe with PA_EN low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra (the RF-off level of REQ-SYS-183) (REQ-SYS-154), and it enters Fault-safe at most 100 ms after the detector reading is forced low or high during key-down (REQ-SYS-156); otherwise Fail.
+**Acceptance criteria.** Pass if for loss of lock and for the 12 kHz offset, at key-down and during the over, the unit enters Fault-safe with PA_EN low and no carrier at the set frequency above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) (REQ-SYS-154), and it enters Fault-safe at most 100 ms after the detector reading is forced low or high during key-down (REQ-SYS-156); otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -3705,6 +3763,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `rf-faults.csv` (csv): Fault, timing, keying source, PA_EN, RF and latency
+- `tc-sys-101-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-102: Straight-key contact to RF rise latency and a constant lead-in across an over
 
@@ -3727,7 +3786,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 6. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 7. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if every straight-key closure, first and later in an over, begins the RF rise at most 15 ms after contact closure (REQ-SYS-160), and within each paddle over every element's delay from the keyer test point to the RF rise is at most 12 ms and all delays in the over differ by at most 0.5 ms (REQ-SYS-161); otherwise Fail. The 0.5 ms equality tolerance is the test author's, taken from REQ-SYS-042, because REQ-SYS-161 states none.
+**Acceptance criteria.** Pass if every straight-key closure, first and later in an over, begins the RF rise at most 15 ms after contact closure (REQ-SYS-160), and within each paddle over every element's delay from the keyer test point to the RF rise is at most 12 ms and all delays in the over differ by at most 0.5 ms (REQ-SYS-161); otherwise Fail. The 0.5 ms is that of REQ-SYS-161.
 
 **Instruments and fixtures.**
 
@@ -3739,6 +3798,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `latency-rf.csv` (csv): Over, element, key type, delay
+- `tc-sys-102-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-103: Display legibility at 0.5 m under 300 lux without a backlight
 
@@ -3797,6 +3857,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 **Expected artifacts.**
 
 - `audio-expiry.csv` (csv): Cumulative time, cap state, RMS
+- `tc-sys-104-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-105: Only the sidetone on the headphones while keying 5 W with 1.5 m unshielded leads
 
@@ -3807,18 +3868,19 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | Status | Draft |
 | Automation | none (manual) |
 
-**Setup.** Article: CWHT-A-001 in its enclosure, firmware at the released version release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (recorded as vX.Y.Z+<short SHA> in the report). Configuration: 1.5 m unshielded leads on the key jack and the headphone jack; the owner's headphones at the default cap; the keying fixture at the far end of the 1.5 m key lead sending PARIS at 20 WPM in Iambic A at the 5 W step into the dummy load, then into the reference antenna (the test-mode PARIS generator named in the REQ-SYS-173 verification_note is not used because REQ-SYS-187 holds every bench test mode at the 0.5 W step, SRR decision 41 (owner ruling 2026-09-26)); the antenna block runs only after the OnAir authorization in docs/reviews/TRR-Dn/decision-memo.md (04 section 6.3). Credit row: D. Demonstration by the owner on the delivered unit (docs/process/04-verification-and-validation.md section 5.2): pass or fail is observed without detailed data gathering and each observation is photographed or logged. Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: every transmission goes into the 50 ohm dummy load or the calibrated power attenuator, connected before power-on, never into an open antenna port; key-down duty kept within the load rating recorded in the report; anyone other than the operator stays 0.6 m or more from the unit and load while keying and 1.0 m or more during a tune carrier (NGO-019); the bench supply current limit is set before each power-on; antistatic wrist strap while the lid is off; the PA area is not touched after key-down runs. Headphones at the default 30 mVrms cap only. Antenna block: identification per 47 CFR 97.119 at least every 10 min and at the end, a clear frequency in 144.000 to 144.100 MHz after listening for 60 s. Environment: room temperature 18 to 28 C; dummy load, then the reference antenna.
+**Setup.** Article: CWHT-A-001 in its enclosure, firmware at the released version release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md (recorded as vX.Y.Z+<short SHA> in the report). Configuration: 1.5 m unshielded leads on the key jack and the headphone jack; the owner's headphones at the default cap; the keying fixture at the far end of the 1.5 m key lead sending PARIS at 20 WPM in Iambic A with word spaces of 10 dits (0.6 s), so that every word gives the REQ-SYS-054 watchdog its qualifying gap, at the 5 W step into the dummy load, then into the reference antenna (the bench test mode is not used because REQ-SYS-187 holds it at the 0.5 W step, SRR decision 41 (owner ruling 2026-09-26), as the REQ-SYS-173 verification_note states); the logic capture records TX_KEY so that full-length keying is shown; the antenna block runs only after the OnAir authorization in docs/reviews/TRR-Dn/decision-memo.md (04 section 6.3). Credit row: D. Demonstration by the owner on the delivered unit (docs/process/04-verification-and-validation.md section 5.2): pass or fail is observed without detailed data gathering and each observation is photographed or logged. Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: every transmission goes into the 50 ohm dummy load or the calibrated power attenuator, connected before power-on, never into an open antenna port; key-down duty kept within the load rating recorded in the report; anyone other than the operator stays 0.6 m or more from the unit and load while keying and 1.0 m or more during a tune carrier (NGO-019); the bench supply current limit is set before each power-on; antistatic wrist strap while the lid is off; the PA area is not touched after key-down runs. Headphones at the default 30 mVrms cap only. Antenna block: identification per 47 CFR 97.119 at least every 10 min and at the end, a clear frequency in 144.000 to 144.100 MHz after listening for 60 s. Environment: room temperature 18 to 28 C; dummy load, then the reference antenna.
 
 **Procedure.**
 
-1. Into the dummy load, key PARIS at 20 WPM from the keying fixture at the far end of the key lead at 5 W for 1 min while the owner listens.
-2. Key by hand with the straight key and then the paddle on the long lead for 30 s each while listening.
-3. Confirm the OnAir authorization, connect the reference antenna and repeat both steps.
-4. The owner writes on the demonstration sheet whether anything other than the sidetone was heard.
-5. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
-6. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
+1. Run the logic-capture reference pulse-train check of this session and record the result (docs/process/04-verification-and-validation.md section 4); connect TX_KEY to a capture channel.
+2. Into the dummy load, key PARIS at 20 WPM from the keying fixture at the far end of the key lead at 5 W for 1 min while the owner listens.
+3. Key by hand with the straight key and then the paddle on the long lead for 30 s each while listening, leaving word spaces of at least 10 dits.
+4. Confirm the OnAir authorization, connect the reference antenna and repeat both steps.
+5. The owner writes on the demonstration sheet whether anything other than the sidetone was heard.
+6. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
+7. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if the owner hears only the sidetone (no buzz, hum, RF rectification or clicks beyond the sidetone envelope) in every run; otherwise Fail.
+**Acceptance criteria.** Pass if the owner hears only the sidetone (no buzz, hum, RF rectification or clicks beyond the sidetone envelope) in every run; and the capture shows TX_KEY keying through the whole of each run; otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -3828,10 +3890,12 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 - Owner's headphones
 - 1.5 m unshielded two-conductor leads with 3.5 mm TRS plugs (docs/vv/fixtures/, planned)
 - Keying fixture: optocoupler contacts across the key-jack tip and ring, driven by a Pico 2 running the scripted closure pattern of the step, pattern timing from its crystal (docs/vv/fixtures/keying-fixture.md, planned)
+- Pico-based logic capture (second Pico 2 with sigrok-pico firmware read by sigrok-cli; planned, ADR-009), 3.3 V inputs, 1 MS/s unless a step states otherwise
 
 **Expected artifacts.**
 
 - `leads-audio-sheet.jpg` (photo): Photograph of the owner's demonstration sheet
+- `leads-audio-capture.sr` (other): Raw logic capture of TX_KEY for every run
 
 ### TC-SYS-106: Receive-mode emissions at the antenna port from 9 kHz to 1.5 GHz
 
@@ -3865,6 +3929,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `rx-emissions.csv` (csv): Tuned frequency, emission frequency and corrected level
 - `rx-emissions-traces.png` (plot): tinySA traces
+- `tc-sys-106-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-107: Enclosure attenuation of digital and switching-converter emissions
 
@@ -3919,7 +3984,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 12. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 13. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if in every part A and part B run the last RF-present high ends at least 150 s and at most 180 s after the T/R drive entered transmit, the indicator stays low from then until the T/R drive returns to receive, in part A while TX_KEY is still toggling (the evidence of independence from firmware; in part B the firmware ends keying when it sees the cut), and no carrier above -57 dBm at the antenna port on the tinySA Ultra (the RF-off level of REQ-SYS-183) appears on the max-hold trace until that return, and in every re-arm run the carrier is present after the return to receive; otherwise Fail. The end time of every run is recorded for the closure of the window TBR.
+**Acceptance criteria.** Pass if in every part A and part B run the last RF-present high ends at least 150 s and at most 180 s after the T/R drive entered transmit, the indicator stays low from then until the T/R drive returns to receive, in part A while TX_KEY is still toggling (the evidence of independence from firmware; in part B the firmware ends keying when it sees the cut), and no carrier above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) appears on the max-hold trace until that return, and in every re-arm run the carrier is present after the return to receive; otherwise Fail. The end time of every run is recorded for the closure of the window TBR.
 
 **Instruments and fixtures.**
 
@@ -3965,7 +4030,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 11. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 12. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if every threshold and full over-temperature run starts with the carrier present at the 90 C equivalent; after every switch to T_trip or 100 C during a key-down the RF-present indicator falls at most 100 ms after the fixture marker while PA_EN is still asserted by the firmware; and while the fixture stays at or above T_trip (including the key-downs begun at 100 C and the T_trip reading on the way down) the indicator stays low and no carrier above -57 dBm at the antenna port on the tinySA Ultra (the RF-off level of REQ-SYS-183) appears on the zero-span trace after the cut; otherwise Fail.
+**Acceptance criteria.** Pass if every threshold and full over-temperature run starts with the carrier present at the 90 C equivalent; after every switch to T_trip or 100 C during a key-down the RF-present indicator falls at most 100 ms after the fixture marker while PA_EN is still asserted by the firmware; and while the fixture stays at or above T_trip (including the key-downs begun at 100 C and the T_trip reading on the way down) the indicator stays low and no carrier above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) appears on the zero-span trace after the cut; otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -3985,6 +4050,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 - `hw-thermal-ttrip.txt` (report): T_trip derivation from the sensor datasheet and fixture tolerances
 - `hw-thermal-zero-span.png` (plot): tinySA zero-span traces per key-down
 - `hw-thermal-capture.sr` (other): Raw logic capture
+- `tc-sys-109-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-110: Independent frequency verification: no transmission unless the measured synthesizer output agrees with the set frequency within 10 kHz, before and during transmit
 
@@ -4012,7 +4078,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 11. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 12. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if in every before-transmit run (150.000 MHz, 12 kHz above, 12 kHz below and no measurement; straight key, paddle and, for 150.000 MHz, Tune) the RF-present indicator stays low and no carrier at the programmed frequency above -57 dBm at the antenna port on the tinySA Ultra (the RF-off level of REQ-SYS-183) appears on the zero-span trace; in every during-transmit run the indicator falls at most 100 ms after the injection marker and the zero-span trace shows no carrier above -57 dBm at the antenna port (the RF-off level of REQ-SYS-183) from then to the end of the key-down; and in the agreement runs the carrier is present at each of the three frequencies with both key types; otherwise Fail.
+**Acceptance criteria.** Pass if in every before-transmit run (150.000 MHz, 12 kHz above, 12 kHz below and no measurement; straight key, paddle and, for 150.000 MHz, Tune) the RF-present indicator stays low and no carrier at the programmed frequency above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) appears on the zero-span trace; in every during-transmit run the indicator falls at most 100 ms after the injection marker and the zero-span trace shows no carrier above -57 dBm at the antenna port on the tinySA Ultra, corrected for the attenuator and increased by the tinySA level accuracy (the RF-off level of REQ-SYS-183) from then to the end of the key-down; and in the agreement runs the carrier is present at each of the three frequencies with both key types; otherwise Fail.
 
 **Instruments and fixtures.**
 
@@ -4030,6 +4096,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 - `freq-verify-runs.csv` (csv): Run, timing (before or during), injected error, keying source, indicator activity, PA_EN, latency, carrier level
 - `freq-verify-zero-span.png` (plot): tinySA zero-span traces per run
 - `freq-verify-capture.sr` (other): Raw logic capture
+- `tc-sys-110-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-111: Further cell over-voltage layer opening the charge path at a threshold within 4.30 to 4.35 V, independent of the charger, the 4.25 V protector and firmware
 
@@ -4040,20 +4107,20 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 | Status | Draft |
 | Automation | none (manual) |
 
-**Setup.** Article: CWHT-A-001, enclosure lid off for test-point access, running the fault-injection test build of release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md for the steps that name it (a build flavour of the release commit whose injection commands arrive over the UART test pads from the host serial terminal through the 3.3 V serial adapter, or over USB serial only in steps that expect no carrier, because USB VBUS sets the USB flag and the hardware transmit inhibit of REQ-SYS-092, and which toggles the injection-marker test pad at the instant of each injection), and the released version release/FW-vX.Y.Z (recorded as vX.Y.Z+<short SHA> in the report) for every other step; the release image is restored and checked with picotool verify at the end of the case. Configuration: cells replaced by the two-cell simulator fixture; USB through the USB breakout fixture with the charger held on (charger enable held active at its test pad), so that the charger keeps driving the cells; the fault-injection build with firmware charge termination and the firmware dual-sensing stop of REQ-SYS-088 disabled; the 4.25 V protector of REQ-SYS-083 disabled by holding its charge FET on at the test link named in the as-built record (docs/vv/adp/CWHT-A-001/as-built.md), so that only the layer under test can open the charge path; the state of that layer read as the voltage across its own switching element with the multimeter, and the charge current on the multimeter in series with the pack lead. The layer under test is the one SRR decision 72 (owner ruling 2026-09-26) added (D-PWR-03, OQ-SAF-008, HZ-002 K3). The supporting 0 C to 45 C threshold Analysis named in the verification_note is not part of this case. Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. TBR values: the acceptance criteria use the values of REQ-SYS-185 as written, including those marked TBR (close by PDR); a change at PDR returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2, SWE-071). Hazard controls exercised: HZ-002 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: cells and cell simulators are handled per the operations handbook battery section: current limit set before connection, cell terminals never shorted, cells on a non-flammable surface and attended during every charge or discharge run; a cell warm to the touch above about 45 C ends the run; the owner's cells are never used in this case, because every step drives a cell voltage beyond the charge limit or below the discharge limit. Environment: room temperature 18 to 28 C; the cell simulators named in Configuration; dummy load on the antenna port.
+**Setup.** Article: CWHT-A-001, enclosure lid off for test-point access, running the fault-injection test build of release/FW-vX.Y.Z named in firmware/releases/VDD-vX.Y.Z.md for the steps that name it (a build flavour of the release commit whose injection commands arrive over the UART test pads from the host serial terminal through the 3.3 V serial adapter, or over USB serial only in steps that expect no carrier, because USB VBUS sets the USB flag and the hardware transmit inhibit of REQ-SYS-092, and which toggles the injection-marker test pad at the instant of each injection), and the released version release/FW-vX.Y.Z (recorded as vX.Y.Z+<short SHA> in the report) for every other step; the release image is restored and checked with picotool verify at the end of the case. Configuration: cells replaced by the two-cell simulator fixture; USB through the USB breakout fixture with the charger held on (charger enable held active at its test pad) and the cell not under test held at 3.70 V, so that the pack stays below the charger regulation voltage and the charger drives a constant current through the charge path; the fault-injection build with firmware charge termination, the firmware dual-sensing stop of REQ-SYS-088 and the firmware cell-window and cell-difference refusal of REQ-SYS-087 disabled; the 4.25 V protector of REQ-SYS-083 disabled by holding its charge FET on at the test link named in the as-built record (docs/vv/adp/CWHT-A-001/as-built.md), so that only the layer under test can open the charge path; the charge path is judged by the charge current on the multimeter in series with the pack lead against the 1 mA level of REQ-SYS-185, and the voltage across the layer's own switching element is recorded as supporting data. The layer under test is the one SRR decision 72 (owner ruling 2026-09-26) added (D-PWR-03, OQ-SAF-008, HZ-002 K3). The supporting 0 C to 45 C threshold Analysis named in the verification_note is not part of this case. Credit row: T-HW. Test of a system requirement closed by Bench on the delivered unit (docs/process/04-verification-and-validation.md section 5.2), run after the TRR that opens the campaign (section 13) and witnessed by the owner; the pre-build Simulation, HostUnit and Emulation evidence named in each requirement's verification_note is supporting only and is not part of this case. TBR values: the acceptance criteria use the values of REQ-SYS-185 as written, including those marked TBR (close by PDR); a change at PDR returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2, SWE-071). Hazard controls exercised: HZ-002 (from the cited requirements; docs/safety/hazards.json). Credentials: instruments and tools per tools/toolchain.lock.md at the commit recorded in the report. Safety: cells and cell simulators are handled per the operations handbook battery section: current limit set before connection, cell terminals never shorted, cells on a non-flammable surface and attended during every charge or discharge run; a cell warm to the touch above about 45 C ends the run; the owner's cells are never used in this case, because every step drives a cell voltage beyond the charge limit or below the discharge limit. Environment: room temperature 18 to 28 C; the cell simulators named in Configuration; dummy load on the antenna port.
 
 **Procedure.**
 
-1. Load the fault-injection build and check it with picotool verify; disable firmware charge termination and the dual-sensing stop by their injection commands; hold the 4.25 V protector charge FET on at its test link; record the configuration with a photograph.
-2. Set both simulated cells to 4.20 V, apply USB and confirm charge current flows; read the state of the layer under test.
-3. Raise the first simulated cell in 5 mV steps from 4.25 V to 4.40 V, holding each step for 2 s, and read at each step the voltage across the layer's switching element and the charge current; record the cell voltage at which the charge path opens.
-4. Lower the cell in 5 mV steps until the charge path closes again and record the release voltage as data.
-5. Repeat the two previous steps for the second simulated cell.
+1. Load the fault-injection build and check it with picotool verify; disable firmware charge termination, the dual-sensing stop and the cell-window and cell-difference refusal by their injection commands; hold the 4.25 V protector charge FET on at its test link; record the configuration with a photograph.
+2. Set both simulated cells to 3.70 V, apply USB and confirm that charge current above 1 mA flows; read the voltage across the layer's switching element.
+3. Raise the first simulated cell in 5 mV steps from 4.25 V to 4.40 V with the second held at 3.70 V, holding each step for 2 s, and read at each step the charge current and the voltage across the layer's switching element; record the cell voltage at which the charge current falls below 1 mA.
+4. Lower the cell in 5 mV steps until the charge current rises above 1 mA again and record the release voltage as data.
+5. Repeat the two previous steps for the second simulated cell, with the first held at 3.70 V.
 6. Remove the test-link hold on the 4.25 V protector, restore the release image and check it with picotool verify; with both simulated cells at 4.20 V confirm that the charge path is closed and the unit charges normally.
 7. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 8. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if, for each cell, with the charger held on, the 4.25 V protector held off and firmware charge termination disabled, the charge path stays closed at every step below the trip, opens (charge current at most 1 mA) at a cell voltage from 4.30 V to 4.35 V with the meter accuracy included, and the unit charges normally after the release image is restored; otherwise Fail. The 1 mA open-path level is the test author's, because the requirement states none; release voltages are data.
+**Acceptance criteria.** Pass if, for each cell, with the charger held on, the 4.25 V protector held off and the firmware charge stops disabled, the charge current stays above 1 mA at every step below the trip and falls below 1 mA (the level of REQ-SYS-185, with the meter accuracy added) at a cell voltage from 4.30 V to 4.35 V with the meter accuracy included, and the unit charges normally after the release image is restored; otherwise Fail. The switching-element voltages and the release voltages are data.
 
 **Instruments and fixtures.**
 
@@ -4092,7 +4159,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 7. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 8. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if in every fault condition (each link opened, and each link at 10 kohm) every protection layer other than the one whose sense connection is faulted detects the faulted cell above its over-voltage threshold and below its under-voltage threshold (each over-voltage layer acts on the charge path or reports the cell-sense cause, and each under-voltage layer acts on the discharge path or reports it, at the voltage it acted at in the baseline within 20 mV), and the unit returns to normal with every link closed; otherwise Fail. The 20 mV agreement band is the test author's, because the requirement states none.
+**Acceptance criteria.** Pass if in every fault condition (each link opened, and each link at 10 kohm) every protection layer other than the one whose sense connection is faulted detects the faulted cell above its over-voltage threshold and below its under-voltage threshold (each over-voltage layer acts on the charge path or reports the cell-sense cause, and each under-voltage layer acts on the discharge path or reports it, at the voltage it acted at in the baseline within 20 mV), and the unit returns to normal with every link closed; otherwise Fail. The 20 mV band is that of REQ-SYS-186.
 
 **Instruments and fixtures.**
 
@@ -4107,6 +4174,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 
 - `sense-path-faults.csv` (csv): Link, layer and cell terminal, fault (open or 10 kohm), direction (over or under), the layers that acted and the voltage at which each acted
 - `sense-path-telemetry.log.txt` (log): UART telemetry of every run
+- `tc-sys-112-setup.jpg` (photo): Photograph of the as-run test setup (docs/process/04-verification-and-validation.md section 8.1)
 
 ### TC-SYS-113: Bench test mode guard: forced 0.5 W step, exit within 120 s, full-scale test tone ended within 60 s, and the mode inactive after every reset and power-on
 
@@ -4137,7 +4205,7 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 14. Record instrument calibration state, instrument and capture firmware versions, tool versions and the firmware version in the report.
 15. On any discrepancy, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
 
-**Acceptance criteria.** Pass if (REQ-SYS-187) the probe power lies with its uncertainty band inside 0.397 to 0.629 W (the 0.5 W step, +/-1 dB) in the PARIS generator, the continuous carrier and the watchdog demonstration with 5 W set before entry, and in the PARIS generator with every other step set before entry; (REQ-SYS-188) in every run TX_KEY and PA_EN are low and the TEST indication is off no later than 120 s after the confirming press, with 0.1 s allowed for the button edge and the capture resolution; (REQ-SYS-189) the full-scale tone ends no later than 60 s after it starts, with the same 0.1 s allowance; (REQ-SYS-190) after the reset button, the power-switch cycle, the supply removal and the injected watchdog reset the unit restarts with the TEST indication off and the display showing no test mode, TX_KEY and PA_EN show no edge for 60 s and no tone appears on the load, and the mode starts again only through the REQ-SYS-179 sequence; otherwise Fail. The 0.1 s allowance is the test author's, because the requirements state none.
+**Acceptance criteria.** Pass if (REQ-SYS-187) the probe power lies with its uncertainty band inside 0.397 to 0.629 W (the 0.5 W step, +/-1 dB) in the PARIS generator, the continuous carrier and the watchdog demonstration with 5 W set before entry, and in the PARIS generator with every other step set before entry; (REQ-SYS-188) in every run TX_KEY and PA_EN are low and the TEST indication is off no later than 120 s after the confirming press, measured from the button edge with one capture sample period added; (REQ-SYS-189) the full-scale tone ends no later than 60 s after it starts, measured the same way; (REQ-SYS-190) after the reset button, the power-switch cycle, the supply removal and the injected watchdog reset the unit restarts with the TEST indication off and the display showing no test mode, TX_KEY and PA_EN show no edge for 60 s and no tone appears on the load, and the mode starts again only through the REQ-SYS-179 sequence; otherwise Fail. The 120 s and 60 s bounds are those of the requirements, applied with the decision rule of docs/process/04-verification-and-validation.md section 8.2.
 
 **Instruments and fixtures.**
 
@@ -4157,3 +4225,29 @@ Rendered from `docs/test_cases/sys/test_cases.json` (module `SYS`); the JSON is 
 - `testmode-guard-capture.sr` (other): Raw logic and analog capture of every run
 - `testmode-restart-display.jpg` (photo): Display after each restart
 - `testmode-picotool-verify.log.txt` (log): picotool verify output for the fault-injection build and the restored release image
+
+### TC-SYS-116: Independent cell over-voltage threshold within 4.25 to 4.30 V from 0 C to 45 C by datasheet computation
+
+| Field | Value |
+|---|---|
+| Requirements | REQ-SYS-194 |
+| Method / class | Analysis / Simulation |
+| Status | Draft |
+| Automation | `hardware/sim/checks/protector_threshold_temp.py` |
+
+**Setup.** Article: design data at tag baseline/cdr: the datasheet of the protector variant selected at PDR for REQ-SYS-083 (threshold accuracy at 25 C and threshold temperature coefficient or accuracy over temperature), the schematic sense-path resistors with their tolerances, and the design BOM line of the protector. Configuration: hardware/sim/checks/protector_threshold_temp.py (planned) computes the worst-case threshold from 0 C to 45 C from the datasheet values entered in its input table and the sense-path divider error; the room-temperature trip of TC-SYS-061 is supporting data. Credit row: A. Analysis closed by Simulation on the CDR design data and confirmed at SAR by the physical configuration audit of every analyzed value (docs/process/04-verification-and-validation.md sections 5.1 item 5 and 5.2). TBR values: the acceptance criteria use the values of REQ-SYS-194 as written, including those marked TBR (close by PDR); a change at PDR returns this case to Draft (docs/process/04-verification-and-validation.md section 8.2, SWE-071). Hazard controls exercised: HZ-002 (from the cited requirements; docs/safety/hazards.json). Risk acceptance: the verification_note of REQ-SYS-194 (RSK-007) begins 'Analysis accepted per RSK-NNN'; that risk carries the hazard control not closed by Test (docs/process/04-verification-and-validation.md section 3, rule 7.3.6). Tools: Python per tools/toolchain.lock.md Safety: not applicable (design data only). Environment: not applicable.
+
+**Procedure.**
+
+1. Confirm that the protector part number and the sense-path resistor values in the checker input equal the CDR schematic and the design BOM (the checker prints the diff; an empty diff is required).
+2. Enter the datasheet threshold accuracy at 25 C and the threshold variation over 0 C to 45 C in the checker input table, with the datasheet revision and page.
+3. Run hardware/sim/checks/protector_threshold_temp.py: worst-case cell threshold at 0 C, 25 C and 45 C with the divider error at its tolerance corners.
+4. Record tool versions, the design-data tag and the commit of every deck, model, script and checker in the report.
+5. On any assertion or checker failure, or any difference between the analyzed values and the design data, stop and open an NCR per docs/process/04-verification-and-validation.md section 10.
+
+**Acceptance criteria.** Pass if the worst-case cell over-voltage stop threshold lies from 4.25 V to 4.30 V at every temperature from 0 C to 45 C, with every datasheet and resistor tolerance at its worst corner; otherwise Fail.
+
+**Expected artifacts.**
+
+- `protector-threshold-temp.csv` (csv): Temperature, datasheet accuracy term, divider error term and worst-case threshold
+- `protector-threshold-temp.log.txt` (log): hardware/sim/checks/protector_threshold_temp.py output with pass/fail
