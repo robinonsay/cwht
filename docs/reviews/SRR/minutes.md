@@ -96,3 +96,15 @@ Lead SE disposition:
   - (D) a hybrid of an extruded aluminum body with printed front and end parts.
 
 Owner preference, verbatim: "I like option C plus we could buy a heat sink to place in the enclosure." This is recorded with SI-037 as the owner's preferred enclosure concept: an H2C-printed case with a conductive metal coating and a purchased heatsink. It becomes the planning baseline of the PDR enclosure trade study. The study confirms it with a thermal analysis and a shielding measurement, or reports the gap. CR-003 makes REQ-SYS-109 solution-neutral and amends REQ-SYS-124 ("marked into its enclosure metal") so that a printed case can comply.
+
+Owner direction, verbatim, superseding the option C preference above: "Actually, I want to try both B and the 3d printed option. I don't have any machining tools so we would need someone else to drill the holes..."
+
+Recorded:
+- The PDR enclosure trade carries B and C as parallel prototypes on one common board and envelope:
+  - B: a catalog extruded aluminum box, with no owner machining;
+  - C: an H2C-printed case with a conductive coating and a purchased heatsink.
+- Selection happens on bench thermal and shielding measurements before the delivered-unit configuration is fixed.
+- The owner has no machining tools, so B must reach the owner with every opening already cut. The trade study evaluates these routes:
+  - (1) an enclosure style whose face and end plates are separate flat panels, ordered cut to drawing, either as PCBWay CNC aluminum plates or as bare PCB panels in the same PCBWay order (copper for shielding, silkscreen for the legend), so that the extruded body needs no holes;
+  - (2) a machining-to-drawing service for catalog enclosures, whose capability, quote and lead time the study must confirm;
+  - (3) PCBWay CNC of the complete box (option A) as the fallback.
