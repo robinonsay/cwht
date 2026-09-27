@@ -1,9 +1,9 @@
-# TV-014: LTspice 26.0.2 through tools/ltspice-batch.sh (git blob 102b93d4, commit b41e544)
+# TV-014: LTspice 26.0.2 through tools/ltspice-batch.sh (git blob 64e1c723, commit c9d2c54)
 
 | Field | Value |
 |---|---|
 | Record | TV-014 |
-| Status | **Not yet validated.** Known-answer run 2 (2026-09-27 11:03, commit `b41e544`) passed the 18 cases that stop before LTspice runs; the 11 cases that run LTspice and procedure part D are blocked because the bottle `LTspice.ini` lost `CaptureAnalytics=false` during development (finding 2; owner action OA-TV014-1). Run 3 follows the owner's restore. Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Not yet validated.** Revision of 2026-09-27 for the Major findings 2 and 3 of review INSP-038 iteration 1: the wrapper now checks the bundle build and the `LTspice.exe` SHA-256 exactly and requires the log version line (purpose 3), and `-ascii` has a known answer (purpose 1). Known-answer run 3 (2026-09-27 11:56, commit `c9d2c54`) passed the 22 cases that do not need the bottle precondition, including the new identity faults; the 13 cases that need it (12 run LTspice, 1 runs a test double) and procedure part D are blocked because the bottle `LTspice.ini` lost `CaptureAnalytics=false` during development (finding 2; owner action OA-TV014-1). Run 4, the validation run, follows the owner's restore (INSP-038 finding-1). Independent review and owner accreditation pending (sections 8 and 9) |
 | Class | B, evidence-generating (CM plan section 9.1: LTspice through the CrossOver wrapper, Analysis-class simulation evidence) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6, validated and accredited simulation tools) through CM plan section 9; ADR-018 (telemetry opt-out) |
 | Due | PDR (CM plan section 13 PDR row). It blocks every LTspice result cited as evidence (`docs/plan/pdr-work-plan.md` WP-PDR-07, WP-PDR-19 to 26 and 28) until accredited (owner decision OD-24b) |
@@ -14,9 +14,9 @@
 
 | Item | Identity | State |
 |---|---|---|
-| `tools/ltspice-batch.sh` | git blob `102b93d49a01b31d91088f0e2c5a23c2e7a6eddc`, SHA-256 `a6acffa675e007481d7b37a1b5ce5150a1d236ed2cab78bf4d964c9219265152`, mode 100755 | committed in `b41e544` (first version, blob `884df077`, in `41d150e`; changed for finding 3) |
-| `tools/tests/test_ltspice_batch.py` | git blob `c44104477c05eeb36493da9f35e3b75e2e241eb7`, SHA-256 `841a3b931688f33a0f67025e0b358cd3f8c488d4cb3409117aa75069f3750a32` | committed in `b41e544` (first version, blob `220db90b`, in `41d150e`) |
-| `tools/tests/fixtures/ltspice/` | 12 files, tree digest `069f03eed71724c5312ad51f1c40ec032023258ee38a5fcf7a57caf7a0992835` (SHA-256 of the sorted `shasum -a 256` list; the list is in the run 1 and run 2 transcripts) | committed in `41d150e` (the three 2026-09-25 decks unchanged; `known-answers.json` gained the `wrapper` block, its earlier blocks unchanged) |
+| `tools/ltspice-batch.sh` | git blob `64e1c7230278363bca85542f410da5a0853a42f2`, SHA-256 `115b81c1b5974d20b9b599d86d05788f837433955bf2f2c98d2eb5ca7410f90a`, mode 100755, 360 lines | committed in `c9d2c54` (INSP-038 finding-3: exact bundle build, `LTspice.exe` SHA-256, log version line). Earlier blobs: `884df077` in `41d150e`; `102b93d4` in `b41e544` (finding 3 of section 4.1), tested in runs 1 and 2 |
+| `tools/tests/test_ltspice_batch.py` | git blob `c75cb7b3568b46d478ab710dd0f5f81ff3df8049`, SHA-256 `ba1d8c114e1a2bf812d9103ab9fe3904cbd17ad8921204552253e4bff173c113`, 35 cases | committed in `c9d2c54` (INSP-038 findings 2 and 3). Earlier blobs: `220db90b` in `41d150e`; `c4410447` in `b41e544` (29 cases, runs 1 and 2) |
+| `tools/tests/fixtures/ltspice/` | 13 files, git tree `8feee9d0`, tree digest `b9f7ed3c98a598c84e95690ba17c37719ef7564ea7772851d79bf3796aa576cb` (SHA-256 of the sorted `shasum -a 256` list; the list is in the run 3 transcript) | committed in `c9d2c54`: `known-answers.json` block `wrapper` gained `locked_bundle`, `locked_exe_sha256`, `ascii`, `seeded_bundle_build`, `seeded_exe_sha256` and `seeded_no_version_line`, and `fake-support/bin/wine` (a test double, mode 100755) was added. Earlier: 12 files, digest `069f03ee...0992835`, tree `b9f9eca1`, committed in `41d150e` (runs 1 and 2); the three 2026-09-25 decks and the earlier blocks of `known-answers.json` are unchanged |
 | LTspice program | `26.0.2` (`tools/ltspice-batch.sh -version`; bare command `wine --bottle=ltspice --wait-children 'C:\Program Files\ADI\LTspice\LTspice.exe' -version`, 2026-09-25) | lock section 1 |
 | LTspice bundle | `26.0.2.1` (`defaults read /Applications/LTspice.app/Contents/Info.plist CFBundleShortVersionString`, 2026-09-27) | lock section 1 |
 | `LTspice.exe` in the bottle | SHA-256 `a94eb1789084db9f46375cce05110e03578f9cdb931867a0faaca5b200793f06` (`drive_c/Program Files/ADI/LTspice/LTspice.exe`, 2026-09-27; RSK mitigation step S1 asks for this pin) | recorded here first; lock section 1 row |
@@ -28,9 +28,9 @@
 
 ## 2. Purposes covered
 
-1. Run a committed netlist (`.net`, `.cir`, `.sp`) or schematic (`.asc`) deck headless with `-b` (optionally `-ascii`) and deliver its `.log`, `.raw` and `.op.raw` beside the deck or in `-o OUTDIR`, for Analysis-class evidence whose pass or fail is judged by the deck's own checker.
+1. Run a committed netlist (`.net`, `.cir`, `.sp`) or schematic (`.asc`) deck headless with `-b`, or with `-ascii -b` for a raw file in text form, and deliver its `.log`, `.raw` and `.op.raw` beside the deck or in `-o OUTDIR`, for Analysis-class evidence whose pass or fail is judged by the deck's own checker.
 2. Netlist a schematic with `-netlist` and reject any floating `NC_` net (research F9).
-3. Never report a run as passed when LTspice did not complete it: exit non-zero on a missing telemetry opt-out before or after the run, a program or bundle version other than the lock, a deck error in the log or a non-zero LTspice exit, a missing log or raw output, a floating net, a time-out (the run's own processes killed), a relative include outside the deck directory, and a Windows path of 260 characters or more.
+3. Never report a run as passed when LTspice did not complete it, or when the LTspice that ran is not the locked one: exit non-zero on a missing telemetry opt-out before or after the run; a bundle version that does not start with the locked program version `26.0.2`, a bundle build other than exactly `26.0.2.1`, or an `LTspice.exe` SHA-256 in the bottle other than the locked value (both checked before every run); a `-b` log whose first line is not `LTspice 26.0.2 for MacOS` (another version, or no version line); `-version` output other than `26.0.2`; a deck error in the log or a non-zero LTspice exit; a missing log or raw output; a floating net; a time-out (the run's own processes killed); a relative include outside the deck directory; and a Windows path of 260 characters or more.
 4. Record the provenance of each run on stderr: log version line, deck SHA-256, LTspice exit status, elapsed time, outputs.
 
 Not covered: the validity of device models (vendor or behavioural) and of convergence options in a deck; statistics of `.step` or Monte Carlo runs beyond what the deck's checker verifies; the numeric solver beyond the linear AC and transient known answers of section 3 (limitation 1).
@@ -44,6 +44,7 @@ Not covered: the validity of device models (vendor or behavioural) and of conver
 | `rc-lowpass.asc` (2026-09-25, unchanged) | V1 AC 1, R1 1 k, C1 159.155 nF, `.ac`, `.meas f3db` | f(-3 dB) = 1/(2 pi R C) = 999.9996 Hz within 1 % (the lock criterion); netlist lines of block `netlist`, no `NC_` |
 | `rc-step-tran.net` (new) | 0 to 1 V step (1 ns ramp) into R1 1 k, C1 1 uF, `.tran 0 5m 0 1u uic` | V(out) at t = tau = 1 ms equals 1 - e^-1 = 0.6321206 V within 0.1 %; V(out) = 0.5 V at tau ln 2 = 0.6931472 ms within 0.1 % |
 | `rc-include.net` with `sub/rc-parts.inc` (new) | the low-pass with R1 and C1 in a relative include | f(-3 dB) as above, proving the include was carried into the run directory |
+| `rc-step-tran.net` with `-ascii -b` (block `ascii`) | the step response above | the raw file is an ASCII raw file (a `Values:` section of decimal numbers, no `Binary:` section; header in 8-bit text or UTF-16LE, research F7 and F8) and V(out) at t = 1 ms, interpolated linearly between the two stored points around 1 ms, equals 0.6321206 V within 0.1 %. The reader (`read_ascii_raw` in the test module) is itself checked on a stored sample in both encodings and rejects a `Binary:` section and a truncated file (`AsciiRawReaderTests`) |
 
 Seeded faults, each with its expected exit status (section of `known-answers.json` in brackets):
 
@@ -54,6 +55,9 @@ Seeded faults, each with its expected exit status (section of `known-answers.jso
 | `rc-include-escape.net`: include path with `..` (`seeded_include_escape`) | exit 2, nothing run |
 | deck name of 215 characters (`seeded_long_path`) | exit 2, "limit 259" |
 | `CWHT_LTSPICE_VERSION=26.1.1` (`seeded_version`) | exit 4 |
+| `CWHT_LTSPICE_EXPECT_BUNDLE=26.0.2.2` (`seeded_bundle_build`): another bundle build of 26.0.2, which the prefix match of blob `102b93d4` accepted | exit 4, "LTspice bundle build is 26.0.2.1, expected 26.0.2.2" |
+| `CWHT_LTSPICE_EXPECT_EXE_SHA256` = the locked hash with its last digit changed (`seeded_exe_sha256`) | exit 4, "LTspice.exe SHA-256 is ... expected ..." |
+| `CWHT_LTSPICE_SUPPORT=<fixture>/fake-support` (`seeded_no_version_line`): a wine test double writes a `.log` without the version line and a `.raw`, exit 0 | exit 4, "not a version line" |
 | `CWHT_LTSPICE_SUPPORT=/nonexistent` (`seeded_not_installed`) | exit 3, "not installed" |
 | `CWHT_LTSPICE_INI_CHECK` naming `ini-without-key.ini`, `ini-ascii-key.ini` (the 8-bit line the withdrawn research precondition would have appended) or an absent file (`seeded_ini`) | exit 3 each; with `ini-with-key.ini` exit 0 |
 | lock held by the test (`seeded_busy`, `CWHT_LTSPICE_LOCK_WAIT=2`) | exit 5 after waiting about 2 s |
@@ -61,6 +65,8 @@ Seeded faults, each with its expected exit status (section of `known-answers.jso
 | planted `rc-step-tran.op.raw` and `rc-step-tran.plt` in the output directory (`stale_outputs`) | the stale `.op.raw` removed, the user's `.plt` kept |
 
 Plus usage cases (no arguments, mode without deck, unknown argument, bad `-t`, two modes, `-ascii` with `-netlist`: exit 2) and `-o` placing the outputs outside the deck directory.
+
+The installed bundle and `LTspice.exe` cannot be changed for a seeded fault (they are the owner's installation). The two identity faults therefore seed the expected side through add-only hooks: `CWHT_LTSPICE_EXPECT_BUNDLE` and `CWHT_LTSPICE_EXPECT_EXE_SHA256` name a second value that must also match, and neither can replace the locked constants `LOCK_BUNDLE` and `LOCK_EXE_SHA256` of the wrapper. The same exact comparison (`must_equal`) serves the locked value and the hook, so the seeded fault shows that any difference fails with exit 4, and every case that reaches the precondition or LTspice (`PreconditionTests`, `LTspiceRunTests`, `OutputCheckTests`, `TimeoutGuardTests`) shows that the installed identities equal the locked ones.
 
 **Run command** (the procedure, which also records identities, versions and the bottle state, and runs part D):
 
@@ -70,7 +76,7 @@ bash docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27.sh > docs/cm/tool
 
 Its part C is `CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -v -s tools/tests -p test_ltspice_batch.py` from the repository root. Part D runs the bare `wine` command (under the wrapper's lock) on the transient deck placed at a Windows path of 262 characters, expecting exit 0 with no `.raw` and "Could not open" in the log (finding 1), then the wrapper on the same deck, expecting PASS (its run directory is short).
 
-**Pass criteria:** part C exits 0 with 28 of the 29 tests run and passed: `UsageTests` 6, `HygieneTests` 5, `InstallAndVersionTests` 2, `LockTests` 1, `PreconditionTests` 3, `LTspiceRunTests` 10, `TimeoutGuardTests` 1. The only permitted skip is `PreconditionTests.test_bottle_without_key`, which runs only while the bottle lacks the key and is skipped by design once it is present; any other skip means the case was not run. Part D as stated; part B shows the locked versions and the key present (count 1).
+**Pass criteria:** part C exits 0 with 34 of the 35 tests run and passed: `UsageTests` 6, `HygieneTests` 5, `InstallAndVersionTests` 4, `LockTests` 1, `PreconditionTests` 3, `AsciiRawReaderTests` 2, `LTspiceRunTests` 11, `OutputCheckTests` 1, `TimeoutGuardTests` 1. The only permitted skip is `PreconditionTests.test_bottle_without_key`, which runs only while the bottle lacks the key and is skipped by design once it is present; any other skip means the case was not run. Part D as stated; part B shows the locked versions and the key present (count 1).
 
 ## 4. Result
 
@@ -78,7 +84,8 @@ Its part C is `CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -v -s t
 |---|---|---|---|
 | 1 | 2026-09-27 10:57 | HEAD `e119181` with the wrapper (blob `884df077`), test module (blob `220db90b`) and fixtures unchanged from `41d150e` | Superseded by run 2 (the wrapper changed for finding 3). **Blocked, not a pass.** 29 tests, 18 passed (`UsageTests` 6, `HygieneTests` 5, `InstallAndVersionTests` 2, `LockTests` 1, `PreconditionTests` 4 including `test_bottle_without_key`, which ran because the bottle ini lacks the key), 11 skipped (`LTspiceRunTests` 10, `TimeoutGuardTests` 1: "bottle precondition not met"); part B: key count 0 in the bottle ini (420 bytes, modified 10:50); part D not run. Transcript `evidence/ltspice-batch-2026-09-27-run1.log.txt` |
 | 2 | 2026-09-27 11:03 | HEAD `b41e544`, every identity of section 1 "unchanged from HEAD" | **Blocked, not a pass.** Same outcome as run 1: 29 tests, 18 passed, 11 skipped (bottle precondition not met); part B key count 0; part D not run. Transcript `evidence/ltspice-batch-2026-09-27-run2.log.txt` |
-| 3 | after OA-TV014-1 | to be recorded | pending |
+| 3 | 2026-09-27 11:56 | HEAD `c9d2c54` (wrapper `64e1c723`, test module `c75cb7b3`, fixture digest `b9f7ed3c...76cb`), every identity "unchanged from HEAD" | **Blocked, not a pass.** 35 tests, 22 passed (`UsageTests` 6, `HygieneTests` 5, `InstallAndVersionTests` 4 including the new `test_bundle_build_other_than_lock` and `test_exe_sha256_other_than_lock`, `LockTests` 1, `PreconditionTests` 4 including `test_bottle_without_key`, `AsciiRawReaderTests` 2), 13 skipped (`LTspiceRunTests` 11 including `test_ascii_raw_known_answer`, `OutputCheckTests` 1, `TimeoutGuardTests` 1: "bottle precondition not met"); part B: bundle `26.0.2.1`, Wine layer `25.0.1.38665`, `LTspice.exe` SHA-256 equal to section 1, key count 0 (ini 420 bytes, modified 10:50); part D not run. Transcript `evidence/ltspice-batch-2026-09-27-run3.log.txt` |
+| 4 | after OA-TV014-1 | to be recorded (the committed blobs of run 3 unless a later fix changes them) | pending; the validation run INSP-038 finding-1 asks for |
 
 Development observations on draft wrapper blobs (not a validation run): the AC, transient and include known answers passed on 2026-09-27 at 10:49 (f(-3 dB) 999.999642341 Hz; V(out)(tau) 0.632120367773 V, error 3.0e-7; t(0.5 V) 0.693147653 ms, error 6.8e-7), and the seeded deck error, floating net, include escape, ini and version faults gave the expected exits (`evidence/ltspice-batch-2026-09-27-development.log.txt` section 2). The 2026-09-25 sanity check of the bare command (lock section 1.1) reproduced the same f(-3 dB) value.
 
@@ -105,6 +112,7 @@ Not required for class B. Observed: the f(-3 dB) value 999.999642341 Hz was iden
 6. The time-out kill matches the run's unique directory name and then the launcher's process tree. A process LTspice might start without the name in its command line and outside that tree would survive; the wrapper then reports it and fails, but does not kill it.
 7. The wrapper runs on macOS only (`getconf DARWIN_USER_TEMP_DIR`, `/usr/bin/lockf`, `defaults`).
 8. Output is developer evidence until section 9 records the accreditation (CM plan section 9.1).
+9. The per-run identity check covers the bundle build (`CFBundleShortVersionString`, exact) and `LTspice.exe` in the bottle (SHA-256). The CrossOver Wine layer ships inside the bundle and is covered by the exact bundle build; it is not hashed per run, and a change of it or of another bottle file is caught by the section 7 triggers through the lock re-observation of procedure part B (`cxbottle.conf` version). With `CWHT_LTSPICE_SUPPORT` set (a test hook) the bundle check is skipped; runs for the record are made without it.
 
 ## 7. Re-validation triggers
 
@@ -119,7 +127,7 @@ Pending. Record: `docs/reviews/PDR/checklists/tool-validation-tv-014-to-tv-019.m
 
 ## 9. Accreditation (owner)
 
-Proposed scope statement **ACC-LTSPICE-001**: "Accredited for purposes 1 to 4 for `tools/ltspice-batch.sh` at git blob `102b93d49a01b31d91088f0e2c5a23c2e7a6eddc` (commit `b41e544`) with LTspice 26.0.2 (bundle 26.0.2.1, `LTspice.exe` SHA-256 `a94eb178...793f06`) in the CrossOver bottle 25.0.1.38665, within the limitations of section 6."
+Proposed scope statement **ACC-LTSPICE-001**: "Accredited for purposes 1 to 4 for `tools/ltspice-batch.sh` at git blob `64e1c7230278363bca85542f410da5a0853a42f2` (commit `c9d2c54`, or the blob of the validation run if a later fix changes it) with LTspice 26.0.2 (bundle build 26.0.2.1 and `LTspice.exe` SHA-256 `a94eb178...793f06`, both checked by the wrapper before every run) in the CrossOver bottle 25.0.1.38665 (covered by the bundle build and re-observed by procedure part B), within the limitations of section 6."
 
 | Decision | Date | Recorded by |
 |---|---|---|
