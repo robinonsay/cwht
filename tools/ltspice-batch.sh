@@ -251,7 +251,10 @@ if [ "$MODE" = "-version" ]; then
 else
   set -- $ASCII "$MODE" "$RUN/$DECK_NAME"
 fi
-( cd "$RUN" && exec "$WINE" --bottle=ltspice --wait-children "$EXE" "$@" 9>&- ) > "$RUN/.stdout" 2> "$RUN/.stderr" &
+# Close the lock descriptor as its own step before exec (INSP-038 finding-20): with "exec cmd 9>&-" bash 3.2
+# first duplicates fd 9 to fd 10 without close-on-exec, so wine and the Wine services it starts inherit the lock
+# and keep it after the run.
+( exec 9>&-; cd "$RUN" && exec "$WINE" --bottle=ltspice --wait-children "$EXE" "$@" ) > "$RUN/.stdout" 2> "$RUN/.stderr" &
 PID=$!
 START=$(date +%s)
 TIMED_OUT=0
