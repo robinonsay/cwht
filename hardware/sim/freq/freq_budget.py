@@ -58,7 +58,13 @@ HALF_PASSBAND = F(250)               # RSK-002: 500 Hz CW filter half-bandwidth,
 F_REF_TWO_UNIT = 146 * MHz           # RSK-002 and TPM-006 report Hz at 146 MHz
 
 # Frequency-verification counter (REQ-SYS-154, REQ-SYS-182, REQ-TX-013; HZ-008 K7)
-W_WINDOW = 10 * kHz                  # REQ-SYS-182 and REQ-SYS-154 (TBR, SRR decision 40): agreement window
+W_WINDOW = 10 * kHz                  # REQ-SYS-182 (TBR, SRR decision 40): measured agreement window
+L_154 = 10 * kHz                     # REQ-SYS-154 (TBR, SRR decision 40): true-error limit ("off its set frequency by over 10 kHz")
+T_MEAS = 5 * kHz                     # PROPOSAL (INSP-056 finding-1 fix option (a)): measured detection threshold of SW-SAFE,
+                                     # a distinct L2 value: healthy disagreement < T_MEAS and T_MEAS + healthy <= L_154
+F_INJ = 12 * kHz                     # REQ-SYS-154 and REQ-SYS-182 verification notes, TC-SYS-101: injected 12 kHz offset
+T_LOCK_POLL = F(10, 1000)            # ALLOCATION (INSP-056 finding-2): lock-detect indication sampled at least every service
+                                     # period during transmission (WP-PDR-32 timing analysis confirms), s
 T_LIMIT = F(100, 1000)               # REQ-SYS-182 (TBR): RF withheld or ended within 100 ms, s
 T_RF_OFF = F(20, 1000)               # REQ-SYS-004 (TBR): RF-off within 20 ms of detection, s
 T_LEADIN = F(12, 1000)               # REQ-SYS-161 via ADR-026 (TBR): lead-in <= 12 ms after RX-to-TX changeover, s
@@ -174,8 +180,9 @@ def healthy_disagreement(route: str, interval: int) -> F:
     raise ValueError(route)
 
 
-def undetected_bound(route: str, interval: int, window: F = W_WINDOW) -> F:
-    """Largest true synthesizer error (single fault in the frequency word or PLL) that can pass."""
+def undetected_bound(route: str, interval: int, window: F = T_MEAS) -> F:
+    """Largest true synthesizer error (single fault in the frequency word or PLL) that can pass a
+    measured threshold `window` (default: the proposed SW-SAFE threshold T_MEAS)."""
     q = fc0_quant_carrier(interval)
     if route == "R1":
         return window + q + TX_MAX * (XOSC_TOL + XOSC_STAB + XOSC_AGE) * PPM
@@ -186,6 +193,19 @@ def undetected_bound(route: str, interval: int, window: F = W_WINDOW) -> F:
 
 def min_window(route: str, interval: int) -> F:
     return healthy_disagreement(route, interval)
+
+
+def min_154_limit(route: str, interval: int) -> F:
+    """Smallest REQ-SYS-154 true-error limit a threshold that never trips a healthy unit can meet:
+    the threshold must exceed the healthy disagreement, so the limit is the undetected bound at it."""
+    return undetected_bound(route, interval, window=healthy_disagreement(route, interval))
+
+
+def fc0_accuracy_ceiling(interval: int, threshold: F = T_MEAS) -> F:
+    """Largest FC0 accuracy (Hz at the counted input) for which R3 still meets both threshold
+    conditions: 8a + rest < T and T + 8a + rest <= L_154."""
+    rest = healthy_disagreement("R3", interval) - fc0_quant_carrier(interval)
+    return min(threshold - rest, L_154 - threshold - rest) / PRESCALE
 
 
 def changeover_time(alt: str, interval: int) -> F:
@@ -245,18 +265,33 @@ def run_checks(verbose: bool = True) -> list[tuple[str, bool, str]]:
     check("C-11", smax < SAMPLE_CEIL and smax < GPIN_MAX, f"prescaled sample max {float(smax/MHz):.6f} MHz < 20 MHz (REQ-TX-013) and < 50 MHz (GPIN)")
     check("C-11b", (TX_MIN / PRESCALE) > 0, f"prescaled sample min {float(TX_MIN/PRESCALE/MHz):.6f} MHz")
 
-    # C-12 .. C-15: frequency verification window and times (REQ-SYS-182, 154)
+    # C-12 .. C-18: frequency verification threshold, true-error limit and times (REQ-SYS-182, 154)
+    check("C-12w", T_MEAS <= W_WINDOW, f"measured threshold T = {float(T_MEAS)} Hz <= REQ-SYS-182 10 kHz window: RF only on measured agreement within 10 kHz")
     for iv, use in ((IV_CHANGEOVER, "changeover check before PA_EN"), (IV_TRANSMIT, "check during transmit")):
         hd3 = healthy_disagreement("R3", iv)
-        check(f"C-12.iv{iv}", hd3 < W_WINDOW, f"R3 {use}, interval {iv}: healthy disagreement {ceil1(hd3)} Hz < 10 kHz (margin {floor1(W_WINDOW-hd3)} Hz)")
+        check(f"C-12.iv{iv}", hd3 < T_MEAS, f"R3 {use}, interval {iv}: healthy disagreement {ceil1(hd3)} Hz < T {float(T_MEAS)} Hz, no false trip (margin {floor1(T_MEAS-hd3)} Hz)")
+        ub = undetected_bound("R3", iv)
+        check(f"C-16.iv{iv}", ub <= L_154, f"R3 {use}, interval {iv}: largest undetected true error T + healthy = {ceil1(ub)} Hz <= REQ-SYS-154 10 kHz (margin {floor1(L_154-ub)} Hz)")
+        inj = F_INJ - hd3
+        check(f"C-18.iv{iv}", inj > T_MEAS, f"R3 {use}, interval {iv}: TC-SYS-101 12 kHz injection measures at least {floor1(inj)} Hz > T, trips (margin {floor1(inj-T_MEAS)} Hz)")
         hd1 = healthy_disagreement("R1", iv)
-        info(f"C-13.iv{iv}", f"R1 (raw XOSC) {use}, interval {iv}: healthy disagreement {ceil1(hd1)} Hz; the 10 kHz window {'holds' if hd1 < W_WINDOW else 'does not hold (false trips possible)'}")
+        info(f"C-13.iv{iv}", f"R1 (raw XOSC) {use}, interval {iv}: healthy disagreement {ceil1(hd1)} Hz; no threshold meets both conditions with REQ-SYS-154 at 10 kHz; "
+                             f"smallest REQ-SYS-154 limit R1 supports = {ceil1(min_154_limit('R1', iv))} Hz, smallest REQ-SYS-182 window {ceil1(hd1)} Hz")
+    info("C-16a", f"FC0 accuracy ceiling at the counted input for R3 with T = {float(T_MEAS)} Hz: interval {IV_CHANGEOVER} {floor1(fc0_accuracy_ceiling(IV_CHANGEOVER))} Hz "
+                  f"(Table 541: {float(FC0[IV_CHANGEOVER][1])} Hz), interval {IV_TRANSMIT} {floor1(fc0_accuracy_ceiling(IV_TRANSMIT))} Hz (Table 541: {float(FC0[IV_TRANSMIT][1])} Hz)")
     for alt in ("A1", "A2"):
         t = changeover_time(alt, IV_CHANGEOVER)
         check(f"C-14.{alt}", t <= T_LEADIN, f"{alt} changeover check (retune + FC0 interval {IV_CHANGEOVER} + software) = {float(t*1000):.2f} ms <= 12 ms lead-in (margin {float((T_LEADIN-t)*1000):.2f} ms)")
     td = tx_detection_time(IV_TRANSMIT)
     check("C-15", td <= T_LIMIT, f"transmit detection + RF off = {float(td*1000):.1f} ms <= 100 ms (margin {float((T_LIMIT-td)*1000):.1f} ms)")
-    info("C-16", f"undetected single-fault error bound, interval {IV_CHANGEOVER}: R3 {ceil1(undetected_bound('R3', IV_CHANGEOVER))} Hz, R1 {ceil1(undetected_bound('R1', IV_CHANGEOVER))} Hz")
+    # U-1, U-2: REQ-SYS-154 "unlocked" trigger (INSP-056 finding-2)
+    for alt in ("A1", "A2"):
+        t = changeover_time(alt, IV_CHANGEOVER)
+        check(f"U-1.{alt}", t <= T_LEADIN, f"{alt} unlocked at key-down: lock-detect read after the last write and before PA_EN inside the 2 ms software allocation, "
+                                           f"with the FC0 interval {IV_CHANGEOVER} check as the second means: {float(t*1000):.2f} ms <= 12 ms lead-in")
+    tu = T_LOCK_POLL + T_RF_OFF
+    check("U-2", tu <= T_LIMIT and tu <= td, f"unlocked during transmission: lock-detect sample period {float(T_LOCK_POLL*1000):.0f} ms + RF off {float(T_RF_OFF*1000):.0f} ms (REQ-SYS-004) = "
+                                              f"{float(tu*1000):.1f} ms <= 100 ms (REQ-SYS-182 time) and <= the FC0 path C-15 {float(td*1000):.1f} ms (margin {float((T_LIMIT-tu)*1000):.1f} ms)")
     info("C-17", f"R3 plausibility bound on the XOSC/TCXO ratio = +/-{float(TCXO_PLAUS_PPM)} ppm")
     return res
 
@@ -276,7 +311,13 @@ def report(res) -> int:
     print("\nTABLE counter routes (carrier referred, Hz, TX_MAX):")
     for route in ("R1", "R3"):
         for iv in (12, 13, 14):
-            print(f"  {route} interval {iv}: healthy {ceil1(healthy_disagreement(route, iv))}, min window {ceil1(min_window(route, iv))}, undetected {ceil1(undetected_bound(route, iv))}")
+            print(f"  {route} interval {iv}: healthy {ceil1(healthy_disagreement(route, iv))}, min threshold {ceil1(min_window(route, iv))}, "
+                  f"undetected at T = 5 kHz {ceil1(undetected_bound(route, iv))} ({'T valid' if healthy_disagreement(route, iv) < T_MEAS else 'T below healthy: false trips'}), "
+                  f"smallest REQ-SYS-154 limit {ceil1(min_154_limit(route, iv))}")
+    print("\nTABLE R3 threshold interval (Hz): healthy < T <= 10 kHz - healthy")
+    for iv in (12, 13):
+        hd = healthy_disagreement("R3", iv)
+        print(f"  interval {iv}: {ceil1(hd)} < T <= {floor1(L_154 - hd)}; proposed T = {float(T_MEAS)}")
     print("\nTABLE changeover time (ms) by interval:")
     for alt in ("A1", "A2"):
         print("  " + alt + ": " + ", ".join(f"iv{iv} {float(changeover_time(alt, iv)*1000):.2f}" for iv in (12, 13, 14)))
@@ -316,19 +357,22 @@ def plot(out: Path) -> None:
     for route in ("R1", "R3"):
         for iv in (12, 13, 14):
             labels.append(f"{route}\niv {iv}")
-            healthy.append(float(healthy_disagreement(route, iv)) / 1000)
-            und.append(float(undetected_bound(route, iv)) / 1000)
+            hd = healthy_disagreement(route, iv)
+            healthy.append(float(hd) / 1000)
+            # R3: at the proposed threshold T; R1: at the smallest threshold that never trips a healthy unit
+            und.append(float(undetected_bound(route, iv) if route == "R3" else min_154_limit(route, iv)) / 1000)
     x = range(len(labels))
-    ax2.bar([i - 0.2 for i in x], healthy, width=0.4, label="healthy disagreement (must be < window)")
-    ax2.bar([i + 0.2 for i in x], und, width=0.4, label="largest undetected single-fault error")
-    ax2.axhline(10, color="tab:red", ls="--", lw=1)
-    ax2.text(2.55, 17.5, "red dashed line:\nREQ-SYS-182 window\n10 kHz (TBR)", fontsize=8, color="tab:red")
+    ax2.bar([i - 0.2 for i in x], healthy, width=0.4, label="healthy disagreement (must be < threshold T)")
+    ax2.bar([i + 0.2 for i in x], und, width=0.4, label="largest undetected true error (R3 at T; R1 at smallest T)")
+    ax2.axhline(float(L_154) / 1000, color="tab:red", ls="--", lw=1, label="REQ-SYS-154 true-error limit 10 kHz (TBR)")
+    ax2.axhline(float(T_MEAS) / 1000, color="tab:green", ls="-.", lw=1, label="R3 measured threshold T = 5 kHz (proposal)")
     ax2.set_xticks(list(x))
     ax2.set_xticklabels(labels, fontsize=8)
     ax2.set_ylabel("carrier-referred frequency (kHz)")
+    ax2.set_ylim(0, 34)
     ax2.set_title("Frequency verification (R1 raw XOSC, R3 TCXO-corrected)")
     ax2.grid(alpha=0.3, axis="y")
-    ax2.legend(fontsize=8, loc="upper right")
+    ax2.legend(fontsize=7, loc="upper right")
     fig.suptitle("cwht frequency budget (docs/design/analysis/frequency-budget.md), developer evidence", fontsize=10)
     fig.tight_layout()
     out.parent.mkdir(parents=True, exist_ok=True)

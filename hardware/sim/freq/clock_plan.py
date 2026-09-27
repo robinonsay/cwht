@@ -9,6 +9,9 @@ Run from the repository root:
     .venv/bin/python hardware/sim/freq/clock_plan.py --plot     # also render the figure
 
 Exit status 0 when every rule of ADR-031 (section "RULES") holds for the proposed plan, 1 otherwise.
+Sources that cannot be placed by frequency (status "residual": free-running, not synchronisable and
+not switchable off in operation, or with a frequency set by the board) are reported as named
+residual lines (clock-plan.md section 2.1), not as rule failures.
 Arithmetic is exact (fractions.Fraction); a clock line is the interval n*f*(1 +/- tol).
 
 Tool status (05 section 9.1): class B evidence-generating script without a TV record; its output is
@@ -36,6 +39,42 @@ IF_HALF = 5 * kHz                                   # ALLOCATION: IF window +/-5
 SIDETONE = F(600)                                   # ADR-026 / keyer research C13: default sidetone 600 Hz = BFO offset
 XOSC_PPM = F(65)                                    # RP2350 datasheet Table 596: 30 + 30 + 5 ppm
 TCXO_PPM = F("2.5")                                 # REQ-SYS-010 ceiling
+CLK_SYS = 150 * MHz                                 # 07 WP-SW-11: clk_sys = clk_peri = 150 MHz; RP2350 section 12.2.1.2: I2C ic_clk is clk_sys
+
+# I2C SCL model (RP2350 datasheet section 12.2.14, Figure 89):
+#   SCL_High_time = (HCNT + IC_FS_SPKLEN + 7) * ic_clk + SCL_Fall_time
+#   SCL_low_time  = (LCNT + 1) * ic_clk - SCL_Fall_time + SCL_Rise_time
+# so the SCL period is (HCNT + SPKLEN + LCNT + 8) * ic_clk + SCL_Rise_time; the fall time cancels.
+I2C_HCNT, I2C_LCNT, I2C_SPKLEN = 160, 199, 8        # PROPOSAL: 375 ic_clk per period; LCNT > SPKLEN + 7, HCNT > SPKLEN + 5 (12.2.14.1)
+I2C_TR_NS = (F(20), F(300))                         # ALLOCATION: SCL rise time range (pull-ups and bus capacitance, "beyond the
+                                                    # control of the DW_apb_i2c", 12.2.14 note); 300 ns is the Fast-mode ceiling
+                                                    # of the I2C-bus specification, which is not in the corpus
+
+
+def i2c_scl_range():
+    cyc = I2C_HCNT + I2C_SPKLEN + 7 + I2C_LCNT + 1
+    t0 = F(cyc) / CLK_SYS
+    lo = 1 / (t0 + I2C_TR_NS[1] * F(1, 10**9))
+    hi = 1 / (t0 + I2C_TR_NS[0] * F(1, 10**9))
+    return cyc, lo, hi
+
+
+def min_dev_to_segment(f_nom: F):
+    """Smallest relative deviation (ppm) of f_nom at which some harmonic enters the CW-only segment."""
+    best = None
+    n = 1
+    while n * f_nom * F(1, 2) <= CW_SEG[1]:
+        a = n * f_nom
+        if a < CW_SEG[0]:
+            d = (CW_SEG[0] / n - f_nom) / f_nom
+        elif a > CW_SEG[1]:
+            d = (f_nom - CW_SEG[1] / n) / f_nom
+        else:
+            d = F(0)
+        if best is None or d < best[0]:
+            best = (d, n)
+        n += 1
+    return best[0] / PPM, best[1]
 
 # IF plans (TS-001 section 3.3: IF 9.000, 9.0106 or 10.7 MHz; low- or high-side LO)
 IF_PLANS = [("9.000", "low"), ("9.000", "high"), ("9.0106", "low"), ("9.0106", "high"), ("10.7", "low"), ("10.7", "high")]
@@ -48,15 +87,18 @@ class Clock:
     f_hi: F            # upper end (== f for a fixed clock)
     tol_ppm: F
     cls: str           # "clear" (>= 4 MHz, must have no in-band line) or "dense" (< 4 MHz)
-    status: str        # fixed / proposed / option / rejected / tx-only / by-design
+    status: str        # fixed / proposed / allowed / option / rejected / tx-only / by-design / off-in-op / boot-only / residual
     source: str
     coherent: bool = False   # derived from XOSC so that 144 MHz / f is an integer (line exactly on 144.000 MHz)
+    known: bool = True       # False: frequency not in the corpus (value-of-information item), no lines computed
 
 
 def lines_in(clk: Clock, band, nmax=None):
     """Harmonic numbers n whose line interval [n f_lo (1-tol), n f_hi (1+tol)] meets band."""
     lo, hi = band
     out = []
+    if not clk.known:
+        return out
     n = 1
     top = hi / (clk.f * (1 - clk.tol_ppm * PPM))
     while n <= top and (nmax is None or n <= nmax):
@@ -94,7 +136,8 @@ def clocks_base():
         st = "proposed" if d == 8 else ("rejected" if d >= 26 else "allowed")
         c.append(Clock(f"SPI SCK 150/{d} = {float(150/F(d)):.4g} MHz", 150 * MHz / d, 150 * MHz / d, XOSC_PPM, "clear", st, "RP2350 12.3 SSPCPSR/SCR; clear-set rule"))
     # Dense-class clocks (< 4 MHz): lines unavoidable; placement rule is coherence with 144.000 MHz
-    c.append(Clock("I2C SCL 400 kHz (150 MHz / 375)", 400 * kHz, 400 * kHz, XOSC_PPM, "dense", "proposed", "RP2350 12.2 IC_FS_SCL_HCNT+LCNT = 375", True))
+    # I2C SCL: revision 0 modelled it as 150 MHz / 375 = 400 kHz, coherent. That is wrong (INSP-056 finding-4): the
+    # period includes the rise time (RP2350 section 12.2.14), so SCL is modelled below as a residual source.
     c.append(Clock("Audio and sidetone PWM 150 kHz (TOP+1 = 1000)", 150 * kHz, 150 * kHz, XOSC_PPM, "dense", "proposed", "RP2350 12.5; audio research F1 (TOP 1023 = 146.48 kHz)", True))
     c.append(Clock("Audio PWM 146.484 kHz (TOP+1 = 1024)", 150 * MHz / 1024, 150 * MHz / 1024, XOSC_PPM, "dense", "rejected", "audio research F1"))
     c.append(Clock("5 V buck sync 2.4 MHz (12 MHz / 5)", F("2.4") * MHz, F("2.4") * MHz, XOSC_PPM, "dense", "proposed", "HZ-008 K6 buck synchronised; WP-PDR-24 part", True))
@@ -102,6 +145,20 @@ def clocks_base():
     c.append(Clock("Charger boost 1.5 MHz (free-running, +/-10 %)", F("1.35") * MHz, F("1.65") * MHz, F(0), "dense", "off-in-op", "power research F20 (1.5 MHz); off while the radio is on (REQ-SYS-093, HZ-011 K2)"))
     c.append(Clock("PCM1808 SCKI 12.288 MHz (option B, 256 fs at 48 kS/s)", F("12.288") * MHz, F("12.288") * MHz, F(50), "clear", "rejected", "TS-001 option B; cw-selectivity F12"))
     c.append(Clock("PCM1808 SCKI 12.5 MHz (option B, 150 MHz / 12)", F("12.5") * MHz, F("12.5") * MHz, XOSC_PPM, "clear", "option", "this plan (fs = 48.83 kS/s)"))
+    # QSPI flash SCK (revision 1, INSP-056 finding-3): SCK = clk_sys / CLKDIV, CLKDIV 1..255, odd and even
+    # (RP2350 section 12.14.3; M0_TIMING.CLKDIV, Table 1296, reset 0x04). Runs whenever code executes in place.
+    c.append(Clock("QSPI SCK 150/4 = 37.5 MHz (M0_TIMING reset CLKDIV)", CLK_SYS / 4, CLK_SYS / 4, XOSC_PPM, "clear", "proposed", "RP2350 12.14.3, Table 1296 (CLKDIV reset 4)"))
+    c.append(Clock("QSPI SCK 150/12 = 12.5 MHz (boot ROM flash_enter_cmd_xip, CLKDIV 12)", CLK_SYS / 12, CLK_SYS / 12, XOSC_PPM, "clear", "boot-only", "RP2350 5.4.8.6: CLKDIV is set to 12 (boot and after flash program or erase)"))
+    # Residual sources (revision 1, INSP-056 findings 3 and 4): cannot be placed by frequency in operation
+    c.append(Clock("RP2350 core regulator (VREG_LX) 3 MHz typ, free-running", 3 * MHz, 3 * MHz, F(0), "dense", "residual",
+                   "RP2350 6.3.1.1 (Normal mode switching whenever the core runs); 14.9.6 Table 1441 fsw typ 3 MHz, no min or max"))
+    c.append(Clock("Pico 2 RT6150 buck-boost (PFM default; PWM with GPIO23 high)", F(0), F(0), F(0), "dense", "residual",
+                   "Pico 2 datasheet 5.4; power research F18; fsw not in the corpus (VOI-CP-2)", known=False))
+    c.append(Clock("TPA6130A2 charge pump 300 to 500 kHz (min/typ/max)", 300 * kHz, 500 * kHz, F(0), "dense", "residual",
+                   "display research F15; runs while the amplifier is enabled"))
+    _, lo, hi = i2c_scl_range()
+    c.append(Clock(f"I2C SCL {float(lo/kHz):.1f} to {float(hi/kHz):.1f} kHz (375 ic_clk + rise 20 to 300 ns)", lo, hi, XOSC_PPM, "dense", "residual",
+                   "RP2350 12.2.14 Figure 89: period set by the counts plus the rise time; non-coherent; lines only during transactions"))
     return c
 
 
@@ -133,7 +190,7 @@ def evaluate(verbose=True):
         in034 = [l for l in lines_in(c, SYS034)]
         cw = lines_in(c, CW_SEG)
         rows.append((c, rf, in034, cw))
-        active = c.status in ("fixed", "proposed", "allowed")
+        active = c.status in ("fixed", "proposed", "allowed")   # residual sources are reported by residuals(), not here
         if c.cls == "clear" and active:
             bad = [l for l in in034 if not (c.coherent and l[1] >= XOSC_LINE_EXCL[0] and l[2] <= XOSC_LINE_EXCL[1])]
             if bad:
@@ -151,6 +208,27 @@ def evaluate(verbose=True):
             if q.denominator != 1 or not c.coherent:
                 fails.append(f"RULE-3 {c.name}: not coherent with 144.000 MHz (144 MHz / f = {float(q):.4f})")
     return fails, rows, clocks
+
+
+def residuals(clocks):
+    """Named residual lines (clock-plan.md section 2.1): for each residual source, whether its lines can
+    fall in the CW-only segment and how that is established."""
+    out = []
+    for c in clocks:
+        if c.status != "residual":
+            continue
+        if not c.known:
+            out.append((c, "frequency not in the corpus: lines anywhere in 144 to 148 MHz cannot be excluded (VOI-CP-2)"))
+        elif c.f == c.f_hi and c.tol_ppm == 0:
+            ppm, n = min_dev_to_segment(c.f)
+            out.append((c, f"typical value only: a deviation of {float(ppm):.1f} ppm from {float(c.f/MHz):.3f} MHz puts harmonic n = {n} in the CW-only segment; "
+                           f"no free-running oscillator is held that close, so the segment cannot be excluded"))
+        else:
+            cw = lines_in(c, CW_SEG)
+            rf = lines_in(c, RF)
+            out.append((c, f"{len(cw)} harmonic interval(s) meet the CW-only segment (n = {cw[0][0]} to {cw[-1][0]}), {len(rf)} meet 144 to 148 MHz" if cw
+                           else f"no line in the CW-only segment over the stated range; {len(rf)} line(s) in 144 to 148 MHz"))
+    return out
 
 
 def plan_matrix(clocks):
@@ -186,7 +264,11 @@ def report():
     fails, rows, clocks = evaluate()
     print("TABLE clocks: name | class | status | lines in 144-148 MHz | lines in CW-only segment 144.010-144.100")
     for c, rf, in034, cw in rows:
-        print(f"  {c.name} | {c.cls} | {c.status} | {('coherent ' if c.coherent else '')}{len(rf)} line(s): {fmt_lines(rf) if len(rf) <= 3 else fmt_lines(rf[:2]) + ' ... ' + fmt_lines(rf[-1:])} | {fmt_lines(cw)}")
+        if c.status == "residual":
+            print(f"  {c.name} | {c.cls} | residual | see TABLE residual sources")
+            continue
+        cwtxt = fmt_lines(cw) if len(cw) <= 3 else fmt_lines(cw[:2]) + f" ... ({len(cw)} intervals)"
+        print(f"  {c.name} | {c.cls} | {c.status} | {('coherent ' if c.coherent else '')}{len(rf)} line(s): {fmt_lines(rf) if len(rf) <= 3 else fmt_lines(rf[:2]) + ' ... ' + fmt_lines(rf[-1:])} | {cwtxt}")
     print("\nTABLE SPI clear set from 150 MHz (even divisor d): d -> SCK MHz, in-band lines")
     clear = []
     for d in range(2, 64, 2):
@@ -196,6 +278,24 @@ def report():
             clear.append(d)
         print(f"  d={d}: {float(150/F(d)):.4f} MHz: {fmt_lines(n)}")
     print("  clear divisors:", clear)
+    print("\nTABLE QSPI SCK clear set from 150 MHz (CLKDIV 1..30, odd and even): CLKDIV -> SCK MHz, in-band lines")
+    qclear = []
+    for d in range(1, 31):
+        ck = Clock("x", CLK_SYS / d, CLK_SYS / d, XOSC_PPM, "clear", "x", "")
+        n = lines_in(ck, RF)
+        if not n:
+            qclear.append(d)
+        else:
+            print(f"  CLKDIV={d}: {float(150/F(d)):.4f} MHz: {fmt_lines(n)}")
+    print("  clear CLKDIV values:", qclear)
+    cyc, lo, hi = i2c_scl_range()
+    print(f"\nTABLE I2C SCL (RP2350 12.2.14): HCNT {I2C_HCNT} + SPKLEN {I2C_SPKLEN} + 7 + LCNT {I2C_LCNT} + 1 = {cyc} ic_clk = {float(F(cyc)/CLK_SYS*10**6):.3f} us, "
+          f"plus rise {float(I2C_TR_NS[0])} to {float(I2C_TR_NS[1])} ns: SCL {float(lo/kHz):.2f} to {float(hi/kHz):.2f} kHz; "
+          f"144 MHz / SCL = {float(144*MHz/hi):.1f} to {float(144*MHz/lo):.1f} (not an integer over the range: non-coherent)")
+    print("\nTABLE residual sources (named residual lines, clock-plan.md section 2.1):")
+    res = residuals(clocks)
+    for c, text in res:
+        print(f"  RESIDUAL {c.name}: {text} [{c.source}]")
     print("\nTABLE IF plans (BFO +/-1 kHz, LO, image, IF window):")
     for if_mhz, side, hits, extra, img, lo_band, s6, s4 in plan_matrix(clocks):
         print(f"  IF {if_mhz} {side}-side: image {float(img[0]/MHz):.3f}-{float(img[1]/MHz):.3f}, LO {float(lo_band[0]/MHz):.3f}-{float(lo_band[1]/MHz):.3f} MHz; "
@@ -206,7 +306,7 @@ def report():
     print()
     for f_ in fails:
         print("FAIL", f_)
-    print(f"RESULT: {len(fails)} rule failure(s) in the proposed plan")
+    print(f"RESULT: {len(fails)} rule failure(s) in the proposed plan; {len(res)} named residual source(s)")
     return 1 if fails else 0
 
 
@@ -214,19 +314,27 @@ def plot(out: Path):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    clocks = [c for c in clocks_base() if c.status in ("fixed", "proposed", "tx-only", "rejected", "off-in-op")]
+    clocks = [c for c in clocks_base() if c.status in ("fixed", "proposed", "tx-only", "rejected", "off-in-op", "residual")]
     extra = [bfo_clock("9.0106"), bfo_clock("9.000"), bfo_clock("10.7")]
     allc = clocks + extra
-    fig, ax = plt.subplots(figsize=(12, 7))
+    fig, ax = plt.subplots(figsize=(12, 7.6))
     lo, hi = 124 * MHz, 170 * MHz
     ax.axvspan(144, 148, color="tab:blue", alpha=0.10, label="2 m band 144-148 MHz")
     ax.axvspan(144.010, 144.100, color="tab:green", alpha=0.35, label="CW-only segment 144.010-144.100")
     ax.axvspan(126.0, 130.0, color="tab:orange", alpha=0.12, label="image, IF 9 MHz low side")
     ax.axvspan(135.0, 139.0, color="tab:purple", alpha=0.10, label="LO, IF 9 MHz low side")
     for i, c in enumerate(allc):
-        ls = lines_in(c, (lo, hi))
-        colour = {"fixed": "k", "proposed": "tab:green", "tx-only": "tab:gray", "rejected": "tab:red", "by-design": "tab:brown", "off-in-op": "tab:olive"}[c.status]
-        for n, a, b in ls[:400]:
+        colour = {"fixed": "k", "proposed": "tab:green", "tx-only": "tab:gray", "rejected": "tab:red", "by-design": "tab:brown", "off-in-op": "tab:olive",
+                  "residual": "m"}[c.status]
+        if not c.known:
+            ax.text(147.0, i, "frequency not in the corpus: lines cannot be placed (VOI-CP-2)", fontsize=7, color=colour, va="center")
+            continue
+        drawn = c
+        if c.status == "residual" and c.f == c.f_hi and c.tol_ppm == 0:
+            # typical value only: drawn at +/-10 % for display; the conclusion needs only 69 ppm (checker text)
+            drawn = Clock(c.name, c.f * F("0.9"), c.f * F("1.1"), F(0), c.cls, c.status, c.source)
+        ls = lines_in(drawn, (lo, hi))
+        for n, a, b in ls[:2000]:
             if (b - a) < F("0.05") * MHz:
                 ax.plot([float((a + b) / 2 / MHz)], [i], marker="|", markersize=14 if c.cls == "clear" else 5,
                         mew=2.2 if c.cls == "clear" else 0.8, color=colour, linestyle="none")
@@ -235,11 +343,12 @@ def plot(out: Path):
             if c.cls == "clear" and len(ls) < 12:
                 ax.text(float((a + b) / 2 / MHz), i + 0.3, f"{n}", fontsize=6, ha="center")
     ax.set_yticks(range(len(allc)))
-    ax.set_yticklabels([f"{c.name} [{c.status}]" for c in allc], fontsize=7)
+    ax.set_yticklabels([f"{c.name} [{c.status}]" + (" (drawn +/-10 %)" if c.status == "residual" and c.known and c.f == c.f_hi and c.tol_ppm == 0 else "") for c in allc], fontsize=7)
     ax.set_xlim(float(lo / MHz), float(hi / MHz))
     ax.set_xlabel("frequency (MHz); marks are harmonic lines n*f with tolerance; number = harmonic order")
     ax.set_title("cwht clock plan: harmonic lines against the 2 m band, image and LO bands (developer evidence)\n"
-                 "colour = status: black fixed, green proposed, red rejected, grey TX only, brown BFO by design, olive off in operation", fontsize=9)
+                 "colour = status: black fixed, green proposed, red rejected, grey TX only,\n"
+                 "brown BFO by design, olive off in operation, magenta named residual (section 2.1)", fontsize=9)
     ax.grid(alpha=0.3, axis="x")
     ax.legend(fontsize=7, loc="lower right")
     fig.tight_layout()
