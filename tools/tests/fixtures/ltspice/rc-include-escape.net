@@ -1,0 +1,5 @@
+* rc-include-escape.net: seeded hygiene fault, an include that leaves the deck directory (known-answers.json "wrapper.include_escape")
+V1 in 0 AC 1
+.include ../ltspice/sub/rc-parts.inc
+.ac dec 100 10 100k
+.end

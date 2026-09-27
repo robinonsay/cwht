@@ -1,0 +1,10 @@
+* rc-step-tran.net: first-order RC step response (tools/tests/fixtures/ltspice/known-answers.json "wrapper.transient")
+* R1 = 1k, C1 = 1u, tau = R*C = 1 ms; V1 ramps 0 to 1 V in 1 ns at t = 0 and holds.
+* Analytic: V(out)(tau) = 1 - exp(-1) = 0.6321206 V; V(out) = 0.5 V at t = tau*ln(2) = 0.6931472 ms.
+V1 in 0 PWL(0 0 1n 1)
+R1 in out 1k
+C1 out 0 1u IC=0
+.tran 0 5m 0 1u uic
+.meas TRAN vtau FIND V(out) AT 1m
+.meas TRAN thalf WHEN V(out)=0.5 RISE=1
+.end

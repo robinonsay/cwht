@@ -36,5 +36,119 @@
     "command": "-b rc-hang-error.asc",
     "expected": "no exit within timeout_s; the runner kills only its own process (pkill -f on the unique temporary directory) and records exit 143",
     "timeout_s": 30
+  },
+  "wrapper": {
+    "description": "Known answers for tools/ltspice-batch.sh (TV-014), added 2026-09-27 by the tool owner (WP-PDR-07). Expected values were written before the wrapper's validation run; the analytic values come from the circuit equations stated in each deck's header comment. The blocks above (version, netlist, simulation, seeded_error, hang_case) are the 2026-09-25 sanity check of the bare wine command and are kept unchanged; the wrapper cases below re-use their decks. Test module: tools/tests/test_ltspice_batch.py.",
+    "tool": "tools/ltspice-batch.sh",
+    "exit_codes": {
+      "pass": 0,
+      "ltspice_failed": 1,
+      "usage_or_hygiene": 2,
+      "precondition": 3,
+      "version": 4,
+      "busy": 5,
+      "timeout": 124
+    },
+    "locked_version": "26.0.2",
+    "log_first_line": "LTspice 26.0.2 for MacOS",
+    "ac": {
+      "deck": "rc-lowpass.asc",
+      "meas": "f3db",
+      "expected_hz": 999.9996,
+      "tolerance_fraction": 0.01,
+      "observed_2026_09_25_hz": 999.999642341
+    },
+    "transient": {
+      "deck": "rc-step-tran.net",
+      "vtau": {
+        "meas": "vtau",
+        "expected_v": 0.6321206,
+        "tolerance_fraction": 0.001,
+        "basis": "1 - exp(-1) for V(out) at t = tau = R1*C1 = 1 ms"
+      },
+      "thalf": {
+        "meas": "thalf",
+        "expected_s": 0.0006931472,
+        "tolerance_fraction": 0.001,
+        "basis": "tau * ln(2) for V(out) = 0.5 V"
+      }
+    },
+    "include": {
+      "deck": "rc-include.net",
+      "included": "sub/rc-parts.inc",
+      "meas": "f3db",
+      "expected_hz": 999.9996,
+      "tolerance_fraction": 0.01
+    },
+    "seeded_deck_error": {
+      "deck": "rc-seeded-error.net",
+      "exit": 1,
+      "stderr_must_contain": "More than one analysis specified."
+    },
+    "seeded_floating_net": {
+      "deck": "rc-nc-error.asc",
+      "basis": "rc-lowpass.asc with the wire from R1 pin 2 to C1 removed, so R1 pin 2 is the floating net NC_01",
+      "netlist_exit": 1,
+      "simulate_exit": 1,
+      "stderr_must_contain": "NC_01"
+    },
+    "seeded_include_escape": {
+      "deck": "rc-include-escape.net",
+      "exit": 2,
+      "stderr_must_contain": "'..' component refused"
+    },
+    "seeded_long_path": {
+      "deck_name_length": 215,
+      "exit": 2,
+      "stderr_must_contain": "limit 259"
+    },
+    "seeded_version": {
+      "env": {
+        "CWHT_LTSPICE_VERSION": "26.1.1"
+      },
+      "exit": 4
+    },
+    "seeded_not_installed": {
+      "env": {
+        "CWHT_LTSPICE_SUPPORT": "/nonexistent"
+      },
+      "exit": 3,
+      "stderr_must_contain": "not installed"
+    },
+    "seeded_ini": {
+      "with_key": "ini-with-key.ini",
+      "without_key": "ini-without-key.ini",
+      "ascii_appended": "ini-ascii-key.ini",
+      "exit_without_key": 3,
+      "exit_ascii_appended": 3,
+      "basis": "UTF-16LE with CRLF like the bottle file; ini-ascii-key.ini is the 8-bit form the withdrawn research precondition would have appended, which the iconv read does not accept (lock section 1.4 finding 1)"
+    },
+    "seeded_busy": {
+      "lock_held_by_test": true,
+      "env": {
+        "CWHT_LTSPICE_LOCK_WAIT": "2"
+      },
+      "exit": 5
+    },
+    "timeout_guard": {
+      "deck": "rc-hang-error.asc",
+      "timeout_s": 15,
+      "exit": 124,
+      "stderr_must_contain": "none left",
+      "sentinel": "a process whose command line names a different cwht-lts.* directory survives the kill"
+    },
+    "stale_outputs": {
+      "deck": "rc-step-tran.net",
+      "planted": [
+        "rc-step-tran.op.raw",
+        "rc-step-tran.plt"
+      ],
+      "removed": [
+        "rc-step-tran.op.raw"
+      ],
+      "kept": [
+        "rc-step-tran.plt"
+      ]
+    }
   }
 }
