@@ -8,7 +8,7 @@
 | Build increment | FW-B1 (07 section 3.2) |
 | Criticality | safety-critical by inheritance (07 section 14.1 drivers row: TIMER alarms) |
 | Design record | ADR-053 (`docs/decisions/adr/ADR-053-wp-sw-01-timer0-time-base-and-alarms.md`), Proposed |
-| Product | rustos branch `cwht/wp-sw-01` at commit `a1cd160` (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
+| Product | rustos branch `cwht/wp-sw-01` at commit `58fe739` (revision 2, Major fixes of review iteration 1; revision 1 at `a1cd160`) (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
 | Status | Open: phase 1 done 2026-09-27; phases 2 to 5 open |
 | Author | Claude (WP-PDR-41 author invocation, firmware developer role) |
 
@@ -41,6 +41,14 @@
   - CK-CODE-H2: **No** until phase 2: the contract test file and the dev-board check binary are test-author files (07 section 3.5), and the independent test author has not yet run.
   - CK-CODE-H3: the MC/DC independence pairs are in the author developer tests, named in comments above the pair; the `// @mcdc` tag convention is a cwht convention and not applied in rustos.
 
+## Phase 1, revision 2: author, Major fixes of review iteration 1 (done 2026-09-27)
+
+- Findings addressed: INSP-097 finding-1 (Major; INSP-103 concurred). Minor findings of the iteration 1 records are not addressed (plan rule C1); they are fixed at a later revision or become liens after the first APPROVED verdict.
+- Product: rustos `cwht/wp-sw-01` at `58fe739` (revision 1 `a1cd160` stays an ancestor, so the delta is `git diff a1cd160 58fe739`; merge commits bring each lower branch of the stack in, because each branch is merged by the owner on its own).
+- Merge: `698929d` brings `cwht/wp-sw-09` at `c6e5100` into this branch; `lib.rs` merged without conflict.
+- Fix: `after_arm` reports `Missed` for `armed && now >= at` (revision 1: `now > at`); truth table and MC/DC pair updated (`after_arm(true, false, 200, 200)` is `Missed`, `(199, 200)` the `Pending` side); a new `schedule` test (still armed at the time equal to the target gives `Due` and disarms); ALM-1 and ALM-2 worded against the clock at the start of the call (INSP-097 finding-2 wording, which the finding-1 fix names). Files: `api/src/time/mod.rs`, `timer/mod.rs`, `timer/tests.rs`, `timer/timer_tests.rs`.
+- Evidence: 75 `pico2` host tests and the `api` tests pass; target build clean.
+
 ## Phase 2: test author (open)
 
 - Independent test author (never this sprint's author; 07 section 3.4): contract test: `api/tests/time_contract.rs` (author draft, 5 tests); dev-board check: `firmware/devcheck/src/bin/timer_check.rs`.
@@ -49,7 +57,7 @@
 
 ## Phase 3: review (open)
 
-- Code: `docs/reviews/PDR/checklists/code-wp-sw-01.md` and `code-wp-sw-01-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-01` at `a1cd160`.
+- Code: `docs/reviews/PDR/checklists/code-wp-sw-01.md` and `code-wp-sw-01-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-01` at `a1cd160` (iteration 1); iteration 2 (delta) reviews `58fe739`.
 - Design record: `docs/reviews/PDR/checklists/adr-053-wp-sw-01-timer0.md` with its software assurance pair, product `docs/decisions/adr/ADR-053-wp-sw-01-timer0-time-base-and-alarms.md` at the blob named in the review brief.
 
 ## Phase 4: gate and assurance (open)

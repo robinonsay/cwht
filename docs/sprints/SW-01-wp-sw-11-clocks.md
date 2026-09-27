@@ -8,7 +8,7 @@
 | Build increment | FW-B1 (07 section 3.2) |
 | Criticality | safety-critical (07 section 14.1 drivers row; 03 section 4.3 clocks and PLL) |
 | Design record | ADR-051 (`docs/decisions/adr/ADR-051-wp-sw-11-clocks.md`), Proposed |
-| Product | rustos branch `cwht/wp-sw-11` at commit `213c536` (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
+| Product | rustos branch `cwht/wp-sw-11` at commit `4a8e825` (revision 2, Major fixes of review iteration 1; revision 1 at `213c536`) (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
 | Status | Open: phase 1 done 2026-09-27; phases 2 to 5 open |
 | Author | Claude (WP-PDR-41 author invocation, firmware developer role) |
 
@@ -42,6 +42,14 @@
   - CK-CODE-H2: **No** until phase 2: the contract test file and the dev-board check binary are test-author files (07 section 3.5), and the independent test author has not yet run.
   - CK-CODE-H3: the MC/DC independence pairs are in the author developer tests, named in comments above the pair; the `// @mcdc` tag convention is a cwht convention and not applied in rustos.
 
+## Phase 1, revision 2: author, Major fixes of review iteration 1 (done 2026-09-27)
+
+- Findings addressed: INSP-095 finding-1 (Major; INSP-106 concurred). Minor findings of the iteration 1 records are not addressed (plan rule C1); they are fixed at a later revision or become liens after the first APPROVED verdict.
+- Product: rustos `cwht/wp-sw-11` at `4a8e825` (revision 1 `213c536` stays an ancestor, so the delta is `git diff 213c536 4a8e825`; merge commits bring each lower branch of the stack in, because each branch is merged by the owner on its own).
+- Fix: step 3 clears `CLK_SYS_CTRL.SRC` alone through the clear alias and polls `SELECTED`; `AUXSRC` is first written in step 7, with `clk_sys` on `clk_ref`; step 8 clears `CLK_PERI_CTRL.ENABLE` alone, waits for `ENABLED` to clear, then writes `AUXSRC`, the divider, and sets `ENABLE` through the set alias (datasheet section 8.1.2.2). Files: `clocks/clocks.rs`, `clocks/clocks_tests.rs`, `clocks/mod.rs` (module doc), `clocks/regs.rs` (`CLK_SYS_CTRL_SRC`).
+- Tests: the register file starts from the datasheet reset values (`CLK_SYS_CTRL` `0x41`, `CLK_REF_CTRL`, `CLK_PERI_CTRL`); a new test replays the access log from the reset state and from a restart state and fails on any `AUXSRC` change while the generator may be on its aux path; two should-panic tests show the check rejects the revision 1 writes; the revision 1 `clocks.rs` fails the new test and the golden sequence (mutation run). 37 host tests pass.
+- File lengths (CS-18): `clocks.rs` 466, `clocks_tests.rs` 499, `mod.rs` 323, `regs.rs` 222; `lib.rs` unchanged by this revision.
+
 ## Phase 2: test author (open)
 
 - Independent test author (never this sprint's author; 07 section 3.4): contract test: none (no `api` trait; 07 section 19 row WP-SW-11); dev-board check: `firmware/devcheck/src/bin/clocks_check.rs`.
@@ -50,7 +58,7 @@
 
 ## Phase 3: review (open)
 
-- Code: `docs/reviews/PDR/checklists/code-wp-sw-11.md` and `code-wp-sw-11-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-11` at `213c536`.
+- Code: `docs/reviews/PDR/checklists/code-wp-sw-11.md` and `code-wp-sw-11-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-11` at `213c536` (iteration 1); iteration 2 (delta) reviews `4a8e825`.
 - Design record: `docs/reviews/PDR/checklists/adr-051-wp-sw-11-clocks.md` with its software assurance pair, product `docs/decisions/adr/ADR-051-wp-sw-11-clocks.md` at the blob named in the review brief.
 
 ## Phase 4: gate and assurance (open)

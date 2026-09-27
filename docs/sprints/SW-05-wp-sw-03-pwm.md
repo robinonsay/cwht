@@ -8,7 +8,7 @@
 | Build increment | FW-B1 (07 section 3.2) |
 | Criticality | safety-critical by inheritance (07 section 14.1 drivers row: PWM, sidetone and audio level) |
 | Design record | ADR-055 (`docs/decisions/adr/ADR-055-wp-sw-03-pwm-output.md`), Proposed |
-| Product | rustos branch `cwht/wp-sw-03` at commit `6df18af` (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
+| Product | rustos branch `cwht/wp-sw-03` at commit `48e07ec` (revision 2, Major fixes of review iteration 1; revision 1 at `6df18af`) (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
 | Status | Open: phase 1 done 2026-09-27; phases 2 to 5 open |
 | Author | Claude (WP-PDR-41 author invocation, firmware developer role) |
 
@@ -41,6 +41,16 @@
   - CK-CODE-H2: **No** until phase 2: the contract test file and the dev-board check binary are test-author files (07 section 3.5), and the independent test author has not yet run.
   - CK-CODE-H3: the MC/DC independence pairs are in the author developer tests, named in comments above the pair; the `// @mcdc` tag convention is a cwht convention and not applied in rustos.
 
+## Phase 1, revision 2: author, Major fixes of review iteration 1 (done 2026-09-27)
+
+- Findings addressed: INSP-099 finding-1 (Major) and INSP-105 finding-1 (Major). Minor findings of the iteration 1 records are not addressed (plan rule C1); they are fixed at a later revision or become liens after the first APPROVED verdict.
+- Product: rustos `cwht/wp-sw-03` at `48e07ec` (revision 1 `6df18af` stays an ancestor, so the delta is `git diff 6df18af 48e07ec`; merge commits bring each lower branch of the stack in, because each branch is merged by the owner on its own).
+- Merge: `9df9c57` brings `cwht/wp-sw-02` at `38434b2` into this branch; `lib.rs` merged without conflict.
+- Fix (INSP-099 finding-1): `update_on` writes `CC` and, on an on/off change, `CTR = TOP`, so the new `CC` latches within one count (at most 1.71 µs at 150 MHz) instead of at the next wrap (up to 10 ms at 100 Hz); a duty change still writes `CC` alone. PWM-4 of `api::pwm` states a switching latency. ADR-055 section 2.1 gives the latency of every operation against frequency, the click argument, the meaning of the REQ-SW-KEYER-033 gate, and the allocation of the K4 envelope and DC step and the K5 idle to `SW-AUDIO` under TS-010.
+- Fix (INSP-105 finding-1): `release` asserts the PWM reset through the set alias before clearing it, so every start begins with every slice stopped at `CC = 0`; PWM-6 covers restarts; the PWM ICD bring-up order is updated. Files: `api/src/pwm/mod.rs`, `docs/icd/rp2350/pwm/01_overview.md`, `pwm/pwm.rs`, `pwm/pwm_tests.rs`.
+- Evidence at this commit, the top of the stack: 101 `pico2` host tests pass natively and under Miri (`cargo +nightly-2026-08-24 miri test -p pico2 --lib`) and with rustc 1.98.0; `api` tests pass; dev and release target builds without warnings; `tools/complexity_gate.py --max 15` passes (258 functions, max CC 12); `tools/unsafe_audit.py --check` passes (46 sites, all with `// SAFETY:`, unsigned until CDR; audit list written to the author's scratch area, not committed).
+- Cross item for the writer of the SW-KEYER test cases (WP-PDR-35): TC-SW-KEYER-039 adds "the PWM carrier period" to its tolerance; this design has no carrier, and the added term is one counter step (ADR-055 section 2.1).
+
 ## Phase 2: test author (open)
 
 - Independent test author (never this sprint's author; 07 section 3.4): contract test: `api/tests/pwm_contract.rs` (author draft, 5 tests); dev-board check: `firmware/devcheck/src/bin/pwm_check.rs`.
@@ -49,7 +59,7 @@
 
 ## Phase 3: review (open)
 
-- Code: `docs/reviews/PDR/checklists/code-wp-sw-03.md` and `code-wp-sw-03-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-03` at `6df18af`.
+- Code: `docs/reviews/PDR/checklists/code-wp-sw-03.md` and `code-wp-sw-03-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-03` at `6df18af` (iteration 1); iteration 2 (delta) reviews `48e07ec`.
 - Design record: `docs/reviews/PDR/checklists/adr-055-wp-sw-03-pwm-output.md` with its software assurance pair, product `docs/decisions/adr/ADR-055-wp-sw-03-pwm-output.md` at the blob named in the review brief.
 
 ## Phase 4: gate and assurance (open)

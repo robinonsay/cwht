@@ -8,7 +8,7 @@
 | Build increment | FW-B1 (07 section 3.2) |
 | Criticality | safety-critical by inheritance (07 section 14.1 drivers row: critical section) |
 | Design record | ADR-052 (`docs/decisions/adr/ADR-052-wp-sw-09-interrupts.md`), Proposed |
-| Product | rustos branch `cwht/wp-sw-09` at commit `9305f59` (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
+| Product | rustos branch `cwht/wp-sw-09` at commit `c6e5100` (revision 2, Major fixes of review iteration 1; revision 1 at `9305f59`) (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
 | Status | Open: phase 1 done 2026-09-27; phases 2 to 5 open |
 | Author | Claude (WP-PDR-41 author invocation, firmware developer role) |
 
@@ -41,6 +41,15 @@
   - CK-CODE-H2: **No** until phase 2: the contract test file and the dev-board check binary are test-author files (07 section 3.5), and the independent test author has not yet run.
   - CK-CODE-H3: the MC/DC independence pairs are in the author developer tests, named in comments above the pair; the `// @mcdc` tag convention is a cwht convention and not applied in rustos.
 
+## Phase 1, revision 2: author, Major fixes of review iteration 1 (done 2026-09-27)
+
+- Findings addressed: INSP-096 finding-1 (Major, CS-18). Minor findings of the iteration 1 records are not addressed (plan rule C1); they are fixed at a later revision or become liens after the first APPROVED verdict.
+- Product: rustos `cwht/wp-sw-09` at `c6e5100` (revision 1 `9305f59` stays an ancestor, so the delta is `git diff 9305f59 c6e5100`; merge commits bring each lower branch of the stack in, because each branch is merged by the owner on its own).
+- Merge: `8b67385` brings `cwht/wp-sw-11` at `4a8e825` (INSP-095 finding-1 fix) into this branch; no conflict.
+- Fix: the 52 device-interrupt vector entries, their extern block and the `Vector` type move from `lib.rs` to the new `irq/vectors.rs` (target builds only); `VECTOR_TABLE` stays in `lib.rs` and fills slots 16 to 67 through the `const fn` `irq::with_device_interrupts`. Files: `lib.rs`, `irq/mod.rs`, `irq/vectors.rs`.
+- Evidence: 49 host tests pass; target build clean; `rustfmt` and `clippy::pedantic` clean on the `irq` files.
+- File lengths (CS-18): `lib.rs` 564 (588 before this package, 704 at revision 1; the remaining excess over 500 predates the package and is reported to the owner as a rustos item), `irq/mod.rs` 394, `irq/vectors.rs` 163.
+
 ## Phase 2: test author (open)
 
 - Independent test author (never this sprint's author; 07 section 3.4): contract test: `api/tests/irq_contract.rs` (author draft, 4 tests); dev-board check: `firmware/devcheck/src/bin/irq_check.rs`.
@@ -49,7 +58,7 @@
 
 ## Phase 3: review (open)
 
-- Code: `docs/reviews/PDR/checklists/code-wp-sw-09.md` and `code-wp-sw-09-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-09` at `9305f59`.
+- Code: `docs/reviews/PDR/checklists/code-wp-sw-09.md` and `code-wp-sw-09-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-09` at `9305f59` (iteration 1); iteration 2 (delta) reviews `c6e5100`.
 - Design record: `docs/reviews/PDR/checklists/adr-052-wp-sw-09-interrupts.md` with its software assurance pair, product `docs/decisions/adr/ADR-052-wp-sw-09-interrupts.md` at the blob named in the review brief.
 
 ## Phase 4: gate and assurance (open)

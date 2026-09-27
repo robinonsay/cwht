@@ -8,7 +8,7 @@
 | Build increment | FW-B1 (07 section 3.2) |
 | Criticality | safety-critical by inheritance (07 section 14.1 drivers row: GPIO (SIO)) |
 | Design record | ADR-054 (`docs/decisions/adr/ADR-054-wp-sw-02-sio-input-snapshot.md`), Proposed |
-| Product | rustos branch `cwht/wp-sw-02` at commit `f85a190` (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
+| Product | rustos branch `cwht/wp-sw-02` at commit `38434b2` (revision 2, Major fixes of review iteration 1; revision 1 at `f85a190`) (a scratch worktree of the rustos repository; not pushed, not merged; the owner merges as rustos maintainer, OD-23) |
 | Status | Open: phase 1 done 2026-09-27; phases 2 to 5 open |
 | Author | Claude (WP-PDR-41 author invocation, firmware developer role) |
 
@@ -40,6 +40,15 @@
   - CK-CODE-H2: **No** until phase 2: the contract test file and the dev-board check binary are test-author files (07 section 3.5), and the independent test author has not yet run.
   - CK-CODE-H3: the MC/DC independence pairs are in the author developer tests, named in comments above the pair; the `// @mcdc` tag convention is a cwht convention and not applied in rustos.
 
+## Phase 1, revision 2: author, Major fixes of review iteration 1 (done 2026-09-27)
+
+- Findings addressed: INSP-098 finding-1 (Major, CS-18; INSP-104 concurred). Minor findings of the iteration 1 records are not addressed (plan rule C1); they are fixed at a later revision or become liens after the first APPROVED verdict.
+- Product: rustos `cwht/wp-sw-02` at `38434b2` (revision 1 `f85a190` stays an ancestor, so the delta is `git diff f85a190 38434b2`; merge commits bring each lower branch of the stack in, because each branch is merged by the owner on its own).
+- Merge: `5d4637f` brings `cwht/wp-sw-01` at `58fe739` into this branch; no conflict.
+- Fix: `input_snapshot`, the `NotInput` error (now its own type `snapshot::NotInput`), `Rp2350GpioIn::BIT` and the input recording (`track_input`) move to `snapshot.rs`; in `gpio.rs` the input record replaces the `_private` field and `input_from_handle` calls `track_input` in one line. Files: `gpio/gpio.rs`, `gpio/snapshot.rs`.
+- Evidence: 81 host tests pass; target build clean; `rustfmt` and `clippy::pedantic` clean on `snapshot.rs` and on the changed `gpio.rs` lines.
+- File lengths (CS-18): `gpio.rs` 512, as before this package (546 at revision 1; the excess over 500 predates the package and is reported to the owner as a rustos item); `snapshot.rs` 177.
+
 ## Phase 2: test author (open)
 
 - Independent test author (never this sprint's author; 07 section 3.4): contract test: `api/tests/gpio_snapshot_contract.rs` (author draft, 5 tests); dev-board check: `firmware/devcheck/src/bin/sio_check.rs`.
@@ -48,7 +57,7 @@
 
 ## Phase 3: review (open)
 
-- Code: `docs/reviews/PDR/checklists/code-wp-sw-02.md` and `code-wp-sw-02-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-02` at `f85a190`.
+- Code: `docs/reviews/PDR/checklists/code-wp-sw-02.md` and `code-wp-sw-02-software-assurance.md` (plan WP-PDR-41 "Records"), product rustos `cwht/wp-sw-02` at `f85a190` (iteration 1); iteration 2 (delta) reviews `38434b2`.
 - Design record: `docs/reviews/PDR/checklists/adr-054-wp-sw-02-sio-input-snapshot.md` with its software assurance pair, product `docs/decisions/adr/ADR-054-wp-sw-02-sio-input-snapshot.md` at the blob named in the review brief.
 
 ## Phase 4: gate and assurance (open)
