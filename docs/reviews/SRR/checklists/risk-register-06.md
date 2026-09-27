@@ -4,11 +4,12 @@ checklist: peer-review-checklist-risk
 checklist_revision: A
 checklist_file: docs/reviews/SRR/checklists/risk-register-06.md
 product: docs/risk/register.json
-# product_commit: HEAD at iteration 3 (review baseline adcfe09); iteration 1 and 2 base commit was 28e49e6
-product_commit: "adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1"
-# product_files: committed blobs reviewed at iteration 3 (git rev-parse HEAD:<path> at adcfe09, 2026-09-26);
+# product_commit: HEAD at iteration 3 re-issue 2 (post-SRR-ruling delta, review baseline ebe5873); iteration 3 re-issue 1 baseline was adcfe09; iteration 1 and 2 base commit was 28e49e6
+product_commit: "ebe5873a5151c19e141958e31cf9559f78f5154c"
+# product_files: committed blobs reviewed at iteration 3 re-issue 2 (git rev-parse HEAD:<path> at ebe5873, 2026-09-26; register changed only in 9bdf33c since adcfe09, 06 unchanged);
+# iteration 3 re-issue 1 blobs (adcfe09): register.json 57f64995, register.md 77b864a0, 06 7a92d21f;
 # iteration 2 working-tree blobs: register.json 2903601e, register.md 761f3731, 06 7a92d21f (06 unchanged)
-product_files: ["docs/risk/register.json@57f64995da80f0d20e6232039b6cba897d46c51b", "docs/risk/register.md@77b864a0e8c82b133fa86a010640192d4731c223", "docs/process/06-risk-and-decision-analysis.md@7a92d21f24a1733d70ae083576e708274bfd1a6d"]
+product_files: ["docs/risk/register.json@0c25c0c5b6ca801b02e47c29c19bb8ed44aa5c79", "docs/risk/register.md@a3a983e5cdf7e769666fab26d5f2e7f3b373db1f", "docs/process/06-risk-and-decision-analysis.md@7a92d21f24a1733d70ae083576e708274bfd1a6d"]
 product_size: 65 active risks and 159 candidates; plan 06 (17 sections) (iteration 1: 59 and 130)
 sprint: SRR-prep
 author_agent: "author:risk-manager (Claude main session, lead SE and risk manager; register 0.5.1-pre-srr, SRR readiness items H9 and F6)"
@@ -21,18 +22,18 @@ readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
-# finding-17 is new at iteration 3; findings_deferred counts the two liens (finding-16, finding-17: Lien, fix before PDR)
+# finding-17 is new at iteration 3, finding-18 at iteration 3 re-issue 2; findings_deferred counts the three liens (finding-16, finding-17, finding-18: Lien, fix before PDR)
 findings_major: 4
-findings_minor: 13
+findings_minor: 14
 findings_open: 0
 findings_fixed: 15
 findings_verified: 0
-findings_deferred: 2
+findings_deferred: 3
 deferred_rids: []
-# iteration 3 answers (iteration 2: CK-RSK-A10, CK-REQ-G1; iteration 1: CK-RSK-A1, A2, A3, A4, A7, A8, A10, A11, CK-REQ-G1, G2, G4, G6)
-items_no: [CK-REQ-G1]
-effort_turns: 96
-effort_minutes: 140
+# iteration 3 re-issue 2 answers (re-issue 1: CK-REQ-G1; iteration 2: CK-RSK-A10, CK-REQ-G1; iteration 1: CK-RSK-A1, A2, A3, A4, A7, A8, A10, A11, CK-REQ-G1, G2, G4, G6)
+items_no: [CK-RSK-A2, CK-REQ-G1]
+effort_turns: 116
+effort_minutes: 170
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -319,10 +320,75 @@ The record can close when finding-9 and finding-16 are fixed or deferred by the 
 
 **Cross items (outside the product).** None new. Iteration 2 cross items (1) to (5) are done at HEAD.
 
+## Post-SRR-ruling delta (iteration 3 re-issue 2, independent reviewer, 2026-09-26)
+
+**Scope and independence.** `reviewer:risk`, a new invocation of the reviewer role; it authored no register entry, no R16 edit and no part of 06, and it edited no product file (this record only). Trigger: the owner approved the SRR on 2026-09-26, disposition Approved with liens L-1 to L-7 (`docs/reviews/SRR/minutes.md` line 47, "I approve of this and the SRR."), and ruled every key decision K1 to K17 and every consent-agenda decision as recommended (minutes line 21; `docs/reviews/SRR/decisions-for-owner.md`, the Recommendation cell is the ruling). Package item R16 (`docs/reviews/SRR/package.md` section 2.1) applies the rulings. Review baseline: HEAD `ebe5873`. `git log adcfe09..HEAD -- docs/risk/register.json docs/risk/register.md docs/process/06-risk-and-decision-analysis.md` lists one commit, `9bdf33c`, which moves `register.json` from blob `57f64995` to `0c25c0c5b6ca801b02e47c29c19bb8ed44aa5c79` and `register.md` from `77b864a0` to `a3a983e5cdf7e769666fab26d5f2e7f3b373db1f`; 06 is unchanged (blob `7a92d21f`). Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: SRR decision, Red plan approval, `plan_approval`, risk register owner ruling) ran before any `grep -n`, which then only pinned lines in the decision memo, the minutes, 06 and ADR-015. Convergence rule of 2026-09-26 (charter section 4 item 3): a new Minor is a lien fixed before PDR and does not block the baseline.
+
+**Delta verification of `9bdf33c` (the register hunks only; the `semp.md` and `rmm.json` hunks belong to INSP-005 and the classification records).**
+
+| Change | Ruling cited | Checked against | Result |
+|---|---|---|---|
+| `mitigation.plan_approval` = {`decision_memo`: `docs/reviews/SRR/decision-memo.md`, `date`: 2026-09-26} added to 32 risks; no other field of `register.json` changed (the diff has 32 hunks, each the `fallback` line plus the new `plan_approval` line) | SRR decision 14 (K4, owner ruling 2026-09-26): "Approve all 32 plans; RSK-009 closes on its closure criteria (target PDR)" | Read-only Python over the HEAD blob: the 32 approved risks are exactly the active Red set (score 12 or more, or safety 5 at likelihood 2 or more), no Yellow or Green risk carries an approval; the memo exists and its section 8.4 row 14 (line 374) names this record; `docs/risk/schema.json` `plan_approval` requires `decision_memo` and `date`, both present; `render_risk.py --check --gate PDR` reports no `plan_approval` error (its 76 errors are the expected pre-PDR Track pass and REQ/HZ link errors of 06 sections 10 and 11) | Correct and complete |
+| RSK-009 left open, S2 to S4 due PDR, closure criteria unchanged | SRR decision 14 (RSK-009 part) | RSK-009 status Proposed, strategy Mitigate, S1 Done, S2 to S4 Planned PDR | Correct |
+| `register.md` re-rendered: 32 "Plan approval" rows change from "pending (owner approves Red plans at the next review, process section 8)" to "2026-09-26, memo docs/reviews/SRR/decision-memo.md" (32 insertions, 32 deletions) | SRR decision 14 | `render_risk.py --check`: "register.md is current", exit 0 | Correct |
+
+New-defect scan of the `9bdf33c` hunks: no em dash in `register.json` or `register.md` (count 0); no history entry rewritten (every risk has the same number of `history` entries as at `adcfe09`); `last_assessed` unchanged, consistent with the last `history` entry (tool). No new Major defect.
+
+**Rulings that touch the register but were not applied at HEAD.** Checked against the decision memo line 378 ("Residual risks accepted by the owner") and the register steps whose output is a ruling of the SRR board (06 section 12, "Open steps due at the gate being prepared"):
+
+| Decision (owner ruling 2026-09-26) | Register at HEAD `ebe5873` | Expected by 06 or by the step's own text |
+|---|---|---|
+| 32 (K4): accept SAR by analogy, record RSK-030 as an accepted risk | RSK-030 status *Proposed*, strategy *Accept*, no `acceptance` record; S1 (due SRR) *InProgress*; last `history` entry 2026-09-25 | S1 action: "On acceptance Claude sets this risk Accepted with the acceptance record (docs/reviews/SRR/decision-memo.md, the date, residual score 4)"; 06 section 8 strategy table, *Accept* row: "after the decision, status *Accepted* with the acceptance record" |
+| 17 (K5): accept ADR-015 (ADR-015 Status row "Accepted" at HEAD, commit `2362183`) | RSK-028 S2 "Owner decision on ADR-015 at SRR recorded in the decision memo", due SRR, *InProgress*; RSK-016 rationale still says "owner decision 17 disposes ADR-015 (RSK-028 S2)" in the future tense | S2 Done with the memo as evidence and a dated `history` entry |
+| 9 and 40 (K1): frequency control safety-critical (OQ-SAF-014); adopt REQ-SYS-182, independent frequency verification (HZ-008 K7, OQ-SAF-013) | RSK-046 S1 "Owner decisions at SRR on ..." due SRR, *InProgress*; rationale still frames decision 40 as a recommendation | S1 Done with the memo as evidence; RSK-046 re-assessed on the adopted control with a `history` entry |
+| 11 (K4): accept hardware TRL 3 at the CDR procurement release as a recorded residual of RSK-008 | RSK-008 has no `history` entry or note recording the accepted residual | A dated `history` note naming decision 11 and the memo (RSK-008 stays Red under *Mitigate*, so no *Accepted* status) |
+| 6 and 8 (K3): SWE-219 relief, RSK-010 carries the residual | RSK-010 condition already reads "approved by the owner at SRR" | Consistent; no change needed |
+| 55, 66, 68, 85, 95 (consent and K8): RSK-058, RSK-039 S1, RSK-040, RSK-059, RSK-015 and RSK-022 as the carriers named in the rulings | Carriers exist; their steps are due PDR or later and already state the recommended direction | Consistent; no change needed |
+
+<a id="finding-18"></a>**finding-18 (new), Minor, Lien: fix before PDR.** Items CK-RSK-A2, CK-RSK-A10. Location: RSK-030 (`status`, `acceptance`, S1), RSK-028 S2, RSK-046 S1 and its likelihood rationale, RSK-016 likelihood rationale, RSK-008 `history`; all 65 risks' `status`. Description: `9bdf33c` applies decision 14 only. (a) Decision 32 accepted RSK-030's residual (memo line 378), but the risk is not *Accepted* and has no `acceptance` record, which its own S1 and the 06 section 8 *Accept* row require after the decision. (b) The three steps whose output is an SRR ruling (RSK-028 S2 on decision 17, RSK-030 S1 on decision 32, RSK-046 S1 on decisions 9 and 40) are still *InProgress* and due SRR after the ruling was recorded; by the 06 section 12 threshold "Open steps overdue (due at an earlier gate)" they become RIDs at PDR, Major for RSK-046 (Red, carries HZ-008) and RSK-030 (carries HZ-001). (c) Decision 11's accepted residual is not noted on RSK-008. (d) All 65 risks remain *Proposed* although this record's Analyze check has passed all 65 since iteration 2 (06 section 9, Analyze row: "status moves *Proposed* to *Open* when the reviewer's filled checklist ... records the risk as passing"; 06 section 16 item 2). Why Minor, not Major: the rulings themselves are recorded with authority in the signed decision memo (charter section 4 item 4), no score, band, plan or hazard link is wrong, and `render_risk.py --gate SRR --hazards` passes; the defect is a register record lagging its approving record, fixed by a Track pass before the PDR readiness declaration. Fix (risk manager): one SRR Track pass that sets RSK-030 *Accepted* with `acceptance` {decision memo, 2026-09-26, residual score 4}; sets RSK-028 S2, RSK-030 S1 and RSK-046 S1 Done with the memo as evidence; re-assesses RSK-046 on the adopted REQ-SYS-182 control; adds a decision 11 note to RSK-008; restates the RSK-016 and RSK-046 rationales in the past tense; moves the risks that pass this record from *Proposed* to *Open* (06 section 9; the software lead sets the findings Verified first, as iteration 2 recorded); each change with a dated `history` entry citing its decision number.
+
+**Findings closed by the rulings.** None was open: finding-1 to finding-4 (the four Major findings) were Closed at iteration 2 and re-checked on committed blobs at iteration 3; the `9bdf33c` hunks touch only the `plan_approval` field and re-open none of finding-1 to finding-15. The rulings resolve no lien: finding-16 and finding-17 concern 06 section 15 and 17 rows, and 06 is unchanged (blob `7a92d21f`), so both remain liens due PDR. Decision 14 completes the CK-RSK-A5 condition recorded at iteration 1 ("becomes a `--gate PDR` error if the SRR memo does not record it"): every Red risk now carries `plan_approval`.
+
+**Re-issue 2 answers** (items not listed keep their iteration 3 re-issue 1 answer).
+
+| Item | Answer | Evidence |
+|---|---|---|
+| CK-RSK-A1 | Yes | `render_risk.py --check --gate SRR --hazards docs/safety/hazards.json`: "register OK: 65 risks, 159 candidates, 0 warning(s), jsonschema used, gate SRR, hazard cross-check", exit 0 (hazards.json at HEAD, 0.5.0-pha, `bfea9c7`) |
+| CK-RSK-A2 | No | All 65 risks still *Proposed* after the SRR (finding-18 (d)) |
+| CK-RSK-A5 | Yes | 32 Red, each with `plan_approval` naming the SRR decision memo and 2026-09-26 (decision 14); the iteration 2 minimums re-checked on the HEAD blob |
+| CK-RSK-A10 | Yes (with finding-18) | 9bdf33c changes only `plan_approval`, which needs no candidate disposition; package section 11 still matches the register counts (65 active, Red 32); the unapplied ruling records are finding-18 |
+| CK-REQ-G1 | No | finding-16 and finding-17 (liens, unchanged) |
+
+**Lien table (re-issue 2).**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-16 | Minor | Lien: fix before PDR (unchanged) | Risk manager (06 author) | PDR readiness declaration |
+| finding-17 | Minor | Lien: fix before PDR (unchanged) | Risk manager (06 author) | PDR readiness declaration |
+| finding-18 | Minor | Lien: fix before PDR (new) | Risk manager (register author) | PDR readiness declaration, and before any PDR RID count of overdue steps |
+
+**Counts after re-issue 2.** 18 findings: Closed 15 (Major 4, Minor 11), Lien 3 (Minor), none open. Open Major 0. Verdict APPROVED with liens under the convergence rule.
+
+**Tool runs (re-issue 2, 2026-09-26, HEAD `ebe5873`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `.venv/bin/python tools/validate_docs.py` | 1 | Before this record: 34 passed, 16 failed; the failures are record drift of other records whose products R16 changed (ADR, ConOps, hazard analysis, `rmm.json` records being re-issued by other reviewer invocations in this run) and this record (drift on `register.json` and `register.md`). After this record: `PASS docs/reviews/SRR/checklists/risk-register-06.md` (see the note below) |
+| `.venv/bin/python tools/render_risk.py --check` | 0 | 65 risks, 159 candidates, 0 warnings; register.md current |
+| `.venv/bin/python tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | hazard cross-check passes |
+| `.venv/bin/python tools/render_risk.py --check --gate PDR` | 1 | 76 errors, none on `plan_approval`: 65 "last assessed at SRR, before the PDR Track pass", 11 "Red risk has no REQ or HZ link at PDR or later" (expected before PDR; iteration 1 advisory CK-RSK-A6) |
+| `.venv/bin/python tools/traceability.py --report-only` | 1 | 245 requirements, 173 test cases, 4 violations (REQ-SYS-122, 124, 137, 138 `HAZARD_REQ_NOT_TESTED`, the Inspection method of CR-002 and decision 113 not yet accepted by the tool; none on RSK ids), 2 warnings; report files restored with `git checkout` |
+| `.venv/bin/python tools/render_rmm.py --check` | 1 | SWE-033 status Planned with every path existing (outside the product) |
+| `.venv/bin/python tools/render_compliance.py --check` | 0 | passed, render current |
+| `.venv/bin/python -m unittest discover -s tools/tests` | 1 | 400 tests, 1 failure: `test_repository_exit_zero` (the repository-wide `validate_docs.py` failures above) |
+
+**Cross items (outside the product; for Claude to route).** (1) `tools/traceability.py` rule `HAZARD_REQ_NOT_TESTED` against the CR-002 (decision 113) Inspection method for documentary hazard controls (REQ-SYS-122, 124, 137, 138). (2) `docs/process/rmm.json` SWE-033 status (render_rmm check). (3) The register Track pass of finding-18 should precede the INSP-008 and hazard analysis re-check of the HZ-001 and HZ-008 risk links, since RSK-030 moves to *Accepted*, which the hazard link rule no longer counts as carrying HZ-001 (RSK-016 and others still carry it; `--hazards` to be re-run after the pass).
+
 ## Verdict (returned by the reviewer)
 
 ```
 ITERATION 1 (2026-09-25): VERDICT: NEEDS CHANGES. Major 4, Minor 11, all Open.
 ITERATION 2 (2026-09-25): VERDICT: NEEDS CHANGES (readiness R1 not met, outside the product). Closed 14, all four Major among them; the first finding closed with the author's dispute accepted. Still open: 2 Minor (finding-9 package and 07 text, dispute not accepted; finding-16 new, 06 section 17 hazard row). No Major remains.
 ITERATION 3 (2026-09-26): VERDICT: APPROVED (with liens). Committed blobs register.json 57f64995, register.md 77b864a0, 06 7a92d21f. finding-9 Closed; Liens 2 (finding-16, finding-17 new: 06 stale alignment rows, fix before PDR). No Major remains; readiness met.
+ITERATION 3 RE-ISSUE 2 (2026-09-26, post-SRR-ruling delta at HEAD ebe5873): VERDICT: APPROVED (with liens). Committed blobs register.json 0c25c0c5, register.md a3a983e5, 06 7a92d21f. Delta 9bdf33c applies SRR decision 14 correctly (plan_approval on exactly the 32 Red risks). finding-18 new Minor: rulings 32, 17, 9 and 40, 11 not yet transcribed into the register and the 65 risks still Proposed; Lien: fix before PDR. Liens 3 (finding-16, 17, 18). Open Major 0.
 ```
