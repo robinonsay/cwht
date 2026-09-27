@@ -1,0 +1,503 @@
+{
+ "crossing": {
+  "0.5": {
+   "detents": 4001,
+   "time_s": 333.333
+  },
+  "0.75": {
+   "detents": 4001,
+   "time_s": 222.222
+  },
+  "0.83": {
+   "detents": 4001,
+   "time_s": 200.803
+  },
+  "0.84": {
+   "detents": 401,
+   "time_s": 19.841
+  },
+  "1.0": {
+   "detents": 401,
+   "time_s": 16.667
+  },
+  "1.5": {
+   "detents": 401,
+   "time_s": 11.111
+  },
+  "2.0": {
+   "detents": 401,
+   "time_s": 8.333
+  },
+  "3.0": {
+   "detents": 401,
+   "time_s": 5.556
+  }
+ },
+ "default_hang_ms": 640.0,
+ "defaults": {
+  "envelope_ms": 5,
+  "hang_dits": 8,
+  "mode": "Iambic A",
+  "sidetone_hz": 600,
+  "wpm": 15
+ },
+ "digit_height_dots": 23,
+ "digit_height_mm": 4.14,
+ "digit_subtense_arcmin_0p5m": 28.46,
+ "display_max_fps_at_1p1MHz": 59.52,
+ "encoder_state_ms_at_50dps": 5.0,
+ "fault_latency_items_ms": [
+  [
+   "detection to KEY inhibit report (REQ-SW-KEYER-023, other causes by the same rule)",
+   20.0
+  ],
+  [
+   "wait for the next UI task tick (20 ms period)",
+   20.0
+  ],
+  [
+   "render the message into the frame buffer (assumption A-U6)",
+   2.0
+  ],
+  [
+   "wait for a frame already in flight (one full frame)",
+   16.8
+  ],
+  [
+   "write the changed lines (bounded by one full frame at 1.1 MHz)",
+   16.8
+  ],
+  [
+   "liquid-crystal optical response at -10 C (assumption A-U5)",
+   500.0
+  ]
+ ],
+ "fault_latency_total_ms": 575.6,
+ "freq_rows_measured": [
+  20,
+  42
+ ],
+ "freq_string": "146.520.00",
+ "freq_width_dots": 105,
+ "id_lead_min_s": 55.0,
+ "id_reminder_error_s": {
+  "early": 0.027,
+  "late": 0.5806
+ },
+ "id_send_time_5wpm_s": 41.04,
+ "legibility_300lux": {
+  "AR-coated lens, 0.5 percent per surface": {
+   "CR": 10.0163,
+   "Lb": 13.8638,
+   "Lc": 1.3841,
+   "R_surface": 0.005,
+   "R_total": 0.01,
+   "T_display_path": 0.9801,
+   "veil": 0.7601,
+   "weber": 0.9002
+  },
+  "no lens": {
+   "CR": 21.0,
+   "Lb": 13.369,
+   "Lc": 0.6366,
+   "veil": 0.0,
+   "weber": 0.9524
+  },
+  "plain lens, room surround reflectance 0.3": {
+   "CR": 5.0571,
+   "Lb": 13.5514,
+   "Lc": 2.6797,
+   "R_surface": 0.0387,
+   "R_total": 0.0746,
+   "T_display_path": 0.8539,
+   "veil": 2.1361,
+   "weber": 0.8023
+  },
+  "plain lens, white surround in the specular direction": {
+   "CR": 2.7423,
+   "Lb": 17.1115,
+   "Lc": 6.2398,
+   "R_surface": 0.0387,
+   "R_total": 0.0746,
+   "T_display_path": 0.8539,
+   "veil": 5.6962,
+   "weber": 0.6353
+  }
+ },
+ "load_bus_duty": 0.84,
+ "lux_floor_margin_factor": 3.81,
+ "lux_for_3cd_with_lens": 78.8,
+ "max_items_per_category": 8,
+ "menu": {
+  "AUDIO>KEEP UNLK": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-170 persistent unlock selection"
+  },
+  "AUDIO>TONE HZ": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-045 sidetone frequency"
+  },
+  "AUDIO>TONE LVL": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "docs/research/keyer-verification-and-key-input-network.md F14 sidetone level"
+  },
+  "AUDIO>UNLOCK": {
+   "depth": 2,
+   "kind": "action",
+   "source": "REQ-SYS-074 level cap acknowledgment with confirmation"
+  },
+  "KEYER>BREAK MS": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-162 debounce break (decision 48)"
+  },
+  "KEYER>HANG": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-044 semi break-in hang"
+  },
+  "KEYER>MAKE MS": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-048 debounce make (decision 48)"
+  },
+  "KEYER>MODE": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-040, REQ-SYS-056 key-input and keyer mode"
+  },
+  "KEYER>PRACTICE": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "ConOps Table 3.4-3 PRACTICE flag"
+  },
+  "KEYER>SPEED": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-041 (also FUNC plus the tuning knob on the status screen)"
+  },
+  "KEYER>SWAP": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "docs/conops/conops.md 3.5.1 item 3 paddle swap"
+  },
+  "KEYER>SWITCHPT": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SW-KEYER-009 Iambic B switchpoint (decision 48)"
+  },
+  "SETUP>BENCH TEST": {
+   "depth": 2,
+   "kind": "action",
+   "source": "REQ-SYS-179 selection followed by a separate confirmation"
+  },
+  "SETUP>CALL": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-006 operator call sign, up to 10 characters"
+  },
+  "SETUP>INFO": {
+   "depth": 2,
+   "kind": "view",
+   "source": "firmware version and stored call sign"
+  },
+  "SETUP>RESET CFG": {
+   "depth": 2,
+   "kind": "action",
+   "source": "REQ-SYS-136 configuration reset with confirmation"
+  },
+  "TX>ENVELOPE": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-014 operator-set 10-to-90 percent time"
+  },
+  "TX>KEYDN TIME": {
+   "depth": 2,
+   "kind": "view",
+   "source": "REQ-SYS-171 cumulative key-down time"
+  },
+  "TX>POWER": {
+   "depth": 2,
+   "kind": "setting",
+   "source": "REQ-SYS-063 step, 5 W only after a separate confirmation"
+  },
+  "TX>TUNE": {
+   "depth": 2,
+   "kind": "action",
+   "source": "ConOps T12 tune carrier, menu action and confirmation"
+  },
+  "frequency": {
+   "depth": 0,
+   "kind": "direct",
+   "source": "REQ-SYS-058"
+  },
+  "guest lock": {
+   "depth": 0,
+   "kind": "direct",
+   "source": "REQ-SYS-066"
+  },
+  "keyer speed": {
+   "depth": 0,
+   "kind": "direct",
+   "source": "REQ-SYS-041"
+  },
+  "volume": {
+   "depth": 0,
+   "kind": "direct",
+   "source": "REQ-SYS-059"
+  }
+ },
+ "menu_item_count": 24,
+ "message_table": [
+  {
+   "conops": "KEY CLOSED: check plug",
+   "display": [
+    "KEY CLOSED",
+    "CHECK PLUG"
+   ],
+   "row": 1
+  },
+  {
+   "conops": "KEY?",
+   "display": [
+    "KEY?",
+    "OPEN KEY"
+   ],
+   "row": 2
+  },
+  {
+   "conops": "PADDLE?",
+   "display": [
+    "PADDLE?",
+    "RELEASE"
+   ],
+   "row": 3
+  },
+  {
+   "conops": "HOT: wait",
+   "display": [
+    "HOT",
+    "WAIT"
+   ],
+   "row": 4
+  },
+  {
+   "conops": "TX off: low batt",
+   "display": [
+    "TX OFF",
+    "LOW BATT"
+   ],
+   "row": 5
+  },
+  {
+   "conops": "TX inhibited (USB)",
+   "display": [
+    "TX OFF",
+    "USB POWER"
+   ],
+   "row": 6
+  },
+  {
+   "conops": "TX guard",
+   "display": [
+    "TX OFF",
+    "BAND EDGE"
+   ],
+   "row": 7
+  },
+  {
+   "conops": "Lock icon RX only",
+   "display": [
+    "RX ONLY",
+    "GUEST"
+   ],
+   "row": 8
+  },
+  {
+   "conops": "PRACTICE",
+   "display": [
+    "PRACTICE",
+    "TX OFF"
+   ],
+   "row": 8
+  },
+  {
+   "conops": "RESET: <reason>",
+   "display": [
+    "RESET",
+    "WATCHDOG"
+   ],
+   "row": 9
+  },
+  {
+   "conops": "RESET REPEATED: switch off and report",
+   "display": [
+    "RESET X2",
+    "SWITCH OFF"
+   ],
+   "row": 10
+  },
+  {
+   "conops": "The failed item",
+   "display": [
+    "SELFTEST",
+    "<ITEM>"
+   ],
+   "row": 11
+  },
+  {
+   "conops": "TX CUTOFF: report to owner",
+   "display": [
+    "TX CUTOFF",
+    "REPORT"
+   ],
+   "row": 12
+  },
+  {
+   "conops": "CELL SENSE: report to owner",
+   "display": [
+    "CELL SENSE",
+    "REPORT"
+   ],
+   "row": 13
+  },
+  {
+   "conops": "CELL: check polarity",
+   "display": [
+    "CELL",
+    "POLARITY"
+   ],
+   "row": 14
+  },
+  {
+   "conops": "CELLS mismatched: replace as a pair",
+   "display": [
+    "CELLS",
+    "MISMATCH"
+   ],
+   "row": 14
+  },
+  {
+   "conops": "CHARGER: report to owner",
+   "display": [
+    "CHARGER",
+    "REPORT"
+   ],
+   "row": 15
+  },
+  {
+   "conops": "USB fault",
+   "display": [
+    "USB FAULT",
+    "UNPLUG"
+   ],
+   "row": 16
+  },
+  {
+   "conops": "CHG hold: cold",
+   "display": [
+    "CHG HOLD",
+    "COLD"
+   ],
+   "row": 17
+  },
+  {
+   "conops": "CHG hold: hot",
+   "display": [
+    "CHG HOLD",
+    "HOT"
+   ],
+   "row": 17
+  },
+  {
+   "conops": "BATT EMPTY",
+   "display": [
+    "BATT EMPTY",
+    "CHARGE"
+   ],
+   "row": 18
+  },
+  {
+   "conops": "CELL HOT: powering down",
+   "display": [
+    "CELL HOT",
+    "POWER DOWN"
+   ],
+   "row": 19
+  }
+ ],
+ "req_subtense_arcmin_0p5m": 27.5,
+ "usability_run": {
+  "detents": 275,
+  "error_hz": 0,
+  "phases": [
+   {
+    "detents": 246,
+    "freq_hz": 144070000,
+    "rate_detents_per_s": 48.0,
+    "stop_within_hz": 20000,
+    "time_s": 5.125
+   },
+   {
+    "detents": 13,
+    "freq_hz": 144058000,
+    "rate_detents_per_s": 18.0,
+    "stop_within_hz": 1500,
+    "time_s": 0.722
+   },
+   {
+    "detents": 7,
+    "freq_hz": 144057390,
+    "rate_detents_per_s": 9.600000000000001,
+    "stop_within_hz": 150,
+    "time_s": 0.729
+   },
+   {
+    "detents": 9,
+    "freq_hz": 144057300,
+    "rate_detents_per_s": 3.0,
+    "stop_within_hz": 0,
+    "time_s": 3.0
+   }
+  ],
+  "total_s": 10.476
+ },
+ "usability_run_full_band": {
+  "detents": 437,
+  "error_hz": 0,
+  "phases": [
+   {
+    "detents": 399,
+    "freq_hz": 147980000,
+    "rate_detents_per_s": 48.0,
+    "stop_within_hz": 20000,
+    "time_s": 8.312
+   },
+   {
+    "detents": 20,
+    "freq_hz": 147999000,
+    "rate_detents_per_s": 18.0,
+    "stop_within_hz": 1500,
+    "time_s": 1.111
+   },
+   {
+    "detents": 10,
+    "freq_hz": 147999910,
+    "rate_detents_per_s": 9.600000000000001,
+    "stop_within_hz": 150,
+    "time_s": 1.042
+   },
+   {
+    "detents": 8,
+    "freq_hz": 147999990,
+    "rate_detents_per_s": 3.0,
+    "stop_within_hz": 0,
+    "time_s": 2.667
+   }
+  ],
+  "total_s": 14.032
+ }
+}
