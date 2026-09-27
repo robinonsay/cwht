@@ -1,0 +1,17 @@
+# CM deviations log
+
+Configuration item: `docs/process/05-configuration-and-data-management.md` Table 4-1 row 43 (class Record). Content rule: 05 §2 "Plan deviation" and §6 CSA item 11: every departure from a procedure of the CM plan (not from a product requirement), with date, RFA raised and closure. Entries are appended, never edited; a correction or a closure is a new dated line that cites the entry by its number (the log has no charter §6 identifier scheme). Product waivers are not recorded here (05 §2, CSA item 12), and neither is tailoring (RMM and compliance matrix). TPM-018 sub-measure (c) counts the open entries.
+
+Created 2026-09-26 as part of the SRR post-ruling work (package item R16), because 05 Table 4-1 row 43 and CSA item 11 (§6) name this file and INSP-030 cross item X-2 found it missing; SRR decision 108 (CR-001) and decision 113 (CR-002), owner ruling 2026-09-26, are the first CRs dispositioned after it exists.
+
+## Entries
+
+| # | Date | Procedure departed from | Departure | RFA raised | Closure plan | Status |
+|---|---|---|---|---|---|---|
+| 1 | 2026-09-26 | 05 §5.2 CR lifecycle: a Class I CR is Assessed (independent review of its impact assessment) before it is Dispositioned | CR-002 (`docs/cm/cr/CR-002-inspection-for-documentary-requirements.md`, proposed Class I) was approved by the owner as SRR decision 113 on the package decision row before the CR file and its impact assessment existed, so it reached Dispositioned without the Assessed state | None raised; the owner decides at the next exchange whether to raise one (TPM-018 treats an open deviation without an RFA as red) | The INSP-003 reviewer performs the independent review of CR-002 section 4 and records it in CR-002 section 6; if it finds an impact that changes the owner's basis, CR-002 returns to Submitted for re-disposition | Open |
+
+## Closures
+
+| Entry | Date | Evidence |
+|---|---|---|
+| none yet | | |
