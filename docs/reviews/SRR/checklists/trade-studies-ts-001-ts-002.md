@@ -10,10 +10,13 @@ product: docs/decisions/trade-studies/
 # iteration 2 verified the fixes in TS-001 652ad575 and TS-002 ae80decd (revision 1 of each).
 # Iteration 3 (independent reviewer, 2026-09-26): review baseline HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1;
 # product_commit is the last commit touching either product at that HEAD (git log -1 -- docs/decisions/trade-studies/).
-product_commit: "e597e49"
+# Post-SRR-ruling delta 2026-09-26 (package item R16): product_commit is the last commit touching either product at HEAD 5122a6b,
+# 2362183 (ADRs: apply SRR owner rulings (R16)), which changed the TS-002 Status row only (blob 574cee3d to 6c385dfc); TS-001 is unchanged
+product_commit: "2362183"
 # product_files: the committed blobs (git rev-parse HEAD:<path> at adcfe09; unchanged since e597e49) re-reviewed at iteration 3;
 # re-issue 2026-09-26 (package item R8): both blobs re-checked equal to git rev-parse HEAD:<path> at ca22e37
-product_files: ["docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf", "docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@574cee3dda830327b0aa17af361f863da2bc546c"]
+# Post-SRR-ruling delta 2026-09-26: both blobs equal git rev-parse HEAD:<path> and git hash-object at HEAD 5122a6b (TS-002 now 6c385dfc; the 574cee3d blob is kept in the git history of this record)
+product_files: ["docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf", "docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@6c385dfc77c61619d31756418c479c5beca7b527"]
 product_size: 2 trade studies (revision 1: TS-001 686 lines, TS-002 361 lines), 3 plus 1 decision matrices
 sprint: SRR-prep
 author_agent: "author:trades (Claude trade study author invocation, 2026-09-25, named as Recommender in both TS headers)"
@@ -33,15 +36,17 @@ readiness_met: true
 # assurance_verdict: equals the verdict of the paired record INSP-027 (01 section 13).
 # verdict: APPROVED (with liens finding-11, finding-12) at the re-issue: reviewer APPROVED, assurance APPROVED, readiness met,
 # no Major finding open (07 section 10.2 completion criteria); set by the re-issue of package item R8
+# Post-SRR-ruling delta 2026-09-26: APPROVED (with liens finding-11, finding-12, finding-13); the 2362183 Status-row edit applies SRR decision 107 correctly; no Major; new Minor finding-13 is a lien
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
 verdict: APPROVED
 findings_major: 2
-findings_minor: 10
+findings_minor: 11
 findings_open: 0
 findings_fixed: 0
 findings_verified: 10
-findings_deferred: 2
+# findings_deferred: liens finding-11, finding-12 and (post-SRR-ruling delta) finding-13, "fix before PDR"
+findings_deferred: 3
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -50,9 +55,10 @@ deferred_rids: []
 # every one is Yes in iteration 2 (section "Closure (iteration 2)")
 items_no: []
 # effort: iteration 1 48 turns and 55 minutes; iteration 2 20 turns and 25 minutes; delta verification 6 turns and 15 minutes;
-# iteration 3 (independent reviewer) 32 turns and 40 minutes; re-issue (package item R8) 10 turns and 15 minutes
-effort_turns: 116
-effort_minutes: 150
+# iteration 3 (independent reviewer) 32 turns and 40 minutes; re-issue (package item R8) 10 turns and 15 minutes;
+# post-SRR-ruling delta 12 turns and 20 minutes
+effort_turns: 128
+effort_minutes: 170
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -63,6 +69,8 @@ date_closed: null
 **Checklist:** `docs/templates/peer-review-checklist-design.md` revision B, sections A, B and H as `docs/process/08-agent-briefing.md` section 3.1 assigns to trade studies, with the other sections marked N/A. By assignment the decision-analysis criteria of `docs/process/06-risk-and-decision-analysis.md` section 14 are applied as well. They are applied as the ten trade-study items of 06 section 16, under the ids 06 section 16 gives them (`CK-RSK-B1` to `B10`). The minimum content judged is SRR entrance row 5 (`docs/process/01-lifecycle-and-reviews.md` section 4.3: alternative concepts analyzed, with a trade summary giving criteria and scores), SRR success criterion 8 (01 section 4.4), and the SWE-033 make/buy record (NPR 7150.2D section 3.1.2; section 6.1 item t). **Gate:** SRR, package items H5 and H14 (`docs/reviews/SRR/package.md` section 2). **Answer legend:** Yes = Pass, No = Fail, N/A = not applicable. Every answer carries its evidence.
 
 **Search-first compliance:** `mcp__claude-context__search_code` was run on `/Users/robinonsay/rust/cwht` before any manual search. The queries covered the SRR H5 and H14 shortfalls with SWE-033, and the Inrad and KVG filter data with the ladder Monte Carlo. `grep -n` was used afterwards only to pin the lines the hits pointed to. Known paths were read directly.
+
+**Post-SRR-ruling delta (2026-09-26, package item R16, HEAD `5122a6b`, product commit `2362183`): verdict APPROVED (with liens finding-11, finding-12 and finding-13).** The only product change since the re-issue is the TS-002 Status row (commit `2362183`), which records SRR decision 107 correctly. No Major finding. The new Minor finding-13 (TS-002 section 10 still empty while the Status row reads Decided) is a lien. See "Post-SRR-ruling delta" at the end.
 
 **Re-issue (2026-09-26, package item R8): verdict APPROVED (with liens finding-11 and finding-12).** The TS-002 software assurance record INSP-027 is filed and is APPROVED on the same blob, so the record gate of iteration 3 is met; see "Re-issue" at the end. The "Criticality and assurance" paragraph below is the iteration 1 text.
 
@@ -598,4 +606,72 @@ PRODUCT: TS-001@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf, TS-002@574cee3dda83032
 PAIRING: INSP-027 (TS-002 software assurance) APPROVED with 5 Minor liens on the same blob; assurance_verdict APPROVED
 FINDINGS: F-01 to F-10 Closed (Verified); finding-11, finding-12 Minor, Lien: fix before PDR; open Major 0; new 0
 MEASUREMENTS (re-issue): blobs equal HEAD 2/2; turns=10; minutes=15; cumulative turns=116, minutes=150; iteration=3 (re-issue)
+```
+
+## Post-SRR-ruling delta (2026-09-26, SRR package item R16; HEAD `5122a6b`, product commit `2362183`)
+
+**Scope and independence.** Written by a new invocation of `reviewer:trades` in the reviewer role (engineering lens). It authored neither study, the ADRs, INSP-027 or the R16 edits, and it edited no product file and no earlier section of this record (the front matter keeps every earlier value in a comment; a verdict line is added above the re-issue verdict). The owner approved the SRR on 2026-09-26 (disposition "Approved with liens", `docs/reviews/SRR/minutes.md`); key decisions K1 to K17 are ruled as recommended, the ruling text being each row's "Recommendation" cell in `docs/reviews/SRR/decisions-for-owner.md` Part 1. The convergence rule of 2026-09-26 (charter section 4 item 3) applies: only a Major finding changes a product in this round, and a new Minor finding is a lien, "fix before PDR".
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: TS-002 firmware runtime make/buy status after the SRR ADR rulings, post-SRR-ruling delta). It returned ADR-027 and the INSP-011 post-SRR-ruling delta, whose cross items 1 and 2 name this record. `grep -n` then only pinned lines in TS-001, TS-002, `decisions-for-owner.md`, `minutes.md`, 05 Table 4-1 and 06 section 14.5.
+
+**Product state.** `git log e597e49..HEAD -- docs/decisions/trade-studies/` lists one commit, `2362183` ("ADRs: apply SRR owner rulings (R16)"). `git show 2362183 -- docs/decisions/trade-studies/` has one hunk: TS-002 line 6, the Status row (1 insertion, 1 deletion). TS-001 is unchanged (blob `2a0c40a8`). At HEAD `5122a6b`, `git rev-parse HEAD:<path>` equals `git hash-object` for both files (TS-001 `2a0c40a8`, TS-002 `6c385dfc`); `git status --short docs/decisions/` is empty.
+
+**Delta verification of the TS-002 Status row (`574cee3d` to `6c385dfc`).**
+
+| Claim in the new Status row | Source checked | Result |
+|---|---|---|
+| "Decided 2026-09-26: option A0 approved with the four revisit triggers of section 8" | Decision 107 Recommendation cell (`decisions-for-owner.md` line 113): "Approve A0 with the four revisit triggers of TS-002 section 8." TS-002 section 8 lines 308 to 312 hold four triggers | Correct |
+| "SRR decision 107, owner ruling 2026-09-26, key decision K9" | `minutes.md` line 23: K9 covers decisions 107 and 110, ruled as recommended | Correct |
+| "resulting ADR: ADR-027" | `docs/decisions/adr/ADR-027-firmware-runtime-rustos-a0.md` exists at HEAD, Status Accepted, section 7 lists the same four triggers; INSP-011 post-SRR-ruling delta verified it | Correct |
+| "Reviewed at revision 1: INSP-013 APPROVED with liens and ... INSP-027 APPROVED with liens, both on blob `574cee3d`" | This record's re-issue verdict and the INSP-027 front matter | Correct as a statement of the review state of the analysis; the analysis text (sections 1 to 9, appendix, change log) is byte-identical to `574cee3d` apart from line 6 |
+| Edit route | 06 section 14.6 and 05 Table 4-1 row 12: a decided trade study is immutable; the Status line is the editable line | The only edit is the Status line; no score, ranking, weight or recommendation changed | Correct |
+
+The change applies SRR decision 107 as ruled and introduces no defect in the functional baseline: the decision it records is the one ADR-027, the decision memo and the minutes record.
+
+**finding-11 at the delta (partly addressed).** The TS-002 Status row no longer reads "awaiting the reviewer's verification of the fixes". TS-001 line 6 still does. finding-11 stays a lien for TS-001 only.
+
+**finding-12 at the delta (unchanged).** The TS-002 line 10 "Independent reviewer" row still says the assurance review was "not dispatched" because 07 section 2.1.1 has no trade-study row, although INSP-027 now exists and the new Status row names it. The Status row and the reviewer row of the same header therefore disagree on whether an assurance review was done. That makes the header self-inconsistent but does not change any decision, so finding-12 stays Minor, a lien.
+
+<a id="finding-13"></a>**finding-13, Minor (new), Lien: fix before PDR.** Location: TS-002 section 10 "Decision" (lines 320 to 329). The Status row says "Decided 2026-09-26", but section 10 still reads "Empty until the owner decides" with every field blank. 06 section 14.5 bullet 4 requires the owner's decision to be recorded "in section 10 of the report with date and rationale, in the ADR, and ... in that review's `decision-memo.md`". The ADR (ADR-027 section 6) and the SRR memo record it, and ADR-027 section 6 names the section 10 fill as a cross item to the TS-002 author. Why Minor, not Major: the decision is recorded without ambiguity in ADR-027, the minutes and the memo, and the Status row points to them. No reader can take a different decision from the baseline. Process note for the fix: 05 Table 4-1 row 12 makes a trade study "Immutable once the decision is taken". The fix must therefore be treated as recording the decision (06 section 14.5), not as a later revision. The lead SE should state that reading in the change log entry, or the fix should be made before the `baseline/srr` tag with this record re-verified. **Expected fix:** fill section 10 with decision 107: date 2026-09-26; decided by Robin (owner, Decision Authority, key decision K9); the owner's words from `minutes.md`; records ADR-027 and `decision-memo.md`; revisit conditions the four triggers of section 8; lessons learned. Replace the line "Empty until the owner decides". **Citation:** 06 sections 14.5 and 14.6; 05 Table 4-1 row 12; ADR-027 section 6.
+
+**Findings at the delta.**
+
+| Finding | Severity | State |
+|---|---|---|
+| F-01, F-02 | Major | Closed (Verified, iteration 2) |
+| F-03 to F-10 | Minor | Closed (Verified, iteration 2); F-10 (section 10 empty before the decision) remains correct: no author content was added to section 10 |
+| finding-11 | Minor | Lien: fix before PDR (TS-002 part cleared by `2362183`; TS-001 part open) |
+| finding-12 | Minor | Lien: fix before PDR |
+| finding-13 | Minor (new) | Lien: fix before PDR |
+
+No Major finding is open. No Major finding was raised.
+
+**Readiness.** R1 to R3 stay N/A. R4 stays Yes (iteration 1 answer; the delta is a ruled Status-row edit with no new author content). `readiness_met: true`.
+
+**Pairing.** INSP-027 (the paired software assurance record) names TS-002 blob `574cee3d`, not the HEAD blob `6c385dfc`, so `validate_docs.py` fails it on the record drift rule until its reviewer verifies the same one-line delta (cross item 1). The assurance verdict of this record stays `APPROVED`, equal to the INSP-027 verdict as filed. The Status-row edit changes no assurance content (sections 7 and 9 unchanged).
+
+**Lien table (delta).**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-11 | Minor | Lien: fix before PDR | Trade study author (Claude) | PDR readiness declaration |
+| finding-12 | Minor | Lien: fix before PDR | Trade study author (Claude) | PDR readiness declaration |
+| finding-13 | Minor | Lien: fix before PDR | Trade study author (Claude) | PDR readiness declaration |
+
+**Completion criteria (SWE-088; 07 section 10.2) at the delta: met.** The reviewer verdict is APPROVED. The assurance verdict is APPROVED (INSP-027, subject to cross item 1). Readiness is met, zero Major findings are open, and the named blobs equal HEAD. `verdict: APPROVED` (with liens finding-11, finding-12 and finding-13). `record_status` stays `Open`; the software lead closes the record once the liens are dispositioned (07 section 10.2).
+
+**Cross items (outside this record's scope).**
+1. INSP-027 (`docs/reviews/SRR/checklists/trade-study-ts-002-software-assurance.md`): its reviewer verifies the `2362183` TS-002 Status-row delta and moves its `product_files` and `product_blob` to `6c385dfc`.
+2. finding-13: the TS-002 author fills section 10 with the decision 107 ruling (ADR-027 section 6 cross item). The lead SE decides whether that fill is made before the `baseline/srr` tag, under the 06 section 14.5 recording reading of 05 Table 4-1 row 12.
+3. `decision-memo.md` / package: TS-001 remains Draft by design (K8 decisions 53, 54, 55 and 58 are interim rulings; TS-001 is decided by PDR, header "Decide by" row).
+
+**Tool runs (delta, repository root, `.venv/bin/python`).** The results are in the verdict block below.
+
+```
+POST-SRR-RULING DELTA (2026-09-26, HEAD 5122a6b, product commit 2362183, package item R16): VERDICT: APPROVED (with liens)
+RULING APPLIED: SRR decision 107 (K9): "Approve A0 with the four revisit triggers of TS-002 section 8." (TS-002 Status row)
+PRODUCT: TS-001@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf (unchanged), TS-002@6c385dfc77c61619d31756418c479c5beca7b527 (equal to HEAD)
+FINDINGS: open Major 0; new Minor 1 (finding-13); liens finding-11 (TS-001 part), finding-12, finding-13
+MEASUREMENTS (delta): commits verified=1 (2362183, 1 hunk in the product); blobs equal HEAD 2/2; turns=12; minutes=20; cumulative turns=128, minutes=170; iteration=3 (post-SRR-ruling delta)
+VALIDATE_DOCS: this record PASS (overall result in the commit message)
 ```
