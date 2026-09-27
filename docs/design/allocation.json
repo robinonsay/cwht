@@ -1,10 +1,10 @@
 {
   "document": "cwht preliminary allocation of L1 system requirements to L2 modules and concept elements",
-  "version": "0.2.0-srr",
+  "version": "0.3.0-srr",
   "status": "Preliminary",
   "updated": "2026-09-26",
   "baseline": null,
-  "author": "Claude (requirements engineer role, author invocation); independent review in the L1 requirements record docs/reviews/SRR/checklists/requirements-sys.md (V6); revised 2026-09-25 by the same author for INSP-003 findings 1, 9 and 20",
+  "author": "Claude (requirements engineer role, author invocation); independent review in the L1 requirements record docs/reviews/SRR/checklists/requirements-sys.md (V6); revised 2026-09-25 by the same author for INSP-003 findings 1, 9 and 20; revised 2026-09-26 by the L1 requirements author for the SRR rulings (package item R16): REQ-SYS-184 to REQ-SYS-190 allocated (SRR decisions 37, 41 and 72) and the REQ-SYS-180 to 182 notes brought to the adopting decisions 38 to 40",
   "basis": [
     "NPR 7123.1D App. G Table G-4 entrance 5.1: requirements ready to baseline and preliminary allocation to the next lower level performed",
     "docs/process/02-requirements-and-traceability.md section 2.3 Flowdown and rule T-18 (SYS_UNALLOCATED: W at SRR, E from PDR)",
@@ -227,7 +227,9 @@
         "REQ-SYS-100",
         "REQ-SYS-101",
         "REQ-SYS-149",
-        "REQ-SYS-166"
+        "REQ-SYS-166",
+        "REQ-SYS-185",
+        "REQ-SYS-186"
       ],
       "requirement_ids": [
         "REQ-SYS-003",
@@ -270,7 +272,9 @@
         "REQ-SYS-166",
         "REQ-SYS-167",
         "REQ-SYS-177",
-        "REQ-SYS-178"
+        "REQ-SYS-178",
+        "REQ-SYS-185",
+        "REQ-SYS-186"
       ]
     },
     {
@@ -374,7 +378,8 @@
         "REQ-SYS-178",
         "REQ-SYS-180",
         "REQ-SYS-181",
-        "REQ-SYS-182"
+        "REQ-SYS-182",
+        "REQ-SYS-186"
       ]
     },
     {
@@ -532,7 +537,12 @@
         "REQ-SYS-170",
         "REQ-SYS-171",
         "REQ-SYS-179",
-        "REQ-SYS-182"
+        "REQ-SYS-182",
+        "REQ-SYS-184",
+        "REQ-SYS-187",
+        "REQ-SYS-188",
+        "REQ-SYS-189",
+        "REQ-SYS-190"
       ],
       "requirement_ids": [
         "REQ-SYS-001",
@@ -645,7 +655,12 @@
         "REQ-SYS-171",
         "REQ-SYS-179",
         "REQ-SYS-182",
-        "REQ-SYS-183"
+        "REQ-SYS-183",
+        "REQ-SYS-184",
+        "REQ-SYS-187",
+        "REQ-SYS-188",
+        "REQ-SYS-189",
+        "REQ-SYS-190"
       ]
     },
     {
@@ -701,7 +716,8 @@
         "REQ-SYS-160",
         "REQ-SYS-162",
         "REQ-SYS-163",
-        "REQ-SYS-179"
+        "REQ-SYS-179",
+        "REQ-SYS-188"
       ]
     },
     {
@@ -796,7 +812,8 @@
         "REQ-SYS-156",
         "REQ-SYS-160",
         "REQ-SYS-161",
-        "REQ-SYS-183"
+        "REQ-SYS-183",
+        "REQ-SYS-187"
       ]
     },
     {
@@ -835,7 +852,12 @@
         "REQ-SYS-156",
         "REQ-SYS-179",
         "REQ-SYS-182",
-        "REQ-SYS-183"
+        "REQ-SYS-183",
+        "REQ-SYS-184",
+        "REQ-SYS-187",
+        "REQ-SYS-188",
+        "REQ-SYS-189",
+        "REQ-SYS-190"
       ]
     },
     {
@@ -892,7 +914,8 @@
         "REQ-SYS-158",
         "REQ-SYS-159",
         "REQ-SYS-169",
-        "REQ-SYS-170"
+        "REQ-SYS-170",
+        "REQ-SYS-189"
       ]
     },
     {
@@ -915,7 +938,8 @@
         "REQ-SYS-135",
         "REQ-SYS-136",
         "REQ-SYS-144",
-        "REQ-SYS-170"
+        "REQ-SYS-170",
+        "REQ-SYS-190"
       ]
     },
     {
@@ -1233,7 +1257,8 @@
         "REQ-SYS-150",
         "REQ-SYS-176",
         "REQ-SYS-177",
-        "REQ-SYS-182"
+        "REQ-SYS-182",
+        "REQ-SYS-186"
       ],
       "code": []
     },
@@ -1341,7 +1366,8 @@
         "REQ-SYS-093",
         "REQ-SYS-100",
         "REQ-SYS-153",
-        "REQ-SYS-167"
+        "REQ-SYS-167",
+        "REQ-SYS-186"
       ],
       "code": []
     },
@@ -1358,7 +1384,9 @@
         "REQ-SYS-086",
         "REQ-SYS-100",
         "REQ-SYS-149",
-        "REQ-SYS-166"
+        "REQ-SYS-166",
+        "REQ-SYS-185",
+        "REQ-SYS-186"
       ],
       "code": []
     },
@@ -1563,7 +1591,12 @@
         "REQ-SYS-171",
         "REQ-SYS-179",
         "REQ-SYS-182",
-        "REQ-SYS-183"
+        "REQ-SYS-183",
+        "REQ-SYS-184",
+        "REQ-SYS-187",
+        "REQ-SYS-188",
+        "REQ-SYS-189",
+        "REQ-SYS-190"
       ],
       "code": []
     }
@@ -1674,7 +1707,8 @@
         "REQ-SYS-162",
         "REQ-SYS-163",
         "REQ-SYS-174",
-        "REQ-SYS-180"
+        "REQ-SYS-180",
+        "REQ-SYS-184"
       ]
     },
     {
@@ -1729,7 +1763,9 @@
         "REQ-SYS-164",
         "REQ-SYS-165",
         "REQ-SYS-171",
-        "REQ-SYS-179"
+        "REQ-SYS-179",
+        "REQ-SYS-187",
+        "REQ-SYS-188"
       ]
     },
     {
@@ -1760,7 +1796,8 @@
         "REQ-SYS-159",
         "REQ-SYS-169",
         "REQ-SYS-170",
-        "REQ-SYS-173"
+        "REQ-SYS-173",
+        "REQ-SYS-189"
       ]
     },
     {
@@ -1801,7 +1838,9 @@
         "REQ-SYS-101",
         "REQ-SYS-149",
         "REQ-SYS-166",
-        "REQ-SYS-167"
+        "REQ-SYS-167",
+        "REQ-SYS-185",
+        "REQ-SYS-186"
       ]
     },
     {
@@ -1824,7 +1863,8 @@
         "REQ-SYS-135",
         "REQ-SYS-136",
         "REQ-SYS-143",
-        "REQ-SYS-150"
+        "REQ-SYS-150",
+        "REQ-SYS-190"
       ]
     },
     {
@@ -1875,7 +1915,12 @@
         "REQ-SYS-180",
         "REQ-SYS-181",
         "REQ-SYS-182",
-        "REQ-SYS-183"
+        "REQ-SYS-183",
+        "REQ-SYS-184",
+        "REQ-SYS-187",
+        "REQ-SYS-188",
+        "REQ-SYS-189",
+        "REQ-SYS-190"
       ]
     },
     {
@@ -5424,7 +5469,7 @@
         "F9"
       ],
       "child_ids": [],
-      "note": "Proposed at SRR (package decision 38). HZ-004 K12 allocates the second monostable to CTL; it acts on the PA-path enable node of B07 and watches the T/R drive of B03."
+      "note": "Adopted by SRR decision 38 (owner ruling 2026-09-26). HZ-004 K12 allocates the second monostable to CTL; it acts on the PA-path enable node of B07 and watches the T/R drive of B03."
     },
     {
       "requirement_id": "REQ-SYS-181",
@@ -5443,7 +5488,7 @@
         "F9"
       ],
       "child_ids": [],
-      "note": "Proposed at SRR (package decision 39). HZ-003 K9 allocates the sensor and comparator to TX; it acts on the PA-path enable node of B07."
+      "note": "Adopted by SRR decision 39 (owner ruling 2026-09-26). HZ-003 K9 allocates the sensor and comparator to TX; it acts on the PA-path enable node of B07."
     },
     {
       "requirement_id": "REQ-SYS-182",
@@ -5469,7 +5514,7 @@
       "child_ids": [
         "REQ-TX-013"
       ],
-      "note": "Proposed at SRR (package decision 40). The counter must be independent of the SW-SYNTH frequency-word path (HZ-008 K7), so it is allocated to SW-SAFE, not SW-SYNTH; TX supplies the prescaled synthesizer sample, CTL the PIO or timer unit and the RP2350 crystal timebase. The architecture ADR at PDR may create a module of its own."
+      "note": "Adopted by SRR decision 40 (owner ruling 2026-09-26). The counter must be independent of the SW-SYNTH frequency-word path (HZ-008 K7), so it is allocated to SW-SAFE, not SW-SYNTH; TX supplies the prescaled synthesizer sample, CTL the PIO or timer unit and the RP2350 crystal timebase. The architecture ADR at PDR may create a module of its own."
     },
     {
       "requirement_id": "REQ-SYS-183",
@@ -5498,6 +5543,147 @@
       ],
       "child_ids": [],
       "note": "RF-off level (INSP-003 finding-1): TX holds the main child, the off-state isolation of the PA, exciter, T/R relay and PA-enable path at the carrier frequency; RX shares the level with the receive-mode limit REQ-SYS-176 through the T/R and front-end isolation; SW-TXSEQ and SW-SAFE hold the states in which RF is ended or inhibited."
+    },
+    {
+      "requirement_id": "REQ-SYS-184",
+      "title": "Paddle squeeze limit",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F3",
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "Added by SRR decision 37 (owner ruling 2026-09-26; OQ-SAF-002, HZ-004 K4 item (iii)). Allocated as REQ-SYS-054: the check runs in the safe-state manager, separate from the keyer engine (HZ-004 K4)."
+    },
+    {
+      "requirement_id": "REQ-SYS-185",
+      "title": "Further cell over-voltage layer",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B18"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": [],
+      "note": "Added by SRR decision 72 (owner ruling 2026-09-26; OQ-SAF-008, HZ-002 K3): the secondary over-voltage IC of B18 (BQ29209 class)."
+    },
+    {
+      "requirement_id": "REQ-SYS-186",
+      "title": "Separate cell-sense paths per protection layer",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR",
+        "CTL"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B17",
+        "B18",
+        "B12"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": [],
+      "note": "Added by SRR decision 72 (owner ruling 2026-09-26; OQ-SAF-009, HZ-002 K9): PWR holds the sense routes of the charger (B17) and both protectors (B18); CTL holds the firmware divider inputs of the Pico 2 module (B12)."
+    },
+    {
+      "requirement_id": "REQ-SYS-187",
+      "title": "Bench test mode power step",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-TXSEQ"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F5",
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "Added by SRR decision 41 (owner ruling 2026-09-26; OQ-SAF-016, HZ-004 K13). The TX power steps of REQ-SYS-011 are unchanged; the firmware holds the 0.5 W command."
+    },
+    {
+      "requirement_id": "REQ-SYS-188",
+      "title": "Bench test mode timeout",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-KEYER"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F5",
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "Added by SRR decision 41 (owner ruling 2026-09-26; OQ-SAF-016, HZ-004 K13). SW-KEYER owns the test-mode generator (REQ-SW-KEYER-029); SW-SAFE the mode timeout."
+    },
+    {
+      "requirement_id": "REQ-SYS-189",
+      "title": "Bench full-scale test tone limit",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-AUDIO"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F6",
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "Added by SRR decision 41 (owner ruling 2026-09-26; OQ-SAF-016, HZ-005 K9); the hardware ceiling REQ-SYS-071 stays with CTL (B15)."
+    },
+    {
+      "requirement_id": "REQ-SYS-190",
+      "title": "Bench test mode not retained over reset",
+      "primary_module": "SW",
+      "modules": [
+        "SW"
+      ],
+      "sw_modules": [
+        "SW-SAFE",
+        "SW-CFG"
+      ],
+      "element_ids": [
+        "B22"
+      ],
+      "function_ids": [
+        "F8",
+        "F9"
+      ],
+      "child_ids": [],
+      "note": "Added by SRR decision 41 (owner ruling 2026-09-26; OQ-SAF-016, HZ-004 K13, HZ-005 K9): SW-CFG keeps the mode out of the configuration store; SW-SAFE clears it at every reset."
     }
   ],
   "gaps": [
@@ -5525,9 +5711,9 @@
     }
   ],
   "summary": {
-    "sys_requirements": 183,
-    "non_retired": 181,
-    "allocated": 179,
+    "sys_requirements": 190,
+    "non_retired": 188,
+    "allocated": 186,
     "gaps": 2,
     "retired_excluded": 2,
     "with_child_ids": 32,
