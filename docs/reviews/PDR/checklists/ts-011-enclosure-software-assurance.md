@@ -23,14 +23,17 @@ checklist_revision: A
 assurance_checklist: "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4 (revision A, branch cr/CR-012-pdr-checklist-templates at 7784672)"
 checklist_file: docs/reviews/PDR/checklists/ts-011-enclosure-software-assurance.md
 product: docs/decisions/trade-studies/TS-011-enclosure.md
-# product_commit and product_files: equal to INSP-081 iteration 1 (readiness R1; rule C2). Each blob equals
-# git rev-parse 70a3a33:<path>, git rev-parse HEAD:<path> and git hash-object <path> at HEAD c91a9eb
-# (checked 2026-09-27): the products are not branch-only
-product_commit: "70a3a33"
-product_blob: 8d2708f1b0175d73945b7ee32d9d49937f4a51e9
-product_files: ["docs/decisions/trade-studies/TS-011-enclosure.md@8d2708f1b0175d73945b7ee32d9d49937f4a51e9", "hardware/enclosure/board-outline.json@27dbacc7dda7f79e6cba3234ee77f6453e304906", "hardware/sim/enclosure/thermal_screen.py@78892ca27ace63c1bbd5965b730b0ccd6e85ab53", "hardware/sim/enclosure/envelope_drawing.py@20815e7581c34c9498e6c8d3972cc738e5c63e8a", "hardware/sim/enclosure/trade_matrix.py@c76b0f70d05a64c282a9066204a64ffe1e217fde", "hardware/sim/enclosure/out/thermal-screen.csv@a8c7d5b1b5f345172a036b590342f67b0adcc273", "hardware/sim/enclosure/out/trade-matrix.txt@c6023d697716d2c024c0033948aaeaa3aa3b7c0e", "docs/reviews/PDR/figures/ts011-thermal-screen.png@47d81e61ee7039b3126158c577170af30686752a", "docs/reviews/PDR/figures/board-outline-envelope.png@ff8aa6c2befd4660f2bf353893ab5673d24f79e3"]
+# product_commit and product_files (iteration 2): equal to INSP-081 iteration 3 (readiness R1; rule C2), TS-011
+# revision 2 at 433a944 (the finding-1 fix landed at 70d11ef, revision 1, and is carried unchanged in substance
+# into revision 2). Each of the twelve blobs equals git rev-parse 8c57710:<path>, git rev-parse HEAD:<path> and
+# git hash-object <path> at HEAD ae29a98 (checked 2026-09-27): the products are on main, not branch-only.
+# product_files_iteration_1 keeps the nine blobs of iteration 1 at 70a3a33
+product_commit: "433a944f9489505ced8fefabfeeab156bdf76e0c"
+product_blob: 8984c27bf96165a3d412ebdf5a524c6d7c7636f3
+product_files: ["docs/decisions/trade-studies/TS-011-enclosure.md@8984c27bf96165a3d412ebdf5a524c6d7c7636f3", "hardware/enclosure/board-outline.json@d7977cf385e8f76af8ad098497333b2f606cf1f8", "hardware/sim/enclosure/thermal_screen.py@78892ca27ace63c1bbd5965b730b0ccd6e85ab53", "hardware/sim/enclosure/envelope_drawing.py@5de2223bfedb3d45734cf066eeccf3df28629b0a", "hardware/sim/enclosure/trade_matrix.py@c76b0f70d05a64c282a9066204a64ffe1e217fde", "hardware/sim/enclosure/board_field_thermal.py@12b7e3d63cd0ef2921dd80f040a3526b8080cd19", "hardware/sim/enclosure/out/thermal-screen.csv@a8c7d5b1b5f345172a036b590342f67b0adcc273", "hardware/sim/enclosure/out/trade-matrix.txt@c6023d697716d2c024c0033948aaeaa3aa3b7c0e", "hardware/sim/enclosure/out/board-field-thermal.csv@2462fc4d9aad8d75c2ba452d9446b067ddea5316", "docs/reviews/PDR/figures/ts011-thermal-screen.png@47d81e61ee7039b3126158c577170af30686752a", "docs/reviews/PDR/figures/board-outline-envelope.png@a2c08e0ef04ec036465ddeb9bd2f6a16d7fb5dfe", "docs/reviews/PDR/figures/ts011-board-field-thermal.png@4751eaeddafafaa921d97b3e2dd1c33f0e97f0f7"]
+product_files_iteration_1: ["docs/decisions/trade-studies/TS-011-enclosure.md@8d2708f1b0175d73945b7ee32d9d49937f4a51e9", "hardware/enclosure/board-outline.json@27dbacc7dda7f79e6cba3234ee77f6453e304906", "hardware/sim/enclosure/thermal_screen.py@78892ca27ace63c1bbd5965b730b0ccd6e85ab53", "hardware/sim/enclosure/envelope_drawing.py@20815e7581c34c9498e6c8d3972cc738e5c63e8a", "hardware/sim/enclosure/trade_matrix.py@c76b0f70d05a64c282a9066204a64ffe1e217fde", "hardware/sim/enclosure/out/thermal-screen.csv@a8c7d5b1b5f345172a036b590342f67b0adcc273", "hardware/sim/enclosure/out/trade-matrix.txt@c6023d697716d2c024c0033948aaeaa3aa3b7c0e", "docs/reviews/PDR/figures/ts011-thermal-screen.png@47d81e61ee7039b3126158c577170af30686752a", "docs/reviews/PDR/figures/board-outline-envelope.png@ff8aa6c2befd4660f2bf353893ab5673d24f79e3"]
 # inputs read (not reviewed)
-input_files: ["docs/reviews/PDR/checklists/ts-011-enclosure.md (INSP-081, committed f6a4a4b)", "docs/process/07-software-engineering-plan.md (sections 2.1.1, 14.1, 14.2, 15)", "docs/safety/hazards.json (HZ-003 causes, firmware_role, K2, K7, K9)", "docs/safety/hazard-analysis.md (HZ-003 row and paragraph)", "docs/requirements/sys/requirements.json (REQ-SYS-112, 113, 118, 155, 181)", "docs/test_cases/sys/test_cases.md (TC-SYS-109)", "docs/risk/register.json (RSK-006, RSK-026)", "docs/plan/pdr-work-plan.md (sections 1, 3.1, WP-PDR-27, WP-PDR-28, 5)", "docs/references/md/swehb/ (swe-022, 027, 033, 039, 057, 070, 080, 081, 086, 087, 089, 134, 136, 205 section 7.1)"]
+input_files: ["docs/reviews/PDR/checklists/ts-011-enclosure.md (INSP-081, committed f6a4a4b)", "docs/process/07-software-engineering-plan.md (sections 2.1.1, 14.1, 14.2, 15)", "docs/safety/hazards.json (HZ-003 causes, firmware_role, K2, K7, K9)", "docs/safety/hazard-analysis.md (HZ-003 row and paragraph)", "docs/requirements/sys/requirements.json (REQ-SYS-112, 113, 118, 155, 181)", "docs/test_cases/sys/test_cases.md (TC-SYS-109)", "docs/risk/register.json (RSK-006, RSK-026)", "docs/plan/pdr-work-plan.md (sections 1, 3.1, WP-PDR-27, WP-PDR-28, 5)", "docs/references/md/swehb/ (swe-022, 027, 033, 039, 057, 070, 080, 081, 086, 087, 089, 134, 136, 205 section 7.1)", "docs/reviews/PDR/checklists/ts-011-enclosure.md (INSP-081 iteration 3, main f2f98c9)", "git log -1 --format=%B 70d11ef and 433a944 (trailers)", "docs/process/configuration-status.md (CSA change log, read for finding-3)", "docs/plan/pdr-work-plan.md (rule C1, L1)"]
 paired_record: INSP-081
 product_type: trade-study-or-adr
 # criticality: safety-critical. TS-011 selects the PA-to-ambient heat path, the heat sink and the chain from
@@ -44,30 +47,36 @@ sprint: PDR-prep
 author_agent: "author:WP-PDR-27 wave 1a (Claude as ME designer)"
 reviewer_agent: "sa-reviewer:WP-PDR-27-ts-011"
 assurance_required: true
-assurance_reviewer_agent: "sa-reviewer:WP-PDR-27-ts-011 (software assurance function; paired file review INSP-081 by reviewer:WP-PDR-27-ts-011-iter1)"
-iteration: 1
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-27-ts-011 (software assurance function, iterations 1 and 2; paired file review INSP-081 by reviewer:WP-PDR-27-ts-011-iter1)"
+iteration: 2
 readiness_met: true
-# reviewer_verdict and assurance_verdict: NEEDS CHANGES at iteration 1 (rule C1): one Major finding open
-reviewer_verdict: NEEDS CHANGES
-assurance_verdict: NEEDS CHANGES
-# verdict: set by Claude as software lead (07 section 10.2). NEEDS CHANGES: a Major finding is open here and
-# two are open in INSP-081. The template applied is branch-only (lead SE convention of 2026-09-27), so even
-# after the fixes the record verdict is set only when CR-012 merges with the template blob unchanged
+# reviewer_verdict and assurance_verdict: NEEDS CHANGES at iteration 1 (rule C1, one Major open); APPROVED at
+# iteration 2: finding-1 (Major) is Verified at TS-011 revision 2 (8984c27b) and board-outline.json d7977cf3. The
+# two Minor findings are open and become liens under rule C1 (plan L1), due at the CDR readiness declaration
+reviewer_verdict: APPROVED
+assurance_verdict: APPROVED
+# verdict: set by Claude as software lead (07 section 10.2). Held at NEEDS CHANGES: both reviews are now APPROVED
+# (INSP-081 iteration 3 reviewer APPROVED), but the assurance template applied exists only on the unmerged
+# cr/CR-012-pdr-checklist-templates (lead SE convention of 2026-09-27), and INSP-081 still carries
+# assurance_verdict pending (cross item X-1). The software lead sets verdict when CR-012 merges with the template
+# blob unchanged
 verdict: NEEDS CHANGES
 findings_major: 1
 findings_minor: 2
-findings_open: 3
+findings_open: 2
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_findings_major: 1
 assurance_findings_minor: 2
 assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-033 7.1 task 1", "swe-033 7.1 task 2", "swe-033 7.1 task 3", "swe-039 7.1 task 4", "swe-057 7.1 task 2", "swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-205 7.1 task 3", "swe-080 7.1 task 1", "swe-080 7.1 task 2", "swe-081 7.1 task 2", "swe-086 7.1 task 1", "swe-087 7.1 task 2", "swe-089 7.1 task 1"]
 swe134_items_checked: [a, b, c, d, e, f, g, h, i, j, k, l]
 deferred_rids: []
-items_no: ["swe-057 7.1 task 2", "swe-134 7.1 task 6", "swe-080 7.1 task 1", "swe-080 7.1 task 2", SA-C-i, SA-C-j, SA-D6, SA-E3]
-effort_turns: 30
-effort_minutes: 55
+# items_no (iteration 2): swe-057 7.1 task 2, SA-C-i and SA-D6 answered No at iteration 1 on finding-1 alone and
+# are Yes at iteration 2; the other five stay No on the open Minor findings 2 and 3
+items_no: ["swe-134 7.1 task 6", "swe-080 7.1 task 1", "swe-080 7.1 task 2", SA-C-j, SA-E3]
+effort_turns: 52
+effort_minutes: 95
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -223,3 +232,56 @@ Both product figures were opened with the Read tool:
 ## Measurements (SWE-089)
 
 Tasks in the table: 20 (17 applied, 3 N/A). Tasks answered No: 4. Checklist items answered No: 4 (SA-C-i, SA-C-j, SA-D6, SA-E3). SWE-134 items checked: 12. Findings: 1 Major, 2 Minor, all Open. Iteration 1. Renders inspected: 2. Effort: 30 turns, about 55 minutes.
+
+## Iteration 2: assurance delta on the finding-1 fix (2026-09-27, main `8c57710`, HEAD `ae29a98`)
+
+**Scope (rule C1).** Iteration 2 is a delta. It verifies the fix of finding-1 (Major) only, against its three prescribed parts, at the blobs INSP-081 iteration 3 names: TS-011 revision 2 `8984c27b` (commit `433a944`), `board-outline.json` `d7977cf3`, `board_field_thermal.py` `12b7e3d6`, `out/board-field-thermal.csv` `2462fc4d`, `docs/reviews/PDR/figures/ts011-board-field-thermal.png` `4751eaed`, and `board-outline-envelope.png` `a2c08e0e` for the sensor keep-outs. The fix landed in `70d11ef` (TS-011 revision 1, trailer `Refs: TS-011, INSP-081, INSP-083, INSP-084, INSP-087`). `433a944` (revision 2, INSP-083 finding-5) carries it forward, and the author made no new commit for this iteration. The Minor findings 2 and 3 are dispositioned only, as rule C1 and plan L1 require. The checklist is unchanged from iteration 1.
+
+**Independence (rule C4).** This invocation authored no part of TS-011 revisions 1 and 2, `board_field_thermal.py`, the outline, the figures or INSP-081, and it edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: "TS-011 section 8 rule 14 NTC-2 REQ-SYS-181 sensing point PA thermal pad trip junction per option"). It returned rule 14, the section 8 requests and the C1 M9 cell. `grep` and `git grep` ran afterwards only on known paths. The rustos repository was not read. LTspice was not run, and nothing was downloaded.
+
+### Checks, iteration 2
+
+| # | Check | Result |
+|---|---|---|
+| D0 | Blob identity: `git rev-parse 8c57710:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` for the twelve `product_files` | All equal to INSP-081 iteration 3 `product_files`. No product file changes between `8c57710` and `ae29a98` |
+| D1 | Fix part (1): sensing point, mount, route, keep-out. TS-011 section 8 rule 14 | Present. NTC-1 (REQ-SYS-118, K2) and NTC-2 (REQ-SYS-181, K9, "a second NTC at the PA") both sit on the board, on the top-side copper of the PA thermal pad, within 2 mm of the device edge. Routing is on the board only, so no sensor wire runs to the heat sink or any removable part. NTC-2 and its comparator are routed apart from the NTC-1 ADC path, which keeps K9 independent of firmware (07 section 14.1) |
+| D2 | Fix part (1): `board-outline.json` `thermal_sensors` and `keepouts_top` | Present. NTC-1 at (104.5, 31.0) and NTC-2 at (100.0, 35.5) in the board frame, each with a 3 x 3 mm keep-out. Both keep-outs lie inside the 15 x 15 mm PA pad (x 92.5 to 107.5, y 23.5 to 38.5) and 4.5 mm from its centre. That is 2.0 mm from the edge of a 5 x 5 mm PowerFLAT body centred on the pad (the outline does not place the device itself). The `keepouts_top` entry "PA thermal sensors NTC-1 and NTC-2 (rule 14)" references them. `trip_relation` and `routing` restate rule 14. The envelope figure `a2c08e0e` (opened with Read) draws both sensors inside the PA pad under the legend "PA sensors NTC-1, NTC-2 (rule 14)" |
+| D3 | Fix part (2): trip junction per surviving option | Present in rule 14, `trip_relation` and the `board-field-thermal.csv` K9 rows. Pad sensor: Tj 104.3 / 107.3 / 110.3 C at 92 / 95 / 98 C in A, C1 and D. Heat-sink sensor: 131.9 to 137.9 C (C1), 132.8 to 138.8 C (A), 137.0 to 143.0 C (D). These equal iteration 1's independent values (C1 134.9, A 135.8, D 140.0 C nominal) at +/-3 K, which is 4.1 W x 3.0 K/W for the pad and 4.1 W x the junction-to-heat-sink-node chain for the heat sink. The C1 row of section 4.1 M9 cites the rule 14 trip. The A and D M9 cells do not repeat it, but rule 14 states it "in every option" and it binds the recommended design and the fallback. The prescribed location was "section 4.1 M9 or section 7". The substance is in the rule that governs the design, so this is not a new finding |
+| D4 | Fix part (2): heat-sink decoupling case and "firmware acts first" | Present. Rule 14 says a lifted heat sink or gap pad (HZ-003 C2) raises the pad sensor with the junction, while a heat-sink sensor would stay cool. With both sensors at one node, the firmware-first order rests on the thresholds alone (REQ-SYS-118 band top 88 C, REQ-SYS-181 band bottom 92 C). The common cause (a detached device or a voided pad misleads both sensors) is stated, with its coverage: RSK-006 step S5 via-array inspection and the TRR key-down test. This answers both readings (a) and (b) of finding-1 and the SA-D1 common-cause consideration |
+| D5 | Fix part (3): requests in section 8 "Impacts" | Present under "Requests to other writers (revision 1, INSP-087 finding-1; plan section 5.3 writer order)". To WP-PDR-16b: HZ-003 K9 keeps "a second NTC at the PA", names the rule 14 point, and states the 104.3 to 110.3 C trip junction. To the REQ-SYS-181 writer (WP-PDR-11, then 02, then 45): change "PA heat-sink temperature" to "PA thermal-pad temperature" in the statement and rationale, and in TC-SYS-109. To WP-PDR-28: confirm the 95 C threshold against the device rating on the chosen chain with the pad sensor. All three prescribed requests are there, each addressed to the plan section 5.3 writer |
+| D6 | Re-run of the evidence script | A `git archive 8c57710 hardware/sim/enclosure hardware/enclosure docs/reviews/PDR/figures` export in the scratchpad gave `.venv/bin/python hardware/sim/enclosure/board_field_thermal.py --check`: "CHECK PASS". Item 3 prints the six K9 rows above. The regenerated `out/board-field-thermal.csv` hashes to `2462fc4d`, byte-identical to the frozen blob. The scratch export was removed |
+| D7 | Figure `ts011-board-field-thermal.png` (`4751eaed`), opened with Read | Top-copper fields for C1 at 6.11 K/W and D, with the PA pad outline, the six hole temperatures and the M8 bars. It carries no sensor marker, and the K9 values are in the CSV and in rule 14. The C1 central top-pad node (85.8 C at 5.5 K/W, `pad_top_central_c`) sits 12.3 K below the central junction (98.1 C). That agrees with the RthJC-only sensor relation that rule 14 relies on |
+
+### Findings, iteration 2
+
+| Finding | Severity | State | Disposition | Evidence |
+|---|---|---|---|---|
+| finding-1 | Major | Verified | Fixed at `70d11ef`, carried at `433a944`. All three prescribed parts are present (D1 to D5), and the numbers reproduce (D3, D6) | TS-011 `8984c27b` section 8 rule 14 and "Requests to other writers"; `board-outline.json` `d7977cf3` `thermal_sensors`; `board-field-thermal.csv` `2462fc4d` |
+| finding-2 | Minor | Open | Lien (rule C1, plan L1). Partly addressed. TS-011 now states that the REQ-SYS-118 inhibit acts first, with the C1 pad at 95.2 C in the REQ-SYS-112 case (section 4.1 M4 paragraph and rule 14). It routes to WP-PDR-28 the ambient at which the inhibit acts for each option. The per-option pad temperature and ambient (A 45.9 C, C1 34.8 C, D 38.8 C, iteration 1 Commands) are not yet in section 4.1 M4 or section 6. Owner: the WP-PDR-27 author (TS-011), with WP-PDR-28 for the values. Due: CDR readiness declaration | TS-011 `8984c27b` section 4.1 M4 paragraph; section 8 WP-PDR-28 request |
+| finding-3 | Minor | Open | Lien (rule C1, plan L1). Part two is met: the TS-011 revision commits carry `Refs: TS-011` (`70d11ef`, `433a944`). Part one is not met: `git grep 70a3a33` finds no entry in `docs/process/configuration-status.md`, so the commit is not yet listed as a PDR RID candidate. Owner: lead SE (CSA change log). Due: CDR readiness declaration, or the PDR package RID list if the lead SE lists it earlier | `git log -1 --format=%B 70d11ef`, `433a944`; `configuration-status.md` at HEAD |
+
+No new finding. After the fix, the task table rows that were No on finding-1 alone are Yes: `swe-057 7.1 task 2`, SA-C-i (K9 now bounds the thermistor-failure branch at Tj 104.3 to 110.3 C in every option and every heat-path state) and SA-D6 (the hazard-data update requests are sent). `swe-134 7.1 task 6`, `swe-080 7.1 task 1`, SA-C-j, `swe-080 7.1 task 2` and SA-E3 stay No, on findings 2 and 3 only.
+
+### Record verdict, iteration 2
+
+`reviewer_verdict: APPROVED`, `assurance_verdict: APPROVED`. No Major finding is open, and the two open Minor findings are liens due at the CDR readiness declaration (rule C1; carried in the PDR package section 15). `verdict` is held at NEEDS CHANGES, for two reasons. The assurance template applied exists only on the unmerged `cr/CR-012-pdr-checklist-templates` (lead SE convention of 2026-09-27). INSP-081 still reads `assurance_verdict: pending` and `assurance_reviewer_agent: "pending (...)"`, so its reviewer copies `assurance_verdict: APPROVED` and `paired_record: INSP-087` (cross item X-1, still open). The requests of D5 go to their writers through the lead SE (cross items X-2 and X-4). The SA-F1 risk request (X-3) is unchanged.
+
+**Lien table (iteration 2).**
+
+| Lien | Finding | Owner | Due | Closure evidence |
+|---|---|---|---|---|
+| L-087-1 | finding-2 | WP-PDR-27 author (TS-011), values from WP-PDR-28 | CDR readiness declaration | TS-011 section 4.1 M4 and section 6 item 3 state the pad temperature and the inhibit ambient for A, C1 and D, or `thermal-budget.md` states them and TS-011 cites it |
+| L-087-2 | finding-3 | Lead SE | CDR readiness declaration | `configuration-status.md` lists `70a3a33` as a commit without its mandatory `Refs:` trailer (RID candidate) |
+
+### Commands, iteration 2
+
+- `git rev-parse 8c57710:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` for the twelve product files: all equal.
+- `git log --oneline -- docs/decisions/trade-studies/TS-011-enclosure.md hardware/enclosure/board-outline.json hardware/sim/enclosure/`: `433a944`, `70d11ef`, `70a3a33`; `git log -1 --format=%B` on the first two: `Refs:` trailers present.
+- `.venv/bin/python -c` JSON read of `board-outline.json` `thermal_sensors`, `keepouts_top`, `keepouts_bottom` (PA pad).
+- `git archive 8c57710 ...` into the scratchpad; `.venv/bin/python hardware/sim/enclosure/board_field_thermal.py --check`: "CHECK PASS"; `git hash-object out/board-field-thermal.csv`: `2462fc4d`.
+- `git grep -l 70a3a33 -- ':!docs/reviews'`: no match.
+- `.venv/bin/python tools/validate_docs.py`: this record passes (see the return).
+
+### Measurements, iteration 2 (SWE-089)
+
+Checks run: 8 (D0 to D7). Findings dispositioned: 3 (1 Verified, 2 Open as liens). New findings: 0. Renders inspected: 2. Effort for iteration 2: about 22 turns, 40 minutes (front matter totals 52 turns, 95 minutes).
