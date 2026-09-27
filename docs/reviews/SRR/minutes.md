@@ -110,3 +110,31 @@ Recorded:
   - (3) PCBWay CNC of the complete box (option A) as the fallback.
 
 Owner statement, verbatim: "I like that suggestion." Option B is to use an extruded enclosure style with separate flat face and end plates. PCBWay cuts the plates in the same order as the board, either as bare PCB panels or as CNC aluminum plates, so the extruded body needs no machining. The catalog enclosure is chosen at PDR first, and the board outline and the printed case (option C) follow its envelope.
+
+### Close-out decisions (after the first close-out run)
+
+The presenter reported the close-out results: 11 of the 14 post-ruling delta re-issues were APPROVED, and three records still held a Major finding (INSP-002 finding-23 and finding-24, INSP-009 finding-11, INSP-016 F-01). The presenter then put twelve items to the owner, each with a recommendation. Before the tag:
+1. Merge the rustos branch `cwht/wp-sw-licence-manifest-safety`, and approve the change request that moves the lock pin to the merged commit (CR-004) and regenerates `firmware/unsafe-audit.md` in the same commit.
+2. Approve the `rust-src` component on `nightly-2026-08-24` and the Miri sysroot crate download from crates.io, which decision 109 did not cover.
+3. Accept rustup 1.29.1, installed by rustup's own self-update during the approved install 1, and run `rustup set auto-self-update disable`.
+4. CS-17 and CS-38 complexity counting convention: the counts of `rust-code-analysis-cli` are the measure; `tools/complexity_gate.py` adds one for each `let ... else`; the two CS-19 halt loops (the panic handler and `safe_state_halt`) get a +1 CS-38 allowance by the CR-001 mechanism; the limit stays 15. This is applied by a change request.
+5. The four traceability violations on REQ-SYS-122, 124, 137 and 138: update `tools/traceability.py` now (CR-002 step 5), then re-validate and re-accredit it, rather than record a deviation.
+6. GitHub protection (decision 15): a ruleset on `main` blocking force-push and deletion, and a tag ruleset on `baseline/*` and `release/*` blocking update and deletion, with no pull-request requirement.
+
+Confirmations that do not block the tag:
+7. CR-002 is Class I.
+8. Raise an RFA for the independent impact review of CR-002, which was approved before that review, due before PDR.
+9. Decision 48 clarification: the menu exposes the switchpoint only, and the debounce counts stay fixed (REQ-SW-KEYER-017, 020 and 021; HZ-004 K9 and HZ-010 K3); OQ-SAF-027 closes on this.
+10. The decision 72 author proposals: the 4.35 V upper bound of REQ-SYS-185 and the 10 kohm fault resistance of REQ-SYS-186, both TBR to PDR.
+11. REQ-SYS-189 (the 60 s full-scale tone limit, HZ-005 K9) falls within decision 41.
+12. Claude runs `brew pin python@3.13` (TV-001 limitation 3).
+
+The owner merged the rustos branch in their own terminal (`git -C ~/rust/rustos merge --ff-only cwht/wp-sw-licence-manifest-safety`: fast-forward c54d35a to 2ec64c0, seven files, 200 insertions). The presenter confirmed that rustos `master` is at `2ec64c0` and then asked for the CR-004 approval.
+
+Owner statement, verbatim: "I concur with your recommendations"
+
+Recorded:
+- Items 1 to 12 are ruled as recommended.
+- CR-004 (the lock pin moved from `c54d35a` to `2ec64c0`) is approved under item 1.
+- Under items 4 and 5, the changed tools are re-validated, and their accreditations are extended once the independent review of each validation record is complete.
+- Item 6 is an owner action in the GitHub settings. The tag waits for the owner to confirm it is done.
