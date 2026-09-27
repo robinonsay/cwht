@@ -1,0 +1,118 @@
+# gate-known-answer.sh (run 6) 2026-09-27 08:22 CDT; tools/sw_gate.sh sha256 cd804ba04e3c506cd2e0dc69fd01a5dceb4b8cae91529d27a5bd445e6bf8dcf1; rustos 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c
+KA-0 unmodified copy: exit 0 (expected 0) MATCH; mode --quick; INTERIM lines 0; first FAIL line: no FAIL line
+KA-1 seeded unwrap in cwht-core: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G1 clippy host
+KA-2 seeded formatting defect: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G1 cargo fmt --check
+KA-3 seeded failing host test: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G3 host tests run 1
+KA-4 seeded unsafe block in cwht-core: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G1 clippy host
+KA-5 lock rustc row differs from installed rustc: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G0 rustc 'rustc 1.98.0 (88d9e12ae 2026-08-18)' differs from the lock 'rustc 1.98.1 (0000000 2026-09-01)'
+KA-6 seeded unwrap in cwht-app (target clippy): exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G1 clippy target
+KA-7 seeded cargo:warning in cwht-app/build.rs: exit 1 (expected 1) MATCH; mode --quick; INTERIM lines 0; first FAIL line: FAIL G2 no compiler warning
+KA-8 stale JUnit copies with a failing host test: exit 1 (expected 1) MATCH; mode --keep-going; INTERIM lines 0; first FAIL line: FAIL G3 host tests run 1
+KA-8 G3 comparison line: FAIL G3 identical result sets (JUnit file of run 1 or run 2 not written by this invocation); run1-junit.xml after the run: absent
+KA-8 result lines (--keep-going):
+PASS G0 toolchain identity
+PASS G1 cargo fmt --check
+PASS G1 clippy host
+PASS G1 clippy target
+PASS G2 build
+PASS G2 no compiler warning
+PASS FLASH used 1608 B of 4194304 B = 0.04 % (red line 70.0 % used, TPM-010)
+PASS RAM used 8200 B of 532480 B = 1.54 % (red line 75.0 % used, TPM-011)
+PASS G2 link map (measurements.py)
+PASS G2 no allocator symbol
+PASS G2 image dependency set
+FAIL G3 host tests run 1
+FAIL G3 host tests run 2
+FAIL G3 identical result sets (JUnit file of run 1 or run 2 not written by this invocation)
+FAIL G4 traceability
+PASS G5 cargo audit
+PASS G5 cargo deny (bans, licenses, sources)
+PASS G5 cargo deny advisories
+PASS G5 cargo geiger --forbid-only cwht-app
+PASS G5 cargo geiger --forbid-only cwht-core
+PASS G5 cargo geiger --forbid-only cwht-hal-mock
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/api/src/device/mod.rs:100 fn (new); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/api/src/device/mod.rs:170 fn (new); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/api/src/device/mod.rs:293 block (new); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/common/reset.rs:134 fn (clr_reset_reg); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/common/reset.rs:144 block (clr_reset_reg); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/common/reset.rs:187 fn (set_reset_reg); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/common/reset.rs:196 block (set_reset_reg); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/common/reset.rs:227 fn (wait_for_reset_done); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/common/reset.rs:235 block (wait_for_reset_done); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/gpio/gpio.rs:140 block (new); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/gpio/gpio.rs:257 block (new_output); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/gpio/gpio.rs:277 block (new_input); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/gpio/gpio.rs:327 block (write); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/gpio/gpio.rs:359 block (read); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/gpio/gpio.rs:394 fn (configure_gpio_pin_in); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/gpio/gpio.rs:410 block (configure_gpio_pin_in); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/gpio/gpio.rs:471 fn (configure_gpio_pin_out); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/gpio/gpio.rs:488 block (configure_gpio_pin_out); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:149 attr (BOOT_INFO); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:167 extern (extern block); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:181 extern (extern block); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:219 impl (impl Sync for Vector); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:267 fn (enable_fpu); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:274 block (enable_fpu); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:302 fn (reset_vtor); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:309 block (reset_vtor); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:333 fn (reset_data); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:344 block (reset_data); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:361 fn (reset_bss); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:369 block (reset_bss); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:381 extern (extern block); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:427 attr (__rustos_main); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:455 attr (OnReset); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:462 block (OnReset); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:479 attr (DefaultHandler); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:492 attr (OnHardFault); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lacks the site /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2/src/lib.rs:539 attr (VECTOR_TABLE); re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/api/src/device/mod.rs:100 fn (new), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/api/src/device/mod.rs:170 fn (new), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/api/src/device/mod.rs:293 block (new), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/common/reset.rs:134 fn (clr_reset_reg), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/common/reset.rs:144 block (clr_reset_reg), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/common/reset.rs:187 fn (set_reset_reg), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/common/reset.rs:196 block (set_reset_reg), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/common/reset.rs:227 fn (wait_for_reset_done), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/common/reset.rs:235 block (wait_for_reset_done), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/gpio/gpio.rs:140 block (new), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/gpio/gpio.rs:257 block (new_output), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/gpio/gpio.rs:277 block (new_input), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/gpio/gpio.rs:327 block (write), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/gpio/gpio.rs:359 block (read), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/gpio/gpio.rs:394 fn (configure_gpio_pin_in), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/gpio/gpio.rs:410 block (configure_gpio_pin_in), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/gpio/gpio.rs:471 fn (configure_gpio_pin_out), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/gpio/gpio.rs:488 block (configure_gpio_pin_out), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:149 attr (BOOT_INFO), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:167 extern (extern block), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:181 extern (extern block), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:219 impl (impl Sync for Vector), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:267 fn (enable_fpu), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:274 block (enable_fpu), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:302 fn (reset_vtor), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:309 block (reset_vtor), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:333 fn (reset_data), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:344 block (reset_data), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:361 fn (reset_bss), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:369 block (reset_bss), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:381 extern (extern block), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:427 attr (__rustos_main), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:455 attr (OnReset), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:462 block (OnReset), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:479 attr (DefaultHandler), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:492 attr (OnHardFault), which the scan does not find as written; re-run --write (CS-07)
+FAIL cwht/firmware/unsafe-audit.md lists rustos/firmware/pico2/src/lib.rs:539 attr (VECTOR_TABLE), which the scan does not find as written; re-run --write (CS-07)
+FAIL G5 unsafe audit
+PASS G5 complexity
+PASS G5 Miri (nightly, non-credit, MSR-08)
+FAIL G6 coverage (stable, MSR-13)
+FAIL G6 branch and condition coverage
+SKIP emulation: no accepted emulator ADR
+PASS G6 emulation
+FAIL G6 measurements
+sw_gate: FAIL (8 step(s) failed, 0 prerequisite(s) missing)
+rustos clone status after KA-0 to KA-8 (empty = clean):
+(end of status)

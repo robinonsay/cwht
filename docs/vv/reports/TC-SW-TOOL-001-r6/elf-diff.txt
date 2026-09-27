@@ -1,0 +1,70 @@
+# cwht-app.elf and rustos-blinky.elf: run 6 against run 5, per-section comparison (2026-09-27 08:23 CDT)
+Method: rust-objcopy --dump-section <s>=<file> for every section rust-readobj --sections lists (loadable and
+non-loadable), SHA-256 compared (first 16 hex digits); then the absolute directory strings of each file, with the
+session scratch prefix shown as <scratch>; then the .strtab symbol names that differ.
+## cwht-app: whole file run6 14e431498a4be043 (172864 B), run5 104f40fa8db928e3 (172864 B)
+.vector_table      run6 9f974c936a3c9fa2 run5 9f974c936a3c9fa2 identical
+.boot_info         run6 ab45fee7fef6bf14 run5 ab45fee7fef6bf14 identical
+.text              run6 670287e1872188ac run5 670287e1872188ac identical
+.rodata            run6 e3b0c44298fc1c14 run5 e3b0c44298fc1c14 identical
+.data              run6 e3b0c44298fc1c14 run5 e3b0c44298fc1c14 identical
+.bss               run6 none run5 none identical
+.stack             run6 none run5 none identical
+.debug_loc         run6 748d892f13481787 run5 748d892f13481787 identical
+.debug_abbrev      run6 2f711d362a99bd17 run5 2f711d362a99bd17 identical
+.debug_info        run6 1f5e1558260b3e44 run5 5fcdca03a0470ed8 differ
+.debug_aranges     run6 bca5e075c2d701e0 run5 bca5e075c2d701e0 identical
+.debug_ranges      run6 54382907e910ff45 run5 54382907e910ff45 identical
+.debug_str         run6 d2434d84af61ae3e run5 2fb8085636658210 differ
+.comment           run6 2e4c58e9ff53eb8a run5 2e4c58e9ff53eb8a identical
+.ARM.attributes    run6 9a7bc3bd1e28f4c9 run5 9a7bc3bd1e28f4c9 identical
+.debug_frame       run6 b09a437663384d2b run5 b09a437663384d2b identical
+.debug_line        run6 546ad494799409e8 run5 60c750e5d6d311b2 differ
+.symtab            run6 d7d171839a896817 run5 d7d171839a896817 identical
+.shstrtab          run6 cc0cf78fccb15dc3 run5 cc0cf78fccb15dc3 identical
+.strtab            run6 9da4e0ab8467394d run5 ef98a713945e00d0 differ
+### r6: absolute directory strings in the file (strings | grep '^/'), prefix only
+   3 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea
+   4 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/compiler-builtins
+   1 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core
+   2 <scratch>/r6/cwht/firmware
+   2 <scratch>/r6/rustos/api
+   3 <scratch>/r6/rustos/firmware
+### r5: absolute directory strings in the file (strings | grep '^/'), prefix only
+   3 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea
+   4 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/compiler-builtins
+   1 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core
+   2 <scratch>/r5/cwht/firmware
+   2 <scratch>/r5/rustos/api
+   3 <scratch>/r5/rustos/firmware
+### cwht-app .strtab: symbol names that differ (run 6 left, run 5 right; first 6 lines of diff)
+2,3c2,3
+< cwht_app.54672e91d79acd62-cgu.0
+< _RNvCs7fh4W479cJy_8cwht_app4main
+---
+> cwht_app.4e406d9f02e6aa5b-cgu.0
+> _RNvCs6IwYj0wnYyB_8cwht_app4main
+differing symbol lines: 7; symbol lines run 6 38, run 5 38
+## rustos-blinky: whole file run6 35062bec04ca3187 (134504 B), run5 e826dbf0ddc3fa91 (134504 B)
+.vector_table      run6 4c0cda104a5ae51c run5 4c0cda104a5ae51c identical
+.boot_info         run6 ab45fee7fef6bf14 run5 ab45fee7fef6bf14 identical
+.text              run6 72bb86a37300d065 run5 72bb86a37300d065 identical
+.rodata            run6 367b8604a83b9261 run5 367b8604a83b9261 identical
+.data              run6 e3b0c44298fc1c14 run5 e3b0c44298fc1c14 identical
+.bss               run6 none run5 none identical
+.stack             run6 none run5 none identical
+.comment           run6 2e4c58e9ff53eb8a run5 2e4c58e9ff53eb8a identical
+.ARM.attributes    run6 386df6756fe4abb7 run5 386df6756fe4abb7 identical
+.symtab            run6 d026ce0cde0708a3 run5 d026ce0cde0708a3 identical
+.shstrtab          run6 1f0eca83844a741c run5 1f0eca83844a741c identical
+.strtab            run6 f459651307844a51 run5 5ebad600a34655fb differ
+### r6: absolute directory strings in the file (strings | grep '^/'), prefix only
+### r5: absolute directory strings in the file (strings | grep '^/'), prefix only
+### rustos-blinky .strtab: symbol names that differ (run 6 left, run 5 right; first 6 lines of diff)
+2c2
+< blinky.ffc1e56544223c8e-cgu.0
+---
+> blinky.8bebe34240b5da1d-cgu.0
+4c4
+< _RNvCslXodKtZnO9u_6blinky4main
+differing symbol lines: 7; symbol lines run 6 60, run 5 60

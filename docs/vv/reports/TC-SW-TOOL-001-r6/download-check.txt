@@ -1,0 +1,12 @@
+# download and guard check over the run 6 logs (2026-09-27 08:22 CDT)
+pattern: Downloading|Updating crates|downloading component|rustup-guard|Installing
+versions.txt: 0 matching line(s)
+host-build-test.txt: 0 matching line(s)
+unsafe-audit.txt: 0 matching line(s)
+sw-gate-full.txt: 0 matching line(s)
+sw-gate-keep-going.txt: 0 matching line(s)
+cwht-app-build.txt: 0 matching line(s)
+blinky-build.txt: 0 matching line(s)
+uf2-info.txt: 0 matching line(s)
+## appended by the conductor after step 7 (2026-09-27 08:23 CDT): same pattern over gate-known-answer.txt
+gate-known-answer.txt: 0 matching line(s)

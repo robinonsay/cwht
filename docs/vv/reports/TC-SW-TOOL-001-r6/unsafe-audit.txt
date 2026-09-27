@@ -1,0 +1,12 @@
+# unsafe audit of the committed firmware/unsafe-audit.md against rustos 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c (2026-09-27 08:21 CDT)
+committed list blob 18ef484bf050797e9493d68071efdc0259d423a6; layout copy hash-object 18ef484bf050797e9493d68071efdc0259d423a6
+$ tools/unsafe_audit.py --check
+NOTE 37 unsigned entries in cwht/firmware/unsafe-audit.md (rows 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...); signatures are required from CDR (07 section 8.2; CS-07)
+MSR-11 unsafe sites: block 16, fn 11, impl 1, extern 3, attr 6; total 37; without SAFETY 0; unsigned 37; in forbidden crates 0
+unsafe_audit: PASS (0 failure(s))
+exit=0
+$ tools/unsafe_audit.py --check --gate SRR
+NOTE 37 unsigned entries in cwht/firmware/unsafe-audit.md (rows 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...); signatures are required from CDR (07 section 8.2; CS-07)
+MSR-11 unsafe sites: block 16, fn 11, impl 1, extern 3, attr 6; total 37; without SAFETY 0; unsigned 37; in forbidden crates 0
+unsafe_audit: PASS (0 failure(s))
+exit=0

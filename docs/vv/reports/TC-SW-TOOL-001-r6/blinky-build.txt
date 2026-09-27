@@ -1,0 +1,53 @@
+# Fresh rustos blinky build, run 6 (2026-09-27 08:22 CDT)
+Source: templates/pico2 of the rustos layout at 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c (tree identical to the git archive export, versions.txt), copied to a scratch directory; CARGO_NET_OFFLINE=true.
+## Template diff (package name and the two dependency lines, git form replaced by the local path form of templates/README.md)
+2c2
+< name = "{{project-name}}"
+---
+> name = "blinky"
+11,12c11,12
+< api = { git = "https://github.com/robinonsay/rustos" }
+< pico2 = { git = "https://github.com/robinonsay/rustos" }
+---
+> api = { path = "<scratch>/r6/rustos/api" }
+> pico2 = { path = "<scratch>/r6/rustos/firmware/pico2" }
+(diff exit end)
+## rustc (default toolchain, no pin in the template):
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+## Build 1: cargo build --release --target-dir target-r1
+     Locking 2 packages to latest Rust 1.98.0 compatible versions
+   Compiling pico2 v0.1.0 (<scratch>/r6/rustos/firmware/pico2)
+   Compiling api v0.1.0 (<scratch>/r6/rustos/api)
+   Compiling blinky v0.1.0 (<scratch>/r6-blinky)
+warning: linker stdout: Memory region         Used Size  Region Size  %age Used
+                    FLASH:        2008 B         4 MB      0.05%
+                      RAM:        8200 B       520 KB      1.54%
+  |
+  = note: `#[warn(linker_messages)]` on by default
+
+warning: `blinky` (bin "blinky") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.87s
+exit=0
+## Build 2: cargo build --release --target-dir target-r2
+   Compiling pico2 v0.1.0 (<scratch>/r6/rustos/firmware/pico2)
+   Compiling api v0.1.0 (<scratch>/r6/rustos/api)
+   Compiling blinky v0.1.0 (<scratch>/r6-blinky)
+warning: linker stdout: Memory region         Used Size  Region Size  %age Used
+                    FLASH:        2008 B         4 MB      0.05%
+                      RAM:        8200 B       520 KB      1.54%
+  |
+  = note: `#[warn(linker_messages)]` on by default
+
+warning: `blinky` (bin "blinky") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.45s
+exit=0
+## SHA-256 (build 1, build 2, run 5 rustos-blinky.elf)
+35062bec04ca31878608fde1f54e777424807c6cfddfe05785312a78fbb4ee92  <scratch>/r6-blinky/target-r1/thumbv8m.main-none-eabihf/release/blinky
+35062bec04ca31878608fde1f54e777424807c6cfddfe05785312a78fbb4ee92  <scratch>/r6-blinky/target-r2/thumbv8m.main-none-eabihf/release/blinky
+e826dbf0ddc3fa91d135673d7a9bdfdd1b9921cd903667bfbccd26c57c81fb61  docs/vv/reports/TC-SW-TOOL-001-r5/rustos-blinky.elf
+## Loadable sections against run 5
+.vector_table run6 4c0cda104a5ae51c4f1a09217d38b4082585197ed894372cedd2d4152f7ed5f0 run5 4c0cda104a5ae51c4f1a09217d38b4082585197ed894372cedd2d4152f7ed5f0 identical
+.boot_info run6 ab45fee7fef6bf144e6cb84545f008d427f5411e9ad3e555e5132761e9147c02 run5 ab45fee7fef6bf144e6cb84545f008d427f5411e9ad3e555e5132761e9147c02 identical
+.text run6 72bb86a37300d06560ebc8a2720c749a67d32bc0a771c9fb19378db126ca72d9 run5 72bb86a37300d06560ebc8a2720c749a67d32bc0a771c9fb19378db126ca72d9 identical
+.rodata run6 367b8604a83b926111f1bc63299092a46e65c5eb35b9a3c53650b989c36468ed run5 367b8604a83b926111f1bc63299092a46e65c5eb35b9a3c53650b989c36468ed identical
+.data run6 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 run5 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 identical

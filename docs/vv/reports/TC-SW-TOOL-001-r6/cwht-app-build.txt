@@ -1,0 +1,57 @@
+# cwht-app rebuild identity, run 6 (2026-09-27 08:22 CDT)
+cmp gate-full ELF vs keep-going ELF exit 0
+## Clean build 1: CARGO_TARGET_DIR=<scratch>/r6-app-t1 cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf
+   Compiling api v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/api)
+   Compiling pico2 v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2)
+   Compiling cwht-app v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/cwht/firmware/cwht-app)
+   Compiling cwht-core v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/cwht/firmware/cwht-core)
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.57s
+exit=0
+## Clean build 2: CARGO_TARGET_DIR=<scratch>/r6-app-t2 cargo build -p cwht-app --release --target thumbv8m.main-none-eabihf
+   Compiling pico2 v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/firmware/pico2)
+   Compiling api v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/rustos/api)
+   Compiling cwht-app v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/cwht/firmware/cwht-app)
+   Compiling cwht-core v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r6/cwht/firmware/cwht-core)
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.57s
+exit=0
+## SHA-256 (clean build 1, clean build 2, gate G2 build (stopping run), run 5 cwht-app.elf)
+14e431498a4be04328098d2b860f75af630a2bee180e03b6dd5486256cb2f6a9  <scratch>/r6-app-t1/thumbv8m.main-none-eabihf/release/cwht-app
+14e431498a4be04328098d2b860f75af630a2bee180e03b6dd5486256cb2f6a9  <scratch>/r6-app-t2/thumbv8m.main-none-eabihf/release/cwht-app
+14e431498a4be04328098d2b860f75af630a2bee180e03b6dd5486256cb2f6a9  docs/vv/reports/TC-SW-TOOL-001-r6/cwht-app.elf
+104f40fa8db928e344284eac5d221120ec25b2d7138219dd0e4c68d4b8134b48  docs/vv/reports/TC-SW-TOOL-001-r5/cwht-app.elf
+## Loadable sections: rust-objcopy -O binary, then SHA-256 (gate build of run 6, and run 5)
+.vector_table run6 9f974c936a3c9fa2a311bf03491aff90f2e8e7cb9eaeaed8ab9f46333c28b9ea run5 9f974c936a3c9fa2a311bf03491aff90f2e8e7cb9eaeaed8ab9f46333c28b9ea identical
+.boot_info run6 ab45fee7fef6bf144e6cb84545f008d427f5411e9ad3e555e5132761e9147c02 run5 ab45fee7fef6bf144e6cb84545f008d427f5411e9ad3e555e5132761e9147c02 identical
+.text run6 670287e1872188ac65895af535f464cafc09260fe0a87d2e804dea1f5a926250 run5 670287e1872188ac65895af535f464cafc09260fe0a87d2e804dea1f5a926250 identical
+.rodata run6 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 run5 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 identical
+.data run6 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 run5 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 identical
+## cmp of the run 6 and run 5 ELF files (first differences, if any)
+134137  30 231
+134138  20  21
+134143 155 250
+134144  21  57
+134151 130 351
+(cmp listing end)
+## rust-size -A (gate build of run 6)
+cwht-app.elf  :
+section              size        addr
+.vector_table         272   268435456
+.boot_info             20   268435728
+.text                1316   268435748
+.rodata                 0   268437064
+.data                   0   536870912
+.bss                    4   536870912
+.stack               8192   536870920
+.debug_loc           1062           0
+.debug_abbrev        1990           0
+.debug_info         14248           0
+.debug_aranges        280           0
+.debug_ranges        1496           0
+.debug_str          12726           0
+.comment              153           0
+.ARM.attributes        56           0
+.debug_frame          524           0
+.debug_line          6841           0
+Total               49180
+
+
