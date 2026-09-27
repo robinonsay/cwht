@@ -5,10 +5,10 @@ checklist_revision: B
 checklist_file: docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md
 # product: the FW-B0 toolchain proof of 07 sections 3.1 and 3.2 (SRR package section 2 item H12),
 # reviewed as one product: the firmware workspace, the gate script, the case and its run 1 report
-product: firmware/ (FW-B0 workspace), tools/sw_gate.sh, docs/test_cases/sw-tool/test_cases.json, docs/vv/reports/TC-SW-TOOL-001-r1.md, docs/vv/reports/TC-SW-TOOL-001-r3.md (post-SRR-ruling delta), docs/vv/reports/TC-SW-TOOL-001-r4.md, docs/vv/reports/TC-SW-TOOL-001-r5.md, firmware/unsafe-audit.md (close-out delta)
+product: firmware/ (FW-B0 workspace), tools/sw_gate.sh, docs/test_cases/sw-tool/test_cases.json, docs/vv/reports/TC-SW-TOOL-001-r1.md, docs/vv/reports/TC-SW-TOOL-001-r3.md (post-SRR-ruling delta), docs/vv/reports/TC-SW-TOOL-001-r4.md, docs/vv/reports/TC-SW-TOOL-001-r5.md, firmware/unsafe-audit.md (close-out delta), docs/vv/reports/TC-SW-TOOL-001-r6.md (close-out delta 2)
 # product_commit: iteration 3 review baseline (committed); product_files lists every reviewed file
 # as path@blob from git rev-parse HEAD:<path> (record drift rule, SRR package section 2.3, R13)
-product_commit: "3b45ed7936c2e08ca53feaf080a57271c8dd2261"
+product_commit: "738da038d4655caa0dfa4ad7c58383423ab6c50a"
 product_files:
   - "docs/test_cases/sw-tool/test_cases.json@fee1e7246af59d5e8a43ed1b9cdf483854053fdc"
   - "docs/vv/reports/TC-SW-TOOL-001-r1.md@04bc3354352139eb30b33fadff43e1c9b61d0d8e"
@@ -46,7 +46,7 @@ product_files:
   - "firmware/emu/README.md@ae79ea6c77595157c0774a136735191196c03d99"
   - "firmware/rust-toolchain.toml@ca29c2548ff35887352c340bf5c5b49475758ddb"
   - "firmware/rustfmt.toml@dce38290b859775f8e3732df729561b198f991a3"
-  - "tools/sw_gate.sh@52b9f80361939c9c13e76a806264db1b722abefe"
+  - "tools/sw_gate.sh@29a37127312e242bce2aa8f41602e3bcd4360f2f"
   - "docs/vv/reports/TC-SW-TOOL-001-r3.md@f4303e3a47d15a8772406a722e2a38238d6f43c6"
   - "docs/vv/reports/TC-SW-TOOL-001-r3/blink-rate-prediction.txt@1804b53db1ddcf4a0050979eaae999f03a0631e2"
   - "docs/vv/reports/TC-SW-TOOL-001-r3/blinky-build.txt@2ee533929ea482468f61a94d67320f1b4fe1ff88"
@@ -69,7 +69,7 @@ product_files:
   - "docs/vv/reports/TC-SW-TOOL-001-r3/unsafe-audit.txt@31043488252f3a39ba7aed8681181f0831f8a2f7"
   - "docs/vv/reports/TC-SW-TOOL-001-r3/versions.txt@ddf897ceb812164421ca4ce7c7ff45a044b35585"
   - "firmware/unsafe-audit.md@18ef484bf050797e9493d68071efdc0259d423a6"
-  - "docs/vv/reports/TC-SW-TOOL-001-r4.md@f90902dd0507fc020930323a38efcdf0a4b7b1e1"
+  - "docs/vv/reports/TC-SW-TOOL-001-r4.md@572c0f946970cc3eaa339f1b27d269cbf81fc76f"
   - "docs/vv/reports/TC-SW-TOOL-001-r4/complexity-invocation-check.sh@dccbb8db2b4e9c83ffedfed4ad2d94dce43ca9e9"
   - "docs/vv/reports/TC-SW-TOOL-001-r4/complexity-invocation-check.txt@6726f9bed05488227536764f1adf00d6d91e9d90"
   - "docs/vv/reports/TC-SW-TOOL-001-r4/image-identity.txt@62d41739bc4e337a05fd582ba930bb2091c229a7"
@@ -104,7 +104,30 @@ product_files:
   - "docs/vv/reports/TC-SW-TOOL-001-r5/uf2-info.txt@f5316c9be006be226821b7930f6720ef2420575b"
   - "docs/vv/reports/TC-SW-TOOL-001-r5/unsafe-audit.txt@130d2e1dac4f6b62a033ece8f1bd5555ad69c5a4"
   - "docs/vv/reports/TC-SW-TOOL-001-r5/versions.txt@3ee8623d5a040217367d2561b81aa777a350d4b1"
-product_size: 8 Rust and 10 TOML files plus Cargo.lock and emu/README.md (678 lines under firmware/, excluding target/); sw_gate.sh 300 lines; test_cases.json 117 lines; report 170 lines with 14 artifacts; run 3 report 203 lines with 20 artifacts (post-SRR-ruling delta); close-out delta: sw_gate.sh 370 lines, run 4 report 179 lines with 13 artifacts, run 5 report 201 lines with 20 artifacts, unsafe-audit.md 54 lines
+  - "docs/vv/reports/TC-SW-TOOL-001-r6.md@8d12b38333b4ae863dc8689eed39658dcc276e68"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/blink-rate-prediction.txt@b53552e4e1af0c7005e4d494d336f8c730e54299"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/blinky-build.txt@e737be2c0b7816172de6c2ac198a9889b9b75f6f"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/cwht-app-build.txt@0a137a3c0b1c976e824b352127e55fdaa9de714f"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/cwht-app.elf@327faade6c7808cdf6f192725105c38570ee2f64"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/cwht-app.map@c4482eb0f5060ff5c202a8bd0a2f7568c4d3899b"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/cwht-app.uf2@640951c4994cbc5e8a45e8f89eff3879795da144"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/download-check.txt@723cf368c0b718fec6e66398b55c6f650ccd6b08"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/elf-diff.sh@48a7d6514b395974e2ab8c57470e78ad17dca823"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/elf-diff.txt@b64b63a1e5950cd59e413fb8a6a6db7e8b8dd415"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/gate-known-answer.sh@4142d8490c33e22c5ad05a53da06324725d0f470"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/gate-known-answer.txt@d265a67b53b16143a4cd2c591804e98d00a88664"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/host-build-test.txt@3036a77e698ac620dab1a651dc0bea334cea3e64"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/layout-after.txt@0f967477ade458f2b195dccc75bd8fd1bfca9cc3"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/run6.sh@84846352709b4c6541cde0a383aeb8ce16965f36"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/rustos-blinky.elf@86894dc5937f2791ddca794ae7228e904c36a76d"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/rustos-blinky.uf2@f0e9fb343ed9c24f0e5b791fc344b51093c48ab9"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/rustup-guard.sh@16d8bb5a3305b74cfbdb7902aec16500ff912fcf"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/sw-gate-full.txt@798b98ccd71e4fa1edf62c5f695faaffd4c0a069"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/sw-gate-keep-going.txt@f1d27b6da53b71b91de6e470e8ab5eec9b3bae54"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/uf2-info.txt@df3d6de2666835f181c89ba368d3547be2abf9ac"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/unsafe-audit.txt@d577ac37ce04569ba22c4af982e621fccbeb8976"
+  - "docs/vv/reports/TC-SW-TOOL-001-r6/versions.txt@493876285ec9b1dd7f80ee3031cb97c2c91c0469"
+product_size: 8 Rust and 10 TOML files plus Cargo.lock and emu/README.md (678 lines under firmware/, excluding target/); sw_gate.sh 300 lines; test_cases.json 117 lines; report 170 lines with 14 artifacts; run 3 report 203 lines with 20 artifacts (post-SRR-ruling delta); close-out delta: sw_gate.sh 370 lines, run 4 report 179 lines with 13 artifacts, run 5 report 201 lines with 20 artifacts, unsafe-audit.md 54 lines; close-out delta 2: sw_gate.sh 381 lines, run 6 report 261 lines with 22 artifacts
 sprint: FW-B0 (07 section 3.2)
 author_agent: author:fw-b0 (Claude, software lead; uncommitted working tree on 28e49e6)
 reviewer_agent: reviewer:fw-b0
@@ -113,14 +136,14 @@ assurance_required: false
 assurance_reviewer_agent: none
 iteration: 3
 readiness_met: true
-reviewer_verdict: NEEDS CHANGES
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 2
-findings_minor: 14
-findings_open: 1
-findings_fixed: 12
-findings_verified: 12
+findings_minor: 15
+findings_open: 0
+findings_fixed: 14
+findings_verified: 14
 findings_deferred: 3
 assurance_findings_major: 0
 assurance_findings_minor: 0
@@ -128,10 +151,10 @@ assurance_tasks_applied: []
 unsafe_sites_reviewed: 0
 deferred_rids: []
 items_no: [CK-CODE-C1, CK-CODE-C4, CK-CODE-C7, CK-CODE-D1, CK-CODE-D9, CK-CODE-G5, CK-CODE-H2, CK-CODE-I4, K5, K6, K7]
-effort_turns: 130
-effort_minutes: 195
+effort_turns: 160
+effort_minutes: 240
 record_status: Open
-date: 2026-09-26
+date: 2026-09-27
 date_closed: null
 ---
 
@@ -551,13 +574,93 @@ No new Major finding: every hunk applies its ruling or finding, every run 4 and 
 
 **Verdict (SRR close-out delta): NEEDS CHANGES.** One Major finding remains Open (F-01): the gate still exits 1 on the pinned toolchain and rustos `2ec64c0`, so under the brief and the convergence rule F-01 does not close. F-14 is Closed. Two new Minor findings (F-15, F-16) are liens due before PDR; F-13 stays a lien. `readiness_met` is true under the decision 115 (b) waiver. `record_status` stays Open.
 
+## SRR close-out delta 2 (2026-09-27, reviewer:fw-b0, new invocation)
+
+**Basis.** The SRR minutes section "Close-out decisions A to C and repository protection" (`786822a`): three items put to the owner with a recommendation; owner statement, verbatim, "Done and added. I approve the other recommendations"; items A to C ruled as recommended. For this record: item A (CR-005 amended so that the +1 CS-38 allowance covers all three CS-19 unbounded loops, including the main loop in `cwht-app::main`; run 5 B9), item B (gate G5 Miri on the host-compilable crates of 07 section 8.1, today `api`; `pico2` host-compilability through `cfg_attr` a lien due FW-B1; F-15, run 5 B11) and item C (CR-004 and CR-005 Class I; CR-002, CR-004 and CR-005 logged in `docs/cm/deviations.md` and their impact reviews performed before the tag, closing RFA-SRR-008). Also the minutes section "Run 4 acceptance and repository protection detail" (owner statement, verbatim, "I think the github settings are fine and yes I approve the results"). Convergence rule (charter section 4 item 3): only open Major findings and ruled work change products before the gate; new Minor findings are liens due PDR. The decision 115 (b) readiness waiver still holds, so `readiness_met` stays true.
+
+**Review baseline.** HEAD `738da038d4655caa0dfa4ad7c58383423ab6c50a` (the reviewer's gate run used a `git archive` of `68a44ed`; `git diff --stat 68a44ed 738da03 -- firmware tools docs/vv docs/test_cases` is empty). Search: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` first (the INSP-016 record and F-01 state); `grep -n` afterwards only to pin lines. rustos was read only through `git archive` of `2ec64c0` and a local clone checked out at `2ec64c0` for G0 (the run 5 D20 method the brief allows); the owner's rustos working tree was neither read nor written.
+
+**Commits since `3b45ed7` that touched the product** (`git log 3b45ed7..HEAD -- firmware tools/sw_gate.sh docs/test_cases/sw-tool docs/vv/reports/`): three. No file under `firmware/` changed (`firmware/unsafe-audit.md` stays `18ef484b`; `cwht-app/src/main.rs` stays `e32006a5`); the case stays `fee1e724`.
+
+| Commit | Files in the product | Ruling or finding cited | Hunk check | Result |
+|---|---|---|---|---|
+| `495a0c3` | `tools/sw_gate.sh` (`52b9f803` to `29a37127`) | Close-out item B; F-15; run 5 B11 | Two hunks: the header G5 line gains "on the host-compilable crates of 07 section 8.1 (today rustos api only; see the G5 Miri comment)"; a ten-line comment above the Miri step (reason: `pico2` `link_section` statics at rustos `2ec64c0` `firmware/pico2/src/lib.rs:149` and `:539` rejected by the Mach-O host; scope from item B; end of the exclusion at FW-B1 by `cfg_attr` by the owner as rustos maintainer plus a pin CR) and the command `miri test -p api -p pico2 --lib` becomes `miri test -p api --lib`. Nothing else changes; `sh -n` exit 0. The scope equals 07 section 8.1 (Miri row: the host tests of `api` and of the host-compilable `pico2` decision functions, of which there are none today). The same commit edits `tools/README.md` (one sentence, same content) and the lock section 1.1 `tools/sw_gate.sh` row (a dated 2026-09-27 entry appended after the 20:48 entry; no earlier text changed) and adds the evidence `docs/cm/tool-validation/evidence/sw-gate-miri-scope-2026-09-27.{sh,log.txt}` | Applies item B and the F-15 fix correctly. F-15 closes |
+| `2ee4868` | `docs/vv/reports/TC-SW-TOOL-001-r4.md` (`f90902dd` to `572c0f94`) | Minutes "Run 4 acceptance and repository protection detail" | One line: section 12 "Authorization of acceptability (owner): pending" becomes "accepted 2026-09-27", quoting "yes I approve the results", a verbatim excerpt of the owner statement in the minutes, with the minutes section named. The signature field was a placeholder, so no historical line is rewritten | Correct. Run 4 section 12 no longer reads pending, so no lien is carried for it |
+| `68a44ed` | Run 6 report and 22 artifacts (new) | Close-out items A and B; F-01; run 5 recommendations | `result: Pass`, `credit: false`, credit row `SUPPORT`, no requirement status changed; clean `git archive` of cwht `bb2485e` and rustos `2ec64c0` plus the D20 clone for G0 (tree equal to the export, before and after); gate exit 0 in both modes (stopping run ends `sw_gate: PASS (G0 to G6)`; `--keep-going` 29 PASS lines, 0 FAIL, 0 MISSING, 1 SKIP, the emulation stub); KA-0 to KA-8 MATCH; UF2 files byte-identical to runs 1, 3 and 5; the ELF differences are confined to debug and `.strtab` sections and explained by the layout path (D22, method disclosed); download check 0 matches over the nine logs; section 7 closes B9 and B11 and keeps the FW-B1 lien of item B open; section 12 authorization pending | Honest and reproducible (D2-1 to D2-5). New Minor F-17 (run 6 owner acceptance pending) |
+
+Work outside the product that the brief names, checked for this record (not re-reviewed; each has its own record):
+
+| Item | Evidence at HEAD | Check | Result |
+|---|---|---|---|
+| CR-004 class and impact review | `docs/cm/cr/CR-004-rustos-pin-2ec64c0.md`: section 7 "Class confirmed" reads Class I confirmed by the owner under item C (`786822a`), keeping the 2026-09-26 proposal; disposition history row 2026-09-27 appended (`31272e0`); section 6 filled by an independent reviewer agent at `8b86c16` ("Concur with comments", findings 1 and 2 Minor, liens due PDR; its finding-2 is this record's F-16) | Class and review are the item C ruling as written; no earlier history row changed | Correct |
+| CR-005 class, amendment 1 and impact review | `docs/cm/cr/CR-005-complexity-counting-convention.md` (`106bc3a`, `0da559a`, `8b86c16`): front matter `class: I`; the Class II rationale kept with a dated "Superseded 2026-09-27" note; section 12 quotes items A and C and the owner statement verbatim; section 6 review by an independent agent ("Concur with comments", findings 1 and 2 Minor); 07 revision A.7 (`bfe05f43`) names the three CS-19 loops and the per-function crediting in CS-38, section 8.2, MSR-17 and section 14.3; `tools/complexity_gate.py` blob `ddf10798` credits the bare `loop` of the top-level `main` of a `cwht-app` binary crate root only, once, to that function | Read every hunk of the tool diff: the credit is `f.main_loop = 1` only when the function is not a halt-loop function, is `main` at depth 0, and the nearest `Cargo.toml` names `cwht-app` with this file as a binary root; an unreadable manifest gives no credit; a second bare `loop` adds analyzer CC without a second credit, so it fails. The accreditation extension of ACC-COMPLEXITY-001 to blob `ddf10798` is effective by the INSP-015 re-issue 4 (`0359409`), outside this record | Correct; B9 closed by a ruled change, not by a gate edit |
+| Deviations entries 2 to 4 | `docs/cm/deviations.md` (`31272e0`, `bb2485e`): entries 2 (CR-004) and 3 (CR-005) appended with the 05 section 5.2 departure, RFA-SRR-008 and the before-the-tag closure plan; entry 4 a correction line for entry 1 (entries not edited); closures 1 to 4 appended citing `8b86c16` | Append-only; entries 1 to 3 unchanged; each closure cites the recorded impact review | Correct (RFA-SRR-008 closure is the owner's and the log owner's act, outside this record) |
+
+**Reviewer runs of the delta 2** (clean layout in the scratch area: `git archive` of cwht `68a44ed` into `<dir>/cwht` with `.venv` linked, `git archive` of rustos `2ec64c0` into `<dir>/rustos-export`, and `git clone --no-hardlinks --no-checkout` of the owner's rustos repository into `<dir>/rustos`, then `checkout --detach 2ec64c0`; `RUSTUP_AUTO_INSTALL=0`, `CARGO_NET_OFFLINE=true`, `MIRI_AUTO_OPS=no`, stdin from `/dev/null`, the run 6 `rustup-guard.sh` first on `PATH`; no download, no install; the layout was deleted afterwards).
+
+| Run | Command | Exit | Result |
+|---|---|---|---|
+| D2-1 | `git diff --stat bb2485e HEAD -- firmware tools docs/test_cases`; `git -C /Users/robinonsay/rust/rustos rev-parse master`; lock row by the G0 `sed` expression; `diff -r -x .git` of the clone against the export; `sh -n tools/sw_gate.sh` | 0 | Empty diff (run 6 ran the HEAD product); `master` = lock = `2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c`; clone tree equal to the export; clone clean after the run; syntax ok |
+| D2-2 | `sh tools/sw_gate.sh` (full, stopping mode) in the layout, 2026-09-27T13:30:16Z | 0 | Every step G0 to G6 PASS, `sw_gate: PASS (G0 to G6)`: G0 `rustc 1.98.0 (88d9e12ae 2026-08-18)`, rustos HEAD equal to the lock; FLASH 1608 B, RAM 8200 B; G5 complexity `COUNT .../cwht-app/src/main.rs:30 main CC 4 = analyzer 2 + 2 let ... else`, `ALLOWANCE CS-38 .../main.rs: 4 (2 CS-11 failure arm(s), 1 CS-19 halt loop(s), 1 CS-19 main loop(s))`, MSR-17 functions 52, max_cc 5, mean_cc 1.46, `complexity_gate: PASS (0 failure(s), 0 CS-19 report(s))`; G5 Miri `miri test -p api --lib`, 0 tests, ok; 0 `INTERIM` lines; 0 lines matching the run 6 download pattern. The run 6 stopping result reproduced |
+| D2-3 | Loadable sections (`rust-objcopy -O binary --only-section`) of the D2-2 `cwht-app` against run 6 `cwht-app.elf`; `picotool uf2 convert ... --family rp2350-arm-s` and `cmp` with run 6 `cwht-app.uf2` | 0 | `.vector_table`, `.boot_info`, `.text`, `.rodata`, `.data` identical; the UF2 is byte-identical to run 6 (and so to runs 1, 3, 5 and the run 4 load); the ELF SHA-256 differs only by the layout path, as run 6 D22 explains |
+| D2-4 | `docs/cm/tool-validation/evidence/sw-gate-miri-scope-2026-09-27.sh` on the D2-2 layout (clean) and on a copy with the seeded out-of-bounds read test appended to rustos `api/src/lib.rs` (KA-M1) | 0, then 1 | Block extracted from the HEAD script (sha256 `cd804ba0...8dcf1`, the value the lock row records); clean `PASS G5 Miri`; KA-M1 `FAIL G5 Miri` with `Undefined Behavior: memory access failed`: the narrowed step still discriminates |
+| D2-5 | `shasum -a 256` of the 22 run 6 artifacts against the report front matter; `cmp` of both run 6 UF2 files with runs 1, 3 and 5 | 0 | 22 of 22 match; six `cmp` exit 0 |
+| D2-6 | `unittest tools.tests.test_complexity_gate`; `unittest discover -s tools/tests` | 0; 1 | 27 tests OK; 424 run, 1 failure, `test_repository_exit_zero`, caused by record drift of this record and others before their re-issue (this re-issue clears the drift of this record) |
+
+**Disposition table (SRR close-out delta 2):**
+
+| Finding | Severity | Delta 2 disposition | Evidence at HEAD `738da03` |
+|---|---|---|---|
+| F-01 | Major | **Closed (Verified).** The closure conditions of the close-out delta are met: (1) the owner decided B9 (item A) and it is applied by CR-005 amendment 1 (`106bc3a`) with TV-012 re-validated (run 3, `0da559a`; independent review INSP-015 re-issue 4, `0359409`); (2) F-15 (B11) is fixed (`495a0c3`, item B); (3) run 6 (`68a44ed`) records `tools/sw_gate.sh` exit 0 in both modes on the pinned `1.98.0` and rustos `2ec64c0`, 0 FAIL and 0 MISSING, and this reviewer reproduced the stopping run (D2-2). The FW-B0 exit criterion of 07 section 3.2 is met | run 6 sections 4, 5 and 9; D2-1 to D2-5 |
+| F-02 to F-12 | | Unchanged (Closed) | |
+| F-13 | Minor | **Lien, unchanged** (`main.rs` blob `e32006a5`; run 6 D8 confirms the stale comment) | L-016-2 |
+| F-14 | Minor | Unchanged (Closed, Verified) | |
+| F-15 | Minor | **Closed (Verified); lien L-016-4 discharged.** The G5 Miri step runs `-p api --lib`, the host-compilable scope of 07 section 8.1 (item B); the return of `pico2` at FW-B1 is the owner-ruled lien of item B (L-016-6), not an open part of this finding | `495a0c3`; D2-2, D2-4; run 6 B11 |
+| F-16 | Minor | **Lien, unchanged** (G0 at `sw_gate.sh` still reads `git -C "$RUSTOS" rev-parse HEAD`; run 6 again used the D20 clone; CR-004 impact review finding-2 says the same) | L-016-5 |
+| F-17 | Minor | **New; Lien: fix before PDR** | Run 6 section 12 |
+
+<a id="finding-17"></a>**F-17 (finding-17), Minor, reviewer (SRR close-out delta 2), item K7, `docs/vv/reports/TC-SW-TOOL-001-r6.md` section 12.** The run that closes F-01 and meets the FW-B0 exit criterion reads "Authorization of acceptability (owner): pending"; run 4 carried the same state until the owner accepted it on 2026-09-27. The gate result is reproduced by this reviewer, so the finding changes no verdict and is Minor. Fix: the owner accepts or rejects the run 6 results and the acceptance is transcribed into section 12 with the minutes reference, as for run 4 (`2ee4868`). State: Lien.
+
+No new Major finding: every hunk applies its ruling or finding, every run 6 claim the reviewer re-ran reproduced, and no defect of the cwht workspace, the gate script or rustos `2ec64c0` remains open.
+
+**Accreditation.** No TV record is covered by this record (`tools/sw_gate.sh` has none; its TV is due CDR, lock section 1.2). This delta is the independent review of the item B change and its re-validation entry in the lock section 1.1 `tools/sw_gate.sh` row (CM plan section 9.2 step 4), but it makes no accreditation extension effective, because none is recorded for the gate script. TV-011 (`tools/unsafe_audit.py`) and TV-012 (`tools/complexity_gate.py`) are outside this product; the ACC-COMPLEXITY-001 extension to blob `ddf10798` rests on the INSP-015 re-issue 4 (`0359409`). Run 6 is `credit: false`, so F-01 closes on the gate result, not on credited evidence.
+
+**Lien table (SRR close-out delta 2):**
+
+| Lien | Finding | Item | Closure action | Owner | Due |
+|---|---|---|---|---|---|
+| L-016-2 | F-13 (Minor) | CK-CODE-I4 | As before (CR-001 step 2) | Claude (software lead) | Before PDR |
+| L-016-4 | F-15 (Minor) | K6 | Discharged (`495a0c3`, D2-2, D2-4) | none | done |
+| L-016-5 | F-16 (Minor) | K6 | As before: G0 export mode, or the lock rule amended to the clone method of run 5 D20 | `tools/sw_gate.sh` maintainer and the lock owner (Claude) | Before PDR |
+| L-016-6 | none (owner ruling, item B) | K6 | `pico2` made host-compilable (the two `link_section` attributes under `cfg_attr` for the target) by the owner as rustos maintainer, a CR moving the lock's rustos pin, then `-p pico2` returned to the G5 Miri step with a known-answer run | Robin (rustos), then the `tools/sw_gate.sh` maintainer (Claude) | FW-B1 (item B) |
+| L-016-7 | F-17 (Minor) | K7 | Owner acceptance of run 6 transcribed into run 6 section 12 | Robin; Claude transcribes | Before PDR |
+
+**Cross items (outside this product; for the owners of those files).**
+
+- X-8 (07 owner), carried: Miri on `api` runs 0 unit tests, so MSR-08 is empty until `api` or host-compilable `pico2` code has tests (run 5 recommendation 5; run 6 section 5).
+- X-11 (baseline-record and baseline-check authors): `docs/reviews/SRR/baseline-record.md` section 0.2 P1, P2 and P6 and `docs/reviews/SRR/baseline-check.md`: INSP-016 F-01 is Closed (Verified) at `738da03`; INSP-016 holds no open Major and its verdict is APPROVED with liens F-13, F-16 and F-17 (and the item B lien L-016-6); run 6 (`68a44ed`) is the FW-B0 exit evidence for entrance row 20.
+- X-12 (package author): package section 15 candidate RID 52 and section 6.15 (INSP-016 line): update to APPROVED with liens at this re-issue.
+- X-13 (owner): accept or reject the run 6 results (F-17).
+
+**Verdict (SRR close-out delta 2): APPROVED.** F-01 (Major) is Closed (Verified) on run 6 and the reviewer's reproduction; F-15 is Closed (Verified). No Major finding is open. Minor liens due before PDR: F-13, F-16 and the new F-17; the item B lien L-016-6 is due FW-B1. `readiness_met` is true under the decision 115 (b) waiver. `record_status` stays Open until the liens close.
+
 ## Completion criteria check (SWE-088)
+
+SRR close-out delta 2 (2026-09-27): met for the verdict (F-01 Closed (Verified) on run 6 and reviewer run D2-2; no open Major; F-13, F-16 and F-17 Minor liens due PDR and the item B lien due FW-B1; readiness met under the decision 115 (b) waiver). `tools/validate_docs.py` passes on this record.
 
 SRR close-out delta (2026-09-26): still not met (F-01 Major open: the run 5 gate exits 1 on B9 and B11; F-13, F-15 and F-16 liens; readiness met under the decision 115 (b) waiver). Post-SRR-ruling delta (2026-09-26): still not met (F-01 Major open: gate exits 1 at the pin and on the rustos branch; F-13 and F-14 liens; readiness met under the decision 115 (b) waiver). Iteration 3: still not met (F-01 and F-02 Major open on owner rulings; F-04 a lien; gate exits 1). Iteration 2: still not met (two Major findings open, F-04 open, gate not passing). Iteration 1 text follows. Not met: readiness R3 is not met (inherent to FW-B0), two Major findings are open, and the gate does not pass. `tools/validate_docs.py` passes on this record. No unsafe entry exists to sign.
 
 ## Verdict
 
 ```
+SRR CLOSE-OUT DELTA 2 (2026-09-27, HEAD 738da03): VERDICT: APPROVED
+- [Major] F-01 Closed (Verified): run 6 (68a44ed) gate exit 0 in both modes on 1.98.0 and rustos 2ec64c0 after items A (CR-005 amendment 1, 106bc3a; TV-012 run 3, 0da559a) and B (495a0c3); reproduced by the reviewer (D2-2).
+- [Minor] F-15 Closed (Verified): 495a0c3, G5 Miri -p api --lib (07 section 8.1 scope, item B); KA-M1 still FAILs (D2-4).
+- [Minor] F-17 Lien: fix before PDR (run 6 section 12 owner authorization pending).
+- [Minor] F-13, F-16 Lien, unchanged. Item B lien L-016-6 (pico2 cfg_attr, pin CR) due FW-B1.
+- F-02 to F-12, F-14 Closed.
+MEASUREMENTS (delta 2): turns=30; minutes=45; new major=0; new minor=1; closed=2; liens=3
+
 SRR CLOSE-OUT DELTA (2026-09-26, HEAD 3b45ed7): VERDICT: NEEDS CHANGES
 - [Major] F-01 Open: CR-004 (5792350) and close-out item 2 closed B1, B2, B10; F-14 fix closed B8; run 4 closed B7; the run 5 gate on 1.98.0 and rustos 2ec64c0 still exits 1 (FAIL G5 complexity B9, owner decision CR-005 section 9; FAIL G5 Miri B11), reproduced (CO-4, CO-5).
 - [Minor] F-14 Closed (Verified): 37ae576, one --paths per path; CO-4.
