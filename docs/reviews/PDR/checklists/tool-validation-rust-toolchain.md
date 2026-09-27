@@ -17,9 +17,12 @@ product: docs/cm/tool-validation/TV-020-rust-toolchain.md
 # runs 3 and 4 evidence, lock and README) with the fixture, known-answer file and procedure of c28dd60 (equal at
 # c827202 and at HEAD). Iteration 1 reviewed 71bf509 (runs at d3de579): TV-020 blob b020c973, TV-021 932d4629,
 # pdr-known-answers.json 0e7d72ac, lock 82005d1b, README b267ce08. TV-022, TV-023, the six fixture trees,
-# known-answers.json and the runs 1 and 2 procedure and log are unchanged since iteration 1
-product_commit: "c827202144e73328b816e666e48dbcd1b3afaae8"
-product_files: ["docs/cm/tool-validation/TV-020-rust-toolchain.md@3f11ab13e54557cbfc023662b63b050921a7957b", "docs/cm/tool-validation/TV-021-cargo-llvm-cov.md@9ce8f95682faf75c0c37f8df9e2f7c080214a461", "docs/cm/tool-validation/TV-022-cargo-nextest.md@308dcf66b4196c3a7127a7060e0cae93592c6931", "docs/cm/tool-validation/TV-023-nightly-miri.md@dd169983c878910728e32154eca4dd01aea82f0b", "docs/cm/tool-validation/evidence/rust-tv-2026-09-27.sh@4c7cb7534b96e77cea16c601dfa00c2f42b3ae1a", "docs/cm/tool-validation/evidence/rust-tv-2026-09-27.log.txt@ac0ac0036cee9ad6b68f0aaf6895dfddd1aab556", "docs/cm/tool-validation/evidence/rust-tv-2026-09-27-r3.sh@42ad521a434d7c69929b010464e7d8e02b3a7e26", "docs/cm/tool-validation/evidence/rust-tv-2026-09-27-r3.log.txt@4e8fc033b19c8d0ad101336aabc9249df16662dd", "tools/toolchain.lock.md@b45c8654476be36b3b1918fbe9ff2040ac6c941e", "docs/cm/tool-validation/README.md@87fb1e8cab28baf623981a3386fb260f5263d1be", "tools/tests/fixtures/rust/pdr-known-answers.json@00256755f82af9b37f16dde635094e03a2dfd1c0", "tools/tests/fixtures/rust/known-answers.json@6311da66a6047b51fa6fe4500e4019c58aba2a00", "tools/tests/fixtures/rust/cond-kat/Cargo.lock@e182713ad234cb0299e19db21bdd60fba19f823a", "tools/tests/fixtures/rust/cond-kat/Cargo.toml@e0766feaaaa3ccf98b4695a05923e6effb263843", "tools/tests/fixtures/rust/cond-kat/src/lib.rs@d5b59f44c44a317687f69aea2aceaddaa2dd6580", "tools/tests/fixtures/rust/cov-kat/Cargo.lock@2b383527992def7ad32c9cad707a6a5a9f46c50e", "tools/tests/fixtures/rust/cov-kat/Cargo.toml@e1e0dbbd1665d11c986110dc3541dfa769932650", "tools/tests/fixtures/rust/cov-kat/src/lib.rs@19ded2eadfe063724c21a43a379a5686150380b6", "tools/tests/fixtures/rust/harness-seeded/.config/nextest.toml@a555946aa3ee04e122b8d22df4f50b9e898e556e", "tools/tests/fixtures/rust/harness-seeded/Cargo.lock@0cb6c2dc1a752c57d88bbc79a55720c45f23ab77", "tools/tests/fixtures/rust/harness-seeded/Cargo.toml@386895fd4e74d812e220f70aa75cf24568ec6f04", "tools/tests/fixtures/rust/harness-seeded/src/lib.rs@7f901c951148cc5f6cc19731b8851c4cdb15b8b4", "tools/tests/fixtures/rust/harness-seeded/tests/harness.rs@e62465bc00f2bfd9beb6e80f0f671fcbb8758613", "tools/tests/fixtures/rust/kat-host/Cargo.lock@6e442470154fa509b20b5e1480ac644d2044473a", "tools/tests/fixtures/rust/kat-host/Cargo.toml@fd9ad9df3ed607030dbe5f4459081da1cff04f99", "tools/tests/fixtures/rust/kat-host/clippy.toml@42020b54612e1bcb2c64149353575b6fa6883d96", "tools/tests/fixtures/rust/kat-host/src/lib.rs@1ac6e57e8dc73773077b8a90a65ac9300e6e09af", "tools/tests/fixtures/rust/kat-target/.cargo/config.toml@6ae26913b43fd609fe0e7e78b6ad886dededb810", "tools/tests/fixtures/rust/kat-target/Cargo.lock@7fed9133c31179b0096217c07862c51812d90827", "tools/tests/fixtures/rust/kat-target/Cargo.toml@d9edf91cdd893fca406e44bd24fb88281f2b2dc9", "tools/tests/fixtures/rust/kat-target/build.rs@4753901c8962d0fa4cc459f00c7e85b246bfcda0", "tools/tests/fixtures/rust/kat-target/link.x@70b6d0d8b890d41e4a5db43aa25d06aefb158779", "tools/tests/fixtures/rust/kat-target/src/main.rs@d97ecd8135bfecf4958de803b452cdfce2f2ee82", "tools/tests/fixtures/rust/miri-kat/Cargo.lock@c0e750f3f8397c332f8dd655714a347524142712", "tools/tests/fixtures/rust/miri-kat/Cargo.toml@24a25655c2a40e9c18a616bb4f913e90a207d928", "tools/tests/fixtures/rust/miri-kat/src/lib.rs@84e8f8c9c46190843074170b4220fb546d153f36"]
+# known-answers.json and the runs 1 and 2 procedure and log are unchanged since iteration 1.
+# Iteration 3 (drift delta, 2026-09-27): lock b45c8654 -> e1c811b0 and README 87fb1e8c -> 7c90f143 (commits
+# 2bfe001, d9c7f69, 99feb43, f47360a, bd78bd5, 1db319a; last change 1db319a); the other 34 blobs equal at c827202
+# and 1db319a. product_commit is the first commit holding every blob of product_files
+product_commit: "1db319ad1907ceb3806d758f8df923d6b29c861d"
+product_files: ["docs/cm/tool-validation/TV-020-rust-toolchain.md@3f11ab13e54557cbfc023662b63b050921a7957b", "docs/cm/tool-validation/TV-021-cargo-llvm-cov.md@9ce8f95682faf75c0c37f8df9e2f7c080214a461", "docs/cm/tool-validation/TV-022-cargo-nextest.md@308dcf66b4196c3a7127a7060e0cae93592c6931", "docs/cm/tool-validation/TV-023-nightly-miri.md@dd169983c878910728e32154eca4dd01aea82f0b", "docs/cm/tool-validation/evidence/rust-tv-2026-09-27.sh@4c7cb7534b96e77cea16c601dfa00c2f42b3ae1a", "docs/cm/tool-validation/evidence/rust-tv-2026-09-27.log.txt@ac0ac0036cee9ad6b68f0aaf6895dfddd1aab556", "docs/cm/tool-validation/evidence/rust-tv-2026-09-27-r3.sh@42ad521a434d7c69929b010464e7d8e02b3a7e26", "docs/cm/tool-validation/evidence/rust-tv-2026-09-27-r3.log.txt@4e8fc033b19c8d0ad101336aabc9249df16662dd", "tools/toolchain.lock.md@e1c811b08b742e8ad24ff053efc9c4476fbffd29", "docs/cm/tool-validation/README.md@7c90f14310f7deedf518596bc57c5b4c7e2fc277", "tools/tests/fixtures/rust/pdr-known-answers.json@00256755f82af9b37f16dde635094e03a2dfd1c0", "tools/tests/fixtures/rust/known-answers.json@6311da66a6047b51fa6fe4500e4019c58aba2a00", "tools/tests/fixtures/rust/cond-kat/Cargo.lock@e182713ad234cb0299e19db21bdd60fba19f823a", "tools/tests/fixtures/rust/cond-kat/Cargo.toml@e0766feaaaa3ccf98b4695a05923e6effb263843", "tools/tests/fixtures/rust/cond-kat/src/lib.rs@d5b59f44c44a317687f69aea2aceaddaa2dd6580", "tools/tests/fixtures/rust/cov-kat/Cargo.lock@2b383527992def7ad32c9cad707a6a5a9f46c50e", "tools/tests/fixtures/rust/cov-kat/Cargo.toml@e1e0dbbd1665d11c986110dc3541dfa769932650", "tools/tests/fixtures/rust/cov-kat/src/lib.rs@19ded2eadfe063724c21a43a379a5686150380b6", "tools/tests/fixtures/rust/harness-seeded/.config/nextest.toml@a555946aa3ee04e122b8d22df4f50b9e898e556e", "tools/tests/fixtures/rust/harness-seeded/Cargo.lock@0cb6c2dc1a752c57d88bbc79a55720c45f23ab77", "tools/tests/fixtures/rust/harness-seeded/Cargo.toml@386895fd4e74d812e220f70aa75cf24568ec6f04", "tools/tests/fixtures/rust/harness-seeded/src/lib.rs@7f901c951148cc5f6cc19731b8851c4cdb15b8b4", "tools/tests/fixtures/rust/harness-seeded/tests/harness.rs@e62465bc00f2bfd9beb6e80f0f671fcbb8758613", "tools/tests/fixtures/rust/kat-host/Cargo.lock@6e442470154fa509b20b5e1480ac644d2044473a", "tools/tests/fixtures/rust/kat-host/Cargo.toml@fd9ad9df3ed607030dbe5f4459081da1cff04f99", "tools/tests/fixtures/rust/kat-host/clippy.toml@42020b54612e1bcb2c64149353575b6fa6883d96", "tools/tests/fixtures/rust/kat-host/src/lib.rs@1ac6e57e8dc73773077b8a90a65ac9300e6e09af", "tools/tests/fixtures/rust/kat-target/.cargo/config.toml@6ae26913b43fd609fe0e7e78b6ad886dededb810", "tools/tests/fixtures/rust/kat-target/Cargo.lock@7fed9133c31179b0096217c07862c51812d90827", "tools/tests/fixtures/rust/kat-target/Cargo.toml@d9edf91cdd893fca406e44bd24fb88281f2b2dc9", "tools/tests/fixtures/rust/kat-target/build.rs@4753901c8962d0fa4cc459f00c7e85b246bfcda0", "tools/tests/fixtures/rust/kat-target/link.x@70b6d0d8b890d41e4a5db43aa25d06aefb158779", "tools/tests/fixtures/rust/kat-target/src/main.rs@d97ecd8135bfecf4958de803b452cdfce2f2ee82", "tools/tests/fixtures/rust/miri-kat/Cargo.lock@c0e750f3f8397c332f8dd655714a347524142712", "tools/tests/fixtures/rust/miri-kat/Cargo.toml@24a25655c2a40e9c18a616bb4f913e90a207d928", "tools/tests/fixtures/rust/miri-kat/src/lib.rs@84e8f8c9c46190843074170b4220fb546d153f36"]
 fixture_trees: ["tools/tests/fixtures/rust/kat-target@1eae87cd88cfec51f5b46f8450b24a2dd7f5894c", "tools/tests/fixtures/rust/kat-host@d70d2554d7ca0f4c3e7e16fdebbb7998cbe80f9a", "tools/tests/fixtures/rust/cov-kat@970e59d5059906dfea91dd2bae5769da2d66fc0d", "tools/tests/fixtures/rust/cond-kat@cca3b34803faee4b9f4a39f4b993e5fc656202f2", "tools/tests/fixtures/rust/miri-kat@bf632e485880160f57271332f77cc5ea9de78ce4", "tools/tests/fixtures/rust/harness-seeded@dbc9eae482a0a62f663b66d0f3ca7e36fddfb0b0"]
 tv_ids: [TV-020, TV-021, TV-022, TV-023]
 # tool_class: TV-020 A (build) and B (test, clippy); TV-021, TV-022 B; TV-023 B non-credit
@@ -30,19 +33,23 @@ product_size: 4 records, 13 purposes, 23 known-answer checks (K20-1 to K20-6, K2
 sprint: PDR-prep
 author_agent: "author:WP-PDR-08 (Claude as software lead and tool owner)"
 tool_author_agent: n/a (external tools)
-reviewer_agent: "reviewer:WP-PDR-08-rust-toolchain-iter2 (independent; authored no part of WP-PDR-08; iteration 1 by reviewer:WP-PDR-08-rust-toolchain)"
+reviewer_agent: "reviewer:WP-PDR-08-rust-toolchain-iter3 (independent; authored no part of WP-PDR-08 or of the lock and README changes of the delta; iteration 1 by reviewer:WP-PDR-08-rust-toolchain, iteration 2 by reviewer:WP-PDR-08-rust-toolchain-iter2)"
 criticality: neither
 # assurance_required: the TV template (CR-012) says false; PDR work plan WP-PDR-08 names "independent reviewer
-# plus SA". Section H is answered here as the template directs; the separate SA invocation the plan names is
-# requested from the lead SE (return fix_requests "SA pair needed"); cross item X-2.
+# plus SA". Section H is answered here as the template directs; the separate SA invocation is INSP-048
+# (docs/reviews/PDR/checklists/tool-validation-rust-toolchain-software-assurance.md, 13a4f66), paired at
+# iteration 3 as INSP-048 asks (the pair X-2 requested; its routing question is INSP-048 finding-1). assurance_verdict is INSP-048's APPROVED of the c827202
+# blobs; INSP-048 has its own drift delta on the lock and README to run
 assurance_required: true
-assurance_reviewer_agent: "pending (separate invocation, PDR work plan WP-PDR-08)"
-iteration: 2
+paired_record: INSP-048
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-08-rust-toolchain (INSP-048, separate invocation, PDR work plan WP-PDR-08)"
+iteration: 3
 readiness_met: true
 reviewer_verdict: APPROVED
-assurance_verdict: pending
-# verdict: held at NEEDS CHANGES until the separate SA invocation of WP-PDR-08 is filed and APPROVED (fix request
-# "SA pair needed"; cross item X-2); the reviewer lens is APPROVED with liens finding-3 to finding-8
+assurance_verdict: APPROVED
+# verdict: held at NEEDS CHANGES (lead SE convention of 2026-09-27): the item set applied (TV and SA templates)
+# exists only on the unmerged cr/CR-012-pdr-checklist-templates, and INSP-048 still names the pre-delta lock and
+# README blobs; the reviewer lens is APPROVED with liens finding-3 to finding-8 (rule C1)
 verdict: NEEDS CHANGES
 findings_major: 2
 findings_minor: 6
@@ -55,8 +62,8 @@ assurance_tasks_applied: [swe-136 7.1 task 1, swe-070 7.1 task 1]
 deferred_rids: []
 # items_no: at iteration 2 (TV-B3, TV-C2, TV-C5 and TV-E1 of iteration 1 are Yes after the Major fixes)
 items_no: [TV-C3, TV-G2-1]
-effort_turns: 64
-effort_minutes: 90
+effort_turns: 84
+effort_minutes: 115
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -372,4 +379,52 @@ FINDINGS: finding-1 and finding-2 Major Verified; finding-3 to finding-8 Minor, 
 ITEMS N/A: G1, G3, G4, TV-F5, TV-H2 (unchanged)
 RE-RUN: sh rust-tv-2026-09-27-r3.sh <scratch>/rr <scratch>/guard c28dd60; exit 0; K20-4a/b, K20-5a/b, K21-4a to K21-4d PASS; all criteria same as runs 3 and 4
 MEASUREMENTS: elements verified=13; new findings=1 (Minor); iteration 2 turns=24, minutes=35; cumulative turns=64, minutes=90
+```
+
+## Iteration 3 (drift delta, 2026-09-27)
+
+**Scope.** Two blobs of `product_files` changed on `main` after iteration 2 and after INSP-048: `tools/toolchain.lock.md` `b45c8654` to `e1c811b0` and `docs/cm/tool-validation/README.md` `87fb1e8c` to `7c90f143`, through `2bfe001`, `d9c7f69`, `99feb43`, `f47360a`, `bd78bd5` (lock `be96420b`, README `f4757da2`) and `1db319a` (the owner's ACC-LTSPICE-001 accreditation, after the assignment was issued; this delta reads to `1db319a`). The other 34 blobs of `product_files` and the six fixture trees are equal at `c827202` and `1db319a` (each recomputed with `git rev-parse <commit>:<path>`). The lock and README are shared files; this record reviews only their Rust rows (TV-020 to TV-023, ACC-RUST-001, ACC-LLVMCOV-001, ACC-NEXTEST-001, ACC-NIGHTLY-001). Rule C1: iteration 3 verifies the delta only; no finding of this record is Open.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-08, TV-014 to TV-019, the lock or README changes of the delta, and no earlier iteration of this record or INSP-048; it edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: CM plan section 9.2 step 5, toolchain lock change history and accreditation entry); `grep` afterwards only on `git diff` output to pin lines.
+
+### Hunks read
+
+| Blob | Hunk (new-file lines) | Content | Touches a Rust row or a cited section? |
+|---|---|---|---|
+| lock | 8 to 17 | section 1 rows kicad-cli (TV-016 Validated), LTspice (runs 4 to 6, Accredited ACC-LTSPICE-001), LTspice Wine layer (Accredited) | No |
+| lock | 42 to 49 | section 1 rows OpenSCAD and FreeCAD with `tools/scad2step.py` (TV-015 Validated) | No |
+| lock | 64 to 73 | section 1.1 rows kicad-cli (TV-016 run 1), `tools/normalize_fab.py`, LTspice (runs 4 to 6) | No |
+| lock | 93 to 106 | section 1.1 OpenSCAD + FreeCAD row (TV-015 runs 1 and 2); new rows `tools/render_tpm.py`, `tools/csa.py`, `tools/check_commit_msg.py` | No |
+| lock | 119 to 131 | section 1.2 rows `render_tpm.py`, `csa.py`, `check_commit_msg.py`, `ltspice-batch.sh` blob history, `normalize_fab.py`, `scad2step.py` | No |
+| lock | 174 to 180 | section 1.4 new finding 15 (orphaned Wine services held the wrapper lock; closed) | No; findings 1 to 14, including finding 8 cited at TV-G2-3, unchanged |
+| lock | 266 to 277 | section 5 rows TV-014 to TV-019 | No; the TV-020 to TV-023 rows are byte-equal |
+| lock | 309 to 319 | section 6 five change-history rows (WP-PDR-07: TV-015 to TV-019 filing, TV-014 runs 4 to 6, TV-015 run 2), each "No tool version changed" | No; sections 1.3 (firmware pin), 3 (rustos pin) and 7 (installers) unchanged |
+| README | 38 to 43 | index row TV-014 (blob `88b71475`, runs 5 and 6, Accredited); new rows TV-015 to TV-019 | No; the TV-020 to TV-023 rows are byte-equal |
+
+Mechanical check: no removed or added line of `git diff b45c8654 e1c811b0` or `git diff 87fb1e8c 7c90f143` matches `rust|cargo|clippy|nextest|llvm-cov|miri|nightly|rustup|TV-02[0-3]|ACC-(RUST|LLVMCOV|NEXTEST|NIGHTLY)` (case-insensitive; zero matches). The identity strings, section 1 and 1.1 rows, section 5 status rows and README rows that R4, TV-D2, TV-F3, TV-G2-3, the finding-7 lien (lock string note) and the iteration 2 verification rows (finding-1 elements 1 and 8, finding-2 element 5) cite are therefore unchanged, and every answer of this record stands on the new blobs. No reviewer re-run is needed: no fixture, procedure, stored answer or tool identity changed.
+
+### Scan of the delta for new defects (Rust lens)
+
+None. The delta adds rows for other tools and changes no rule that governs the Rust records (the lock rules preamble, section 1.3, section 3 and section 7 are outside every hunk).
+
+Observation outside this record's lens, for the lead SE and the TV-014 record reviewer (INSP-038), not a finding here: `1db319a` moved the LTspice rows of lock sections 1 and 5 to Accredited without a section 6 change-history row, while each earlier lock edit of the delta added one. Whether an accreditation needs a section 6 row is a question for the lock's maintainer (05 section 9.3).
+
+### Pairing (X-2)
+
+INSP-048 (`tool-validation-rust-toolchain-software-assurance.md`, `13a4f66`) is the separate software assurance invocation WP-PDR-08 names, with `assurance_verdict: APPROVED` and five Minor liens on the `c827202` blobs. Its "Record verdict" section asks this record's reviewer to name it; the front matter now carries `paired_record: INSP-048`, `assurance_reviewer_agent` and `assurance_verdict: APPROVED`. INSP-048 names the pre-delta lock and README blobs and needs its own drift delta; the routing disagreement of X-2 (TV template versus plan) is INSP-048 finding-1.
+
+### Measurements (SWE-089), iteration 3
+
+Items re-checked: 9 hunks (2 blobs), 34 unchanged blob identities and 6 fixture trees recomputed, 1 mechanical keyword check, 8 answers citing the lock or README re-confirmed against the new blobs (R4, TV-D2, TV-F3, TV-G2-3, finding-7, finding-1 elements 1 and 8, finding-2 element 5). New findings: 0. Findings verified: 0 (none open). Iteration 3 effort: 20 turns, 25 minutes; cumulative 84 turns, 115 minutes (front matter). `validate_docs.py` on this record: PASS with no drift note (repository-wide failures of other records are not attributable to this record).
+
+### Record verdict (iteration 3)
+
+**Reviewer verdict: APPROVED**, with liens finding-3 to finding-8 (rule C1, due the CDR readiness declaration). **Assurance verdict: APPROVED** (INSP-048). The record `verdict` stays NEEDS CHANGES under the lead SE convention of 2026-09-27: the item set applied (`peer-review-checklist-tool-validation.md` and the SA checklist) exists only on the unmerged `cr/CR-012-pdr-checklist-templates`, and INSP-048 has not yet run its drift delta. The software lead sets `verdict: APPROVED` on this record and INSP-048 when CR-012 merges with the template blobs unchanged and INSP-048 names the current blobs. If a product blob changes before then, this record first gets another delta iteration.
+
+```
+VERDICT (iteration 3, 2026-09-27): reviewer APPROVED (liens finding-3 to finding-8); assurance APPROVED (INSP-048); record verdict NEEDS CHANGES (held: CR-012 unmerged; INSP-048 drift delta pending)
+PRODUCT: product_commit 1db319a; lock e1c811b0, README 7c90f143; the other 34 blobs and 6 fixture trees unchanged since c827202
+DELTA: 9 hunks read; no Rust row, identity, run row or cited section changed; 0 new findings
+FINDINGS: finding-1, finding-2 Major Verified; finding-3 to finding-8 Minor liens due CDR; no Major open
+MEASUREMENTS: hunks=9; identities recomputed=40; new findings=0; iteration 3 turns=20, minutes=25; cumulative turns=84, minutes=115
 ```
