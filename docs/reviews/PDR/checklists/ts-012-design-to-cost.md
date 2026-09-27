@@ -13,48 +13,52 @@ checklist: peer-review-checklist-risk
 checklist_revision: A
 checklist_file: docs/reviews/PDR/checklists/ts-012-design-to-cost.md
 product: docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md
-# product_commit (iteration 2): eca24fa, the TS-012 revision 2 commit. The blob below equals git rev-parse
-# eca24fa:<path>, HEAD:<path> and git hash-object <path> at HEAD eca24fa on 2026-09-27; it is on main.
-# product_files_iteration_1 keeps the 5c16930 blob reviewed at iteration 1.
-product_commit: "eca24fa78457b3de9834df78be0ca33c5bea9ecd"
-product_blob: 7432bba479c2a4264b317e35b0c7ac48b85370ad
-product_files: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@7432bba479c2a4264b317e35b0c7ac48b85370ad"]
+# product_commit (iteration 3): d5a3058, the TS-012 revision 3 commit. The blob below equals git rev-parse
+# d5a3058:<path>, HEAD:<path> and git hash-object <path> at HEAD d5a3058 on 2026-09-27; it is on main.
+# Iteration 2 reviewed eca24fa, blob 7432bba4 (product_files_iteration_2); product_files_iteration_1 keeps
+# the 5c16930 blob reviewed at iteration 1.
+product_commit: "d5a3058bbe42a28d5b6fad43aa331fa83cdbd93a"
+product_blob: b1f03fad90ad0f7e4a118624792838d495501e56
+product_files: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@b1f03fad90ad0f7e4a118624792838d495501e56"]
+product_files_iteration_2: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@7432bba479c2a4264b317e35b0c7ac48b85370ad"]
 product_files_iteration_1: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@5da2c7c58c8ea759d7bcaa92e2efcb49f16de1bd"]
 # product_size (iteration 2); iteration 1 was "5 alternatives (A0 dropped at M1; A1 to A4 scored; 5 pruned), 5 mandatory
 # and 8 enhancing criteria; BOM of 33 Mouser rows, 5 other-seller rows, 5 shipping and duty lines; about 80 requirement deltas"
 product_size: "6 alternatives (A0 dropped at M1, A1 at M4; A2 to A5 ranked; 7 pruned), 5 mandatory and 8 enhancing criteria; A5 BOM of 31 Mouser rows, 4 estimated rows, 4 other-seller rows, 7 shipping, duty and tariff lines; A4 roll-up; 4 upgrades with risk per dollar; about 90 requirement deltas"
 sprint: PDR-prep
 author_agent: "author:TS-012 (Claude as trade-study author, invocation of 2026-09-27)"
-reviewer_agent: "reviewer:TS-012-iter1 (independent; authored no part of TS-012, its architecture reports or its judge reports); iteration 2 by reviewer:TS-012-iter2 (independent; authored no part of TS-012 revision 1 or 2)"
+reviewer_agent: "reviewer:TS-012-iter1 (independent; authored no part of TS-012, its architecture reports or its judge reports); iteration 2 by reviewer:TS-012-iter2 (independent; authored no part of TS-012 revision 1 or 2); iteration 3 by reviewer:TS-012-iter3 (independent; authored no part of TS-012 revision 1, 2 or 3)"
 # criticality: the study decides the hardware controls of REQ-SYS-055, 120, 180, 181, 182 and 092 and the
 # Morse menu override command path (safety-critical by SRR decision 9; 07 section 14.1)
 criticality: safety-critical
 assurance_required: true
 assurance_reviewer_agent: "pending (separate invocation; paired record docs/reviews/PDR/checklists/ts-012-design-to-cost-software-assurance.md)"
-iteration: 2
-# readiness_met: false at iterations 1 and 2 on R1 only (validate_docs.py exits 1 on 10 records unrelated to TS-012;
-# this record passes). R3 and R4 hold on revision 2 (iteration 2 readiness table)
+iteration: 3
+# readiness_met: false at iterations 1 to 3 on R1 only (validate_docs.py exits 1: 10 records unrelated to TS-012 at
+# iterations 1 and 2, 8 at iteration 3; this record passes). R3 and R4 hold on revision 3 (iteration 3 readiness table)
 readiness_met: false
-# reviewer_verdict (iteration 2): APPROVED. finding-1 to finding-3 (Major) Verified; finding-4 to finding-10 (Minor)
-# Verified; finding-11 fixed in part and new findings 12 to 16 are Minor and Open, liens due at the CDR readiness
-# declaration (PDR work plan rule C1). Iteration 1 was NEEDS CHANGES
+# reviewer_verdict (iteration 3): APPROVED. finding-1 to finding-3 (Major) stay Verified; finding-11, 12, 13, 15 and 16
+# Verified on revision 3; finding-14 fixed in part (LM2940 output tolerance, SNVS769J) and new Minor findings 17 and 18
+# are Open, liens due at the CDR readiness declaration (PDR work plan rule C1). Iteration 2 was APPROVED with
+# finding-11 to 16 open; iteration 1 was NEEDS CHANGES
 reviewer_verdict: APPROVED
 assurance_verdict: pending
-# verdict: held at NEEDS CHANGES until the software assurance pair (ts-012-design-to-cost-software-assurance.md, not yet
-# dispatched; cross item X-2) returns APPROVED and readiness R1 holds (07 section 2.1.1; rule C9)
+# verdict: held at NEEDS CHANGES until the software assurance pair (ts-012-design-to-cost-software-assurance.md, still not
+# filed at iteration 3; cross items X-2, X-5, X-9) returns APPROVED and readiness R1 holds (07 section 2.1.1; rule C9)
 verdict: NEEDS CHANGES
 findings_major: 3
-findings_minor: 13
-findings_open: 6
+# findings (iteration 3): 3 Major and 15 Minor raised in all; open: finding-14, 17, 18; verified: finding-1 to 13, 15, 16
+findings_minor: 15
+findings_open: 3
 findings_fixed: 0
-findings_verified: 10
+findings_verified: 15
 findings_deferred: 0
 deferred_rids: []
-# items_no: iteration 1 was [CK-RSK-B5, CK-RSK-B7, CK-RSK-B8]; at iteration 2 every B item is Yes (B5 and B8 with liens)
+# items_no: iteration 1 was [CK-RSK-B5, CK-RSK-B7, CK-RSK-B8]; at iterations 2 and 3 every B item is Yes (B5 and B8 with liens)
 items_no: []
-# effort: iteration 1 45 turns, 75 minutes; iteration 2 40 turns, 70 minutes
-effort_turns: 85
-effort_minutes: 145
+# effort: iteration 1 45 turns, 75 minutes; iteration 2 40 turns, 70 minutes; iteration 3 35 turns, 60 minutes
+effort_turns: 120
+effort_minutes: 205
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -491,4 +495,198 @@ FINDINGS:
 - [Minor] CK-RSK-B5, B7 section 8.4: gate contingency basis differs from M1 (finding-16, lien).
 ITEMS N/A: CK-RSK-A1 to CK-RSK-A11 (product is a trade study)
 MEASUREMENTS: size=6 alternatives, 13 criteria, 23 spot checks; turns=40; minutes=70; major=0 new; minor=5 new; verified=10; open=6
+```
+
+## Iteration 3: delta verification on TS-012 revision 3 (2026-09-27, HEAD `d5a3058`)
+
+**Scope.** Iteration 3 is the delta that rule C2 requires after revision 3 changed the product blob. It verifies the answers to the iteration-2 liens (finding-11 to finding-16) and to the two adversarial refutations of revision 2 that the revision answers (R-1, key-down sequence; R-2, heat inside the case). As the brief asks, it also re-adds every roll-up, confirms the section 10 cost basis, spot-checks prices, stock and datasheet values (the changed lines and the new PA, TCXO and prescaler first), re-computes the scoring and ranking arithmetic and checks the listed-against-estimated presentation. Findings 1 to 10 stay Verified from iteration 2 and are not re-opened. New findings are raised only where revision 3 introduced the defect or left a lien unfixed (PDR work plan rule C1). This is the third iteration, the last one before escalation to the owner under rule C1.
+
+**Product.** `docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md` blob `b1f03fad` at commit `d5a3058` (revision 3, Status Proposed, 911 lines). `git rev-parse HEAD:<path>` and `git hash-object <path>` both give `b1f03fad`; HEAD is `d5a3058` on `main`, and the commit changes only the TS file. Checklist as before: `peer-review-checklist-risk.md` revision A, section B.
+
+**Independence (rule C4).** This invocation authored no part of TS-012 revision 1, 2 or 3, of its architecture, judge or adversarial reports, or of iteration 1 or 2 of this record. It edited no product file and changed only this record.
+
+**Search first (charter section 11 rule 1; rule C3).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search, with three queries: the TS-012 record and INSP-110 delta, the 06 section 7 safety override, and the PDR plan rules C1 and C2. After that, `grep` only pinned lines in known paths (`tools/validate_docs.py`, the PDR work plan, the cached datasheet text).
+
+**Owner direction applied.** Status note section 10 governs cost: a USD 200 target and a USD 300 absolute maximum, with the worst case including contingency at or below USD 300. Sales tax is excluded. Owned items: 24 AWG magnet wire, a 2 m antenna with an SMA-male plug, through-hole resistors and capacitors (surface-mount passives are not owned) and a USB power adapter. Status note section 11 (commit `84e7b89`, before `d5a3058`) has since answered the two open assumptions. Cells and charger are not owned, so they are priced. Test equipment sits outside the radio's USD 300 maximum, under a separate USD 300 cap on new equipment. Section 13 records that the owner accredits LTspice (OD-24b). Both answers agree with the assumptions the study carries, so no cost changes; the stale wording is finding-18.
+
+### Verification of the iteration-2 liens and the adversarial answers
+
+| Item | Required | Revision 3 text | Result |
+|---|---|---|---|
+| finding-11 | Read the drawing, or state a fallback with its cost; C8 Low | Section 7.3: a sink-temperature transmit-duty limit at USD 0, with its requirement cost (a duty-limited REQ-SYS-112 corner, TBR, by CR). The derate is shown to help little (class-B scaling: about 9.5 W at 4 W against 9.95 W at 5 W; reviewer: 1.97 x (4.48/5.6)^0.5 = 1.76 A, 7.9 x 1.76 - 4.48 = 9.44 W). The larger-sink search is recorded with URLs. C8-A5 stays Low. The profile read stays at gate item 7 | Verified. The fallback and its cost are stated, which is the alternative the fix allowed. Wording slip: observation O-8 |
+| finding-12 (a) to (d) | Reconcile 8.2 with 7.1; A4 spur Red; "five Red risks" wording | Section 8.2 rebuilt with one 7.1 score per risk. The A4 spur Red (12) and the A4 30 ppm reference Red (12) are now in 7.1. U3 and U4 retire nothing scored. The section 1, 6 item 4, 8 and Q1 wording now reads "four of A4's seven Reds (three by the module, one by the TCXO)". Reviewer re-add: U1 8 + 8 + 6 + 0 - 5 - 9 = 8 (USD 36.88 / 8 = 4.61); U2 12 - 4 = 8 (0.52); total 16, USD 47.07 / 16 = 2.94. A4 Reds: 16, 16, 15, 12, 12, 12, 10 (seven); A5 Reds: 15, 12, 12 (three) | Verified for (a) to (d). A separate omission in the rebuilt table is new finding-17 |
+| finding-13 | C7-A5 on its anchors; re-run the sensitivity | C7-A5 is now 3, and the evidence cell lists the KDR relaxations. Section 5 totals and section 6 are re-run (reviewer re-computation below) | Verified |
+| finding-14 | Clamp VGG at 3.5 V or less at the LM2940 maximum, or bound Pout at the clamp; open-loop case in WP-PDR-22; correct the wording | 0.68 divider, "5.1 V x 0.68 = 3.47 V at the LM2940 maximum, at or under 3.5 V at every pack voltage". The open-loop case is bounded by REQ-SYS-156 and the 10 s cutoff. WP-PDR-22 now checks at most 8 W at the clamp at 8.4 V, with a pack-dependent clamp from spare parts as the fallback. The "under the 4 V rating" wording is removed | **Fixed in part.** The open-loop case, the wording and the WP-PDR-22 criteria are Verified. The clamp value is not: the LM2940 datasheet (SNVS769J, section 6.5, 5 V column) gives an output of 4.85 to 5.15 V at TJ = 25 C and **4.75 to 5.25 V** over the operating temperature range, not a 5.1 V maximum. At 0.68 the clamp reaches 3.50 V at 25 C and **3.57 V** over temperature, before any divider tolerance. The resistors come from the owner's through-hole stock, whose tolerance is not stated: with 5 % parts the ratio can reach about 0.70. Stays Open (lien); see the finding table |
+| finding-15 | State the VDL tolerance over range; propose a band or record at risk | Section 8.10 REQ-SYS-084: at risk. -0.085 / +0.060 V over -40 to +85 C; proposed band 2.415 to 2.560 V (TBR). The reviewer's arithmetic reproduces (2.500 - 0.085, 2.500 + 0.060) | Verified |
+| finding-16 | State which contingency basis the gate applies | Section 8.4: the gate applies the M1 basis, 15 % on every line. The reason given is build-time growth (D12). 15 % of 134.19 = 20.13, "up to about USD 20" | Verified |
+| R-1 (relay timing) | Relay contacts closed before the ramp; no wind-up; routed | Omron G5V-2 datasheet read by the reviewer (below): "Operate time 7 ms max.", "Release time 3 ms max."; the 5 VDC coil is 100 mA and 50 ohm, about 500 mW. The ramp starts at t0 + 10 ms, with the clamps and a parked integrator until then and a mid-ramp plausibility check. WP-PDR-22 models the contact closing at 7.5 ms and, as a fault, at 12 ms; WP-PDR-23 carries the pass criteria. The requirement texts at HEAD are REQ-SYS-160 "begin the RF rise within 15 ms (TBR) of each straight-key contact closure" and REQ-SYS-161 "the same lead-in of at most 12 ms (TBR) after the receive-to-transmit changeover". 10 ms is at most 12 ms, and 1 + 2 + 10 = 13 ms is at most 15 ms | Verified. The residual step on a late contact is bounded by the clamp, which is finding-14's open value |
+| R-2 (heat inside the case) | Withdraw the claim; design controls; risks; routed | "Heat outside the case" is withdrawn from sections 1, 4.2 and 7.3. Revision 3 adds a vented bay, a double-wall bulkhead and the cells at the far end, and keeps the LM393 cell 60 C trip. Cell-heating risks for A3, A4 and A5 are linked to HZ-007 (Catastrophic in `docs/safety/hazards.json`) and merged into RSK-007 ("Li-ion cell thermal event inside the enclosure"). The bands follow the 06 section 7 safety override: Red at likelihood 2 or more, Yellow at 1. WP-PDR-28 has criteria (a) to (c), and the revisit conditions of section 10 name them. The lumped balance reproduces: T = (P + 0.035 x 60 + 0.11 x 45) / 0.145 = 54.1 C at P = 0.8 W and 56.2 C at P = 1.1 W. C8-A5 stays 3 on the anchor "heat near PETG needing design controls" | Verified. The estimate's sensitivity to the assumed 60 C bay is observation O-9 |
+| X-6 | finding-12 and finding-14 before B1a | Both answered in revision 3 | finding-12 Verified; finding-14 fixed in part |
+
+### Roll-up re-add (revision 3)
+
+Section 8.3 is unchanged from revision 2 apart from the gate text. The reviewer script re-parsed the 31 Mouser rows of the committed file. Every line equals quantity times unit price (31 of 31), and the rows sum to 84.31.
+
+| Quantity | TS-012 | Reviewer | Result |
+|---|---|---|---|
+| Mouser listed subtotal (rows 1 to 31) | 84.31 | 84.31 | Reproduced |
+| E1 to E4, low / mid / high | 6.58 / 13.83 / 21.08 | 6.58 / 13.83 / 21.08 | Reproduced |
+| Mouser merchandise | 90.89 to 105.39 | 90.89 to 105.39 | Reproduced |
+| Listed parts (84.31 + 28.91 + 11.98 + 4.99 + 4.00) | 134.19 | 134.19 | Reproduced |
+| Shipping 32.00 / 45.50 / 59.00; duty 1.40 / 2.55 / 26.83; tariff 4.00 / 8.00 / 15.00 | as shown | same (duty worst 0.925 x 29.00 = 26.825) | Reproduced |
+| A5 subtotal | 178.17 / 204.07 / 256.10 | 178.17 / 204.07 / 256.095 to 256.10 | Reproduced |
+| Contingency 15 % | 26.72 / 30.61 / 38.41 | 26.7255 / 30.6105 / 38.415 | Reproduced (truncation stated in 8.4) |
+| A5 capped | 204.89 / 234.68 / 294.51 | 204.8955 / 234.6805 / 294.509 to 294.515 | Reproduced |
+| Margin to USD 300 | 5.49 | 5.485 to 5.491 | Reproduced |
+| A4 capped | 161.85 / 187.61 / 243.42 | 161.851 / 187.611 / 243.4205 | Reproduced |
+| A5 minus A4, planning | 47.07 | 47.07 | Reproduced |
+| Gate contingency on listed parts | "up to about USD 20" | 0.15 x 134.19 = 20.13 | Reproduced |
+
+### Owned items and sales tax (revision 3)
+
+| Item | Owner direction | Revision 3 | Result |
+|---|---|---|---|
+| 24 AWG magnet wire | Owned (section 10) | No wire row; BPF and trifilar windings from owned wire; gate item 9 | Handled |
+| 2 m antenna, SMA-male plug | Owned | No antenna row; EX-9, REQ-SYS-172 delta | Handled |
+| Through-hole R and C | Owned | Not bought; E2 buys the SMD passives and 0 to 3.00 for assortment gaps | Handled |
+| Surface-mount passives | Not owned | Bought (row 4, E1, E2) | Handled |
+| USB power adapter | Owned | Powers the MC1; gate item 9 | Handled |
+| 18650 cells and charger | Not owned (section 11, answered) | Priced: P28A x 2 11.98, MC1 4.99; still worded "assumed" and Q2 still open | Handled in cost; wording stale (finding-18) |
+| Test instruments | Outside the radio cap, separate USD 300 equipment cap (section 11) | EX-13 and Q4 still "to confirm"; tinySA "committed" | Handled in cost; wording stale (finding-18) |
+| Sales tax | Excluded (section 10) | Line at 0; M1 excludes it | Handled |
+
+### Price, stock and datasheet spot checks (retrieved 2026-09-27 by this reviewer; nothing logged into, no form, no cart; datasheet PDFs read through the web-fetch cache and pdftotext)
+
+| # | Item (TS-012 row) | TS-012 claim | Read today | Kind | Source | Result |
+|---|---|---|---|---|---|---|
+| T1 | RA07M1317M-501 at RF Parts (new PA) | 28.91 (27.46 at 10), In Stock, New, USD 15 minimum | "$28.91"; "Buy 10 for $27.46 each"; "In Stock"; New; no EOL note; "Fifteen ($15.00), all inclusive" | L | https://www.rfparts.com/ra07m1317m.html | Verified |
+| T2 | RA07M1317M status | "Active" | Supply status "Active"; Mitsubishi Electric US, Telepro, Diamond Advanced Components | L | https://meus-semiconductors.com/products/high-frequency-devices/ra07m1317m | Verified |
+| T3 | 74LVC1G80GV,125 (row 28, prescaler) | Mouser 0.15, 12,379; DigiKey 16,398; Newark 1,812 | Mouser 0.15, 12,379; DigiKey 0.15, 16,398; Newark 0.176, 1,812 | A | https://www.oemstrade.com/search/74LVC1G80GV | Verified |
+| T4 | TG2520SMN 25.000M-MCGNNM3 (row 29, TCXO) | Mouser 3.61, 1,810 | Mouser 3.61 (3.14 at 10), 1,810, D# 732-TG252S25MCGNNM3 | A | https://www.oemstrade.com/search/TG2520SMN | Verified |
+| T5 | Boyd 529802B02500G (finding-11 search, new) | 3.7 C/W; Future 4.51, 73,071; Mouser 10.50, 0 | Same; Newark description "41.9mm W x 38.1mm H x 38.1mm L" | A | https://www.oemstrade.com/search/529802B02500G | Price and stock verified; "same size" not (O-8) |
+| T6 | Ohmite RA-T2X-64E (finding-11 search, new) | 3.1 C/W, 42 x 25 x 63.5 mm; TME 4.64, 165 | TME 4.64, 165; 3.1 C/W; "42 x 25 x 63.5mm" | A | https://www.oemstrade.com/search/RA-T2X-64E | Verified |
+| T7 | MCP6002-I/P (row 7; now the clamp op-amp) | 0.44, 2,155 | Mouser 0.44, 2,155 | A | https://www.oemstrade.com/search/MCP6002-I%2FP | Verified |
+| T8 | G5V-2-DC5 (row 2; R-1) | 3.33, 2,988 | Mouser 3.33, 2,988, "DPDT 5VDC 500mW" | A | https://www.oemstrade.com/search/G5V-2-DC5 | Verified |
+| T9 | LM2940CT-5.0/NOPB (row 25; clamp supply) | 2.04, 141; Newark 2.13, 1,002 | Same | A | https://www.oemstrade.com/search/LM2940CT-5.0%2FNOPB | Verified |
+| T10 | Molicel P28A x 2 | 5.99 sale (6.99), in stock | "$5.99" sale, "$6.99" regular, "In stock", unprotected flat top | L | https://www.18650batterystore.com/products/molicel-p28a | Verified |
+| T11 | XTAR MC1 | 4.99 sale (9.99), in stock, 0.5 A | "$4.99" sale, "$9.99" regular, "In stock", 500 mA; termination voltage not stated | L | https://www.18650batterystore.com/products/xtar-mc1 | Verified |
+| T12 | Boyd 530002B02500G (row 3) | 3.39, 3,693; Mouser description 63.5 x 18.29 x 3.17 mm | Mouser 3.39, 3,693, "2.6 Degree C/W, 2.67mm Hole, 63.5x18.29x3.17mm"; no mass | A | https://www.oemstrade.com/search/530002B02500G | Verified; mass still unread (gate item 7) |
+| T13 | Fair-Rite 2843000202 (row 30) | 0.88, 47,515 | Mouser 0.88, 47,515, "43 Multi-Aperture" | A | https://www.oemstrade.com/search/2843000202 | Verified |
+| T14 | TE CONSMA001-C-G (row 18) | 2.80, 4,598 | Mouser 712-CONSMA001-C-G, 2.80, 4,598 | A | https://www.oemstrade.com/search/CONSMA001-C-G | Verified |
+| T15 | Diodes 1N5711W-7-F (row 14) | 0.307, 3,033 | Mouser 621-1N5711W-F, **0.24**, 1,839 (0.17 at 10); the 0.307 and 3,033 row is Diodes Incorporated, listed with Newark | A | https://www.oemstrade.com/search/1N5711W-7-F | **Differs, conservative**: the study is USD 0.54 high (0.62 capped). The row follows iteration 1's reading, which this read contradicts (O-7) |
+| T16 | AO3400A (row 22) | 0.52, 303,947 | Today's page extract shows no Mouser or Newark row (DigiKey, TME, LCSC and brokers only) | A | https://www.oemstrade.com/search/AO3400A | Not verifiable today; the iteration-2 read stands |
+| T17 | Omron G5V-2 datasheet (R-1) | Operate 7 ms max, release 3 ms max, DC5 coil 100 mA at 50 ohm | "Operate time 7 ms max.", "Release time 3 ms max."; 5 VDC 100 mA, 50 ohm, approx. 500 mW; bounce distribution graph present | L (datasheet) | https://omronfs.omron.com/en_US/ecb/products/pdf/en-g5v_2.pdf | Verified |
+| T18 | TI LM2940 datasheet (finding-14 clamp basis) | "5.1 V ... at the LM2940 maximum" | SNVS769J (revised December 2014), section 6.5, 5 V: output 4.85 / 5 / 5.15 V at TJ = 25 C; 4.75 / 5 / 5.25 V over the recommended operating temperature range, 5 mA to 1 A | L (datasheet) | https://www.ti.com/lit/ds/symlink/lm2940-n.pdf | **Differs** (finding-14) |
+
+Totals: 18 checks. 14 verified or verified in part: T1 to T14, where T5 is price and stock only and T12 leaves the mass unread. 2 differ: T15, where the study is conservative, and T18. 1 is not verifiable today (T16). T17 is a datasheet read that confirms the author's figures. Not verifiable without a cart, as before: the Mouser shipping and tariff lines, RF Parts carriage, 18650BatteryStore shipping and the JLCPCB two-design quote. The study carries all of them as E, with the owner's gate read.
+
+### Scoring and ranking arithmetic (revision 3)
+
+- **Matrix totals** (section 5), re-computed from the section 4.2 scores: A1 295, A2 325, A3 320, A4 340, A5 350. The weights sum to 100.
+- **Interpolation:**
+  - C1-A5 3.61 (4) and C2-A5 1.27 (1); C2-A4 3.83 (4); C2-A2 4.32 (4); C1-A3 3.42 (3).
+  - C6-A5: 153 x 70 x 42 mm is +14.75 % volume and +20.0 % with the SMA. That interpolates to 1.88, rounded to 2. Mass 361 g is under 370 g. Unchanged at 2.
+- **Weight sensitivity** (16 runs, others rescaled to 100). Every figure in section 6 item 1 reproduces:
+  - A5 first in 9 runs.
+  - A4 first in 6: C1 +10 (360.0 against 356.2), C2 +10 (346.3 against 323.7), C3 +10 (358.8 against 344.1), C6 +10 (335.6 against 333.3), C5 -10 (357.5 against 331.2) and C8 -10 (356.5 against 355.9).
+  - A2 first in 1: C4 -10 (350.0 against 344.4).
+  - A5's smallest winning lead is 4.4 (C3 -10, 355.9 against A2 351.5).
+  - The section 1 summary of the same runs matches.
+- **Low-cell moves.** Exactly five single moves change the top rank: A4 C5 +1 (360 against 350), A4 C8 +1 (355 against 350), A5 C1 -1 (340 against 330), A5 C8 -1 (340 against 335) and A5 C6 -1 (a tie at 340). The joint adverse case gives A4 380, A3 360, A2 355 and A5 305. All reproduce.
+- **Robustness verdict.** "Not robust" between A5 and A4, weaker than in revision 2, is stated in sections 1, 6 and 8 and in Q1. Rule 14.5 is met.
+- **Risk arithmetic** (section 8.2 against 7.1): reproduced as written (16 points, USD 2.94 per point). The omission of one 7.1 row from the reconciliation is finding-17.
+
+### Estimate against listed-price presentation (revision 3)
+
+Nothing estimated is shown as a listed price. The revision-3 text adds no price row. It adds these figures:
+- the two larger-sink reads (kind A with URLs);
+- the "USD 33 to 47" replacement-module figure in 8.4 and D12, which is derived from the listed 28.91 and the estimated RF Parts shipping and is labelled as a cost, not a price;
+- the thermal estimates, labelled Low.
+
+The E rows, the shipping, duty and tariff kinds, and the planning and worst-case labels in section 1 are unchanged from iteration 2. Row 14 (1N5711W) is a listed read that today's page contradicts; its error is conservative (O-7).
+
+### Findings (iteration 3)
+
+| Finding | Severity | Item | Location | Description | State | Deferred to |
+|---|---|---|---|---|---|---|
+| finding-1 | Major | CK-RSK-B5, B8 | TS-012 sections 1, 4.1, 7.1, 7.2, 8.4 | See iteration 1; unchanged in revision 3 | Verified (iteration 2; holds on revision 3 at d5a3058) | |
+| finding-2 | Major | CK-RSK-B5, B7 | TS-012 sections 2, 3.1 M1, 8.3 | Closed by the owner's section 10 answer; sales tax line 0 unchanged | Verified (iteration 2; holds on revision 3) | |
+| finding-3 | Major | CK-RSK-B5, B8 | TS-012 sections 1, 4.1 M4, 8.3 row 28, 8.10 REQ-SYS-182 | 74LVC1G80GV x3, 160 MHz minimum; row 28 re-read today (T3) | Verified (iteration 2; holds on revision 3) | |
+| finding-4 to finding-10 | Minor | CK-RSK-B4, B5 | See iteration 2 | Unchanged in revision 3 (finding-4 row 14 see O-7) | Verified (iteration 2) | |
+| finding-11 | Minor | CK-RSK-B5 | TS-012 section 7.3 junction bullet, 8.2, 9 | Transmit-duty-limit fallback at USD 0 with its requirement cost; larger-sink reads recorded | Verified (iteration 3, revision 3 at d5a3058) | |
+| finding-12 | Minor | CK-RSK-B8, B9 | TS-012 sections 1, 6 item 4, 7.1, 8, 8.2, 8.13 Q1 | Items (a) to (d) and the "five Red risks" wording corrected | Verified (iteration 3) | |
+| finding-13 | Minor | CK-RSK-B6 | TS-012 sections 4.2, 5, 6 | C7-A5 3; totals and sensitivity reproduce | Verified (iteration 3) | |
+| <a id="finding-14"></a>finding-14 | Minor | CK-RSK-B5 (M4 "inside their published ratings") | TS-012 section 7.3 drive gating ("5.1 V x 0.68 = 3.47 V at the LM2940 maximum, at or under 3.5 V at every pack voltage"), 8.1 block diagram ("<= 3.47 V"), 8.10 REQ-SYS-156 row, 8.12 WP-PDR-22 row, 9 finding-14 disposition | Fixed in part. The open-loop bound, the wording and the WP-PDR-22 criteria are done. The clamp value rests on a 5.1 V LDO maximum that the datasheet does not give. TI SNVS769J section 6.5 (5 V) gives 4.85 to 5.15 V at TJ = 25 C and 4.75 to 5.25 V over temperature, so the 0.68 divider on a rail-to-rail MCP6002 output reaches 3.50 V at 25 C and 3.57 V at the temperature extreme. That is above the 3.5 V condition of the 10 W Pout rating, before the ratio tolerance of resistors "from the owner's through-hole stock" (unstated; 5 % parts allow a ratio of about 0.70, which gives 3.68 V). The excess matters only in the open-loop fault case that the clamp exists for, and the fix costs nothing. The pass criterion "VGG never above 3.5 V" in WP-PDR-22 would catch it only if the deck models the LDO and resistor tolerances. **Fix:** size the divider on 5.25 V and the resistor tolerance (for example 0.66 with 1 % resistors: ratio 0.6555 to 0.6645, so 5.25 x 0.6645 = 3.49 V highest and 4.75 x 0.6555 = 3.11 V lowest), or take the clamp from a reference independent of the 5 V bus. Carry the lower low-end clamp into the REQ-SYS-012 check, which already names "the lowest clamp (LM2940 minimum)", and add LDO and resistor tolerance to the WP-PDR-22 deck | Open | CDR readiness declaration (lien, rule C1); recommended in the WP-PDR-22 deck, before the order |
+| <a id="finding-17"></a>finding-17 | Minor | CK-RSK-B8, B9 | TS-012 section 8.2 upgrade table ("risk scores exactly as in section 7.1, one score per risk"), section 1 risk-per-dollar bullet, 6 item 4, 8 rationale, Q1 ("about USD 2.9 per risk point") | The rebuilt table omits one A5 row of section 7.1: "Given a steep, nonlinear VGG transfer, a detector after the T/R relay ... or that an open loop drives the module past its ratings, adversely impacting REQ-SYS-014 and 015 and the RA07M1317M ratings" (6, Yellow). A4 has no matching row. The VGG transfer and the module ratings are module-specific, so under the table's own rule the row is either a risk U1 adds or has an A4 counterpart that cancels it; the table does neither. Counted as added by U1: U1 nets 2 points (USD 18.44 per point), the total is 10 points and **USD 4.71 per point, not 2.94**. The Reds retired (four) and the direction of the argument are unchanged, and the matrix does not use these points, so the ranking holds. But the per-point figure is the one number that section 6 item 4 and Q1 put to the owner. **Fix:** either add the A4 envelope-loop row (A4 uses the same relay and takes the same sequence, section 7.3) with its score and say it cancels, or count the A5 row in U1 and restate the per-point figures in sections 1, 6, 8 and Q1 | Open | CDR readiness declaration (lien, rule C1); cheap to correct in the owner-facing text before B1a if a revision is issued (cross item X-9) |
+| <a id="finding-18"></a>finding-18 | Minor | CK-RSK-B5, B10 | TS-012 sections 1 (owner budget bullet), 2 item 1 and 2, 6 item 6, 8.9 EX-4 and EX-13, 8.13 Q2 and Q4 | Revision 3 (committed 18:06) does not apply status note section 11 (committed 17:55, `84e7b89`) or section 13 (`bb09ad2`, 18:00). Q2 (cells and charger) and Q4 (instruments) are still asked as open questions and their assumptions are still called "assumed" or "to confirm". But the owner answered: "I don't have any 18650s or chargers", and "that total of new equipment that I need to buy can't go over $300". The lead SE reading adds that the tinySA counts in that equipment cap if not yet bought, while EX-13 calls it "committed". Section 6 item 6 says "TV-014 (LTspice) is not yet accredited", but section 13 records ACC-LTSPICE-001 accredited for blob 88b71475. The answers agree with the assumptions the cost uses, so no total or score changes, but the owner would be asked two questions he has already answered. **Fix:** record the section 11 answers (cells and charger priced as answered; instruments outside the radio cap under a separate USD 300 equipment cap, with the tinySA and the USD 9.95 thermocouple counted there), close Q2 and Q4, and state the LTspice accreditation in section 6 item 6 | Open | CDR readiness declaration (lien, rule C1) |
+
+Neither new finding, nor the part of finding-14 still open, is Major. finding-14's remainder is a zero-cost divider change inside a pre-order LTspice check, and it affects only a fault case. finding-17 changes the size of the risk-per-dollar case (2.94 to 4.71 USD per point), but it does not change the Reds retired, the direction of the argument or the matrix. finding-18 is stale wording; the answers match the assumptions used. None of them would lead the owner to choose between A5 and A4 on a wrong basis.
+
+### Observations (iteration 3; not findings)
+
+- **O-7.** Correction to this record's iteration-1 row 19 and finding-4 (history is kept as written). Today's read of the Mouser section is part 621-1N5711W-F at USD 0.24, 1,839 in stock. The 0.307 and 3,033 row is Diodes Incorporated, listed with Newark. The study's row 14 (0.307) therefore follows a reviewer mis-read. It overstates cost by USD 0.54 (0.62 capped), which is the conservative direction, so no change is required. The owner's cart read at the gate settles it.
+- **O-8.** Section 7.3 and section 11 call the two larger-sink candidates "weaker TO-220 extrusions of the same size". The Ohmite RA-T2X-64E (42 x 25 x 63.5 mm) is the same size, but the Newark description of the Boyd 529802B02500G gives 41.9 x 38.1 x 38.1 mm, which is shorter. The conclusion ("weaker") holds.
+- **O-9.** The R-2 balance takes the bay side of the bulkhead at 60 C, and the chimney flow is not estimated, as the study says. If the bay air sat at revision 2's unvented 74 C, the same balance gives 57.5 to 59.6 C in the cell bay; at the 83 C sink face it gives 59.7 to 61.8 C. The 0.035 W/K bulkhead conductance is generous for two 1.2 mm walls and a 3 mm gap: with film coefficients of about 5 W/m2 K on 29 cm2, the reviewer estimates 0.006 to 0.01 W/K, which makes the result much less sensitive to the bay temperature. So the Low estimate is plausible. WP-PDR-28 should report the bay air temperature it assumes or computes.
+- **O-10.** The G5V-2 bounce figure (0.3 to 0.5 ms, graph read) comes from the datasheet's distribution graphs, whose samples are labelled G5V-2 and G5V-2 12 VDC, not the DC5 coil. The 2.5 ms margin in the 10 ms settle covers the difference. The WP-PDR-23 bench logic capture should measure the DC5 part.
+
+### Readiness (iteration 3)
+
+| # | Criterion | Result | Evidence |
+|---|---|---|---|
+| R1 | `validate_docs.py` exits 0 | **No** | Before this delta: `validate_docs: 101 passed, 8 failed, 109 checked`, exit 1. The 8 failures are other records (CM plan SA, configuration status, lessons learned, SRR ADRs 001 to 025, process 02, TV-001 to 010, TS-001 and TS-002, TS-002 SA); none involves TS-012. This record passes (Commands) |
+| R2 | Section A | N/A | Trade study |
+| R3 | Sections 1 to 9 filled; section 10 empty | Yes | Section 10 fields empty; revisit conditions updated for R-1 and R-2 |
+| R4 | Decision need and gate | Yes | Header "Decide by": B1a 2026-09-29, no later than B1b 2026-10-01 |
+
+### B. Trade study items re-answered (iteration 3)
+
+| Id | Answer | Evidence |
+|---|---|---|
+| CK-RSK-B5 | Yes (liens) | The M1 roll-up, the M2 reads (T1 to T14) and the M4 relay and heat answers are re-checked. Lien: the finding-14 clamp basis (T18); finding-18 wording |
+| CK-RSK-B6 | Yes | Totals, interpolation and C7-A5 reproduce |
+| CK-RSK-B7 | Yes | Section 6 re-run reproduces: 16 weight runs, five Low-cell moves and the joint case. The verdict is "Not robust", stated as weaker; the value of information names WP-PDR-28 for the cell bay |
+| CK-RSK-B8 | Yes (lien) | Four-part risks now include the cell-heating rows for A3, A4 and A5 under the safety override and the A4 spur and reference Reds. The 8.2 reconciliation omission is finding-17 |
+| CK-RSK-B9 | Yes | A5 350 is the highest among the alternatives that pass every mandatory criterion; A4 (340) is named with its condition |
+| CK-RSK-B10 | Yes | Section 9 lists the iteration-2 dispositions and R-1 and R-2; section 10 is empty |
+| CK-RSK-B1 to B4 | Yes | As at iteration 2 |
+
+### Cross items (iteration 3, returned to Claude)
+
+- **X-9.** The software assurance pair (X-2, X-5) is still not filed (`docs/reviews/PDR/checklists/` has no `ts-012-design-to-cost-software-assurance.md`), so the record verdict still waits for it. Rule C1 allows at most three iterations before escalation to the owner (07 section 10.2), and this is the third. A revision 4 that fixes finding-14, 17 or 18 would change the blob and need a fourth iteration, which escalates to the owner. Recommendation: either carry them as liens and fix finding-14 in the WP-PDR-22 deck, or batch all three into one revision with the owner's agreement at B1a.
+- **X-10.** The author's summary reports two points about this revision. First, the computed task text that briefed the author was cut off partway through R-2, so any adversarial refutation after R-2 was not delivered or answered. The adversarial report is not committed (section 11 says so), so this record cannot check completeness. The lead SE should confirm whether the check of revision 2 raised refutations beyond R-2 and route any to TS-012. Second, the author reports running two `grep -n` reads in the known record file before loading `search_code` (the charter section 11 rule 1 order). That is a process deviation in the author invocation, not in the product. It is noted for the lessons-learned log.
+- **X-11.** The status note section 11 equipment cap (USD 300 on new equipment, tinySA if not yet bought, a thermocouple not owned) belongs in the V&V plan and owner action pack (WP-PDR-43), outside TS-012's cost (finding-18 asks only for the TS-012 wording).
+
+### Commands (iteration 3)
+
+```
+git rev-parse HEAD                                                                    # d5a3058bbe42a28d5b6fad43aa331fa83cdbd93a
+git rev-parse HEAD:docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md   # b1f03fad90ad0f7e4a118624792838d495501e56
+git hash-object docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md       # b1f03fad90ad0f7e4a118624792838d495501e56
+git diff -U0 eca24fa d5a3058 -- <TS-012 path>                                         # hunks outside 8.3 rows; roll-up rows unchanged
+/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/validate_docs.py   # before the delta: 101 passed, 8 failed, 109 checked (exit 1)
+  after the delta: 101 passed, 8 failed, 109 checked (exit 1); PASS docs/reviews/PDR/checklists/ts-012-design-to-cost.md; the same 8 records fail
+python3 (scratchpad) re-parse of 8.3 rows 1 to 31 and 8.4 for A5 and A4; matrix totals; C1, C2, C6 interpolation; 16 weight runs;
+  every Low-cell move and the joint case; 8.2 risk points; R-2 lumped balance and its bay-temperature sensitivity; VGG clamp at 5.0, 5.1, 5.15 and 5.25 V
+python3 over docs/requirements/sys/requirements.json: REQ-SYS-012, 014, 084, 102, 103, 112, 113, 156, 160, 161 descriptions; hazards.json HZ-003, HZ-007; register.json RSK-006, 007, 026
+pdftotext -layout on the web-fetch cached datasheets: TI LM2940 SNVS769J section 6.5; Omron G5V-2 characteristics and coil table
+```
+
+### Measurements (iteration 3)
+
+size = 6 alternatives, 13 criteria, 35 A5 BOM rows, 7 shipping, duty and tariff lines, 18 spot checks; turns = 35; minutes = 60; major = 0 new (3 Verified); minor = 2 new, 5 Verified this iteration (finding-11, 12, 13, 15, 16), 1 fixed in part (finding-14).
+
+### Record verdict and verdict format (iteration 3)
+
+`reviewer_verdict: APPROVED`. The three Major findings stay Verified, and no Major is open. finding-11, 12, 13, 15 and 16 are Verified on revision 3. finding-14 (fixed in part) and the new Minor findings 17 and 18 are liens due at the CDR readiness declaration (plan rule C1), with the TS-012 author as owner. The record `verdict` stays NEEDS CHANGES for two reasons: the software assurance pair is still not filed (07 section 2.1.1; `assurance_verdict: pending`), and readiness R1 fails on records unrelated to TS-012. When the pair returns APPROVED and R1 holds, the lead SE sets `verdict: APPROVED`, provided `git rev-parse HEAD:<path>` still equals `b1f03fad`. A changed blob needs a fourth iteration, which rule C1 escalates to the owner (X-9).
+
+```
+VERDICT: APPROVED (reviewer); record verdict held for the software assurance pair and readiness R1
+FINDINGS:
+- [Major] finding-1, finding-2, finding-3: Verified (hold on revision 3 at d5a3058).
+- [Minor] finding-11 to finding-13, finding-15, finding-16: Verified on revision 3.
+- [Minor] CK-RSK-B5 section 7.3: finding-14 fixed in part; the 0.68 clamp assumes a 5.1 V LDO maximum, but LM2940 SNVS769J gives 5.15 V at 25 C and 5.25 V over temperature (3.50 and 3.57 V at VGG), before the resistor tolerance (lien).
+- [Minor] CK-RSK-B8, B9 section 8.2: the A5 envelope-loop row (6) is left out of the risk-per-dollar reconciliation; counted, USD 4.71 per point, not 2.94 (finding-17, lien).
+- [Minor] CK-RSK-B5, B10 sections 1, 2, 6, 8.9, Q2, Q4: status note sections 11 and 13 answers not applied (finding-18, lien).
+ITEMS N/A: CK-RSK-A1 to CK-RSK-A11 (product is a trade study)
+MEASUREMENTS: size=6 alternatives, 13 criteria, 18 spot checks; turns=35; minutes=60; major=0 new; minor=2 new; verified=15; open=3
 ```
