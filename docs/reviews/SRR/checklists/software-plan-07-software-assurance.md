@@ -20,12 +20,17 @@ product: docs/process/07-software-engineering-plan.md
 # iteration 2 product_commit was the working-tree 07 blob eba15bcb8ab0cecfd8bc155bd749bc89fdcddb34 (not in the object store).
 # iteration 3 (2026-09-26): committed blobs re-checked, git rev-parse HEAD:<path> at HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
 # (07 revision A.4 as committed at b301df2, 1010 lines; measurements.json unchanged since iteration 2).
-product_commit: "adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1"
+# Post-SRR-ruling delta (2026-09-26, package item R16): review baseline HEAD dd3372c after delta verification of
+# 4364ebb (07 revision A.5: CS-11, CS-12, CS-38, sections 1.2, 8.2 and 10.2; SRR decisions 108 and 115 (b)); earlier
+# baselines: adcfe09 (iteration 3), 1af795c (re-issue R8). See "Post-SRR-ruling delta".
+product_commit: "dd3372cc7ab9b488aff2947f3656ffb7f1e1fb62"
 # re-issue 2026-09-26 (package item R8, no further product review): both blobs re-checked equal to git rev-parse HEAD:<path>
 # and git hash-object at HEAD 1af795c; git log adcfe09..HEAD on both paths is empty
-product_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b"]
+# post-SRR-ruling delta: 07 blob d0f8baf6 (iteration 3 and R8) replaced by 37d472b5 (4364ebb); measurements.json unchanged;
+# both equal git rev-parse HEAD:<path> and git hash-object at dd3372c
+product_files: ["docs/process/07-software-engineering-plan.md@37d472b501578504b7fa23422c4f74193647e458", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b"]
 # inputs read (not reviewed): hazards.json 0.4.0-pha, 03 third revision, rmm.json, hazard-analysis.md 0.4.0-pha
-input_files: ["docs/safety/hazards.json@89d0cbc323b2775d326cf7cd42bc637818ec96eb", "docs/process/03-software-classification-and-rmm.md@c87abe5a09985c3f0a3adb74e17386cc61d731b4", "docs/process/rmm.json@3645b4f682cba38373f0fca55beb190ded36c032", "docs/process/03-software-classification-and-rmm.md@fdc8d0764e7ee513a05215de7dfb580687b721d4 (iteration 2)", "docs/process/rmm.json@78c3b2364473e0676f8b5405ecd9f8536715bea1 (iteration 2)", "docs/safety/hazard-analysis.md (0.4.0-pha, working tree)", "docs/safety/hazard-analysis.md@b5ce99e93b96b6a2654f7cbe9ac5e23b8a2e1dbb (iteration 3)", "docs/risk/register.json@57f64995da80f0d20e6232039b6cba897d46c51b (iteration 3)", "tools/sw_gate.sh (iteration 3, HEAD)"]
+input_files: ["docs/safety/hazards.json@89d0cbc323b2775d326cf7cd42bc637818ec96eb", "docs/process/03-software-classification-and-rmm.md@c87abe5a09985c3f0a3adb74e17386cc61d731b4", "docs/process/rmm.json@3645b4f682cba38373f0fca55beb190ded36c032", "docs/process/03-software-classification-and-rmm.md@fdc8d0764e7ee513a05215de7dfb580687b721d4 (iteration 2)", "docs/process/rmm.json@78c3b2364473e0676f8b5405ecd9f8536715bea1 (iteration 2)", "docs/safety/hazard-analysis.md (0.4.0-pha, working tree)", "docs/safety/hazard-analysis.md@b5ce99e93b96b6a2654f7cbe9ac5e23b8a2e1dbb (iteration 3)", "docs/risk/register.json@57f64995da80f0d20e6232039b6cba897d46c51b (iteration 3)", "tools/sw_gate.sh (iteration 3, HEAD)", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@0f4cca4cb1e2562af05a7c435f41e6ba82d17f26 (post-SRR-ruling delta)", "docs/reviews/SRR/decisions-for-owner.md@a8931d91253462b687aefd2de715e1adaf0fee45 (post-SRR-ruling delta)", "docs/reviews/SRR/decision-memo.md@f682d026250bb9fc64c48fd7c2774c1f817c561a (post-SRR-ruling delta)", "docs/reviews/SRR/checklists/software-plan-07.md (INSP-010, post-SRR-ruling delta, HEAD)"]
 product_size: 07 revision A.3, 23 sections and annexes A to D, 960 lines; measurements.json 47 records (MSR-01 to MSR-28; 32 Measured, 15 Not yet measured)
 sprint: SRR-prep
 author_agent: "author:software-plan (Claude software lead; 07 revision A.3 of 2026-09-25 and the SRR seed of measurements.json, SRR items H14 07 part and H16 SWE-089)"
@@ -54,6 +59,8 @@ reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
 # verdict: APPROVED (with liens finding-8, finding-9) at the re-issue: assurance APPROVED, the paired file review INSP-010
 # reviewer_verdict APPROVED, readiness met, no Major finding open, named blobs equal HEAD (07 section 10.2; SWE-088)
+# post-SRR-ruling delta: APPROVED (with liens finding-8, finding-9); 4364ebb applies decisions 108 and 115 (b) correctly,
+# no new Major; the unrippled passages are INSP-010 finding-18 to finding-20 (liens), concurred, not duplicated here
 verdict: APPROVED
 findings_major: 2
 findings_minor: 7
@@ -67,9 +74,10 @@ assurance_findings_minor: 7
 assurance_tasks_applied: [swe-013 7.1 task 1, swe-013 7.1 task 2, swe-022 7.1 task 1, swe-033 7.1 task 1, swe-033 7.1 task 3, swe-089 7.1 task 1, swe-134 7.1 task 1, swe-134 7.1 task 4, swe-134 7.1 task 5, swe-134 7.1 task 6, swe-205 7.1 task 2, swe-205 7.1 task 3]
 deferred_rids: []
 items_no: [R1, R3, CK-REQ-G1, CK-REQ-G3, CK-REQ-G4, CK-REQ-G6, CK-REQ-G7, SA-013-1, SA-013-2, SA-089-1, SA-134-1, SA-134-4, SA-134-6, SA-220-1]
-# effort: iteration 1 (44 turns, 65 min), iteration 2 (28, 35), iteration 3 (30, 35), re-issue (package item R8) (6, 15)
-effort_turns: 108
-effort_minutes: 150
+# effort: iteration 1 (44 turns, 65 min), iteration 2 (28, 35), iteration 3 (30, 35), re-issue (package item R8) (6, 15),
+# post-SRR-ruling delta (package item R16) (12, 25)
+effort_turns: 120
+effort_minutes: 175
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -377,4 +385,65 @@ PAIRING: INSP-010 (file review) reviewer_verdict APPROVED on the same blobs
 FINDINGS: finding-1 to finding-7 Closed; finding-8, finding-9 Minor, Lien: fix before PDR; open Major 0; new 0
 MEASUREMENTS (re-issue): blobs equal HEAD 2/2; turns=6; minutes=15; cumulative turns=108, minutes=150; iteration=3 (re-issue)
 TOOLS: validate_docs.py exit 1, 48 passed, 1 failed (hazard-analysis.md, INSP-008 drift against the R9 hazards commit, another record); this record PASS with no drift note. traceability.py --report-only exit 0, 238 requirements, 170 test cases, 0 violations, 3 warnings (docs/vv outputs restored with git checkout). render_risk.py --check --gate SRR --hazards exit 0, 65 risks, register current. unittest discover: 392 tests, 1 failure (test_repository_exit_zero, from other agents' concurrent record edits: expectations.md, hazard-analysis.md)
+```
+
+## Post-SRR-ruling delta (2026-09-26, SRR package item R16; software assurance reviewer, new invocation)
+
+**Scope and independence.** Written by a new invocation in the software assurance reviewer role (`sa-reviewer:software-plan`) after the owner approved the SRR on 2026-09-26 (disposition Approved with liens; `docs/reviews/SRR/minutes.md`: "I concur with your recommendations for the key decisions." and "I approve of this and the SRR."; every decision ruled as recommended, the ruling text being the "Recommendation" cell of `docs/reviews/SRR/decisions-for-owner.md` Part 1). It did not author 07, CR-001, `measurements.json`, the author self-check, INSP-010 or any ruling, and it edited no product file. Earlier sections of this record are history and are not rewritten; the front matter comments name the superseded values. The convergence rule (charter section 4 item 3) applies: only open Major findings and the ruled post-ruling work change products; a new Minor finding is a lien due PDR.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: post-SRR-ruling delta section in a peer review record, software assurance re-issue). `grep -n`, `sed -n`, `git log`, `git show` and read-only Python were used afterwards only to pin lines.
+
+**Commits examined.** `git log adcfe09..HEAD -- docs/process/07-software-engineering-plan.md docs/plan/measurements.json` lists one commit, `4364ebb` "docs(07): apply CR-001 (SRR decision 108) and record the FW-B0 readiness waiver (decision 115 (b))". It changes 07 by 13 lines (6 hunks; blob `d0f8baf6` to `37d472b5`, revision A.5) and CR-001 (an input here, blob `0f4cca4c`). `measurements.json` is unchanged (`5e2d1755`). Review baseline HEAD `dd3372cc7ab9b488aff2947f3656ffb7f1e1fb62`; both `product_files` blobs equal `git rev-parse HEAD:<path>` and `git hash-object <path>` (2 of 2).
+
+**Delta verification, hunk by hunk.**
+
+| Hunk in `4364ebb` (07 blob `37d472b5`) | Ruling applied | Assurance check | Result |
+|---|---|---|---|
+| Section 1.2 `cwht-app` row (line 21) | SRR decision 108 ("Approve.": disposition CR-001, amend CS-11 and CS-38 to admit rustos driver-construction `Err` arms that call `safe_state_halt()`, CS-12 to place the `#[panic_handler]` in `cwht-app`) | Names the board `take()` and driver-construction failure arms of CS-11 as the only decision logic, citing CS-38 and CR-001 | Correct |
+| CS-11 (line 253) | decision 108 | Equal word for word to CR-001 section 1 item 1 "After" plus "(CR-001, SRR decision 108)". The clippy deny list is unchanged, the failure branch holds `safe_state_halt()` alone, so no panic path and no new decision content is admitted (SWE-134 c and l unaffected) | Correct |
+| CS-12 (line 254) | decision 108 | Equal to CR-001 section 1 item 3 "After". The REQ-SYS-130 safe-state set, its section 14.2 row c order, the panic marker and the watchdog reset are unchanged; the handler calls only the `pico2` safe-state register writes | Correct |
+| CS-38 (line 300) | decision 108 | Equal to CR-001 section 1 item 2 "After" plus the citation; the host-compilable decision rule and the MC/DC pairs for `pico2` drivers of section 14.1 components are unchanged. Enforcement cell not rippled: INSP-010 finding-19 | Correct (rule text) |
+| Section 8.2 Complexity row (line 340) | decision 108 | Threshold reads "beyond the CS-38 allowance for the CS-11 board take and driver-construction failure arms (CR-001)" | Correct |
+| Section 10.2 Readiness criteria row (line 446) | SRR decision 115 (b) ("(b) Waive INSP-016 R3 for FW-B0 only, recorded in the SRR memo.") | The waiver names INSP-016, criterion R3, FW-B0 only, excludes FW-B1 and later builds, ends at INSP-016 closure; equal in scope to `decision-memo.md` section 8.2 (waiver W1). The general rule (only the owner waives a readiness criterion, in a memo or CR disposition naming record and criterion) keeps the waiver authority with the owner as SMA TA and lowers no completion criterion. The "when it is written" clause is stale: INSP-010 finding-20 | Correct |
+| Revision table row A.5 (line 883) | decisions 108 and 115 (b) | Cites both decisions and the owner disposition source | Correct |
+
+No hunk goes beyond the ruling it cites. No em dash and no TBD added (`grep -c`).
+
+**Assurance scan for new Major defects.** Every 07 passage that names the board `take()`, the panic handler, target-only complexity, MC/DC exceptions or readiness waivers was re-read at `37d472b5` (lines 21, 31, 253, 254, 266, 300, 340, 356, 401, 446, 615, 617, 626). The admitted arms enter the same `safe_state_halt()` as the `take()` arm (CR-001 section 4 Safety field), so SWE-134 items a, c and l (section 14.2 rows a, c, l) hold unchanged. Four passages still state the pre-CR single exception: line 31 and line 401 (section 9.5 item 3, the MC/DC exception list, which now omits the driver-construction arms; SA-219-1 lens), and line 300 (Enforcement cell) with line 356 (G5 pass criterion "no target-only CC > 1"). The paired file review INSP-010 raised exactly these as finding-18 and finding-19 at its delta, with finding-20 for line 446. This reviewer concurs with their severity (Minor, liens due PDR): the governing rule text (CS-11, CS-38) is correct, the G5 discrepancy fails closed, CR-001 step 3 (the `complexity_gate.py` allowance) is still open, and no MC/DC showing is due before CDR. They are not duplicated as findings here (as iteration 1 concurred with INSP-010 finding-6). No new Major defect.
+
+**Open Major findings resolved by the rulings.** None: finding-1 and finding-2 (Major) were Closed at iteration 3 and stay Closed; `4364ebb` does not touch section 5 item 5, CS-39, section 14.1, section 14.2 row d or the module rows they rest on (re-read at `37d472b5`).
+
+**Earlier liens.** finding-8 (07 section 22 row "Paired assurance record fields", line 857) and finding-9 (section 14.2 row i, line 623, "181 is a 07 addition") are unchanged in `4364ebb` and stay "Lien: fix before PDR" (07 author, PDR readiness declaration).
+
+**Assurance task answers at the delta.** Unchanged from iteration 3: SA-134-1, SA-134-4, SA-134-6, SA-013-1, SA-013-2, SA-089-1, SA-220-1 Yes; SA-219-1 Yes, with the section 9.5 item 3 omission carried by INSP-010 finding-18. CK-REQ-G1 stays No on liens (finding-9 here; INSP-010 finding-18 and finding-20). Readiness R1 to R4 Met (R3 by the author self-check at `8ef95d3`; decision 115 (a) confirms no waiver is needed for this record), R5 N/A.
+
+**Pairing (07 section 10.2).** INSP-010 (`software-plan-07.md`, `paired_record: INSP-018`) names 07 blob `37d472b5` and `measurements.json` `5e2d1755`, equal to this record's `product_files`, and reads `reviewer_verdict: APPROVED`, `verdict: APPROVED` after its delta (its observation O-10 and cross item X-4 asked for this re-issue).
+
+**Completion criteria (SWE-088; 07 section 10.2) at the delta: met.** Assurance verdict APPROVED; the paired file review APPROVED on the same blobs; readiness met; zero open Major findings; every Minor finding closed or a lien; named blobs equal HEAD. `verdict: APPROVED` (with liens finding-8 and finding-9).
+
+**Cross items (outside this record's scope).**
+- **X-1.** 07 author: fix INSP-010 finding-18 to finding-20 with finding-8 and finding-9 before PDR; the section 9.5 item 3 MC/DC exception list must name the CS-11 driver-construction failure arms with the `target-only: Inspection` disposition before any TC-SW-COV-001 report is signed (SWE-219).
+- **X-2.** CR-001 step 2 (`firmware/cwht-app/src/main.rs` comment, already citing CR-001 at HEAD) and step 3 (`tools/complexity_gate.py` allowance) remain with the software lead and tool owner; the code reviewer's check that each admitted arm holds only `safe_state_halt()` (CR-001 section 5) belongs to the FW-B1 code review.
+- **X-3.** Repository state at HEAD `dd3372c`, not caused by this product: `validate_docs.py` fails other records on product drift or an open Major (below); `traceability.py` reports 4 `HAZARD_REQ_NOT_TESTED` violations (REQ-SYS-122, 124, 137, 138, method Inspection after CR-002 and decision 113).
+
+**Tool runs (2026-09-26, HEAD `dd3372c`, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (before this update) | 1 | 45 passed, 5 failed: this record on drift (07 `d0f8baf6` against HEAD `37d472b5`), as expected before the delta; INSP-027 on drift; the 05 pair and the 03 file review on their own drift or open Major |
+| `tools/validate_docs.py` (after this update) | 1 | 49 passed, 1 failed (INSP-027, re-issued next in this run; the other records of the row above were re-issued concurrently by their reviewers); this record PASS |
+| `tools/traceability.py --report-only` | 0 | 245 requirements, 173 test cases, 4 violations, 2 warnings (X-3; no 07 id); `docs/vv/` outputs restored with `git checkout` |
+| `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | 65 risks, register current |
+| `tools/render_rmm.py --check` | 0 | 100 rows, rendered file current |
+| `tools/render_compliance.py --check` | 0 | validation passed, rendered file current |
+| `-m unittest discover -s tools/tests` | 1 | 400 run, 1 failure (`test_repository_exit_zero`, the repository validator failures of X-3) |
+
+```
+POST-SRR-RULING DELTA (2026-09-26, HEAD dd3372c, package item R16): VERDICT: APPROVED (with liens finding-8, finding-9)
+DELTA: 4364ebb (07 A.5: s1.2, CS-11, CS-12, CS-38, s8.2, s10.2, revision row) applies SRR decisions 108 and 115 (b) correctly
+CLOSED BY RULINGS: none open before the rulings; finding-1, finding-2 (Major) stay Closed
+NEW: none in this record; concurs with INSP-010 finding-18 to finding-20 (Minor, liens due PDR); open Major 0
+PRODUCT: 07@37d472b501578504b7fa23422c4f74193647e458, measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b (equal to HEAD, 2/2)
+PAIRING: INSP-010 reviewer_verdict APPROVED, verdict APPROVED on the same blobs
+MEASUREMENTS (delta): turns=12; minutes=25; cumulative turns=120, minutes=175
 ```
