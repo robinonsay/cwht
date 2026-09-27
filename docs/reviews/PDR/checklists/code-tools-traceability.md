@@ -7,26 +7,31 @@
 # changes, README, 02 sections 8.1, 8.2, 8.5 and 10.4, TV-002 run 6 and CR-011 as the product_files the
 # brief froze. PDR work plan WP-PDR-06 names this record and a separate software assurance record
 # (code-tools-traceability-software-assurance.md) and a tool validation record (tool-validation-tv-002.md).
+# Iteration 2 (2026-09-27): delta under plan rules C1 and C2 (CR-011 section 5 step 5, "INSP-042 needs a delta
+# iteration naming the new blob"). product_commit is the CR-011 branch head 2b004b1 (709e95f test module,
+# 2b004b1 TV-002 purpose 9 and run 7); iteration 1 read 4774562. Changed entries: test_traceability.py
+# 95f1719b -> 6ead5641, TV-002 1fe6fb75 -> 94ae3af5, CR-011 file d597899b -> 892670b6 (revision 2, main 7bb994f),
+# r7 evidence added. Every other entry is unchanged at 2b004b1 (git rev-parse 2b004b1:<path>, checked).
 id: INSP-042
 checklist: peer-review-checklist-code
 checklist_revision: B
 checklist_file: docs/reviews/PDR/checklists/code-tools-traceability.md
 product: tools/traceability.py
-product_commit: "4774562e41b2319814fa4fe0ad3075ba70d3bb72"
-product_files: ["tools/traceability.py@d4cde9f54386373017f21825d4fd7cc0a42ac373", "tools/tests/test_traceability.py@95f1719b637834719212624b105f54f4a6cfd8b1", "tools/tests/test_tools.py@f8289a443f6ca2d837ab2df07df5a3dfc0722f27", "tools/README.md@d61156d8966178e958df4539adab60e8c0ff8b0d", "docs/process/02-requirements-and-traceability.md@d4934d0e7c9648c13ea7d50c1b28faba45b86c00", "docs/cm/tool-validation/TV-002-traceability.md@1fe6fb756cc21180487c2148de0d02d676d3be37", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.py@220ae2e0118fe13e8237b628d6192a0c67e3c44e", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.log.txt@e26b24368088c56bf18c920b34a12e5dfdd1966a", "tools/tests/fixtures/valid_project/docs/requirements/sys/requirements.json@d0a10e0bb645f016bdf77eebeca0fedfb142240a", "tools/tests/fixtures/valid_project/docs/requirements/sys/requirements.md@5b8f8d87935af6432e713d6d0afc80747e022589", "tools/tests/fixtures/valid_project/firmware/cwht-core/src/keyer/straight.rs@e5f98357d15d9d7aa50be0a2d13dea67566d57cd", "tools/tests/fixtures/valid_project/firmware/cwht-core/src/keyer/iambic.rs@e5f98357d15d9d7aa50be0a2d13dea67566d57cd", "tools/tests/fixtures/valid_project/firmware/cwht-core/src/keyer/config.rs@e5f98357d15d9d7aa50be0a2d13dea67566d57cd", "tools/tests/fixtures/valid_project/hardware/kicad/tx-pa.kicad_sch@b42ba81e76a76cc8a013e23bac36d3c2277ed5c4", "docs/vv/traceability-report.md@f49f4215b34179caca551dcfd9a348fdf17c288e", "docs/vv/traceability.json@0f0ea6ef18bdcabd3cba6ef9d6853296de6c476f", "docs/cm/cr/CR-011-traceability-pdr-rules.md@d597899b9f442bfc9c3983cb28f15998eb78c197"]
-product_size: 4156 lines (tools/traceability.py; 1465 lines added and 142 changed against blob 12de3545, reviewed in full); test_traceability.py 1118 lines (715 added); README 269 lines; 02 sections 8.1 to 8.5 and 10.4
+product_commit: "2b004b17bf94ecf3dc3591cbc34892e6620ad8a7"
+product_files: ["tools/traceability.py@d4cde9f54386373017f21825d4fd7cc0a42ac373", "tools/tests/test_traceability.py@6ead56414127f9c13cd39e3662a2118e2acd470e", "tools/tests/test_tools.py@f8289a443f6ca2d837ab2df07df5a3dfc0722f27", "tools/README.md@d61156d8966178e958df4539adab60e8c0ff8b0d", "docs/process/02-requirements-and-traceability.md@d4934d0e7c9648c13ea7d50c1b28faba45b86c00", "docs/cm/tool-validation/TV-002-traceability.md@94ae3af57e6d5527ccd5ff76ab7aa8724fb0b395", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r7.py@e6f3785628ee376a921a1176883f475c086ab656", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r7.log.txt@1e30bb222b51ecdf3800f6bb5c4a243ce94f0ef3", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.py@220ae2e0118fe13e8237b628d6192a0c67e3c44e", "docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.log.txt@e26b24368088c56bf18c920b34a12e5dfdd1966a", "tools/tests/fixtures/valid_project/docs/requirements/sys/requirements.json@d0a10e0bb645f016bdf77eebeca0fedfb142240a", "tools/tests/fixtures/valid_project/docs/requirements/sys/requirements.md@5b8f8d87935af6432e713d6d0afc80747e022589", "tools/tests/fixtures/valid_project/firmware/cwht-core/src/keyer/straight.rs@e5f98357d15d9d7aa50be0a2d13dea67566d57cd", "tools/tests/fixtures/valid_project/firmware/cwht-core/src/keyer/iambic.rs@e5f98357d15d9d7aa50be0a2d13dea67566d57cd", "tools/tests/fixtures/valid_project/firmware/cwht-core/src/keyer/config.rs@e5f98357d15d9d7aa50be0a2d13dea67566d57cd", "tools/tests/fixtures/valid_project/hardware/kicad/tx-pa.kicad_sch@b42ba81e76a76cc8a013e23bac36d3c2277ed5c4", "docs/vv/traceability-report.md@f49f4215b34179caca551dcfd9a348fdf17c288e", "docs/vv/traceability.json@0f0ea6ef18bdcabd3cba6ef9d6853296de6c476f", "docs/cm/cr/CR-011-traceability-pdr-rules.md@892670b609f4bbd1d4c0c12de8a75f7890e2bf69"]
+product_size: iteration 2 delta 101 lines added to test_traceability.py (class RegressionSetTests, 6 tests, and the module docstring; 1219 lines), TV-002 purpose 9 and run 7, CR-011 revision 2; iteration 1 4156 lines (tools/traceability.py; 1465 lines added and 142 changed against blob 12de3545, reviewed in full); test_traceability.py 1118 lines (715 added); README 269 lines; 02 sections 8.1 to 8.5 and 10.4
 sprint: PDR-prep
 author_agent: "author:WP-PDR-06 (Claude as tool owner and software lead, CR-011)"
-reviewer_agent: "reviewer:WP-PDR-06-code-and-tv (independent invocation, authored no part of CR-011)"
+reviewer_agent: "reviewer:WP-PDR-06-code-and-tv (iteration 1); reviewer:WP-PDR-06-code-delta (iteration 2, a new independent invocation that authored no part of CR-011, TV-002, INSP-043, INSP-051 or the CR-011 section 6.1 review)"
 # criticality: a tool is neither safety-critical nor mission-critical (03 sections 4.3.1 and 6.1.1)
 criticality: neither
 # assurance_required: true. PDR work plan WP-PDR-06 requires the software assurance second review because
 # the tool's output is used for credit (readiness declaration, SWE-052 evidence)
 assurance_required: true
 assurance_reviewer_agent: "pending: separate software assurance invocation, record docs/reviews/PDR/checklists/code-tools-traceability-software-assurance.md (plan WP-PDR-06; 07 section 2.1.1)"
-iteration: 1
+iteration: 2
 readiness_met: true
-# reviewer_verdict: APPROVED for the engineering lens (zero Major; seven Minor findings, liens under plan rule C1)
+# reviewer_verdict: APPROVED for the engineering lens (zero Major; eight Minor findings, liens under plan rule C1; iteration 2 adds finding-8)
 reviewer_verdict: APPROVED
 # assurance_verdict: pending until the software assurance record is filed
 assurance_verdict: pending
@@ -34,8 +39,8 @@ assurance_verdict: pending
 # because the product blobs are on the CR-011 branch, not on main (record drift rule); section "Record verdict"
 verdict: NEEDS CHANGES
 findings_major: 0
-findings_minor: 7
-findings_open: 7
+findings_minor: 8
+findings_open: 8
 findings_fixed: 0
 findings_verified: 0
 findings_deferred: 0
@@ -45,8 +50,9 @@ assurance_tasks_applied: []
 unsafe_sites_reviewed: 0
 deferred_rids: []
 items_no: [CK-CODE-E1, CK-CODE-H2, CK-CODE-I1]
-effort_turns: 70
-effort_minutes: 120
+# effort: iteration 1 70 turns, 120 minutes; iteration 2 45 turns, 60 minutes (cumulative below)
+effort_turns: 115
+effort_minutes: 180
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -86,6 +92,7 @@ date_closed: null
 | <a id="finding-5"></a>finding-5 | reviewer | Minor | CK-CODE-E1 | `tools/traceability.py:3083` (`append_measurement`); TV-002 purpose 8; README option `--volatility`; 02 `:36` of the 8.1 option table | The record is appended "only after the whole file passes `docs/plan/measurements.schema.json`" (purpose 8, README, 02 section 8.1), but the code writes without any check when the schema file is absent, when it does not parse, or when `jsonschema` is not importable. Fix: exit 2 and write nothing when the schema cannot be applied, with a known answer (absent schema) in `VolatilityTests` | Open | |
 | <a id="finding-6"></a>finding-6 | reviewer | Minor | CK-CODE-H2 | `tools/tests/test_traceability.py:565`, `:625`, `:747`, `:803`, and most PDR tests that use `of(project, code)` | Most PDR known answers assert the findings of the code under test only (a count and message fragments, or the location list), not the whole finding set after the one change; a regression that adds a spurious finding of another code on the same input would pass. INSP-015 and TV-002 section 8 ask that each seeded fault assert an exact code set. Fix: add `assertEqual({<code>}, codes(project.findings))` (or the exact expected set) to each single-change test | Open | |
 | <a id="finding-7"></a>finding-7 | reviewer | Minor | CK-CODE-I1, CK-CODE-I4 | `tools/traceability.py:2147`; module docstring `:28` to `:74` | The `check_allocation` docstring says the PDR Error of T-18 is "not yet implemented", but lines 2157 to 2170 implement it. The module docstring states exit 1 on a violation and says nothing of exit 2 (argparse usage errors, including `--gate QDR`, and every `--volatility` failure), which 02 section 8.1 and the known answers use. Fix: correct both docstrings | Open | |
+| <a id="finding-8"></a>finding-8 | reviewer (iteration 2) | Minor | CK-CODE-I1 | `tools/README.md` line 235 (blob `d61156d8`, unchanged at `2b004b1`); CR-011 section 1 "Other files on the branch" (blob `892670b6`, line 52) | The tool specification and the CR describe the test module as it was at `4774562`: the README list of `test_traceability.py` classes ends at `FixChildrenTests` and omits `RegressionSetTests` (added at `709e95f`, the known answers of the `--regression` option that the same README documents at line 81), and CR-011 section 1 still says "thirteen new classes" where `git diff a3cacee 2b004b1` of the module adds fourteen. Revision 2 of CR-011 updated sections 4, 5, 8, 9 and 11 for run 7 but not section 1. Fix: add `RegressionSetTests` (purpose 9, 04 section 7.3 rule 10 and section 10.5) to the README list in the merge-time README edit that CR-011 section 6.1 IR-F2 already requires, and read "fourteen new classes" in CR-011 section 1 in its next revision | Open | |
 
 No Major finding. Every finding is Minor under the template's definition (documentation, a scope statement or a test assertion that is weaker than the process text); none makes the tool report a wrong result on the repository today (C4 and C5 reproduce TV-002 R-3).
 
@@ -209,4 +216,70 @@ FINDINGS:
 - [Minor] CK-CODE-I1 tools/traceability.py:2147: stale check_allocation docstring; exit status 2 undocumented in the module docstring.
 ITEMS N/A: R1 to R4, R6, A1, A3, B1 to B8, C3 to C7, D1, D3 to D9, E2 to E8, F1 to F3, G2 to G5, H3, I3, J2 (host Python tool)
 MEASUREMENTS: size=4156 lines (1465 added); turns=70; minutes=120; major=0; minor=7; unsafe_sites=0
+```
+
+## Iteration 2: delta for the post-freeze product changes (2026-09-27)
+
+**Why a delta.** Plan rule C2: a product changed after its freeze needs a delta iteration. After iteration 1 read `4774562`, the author fixed INSP-043 finding-1 (Major) on the branch. `709e95f` changed `tools/tests/test_traceability.py` (blob `95f1719b` to `6ead5641`, class `RegressionSetTests`). `2b004b1` changed TV-002 (blob `1fe6fb75` to `94ae3af5`: purpose 9, limitation 9, run 7) and added the run 7 evidence. CR-011 revision 2 (`7bb994f` on `main`, blob `892670b6`) restates the change set. CR-011 section 5 step 5 names this delta. Under rule C1, a later iteration verifies Major fixes only; this record has no Major finding, so the delta checks only that the changed blobs reopen nothing and that they meet the code checklist. The tool blob `d4cde9f5` is unchanged, so no iteration 1 answer about the tool changes.
+
+**Independence and search.** This invocation (`reviewer:WP-PDR-06-code-delta`) authored no part of CR-011, TV-002 or the run 7 evidence. It also did not author INSP-043, INSP-051 or the CR-011 section 6.1 impact review (`86ff3b0`). It edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: "CR-011 section 6 independent impact review slot"; "07 section 2.1.1 software assurance second review dispatch table product types change request"; "traceability.py --volatility planned option due PDR not implemented"). `grep -n` was used afterwards only to pin lines. The rustos working tree was not read: `--rustos` pointed the tool's `git show` reads at the rustos repository objects. LTspice was not run.
+
+### Commands run by the reviewer (iteration 2)
+
+All work ran in detached scratch worktrees under the session scratchpad, and both were removed afterwards. The merge preview commit object named no ref.
+
+| # | Command | Result |
+|---|---|---|
+| C9 | Run 7 procedure `docs/cm/tool-validation/evidence/traceability-2026-09-27-r7.py 2b004b1 a3cacee <scratch> --rustos /Users/robinonsay/rust/rustos`, in a worktree of `2b004b1` | `RESULT TV-002 run 7: PASS`. Identities equal the run 7 log: tool `d4cde9f5`, test module `6ead5641`, `validate_docs.py` `3aa03681`, `test_traceability_srr_rules.py` `86606485`, `test_tools.py` `f8289a44`. Known answers 86 + 32 + 117 = 235, `OK`, 0 skipped. Step 3: every one of the 13 PDR classes fails against blob `12de3545`, with per-class counts equal to the log. Step 3b: 6 of 6 mutants of `regression_set` and `design_ref_matches` killed (failures 5, 2, 3, 1, 5, 4, equal to the log). Repository: plain 0 violations, 95 warnings; `--gate PDR` 379 violations |
+| C10 | `unittest discover -s tools/tests` in the same worktree | 477 tests, 1 failure (`test_validate_docs.RepositoryTests.test_repository_exit_zero`, the INSP-015 and INSP-020 record drift), 3 skipped (`test_render_deck.py`, no `node_modules`). `unittest tools.tests.test_traceability`: 87 tests, `OK` (the 86 of the TV selection plus the repository class). Both equal the CR-011 section 8 author check |
+| C11 | `tools/validate_docs.py` in the same worktree | 48 passed, 2 failed (INSP-015 and INSP-020 drift), equal to CR-011 section 8 and INSP-043 V9 |
+| C12 | `--volatility --from baseline/srr --dry-run` in the same worktree | V 0.0 % for SYS (N_start 188), SW-KEYER (39) and TX (16), assessment Green; nothing written. Equal to CR-011 section 4 |
+| C13 | Plain run of the branch tool on a merge preview of `main` `cccbfda` with `2b004b1` (`git merge-tree --write-tree`, clean; `git commit-tree` object, no ref), `--rustos /Users/robinonsay/rust/rustos` | 245 requirements, 173 test cases, 0 violations, 95 warnings on the `main` data as of `cccbfda`. The CR-011 section 6.1 IR-F1 trial shows that this depends on merge order (open requirement CR branches) |
+| C14 | `git diff 95f1719b 6ead5641`; `git diff 1fe6fb75 94ae3af5`; `git diff d597899b 892670b6`; `git rev-parse 2b004b1:<path>` for every `product_files` entry | The test module gains 101 lines and loses none. TV-002 purpose 9 matches `regression_set` and `design_ref_matches` (`tools/traceability.py:3421` to `:3432`). The CR revision touches no statement this record's findings rely on. Every blob is equal to the front matter (the CR file at `main` `7bb994f`) |
+
+### Checklist answers for the changed blobs
+
+| Id | Answer | Evidence |
+|---|---|---|
+| CK-CODE-A2 | Yes | The test module adds only `import dataclasses` (standard library) |
+| CK-CODE-E1 (test oracle) | Yes | `RegressionSetTests` checks the stated rule (04 section 7.3 rule 10; section 10.5 hardware bullet, line 398; 04 section 7.4 row 7.3.10) against the code. The code keeps `Passed` Bench cases whose requirements' `design_refs` match, on a `/` boundary either way, plus live `TC-ATP` cases (`:3427`). The tests cover each filter input: status (Draft, Failed, Blocked and Active excluded, Passed included), type (Emulation, HostUnit and OnAir excluded), the ATP clause (Draft, Active, Passed, Failed and Blocked-not-retired kept; `Retired` and `Blocked` with "Retired by" dropped, the two forms of 02 section 11.3), and matching (equal, trailing `/`, both prefix directions, a sub-path, no match on `tx`, `tx-pa`, `.kicad_pcb`, `kic`, the empty string, or a design-unit id against a path). The firmware-release reading of 04 section 10.5 line 397 is INSP-051 finding-3; it is not raised again |
+| CK-CODE-E9 | Yes | Every new test runs (C10: 87 tests). None is skipped or stubbed |
+| CK-CODE-H1 | Yes | The ATP case is built in memory with `dataclasses.replace` from `TC-SYS-002`, or for the command-line test written into a temporary copy (`copy_valid`). Neither fixture tree changes (TV-002 section 1 digests equal the run 7 log) |
+| CK-CODE-H2 | Yes for the new class; No stands for finding-6 | The new tests compare the whole ordered output list (`assertEqual([...], regression_set(...))`), which is the exact-set assertion finding-6 asks the older PDR classes to adopt. The mutation step 3b (C9) shows that the tests catch each single-filter mutant. finding-6 stays Open for the thirteen classes of iteration 1 |
+| CK-CODE-I1 | No | The module docstring names the class, its governing clauses and its seeded faults. finding-8: the README and CR-011 section 1 do not name the class |
+| CK-CODE-J1 | Yes | `traceability.RETIRED`, `ACCEPTANCE_MODULE`, `TestCase.is_retired`, `load_project`, `regression_set`, `copy_valid`, `item`, `TOOL` and `VALID` all exist at blob `d4cde9f5` or in the module |
+| CK-CODE-J4 | Yes | Sizes from `git diff --numstat` (101 added, 0 removed) and `wc -l` (1219 lines) |
+
+Every other iteration 1 answer stands unchanged, because the tool blob and the other product files are the same. Readiness R5 now reads: 13 PDR classes plus `RegressionSetTests` in `test_traceability.py` (14 new classes).
+
+### Iteration 1 findings at this delta
+
+| Finding | Severity | State | Basis |
+|---|---|---|---|
+| finding-1 to finding-5, finding-7 | Minor | Open (liens due at the CDR readiness declaration, plan rule C1) | The tool blob `d4cde9f5` is unchanged. No fix was made, and none is required under C1 |
+| finding-6 | Minor | Open (lien, as above) | The new class meets the rule. The thirteen older classes are unchanged |
+| finding-8 | Minor | Open (new, lien as above) | Findings table |
+
+No new Major finding. No open Major finding.
+
+### Cross items (iteration 2; not findings against this product)
+
+| # | Item | Owner |
+|---|---|---|
+| X-7 | CR-011 section 6.1 (`86ff3b0`, 1 Major IR-F1, 4 Minor) moved the CR file on `main` from `892670b6` to `49461a58`, and IR-F1 requires a revision 3 of section 1. This record names `892670b6`, the blob frozen for it. As CR-011 section 5 step 5 and IR-F2 state, the delta at the merge must name the CR file blob it then reads (or drop the CR file as context) and the merged `tools/README.md` blob (auto-merged with `main` `573f9f5`). From the code lens, IR-F1 is consistent with iteration 1 CK-CODE-E1: the six codes that are plain-run violations follow the 02 section 8.2 `check` column E of T-04, T-12 and T-13 and 04 rules 7.3.4, 7.3.11 and 7.3.12 (catalogue `tools/traceability.py:352` to `:357`, all `VIOLATION`). The CR text is wrong and the tool is right | WP-PDR-06 author (CR-011 revision 3); this record's reviewer at the merge |
+| X-8 | Documents on `main` that still call `--volatility` a planned option are not in the CR-011 section 4 Documentation row: 05 section 5.4 (`docs/process/05-configuration-and-data-management.md:284`, "planned option, due PDR"); 07 section 11 row MSR-02 (`docs/process/07-software-engineering-plan.md:501`, "(planned, PDR)"); and the `rmm.json` SWE-200 row (implementation text "planned option, due PDR", status Planned). The Software classification row says only the SWE-052 row lags. `docs/plan/measurements.json` MSR-02 ("Not yet measured") and the CSA metrics row are data, correctly unchanged until the first append. This belongs to the CR-011 impact assessment, not the code, so it is a cross item for the section 6 re-check | WP-PDR-06 author; WP-PDR-05 or CR-007 (05), WP-PDR-13 or WP-PDR-47 (07), WP-PDR-17 (03 and RMM) |
+| X-9 | Commit `86ff3b0` ("CR-011 section 6.1 independent impact review") also added 13 files that are not part of that review and that were untracked in the working tree beforehand: `tools/check_commit_msg.py`, `tools/csa.py`, `tools/normalize_fab.py`, `tools/render_tpm.py`, `tools/scad2step.py`, and fixtures under `tools/tests/fixtures/csa/`, `kicad/` and `openscad/`. This looks like another work package's files swept into a review commit (charter rule: explicit `git add` paths, never another agent's hunk). This record does not review those files | Lead SE and configuration manager (check ownership of `86ff3b0`; WP-PDR-07 and WP-PDR-09 tool owners) |
+| X-10 | The software assurance pair of this record, `code-tools-traceability-software-assurance.md`, is still not filed. INSP-051 (`db43b82`) is the pair of INSP-043, not of this record (INSP-051 cross item X-1) | Lead SE (dispatch, plan WP-PDR-06) |
+
+### Record verdict (iteration 2)
+
+`reviewer_verdict: APPROVED` stands for the engineering lens: zero Major findings, eight Minor findings (liens due at the CDR readiness declaration under rule C1). `verdict` stays `NEEDS CHANGES` for the reasons of iteration 1, which still hold. The software assurance pair is not filed, and the reviewed blobs sit on the unmerged CR-011 branch. Under the lead SE convention of 2026-09-27, the record verdict is set in the merge commit, or the commit right after it, once the merged blobs equal `product_files` (after the merge-time delta of X-7).
+
+```
+VERDICT: APPROVED (reviewer lens, iteration 2 delta); record verdict NEEDS CHANGES until the SA pair and the CR-011 merge
+FINDINGS:
+- [Minor] CK-CODE-I1 tools/README.md:235 and CR-011 section 1: RegressionSetTests not named; "thirteen new classes" should read fourteen (finding-8, new).
+- finding-1 to finding-7: Minor, Open, liens (unchanged; tool blob d4cde9f5 unchanged).
+ITEMS N/A: as iteration 1
+MEASUREMENTS: delta size=101 lines added (test module); turns=45; minutes=60; major=0; minor=1 new (8 total)
 ```
