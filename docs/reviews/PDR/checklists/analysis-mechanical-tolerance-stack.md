@@ -14,11 +14,13 @@ checklist_revision: B
 checklist_analysis: "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/analysis-mechanical-tolerance-stack.md
 product: docs/design/analysis/mechanical-tolerance-stack.md
-# product_commit (iteration 2): 70d11ef, the WP-PDR-27 revision 1 commit that fixes finding-1 (re-freeze F0,
-# rule C2). Every blob below equals git rev-parse 70d11ef:<path>, HEAD:<path> and git hash-object at HEAD d1148c2;
-# all are on main. product_files_iteration_1 keeps the 70a3a33 blobs.
-product_commit: "70d11ef54a5bc477cda9e9fa01e7295e1365f147"
-product_files: ["docs/design/analysis/mechanical-tolerance-stack.md@b31768da93013553dadf9d076cde850e1e2ed2e3", "hardware/sim/enclosure/tolerance_stack.py@376e403c255c8cffcb4694e8160394f3a158a07b", "hardware/sim/enclosure/drop_and_axial.py@3513caaa66caac267aa905fd54a19949eb66ea92", "hardware/sim/enclosure/envelope_drawing.py@5de2223bfedb3d45734cf066eeccf3df28629b0a", "hardware/enclosure/board-outline.json@9d4d36a984b07456a4860c6f1d6354297b42808d", "hardware/sim/enclosure/out/tolerance-stack.csv@3e17c2097f3fcc3fdb3f24b50713622c3da8dd2f", "hardware/sim/enclosure/out/drop-and-axial.csv@91d97bf4a8923ab2af48037cefbeb3dccba848b5", "docs/reviews/PDR/figures/tolerance-stack.png@2ee6e410cec881db08c928d37b590d785d559c04", "docs/reviews/PDR/figures/drop-and-axial.png@0f68e1063c0c94573bd2d4fad0c3392035dc9386", "docs/reviews/PDR/figures/board-outline-envelope.png@a2c08e0ef04ec036465ddeb9bd2f6a16d7fb5dfe"]
+# product_commit (iteration 3, delta): 433a944, the WP-PDR-27 shielding revision 2 commit that changed
+# board-outline.json 9d4d36a9 to d7977cf3 (jack feature text only). Every blob below equals git rev-parse
+# 433a944:<path>, HEAD:<path> and git hash-object at HEAD e2d3226; all are on main. product_files_iteration_2 keeps
+# the 70d11ef blobs; product_files_iteration_1 keeps the 70a3a33 blobs.
+product_commit: "433a944f9489505ced8fefabfeeab156bdf76e0c"
+product_files: ["docs/design/analysis/mechanical-tolerance-stack.md@b31768da93013553dadf9d076cde850e1e2ed2e3", "hardware/sim/enclosure/tolerance_stack.py@376e403c255c8cffcb4694e8160394f3a158a07b", "hardware/sim/enclosure/drop_and_axial.py@3513caaa66caac267aa905fd54a19949eb66ea92", "hardware/sim/enclosure/envelope_drawing.py@5de2223bfedb3d45734cf066eeccf3df28629b0a", "hardware/enclosure/board-outline.json@d7977cf385e8f76af8ad098497333b2f606cf1f8", "hardware/sim/enclosure/out/tolerance-stack.csv@3e17c2097f3fcc3fdb3f24b50713622c3da8dd2f", "hardware/sim/enclosure/out/drop-and-axial.csv@91d97bf4a8923ab2af48037cefbeb3dccba848b5", "docs/reviews/PDR/figures/tolerance-stack.png@2ee6e410cec881db08c928d37b590d785d559c04", "docs/reviews/PDR/figures/drop-and-axial.png@0f68e1063c0c94573bd2d4fad0c3392035dc9386", "docs/reviews/PDR/figures/board-outline-envelope.png@a2c08e0ef04ec036465ddeb9bd2f6a16d7fb5dfe"]
+product_files_iteration_2: ["docs/design/analysis/mechanical-tolerance-stack.md@b31768da93013553dadf9d076cde850e1e2ed2e3", "hardware/sim/enclosure/tolerance_stack.py@376e403c255c8cffcb4694e8160394f3a158a07b", "hardware/sim/enclosure/drop_and_axial.py@3513caaa66caac267aa905fd54a19949eb66ea92", "hardware/sim/enclosure/envelope_drawing.py@5de2223bfedb3d45734cf066eeccf3df28629b0a", "hardware/enclosure/board-outline.json@9d4d36a984b07456a4860c6f1d6354297b42808d", "hardware/sim/enclosure/out/tolerance-stack.csv@3e17c2097f3fcc3fdb3f24b50713622c3da8dd2f", "hardware/sim/enclosure/out/drop-and-axial.csv@91d97bf4a8923ab2af48037cefbeb3dccba848b5", "docs/reviews/PDR/figures/tolerance-stack.png@2ee6e410cec881db08c928d37b590d785d559c04", "docs/reviews/PDR/figures/drop-and-axial.png@0f68e1063c0c94573bd2d4fad0c3392035dc9386", "docs/reviews/PDR/figures/board-outline-envelope.png@a2c08e0ef04ec036465ddeb9bd2f6a16d7fb5dfe"]
 product_files_iteration_1: ["docs/design/analysis/mechanical-tolerance-stack.md@78409153455c926873119ef8a981ea688bd4d453", "hardware/sim/enclosure/tolerance_stack.py@376e403c255c8cffcb4694e8160394f3a158a07b", "hardware/sim/enclosure/envelope_drawing.py@20815e7581c34c9498e6c8d3972cc738e5c63e8a", "hardware/enclosure/board-outline.json@27dbacc7dda7f79e6cba3234ee77f6453e304906", "hardware/sim/enclosure/out/tolerance-stack.csv@3e17c2097f3fcc3fdb3f24b50713622c3da8dd2f", "docs/reviews/PDR/figures/tolerance-stack.png@2ee6e410cec881db08c928d37b590d785d559c04", "docs/reviews/PDR/figures/board-outline-envelope.png@ff8aa6c2befd4660f2bf353893ab5673d24f79e3"]
 analysis_kind: [worst-case, other]
 product_size: 13 stacks (S1 to S9 with variants), 3 load checks (L1 to L3), 6 envelope checks (E1 to E6), 2 checkers, 1 data file, 2 plots
@@ -27,31 +29,31 @@ values_proposed: ["REQ-SYS-105: 1 dB return-loss change (keep; tbr.plan step not
 renders_inspected: 4
 sprint: PDR-prep
 author_agent: "author:WP-PDR-27 wave 1a (Claude as ME designer)"
-reviewer_agent: "reviewer:WP-PDR-27-analysis-tolerance-iter1 (independent; authored no part of WP-PDR-27); iteration 2 by reviewer:WP-PDR-27-analysis-tolerance-iter2 (independent; authored no part of WP-PDR-27 and no part of its revision 1)"
+reviewer_agent: "reviewer:WP-PDR-27-analysis-tolerance-iter1 (independent; authored no part of WP-PDR-27); iteration 2 by reviewer:WP-PDR-27-analysis-tolerance-iter2 (independent; authored no part of WP-PDR-27 and no part of its revision 1); iteration 3 (drift delta) by reviewer:WP-PDR-27-analysis-tolerance-iter3 (independent; authored no part of WP-PDR-27, of its revision 1 or of the shielding revision 2)"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 2
+iteration: 3
 readiness_met: true
-# reviewer_verdict (iteration 2): APPROVED; finding-1 (Major) Verified; findings 2 to 5 and the new findings 6 and 7
-# are Minor and Open (liens due at the CDR readiness declaration, plan rule C1)
+# reviewer_verdict (iteration 3, drift delta): APPROVED; finding-1 (Major) Verified at iteration 2; findings 2 to 7
+# and the new finding-8 are Minor and Open (liens due at the CDR readiness declaration, plan rule C1)
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-# verdict: held at NEEDS CHANGES. No SA pair is required. The applied analysis template is still only on cr/CR-012
+# verdict (iteration 3): still held at NEEDS CHANGES (CR-012 not merged at e2d3226). No SA pair is required. The applied analysis template is still only on cr/CR-012
 # (blob 0386cc6e), so, per the lead SE convention of 2026-09-27, the record verdict is set to APPROVED in the
 # CR-012 merge commit (or the commit right after it) if that blob is unchanged
 verdict: NEEDS CHANGES
 findings_major: 1
-findings_minor: 6
-findings_open: 6
+findings_minor: 7
+findings_open: 7
 findings_fixed: 0
 findings_verified: 1
 findings_deferred: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-ANA-B1, CK-ANA-D3, CK-ANA-E3, CK-ANA-E5, CK-ANA-F1]
-effort_turns: 55
-effort_minutes: 85
+effort_turns: 67
+effort_minutes: 100
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -287,4 +289,46 @@ FINDINGS:
 - [Minor] finding-6 (new): the rule 22 inner jam nut is not stacked (1.7 mm worst-case gap against a 2.0 mm nut) (lien).
 - [Minor] finding-7 (new): the rule 21 admitted-plug definition narrows REQ-SYS-108 and is unchecked against the OD-22 plugs (lien).
 MEASUREMENTS: blobs equal HEAD 10/10; checkers 3 of 3 CHECK PASS; outputs byte-identical 5/5; cases 7 (7 Yes, 2 with a new Minor); hand checks 6; renders inspected 2 (4 cumulative); major open=0; minor open=6; turns=25; minutes=40 (cumulative 55 and 85); iteration=2
+```
+
+## Iteration 3: drift delta on board-outline.json (2026-09-27, HEAD `e2d3226`)
+
+**Scope (rule C1).** Iteration 3 is a delta on the one product blob that drifted after the iteration 2 freeze: `hardware/enclosure/board-outline.json` `9d4d36a9` became `d7977cf3` on main at `433a944` (WP-PDR-27 shielding revision 2, INSP-083 finding-5). `git log 70d11ef..HEAD` over the ten product paths lists `433a944` only. The other nine blobs are unchanged and equal `git rev-parse HEAD:<path>` and `git hash-object <path>` at `e2d3226` (10 of 10 with the new blob). No product blob is on a `cr/` branch. Checklist as iterations 1 and 2 (analysis template revision A, blob `0386cc6e`, still only on `cr/CR-012-pdr-checklist-templates` at `7784672`).
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-27, its revision 1 or the shielding revision 2, and edited no product file.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (shielding rule O2 revision 2, gasket ring) ran before any `grep`; `grep` then only pinned lines in known paths. The rustos tree was not read.
+
+### Hunks read (`git diff 9d4d36a9 d7977cf3`, 2 hunks, 3 changed lines)
+
+| # | Hunk | Change | Numeric effect | Effect on this note |
+|---|---|---|---|---|
+| 1 | line 3, `revision` | "1 (... TS-011 revision 1 ...)" to "2 (... TS-011 revision 2: jack features per shielding rules O2 and O4, INSP-083 finding-5 ...)" | none | none |
+| 2 | `minus_x[0]` and `minus_x[1]` `feature` (key and headphone jack) | Adds to the collar text: "bonding land for the metal nose of the jack (its sleeve contact) through a conductive gasket ring all round (shielding rule O2, revision 2)" and "tip and ring filtered within 5 mm of the jack pins to the sleeve pin (shielding rule O4)"; `y` 18.0 / 52.0 and `z` 21.9 unchanged | none (text fields; no checker reads them for a value) | A new part in the jack opening, the gasket ring, which stacks A1 and A2 do not include: finding-8 |
+
+The O4 filters are board parts (WP-PDR-37) and touch no stack, drop row or envelope check. The metal nose is the S2 nose (6.0 mm, `shielding-estimate.md` section 2 row "Jack parts"), so S2 is unchanged; the shielding note states the ring adds "no constraint to stack S2" with at most 5 N of side force, which holds for the radial stack.
+
+**Reproduction.** On a `git archive e2d3226` export in the scratchpad (removed afterwards): `tolerance_stack.py --check`, `drop_and_axial.py --check` and `envelope_drawing.py --check` each exit 0 with `CHECK PASS`; `tolerance-stack.csv`, `drop-and-axial.csv`, `tolerance-stack.png`, `drop-and-axial.png` and `board-outline-envelope.png` hash to the `product_files` blobs (5 of 5 byte-identical). The feature text is not rendered, so no render changed and none was re-opened (renders_inspected stays 4).
+
+### Findings (iteration 3)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | CK-ANA-F1 | note sections 4.1 and 6 | See iteration 1 | Verified (iteration 2); unaffected by the drift | n/a | |
+| finding-2 to finding-7 | reviewer | Minor | as iteration 2 | as iteration 2 | Not in the delta | Open | Pending | CDR readiness declaration (lien) |
+| <a id="finding-8"></a>finding-8 | reviewer | Minor | CK-ANA-F1 | `board-outline.json` `minus_x` features (rule O2 revision 2 gasket ring); note section 4.1 A1, A2 | Stacks A1 and A2 pass REQ-SYS-108 "fully seated" on a clear 9.0 mm opening: a plug overmold of at most 7.0 mm reaches the nose face 0.35 to 1.65 mm behind the outer face with 0.35 mm of radial room. The revised data file puts a conductive gasket ring "all round" the 6.0 mm nose in that same annulus, and the shielding model places its contact ring at the 2 mm wall depth (`shielding-estimate.md` section 3, "8 slots of 3 mm at the 2 mm wall depth"), which is where the nose face and the plug's first 2 mm sit. The ring's axial position is not stated. If any of it lies ahead of the nose face plane, its bore is the nose diameter (6.0 mm), smaller than the 7.0 mm admitted overmold, and the plug stops on the ring short of full seating; the note, unchanged, does not stack it. Fix: state the ring's axial extent (behind the nose face plane, for example on the collar land) in the data file and add it to A1 and A2 as a contributor, or narrow the admitted-plug overmold to what clears the ring, keeping finding-7 in view | Open | Pending | CDR readiness declaration (lien) |
+
+finding-8 is Minor: the change is text in planning data, no computed verdict changes, and placing the ring behind the nose face closes it with no design change elsewhere. It is the case iteration 2 cross item X-3 foresaw.
+
+### Completion criteria (SWE-088), iteration 3
+
+Reviewer side still met: no Major is open, readiness R1 (re-frozen at `433a944`), R2 and R4 to R6 hold at `e2d3226`, and findings 2 to 8 are Minor liens due at the CDR readiness declaration. `reviewer_verdict: APPROVED`. The record `verdict` stays NEEDS CHANGES, held for the CR-012 merge only (analysis template blob `0386cc6e` unchanged on its branch at `7784672`); it is set to APPROVED in that merge commit or the commit right after it.
+
+```
+ITERATION 3 (2026-09-27, HEAD e2d3226, product commit 433a944, drift delta): REVIEWER VERDICT: APPROVED; RECORD VERDICT: NEEDS CHANGES (held for the CR-012 merge only)
+FINDINGS:
+- [Major] finding-1: Verified (iteration 2), unaffected.
+- [Minor] finding-2 to finding-7: Open, not in the delta (liens).
+- [Minor] finding-8 (new): the rule O2 revision 2 gasket ring sits in the jack opening annulus that A1 and A2 assume clear for the 7.0 mm admitted plug; axial position unstated and not stacked (lien).
+MEASUREMENTS: drifted blobs 1 (board-outline.json 9d4d36a9 to d7977cf3); hunks read 2 (3 lines); blobs equal HEAD 10/10; checkers 3 of 3 CHECK PASS; outputs byte-identical 5/5; renders inspected 0 (4 cumulative); major open=0; minor open=7; turns=12; minutes=15 (cumulative 67 and 100); iteration=3
 ```
