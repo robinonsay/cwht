@@ -1,0 +1,73 @@
+# TV-015 known-answer run, 2026-09-27 13:48:22 CDT, host Darwin 25.6.0 arm64, macOS 26.6.2
+# repository HEAD 989d257af6d0497993db0b8ed20bed85a88984fa (test(scad2step): seeded C4 and C6 faults through a FreeCAD API test double (WP-P)
+## A. identities
+tools/scad2step.py blob d0277ec8d89967576869be95ee5d0300e1f6af51 sha256 004c0b3f82ad03165f633947eeb380c53ca7b77e3f56f1cc1d97bcd715dd2952 unchanged from HEAD
+tools/tests/test_scad2step.py blob bd38fe2b5cf7cf75aac65d6f19d2c96633b56119 sha256 78c7480b528e4d9645fedb9e1d53467856f32b39b840bb6bfd6846da60b1e316 unchanged from HEAD
+tools/tests/fixtures/openscad git tree at HEAD 35e89b482be8449c31385e3712aa42268477955a
+tools/tests/fixtures/openscad tracked files 15, digest (sha256 of the sorted shasum list) 72b0ab2d9f590ee625441380371420faf7b9d30f3e714c2adc80cce37e36d58e
+c32c5f6662eeecaa880c630731ec4b936bac3eb9363ba1c37976fd3e0d3c3dc4  tools/tests/fixtures/openscad/cube.scad
+0f0b3824f051dd58b5edd911f1692210b59728753d468fd7f0052831c5e104ba  tools/tests/fixtures/openscad/fake/freecad_api/FreeCAD.py
+5af458cc91ec025513be28387a9f2d68780b7f547226886c451c72add696adad  tools/tests/fixtures/openscad/fake/freecad_api/Part.py
+54f15414588f6d5a771c9c5bf43aeeef6c46227a2f82edbc7cb2808ae49661e3  tools/tests/fixtures/openscad/fake/freecad_api/importCSG.py
+a12b461d0b0d59a960ae2335b0cd871110afc6069364b7dd141f207514e09852  tools/tests/fixtures/openscad/fake/freecadcmd-api-double
+54c06fc96934a65c6765945049be995e18b9f104b04db97704e9d827dc134784  tools/tests/fixtures/openscad/fake/freecadcmd-hang
+a2e001ce3e788638cbff29e6c798bad100997979ad05426f16a266df780ccd9b  tools/tests/fixtures/openscad/fake/freecadcmd-silent
+fdb0df5c756ef46882e3e0794e394696ba2154d06ac014cf3ffb70e67a241cd5  tools/tests/fixtures/openscad/fake/openscad-other-version
+4344c9925247dcd8cb4ccb0ed2407643aae534ee74600c29aefe42d51728e805  tools/tests/fixtures/openscad/known-answers.json
+2e307a81919fe5b438c1af5acda5254890962dea366195dd6e8b431a7d4d8e59  tools/tests/fixtures/openscad/nonuniform-scale.scad
+e4492f993ab19c718364caf61279a3abf72110265391f17564886a3e98bf873d  tools/tests/fixtures/openscad/smoke-shell.scad
+fbf89cdd7f6e3b83e44e25f69114d7d20937321d8f0e52de1917db77fd574dda  tools/tests/fixtures/openscad/taller.scad
+f795fe7f692dcbdf29f3d2fd2b6bc8520103d980f57f57b283a410fb5703b51a  tools/tests/fixtures/openscad/twist.scad
+621aaf8e0ee29392b35a4b06b70705bfa08a9d1ab9e357ac45ffa2d087845bf8  tools/tests/fixtures/openscad/two-roots.scad
+dce0446a42ac2cd7609f725b6bff6fe594d8c6860c0d2da4a0bb3e95de87474f  tools/tests/fixtures/openscad/two-solids.scad
+tools/tests/fixtures/openscad untracked or modified files: 0
+## B. versions
+interpreter: Python 3.13.5 (/Users/robinonsay/rust/cwht/.venv/bin/python); git: git version 2.50.1 (Apple Git-155)
+OpenSCAD: OpenSCAD version 2021.01
+FreeCAD bundle CFBundleVersion: 1.1.3
+## C. known-answer module(s)
+$ .venv/bin/python -m unittest discover -v -s tools/tests -p test_scad2step.py
+test_c4_compsolid_of_two_solids (test_scad2step.ApiDoubleTests.test_c4_compsolid_of_two_solids) ... ok
+test_c6_no_step_written (test_scad2step.ApiDoubleTests.test_c6_no_step_written) ... ok
+test_c6_read_back_invalid (test_scad2step.ApiDoubleTests.test_c6_read_back_invalid) ... ok
+test_c6_read_back_two_solids (test_scad2step.ApiDoubleTests.test_c6_read_back_two_solids) ... ok
+test_c6_read_back_volume_differs (test_scad2step.ApiDoubleTests.test_c6_read_back_volume_differs) ... ok
+test_control_case_passes (test_scad2step.ApiDoubleTests.test_control_case_passes) ... ok
+test_cm_plan_form_freecad_mode (test_scad2step.ConversionTests.test_cm_plan_form_freecad_mode)
+freecadcmd tools/scad2step.py with the environment (CM plan section 8.2 step 3). ... ok
+test_csg_content (test_scad2step.ConversionTests.test_csg_content) ... ok
+test_exit_and_marker (test_scad2step.ConversionTests.test_exit_and_marker) ... ok
+test_freecad_bundle_version_other_than_expected (test_scad2step.ConversionTests.test_freecad_bundle_version_other_than_expected) ... ok
+test_freecad_mode_missing_environment (test_scad2step.ConversionTests.test_freecad_mode_missing_environment) ... ok
+test_freecad_mode_version_check_c1 (test_scad2step.ConversionTests.test_freecad_mode_version_check_c1) ... ok
+test_kat_values (test_scad2step.ConversionTests.test_kat_values) ... ok
+test_openscad_expected_version_hook (test_scad2step.ConversionTests.test_openscad_expected_version_hook) ... ok
+test_step_bounding_box (test_scad2step.ConversionTests.test_step_bounding_box) ... ok
+test_freecadcmd_not_installed (test_scad2step.DoubleTests.test_freecadcmd_not_installed) ... ok
+test_no_marker_is_a_failure (test_scad2step.DoubleTests.test_no_marker_is_a_failure) ... ok
+test_openscad_not_installed (test_scad2step.DoubleTests.test_openscad_not_installed) ... ok
+test_openscad_other_version (test_scad2step.DoubleTests.test_openscad_other_version) ... ok
+test_timeout_kills_own_process_group (test_scad2step.DoubleTests.test_timeout_kills_own_process_group) ... ok
+test_ascii_unit_tetrahedron (test_scad2step.MeshVolumeTests.test_ascii_unit_tetrahedron) ... ok
+test_binary_box (test_scad2step.MeshVolumeTests.test_binary_box) ... ok
+test_truncated_binary_rejected (test_scad2step.MeshVolumeTests.test_truncated_binary_rejected) ... ok
+test_two_conversions_differ_only_in_file_name_time_stamp (test_scad2step.ReproducibilityTests.test_two_conversions_differ_only_in_file_name_time_stamp) ... ok
+test_mesh_volume_mismatch_c7 (test_scad2step.SeededCsgTests.test_mesh_volume_mismatch_c7) ... ok
+test_seeded_scad_files (test_scad2step.SeededCsgTests.test_seeded_scad_files) ... ok
+test_smoke_shell_known_answer (test_scad2step.SmokeShellTests.test_smoke_shell_known_answer) ... ok
+test_usage_errors_exit_2 (test_scad2step.UsageTests.test_usage_errors_exit_2) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 32.301s
+
+OK
+exit=0
+## D. reproducibility (class A): two conversions of cube.scad, STEP hashes raw and with the FILE_NAME time stamp normalized
+run 1 exit=0 SCAD2STEP KAT root=Compound solids=1 valid=True faces=7 cylinders=1 bspline=0 surfaces={'Cylinder': 1, 'Plane': 6} volume=5717.257 step_volume=5717.257 stl_volume=5717.711 stl_facets=272 stl_error_pct=0.0079 freecad=1.1.3
+run 1 raw sha256 ecff2249223385f839656630049c5527f83fcda2f0a86135a27a0ba25ed52473; FILE_NAME line: FILE_NAME('Open CASCADE Shape Model','2026-09-27T13:48:56',('FreeCAD'),(
+run 1 normalized sha256 f2b3afbfa36fae7343e06d227a1acff88b30506245b945648597e796b96c6362
+run 2 exit=0 SCAD2STEP KAT root=Compound solids=1 valid=True faces=7 cylinders=1 bspline=0 surfaces={'Cylinder': 1, 'Plane': 6} volume=5717.257 step_volume=5717.257 stl_volume=5717.711 stl_facets=272 stl_error_pct=0.0079 freecad=1.1.3
+run 2 raw sha256 77f74ce193b8652b7d13aa2c5c45e101241ef7d0e98acbf6b31bc96d91e24f19; FILE_NAME line: FILE_NAME('Open CASCADE Shape Model','2026-09-27T13:48:59',('FreeCAD'),(
+run 2 normalized sha256 f2b3afbfa36fae7343e06d227a1acff88b30506245b945648597e796b96c6362
+RESULT normalized STEP identical
+# end 13:49:02 CDT
