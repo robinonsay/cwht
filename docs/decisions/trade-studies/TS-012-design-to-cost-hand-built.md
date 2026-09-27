@@ -1,182 +1,207 @@
-# TS-012: Design-to-cost architecture for a hand-built first radio under USD 200
+# TS-012: Design-to-cost architecture for a hand-built first radio (USD 200 target, USD 300 maximum)
 
 | Field | Value |
 |---|---|
 | ID | TS-012 |
-| Status | **Proposed; owner's decision pending.** Revision 0 (2026-09-27). Opened on the owner's direction of 2026-09-27 (`docs/plan/status/status-2026-09-27.md` sections 6 and 8; section 8 governs where they differ). Independent review (06 section 14.3 step 6) not yet run |
-| Decision class trigger | 06 section 14.1 class 1 items (a) architecture choice (receiver topology, PA topology, LO scheme, power architecture, enclosure concept), (b) selection of critical parts (RF power device, synthesizer, TCXO, CW filter, battery charger, display), (c) choices touching HZ-002, HZ-003, HZ-004, HZ-005, HZ-007, HZ-008 and HZ-015, (d) the owner asked for it (status note section 6, "A design-to-cost trade study (TS-012)"), (f) changes to KDR requirements (REQ-SYS-010, 102, 103, 137, 140) |
+| Status | **Proposed; owner's decision pending.** Revision 2 (2026-09-27). Opened on the owner's direction of 2026-09-27 (`docs/plan/status/status-2026-09-27.md` sections 6 and 8); revision 2 applies the owner's answers of section 10, which supersede the section 6 and 8 cost reading. Independent review INSP-110 iteration 1 (NEEDS CHANGES, 3 Major, 8 Minor) is answered in section 9 |
+| Decision class trigger | 06 section 14.1 class 1 items (a) architecture choice (receiver topology, PA topology, LO scheme, power architecture, enclosure concept), (b) selection of critical parts (RF power device, synthesizer, TCXO, CW filter, battery charger, display), (c) choices touching HZ-002, HZ-003, HZ-004, HZ-005, HZ-007, HZ-008 and HZ-015, (d) the owner asked for it (status note section 6, "A design-to-cost trade study (TS-012)"), (f) changes to KDR requirements (REQ-SYS-010, 012, 102, 103, 112, 137, 140) |
 | Decision maker | Robin (owner, Decision Authority) |
-| Recommender | Claude (trade-study author invocation, 2026-09-27), from three independent architectures and three judges (section 4.3) |
-| Independent reviewer | INSP-NNN in `docs/reviews/PDR/checklists/ts-012-design-to-cost-hand-built.md`, filled from `docs/templates/peer-review-checklist-risk.md` section B (06 section 14.2); not yet run |
+| Recommender | Claude (trade-study author invocation, 2026-09-27), from three independent architectures, three judges (section 4.3), the independent review INSP-110 and the adversarial RF feasibility check (section 9) |
+| Independent reviewer | INSP-110 in `docs/reviews/PDR/checklists/ts-012-design-to-cost.md` (iteration 1 on revision 1 at 5c16930; filled from `docs/templates/peer-review-checklist-risk.md` section B). Iteration 2 on this revision not yet run |
 | Decide by | Before the PDR trades that depend on it are scored: proposed B1a (Tue 2026-09-29), no later than B1b (Thu 2026-10-01). Every one of WP-PDR-19 to 28, 33, 37 to 40 and 46 changes with this decision (section 8.12) |
-| Related risks | RSK-004 (turnkey defects, retired if selected), RSK-006 (PA junction temperature), RSK-008 (first power-on), RSK-025 (antenna port retention), RSK-037 (RP2350 ADC audio; not used for audio here), RSK-038 (stock and end of life), RSK-052 (cost above the model) |
-| Related requirements and hazards | Section 8.10 lists every REQ delta. Hazards HZ-002, HZ-003, HZ-004, HZ-005, HZ-007, HZ-008, HZ-015. Stakeholder inputs SI-013, SI-022, SI-028, SI-031, SI-034; the owner inputs of status note sections 6 and 8 take the next free SI id when the re-baseline CR appends them |
+| Related risks | RSK-002 (LO error against the CW filter), RSK-004 (turnkey defects, retired if selected), RSK-006 (PA junction temperature), RSK-008 (first power-on), RSK-025 (antenna port retention), RSK-026 (hand-hold surface), RSK-037 (RP2350 ADC audio; not used for audio here), RSK-038 (stock and end of life), RSK-052 (cost above the model) |
+| Related requirements and hazards | Section 8.10 lists every REQ delta. Hazards HZ-002, HZ-003, HZ-004, HZ-005, HZ-007, HZ-008, HZ-015. Stakeholder inputs SI-013, SI-022, SI-028, SI-031, SI-034; the owner inputs of status note sections 6, 8 and 10 take the next free SI ids when the re-baseline CR appends them |
 | Resulting ADR | The next free ADR number when the owner decides (ADR-056 or later; highest at writing is ADR-055) |
-| Dates | opened 2026-09-27; recommended 2026-09-27 (this revision, before independent review); decided: pending |
+| Dates | opened 2026-09-27; recommended 2026-09-27 (revision 1, A4), re-recommended 2026-09-27 (revision 2, A5); decided: pending |
 
-Price evidence convention used in every table: **L** = listed price read on the seller's own page on 2026-09-27; **A** = distributor price and stock read on 2026-09-27 through the OEMsTrade aggregator page for the part, because Mouser, DigiKey and Newark block automated reads (the owner verifies it in a browser); **E** = estimate with its basis, never a listed price. No page was logged into, no form was filled, nothing was added to a cart and no file was downloaded by the author.
+Price evidence convention used in every table: **L** = listed price read on the seller's own page on 2026-09-27; **A** = distributor price and stock read on 2026-09-27 through the OEMsTrade aggregator page for the part, because Mouser, DigiKey and Newark block automated reads (the owner verifies it in a browser); **E** = estimate with its basis, never a listed price. No page was logged into, no form was filled, nothing was added to a cart and no file was downloaded by the author (datasheets read through the web-fetch tool, which caches the PDF it reads, are named where used).
 
 ## 1. Executive summary
 
-- **Recommendation (one sentence):** adopt **A4, "min-cost with grafts"**: the NXP AFT05MS004NT1 SOT-89 LDMOS final with a Mini-Circuits GVA-84+ driver on a small PA board bolted to an aluminum heat-sink end wall (fins outside the PETG case), a JFET single-conversion superhet with a hand-matched 6-pole 500 Hz crystal ladder and an analog audio chain, an Adafruit Si5351A module, a Morse-code audio user interface with no display, cells charged outside the radio, one Mouser order plus two JLCPCB 2-layer bare boards soldered by the owner, and six grafts from the other architectures and the judges (catalog Coilcraft LPF inductors, the G5V-2 DPDT relay, the restored 10 s hardware key-down cutoff, the restored independent frequency counter, a plated thermal slot under the PA, and a pre-agreed ordering gate).
-- **Cost (section 8.4):** capped total including 15 % contingency **USD 167.95 low, 190.29 planning, 212.64 high**. The planning case fits the USD 200 cap with USD 9.71 of margin. The high case, which stacks every high estimate and a Mouser tariff pass-through that no architect had counted, does **not** fit by itself: it is held under the cap by the ordering gate and its pre-agreed guard ladder, first by the owner's own copper wire (USD 197.47 capped). This is stated plainly because cost is the owner's one firm constraint.
-- **What the owner gets:** 5 W CW (estimated 4.4 W at 6.4 V, marginal against the 3.97 W floor of REQ-SYS-012), a 500 Hz crystal-ladder receiver with MDS about -140 dBm (Low confidence), about 8 to 15 h battery life at 1:9, a case of about 142 x 70 x 42 mm (149 mm with the SMA) and 277 to 347 g, and only hand-solderable parts: no BGA, no leadless part, no pitch under 0.65 mm, no hidden thermal pad.
-- **What it gives up (section 8.8):** the display (Morse menu instead), in-radio charging, the TCXO in the first build (carrier accuracy relaxed from 2.5 ppm to 30 ppm after calibration, TBR), the conductive case coating, the tuning encoder, the on-board transmit monitor port (an add-back), and the stainless SMA jack.
-- **Problem requiring a decision (one sentence):** which radio architecture, parts list and requirement set let the owner build the first complete cwht at his home bench for under USD 200 all in, with listed-price parts only.
-- **Robustness verdict (section 6):** Robust for the enhancing matrix (no single weight or Low-confidence score perturbation changes the top rank; A4 leads by 85 points). **Not robust** for the mandatory cost screen: A4's high case and the M1 failures of A2 and A3 turn on shipping and tariff lines that are estimates.
+- **Owner budget (status note section 10, governs).** Target USD 200 for the first complete radio; **USD 300 is the absolute maximum**, and the worst case including contingency must stay at or below it. **Sales tax is excluded.** Owned and not bought: 24 AWG magnet wire, a 2 m antenna with an SMA-male plug, through-hole resistors and capacitors (surface-mount passives are not owned), a USB power adapter. Assumed until answered: 18650 cells and a charger are not owned (priced); test instruments are outside the cap.
+- **Recommendation (one sentence):** adopt **A5, "hybrid H1"**: the revision-1 A4 radio (JFET preamps, 500 Hz crystal ladder, analog audio, Morse menu, Adafruit Si5351A module, cells charged outside the radio, one Mouser order plus two JLCPCB 2-layer boards) with four upgrades that the USD 300 ceiling now pays for: a **Mitsubishi RA07M1317M 50 ohm PA module** (no hand-matched network, vendor-guaranteed harmonic and stability limits) in place of the end-of-life NXP AFT05MS004NT1, an **Epson TG2520SMN TCXO** (restores REQ-SYS-010 and the 1.2 kHz carrier guard), the **research-validated diode-ring mixer** in place of the JFET mixer, and a **spare GVA-84+ driver**; plus the INSP-110 and adversarial fixes that every alternative gets (a 160 MHz guaranteed divider for REQ-SYS-182, thermal compound, the 40 dB monitor port in the baseline, a second button, a drive low-pass filter).
+- **Cost (section 8.4), sales tax excluded, 15 % contingency on every line:** **USD 204.89 low, 234.68 planning, 294.51 worst case.** The worst case passes the USD 300 screen with USD 5.49 to spare; it stacks every high estimate, a board duty of 92.5 % on the whole JLCPCB order (the base is unpublished) and a Mouser tariff line of 50 % on the China-origin share. The planning figure is **USD 34.68 above the USD 200 target**. The lower-cost alternative A4 (revision 2, repaired) plans at **USD 187.61** (worst 243.42) but keeps an end-of-life PA, misses REQ-SYS-012 at the 6.4 V pack end (about 3.2 W against 3.97 W) and does not show REQ-SYS-112 (section 7.3).
+- **What the USD 47.07 between A4 and A5 buys (section 8.2, risk per dollar):** the module retires five Red risks (end-of-life PA, no harmonic data, a PA match rebuilt on the wrong substrate, a junction bound up to 135 C, the low-pack power shortfall) for USD 36.88; the TCXO restores a KDR (REQ-SYS-010) and halves the REQ-SYS-182 error budget for USD 4.15; the diode ring replaces an unvalidated mixer for USD 2.60; the spare driver costs USD 3.44.
+- **What the owner gets:** 5 W CW at the connector (4.0 to 4.6 W estimated at the 6.4 V pack end after key-down sag and filter loss, against the 3.97 W floor; Low), a 500 Hz crystal-ladder receiver with MDS about -140 dBm (Low), +/-2.5 ppm carrier accuracy, a PA junction bound of 103 C at 45 C ambient (109 C if the drain sees the full 8.4 V with no feed drop), about 8 to 14 h battery life at 1:9, a case of about 148 x 70 x 42 mm (155 mm with the SMA) and 283 to 356 g, and one flagged hand-solder exception (the leadless 4-pad TCXO). No BGA, no reflow-only part, no hidden thermal pad.
+- **What it gives up (section 8.8):** the display (Morse menu instead), in-radio charging, the conductive case coating, the tuning encoder and the stainless SMA jack. The heat sink's fins sit behind a printed finger guard.
+- **Problem requiring a decision (one sentence):** which architecture, parts list and requirement set let the owner build the first complete cwht at his home bench within USD 300 worst case (target USD 200), with listed-price parts only.
+- **Robustness verdict (section 6):** **Not robust** between A5 and A4. A5 leads by 15 points (355 against 340); three of sixteen weight perturbations (cost robustness +10, hand-solderability +10, RF confidence -10) put A4 first, one (build effort -10) ties A5 with A2, and four single Low-cell moves put A4 first or level. The choice is between USD 47 more for lower RF, thermal and sourcing risk (A5) and the cheaper radio with requirement deltas (A4). The cost screen passes for A5 on a worst case that is Low confidence and has USD 5.49 of margin.
 - **Three findings for the owner before deciding:**
-  1. **No through-hole 5 W final exists at 144 MHz in catalog stock.** The through-hole choices are new-old-stock TO-220 and TO-39 parts that reach 0.5 to 4.5 W at 7.2 V, and the IRF510 has almost no gain at 144 MHz (section 7.3). Surface-mount SOT-89 and SOT-23 devices are the least-exception path; A4 uses them and nothing harder.
-  2. **Two safety controls were missing from the cheapest architecture as submitted** (the REQ-SYS-055 10 s hardware cutoff and the REQ-SYS-182 independent frequency counter). A4 restores both for about USD 1 of parts.
-  3. **Mouser passes a share of US tariffs on China-origin parts through as an order line.** No architecture counted it. It is carried here as USD 4 to 12 (estimate) and must be read at the Mouser cart before ordering.
-- **Owner's decision (section 10):** pending.
+  1. **The revision-1 PA device is End of Life** (NXP page, read 2026-09-25 and re-read by INSP-110 on 2026-09-27). Revision 1 said "active production"; that was wrong. A5 does not use it; A4 keeps it with a spare in the order.
+  2. **The revision-1 prescaler was used above its published rating** (SN74LVC74A: TI page 100 MHz; datasheet 150 MHz minimum at 3.3 V, -40 to 85 C, with a 3.3 ns pulse-width minimum against a 3.38 ns half-period). Every alternative now uses the Nexperia 74LVC1G80, guaranteed 160 MHz minimum at 3.0 to 3.6 V over -40 to +125 C (datasheet Rev. 17, 12 November 2024), USD 0.15 at Mouser.
+  3. **The module doubles the heat into the sink** (8.5 to 10 W against about 5 W for the AFT05), because it is less efficient. The junction still has 7 K of margin at the bound corner, but the fins can reach 56 C at 25 C ambient, so they sit behind a printed guard and nothing PETG touches the sink (section 7.3).
+- **Owner's decision (section 10):** pending. Open owner questions, each with a recommendation, are in section 8.13.
 
 ## 2. Problem and decision context
 
 - **Mission and system context:** the whole radio. The cost cap, the hand-assembly rule and the display removal touch every block of `docs/design/concept.md` sections 5 and 7, the L0 constraints CON-010, CON-015 and CON-026, NGO-027, NGO-028, MOE-007 and MOE-013, and about 80 L1 requirements (section 8.10).
 - **Decision needed and intended outcome:** after the decision, the preliminary design has one architecture, one bill of materials with listed prices and sellers, one cost roll-up with an ordering gate, one user-interface concept (Morse audio menu) and one list of requirement deltas for a re-baseline CR. The PDR trades of WP-PDR-19 to 28 then close on this basis instead of the PCBWay turnkey basis.
-- **Owner direction (verbatim extracts; the full statements are in the status note).** Section 6: "I think the first radio can't be more than $200 um, all in. Uh, you do not have to account for filament cost." "if I have to go ask a website for a quote for a part, that's a bad sign." "if we need to, you know, design our own amplifiers using MOSFETs, then so be it." "I've used JLCPCB before. So I'm down to get a bare PCB and then solder the through hole components myself." "I would be open to dropping the LCD screen and instead having a Morse code audio only interface." "you would press a button to enter the menu, and then you would hear the options in Morse code, and then you would pick like a letter to go to a different option, and then you can change numbers, and it will read it back to you to confirm that it was correct. And then you would say like Roger for like you know setting it, or um, N for no." Section 8 (governs): "Yeah, I'm flexible on the size. Cost is firm. I think it needs to be less than 200 dollars. Uh, that that is a firm constraint. Um, the size and through hole are negotiable. I think ideally it's a through hole part, but if it needs to be a surface mount part, that's fine. I think the the uh, ones that get trickier are ball arrays. or other uh, chips that really require like flow soldering to do them accurately. But I can I can do surface mount parts." "I need to be able to solder it at my home bench you know and I don't have like a very sophisticated soldering setup. I have a heat gun um, I have solder I have flux".
-- **Lead SE reading applied here (status note section 8, items 1 to 6, with section 6 where section 8 is silent):**
-  1. FIRM: the first complete radio costs under USD 200 all in (boards, parts, shipping, import duty); filament excluded. Committed instruments (tinySA Ultra, SI-034) are outside the cap (to be confirmed by the owner).
-  2. Every part has a published price and stock at a catalog distributor or maker shop; nothing sold only on quote.
-  3. Through-hole is preferred. Surface-mount parts are acceptable where the owner can hand-solder them with an iron, a heat gun, solder and flux (SOIC, SOT-23, SOT-89, SOT-223, TO-252, 1206 and 0805 passives, QFP and TSSOP of 0.65 mm pitch or more, PowerSO-class devices with a heat gun). Excluded: BGA and any part that in practice needs reflow or a stencil (fine-pitch leadless packages). Every part with a hidden exposed thermal pad is flagged. A pre-built module with pin headers and a listed price counts as through-hole compatible (to be confirmed).
-  4. Discrete op-amp and MOSFET circuits, including a discrete PA, are welcome.
-  5. Board: a bare JLCPCB board soldered by the owner; perfboard or Manhattan for prototypes and non-RF sections. The owner has perfboard and some potentiometers.
-  6. One radio first, in the owner-printed PETG case.
-  7. Size is negotiable: the REQ-SYS-102 (350 g) and REQ-SYS-103 (140 x 70 x 40 mm) envelope is the ideal, traded against cost and buildability; the envelope and mass are estimated and any delta reported.
+- **Owner direction (verbatim extracts; the full statements are in the status note).** Section 6: "I think the first radio can't be more than $200 um, all in. Uh, you do not have to account for filament cost." "if I have to go ask a website for a quote for a part, that's a bad sign." "if we need to, you know, design our own amplifiers using MOSFETs, then so be it." "I've used JLCPCB before. So I'm down to get a bare PCB and then solder the through hole components myself." "I would be open to dropping the LCD screen and instead having a Morse code audio only interface." "you would press a button to enter the menu, and then you would hear the options in Morse code, and then you would pick like a letter to go to a different option, and then you can change numbers, and it will read it back to you to confirm that it was correct. And then you would say like Roger for like you know setting it, or um, N for no." Section 8: "Yeah, I'm flexible on the size. Cost is firm. [...] Um, the size and through hole are negotiable. I think ideally it's a through hole part, but if it needs to be a surface mount part, that's fine. I think the the uh, ones that get trickier are ball arrays. or other uh, chips that really require like flow soldering to do them accurately. But I can I can do surface mount parts." "I need to be able to solder it at my home bench you know and I don't have like a very sophisticated soldering setup. I have a heat gun um, I have solder I have flux". **Section 10 (governs the cost reading):** "I'm okay with, you know, I think the range is really $200 to $300, but $300 is really the absolute maximum. And yeah, I'm okay with not counting sales tax. I think I do have 24 gauge magnet wire. I have already a 2-meter antenna with an SMA male plug. Um, I have through-hole resistors and capacitors, but I don't have um, surface mount, and I do have a USB power adapter."
+- **Lead SE reading applied here (status note section 10 for cost and owned stock; section 8 items 2 to 6 for parts, board and UI; section 6 where both are silent):**
+  1. Cost: target USD 200 for the first complete radio; USD 300 absolute maximum, and the worst case including 15 % contingency stays at or below it. Boards, parts, shipping, import duty and tariff pass-through count; sales tax and filament do not. Test instruments are outside the cap (assumed until the owner confirms).
+  2. Owned (priced at USD 0): 24 AWG magnet wire, a 2 m antenna with an SMA-male plug, through-hole resistors and capacitors (values to be checked against the BOM), a USB power adapter, perfboard, two potentiometers, filament, headphones and a key or paddle. Not owned: surface-mount passives, 18650 cells and a charger (assumed; priced).
+  3. Every part has a published price and stock at a catalog distributor or maker shop; nothing sold only on quote.
+  4. Through-hole is preferred. Surface-mount parts are acceptable where the owner can hand-solder them with an iron, a heat gun, solder and flux (SOIC, SOT-23, SOT-89, SOT-223, SC-74A, TO-252, 1206 and 0805 passives, QFP and TSSOP of 0.65 mm pitch or more). Excluded: BGA and any part that in practice needs reflow or a stencil. Parts with a hidden exposed thermal pad, and leadless parts with pads under the body, are flagged. A pre-built module with pin headers or castellations and a listed price counts as through-hole compatible (to be confirmed).
+  5. Discrete op-amp and MOSFET circuits, including a discrete PA, are welcome; a PA module with leads is a module.
+  6. Board: a bare JLCPCB board soldered by the owner; perfboard for prototypes and non-RF sections.
+  7. One radio first, in the owner-printed PETG case. Size is negotiable: REQ-SYS-102 (350 g) and REQ-SYS-103 (140 x 70 x 40 mm) are the ideal; deltas are reported.
   8. No display: the Morse-code audio menu replaces it.
-- **Constraints:** Part 97 (97.307(e) spurious limit of 25 uW for a 5 W transmitter, REQ-SYS-017; 60 dBc design target, REQ-SYS-018). The owner's bench (SI-013: NanoVNA, 50 ohm dummy load, bench supply; plus the tinySA Ultra of SI-034, a heat gun, solder, flux). The owner's rule that LTspice simulations of the amplifiers and filters must run and count as evidence (status note section 9).
+  9. Risk per dollar (revision-2 brief, consistent with the section 10 reading that the charging, TCXO, surface-mount and low-pack-power trade-offs are re-evaluated under the ceiling): where the worst case still fits, the lower RF, thermal, emissions and build risk is preferred, and each upgrade's cost and the risk it retires are stated.
+- **Constraints:** Part 97 (97.307(e): for a transmitter of 25 W or less each spurious emission is at most 25 uW and at least 40 dB down, which binds at 53.0 dBc at 5 W and 43.0 dBc at 0.5 W, REQ-SYS-017; 60 dBc design target, REQ-SYS-018). The owner's bench (SI-013: NanoVNA, 50 ohm dummy load, bench supply; plus the tinySA Ultra of SI-034, a heat gun, solder, flux). The owner's rule that LTspice simulations of the amplifiers and filters must run and count as evidence (status note section 9).
 - **Prior related decisions:** ADR-007 and SI-031 (PCBWay turnkey, owner through-hole only) and SI-028 (PA from DigiKey, Mouser or PCBWay distributors) are superseded if this study is adopted. TS-001 (PD54008L-E PA, Inrad or tolerance-designed ladder, SRR decision 54), TS-007 (Si5351A plus TCXO), TS-004 (4-layer 1.0 mm board), TS-011 (option C printed case with coating and CNC fallback; its M8 finding that PETG fails near a 4 W PA). CR-003 revision 3 and CR-006 revision 2 are Submitted and held for revision (status note section 6).
-- **Research consulted (all 2026-09-27):** the seven block research reports of this study (transmitter and PA, receiver, frequency generation, power and charging, UI and audio, fabrication and shipping, enclosure), quoted in section 11; `docs/research/pa-device-candidates.md`; `docs/research/cw-selectivity-options.md`; `docs/research/tr-switch-candidates.md`; the three architectures and three judge reports of section 4.3; the author's own web reads marked "read today" in section 8.3.
+- **Research consulted (all 2026-09-25 to 2026-09-27):** the seven block research reports of this study (transmitter and PA, receiver, frequency generation, power and charging, UI and audio, fabrication and shipping, enclosure), quoted in section 11; `docs/research/pa-device-candidates.md` (F8 RA07M1317M, F10 AFT05MS004N, F16 to F20); `docs/research/cw-selectivity-options.md`; `docs/research/tr-switch-candidates.md`; `docs/research/keyer-and-key-interfaces.md` F10; the three architectures and three judge reports of section 4.3; the INSP-110 review record; the adversarial RF feasibility check of 2026-09-27 (22 claims, section 9); the author's own web reads marked "read today" in section 8.3.
 
 ## 3. Decision matrix setup and rationale
 
-### 3.1 Criteria and operational definitions
+### 3.1 Criteria and operational definitions (revision 2)
 
-Mandatory criteria are pass or fail; an alternative that fails one is dropped before scoring (SE HB section 6.8.1.2.1). Because the M1 screen of A2 and A3 turns on Low-confidence estimates (section 6 item 4), all four candidate architectures are still scored in section 5, for information and for the sensitivity run.
+Mandatory criteria are pass or fail; an alternative that fails one is dropped before scoring (SE HB section 6.8.1.2.1). Alternatives whose failure turns on an unverified line are still scored, for information and for the sensitivity run.
 
 | ID | Criterion | Type | Operational definition | Scale | Weight |
 |---|---|---|---|---|---|
-| M1 | Cost cap | Mandatory | Capped planning total (listed prices plus the midpoint of every estimated line, shipping, duty and the Mouser tariff pass-through, times 1.15) is under USD 200; and the high case is brought under USD 200 by a pre-agreed guard ladder that costs no performance requirement | pass / fail | n/a |
-| M2 | Listed prices | Mandatory | Every part has a published price and stock at a catalog distributor or maker shop (aggregator reads accepted provisionally, pending the owner's browser check); no part is sold only on quote | pass / fail | n/a |
-| M3 | Hand-solderable | Mandatory | No BGA and no part that in practice needs reflow or a stencil (fine-pitch leadless). Leaded parts with pitch under 0.65 mm and leadless parts with large pads are admitted only as flagged exceptions and are scored in C3 | pass / fail | n/a |
-| M4 | Safety controls | Mandatory | Every hardware hazard control adopted at SRR (REQ-SYS-055, 083 to 085, 092, 120, 180, 181, 182) is implemented, or its removal is recorded as a requirement delta for the owner; no Red safety risk that no step reduces to Yellow (06 section 13 item 2) | pass / fail | n/a |
+| M1 | Cost ceiling | Mandatory | Worst case at or below USD 300: listed prices plus the high end of every estimated line, every shipping line at its high estimate, board duty at 92.5 % of the whole JLCPCB order (boards plus shipping; the base is unpublished), the Mouser tariff line at 50 % of the China-origin share, all times 1.15. Sales tax excluded (owner, section 10) | pass / fail | n/a |
+| M2 | Listed prices | Mandatory | Every part has a published price and non-zero stock at a catalog distributor or maker shop on the read date (aggregator reads accepted provisionally, pending the owner's browser check); no part is sold only on quote | pass / fail | n/a |
+| M3 | Hand-solderable | Mandatory | No BGA and no part that in practice needs reflow or a stencil. Leaded parts with pitch under 0.65 mm, leadless parts with pads under the body and hidden-pad parts are admitted only as flagged exceptions and are counted in C3 | pass / fail | n/a |
+| M4 | Safety controls | Mandatory | Every hardware hazard control adopted at SRR (REQ-SYS-055, 083 to 085, 092, 120, 180, 181, 182) is implemented with parts used inside their published ratings, or its removal is recorded as a requirement delta for the owner; no Red safety risk that no step reduces to Yellow (06 section 13 item 2) | pass / fail | n/a |
 | M5 | Emissions path | Mandatory | A design path to 97.307(e): a harmonic filter of at least 45 dB ideal attenuation at 2f plus a stated verification (LTspice and tinySA) | pass / fail | n/a |
-| C1 | Cost margin | Enhancing | Capped planning total, USD (the M1 figure) | 1: >= 200 / 3: 190 / 5: <= 170 (linear between) | 25 |
-| C2 | Cost robustness | Enhancing | Capped high-case total and what it takes to hold the cap | 1: over 200 after every guard that costs no performance / 3: under 200 after guards that need only owner confirmations (owned stock, a verified shipping line) / 5: under 200 with no guard | 10 |
-| C3 | Hand-solderability | Enhancing | Count of flagged exceptions (hidden pad, leadless, pitch under 0.65 mm) | 1: three or more / 3: one / 5: none | 15 |
-| C4 | Build and alignment effort | Enhancing | Count of RF networks the owner designs or tunes by hand plus hand-wound filter or match coils, and board-area closure | 1: two or more hand matches, wound LPF and BPF, board does not close / 3: one hand match, wound BPF, catalog LPF / 5: no winding, no match to design | 10 |
-| C5 | RF and emissions confidence | Enhancing | Evidence behind the 60 dBc target, 5 W and MDS: vendor harmonic data, LPF construction, reference accuracy, T/R isolation | 1: no harmonic data, wound LPF, unvalidated mixer, clamp overstress / 3: no PA harmonic data but catalog LPF and DPDT / 5: guaranteed harmonics, catalog LPF, TCXO, DPDT, monitor port | 15 |
-| C6 | Envelope and mass | Enhancing | Case volume against 140 x 70 x 40 mm and mass against 350 g | 1: over 20 % volume or over 350 g / 3: up to 8 % over, or one axis over / 5: inside on all axes and under 350 g | 10 |
-| C7 | Requirement deltas and firmware scope | Enhancing | Number and size of requirement relaxations, unrecorded gaps and firmware added | 1: safety requirements dropped silently / 3: deltas recorded, moderate firmware / 5: wording-only deltas, no firmware added | 5 |
-| C8 | Safety margin | Enhancing | PA junction margin to 110 C at 45 C, heat path relative to cells and PETG, Catastrophic hazards kept in the box | 1: junction over 110 C / 3: junction under 110 C with in-radio charger or unanalyzed heat path next to the cells / 5: junction margin over 20 K, heat outside the case, no charger in the box | 10 |
+| C1 | Expected cost against the target | Enhancing | Capped planning total (listed prices plus the midpoint of every estimated, shipping, duty and tariff line, times 1.15), USD. At or below the USD 200 target scores 5; above it, points are lost in proportion | 5: <= 200 / 3: 250 / 1: >= 300 (linear) | 20 |
+| C2 | Worst-case margin | Enhancing | Capped worst case (the M1 figure), USD | 5: <= 220 / 3: 260 / 1: 300 (linear) | 5 |
+| C3 | Hand-solderability | Enhancing | Count of flagged exceptions (hidden pad, leadless with pads under the body, pitch under 0.65 mm) | 1: three or more / 3: one / 5: none | 15 |
+| C4 | Build and alignment effort | Enhancing | RF networks the owner designs or tunes by hand plus hand-wound filter, match or transformer coils, and board-area closure | 1: two or more hand matches, wound LPF and BPF, board does not close / 3: one hand match, wound BPF, catalog LPF / 5: no winding, no match to design | 10 |
+| C5 | RF and emissions confidence | Enhancing | Evidence behind 5 W at the pack ends, the harmonic budget, stability and MDS: vendor harmonic and stability data, LPF construction, reference accuracy, mixer validation, T/R isolation | 1: no harmonic data, wound LPF, unvalidated mixer, power short of REQ-SYS-012 / 3: no PA harmonic data but catalog LPF and DPDT / 5: guaranteed harmonic and stability limits, catalog LPF, TCXO, validated mixer, DPDT, monitor port | 20 |
+| C6 | Envelope and mass | Enhancing | Case volume against 140 x 70 x 40 mm and mass against 350 g | 1: over 20 % volume or over 370 g / 3: up to 8 % over, or one axis over / 5: inside on all axes and under 350 g | 10 |
+| C7 | Requirement deltas and firmware scope | Enhancing | Number and size of requirement relaxations, unrecorded gaps and firmware added | 1: safety requirements dropped silently / 3: deltas recorded including KDR relaxations, moderate firmware / 5: wording-only deltas, no firmware added | 5 |
+| C8 | Safety and thermal margin | Enhancing | Bounded PA junction against 110 C at 45 C ambient (REQ-SYS-112) at the worst corner (8.4 V pack, ALC back-off); heat path relative to cells and PETG; Catastrophic hazards kept in the box | 1: junction bound over 110 C / 3: bound under 110 C, or heat near PETG needing design controls, or an in-radio charger / 5: bound margin over 20 K, heat outside the case, no charger in the box | 15 |
 | | | | | **Sum of weights** | **100** |
 
 Criteria considered (06 section 13 item 1): safety used as M4 and C8; first power-on used as C4 (build and alignment effort is the main first-power-on driver); cost used as M1, C1 and C2; performance margin used as M5 and C5; schedule omitted because every alternative uses a JLCPCB bare board and catalog parts with similar lead times (about 1 to 2 weeks), so it does not discriminate; system security omitted because no alternative changes the USB firmware-loading or key-input attack surfaces of 07 section 16.2 (the Morse menu is common to all and its command path is assessed in WP-PDR-17).
 
-Other criteria considered and not used: sourcing breadth (folded into M2 and C2, because shipments and unread lines drive the cost robustness), and the judges' three lenses as separate criteria (their content is carried by C1, C2 for cost and sourcing; C5 and M5 for RF and regulatory; C3, C4, C6 and C8 for buildability, size and safety).
+Other criteria considered and not used: sourcing breadth (folded into M2, C5 and the risks of section 7.1), and the judges' three lenses as separate criteria (their content is carried by C1 and C2 for cost and sourcing; C5 and M5 for RF and regulatory; C3, C4, C6 and C8 for buildability, size and safety).
 
 ### 3.2 Alternatives
 
 | ID | Alternative | Description | Source |
 |---|---|---|---|
 | A0 | Current baseline (do nothing) | SRR concept: PCBWay 4-layer board with turnkey SMT, PD54008L-E PA, Inrad #111 or tolerance ladder with 24-bit ADC, LS013B7DH03 display, encoders, in-radio 2S charging, printed case with coating and a PCBWay CNC fallback; unit budget USD 610 over three units | `docs/plan/cost-estimate.md`; TS-001; TS-011; CR-003; CR-006 |
-| A1 | min-cost (as submitted) | AFT05MS004NT1 SOT-89 PA with GVA-84+ driver, JFET superhet with hand-matched 500 Hz ladder, Morse-only UI, cells charged in an XTAR VC2, one Mouser order plus two JLCPCB boards; USD 169.15 to 199.17 capped | Architecture report "min-cost" |
-| A2 | performance-in-cap PIC-5 | RD01MUS2 plus RD07MUS2B discrete pair (RF Parts), bare Si5351A with HCI TCXO, diode-ring superhet, ADC audio path, in-radio 2S charger (CN3302 chain), four buttons; USD 165.50 to 218.28 capped | Architecture report "performance-in-cap" |
-| A3 | buildability B1 | RA07M1317M module PA (RF Parts), no hand-wound parts (Coilcraft LPF, XRMW slug-tuned BPF, TC1-1T+ mixer), bare Si5351A with TCXO, ADC audio, charging outside the radio, 40 dB monitor port; USD 183.05 to 240.02 capped | Architecture report "buildability" |
-| A4 | min-cost with grafts (recommended) | A1 plus: Coilcraft 1812SMS LPF (from A3), G5V-2 DPDT relay (from A2 and A3), second LM393 for the REQ-SYS-055 10 s cutoff and a cell 60 C trip (from A3), SN74LVC74ADBR prescaler into a PIO counter for REQ-SYS-182 (from A2 and A3), a solder-filled plated slot and via field under the PA tab (from A2), XTAR MC1 charger in place of the VC2 (author, read today), the ordering gate with guards and add-backs (from A2), board fences cut from spare boards (from A2) | This study, sections 8.1 to 8.4 |
+| A1 | min-cost (as submitted) | AFT05MS004NT1 SOT-89 PA with GVA-84+ driver, JFET superhet with hand-matched 500 Hz ladder, Morse-only UI, cells charged in an XTAR VC2, one Mouser order plus two JLCPCB boards | Architecture report "min-cost" |
+| A2 | performance-in-cap PIC-5 | RD01MUS2 plus RD07MUS2B discrete pair (RF Parts), bare Si5351A with HCI TCXO, diode-ring superhet, ADC audio path, in-radio 2S charger (CN3302 chain, LCSC), four buttons | Architecture report "performance-in-cap" |
+| A3 | buildability B1 | RA07M1317M module PA (RF Parts), no hand-wound parts (Coilcraft LPF, XRMW slug-tuned BPF from LCSC, TC1-1T+ mixer), bare Si5351A with TCXO, ADC audio, charging outside the radio, 40 dB monitor port, sink inside the case | Architecture report "buildability" |
+| A4 | min-cost with grafts, revision 2 | Revision-1 A4 (A1 plus the Coilcraft LPF, G5V-2 DPDT relay, second LM393, plated slot and via field, XTAR MC1, ordering gate) repaired: spare AFT05 in the order (EOL, finding-1), the 74LVC1G80 divider chain (finding-3), 0.8 mm PA board and thermal compound (adversarial C4, C19), a drive low-pass filter, the monitor port in the baseline (finding-9), a second button (finding-7); owned wire and antenna; TCXO as an add-back | This study, sections 7.3 and 8.4 |
+| A5 | hybrid H1 (recommended) | A4 revision 2 with the RA07M1317M module PA in place of the AFT05 and its hand match, the TG2520SMN TCXO fitted, the diode-ring mixer on two BN-43-202 cores wound from the owner's 24 AWG wire in place of the JFET mixer, and a spare GVA-84+ | This study, sections 8.1 to 8.4 |
 
 Alternatives pruned before scoring, with reason:
-- **All-through-hole radio.** No through-hole VHF final is in active production at a catalog distributor; the NOS RD06HVF1 (TO-220, RF Parts USD 9.91) gives an estimated 3.5 to 4.5 W at 7.2 V and about 2.8 W at 6.0 V, and TO-39 bipolar chains give 0.5 to 1 W (transmitter research, section 7.3). The TO-92 J310 is out of stock at LCSC and unverified at DigiKey and Mouser. Pruned as infeasible at 5 W; kept only as a reduced-power fallback (EX-TX-4 of the transmitter research).
+- **All-through-hole radio.** No through-hole VHF final is in active production at a catalog distributor; the NOS RD06HVF1 (TO-220, RF Parts USD 9.91) gives an estimated 3.5 to 4.5 W at 7.2 V and about 2.8 W at 6.0 V, and TO-39 bipolar chains give 0.5 to 1 W (transmitter research). Pruned as infeasible at 5 W.
 - **Generic MOSFET PA (IRF510, BS170, 2N7000).** 0 to 5 dB of power gain at 144 MHz for the IRF510 (Ciss 135 to 180 pF, 7 nH source lead); the BS170 and 2N7000 are 0.1 to 0.3 W pre-drivers at best (estimate). Pruned on physics.
-- **Direct-conversion receiver (receiver research L2).** 0 dB opposite-sideband response 1.4 kHz from the wanted signal and 3 dB double-sideband noise penalty; fails REQ-SYS-022 and 025. Kept only as a perfboard audio-chain prototype.
-- **SA612 mixer, commercial CW filters (Inrad #111 USD 118, KVG on quote), LMX2571 synthesizer (WQFN with exposed pad, 0.5 mm).** Discontinued, over the cap, sold on quote, or reflow-only.
-- **Perfboard or Manhattan for the RF sections.** Admitted for prototypes and non-RF sections only (status note section 6); a 144 MHz LPF, PA match and front end need controlled ground and short returns that a 2-layer board with a solid pour gives for USD 2.
+- **Direct-conversion receiver.** 0 dB opposite-sideband response and a 3 dB double-sideband noise penalty; fails REQ-SYS-022 and 025. Kept only as a perfboard audio-chain prototype.
+- **SA612 mixer, commercial CW filters (Inrad #111 USD 118, KVG on quote), LMX2571 synthesizer (WQFN with exposed pad, 0.5 mm).** Discontinued, over budget for their function, sold on quote, or reflow-only.
+- **In-radio 2S charging (revision 2 re-check under the ceiling).** The USB-input 2S charger ICs found (CN3302 with HY2213 balancers and FS8205A switches) are LCSC-only; no leaded USB-to-2S charger IC with a Mouser listing was found in the power research. Adding it costs an estimated USD 7 to 14 capped in parts plus USD 0 to 23 capped of LCSC shipping if the JLCPCB merge is not offered, and puts the Catastrophic HZ-002 charger chain back in the box beside a PA sink that dissipates 8.5 to 10 W. Not cheap and not safer; pruned for build 1 (owner question Q3, section 8.13).
+- **A spare RA07M1317M in the baseline.** USD 33.25 capped; it pushes the A5 worst case to about USD 327.8, over the ceiling. Kept as a gate add-back (AB-A, section 8.4).
+- **Perfboard or Manhattan for the RF sections.** Admitted for prototypes and non-RF sections only; a 144 MHz LPF, drive chain and front end need controlled ground and short returns that a 2-layer board with a solid pour gives for USD 2.
 
 ### 3.3 Weight rationale
 
-Cost carries 35 (C1 25 and C2 10) because it is the owner's only firm constraint ("Cost is firm"); C2 is separate because the owner's cap is breached by the high case, not the planning case, and the margin depends on unread shipping lines. Hand-solderability (C3, 15) and RF and emissions confidence (C5, 15) come next: the first is the owner's stated reason for the SMD boundary, the second is a legal limit (97.307(e)) and the radio's purpose. Build effort (C4, 10), envelope (C6, 10, negotiable per status note section 8 item 2) and safety margin (C8, 10; the mandatory safety floor is M4) follow. Deltas and firmware scope (C7, 5) matter least because the Morse UI adds the same firmware to every alternative. No weight was set by the owner directly.
+Cost carries 25 (C1 20, C2 5), down from 35 in revision 1, because the owner's section 10 answer turns the firm USD 200 cap into a USD 200 target with a USD 300 absolute maximum: the ceiling is enforced by M1, and C1 now scores the distance above the target. The 10 points freed go to RF and emissions confidence (C5, 15 to 20; a legal limit, 97.307(e), and the radio's purpose) and to safety and thermal margin (C8, 10 to 15; REQ-SYS-112 is a KDR and the PETG case has a 69 C heat-deflection temperature, TS-011 M8), following the risk-per-dollar reading of section 2 item 9. Hand-solderability (C3, 15) stays high because it is the owner's stated reason for the SMD boundary. Build effort (C4, 10) and envelope (C6, 10, negotiable) follow; deltas and firmware scope (C7, 5) matter least because the Morse UI adds the same firmware to every alternative. No weight was set by the owner directly.
 
 ### 3.4 Evaluation methods
 
 | Criterion | Method | Tool | Evidence artifact |
 |---|---|---|---|
-| M1, C1, C2 | Cost query (listed pages, aggregator), budget roll-up with contingency | Python roll-up script (author's scratchpad, reproduced in section 8.4) | This report sections 4.3 and 8.4; architecture reports |
+| M1, C1, C2 | Cost query (listed pages, aggregator), budget roll-up with contingency | Python roll-up script (author's scratchpad, reproduced in section 8.4) | Sections 4.1 and 8.4 |
 | M2 | Cost query | WebFetch of seller and OEMsTrade pages | Section 8.3 URLs |
-| M3, C3 | Datasheet and package comparison | Research reports | Section 8.6 |
-| M4, C8 | Requirement trace and derived thermal chain | Hand calculation | Sections 4.2, 7.3 |
-| M5, C5 | Datasheet comparison and derived LPF response | Transmitter research LPF derivation; LTspice run pending (WP-PDR-21, TV-014) | Section 7.3 |
+| M3, C3 | Datasheet and package comparison | Research reports, datasheets | Section 8.6 |
+| M4, C8 | Requirement trace, datasheet ratings and a bounded thermal chain | Hand calculation from datasheet values | Sections 7.3, 8.10 |
+| M5, C5 | Datasheet comparison and derived LPF response; adversarial recomputation | Transmitter research; adversarial check; LTspice runs pending (WP-PDR-21, TV-014) | Section 7.3 |
 | C4 | Design inspection | Architecture reports | Section 4.2 |
 | C6 | Budget analysis (stack-up, mass roll-up) | Hand calculation | Section 8.5 |
-| C7 | Requirement trace | `docs/requirements/sys/requirements.json` | Section 8.10 |
+| C7 | Requirement trace | `docs/requirements/sys/requirements.json`, `docs/requirements/sw/sw-keyer/requirements.json` | Section 8.10 |
 
 ### 3.5 Setup matrix (before scoring)
 
-| Criterion | Weight | A0 | A1 | A2 | A3 | A4 |
-|---|---|---|---|---|---|---|
-| M1 to M5 | n/a | | | | | |
-| C1 | 25 | | | | | |
-| C2 | 10 | | | | | |
-| C3 | 15 | | | | | |
-| C4 | 10 | | | | | |
-| C5 | 15 | | | | | |
-| C6 | 10 | | | | | |
-| C7 | 5 | | | | | |
-| C8 | 10 | | | | | |
+| Criterion | Weight | A0 | A1 | A2 | A3 | A4 | A5 |
+|---|---|---|---|---|---|---|---|
+| M1 to M5 | n/a | | | | | | |
+| C1 | 20 | | | | | | |
+| C2 | 5 | | | | | | |
+| C3 | 15 | | | | | | |
+| C4 | 10 | | | | | | |
+| C5 | 20 | | | | | | |
+| C6 | 10 | | | | | | |
+| C7 | 5 | | | | | | |
+| C8 | 15 | | | | | | |
 
 ## 4. Scoring rationale
 
-### 4.1 Mandatory screening
+### 4.1 Cost re-roll under the owner budget and mandatory screening
 
-A common Mouser tariff line is added to every alternative for M1 (estimate: 20 to 40 % on the China-origin share of the Mouser goods; basis in section 8.4). A1 as submitted has about USD 76 of Mouser goods, A2 and A3 about USD 34 each.
+**Re-roll method.** Every alternative is re-rolled with the section 10 budget: owned items removed (magnet wire, the SMA-male antenna plug, through-hole resistors and capacitors), no sales tax, and the same shipping, duty and tariff treatment: board duty 35 % to 92.5 % (JLCPCB US tariff FAQ, base unpublished; planning on the board value, worst case on boards plus shipping), Mouser tariff pass-through USD 4 to 12 at planning and USD 15 worst (50 % of a USD 30 China-origin share, the Section 301 rate on HTS 8541 and 8542 reported for 2025), 15 % contingency on every line. A4 and A5 are re-rolled line by line (section 8.3). A1, A2 and A3 are re-rolled from their architects' totals, because their line items were not re-read: the owner credits are the architects' own guard values where they gave one (A2's magnet-wire guard G1 -14.28), otherwise the A4 values (antenna plug -5.18 planning and -6.90 high, through-hole passives -4.03 and -1.73); those three rows are **Low** confidence.
 
-| Alternative | M1 cost | M2 listed | M3 solderable | M4 safety | M5 emissions | Result |
+| Alternative | Planning, capped | Worst case, capped | Basis |
+|---|---|---|---|
+| A1 | 170.33 | 221.74 | Revision-1 planning 193.85 (with tariff and AO3400A), minus wire 15.17, plug 5.18 and passives 4.03, plus the duty change 0.86; worst from about 214 |
+| A2 | 180.04 | 233.63 | Revision-1 planning 202.67 with tariff, minus the architect's wire guard 14.28, plug 5.18, passives 4.03, plus duty 0.86; worst from about 225. Its LCSC-into-JLCPCB merge for the CN3302 chain stays unverified |
+| A3 | 228.06 to 239.56 (common basis); 190.90 (architect basis) | 287.89 (LCSC merged) or 310.89 (LCSC separate); 264.16 (architect basis) | Architect basis: revision-1 about 205 with tariff, minus plug, passives and the unavailable IMR VC2 (MC1 in its place, -5.75). Common basis: A3's parts coincide with A5 except the bare Si5351A (-6.62 capped against the Adafruit module) and the XRMW coils from LCSC (USD 0 to 20 of LCSC shipping unless merged, +11.50 capped at the midpoint). The common basis is used for scoring because A3's own shipping lines were lower than this study's common estimates |
+| A4 (revision 2) | 187.61 | 243.42 | Section 8.4 |
+| A5 (recommended) | 234.68 | 294.51 | Section 8.4 |
+
+| Alternative | M1 worst <= 300 | M2 listed | M3 solderable | M4 safety | M5 emissions | Result |
 |---|---|---|---|---|---|---|
-| A0 | **fail**: USD 828 to 1644 for three units (cost model); PCBWay turnkey alone is USD 300 to 500 | pass | pass (turnkey places the SMT) but moot | pass | pass | dropped |
-| A1 | pass on its figures (199.17 high); planning about USD 193.85 with the AO3400A correction and the tariff midpoint | pass (provisional: all Mouser rows via aggregator) | pass | **fail**: REQ-SYS-055 and REQ-SYS-182 not implemented and no delta recorded (judges 0, 1, 2) | pass (ideal LPF 48 dB at 2f) | dropped; A4 is its repair |
-| A2 | **fail (conditional, Low)**: planning 196.92 plus the tariff midpoint (about USD 5.75 capped) is about 202.67; high 218.28 plus tariff; the planning figure also needs an unverified LCSC-into-JLCPCB merge | pass (provisional) | pass with three flagged exceptions (hidden-pad leadless RD07MUS2B, 0.5 mm MSOP Si5351A, leadless TCXO) | pass | pass | kept for information |
-| A3 | **fail (conditional, Low)**: expected 199.23 (judge 2 re-sum 199.63) plus the tariff midpoint is about 205; high 240.02; the IMR VC2 at USD 9.99 shows "Notify Me When Available" (judge 1) | pass (provisional) | pass with two flagged exceptions (0.5 mm MSOP, leadless TCXO) | pass | pass | kept for information |
-| A4 | **pass**: planning 190.29; high 212.64 held by guard G1 to 197.47 (section 8.4) | pass (provisional) | pass, no exception | pass (both controls restored) | pass | kept |
+| A0 | **fail**: PCBWay turnkey alone USD 300 to 500 | pass | pass (turnkey places the SMT) but moot | pass | pass | dropped |
+| A1 | pass (221.74) | pass (provisional) | pass | **fail**: REQ-SYS-055 and REQ-SYS-182 not implemented and no delta recorded (judges 0, 1, 2) | pass | dropped; A4 is its repair |
+| A2 | pass (233.63, Low) | pass (provisional; the RD07MUS2B is RF Parts new-old-stock, "no longer available for export"; the CN3302 chain is LCSC-only) | pass with three flagged exceptions (hidden-pad leadless RD07MUS2B, 0.5 mm MSOP Si5351A, leadless TCXO) | pass | pass | kept |
+| A3 | **conditional**: 287.89 only if LCSC ships in the JLCPCB parcel; 310.89 otherwise | **fail as submitted**: Mini-Circuits TC1-1T+ shows 0 stock at Mouser and DigiKey today (USD 3.68 listed); passes with the A5 binocular-core substitution | pass with two flagged exceptions (0.5 mm MSOP, leadless TCXO) | pass | pass | kept for information, conditional |
+| A4 | pass (243.42) | pass (provisional; AFT05MS004NT1 End of Life, stock Mouser 72 and Newark 1,519 "Available Until Stocks Are Exhausted") | pass, no exception | pass (both controls restored; divider inside its rating) | pass | kept |
+| A5 | pass (294.51; margin 5.49; Low) | pass (provisional; RA07M1317M-501 at RF Parts USD 28.91 "In Stock", read today; Mitsubishi "Active", read today) | pass with one flagged exception (TG2520SMN, 4 pads under the body) | pass | pass (vendor harmonic maxima) | kept |
 
 ### 4.2 Enhancing scores
 
+Scores are interpolated linearly between anchors and rounded to the nearest integer. A1 is scored for information only (dropped at M4).
+
 | Criterion | Alt | Measured value | Score | Conf. | Evidence |
 |---|---|---|---|---|---|
-| C1 | A1 | about USD 193.85 planning (184.16 midpoint + 0.49 AO3400A + 9.20 tariff) | 2 | Low | min-cost report section 2.3; judge 1 AO3400A; section 8.4 tariff |
-| C1 | A2 | about USD 202.67 | 1 | Low | PIC-5 section 0; tariff estimate |
-| C1 | A3 | about USD 205 | 1 | Low | B1 section 5; judge 2 re-sum |
-| C1 | A4 | USD 190.29 | 3 | Low | section 8.4 |
-| C2 | A1 | high about 214 with tariff; under 200 only with the owner's wire | 3 | Low | section 8.4 method applied to A1 |
-| C2 | A2 | high about 225; needs owner wire and owner cells (G1, G2) | 2 | Low | PIC-5 section 9 |
-| C2 | A3 | high about 247; the cuts include a PA change and an unverified JLC shipping cut | 1 | Low | B1 section 6 |
-| C2 | A4 | high 212.64; 197.47 with the owner's wire | 3 | Low | section 8.4 |
+| C1 | A1 | USD 170.33 | 5 | Low | section 4.1 |
+| C1 | A2 | USD 180.04 | 5 | Low | section 4.1 |
+| C1 | A3 | USD 239.56 (common basis, LCSC midpoint) | 3 | Low | section 4.1 |
+| C1 | A4 | USD 187.61 | 5 | Low | section 8.4 |
+| C1 | A5 | USD 234.68 (3.6) | 4 | Low | section 8.4 |
+| C2 | A1 | USD 221.74 | 5 | Low | section 4.1 |
+| C2 | A2 | USD 233.63 (4.3) | 4 | Low | section 4.1 |
+| C2 | A3 | USD 287.89 to 310.89 | 1 | Low | section 4.1 |
+| C2 | A4 | USD 243.42 (3.8) | 4 | Low | section 8.4 |
+| C2 | A5 | USD 294.51 (1.3) | 1 | Low | section 8.4 |
 | C3 | A1 | no exception | 5 | High | min-cost section 6 |
-| C3 | A2 | three exceptions | 1 | High | PIC-5 section 6 |
-| C3 | A3 | two exceptions | 2 | High | B1 section 8 |
-| C3 | A4 | no exception (the prescaler is SSOP-14 at 0.65 mm, inside the owner's list) | 5 | High | section 8.6 |
-| C4 | A1 | NXP match rebuilt with wound 12 to 27 nH coils, wound LPF, wound BPF, crystal matching, two boards | 2 | Medium | min-cost sections 1, 8 |
+| C3 | A2 | three exceptions | 1 | High | PIC-5 EX-1 to EX-3 |
+| C3 | A3 | two exceptions | 2 | High | B1 exceptions |
+| C3 | A4 | no exception (TCXO not fitted; the 74LVC1G80GV is SC-74A at 0.95 mm pitch) | 5 | High | section 8.6 |
+| C3 | A5 | one exception (TG2520SMN leadless 2.5 x 2.0 mm, 4 pads under the body, no thermal pad) | 3 | High | section 8.6 |
+| C4 | A1 | NXP match with wound coils, wound LPF, wound BPF, crystal matching, two boards | 2 | Medium | min-cost report |
 | C4 | A2 | two copied match networks, wound LPF and BPF, charger chain, board does not close (67 cm2 on 60 cm2) | 1 | Medium | judges 0, 1, 2 |
-| C4 | A3 | no winding, module PA, slug-tuned BPF, one board | 5 | Medium | B1 section 2 |
-| C4 | A4 | one hand match (NXP reference), wound BPF, catalog LPF | 3 | Medium | section 8.1 |
-| C5 | A1 | no AFT05 harmonic data, wound LPF, 30 ppm, unvalidated JFET mixer, SPDT relay with about 20 mA peak into 15 mA clamps | 2 | Low | judge 1 |
-| C5 | A2 | vendor harmonics (2f -37 to -40 dBc), TCXO, wound LPF, two hand matches | 4 | Medium | transmitter research L2 |
-| C5 | A3 | guaranteed module harmonics (2f -25 dBc max), Coilcraft LPF, TCXO, DPDT, monitor port | 5 | Medium | transmitter research L1 |
-| C5 | A4 | no AFT05 harmonic data, but catalog LPF with higher self-resonance, DPDT with the RX-grounding pole, frequency counter; 30 ppm; JFET mixer | 3 | Low | sections 7.3, 8.1 |
-| C6 | A1 | 142 x 70 x 42 mm (+6.5 % volume; 149 mm with the SMA); 275 to 345 g | 3 | Medium | min-cost section 5; sink 25.4 mm confirmed by judges 1 and 2 |
-| C6 | A2 | 138 x 67 x 42 mm including the SMA; about 293 g; fallback board adds 7 mm of width | 4 | Low | PIC-5 section 5 |
-| C6 | A3 | 124 x 69 x 46 mm with the 25.4 mm sink (+6 mm height); about 295 g | 3 | Medium | judges 1, 2 |
-| C6 | A4 | 142 x 70 x 42 mm (149 with the SMA); 277 to 347 g | 3 | Medium | section 8.5 |
-| C7 | A1 | 010 relaxed 12x; 141 and charging retired; 055 and 182 dropped without a delta | 2 | Medium | judges 0, 2 |
-| C7 | A2 | 010 and charging kept; ADR audio path needs a TS-001 re-ruling; largest firmware | 3 | Medium | PIC-5 section 8 |
-| C7 | A3 | 010 and 141 kept; charging retired; ADR audio re-ruling; DSP firmware | 3 | Medium | B1 section 9 |
-| C7 | A4 | 010 relaxed (TBR, restored by the TCXO add-back); charging retired; 141 deferred to an add-back; every delta recorded; analog audio | 3 | Medium | section 8.10 |
-| C8 | A1 | Tj about 160 C with 8 vias (judge 1: 8 x 0.3 mm vias are about 24 K/W, not 8) | 1 | Low | judge 1 |
-| C8 | A2 | Tj about 92 C; full in-radio 2S charger (Catastrophic hazard HZ-002 kept, with its controls) | 3 | Low | PIC-5 section 4 |
-| C8 | A3 | module sink fins-down inside the PETG case beside the cells at 5 to 7 W, unanalyzed | 2 | Low | judges 1, 2 |
-| C8 | A4 | Tj about 86 to 97 C at 45 C (derived, section 7.3); heat outside the case; no charger in the box | 4 | Low | section 7.3 |
+| C4 | A3 | no winding, module PA, slug-tuned BPF, one board | 5 | Medium | B1 report |
+| C4 | A4 | one hand match re-derived for a 0.8 mm board from the NXP Zsource and Zload table (adversarial C4), wound BPF, catalog LPF | 3 | Medium | section 7.3 |
+| C4 | A5 | no match to design (50 ohm module), wound BPF and two trifilar ring transformers from owned wire, catalog LPF | 4 | Medium | section 8.1 |
+| C5 | A1 | no AFT05 harmonic data, wound LPF, 30 ppm, unvalidated JFET mixer, SPDT relay | 1 | Low | judge 1; adversarial C2 |
+| C5 | A2 | vendor line-up harmonics (2f -37 to -40 dBc at 5 W), TCXO, diode ring, wound LPF, two hand matches | 4 | Medium | pa-device-candidates F4 |
+| C5 | A3 | guaranteed module harmonics (2fo -25, 3fo -30 dBc max) and stability limits, Coilcraft LPF, TCXO, DPDT, monitor port | 5 | Medium | pa-device-candidates F8 |
+| C5 | A4 | no AFT05 harmonic data; match rebuilt; about 3.2 W at 6.4 V against the 3.97 W floor (adversarial C2); stability unanalyzed; 30 ppm; JFET mixer; catalog LPF, DPDT, monitor port | 2 | Low | section 7.3 |
+| C5 | A5 | guaranteed module harmonic and stability limits; 4.0 to 4.6 W at 6.4 V (Low); catalog LPF; drive LPF; TCXO; research-validated diode ring; DPDT; monitor port | 5 | Medium | section 7.3 |
+| C6 | A1 | 142 x 70 x 42 mm (+6.5 %); 275 to 345 g | 3 | Medium | min-cost report |
+| C6 | A2 | 138 x 67 x 42 mm including the SMA; about 293 g | 4 | Low | PIC-5 section 5 |
+| C6 | A3 | 124 x 69 x 46 mm (+2.1 %, height over); about 295 g | 3 | Medium | judges 1, 2 |
+| C6 | A4 | 142 x 70 x 42 mm (+6.5 %); 277 to 347 g | 3 | Medium | section 8.5 |
+| C6 | A5 | 148 x 70 x 42 mm (+11.0 %, finger guard over the fins); 283 to 356 g (the high end rests on an unread 60 g sink mass) | 2 | Low | section 8.5 |
+| C7 | A1 | 010 relaxed 12x; charging retired; 055 and 182 dropped without a delta | 2 | Medium | judges 0, 2 |
+| C7 | A2 | 010 and charging kept; ADC audio path needs a TS-001 re-ruling; largest firmware | 3 | Medium | PIC-5 section 8 |
+| C7 | A3 | 010 and 141 kept; charging retired; ADC audio re-ruling; DSP firmware | 3 | Medium | B1 report |
+| C7 | A4 | 010 relaxed to 30 ppm (KDR, TBR); 012 relaxed at the 6.4 V end (KDR); 112 not shown; charging retired; analog audio | 3 | Medium | section 8.10 |
+| C7 | A5 | 010, 012, 141 kept; charging retired; UI wording deltas; analog audio; VGG envelope loop added | 4 | Medium | section 8.10 |
+| C8 | A1 | Tj about 160 C with 8 vias (judge 1) | 1 | Low | judge 1 |
+| C8 | A2 | Tj about 92 C (unbounded); full in-radio 2S charger (HZ-002 kept, with its controls) | 3 | Low | PIC-5 section 4 |
+| C8 | A3 | module sink inside the PETG case beside the cells at 8.5 to 10 W, unanalyzed | 2 | Low | judges 1, 2 |
+| C8 | A4 | bound 100 to 135 C at 8.4 V with ALC back-off (adversarial C19); 0.8 mm board and compound lower it, not shown under 110 C | 2 | Low | section 7.3 |
+| C8 | A5 | bound 103 C (109 C with no feed drop) against 110 C; heat outside the case; fins behind a guard; no PETG in contact with the sink; no charger in the box | 3 | Low | section 7.3 |
 
 ### 4.3 Independent architects' and judges' results (inputs to this study)
 
-Three architects worked independently, one per angle (minimum cost, performance inside the cap, buildability); three judges then scored all three, each through a different lens. Their numbers are reproduced here as evidence; this study's own matrix is section 5.
+Three architects worked independently, one per angle (minimum cost, performance inside the cap, buildability); three judges then scored all three, each through a different lens. Their numbers were produced under the revision-1 cap of USD 200 and are reproduced here unchanged as evidence; this study's own matrix is section 5.
 
 **Architect totals (capped, including 15 % contingency, as submitted):**
 
@@ -202,78 +227,79 @@ Three architects worked independently, one per angle (minimum cost, performance 
 | **Unweighted (/90)** | **53** | **52** | **59** |
 | **Weighted (/120)** | **79** | **77** | **82** |
 
-Judge 0's ranking put min-cost first, "ONLY IF" REQ-SYS-055 and REQ-SYS-182 are restored, although B1 has the higher weighted total: the judge ranked on the cost cap, not on the total. This study records that inconsistency and resolves it by making the cap mandatory (M1) and scoring cost robustness separately (C2).
+Judge 0's ranking put min-cost first, "ONLY IF" REQ-SYS-055 and REQ-SYS-182 are restored, although B1 has the higher weighted total: the judge ranked on the cost cap, not on the total. Revision 1 resolved that by making the cap mandatory; revision 2 keeps the ceiling mandatory (M1) and scores the target distance (C1).
 
 **Judge 1 (RF-and-regulatory lens; 1 to 10; unweighted sum):** min-cost 60, B1 57, PIC-5 51. Cost: 8 / 4 / 5 (min-cost / B1 / PIC-5); sourcing 7 / 6 / 6; envelope 6 / 6 / 8; hand-solderable 9 / 6 / 4; emissions and RF 5 / 9 / 8; safety 6 / 6 / 7; buildability 5 / 8 / 4; firmware 8 / 5 / 4; deltas 6 / 7 / 5. Ranking: min-cost, B1, PIC-5.
 
 **Judge 2 (owner buildability, size and safety lens; 1 to 10; weighted out of 10):** min-cost 6.8, PIC-5 5.9, B1 5.6. Cost 8 / 5 / 4 (min-cost / PIC-5 / B1); sourcing 6 / 6 / 6; envelope 6 / 8 / 6; hand-solder 9 / 4 / 6; emissions 6 / 7 / 8; safety 6 / 7 / 5; buildability 7 / 4 / 7; firmware 8 / 5 / 5; deltas 4 / 6 / 6. Ranking: min-cost, PIC-5, B1.
 
-**All three judges ranked min-cost first, each conditionally.** Their arithmetic checks all reproduced the architects' totals, with these corrections: min-cost's own AO3400A flag (+0.86) moves its high case to 200.16 (judge 1); PIC-5's planning total is 196.93, not 196.92 (rounding); B1's itemized expected rows re-sum to about USD 199.63, a margin of about 0.37 (judge 2).
+**All three judges ranked min-cost first, each conditionally, under the USD 200 cap.** Their arithmetic checks reproduced the architects' totals, with these corrections: min-cost's own AO3400A flag (+0.86) moves its high case to 200.16 (judge 1); PIC-5's planning total is 196.93, not 196.92 (rounding); B1's itemized expected rows re-sum to about USD 199.63 (judge 2). Judge 1 also found B1 the strongest RF design (9 of 10), and every judge's cost preference for min-cost was a preference under a cap that the owner has since moved.
 
-**Findings the judges called fatal or near-fatal, and how A4 treats each:**
+**Findings the judges called fatal or near-fatal, and their treatment in revision 2:**
 
-| Finding (judge) | Treatment in A4 |
+| Finding (judge) | Treatment |
 |---|---|
-| min-cost drops REQ-SYS-055 (7.5 to 13 s hardware cutoff) and REQ-SYS-182 (independent frequency verification) with no delta (0, 2) | Restored: second LM393P monostable; SN74LVC74ADBR prescaler into an RP2350 PIO counter (section 8.1) |
-| min-cost PA thermal path: 8 vias of 0.3 mm are about 24 K/W, so Tj is about 160 C (1) | Solder-filled plated slot plus 30 or more 0.4 mm vias under the tab; Tj estimate 86 to 97 C (section 7.3); ALC power derate as fallback |
-| min-cost high case is 200.16 with the AO3400A correction (1) | Carried in the high case (+0.86); the cap is held by the ordering gate (section 8.4) |
-| No architecture counts Mouser's tariff pass-through (2) | Carried as USD 4 to 12 (estimate) in every total |
-| min-cost has no AFT05 harmonic data and wound LPF coils; SPDT relay overstresses the RX clamps (0, 1, 2) | Coilcraft 1812SMS LPF; G5V-2 DPDT with the RX-grounding pole; LTspice and tinySA verification before first on-air use |
+| min-cost drops REQ-SYS-055 and REQ-SYS-182 with no delta (0, 2) | Restored in A4 and A5: second LM393P monostable; 74LVC1G80GV divide-by-8 chain into an RP2350 PWM edge counter (section 8.1) |
+| min-cost PA thermal path: 8 vias of 0.3 mm give Tj about 160 C (1) | A4: plated slot, via field, 0.8 mm board, compound; still not shown under 110 C. A5: module flange on the sink through compound, bound 103 C (section 7.3) |
+| No architecture counts Mouser's tariff pass-through (2) | Carried in every total, worst case at 50 % |
+| min-cost has no AFT05 harmonic data and wound LPF coils; SPDT relay overstresses the RX clamps (0, 1, 2) | Coilcraft LPF and G5V-2 DPDT in A4 and A5; A5's module has guaranteed harmonic maxima |
 | Sourcing evidence for Mouser is aggregator-only (0) | Owner price-check list (section 8.11) before ordering |
-| Boyd sink height disputed (18.3 against 25.4 mm) (0, 1, 2) | Settled at 25.4 mm (Farnell and Newark listings, read by judges 1 and 2); A4 uses it as an end wall, so the case is 42 mm tall |
-| PIC-5 and B1 high cases break the cap; PIC-5 board over-full; B1 sink inside PETG beside the cells (0, 1, 2) | Scored in C1, C2, C4, C8 |
+| Boyd sink height disputed (0, 1, 2) | Settled at 25.4 mm fin depth and 41.9 mm height (Farnell and Newark listings); the double-centre-channel profile needs the drawing check of section 8.11 |
+| PIC-5 and B1 high cases break the USD 200 cap; PIC-5 board over-full; B1 sink inside PETG beside the cells (0, 1, 2) | Cap moved to USD 300 worst; scored in C2, C4, C8 |
 
-**Grafts proposed by the judges and their disposition:**
+**Grafts proposed by the judges and their disposition in revision 2:**
 
-| Graft | From | Disposition in A4 |
+| Graft | From | Disposition |
 |---|---|---|
-| Coilcraft 1812SMS LPF inductors | B1 | **Adopted** (+USD 5.70 listed via aggregator) |
-| G5V-2 DPDT relay | PIC-5, B1 | **Adopted** (+0.88) |
-| 10 s hardware cutoff and cell 60 C trip on a second LM393 | B1 | **Adopted** (+0.53) |
-| 74LVC74 prescaler for REQ-SYS-182 | PIC-5, B1 | **Adopted** (SN74LVC74ADBR, +0.34, read today) |
-| Plated slot and dense via field under the PA | PIC-5 | **Adopted** (board feature, no part cost) |
-| Ordering gate with pre-agreed guards and add-backs | PIC-5 | **Adopted** (section 8.4) |
-| Board-level fences cut from spare boards | PIC-5 | **Adopted** (no cost) |
-| Heat sink as an end wall, fins outside | min-cost | **Kept** |
-| One US distributor; LCSC only if the JLC merge is verified | min-cost | **Kept** |
-| Analog receive audio chain (no ADC audio) | min-cost | **Kept** |
-| 40 dB on-board monitor port (REQ-SYS-141) | B1 | **Add-back AB1** (the footprint and tap are on the board; the second SMA is bought when the gate allows) |
-| TCXO | PIC-5, B1 | **Add-back AB2** (Epson TG2520SMN, leadless, flagged) |
-| IMR bundle of P30B cells with the VC2 at USD 9.99 | B1 | **Not adopted**: the IMR VC2 page shows "Notify Me When Available" (judge 1). The XTAR MC1 at USD 4.99 in stock (read today) saves more |
-| XRMW0505 slug-tuned BPF coils from LCSC | B1 | **Conditional guard G5**: only if the owner confirms at checkout that LCSC ships in the JLCPCB parcel |
+| Coilcraft 1812SMS LPF inductors | B1 | Adopted in A4 and A5 |
+| G5V-2 DPDT relay | PIC-5, B1 | Adopted in A4 and A5 |
+| 10 s hardware cutoff and cell 60 C trip on a second LM393 | B1 | Adopted in A4 and A5 |
+| Prescaler for REQ-SYS-182 | PIC-5, B1 | Adopted, with a divider rated 160 MHz minimum (finding-3) |
+| Plated slot and dense via field under the PA | PIC-5 | A4 only (A5's module has a flange) |
+| Ordering gate with pre-agreed guards and add-backs | PIC-5 | Adopted (section 8.4), against USD 300 |
+| Board-level fences cut from spare boards | PIC-5 | Adopted |
+| Heat sink as an end wall, fins outside | min-cost | Kept, with a printed finger guard in A5 |
+| One US distributor; LCSC only if the JLC merge is verified | min-cost | Kept (A5 adds RF Parts for the module only) |
+| Analog receive audio chain (no ADC audio) | min-cost | Kept |
+| 40 dB on-board monitor port (REQ-SYS-141) | B1 | **Baseline** in A4 and A5 (finding-9) |
+| TCXO | PIC-5, B1 | **Baseline** in A5; add-back in A4 |
+| RA07M1317M module PA | B1 | **Adopted in A5** |
+| Diode-ring mixer | PIC-5, receiver research | **Adopted in A5** (BN-43-202 cores; TC1-1T+ out of stock) |
+| XRMW0505 slug-tuned BPF coils from LCSC | B1 | Not adopted: wound BPF coils from the owner's 24 AWG wire cost nothing; XRMW needs the unverified LCSC merge |
 
 ## 5. Final decision matrix
 
-Weighted score = weight x score; maximum 500. A0 is dropped at M1 and not scored.
+Weighted score = weight x score; maximum 500. A0 is dropped at M1 and A1 at M4; A1 is shown for information.
 
-| Criterion | Weight | A1 | A1 w | A2 | A2 w | A3 | A3 w | A4 | A4 w |
-|---|---|---|---|---|---|---|---|---|---|
-| C1 Cost margin | 25 | 2 | 50 | 1 | 25 | 1 | 25 | 3 | 75 |
-| C2 Cost robustness | 10 | 3 | 30 | 2 | 20 | 1 | 10 | 3 | 30 |
-| C3 Hand-solderability | 15 | 5 | 75 | 1 | 15 | 2 | 30 | 5 | 75 |
-| C4 Build effort | 10 | 2 | 20 | 1 | 10 | 5 | 50 | 3 | 30 |
-| C5 RF and emissions | 15 | 2 | 30 | 4 | 60 | 5 | 75 | 3 | 45 |
-| C6 Envelope and mass | 10 | 3 | 30 | 4 | 40 | 3 | 30 | 3 | 30 |
-| C7 Deltas and firmware | 5 | 2 | 10 | 3 | 15 | 3 | 15 | 3 | 15 |
-| C8 Safety margin | 10 | 1 | 10 | 3 | 30 | 2 | 20 | 4 | 40 |
-| **Total** | **100** | | **255** | | **215** | | **255** | | **340** |
-| **Percent of maximum** | | | 51 % | | 43 % | | 51 % | | 68 % |
-| **Rank** | | | 2= (fails M4) | | 4 (fails M1, conditional) | | 2= (fails M1, conditional) | | **1** |
+| Criterion | Weight | A1 | A1 w | A2 | A2 w | A3 | A3 w | A4 | A4 w | A5 | A5 w |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| C1 Expected cost against the target | 20 | 5 | 100 | 5 | 100 | 3 | 60 | 5 | 100 | 4 | 80 |
+| C2 Worst-case margin | 5 | 5 | 25 | 4 | 20 | 1 | 5 | 4 | 20 | 1 | 5 |
+| C3 Hand-solderability | 15 | 5 | 75 | 1 | 15 | 2 | 30 | 5 | 75 | 3 | 45 |
+| C4 Build effort | 10 | 2 | 20 | 1 | 10 | 5 | 50 | 3 | 30 | 4 | 40 |
+| C5 RF and emissions | 20 | 1 | 20 | 4 | 80 | 5 | 100 | 2 | 40 | 5 | 100 |
+| C6 Envelope and mass | 10 | 3 | 30 | 4 | 40 | 3 | 30 | 3 | 30 | 2 | 20 |
+| C7 Deltas and firmware | 5 | 2 | 10 | 3 | 15 | 3 | 15 | 3 | 15 | 4 | 20 |
+| C8 Safety and thermal | 15 | 1 | 15 | 3 | 45 | 2 | 30 | 2 | 30 | 3 | 45 |
+| **Total** | **100** | | **295** | | **325** | | **320** | | **340** | | **355** |
+| **Percent of maximum** | | | 59 % | | 65 % | | 64 % | | 68 % | | 71 % |
+| **Rank** | | | - (fails M4) | | 3 | | 4 (M1 and M2 conditional) | | 2 | | **1** |
 
 ## 6. Uncertainty and sensitivity statement
 
-1. **Weight sensitivity.** Every weight moved by +10 and -10 points, the others rescaled to keep 100. A4 stays first in all 16 runs. Its smallest lead is 51.5 points (C5 at +10: A4 335.3, A3 283.8). No run changes the top rank.
-2. **Score sensitivity.** Every Low-confidence cell (C1 and C2 for all alternatives, C5 for A1 and A4, C6 for A2, C8 for all) moved by +1 and -1 one at a time: A4 stays first in every case. A joint adverse case (every Low cell of A4 down one and every Low cell of the others up one, beyond the 14.4 rule) gives A1 315, A3 300, A4 280, A2 270; A1 is excluded by M4 and A4 is its repair, so the joint case does not change the recommendation, but it shows that A4's lead over A3 rests on cost cells that are Low.
+1. **Weight sensitivity.** Every weight moved by +10 and -10 points, the others rescaled to keep 100 (16 runs, A2 to A5). A5 is first in 12 runs. A4 is first in three: C2 at +10 (A4 346.3, A5 328.2), C3 at +10 (A4 358.8, A5 348.5) and C5 at -10 (A4 357.5, A5 336.9). C4 at -10 gives a tie between A5 and A2 at 350.0. A5's smallest lead where it stays first is 0.6 points (C1 at +10: A5 360.6, A4 360.0).
+2. **Score sensitivity.** Every Low-confidence cell (C1, C2 and C8 for all; C5 for A4; C6 for A2 and A5) moved by +1 and -1 one at a time. Four moves change the top rank: A4 C5 up one (A4 360, A5 355), A4 C8 up one (tie at 355), A5 C1 down one (A4 340, A5 335) and A5 C8 down one (tie at 340). The joint adverse case (every Low cell of A5 down one and every Low cell of the others up one, beyond the 14.4 rule) gives A4 380, A3 360, A2 355, A5 310.
 3. **Assumptions and their evidence:**
-   - Mouser prices are the aggregator republication of Mouser's own price and stock (section 8.3); two rows were re-read today (AFT05MS004NT1, AO3400A) and one new row (SN74LVC74ADBR).
-   - Mouser free shipping starts at USD 100 in the US (search summary citing the EEVblog thread "MOUSER - FREE Shipping Threshold Increase!"; Low). Below it, standard shipping is estimated at USD 5 to 8.
-   - Mouser charges "a percentage of the imposed tariffs" on some China-origin products (search summary of Mouser's tariff page, which timed out when fetched); users reported 20 % line items in January and February 2025 (The Amp Garage forum). The China-origin share of the A4 Mouser order is estimated at USD 20 to 30, because the Pico 2 (UK) and the Adafruit module (US) are not China-origin (Low).
-   - JLCPCB shipping to the US is USD 12 to 25 (a forum report of 2026-03-19: about USD 12 shipping and about USD 2 tax on a USD 10 board order by Global Standard Direct Line, 12 days; the fabrication research estimate USD 15 to 25 for DDP express). JLCPCB collects 35 % (its tariff FAQ) to 60 % (Hack Club cost guide) on the board value at order.
-   - The AFT05MS004N reference circuit gives 6.0 W at 7.5 V with 17.8 to 20.2 dB gain and 62 to 69 % drain efficiency, 136 to 174 MHz (datasheet Rev. 0, 7/2014, Tables 8 to 10, read by the min-cost architect); output at other voltages scaled by V squared (derived).
-   - Receiver MDS about -140 dBm from the receiver research cascade (5.8 dB NF with a diode ring); the JFET mixer substitution is the architect's (Low, +/-2 dB).
-4. **Robustness verdict:** **Robust** for the enhancing matrix. **Not robust** for the mandatory cost screen: (a) A4 passes M1 at planning with USD 9.71 of margin, but its high case needs guard G1; (b) A2 fails M1 at planning by about USD 2.67 and would pass if the Mouser tariff on its order is under about USD 2.7 and the LCSC merge is offered; (c) A3 fails by about USD 5.
-5. **Value of information.** The measurements that settle the cost screen are the owner's browser reads of section 8.11: Mouser merchandise total, shipping and tariff line at the cart (without checking out), the JLCPCB quote for two designs, and the 18650BatteryStore shipping. About 30 minutes of the owner's time, before any order and before B1a. They were not performed before this recommendation because agents may not use carts. The engineering values that raise the Low scores of C5 and C8 are the LTspice run of the AFT05 match and LPF (WP-PDR-21, needs TV-014 accreditation, status note section 9) and the PA thermal chain (WP-PDR-28), both before the F0 freeze of the TX design.
-6. **Limitations of the evaluation methods and tools:** prices are single-day reads, mostly through an aggregator; shipping, tariff and duty lines are estimates or forum reports; no cart was opened. Performance figures are datasheet values, graph reads (about +/-10 %) and hand-derived cascades; no LTspice run exists yet for this architecture, and TV-014 (LTspice) is not yet accredited. The thermal chain is a lumped hand estimate. Envelope and mass are stack-up estimates with an unread sink mass. The judges' scores are expert judgement, not measurement.
+   - Mouser prices are the aggregator republication of Mouser's own price and stock (section 8.3). Rows read today: 74LVC1G80GV, TG2520SMN, CONSMA001-C-G, Wakefield 120-SA, Fair-Rite 2843000202 and 2843002402, KEMET C0805C101J5GACTU, TC1-1T+, 529802B02500G and 530002B02500G; INSP-110 re-read 25 more rows the same day.
+   - RA07M1317M-501: RF Parts USD 28.91, "In Stock", "New", no end-of-life note, USD 15 minimum order (read today); Mitsubishi Electric US "Active" (read today). Datasheet values (June 2019) are those recorded in `docs/research/pa-device-candidates.md` F8.
+   - RF Parts shipping is "calculated based on weight / dimensions vs destination" with a USD 2.75 residential UPS surcharge (search summary of https://www.rfparts.com/customerservice-shipping); carried as USD 10 to 18 (E).
+   - Mouser free shipping starts at USD 100 in the US (search summary; Low; not verifiable, INSP-110 row 22). A5's Mouser merchandise is USD 90.89 to 105.39, so the threshold may or may not be crossed; standard shipping is carried as USD 5 to 8.
+   - JLCPCB US tariff FAQ: "Total tariff rate: About 35%~92.5%", base not published (INSP-110 row 21). JLCPCB shipping to the US USD 12 to 25 (forum report of 2026-03-19; fabrication research).
+   - Receiver MDS about -140 dBm from the receiver research cascade (5.8 dB NF with a diode ring; Low, +/-2 dB).
+   - PA performance and thermal figures in section 7.3 are datasheet values, graph reads (+/-5 %) and derived scalings, each labelled.
+4. **Robustness verdict:** **Not robust** between A5 and A4, on both weights and scores. The ranking between them reduces to one question for the owner: whether USD 47.07 (planning) is worth retiring the Red RF, thermal and sourcing risks of section 8.2. Robust against A2 and A3: neither leads in any single perturbation except the C4 -10 tie with A2. **Cost screen:** A5 passes M1 by USD 5.49 on a worst case that stacks unread lines; if the whole-order duty base or the high shipping lines are confirmed at the gate, the guard ladder of section 8.4 applies.
+5. **Value of information.** The measurements that settle the cost screen are the owner's browser reads of section 8.11: the Mouser cart (merchandise, shipping, tariff line), the RF Parts cart shipping, the JLCPCB quote for two designs with the duty and its base, and the 18650BatteryStore shipping. About 40 minutes of the owner's time, before any order. The engineering values that raise the Low scores of C5 and C8 are the LTspice runs of the drive chain, envelope loop, LPF and BPF (WP-PDR-19, 21, 22) and the thermal budget (WP-PDR-28), all named in section 7.3 with pass criteria, before the order.
+6. **Limitations of the evaluation methods and tools:** prices are single-day reads, mostly through an aggregator; shipping, tariff and duty lines are estimates or forum reports; no cart was opened. A1 to A3 re-rolls use their architects' totals, not re-read lines. Performance figures are datasheet values, graph reads and hand-derived cascades; no LTspice run exists yet for either A4 or A5, and TV-014 (LTspice) is not yet accredited. The thermal chain is a lumped bound. Envelope and mass are stack-up estimates with an unread sink mass. The judges' scores are expert judgement, not measurement.
 
 ## 7. Risks and benefits of the surviving alternatives
 
@@ -281,229 +307,267 @@ Weighted score = weight x score; maximum 500. A0 is dropped at M1 and not scored
 
 | Alt | Risk statement | L | C (driving) | Score / band | Would be entered as |
 |---|---|---|---|---|---|
-| A4 | Given that the high-case estimate is USD 212.64 and the shipping, tariff and duty lines are unread, there is a possibility that the verified order exceeds USD 200, adversely impacting the owner's firm cost cap, leading to a cut in performance or an owner cap exception | 3 | 4 (performance: stakeholder input not met) | 12 / Red | merged into RSK-052 (steps: ordering gate; guard ladder) |
-| A4 | Given that the AFT05MS004N datasheet gives no harmonic data and the match is rebuilt with 0805 parts and wound coils, there is a possibility that a harmonic exceeds 25 uW, adversely impacting 97.307(e) compliance (HZ-008), leading to a filter redesign and a board respin | 4 (no analysis yet) | 4 (regulatory rule) | 16 / Red | new RSK (steps: LTspice match and LPF, trap footprint, tinySA measurement into the dummy load before any on-air use) |
-| A4 | Given a SOT-89 source tab cooled through a 1.6 mm board, there is a possibility that the junction exceeds 110 C at continuous key-down in 45 C ambient, adversely impacting REQ-SYS-112 and device life, leading to a power derate or PA board respin | 3 | 4 (performance: KDR) | 12 / Red | merged into RSK-006 |
-| A4 | Given a JFET mixer that the research did not validate and Low-confidence NF values, there is a possibility that MDS is worse than -140 dBm or IIP3 too low, adversely impacting REQ-SYS-022 (KDR), leading to the diode-ring fallback | 3 | 4 (performance: KDR) | 12 / Red | new RSK |
-| A4 | Given that the SN74LVC74A toggle rating at 3.3 V is recalled near 150 MHz, there is a possibility that the prescaler miscounts at 148 MHz, adversely impacting REQ-SYS-182 (HZ-008 control), leading to a faster divider part | 3 | 4 (regulatory rule) | 12 / Red | new RSK (step: datasheet check at PDR; fallback divider) |
-| A4 | Given a 64 x 100 mm board that already carries about 58 cm2 of blocks, there is a possibility that the grafts do not fit, adversely impacting the envelope, leading to a 70 x 100 mm board and a case 6 mm wider | 3 | 2 (performance) | 6 / Yellow | new RSK |
-| A4 | Given that a straight key's timing varies, there is a possibility that the Morse menu misreads entries, adversely impacting usability, leading to paddle-only menu entry | 3 | 2 (performance) | 6 / Yellow | new RSK |
-| A4 | Given a PETG case whose heat-deflection temperature is about 69 C (TS-011 M8), there is a possibility that bosses near the PA board soften at 45 C ambient key-down, adversely impacting board retention, leading to a PC-class filament (not owned) or standoffs | 3 | 3 (performance) | 9 / Yellow | merged into the TS-011 M8 finding |
-| A2 | Given a leadless NOS RD07MUS2B with a hidden source pad soldered with a heat gun, there is a possibility of a bad joint or overheated die, adversely impacting first power-on, leading to rework with the spare | 3 | 3 (first power-on) | 9 / Yellow | new RSK if selected |
-| A2 | Given a high case of USD 218.28 plus tariff, there is a possibility the order exceeds the cap, adversely impacting the firm cap | 4 | 4 | 16 / Red | RSK-052 |
-| A3 | Given a 5 to 7 W sink inside the PETG case beside the cells, there is a possibility that cell and case temperatures exceed limits, adversely impacting HZ-003 and HZ-007, leading to a case redesign | 3 | 4 (safety: HZ-003 and HZ-007 mapping) | 12 / Red | merged into RSK-006 |
-| A3 | Given a high case of USD 240.02, there is a possibility the order exceeds the cap | 4 | 4 | 16 / Red | RSK-052 |
+| A5 | Given that the RA07M1317M has one catalog seller (RF Parts) and brokers otherwise, there is a possibility that it is out of stock or delayed at order time, adversely impacting the schedule and the PA choice, leading to the A4 fallback PA | 2 | 4 (performance) | 8 / Yellow | merged into RSK-038 (steps: stock read at the gate; module ordered first; spare as gate add-back AB-A) |
+| A5 | Given a module that dissipates 8.5 to 10 W into a 2.6 K/W catalog sink, there is a possibility that reachable fin surfaces exceed 48 C after 5 min at 25 C, or that PETG near the sink exceeds its 69 C heat-deflection temperature at 45 C ambient, adversely impacting REQ-SYS-113 and case integrity, leading to a larger sink or a power derate | 3 | 3 (safety: HZ-003 burn, Marginal after the guard) | 9 / Yellow | merged into RSK-026 and RSK-006 (steps: finger guard; no PETG contact; WP-PDR-28 with the section 7.3 pass criteria) |
+| A5 | Given a junction bound of 103 C (109 C with no feed drop) against 110 C, there is a possibility that the real sink rating or interface is worse than bounded, adversely impacting REQ-SYS-112, leading to a larger sink | 2 | 4 (performance: KDR) | 8 / Yellow | merged into RSK-006 |
+| A5 | Given a 0.0 to 0.6 dB margin at 6.4 V after key-down sag and filter loss, there is a possibility that the 5 W step reads under 3.97 W at the low pack end, adversely impacting REQ-SYS-012 (KDR), leading to a low-end delta or a lower-resistance drain feed | 3 | 3 (performance) | 9 / Yellow | new RSK (step: feed-resistance budget before the order; TC-SYS-011) |
+| A5 | Given about 45 dB of broadband gain in the drive chain and module on an unshielded 2-layer board, there is a possibility that a non-harmonic spur inside the LPF passband (RP2350 clock, 12 MHz harmonic at 144.000 MHz, Si5351 CLK0 and CLK2) exceeds 25 uW, adversely impacting 97.307(e) (HZ-008), leading to a layout or clock-plan change | 3 | 4 (regulatory) | 12 / Red | new RSK (steps: CLK0 and CLK2 off in TX; RP2350 at 125 MHz in TX; drive LPF; tinySA sweep before on-air use) |
+| A5 | Given a receiver estimated at MDS -140 dBm with Low confidence, there is a possibility that MDS or image rejection falls short on the unshielded board, adversely impacting REQ-SYS-022 (KDR) and REQ-SYS-033, leading to a second preamp change or a fence redesign | 3 | 4 (performance: KDR) | 12 / Red | new RSK (steps: LTspice cascade and BPF runs before the RX freeze) |
+| A5 | Given a steep, nonlinear VGG transfer, there is a possibility that the envelope loop overshoots or clicks, adversely impacting REQ-SYS-014 and 015, leading to a loop redesign | 2 | 3 (performance) | 6 / Yellow | new RSK (step: LTspice envelope run, section 7.3) |
+| A5 | Given a USD 5.49 worst-case margin resting on unread shipping and duty lines, there is a possibility that the verified order plus contingency exceeds USD 300, adversely impacting the owner's absolute maximum, leading to the guard ladder or the A4 PA | 2 | 4 (performance: stakeholder input) | 8 / Yellow | merged into RSK-052 (steps: ordering gate; guard ladder) |
+| A5 | Given that a straight key's timing varies, there is a possibility that the Morse menu misreads entries, adversely impacting usability, leading to paddle-only menu entry | 3 | 2 (performance) | 6 / Yellow | new RSK |
+| A4 | Given that the AFT05MS004N is End of Life with finite stock (Mouser 72, Newark 1,519), there is a possibility that a blown or mis-soldered final cannot be replaced from a catalog channel, adversely impacting first power-on, leading to a PA redesign | 2 (spare in the order) | 4 (first power-on) | 8 / Yellow | merged into RSK-038 |
+| A4 | Given no AFT05 harmonic data and a match re-derived for a different substrate, there is a possibility that a harmonic exceeds 25 uW, adversely impacting 97.307(e) (HZ-008), leading to a filter redesign | 4 | 4 (regulatory) | 16 / Red | new RSK |
+| A4 | Given a junction bound of 100 to 135 C at 8.4 V with ALC back-off (adversarial C19), there is a possibility that the junction exceeds 110 C, adversely impacting REQ-SYS-112 (KDR), leading to a derate or a respin | 4 | 4 (performance: KDR) | 16 / Red | merged into RSK-006 |
+| A4 | Given about 3.2 W at the SMA at 6.4 V (adversarial C2), there is a near certainty that the 5 W step misses the 3.97 W floor at the low pack end, adversely impacting REQ-SYS-012 (KDR), leading to a requirement delta | 5 | 3 (performance) | 15 / Red | requirement delta (section 8.10) |
+| A4 | Given a JFET mixer that the research did not validate, there is a possibility that MDS is worse than -140 dBm or the half-IF response too strong, adversely impacting REQ-SYS-022 and 033, leading to the diode-ring fallback | 3 | 4 (performance: KDR) | 12 / Red | new RSK |
+| A2 | Given a leadless NOS RD07MUS2B with a hidden source pad soldered with a heat gun, there is a possibility of a bad joint or overheated die, adversely impacting first power-on | 3 | 3 | 9 / Yellow | new RSK if selected |
+| A3 | Given an 8.5 to 10 W sink inside the PETG case beside the cells, there is a possibility that cell and case temperatures exceed limits, adversely impacting HZ-003 and HZ-007, leading to a case redesign | 3 | 4 (safety) | 12 / Red | merged into RSK-006 |
+| A3 | Given an out-of-stock TC1-1T+ and an unverified LCSC merge, there is a possibility that the order cannot be placed as designed within USD 300 | 3 | 4 | 12 / Red | RSK-052 |
 
-Aggregate risk (maximum score): A2 16, A3 16, A4 16. The A4 Reds are all Research or Mitigate risks with steps due before the F0 freeze of the TX and RX designs; none is a safety-consequence-5 risk.
+Aggregate risk (maximum score): A2 9 on the risks listed here (its revision-1 cost Red is retired by the USD 300 ceiling), A3 12, A4 16, A5 12. The A5 Reds are Research risks whose steps are LTspice runs and bench checks named in section 7.3, due before the order (drive chain, BPF, LPF) or before first on-air use (tinySA sweep); none is a safety-consequence-5 risk.
 
 ### 7.2 Benefits beyond the scored criteria
 
 | Alt | Benefits |
 |---|---|
-| A4 | One distributor order (Mouser) plus the boards and the cells: three paid shipments. The AFT05 is in active production, in stock at Mouser and Newark, rated for 65:1 VSWR (strong for REQ-SYS-013), and covers 136 to 941 MHz, so a later 70 cm revision keeps the device. The TX drain needs no high-side switch (idle leakage at VGS 0 is at most 1 uA). Charging outside the radio removes the Catastrophic HZ-002 charger chain from the box. Analog audio keeps the TS-001 audio decision. |
+| A5 | The PA is a 50 ohm block with a vendor datasheet that guarantees output, efficiency, harmonics, load ruggedness (20:1 at 9.2 V and 7 W) and stability (spurious below -60 dBc for VDD 4.0 to 9.2 V, Pin 10 to 30 mW, Pout up to 8 W, load VSWR 4:1), and it is in current production ("Active"). "This module is designed for manual soldering" (datasheet). The TCXO also shrinks the REQ-SYS-182 error budget from 8.9 to 4.8 kHz. The diode ring is the receiver research's own mixer. Charging outside the radio keeps the Catastrophic HZ-002 charger chain out of the box. Analog audio keeps the TS-001 audio decision. |
+| A4 | Cheapest compliant radio (USD 187.61 planning); one distributor plus the boards and cells; no leadless part. The AFT05 is rated for 65:1 VSWR at 9 V. Its 136 to 941 MHz range is not claimed as a later 70 cm benefit, because the device is End of Life. |
 | A2 | Keeps in-radio charging, the TCXO and the best envelope. |
 | A3 | Easiest build: no winding, no PA match; guaranteed harmonics. |
 
 ### 7.3 Feasibility: the PA and the receiver at 144 MHz with hand-solderable parts
 
 **Through-hole at 144 MHz, honestly (transmitter and receiver research).**
-- No through-hole VHF power device is in active production and stocked by a franchised distributor. DigiKey shows 0 stock (or minimum orders of 500 to 1000) for 2N3866, 2N4427 and 2N5109. RF Parts lists NOS parts with prices (RD06HVF1 USD 9.91, RD15HVF1 USD 14.91, 2N4427 USD 3.91), which meets the listed-price rule but is a finite supply.
-- The RD06HVF1 (TO-220, a 12.5 V part) reads 3.8 W at 7 V and 2.8 W at 6 V on the datasheet graph: it cannot hold 5 W across the pack. A TO-39 chain gives 0.5 to 1 W (estimate).
+- No through-hole VHF power device is in active production and stocked by a franchised distributor. RF Parts lists NOS parts with prices (RD06HVF1 USD 9.91, RD15HVF1 USD 14.91, 2N4427 USD 3.91), which meets the listed-price rule but is a finite supply; the RD06HVF1 gives 3.8 W at 7 V and 2.8 W at 6 V on its datasheet graph.
 - The IRF510 has roughly 0 to 5 dB of power gain at 144 MHz; the BS170 and 2N7000 are DC switches here.
-- The TO-92 J310 is out of stock at LCSC (USD 2.55 listed); the SOT-23 MMBFJ310 is in stock everywhere. The SA612 mixer is discontinued. A 146 MHz tuned circuit has no catalog through-hole coil.
-- **Conclusion:** a 5 W 2 m radio from catalog stock needs a handful of SOT-89 and SOT-23 parts and 0805 or 1206 capacitors in the RF sections. Everything else in A4 is through-hole or a module.
+- The TO-92 J310 is listed (InterFET J310 at Mouser USD 5.83, 381 in stock; INSP-110 row 25); the SOT-23 MMBFJ310 (USD 0.23) is chosen on cost. The SA612 mixer is discontinued. A 146 MHz tuned circuit has no catalog through-hole coil.
+- **Conclusion:** a 5 W 2 m radio from catalog stock needs a PA module or a handful of SOT-89 and SOT-23 parts, and 0805 or 1206 capacitors in the RF sections. Everything else is through-hole or a module.
 
-**PA (A4).**
-- Line-up: Si5351A CLK1 (about +7 to +10 dBm) into a pad, GVA-84+ MMIC (about +19 dBm out), AFT05MS004NT1 with the NXP 136 to 174 MHz broadband reference match (0805 C0G in place of the 0603 ATC parts, wound 12 to 27 nH coils of 1.5 to 3 turns), then the G5V-2 relay and a 7-pole Chebyshev LPF (fc 165 MHz; Coilcraft 1812SMS 68, 82, 68 nH; 1206 C0G 22, 39, 39, 22 pF, re-optimized for the 82 nH part) with a footprint for one series-LC trap.
-- Output: about 6.0 W at 7.5 V available (vendor reference), estimated 4.4 W at 6.4 V, 3.8 W at 6.0 V and 7.5 W at 8.4 V (V squared scaling; the ALC and a firmware cap hold 5 W). REQ-SYS-012 is met marginally at 6.4 V (4.4 W against 3.97 W).
-- Power steps 0.5, 1 and 2 W come from gate bias (vendor Fig. 12: 0 to 5.5 W over VGS 1.5 to 2.4 V at 155 MHz).
-- Harmonics: no vendor data, so the LPF carries the no-data case (ideal 48 dB at 2f, 76 dB at 3f). With a 2f output of, say, -15 dBc before the filter, the filter's 48 dB gives -63 dBc, 10 dB inside the 53 dBc legal limit and 3 dB past the 60 dBc target. This is illustrative until the LTspice run and the tinySA measurement.
-- Thermal (derived, Low): dissipation about 3.7 W in the AFT05 at 5 W out (about 60 % drain efficiency) plus 0.5 W in the GVA-84+. Chain: 4.4 K/W junction to case (datasheet), then the board. Judge 1 showed that 8 plain 0.3 mm vias are about 24 K/W, which would put Tj near 160 C. A4 instead uses a solder-filled plated slot of about 1 x 3 mm under the tab (about 7 K/W alone) in parallel with 30 solder-filled 0.4 mm vias (about 3 K/W), about 2 K/W for the barrel paths, and 3 to 6 K/W including spreading in the pads; then 1 K/W interface and 2.6 K/W sink. Total 11 to 14 K/W, rise 41 to 52 K, **Tj about 86 to 97 C at 45 C** against 110 C. The sink face rises about 10 to 11 K, so REQ-SYS-113 (48 C at 25 C) is met. Fallback: an ALC derate to 4 W at high ambient, recorded as a REQ-SYS-112 condition.
-- Keying and safety: CLK1 enable and the gate envelope are the two independent conditions of REQ-SYS-120. The hardware 10 s cutoff (REQ-SYS-055), the 150 to 180 s backstop (REQ-SYS-180), the 95 C sink trip (REQ-SYS-181), the cell 60 C trip and the VBUS inhibit (REQ-SYS-092) are open-collector clamps wired-OR on the gate node, on by default at reset.
+**PA of A5 (recommended): line-up and drive.**
+- Si5351A CLK1 (3.3 V CMOS, drive 8 mA; into 50 ohm about +10.4 dBm at the fundamental, derived from a 1.65 Vpp square wave; up to about +12.9 dBm if the output resistance is 25 ohm) into a 3-pole drive LPF (fc about 170 MHz, one 1812SMS and two 1206 C0G), an input pad, the GVA-84+ (24.1 dB typical at 100 MHz, P1dB +20.4 dBm typical and +19.4 dBm minimum; datasheet Rev. F per the adversarial check), a 3 dB output pad, and the RA07M1317M module (Pin 20 mW nominal; stability specified for Pin 10 to 30 mW; 30 mW maximum rating).
+- **Overdrive designed out:** the drive level is set by the Si5351 swing and two fixed pads, not by the GVA-84+ compressing. With an 18 dB input pad and GVA gain 22.5 to 25 dB, the module sees 10.5 to 14.4 dBm (11 to 28 mW) over the Si5351 range of +9 to +10.4 dBm; the GVA-84+ runs at about +16 dBm, 3.4 dB under its minimum P1dB. **LTspice check before the order (WP-PDR-21):** the drive chain with the Si5351 modelled as a 3.3 V square source of 25 to 50 ohm output resistance, the GVA-84+ S-parameters, the pads and the drive LPF; **pass: module input 10 to 30 mW at every corner (144 to 148 MHz, 25 and 50 ohm source, GVA gain 22.5 and 25 dB), 3f at the GVA input at least 25 dB below the fundamental.** If the 25 ohm corner exceeds 30 mW, the input pad grows by 1 dB and the low corner is re-checked.
+- **Drive gating and key clicks.** Output power is set by VGG (datasheet graph at 7.2 V: about 0 W at 1.5 V, 2 W at 2.5 V, 4 W at 3.0 V, 7 W at 3.5 V; steep and nonlinear). A raised-cosine VGG would not give a raised-cosine envelope, so the ALC is a closed envelope loop: a 1N5711 detector on the LPF output side feeds an MCP6002 error amplifier whose reference is the firmware raised-cosine ramp (filtered PWM), and the loop drives VGG. VGG is bounded at 3.8 V by a 0.75 divider on the 5 V-rail op-amp output (5.1 V x 0.75 = 3.83 V at the LM2940 maximum), under the 4 V rating. Sequence at key-down: relay to TX, 5 ms settle, GVA-84+ bias on, CLK1 enabled, then the envelope ramp. At key-up: the ramp takes VGG under 1.2 V (module output about 0 W), then after 1 ms CLK1 is disabled and the GVA-84+ bias switched off, then the relay returns to RX after the hang time. So the abrupt CLK1 edge happens only with the module off (backwave at most about -17 dBm estimated, under the 25 uW spur limit and never on the air in RX). The hardware clamps of REQ-SYS-055, 180, 181 and 092 are open-collector pulls on the envelope reference and VGG node (on at reset), and CLK1 enable is the second, independent condition of REQ-SYS-120. **LTspice check before the order (WP-PDR-22):** the envelope loop with the VGG transfer as a table from the datasheet graph at 6.4 and 8.4 V; **pass: 10 to 90 % rise and fall inside the set 3 to 8 ms (REQ-SYS-014), 26 dB bandwidth at most 350 Hz with continuous dits at 50 WPM (REQ-SYS-015, TC-SYS-013 method), overshoot at most 0.2 dB, loop phase margin at least 45 degrees, VGG never above 3.83 V.**
+- **RF off (REQ-SYS-183, -57 dBm).** In receive and in every ended or inhibited state, CLK1 is disabled, the GVA-84+ is unpowered and VGG is at 0 V, so nothing at the carrier frequency is generated; the relay's receive pole grounds the RX input. Designed out; **bench check before first on-air use:** tinySA at the monitor port with the radio in receive, inhibited and ended states: at most -97 dBm at the port (-57 dBm at the antenna).
+- **Stability.** The module's stability is vendor-specified (spurious below -60 dBc) for VDD 4.0 to 9.2 V, Pin 10 to 30 mW, Pout up to 8 W by VGG control and load VSWR 4:1. The design keeps VDD at 5.5 to 8.4 V, Pin at 11 to 28 mW (LTspice check above), and VGG positive only while the drive is on (sequence above). The GVA-84+ is unconditionally stable (datasheet, per the adversarial check). The remaining exposure is board-level feedback around about 45 dB of gain; **bench check before first on-air use:** with the dummy load and at 6.0 and 8.4 V, (a) VGG at 0 V and CLK1 on: no output above -30 dBm at any frequency from 1 MHz to 1.5 GHz; (b) at each power step: no non-harmonic output within 20 dB of the 25 uW limit (the tinySA sweep of the harmonic check below).
+- **Output power at the connector at the 6.4 V pack end (answers adversarial C2 for A5).** REQ-SYS-012 measures the pack in receive; at key-down the pack delivers about 2.0 A (module about 1.8 A plus the 5 V bus). Drain-feed resistance: two P28A cells 0.04 to 0.06 ohm (E, cell DCIR not read); two AO3400A at VGS about 6.4 V, 0.04 to 0.06 ohm (datasheet Rev 3.1: 19 typical, 32 mohm maximum at VGS 4.5 V, used as the bound); MF-R300 0.02 to 0.08 ohm (E); holder contacts 0.02 to 0.04 ohm (E); two DMP3099L 0.13 to 0.20 ohm (E, not read); chokes about 0.01 ohm. Total 0.26 to 0.45 ohm, a drop of 0.52 to 0.90 V: 5.5 to 5.9 V at the drain. From the datasheet graph (5.3 W at 6.0 V, Pin 20 mW, 155 MHz; graph read) scaled by V squared: 4.46 to 5.13 W at the module, minus 0.4 dB LPF and 0.1 dB relay loss: **3.97 to 4.57 W at the SMA, against the 3.97 W floor: met with 0.0 to 0.6 dB of margin (Low).** At 8.4 V the module can make about 10.5 W and the ALC holds 5 W. REQ-SYS-012 is kept; the delta is conditional (section 8.10). Levers if the bench reads low: drive the module at 25 mW (still inside 10 to 30 mW), or replace the two DMP3099L by a lower-resistance P-FET pair. **Check before the order:** the datasheet maxima of DMP3099L RDS(on) at VGS -6 V and MF-R300 R1max read into the budget (owner price-check list item 8 or the author); **pass: total feed resistance at most 0.35 ohm, which gives at least 4.2 W at the SMA.**
+- **Harmonics.** Module maxima 2fo -25 dBc and 3fo -30 dBc at 6 W (datasheet limits; typical -37 and -63 dBc at 144 MHz, graph read). LPF: 7-pole Chebyshev, fc 165 MHz, ideal 47.9 dB at 288 MHz and 75.9 dB at 432 MHz (adversarial C8 recomputation). With 40 dB real at 2f and 35 dB at 3f (the REQ-SYS-018 allocations), the worst guaranteed case is -65 dBc at both, 12 dB inside the 53 dBc legal limit and 5 dB past the 60 dBc target. At the 0.5 W step, where VGG back-off can raise the harmonic ratio (discrete line-up data show -17 dBc at 0.3 W, pa-device-candidates F4), the legal limit is 43 dBc and -17 - 40 = -57 dBc. **LTspice check before the order (WP-PDR-21):** the LPF with Coilcraft 1812SMS SRF and Q models, 1206 pad and via parasitics; **pass: at least 40 dB at 288 to 296 MHz, 35 dB at 432 to 444 MHz, passband loss at most 0.5 dB.** **Bench check before first on-air use:** tinySA 9 kHz to 1.5 GHz through the monitor port at each step, 144.05 and 147.95 MHz, 6.4 and 8.4 V; **pass: every spur at most -56 dBm at the port (25 uW at the antenna) and at least 60 dB below the carrier at the 5 W step.**
+- **Non-harmonic spurs in the LPF passband (adversarial C10).** Designed out where possible: firmware powers down CLK0 and CLK2 in transmit; the RP2350 runs at 125 MHz in transmit (no harmonic in 136 to 165 MHz); USB is off in transmit by the VBUS inhibit (REQ-SYS-092), which removes the 48 MHz x 3 product; the drive LPF sits between the Si5351 and the GVA-84+. The 12 MHz crystal's 12th harmonic at 144.000 MHz cannot be moved and is left to the tinySA sweep above (same pass criterion).
+- **Junction temperature, bounded at the worst corner (answers adversarial C19 for A5).** Corner: 45 C ambient, continuous key-down at 5 W at the SMA (5.6 W at the module after 0.5 dB of loss), pack at 8.4 V, ALC backing the module off. Efficiency bound: the datasheet minimum total efficiency is 45 % at 6 W and 7.2 V, so IDD is at most 1.85 A there; scaled class-B to 5.6 W (IDD proportional to output amplitude) that is 1.79 A, plus 10 % for the scaling error: **1.97 A** (derived). At full charge the drain sees 8.4 V minus the minimum feed drop (0.26 ohm x 1.97 A): 7.9 V. Dissipation 7.9 x 1.97 - 5.6 = **9.95 W** (bound; 8.54 W without the 10 %). Stage split: stage 1 1.5 W (the datasheet thermal-table condition), stage 2 the rest. Thermal path: stage-2 Rth(ch-case) 2.4 K/W, stage-1 4.5 K/W (datasheet); flange to sink through Wakefield 120 compound (4 g, in the BOM) on about 2.6 cm2, 0.2 to 0.4 K/W (derived for a 25 to 75 um bond line at 0.7 W/m K); Boyd 530002B02500G 2.6 K/W rated, taken as 3.4 K/W at the lower temperature rise and an arbitrary orientation (+30 %). The GVA-84+ (0.5 W) sits on the main board, not on the sink. **Bound: case 45 + 9.95 x (0.4 + 3.4) = 82.8 C; stage-2 channel 82.8 + 2.4 x 8.45 = 103.1 C; stage-1 89.5 C.** Nominal (8.54 W, 0.3 and 2.6 K/W): case 69.8 C, stage 2 86.7 C. Extreme (drain at a full 8.4 V with no feed drop, e.g. a bench supply with no series resistance): stage 2 about 109 C. Against REQ-SYS-112 (110 C) the margin is 7 K at the bound and 1 K at the extreme; the Mitsubishi case limit of 90 C is met (82.8 C); the REQ-SYS-181 95 C sink trip does not operate in normal use at 45 C. In service the 10 s cutoff (REQ-SYS-055) and CW duty make true continuous key-down impossible, so the bound is conservative. **Check before the order (WP-PDR-28):** the thermal budget with the Boyd drawing (flat centre-channel face of at least 30 x 10 mm for the flange; mass); **pass: stage-2 channel at most 110 C and case at most 90 C at the bound corner.** Fallback if it fails: a larger sink (not yet priced; the catalog reads of this revision did not find a listed 1.5 to 2.0 K/W part in the same envelope).
+- **Hand-hold surfaces (REQ-SYS-113) and PETG.** After 5 min at 25 C ambient (sink time constant about 105 to 155 s for 40 to 45 J/K), the sink rises 19 to 20 K nominally (44 to 45 C) and up to 31 K at the bound (56 C). **Designed out:** the fins sit behind a printed PETG finger guard (a slotted grille 3 mm clear of the fin tips, free filament) so that no fin is reachable, and no PETG part touches the sink: the sink is held by the RF board and metal standoffs with an air gap of at least 2 mm to the printed end frame, because the sink base reaches about 83 C at the 45 C bound, above PETG's 69 C heat-deflection temperature (TS-011 M8). **Check in WP-PDR-28 before the enclosure freeze:** pass: every PETG surface within 5 mm of the sink at most 60 C at the 45 C bound corner, and the guard's outer surface at most 48 C at the 25 C, 5 min case; **bench check:** thermocouple on the guard and case after 5 min key-down at 25 C, at most 48 C.
+- **Load ruggedness (REQ-SYS-013).** The module is specified for load VSWR 20:1 at all phases at 9.2 V and 7 W without degradation, which covers 60 s at 80 % duty into 10:1.
 
-**Receiver (A4).**
-- Chain: G5V-2 pole A, pole B grounding the RX input in transmit, 1N5711 clamp pair, BPF1 (2 wound air-coil resonators), MMBFJ310 grounded gate, BPF2 (3 resonators), MMBFJ310 grounded gate, MMBFJ310 mixer (LO 136 to 140 MHz low side, CLK0), diplexer, 2N3904 post-mixer amplifier, 6-pole 500 Hz ladder of 8.000 MHz crystals matched on the NanoVNA (6 from 10), two 2N3904 IF stages whose gain is a PWM-derived control voltage (AGC and volume), MMBFJ310 product detector (BFO on CLK2), NE5532 preamp and filter, summing with the PWM sidetone and menu tones, MCP6002 headphone buffers on 5 V, 220 uF coupling, attenuator, switched jack.
-- Numbers: NF and MDS about -140 dBm (Low, +/-2 dB); -6 dB bandwidth about 470 to 525 Hz and -60 dB about 2.4 kHz (same-lot Monte Carlo); image rejection 83 dB ideal from 5 resonators (Low); RMDR about 83 dB set by Si5351 phase noise; AGC after the crystal filter, so no pumping.
-- The receiver research found that one J310 stage fails REQ-SYS-022 (8.4 dB NF); two stages are needed.
-- Fallback for the mixer: the research diode ring (four 1N5711 and two BN-43-2402 class cores). The Fair-Rite 2843002402 at Mouser is owner to verify (estimate USD 0.3 to 0.6 each); Kits and Parts lists 25 cores for USD 6.00 plus shipping.
-- LO: the JFET mixer is a high-impedance load, which the frequency research asked for; the 18th BFO harmonic lands near 143.96 MHz, 36 kHz below the band.
+**PA of A4 (revision 2; answers the adversarial refutations for the alternative).** Line-up as in revision 1 (Si5351, drive LPF, GVA-84+ at its P1dB limit, AFT05MS004NT1 with the NXP reference match). The match must be re-derived in LTspice from the NXP Zsource and Zload table (145 MHz: 9.05 + j12.43 and 2.56 - j0.54 ohm) for a 0.8 mm board, because the reference PCB is 0.51 mm FR4 with Coilcraft SQ inductors (adversarial C4); Coilcraft 0908SQ-25NJLC shows 0 stock at Mouser and USD 1.23 at Coilcraft direct today, so A4 keeps wound coils. Output at 6.4 V is about 3.2 W at the SMA (adversarial C2): REQ-SYS-012 needs a delta. The junction bound at 8.4 V with ALC back-off is 97 to 111 C on the revision-1 path values and about 100 to 135 C with realistic interface, spreading and sink derating (adversarial C19); the 0.8 mm board and the compound lower it but it is not shown under 110 C, so A4 also carries REQ-SYS-112 at risk. Its hand-hold surfaces hold (37 to 41 C, adversarial C20).
+
+**Receiver (A5; A4 differs only in the mixer).**
+- Chain: G5V-2 pole A, pole B grounding the RX input in transmit, 1N5711 clamp pair, BPF1 (2 wound air-coil resonators, owned 24 AWG), MMBFJ310 grounded gate, BPF2 (3 resonators), MMBFJ310 grounded gate, **diode-ring mixer** (four 1N5711W, two trifilar transformers on Fair-Rite 2843000202 BN-43-202 cores wound from the owned 24 AWG wire; LO 136 to 140 MHz low side on CLK0 at about +10 dBm), diplexer, 2N3904 post-mixer amplifier, 6-pole 500 Hz ladder of 8.000 MHz crystals matched on the NanoVNA (6 from 10), two 2N3904 IF stages with PWM-derived gain (AGC and volume), MMBFJ310 product detector (BFO on CLK2), NE5532 preamp and filter, summing with the PWM sidetone and menu tones, MCP6002 headphone buffers on 5 V, 220 uF coupling, attenuator, switched jack.
+- Numbers: NF about 5.8 dB and MDS about -140 dBm (receiver research cascade with a diode ring; Low, +/-2 dB); -6 dB bandwidth about 470 to 525 Hz and -60 dB about 2.4 kHz (same-lot Monte Carlo); RMDR about 78 to 83 dB set by Si5351 phase noise (REQ-SYS-031 relaxation recorded); AGC after the crystal filter.
+- **Image (airband).** With an 8 MHz IF and low-side LO the image is 128 to 132 MHz, in the aeronautical AM band, 12 to 20 MHz from the passband. Five resonators give well over 90 dB ideal; board leakage typically caps image rejection near 60 to 70 dB (adversarial C14, estimate). **LTspice check before the order (WP-PDR-19):** BPF1 plus BPF2 with coil Q 100, 20 % coupling-capacitor tolerance and 5 nH ground-via inductance; **pass: at least 90 dB at 128 to 132 MHz and at most 3 dB passband loss** (the 20 dB above REQ-SYS-033's 70 dB is the leakage allowance). **Bench check after assembly:** NanoVNA S21 of the BPF chain at 130 MHz at the instrument floor (about 70 dB), and the tinySA generator at 130 MHz as a relative source (REQ-SYS-033 verification note).
+- **Half-IF (RF - 4 MHz = 140 to 144 MHz).** A second-order product (2RF - 2LO = IF), so its level falls 2 dB per dB of input and depends on mixer balance. The balanced diode ring suppresses it far better than the single square-law JFET that revision 1 used (adversarial C14). **LTspice check before the order (WP-PDR-19):** front end and ring with a -70 dBm tone at RF - 4 MHz (70 dB above the -140 dBm MDS) against a -140 dBm tone at RF; **pass: the RF - 4 MHz tone gives an IF output no higher than the -140 dBm wanted tone (REQ-SYS-033, 70 dB), with the BPF attenuation at 140 MHz reported.**
+- LO: the 18th BFO harmonic lands near 143.96 MHz, 36 kHz below the band (adversarial C16 holds). Frequency plan: integer divide-by-6 above 112.5 MHz, fractional PLL tuning (VCO 864 to 888 MHz and 816 to 840 MHz), step about 4 Hz; CLK0 and CLK1 share PLL A in time, BFO on PLL B.
 
 ## 8. Recommendation
 
-- **Recommended alternative:** A4, total 340 of 500 (68 %), the only alternative passing every mandatory criterion, leading the next by 85 points (Robust).
-- **Rationale:** it is the only architecture whose planning total fits the firm cap with margin after every common line (tariff, corrections) is added, it has no hand-solder exception, it keeps every SRR hardware safety control, and its RF weaknesses as submitted (wound LPF, SPDT relay, thermal path) are repaired by grafts costing about USD 8.
-- **Closely ranked alternatives:** none within 25 points. A3 (B1) is the better-built radio but fails the cap; it is the natural second build if the owner later lifts the cap.
-- **Conditions:** the ordering gate of section 8.4 before any purchase; the LTspice runs of the PA match and LPF (WP-PDR-21) and the thermal chain (WP-PDR-28) before the TX F0 freeze.
+- **Recommended alternative:** A5 (hybrid H1), total 355 of 500 (71 %), first of the alternatives passing every mandatory criterion, 15 points ahead of A4 (**Not robust**, section 6).
+- **Rationale:** under the USD 300 ceiling the owner can buy down the Red RF, thermal and sourcing risks that made revision 1's radio cheap: the end-of-life PA, the PA match rebuilt on the wrong substrate with no harmonic data, the low-pack power shortfall, the unbounded junction and the unvalidated mixer. A5 does that for USD 47.07 at planning (section 8.2), keeps every SRR hardware safety control with parts inside their ratings, keeps REQ-SYS-010, 012, 112 and 141 without deltas, and stays within USD 300 in the worst case. It costs one flagged part (the leadless TCXO), more heat in the sink (answered by the guard and the air gap) and USD 34.68 above the target.
+- **Closely ranked alternative:** A4 (revision 2) at 340, USD 187.61 planning. It is the right choice if the owner values staying under USD 200 above the four A4 Reds and accepts the REQ-SYS-010, 012 and 112 deltas; it keeps every safety control.
+- **Conditions:** the ordering gate of section 8.4 before any purchase; the four pre-order LTspice checks and the thermal budget of section 7.3 with their pass criteria; the tinySA checks before first on-air use.
 
 ### 8.1 Recommended architecture (block diagram)
 
 ```
                      +------------------ Pico 2 (RP2350, Rust) -------------------+
-                     | I2C | PWM gate env | ADC: ALC, pot x2, AGC env, cells, NTC x2 |
-                     | PWM audio (sidetone + Morse menu) | key/paddle | 1 button     |
-                     | PIO counter <- prescaler | LED (TX, fault blink code)        |
+                     | I2C | PWM envelope ref | ADC: ALC, pot x2, AGC env, cells, NTC x2 |
+                     | PWM audio (sidetone + Morse menu) | key/paddle | 2 buttons         |
+                     | PWM edge counter <- /8 divider | LED (TX, fault blink code)       |
                      +---+----------+-----------------------------------------------+
                          |          |
- Adafruit 2045 Si5351A (stock 25 MHz crystal; TCXO add-back AB2 by module rework)
-  CLK1 TX 144-148 --pad--> GVA-84+ --> AFT05MS004NT1 (NXP ref. match) on PA board, slot + vias, on sink
-         |                               gate <- MCP6002 <- RC <- PWM (5 ms raised cosine, ALC, steps)
-         +--> SN74LVC74ADBR /4 --> PIO   gate clamps (wired-OR, on at reset): LM393 #2 10 s cutoff,
-                                         LM393 #1 150-180 s backstop, LM393 #1 95 C sink trip,
-                                         LM393 #2 cell 60 C trip, 2N3904 VBUS inhibit
-                                                       |
- ANT SMA edge (end face) <-- 7-pole LPF (Coilcraft 1812SMS, 1206 C0G, trap footprint)
-                         <-- G5V-2 pole A (TX / RX); pole B grounds the RX input in TX
-                             [40 dB tap footprint -> 2nd SMA: add-back AB1]
- RX: 1N5711 clamps -> BPF1 (2) -> J310 GG -> BPF2 (3) -> J310 GG -> J310 mixer (CLK0 136-140 MHz)
+ Adafruit 2045 Si5351A, 25 MHz crystal removed, Epson TG2520SMN TCXO into XA (10 nF)
+  CLK1 TX 144-148 -+-> 3-pole LPF -> 18 dB pad -> GVA-84+ (bias switched in TX) -> 3 dB pad
+                   |                                                  -> RA07M1317M (flange on sink, compound)
+                   |           VGG <- 0.75 divider <- MCP6002 error amp <- PWM raised-cosine ref
+                   |                              ^ 1N5711 detector on the LPF output
+                   |           clamps on the ref/VGG node (wired-OR, on at reset): LM393 #2 10 s cutoff,
+                   |           LM393 #1 150-180 s backstop, LM393 #1 95 C sink trip, LM393 #2 cell 60 C, VBUS inhibit
+                   +-> 100 pF, bias -> 74LVC1G80GV x3 (/8, 18.0-18.5 MHz, powered in TX only) -> counter
+ ANT SMA edge (far end face) <-- 7-pole LPF (Coilcraft 1812SMS, 1206 C0G, trap footprint) + 40 dB tap -> monitor SMA
+                             <-- G5V-2 pole A (TX / RX); pole B grounds the RX input in TX
+ RX: 1N5711 clamps -> BPF1 (2) -> J310 GG -> BPF2 (3) -> J310 GG -> diode ring (4 x 1N5711, 2 x BN-43-202; CLK0 LO)
      -> diplexer -> 2N3904 -> 6-pole 500 Hz ladder (8.000 MHz, 6 of 10) -> 2N3904 IF x2 (PWM gain)
      -> J310 product det. (CLK2 BFO) -> NE5532 -> sum with PWM tones -> MCP6002 L/R -> 220 uF -> atten -> jack
- Power: 2 x P28A in 1043P holders -> S-8252AAO + 2 x AO3400A (pack negative) -> MF-R300 -> DMP3099L
-        reverse/rail switch (EG1218 drives the gate) -> PA drain from the pack; LM2940-5 -> 5 V bus
- Charging: cells out of the radio, XTAR MC1 (1 bay). USB is for firmware only.
+ Power: 2 x P28A in 1043P holders -> S-8252AAO + 2 x AO3400A (pack negative) -> MF-R300 -> 2 x DMP3099L
+        reverse/rail switch (EG1218 drives the gates) -> module drain; LM2940-5 -> 5 V bus; 3rd DMP3099L -> TX 5 V
+ Charging: cells out of the radio, XTAR MC1 (1 bay) from the owner's USB adapter. USB on the radio is for firmware only.
 ```
 
-Boards: two JLCPCB 2-layer 1.6 mm HASL designs, 5 of each, each within 100 x 100 mm. The main board is 64 x 100 mm (cells in holders on the bottom; Pico 2 soldered flat by its castellations beside them). The PA board is about 40 x 35 mm, its via-stitched bottom copper screwed flat to the inside face of the Boyd sink, which forms one end wall with its fins outside. Receiver and synthesizer fences are cut from spare boards. The owner's perfboard is for bench prototypes of the audio chain, the Morse UI and the safety timers.
+Boards: two JLCPCB 2-layer HASL designs, 5 of each, each within 100 x 100 mm: the main board 64 x 100 mm, 1.6 mm (cells in holders on the bottom; Pico 2 soldered flat by its castellations beside them), and the RF board about 40 x 35 mm (drive LPF, pads, GVA-84+, relay, output LPF, detector, 40 dB tap), mounted beside the module on the sink's inner face. The module is screwed to the sink first and its leads are then soldered to the RF board (datasheet mounting order). Receiver and synthesizer fences are cut from spare boards. The owner's perfboard is for bench prototypes of the audio chain, the Morse UI and the safety timers.
 
-### 8.2 Differences from A1 as submitted
+### 8.2 Differences from revision 1 and the risk bought per dollar
 
-| Change | Why | Parts cost (pre-contingency) |
+**Changes common to A4 and A5 (review and adversarial fixes; pre-contingency).**
+
+| Change | Why | Cost |
 |---|---|---|
-| G5V-1 SPDT to G5V-2 DPDT | RX-grounding pole; removes about 20 mA peak into the 15 mA 1N5711 clamps (judge 1) | +0.88 |
-| Wound LPF coils to Coilcraft 1812SMS 68/82/68 nH | Higher self-resonance for REQ-TX-011 (576 MHz to 1.5 GHz); no winding in the legally critical filter | +5.70 |
-| Second LM393P | REQ-SYS-055 10 s cutoff and cell 60 C trip | +0.53 |
-| SN74LVC74ADBR prescaler (SSOP-14, 0.65 mm) | REQ-SYS-182 independent frequency check | +0.34 |
-| Plated slot and 30 or more vias under the PA tab | REQ-SYS-112 (Tj about 160 C to about 86 to 97 C) | 0 |
-| XTAR VC2 (USD 14.99) to XTAR MC1 (USD 4.99, in stock, read today) | Cost; one cell at a time at 0.5 A (about 6 h per cell) | -10.00 |
-| AO3400A high-case correction | Aggregator row 0.09 against DigiKey 0.52 | 0 low, +0.86 high |
-| Mouser tariff pass-through line | Not counted by any architect (judge 2) | +4 to +12 (E) |
-| Ordering gate, guards, add-backs | Firm cap with unread lines | 0 |
+| SN74LVC74ADBR to three Nexperia 74LVC1G80GV (SC-74A, 0.95 mm pitch) as a divide-by-8 | finding-3: fmax 160 MHz minimum at 3.0 to 3.6 V, -40 to +125 C (datasheet Rev. 17); pulse width 2.5 ns minimum against 3.38 ns; the /8 output (18.0 to 18.5 MHz) is inside the RP2350 PWM edge-counter limit of half the system clock | +0.11 |
+| Magnet wire, SMA-male plug and through-hole passives removed | Owned (section 10) | -13.19, -3.00 to -6.00, part of the passives lot |
+| Sales tax | Excluded by the owner (finding-2 closes) | 0 |
+| AO3400A at Mouser USD 0.52; 1N5711W at USD 0.307 | finding-4 | +0.86, +0.27 |
+| Board duty 35 % to 92.5 %, base unpublished | finding-5 | worst case +24.43 |
+| Monitor port SMA (CONSMA001-C-G) in the baseline | finding-9: cheaper than the external 30 dB 10 W pad it replaces | +2.80 |
+| Wakefield 120-SA thermal compound | finding-10 | +5.44 |
+| Knobs for the owner's potentiometers | finding-10 | 0 to 4.00 (E) |
+| Second B3F-1052 button | finding-7: REQ-SYS-066 held combination; REQ-SYS-163 button-only key-mode path | +0.39 |
+| 3-pole drive LPF between the Si5351 and the GVA-84+ | adversarial C3, C10 | +1.90 plus two 1206 C0G in the lot |
+| Tariff line worst case at 50 % of the China-origin share | Section 301 rate reported for HTS 8541 and 8542 | worst case +3.00 |
 
-### 8.3 Bill of materials
+**Upgrades from A4 (revision 2) to A5, with the risk each retires (capped USD; risk scores on the 06 five-by-five scale).**
 
-All prices retrieved 2026-09-27. Kind L, A, E as defined under the header. OEMsTrade URLs have the form `https://www.oemstrade.com/search/<PART>`.
+| Upgrade | Capped cost | Risks retired (before -> after) | Risk added | Net points | USD per point |
+|---|---|---|---|---|---|
+| U1 RA07M1317M module PA (module 28.91, RF Parts shipping 14.00 midpoint, third DMP3099L 0.40, minus two AFT05 9.24 and the NXP match passives about 2.00) | 36.88 | EOL PA 12 -> single-channel module 8; no harmonic data 16 -> 8; junction bound 16 -> 8; REQ-SYS-012 shortfall 15 -> 9; match rebuilt on another substrate 12 -> 0 | sink heat near PETG and fins: 9 | 4 + 8 + 8 + 6 + 12 - 9 = 29 | 1.27 |
+| U2 TG2520SMN TCXO | 4.15 | REQ-SYS-010 relaxed 12x (KDR): restored; RSK-002 (LO error against the 500 Hz filter, register 16) to about 8; REQ-SYS-182 budget 8.9 -> 4.8 kHz (12 -> 4) | leadless 4-pad part: 4 | 8 + 8 - 4 = 12 | 0.35 |
+| U3 diode-ring mixer (four 1N5711W, two BN-43-202, minus one MMBFJ310 and JFET bias parts) | 2.60 | unvalidated JFET mixer 12 -> 8; half-IF response 9 -> 6 | two trifilar windings (owned wire) | 7 | 0.37 |
+| U4 spare GVA-84+ | 3.44 | first power-on rework wait 6 -> 4 | none | 2 | 1.72 |
+| **Total A4 -> A5** | **47.07** | | | **50** | **0.94** |
+
+Not bought, with reason: a spare RA07M1317M (USD 33.25; breaks the worst case; gate add-back AB-A); in-radio charging (section 3.2); Coilcraft SQ inductors for the A4 match (0 stock at Mouser; moot for A5); a larger sink (no listed part found in the envelope; WP-PDR-28 fallback only).
+
+### 8.3 Bill of materials (A5)
+
+All prices retrieved 2026-09-27. Kind L, A, E as defined under the header. OEMsTrade URLs have the form `https://www.oemstrade.com/search/<PART>`. "Re-read today" marks the author's reads for this revision; "INSP-110" marks the reviewer's reads of the same day.
 
 **Mouser (one order).**
 
 | # | Qty | Part number | Function | Package | Unit (qty 1) | Line | Stock | Kind | Source URL | Date |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 1 | NXP AFT05MS004NT1 | PA final | SOT-89 | 4.62 | 4.62 | 72 (Newark 4.21, 1,519; DigiKey 4.15, 0) | A (re-read today) | https://www.oemstrade.com/search/AFT05MS004NT1 | 2026-09-27 |
-| 2 | 1 | Mini-Circuits GVA-84+ | PA driver MMIC | SOT-89 | 2.99 | 2.99 | 2,754 | A | https://www.oemstrade.com/search/GVA-84+ | 2026-09-27 |
-| 3 | 1 | Omron G5V-2-DC5 | T/R relay, DPDT | THT | 3.33 | 3.33 | 2,988 | A | https://www.oemstrade.com/search/G5V-2-DC5 | 2026-09-27 |
-| 4 | 1 | Boyd 530002B02500G | Heat sink 2.6 C/W, 63.5 x 41.9 x 25.4 mm, end wall | THT | 3.39 | 3.39 | 3,693 | A | https://www.oemstrade.com/search/530002B02500G | 2026-09-27 |
-| 5 | 2 | KEMET C1206C220J1GACTU | LPF 22 pF C0G 100 V | 1206 | 0.29 | 0.58 | 3,978 | A | https://www.oemstrade.com/search/C1206C220J1GACTU | 2026-09-27 |
-| 6 | 3 | Coilcraft 1812SMS-68NJLC (2), 1812SMS-82NJLC (1) | LPF inductors | 1812 air core | 1.90 | 5.70 | 784 and 79 (Coilcraft direct 1.01, 2,989) | A | https://www.oemstrade.com/search/1812SMS-68NJLC | 2026-09-27 |
-| 7 | 3 | Fair-Rite 2643000101 | Supply chokes | THT bead | 0.10 | 0.30 | 167,261 | A | https://www.oemstrade.com/search/2643000101 | 2026-09-27 |
-| 8 | 2 | Microchip MCP6002-I/P | Gate buffer; headphone buffers | DIP-8 | 0.44 | 0.88 | 2,155 | A | https://www.oemstrade.com/search/MCP6002-I%2FP | 2026-09-27 |
-| 9 | 1 | Raspberry Pi Pico 2 SC1631 | Controller | Module | 5.00 | 5.00 | 2,078 (PiShop 5.00 in stock, L) | A | https://www.oemstrade.com/search/SC1631 ; https://www.pishop.us/product/raspberry-pi-pico-2/ | 2026-09-27 |
-| 10 | 1 | Adafruit 2045 Si5351A breakout | LO, TX carrier, BFO | Module, header | 7.95 | 7.95 | 242 (Adafruit direct 7.95 in stock, L) | A | https://www.oemstrade.com/search/485-2045 ; https://www.adafruit.com/product/2045 | 2026-09-27 |
-| 11 | 5 | onsemi MMBFJ310LT1G | 2 LNAs, mixer, product detector, spare | SOT-23 | 0.23 | 1.15 | 184,334 | A | https://www.oemstrade.com/search/MMBFJ310LT1G | 2026-09-27 |
-| 12 | 10 | ECS ECS-80-20-4X | 8.000 MHz ladder crystals (match 6) | HC-49/US THT | 0.532 at 10+ (qty-1 price not captured) | 5.32 | 1,990 | A | https://www.oemstrade.com/search/ECS-80-20-4X | 2026-09-27 |
-| 13 | 7 | onsemi 2N3904BU | Post-mix amp, IF x2, VBUS inhibit, RX mute, relay driver, rail-off | TO-92 | 0.28 | 1.96 | 200,083 | A | https://www.oemstrade.com/search/2N3904BU | 2026-09-27 |
-| 14 | 1 | TI NE5532P | Audio preamp and filter | DIP-8 | 0.81 | 0.81 | 9,869 | A | https://www.oemstrade.com/search/NE5532P | 2026-09-27 |
-| 15 | 4 | Diodes 1N5711W-7-F | ALC detector, RX clamps, spare | SOD-123 | 0.24 | 0.96 | 1,839 | A | https://www.oemstrade.com/search/1N5711 | 2026-09-27 |
-| 16 | 1 | Omron B3F-1052 | Menu button | THT | 0.39 | 0.39 | 9,504 | A | https://www.oemstrade.com/search/B3F-1052 | 2026-09-27 |
-| 17 | 2 | Same Sky SJ1-3535NG | Key jack, phones jack (switched) | THT | 1.62 | 3.24 | 12,431 | A | https://www.oemstrade.com/search/SJ1-3535N | 2026-09-27 |
-| 18 | 1 | TE/Linx CONSMA003.062-G | Antenna SMA, edge mount, gold | THT edge | 4.47 | 4.47 | 2,641 | A | https://www.oemstrade.com/search/CONSMA003.062 | 2026-09-27 |
+| 1 | 2 | Mini-Circuits GVA-84+ | PA driver MMIC and spare | SOT-89 | 2.99 | 5.98 | 2,754 | A (INSP-110) | https://www.oemstrade.com/search/GVA-84+ | 2026-09-27 |
+| 2 | 1 | Omron G5V-2-DC5 | T/R relay, DPDT | THT | 3.33 | 3.33 | 2,988 | A (INSP-110) | https://www.oemstrade.com/search/G5V-2-DC5 | 2026-09-27 |
+| 3 | 1 | Boyd 530002B02500G | Heat sink 2.6 C/W, 63.5 x 41.9 x 25.4 mm, end wall | THT | 3.39 | 3.39 | 3,693 | A (re-read today) | https://www.oemstrade.com/search/530002B02500G | 2026-09-27 |
+| 4 | 2 | KEMET C1206C220J1GACTU | LPF 22 pF C0G 100 V | 1206 | 0.29 | 0.58 | 3,978 | A | https://www.oemstrade.com/search/C1206C220J1GACTU | 2026-09-27 |
+| 5 | 4 | Coilcraft 1812SMS-68NJLC (2), 1812SMS-82NJLC (2) | Output LPF (68, 82, 68 nH) and drive LPF (82 nH, value set in LTspice) | 1812 air core | 1.90 | 7.60 | 784 and 79 (Coilcraft direct 1.01, 2,989) | A | https://www.oemstrade.com/search/1812SMS-68NJLC | 2026-09-27 |
+| 6 | 3 | Fair-Rite 2643000101 | Supply chokes | THT bead | 0.10 | 0.30 | 167,261 | A | https://www.oemstrade.com/search/2643000101 | 2026-09-27 |
+| 7 | 2 | Microchip MCP6002-I/P | VGG error amplifier; headphone buffers | DIP-8 | 0.44 | 0.88 | 2,155 | A | https://www.oemstrade.com/search/MCP6002-I%2FP | 2026-09-27 |
+| 8 | 1 | Raspberry Pi Pico 2 SC1631 | Controller | Module | 5.00 | 5.00 | 2,078 (PiShop 5.00 in stock, L) | A (INSP-110) | https://www.oemstrade.com/search/SC1631 ; https://www.pishop.us/product/raspberry-pi-pico-2/ | 2026-09-27 |
+| 9 | 1 | Adafruit 2045 Si5351A breakout | LO, TX carrier, BFO | Module, header | 7.95 | 7.95 | 242 (Adafruit direct 7.95 in stock, L) | A (INSP-110) | https://www.oemstrade.com/search/485-2045 ; https://www.adafruit.com/product/2045 | 2026-09-27 |
+| 10 | 4 | onsemi MMBFJ310LT1G | 2 LNAs, product detector, spare | SOT-23 | 0.23 | 0.92 | 184,334 | A (INSP-110) | https://www.oemstrade.com/search/MMBFJ310LT1G | 2026-09-27 |
+| 11 | 10 | ECS ECS-80-20-4X | 8.000 MHz ladder crystals (match 6) | HC-49/US THT | 0.532 at 10+ (0.61 at 1) | 5.32 | 1,990 | A (INSP-110) | https://www.oemstrade.com/search/ECS-80-20-4X | 2026-09-27 |
+| 12 | 7 | onsemi 2N3904BU | Post-mix amp, IF x2, VBUS inhibit, RX mute, relay driver, rail-off | TO-92 | 0.28 | 1.96 | 200,083 | A | https://www.oemstrade.com/search/2N3904BU | 2026-09-27 |
+| 13 | 1 | TI NE5532P | Audio preamp and filter | DIP-8 | 0.81 | 0.81 | 9,869 | A | https://www.oemstrade.com/search/NE5532P | 2026-09-27 |
+| 14 | 8 | Diodes 1N5711W-7-F | ALC detector, RX clamps (2), diode ring (4), spare | SOD-123 | 0.307 | 2.46 | 3,033 | A (INSP-110) | https://www.oemstrade.com/search/1N5711 | 2026-09-27 |
+| 15 | 2 | Omron B3F-1052 | Menu button, second button | THT | 0.39 | 0.78 | 9,504 | A | https://www.oemstrade.com/search/B3F-1052 | 2026-09-27 |
+| 16 | 2 | Same Sky SJ1-3535NG | Key jack, phones jack (switched) | THT | 1.62 | 3.24 | 12,431 | A | https://www.oemstrade.com/search/SJ1-3535N | 2026-09-27 |
+| 17 | 1 | TE/Linx CONSMA003.062-G | Antenna SMA, edge mount, gold | THT edge | 4.47 | 4.47 | 2,641 | A | https://www.oemstrade.com/search/CONSMA003.062 | 2026-09-27 |
+| 18 | 1 | TE CONSMA001-C-G | 40 dB monitor port SMA (REQ-SYS-141) | THT | 2.80 | 2.80 | 4,598 | A (re-read today) | https://www.oemstrade.com/search/CONSMA001-C-G | 2026-09-27 |
 | 19 | 1 | E-Switch EG1218 | Power switch (drives FET gates) | THT | 0.72 | 0.72 | 7,563 | A | https://www.oemstrade.com/search/EG1218 | 2026-09-27 |
-| 20 | 2 | Keystone 1043P | 18650 holders | THT | 2.95 | 5.90 | 10,041 | A | https://www.oemstrade.com/search/1043P | 2026-09-27 |
-| 21 | 1 | ABLIC S-8252AAO-M6T1U | 2S protector (4.25 V OV, 2.50 V UV, OC) | SOT-23-6 | 1.66 | 1.66 | 3,390 | A | https://www.oemstrade.com/search/S-8252AAO-M6T1U | 2026-09-27 |
-| 22 | 2 | AOS AO3400A | Protector FETs | SOT-23 | 0.09 (DigiKey 0.52, 303,947; row looks mis-captured) | 0.18 | 50,678 | A (re-read today) | https://www.oemstrade.com/search/AO3400A | 2026-09-27 |
-| 23 | 2 | Diodes DMP3099L-7 | Reverse-polarity FET, rail switch | SOT-23 | 0.40 | 0.80 | 275,851 | A | https://www.oemstrade.com/search/DMP3099L-7 | 2026-09-27 |
+| 20 | 2 | Keystone 1043P | 18650 holders | THT | 2.95 | 5.90 | 10,041 | A (INSP-110) | https://www.oemstrade.com/search/1043P | 2026-09-27 |
+| 21 | 1 | ABLIC S-8252AAO-M6T1U | 2S protector (VCU 4.250 V, VDL 2.500 V, VDIOV 0.200 V; datasheet Rev.4.0_00 Table 2) | SOT-23-6 | 1.66 | 1.66 | 3,390 | A (INSP-110) | https://www.oemstrade.com/search/S-8252AAO-M6T1U | 2026-09-27 |
+| 22 | 2 | AOS AO3400A | Protector FETs | SOT-23 | 0.52 | 1.04 | 303,947 | A (INSP-110) | https://www.oemstrade.com/search/AO3400A | 2026-09-27 |
+| 23 | 3 | Diodes DMP3099L-7 | Reverse-polarity FET, rail switch, TX 5 V switch | SOT-23 | 0.40 | 1.20 | 275,851 | A | https://www.oemstrade.com/search/DMP3099L-7 | 2026-09-27 |
 | 24 | 1 | Bourns MF-R300 | Pack PTC | THT | 0.50 | 0.50 | 8,019 | A | https://www.oemstrade.com/search/MF-R300 | 2026-09-27 |
-| 25 | 1 | TI LM2940CT-5.0/NOPB | 5 V bus LDO | TO-220 laid flat | 2.04 | 2.04 | 141 | A | https://www.oemstrade.com/search/LM2940CT-5.0%2FNOPB | 2026-09-27 |
+| 25 | 1 | TI LM2940CT-5.0/NOPB | 5 V bus LDO | TO-220 laid flat | 2.04 | 2.04 | 141 (Newark 2.13, 1,002) | A (INSP-110) | https://www.oemstrade.com/search/LM2940CT-5.0%2FNOPB | 2026-09-27 |
 | 26 | 2 | Semitec 103AT-2 | Cell NTC, sink NTC | THT | 0.58 | 1.16 | 137,636 | A | https://www.oemstrade.com/search/103AT-2 | 2026-09-27 |
 | 27 | 2 | TI LM393P | Backstop and 95 C trip; 10 s cutoff and cell 60 C trip | DIP-8 | 0.53 | 1.06 | 6,247 | A | https://www.oemstrade.com/search/LM393P | 2026-09-27 |
-| 28 | 1 | TI SN74LVC74ADBR | TX prescaler (divide by 4) | SSOP-14, 0.65 mm | 0.34 | 0.34 | 4,292 (DigiKey 0.44, 1,198; Newark SN74LVC74AD SOIC 1.13, 392) | A (read today) | https://www.oemstrade.com/search/SN74LVC74AD | 2026-09-27 |
-| | | | | | **Mouser listed subtotal** | **67.40** | | | | |
-| 29 | 2 | KEMET C1206C390J1GACTU | LPF 39 pF C0G | 1206 | est. 0.29 | est. 0.58 | not read | E: same series as row 5 | - | 2026-09-27 |
-| 30 | about 175 | Resistors, 0805 and 1206 C0G and X7R (about 14 C0G for the NXP match), 8 electrolytics (2 x 220 uF, 2 x 10 uF 50 V), timer and prescaler passives | Passives | 0805 / 1206 / THT | - | est. 12.50 to 18.50 | - | E: about 55 values in 10-piece lots at USD 0.02 to 0.06, electrolytics about 0.25 (min-cost basis plus about 15 parts for the grafts) | - | 2026-09-27 |
-| 31 | - | M3 screws and nuts, counterpoise lug | Hardware | - | - | est. 1.00 to 2.00 | - | E: typical catalog fastener price | - | 2026-09-27 |
-| 32 | 1 | SMA-male solder plug for a quarter-wave wire whip | Antenna | - | - | est. 3.00 to 6.00 | - | E: not in the research; 0 if the owner has a 2 m SMA-male whip | - | 2026-09-27 |
-| 33 | - | AO3400A price correction | - | - | - | est. 0 to 0.86 | - | E: if Mouser's price is 0.52 | - | 2026-09-27 |
+| 28 | 3 | Nexperia 74LVC1G80GV,125 | TX divider, /2 x 3 (fmax 160 MHz min at 3.0 to 3.6 V, -40 to +125 C) | SC-74A (SOT753), 0.95 mm | 0.15 | 0.45 | 12,379 (DigiKey 16,398; Newark 1,812) | A (re-read today) | https://www.oemstrade.com/search/74LVC1G80GV ; datasheet https://assets.nexperia.com/documents/data-sheet/74LVC1G80.pdf (Rev. 17) | 2026-09-27 |
+| 29 | 1 | Epson TG2520SMN 25.000M-MCGNNM3 | TCXO, +/-0.5 ppm, -40 to 85 C, 2.8 to 3.3 V | 2.5 x 2.0 mm leadless, 4 pads | 3.61 | 3.61 | 1,810 | A (re-read today) | https://www.oemstrade.com/search/TG2520SMN | 2026-09-27 |
+| 30 | 2 | Fair-Rite 2843000202 | Diode-ring transformer cores (BN-43-202) | Multi-aperture core | 0.88 | 1.76 | 47,515 | A (re-read today) | https://www.oemstrade.com/search/2843000202 | 2026-09-27 |
+| 31 | 1 | Wakefield-Vette 120-SA | Thermal joint compound, 4 g | Packet | 5.44 | 5.44 | 1,532 | A (re-read today) | https://www.oemstrade.com/search/120-SA | 2026-09-27 |
+| | | | | | **Mouser listed subtotal** | **84.31** | | | | |
+| E1 | 2 | KEMET C1206C390J1GACTU | LPF 39 pF C0G | 1206 | est. 0.29 | est. 0.58 | not read | E: same series as row 4 | - | 2026-09-27 |
+| E2 | about 22 values | Surface-mount 0805 and 1206 C0G and X7R capacitors and 0805 resistors in the RF, drive, pad, ladder and BPF sections; through-hole values missing from the owner's assortment | Passives | 0805 / 1206 / THT | - | est. 5.00 to 14.00 | - | E: KEMET C0805C101J5GACTU at Mouser USD 0.12 at 1 and 0.049 at 10, 503,544 in stock (A, read today), about 22 values at USD 0.23 to 0.50 per value (5.00 to 11.00), plus USD 0 to 3.00 for assortment gaps | https://www.oemstrade.com/search/C0805C101J5GACTU | 2026-09-27 |
+| E3 | - | M3 and M2.5 screws, nuts, metal standoffs, counterpoise lug | Hardware | - | - | est. 1.00 to 2.50 | - | E: typical catalog fastener prices | - | 2026-09-27 |
+| E4 | 2 | Knobs for the owner's potentiometers | Controls | - | - | est. 0 to 4.00 | - | E: 0 if the owner's pots have knobs | - | 2026-09-27 |
 
-Mouser merchandise: USD 84.48 (low estimates) to 95.34 (high).
+Mouser merchandise: USD 90.89 (low estimates) to 105.39 (high).
 
 **Other sellers.**
 
 | Qty | Item | Seller | Unit (qty 1) | Line | Stock | Kind | URL | Date |
 |---|---|---|---|---|---|---|---|---|
-| 2 | Molicel P28A 18650, 2.8 Ah (2.6 Ah min), unprotected flat top | 18650BatteryStore | 5.99 (sale; regular 6.99) | 11.98 | In stock | L (read today) | https://www.18650batterystore.com/products/molicel-p28a | 2026-09-27 |
-| 1 | XTAR MC1 one-bay USB Li-ion charger, 0.5 A | 18650BatteryStore | 4.99 (sale; regular 9.99) | 4.99 | In stock | L (read today) | https://www.18650batterystore.com/products/xtar-mc1 | 2026-09-27 |
-| 1 | Remington Industries 20SNSP.125, 20 AWG magnet wire, 2 oz, 40 ft (BPF and PA-match coils) | Remington Industries | 13.19 (free US shipping) | 13.19 | "Current stock" | L (PA research) | https://www.remingtonindustries.com/magnet-wire/magnet-wire-20-awg-enameled-copper-9-spool-sizes/ | 2026-09-27 |
-| 2 designs x 5 | Main board 64 x 100 mm and PA board about 40 x 35 mm, 2-layer, 1.6 mm, HASL | JLCPCB | "From $2.00 / 5 pcs" each | 4.00 | Made to order | L (listed floor; owner to verify in the quote tool) | https://jlcpcb.com/ | 2026-09-27 |
-| 2 | Potentiometers (tuning fine window, volume), read by the ADC | Owner's stock | - | 0 | Owned | - | - | 2026-09-27 |
+| 1 | Mitsubishi RA07M1317M-501 RF power module, 135 to 175 MHz, 6.5 W, 7.2 V (H46S flange, 30 x 10 x 5.4 mm) | RF Parts | 28.91 (27.46 each at 10) | 28.91 | "In Stock", "New"; no end-of-life note; USD 15 minimum order | L (read today); Mitsubishi Electric US "Active" (read today) | https://www.rfparts.com/ra07m1317m.html ; https://meus-semiconductors.com/products/high-frequency-devices/ra07m1317m | 2026-09-27 |
+| 2 | Molicel P28A 18650, 2.8 Ah (2.6 Ah min), unprotected flat top | 18650BatteryStore | 5.99 (sale; regular 6.99) | 11.98 | In stock | L (INSP-110) | https://www.18650batterystore.com/products/molicel-p28a | 2026-09-27 |
+| 1 | XTAR MC1 one-bay USB Li-ion charger, 0.5 A | 18650BatteryStore | 4.99 (sale; regular 9.99) | 4.99 | In stock (the two-bay XTAR MC2 at 6.99 is "Sold out", read today) | L (INSP-110) | https://www.18650batterystore.com/products/xtar-mc1 | 2026-09-27 |
+| 2 designs x 5 | Main board 64 x 100 mm, 1.6 mm, and RF board about 40 x 35 mm, 2-layer, HASL | JLCPCB | "From $2.00 / 5 pcs" each | 4.00 | Made to order | L (listed floor; owner to verify in the quote tool) | https://jlcpcb.com/ | 2026-09-27 |
+| - | 24 AWG magnet wire (BPF coils, ring transformers); 2 m antenna with SMA-male plug; through-hole resistors and capacitors; USB power adapter; two potentiometers; perfboard; filament; headphones; key or paddle | Owner's stock | - | 0 | Owned | Owner, status note section 10 | - | 2026-09-27 |
 
 **Shipping, duty and tariff.**
 
-| Line | Low | High | Kind and basis |
+| Line | Low | High (worst) | Kind and basis |
 |---|---|---|---|
-| Mouser standard shipping | 5.00 | 8.00 | E; 0 if the merchandise total reaches the free-shipping threshold (USD 100 per a search summary, Low; owner to verify) |
+| Mouser standard shipping | 5.00 | 8.00 | E; 0 if the merchandise reaches the free-shipping threshold (USD 100 per a search summary, Low; owner to verify) |
+| RF Parts shipping | 10.00 | 18.00 | E; calculated by weight and zone, USD 2.75 UPS residential surcharge (search summary of the RF Parts shipping page) |
 | 18650BatteryStore, USPS Ground Advantage | 5.00 | 8.00 | E; "from 5.00" (power research) |
 | JLCPCB to the US | 12.00 | 25.00 | E; forum report of 2026-03-19 (about USD 12, Global Standard Direct Line); fabrication research USD 15 to 25 for DDP express |
-| US duty on the boards, collected by JLCPCB | 1.40 | 2.40 | 35 % (JLCPCB tariff FAQ, listed) to 60 % (Hack Club cost guide) of USD 4.00 |
-| Mouser tariff pass-through on China-origin parts | 4.00 | 12.00 | E; USD 20 to 30 China-origin share at 20 to 40 % |
+| US duty on the boards, collected by JLCPCB | 1.40 (planning 2.55) | 26.83 | JLCPCB US tariff FAQ "About 35%~92.5%" (L), base not published: low and planning on the USD 4.00 board value (35 % and the 35 to 92.5 % midpoint), worst at 92.5 % of boards plus the high shipping (USD 29.00) |
+| Mouser tariff pass-through on China-origin parts | 4.00 (planning 8.00) | 15.00 | E; USD 20 to 30 China-origin share at 20 to 40 %; worst at 50 % of USD 30 (Section 301 rate on HTS 8541 and 8542 per a search summary of Mouser's tariff page) |
+| Sales tax | 0 | 0 | Excluded by the owner (status note section 10) |
 
 ### 8.4 Cost roll-up, ordering gate, guards and add-backs
 
-| Line | Low | Planning (midpoints) | High |
+**A5 (recommended).**
+
+| Line | Low | Planning (midpoints) | Worst |
 |---|---|---|---|
-| Listed parts (Mouser 67.40 + cells 11.98 + charger 4.99 + wire 13.19 + boards 4.00) | 101.56 | 101.56 | 101.56 |
-| Estimated parts (rows 29 to 33) | 17.08 | 22.51 | 27.94 |
-| Shipping (Mouser, 18650BatteryStore, JLCPCB) | 22.00 | 31.50 | 41.00 |
-| Board duty | 1.40 | 1.90 | 2.40 |
-| Mouser tariff pass-through | 4.00 | 8.00 | 12.00 |
-| **Subtotal** | **146.04** | **165.47** | **184.90** |
-| Contingency 15 % | 21.91 | 24.82 | 27.74 |
-| **Total, all in, capped** | **167.95** | **190.29** | **212.64** |
-| Margin to USD 200 | 32.05 | 9.71 | -12.64 |
+| Listed parts (Mouser 84.31 + RA07M1317M 28.91 + cells 11.98 + charger 4.99 + boards 4.00) | 134.19 | 134.19 | 134.19 |
+| Estimated parts (rows E1 to E4) | 6.58 | 13.83 | 21.08 |
+| Shipping (Mouser, RF Parts, 18650BatteryStore, JLCPCB) | 32.00 | 45.50 | 59.00 |
+| Board duty | 1.40 | 2.55 | 26.83 |
+| Mouser tariff pass-through | 4.00 | 8.00 | 15.00 |
+| **Subtotal** | **178.17** | **204.07** | **256.10** |
+| Contingency 15 % | 26.72 | 30.61 | 38.41 |
+| **Total, sales tax excluded, capped** | **204.89** | **234.68** | **294.51** |
+| Against the USD 200 target | +4.89 | +34.68 | +94.51 |
+| Margin to the USD 300 maximum | 95.11 | 65.32 | **5.49** |
 
-**Ordering gate (before anything is ordered).** The owner reads in a browser, without checking out: (1) the Mouser cart with every row of section 8.3: merchandise total, the shipping charge and any tariff line; (2) the JLCPCB quote for the two designs with the cheapest US shipping that prepays duty; (3) the 18650BatteryStore cart (cells and MC1) shipping. Claude then recomputes the total with the verified numbers and 15 % contingency on the remaining estimates.
+**A4 (revision 2), for comparison.** Listed parts 104.76 (Mouser 83.79 with two AFT05MS004NT1, one GVA-84+, five MMBFJ310, four 1N5711W and two DMP3099L; cells, charger, boards); estimated parts 8.58 / 16.33 / 24.08 (the NXP match adds about eight C0G values); shipping 22.00 / 31.50 / 41.00; duty 1.40 / 2.55 / 26.83; tariff 4.00 / 8.00 / 15.00. Subtotal 140.74 / 163.14 / 211.67; capped **161.85 / 187.61 / 243.42**. Add-back AB2 (TCXO) for A4: +4.15.
 
-**Guards, applied in order if the recomputed total is USD 200 or more** (capped values):
-- **G1** owner's own copper wire of 18 to 24 AWG (enamelled, bare or stripped solid hookup wire) replaces the magnet wire: -15.17. The high case becomes 197.47.
-- **G2** free Mouser shipping: if the verified merchandise is within the shipping charge of the threshold, add the add-backs below until it crosses (they then cost about what the shipping would have): up to -9.20.
-- **G3** owner's 2 m SMA-male whip or owner's resistor and capacitor assortment: -3.45 to -6.90 (antenna plug) and -14.38 to -21.28 (passives).
-- **G4** owner's Li-ion charger: -5.74.
-- **G5** only if the JLCPCB checkout offers LCSC parts in the same parcel: XR XRMW0505-4.5TBRG slug-tuned BPF coils (LCSC C51913014, USD 0.066 each, 1,550 in stock, L via the B1 architect) replace the wound BPF, and the PA match coils are wound from any owned wire, so the magnet wire is not bought.
-- **G6 (not recommended)** hand-wind the LPF instead of the Coilcraft parts: -6.55, with the REQ-TX-011 risk back.
-- If the total is still over USD 200 after G1 to G5, the owner decides between G6 and a cap exception; nothing is ordered until then.
+**Ordering gate (before anything is ordered).** The owner reads in a browser, without checking out: (1) the Mouser cart with every row of section 8.3: merchandise total, the shipping charge and any tariff line; (2) the RF Parts cart for one RA07M1317M-501: stock and shipping to his address; (3) the JLCPCB quote for the two designs with the cheapest US shipping that prepays duty, the duty shown, and whether the duty is charged on the boards or on the whole order; (4) the 18650BatteryStore cart (cells and MC1) shipping. Claude then recomputes the planning and worst totals with the verified numbers and 15 % contingency on the remaining estimates. The order proceeds only if the recomputed worst case is at or below USD 300; the recomputed planning figure is reported against the USD 200 target.
 
-**Add-backs, in order, if the verified total leaves room** (capped values):
-- **AB1** 40 dB monitor port: a second SMA (TE/Linx CONSMA001-C-G, USD 2.80, A) on the tap footprint already on the board: +3.45. Keeps REQ-SYS-141 and removes the need for a 10 W 30 dB pad for tinySA work.
-- **AB2** TCXO: Epson TG2520SMN 25.000M-MCGNNM3, USD 3.61 at Mouser (A, 1,810 in stock, +/-0.5 ppm, 3.3 V): +4.15. Needs rework of the Adafruit module (crystal removed, TCXO AC-coupled into XA) and is leadless 2.5 x 2.0 mm (flagged, EX-7). Restores REQ-SYS-010 and the 1.2 kHz guard.
-- **AB3** spare AFT05MS004NT1: +5.31.
+**Guards, applied in order if the recomputed worst case exceeds USD 300** (capped values):
+- **G1** free Mouser shipping: if the verified merchandise is within the shipping charge of the threshold, add gate add-back AB-B or spares until it crosses: up to -9.20.
+- **G2** owner's knobs and hardware (rows E3, E4): up to -7.48.
+- **G3** fold the RF board into a 70 x 100 mm main board (one JLCPCB design, case 6 mm wider): -2.30 plus the duty on one board.
+- **G4** drop the spare GVA-84+: -3.44.
+- **G5** drop the TCXO (REQ-SYS-010 relaxed to 30 ppm and the guard widened, as in A4): -4.15.
+- **G6 (last resort)** revert the PA to A4's AFT05 (with its spare): -36.88, with the A4 Reds and deltas back.
+- If the worst case is still over USD 300 after G1 to G5, the owner decides between G6 and not ordering; nothing is ordered until then.
 
-### 8.5 Envelope and mass (estimates)
+**Add-backs, in order, if the verified worst case leaves room** (capped values):
+- **AB-A** spare RA07M1317M-501: +33.25. Only if the recomputed worst case with it stays at or below USD 300.
+- **AB-B** two-bay XTAR MC2 in place of the MC1 when back in stock: +2.30 net (sold out today).
 
-- **Plan.** Width: 64 mm board + 2 mm clearance + two 2 mm walls = 70 mm. Length: 25.4 mm sink with fins outside, 13 mm PA-board zone, 100 mm board, 2 mm clearance, 2 mm wall = about 142 mm; the edge SMA adds about 7 mm at the far end face, where the key and phones jacks and the Pico 2 micro-USB also sit.
-- **Height.** 2 mm wall, about 21 mm of cells in holders, 1 mm gap, 1.6 mm board, at most 12 mm of parts (G5V-2 about 11.5 mm; Si5351 module on its header about 9 mm; electrolytics 7 mm or less), 1 mm gap, 2 mm wall: about 40.6 mm. The sink end wall is 41.9 mm tall (Farnell and Newark listings), so the case is **about 42 mm**; filing the sink to 40 mm removes the height delta.
-- **Envelope: about 142 x 70 x 42 mm (149 mm long with the SMA)** against REQ-SYS-103 (140 x 70 x 40 mm, TBR): +2 mm length, +2 mm height, +6.5 % volume (+11.7 % with the SMA protrusion).
-- **Board area.** About 58 cm2 of the 64 cm2 top side used in A1, plus about 3 cm2 for the grafts (G5V-2 larger than G5V-1, a DIP-8, an SSOP-14): about 61 cm2 of 64 cm2, tight. Fallback: a 70 x 100 mm board (still within the JLCPCB 100 x 100 mm price), case 76 mm wide.
-- **Mass: about 277 to 347 g** against REQ-SYS-102 (350 g, TBR): cells 92 to 96 g; holders 12 to 16 g; boards 23 g; components and wiring 62 to 77 g; Boyd sink 30 to 60 g (not read; owner to verify on the drawing); PETG shell with 2 mm walls 55 to 70 g; screws 3 to 5 g. Inside the limit, with 3 g of margin at the high end.
+### 8.5 Envelope and mass (estimates, A5)
 
-### 8.6 Surface-mount parts used (no BGA, no leadless part, no pitch under 0.65 mm, no hidden thermal pad)
+- **Plan.** Width: 64 mm board + 2 mm clearance + two 2 mm walls = 70 mm. Length: finger guard 5 mm (2 mm slotted grille, 3 mm clear of the fin tips), 25.4 mm sink with fins outside, 13 mm module and RF-board zone, 100 mm main board, 2 mm clearance, 2 mm wall = about 148 mm; the edge SMA adds about 7 mm at the far end face, where the key and phones jacks, the monitor SMA and the Pico 2 micro-USB also sit.
+- **Height.** 2 mm wall, about 21 mm of cells in holders, 1 mm gap, 1.6 mm board, at most 12 mm of parts (G5V-2 about 11.5 mm; Si5351 module on its header about 9 mm), 1 mm gap, 2 mm wall: about 40.6 mm. The sink end wall is 41.9 mm tall, so the case is **about 42 mm**.
+- **Envelope: about 148 x 70 x 42 mm (155 mm long with the SMA)** against REQ-SYS-103 (140 x 70 x 40 mm, TBR): +8 mm length, +2 mm height, +11.0 % volume (+16.3 % with the SMA protrusion).
+- **Board area.** Main board: about 58 cm2 of receiver, audio, control and power blocks plus about 3 cm2 of grafts (second LM393, dividers, second button) on 64 cm2: tight. The RF board carries the transmit chain. Fallback: a 70 x 100 mm main board (still within the JLCPCB 100 x 100 mm price), case 76 mm wide.
+- **Mass: about 283 to 356 g** against REQ-SYS-102 (350 g, TBR): cells 92 to 96 g; holders 12 to 16 g; boards 23 g; components and wiring 62 to 77 g (the module, about 5 g, replaces the AFT05 and its match parts); Boyd sink 30 to 60 g (not read; owner to verify on the drawing); PETG shell with 2 mm walls 55 to 70 g; finger guard 5 to 8 g; screws and standoffs 4 to 6 g. Up to 6 g over at the high end, which rests on a 60 g sink.
 
-| Part | Package | Why SMD | Flag |
+### 8.6 Surface-mount and flagged parts (A5)
+
+| Part | Package | Why SMD (evidence) | Flag |
 |---|---|---|---|
-| AFT05MS004NT1 | SOT-89 | Only in-stock listed-price VHF 4 to 6 W device with a vendor 136 to 174 MHz reference circuit | Source tab visible; owner confirms on the drawing |
-| GVA-84+ | SOT-89 | 50 ohm MMIC driver; no through-hole equivalent in stock | none |
-| MMBFJ310LT1G x4 used | SOT-23 | TO-92 J310 out of stock | none |
-| 1N5711W-7-F x3 used | SOD-123 | Mouser stocks the 1N5711 only in SMD in the rows read | none |
+| RA07M1317M | H46S flange module with leads | Only listed 5 W-class 2 m PA with guaranteed harmonic and stability limits; "designed for manual soldering"; screwed to the sink before its leads are soldered | none (module) |
+| GVA-84+ (x2) | SOT-89 | 50 ohm MMIC driver; no through-hole equivalent found in stock | none |
+| MMBFJ310LT1G (x4) | SOT-23 | The TO-92 J310 is listed (InterFET at Mouser USD 5.83, 381), so the SOT-23 choice is on cost: 4 x 0.23 against 4 x 5.83 | none |
+| 1N5711W-7-F (x8) | SOD-123 | A DO-35 1N5711 is listed at Future Electronics (USD 0.295, 527; INSP-110); SOD-123 keeps the single Mouser order and the short leads the ring and detector need at 146 MHz | none |
 | S-8252AAO-M6T1U | SOT-23-6 | No through-hole 2S protector exists | none |
-| AO3400A x2, DMP3099L-7 x2 | SOT-23 | Through-hole protector FETs out of stock | none |
-| SN74LVC74ADBR | SSOP-14, 0.65 mm | Needs to toggle at 148 MHz | At the 0.65 mm limit of the owner's list; drag-solder with flux |
-| Coilcraft 1812SMS x3 | 1812 air-core with solder ends | Catalog LPF coil, high self-resonance | none |
-| C0G and resistors in the RF sections, decoupling | 1206 / 0805 | Lead inductance at VHF; the NXP match uses 0603 ATC, substituted by 0805 | none |
+| AO3400A (x2) | SOT-23 | Its datasheet RDS(on) (18 typical and 26.5 mohm maximum at VGS 10 V; 28 and 38 mohm at 125 C; Rev 3.1) with the S-8252AAO's 0.200 V +/-10 mV VDIOV sets the REQ-SYS-085 trip at 2.97 to 7.0 A (section 8.10). A through-hole N-FET with a matching datasheet was not searched | none |
+| DMP3099L-7 (x3) | SOT-23 | Logic-level P-FETs for the gate-driven switch; a through-hole alternative was not searched | none |
+| 74LVC1G80GV (x3) | SC-74A (SOT753), 0.95 mm pitch | Needs to toggle at 148 MHz with a guaranteed rating; no through-hole logic family is rated there | none |
+| TG2520SMN | 2.5 x 2.0 mm leadless, 4 pads under the body, no thermal pad | No through-hole TCXO at +/-1 ppm with a catalog listing was found (PIC-5 and B1 architects, revision-1 research) | **Flagged (EX-7): heat gun and flux; pads under the body** |
+| Coilcraft 1812SMS (x4) | 1812 air-core with solder ends | Catalog LPF coil, high self-resonance | none |
+| C0G and resistors in the RF sections, decoupling | 1206 / 0805 | Lead inductance at VHF; the owner owns through-hole values only, so these are bought | none |
 | Pico 2 (castellated, soldered flat), Adafruit 2045 (header) | Modules | Read as through-hole compatible (owner to confirm) | none |
 
-Through-hole: relay, jacks, switch, button, holders, crystals, TO-92 transistors, DIP op-amps and comparators, LDO, PTC, NTCs, beads, electrolytics, heat sink.
+Through-hole: relay, jacks, switch, buttons, holders, crystals, TO-92 transistors, DIP op-amps and comparators, LDO, PTC, NTCs, beads, electrolytics, heat sink, ferrite cores. Lifecycle: the PA module ("Active"), TCXO, divider (datasheet November 2024) and the parts INSP-110 re-read were checked; the owner reads the Mouser lifecycle flag of every row at the gate (section 8.11 item 1).
 
 ### 8.7 Morse-code audio user interface (owner direction 8)
 
-**Controls.** One push button (B3F-1052), two owner potentiometers on ADC inputs (pot 1: fine tuning window of +/-5 kHz around the entered centre, about 10 to 20 Hz resolution with hysteresis; pot 2: volume), the key or paddle on the key jack, and the power switch. The Pico 2 on-board LED, behind a light pipe, shows transmit and blinks fault codes.
+**Controls.** Two push buttons (B3F-1052: MENU and ALT), two owner potentiometers on ADC inputs (pot 1: fine tuning window of +/-5 kHz around the entered centre, about 10 to 20 Hz resolution with hysteresis; pot 2: volume), the key or paddle on the key jack, and the power switch. The Pico 2 on-board LED, behind a light pipe, shows transmit and blinks fault codes.
 
 **Sequence (the owner's words, implemented).**
-1. A short press of the button enters the menu. Transmit is disarmed: the key line goes to the decoder, and only the sidetone path sounds.
+1. A short press of MENU enters the menu. Transmit is disarmed: the key line goes to the decoder, and only the sidetone path sounds.
 2. The radio sends the menu letters in Morse through the sidetone path, at the keyer speed, with the tone level held under the headphone ceiling (REQ-SYS-071).
 3. The operator sends one letter on the key or paddle to pick an item, for example: F frequency, P power step, S keyer speed, K key mode (straight, iambic A, iambic B), T tone pitch, C call sign, B battery and status read-out, X exit.
 4. For a number, the operator sends digits (for F: kHz within the band, for example 144050); the paddle can also step a value (dit down, dah up) with a step size set in the menu.
@@ -513,61 +577,63 @@ Through-hole: relay, jacks, switch, button, holders, crystals, TO-92 transistors
 **Rules.**
 - Two menu levels at most from menu entry (REQ-SYS-062).
 - The 5 W step needs the read-back and an R (REQ-SYS-063); a first entry after power-on starts at a lower step.
-- A long press outside the menu sends the status in Morse (frequency, power step, key mode, speed, battery), replacing the status display (REQ-SYS-060).
+- A long press of MENU outside the menu sends the status in Morse (frequency, power step, key mode, speed, battery), replacing the status display (REQ-SYS-060).
+- **Key-mode selection without the key (REQ-SYS-163, finding-7):** holding ALT for 2 s steps the key mode (straight, iambic A, iambic B) and the radio announces the new mode in Morse; this path uses the buttons only, so it works while any key input reads closed.
+- **Guest lock (REQ-SYS-066, finding-7):** MENU and ALT held together for 3 s, then an R on a third press of MENU, sets or releases the guest lock.
 - The call sign is sent at power-on and when the headphones are plugged in (REQ-SYS-006).
 - Faults are announced in Morse within 1 s through the headphones and shown by an LED blink code without them (REQ-SYS-067, 077).
 - Low battery, the identification reminder and the separation reminder are announced (REQ-SYS-068, 069, 096).
 - The menu override command path stays safety-critical (SRR decision 9); the menu never clears a hardware clamp.
 - Straight-key decoding is adaptive (the highest firmware risk); paddle decoding is exact; if the straight-key decoder proves unreliable, menu entry is paddle-only.
 
-**Firmware scope added (WP-PDR-35, 41):** Morse sender on the PWM tone path, adaptive decoder, menu state machine with R/N confirmation and time-out, number entry and read-back, pot reading with hysteresis, status and fault announcements, LED codes, PIO frequency counter, gate envelope and ALC loop, AGC control voltage, Si5351 I2C driver. Removed: display driver and encoder drivers. The audio stays analog, so no ADC audio path or DSP is added.
+**Firmware scope added (WP-PDR-35, 41):** Morse sender on the PWM tone path, adaptive decoder, menu state machine with R/N confirmation and time-out, number entry and read-back, pot reading with hysteresis, status and fault announcements, LED codes, PWM edge counter for REQ-SYS-182, envelope reference ramp and ALC set point, transmit sequencing (relay, GVA bias, CLK1, ramp), TX clock plan (125 MHz, CLK0 and CLK2 off), AGC control voltage, Si5351 I2C driver with the TCXO reference. Removed: display driver and encoder drivers. The audio stays analog, so no ADC audio path or DSP is added.
 
 **Hazard notes.** HZ-004 (stuck transmission): transmit is disarmed in the menu and the hardware cutoffs stay independent. HZ-005 (hearing): every menu tone passes through the same capped path as the sidetone.
 
-### 8.8 Descopes
+### 8.8 Descopes (A5)
 
 | # | Descope | What it costs |
 |---|---|---|
 | D1 | No display; Morse-only audio UI | No UI without headphones except the LED; straight-key menu entry needs the adaptive decoder |
 | D2 | No in-radio charging; cells charged one at a time in an XTAR MC1 | Loses SI-022 and CON-010 USB charging; about 6 h per cell at 0.5 A; cells handled at each charge; HZ-002 re-scoped to the COTS charger |
-| D3 | No TCXO in the first build (add-back AB2) | 30 ppm after calibration (TBR); carrier guard widened to 5.3 kHz |
+| D3 | (withdrawn in revision 2: the TCXO is fitted) | - |
 | D4 | No conductive coating or case lining | REQ-SYS-177 (Goal) deferred; board fences and ground pour only |
 | D5 | No tuning encoder | Tuning by Morse direct entry, pot fine window and paddle steps |
 | D6 | No volume encoder | Owner pot, quantized by firmware; pot rated -10 C, zero margin to REQ-SYS-114 |
-| D7 | One button | Status by long press, escape by time-out or X |
+| D7 | Two buttons (revision 1: one) | Status by long press, escape by time-out or X |
 | D8 | Gold-plated brass-class SMA instead of stainless | About 100 mating cycles against 500 |
 | D9 | Non-RF-rated relay (G5V-2) | Isolation verified on the NanoVNA; semi break-in only |
-| D10 | JFET mixer instead of a diode ring | Lower IIP3 (Low); diode ring is the fallback |
-| D11 | Monitor port not populated (add-back AB1) | tinySA work needs an external 10 W 30 dB pad until AB1 |
-| D12 | No spare PA device (add-back AB3) | A blown AFT05 costs about USD 12.60 to reorder |
+| D10 | (withdrawn in revision 2: the diode ring replaces the JFET mixer) | - |
+| D11 | (withdrawn in revision 2: the monitor port is in the baseline) | - |
+| D12 | No spare PA module (gate add-back AB-A); spare driver bought | A blown module costs about USD 33 to 47 to reorder with shipping |
 | D13 | No 3.3 V analog LDO; op-amps on the 5 V bus | Headphone ceiling set by a 2.5 V peak rail; attenuator k about 0.06 (TBR) |
-| D14 | In-radio charge protection layers removed (TLV431, LM393 window, MCP3202, HY2213 balancers) | Their requirements move to the COTS charger and the handbook; the S-8252 keeps 4.25 V OV and 2.50 V UV in the pack |
-| D15 | 70 cm | Si5351A limit 200 MHz; the AFT05 covers 136 to 941 MHz |
-| D16 | Pocket envelope traded slightly | +2 mm length (+9 mm with the SMA), +2 mm height |
-| D17 | No metal case, heat-set inserts or PCBWay CNC fallback within the cap | Printed bosses with captive M3 nuts; a CNC case would need its own cap decision |
+| D14 | In-radio charge protection layers removed (TLV431, LM393 window, MCP3202, HY2213 balancers) | Their requirements move to the COTS charger and the handbook; the S-8252 keeps 4.250 V OV and 2.500 V UV in the pack |
+| D15 | 70 cm | Si5351A limit 200 MHz; the module is 135 to 175 MHz |
+| D16 | Pocket envelope traded | +8 mm length (+15 mm with the SMA), +2 mm height; fins behind a guard |
+| D17 | No metal case, heat-set inserts or PCBWay CNC fallback within the cap | Printed parts with captive M3 nuts, none in contact with the sink; a CNC case would need its own cost decision |
 
-### 8.9 Exceptions the owner must approve
+### 8.9 Exceptions the owner must approve (A5)
 
 | Id | Exception | Why | Cheapest way through |
 |---|---|---|---|
-| EX-1 | Surface-mount parts: SOT-89 (AFT05MS004NT1, GVA-84+), SOT-23 (MMBFJ310 x4, AO3400A x2, DMP3099L x2), SOT-23-6 (S-8252AAO), SOD-123 (1N5711W), SSOP-14 0.65 mm (SN74LVC74ADBR), 1812 (Coilcraft), 0805 and 1206 passives | No through-hole equivalent in stock at 144 MHz (section 7.3) | All on the section 8 hand-solder list; none has a hidden pad (owner confirms the SOT-89 tab) |
-| EX-2 | Modules counted as through-hole compatible: Pico 2 soldered flat by its castellations; Adafruit 2045 on its header | Status note section 6 reading (to confirm) | Confirm |
-| EX-3 | PA device is the NXP AFT05MS004NT1 run at 5 W against its nominal 4 W rating, on the vendor 6 W reference circuit, with 0805 parts and wound coils | Removes the RF Parts order (about USD 45 capped for the RA07M1317M with shipping) | LTspice, NanoVNA and tinySA work before first on-air use; fallback RA07M1317M (about +USD 45) |
-| EX-4 | Charging outside the radio in an XTAR MC1 (USD 4.99), inside the cap; SI-022 and CON-010 charging given up | Removes the LCSC-only CN3302 and HY2213 and the Catastrophic charger chain | USD 0 if the owner has any Li-ion charger |
-| EX-5 | TCXO not fitted (REQ-SYS-010 relaxed to 30 ppm, TBR) | Cost | Add-back AB2 |
-| EX-6 | JFET mixers instead of the researched diode ring (not research-validated) | Cost and LO loading | LTspice before the RX freeze; diode ring fallback |
-| EX-7 | Add-back AB2 only: Epson TG2520SMN is leadless 2.5 x 2.0 mm, 4 pads under the body (no thermal pad), heat-gun soldered, plus module rework | No through-hole TCXO at +/-1 ppm with a catalog listing | Decide only if AB2 is funded |
-| EX-8 | Owner-supplied items: two potentiometers; a USB power adapter for the MC1; headphones; key or paddle; optionally wire, whip and passives (guards G1, G3) | Owner stock | Confirm values (5 k to 100 k, any taper) and shafts |
-| EX-9 | Antenna: a DIY quarter-wave wire whip on an SMA-male plug (estimate USD 3 to 6), not the REQ-SYS-172 reference antennas | Cost | USD 0 with an owned 2 m SMA-male whip |
-| EX-10 | Cap margin: USD 9.71 at planning; the high case needs guard G1 or verified shipping | Unread lines | Ordering gate, section 8.4 |
-| EX-11 | Envelope about 142 x 70 x 42 mm (149 with the SMA) | Sink end wall 41.9 x 25.4 mm | Size is negotiable (status note section 8 item 2) |
-| EX-12 | Price evidence: every Mouser price via the aggregator; AO3400A row suspect | Mouser blocks automated reads | Owner price-check list, section 8.11 |
-| EX-13 | Instruments outside the cap (to confirm): tinySA Ultra (committed), NanoVNA, dummy load (SI-013), a 10 W 30 dB pad (est. USD 15 to 25) unless AB1, a thermocouple (USD 9.95) | Status note section 6 reading | Confirm |
+| EX-1 | Surface-mount parts: SOT-89 (GVA-84+ x2), SOT-23 (MMBFJ310 x4, AO3400A x2, DMP3099L x3), SOT-23-6 (S-8252AAO), SC-74A (74LVC1G80GV x3), SOD-123 (1N5711W x8), 1812 (Coilcraft), 0805 and 1206 passives (bought: the owner owns through-hole values only) | Section 8.6 gives each reason with its evidence | All on the section 2 hand-solder list; none has a hidden pad |
+| EX-2 | Modules counted as through-hole compatible: Pico 2 soldered flat by its castellations; Adafruit 2045 on its header; RA07M1317M flange module | Status note section 6 reading (to confirm) | Confirm |
+| EX-3 | PA device is the Mitsubishi RA07M1317M-501 from RF Parts, a catalog seller outside SI-028 and REQ-SYS-140 (DigiKey, Mouser or PCBWay) | Only listed module with guaranteed harmonics and no hand match; Mitsubishi lists no Mouser stock | The REQ-SYS-140 delta names RF Parts; fallback G6 (AFT05) |
+| EX-4 | Charging outside the radio in an XTAR MC1 (USD 4.99), inside the cap; SI-022 and CON-010 charging given up | Section 3.2 in-radio charging re-check | USD 0 if the owner has a Li-ion charger (Q2) |
+| EX-5 | (withdrawn: the TCXO is fitted; REQ-SYS-010 kept) | - | - |
+| EX-6 | (withdrawn: the diode ring is the research-validated mixer) | - | - |
+| EX-7 | Epson TG2520SMN: leadless 2.5 x 2.0 mm, 4 pads under the body (no thermal pad), heat-gun soldered, plus rework of the Adafruit module (crystal removed, TCXO into XA through 10 nF) | No through-hole TCXO at +/-1 ppm with a catalog listing | Guard G5 removes it and relaxes REQ-SYS-010 |
+| EX-8 | Owner-supplied items: two potentiometers (values 5 k to 100 k, any taper; knobs), 24 AWG magnet wire, 2 m antenna with SMA-male plug, through-hole resistor and capacitor assortment, USB power adapter for the MC1, headphones, key or paddle | Owner stock (section 10) | Confirm values against the BOM at the gate |
+| EX-9 | Antenna: the owner's 2 m antenna, not the REQ-SYS-172 reference antennas | Owned | Confirm it is a 2 m antenna with an SMA-male plug that mates with the radio's SMA female |
+| EX-10 | Cost: planning USD 34.68 above the target; worst-case margin USD 5.49 to the maximum | Section 8.4 | Ordering gate and guard ladder |
+| EX-11 | Envelope about 148 x 70 x 42 mm (155 with the SMA); mass up to 356 g | Sink end wall 41.9 x 25.4 mm plus the finger guard | Size is negotiable (status note section 8 item 2) |
+| EX-12 | Price evidence: every Mouser price via the aggregator | Mouser blocks automated reads | Owner price-check list, section 8.11 |
+| EX-13 | Instruments outside the cap (to confirm): tinySA Ultra (committed), NanoVNA, dummy load (SI-013), a thermocouple (USD 9.95) for REQ-SYS-113. No 30 dB 10 W pad is needed: the monitor port is in the baseline | Status note section 10 assumption | Confirm (Q4) |
 | EX-14 | Non-RF-rated T/R relay (G5V-2) | RF-rated relays are out of stock or about USD 39 | NanoVNA isolation and loss measurement before first transmission |
 
-### 8.10 Requirement deltas (for the re-baseline CR)
+### 8.10 Requirement deltas (for the re-baseline CR; A5 unless marked)
 
-Current values from `docs/requirements/sys/requirements.json` at HEAD. "Keep" means the value is unchanged; "at risk" names what the PDR analysis must show.
+Current values from `docs/requirements/sys/requirements.json` and `docs/requirements/sw/sw-keyer/requirements.json` at HEAD. "Keep" means the value is unchanged; "at risk" names what the PDR analysis must show.
 
 **User interface (display to Morse, owner direction 8).**
 
@@ -575,56 +641,65 @@ Current values from `docs/requirements/sys/requirements.json` at HEAD. "Keep" me
 |---|---|---|
 | REQ-SYS-006 | Display the call sign after every power-on | Announce the call sign in Morse at power-on and at headphone insertion |
 | REQ-SYS-044 | Hang time in dits at the displayed speed | At the set speed |
-| REQ-SYS-057 | Exactly two rotary knobs with push and two push buttons | One push button, two potentiometer controls (tuning fine window, volume) and the key or paddle for menu entry, besides the power switch |
+| REQ-SYS-057 | Exactly two rotary knobs with push and two push buttons | Two push buttons, two potentiometer controls (tuning fine window, volume) and the key or paddle for menu entry, besides the power switch |
 | REQ-SYS-058 | One step per tuning-knob detent, 10 Hz to 10 kHz with rotation rate | Morse direct frequency entry, a pot fine window of +/-5 kHz at 20 Hz resolution or better, and a paddle step mode of 10 Hz to 10 kHz |
 | REQ-SYS-059 | Volume knob, at least 32 steps | Potentiometer read by the ADC, quantized to at least 32 steps from mute to the cap |
 | REQ-SYS-060 | Show frequency, power step, key mode, speed, battery and transmit state outside menus | Announce the same items in Morse on demand (long press or menu command); transmit state on the LED |
 | REQ-SYS-061 | Frequency characters at least 4.0 mm high | Retired |
 | REQ-SYS-062 | Every setting within two menu levels from the status screen | Within two Morse-menu levels from menu entry, with R/N confirmation and a 20 s (TBR) time-out |
 | REQ-SYS-063 | 5 W only after a step selection and a separate confirmation press | 5 W only after the Morse read-back and an R |
+| REQ-SYS-066 | Guest lock set and released only by a held button combination followed by a confirmation | Keep: MENU and ALT held 3 s, then R on MENU (section 8.7) |
 | REQ-SYS-067 | Display a distinct cause message within 1 s | Announce a distinct cause in Morse within 1 s (headphones) and an LED blink code (no headphones) |
 | REQ-SYS-068, 069, 096, 171 | Show or display the ID reminder, separation reminder, low-battery warning, key-down time | Announce in Morse (and LED for low battery); timing values unchanged |
 | REQ-SYS-070 | Indicate charge state whenever USB power is present | Retired (no in-radio charging; the MC1 indicates) |
 | REQ-SYS-146 | Reserved enclosure position, controller input and display field for band control | Reserved enclosure position, controller input and Morse-menu entry |
+| REQ-SYS-163 | Accept a key-input mode menu selection while any key input reads closed | Keep: the ALT-hold key-mode path uses the buttons only (section 8.7) |
 | REQ-SYS-164 | Band crossing within 30 s at 2 rev/s of the knob | Any in-band frequency reached by Morse direct entry within 30 s (TBR) |
 | REQ-SYS-165 | Displayed frequency legible at 0.5 m under 300 lux | Retired |
+| REQ-SW-KEYER-014 | Element and space errors within +/-0.5 % or +/-0.2 ms at 50 display frames/s and 50 detents/s per encoder | Same error limits while the Morse menu sender, the pot scan and the PWM edge counter run at their maximum rates (no display, no encoder) |
+| REQ-SW-KEYER-023 | Report each KEY inhibit onset and its cause to the display interface within 20 ms | Report to the Morse announcement and LED interface within 20 ms |
+| REQ-SW-KEYER-032 | Hang of 3 to 30 dits of the displayed speed | Of the set speed |
 
 **Frequency and receiver.**
 
 | REQ | Current | Proposed |
 |---|---|---|
-| REQ-SYS-008, 009, REQ-TX-002 | Carrier 144.0012 to 147.9988 MHz (TBR); inhibit outside | 144.0053 to 147.9947 MHz (TBR): 4.44 kHz for 30 ppm at 148 MHz plus the 0.83 kHz sideband allowance already inside the 1.2 kHz guard (derived); back to 1.2 kHz with AB2 |
-| REQ-SYS-010 | +/-2.5 ppm (TBR) of the displayed frequency, -10 to +45 C, one year after calibration | +/-30 ppm (TBR) of the set frequency after a room-temperature calibration against the tinySA or a beacon; +/-2.5 ppm when AB2 is fitted |
-| REQ-SYS-182 | Withhold or end RF within 100 ms unless an independent measurement agrees within 10 kHz | Keep. At risk: 30 ppm synthesizer error plus the counter timebase error (Pico 2 crystal, about 30 ppm recalled, Low) is up to about 8.9 kHz at 148 MHz, inside 10 kHz with about 1.1 kHz margin; prescaler toggle rate at 148 MHz |
-| REQ-SYS-022 | MDS at most -140 dBm (TBR) | Keep; at risk (estimate about -140 dBm, Low); fallback diode ring |
+| REQ-SYS-008, 009, REQ-TX-002 | Carrier 144.0012 to 147.9988 MHz (TBR); inhibit outside | Keep (TCXO fitted). A4: 144.0053 to 147.9947 MHz (TBR) for 30 ppm |
+| REQ-SYS-010 | +/-2.5 ppm (TBR) of the displayed frequency, -10 to +45 C, one year after calibration | Keep, "of the set frequency" (TG2520SMN +/-0.5 ppm over -40 to 85 C; aging not read, Low). A4: +/-30 ppm (TBR) after a room-temperature calibration |
+| REQ-SYS-182 | Withhold or end RF within 100 ms unless an independent measurement agrees within 10 kHz | Keep. Divider 74LVC1G80GV x3 (160 MHz minimum); error budget 2.5 ppm (TCXO) + 30 ppm (Pico 2 crystal, recalled, Low) = 4.8 kHz at 148 MHz plus 0.16 kHz gate quantization (50 ms gate, /8): 5.0 kHz inside 10 kHz. A4: 9.0 kHz, 1 kHz margin |
+| REQ-SYS-022 | MDS at most -140 dBm (TBR) | Keep; at risk (estimate about -140 dBm with the diode ring, Low) |
 | REQ-SYS-023 (Goal) | MDS -142 dBm | Record as not met (about -140 dBm) |
 | REQ-SYS-029 | 3 dB loss with a -60 dBm signal 2 kHz away | -65 dBm (TBR) or an accepted limitation (Si5351 close-in phase noise) |
-| REQ-SYS-031 | RMDR at least 85 dB at 10 kHz | 80 dB (TBR); estimate about 83 dB |
-| REQ-SYS-032, 033 | Level range -120 to -20 dBm; 70 dB image and IF rejection | Keep; at risk (AGC range; image estimate Low) |
+| REQ-SYS-031 | RMDR at least 85 dB at 10 kHz | 78 dB (TBR); estimate 78 to 83 dB (adversarial C15) |
+| REQ-SYS-032, 033 | Level range -120 to -20 dBm; 70 dB image and IF rejection | Keep; at risk until the section 7.3 BPF and half-IF LTspice runs pass (image at 128 to 132 MHz in the airband) |
 
 **Transmitter and safety.**
 
 | REQ | Current | Proposed |
 |---|---|---|
-| REQ-SYS-012 | 5 W +/-1 dB (TBR) at 6.4 to 8.4 V | Keep; at risk (estimate 4.4 W at 6.4 V against the 3.97 W floor) |
-| REQ-SYS-013, 017, 018, REQ-TX-009 to 011 | Survival; 25 uW; 60 dBc; harmonic filter values | Keep; 017, 018 and REQ-TX-011 at risk until the LTspice run and the tinySA measurement (no AFT05 harmonic data) |
-| REQ-SYS-055, 120, 180, 181, 092 | Hardware cutoff 7.5 to 13 s; two conditions; backstop 150 to 180 s; 95 C trip; USB inhibit | Keep, all implemented on the gate node. REQ-SYS-180 at risk from RC timer tolerance; if +/-9 % cannot hold, widen to 130 to 200 s (TBR) by CR |
-| REQ-SYS-112, 113 | Tj at most 110 C at 45 C; hand surfaces at most 48 C | Keep; Tj estimate 86 to 97 C with the plated slot (Low) |
-| REQ-SYS-141 | Transmit monitor port, 40 dB +/-1 dB | Deferred to add-back AB1 (tap on the board, SMA bought when funded); retired for the first build if AB1 is not funded |
-| REQ-SYS-183 | RF-off at most -57 dBm | Keep; verify relay isolation and CLK1-off leakage |
+| REQ-SYS-012 (KDR) | 5 W +/-1 dB (TBR) at 6.4 to 8.4 V | Keep; at risk (3.97 to 4.57 W at the SMA at 6.4 V, Low). If the TC-SYS-011 bench reading at 6.4 V is under 3.97 W: 5 W +1/-1.5 dB at the 6.4 V end (TBR). The rationale's "PD54008L-E gives 4.5 to 5.0 W at 6 V" assumption is replaced by the RA07M1317M values. A4: 5 W +1/-2 dB at the 6.4 V end (TBR) (about 3.2 W) |
+| REQ-SYS-013, 017, 018, REQ-TX-009 to 011 | Survival; 25 uW; 60 dBc; harmonic filter values | Keep; 017, 018 and REQ-TX-011 at risk until the LPF LTspice run and the tinySA sweep (section 7.3) |
+| REQ-SYS-014, 015 | Raised-cosine 3 to 8 ms; 26 dB bandwidth at most 350 Hz | Keep; implemented by the closed VGG envelope loop; LTspice check before the order |
+| REQ-SYS-055, 120, 180, 181, 092 | Hardware cutoff 7.5 to 13 s; two conditions; backstop 150 to 180 s; 95 C trip; USB inhibit | Keep, all implemented on the envelope reference and VGG node, with CLK1 enable as the second condition. REQ-SYS-180 at risk from RC timer tolerance; if +/-9 % cannot hold, widen to 130 to 200 s (TBR) by CR |
+| REQ-SYS-083 | Independent cell over-voltage protection 4.25 to 4.30 V (TBR) from 0 to 45 C | S-8252AAO VCU 4.250 V, +/-25 mV from -10 to +60 C (datasheet Rev.4.0_00): 4.225 to 4.275 V, up to 25 mV under the window. Propose 4.225 to 4.30 V (TBR), reworded for the absent charger (the layer now backs up the external charger) |
+| REQ-SYS-084 | Disconnect below 2.50 V +/-0.05 V (TBR) | Keep; S-8252AAO VDL 2.500 V +/-0.050 V matches exactly |
+| REQ-SYS-085 | Discharge trip between 3 A and 10 A (TBR), independent of firmware | Keep. VDIOV 0.200 V +/-0.010 V across two AO3400A at 30 to 64 mohm total (typical cold to maximum at about 60 C and VGS 6 to 8 V, interpolated from the 25 C and 125 C datasheet values): 2.97 to 7.0 A. The 3 A floor is met to within 1 % at the hot maximum corner (at risk); the key-down load of about 2.0 A stays under the lowest trip |
+| REQ-SYS-112 (KDR) | Tj at most 110 C at 45 C, continuous key-down at 5 W | Keep; bound 103 C (109 C with no feed drop); WP-PDR-28 pass criterion in section 7.3. A4: at risk (bound 100 to 135 C); delta or redesign needed |
+| REQ-SYS-113 | Hand-hold surfaces at most 48 C after 5 min at 5 W, 25 C | Keep; fins behind the finger guard; guard and case surfaces checked in WP-PDR-28 |
+| REQ-SYS-141 | Transmit monitor port, 40 dB +/-1 dB | Keep (baseline in revision 2) |
+| REQ-SYS-183 | RF-off at most -57 dBm | Keep; designed out by the key-up sequence; tinySA check |
 
 **Power and charging (charging outside the radio).**
 
 | REQ | Current | Proposed |
 |---|---|---|
-| REQ-SYS-081 | Charge termination 4.20 V +/-0.5 % | Reallocated to the external charger (XTAR MC1; its termination tolerance owner to verify, recalled 4.2 V +/-1 %, TBR) and the handbook |
+| REQ-SYS-081 | Charge termination 4.20 V +/-0.5 % | Reallocated to the external charger (XTAR MC1; termination voltage and tolerance not on the seller page, owner to verify on its product sheet, TBR) and the handbook |
 | REQ-SYS-082 | Charge temperature window 0 to 45 C | Reallocated to the handbook ("charge at room temperature") and the charger's protection |
-| REQ-SYS-083 | Independent cell over-voltage protection 4.25 to 4.30 V | Keep, as the S-8252AAO 4.25 V detection in the pack path; reworded for the absent charger |
 | REQ-SYS-087 | Refuse charging on a failed cell insertion check | Refuse to arm transmit |
 | REQ-SYS-088, 089, 091, 093, 167, 185 | Dual-path check, 15 h timer, 12 h charge time, charge pause in receive, current-fall supervision, further OV layer | Retired from the radio (no in-radio charging) |
 | REQ-SYS-186 | Separate cell-sense paths per protection layer | Reworded for the one remaining in-pack layer plus the firmware monitor |
 | REQ-SYS-090, 100 | 500 mA from USB; 50 uA off current | Keep (Pico only on USB; off current about 10 to 20 uA) |
-| REQ-SYS-094 | 8 h at 1:9 on fresh 3000 mAh cells | Test with the fitted 2.8 Ah P28A cells, or keep 3.0 Ah as the test cell; estimate 8.4 to 14.7 h |
+| REQ-SYS-094 | 8 h at 1:9 on fresh 3000 mAh cells | Test with the fitted 2.8 Ah P28A cells, or keep 3.0 Ah as the test cell; estimate 8 to 14 h (the module draws about 0.2 A more than the AFT05 at key-down) |
 | REQ-SYS-101 | A mechanical switch removes power from every load | The mechanical switch (EG1218, 0.2 A) drives the rail P-FET gates that remove power (owner interpretation) |
 | REQ-SYS-071 to 073, ICD-CTL-PHONES | Headphone ceiling from a 3.3 V ground-referenced amplifier | Capacitor-coupled MCP6002 buffer on the 5 V bus, rail-bounded attenuator k about 0.06 (TBR), confirmed in LTspice |
 
@@ -632,13 +707,13 @@ Current values from `docs/requirements/sys/requirements.json` at HEAD. "Keep" me
 
 | REQ | Current | Proposed |
 |---|---|---|
-| REQ-SYS-102 | 350 g (TBR) | Keep; estimate 277 to 347 g |
-| REQ-SYS-103 | 140 x 70 x 40 mm (TBR) | 142 x 70 x 42 mm (TBR), plus about 7 mm of SMA at the end face |
+| REQ-SYS-102 | 350 g (TBR) | 360 g (TBR) if the sink reads 60 g; estimate 283 to 356 g |
+| REQ-SYS-103 | 140 x 70 x 40 mm (TBR) | 148 x 70 x 42 mm (TBR), plus about 7 mm of SMA at the end face |
 | REQ-SYS-104 | SMA female, stainless steel | SMA female, gold-plated brass class (TE/Linx CONSMA003.062-G) |
 | REQ-SYS-106 | 500 mating cycles | 100 cycles (TBR) |
-| REQ-SYS-109 | CNC-machined anodized aluminum enclosure | Owner-printed PETG case with one aluminum heat-sink end wall; no conductive coating in the first build (CR-003 carries the solution-neutral wording) |
+| REQ-SYS-109 | CNC-machined anodized aluminum enclosure | Owner-printed PETG case with one aluminum heat-sink end wall behind a printed finger guard, no PETG in contact with the sink; no conductive coating in the first build (CR-003 carries the solution-neutral wording) |
 | REQ-SYS-124 | Legend marked into enclosure metal | Legend in relief in the PETG surface (OD-38 route (a)) |
-| REQ-SYS-172 | Reference antennas of 0 dBd or less shipped | A DIY quarter-wave whip with the 48 cm counterpoise tail, or the owner's antenna |
+| REQ-SYS-172 | Reference antennas of 0 dBd or less shipped | The owner's 2 m antenna with an SMA-male plug |
 | REQ-SYS-175 | Antenna port on one end face | Keep (edge-mount SMA on the far end face) |
 | REQ-SYS-177 (Goal) | Enclosure shielding at least 20 dB | Deferred (board fences and ground pour only) |
 
@@ -647,25 +722,27 @@ Current values from `docs/requirements/sys/requirements.json` at HEAD. "Keep" me
 | REQ | Current | Proposed |
 |---|---|---|
 | REQ-SYS-137 (KDR) | Every SMT part placed by PCBWay turnkey | Retired (owner hand-assembles everything) |
-| REQ-SYS-138 | Owner hand-solders only through-hole parts and listed exposed-pad modules | Owner solders all parts; SMT limited to the section 8 hand-solder list, no BGA, no leadless or reflow-only parts, exceptions named in the hand-assembly file |
+| REQ-SYS-138 | Owner hand-solders only through-hole parts and listed exposed-pad modules | Owner solders all parts; SMT limited to the section 2 hand-solder list, no BGA, no reflow-only parts, flagged exceptions named in the hand-assembly file (TG2520SMN) |
 | REQ-SYS-139 | 4-layer, 1.0 mm (TBR), PCBWay DRC | 2-layer, 1.6 mm, JLCPCB standard DRC, two designs each within 100 x 100 mm |
-| REQ-SYS-140 (KDR) | Turnkey parts and the PA only from DigiKey, Mouser or PCBWay distributors | Every part from a catalog distributor or maker shop with a published price and stock (Mouser primary) |
-| REQ-SYS-144 | No adjustment except stored firmware calibration | Admit a one-time build alignment on the NanoVNA and tinySA (BPF coil squeeze, crystal matching, PA match trim, LPF check), then stored calibration only |
-| REQ-SYS-145 | Band-dependent functions partitioned | Keep; the synthesizer becomes band-dependent (Si5351A limit 200 MHz) |
-| REQ-SYS-147 | USD 610 (TBR) per unit amortized over three units | The first complete unit costs under USD 200 all in (boards, parts, shipping, duty, tariff; filament and instruments excluded), including 15 % contingency |
+| REQ-SYS-140 (KDR) | Turnkey parts and the PA only from DigiKey, Mouser or PCBWay distributors | Every part from a catalog distributor or maker shop with a published price and stock (Mouser primary; RF Parts named for the PA module) |
+| REQ-SYS-144 | No adjustment except stored firmware calibration | Admit a one-time build alignment on the NanoVNA and tinySA (BPF coil squeeze, crystal matching, drive pad selection, LPF check), then stored calibration only |
+| REQ-SYS-145 | Band-dependent functions partitioned | Keep; the synthesizer and the module are band-dependent |
+| REQ-SYS-147 | USD 610 (TBR) per unit amortized over three units | The first complete unit targets USD 200 and costs at most USD 300 in the worst case including 15 % contingency (boards, parts, shipping, duty, tariff pass-through; sales tax, filament and instruments excluded) |
 | REQ-SYS-178 | Owner-procured part with a named source and a dated quote | Named source and dated listed price |
 
-**L0, interfaces and hazards (same CR).** CON-010 (USB for firmware and charging, to firmware only), CON-015 (PCBWay CNC aluminum, to the printed PETG case with a sink end wall; CR-003 carries the enclosure wording), NGO-027 (PCBWay turnkey, to JLCPCB bare boards hand-assembled), NGO-028 and MOE-007 (USD 610 over three units, to under USD 200 for the first unit), SI-022, SI-028 and SI-031 superseded by the new owner inputs (next free SI id), ICD-CTL-USB (charging removed), ICD-PWR-CELL (1043P holders, external charger), ICD-TX-ANT (SMA material), HZ-002 (re-scoped to the COTS charger and the handbook), HZ-015 (heat-gun use added), HSI and ConOps display content replaced by the Morse menu.
+**L0, interfaces and hazards (same CR).** CON-010 (USB for firmware and charging, to firmware only), CON-015 (PCBWay CNC aluminum, to the printed PETG case with a guarded sink end wall; CR-003 carries the enclosure wording), NGO-027 (PCBWay turnkey, to JLCPCB bare boards hand-assembled), NGO-028 and MOE-007 (USD 610 over three units, to a USD 200 target and USD 300 maximum for the first unit), SI-022, SI-028 and SI-031 superseded by the new owner inputs of status note sections 6, 8 and 10 (next free SI ids), ICD-CTL-USB (charging removed), ICD-PWR-CELL (1043P holders, external charger), ICD-TX-ANT (SMA material), HZ-002 (re-scoped to the COTS charger and the handbook), HZ-003 (fins behind a guard; PETG kept off the sink), HZ-015 (heat-gun use added), HSI and ConOps display content replaced by the Morse menu.
 
 ### 8.11 Owner price-check list (browser, no checkout)
 
-1. Every Mouser row of section 8.3 (all aggregator reads), especially: AO3400A (0.09 or 0.52), Coilcraft 1812SMS-82NJLC stock (79), AFT05MS004NT1 stock (72; Newark 4.21 as the alternate), LM2940CT-5.0 stock (141), Adafruit 2045 (Mouser part 485-2045).
-2. The estimated Mouser rows: KEMET C1206C390J1GACTU; the passives lot; M3 hardware; an SMA-male solder plug; and, for AB1 and AB2, CONSMA001-C-G and TG2520SMN.
+1. Every Mouser row of section 8.3 (all aggregator reads), with its lifecycle flag, especially: Coilcraft 1812SMS-82NJLC stock (79), LM2940CT-5.0 stock (141), Adafruit 2045 (Mouser part 485-2045), TG2520SMN stock (1,810), 74LVC1G80GV.
+2. The estimated Mouser rows: KEMET C1206C390J1GACTU; the SMD passive list (Claude supplies the values from the schematic); M3 and M2.5 hardware and standoffs; knobs if needed.
 3. The Mouser cart: merchandise total, shipping charge, the free-shipping threshold, and the tariff line.
-4. JLCPCB: the instant quote for the two designs (2-layer, 1.6 mm, HASL, 5 pcs each), the cheapest US shipping that prepays duty, the duty shown, and whether LCSC parts can ship in the same parcel (guard G5).
-5. 18650BatteryStore: cart shipping for 2 P28A and 1 XTAR MC1; the MC1 termination voltage and tolerance on its product sheet.
-6. Boyd 530002B02500G drawing: mass and the flat base face dimensions for the PA board (judge 1 asks that the radial-fin sink has a flat face large enough).
-7. Owner stock: copper wire of 18 to 24 AWG (G1), a 2 m SMA-male whip, a resistor and capacitor assortment, a Li-ion charger, a USB power adapter, the two potentiometers (values and shafts).
+4. RF Parts: RA07M1317M-501 stock and cart shipping to the owner's address (the USD 15 minimum is met by the module).
+5. JLCPCB: the instant quote for the two designs (2-layer, 1.6 mm, HASL, 5 pcs each), the cheapest US shipping that prepays duty, the duty shown and whether it is charged on the boards or on the whole order.
+6. 18650BatteryStore: cart shipping for 2 P28A and 1 XTAR MC1; the MC1 termination voltage and tolerance on its product sheet; whether the MC2 is back in stock.
+7. Boyd 530002B02500G drawing: mass, and a flat centre-channel face of at least 30 x 10 mm for the module flange with room for two M2.5 holes.
+8. The DMP3099L-7 datasheet RDS(on) maximum at VGS -6 V and the Bourns MF-R300 R1max (the REQ-SYS-012 feed budget; Claude can read them if the owner prefers).
+9. Owner stock: through-hole resistor and capacitor assortment against the BOM value list (Claude supplies it), 24 AWG magnet wire quantity (about 3 m), the 2 m antenna's connector (SMA male) and band, the USB power adapter (5 V at 1 A or more for the MC1), the two potentiometers (values, shafts, knobs), and whether 18650 cells or a Li-ion charger are already owned.
 
 ### 8.12 What changes in the PDR work plan, CR-003 and CR-006
 
@@ -674,35 +751,85 @@ Current values from `docs/requirements/sys/requirements.json` at HEAD. "Keep" me
 | WP or item | Change |
 |---|---|
 | WP-PDR-04, OD-04, OD-34 | The PCBWay email, the PCBWay instant quotes and the Inrad, KVG and Guerrilla RF requests are cancelled. They are replaced by the owner price-check list of section 8.11 and the ordering gate. No quote is requested from anyone |
-| WP-PDR-19 (TS-001) | The hand-matched 6-pole 500 Hz ladder is re-admitted (TS-001 pruned it only because turnkey assembly could not match crystals); the Inrad and 24-bit ADC candidates are dropped; analog audio is kept; JFET mixer and diode-ring fallback simulated in LTspice |
-| WP-PDR-20 (TS-007, clock plan) | Si5351A module with its stock crystal, TCXO as add-back; REQ-SYS-010 and the guard relaxed (TBR); clock plan re-run for the 8 MHz IF and the display removal |
-| WP-PDR-21 (TS-003, LPF) | PA device becomes the AFT05MS004NT1 with a GVA-84+; LTspice of the NXP reference match with 0805 parts and of the Coilcraft LPF with a trap; the harmonic budget closes REQ-SYS-017, 018 and REQ-TX-011 |
-| WP-PDR-22 (TS-006) | ALC and envelope on the AFT05 gate; power steps from gate bias |
-| WP-PDR-23 | T/R element is the G5V-2 with an RX-grounding pole; NanoVNA isolation plan |
-| WP-PDR-24 (power, TS-005) | Charging out of the radio; TS-005 (USB input) narrows to firmware loading and the VBUS inhibit; the in-radio charger analyses are dropped |
+| WP-PDR-19 (TS-001) | The hand-matched 6-pole 500 Hz ladder is re-admitted; the Inrad and 24-bit ADC candidates are dropped; analog audio is kept; the diode-ring mixer on BN-43-202 cores is the baseline; LTspice runs: BPF image (pass at least 90 dB at 128 to 132 MHz) and half-IF (pass at REQ-SYS-033) before the order |
+| WP-PDR-20 (TS-007, clock plan) | Adafruit Si5351A module with the TG2520SMN TCXO on XA; REQ-SYS-010 kept; clock plan re-run for the 8 MHz IF, the RP2350 at 125 MHz in transmit, CLK0 and CLK2 off in transmit |
+| WP-PDR-21 (TS-003, PA and LPF) | PA device becomes the RA07M1317M with a GVA-84+ driver; LTspice of the drive chain (pass: module input 10 to 30 mW at every corner) and of the Coilcraft LPF with a trap footprint (pass: 40 dB at 288 to 296 MHz, 35 dB at 432 to 444 MHz); the harmonic budget closes REQ-SYS-017, 018 and REQ-TX-011 |
+| WP-PDR-22 (TS-006) | Closed VGG envelope loop; LTspice pass criteria of section 7.3 (REQ-SYS-014, 015; overshoot; phase margin; VGG at most 3.83 V) |
+| WP-PDR-23 | T/R element is the G5V-2 with an RX-grounding pole; NanoVNA isolation plan; key-down and key-up sequence |
+| WP-PDR-24 (power, TS-005) | Charging out of the radio; TS-005 (USB input) narrows to firmware loading and the VBUS inhibit; the in-radio charger analyses are dropped; the drain-feed resistance budget (pass: at most 0.35 ohm) and the REQ-SYS-085 trip window |
 | WP-PDR-25 (audio and display) | Display trade removed; audio on the 5 V MCP6002 buffer; the Morse menu tone path shares the ceiling analysis |
 | WP-PDR-26 | Two LM393 monostables and trips; the RC timing analysis over tolerance and temperature for REQ-SYS-055 and 180 |
-| WP-PDR-27 (TS-011, TS-004) | TS-011 is re-scored: a sink end wall with fins outside, no coating in build 1, the PCBWay CNC fallback and port block outside the cap; the PETG M8 finding is re-run for the A4 heat layout. TS-004 becomes 2-layer 1.6 mm JLCPCB against 4-layer, with the two-design split |
-| WP-PDR-28 | Thermal chain of the SOT-89 PA with the plated slot and via field; PETG boss temperatures |
-| WP-PDR-16, 17 | HZ-002 re-scoped; HZ-015 adds the heat gun; the Morse menu command path in the safety-critical determination |
-| WP-PDR-33, 40 | UI analyses and the HSI evaluation move from a display mockup to a Morse-menu demonstration on the Pico 2 dev board (paddle and straight key) |
-| WP-PDR-35, 41 | SW L2 and the driver set follow section 8.7 (display and encoder drivers removed; decoder, menu, PIO counter added) |
-| WP-PDR-37, 38, 39 | Schematic and floorplan on two JLCPCB 2-layer boards; this BOM is the preliminary BOM; the enclosure model takes the sink end wall |
-| WP-PDR-46 | `docs/plan/cost-estimate.md` rewritten on section 8.4; TPM-014 re-based on USD 200 |
+| WP-PDR-27 (TS-011, TS-004) | TS-011 is re-scored: a sink end wall with fins outside behind a finger guard, no PETG in contact with the sink, no coating in build 1, the PCBWay CNC fallback and port block outside the cap. TS-004 becomes 2-layer 1.6 mm JLCPCB against 4-layer, with the two-design split |
+| WP-PDR-28 | Thermal budget of the module on the Boyd sink (pass: stage-2 channel at most 110 C and case at most 90 C at the bound corner; PETG within 5 mm of the sink at most 60 C at 45 C; guard at most 48 C at 25 C after 5 min) |
+| WP-PDR-16, 17 | HZ-002 re-scoped; HZ-003 guard; HZ-015 adds the heat gun; the Morse menu command path in the safety-critical determination |
+| WP-PDR-33, 40 | UI analyses and the HSI evaluation move from a display mockup to a Morse-menu demonstration on the Pico 2 dev board (paddle and straight key, two buttons) |
+| WP-PDR-35, 41 | SW L2 and the driver set follow section 8.7 (display and encoder drivers removed; decoder, menu, edge counter, TX sequencing added) |
+| WP-PDR-37, 38, 39 | Schematic and floorplan on two JLCPCB 2-layer boards; this BOM is the preliminary BOM; the enclosure model takes the guarded sink end wall |
+| WP-PDR-46 | `docs/plan/cost-estimate.md` rewritten on section 8.4; TPM-014 re-based on the USD 200 target and USD 300 maximum |
 | New owner decision | OD for TS-012 at B1a (proposed), before the trades above are scored; the re-baseline CR at B2 |
 
-**CR-003 (enclosure, Submitted, held).** Needs a revision 4 before disposition: the printed PETG case stays the first and delivered enclosure, but (a) the heat sink forms an end wall with its fins outside, (b) no conductive coating is bought for build 1 and REQ-SYS-177 is deferred, (c) the PCBWay CNC fallback and the 6061 port block are outside the USD 200 cap, so the fallback becomes a second printed iteration (free filament) or an owner cap decision, (d) the legend and jack markings stay in relief (OD-38 route (a)), (e) the TS-011 PC-class filament condition is re-run for the A4 heat layout before it is asked of the owner, and (f) REQ-SYS-104 and 106 follow section 8.10.
+**CR-003 (enclosure, Submitted, held).** Needs a revision 4 before disposition: the printed PETG case stays the first and delivered enclosure, but (a) the heat sink forms an end wall with its fins outside behind a printed finger guard, and no PETG part touches it, (b) no conductive coating is bought for build 1 and REQ-SYS-177 is deferred, (c) the PCBWay CNC fallback and the 6061 port block are outside the USD 300 maximum, so the fallback becomes a second printed iteration (free filament) or an owner cost decision, (d) the legend and jack markings stay in relief (OD-38 route (a)), (e) the TS-011 PC-class filament condition is re-run for the A5 heat layout (sink base up to about 83 C at 45 C) before it is asked of the owner, and (f) REQ-SYS-104 and 106 follow section 8.10.
 
-**CR-006 (build sequence, Submitted, held).** Its reading (one assembled unit first) stands, but its PCBWay content does not: (a) five bare boards of each of two designs come from JLCPCB and the owner assembles one unit; (b) REQ-SYS-147, NGO-028 and MOE-007 take the under-USD-200 first-unit cap instead of USD 610 amortized over the first build; (c) NGO-027 changes from PCBWay turnkey to JLCPCB bare boards with owner hand assembly; (d) questions Q2 (PCBWay assembled count), Q3 (unit-cost options) and Q8 (unused turnkey parts) become moot; (e) the TC-SYS-025 and MOE-001 and 002 content (the Baofeng source and the matched second station, status note section 5) is unaffected. Recommendation: fold both CR revisions and the section 8.10 deltas into one re-baseline CR (the next free CR number when its file is created), with its section 6 impact review before the owner's disposition.
+**CR-006 (build sequence, Submitted, held).** Its reading (one assembled unit first) stands, but its PCBWay content does not: (a) five bare boards of each of two designs come from JLCPCB and the owner assembles one unit; (b) REQ-SYS-147, NGO-028 and MOE-007 take the first-unit USD 200 target and USD 300 maximum instead of USD 610 amortized over the first build; (c) NGO-027 changes from PCBWay turnkey to JLCPCB bare boards with owner hand assembly; (d) questions Q2 (PCBWay assembled count), Q3 (unit-cost options) and Q8 (unused turnkey parts) become moot; (e) the TC-SYS-025 and MOE-001 and 002 content (the Baofeng source and the matched second station, status note section 5) is unaffected. Recommendation: fold both CR revisions and the section 8.10 deltas into one re-baseline CR (the next free CR number when its file is created), with its section 6 impact review before the owner's disposition.
+
+### 8.13 Owner questions (still open, each with a recommendation)
+
+| # | Question | Recommendation |
+|---|---|---|
+| Q1 | Choose A5 (USD 234.68 planning, 294.51 worst; module PA, TCXO, diode ring; REQ-SYS-010, 012, 112 and 141 kept) or A4 (USD 187.61 planning, 243.42 worst; end-of-life PA with a spare; REQ-SYS-010 and 012 relaxed, REQ-SYS-112 at risk)? | **A5.** The USD 47.07 retires five Red risks and restores a KDR; A4 is the fallback if staying under USD 200 matters more (section 8.2) |
+| Q2 | Do you already own 18650 cells or a Li-ion charger? | If not, buy two Molicel P28A (USD 11.98) and an XTAR MC1 (USD 4.99) from 18650BatteryStore, powered by your USB adapter. Owned flat-top unprotected 18650 cells of 2.5 Ah or more work in the 1043P holders if both are the same model and age; button-top protected cells (about 69 mm) do not fit. Any Li-ion charger that terminates at 4.20 V replaces the MC1 (saves USD 5.74 capped) |
+| Q3 | Should the radio charge its own cells from USB? | **No, not in build 1.** The USB-to-2S charger ICs found are LCSC-only, it adds an estimated USD 7 to 37 capped with shipping, and it brings the Catastrophic HZ-002 charger chain into the box beside an 8.5 to 10 W sink. Revisit for a later build |
+| Q4 | Are test instruments outside the cap (tinySA Ultra, NanoVNA, dummy load, a USD 9.95 thermocouple)? | **Yes, outside**, as assumed in section 6 and 10 of the status note; the monitor port in the baseline removes the need for a 30 dB 10 W pad |
+| Q5 | Approve the flagged TCXO (leadless, 4 pads under the body, heat gun and flux, plus removing the Adafruit module's crystal) and the surface-mount list of section 8.6, and count the Pico 2, Adafruit 2045 and the flange module as through-hole compatible? | **Approve.** The TCXO is the only flagged part; guard G5 removes it if you prefer (REQ-SYS-010 relaxed to 30 ppm) |
+| Q6 | Accept the envelope of about 148 x 70 x 42 mm (155 with the SMA) and up to 356 g, with the fins behind a printed guard? | **Accept.** Size is negotiable (section 8 item 2); the guard keeps REQ-SYS-113 |
+| Q7 | Buy a spare RA07M1317M (USD 33.25 capped)? | **Decide at the gate:** only if the verified worst case with it stays at or below USD 300 (AB-A); the module is in production, so a later purchase is possible |
 
 ## 9. Dissent
 
+**INSP-110 findings (iteration 1 on revision 1) and their disposition in revision 2.**
+
+| Finding | Severity | Disposition |
+|---|---|---|
+| finding-1 | Major | Fixed. EOL stated in sections 1, 4.1, 7.1, 7.2 and 7.3 with stock evidence; the 70 cm reuse benefit removed; A4 carries a spare AFT05 in the baseline (+4.62) and a four-part EOL risk; A5 does not use the device (the named fallback, the RA07M1317M, is now the baseline and fits the ceiling) |
+| finding-2 | Major | Closed by owner direction: "I'm okay with not counting sales tax" (status note section 10). A sales-tax line of 0 is recorded in section 8.3; the gate reads no tax |
+| finding-3 | Major | Fixed. Nexperia 74LVC1G80GV x3: fmax 160 MHz minimum at 3.0 to 3.6 V over -40 to +125 C, pulse width 2.5 ns minimum (datasheet Rev. 17, 12 November 2024); SC-74A at 0.95 mm pitch (easier than SOIC); Mouser USD 0.15, 12,379 (A, read today). M4 rests on a part inside its rating |
+| finding-4 | Minor | Fixed: AO3400A at Mouser USD 0.52; 1N5711W at USD 0.307; the correction row is removed |
+| finding-5 | Minor | Fixed: duty 35 % to 92.5 %, base unpublished; worst case on the whole order; the gate reads the base |
+| finding-6 | Minor | Fixed: each SMD reason restated with its evidence (section 8.6) |
+| finding-7 | Minor | Fixed: REQ-SYS-066, 085, 163 and REQ-SW-KEYER-014, 023, 032 rows added; S-8252AAO thresholds sourced to its datasheet Table 2; a button-only REQ-SYS-163 path added |
+| finding-8 | Minor | Fixed: drain-feed budget in section 7.3; REQ-SYS-012 delta conditional for A5, required for A4 |
+| finding-9 | Minor | Fixed: the monitor port is in the baseline; EX-13 no longer needs a pad; the AB1 arithmetic error is gone with the add-back |
+| finding-10 | Minor | Fixed: Wakefield 120-SA compound (row 31) and knobs (row E4) |
+| finding-11 | Minor | Fixed in part: C8 carries Low confidence and the sink derated 30 %; the flat-face check is gate item 7; the larger-sink fallback is named but not priced (no listed part found) |
+| X-1 (cross item) | - | Header now names INSP-110 and its path |
+
+**Adversarial RF feasibility check (2026-09-27, 22 claims on revision 1): refutations and doubts, and their disposition.**
+
+| Claim | Verdict | Disposition |
+|---|---|---|
+| C2 output power at 6.4 V (about 3.2 W at the SMA) | Refuted | A4: accepted, REQ-SYS-012 delta. A5: 3.97 to 4.57 W with the same sag and loss treatment (section 7.3) |
+| C3 GVA-84+ at its P1dB limit into the AFT05 | Doubtful | A5: the module needs 20 mW, so the GVA runs 3.4 dB under its minimum P1dB; drive LPF added |
+| C4 NXP match cannot be copied onto 1.6 mm board | Doubtful | A4: re-derived for 0.8 mm in LTspice; A5: no match |
+| C5 stability unanalyzed | Doubtful | A5: vendor-specified conditions held by design; bench checks named |
+| C7 AFT05 in active production | Refuted | Corrected (finding-1) |
+| C10 non-harmonic spurs in the passband | Doubtful | Clock plan, CLK0 and CLK2 off, drive LPF, tinySA sweep with pass criterion |
+| C11 key clicks and RF-off with gate-only keying | Doubtful | Closed envelope loop; drive gated after the ramp; LTspice and tinySA checks |
+| C12, C13 MDS and -60 dB bandwidth at zero margin | Doubtful | Diode ring restores the research cascade; still Low and at risk (section 7.1) |
+| C14 image in the airband; half-IF unanalyzed | Doubtful | Two LTspice checks with pass criteria before the order |
+| C15 RMDR | Doubtful (disclosed) | REQ-SYS-031 relaxation set to 78 dB (TBR) |
+| C18 prescaler at the edge of its limits | Doubtful | Replaced (finding-3) |
+| C19 junction not bounded | Refuted | A4: accepted, at risk. A5: bounded at 103 C (109 C extreme) |
+| C21 PETG near the sink; LM2940 hot spot | Doubtful | A5: no PETG contact with the sink; the LM2940 hot spot (0.6 to 0.9 W laid flat) goes to WP-PDR-28 |
+| C1, C6, C8, C9, C16, C17, C20, C22 | Hold | No change needed |
+
+**Panel inputs.**
+
 | Who | Date | Dissent | How it was addressed |
 |---|---|---|---|
-| Independent reviewer (INSP-NNN) | - | None recorded yet; the review has not run | - |
-| Judge 0 (panel input) | 2026-09-27 | Its own weighted total ranked B1 first (82 against 79) while its ranking put min-cost first | Cost cap made mandatory (M1) and cost robustness scored (C2) |
-| Judge 1 (panel input) | 2026-09-27 | min-cost's thermal path and cost arithmetic are fatal as submitted | Plated slot and via field; AO3400A correction carried; ordering gate |
-| Judge 2 (panel input) | 2026-09-27 | No budget counts Mouser's tariff pass-through; REQ-SYS-182 missing | Tariff line added to every alternative; prescaler added |
+| Judge 0 | 2026-09-27 | Its own weighted total ranked B1 first (82 against 79) while its ranking put min-cost first | Revision 2 keeps the ceiling mandatory and scores the target distance; B1's module PA is adopted in A5 |
+| Judge 1 | 2026-09-27 | min-cost's thermal path and cost arithmetic are fatal as submitted | A5 removes the SOT-89 thermal path; A4 carries it at risk |
+| Judge 2 | 2026-09-27 | No budget counts Mouser's tariff pass-through; REQ-SYS-182 missing | Tariff line in every total (50 % worst case); divider with a guaranteed rating |
+| Author (this revision) | 2026-09-27 | The recommendation between A5 and A4 is not robust (section 6); the owner's valuation of risk against the USD 200 target decides it | Stated in sections 1 and 8.13 Q1 |
 
 ## 10. Decision
 
@@ -712,29 +839,36 @@ Left empty until the owner decides.
 - **Decided by:**
 - **Rationale as stated by the owner:**
 - **Records produced:**
-- **Revisit conditions:** the verified ordering-gate total exceeds USD 200 after guards G1 to G5; the LTspice harmonic run shows less than 53 dBc at any harmonic with the trap fitted; the Tj analysis exceeds 110 C; the AFT05MS004NT1 stock at Mouser and Newark reaches zero before the order.
+- **Revisit conditions:** the verified ordering-gate worst case exceeds USD 300 after guards G1 to G5; RF Parts shows the RA07M1317M-501 out of stock at the gate; any pre-order LTspice check of section 7.3 fails its pass criterion (drive chain, envelope loop, LPF, BPF image, half-IF); the WP-PDR-28 bound exceeds 110 C at the stage-2 channel or 90 C at the case; the drain-feed budget exceeds 0.35 ohm.
 - **Lessons learned:**
 
 ## 11. References
 
-- `docs/plan/status/status-2026-09-27.md` sections 6, 8 and 9 (owner direction, verbatim).
+- `docs/plan/status/status-2026-09-27.md` sections 6, 8, 9 and 10 (owner direction, verbatim).
+- `docs/reviews/PDR/checklists/ts-012-design-to-cost.md` (INSP-110, iteration 1).
 - `docs/process/06-risk-and-decision-analysis.md` sections 6, 7, 8, 13, 14; `docs/templates/trade-study.md`.
-- `docs/requirements/sys/requirements.json`, `docs/requirements/tx/requirements.json`; `docs/safety/hazards.json`; `docs/risk/register.json`; `docs/plan/cost-estimate.md`; `docs/plan/pdr-work-plan.md`; `docs/cm/cr/CR-003-solution-neutral-enclosure.md`; `docs/cm/cr/CR-006-build-sequence-one-unit-first.md`; TS-001, TS-004, TS-007, TS-011.
+- `docs/requirements/sys/requirements.json`, `docs/requirements/tx/requirements.json`, `docs/requirements/sw/sw-keyer/requirements.json`; `docs/safety/hazards.json`; `docs/risk/register.json`; `docs/plan/cost-estimate.md`; `docs/plan/pdr-work-plan.md`; `docs/cm/cr/CR-003-solution-neutral-enclosure.md`; `docs/cm/cr/CR-006-build-sequence-one-unit-first.md`; TS-001, TS-004, TS-007, TS-011.
+- `docs/research/pa-device-candidates.md` F1, F4, F8, F10, F16 to F20; `docs/research/keyer-and-key-interfaces.md` F10.
 - Block research reports of this study, 2026-09-27: transmitter chain and PA; receiver and CW selectivity; frequency generation; power and charging; UI and audio; fabrication and shipping; enclosure (not committed as files; their findings are quoted here with their sources).
-- Architecture reports: min-cost, performance-in-cap (PIC-5), buildability (B1); judge reports 0 (cost and sourcing), 1 (RF and regulatory), 2 (buildability, size, safety); all 2026-09-27.
-- NXP AFT05MS004N datasheet Rev. 0, 7/2014 (Tables 8 to 10, Figs. 12, 13), read by the min-cost architect. Mitsubishi RA07M1317M datasheet (June 2019); RD06HVF1 datasheet (July 2017); Mitsubishi AN-VHF-053-A.
-- Seller and aggregator pages as listed in section 8.3, read 2026-09-27, including the author's reads: https://www.oemstrade.com/search/AFT05MS004NT1 , https://www.oemstrade.com/search/AO3400A , https://www.oemstrade.com/search/SN74LVC74AD , https://www.18650batterystore.com/products/molicel-p28a , https://www.18650batterystore.com/products/xtar-mc1 .
-- Shipping and tariff evidence (author's reads, 2026-09-27): https://forum.allaboutcircuits.com/threads/jlcpcb-global-standard-direct-line-shipping.209788/ (post of 2026-03-19); https://highway.hackclub.com/guides/JLC-cost-optimizing ; https://ampgarage.com/forum/viewtopic.php?t=37728 (posts of 2025-01-17 and 2025-02-03); https://www.mouser.com/en/section-301-tariff-updates/ (timed out; content from a search summary); https://www.eevblog.com/forum/chat/mouser-free-shipping-threshold-increase!/ (HTTP 403; threshold from a search summary); https://jlcpcb.com/help/article/us-tariff-policy-faq ; Boyd sink dimensions https://uk.farnell.com/aavid-thermalloy/530002b02500g/heat-sink-2-6k-w-to-220/dp/2295719 and https://www.newark.com/aavid-thermalloy/530002b02500g/extruded-heat-sink/dp/99K1617 (read by judges 1 and 2).
+- Architecture reports: min-cost, performance-in-cap (PIC-5), buildability (B1); judge reports 0 (cost and sourcing), 1 (RF and regulatory), 2 (buildability, size, safety); the adversarial RF feasibility check; all 2026-09-27 (workflow outputs, not committed as files).
+- Datasheets: Mitsubishi RA07M1317M (June 2019), https://www.mitsubishielectric.com/semiconductors/hf/products/datasheet/ra07m1317m.pdf (values as recorded in pa-device-candidates F8); NXP AFT05MS004N Rev. 0 7/2014; Mini-Circuits GVA-84+ Rev. F and TI SCAS287W (read by the adversarial check); Nexperia 74LVC1G80 Rev. 17, 12 November 2024, https://assets.nexperia.com/documents/data-sheet/74LVC1G80.pdf ; ABLIC S-8252 Series Rev.4.0_00, https://www.ablic.com/en/doc/datasheet/battery_protection/S8252_E.pdf ; AOS AO3400A Rev 3.1 July 2023, https://www.aosmd.com/res/datasheets/AO3400A.pdf (all read 2026-09-27 through the web-fetch tool).
+- Seller and aggregator pages as listed in section 8.3, read 2026-09-27, including the author's reads for this revision: https://www.rfparts.com/ra07m1317m.html ; https://meus-semiconductors.com/products/high-frequency-devices/ra07m1317m ; https://www.oemstrade.com/search/74LVC1G80GV ; https://www.oemstrade.com/search/TG2520SMN ; https://www.oemstrade.com/search/CONSMA001-C-G ; https://www.oemstrade.com/search/120-SA ; https://www.oemstrade.com/search/2843000202 ; https://www.oemstrade.com/search/2843002402 ; https://www.oemstrade.com/search/C0805C101J5GACTU ; https://www.oemstrade.com/search/TC1-1T+ ; https://www.oemstrade.com/search/0908SQ-25NJLC ; https://www.oemstrade.com/search/530002B02500G ; https://www.oemstrade.com/search/529802B02500G ; https://www.18650batterystore.com/products/xtar-mc2 .
+- Shipping and tariff evidence: https://www.rfparts.com/customerservice-shipping (search summary, 2026-09-27); https://forum.allaboutcircuits.com/threads/jlcpcb-global-standard-direct-line-shipping.209788/ (post of 2026-03-19); https://highway.hackclub.com/guides/JLC-cost-optimizing ; https://ampgarage.com/forum/viewtopic.php?t=37728 ; https://www.mouser.com/en/section-301-tariff-updates/ (timed out; content from a search summary); https://www.eevblog.com/forum/chat/mouser-free-shipping-threshold-increase!/ (HTTP 403; threshold from a search summary); https://jlcpcb.com/help/article/us-tariff-policy-faq ; Boyd sink dimensions https://uk.farnell.com/aavid-thermalloy/530002b02500g/heat-sink-2-6k-w-to-220/dp/2295719 and https://www.newark.com/aavid-thermalloy/530002b02500g/extruded-heat-sink/dp/99K1617.
 
 ## Appendix A. Supporting analysis
 
-- **Literature and research search:** claude-context `search_code` on `/Users/robinonsay/rust/cwht` first (charter section 11 rule 1), queries on trade-study format and decision analysis; then reads of known paths. Web: WebSearch and WebFetch of public product, aggregator and forum pages listed in section 11; Mouser, DigiKey and EEVblog pages blocked or timed out.
+- **Literature and research search:** claude-context `search_code` on `/Users/robinonsay/rust/cwht` first (charter section 11 rule 1), queries on the adversarial check, REQ-SYS-033 and REQ-SYS-012, the RA07M1317M research and the keying-envelope requirements; then reads of known paths. Web: WebSearch and WebFetch of public product, aggregator, datasheet and shipping pages listed in section 11; Mouser, DigiKey and some catalog PDFs blocked or timed out.
 - **Previous related decisions and dissent:** TS-001 (SRR decision 54 and the ladder pruning), TS-007, TS-011 (M8 PETG finding), ADR-007, SI-028, SI-031.
-- **Detailed analysis:** the roll-up and the sensitivity run were computed with short Python scripts in the author's scratchpad (not committed): 16 weight perturbations and every Low-cell perturbation, reproduced in section 6. No LTspice deck exists yet for A4; the PA match, LPF, headphone ceiling and JFET mixer decks are WP-PDR-21, 25 and 19 products.
-- **Decision metrics:** opened and recommended the same day; five alternatives (one pruned tree of five more); eight enhancing and five mandatory criteria; no criteria revision yet.
+- **Detailed analysis:** the roll-up, the matrix and the sensitivity run were computed with short Python scripts in the author's scratchpad (not committed): 16 weight perturbations, every Low-cell perturbation and the joint adverse case, reproduced in section 6. The thermal and power figures of section 7.3 are hand calculations from the datasheet values named there. No LTspice deck exists yet for A4 or A5; the drive chain, envelope loop, LPF, BPF, half-IF and headphone ceiling decks are WP-PDR-19, 21, 22 and 25 products.
+- **Decision metrics:** opened, recommended and revised the same day; six alternatives (one pruned tree of seven more); eight enhancing and five mandatory criteria; criteria revised once (revision 2: M1, C1, C2, C8 and the weights, after the owner's section 10 answers).
+
+## Appendix B. Revision 1 results (superseded, kept for history)
+
+Revision 1 (text at 5c16930) worked to a firm USD 200 cap "all in", with no owned stock beyond perfboard and potentiometers. It scored A1 to A4 with weights C1 25, C2 10, C3 15, C4 10, C5 15, C6 10, C7 5, C8 10 and recommended A4 (340 of 500; A1 255 and excluded at M4, A3 255, A2 215), with capped totals of USD 167.95 low, 190.29 planning and 212.64 high, the high case held under USD 200 by guard G1 (the owner's own copper wire, 197.47). INSP-110 then found three Major errors in its basis (EOL PA, no sales tax line, prescaler above its rating) and the adversarial check refuted three of its claims (C2, C7, C19). The owner's section 10 answers moved the cap to a USD 200 target with a USD 300 maximum, excluded sales tax and added owned stock, which led to this revision.
 
 ## Change log
 
 | Revision | Date | Change | Reason |
 |---|---|---|---|
 | 0 | 2026-09-27 | Initial, Proposed | Owner direction of status note sections 6 and 8 |
+| 2 | 2026-09-27 | Re-rolled every alternative under the USD 200 target and USD 300 maximum with owned items removed and sales tax excluded; criteria M1, C1, C2, C8 and the weights revised; new alternative A5 (hybrid H1: RA07M1317M module PA, TCXO, diode-ring mixer, spare driver) recommended over A4 (revised); INSP-110 findings 1 to 11 answered (finding-2 closed by owner direction); adversarial refutations C2, C7, C19 and doubts answered with designs or pre-order checks with pass criteria; requirement deltas, descopes, exceptions, envelope, price-check list and owner questions updated. Status stays Proposed. Numbering: the revision-2 brief and INSP-110 refer to the 5c16930 text; it is labelled revision 0 in its own header and change log, and no other revision was issued between them | Owner answers of status note section 10; INSP-110 iteration 1; adversarial RF feasibility check |
