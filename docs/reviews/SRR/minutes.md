@@ -53,3 +53,15 @@ Recorded by the presenter:
 - OA-1 and OA-2, the FW-B0 flash and picotool verify, were not performed. They are recorded as deferred to PDR under the owner's approval, as a tailoring of the owner part of entrance row 20. The owner was told so in the same exchange and may reverse it.
 - The post-ruling work R16 is performed next and verified by the reviewers.
 - The baseline tag `baseline/srr` is applied after R16 is verified, so that the functional baseline carries the rulings.
+
+### OA-1 and OA-2 performed (deferral reversed)
+
+The owner brought the Pico 2 during the session. Owner statement, verbatim: "I grabbed the pico so I'm ready to test the flash whenever you are." The deferral to PDR recorded above is therefore reversed. The board was marked "1"; chip id `0xf9c6e0eff60605d1`, RP2350, 4096K flash. Claude ran every command.
+
+| Step | Image and command | Result | Owner observation (verbatim) | Verdict |
+|---|---|---|---|---|
+| TC-SW-TOOL-001 step 11 (OA-1) | `rustos-blinky.uf2` (sha256 `c45b5268...08d3`): `picotool info -d`, `picotool load -v`, `picotool reboot`, 19:17 to 19:18 CDT | load and verify OK, reboot exit 0 | "On/Off time looks about equal and it blinked about 60-63 times in 60s. It's not exactly 1 second but its close" | Pass: 60 to 63 cycles in 60 s, window 10 to 120, predicted about 63 |
+| TC-SW-TOOL-001 step 12 (OA-1) | `cwht-app.uf2` (sha256 `4e0bd133...3529`): the same commands, 19:20 CDT | load and verify OK, reboot exit 0 | "Yes that looks correct", then "18 in 60s" | Pass: 18 cycles in 60 s, window 3 to 45, predicted about 16 |
+| OA-2 picotool verify known answer | `kat-target.uf2`, from `picotool uf2 convert` (sha256 `f8ef643e...c093`, equal to the known answer), loaded; `picotool verify kat-target.elf`; then a copy with one byte flipped at flash `0x1000002f`, 19:23 CDT | true image OK (exit 0); altered copy "First mismatch at 0x1000002f", exit 245 | none needed | Pass |
+
+Raw outputs are filed with the TC-SW-TOOL-001 run 4 report after the close-out run finishes. This closes the owner part of entrance row 20. INSP-016 re-verifies the evidence.
