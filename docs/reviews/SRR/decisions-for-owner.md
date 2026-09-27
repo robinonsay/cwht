@@ -406,3 +406,10 @@ The owner steps that are rulings (decisions 30, 40, 42, 47, 54, 55, 58, 73, 74, 
 | 91: Consent, theme K | 92: Consent, theme L | 93: Consent, theme L | 94: Consent, theme L | 95: Consent, theme L | 96: Consent, theme M | 97: Consent, theme M | 98: Consent, theme M | 99: Consent, theme N | 100: Consent, theme N |
 | 101: Consent, theme N | 102: Consent, theme N | 103: Consent, theme O | 104: Key K14 | 105: Key K11 | 106: Key K11 | 107: Key K9 | 108: Key K10 | 109: Key K10 | 110: Key K9 |
 | 111: Key K11 | 112: Key K14 | 113: Key K12 | 114: Key K15 | 115: Key K17 | 116: Consent, theme P | 117: Consent, theme P | 118: Key K17 | | |
+
+## Errata (append only)
+
+Added 2026-09-27 by Claude (review secretary, PDR work plan WP-PDR-15; lien L-4, RFA-SRR-004). This file is a review record (05 Table 4-1 row 33): the rows above are not edited, and the rulings transcribed from them in `docs/reviews/SRR/decision-memo.md` section 8 stand as ruled. The corrections are entries of `docs/reviews/SRR/errata.md`:
+
+- **Decision 94** (Part 2 theme L): the "If no answer" cell says the tools are not installed. Five of them (cargo-llvm-cov, cargo-nextest, cargo-geiger, cargo-deny, cargo-audit) were installed on 2026-09-25. The complexity analyzer adopted is `rust-code-analysis-cli` 0.0.25 (decision 109), not lizard. Erratum E-3 (package section 15 item 71).
+- **Decision 114** (Part 1 K15): the recommendation's "(INSP-015 APPROVED)" means APPROVED with liens F-07, F-08 and F-09, as the "Decision" cell of the row states. The K17 preamble's revision 6 sentence on INSP-002 is superseded by the revision 8 final sentence of the same paragraph. Erratum E-4 (package section 15 item 77 residual).
