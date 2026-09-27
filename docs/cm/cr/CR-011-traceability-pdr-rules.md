@@ -11,7 +11,7 @@ baseline_affected: baseline/srr
 affected_cis: [2, 18, 28, 30, 40]
 affected_paths: [tools/traceability.py, tools/tests/test_traceability.py, tools/tests/test_tools.py, tools/tests/fixtures/valid_project/docs/requirements/sys/requirements.json, tools/tests/fixtures/valid_project/docs/requirements/sys/requirements.md, tools/tests/fixtures/valid_project/firmware/cwht-core/src/keyer/straight.rs, tools/tests/fixtures/valid_project/firmware/cwht-core/src/keyer/iambic.rs, tools/tests/fixtures/valid_project/firmware/cwht-core/src/keyer/config.rs, tools/tests/fixtures/valid_project/hardware/kicad/tx-pa.kicad_sch, tools/README.md, docs/process/02-requirements-and-traceability.md, docs/cm/tool-validation/TV-002-traceability.md, docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.py, docs/cm/tool-validation/evidence/traceability-2026-09-27-r6.log.txt, docs/cm/tool-validation/evidence/traceability-2026-09-27-r7.py, docs/cm/tool-validation/evidence/traceability-2026-09-27-r7.log.txt, docs/vv/traceability-report.md, docs/vv/traceability.json]
 affected_ids: [TV-002, ACC-TRACE-001, ACC-TRACE-002, INSP-015, INSP-020, RFA-SRR-007]
-related: [CR-002, CR-007, CR-012, RFA-SRR-007, INSP-015, INSP-020, TV-009]
+related: [CR-002, CR-003, CR-006, CR-007, CR-008, CR-009, CR-012, RFA-SRR-007, INSP-015, INSP-020, TV-009]
 target_release: none
 branch: cr/CR-011-traceability-pdr-rules
 disposition: null
@@ -27,6 +27,8 @@ date_closed: null
 Template: `docs/templates/change-request.md`. Process: `docs/process/05-configuration-and-data-management.md` §5. This file is committed on `main`; the branch `cr/CR-011-traceability-pdr-rules` carries the product changes. Work package: WP-PDR-06 of `docs/plan/pdr-work-plan.md` (revision 2). The plan's register of phase CRs (section 6.2) does not list this CR; it is raised because `tools/traceability.py` has been under CR control since its accreditation ACC-TRACE-001 (05 Table 4-1 row 28, "Accreditation puts the tool under CR control"), and every non-editorial change to a class-CR CI after its CR-from event is a CR (05 §5.1).
 
 **Revision 2 (2026-09-27).** The branch head moved from `4774562` to `2b004b1` for the INSP-043 finding-1 (Major) fix: `709e95f` adds `RegressionSetTests` to `tools/tests/test_traceability.py` (blob `95f1719b` becomes `6ead5641`), and `2b004b1` adds TV-002 purpose 9 (`--regression`), run 7 and its evidence (`traceability-2026-09-27-r7.py`, `.log.txt`). The tool blob `d4cde9f5` and every other branch file are unchanged. This revision states run 7 in `affected_paths`, §4 Verification, §5, §8, §9 and §11, and names in §5 step 5 the record deltas the moved blobs require. It changes no product file.
+
+**Revision 3 (2026-09-27).** Resolves the section 6.1 round 1 Major finding IR-F1 (section 6.2). Section 1 now names the seven new codes that are violations in a plain run. Section 4 rows Requirements and traceability and Schedule, and the new section 4.1, state the effect on the open L0, L1 and `TC-SYS` CRs with trial numbers and the merge condition. `related` adds CR-003, CR-006, CR-008 and CR-009. Section 5 verification, the section 7 proposed Conditions and a section 9 row re-run the plain run after each later requirement CR merge. The Minor findings IR-F2 to IR-F5 are not resolved in this revision (plan rule C1). The branch head `2b004b1` and every product file are unchanged.
 
 ## 1. Description of the change
 
@@ -47,7 +49,7 @@ Template: `docs/templates/change-request.md`. Process: `docs/process/05-configur
 | Volatility | 02 §10.4 (SWE-200, MSR-02, TPM-012) | `--volatility --from <ref> [--to <ref>] [--dry-run]`: appends `MSR-02` to `docs/plan/measurements.json` after a schema check |
 | Children | 02 §8.1, T-06 | `--fix-children` |
 
-Plain-run behavior of every existing code is unchanged, except that a dev-board case no longer counts as closing (04 rule 7.3.12). New PDR rules follow the `check` column of 02 §8.2: warnings in a plain run, violations under `--gate`. `HAZARD_UNCONTROLLED` is a plain-run warning, not the violation 03 §8 names, because the software L2 requirements that close it are PDR products (WP-PDR-35); it is a violation under `--gate` from PDR.
+Plain-run behavior of every existing code is unchanged. Seven new codes are violations in a plain run, because their sources set E in the `check` column of 02 §8.2 or make the run fail (04 §7.4): `BASELINE_ID_MISSING` (02 T-04), `TRANSITION_FORBIDDEN` (02 T-12), `CHANGE_UNCOVERED` (02 T-13), `CLOSED_NOT_INSTALLED` (02 T-11; 04 rule 7.3.4), `CASE_STALE` (04 rule 7.3.11), `DEVBOARD_CASE_CLOSING` (04 rule 7.3.12: a dev-board case is never closing) and `VAL_PHASE_MISSING` (04 rule 7.3.5). IR-F1 names the first six; a comparison of the check catalogues of blobs `12de3545` and `d4cde9f5` adds `VAL_PHASE_MISSING`. `TBR_DUE_AT_GATE` is a violation only under `--gate`. Every other new rule has W in the `check` column of 02 §8.2 (T-15, T-16, T-18, T-20) or has no 02 row: it is a warning in a plain run and a violation under `--gate` from the gate that `GATE_ERROR_FROM` names. On today's `main` merged with the branch the seven codes find nothing (section 4). The three history codes then fail every later change to an L0 entry, an L1 requirement or a `TC-SYS` case that no approved CR covers (section 4.1). `HAZARD_UNCONTROLLED` is a plain-run warning, not the violation 03 §8 names, because the software L2 requirements that close it are PDR products (WP-PDR-35); it is a violation under `--gate` from PDR.
 
 Other files on the branch: known answers in `tools/tests/test_traceability.py` (thirteen new classes, temporary git repositories for the history rules) and the `Swe052CoverageTests` states in `tools/tests/test_tools.py`; `valid_project` gains the design units its `design_refs` name, `B21` on `REQ-SYS-006` and `mop_ids` on its two KDRs; `tools/README.md` traceability section; 02 §8.1 (options, inputs, outputs), §8.2 lead sentence, §8.5 (implementation status with the five codes INSP-020 finding-8 found unbound, carried item C-126) and §10.4 ("planned option" removed); TV-002 run 6 with ACC-TRACE-002 requested; `docs/vv/traceability-report.md` and `traceability.json` regenerated.
 
@@ -76,13 +78,29 @@ The PDR readiness declaration is blocked until every tool row due at PDR has a p
 | Cybersecurity | None: no USB firmware-load or key-input path |
 | Verification | Tool validation: TV-002 run 6 (section 4 of the record): 229 known-answer tests, 0 skipped, pass on an export of `4411a09`; mutation check against blob `12de3545` fails every new class. TV-002 run 7 (revision 2, INSP-043 finding-1): 235 known-answer tests (86 + 32 + 117), 0 skipped, pass on an export of `709e95f`, with purpose 9 (`--regression`, 04 §7.3 rule 10 and §10.5) and its `TC-ATP` clause exercised by `RegressionSetTests`; the six mutants M1 to M6 of `regression_set` and `design_ref_matches` are killed; repository run R-4 equal to R-3. Repository run R-3: plain 0 violations, 95 warnings; `--gate PDR` 379 violations, the PDR work still open. No TC-* changes. Record drift: the SRR records INSP-015 and INSP-020 name the earlier blobs, so `tools/validate_docs.py` and `test_validate_docs.RepositoryTests` fail on the branch until their delta iterations (section 5 step 6) |
 | Cost | None |
-| Schedule | Needed before the PDR readiness declaration (plan B4, Tue 10-06); the output becomes accredited evidence only after the reviews of section 5 steps 5 and 6, the disposition, the merge and ACC-TRACE-002 |
-| Requirements and traceability | None added, modified or retired; volatility contribution 0 (`--volatility --from baseline/srr --dry-run`: V 0.0 % for L1, L2 and software). Orphans or uncovered requirements created: none (plain run 0 violations) |
+| Schedule | Needed before the PDR readiness declaration (plan B4, Tue 10-06); the output becomes accredited evidence only after the reviews of section 5 steps 5 and 6, the disposition, the merge and ACC-TRACE-002. Interaction with the requirement CRs (IR-F1; section 4.1): the owner disposes CR-003 and CR-006 (OD-02, OD-03) and CR-008 and CR-009 (OD-37) from B0 (Mon 09-28) on. CR-011 merges only when the plain run on its merge tree gives 0 violations. Each of CR-003, CR-006, CR-008 and CR-009, merged before or after CR-011, needs its disposition Approved on `main` and every L0, L1 and `TC-SYS` id its branch changes listed in `affected_ids`. CR-008 as submitted fails this (164 ids), so CR-008 revises `affected_ids` before its disposition. Otherwise the CR merged second is blocked: CR-008 if CR-011 merges first, CR-011 if CR-008 merges first |
+| Requirements and traceability | None added, modified or retired by this CR; volatility contribution 0 (`--volatility --from baseline/srr --dry-run`: V 0.0 % for L1, L2 and software). Orphans or uncovered requirements created: none (plain run on `main` at `a244b05` merged with `2b004b1`: 0 violations, 96 warnings; author trial of 2026-09-27). **Effect on other CRs (IR-F1; section 4.1).** From the merge on, a plain run checks 02 T-04, T-12 and T-13 against `baseline/srr`. An L0 entry, L1 requirement or `TC-SYS` case with a Class I or Class II difference (02 §10.2) fails with `CHANGE_UNCOVERED` unless its id is listed in `affected_ids` by a CR in `docs/cm/cr/` whose `disposition` begins with `Approved`. Only a change made entirely in editorial commits is exempt. The check reads the tree against the tag, so merge order does not avoid it: a change merged before CR-011 fails the first plain run after CR-011 merges. Affected: CR-003, CR-006, CR-008 and CR-009, and every later L0, L1 or `TC-SYS` CR (L2 requirements and their cases join at `baseline/pdr`). Trial result: CR-008 as submitted gives 208 `CHANGE_UNCOVERED`, and 164 with its disposition Approved, because its `affected_ids` omit changed ids. CR-009 gives 5 while Submitted and 0 once Approved. CR-003 and CR-006 have no branch to trial. The merge condition is in section 4.1 |
 | Regulatory | None |
 | Documentation | `tools/README.md`, 02 §8.1, §8.2, §8.5, §10.4 (on the branch). Not on the branch, sent to their writers: 03 §8 and the RMM SWE-052 row (WP-PDR-17), 04 §7.4 rows 7.3.2, 7.3.4, 7.3.5, 7.3.6, 7.3.11, 7.3.12 (WP-PDR-13), `tools/toolchain.lock.md` §1.1 and §5 rows for runs 6 and 7 (WP-PDR-09; INSP-043 finding-4 lien), `docs/cm/tool-validation/README.md` TV-002 index row (tool owner; INSP-043 finding-4 lien), SEMP §4.3 allocation row and App. F F-06 (the SEMP writer, WP-PDR-13 or WP-PDR-46), 01 §3.1 item 2 (`--gate <REVIEW>`, WP-PDR-12) |
 | Released units | None |
 
 Classification rationale: Class II. The change modifies a class B evidence-generating tool and the documentation that describes it; it changes no requirement, interface, safety control, verification evidence already filed, or operator procedure, and the tool cannot change a released image (05 §5.1, "Version change of an Accredited tool": Class I only if the tool can change a released image). The independent review of section 6 is held anyway under plan rule C6 (every CR raised in the PDR phase is reviewed before disposition).
+
+### 4.1 Effect on open CRs and merge condition (IR-F1)
+
+Author trials of 2026-09-27: scratch detached worktree holding `main` at `a244b05` merged with the branch head `2b004b1`, plain run of the branch tool; then each open CR branch merged on top, run as submitted and again with its CR file's `disposition` set to `Approved` and committed; merges discarded, no ref kept. Codes other than `CHANGE_UNCOVERED` gave 0 in every trial.
+
+| CR (branch head) | Levels its change touches | Plain run with the CR Submitted | Plain run with the disposition Approved | Condition before it merges |
+|---|---|---|---|---|
+| CR-011 alone | none | 0 violations, 96 warnings | n/a | none |
+| CR-008 (`c629198`), CR file revision 2 on `main` | L1, `TC-SYS` | 208 `CHANGE_UNCOVERED` | 164 `CHANGE_UNCOVERED` (128 `REQ-SYS`, 36 `TC-SYS`), all Class II fields of 02 §10.2: `tbr` 57, `expected_artifacts` 36, `rationale` and `tbr` 17, `source_ids` 15, `source_ids` and `tbr` 13, `rationale` 12, `rationale`, `source_ids` and `tbr` 8, `verification_note` 3, three other combinations 1 each. Example: REQ-SYS-002 `rationale`, REQ-SYS-004 `tbr`, changed on the branch and absent from `affected_ids` | `affected_ids` lists every id the branch changes, or the branch drops the changes it does not mean to make, before the disposition. The finding goes to the CR-008 author through its section 6 impact reviewer; this CR does not edit CR-008 |
+| CR-009 (`64eb688`) | L0 | 5 `CHANGE_UNCOVERED` | 0 | Disposition Approved on `main` before the merge (05 §5.2 already requires it) |
+| CR-003, CR-006 (no branch) | L0, L1, `TC-SYS` (`affected_paths` of each) | not trialled | not trialled | As CR-008: every L0, L1 and `TC-SYS` id the implementation changes is in `affected_ids`; if the implementation reaches an id the CR does not list, the CR is revised before the merge |
+| CR-010, CR-012, CR-013, CR-015, CR-016 | none | 0 violations (trial on `main` at `8c57710`) | n/a | none from CR-011 |
+| CR-014 (`367b3dd`) | none (no requirement, expectation or test case file) | not trialled: the branch conflicts with `main` in `docs/cm/tool-validation/README.md` and `tools/toolchain.lock.md`, files CR-011 does not change | n/a | none from CR-011 |
+| Any later CR | L0, L1, `TC-SYS`; L2 and its cases after `baseline/pdr` | fails until the disposition is Approved on `main` | 0 if `affected_ids` is complete | as CR-003 |
+
+Merge order does not remove the effect, because `CHANGE_UNCOVERED` compares the tree with `baseline/srr`. If CR-008 merges first as submitted, CR-011's own merge fails its plain run. If CR-011 merges first, CR-008's merge fails. Proposed condition (section 7): CR-011 and each CR above merge only when the plain run on the merge commit gives 0 violations. Until a requirement CR is disposed, a plain run on its prototype branch merged with `main` fails with `CHANGE_UNCOVERED` on the ids that CR lists. A reviewer of that branch counts those findings as expected and any other finding as a defect. After each later merge the plain run is re-run on `main` (section 5, section 9).
 
 ## 5. Implementation plan
 
@@ -97,7 +115,7 @@ Classification rationale: Class II. The change modifies a class B evidence-gener
 | 6 | Delta iterations of the SRR records INSP-015 (`docs/reviews/SRR/checklists/tool-validation-tv-001-to-tv-010.md`) and INSP-020 (`docs/reviews/SRR/checklists/process-02-requirements-and-traceability.md`) naming the new blobs (clears the record drift) | Their reviewers | pending |
 | 7 | Owner disposition (section 7) and merge `merge(CR-011): ...`; then the owner records ACC-TRACE-002 in TV-002 section 9 | Owner; Claude merges | pending |
 
-Verification of the implementation (what the independent reviewer checks): TV-002 section 3 re-run on an export of the branch head gives 235 tests (run 7 selection; 229 with the run 6 selection), 0 skipped, OK; the mutation checks of TV-002 runs 6 and 7 (step 3 and step 3b) are repeatable; each code against its source text (02 §8.2 to §8.5, §10.2 to §10.4; 04 §7.3 rules 4, 5, 11, 12 and §8.2; 03 §8; SRR memo §9 condition 5; RFA-SRR-007 L-7); a plain run on the merged `main` gives 0 violations; `tools/validate_docs.py` exits 0 after step 6.
+Verification of the implementation (what the independent reviewer checks): TV-002 section 3 re-run on an export of the branch head gives 235 tests (run 7 selection; 229 with the run 6 selection), 0 skipped, OK; the mutation checks of TV-002 runs 6 and 7 (step 3 and step 3b) are repeatable; each code against its source text (02 §8.2 to §8.5, §10.2 to §10.4; 04 §7.3 rules 4, 5, 11, 12 and §8.2; 03 §8; SRR memo §9 condition 5; RFA-SRR-007 L-7); a plain run on the merged `main` gives 0 violations; after each later merge of a CR that changes an L0 entry, an L1 requirement or a `TC-SYS` case (CR-003, CR-006, CR-008, CR-009 and later CRs; section 4.1), the plain run is re-run on that merge commit and gives 0 violations, recorded in section 9; `tools/validate_docs.py` exits 0 after step 6.
 
 ## 6. Independent review of the impact assessment
 
@@ -136,6 +154,15 @@ Items checked with no finding:
 
 Reviewer concurrence: concur with Class II and with the change. Do not concur with disposition until IR-F1 is resolved. **Impact review complete, with findings: 1 Major (IR-F1), 4 Minor (IR-F2 to IR-F5).** The CR stays Submitted. The author revises sections 1, 4 and 5 and re-submits for a re-check of IR-F1, and resolves the Minor findings in the same revision or states why not.
 
+### 6.2 Author response to round 1 (revision 3, 2026-09-27)
+
+| Finding | Response | Where |
+|---|---|---|
+| IR-F1 (Major) | Accepted. Section 1 names the plain-run violation codes with their sources. The comparison of the check catalogues of blobs `12de3545` and `d4cde9f5` finds seven, not six: `VAL_PHASE_MISSING` (04 rule 7.3.5) is also new and a violation. Author re-run on `main` at `a244b05` (which carries CR-008 revision 2) reproduces the reviewer's numbers: CR-008 208, and 164 when Approved; CR-009 5, and 0 when Approved. Sections 4 and 4.1 state the effect on CR-003, CR-006, CR-008, CR-009 and later CRs and the merge condition. The CR-008 `affected_ids` gap goes to the CR-008 author through its impact reviewer. `related` adds CR-003, CR-006, CR-008 and CR-009. Section 5 verification and section 9 re-run the plain run after each later CR merge | Revision 3: front matter; sections 1, 4, 4.1, 5, 7, 9, 11 |
+| IR-F2 to IR-F5 (Minor) | Not resolved in this revision (plan rule C1: the author fixes the Major findings first). They stay open for the next revision or the disposition | none |
+
+Re-check of IR-F1 by the round 1 reviewer or another independent invocation: pending.
+
 ## 7. CCB disposition (owner)
 
 | Field | Value |
@@ -143,7 +170,7 @@ Reviewer concurrence: concur with Class II and with the change. Do not concur wi
 | Decision | Pending |
 | Class confirmed | Pending (proposed II) |
 | Date | |
-| Conditions | Proposed: merge only after section 5 steps 4 to 6 |
+| Conditions | Proposed: merge only after section 5 steps 4 to 6. Merge only when the plain run on the merge commit gives 0 violations. CR-008 completes its `affected_ids` before its disposition. Each later L0, L1 or `TC-SYS` CR merges only with its disposition Approved on `main` and its changed ids in `affected_ids`, and the plain run is re-run after each such merge (section 4.1) |
 | Rationale | |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
@@ -173,6 +200,7 @@ Traceability report after implementation: `docs/vv/traceability-report.md` on th
 |---|---|---|---|
 | Verification | TV-002 runs 6 and 7 re-run by the reviewer | `docs/cm/tool-validation/TV-002-traceability.md` §4; `evidence/traceability-2026-09-27-r6.log.txt`, `evidence/traceability-2026-09-27-r7.log.txt`; INSP-043 checks V3 to V9 | pending |
 | Documentation | 02 and README consistent with the tool | the three records of section 5 step 5 | pending |
+| Requirements and traceability | Plain run 0 violations on the CR-011 merge commit and after each later merge of CR-003, CR-006, CR-008, CR-009 or a later L0, L1 or `TC-SYS` CR (section 4.1) | plain-run summary line and merge SHA per merge | pending |
 
 Independent verifier (agent invocation): pending.
 
@@ -192,3 +220,4 @@ Independent verifier (agent invocation): pending.
 |---|---|---|---|---|
 | 2026-09-27 | Submitted | Claude (tool owner, WP-PDR-06) | this commit | Implementation on the branch at `4774562` submitted with the CR for the section 6 review; merge waits for the disposition (05 §5.2) |
 | 2026-09-27 | Submitted (revision 2) | Claude (tool owner, WP-PDR-06) | this commit | Branch head `2b004b1` after the INSP-043 finding-1 fix (run 7); CR file brought up to date before the section 6 review; no product file changed |
+| 2026-09-27 | Submitted (revision 3) | Claude (tool owner, WP-PDR-06) | this commit | Section 6.1 IR-F1 (Major) resolved: section 1 plain-run codes, section 4 and 4.1 effect on open CRs and merge condition, `related`, section 5 and 9 re-runs; IR-F1 re-check pending; Minor findings open |
