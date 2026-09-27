@@ -9,7 +9,7 @@
 | Decision class | 2 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 class 2: tool configuration, as section 3 states). Decision authority: Robin ratified it because it touches privacy |
 | Decision authority | Robin (owner; ratified a tool configuration touching privacy; no baseline changed, no money spent) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 to 3 (2026-09-25 and 2026-09-26) and the post-SRR-ruling deltas 1 and 2 (2026-09-26); verdict APPROVED with liens at delta 2. The liens against this file are fixed by the 2026-09-27 errata of section 8, verified at the next INSP-011 delta iteration. That record, not this row, carries every later result |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | none (tool configuration; recorded in `tools/toolchain.lock.md`) |
 | Change request | none |
@@ -20,7 +20,7 @@ LTspice 26.0.2 for macOS is the Windows binary inside a CrossOver bottle. On fir
 
 - Driving inputs and expectations: SI-027, SI-010 (SPICE analysis before power-on), SI-016 (renders inspected), charter section 11 rule 8 (headless only)
 - Requirements that constrain the decision: none
-- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): none
+- Hazards in play (`docs/safety/hazards.json` 0.5.0-pha): none
 - Research consulted: `docs/research/ltspice-batch-macos.md` F1 (CrossOver bundle under Rosetta), F2 (the documented `LTspice -b` launcher form does not work in 26.0.2), F3 (working invocation via the bottle's `wine` and the Windows path of `LTspice.exe`), F4 (consent dialog blocks `-b`; `CaptureAnalytics=false` fix verified; telemetry endpoint and JSON keys), F5 (`-ini` cannot carry the consent), F6 (one analysis per deck), F8 (Python parsing of `.raw`), F10 (encrypted ADI models load), F11 (ngspice fallback), F12 (version state); `docs/research/verification-tooling-inventory.md` F12, F13
 - Guidance consulted: SWE-136 (tool accreditation), 05 section 9.2 (tool validation records `TV-NNN`); SE HB §6.8
 - Assumptions the decision rests on, and how and by when each is confirmed:
@@ -52,7 +52,7 @@ No trade study: a tool-configuration choice (06 section 14.1 class 2), ratified 
 ### 4.2 Interfaces, design and code
 
 - ICDs affected: none
-- Design elements created or changed: `tools/ltspice-batch.sh` (from the report's deliverable), `tools/run_sim.py`, `tools/toolchain.lock.md` entry, `docs/cm/tool-validation/TV-NNN-ltspice.md`
+- Design elements created or changed: `tools/ltspice-batch.sh` (from the report's deliverable), `tools/run_sim.py`, `tools/toolchain.lock.md` entry, `docs/cm/tool-validation/TV-014-ltspice-batch.md` (the record for LTspice run through `tools/ltspice-batch.sh`)
 - New `SW-<SUB>` modules created by this ADR: none
 - ICDs created by this ADR: none
 
@@ -91,3 +91,4 @@ Transcribed from chat into `stakeholder-inputs.md`.
 ## 8. Change log
 
 - 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).
+- 2026-09-27 (PDR errata, WP-PDR-14; SRR liens L-6 and, where named, L-4 and L-7): Independent reviewer row names the INSP-011 results through the post-SRR-ruling delta 2 and points to the record for later results, replacing "verification pending at INSP-011 iteration 3" (F-13); hazard line stamp 0.4.0-pha changed to 0.5.0-pha, the version at HEAD, after re-checking the line against it (F-13; for ADR-015, 022, 023 and 026 also SRR lien L-7); section 4.2 `TV-NNN-ltspice` replaced by TV-014 (F-14). Route: the SRR decision memo carries these findings as liens to be fixed in the product before the PDR readiness declaration (RFA-SRR-006: "Fix each finding in its product"); they are applied by the ADR correction route the owner approved as SRR decision 105 (corrections outside section 2, each logged in this section), as the README paragraph "PDR errata" records. The decision of section 2 is unchanged. The first entry's "(both pending)" no longer holds: SRR decision 105 approved R-1 option (A) on 2026-09-26 and the 05 Table 4-1 row 13 sentence is in place (INSP-011 F-13). Author: Claude (ADR author invocation, WP-PDR-14).

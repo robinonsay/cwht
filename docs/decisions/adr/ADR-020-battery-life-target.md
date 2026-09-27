@@ -9,7 +9,7 @@
 | Decision class | 2 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 class 2: it sets the MOE-004 target before any baseline and decides no hazard control; the low-battery cutoff that ends the run is HZ-007 control K4, used and not changed). Decision authority stays Robin because the decision fixes a measure of effectiveness |
 | Decision authority | Robin (owner; the decision fixes a measure of effectiveness and its L1 requirement) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 and 2 (2026-09-25) NEEDS CHANGES, findings F-01 and F-03 against this file; the Major-finding corrections are applied here on 2026-09-26 (section 8); verification pending at INSP-011 iteration 3 |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 to 3 (2026-09-25 and 2026-09-26) and the post-SRR-ruling deltas 1 and 2 (2026-09-26); verdict APPROVED with liens at delta 2. The liens against this file are fixed by the 2026-09-27 errata of section 8, verified at the next INSP-011 delta iteration. That record, not this row, carries every later result |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline: MOE and L1) |
 | Change request | none (pre-baseline) |
@@ -20,7 +20,7 @@ Battery life decides the receiver current budget, the synthesizer choice, the LN
 
 - Driving inputs and expectations: SI-034 (second sentence), SI-023 (2S 18650), SI-003 (5 W), SI-005, SI-019 (a day of playing radio)
 - Requirements that constrain the decision: none yet; TPM-008 and TPM-002 are the measures
-- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): none; HZ-007 control K4 (the low-battery cutoff that ends the run) is used, not changed
+- Hazards in play (`docs/safety/hazards.json` 0.5.0-pha): none; HZ-007 control K4 (the low-battery cutoff that ends the run) is used, not changed
 - Research consulted: `docs/research/power-tree-and-charging.md` F23 (battery-life model and table; assumptions: 45 percent key-down during transmit, 0.90 buck efficiency, 90 percent usable capacity at Low confidence), F3 (charge time about 10 h at 500 mA), F19 (buck and quiescent currents), implications 10 to 18 (power budget candidates); `docs/research/pa-device-candidates.md` F19 (11.4 W DC at 5 W); `docs/research/rf-exposure-evaluation.md` F7 (the 1:9 figure is the ConOps nominal case, not the exposure compliance case); `docs/research/display-and-ui-parts.md` D-UI-02 (no backlight in build 1)
 - Guidance consulted: SE HB §4.1 (MOEs from stakeholder expectations, via 02 section 6); SE HB §6.8
 - Assumptions the decision rests on, and how and by when each is confirmed:
@@ -62,7 +62,7 @@ No trade study: the owner set the target; the trades that must respect it are th
 
 ### 4.3 Verification and safety
 
-- Verification cases to add or change: TC-SYS-NNN (battery-life Analysis from the power budget), TC-VAL-NNN (SAR Bench run: full charge to cutoff on a scripted 1:9 duty using the internal keyer memory into the dummy load, witnessed)
+- Verification cases to add or change: battery life TC-SYS-067 (Bench, REQ-SYS-094: full charge to cutoff on a scripted 1:9 duty into the dummy load); the battery-life Analysis from the power budget is the PDR budgets product (`docs/design/budgets.md`) and the witnessed SAR run is allocated with the validation cases of the V&V plan (no id yet)
 - Evidence class implications: the Bench run takes 8 hours or more; it is a validation scenario with the owner present at start and end
 - Hazard analysis update required: no
 - Safety-critical software scope changed: no
@@ -95,3 +95,4 @@ Transcribed from chat into `stakeholder-inputs.md`. The 45 percent key-down assu
 ## 8. Change log
 
 - 2026-09-26: one-time pre-baseline correction under INSP-011 ruling R-1 option (A), as directed by the lead SE: Decision class row and section 1 Assumptions line added (F-01); hazard line and "Hazard analysis update required" re-derived against `docs/safety/hazards.json` 0.4.0-pha (F-02); section 4.1 placeholder ids replaced by the ids the requirement authors allocated, or marked not created with the reason (F-03). Content from `reconciliation-srr.md` sections 2, 3, 5.1 and 6, re-checked against the requirement, hazard and expectation files of 2026-09-26; that register is superseded by this file for this ADR. The decision of section 2 is unchanged. Minor findings are liens, fixed before PDR: none against this file. The edit of an Accepted ADR rests on the owner's approval of R-1 (A) in the SRR decision memo and the matching sentence in `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13 (both pending). Class 1 choices without a trade study wait on ruling R-2 (owner). Author: Claude (ADR author invocation).
+- 2026-09-27 (PDR errata, WP-PDR-14; SRR liens L-6 and, where named, L-4 and L-7): Independent reviewer row names the INSP-011 results through the post-SRR-ruling delta 2 and points to the record for later results, replacing "verification pending at INSP-011 iteration 3" (F-13); hazard line stamp 0.4.0-pha changed to 0.5.0-pha, the version at HEAD, after re-checking the line against it (F-13; for ADR-015, 022, 023 and 026 also SRR lien L-7); section 4.3 placeholders replaced by TC-SYS-067, the budget analysis and SAR run stated as allocated (F-14). Route: the SRR decision memo carries these findings as liens to be fixed in the product before the PDR readiness declaration (RFA-SRR-006: "Fix each finding in its product"); they are applied by the ADR correction route the owner approved as SRR decision 105 (corrections outside section 2, each logged in this section), as the README paragraph "PDR errata" records. The decision of section 2 is unchanged. The first entry's "(both pending)" no longer holds: SRR decision 105 approved R-1 option (A) on 2026-09-26 and the 05 Table 4-1 row 13 sentence is in place (INSP-011 F-13). Author: Claude (ADR author invocation, WP-PDR-14).
