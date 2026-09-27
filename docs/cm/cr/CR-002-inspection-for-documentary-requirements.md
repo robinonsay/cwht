@@ -77,7 +77,7 @@ Classification rationale: Class I. The change alters the verification method of 
 | 2 | `docs/requirements/sys/requirements.json` REQ-SYS-122, 124, 137, 138 (item 4) | L1 requirements author | |
 | 3 | `docs/test_cases/sys/test_cases.json` TC-SYS-085, 086, 091 (item 5) | TC-SYS test author | |
 | 4 | `docs/safety/hazard-analysis.md` section 8.1 (item 6) | hazard analysis author | |
-| 5 | `tools/traceability.py` rule 7.3.6 and a known-answer test (item 7) | Claude (tool owner) | |
+| 5 | `tools/traceability.py` rule 7.3.6 and a known-answer test (item 7) | Claude (tool owner) | `c774851` (brought forward from the PDR readiness declaration to before the `baseline/srr` tag by SRR close-out item 5, `docs/reviews/SRR/minutes.md` commit `dd39332`; re-validation TV-002 run 5) |
 
 Verification of the implementation: the INSP-003 reviewer verifies steps 2 and 4 and closes finding-17; the INSP for the TC-SYS cases verifies step 3; `tools/traceability.py` exits 0 with no `HAZARD_REQ_NOT_TESTED` for the four requirements after step 5; until step 5 the procedure reviewer checks the Inspection route by hand (04 section 7.4 row 7.3.6).
 
@@ -96,7 +96,7 @@ Reviewer concurrence: pending.
 | Field | Value |
 |---|---|
 | Decision | Approved |
-| Class confirmed | Pending: Class I proposed by Claude; the ruling did not name a class |
+| Class confirmed | Class I, confirmed by the owner on 2026-09-26: SRR close-out item 7 "CR-002 is Class I", ruled as recommended by the owner's statement "I concur with your recommendations" (`docs/reviews/SRR/minutes.md`, section "Close-out decisions (after the first close-out run)", commit `dd39332`). Before that ruling the field read: Pending, Class I proposed by Claude; the ruling did not name a class |
 | Date | 2026-09-26 |
 | Conditions | None |
 | Rationale | SRR decision 113 (owner ruling 2026-09-26): approve a CR to 04 rule 7.3.6 admitting Inspection for requirements that state a documentary or physical property, so REQ-SYS-122, REQ-SYS-124, REQ-SYS-137 and REQ-SYS-138 close by Inspection instead of Analysis |
@@ -109,12 +109,14 @@ Disposition history:
 | Date | Decision | New target | Source |
 |---|---|---|---|
 | 2026-09-26 | Approved (SRR decision 113) | none | owner ruling at the SRR session, transcribed by Claude |
+| 2026-09-26 | Class I confirmed (SRR close-out item 7) | none | owner statement "I concur with your recommendations", `docs/reviews/SRR/minutes.md` commit `dd39332`, transcribed by Claude |
 
 ## 8. Implementation record
 
 | Commit | Files | Trailer check (`CR: CR-002` present) |
 |---|---|---|
 | the commit that adds this file | `docs/process/04-verification-and-validation.md` (step 1) | yes |
+| `c774851` | `tools/traceability.py`, `tools/tests/test_traceability.py` (step 5) | yes |
 
 Traceability report after implementation: pending steps 2 to 5; renders regenerated: none for step 1.
 
@@ -126,7 +128,7 @@ Traceability report after implementation: pending steps 2 to 5; renders regenera
 | Requirement methods | Step 2 | INSP-003 finding-17 closure | pending |
 | Closing cases | Step 3 | TC-SYS review record | pending |
 | Hazard analysis wording | Step 4 | INSP-008 delta check | pending |
-| Tool rule | Step 5 | `tools/tests/` known-answer test; `tools/traceability.py` exit 0 | pending |
+| Tool rule | Step 5 | `tools/tests/test_traceability.py` `InspectionRouteTests` (accepted SYS control, missing or misplaced note, no closing Inspection case, `SW` and `SW-<SUB>` excluded); TV-002 run 5 on an export of `c774851` (182 tests, 0 skipped, pass) and TV-002 section 4.1 run R-2: plain `tools/traceability.py` exit 0, 0 violations, no `HAZARD_REQ_NOT_TESTED` on REQ-SYS-122, 124, 137 or 138 | Pass by the tool owner's run; independent verification by the INSP-015 delta review of TV-002 run 5 pending |
 
 Independent verifier (agent invocation): pending.
 
@@ -145,3 +147,4 @@ Independent verifier (agent invocation): pending.
 | Date | State | By | Commit on main | Note |
 |---|---|---|---|---|
 | 2026-09-26 | Dispositioned | Claude (process author), transcribing the owner | this file's first commit | Written after the owner approved it as SRR decision 113 (the package row served as the request); step 1 applied in the same commit |
+| 2026-09-26 | Dispositioned | Claude (tool owner) | `c774851` and the commit that records this row | Step 5 implemented (`c774851`) under SRR close-out item 5; TV-002 re-validated (run 5); Class I confirmed by close-out item 7 (section 7) |

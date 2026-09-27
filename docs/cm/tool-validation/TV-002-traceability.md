@@ -1,9 +1,9 @@
-# TV-002: tools/traceability.py (git blob 0a867523)
+# TV-002: tools/traceability.py (git blob 12de3545, commit c774851; earlier blob 0a867523, accredited as ACC-TRACE-001)
 
 | Field | Value |
 |---|---|
 | Record | TV-002 |
-| Status | **Validated** (2026-09-25; re-run at commit `400e59d` on 2026-09-26, SRR package item R5) on the file identified in section 1, committed unchanged in `400e59d`. Independent review and owner accreditation pending (sections 8 and 9). Update 2026-09-26 (SRR decision 114, owner ruling 2026-09-26): **Reviewed** (INSP-015 APPROVED with liens, section 8) and **Accredited** (section 9) |
+| Status | **Validated** (2026-09-25; re-run at commit `400e59d` on 2026-09-26, SRR package item R5) on the file identified in section 1, committed unchanged in `400e59d`. Independent review and owner accreditation pending (sections 8 and 9). Update 2026-09-26 (SRR decision 114, owner ruling 2026-09-26): **Reviewed** (INSP-015 APPROVED with liens, section 8) and **Accredited** (section 9). Update 2026-09-26 21:14 (CR-002 implementation step 5; SRR close-out item 5, owner concurrence "I concur with your recommendations", `docs/reviews/SRR/minutes.md` commit `dd39332`): the tool changed to blob `12de3545` in commit `c774851` (rule 7.3.6 Inspection route); **re-validated** by run 5 of section 4 on an export of `c774851`, with the repository run of section 4.1 showing 0 violations. Independent review of this re-validation (INSP-015 delta) pending; ACC-TRACE-001 extends to the new blob when that review is APPROVED (section 9) |
 | Class | B, evidence-generating (CM plan section 9.1) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9; the tool checks SWE-052 (NPR 7150.2D section 3.12.1 Table 1) as charter section 7 adopts it |
 | Due | SRR (CM plan section 13) |
@@ -26,12 +26,28 @@ The tool has no version string; its version is the content of the file, identifi
 
 Commands: `git hash-object <file>`; `shasum -a 256 <file>`; `git diff --quiet HEAD -- <file>`; the tree digest is the SHA-256 of the sorted list of `<sha256>  <path>` lines (procedure `docs/cm/tool-validation/evidence/python-tools-2026-09-25.py`, function `tree`). **Install source:** the repository (CM plan Table 4-1 row 28); no installer. **Runtime:** the venv Python and jsonschema of TV-001, PyYAML 6.0.3 through `validate_docs.py`.
 
+**Identities for run 5** (2026-09-26, CR-002 step 5; every file read from an export of commit `c774851`, `git archive c774851 | tar -x`, so each equals the committed blob):
+
+| File | Git blob | SHA-256 | Change against the accredited identities above |
+|---|---|---|---|
+| `tools/traceability.py` | `12de354531f27afd59e9a18798516d218821d6c0` | `fb164e6b6c558c2e32b3fe6c697c0cfa5ccee2f4a1f53b1e8de97fc940109b6a` | changed in `c774851` from blob `0a867523` (21 lines changed: `HAZARD_INSPECTION_NOTE`, the Inspection branch of `check_hazard_verification`, the `HAZARD_REQ_NOT_TESTED` catalogue text and docstring; CR-002 item 7) |
+| `tools/validate_docs.py` (imported) | `3aa0368147b9af3e6e1546f808afb7aedf7f2226` | `e06c72a1b71229f4fa1b14d2be009721b1fbc84219a1aa48cc05621536b06092` | changed from `2bedc2a7` in `3de1e2d` and `96af250`; validated by TV-003 run 6 and accredited there; the traceability tool imports only its schema loading and front-matter parser |
+| `tools/tests/test_traceability.py` | `072bbdcd1ccbd224ee11d3fb4e1d097bcd0d978c` | `47bab1cfb15497274c0668e1cc8fd387e17cdf85a2258f9a06adf5e9d4f0d4f8` | changed in `c774851` from blob `d76b0697`: class `InspectionRouteTests` (6 tests) and the module docstring |
+| `tools/tests/test_traceability_srr_rules.py` | `86606485debd4569954847c5a48e7dd62bbcbcab` | `7c8f10a4be544fdc6b7b99455fe53839f809651fddf3d64e9cf9d5c731d09776` | equal |
+| `tools/tests/test_tools.py` | `ed003bad762332310f0bc4d63346ac875f0e0554` | `8408518e994909db7d08b39d800f0f7cd22afc8567e9d1ef06aee470dec5d823` | committed; unchanged since `400e59d` (run 3) |
+| `tools/tests/fixtures/valid_project/` | 38 files, tree digest `c842bb54028707840409b8d0363fdf3c36885ddccb4e4458df50389e58aa3b7d` | | unchanged since `400e59d` (`git diff --stat 400e59d c774851` on the fixture is empty); the digest differs from the section 1 line because that line was taken on the working tree of `28e49e6` |
+| `tools/tests/fixtures/invalid_project/` | 32 files, tree digest `2377caa9611bdff2407f73ca9705cd1890407885d3f0f914462d7172f1e683eb` | | equal |
+
+Tree digests computed with function `tree` of `evidence/python-tools-2026-09-25.py`.
+
 ## 2. Purposes covered
 
 1. Check the requirement, expectation, test-case, hazard, risk-link, verification-report and NCR files of a repository root against the rule catalogue of the tool (`CHECK_CATALOGUE` in the source; `tools/README.md` "Rule coverage"): unique ids, parent or documented self-derived rationale, every Draft or Active requirement verified by at least one case, every case citing at least one requirement, status and evidence rules, hazard-control union (charter section 7), writing-rule word list, report and NCR front matter and artifact hashes; exit 1 on any Violation.
 2. The SRR rules `STAKEHOLDERS_MISSING` (02 T-21) and `SYS_UNALLOCATED` (02 T-18, warning listing at SRR) from `docs/design/allocation.json`.
 3. Write the traceability report (`docs/vv/traceability-report.md` or `--output`) and its data file (`traceability.json` or `--json`), with `--report-only` exiting 0 whatever the findings.
 4. With `--render`, write `expectations.md` and every `requirements.md` from their JSON before the checks.
+
+From blob `12de3545` (CR-002 item 7; 04 rule 7.3.6 as amended at `d992052`), purpose 1 includes the Inspection route of rule 7.3.6: `HAZARD_REQ_NOT_TESTED` accepts a hazard-tracing requirement of a module other than `SW` and `SW-<SUB>` that has method Inspection, a live closing case of method Inspection (whose type Inspection `TC_TYPE_METHOD` enforces) and a `verification_note` beginning `Inspection accepted per CR-002`; every other combination keeps failing as before, and `SW` and `SW-<SUB>` get no exception (SWE-192). Purpose 3 is unchanged: `--report-only` always exits 0, a plain run exits 1 on any violation (no controlled document requires a non-zero `--report-only` exit; `tools/README.md` option table).
 
 ## 3. Known-answer test
 
@@ -45,6 +61,8 @@ Commands: `git hash-object <file>`; `shasum -a 256 <file>`; `git diff --quiet HE
 .venv/bin/python -m unittest discover -v -s tools/tests -p test_tools.py
 ```
 
+From run 5 the first command also selects the CR-002 known answers: `.venv/bin/python -m unittest discover -v -s tools/tests -p test_traceability.py -k ValidProjectTests -k InvalidProjectTests -k WordListTests -k InspectionRouteTests`. `InspectionRouteTests` builds each case in memory from `valid_project` (an accepted SYS hazard control; four note variants rejected: empty, an Analysis note, the phrase not at the start, `CR-0021`; no closing Inspection case; modules `SW-KEYER` and `SW` excluded; the catalogue text), so neither fixture's seeded code set changes.
+
 **Pass criteria:** every test passes and none is skipped; `valid_project` exits 0 with zero findings; `invalid_project` exits 1 with exactly the seeded code set. The repository-content classes (`test_traceability.RepositoryTests`, `test_traceability_srr_rules` `FixtureSchemaTripwireTests` and `RepositoryAllocationTests`) are not part of this test; they are run and recorded separately (lock section 1.1 repository-content row).
 
 ## 4. Result
@@ -55,6 +73,7 @@ Commands: `git hash-object <file>`; `shasum -a 256 <file>`; `git diff --quiet HE
 | 2 | 2026-09-25 23:45 | same file identities as run 1 | 173, 0 skipped | pass |
 | 3 | 2026-09-26 02:31 | `HEAD` `400e59d` (SRR package item R5): an export of the commit (`git archive HEAD`); tool, test modules and fixtures equal to `400e59d` | 176 (27 + 32 + 117), 0 skipped | pass |
 | 4 | 2026-09-26 02:32 | working tree on `400e59d`: this tool, its test modules and both fixtures equal to `400e59d`; `tools/validate_docs.py` blob `33ab5a83` (the record drift rule, TV-003 run 5) | 176, 0 skipped | pass |
+| 5 | 2026-09-26 21:14 | `c774851` (CR-002 step 5): an export of the commit (`git archive c774851`), every file identity of the run 5 table of section 1; first command with `-k InspectionRouteTests` (section 3) | 182 (33 + 32 + 117), 0 skipped | pass |
 
 Output excerpt (run 2):
 
@@ -68,7 +87,27 @@ Output excerpt (run 2):
 
 Evidence: `docs/cm/tool-validation/evidence/python-tools-2026-09-25.log.txt` (both runs, every file identity, per-class counts).
 
+Output excerpt (run 5, on the export of `c774851`):
+
+```
+## cmd1  Ran 33 tests in 0.467s  OK
+## cmd2  Ran 32 tests in 0.485s  OK
+## cmd3  Ran 117 tests in 2.623s  OK
+skipped: 0 (the only 'skip' strings in the verbose output are two test names)
+```
+
+Mutation check (run 5): the `InspectionRouteTests` class run against the previous tool blob `0a867523` (an export of `d88f6da` with the new test module) fails 7 of its subtests (the accepted case, the catalogue text and the new messages), so the known answers discriminate the change.
+
 R5 re-run (2026-09-26, SRR package section 2.1 item R5; INSP-015 finding-2): section 3 run at commit `400e59d` on an export of the commit, so the result is bound to a commit that contains every file tested: every tool, test module and fixture identity line of the transcript reads "equal to HEAD". Evidence `evidence/python-tools-2026-09-26-r5-head.log.txt` (procedure `evidence/python-tools-2026-09-26-r5.py`, mode `head`); run 4: `evidence/python-tools-2026-09-26-r5-worktree.log.txt`.
+
+### 4.1 Repository run (re-validation trigger, CR-002 section 5 verification)
+
+| Run | Date and time (CDT) | Tree | Command | Result |
+|---|---|---|---|---|
+| R-1 | 2026-09-26 (before the change) | working tree on `d88f6da`, tool blob `0a867523` | `tools/traceability.py --report-only` | 245 requirements, 173 test cases, 4 violations, all `HAZARD_REQ_NOT_TESTED` on REQ-SYS-122, 124, 137 and 138 (method Inspection with the `Inspection accepted per CR-002` note, no matching rule); outputs restored with `git checkout` |
+| R-2 | 2026-09-26 21:14 | export of `c774851`, tool blob `12de3545` | `tools/traceability.py --root <export> --output <scratch>/report.md --quiet` (plain run) | exit 0; Result PASS, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and REQ-SYS-148, pre-existing T-18 listings); no finding on REQ-SYS-122, 124, 137 or 138 |
+
+The repository run is repository content, not part of the known-answer test (section 3); it is recorded here because CR-002 section 5 names "`tools/traceability.py` exits 0 with no `HAZARD_REQ_NOT_TESTED` for the four requirements" as the verification of step 5.
 
 ## 5. Reproducibility
 
@@ -95,6 +134,8 @@ Done; the result is recorded below. The reviewer checks this record, re-runs sec
 
 Result (2026-09-26, recorded by Claude, software lead and tool owner, under SRR decision 114; CM plan section 9.2 step 3 as the INSP-015 closure asks): independent review record **INSP-015** (`docs/reviews/SRR/checklists/tool-validation-tv-001-to-tv-010.md`), reviewer agent `reviewer:tools`, author `author:tool-validation`, checklist `peer-review-checklist-code` revision B. Iteration 1 and 2 NEEDS CHANGES; iteration 3 (review baseline `adcfe09`) **APPROVED with liens**; re-issued APPROVED with liens after the delta verification of `96af250` and `860e84e` (record commit `b4abcc5`, `product_commit` `99ecccb`). Findings F-01 to F-06 Closed; open liens, Minor, "Lien: fix before PDR": F-07 (the TV-003 and TV-010 status lines, the README and two lock rows still called committed blobs uncommitted). No Major finding is open. Checklist item TV-S9 was No only for the owner's accreditation, which section 9 now records.
 
+Re-validation review (run 5, blob `12de3545`; CR-002 step 5, SRR close-out item 5): **pending**. The independent reviewer re-issues INSP-015 as a delta on this record, the commit `c774851` and run 5, checking that the Inspection route matches 04 rule 7.3.6 as amended at `d992052` and CR-002 section 1 item 7 (module restriction, note prefix, closing Inspection case) and that `InspectionRouteTests` asserts exact findings. The minutes of the close-out (commit `dd39332`) make the accreditation extension depend on that review.
+
 ## 9. Accreditation (owner)
 
 Proposed scope statement **ACC-TRACE-001**: "Accredited for purposes 1 to 4 for `tools/traceability.py` at git blob `0a867523f78c224afdaa938735911b5df8f2920c` with `tools/validate_docs.py` at blob `2bedc2a7aaa14359e3adde6b50810314c9793033`, under the TV-001 interpreter, for the rule codes implemented at that blob."
@@ -103,3 +144,4 @@ Proposed scope statement **ACC-TRACE-001**: "Accredited for purposes 1 to 4 for 
 |---|---|---|
 | Pending (owner, at SRR, after section 8) | | |
 | **Accredited** as proposed: **ACC-TRACE-001**, purposes 1 to 4 for `tools/traceability.py` at git blob `0a867523f78c224afdaa938735911b5df8f2920c` with `tools/validate_docs.py` at blob `2bedc2a7aaa14359e3adde6b50810314c9793033`, under the TV-001 interpreter, for the rule codes implemented at that blob. Ruling: SRR decision 114 (owner ruling 2026-09-26; the recommendation "Accredit each record as proposed (INSP-015 APPROVED)" adopted by the owner's statement "I concur with your recommendations for the key decisions", `docs/reviews/SRR/minutes.md` 2026-09-26, key decision K15). | 2026-09-26 | Claude (software lead and tool owner), transcribing the owner's ruling (charter section 2) |
+| **Extension of ACC-TRACE-001, conditional**: ACC-TRACE-001 extends to `tools/traceability.py` at git blob `12de354531f27afd59e9a18798516d218821d6c0` (commit `c774851`, CR-002 step 5) with `tools/validate_docs.py` at blob `3aa0368147b9af3e6e1546f808afb7aedf7f2226` (accredited under TV-003), under the TV-001 interpreter, for purposes 1 to 4 and the rule codes implemented at that blob, including the rule 7.3.6 Inspection route of section 2. Ruling: SRR close-out item 5, "update `tools/traceability.py` now (CR-002 step 5), then re-validate and re-accredit it, rather than record a deviation", with the record "the changed tools are re-validated, and their accreditations are extended once the independent review of each validation record is complete", adopted by the owner's statement "I concur with your recommendations" (`docs/reviews/SRR/minutes.md`, section "Close-out decisions (after the first close-out run)", commit `dd39332`). **Effective** on the date the INSP-015 delta review of run 5 records APPROVED (section 8); until then the output of blob `12de3545` is developer evidence and blob `0a867523` remains the accredited version. | 2026-09-26 | Claude (software lead and tool owner), transcribing the owner's ruling (charter section 2) |
