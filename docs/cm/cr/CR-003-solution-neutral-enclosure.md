@@ -1,0 +1,327 @@
+---
+id: CR-003
+title: Make the enclosure requirement solution-neutral and the legend process-neutral
+status: Submitted
+class: I
+originator: Claude
+date_opened: 2026-09-27
+phase: Pre-A/A
+configuration_at_origination: baseline/srr (tag on 779f93f); HEAD 1ff752b on main
+baseline_affected: baseline/srr
+affected_cis: [2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 17, 18, 34, 40, 47, 48, 51, 52, 53]
+affected_paths: [docs/requirements/sys/requirements.json, docs/requirements/sys/requirements.md, docs/requirements/l0-stakeholder/expectations.json, docs/requirements/l0-stakeholder/expectations.md, docs/conops/conops.md, docs/test_cases/sys/test_cases.json, docs/test_cases/sys/test_cases.md, docs/design/allocation.json, docs/design/concept.md, docs/safety/hazards.json, docs/safety/hazard-analysis.md, docs/icd/ICD-TX-ANT.md, docs/plan/tpm.json, docs/plan/cost-estimate.md, docs/plan/semp.md, docs/plan/technology-assessment.md, docs/process/03-software-classification-and-rmm.md, docs/process/se-compliance-matrix.json, docs/process/se-compliance-matrix.md, docs/risk/register.json, docs/risk/register.md, docs/decisions/adr/ADR-008-openscad-freecad-step-pcbway-cnc.md, docs/decisions/adr/README.md, docs/decisions/trade-studies/, docs/templates/peer-review-checklist-design.md, docs/vv/traceability-report.md, docs/vv/traceability.json, README.md]
+affected_ids: [REQ-SYS-103, REQ-SYS-105, REQ-SYS-107, REQ-SYS-109, REQ-SYS-110, REQ-SYS-112, REQ-SYS-124, REQ-SYS-177, REQ-SYS-191, REQ-SYS-192, REQ-SYS-193, TC-SYS-072, TC-SYS-075, TC-SYS-076, TC-SYS-077, TC-SYS-086, TC-SYS-087, TC-SYS-098, TC-SYS-107, TC-SYS-114, TC-SYS-115, CON-015, CON-026, NGO-006, NGO-007, MOE-013, OPS-012, HZ-001, HZ-002, HZ-003, HZ-006, HZ-007, HZ-009, HZ-010, HZ-013, RSK-006, RSK-007, RSK-018, RSK-025, RSK-026, RSK-030, RSK-043, RSK-044, RSK-052, RSK-053, TPM-001, TPM-009, TPM-014, TPM-016, ICD-TX-ANT, ADR-008]
+related: [SI-037, SI-038, SI-008, SI-012, INSP-001, INSP-023, CR-002, OQ-SAF-010]
+target_release: none
+branch: cr/CR-003-solution-neutral-enclosure
+disposition: null
+disposition_date: null
+relook_trigger: null
+relook_by: null
+merge_sha: null
+date_closed: null
+---
+
+# CR-003: Make the enclosure requirement solution-neutral and the legend process-neutral
+
+Template: `docs/templates/change-request.md`. Process: `docs/process/05-configuration-and-data-management.md` §5.1 to §5.3 and `docs/process/02-requirements-and-traceability.md` §10.2 and §10.3. File location: this file, committed on `main` with `Refs: CR-003`; the product changes go on the branch `cr/CR-003-solution-neutral-enclosure` after disposition. Number reserved for this change in `docs/reviews/SRR/baseline-record.md` (CR register rows "CR-003 not yet proposed"). Status: **Submitted**. The independent review of section 6 is required before the owner's disposition (SRR close-out lesson: a Class I CR gets its impact review before the disposition, not after, which `docs/cm/deviations.md` entries 1 and 2 record for CR-002 and CR-004).
+
+The ids REQ-SYS-191 to REQ-SYS-193 and TC-SYS-114 and TC-SYS-115 are the next free ids at 1ff752b (highest REQ-SYS-190, TC-SYS-113). They are not reserved in the requirement or test-case files (02 §11.1 rule 2); the implementing commit takes the next free ids at that time and corrects this file and its front matter if they differ.
+
+## 1. Description of the change
+
+### 1.1 Changed L1 requirement statements (Class I)
+
+**REQ-SYS-109** (rewritten solution-neutral; the id is kept because the requirement keeps its one piece of performance content, the conductive ground contact, which the new statement makes measurable).
+
+| Field | Before | After |
+|---|---|---|
+| title | Enclosure material and finish | Enclosure bonding to circuit ground |
+| description | The transceiver shall use a CNC-machined aluminum enclosure, anodized with the chassis-ground and connector contact areas left conductive. | The transceiver shall hold at most 0.1 ohm (TBR) DC between each bond area of its conductive enclosure parts and the antenna-jack shell. |
+| rationale | Why: constraint CON-015 (SI-008, ADR-008): PCBWay CNC aluminum from OpenSCAD via FreeCAD STEP. Alloy 6061 with bead blast and Type II anodize is the research recommendation (docs/research/enclosure-cnc-and-openscad-pipeline.md A3, A4, adopted by SRR decision 83, owner ruling 2026-09-26). Ops: OPS-012. | Why: CON-015 as amended by CR-003 (SI-037) admits several enclosure constructions, so this requirement names no construction, material, finish or vendor. Any enclosure complies that meets the enclosure performance set: REQ-SYS-102 (mass), 103 (envelope), 105 (antenna-port load), 107 (counterpoise), 108 (connector access), 110 and 111 (edges, knob clearance), 112 and 113 (PA junction, hand-hold surface), 116 and 117 (drop, rain), 124 and 191 (legend, legend durability), 168 (cell-cover pinch), 175 (antenna port on one end), 177 (digital emissions), 192 (touchable surface), 193 (wall flammability) and this requirement. The superseded statement carried one property beyond a solution: chassis-ground and connector contact areas stay conductive. This requirement states it as an outcome that a metal body, a metal plate, the copper of a PCB plate, a conductive coating and a metal heatsink can each meet: an insulating finish or an unbonded coating under the jack flange loses the RF ground and the counterpoise return and can arc (HZ-009 C5), leaves the ESD return of the jacks undefined (HZ-010 K1), and floats the shield that REQ-SYS-177 relies on. A conductive enclosure part is any metal or metallized part that forms the shield or can be touched from outside; a bond area is the surface where that part meets its grounding contact (the jack flange, a screw, a spring finger or a gasket), shown on the drawing. Ops: OPS-012, OPS-017. TBR: 0.1 ohm is this author's proposal; the PDR enclosure trade study fixes it from the bond hardware and the coating datasheet. |
+| verification_method | Inspection | Test |
+| verification_note | Pre-build (closing): Inspection of the STEP, drawing and order notes. Post-build: receipt Inspection and multimeter continuity at the masked areas. Closing case: TC-SYS-075. | Pre-build (supporting): Inspection of the bond areas and grounding contacts on the drawing of each carried enclosure option. Post-build (closing): Bench, four-wire, bench supply current-limited to 1 A (0.1 A on a coating) between each bond area and the jack shell, millivolt drop read on the multimeter. Closing case: TC-SYS-075. |
+| source_ids | CON-015, SI-008, ADR-008, OPS-012 | CON-015, SI-037, SI-008, OPS-012, OPS-017 (ADR-008 removed: the requirement no longer implements it, and the PDR enclosure ADR supersedes it, section 4 Documentation) |
+| hazard_ids | none | HZ-009, HZ-010 |
+| tags | revA | revA, safety |
+| tbr | null | owner: Robin decides on Claude's proposal; Claude produces the closing evidence. plan: The PDR enclosure trade study fixes the value from the bond hardware and coating datasheets; Robin approves in the PDR memo. close_by: PDR |
+| priority, parent_id | Baseline, none | unchanged |
+
+Word count 23 (WR-14 limit 25). The alternative of a statement that lists the performance requirements is rejected in section 3.
+
+**REQ-SYS-124** (amended so that a legend on a printed, coated or plate-panel face complies).
+
+| Field | Before | After |
+|---|---|---|
+| description | The transceiver shall carry, marked into its enclosure metal, the legend: amateur transmitter, 144-148 MHz, 5 W nominal, licensed operators only, handbook exposure section. | The transceiver shall carry on its enclosure exterior the legend: amateur transmitter, 144-148 MHz, 5 W nominal, licensed operators only, handbook exposure section. |
+| rationale | (as baselined; it closes with "marking into the metal (engraved or laser-marked) makes it last the unit's life") | Why: HZ-001 K7 and HZ-006 K7: the legend tells anyone holding the unit that it is a licensed-operator transmitter and where the exposure information is (docs/research/rf-exposure-evaluation.md RFX-14, RFX-D9; SRR decision 34, owner ruling 2026-09-26); CON-006. '5 W nominal' because REQ-SYS-012 admits up to 6.3 W. CR-003 (SI-037) removes the metal from the statement so that each enclosure option complies with its own marking process: engraving or laser marking on a metal face, silkscreen on a PCB face plate, or a relief or multi-material legend printed into the case wall. The lasting-life property that marking into the metal gave is stated as an outcome in REQ-SYS-191. Method: Inspection by SRR decision 113 (owner ruling 2026-09-26) through CR-002, which admits Inspection under 04 rule 7.3.6 for a physical property (INSP-003 finding-17). Ops: OPS-019. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 6. |
+| verification_method | Inspection | Inspection (unchanged) |
+| verification_note | Inspection accepted per CR-002 (SRR decision 113): pre-build (closing) inspection of the engraving artwork and drawing callout against the legend text and depth. Post-build (supporting): receipt Inspection. Closing case: TC-SYS-086. | Inspection accepted per CR-002 (SRR decision 113): pre-build (closing) inspection of the legend artwork, its marking-process callout and its position on the exterior of each carried enclosure option. Post-build (supporting): receipt Inspection. Closing case: TC-SYS-086. |
+| source_ids | CON-004, CON-006, MOE-009, OPS-019 | CON-004, CON-006, SI-037, MOE-009, OPS-019 |
+| other fields | hazard_ids HZ-001, HZ-006; tags revA, safety; priority Baseline | unchanged |
+
+Word count 23. The owner's approval of this CR supersedes the engraving part of SRR decision 34; the legend content of decision 34 is unchanged.
+
+### 1.2 New L1 requirements (Class I)
+
+The search of the baseline (section 4, Requirements and traceability) found three properties that the superseded REQ-SYS-109 delivered implicitly through an all-aluminum shell and that no other requirement states. Each is written with a TBR and no invented value (the values are cited or marked as this author's proposal).
+
+**REQ-SYS-191 Legend durability** (replaces the lasting-life property of "marked into its enclosure metal").
+
+| Field | Value |
+|---|---|
+| description | The transceiver shall keep every character of its enclosure legend readable at 0.3 m after 15 s (TBR) of rubbing with a water-soaked cloth. |
+| rationale | Why: HZ-001 K7 and HZ-006 K7 need a legend that lasts the unit's life; REQ-SYS-124 as amended by CR-003 (SI-037) no longer requires marking into metal, so durability is stated as an outcome every marking process (engraving, laser marking, PCB silkscreen, printed relief) is tested against. The rub is modelled on the marking-durability rub of consumer product-safety standards (IEC 62368-1 class), which is not in the corpus; 15 s and 0.3 m are this author's proposal. Ops: OPS-010 (pocket carry), OPS-019. TBR: the rub condition, pending the PDR enclosure trade study. |
+| verification_method | Test |
+| verification_note | Pre-build (supporting): the same rub on a sample of the same marking process and material (a spare plate from the PCBWay panel, or an H2C print of the legend area with the case filament and finish). Post-build (closing): Bench, 15 s rub by hand with a water-soaked cotton cloth on the delivered legend, then every character read by the owner at 0.3 m and photographed. Closing case: TC-SYS-114. |
+| parent_id, child_ids | none, none |
+| source_ids | CON-004, SI-037, MOE-013, OPS-019, OPS-010 |
+| hazard_ids | HZ-001, HZ-006 |
+| tags | revA, safety |
+| tbr | owner: Robin decides on Claude's proposal; Claude produces the closing evidence. plan: The PDR enclosure trade study confirms the rub condition against the candidate marking processes; Robin approves in the PDR memo. close_by: PDR |
+| priority | Baseline |
+
+**REQ-SYS-192 Touchable surface temperature** (the all-aluminum shell made every outer surface a hand-hold surface under REQ-SYS-113; options B and C can expose a plate or a heatsink that is touchable but not held).
+
+| Field | Value |
+|---|---|
+| description | The transceiver shall keep touchable external surfaces at most 60 C (TBR) after 5 min continuous key-down at 5 W in 25 C ambient. |
+| rationale | Why: HZ-003 (contact burn). REQ-SYS-113 bounds the hand-hold surfaces at 48 C (TBR). Under the superseded REQ-SYS-109 every outer surface was one aluminum shell; the SI-037 options can expose a purchased heatsink (option C) or a plate over the PA (option B) that is touchable but not a hand-hold surface. 60 C is the enclosure-surface limit over the PA already stated in docs/design/concept.md section 7.8 (docs/research/pcbway-export-and-vendor-questions.md F14 to F18); no touch-temperature standard is in the corpus (docs/safety/hazard-analysis.md section 11 open item 7). Method: Analysis, as REQ-SYS-113 (no thermometer in the bench inventory, OQ-VV-003). Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 5 and 7 (Analysis accepted per RSK-026). TBR: value pending the touch-temperature basis of REQ-SYS-113. |
+| verification_method | Analysis |
+| verification_note | Analysis accepted per RSK-026: pre-build (closing) thermal budget of the PA-to-ambient path of each carried enclosure option at 5 min continuous key-down. Post-build (supporting): the REQ-SYS-113 Demonstration, the surface of an exposed heatsink or plate read only if OQ-VV-003 yields a thermocouple. Closing case: TC-SYS-077. |
+| source_ids | NGO-005, SI-037, OPS-014 |
+| hazard_ids | HZ-003 |
+| mop_ids | TPM-004 |
+| tags | revA, safety |
+| tbr | owner: Robin decides on Claude's proposal; Claude produces the closing evidence. plan: The thermal budget at PDR fixes the value with REQ-SYS-113; Robin approves in the PDR memo. close_by: PDR |
+| priority | Baseline |
+
+**REQ-SYS-193 Enclosure wall flammability** (an aluminum wall does not burn; option C is a printed polymer case and option B may use FR-4 plates).
+
+| Field | Value |
+|---|---|
+| description | The transceiver shall use material rated at least UL 94 V-1 (TBR) for every non-metal enclosure wall and plate. |
+| rationale | Why: HZ-002 and HZ-007 (Catastrophic): a cell venting or burning inside the enclosure. The superseded REQ-SYS-109 made every wall aluminum; option C (SI-037) is a printed polymer case and option B may use bare PCB plates. A cell that vents with flame inside a combustible case turns a contained event into an uncontained fire (docs/process/06-risk-and-decision-analysis.md consequence level 5). A wall or plate separates the inside from the outside; knobs and a facade over a wall are not walls. UL 94 V-1 is this author's proposal; the standard is not in the corpus. This answers OQ-SAF-010 in part (HZ-002 K7, HZ-007 K5); its vent-path, barrier and compartment items stay open. Method: Inspection under 04 rule 7.3.6 as amended by CR-002 (a physical property read from the material datasheet). Ops: OPS-016. TBR: the rating class, pending the PDR material selection. |
+| verification_method | Inspection |
+| verification_note | Inspection accepted per CR-002 (04 rule 7.3.6): pre-build (closing) inspection of the material callout of every non-metal wall and plate on the drawing of each carried option against the material datasheet's UL 94 rating. Post-build (supporting): receipt Inspection of the material order record or lot label. Closing case: TC-SYS-115. |
+| source_ids | NGO-022, SI-037, OPS-016 |
+| hazard_ids | HZ-002, HZ-007 |
+| tags | revA, safety |
+| tbr | owner: Robin decides on Claude's proposal; Claude produces the closing evidence. plan: The PDR enclosure trade study selects the wall materials against the class; Robin approves in the PDR memo. close_by: PDR |
+| priority | Baseline |
+
+### 1.3 L1 requirements whose statement does not change (Class II edits to rationale, verification_note or source_ids)
+
+Every performance requirement the enclosure carries keeps its statement, method, priority and hazard links: REQ-SYS-102 and 103 (envelope, mass), 105 (antenna-port load), 110 and 111 (edges, clearance), 112 and 113 (thermal), 116 and 117 (drop, rain), 177 (shielding), and also 104, 106, 107, 108, 114, 146, 168, 175 and 181. Only these fields change, each to remove a CNC, machined, anodize or aluminum assumption:
+
+| Requirement | Field | Before (phrase) | After (phrase) |
+|---|---|---|---|
+| REQ-SYS-103 | rationale | "KDR: enclosure CNC part and PCB outline." | "KDR: the enclosure (the option B catalog box, chosen first at PDR, fixes the common envelope, SI-037) and the PCB outline." |
+| REQ-SYS-105 | verification_note | "on the printed part and on the first machined enclosure" | "on the printed fit-check part and on the first enclosure of each carried option" |
+| REQ-SYS-107 | rationale | "anodize insulates, so contact areas are masked" | "an insulating finish or wall does not conduct, so the attachment bonds to the jack shell (REQ-SYS-109)" |
+| REQ-SYS-107 | verification_note | "Inspection of the drawing masking callouts" | "Inspection of the attachment and bond detail on the drawing" |
+| REQ-SYS-110 | rationale | "sharp edges of a machined part held in the hand" and "The check is geometric on the STEP model before the order" | "sharp edges of a machined, routed or printed part held in the hand" and "The check is geometric on the model of each carried part before the order (STEP of a CNC part, board outline of a PCB plate, OpenSCAD model of a printed part)" |
+| REQ-SYS-110 | verification_note | "scripted edge-break check on the STEP model and drawing callouts" | "scripted edge-break check on the part models and drawing callouts" |
+| REQ-SYS-112 | rationale | "KDR: pedestal, via fill and enclosure wall." | "KDR: via fill and the PA-to-ambient heat path (pedestal and wall, plate, or purchased heatsink; SI-037)." |
+| REQ-SYS-177 | rationale | "the closed aluminum enclosure, the clock plan and filtered feedthroughs are the means" | "the closed conductive enclosure (metal walls and plates, copper-clad plates or a conductive coating, bonded per REQ-SYS-109), the clock plan and filtered feedthroughs are the means" |
+
+REQ-SYS-175 keeps CON-015 in `source_ids` (CON-015 still puts the antenna on one end). REQ-SYS-181 keeps "PA heat-sink temperature": the sensed element is the PA heat sink in every option.
+
+### 1.4 L0 expectations (Class I statements; INSP-001 finding-16)
+
+| Entry | Field | Before | After |
+|---|---|---|---|
+| CON-015 | title | Aluminum enclosure machined by PCBWay from OpenSCAD via FreeCAD STEP | Enclosure without owner machining: catalog box with PCBWay-cut plates, coated H2C print, or PCBWay CNC fallback |
+| CON-015 | statement | The enclosure is CNC-machined aluminum ordered from PCBWay as a single-solid STEP file with a 2D drawing, generated headlessly from an OpenSCAD source through FreeCAD, with the antenna on one end and a printed facade and knobs from the owner's printer. | The enclosure needs no owner machining and is one of the options of the PDR enclosure trade study (SI-037): a catalog extruded aluminum box whose face and end plates PCBWay cuts in the board order as bare PCB panels or CNC aluminum plates; an H2C-printed case with a conductive metal coating and a purchased heatsink; or, as the fallback, a PCBWay CNC aluminum enclosure. The antenna is on one end, the facade and knobs are printed on the owner's printer, and the geometry of every cut, machined or printed part is generated by script from a repository source (the manual H2C slicing step of CON-026 excepted). |
+| CON-015 | rationale | Owner decisions SI-008, SI-012 and SI-032. PCBWay refuses STL and requires a drawing for threads, tolerances and marking; 6061 with bead blast and Type II anodize is the recommended finish and anodize is an insulator, so RF ground contact areas are masked (docs/research/enclosure-cnc-and-openscad-pipeline.md A1 to A8). Relief only by a new stakeholder input. | Owner decisions SI-008 (antenna on one end), SI-012, SI-032 and SI-037, which refines SI-008 and SI-012: the owner has no machining tools, prototypes options B and C on one board and envelope, selects on bench thermal and shielding measurements before the delivered-unit configuration is fixed, and keeps PCBWay CNC as the fallback. For a CNC part, PCBWay refuses STL and requires a drawing for threads, tolerances and marking (docs/research/enclosure-cnc-and-openscad-pipeline.md A1 to A8). Any insulating finish is bonded around, per REQ-SYS-109. Relief only by a new stakeholder input. |
+| CON-015 | source_ids | SI-008, SI-012, SI-032 | SI-037, SI-008, SI-012, SI-032 |
+| CON-026 | title | Owner's Bambu Lab H2C printer for facade, knobs and fit-check parts | Owner's Bambu Lab H2C printer for facade, knobs, fit-check parts and the option C case |
+| CON-026 | statement | Printed facade, knobs and fit-check parts are produced on the owner's Bambu Lab H2C with AMS; slicing has a manual GUI step that is not reproducible from a script. | Printed facade, knobs, fit-check parts and, for enclosure option C, the case are produced on the owner's Bambu Lab H2C with AMS; slicing has a manual GUI step that is not reproducible from a script. |
+| CON-026 | source_ids | SI-012, SI-008 | SI-012, SI-037, SI-008 |
+| NGO-006 | statement | The radio fits a jacket pocket in an aluminum enclosure with the antenna on one end, runs for a day ... | The radio fits a jacket pocket in an enclosure with the antenna on one end, runs for a day ... (rest unchanged) |
+| NGO-006 | rationale, source_ids | "SI-008 (aluminum enclosure, antenna on one end)"; SI-001, SI-008, SI-022, SI-023, SI-034 | "SI-008 (antenna on one end; its aluminum enclosure is refined by SI-037 into the options of CON-015)"; SI-037 added |
+| NGO-007 | statement | ... in a PCBWay CNC enclosure from OpenSCAD, in a run of at most five units ... | ... in an enclosure that needs no owner machining (CON-015), in a run of at most five units ... (rest unchanged) |
+| NGO-007 | source_ids | (nine SI ids) | SI-037 added |
+| MOE-013 | rationale, source_ids (statement and success criterion unchanged) | "SI-008 (aluminum enclosure, antenna on one end)" | "SI-008 (antenna on one end; enclosure options per SI-037 and CON-015)"; SI-037 added |
+
+The stakeholder entry "PCBWay" ("CNC machining within its published capabilities") is unchanged: CNC plates and the option A fallback remain PCBWay CNC work. `stakeholder-inputs.md` is a Record and is not edited (SI-037 already exists). Observation for the reviewer: at 1ff752b `expectations.json` has `"baseline": null` and its entries `"status": "Draft"`, although Table 4-1 row 5 puts the file under CR from SRR; the 02 §11.2 L0 flip is outside this CR, which changes only the fields listed.
+
+### 1.5 ConOps (Class I: OPS-012 changes)
+
+| Location in `docs/conops/conops.md` | Before (phrase) | After (phrase) |
+|---|---|---|
+| §1.2, row CON-014, CON-015, CON-024 | "PCBWay CNC aluminum enclosure from OpenSCAD via FreeCAD STEP" | "enclosure with no owner machining per CON-015 (option B catalog extruded box with PCBWay-cut plates or option C H2C-printed coated case with a heatsink, selected on bench measurements; PCBWay CNC as the fallback)" |
+| §1.3.1 | "a pocket-sized aluminum-cased transceiver" | "a pocket-sized transceiver in a metal or metal-coated case" |
+| §1.3.2 (in scope) | "a CNC-machined aluminum enclosure with printed facade and knobs" | "an enclosure of one of the CON-015 options with printed facade and knobs" |
+| §3.2, Enclosure row | "Holds everything in a pocket-sized aluminum shell, carries the antenna load, presents the controls and openings, sinks the amplifier heat, and is the RF ground." | "Holds everything in a pocket-sized shell, carries the antenna load, presents the controls and openings, conducts the amplifier heat to ambient through its wall, a plate or a heatsink, and bonds its conductive parts to circuit ground (REQ-SYS-109)." |
+| §4 | No condition names aluminum or machining; the rows stay. One addition to the Pocket carry row: "the enclosure legend and any external finish or coating survive pocket abrasion (REQ-SYS-191)". The Drop row basis ("sizes wall thickness, boss and board mounting") stays valid for every option. | as stated |
+| §5, Fit-check and cosmetic parts row | "Knobs, facade, jigs and enclosure fit-check parts printed ..." | "Knobs, facade, jigs, enclosure fit-check parts and the option C case printed ...; the option C conductive coating applied by the owner per the release package" |
+| §6 OPS-012 Actors | "PCBWay (fabrication, surface-mount assembly, CNC enclosure)" | "PCBWay (fabrication, surface-mount assembly, option B plates, or the CNC enclosure of the option A fallback)" |
+| §6 OPS-012 Preconditions | "STEP and 2D drawing released" | "the enclosure release package of each carried option released (plate files or STEP and drawing, print model and coating instruction)" |
+| §6 OPS-012 step 2 | "fits the bulkhead antenna jack and nut in the enclosure boss, mounts the board, and fits the printed knobs and facade" | "fits the bulkhead antenna jack and nut in the enclosure end wall or plate, mounts the board, and fits the printed knobs and facade; for the selection unit, assembles both options B and C in turn and runs the bench thermal and shielding measurements, and the selected option is named in the TRR test configuration record" |
+| §7.1 Materials and end of life | "an anodized aluminum enclosure" | "the enclosure (aluminum body with aluminum or FR-4 plates, or a printed case with a conductive coating and a metal heatsink)" |
+| §8, row RSK-006, RSK-026 | "enclosure is the heatsink" | "PA-to-ambient heat path through the wall, a plate or a heatsink (REQ-SYS-112, 113, 192)" |
+| §8, row RSK-018 | "Machined enclosure arrives with sharp edges or pinch points" | "Enclosure parts arrive with sharp edges or pinch points" |
+| App. C, Antenna port row | "bulkhead-retained by the enclosure boss" | "bulkhead-retained by the enclosure end wall or plate" |
+| App. C, Board and build row | "1.0 mm pending the enclosure boss layout" | "1.0 mm pending the enclosure mounting (TS-004; the board slots of the catalog box, if used)" |
+
+### 1.6 Test cases citing L1 requirements (Table 4-1 row 17, under CR from SRR)
+
+| Case | Change |
+|---|---|
+| TC-SYS-075 | Rewritten for the new REQ-SYS-109: title "Enclosure bond resistance from every conductive enclosure part to the antenna-jack shell"; method Test, type Bench (before: Inspection of the CNC drawing, anodize and masking callouts); setup: the delivered unit in the selected enclosure, and the two selection prototypes as data; procedure: list bond areas from the drawing, four-wire measurement per bond area; acceptance: every bond area at most 0.1 ohm (TBR); instruments: bench supply, multimeter; artifacts: `bond-resistance.csv`, photographs of the probe points. |
+| TC-SYS-086 | Setup "the engraving artwork and the drawing callout in the CNC release package" becomes "the legend artwork and marking-process callout in the enclosure release package of each carried option"; procedure step 2 "Confirm that the callout specifies engraving or machining into the enclosure metal (not a label, print or ink) with a stated depth" becomes "Confirm that the callout names the marking process and places the legend on an exterior face"; acceptance "marks it into the enclosure metal with a stated depth" becomes "names the marking process and places it on the exterior"; title "engraving callout" becomes "marking callout". |
+| TC-SYS-114 (new) | Closing case of REQ-SYS-191: Test, Bench; 15 s water-soaked cloth rub, legend read at 0.3 m and photographed before and after. |
+| TC-SYS-115 (new) | Closing case of REQ-SYS-193: Inspection; material callouts of every non-metal wall and plate against datasheet UL 94 ratings. |
+| TC-SYS-077 | `requirement_ids` adds REQ-SYS-192; acceptance adds "every touchable external surface at most 60 C (TBR)"; setup: the resistance chain of each carried option (option C includes the heatsink-to-ambient path). |
+| TC-SYS-072 | Setup "run on the printed fit-check enclosure and on the first machined enclosure" becomes "run on the printed fit-check part and on the first enclosure of each carried option". |
+| TC-SYS-076 | Setup: the scripted checks read the model of each carried part (STEP of a CNC part, board outline of a PCB plate, OpenSCAD model of a printed part); acceptance unchanged. |
+| TC-SYS-107 | Setup "the enclosure material, wall thickness, seams and every aperture from the STEP" becomes "the enclosure conductive layer of each carried option (metal and thickness, plate copper, or coating sheet resistance from its datasheet), seams, bond points and every aperture from the part models"; acceptance unchanged. |
+| TC-SYS-087, TC-SYS-098 | "CNC enclosure order quantities" and "PCBWay ... CNC" quotes become "enclosure orders (option B plates and catalog boxes, option C heatsinks and coating, or the option A CNC enclosure)". |
+
+## 2. Reason
+
+Origin: owner input SI-037 (2026-09-26, `docs/requirements/l0-stakeholder/stakeholder-inputs.md`; `docs/reviews/SRR/minutes.md` section "Schedule and enclosure inputs"), which superseded the owner's intermediate preference for option C alone: "Actually, I want to try both B and the 3d printed option. I don't have any machining tools so we would need someone else to drill the holes..." The approved schedule (SI-038, `docs/plan/schedule.md`) orders option B (catalog extruded box, face and end plates cut by PCBWay in the board order) and option C (H2C-printed case with a conductive metal coating and a purchased heatsink) as parallel prototypes on one board and envelope, with PCBWay CNC (option A) as the fallback and selection on bench thermal and shielding measurements. The lead SE disposition in the minutes named this CR and held every requirement change until after the `baseline/srr` tag (779f93f, 2026-09-27).
+
+The baseline cannot carry that plan: REQ-SYS-109 names a solution (CNC-machined anodized aluminum), which neither B nor C can meet, and WR-05 (02 §4.2) admits a solution in a statement only as a constraint; CON-015, NGO-006 and NGO-007 name the CNC aluminum enclosure (INSP-001 finding-16, lien due before PDR); REQ-SYS-124 requires the legend "marked into its enclosure metal", which a silkscreened plate or a printed case cannot meet. ADR-008 section 7 names as a revisit condition "the owner asks for a printed enclosure for a prototype unit", which SI-037 meets, and 06 §14.1 item (a) (enclosure concept) makes the choice among A, B, C and D a formal trade study at PDR; SEMP customization 11 (i) no longer covers it because SI-037 leaves more than one viable alternative.
+
+Not making the change (SE HB §6.2.1.2.5): the PDR products would design two enclosures that fail a baselined requirement by construction, TC-SYS-075 and TC-SYS-086 would fail on both prototypes, and the delivered unit would need a product waiver. Workaround while the CR is open: none needed; no enclosure is ordered before CDR, and the PDR trade study can proceed under SI-037 while this CR is reviewed and dispositioned.
+
+## 3. Alternatives considered
+
+| Alternative | Why rejected or deferred |
+|---|---|
+| Do nothing | B and C fail REQ-SYS-109 and REQ-SYS-124 by construction; the approved schedule and the owner's direction conflict with the functional baseline; INSP-001 finding-16 stays open past PDR. |
+| Product waiver of REQ-SYS-109 and REQ-SYS-124 for the delivered unit (05 §2) | A waiver does not change the baseline and would be permanent for every delivered unit; it leaves a solution requirement standing that the owner has already replaced. |
+| Rewrite REQ-SYS-109 to list the admitted options (A, B, C) | Still a solution (WR-05); option D (hybrid) or a new catalog route would need another CR. |
+| Rewrite REQ-SYS-109 as "shall meet REQ-SYS-102, 103, ..." | Not independently verifiable (WR-03: no single case with one pass/fail) and duplicates other requirements (WR-09). The list is kept in the rationale, where it tells the designer what makes an enclosure compliant. |
+| Retire REQ-SYS-109 with no replacement | Loses the only statement of the conductive ground contact at the jack and the enclosure parts (HZ-009 K4 and C5, the HZ-010 K1 ESD return, the shield continuity REQ-SYS-177 relies on). Kept as the bond-resistance requirement. |
+| Amend REQ-SYS-124 to any marking with Inspection only | A silkscreen or printed legend can wear off in a pocket; the life property of "marked into the metal" would be lost unverified. Replaced by REQ-SYS-191. |
+| Defer REQ-SYS-192 and REQ-SYS-193 to the PDR hazard re-issue (OQ-SAF-010) | Possible (owner question Q2): the hazards file is CR-controlled only from PDR. Not recommended: this CR removes the aluminum that provided both properties, so the change that opens the gap should close it, and PDR designs both options against them. |
+
+## 4. Impact assessment (CM plan §5.3)
+
+| Field | Assessment (numbers, IDs, paths) |
+|---|---|
+| Performance margins | No TPM value changes with this CR; the estimates move to per-option values at PDR. TPM-001 mass: allocation 350 g (TBR, REQ-SYS-102) unchanged, cells about 96 g, no current best estimate exists for any option; PDR estimates B and C (extrusion plus plates versus printed case plus heatsink). TPM-016 envelope: allocation 140 x 70 x 40 mm (TBR, REQ-SYS-103) unchanged; the option B catalog box, chosen first at PDR, fixes the common envelope and the board outline, and its outside dimensions set the margin per axis; if no catalog box fits, REQ-SYS-103 changes at its PDR TBR closure. TPM-009 PCB area utilization: the usable board area becomes the catalog box's inside width and length (slots or floor) minus keep-outs, fixed at PDR. TPM-014 unit cost: budget USD 610 (TBR) per unit (SRR decision 90) unchanged; the enclosure line of the model changes (Cost row). Thermal budget (RSK-006 S1): REQ-SYS-112 (110 C TBR at 45 C), REQ-SYS-113 (48 C TBR) and new REQ-SYS-192 (60 C TBR) are computed per option; the via-array figures (7.6 to 4.7 K/W at 25 vias for 1.6 versus 1.0 mm board) and the gap pad (1.7 K/W at 10 x 10 mm, 0.74 K/W at 15 x 15 mm, concept §7.8) carry over, and the pedestal-to-6061-wall step is replaced by a pad to the extrusion or plate (B) or to the purchased heatsink and its path to ambient through the case (C). Shielding (REQ-SYS-177, 20 dB TBR): the TC-SYS-107 analysis assumed solid aluminum walls; it takes per-option inputs (plate copper, coating sheet resistance, seams, bonds). ERP and range (NGO-009, MOE-001): the enclosure body is part of the antenna system (ICD-TX-ANT 3.2.7.1, antenna report F5); the PDR antenna analysis covers each option. |
+| Safety | HZ-001 and HZ-006 (K7 legend: text "CNC-engraved or laser-marked" becomes the REQ-SYS-124 and REQ-SYS-191 outcome); HZ-002 (description "sealed aluminum enclosure"; K7) and HZ-007 (K5): a combustible case is a new cause of an uncontained fire, controlled by REQ-SYS-193; HZ-003 (description "aluminum enclosure whose wall is the heat sink", K1 "thermal interface ... to the enclosure wall", K7): the heat path differs per option, and an exposed heatsink or plate is controlled by REQ-SYS-192; HZ-009 (K1 "retained to the machined enclosure ... boss at least 2.5 mm thick": a standard 1.6 mm PCB plate is thinner than that boss, and a printed polymer boss can creep under the 4.0 N.m load at temperature, concept §12 descope row "needs a metal insert"; K4 "masked from anodize" becomes bonding per REQ-SYS-109; K6 "before the CNC order ... first machined enclosure"; residual condition "machined enclosure"); HZ-010 (K1 clamp return to chassis: "chassis" is defined by the REQ-SYS-109 bond; TC-SYS-035 unchanged); HZ-012 unchanged; HZ-013 (title, description "CNC-machined 6061 ... anodize chips", K1 "modelled in OpenSCAD ... bead blast finish before anodize", K4 "before the CNC order", residual "every machined part"): routed FR-4 plate edges and printed edges are new edge sources, and routed plate edges carry no 0.5 mm chamfer (REQ-SYS-110; owner question Q6). No component of the 07 §14.1 safety-critical or mission-critical tables changes (the thermal protection, SW-SAFE and SW-TXSEQ thresholds of REQ-SYS-118 and 181 are unchanged; the PDR thermal budget sets them for the selected heat path). Hazard analysis re-issue: yes, in the PDR products (hazards.json 0.6.0-pha; Table 4-1 row 15 is under CR from PDR). RF exposure evaluation change: yes, its first issue at PDR (row 48) states the enclosure of each option; a polymer case is closer to the plastic-cased database radios of the SAR analogy (RSK-030). |
+| Risk | Before (register at 1ff752b), proposed direction after, re-assessed in the PDR risk pass (06 §10 item 1; the register is a Log, row 14): RSK-006 (L3, C4, 12): condition "CNC-machined by PCBWay (ADR-008)" generalized; likelihood held at 3 until the per-option budget exists. RSK-007 (L4, C5, 20): condition "sealed aluminum enclosure" generalized; new mitigation step "REQ-SYS-193 material class" added to S4. RSK-018 (L3, C3, 9): title "Machined enclosure arrives with sharp edges" becomes "Enclosure parts arrive with sharp edges or pinch points"; routed PCB plate edges are a new source. RSK-025 (L4, C4, 16): condition names the CNC boss; option C (polymer boss) and option B (plate thickness) enter the condition; likelihood stays 4 (no load analysis yet). RSK-026 (L3, C4, 12): "the aluminum enclosure is the PA heatsink (ADR-008)" generalized; REQ-SYS-192 added. RSK-030 (L2, C2, 4): "cwht's aluminum enclosure" weakens the analogy; option C strengthens it; re-assessed with the RF exposure evaluation. RSK-043 (L4, C3, 12): two enclosure sets and a catalog box tolerance replace the machined set. RSK-044 (L3, C3, 9): scope narrows to CNC parts (option B CNC plates or option A); PCB plates come from KiCad, the printed case from the OpenSCAD 3MF. RSK-052 (L4, C3, 12): the enclosure quote of S1 becomes the per-option prices. RSK-053 (L3, C3, 9): bare-panel plates ride with the boards (about 10-20 to 10-23), CNC plates 13 to 15 days, option C has no vendor lead time. Candidates for the PDR pass (unscored here; the register owner scores them under 06 §4): (a) conductive coating shielding, adhesion or abrasion shortfall (option C); (b) printed case softening or creep near the PA heat path or at the antenna boss; (c) two enclosure designs in the four-day PDR to CDR window; (d) catalog box out of stock or end-of-life (merge candidate for RSK-038). |
+| Software classification and tailoring | None: no classification record, `rmm.json` row or compliance-matrix disposition changes. Two compliance-matrix justification texts name "PCBWay CNC enclosure" (`se-compliance-matrix.json` rows at lines 73, 213, 223); the wording changes to "enclosure parts" with dispositions unchanged (Documentation row). |
+| Interfaces | ICD-TX-ANT (preliminary; row 10 under CR from PDR): the "Other module citing this ICD" row (anodize masking), the boss row of 3.2.2, and 3.2.7.1 "Bonding of the jack shell ... machined enclosure ... anodize-masked contact areas" change to the REQ-SYS-109 bond; the SI-008 verbatim quote in the concurring-side table stays. ICD-TX-ME and ICD-CTL-ME (to be written at PDR, concept §9) are written to the options. ICD-PWR-CELL: the cell compartment walls meet REQ-SYS-193. ICD-CTL-USB, ICD-CTL-KEY, ICD-CTL-PHONES: openings through a plate or a printed wall, no definition change. External-interface change: no (antenna connector type, position on one end, mating and electrical definition unchanged; only the ME-side retention detail changes at PDR). |
+| Operations and ConOps | Yes (Class I): OPS-012 actors, preconditions and step 2 change (section 1.5); OPS-010 (pocket carry) gains the legend-durability expectation; OPS-014 (touchable surface), OPS-016 (flammability), OPS-017 (bond) and OPS-019 (legend) gain source links. Operations handbook (row 47, Log before SAR) maintenance instructions change: cleaning (no solvent on a coating or a printed legend), opening the enclosure for cell replacement (end-plate screws of the catalog box or the printed case closure), HZ-003 K6 advice to include an exposed heatsink. |
+| Cybersecurity | None: neither the USB firmware-load path nor the key-input command path changes (07 §16). |
+| Verification | TCs modified: TC-SYS-075 (rewritten; evidence class Inspection to Bench, closing after TRR on the delivered unit instead of at CDR on design data), TC-SYS-086 (process-neutral wording), TC-SYS-072, 076, 077 (adds REQ-SYS-192), 087, 098, 107 (section 1.6). TCs added: TC-SYS-114 (Bench), TC-SYS-115 (Inspection). No TC invalidated with evidence: every TC-SYS case is Draft and none has run. Both options' designs are inspected at CDR; the closing cases run on the configuration selected and named in the TRR test configuration record; the selection measurements on both prototypes (bench thermal with the NTC telemetry, tinySA shielding comparison) are PDR trade-study evidence and supporting data for REQ-SYS-112, 113, 177 and 192, not closing evidence. Decision tables and independence-pair tests of safety-critical modules: none affected. |
+| Cost | Before: `docs/plan/cost-estimate.md` line "PCBWay CNC aluminum enclosure, 3 sets, anodized", USD 250 to 600. After: the line is restated for option B (catalog boxes from DigiKey or Mouser plus plates in the PCBWay order), option C (filament, conductive coating, purchased heatsinks) and the option A fallback, priced by the PDR trade study from dated quotes (RSK-052 S1); no quote exists today, so no number is proposed here. This closes INSP-023 finding-10 (lien before PDR). Unit budget USD 610 (TBR) per unit and the rework reserve (USD 300 to 800) unchanged. |
+| Schedule | Disposition target before PDR (about Tue 2026-09-29; 05 §5.2 Class I target: the next review or 14 days); the section 6 review comes first. `docs/plan/schedule.md` already carries SI-037 (catalog box chosen first at PDR, two enclosure designs at CDR about 2026-10-03, option B plates in the PCBWay order from 2026-10-05, bare-panel plates with the boards about 2026-10-20 to 10-23, CNC plates about 10-22 to 10-25, option C printed before board arrival, selection about 2026-10-22 to 10-27 before TRR); no schedule change follows. No dependency on other CRs; CR-002 (Inspection admitted for physical properties) is the basis of the REQ-SYS-124 and REQ-SYS-193 methods. |
+| Requirements and traceability | L1 modified, Class I: REQ-SYS-109 (description, title, method, hazard_ids, tags, tbr, rationale, verification_note, source_ids), REQ-SYS-124 (description, rationale, verification_note, source_ids). L1 added: REQ-SYS-191, 192, 193 (each `safety`, each with a TBR closing at PDR). L1 Class II edits: REQ-SYS-103, 105, 107, 110, 112, 177. Retired: none. L0 Class I: CON-015, CON-026, NGO-006, NGO-007 statements; Class II: MOE-013 rationale and source_ids. Parents and children: none (every changed L1 has `parent_id` null and no children; no L2 file cites them). Allocation: REQ-SYS-191 and 193 to ME (193 with PWR supporting), 192 to ME with TX supporting, in `docs/design/allocation.json`, so T-18 stays clean. Coverage: each new requirement has its closing case (TC-SYS-114, TC-SYS-077, TC-SYS-115). Orphans or uncovered requirements created: none, confirmed by `tools/traceability.py` on the CR branch before the Implemented state. Volatility (02 §10.4, N_start 190 L1 requirements at `baseline/srr`): A = 3, M = 2 (109, 124; the Class II edits do not count), R = 0, V = 5 / 190 = 2.6 %, below the 10 % yellow threshold. |
+| Regulatory | 47 CFR 15.23(b) (good engineering practice for the digital section, REQ-SYS-177): the means changes, the requirement does not. 47 CFR 97.13(c)(1) and 1.1310 (exposure information the legend points to): legend content unchanged. CON-008 unchanged. No other clause affected. |
+| Documentation | With the CR (CR-controlled from SRR): `docs/requirements/sys/requirements.json` and `.md`; `docs/requirements/l0-stakeholder/expectations.json` and `.md`; `docs/conops/conops.md`; `docs/test_cases/sys/test_cases.json` and `.md`; `docs/design/concept.md` (row 52, until the PDR tag makes it a Record: a dated correction note at §4 "CNC-machined 6061 aluminum body", §5 block B21, §6 F10.2, §7 row B21, §7.8, §11.1 "Enclosure material and finish" row, §12 printed-enclosure descope row, §13 enabling-products rows "Enclosure STEP for the CNC order" and "before the CNC order"); `docs/plan/semp.md` (row 2: §1 influencing factors "machines the aluminum enclosure (SI-008)", §2 end product "a CNC-machined aluminum enclosure", §3 PCBWay row, §4 mechanical row "CNC drawings and STEP", make-or-buy "CNC"); `docs/plan/technology-assessment.md` (row 51: table row ME "CNC 6061 enclosure, thermal pedestal" and §3.17); `docs/process/se-compliance-matrix.json` and `.md` justification wording (row 3); `README.md` line 7 (row 40, Log); `docs/design/allocation.json` (block B21 name "CNC 6061 body ..." becomes "Enclosure body (CON-015 option): heat path, antenna-port retention, windows and openings, legend, printed knobs"; REQ-SYS-147 allocation note "the CNC enclosure"; new allocations); link fields in `docs/safety/hazards.json` for the new requirements (requirement_ids and control_req_ids of HZ-001 K7, HZ-006 K7, HZ-002 K7, HZ-007 K5, HZ-003 K1 and K7, HZ-009 K4, HZ-010 K1) so that the traceability rules pass; `docs/vv/traceability-report.md` and `.json` regenerated (row 18). In the PDR products: the enclosure trade study `docs/decisions/trade-studies/TS-NNN-enclosure.md` (options A, B, C and D under 06 §14; number assigned at creation), with mandatory criteria that include REQ-SYS-105, 109, 110, 112, 113, 177, 191, 192 and 193; a new ADR for the enclosure concept and CAD route that supersedes ADR-008 (row 13: ADR-008 status line "Superseded by ADR-MMM" and the `docs/decisions/adr/README.md` row; ADR-008's alternative E rejection "the PA thermal path needs metal" is answered by the study); `docs/safety/hazards.json` 0.6.0-pha and `docs/safety/hazard-analysis.md` text (Safety row), with the HZ-013 title copy in `docs/process/03-software-classification-and-rmm.md` line 128; `docs/icd/ICD-TX-ANT.md` and the new ICD-TX-ME and ICD-CTL-ME; `docs/plan/tpm.json` (TPM-001 tbr plan "No enclosure trade study is planned: CNC aluminum is fixed by SI-008 and ADR-008", TPM-014 definition "CNC enclosure", TPM-016 margin, TPM-009); `docs/plan/cost-estimate.md` enclosure and DigiKey lines (row 2; implemented in the PDR products under this CR); `docs/risk/register.json` and `.md` (Risk row); `docs/design/analysis/rf-exposure-evaluation.md` first issue; `docs/templates/peer-review-checklist-design.md` CK-DES-J6 scoped to machined parts (row 53, only if the PDR study keeps a non-CNC route). Before SAR: `docs/ops/` handbook maintenance and cleaning content. Not changed: `docs/process/00-charter.md`, 01 and 06 (their "CNC" mentions stay true for CNC plates and the option A fallback); `docs/reviews/SRR/*` (Records; the baseline record's CR-003 rows are corrected only by a dated §10 entry if its owner chooses); `stakeholder-inputs.md` (Record). No VDD or release package exists. |
+| Released units | None: no unit is built or delivered. |
+
+Classification rationale: Class I proposed. The change modifies the statements of two baselined L1 requirements and the verification method of one, adds three requirements with `safety` tags, changes four L0 statements and an OPS scenario, changes hazard links, and changes the planned verification evidence of TC-SYS-075; each is a Class I item of 02 §10.2 and of the 05 §2 definition (baselined requirement, safety, verification evidence, operator and maintenance procedures).
+
+## 5. Implementation plan
+
+Effectivity: the change applies from the owner's approval. Steps 1 to 9 are implemented on `cr/CR-003-solution-neutral-enclosure` immediately after approval so that the PDR products are built on the changed functional baseline; steps 10 to 18 are implemented in the PDR products under this CR's authority and verified at PDR.
+
+| Step | Artifact and path | Responsible | When | Done (SHA) |
+|---|---|---|---|---|
+| 1 | REQ-SYS-109 and 124 rewritten, REQ-SYS-191 to 193 added, Class II edits of section 1.3; `docs/requirements/sys/requirements.json`, rendered `.md` | Claude (L1 requirements author) | with the CR | |
+| 2 | CON-015, CON-026, NGO-006, NGO-007, MOE-013 per section 1.4; `expectations.json`, rendered `.md` (closes INSP-001 finding-16) | Claude (L0 author) | with the CR | |
+| 3 | ConOps edits of section 1.5; `docs/conops/conops.md` | Claude (ConOps author) | with the CR | |
+| 4 | TC-SYS-072, 075, 076, 077, 086, 087, 098, 107 modified, TC-SYS-114 and 115 added; `docs/test_cases/sys/test_cases.json`, rendered `.md` | Claude (test author) | with the CR | |
+| 5 | Allocation of REQ-SYS-191 to 193, block B21 renamed; `docs/design/allocation.json` | Claude (requirements engineer) | with the CR | |
+| 6 | Hazard link fields for the new and changed requirements; `docs/safety/hazards.json` (links only) | Claude (safety analyst) | with the CR | |
+| 7 | Concept correction note; `docs/design/concept.md` | Claude (lead SE) | with the CR | |
+| 8 | SEMP, technology assessment, compliance-matrix justification wording, README (Documentation row) | Claude (lead SE; plan owners) | with the CR | |
+| 9 | `tools/traceability.py` zero errors, renders `--check` clean, `tools/validate_docs.py` exit 0; traceability report regenerated | Claude (configuration manager) | with the CR | |
+| 10 | Enclosure trade study TS-NNN (A, B, C, D), catalog box chosen first | Claude (ME), owner decides | PDR | |
+| 11 | New enclosure ADR superseding ADR-008; ADR-008 status line and ADR README | Claude (technical data manager), owner decides | PDR | |
+| 12 | Hazard re-issue 0.6.0-pha and hazard-analysis text (HZ-001, 002, 003, 006, 007, 009, 010, 013); 03 HZ-013 title copy | Claude (safety analyst) | PDR | |
+| 13 | ICD-TX-ANT rows; ICD-TX-ME, ICD-CTL-ME written to the options | Claude (ICD author) | PDR | |
+| 14 | TPM-001, 009, 014, 016 text and per-option estimates; `docs/plan/tpm.json` | Claude (lead SE) | PDR | |
+| 15 | Cost estimate enclosure and DigiKey lines from dated quotes (closes INSP-023 finding-10) | Claude (lead SE) | PDR | |
+| 16 | Risk register: conditions and re-assessment of section 4 Risk, candidates entered or merged | Claude (risk manager) | PDR risk pass | |
+| 17 | Per-option thermal budget, shielding analysis inputs and antenna analysis; TBR closures of REQ-SYS-109, 191, 192, 193 proposed in the PDR memo | Claude (TX, ME) | PDR | |
+| 18 | RF exposure evaluation first issue states the enclosure options (RSK-030) | Claude (RF exposure author) | PDR | |
+
+Verification of the implementation: the independent reviewer checks every before and after string of section 1 against the committed files (02 §10.3 item 2), runs `tools/traceability.py` (zero violations, including T-09 coverage and T-18 allocation for REQ-SYS-191 to 193) and the render and schema checks, and confirms that no statement of REQ-SYS-102, 103, 105, 110, 111, 112, 113, 116, 117 or 177 changed. Review records re-issued as deltas: INSP-003 (`requirements-sys.md`, WR-01 to WR-14 on REQ-SYS-109, 124, 191, 192, 193 and the Class II edits), INSP-001 (`expectations.md`, CON-015, CON-026, NGO-006, NGO-007, MOE-013; closes finding-16), INSP-002 (`conops-and-concept.md`, ConOps and concept edits), INSP-025 (`test-cases-sys.md`, the ten cases), INSP-005 (`semp.md`), INSP-014 (`technology-assessment.md`), INSP-024 (`compliance-matrix.md`, wording only). At PDR, the new records of the hazard analysis (successor of INSP-008), the ICDs (successor of INSP-012), the ADR (successor of INSP-011), the trade study (successor of INSP-013), the risk pass (successor of INSP-007) and the INSP-023 delta for the cost estimate. The PDR baseline record lists CR-003 in the effective baseline.
+
+## 6. Independent review of the impact assessment
+
+Required (Class I). **Pending: to be performed by an independent reviewer agent (an invocation that authored none of this CR and none of its implementing changes) before the owner's disposition in section 7**, per 05 §5.2 (Submitted, then Assessed, then Dispositioned) and the SRR close-out lesson.
+
+| Item | Reviewer (agent invocation) | Date | Finding | Resolution |
+|---|---|---|---|---|
+| Impact assessment, class, completeness of affected items | pending | pending | pending | pending |
+
+Reviewer concurrence: pending.
+
+## 7. CCB disposition (owner)
+
+Not dispositioned. The owner is asked to disposition after section 6 records the review, answering the questions of section 12 with the decision.
+
+| Field | Value |
+|---|---|
+| Decision | pending |
+| Class confirmed | pending (proposed: I) |
+| Date | pending |
+| Conditions | pending |
+| Rationale | pending |
+| Waiver scope (if Approved (waiver)) | not applicable |
+| Re-look trigger and re-look-by review (if Deferred) | pending |
+| Source | pending |
+
+Disposition history:
+
+| Date | Decision | New target | Source |
+|---|---|---|---|
+| 2026-09-27 | Submitted for independent review, then owner disposition before PDR | none | Claude (lead SE function) |
+
+## 8. Implementation record
+
+| Commit | Files | Trailer check (`CR: CR-003` present) |
+|---|---|---|
+| pending | pending | pending |
+
+Traceability report after implementation: pending; renders regenerated: pending.
+
+## 9. Verification of implementation
+
+| Impact item | Planned closure (from §4/§5) | Evidence (report path, TC id, analysis file) | Result |
+|---|---|---|---|
+| L1 statements and new requirements | Steps 1, 5, 9 | INSP-003 delta; `tools/traceability.py` output | pending |
+| L0 entries | Step 2 | INSP-001 delta (finding-16) | pending |
+| ConOps and concept | Steps 3, 7 | INSP-002 delta | pending |
+| Test cases | Step 4 | INSP-025 delta | pending |
+| Plans and matrices | Step 8 | INSP-005, INSP-014, INSP-024 deltas | pending |
+| PDR products | Steps 10 to 18 | PDR records listed in section 5 | pending |
+
+Independent verifier (agent invocation): pending.
+
+## 10. Closure
+
+| Field | Value |
+|---|---|
+| Owner merge approval | pending |
+| Merge commit | pending |
+| Waiver entered in CSA item 12 and affected VDDs | not applicable |
+| CSA regenerated | pending |
+| Date closed | pending |
+
+## 11. History
+
+| Date | State | By | Commit on main | Note |
+|---|---|---|---|---|
+| 2026-09-27 | Submitted | Claude (lead SE function) | this file's first commit | Raised after the `baseline/srr` tag (779f93f) from SI-037 and the SRR minutes, with INSP-001 finding-16 and INSP-023 finding-10 in scope; independent impact review requested before disposition |
+
+## 12. Questions for the owner (answer with the disposition)
+
+| # | Question | Recommendation |
+|---|---|---|
+| Q1 | Approve CR-003 as Class I, including the supersession of the engraving part of SRR decision 34 (the legend may be engraved, laser-marked, silkscreened on a PCB plate or printed into the case, if it passes REQ-SYS-191)? | Approve as Class I after the section 6 review. |
+| Q2 | Add REQ-SYS-191 (legend durability), 192 (touchable surface at most 60 C, TBR) and 193 (non-metal walls at least UL 94 V-1, TBR) now, or defer 192 and 193 to the PDR hazard re-issue? REQ-SYS-193 means option C prints in a flame-retardant filament and option B uses an FR-rated laminate. | Add all three now, each with a TBR closing at PDR: this change removes the aluminum that provided them, and PDR designs both options against them. |
+| Q3 | Which conductive coating did you use for the GPS project (product and datasheet), and do you intend to apply it inside or outside the case? | Use a product with a published surface resistivity, applied inside, so pocket wear does not remove it and the legend and outer finish stay free; the trade study uses the datasheet value in the TC-SYS-107 analysis. |
+| Q4 | How did you verify the EMI reduction for the GPS testing, and do you have a near-field probe for the tinySA Ultra comparison (CON-016 lists none)? | Use a small shielded loop probe (bought or made from coax), with a tool validation record before the selection measurements, and compare the open board with each closed prototype at the clock and converter frequencies. |
+| Q5 | How many sets of each option are built for the selection, and do all delivered units use the selected option? | Order option B parts for all three units in the CDR order (the plates ride with the board panel), print option C for one unit and print more only if it is selected; every delivered unit uses the option named in the TRR test configuration record, so each enclosure-dependent closing case runs on one configuration. |
+| Q6 | REQ-SYS-110 (0.5 mm edge break on every external and cutout edge) stays unchanged; routed bare-PCB plates have square edges. Accept that the PCB-plate route qualifies only if its edges and cutouts are covered (end-cap bezel, jack nuts, window bezel) or broken, and otherwise the plates are CNC aluminum? | Yes: keep REQ-SYS-110 as a mandatory trade-study criterion; propose a separate CR at PDR only if the study shows a covered-edge design is not practicable and a snag-test criterion would give equal protection. |
