@@ -17,12 +17,12 @@ checklist_revision: B
 checklist_tool_validation: "docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/tool-validation-tv-014-to-tv-019.md
 product: docs/cm/tool-validation/TV-014-ltspice-batch.md
-# product_commit: iteration 2 (delta) reviews the blobs frozen at aa746f0 (wrapper, test module and fixture
-# from c9d2c54; TV-014, run 3 evidence, README and lock from aa746f0). Iteration 1 reviewed b362395 (blobs in
-# the iteration 1 section). At review time HEAD c827202 (WP-PDR-08) had moved the lock and the README on rows
-# other than LTspice; every other listed blob equals HEAD
-product_commit: "aa746f054914d93124dbe3c516848bc9af60c89b"
-product_files: ["tools/ltspice-batch.sh@64e1c7230278363bca85542f410da5a0853a42f2", "tools/tests/test_ltspice_batch.py@c75cb7b3568b46d478ab710dd0f5f81ff3df8049", "tools/tests/fixtures/ltspice/known-answers.json@8ec25d711978e2dbef33bd23adb5a80cbd70d200", "tools/tests/fixtures/ltspice/fake-support/bin/wine@acd2ec5cf8ef71514b3f50c4b543203c897d6102", "tools/tests/fixtures/ltspice/rc-step-tran.net@bd19be4123841c512402ffec3009d815ded2de02", "tools/tests/fixtures/ltspice@8feee9d0f3eab7dd45ae73ff4437846dd9bddd55", "docs/cm/tool-validation/TV-014-ltspice-batch.md@6204bd78bb67159f0eae634c5a39e46b51ce5153", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27.sh@f9fea642a57299fc7d37fb82ea11e5261d1bcb7f", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run3.log.txt@bc806daeacc9db591731e46b9583edc24ee61f15", "docs/cm/tool-validation/README.md@98969f416e1bdce27135231e3e50a3087db7c8ae", "tools/toolchain.lock.md@9aca88d34a4d41d01cbd50d90152024ab97d9f2d", "tools/README.md@54f97c64f92a0443a82a633e5712d5b6b009b32a"]
+# product_commit: iteration 3 (delta) reviews the blobs at HEAD dfde624. No product blob changed since the
+# aa746f0 freeze of iteration 2 except the TV README (87fb1e8c) and the lock (b45c8654), which c827202
+# (WP-PDR-08) changed on rows other than LTspice. Iteration 2 reviewed aa746f0 and iteration 1 b362395 (blobs
+# in the front matter of dfde624 and 3e9d30f)
+product_commit: "dfde62480a56d8258742d47715af5b1ceaf43c19"
+product_files: ["tools/ltspice-batch.sh@64e1c7230278363bca85542f410da5a0853a42f2", "tools/tests/test_ltspice_batch.py@c75cb7b3568b46d478ab710dd0f5f81ff3df8049", "tools/tests/fixtures/ltspice/known-answers.json@8ec25d711978e2dbef33bd23adb5a80cbd70d200", "tools/tests/fixtures/ltspice/fake-support/bin/wine@acd2ec5cf8ef71514b3f50c4b543203c897d6102", "tools/tests/fixtures/ltspice/rc-step-tran.net@bd19be4123841c512402ffec3009d815ded2de02", "tools/tests/fixtures/ltspice@8feee9d0f3eab7dd45ae73ff4437846dd9bddd55", "docs/cm/tool-validation/TV-014-ltspice-batch.md@6204bd78bb67159f0eae634c5a39e46b51ce5153", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27.sh@f9fea642a57299fc7d37fb82ea11e5261d1bcb7f", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run3.log.txt@bc806daeacc9db591731e46b9583edc24ee61f15", "docs/cm/tool-validation/README.md@87fb1e8cab28baf623981a3386fb260f5263d1be", "tools/toolchain.lock.md@b45c8654476be36b3b1918fbe9ff2040ac6c941e", "tools/README.md@54f97c64f92a0443a82a633e5712d5b6b009b32a"]
 fixture_trees: ["tools/tests/fixtures/ltspice@8feee9d0f3eab7dd45ae73ff4437846dd9bddd55"]
 tv_ids: [TV-014]
 tool_class: B
@@ -33,7 +33,7 @@ product_size: 1 record (TV-014), 4 purposes, 35 known-answer tests, 13 fixture f
 sprint: PDR-prep
 author_agent: "author:WP-PDR-07 (Claude as tool owner)"
 tool_author_agent: "author:WP-PDR-07 (Claude as tool owner)"
-reviewer_agent: "reviewer:WP-PDR-07-tool-validation-iter2 (independent; authored no part of WP-PDR-07; iteration 1 by reviewer:WP-PDR-07-tool-validation-iter1)"
+reviewer_agent: "reviewer:WP-PDR-07-tool-validation-iter3 (independent; authored no part of WP-PDR-07; iteration 1 by reviewer:WP-PDR-07-tool-validation-iter1, iteration 2 by reviewer:WP-PDR-07-tool-validation-iter2)"
 # criticality: neither (03 sections 4.3.1 and 6.1.1: no tool is a safety-critical or mission-critical
 # component). 07 section 2.1.1: code of a "Neither" component needs no assurance review unless the file holds
 # unsafe (a shell script has none); the tool validation template has no 2.1.1 row. The swe-136 and swe-070
@@ -41,12 +41,12 @@ reviewer_agent: "reviewer:WP-PDR-07-tool-validation-iter2 (independent; authored
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 2
-# readiness_met: false. R2 is still not met in substance: run 3 (c9d2c54) and the reviewer re-run at 12:00
-# CDT exit 0 with 35 run, 22 passed, 13 skipped, because the bottle ini still lacks CaptureAnalytics=false
+iteration: 3
+# readiness_met: false. R2 is still not met in substance: the author made no run 4, and the reviewer re-run at
+# 12:08 CDT exits 0 with 35 run, 22 passed, 13 skipped, because the bottle ini still lacks CaptureAnalytics=false
 # (420 bytes, modified 10:50, key count 0). R3 is not met: validate_docs.py exits 1 on INSP-015 drift
-# (finding-17) and the full suite fails test_repository_exit_zero. Iteration 3 is the last before escalation
-# to the owner (rule C1; 07 section 10.2)
+# (finding-17). Iteration 3 is the last iteration; finding-1 stays Open, so the record is escalated to the owner
+# (rule C1; 07 sections 3.4 phase 3 and 10.2)
 readiness_met: false
 reviewer_verdict: NEEDS CHANGES
 assurance_verdict: not-required
@@ -63,14 +63,14 @@ assurance_tasks_applied: [swe-136 7.1 task 1, swe-070 7.1 task 1]
 unsafe_sites_reviewed: 0
 deferred_rids: []
 items_no: [R2, R3, TV-A1, TV-C2, TV-C5, TV-D1, TV-E1, TV-F1, TV-F3, TV-G1-2, TV-G2-2, CK-CODE-C2]
-effort_turns: 24
-effort_minutes: 45
+effort_turns: 12
+effort_minutes: 20
 record_status: Open
 date: 2026-09-27
 date_closed: null
 ---
 
-# Peer review record INSP-038: tool validation TV-014 (LTspice through tools/ltspice-batch.sh), WP-PDR-07, iterations 1 and 2
+# Peer review record INSP-038: tool validation TV-014 (LTspice through tools/ltspice-batch.sh), WP-PDR-07, iterations 1 to 3
 
 **Products:** `docs/cm/tool-validation/TV-014-ltspice-batch.md` (blob `246877af`) and every file it validates or cites as evidence, at commit `b362395` (`product_files`; each blob recomputed with `git rev-parse b362395:<path>` and `git rev-parse HEAD:<path>` at HEAD `091bceb`: all equal). Fixture tree `b9f9eca1` at `41d150e`, `b41e544`, `b362395` and HEAD (unchanged since it was committed). **Checklists:** the tool validation checklist of WP-PDR-03 (revision A, blob `7be809d4`, CR-012 branch; applied item by item below) and the code checklist revision B for the wrapper source (section "Code review"). **Acceptance criteria (rule C7):** every clause of 05 section 9.2 step 1 (the TV record fields) and the LTspice row of the 05 section 9.2 known-answer table (stored -3 dB frequency within 1 %, `.log` first line names the version, seeded-error netlist exits 1, `rc-hang-error.asc` time-out guard that kills only its own processes, the `iconv` precondition never appended to); 05 section 9.1 class B (known answer with a seeded fault, TV record before first cited use); 05 section 9.2 steps 3 to 5; every item of the tool validation checklist for `tool_kind` repository-tool plus G2; the INSP-015 finding classes F-01, F-02, F-04, F-05.
 
@@ -362,3 +362,83 @@ MEASUREMENTS: size=1 record, 4 purposes, 35 tests, 13 fixture files, 360 LOC; tu
 ```
 
 Next: owner action OA-TV014-1 (answer No once in the LTspice consent dialog, then confirm key count 1 with the `iconv` command), then run 4 by the author, then iteration 3 of this record (a delta on finding-1 and finding-2). Iteration 3 is the last before escalation to the owner (rule C1; 07 section 10.2). Minor findings become liens due at the CDR readiness declaration only after a first APPROVED verdict.
+
+## Iteration 3: delta on finding-1 and finding-2 (Major), no product change (2026-09-27)
+
+**Scope (rule C1).** The delta that iteration 2 named: verify finding-1 and finding-2 on run 4. The author returned no change and no commit (author summary of 2026-09-27: finding-1 blocked on OA-TV014-1, finding-2 verifiable only by run 4, no Minor touched under rule C1). Products at HEAD `dfde624`, each checked with `git rev-parse HEAD:<path>` against `git rev-parse aa746f0:<path>`: wrapper `64e1c723`, test module `c75cb7b3`, `known-answers.json` `8ec25d71`, `fake-support/bin/wine` `acd2ec5c`, `rc-step-tran.net` `bd19be41`, fixture tree `8feee9d0`, TV-014 `6204bd78`, procedure `f9fea642`, run 3 transcript `bc806dae` and `tools/README.md` `54f97c64` are equal at both commits. The TV README (`87fb1e8c`) and the lock (`b45c8654`) differ from `aa746f0` only through `c827202` (WP-PDR-08); `git diff aa746f0 HEAD` on both files changes no line that names LTspice or TV-014. `git diff --stat aa746f0 HEAD` over the wrapper, the test module, the fixture tree, TV-014 and the evidence directory shows only two WP-PDR-08 evidence files (`measurements-2026-09-27-r3.log.txt`, `rust-tv-2026-09-27-r3.log.txt`); no LTspice run 4 transcript exists. The freeze therefore still holds (rule C2) and this iteration reviews the same content as iteration 2.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-07, TV-014, the wrapper, the tests or iterations 1 and 2 of this record, and edited no product file.
+
+**Search first (charter section 11 rule 1).** One `grep -n "WP-PDR-07"` over the plan file (a known path) ran before the search tool was loaded; recorded here as a deviation from the rule's order, as in iteration 2. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` then ran before every other manual search (query: "INSP-038 iteration 2 TV-014 finding-1 known answer run 4 OA-TV014-1"). `grep -n` afterwards only pinned lines in known files.
+
+**Headless and bottle safety.** No LTspice process was started (`pgrep -fl LTspice`: none). The bottle ini was read only with `ls` and `iconv` at 12:07 CDT: 420 bytes, modified 10:50, `iconv -f UTF-16LE -t UTF-8 "$INI" | tr -d '\r' | grep -c '^CaptureAnalytics=false$'` returns 0. The reviewer did not edit the ini (ADR-018; 08 briefing: the key is owner-ratified).
+
+### Verification of the Major findings
+
+| Finding | Iteration 3 state | Evidence |
+|---|---|---|
+| finding-1 | **Open, not fixed.** Escalated to the owner (below) | No run 4 exists. The bottle precondition still fails (key count 0), so run 4 cannot be made headless. Reviewer re-run at 12:08 CDT (`CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -s tools/tests -p test_ltspice_batch.py`): exit 0, 35 run, OK (skipped=13), identical to run 3 and to the iteration 2 re-run. The author's decision not to edit the ini or start the GUI is correct: 08 section 5 (LTspice command line) says to stop and report when the key check fails, and charter section 11 rule 8 forbids GUI steps by an agent |
+| finding-2 | **Fixed, not verified.** Carried to run 4 | `test_ascii_raw_known_answer` (in `LTspiceRunTests`) is still skipped by the precondition; the fix itself is unchanged (`c75cb7b3`, `8ec25d71`) and stays correct by the iteration 2 inspection. `AsciiRawReaderTests` (2) pass in the re-run |
+| finding-3 | Verified (iteration 2) | Products unchanged, so the iteration 2 mutations M1 to M3 stand |
+
+### Escalation to the owner (rule C1; 07 section 10.2 and section 3.4 phase 3)
+
+This is the third author-review iteration of INSP-038 and one Major (finding-1) remains Open, with a second (finding-2) unverifiable for the same reason. Rule C1 allows no fourth iteration without the owner. The block is not an author defect: every case that needs LTspice is gated on the bottle key `CaptureAnalytics=false`, which only the owner can restore (OA-TV014-1). The reviewer asks the owner to choose one of:
+
+1. **Restore and authorize one more delta (recommended).** The owner does OA-TV014-1 (open LTspice once, answer No to the analytics consent dialog, quit), then confirms the key count is 1 with the `iconv` command above. The owner then authorizes iteration 4 of INSP-038 as a delta on finding-1 and finding-2 only. The author makes run 4 with the TV-014 section 3 procedure on the frozen blobs: pass criterion 34 of 35 passed, only `test_bottle_without_key` skipped, part D run as stated. The result goes into TV-014 section 4 and lock section 1.1, and the scope statement of ACC-LTSPICE-001 then names one blob (finding-19).
+2. **Hold TV-014 unaccredited.** WP-PDR-19 to 26 and 28 then cite no LTspice result as evidence until the owner acts (05 section 9.1; plan WP-PDR-07 "Blocks"). OD-24b at B0 is deferred.
+
+TV-014 cannot be accredited (OD-24b) until finding-1 is Verified; the record gives the owner no basis to accredit it on the current evidence.
+
+### Findings (iteration 3 state)
+
+Only the state of finding-1 and finding-2 was re-checked; every other row is as in iteration 2 (rule C1: no Minor is re-checked before a first APPROVED verdict).
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | TV-C5, TV-D1, TV-C2, TV-C4; R2 | TV-014 section 4 rows 3 and 4 | No known-answer result for the committed wrapper; no run 4; reviewer re-run at 12:08 identical to run 3 (key count 0) | Open (escalated to the owner; blocked on OA-TV014-1) | Pending | |
+| finding-2 | reviewer | Major | TV-B3, TV-C2 | `test_ltspice_batch.py` `test_ascii_raw_known_answer`; `known-answers.json` block `ascii` | `-ascii` known answer present and correct by inspection; still not executed | Fixed (verification at run 4) | Pending | |
+| finding-3 | reviewer | Major | TV-B3, TV-F1 | wrapper lines 71 to 74, 216 to 236, 317 to 324 | As iteration 2 | Verified | Pending | |
+| finding-4 | reviewer | Minor | TV-C2, TV-D1 | as iteration 1 | Not re-checked (delta) | Open | Pending | |
+| finding-5 | reviewer | Minor | TV-C1, TV-D1 | as iteration 2 | Not re-checked (delta) | Open | Pending | |
+| finding-6 | reviewer | Minor | CK-CODE-C2 | wrapper lines 339 to 350 at `64e1c723` | Not re-checked (delta) | Open | Pending | |
+| finding-7 | reviewer | Minor | TV-G1-2 | as iteration 1 | Not re-checked (delta) | Open | Pending | |
+| finding-8 | reviewer | Minor | TV-E1, TV-C2 | as iteration 1 | Not re-checked (delta) | Open | Pending | |
+| finding-9 | reviewer | Minor | TV-E1, TV-G2-2 | as iteration 1 | Not re-checked (delta) | Open | Pending | |
+| finding-10 | reviewer | Minor | TV-E1, TV-D1 | as iteration 1 | Not re-checked (delta) | Open | Pending | |
+| finding-11 | reviewer | Minor | TV-F1, CK-CODE-G1 | as iteration 2 | Not re-checked (delta) | Open | Pending | |
+| finding-12 | reviewer | Minor | TV-F3, TV-D2 | lock section 5 TV-014 row | As iteration 2 (the TV-014 row is unchanged in `b45c8654`) | Verified | Pending | |
+| finding-13 | reviewer | Minor | TV-A2 | as iteration 1 | Not re-checked (delta) | Open | Pending | |
+| finding-14 | reviewer | Minor | TV-F4, R5 | as iteration 1 | Not re-checked (delta); the steps of OA-TV014-1 are written in the escalation above but not yet in TV-014 | Open | Pending | |
+| finding-15 | reviewer | Minor | TV-G2-2, TV-A6 | procedure `f9fea642` part D | Not re-checked (delta) | Open | Pending | |
+| finding-16 | reviewer | Minor | TV-C1 | as iteration 1 | Not re-checked (delta) | Open | Pending | |
+| finding-17 | reviewer | Minor | R3, TV-F3 | INSP-015 record drift | Still failing at HEAD `dfde624` (see re-runs) | Open | Pending | |
+| finding-18 | reviewer | Minor | TV-C2, CK-CODE-H1 | as iteration 2 | Not re-checked (delta) | Open | Pending | |
+| finding-19 | reviewer | Minor | TV-F1 | TV-014 section 9 scope statement | Not re-checked (delta); fix due with run 4 | Open | Pending | |
+
+### Reviewer re-runs (commands, exits)
+
+| Command | Exit | Result |
+|---|---|---|
+| `CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -s tools/tests -p test_ltspice_batch.py` | 0 | 35 run, 22 passed, 13 skipped (same as run 3) |
+| `.venv/bin/python tools/validate_docs.py` (with this record) | 1 | 65 passed, 1 failed: this record PASS; the failure is INSP-015 drift on the README and lock (finding-17), not attributable to this record |
+
+### Cross items
+
+X-1 to X-7 stand. X-5: `git rev-parse HEAD:docs/templates/peer-review-checklist-tool-validation.md` still fails at `dfde624`, so the `checklist` field keeps the code checklist. X-7 (SA pair): not required by 07 section 2.1.1 for a "Neither" tool without `unsafe`; the lead SE's decision is still open. X-8 (new): OA-TV014-1 is not in the plan section 6 owner-action list or in `docs/plan/status/status-2026-09-27.md`; the lead SE should add it to the B0 owner session with OD-24b.
+
+### Verdict (iteration 3)
+
+```
+VERDICT: NEEDS CHANGES (escalated to the owner, rule C1)
+PRODUCT: TV-014 at dfde62480a56d8258742d47715af5b1ceaf43c19 (wrapper blob 64e1c723, test module c75cb7b3, fixture tree 8feee9d0; content unchanged since aa746f0)
+FINDINGS:
+- [Major] finding-1 Open: no run 4; bottle key count 0 at 12:07; reviewer re-run 35 run, 22 passed, 13 skipped.
+- [Major] finding-2 Fixed, not verified: executes only at run 4.
+- [Major] finding-3 Verified (iteration 2).
+- [Minor] finding-12 Verified; finding-4 to finding-11 and finding-13 to finding-19 Open (not re-checked, rule C1).
+RE-RUN: CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -s tools/tests -p test_ltspice_batch.py; exit 0; 35 run, 22 passed, 13 skipped; same as run 3
+MEASUREMENTS: size=1 record, 4 purposes, 35 tests, 13 fixture files, 360 LOC; turns=12; minutes=20; major=3; minor=16; unsafe_sites=0
+```
+
+Next: the owner decides between the two options of the escalation above. With option 1, iteration 4 is a delta on finding-1 and finding-2 on run 4.
