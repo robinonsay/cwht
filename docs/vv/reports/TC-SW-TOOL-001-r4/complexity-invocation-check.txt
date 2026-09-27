@@ -1,0 +1,89 @@
+== 2026-09-26T20:48:10-0500 configuration
+cwht HEAD dd39332aef9a164d999f60350a90d51882685072
+tools/sw_gate.sh working tree: git blob 52b9f80361939c9c13e76a806264db1b722abefe; HEAD blob 54b138005b3f3d86e148446c7b0295845cd69e8d
+tools/complexity_gate.py HEAD blob 9214fefb76f95f0494f906607ef06428260d1c75; working tree 9214fefb76f95f0494f906607ef06428260d1c75
+tools/unsafe_audit.py HEAD blob cc3aaa2ad82a52a63615c6af082567007b2d7e6e
+rust-code-analysis-cli 0.0.25 at /Users/robinonsay/.cargo/bin/rust-code-analysis-cli
+python Python 3.13.5
+diff of tools/sw_gate.sh against HEAD:
+diff --git a/tools/sw_gate.sh b/tools/sw_gate.sh
+index 54b1380..52b9f80 100755
+--- a/tools/sw_gate.sh
++++ b/tools/sw_gate.sh
+@@ -313,7 +313,10 @@ else
+ fi
+ if command -v rust-code-analysis-cli >/dev/null 2>&1 && [ -f "$ROOT/tools/complexity_gate.py" ]; then
+     echo "---- G5 complexity: rust-code-analysis-cli | tools/complexity_gate.py --max 15"
+-    if rust-code-analysis-cli --metrics --output-format json --paths "$FW" "$RUSTOS/api" "$RUSTOS/firmware/pico2" \
++    # rust-code-analysis-cli 0.0.25 takes one value per --paths occurrence (INSP-016 finding-14;
++    # tools/toolchain.lock.md section 1.4 finding 10; TC-SW-TOOL-001 run 3 item B8).
++    if rust-code-analysis-cli --metrics --output-format json \
++        --paths "$FW" --paths "$RUSTOS/api" --paths "$RUSTOS/firmware/pico2" \
+         | "$PY" "$ROOT/tools/complexity_gate.py" --max 15; then pass "G5 complexity"; else fail "G5 complexity"; fi
+ else
+     command -v rust-code-analysis-cli >/dev/null 2>&1 || missing "G5 complexity: rust-code-analysis-cli not installed (cargo install is an owner-approved download)"
+== extracted block (11 lines):
+if command -v rust-code-analysis-cli >/dev/null 2>&1 && [ -f "$ROOT/tools/complexity_gate.py" ]; then
+    echo "---- G5 complexity: rust-code-analysis-cli | tools/complexity_gate.py --max 15"
+    # rust-code-analysis-cli 0.0.25 takes one value per --paths occurrence (INSP-016 finding-14;
+    # tools/toolchain.lock.md section 1.4 finding 10; TC-SW-TOOL-001 run 3 item B8).
+    if rust-code-analysis-cli --metrics --output-format json \
+        --paths "$FW" --paths "$RUSTOS/api" --paths "$RUSTOS/firmware/pico2" \
+        | "$PY" "$ROOT/tools/complexity_gate.py" --max 15; then pass "G5 complexity"; else fail "G5 complexity"; fi
+else
+    command -v rust-code-analysis-cli >/dev/null 2>&1 || missing "G5 complexity: rust-code-analysis-cli not installed (cargo install is an owner-approved download)"
+    [ -f "$ROOT/tools/complexity_gate.py" ] || missing "G5 complexity: tools/complexity_gate.py not written (07 CS-17, CS-38)"
+fi
+== 2026-09-26T20:48:10-0500 layout /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-c54d35a (rustos c54d35aa8e7f9ad30f6508bca458a59c1fc009db)
+-- A. superseded form, three values after one --paths (reproduces finding-14):
+analyzer exit 2; bytes 0; stderr first line: error: Found argument '/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-c54d35a/rustos/api' which wasn't expected, or isn't valid in this context
+-- B. the gate block as fixed (verbatim from tools/sw_gate.sh):
+---- G5 complexity: rust-code-analysis-cli | tools/complexity_gate.py --max 15
+FAIL CS-38 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-c54d35a/cwht/firmware/cwht-app/src/main.rs:54 safe_state_halt CC 2 > 1 in a // @target-only file (straight-line target-only code; CS-11 board take allowance included)
+MSR-17 functions 52, max_cc 5, mean_cc 1.38, above_12 0, above_15 0, above_yellow 0, above_max 0, target_only_above_1 2
+complexity_gate: FAIL (1 failure(s), 0 CS-19 report(s))
+FAIL G5 complexity
+block exit 0
+-- C. analyzer input read per root (fixed form):
+analyzer exit 0; bytes 177847; stderr lines 0
+  firmware: 8 files, 29 function spaces
+  rustos api: 4 files, 2 function spaces
+  rustos firmware/pico2: 8 files, 21 function spaces
+  total: 20 files, 52 function spaces
+-- D. seeded known answer: one CC 17 function added under each of the three roots:
+---- G5 complexity: rust-code-analysis-cli | tools/complexity_gate.py --max 15
+FAIL CS-17 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-c54d35a/cwht/firmware/cwht-core/src/seed_ka.rs:1 seed_ka_core CC 17 > 15 (SWE-220; 07 section 14.3 waiver absent)
+FAIL CS-17 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-c54d35a/rustos/api/src/seed_ka.rs:1 seed_ka_api CC 17 > 15 (SWE-220; 07 section 14.3 waiver absent)
+FAIL CS-17 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-c54d35a/rustos/firmware/pico2/src/seed_ka.rs:1 seed_ka_pico2 CC 17 > 15 (SWE-220; 07 section 14.3 waiver absent)
+FAIL CS-38 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-c54d35a/cwht/firmware/cwht-app/src/main.rs:54 safe_state_halt CC 2 > 1 in a // @target-only file (straight-line target-only code; CS-11 board take allowance included)
+MSR-17 functions 55, max_cc 17, mean_cc 2.24, above_12 3, above_15 3, above_yellow 3, above_max 3, target_only_above_1 2
+complexity_gate: FAIL (4 failure(s), 0 CS-19 report(s))
+FAIL G5 complexity
+block exit 0
+== 2026-09-26T20:48:10-0500 layout /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-2ec64c0 (rustos 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c)
+-- A. superseded form, three values after one --paths (reproduces finding-14):
+analyzer exit 2; bytes 0; stderr first line: error: Found argument '/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-2ec64c0/rustos/api' which wasn't expected, or isn't valid in this context
+-- B. the gate block as fixed (verbatim from tools/sw_gate.sh):
+---- G5 complexity: rust-code-analysis-cli | tools/complexity_gate.py --max 15
+FAIL CS-38 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-2ec64c0/cwht/firmware/cwht-app/src/main.rs:54 safe_state_halt CC 2 > 1 in a // @target-only file (straight-line target-only code; CS-11 board take allowance included)
+MSR-17 functions 52, max_cc 5, mean_cc 1.38, above_12 0, above_15 0, above_yellow 0, above_max 0, target_only_above_1 2
+complexity_gate: FAIL (1 failure(s), 0 CS-19 report(s))
+FAIL G5 complexity
+block exit 0
+-- C. analyzer input read per root (fixed form):
+analyzer exit 0; bytes 177889; stderr lines 0
+  firmware: 8 files, 29 function spaces
+  rustos api: 4 files, 2 function spaces
+  rustos firmware/pico2: 8 files, 21 function spaces
+  total: 20 files, 52 function spaces
+-- D. seeded known answer: one CC 17 function added under each of the three roots:
+---- G5 complexity: rust-code-analysis-cli | tools/complexity_gate.py --max 15
+FAIL CS-17 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-2ec64c0/cwht/firmware/cwht-core/src/seed_ka.rs:1 seed_ka_core CC 17 > 15 (SWE-220; 07 section 14.3 waiver absent)
+FAIL CS-17 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-2ec64c0/rustos/api/src/seed_ka.rs:1 seed_ka_api CC 17 > 15 (SWE-220; 07 section 14.3 waiver absent)
+FAIL CS-38 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-2ec64c0/cwht/firmware/cwht-app/src/main.rs:54 safe_state_halt CC 2 > 1 in a // @target-only file (straight-line target-only code; CS-11 board take allowance included)
+FAIL CS-17 /private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/rca-check/layout-2ec64c0/rustos/firmware/pico2/src/seed_ka.rs:1 seed_ka_pico2 CC 17 > 15 (SWE-220; 07 section 14.3 waiver absent)
+MSR-17 functions 55, max_cc 17, mean_cc 2.24, above_12 3, above_15 3, above_yellow 3, above_max 3, target_only_above_1 2
+complexity_gate: FAIL (4 failure(s), 0 CS-19 report(s))
+FAIL G5 complexity
+block exit 0
+== 2026-09-26T20:48:11-0500 end; scratch layouts removed

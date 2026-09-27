@@ -1,0 +1,25 @@
+== 2026-09-26T19:20:35-0500 step 12: picotool info -d
+Device Information
+ type:                 RP2350
+ package:              QFN60
+ chipid:               0xf9c6e0eff60605d1
+ flash devinfo:        0x0c00
+ current cpu:          ARM
+ available cpus:       ARM, RISC-V
+ default cpu:          ARM
+ secure boot:          0
+ debug enable:         1
+ secure debug enable:  1
+ flash size:           4096K
+info exit 0
+== step 12: picotool load -v cwht-app.uf2
+4e0bd133a10b6e29f72f00023ec407cd1885b8550a685b881c7be213462b3529  docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.uf2
+Family ID 'rp2350-arm-s' can be downloaded in absolute space:
+  00000000->02000000
+Loading into Flash:   [                              ]  0%Loading into Flash:   [==============================]  100%
+Verifying Flash:      [                              ]  0%Verifying Flash:      [==============================]  100%
+  OK
+load exit 0
+== 2026-09-26T19:20:35-0500 picotool reboot
+The device was rebooted into application mode.
+reboot exit 0

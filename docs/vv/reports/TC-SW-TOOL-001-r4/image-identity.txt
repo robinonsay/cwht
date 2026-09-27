@@ -1,0 +1,31 @@
+== 2026-09-26T20:49:42-0500 image identity: the UF2 files loaded in steps 11 and 12 (run 1 paths, as recorded in step11-load.txt and step12-load.txt) against the run 2 and run 3 artifacts
+cwht HEAD 5122a6bd262665a79ac03a9b687731f48f75041c
+-- sha256 recorded at load time (step11-load.txt, step12-load.txt):
+4e0bd133a10b6e29f72f00023ec407cd1885b8550a685b881c7be213462b3529  docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.uf2
+c45b526837c0831206763eb3134a8e71c854059ff7442c19e51f39edf03308d3  docs/vv/reports/TC-SW-TOOL-001-r1/rustos-blinky.uf2
+-- sha256 now:
+c45b526837c0831206763eb3134a8e71c854059ff7442c19e51f39edf03308d3  docs/vv/reports/TC-SW-TOOL-001-r1/rustos-blinky.uf2
+c45b526837c0831206763eb3134a8e71c854059ff7442c19e51f39edf03308d3  docs/vv/reports/TC-SW-TOOL-001-r2/rustos-blinky.uf2
+c45b526837c0831206763eb3134a8e71c854059ff7442c19e51f39edf03308d3  docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.uf2
+4e0bd133a10b6e29f72f00023ec407cd1885b8550a685b881c7be213462b3529  docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.uf2
+4e0bd133a10b6e29f72f00023ec407cd1885b8550a685b881c7be213462b3529  docs/vv/reports/TC-SW-TOOL-001-r2/cwht-app.uf2
+4e0bd133a10b6e29f72f00023ec407cd1885b8550a685b881c7be213462b3529  docs/vv/reports/TC-SW-TOOL-001-r3/cwht-app.uf2
+-- byte comparison (cmp exit 0 = identical):
+cmp r1/rustos-blinky.uf2 r3/rustos-blinky.uf2 exit 0
+cmp r1/cwht-app.uf2 r3/cwht-app.uf2 exit 0
+-- git blobs of the committed files (unchanged since committed):
+r1/rustos-blinky.uf2 HEAD blob f0e9fb343ed9c24f0e5b791fc344b51093c48ab9 working tree f0e9fb343ed9c24f0e5b791fc344b51093c48ab9
+r1/cwht-app.uf2 HEAD blob 640951c4994cbc5e8a45e8f89eff3879795da144 working tree 640951c4994cbc5e8a45e8f89eff3879795da144
+r3/rustos-blinky.uf2 HEAD blob f0e9fb343ed9c24f0e5b791fc344b51093c48ab9 working tree f0e9fb343ed9c24f0e5b791fc344b51093c48ab9
+r3/cwht-app.uf2 HEAD blob 640951c4994cbc5e8a45e8f89eff3879795da144 working tree 640951c4994cbc5e8a45e8f89eff3879795da144
+-- OA-2 fixture identity: kat-target.elf of this run against the committed fixture
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  docs/vv/reports/TC-SW-TOOL-001-r4/kat-target.elf
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  tools/tests/fixtures/picotool/kat-target.elf
+cmp exit 0
+-- OA-2 altered copy: every differing byte (cmp -l: 1-based offset, octal values)
+ 65584 253 124
+differing bytes: 1
+-- known answers (tools/tests/fixtures/picotool/known-answers.json blob b0cf4540f3a8bfb5e0cc2f29dd61fdd070547dd1):
+4:  "elf": {"file": "kat-target.elf", "sha256": "3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d"},
+9:    "sha256": "f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093"
+f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093  docs/vv/reports/TC-SW-TOOL-001-r4/kat-target.uf2

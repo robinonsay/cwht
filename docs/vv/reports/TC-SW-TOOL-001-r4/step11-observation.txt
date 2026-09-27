@@ -1,0 +1,7 @@
+Step 11 owner observation, transcribed 2026-09-26T19:20:04-0500
+Board: bare Pico 2 marked "1" by the owner; chipid 0xf9c6e0eff60605d1
+Image: rustos-blinky.uf2 sha256 c45b526837c0831206763eb3134a8e71c854059ff7442c19e51f39edf03308d3
+Owner statement, verbatim: "On/Off time looks about equal and it blinked about 60-63 times in 60s. It's not exactly 1 second but its close"
+Count: 60 to 63 off-to-on transitions in 60 s (acceptance window 10 to 120; step 10 prediction window 13 to 114, about 63 expected)
+Duty: on and off times about equal
+Result: Pass

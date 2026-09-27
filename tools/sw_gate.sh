@@ -313,7 +313,10 @@ else
 fi
 if command -v rust-code-analysis-cli >/dev/null 2>&1 && [ -f "$ROOT/tools/complexity_gate.py" ]; then
     echo "---- G5 complexity: rust-code-analysis-cli | tools/complexity_gate.py --max 15"
-    if rust-code-analysis-cli --metrics --output-format json --paths "$FW" "$RUSTOS/api" "$RUSTOS/firmware/pico2" \
+    # rust-code-analysis-cli 0.0.25 takes one value per --paths occurrence (INSP-016 finding-14;
+    # tools/toolchain.lock.md section 1.4 finding 10; TC-SW-TOOL-001 run 3 item B8).
+    if rust-code-analysis-cli --metrics --output-format json \
+        --paths "$FW" --paths "$RUSTOS/api" --paths "$RUSTOS/firmware/pico2" \
         | "$PY" "$ROOT/tools/complexity_gate.py" --max 15; then pass "G5 complexity"; else fail "G5 complexity"; fi
 else
     command -v rust-code-analysis-cli >/dev/null 2>&1 || missing "G5 complexity: rust-code-analysis-cli not installed (cargo install is an owner-approved download)"

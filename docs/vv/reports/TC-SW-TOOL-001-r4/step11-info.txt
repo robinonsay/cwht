@@ -1,0 +1,14 @@
+== 2026-09-26T19:17:51-0500 step 11: picotool info -d
+Device Information
+ type:                 RP2350
+ package:              QFN60
+ chipid:               0xf9c6e0eff60605d1
+ flash devinfo:        0x0c00
+ current cpu:          ARM
+ available cpus:       ARM, RISC-V
+ default cpu:          ARM
+ secure boot:          0
+ debug enable:         1
+ secure debug enable:  1
+ flash size:           4096K
+exit 0

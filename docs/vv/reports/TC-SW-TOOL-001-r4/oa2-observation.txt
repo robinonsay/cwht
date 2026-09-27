@@ -1,0 +1,8 @@
+OA-2 picotool verify known answer, 2026-09-26T19:23:35-0500, board "1" chipid 0xf9c6e0eff60605d1
+kat-target.elf sha256 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d (equals known-answers.json elf.sha256)
+kat-target.uf2 via picotool uf2 convert --family rp2350-arm-s: sha256 f8ef643e2f4cb15a3a6bdc2c3a913d1f741381c3fea84179e2df2617973ec093 (equals known-answers.json uf2_convert.sha256)
+kat-target-1byte.elf: one byte flipped at file offset 0x1002f (flash 0x1000002f, 0xab -> 0x54); sha256 a669b565b9a3cf9f40b3e21758613ac1f4c494ed8da1cf460a798b61fc076b73; cmp -l reports exactly 1 differing byte
+picotool load kat-target.uf2: exit 0
+picotool verify kat-target.elf: OK, exit 0 (expected pass)
+picotool verify kat-target-1byte.elf: "First mismatch at 0x1000002f", "ERROR: The device contents did not match the file", exit 245 (expected fail at the altered address)
+Result: Pass

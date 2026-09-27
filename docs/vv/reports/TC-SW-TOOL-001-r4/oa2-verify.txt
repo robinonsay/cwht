@@ -1,0 +1,40 @@
+== 2026-09-26T19:23:35-0500 OA-2: picotool info -d
+Device Information
+ type:                 RP2350
+ package:              QFN60
+ chipid:               0xf9c6e0eff60605d1
+ flash devinfo:        0x0c00
+ current cpu:          ARM
+ available cpus:       ARM, RISC-V
+ default cpu:          ARM
+ secure boot:          0
+ debug enable:         1
+ secure debug enable:  1
+ flash size:           4096K
+info exit 0
+== picotool load kat-target.uf2
+Family ID 'rp2350-arm-s' can be downloaded in absolute space:
+  00000000->02000000
+Loading into Flash:   [                              ]  0%Loading into Flash:   [==============================]  100%
+load exit 0
+== picotool verify kat-target.elf (expect pass)
+Verifying Flash:      [                              ]  0%Verifying Flash:      [==============================]  100%
+  OK
+verify-true exit 0
+== picotool verify kat-target-1byte.elf (expect fail)
+Verifying Flash:      [                              ]  0%Verifying Flash:      [==============                ]  48%
+  First mismatch at 0x1000002f
+    0x10000020 | 42 01 21 10 ff 01 00 00 00 00 00 00 79 35 12 54 
+               | 42 01 21 10 ff 01 00 00 00 00 00 00 79 35 12 ab 
+               |                                              ~~ 
+
+    0x10000030 | 80 b5 6f 46 10 bf fd e7 00 00 00 00 06 00 52 50 
+               | 80 b5 6f 46 10 bf fd e7 00 00 00 00 06 00 52 50 
+               |                                                 
+
+    0x10000040 | 86 1c 03 02 48 00 00 10 63 77 68 74 2d 6b 61 74 
+               | 86 1c 03 02 48 00 00 10 63 77 68 74 2d 6b 61 74 
+               |                                                 
+
+ERROR: The device contents did not match the file
+verify-altered exit 245
