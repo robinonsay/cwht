@@ -6,9 +6,9 @@ checklist_file: docs/reviews/SRR/checklists/semp.md
 product: docs/plan/semp.md
 # product_commit: git hash-object of the working-tree file reviewed (blob; the file is uncommitted on top of HEAD 28e49e6); iteration 1 reviewed blob e129c710a71c616377b635e9a9097112313a3350, iteration 2 verified the fixes in the blob below
 product_commit: "2f0588fab3411acfb37342c08f374172da6a52c7"
-# product_files: the committed SEMP blob reviewed at iteration 3 by the independent reviewer (git rev-parse HEAD:docs/plan/semp.md at HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1; unchanged since b301df2 and 400e59d)
-product_files: ["docs/plan/semp.md@77fc9ea43527d838a1d92c54cdb332868c1ab450"]
-product_size: 9 sections plus appendices A to F (480 lines)
+# product_files: the committed SEMP blob reviewed at iteration 3 re-issue 2 (post-SRR-ruling delta) by the independent reviewer (git rev-parse HEAD:docs/plan/semp.md at HEAD ebe5873; version 0.4, commit 9bdf33c, the only SEMP commit since adcfe09); iteration 3 re-issue 1 reviewed blob 77fc9ea43527d838a1d92c54cdb332868c1ab450
+product_files: ["docs/plan/semp.md@ccfdecf98a6e2dc1371eb057e6aa37903b672de1"]
+product_size: 9 sections plus appendices A to F (488 lines)
 sprint: SRR-prep
 author_agent: "author:semp (Claude main session, lead SE; H16 AL-02-26 revision)"
 reviewer_agent: "reviewer:semp"
@@ -21,18 +21,18 @@ reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 findings_major: 1
-findings_minor: 10
+findings_minor: 12
 findings_open: 0
 findings_fixed: 0
 findings_verified: 9
-findings_deferred: 2
+findings_deferred: 4
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G1, CK-REQ-G7, S1, S2]
-effort_turns: 100
-effort_minutes: 115
+effort_turns: 125
+effort_minutes: 145
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -241,4 +241,48 @@ VERDICT (iteration 3, independent reviewer): APPROVED (with liens)
 PRODUCT: docs/plan/semp.md@77fc9ea43527d838a1d92c54cdb332868c1ab450 (HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1)
 FINDINGS: finding-1 to finding-9 Closed; finding-10 Minor Lien: fix before PDR; finding-11 Minor (new) Lien: fix before PDR
 MEASUREMENTS: items re-checked=11 findings plus changed passages; closed=9; lien=2; open_major=0; iteration=3; turns=20; minutes=25
+```
+
+## Post-SRR-ruling delta (iteration 3 re-issue 2, independent reviewer, 2026-09-26)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:semp`); it did not author the SEMP or any R16 edit and did not edit the product. Trigger: the owner approved the SRR on 2026-09-26 (disposition Approved with liens L-1 to L-7, `docs/reviews/SRR/minutes.md`), ruling every key decision K1 to K17 and every consent-agenda decision as recommended (`docs/reviews/SRR/decisions-for-owner.md`, the Recommendation cell is the ruling); package item R16 applies the rulings. Review baseline: HEAD `ebe5873`. `git log adcfe09..HEAD -- docs/plan/semp.md` lists one commit, `9bdf33c` (SEMP version 0.4), which moves the SEMP from blob `77fc9ea4` (iteration 3) to blob `ccfdecf98a6e2dc1371eb057e6aa37903b672de1` (488 lines). Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (queries on SEMP customization 11 and decision 106, and on the SE HB section 6.8.1.2.2 one-viable-alternative sentence) ran before any `grep -n` pin. Convergence rule of the lead SE, 2026-09-26 (charter section 4 item 3): a new Minor is a lien fixed before PDR and does not block the baseline.
+
+**Delta verification of `9bdf33c` (the SEMP hunks only; the `rmm.json` and `register.json` hunks belong to other records).**
+
+| Change | Ruling cited | Checked against | Result |
+|---|---|---|---|
+| Header Version row: 0.4, 2026-09-26, lists the R16 changes and keeps the 0.3 text as "Previous version" | SRR decisions 106 and 3 | The rest of the hunk; the 0.3 alignment text is kept word for word | Correct; no history rewritten |
+| Section 5.17 (line 283 onward): new paragraph "Class 1 choices recorded by an ADR alone" with items (i) and (ii), ADR lists, and the closing sentence keeping the owner as decision authority and the independent review before the next life-cycle review | SRR decision 106 (K11, owner ruling 2026-09-26, minutes line 23) adopting ruling R-2 of `docs/decisions/adr/reconciliation-srr.md` section 7 | R-2 text (items (i) and (ii), the ADR lists ADR-003 to ADR-011 with ADR-026 for the mode, ADR-014, 016, 021, 024; ADR-015, 022, 023, ADR-026 for its values); decision 106 row of `decisions-for-owner.md`; 06 section 14.1 (classes, items (a) to (h)) and section 14.2 (ADR review "before the next life-cycle review"); SE HB section 6.8.1.2.2 ("a decision matrix for a major decision even if only one alternative is determined to be viable", `nasa-se-handbook/22-6-8-decision-analysis.md`); charter section 1 (adjusting formality is customization) | Correct and complete: both items carry their preconditions (one viable alternative; one viable option and the owner's disposition), the ADR lists equal R-2 and the decision row, and the implementing design choices keep their trade study |
+| Section 9.0 customization list row 11 | SRR decision 106 | The section 5.17 paragraph and R-2 | Row (i) is exact; row (ii) omits the one-viable-option precondition: finding-13 |
+| Appendix E OQ-SE-002: closure fact appended ("Closed 2026-09-26: accepted as stated in §4.1") | SRR decision 3 (K4, owner ruling 2026-09-26) | Decision 3 row (Recommendation "Accept as stated in SEMP section 4.1"); minutes line 23; decision memo line 378 (residual accepted) | Correct; the original question text is kept |
+
+**Rulings that touch the SEMP but were not applied by `9bdf33c`.** Decisions 2 (OQ-SE-001, HSI as SEMP section 7.3.1: Confirm), 4 (OQ-SE-003, deviation for SE-55 and SE-56 and the SE-51 and SE-52 scope relief: Approve), 11 (OQ-SE-006, hardware TRL 3 at procurement release: Accept at SRR) and 96 (OQ-SE-005, MOE-013: Add and re-parent) were ruled as recommended on 2026-09-26 (minutes lines 23 and 52; decision memo section 7 and line 378). The SEMP still presents them as open: finding-12. Decision 5 (OQ-SE-004) was withdrawn before the review and the SEMP already records it Withdrawn. Decisions 36, 37, 77 and 90 set values the SEMP copies: the section 7.3.1 HSI rows and the section 8.0 cost basis were re-checked against `requirements.json` at HEAD (the only change among the cited L1 requirements since `adcfe09` is REQ-SYS-057 losing its (TBR); the Controls row already carries no TBR) and against `cost-estimate.md` and TPM-014; all consistent. Decision 98 (TPM-002, TPM-019) is due PDR and appendix F item F-14 says the same; consistent.
+
+**Findings closed by the rulings.** None was open: finding-1 (the only Major) was Closed at iteration 2 and re-verified at iteration 3; the rulings re-open none of finding-1 to finding-9 (their cited lines are outside the `9bdf33c` hunks, lines 1 to 280 unchanged; lines after 280 shift by 7 or 8). Liens finding-10 and finding-11 are not addressed by any ruling and remain at HEAD: line 187 still calls `tools/measurements.py` planned, and section 7.2 row "Documentation data" (now line 336) still says "`tools/measurements.py` (planned)".
+
+<a id="finding-12"></a>**finding-12 (new), Minor, Lien: fix before PDR.** Location: Appendix E rows OQ-SE-001 (line 460), OQ-SE-003 (line 462), OQ-SE-005 (line 464), OQ-SE-006 (line 465); section 3.4 line 100 and section 9.0 line 428 ("for owner approval at SRR (OQ-SE-003)"); section 6.0 line 306 ("The owner decides at SRR whether to accept hardware TRL 3"); section 7.4 line 399 ("the owner decides at SRR whether MOE-013 ... is added"); appendix F item F-12 line 483 ("the acceptance record remains open until the owner rules OQ-SE-006"). Description: version 0.4 records the closure of OQ-SE-002 only; the four other SRR open questions were ruled as recommended on 2026-09-26 (decisions 2, 4, 96 and 11) and the SEMP still states them as pending, which is untrue of the tree and inconsistent within appendix E (package item R16 (b): rationales drop "owner decision pending"). No planned value changes: each ruling equals the SEMP default. Fix: add the closure fact with the decision number to each of the four rows, restate the five passages in the past tense, and mark F-12 resolved by decision 11 (the acceptance is recorded in the decision memo line 378). Citation: CK-REQ-G1 and CK-REQ-G7 (plan statements consistent with the approving record and true of the tree).
+
+<a id="finding-13"></a>**finding-13 (new), Minor, Lien: fix before PDR.** Location: section 9.0 customization row 11 (line 444). Description: item (ii) of the row reads "a class 1 value Claude proposes that the owner's ADR disposition records without a trade study" and drops the precondition of ruling R-2 and of the section 5.17 paragraph, "where the research analysis leaves one viable option". The row is the customization register entry (NPR 7123.1D section 2.2.2.2), so read alone it states a wider customization than decision 106 adopted. Fix: add the precondition to item (ii) of the row. Citation: CK-REQ-G1 (consistency with the ruling and with section 5.17).
+
+**New-defect scan of the `9bdf33c` hunks.** No em dash in the blob (count 0); no bare TBD (hits are the TPM-020 measure name and the review-agenda "TBD/TBR list"); the section 5.17 paragraph's cross references (06 sections 14.1 and 14.2, `reconciliation-srr.md` section 7 R-2, SE HB section 6.8.1.2.2, charter section 1) resolve; the customization is recorded as customization, not tailoring, which matches charter section 1. No new Major defect.
+
+**Cross items (not findings against the SEMP; for the lead SE).** (a) `docs/plan/tpm.json` MOP-001 and MOP-002 still carry `moe_ids` MOE-001 and `expectations.json` MOE-013 is still Draft after decision 96; carried by RID-SRR-008 (Open, due PDR readiness declaration). (b) Decision 2 asks for the section 7.3.1 rationale in the charter section 12 HSI row; the charter row still has none (the owner edits the charter). (c) 06 section 14.1 does not point to SEMP customization 11; a reader of 06 alone finds no ADR-alone path for class 1 choices.
+
+**Lien table (iteration 3 re-issue 2).**
+
+| Finding | Severity | Disposition | Owner | Due | Package carriage |
+|---|---|---|---|---|---|
+| finding-10 | Minor | Lien: fix before PDR (unchanged) | SEMP author (Claude, lead SE) | PDR readiness declaration | Routine item |
+| finding-11 | Minor | Lien: fix before PDR (unchanged) | SEMP author (Claude, lead SE) | PDR readiness declaration | Routine item (with finding-10) |
+| finding-12 | Minor | Lien: fix before PDR | SEMP author (Claude, lead SE) | PDR readiness declaration | Routine item |
+| finding-13 | Minor | Lien: fix before PDR | SEMP author (Claude, lead SE) | PDR readiness declaration | Routine item (with finding-12) |
+
+**Counts.** 13 findings: 1 Major (Closed), 12 Minor (8 Closed, 4 Lien). Disputed-accepted 0. Open Major 0. No finding needs an owner ruling.
+
+```
+VERDICT (iteration 3 re-issue 2, post-SRR-ruling delta, independent reviewer): APPROVED (with liens)
+PRODUCT: docs/plan/semp.md@ccfdecf98a6e2dc1371eb057e6aa37903b672de1 (HEAD ebe5873; SEMP commit 9bdf33c)
+DELTA: 9bdf33c applies SRR decisions 106 and 3 correctly
+FINDINGS: finding-1 to finding-9 Closed; finding-10, finding-11 Lien (unchanged); finding-12 Minor (new) Lien: fix before PDR; finding-13 Minor (new) Lien: fix before PDR
+MEASUREMENTS: commits verified=1; hunks=4; rulings checked=12 (2, 3, 4, 5, 11, 36, 37, 77, 90, 96, 98, 106); open_major=0; iteration=3 (re-issue 2; the record schema caps iteration at 3); turns=25; minutes=30
 ```
