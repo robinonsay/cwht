@@ -1,0 +1,6 @@
+# layout state after steps 1 to 10 (2026-09-26 21:30 CDT)
+rustos clone HEAD 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c; status of api/ firmware/ Cargo.toml Cargo.lock .cargo LICENSE (empty = clean):
+(end of status)
+clone tree against the export after the run (diff -r, .git and target excluded):
+(diff exit 0)
+owner repository master 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c

@@ -1,0 +1,63 @@
+# cwht-app.elf and rustos-blinky.elf: run 5 against run 3, per-section comparison (2026-09-26 21:32 CDT)
+Method: rust-objcopy --dump-section <s>=<file> for every section rust-readobj lists (loadable and non-loadable),
+SHA-256 compared (first 16 hex digits); then the directory strings of .debug_str / .symtab source paths, with the
+session scratch prefix shown as <scratch>.
+## cwht-app: whole file run5 104f40fa8db928e3 (172864 B), run3 388d1d16dae55d33 (174032 B)
+.vector_table      run5 9f974c936a3c9fa2 run3 9f974c936a3c9fa2 identical
+.boot_info         run5 ab45fee7fef6bf14 run3 ab45fee7fef6bf14 identical
+.text              run5 670287e1872188ac run3 670287e1872188ac identical
+.rodata            run5 e3b0c44298fc1c14 run3 e3b0c44298fc1c14 identical
+.data              run5 e3b0c44298fc1c14 run3 e3b0c44298fc1c14 identical
+.bss               run5 none run3 none identical
+.stack             run5 none run3 none identical
+.debug_loc         run5 748d892f13481787 run3 748d892f13481787 identical
+.debug_abbrev      run5 2f711d362a99bd17 run3 2f711d362a99bd17 identical
+.debug_info        run5 5fcdca03a0470ed8 run3 703973af6773118b differ
+.debug_aranges     run5 bca5e075c2d701e0 run3 bca5e075c2d701e0 identical
+.debug_ranges      run5 54382907e910ff45 run3 54382907e910ff45 identical
+.debug_str         run5 2fb8085636658210 run3 6f20cee9e4686a9a differ
+.comment           run5 2e4c58e9ff53eb8a run3 2e4c58e9ff53eb8a identical
+.ARM.attributes    run5 9a7bc3bd1e28f4c9 run3 9a7bc3bd1e28f4c9 identical
+.debug_frame       run5 b09a437663384d2b run3 b09a437663384d2b identical
+.debug_line        run5 60c750e5d6d311b2 run3 d76fcd22c1ed31d7 differ
+.symtab            run5 d7d171839a896817 run3 d7d171839a896817 identical
+.shstrtab          run5 cc0cf78fccb15dc3 run3 cc0cf78fccb15dc3 identical
+.strtab            run5 ef98a713945e00d0 run3 7cd385a1f17944f8 differ
+### r5: absolute directory strings in the file (strings | grep '^/'), prefix only
+   3 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea//
+   4 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/compiler-builtins
+   1 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core
+   2 <scratch>/r5/cwht/firmware/
+   2 <scratch>/r5/rustos/api/
+   3 <scratch>/r5/rustos/firmware/pico2
+### r3: absolute directory strings in the file (strings | grep '^/'), prefix only
+   1 /Users/robinonsay/rust/rustos-wp-sw-licence
+   3 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea//
+   4 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/compiler-builtins
+   1 /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core
+   2 <scratch>/r3/r3/cwht/firmware
+   2 <scratch>/r3/r3/rustos/api
+   7 <scratch>/r3/r3/rustos/firmware
+## rustos-blinky: whole file run5 e826dbf0ddc3fa91 (134504 B), run3 3c0ac0747a761bf9 (134504 B)
+.vector_table      run5 4c0cda104a5ae51c run3 4c0cda104a5ae51c identical
+.boot_info         run5 ab45fee7fef6bf14 run3 ab45fee7fef6bf14 identical
+.text              run5 72bb86a37300d065 run3 72bb86a37300d065 identical
+.rodata            run5 367b8604a83b9261 run3 367b8604a83b9261 identical
+.data              run5 e3b0c44298fc1c14 run3 e3b0c44298fc1c14 identical
+.bss               run5 none run3 none identical
+.stack             run5 none run3 none identical
+.comment           run5 2e4c58e9ff53eb8a run3 2e4c58e9ff53eb8a identical
+.ARM.attributes    run5 386df6756fe4abb7 run3 386df6756fe4abb7 identical
+.symtab            run5 d026ce0cde0708a3 run3 d026ce0cde0708a3 identical
+.shstrtab          run5 1f0eca83844a741c run3 1f0eca83844a741c identical
+.strtab            run5 5ebad600a34655fb run3 519316f402102e6b differ
+### r5: absolute directory strings in the file (strings | grep '^/'), prefix only
+### r3: absolute directory strings in the file (strings | grep '^/'), prefix only
+### rustos-blinky .strtab: symbol names that differ (run 5 left, run 3 right; first 6 lines of diff)
+2c2
+< blinky.8bebe34240b5da1d-cgu.0
+---
+> blinky.9e1d117ba0259f83-cgu.0
+4c4
+< _RNvCsc0Nvwnbi999_6blinky4main
+differing symbol lines: 7

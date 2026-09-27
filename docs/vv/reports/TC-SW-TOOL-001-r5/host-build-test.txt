@@ -1,0 +1,59 @@
+# host build and test, run 5 (2026-09-26 21:30 CDT), firmware/ of the layout
+$ cargo build
+   Compiling api v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r5/rustos/api)
+   Compiling cwht-hal-mock v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r5/cwht/firmware/cwht-hal-mock)
+   Compiling cwht-core v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r5/cwht/firmware/cwht-core)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.44s
+exit=0
+$ cargo test
+   Compiling api v0.1.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r5/rustos/api)
+   Compiling cwht-hal-mock v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r5/cwht/firmware/cwht-hal-mock)
+   Compiling cwht-core v0.0.0 (/private/tmp/claude-501/-Users-robinonsay-Library-Application-Support-Claude-scratch-workspaces-01a36421-8888-44e4-aeed-7b3fd3224ce6-dab7d27e-450a-44a4-afdd-c7d36fa082a0-scratch-2026-09-25-020b5c/2a2f8354-4494-41be-9d32-dba9c4d2f3be/scratchpad/r5/cwht/firmware/cwht-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.26s
+     Running unittests src/lib.rs (target/debug/deps/cwht_core-2504fca1ba180820)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/heartbeat.rs (target/debug/deps/heartbeat-402dff93c690d065)
+
+running 5 tests
+test default_equals_new ... ok
+test half_period_spin_count_equals_rustos_blinky_delay ... ok
+test first_step_drives_high_then_alternates ... ok
+test spin_wait_calls_spin_exactly_count_times ... ok
+test failed_write_keeps_level_and_retries_same_transition ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/cwht_hal_mock-fc4b794f2cba81a0)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/gpio.rs (target/debug/deps/gpio-8f1eeaa1de0d688a)
+
+running 5 tests
+test input_reads_set_level_and_injected_fault ... ok
+test output_failing_after_zero_fails_first_write ... ok
+test output_fails_after_scripted_count ... ok
+test output_history_saturates_at_capacity ... ok
+test output_records_writes_in_order ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests cwht_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests cwht_hal_mock
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+exit=0
