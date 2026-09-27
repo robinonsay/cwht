@@ -8,11 +8,11 @@ disposition: Approved with liens
 previous_baseline: none
 # Fill-once fields (CM plan Table 4-1 row 32): each holds "pending (§8a)" in the tagged commit R
 # and is written exactly once in the post-tag record commit (CM plan §4.4 step 6).
-commit: pending (§8a)                 # SHA of the tagged commit R, `git rev-parse baseline/srr^{commit}`
-tag_object: pending (§8a)             # SHA of the tag object, `git rev-parse baseline/srr`
-signed: pending (§8a)                 # false expected: no signing key is configured (charter §8; SRR decision 15 sets signing before baseline/pdr)
-signature_verified: pending (§8a)     # n/a expected (unsigned annotated tag)
-pushed_hash: pending (§8a)            # hash returned by `git ls-remote --tags origin baseline/srr`
+commit: 779f93fd7214617a08e868cde0e5fafd9b9e848a  # SHA of the tagged commit R, `git rev-parse baseline/srr^{commit}`
+tag_object: fed29c6ec11a0407bc64935c9c277a49135f4de8  # SHA of the tag object, `git rev-parse baseline/srr`
+signed: false                         # false expected: no signing key is configured (charter §8; SRR decision 15 sets signing before baseline/pdr)
+signature_verified: n/a               # n/a expected (unsigned annotated tag)
+pushed_hash: fed29c6ec11a0407bc64935c9c277a49135f4de8  # hash returned by `git ls-remote --tags origin baseline/srr`
 ---
 
 # Baseline record: functional baseline (`baseline/srr`)
@@ -519,17 +519,38 @@ git ls-remote origin refs/heads/main  # remote sync observation (CM plan §10.4)
 Output of `git cat-file -p baseline/srr`, verbatim:
 
 ```
-pending (§8a)
+object 779f93fd7214617a08e868cde0e5fafd9b9e848a
+type commit
+tag baseline/srr
+tagger Robin Onsay <hello@robinonsay.com> 1790518158 -0500
+
+cwht functional baseline; decision memo docs/reviews/SRR/decision-memo.md at 0bcea39554d684ba28d6680208a523fd79a8ebba
 ```
 
-Remote push: pending (§8a).
+Signed: false (unsigned annotated tag; no signing key configured, charter §8; SRR decision 15 sets signing before `baseline/pdr`). Signature verification: n/a.
+
+Remote push, 2026-09-27: `git push origin main --follow-tags` pushed `7647516..1535cd5 main -> main` and `[new tag] baseline/srr -> baseline/srr`. GitHub reported "Bypassed rule violations for refs/heads/main: Changes must be made through a pull request." The push was made with the owner's account, which the repository protection lets bypass its pull-request rule; this is recorded for the owner (P8).
+
+`git ls-remote --tags origin baseline/srr`:
+
+```
+fed29c6ec11a0407bc64935c9c277a49135f4de8	refs/tags/baseline/srr
+```
+
+`git ls-remote origin refs/heads/main` (remote sync, CM plan §10.4):
+
+```
+1535cd56eda879d1caa86ad81cc9623fca992c03	refs/heads/main
+```
+
+CSA (CM plan §4.4 step 6, §6): `docs/process/configuration-status.md` does not exist yet and `tools/csa.py` is due at PDR (CM plan §13). The first CSA report, written by hand from the §6 sources, is the first CM action of the PDR phase and is listed with the SRR liens in the decision memo, amendment A-8.
 
 ## 9. Approvals (fill-once, written in the post-tag record commit)
 
 | Step | By | Date | Result |
 |---|---|---|---|
-| Baseline record prepared (commit R) | Claude | pending | This revision is the prepared record, not R (§0) |
-| Record checked against the repository at R (every hash by `git ls-tree R -- <path>`) | independent reviewer agent | pending | |
+| Baseline record prepared (commit R) | Claude | 2026-09-27 | R = `779f93fd7214617a08e868cde0e5fafd9b9e848a` (section 0.4) |
+| Record checked against the repository at R (every hash by `git ls-tree R -- <path>`) | independent reviewer agent | 2026-09-27 | READY FOR TAG on R (`docs/reviews/SRR/baseline-check.md`, "Independent baseline check 3", commit `1535cd5`; Minor observations OBS-1 and OBS-2, OBS-2 resolved by this commit) |
 | Baseline approved (decision memo) | Owner | 2026-09-26 | Approved with liens ("I approve of this and the SRR.") |
 
 ## 10. Corrections (append only)
