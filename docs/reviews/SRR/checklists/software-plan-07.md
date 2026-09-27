@@ -68,11 +68,15 @@ reviewer_verdict: APPROVED
 # assurance_verdict copied from the paired record INSP-018 (assurance_verdict APPROVED, re-read at HEAD 1af795c)
 # CR-005 amendment delta: INSP-018 read at HEAD 68a44ed (last commit ab494e9) shows assurance_verdict NEEDS CHANGES (its
 # finding-10, the same defect as finding-21, awaits its own delta; cross item X-9); copied as read
-assurance_verdict: NEEDS CHANGES
+# X-9 copy delta (2026-09-27, HEAD 61ab1d7): INSP-018 at 738da03 reads assurance_verdict APPROVED (verdict APPROVED, no open Major;
+# its finding-10 Verified closed by 106bc3a); copied, no further product review
+assurance_verdict: APPROVED
 # close-out delta: verdict NEEDS CHANGES (open Major finding-21); readiness stays met
 # CR-005 amendment delta: NEEDS CHANGES only because the paired assurance verdict is not APPROVED (07 sections 2.1.1 and
 # 10.2); the file review is APPROVED with no Major open
-verdict: NEEDS CHANGES
+# X-9 copy delta: APPROVED (with liens finding-14 to finding-18, finding-20, finding-22): reviewer APPROVED, assurance APPROVED
+# (INSP-018 at 738da03), readiness met, no Major open, named blobs equal HEAD 61ab1d7
+verdict: APPROVED
 # close-out delta: finding-21 (Major) new and Open; finding-19 (Minor lien) Verified closed by e34a27b
 findings_major: 3
 # counts cover iterations 1 to 3: finding-14 new at iteration 2; finding-15 to finding-17 (Minor) new at
@@ -679,4 +683,20 @@ NEW: finding-22 (Minor, lien due PDR): 07 s8.4 and Annex still spell the G5 Miri
 PRODUCT: 07@bfe05f43, CR-001@0f4cca4c, CR-005@9b0129ef, measurements.json@5e2d1755, schema@c30b7f3e, valid.json@3938cd57, invalid.json@15231171 (equal to HEAD, 7/7)
 PAIRING: INSP-018 assurance_verdict NEEDS CHANGES as read (delta on bfe05f43 is cross item X-9)
 MEASUREMENTS (delta): turns=18; minutes=35; cumulative turns=156, minutes=250; findings major=3, minor=19, open=0, deferred(lien)=7
+```
+
+## X-9 copy delta (2026-09-27, HEAD `61ab1d7`)
+
+Cross item X-9 (baseline check 2 defect 1), performed by a new invocation of the independent reviewer. No product review; copy of the paired assurance verdict only.
+
+**Checks.**
+- INSP-018 (`docs/reviews/SRR/checklists/software-plan-07-software-assurance.md`) at `738da03` (unchanged since, `git log 738da03..HEAD` empty) reads `assurance_verdict: APPROVED` and `verdict: APPROVED` (with liens finding-8, finding-9, finding-11); its finding-10 (Major) is Verified closed by `106bc3a`; no Major is open.
+- Product blobs re-checked with `git rev-parse HEAD:<path>` at `61ab1d7`: 07 `bfe05f43`, CR-001 `0f4cca4c`, CR-005 `9b0129ef`, equal to `product_files`; `git log c8a5143..HEAD` on the three paths is empty. The four other product files are unchanged from the CR-005 amendment delta.
+
+**Result.** `assurance_verdict: APPROVED` (copied from INSP-018 at `738da03`). `reviewer_verdict: APPROVED` unchanged. `readiness_met: true` unchanged. `verdict: APPROVED` with liens finding-14 to finding-18, finding-20 and finding-22 (lien L-6, RFA-SRR-006, due PDR). Nothing else changed.
+
+```
+X-9 COPY DELTA (2026-09-27, HEAD 61ab1d7): VERDICT: APPROVED (with liens finding-14 to finding-18, finding-20, finding-22)
+PAIRING: INSP-018 at 738da03 assurance_verdict APPROVED, no open Major (finding-10 closed by 106bc3a); copied
+PRODUCT: 07@bfe05f43, CR-001@0f4cca4c, CR-005@9b0129ef equal to HEAD; no commit since c8a5143 touches them
 ```
