@@ -21,13 +21,17 @@ checklist_revision: B
 assurance_checklist: "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4 (revision A, branch cr/CR-012-pdr-checklist-templates at 7784672)"
 checklist_file: docs/reviews/PDR/checklists/code-wp-sw-02-software-assurance.md
 product: "rustos cwht/wp-sw-02: api/src/gpio/mod.rs (InputLevels, InputSnapshot), firmware/pico2/src/gpio/snapshot.rs and the input tracking in firmware/pico2/src/gpio/gpio.rs (WP-SW-02)"
-# product_commit and product_files: equal to INSP-098 iteration 1 (readiness R1; rule C2). The five rustos:
-# blobs exist only on the unmerged rustos branch cwht/wp-sw-02 (git -C rustos rev-parse f85a190:<path>, checked
-# 2026-09-27); the three cwht blobs are on main and equal at HEAD and at 618e441
-product_commit: "f85a19085760f7c34803c094e918f6115c21da3d"
-product_files: ["docs/decisions/adr/ADR-054-wp-sw-02-sio-input-snapshot.md@848102d2dac6d026a4718ae1fd57eb5f270c8245", "docs/sprints/SW-04-wp-sw-02-sio-snapshot.md@1686ecc09144d6ef16644522eff1cd0fb65f3584", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:api/src/gpio/mod.rs@f0250c93e08856270a702324b19fda0b04e9199b", "rustos:api/tests/gpio_snapshot_contract.rs@0918c1933350c2b159924d480a1738768f4b34c2", "rustos:firmware/pico2/src/gpio/gpio.rs@d7ea7a706b4131e5625aac2755845882c172e807", "rustos:firmware/pico2/src/gpio/mod.rs@d71011bf3934812b52eaac6fa3ccebaae0067a41", "rustos:firmware/pico2/src/gpio/snapshot.rs@6b5ddac5ff90032bf07c9ba9fac4f4fa96378a5b"]
+# product_commit and product_files (iteration 2): equal to INSP-098 iteration 2 (readiness R1; rule C2). rustos
+# cwht/wp-sw-02 at 38434b2 (the finding-1 fix on the merge 5d4637f of cwht/wp-sw-01 58fe739 into f85a190); the five
+# rustos: blobs equal git -C rustos rev-parse 38434b2:<path> and exist only on the unmerged branches cwht/wp-sw-02 and
+# cwht/wp-sw-03; the three cwht blobs equal git rev-parse HEAD:<path> and git hash-object at HEAD 0be8bab (2026-09-27).
+# Drift from iteration 1: ADR-054, SW-04, the sprint index, gpio/gpio.rs and gpio/snapshot.rs; the other three blobs
+# are unchanged
+product_commit: "38434b26dd74ebf288a63eff42331d73913e6087"
+product_files: ["docs/decisions/adr/ADR-054-wp-sw-02-sio-input-snapshot.md@ae2afdd838fb08909d88e727c7bb6b6dce509dc8", "docs/sprints/SW-04-wp-sw-02-sio-snapshot.md@a79d4d99185c92aa7ddff700b570e5a8e4a27884", "docs/sprints/index.md@7ae0cbcc6087d45ab4df10cac623d453ca13c395", "rustos:api/src/gpio/mod.rs@f0250c93e08856270a702324b19fda0b04e9199b", "rustos:api/tests/gpio_snapshot_contract.rs@0918c1933350c2b159924d480a1738768f4b34c2", "rustos:firmware/pico2/src/gpio/gpio.rs@cdb5fc92052e74727106486163d3965454538979", "rustos:firmware/pico2/src/gpio/mod.rs@d71011bf3934812b52eaac6fa3ccebaae0067a41", "rustos:firmware/pico2/src/gpio/snapshot.rs@00e2c30105014dc7d970e0b45491e5bd84ebe6e3"]
+product_files_iteration_1: ["docs/decisions/adr/ADR-054-wp-sw-02-sio-input-snapshot.md@848102d2dac6d026a4718ae1fd57eb5f270c8245", "docs/sprints/SW-04-wp-sw-02-sio-snapshot.md@1686ecc09144d6ef16644522eff1cd0fb65f3584", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:api/src/gpio/mod.rs@f0250c93e08856270a702324b19fda0b04e9199b", "rustos:api/tests/gpio_snapshot_contract.rs@0918c1933350c2b159924d480a1738768f4b34c2", "rustos:firmware/pico2/src/gpio/gpio.rs@d7ea7a706b4131e5625aac2755845882c172e807", "rustos:firmware/pico2/src/gpio/mod.rs@d71011bf3934812b52eaac6fa3ccebaae0067a41", "rustos:firmware/pico2/src/gpio/snapshot.rs@6b5ddac5ff90032bf07c9ba9fac4f4fa96378a5b"]
 # inputs read (not reviewed)
-input_files: ["docs/reviews/PDR/checklists/code-wp-sw-02.md (INSP-098 iteration 1, main 9d3734c)", "docs/safety/hazards.json (HZ-004, HZ-010)", "docs/icd/ICD-CTL-KEY.md (section 3.2.5)", "docs/process/07-software-engineering-plan.md (sections 2.1.1, 3.5, 9.5, 9.6, 14.1, 14.2, 14.3, 15, 19)", "docs/process/03-software-classification-and-rmm.md (section 4.3 drivers row, section 5)", "docs/process/05-configuration-and-data-management.md (Table 4-1 rows 13 and 44)", "docs/plan/pdr-work-plan.md (sections 3.8, 5)", "rustos:firmware/pico2/src/gpio/gpio.rs configure_gpio_pin_in at f85a190 (pre-existing, not in the change)"]
+input_files: ["docs/reviews/PDR/checklists/code-wp-sw-02.md (INSP-098 iteration 1, main 9d3734c; iteration 2, main 134e555)", "docs/safety/hazards.json (HZ-004, HZ-010)", "docs/icd/ICD-CTL-KEY.md (section 3.2.5)", "docs/process/07-software-engineering-plan.md (sections 2.1.1, 3.5, 9.5, 9.6, 14.1, 14.2, 14.3, 15, 19)", "docs/process/03-software-classification-and-rmm.md (section 4.3 drivers row, section 5)", "docs/process/05-configuration-and-data-management.md (Table 4-1 rows 13 and 44)", "docs/plan/pdr-work-plan.md (sections 3.8, 5)", "rustos:firmware/pico2/src/gpio/gpio.rs configure_gpio_pin_in at f85a190 (pre-existing, not in the change)", "rustos:firmware/pico2/src/gpio/gpio.rs new_input at 38434b2 (pre-existing, not in the change)", "docs/plan/pdr-work-plan.md (rule C1, L1)"]
 paired_record: INSP-098
 # product_type: code (07 section 2.1.1 row "code": every file of a safety-critical component). Task set applied:
 # the section B rows "Every product type" and "code"; the section 7.1 tasks of the SWEs the product cites or
@@ -37,43 +41,45 @@ product_type: code
 # criticality: safety-critical by inheritance, 07 section 14.1 drivers row "GPIO (SIO)" (pico2 WP-SW-02), serving
 # the keyer and keying output (HZ-004, HZ-010); 03 section 4.3 drivers row; hazard-analysis.md section 7 drivers row
 criticality: safety-critical
-product_size: "409 lines added and 3 removed in f85a190, about 185 non-test lines (api gpio 72, snapshot.rs 69 before its test module, gpio.rs 37 changed, gpio/mod.rs 1); 174-line contract test draft; ADR-054 86 lines; SW-04 60 lines"
+product_size: "409 lines added and 3 removed in f85a190, about 185 non-test lines (api gpio 72, snapshot.rs 69 before its test module, gpio.rs 37 changed, gpio/mod.rs 1); 174-line contract test draft; ADR-054 86 lines; SW-04 60 lines. Iteration 2 delta: 5d4637f..38434b2, 70 insertions and 52 deletions in gpio/gpio.rs and gpio/snapshot.rs; 29 changed lines in ADR-054, SW-04 and the sprint index"
 sprint: SW-04-wp-sw-02-sio-snapshot
 author_agent: "author:WP-PDR-41 wave 1a (Claude, firmware developer role)"
 reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-02"
 assurance_required: true
-assurance_reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-02 (software assurance function; paired file review INSP-098 by reviewer:WP-PDR-41-code)"
-iteration: 1
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-02 (software assurance function, iterations 1 and 2; paired file review INSP-098 by reviewer:WP-PDR-41-code)"
+iteration: 2
 readiness_met: true
-# reviewer_verdict and assurance_verdict: NEEDS CHANGES at iteration 1 (rule C1). This record raises one Minor
-# finding of its own. It concurs, under swe-061 7.1 task 2, with INSP-098 finding-1 (CS-18, Major, Open), which by
-# the template finding rules is cited and not raised again; the assurance lens cannot confirm conformance to the
-# coding standard while that Major is open, and its fix changes the product blobs, so a delta iteration of both
-# records follows (SA-A3). Iteration 2 verifies INSP-098 finding-1 at the new blobs and re-checks this record's
-# tasks on the changed lines
-reviewer_verdict: NEEDS CHANGES
-assurance_verdict: NEEDS CHANGES
-# verdict: set by Claude as software lead (07 section 10.2). Held at NEEDS CHANGES: both reviews are NEEDS
-# CHANGES; the five rustos blobs exist only on the unmerged rustos branch cwht/wp-sw-02 and the checklist applied
-# only on cr/CR-012-pdr-checklist-templates (lead SE convention of 2026-09-27); INSP-098 does not yet name this
-# record (paired_record, assurance_reviewer_agent, assurance_verdict; each reviewer updates only its own record).
+# reviewer_verdict and assurance_verdict: APPROVED at iteration 2 (rule C1). Iteration 1 was NEEDS CHANGES only on
+# the concurred INSP-098 finding-1 (CS-18, Major); iteration 2 verifies that fix under the assurance lens at 38434b2
+# (INSP-098 iteration 2 records it Verified). No Major is open. finding-1 (Minor, iteration 1) is unaddressed by
+# revision 2 and finding-2 (Minor, new at iteration 2 on the moved lines) is raised; both become liens under rule C1
+# (plan L1), owner the firmware developer (finding-2 (b) with the SW-04 phase 2 test author), due at the CDR readiness
+# declaration
+reviewer_verdict: APPROVED
+assurance_verdict: APPROVED
+# verdict: set by Claude as software lead (07 section 10.2). Held at NEEDS CHANGES: at iteration 1 both reviews were
+# NEEDS CHANGES; at iteration 2 both are APPROVED, and the hold remains because INSP-098 readiness R3 and R5 do not hold
+# and the five rustos blobs exist only on the unmerged rustos branch cwht/wp-sw-02 and the checklist applied
+# only on cr/CR-012-pdr-checklist-templates (lead SE convention of 2026-09-27). INSP-098 names this record since its
+# iteration 2 (paired_record INSP-104) and carries assurance_verdict pending until this delta is filed; each reviewer
+# updates only its own record.
 # The software lead sets verdict in the commit that brings the blobs to a configuration cwht consumes (the owner's
 # merge and the PCR-4 pin-move CR), or the commit right after it
 verdict: NEEDS CHANGES
 findings_major: 0
-findings_minor: 1
-findings_open: 1
+findings_minor: 2
+findings_open: 2
 findings_fixed: 0
 findings_verified: 0
 findings_deferred: 0
 assurance_findings_major: 0
-assurance_findings_minor: 1
+assurance_findings_minor: 2
 assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-060 7.1 task 1", "swe-060 7.1 task 2", "swe-061 7.1 task 1", "swe-061 7.1 task 2", "swe-207 7.1 task 1", "swe-185 7.1 task 1", "swe-135 7.1 task 1", "swe-135 7.1 task 2", "swe-135 7.1 task 3", "swe-135 7.1 task 5", "swe-135 7.1 task 6", "swe-134 7.1 task 2", "swe-087 7.1 task 4", "swe-062 7.1 task 1", "swe-062 7.1 task 2", "swe-219 7.1 task 1", "swe-220 7.1 task 1", "swe-220 7.1 task 2", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-205 7.1 task 3", "swe-205 7.1 task 4", "swe-052 7.1 task 2", "swe-192 7.1 task 1", "swe-080 7.1 task 1", "swe-080 7.1 task 3", "swe-081 7.1 task 2", "swe-187 7.1 task 1", "swe-087 7.1 task 1", "swe-087 7.1 task 2", "swe-088 7.1 task 1", "swe-088 7.1 task 2", "swe-089 7.1 task 1"]
 swe134_items_checked: [a, e, f, g, h, i, j, k]
 deferred_rids: []
-items_no: ["swe-061 7.1 task 2", "swe-062 7.1 task 1", SA-D1]
-effort_turns: 32
-effort_minutes: 60
+items_no: ["swe-061 7.1 task 2", "swe-062 7.1 task 1", "swe-219 7.1 task 1", SA-D1]
+effort_turns: 57
+effort_minutes: 105
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -247,3 +253,89 @@ Lines reviewed: about 185 non-test lines, the 174-line contract draft, 6 develop
 ## Record verdict
 
 `assurance_verdict: NEEDS CHANGES`. The reason is INSP-098 finding-1 (CS-18, Major), concurred under `swe-061 7.1 task 2` and not raised again. This record's own finding-1 is Minor. Iteration 2 is a delta at the new blobs. It verifies INSP-098 finding-1 and re-runs S2 to S5 on the moved code. finding-1 here is fixed with that change or becomes a lien due at the CDR readiness declaration (rule C1). `verdict` stays `NEEDS CHANGES` under the lead SE convention until both records are APPROVED and the blobs reach a configuration cwht consumes.
+
+## Iteration 2: assurance delta at rustos `38434b2` (2026-09-27, cwht HEAD `0be8bab`)
+
+**Scope (rule C1).** Iteration 2 is a delta. It verifies the INSP-098 finding-1 fix (CS-18, Major) under the assurance lens, re-runs S2 to S5 on the moved code, re-checks this record's tasks on the changed lines and reads every hunk of the five drifted blobs: ADR-054 `848102d2` to `ae2afdd8`, SW-04 `1686ecc0` to `a79d4d99`, `docs/sprints/index.md` `fb217bcb` to `7ae0cbcc`, rustos `firmware/pico2/src/gpio/gpio.rs` `d7ea7a70` to `cdb5fc92` and `firmware/pico2/src/gpio/snapshot.rs` `6b5ddac5` to `00e2c301`. The other three blobs are unchanged. The rustos package delta is `git diff 5d4637f 38434b2` (2 files, 70 insertions, 52 deletions). `git diff --stat f85a190 5d4637f` on the product paths is empty, so the merge of `cwht/wp-sw-01` at `58fe739` changes no product file. SW-04 "Phase 1, revision 2" names the delta as `git diff f85a190 38434b2`; on the product paths that equals the diff above. Checklist as at iteration 1.
+
+**Independence (rule C4).** Same invocation role as iteration 1. It authored no part of revision 2, the rustos fix commits or INSP-098, and it edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: "INSP-098 iteration 2 code-wp-sw-02 CS-18 gpio.rs split snapshot verified delta"). Afterwards `grep` was used only on known paths (the record, INSP-098, 07, the plan, the validator header) and `git grep` on rustos objects. **rustos.** The owner's rustos working tree was not read or changed. All runs used a detached scratch worktree of `38434b2` (`git worktree add --detach` under the session scratchpad) with scratch `CARGO_TARGET_DIR`s. Every mutant and the probe tests were reverted with `git checkout -- .`, `git status --short` was empty before `git worktree remove`, and the target directories were deleted. No branch was created, nothing was pushed or merged, every `cargo` run was `--offline` with `RUSTUP_AUTO_INSTALL=0`, and there was no download. LTspice was not run.
+
+### Assurance re-runs and checks, iteration 2
+
+| # | Check | Result |
+|---|---|---|
+| T0 | Blob identities: `git -C rustos rev-parse 38434b2:<path>` for the five rustos entries (branch head `cwht/wp-sw-02` = `38434b2`); `git rev-parse HEAD:<path>` and `git hash-object <path>` for the three cwht entries | all eight equal INSP-098 iteration 2 `product_files` |
+| T1 | `cargo +1.98.0 test --offline -p pico2` and `-p api --test gpio_snapshot_contract` | pico2 81 passed; contract 5 passed; none failed. Equal to INSP-098 D2 at `38434b2` |
+| T2 | `cargo +1.98.0 clippy --offline -p pico2 -p api --all-targets -- -W clippy::pedantic`, hits in the product files located with `git blame 38434b2` | Every hit in `gpio.rs` and `api/src/gpio/mod.rs` is on a line from before the package (`48cd871d`, `f1b2b218`, `5ea7472f`, `d4573ed1`). No hit in `snapshot.rs`. The two iteration 1 `needless_return` hits (`gpio.rs:156`, `:195`) are gone: `new` ends in `Self { inputs: 0 }` and `input_from_handle` is one expression |
+| T3 | `rustfmt +1.98.0 --edition 2024 --check` on `snapshot.rs`, and the difference count of `gpio.rs` at `38434b2` against `2ec64c0` | `snapshot.rs` clean. `gpio.rs` 35 differences, the same as `2ec64c0` before the package (38 at `f85a190`), so the package adds no `rustfmt` difference. INSP-098 finding-2 stays that reviewer's to close |
+| T4 | CS-18 file length (`wc -l` through `git show`) | `gpio.rs` 512 at `2ec64c0`, 546 at `f85a190`, 512 at `38434b2`; `snapshot.rs` 177. Agrees with INSP-098 D9 |
+| T5 | Target build, `cargo +1.98.0 build --offline -p pico2 --target thumbv8m.main-none-eabihf` (dev) | no warning, no error. INSP-098 D3 (release) and D4 (Miri at the stack head) accepted as the file reviewer's evidence |
+| T6 | Host coverage, `cargo llvm-cov --offline -p pico2 -p api` (developer evidence, not MSR-13) | `api/src/gpio/mod.rs` 100 % (15 of 15 lines). `snapshot.rs` 68.42 % lines (39 of 57), 79.79 % regions: not executed are `input_snapshot` (`:49-51`), `track_input` (`:55-63`), `Rp2350InputSnapshot::new` and `mask`. `gpio.rs` 0 % (82 lines) |
+| T7 | Decision inventory (07 section 9.6 item 1; CS-38) on the changed lines | The two iteration 1 decisions are unchanged (S4). New: `track_input` holds the decision `pin.is_ok()` (`snapshot.rs:59`), 1 condition, CC 2. `new_input` always returns `Ok` (`gpio.rs:272-280`), so its false outcome cannot occur in the product. Its true outcome cannot be reached from a host test either, because `Rp2350GpioIn` has a field private to `gpio.rs` and `snapshot.rs` tests cannot build one. Not in ADR-054 or S4 (finding-2 (a)) |
+| T8 | Mutants on the moved code, each run against `cargo test -p pico2 -p api` and reverted: M1 to M3 as at iteration 1, now on `NotInput`; M4 `track_input` record removed; M5 `track_input` sets every pin; M9 `is_ok` inverted; M10 `new` starts with `inputs: u32::MAX`; M11 `input_snapshot` checks against `u32::MAX` instead of `self.inputs` | killed: M1, M2, M3 (1 failure each). **Survive: M4, M5, M9, M10, M11.** M6 to M8 are on unchanged blobs (`api/src/gpio/mod.rs`, `read_inputs`) and are not repeated |
+| T9 | Host-testability probe: two throw-away tests appended to `snapshot.rs` in the worktree (reverted): `Rp2350Gpio { inputs: 0b100 }` with `input_snapshot(0b100)` accepted and `input_snapshot(0b1100)` refused with `NotInput { mask: 0b1000 }`; `track_input::<3>(Err(GpioError::PinOOB { .. }))` leaves `inputs` at 0 | Both pass on `38434b2`. With M11 applied, the first fails. The move makes the record check of `input_snapshot` host-testable, because `inputs` is `pub(super)`, and one short test kills M11. The `Ok` arm of `track_input` (M4, M5, M9) stays unreachable from a host test (finding-2) |
+| T10 | `tools/traceability.py`: not re-run | The delta touches no requirement, case or hazard id, and S8 stands |
+
+### Hunk reading of the drifted blobs
+
+- **`gpio.rs` `d7ea7a70` to `cdb5fc92`.** (1) The `use` of `snapshot` is removed, which also removes the iteration 1 import-order difference. (2) The `GpioError::NotInput` variant and its `Debug` arm are removed, so `GpioError` is as on rustos master. (3) The struct doc now describes the one word of state. It says the field is "private to `gpio`": `pub(super)` on a field of `crate::gpio::gpio` makes it visible in `crate::gpio` and its descendants, which is what the doc means. The struct literal stays unwritable outside `crate::gpio`, so `new` with its `DeviceHandle` is still the only route outside the module (SA-C-a holds: `inputs` starts at 0). (4) `_private` and the doc of `inputs` are replaced by `pub(super) inputs: u32`. (5) `new` returns `Self { inputs: 0 }`. (6) `input_snapshot` moves out. (7) `input_from_handle` becomes `self.track_input(Rp2350GpioIn::new_input(handle, pull))`. The record is still made only after a successful configuration, as the `?` did at iteration 1. (8) `BIT` moves out. No pad, `IO_BANK0` or `unsafe` line changes (CS-35; R6).
+- **`snapshot.rs` `6b5ddac5` to `00e2c301`.** A module note says where the additions live. `NotInput { pub mask: u32 }` is its own `Copy`, `PartialEq` type. The inherent `impl Rp2350Gpio` holds `input_snapshot` (now `Result<_, NotInput>`, same body) and `track_input` (T7). The inherent `impl Rp2350GpioIn<N>` holds `BIT` with the same compile-time `N < MAX_GPIO_PIN` assert, now referenced from `track_input`, so the bound is still checked for every input pin built. `check_snapshot_mask` returns `NotInput`, same logic. The two rejection tests compare values with `assert_eq!`, which is stricter than the iteration 1 `matches!`. No new `unsafe`.
+- **ADR-054 `848102d2` to `ae2afdd8`.** The Date row, section 2 item 2 (the `NotInput` type) and section 4.2 (design elements, the no-growth statement) are updated. Section 4.3 gains a revision 2 evidence bullet, and section 8 (revision history) is new. Section 8 states that the Minor findings of INSP-098 and INSP-104 are not addressed (rule C1). The section 4.3 dev-board bullet is unchanged, so finding-1 (b) stands. Section 4.2 now places `track_input` in `snapshot.rs` but lists no decision table entry for it (finding-2 (a)). Status stays Proposed.
+- **SW-04 `1686ecc0` to `a79d4d99`.** The Product row points to `38434b2`. The new "Phase 1, revision 2" block gives the findings addressed, the merge, the fix, the evidence (81 host tests, which T1 reproduces) and the file lengths (which T4 reproduces). Phase 3 names the iteration 2 delta. Phase 2 (independent test author) is still open, and it is the route for finding-2 (b).
+- **`docs/sprints/index.md` `fb217bcb` to `7ae0cbcc`.** The five FW-B1 rows move to their revision 2 commits, and the SW-04 row reads `38434b2`, equal to T0. No row is added or removed.
+
+### Verification of INSP-098 finding-1 under the assurance lens
+
+| Case | Assurance question (`swe-061 7.1 task 2`, CS-18) | Evidence | Result |
+|---|---|---|---|
+| Growth of `gpio.rs` | Does the package still grow a file that is over 500 lines? | T4: 512 before and after the package | Verified |
+| Behaviour preserved | Does the move change what the guard accepts or refuses? | `check_snapshot_mask` logic is unchanged and M1 to M3 are killed (T8). `track_input` records only on success, the same as the iteration 1 `?`. `BIT` keeps its compile-time bound | Verified |
+| No new coding-standard breach on moved lines | Do the moved lines break CS-26 or CS-27 (INSP-098 finding-2 lines)? | T2 and T3: no lint or `rustfmt` difference added by the package | Verified |
+| Pre-existing excess | Is the 12-line excess of `gpio.rs` recorded? | ADR-054 section 4.2 and SW-04 revision 2: reported to the owner as a rustos item | Verified |
+
+INSP-098 finding-1 is Verified at `38434b2`. This agrees with INSP-098 iteration 2.
+
+### Task table, rows re-answered at iteration 2
+
+Rows not listed stand as at iteration 1. The moved lines do not change them: no new `unsafe`, no new dependency, no new requirement or hazard link.
+
+| Task | Safety-critical designation (SWEHB 8.10 section 6) | Applied | Result and evidence | Relief (N/A only) | Finding ids |
+|---|---|---|---|---|---|
+| swe-061 7.1 task 2 | | No | CS-18 is now met by the package (INSP-098 finding-1 Verified). The package adds no CS-26 or CS-27 difference (T2, T3), and INSP-098 finding-2 stays Open with that reviewer. It stays No on CS-38: the new decision in `track_input` is in safety-critical driver code, but it is not a function whose two outcomes a HostUnit test can show (T7) | | finding-2 |
+| swe-062 7.1 task 1 | SC | No | T1 passes. Host tests still do not guard the record (T8: M4, M5, M9, M10, M11 survive). Part of that is now host-testable (T9) but untested, and the dev-board check still omits the never-configured case | | finding-1, finding-2 |
+| swe-219 7.1 task 1 | SC | No | The two iteration 1 decisions keep their independence pairs (S4; M1 to M3 killed). The new `pin.is_ok()` decision is not in the decision table, and neither of its outcomes can be shown by a host test (T7) | | finding-2 |
+| swe-220 7.1 task 1 and task 2 | SC | Yes | By reading: `track_input` CC 2, `input_snapshot` 1, `check_snapshot_mask` 3 (unchanged), `input_from_handle` 1 (was 2). All are at 15 or lower. INSP-098 D5 (`complexity_gate.py --max 15`) PASS at the stack head | | none |
+| swe-135 7.1 task 3 | | Yes | The author's revision 2 statement ("`rustfmt` and `clippy::pedantic` clean on `snapshot.rs` and on the changed `gpio.rs` lines", ADR-054 section 4.3, SW-04) matches T2 and T3 | | none |
+| swe-060 7.1 task 1 | | Yes | ADR-054 section 2 item 2 and section 4.2 describe the code at `38434b2` (the `NotInput` type, `track_input`, `BIT`, the `inputs` field). INSP-098 finding-3 is unchanged | | none (INSP-098 finding-3) |
+| swe-080 7.1 task 1 | SC | Yes | The change is a move. It adds no output path and weakens no control. The only change a caller sees is the error type of `input_snapshot`, and nothing outside the package used the iteration 1 variant (`git grep` at `38434b2`) | | none |
+| swe-087 7.1 task 2 | | Yes | INSP-098 finding-1 is Verified. INSP-098 findings 2 and 3 and this record's findings 1 and 2 are Open as liens, each with a fix route | | none |
+| SA-C-a | SC | Yes | `Rp2350Gpio::new` returns `Self { inputs: 0 }`. The struct literal cannot be written outside `crate::gpio` (hunk reading) | | none |
+| SA-C-h | SC | Yes | Unchanged prerequisite. The record check of `input_snapshot` is now host-testable (T9) but untested | | finding-1, finding-2 |
+| SA-A3 | | Yes | Same `product_commit` `38434b2` and the same eight blobs as INSP-098 iteration 2 (T0) | | none |
+| SA-E1 | | Yes | Earlier review: iteration 1 of this record and INSP-098. The finding-1 fix is verified above. The two Minors of this record are carried | | none |
+| SA-F3 | | Yes | For the package's "Software assurance findings" section: assurance APPROVED at iteration 2, 0 Major, 2 Minor liens (findings 1 and 2) due at the CDR readiness declaration | | finding-1, finding-2 |
+
+### Findings (current state at iteration 2)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | assurance | Minor | SA-D1; `swe-205 7.1 task 1`; `swe-062 7.1 task 1`; SWE-134 items f and g | ADR-054 section 4.3 (now blob `ae2afdd8`), "Dev-board check" and "Hazard analysis update required: no" bullets; rustos `api/src/gpio/mod.rs` `InputLevels` docs (`f0250c93`, SNP-2); the input record, now `snapshot.rs` `track_input` (`00e2c301`, `:55-63`) | As at iteration 1: (a) the fail direction (0 = closed on the active-low key lines, both for the no-data value and for an unconfigured pad) is not recorded; (b) the dev-board check names only the output-pin case, not the HZ-010 C6 never-configured case; (c) no document asks for the per-sample `mask()` check. Revision 2 does not address it (ADR-054 section 8, rule C1). At iteration 2 the "07 section 9.5 target-only" premise of (b) holds only for the `Ok` arm of `track_input`; the rest is finding-2. Fix as at iteration 1 | Open (lien, rule C1) | Pending | CDR readiness declaration |
+| <a id="finding-2"></a>finding-2 | assurance | Minor | `swe-219 7.1 task 1`; `swe-062 7.1 task 1`; `swe-061 7.1 task 2` (07 CS-38; 07 section 9.5 item 3; 07 section 9.6 items 1 and 2) | rustos `firmware/pico2/src/gpio/snapshot.rs` `00e2c301` `:49-51` (`input_snapshot`) and `:55-63` (`track_input`); ADR-054 section 4.2 (`ae2afdd8`) | The move puts the HZ-010 C6 guard into host-compilable code, so CS-38 now applies to it: every decision of a `pico2` driver used by a safety-critical component is a host-compilable function exercised by HostUnit tests with MC/DC independence pairs. Two gaps. (a) `track_input` adds the decision `pin.is_ok()`, which is not in the ADR-054 decision inventory. Its false outcome cannot occur, because `new_input` always returns `Ok` (`gpio.rs:272-280`), and its true outcome cannot be built in a host test, because `Rp2350GpioIn`'s field is private to `gpio.rs`. So no HostUnit pair can show both outcomes (T7), and M4, M5 and M9 survive (T8). (b) `input_snapshot`, which applies the record, is now host-testable (`inputs` is `pub(super)`; T9), but no test calls it, and M10 and M11 survive. A 5-line test kills M11 (T9). Behaviour is unchanged from iteration 1, the test author's phase 2 is open (07 section 9.6 item 2), and the HZ-004 K1 interlock and REQ-SW-KEYER-036 are unchanged, so no safety conclusion changes and the finding is Minor. **Fix:** (a) enter the `track_input` decision in the ADR-054 decision inventory. Then either take the decision out (record the bit only on the success path, with no `Result` test in `snapshot.rs`), or make both outcomes host-reachable, or disposition the unreachable outcome in the MC/DC table under 07 section 9.6 item 4. (b) add to the SW-04 phase 2 test list a host test of `input_snapshot` against a written `inputs` record (accepted, and refused with the stray pins), as the HostUnit half of the HZ-010 C6 guard. It complements the finding-1 (b) dev-board case | Open (lien, rule C1) | Pending | CDR readiness declaration |
+
+**Paired record findings (not raised again).** INSP-098 finding-1: Verified (above). INSP-098 finding-2: T2 and T3 show that the package adds no lint or `rustfmt` difference at `38434b2`; the state stays with that reviewer. INSP-098 finding-3: unchanged, concur Minor.
+
+### Commands run, iteration 2
+
+| Command | Result |
+|---|---|
+| `git -C /Users/robinonsay/rust/rustos worktree add --detach <scratchpad>/rustos-sa02-it2 38434b2`, then `worktree remove` | created, used for T1 to T9, clean, removed; target directories deleted |
+| `git -C /Users/robinonsay/rust/rustos diff 5d4637f 38434b2`; `diff --stat f85a190 5d4637f -- <product paths>`; `git diff <old blob> <new blob>` for ADR-054, SW-04 and the sprint index | every hunk read (above) |
+| `/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/validate_docs.py` | this record PASS. Overall exit 1 from 8 other records (for example `cm-plan-05-software-assurance.md`, `configuration-status.md` and five SRR records), none of them in this record's scope |
+
+### Measurements (SWE-089), iteration 2
+
+Lines reviewed: the 122 changed lines of `5d4637f..38434b2` and the 29 changed lines of ADR-054, SW-04 and the sprint index, plus the pre-existing `new_input` for T7. Unsafe sites added: 0. Mutants: 8 (3 killed, 5 survive), plus 2 probe tests (reverted). Findings: 0 Major, 1 new Minor (finding-2); finding-1 carried; INSP-098 finding-1 Verified. Effort of this iteration: about 25 turns and 45 minutes (front matter totals include iteration 1).
+
+### Record verdict, iteration 2
+
+`assurance_verdict: APPROVED` and `reviewer_verdict: APPROVED`. INSP-098 finding-1 (CS-18, Major), the only reason for NEEDS CHANGES at iteration 1, is Verified at `38434b2`, and no Major is open. finding-1 and finding-2 (Minor) become liens under rule C1, owner the firmware developer (finding-2 (b) with the SW-04 phase 2 test author), due at the CDR readiness declaration. `verdict` stays `NEEDS CHANGES` under the lead SE convention of 2026-09-27: INSP-098 readiness R3 (ADR-054 Proposed) and R5 (no independent test-author file) do not hold, and the reviewed blobs exist only on unmerged rustos branches. The software lead sets `verdict` when the owner's merge and the PCR-4 pin-move CR bring `38434b2` into a configuration cwht consumes. INSP-098 still reads `assurance_verdict: pending`, and its reviewer updates it to APPROVED (cross item).
