@@ -1,7 +1,7 @@
 ---
 id: CR-001
 title: Admit driver-construction failure arms in cwht-app; place the panic handler
-status: Submitted
+status: Dispositioned
 class: II
 originator: Claude
 date_opened: 2026-09-26
@@ -14,8 +14,8 @@ affected_ids: [CS-11, CS-12, CS-38, TC-SW-TOOL-001]
 related: [INSP-016]
 target_release: none
 branch: cr/CR-001-cs11-cs38-driver-construction-arms
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-26
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -70,7 +70,7 @@ Classification rationale: Class II. The change relaxes the wording of coding-sta
 
 | Step | Artifact and path | Responsible | Done (SHA) |
 |---|---|---|---|
-| 1 | 07 CS-11, CS-12, CS-38 as in section 1 | Claude (07 author) | |
+| 1 | 07 CS-11, CS-12, CS-38 as in section 1 | Claude (07 author) | the commit that records the disposition (section 8) |
 | 2 | `firmware/cwht-app/src/main.rs` comment cites CR-001 | Claude (software lead) | |
 | 3 | `tools/complexity_gate.py` per-file allowance for the admitted arms (when the tool is written) | Claude (tool owner) | |
 
@@ -80,30 +80,33 @@ Verification of the implementation: the independent code reviewer checks that ea
 
 Not required: Class II, no requirement, ICD, hazard or test impact. The code reviewer of FW-B1 checks step 2.
 
+Note added 2026-09-26 at disposition: INSP-030 cross item X-1 (`docs/reviews/SRR/checklists/cm-plan-05-software-assurance.md`) asks for an independent and software assurance assessment of section 4, because the Safety field names the safe-state entry path of a 07 section 14.1 component. The owner approved the CR at SRR (decision 108) with that item open; the assessment is dispatched with the FW-B1 code review of step 2 and recorded in this section.
+
 ## 7. CCB disposition (owner)
 
 | Field | Value |
 |---|---|
-| Decision | pending |
-| Class confirmed | pending |
-| Date | pending |
-| Conditions | pending |
-| Rationale | pending |
+| Decision | Approved |
+| Class confirmed | II (the decision 108 text names Class II) |
+| Date | 2026-09-26 |
+| Conditions | None |
+| Rationale | SRR decision 108 (owner ruling 2026-09-26): amend 07 CS-11 and CS-38 to admit rustos driver-construction `Err` arms that call `safe_state_halt()`, and CS-12 to place the `#[panic_handler]` in `cwht-app`; the code comment then cites CR-001 |
 | Waiver scope (if Approved (waiver)) | not applicable |
 | Re-look trigger and re-look-by review (if Deferred) | not applicable |
-| Source | pending: the owner's ruling, transcribed by Claude |
+| Source | Chat transcription by Claude on 2026-09-26: owner statement "I concur with your recommendations for the key decisions" (key decision K10) and "I approve of this and the SRR", `docs/reviews/SRR/minutes.md` |
 
 Disposition history:
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
 | 2026-09-26 | Submitted for disposition before FW-B1 | none | Claude |
+| 2026-09-26 | Approved (SRR decision 108) | none | owner ruling at the SRR session, transcribed by Claude |
 
 ## 8. Implementation record
 
 | Commit | Files | Trailer check (`CR: CR-001` present) |
 |---|---|---|
-| none yet | | |
+| the commit that records the disposition | `docs/process/07-software-engineering-plan.md` CS-11, CS-12, CS-38 (step 1), with the matching wording of the section 1.2 `cwht-app` row and the section 8.2 complexity row, and revision A.5 | yes |
 
 ## 9. Verification of implementation
 
@@ -126,3 +129,4 @@ Disposition history:
 | Date | State | By | Commit on main | Note |
 |---|---|---|---|---|
 | 2026-09-26 | Submitted | Claude (integrator) | this file's first commit | Created from deviation D8 of TC-SW-TOOL-001-r1 and INSP-016 finding-2 |
+| 2026-09-26 | Dispositioned | Claude (process author), transcribing the owner | the disposition commit | Approved as SRR decision 108; step 1 applied to 07 on `main` before the `baseline/srr` tag (07 is not yet baselined); steps 2 and 3 remain |
