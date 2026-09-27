@@ -1,0 +1,178 @@
+# TV-014 procedure (run 5 form), 2026-09-27 14:19:26 CDT, host Darwin 25.6.0 arm64, macOS 26.6.2
+# repository HEAD d1148c2b3c4d600588a1547e774c243c61d584c1
+
+## A. identities (git blob of the working-tree file; SHA-256; state against HEAD)
+tools/ltspice-batch.sh blob bdc4513ff1b63aa76717e0cf669ae2a08b1b841a sha256 19d7e1a89af7827c8cb883737babd62c901831ee4b01620fafed3ec5cfbce487 unchanged from HEAD
+tools/tests/test_ltspice_batch.py blob 6c4e00e574a25c76545f750da17e85c5ce83ab65 sha256 42fcc33ecfff78aef6977e98e887b378720dac4a615611e8522112e19908b403 unchanged from HEAD
+tools/tests/fixtures/ltspice/ git tree 61c7469324e49d2b473c316aad8e84abf9addba2, tree digest (sha256 of the sorted 'shasum -a 256' list) 2e2d154e215a47443e2986b2b514188d2d81aca83b5f99213104de1590881e54; files differing from HEAD or untracked: 0
+10677a05b7bae6bd8d39be33b78e9dcdb4e797b21db81fcbf4b866a91ec89831  ./fake-support/bin/wine
+180ec128fbb965fc5e36d7e8e9e6a14952e249def075e78b252706314579e2fb  ./fake-support/bin/wineserver
+ca99e3124216479d26fa2a042ceea4aaecf835902c67be138b2843be7a0930f1  ./ini-ascii-key.ini
+543473a814130b849305ee562d9922779eb19990e04573d230f9361ddd3f7fa0  ./ini-with-key.ini
+8c63ed31d3b6e2895cf59b0552096f0bbd83b5931e03b6caacb208a43230a31f  ./ini-without-key.ini
+6deb9d0cd0e71c5b275af9ebaada50475e09e7279bf5d362aac239db463c17cd  ./known-answers.json
+4db272fc7336adf464a271e0d7a764d18b775d3bf033858dd01f72b58c3dec4b  ./rc-hang-error.asc
+06eb098061617e02612fb83732497939fb1d45ce3a3f0ebfcb898fc4409bf55a  ./rc-include-escape.net
+ccc97368e41964723324a0fd37c45284ad8815654036771e57486d686fdbc1e1  ./rc-include.net
+3767cc5d40d4a2058eee507dbe16865133b91dd89848f32b70defc11a861a299  ./rc-lowpass.asc
+071315fd686e15872aebe8a9d043ff550aeb2b473f88a66c1743faf02bcfe265  ./rc-nc-error.asc
+9273b0739521e985cf9f207a028d360c42d5e759991ef087dc84e21cd34b16b9  ./rc-seeded-error.net
+f115ebb07402c6d75d02c9254acd5eb50770fbdc6ca1b3e0b46f505b74b1ed09  ./rc-step-tran.net
+cd4540019092b3b5818d2450cd8c1176fe49ccd2d33f0bde5c4ff517895f36ad  ./sub/rc-parts.inc
+
+## B. versions, bottle state and Wine session state (read only)
+$ defaults read /Applications/LTspice.app/Contents/Info.plist CFBundleShortVersionString
+26.0.2.1
+$ grep '"Version"' cxbottle.conf
+"Version" = "25.0.1.38665"
+$ shasum -a 256 LTspice.exe
+a94eb1789084db9f46375cce05110e03578f9cdb931867a0faaca5b200793f06  /Users/robinonsay/Library/Application Support/LTspice/Bottles/ltspice/drive_c/Program Files/ADI/LTspice/LTspice.exe
+$ shasum -a 256 <bundle>/bin/wineserver (the session end of step 5a)
+c4cd93a1589ff2b404532ed782d8c0c4c699a19d0c62ea00219a56db3303a746  /Applications/LTspice.app/Contents/SharedSupport/ltspice/bin/wineserver
+$ ls -l <bottle LTspice.ini>
+-rw-r--r--@ 1 robinonsay  staff  12408 Sep 27 14:15 /Users/robinonsay/Library/Application Support/LTspice/Bottles/ltspice/drive_c/users/crossover/AppData/Roaming/LTspice.ini
+$ iconv -f UTF-16LE -t UTF-8 <bottle LTspice.ini> | grep -c '^CaptureAnalytics=false$'
+1
+$ pgrep -fl 'LTspice\.exe' (an LTspice.exe open before the run)
+none
+$ processes of the bottle's Wine session (lsof current directory in the bottle or its wineserver directory)
+none
+$ lockf -s -t 0 <wrapper lock> true
+exit=0 (0 free, 75 held by another run: the procedure then waits in part C)
+$ bash --version
+GNU bash, version 3.2.57(1)-release (arm64-apple-darwin25)
+$ /Users/robinonsay/rust/cwht/.venv/bin/python --version
+Python 3.13.5
+
+## C. unit-test module with the integration cases and the slow case
+$ CWHT_LTSPICE_INTEGRATION=1 CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unittest discover -v -s tools/tests -p test_ltspice_batch.py
+test_reads_text_and_utf16_forms (test_ltspice_batch.AsciiRawReaderTests.test_reads_text_and_utf16_forms) ... ok
+test_rejects_binary_and_truncated_files (test_ltspice_batch.AsciiRawReaderTests.test_rejects_binary_and_truncated_files) ... ok
+test_include_escape_refused (test_ltspice_batch.HygieneTests.test_include_escape_refused) ... ok
+test_long_path_refused (test_ltspice_batch.HygieneTests.test_long_path_refused) ... ok
+test_missing_deck (test_ltspice_batch.HygieneTests.test_missing_deck) ... ok
+test_netlist_mode_needs_schematic (test_ltspice_batch.HygieneTests.test_netlist_mode_needs_schematic) ... ok
+test_wrong_extension (test_ltspice_batch.HygieneTests.test_wrong_extension) ... ok
+test_bundle_build_other_than_lock (test_ltspice_batch.InstallAndVersionTests.test_bundle_build_other_than_lock) ... ok
+test_exe_sha256_other_than_lock (test_ltspice_batch.InstallAndVersionTests.test_exe_sha256_other_than_lock) ... ok
+test_not_installed (test_ltspice_batch.InstallAndVersionTests.test_not_installed) ... ok
+test_version_other_than_lock (test_ltspice_batch.InstallAndVersionTests.test_version_other_than_lock) ... ok
+test_ac_known_answer (test_ltspice_batch.LTspiceRunTests.test_ac_known_answer) ... ok
+test_ascii_raw_known_answer (test_ltspice_batch.LTspiceRunTests.test_ascii_raw_known_answer) ... ok
+test_extra_ini_with_key_passes (test_ltspice_batch.LTspiceRunTests.test_extra_ini_with_key_passes) ... ok
+test_netlist (test_ltspice_batch.LTspiceRunTests.test_netlist) ... /Users/robinonsay/rust/cwht/tools/tests/test_ltspice_batch.py:397: ResourceWarning: unclosed file <_io.TextIOWrapper name='/Users/robinonsay/rust/cwht/tools/tests/fixtures/ltspice/known-answers.json' mode='r' encoding='utf-8'>
+  ref = json.load(open(os.path.join(FIXTURE, "known-answers.json")))["netlist"]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_output_directory (test_ltspice_batch.LTspiceRunTests.test_output_directory) ... ok
+test_relative_include_is_copied (test_ltspice_batch.LTspiceRunTests.test_relative_include_is_copied) ... ok
+test_seeded_deck_error (test_ltspice_batch.LTspiceRunTests.test_seeded_deck_error) ... ok
+test_seeded_floating_net (test_ltspice_batch.LTspiceRunTests.test_seeded_floating_net) ... ok
+test_stale_outputs_removed (test_ltspice_batch.LTspiceRunTests.test_stale_outputs_removed) ... ok
+test_transient_known_answer (test_ltspice_batch.LTspiceRunTests.test_transient_known_answer) ... ok
+test_version (test_ltspice_batch.LTspiceRunTests.test_version) ... ok
+test_busy_when_lock_held (test_ltspice_batch.LockTests.test_busy_when_lock_held) ... ok
+test_log_without_version_line (test_ltspice_batch.OutputCheckTests.test_log_without_version_line) ... ok
+test_ascii_appended_key_not_accepted (test_ltspice_batch.PreconditionTests.test_ascii_appended_key_not_accepted) ... ok
+test_bottle_without_key (test_ltspice_batch.PreconditionTests.test_bottle_without_key) ... skipped 'the bottle ini carries the key; this case records the bottle-failure message only'
+test_ini_without_key (test_ltspice_batch.PreconditionTests.test_ini_without_key) ... ok
+test_missing_extra_ini (test_ltspice_batch.PreconditionTests.test_missing_extra_ini) ... ok
+test_hang_is_killed_and_only_this_run (test_ltspice_batch.TimeoutGuardTests.test_hang_is_killed_and_only_this_run) ... ok
+test_ascii_with_netlist_mode (test_ltspice_batch.UsageTests.test_ascii_with_netlist_mode) ... ok
+test_bad_timeout (test_ltspice_batch.UsageTests.test_bad_timeout) ... ok
+test_mode_without_deck (test_ltspice_batch.UsageTests.test_mode_without_deck) ... ok
+test_no_arguments (test_ltspice_batch.UsageTests.test_no_arguments) ... ok
+test_two_modes (test_ltspice_batch.UsageTests.test_two_modes) ... ok
+test_unknown_argument (test_ltspice_batch.UsageTests.test_unknown_argument) ... ok
+test_child_holds_no_lock_descriptor (test_ltspice_batch.WineSessionDoubleTests.test_child_holds_no_lock_descriptor) ... ok
+test_foreign_ltspice_exe_leaves_session (test_ltspice_batch.WineSessionDoubleTests.test_foreign_ltspice_exe_leaves_session) ... ok
+test_session_ended_after_error_exit (test_ltspice_batch.WineSessionDoubleTests.test_session_ended_after_error_exit) ... ok
+test_session_ended_after_normal_run (test_ltspice_batch.WineSessionDoubleTests.test_session_ended_after_normal_run) ... ok
+test_session_ended_after_timeout (test_ltspice_batch.WineSessionDoubleTests.test_session_ended_after_timeout) ... ok
+test_session_running_before_is_left (test_ltspice_batch.WineSessionDoubleTests.test_session_running_before_is_left) ... ok
+test_survivor_killed_when_wineserver_leaves_it (test_ltspice_batch.WineSessionDoubleTests.test_survivor_killed_when_wineserver_leaves_it) ... ok
+test_no_bottle_process_after_normal_and_error_runs (test_ltspice_batch.WineSessionIntegrationTests.test_no_bottle_process_after_normal_and_error_runs) ... ok
+
+----------------------------------------------------------------------
+Ran 43 tests in 137.776s
+
+OK (skipped=1)
+exit=0 elapsed=138s key_count=1 at 14:21:44
+
+## D. finding 1 (long-path check) through the wrapper: a deck whose Windows path is 260 characters or more
+Windows path of the input deck: 262 characters; of its .op.raw beside it: 265 characters
+$ tools/ltspice-batch.sh -b <long path>/rc-step-tran.net   (the wrapper runs it in its short run directory)
+key_count before: 1
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no process of it left
+ltspice-batch: result: PASS deck=rc-step-tran.net sha256=f115ebb07402c6d75d02c9254acd5eb50770fbdc6ca1b3e0b46f505b74b1ed09 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=4s outputs=[rc-step-tran.db rc-step-tran.log rc-step-tran.raw] outdir=/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-lts-long.powIEX/dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+exit=0
+key_count after: 1
+files beside the deck: rc-step-tran.db rc-step-tran.log rc-step-tran.net rc-step-tran.raw 
+log:
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.PRKvwV/rc-step-tran.net
+Start Time: Sun Sep 27 14:21:47 2026
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+Per .tran options, skipping operating point for transient analysis.
+Total elapsed time: 0.087 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.PRKvwV/rc-step-tran.net
+
+vtau: V(out) =0.632120367773 at 0.001
+thalf: V(out)=0.5  AT 0.000693147653313
+
+## E. state 10 s after the last run, holding the wrapper lock (no other run can start meanwhile)
+$ lockf -k -t 1800 <wrapper lock> <sleep 10; list the session; lsof the lock file>
+time 14:21:58
+processes of the bottle Wine session:
+none
+pgrep -fl LTspice\.exe:
+none
+lsof on the lock file (expected: only the lockf holder and this shell):
+COMMAND  PID       USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME
+lockf   6336 robinonsay    3r   REG   1,18        0 63106453 /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock
+exit=0
+$ lockf -s -t 0 <wrapper lock> true (after release)
+exit=0
+key_count 1 at 14:21:58; ls -l ini: -rw-r--r--@ 1 robinonsay  staff  12414 Sep 27 14:20 /Users/robinonsay/Library/Application Support/LTspice/Bottles/ltspice/drive_c/users/crossover/AppData/Roaming/LTspice.ini
+
+## F. regression case of INSP-038 finding-20 on the old launch line (scratch copy; test doubles only)
+$ diff <frozen wrapper> <scratch copy>
+327c327
+< ( exec 9>&-; cd "$RUN" && exec "$WINE" --bottle=ltspice --wait-children "$EXE" "$@" ) > "$RUN/.stdout" 2> "$RUN/.stderr" &
+---
+> ( cd "$RUN" && exec "$WINE" --bottle=ltspice --wait-children "$EXE" "$@" 9>&- ) > "$RUN/.stdout" 2> "$RUN/.stderr" &
+$ (cd <scratch copy> && .venv/bin/python -m unittest discover -s tools/tests -p test_ltspice_batch.py -k test_child_holds_no_lock_descriptor -v)
+test_child_holds_no_lock_descriptor (test_ltspice_batch.WineSessionDoubleTests.test_child_holds_no_lock_descriptor) ... FAIL
+
+======================================================================
+FAIL: test_child_holds_no_lock_descriptor (test_ltspice_batch.WineSessionDoubleTests.test_child_holds_no_lock_descriptor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/kat-lts-f20.PY5zBZ/tools/tests/test_ltspice_batch.py", line 535, in test_child_holds_no_lock_descriptor
+    self.assertNotIn(head["double"], holders, "the wine child holds the lock file open")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '6484' unexpectedly found in ['6435', '6484', '6487', '6493', '6496', '6498'] : the wine child holds the lock file open
+
+----------------------------------------------------------------------
+Ran 1 test in 1.127s
+
+FAILED (failures=1)
+exit=1 (expected 1: the case fails on the old line)
+
+## result
+part C unit-test module exit=0 (a pass needs exit 0 and no skip other than the permitted one); part D wrapper exit=0 (expected 0); part E exit=0 (expected 0, no session process, lock holder only lockf); part F exit=1 (expected 1); key_count 1
+
+## author notes (added after the run by the tool owner; not procedure output)
+- Frozen blobs of this run: commit d1148c2 (HEAD at the run; part A: every identity "unchanged from HEAD", 0 fixture files differing).
+- Key check (CaptureAnalytics=false, count 1) by the author before the run (14:19:18) and by the procedure in part B, after part C (14:21:44), before and after part D, and after part E (14:21:58). No LTspice.exe was open before the run (part B) or after it (part E).
+- The busy-lock case ran and passed (not skipped). No other session ran tools/tests or the wrapper at the start (ps at 14:19:18).
+- Session end discovery (2026-09-27 13:56 to 14:00, development, draft of this blob): after a wrapper -version run on blob d5d3876 (b893382) the bottle's wineserver and the services services.exe, two winedevice.exe, plugplay.exe, svchost.exe, explorer.exe and rpcss.exe were running with parent launchd; their current directory is <bottle>/drive_c/windows (explorer.exe: .../system32), the wineserver's is /private/tmp/.wine-501/server-1000012-389df9c (st_dev 0x1000012, st_ino 0x389df9c of the bottle directory). With the wrapper lock held and no LTspice.exe open, 'WINEPREFIX=<bottle> /Applications/LTspice.app/Contents/SharedSupport/ltspice/bin/wineserver -k' exited 0 at once and 'wineserver -w' returned at once; 1 s later no process of the session remained; the key stayed present (count 1). CrossOver's cxreboot shows GUI messages and was not used.
+- Mutation check at 14:08 (test doubles only, scratch copies): with end_session made a no-op (first line 'return 0'), 6 of the 7 WineSessionDoubleTests failed (all but the descriptor case); with the launch line of blob 64e1c723, test_child_holds_no_lock_descriptor failed (as in part F). Transcript kept in the author's scratch area, summary here.
+- Part D no longer runs the bare wine command (TV-014 section 3: LTspice only through the wrapper).
+- Observed at 13:56 on blob d5d3876 without a session end: the session of a -version run was gone 10 s after the run (the wineserver's own exit after its last client), so the earlier orphans (TV-014 finding 5: services with parent launchd and no wineserver) are not the normal end of a session; their cause is not established beyond the fd 10 of finding-20. The explicit session end removes the dependence on the wineserver's own exit and on how an earlier run ended.
