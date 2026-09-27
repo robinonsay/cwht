@@ -11,47 +11,51 @@ checklist: peer-review-checklist-risk
 checklist_revision: A
 checklist_file: docs/reviews/PDR/checklists/ts-011-enclosure.md
 product: docs/decisions/trade-studies/TS-011-enclosure.md
-# product_commit (iteration 2): 70d11ef, the WP-PDR-27 revision 1 commit that fixes finding-1 and finding-2
-# (re-freeze F0, rule C2). Every blob below equals git rev-parse 70d11ef:<path>, HEAD:<path> and git
-# hash-object <path> at HEAD d1148c2; all are on main. product_files_iteration_1 keeps the 70a3a33 blobs.
-product_commit: "70d11ef54a5bc477cda9e9fa01e7295e1365f147"
-product_blob: 16fc3d6bce1d74d56ecb9642300ce054ece8421f
-# product_files: the study and the WP-PDR-27 files it scores from (revision 1 adds board_field_thermal.py and
-# its outputs); the two analysis notes and drop_and_axial.py have their own records (INSP-083, INSP-084)
-product_files: ["docs/decisions/trade-studies/TS-011-enclosure.md@16fc3d6bce1d74d56ecb9642300ce054ece8421f", "hardware/enclosure/board-outline.json@9d4d36a984b07456a4860c6f1d6354297b42808d", "hardware/sim/enclosure/thermal_screen.py@78892ca27ace63c1bbd5965b730b0ccd6e85ab53", "hardware/sim/enclosure/envelope_drawing.py@5de2223bfedb3d45734cf066eeccf3df28629b0a", "hardware/sim/enclosure/trade_matrix.py@c76b0f70d05a64c282a9066204a64ffe1e217fde", "hardware/sim/enclosure/board_field_thermal.py@12b7e3d63cd0ef2921dd80f040a3526b8080cd19", "hardware/sim/enclosure/out/thermal-screen.csv@a8c7d5b1b5f345172a036b590342f67b0adcc273", "hardware/sim/enclosure/out/trade-matrix.txt@c6023d697716d2c024c0033948aaeaa3aa3b7c0e", "hardware/sim/enclosure/out/board-field-thermal.csv@2462fc4d9aad8d75c2ba452d9446b067ddea5316", "docs/reviews/PDR/figures/ts011-thermal-screen.png@47d81e61ee7039b3126158c577170af30686752a", "docs/reviews/PDR/figures/board-outline-envelope.png@a2c08e0ef04ec036465ddeb9bd2f6a16d7fb5dfe", "docs/reviews/PDR/figures/ts011-board-field-thermal.png@4751eaeddafafaa921d97b3e2dd1c33f0e97f0f7"]
+# product_commit (iteration 3): 433a944, TS-011 revision 2 and board-outline.json revision 2 for INSP-083
+# finding-5 (re-freeze F0). Every blob below equals git rev-parse HEAD:<path> and git hash-object <path> at
+# HEAD e2d3226; all are on main. Only the first two blobs changed since iteration 2 (70d11ef);
+# product_files_iteration_2 keeps the 70d11ef blobs, product_files_iteration_1 the 70a3a33 blobs.
+product_commit: "433a944f9489505ced8fefabfeeab156bdf76e0c"
+product_blob: 8984c27bf96165a3d412ebdf5a524c6d7c7636f3
+# product_files: the study and the WP-PDR-27 files it scores from; the two analysis notes and drop_and_axial.py
+# have their own records (INSP-083, INSP-084)
+product_files: ["docs/decisions/trade-studies/TS-011-enclosure.md@8984c27bf96165a3d412ebdf5a524c6d7c7636f3", "hardware/enclosure/board-outline.json@d7977cf385e8f76af8ad098497333b2f606cf1f8", "hardware/sim/enclosure/thermal_screen.py@78892ca27ace63c1bbd5965b730b0ccd6e85ab53", "hardware/sim/enclosure/envelope_drawing.py@5de2223bfedb3d45734cf066eeccf3df28629b0a", "hardware/sim/enclosure/trade_matrix.py@c76b0f70d05a64c282a9066204a64ffe1e217fde", "hardware/sim/enclosure/board_field_thermal.py@12b7e3d63cd0ef2921dd80f040a3526b8080cd19", "hardware/sim/enclosure/out/thermal-screen.csv@a8c7d5b1b5f345172a036b590342f67b0adcc273", "hardware/sim/enclosure/out/trade-matrix.txt@c6023d697716d2c024c0033948aaeaa3aa3b7c0e", "hardware/sim/enclosure/out/board-field-thermal.csv@2462fc4d9aad8d75c2ba452d9446b067ddea5316", "docs/reviews/PDR/figures/ts011-thermal-screen.png@47d81e61ee7039b3126158c577170af30686752a", "docs/reviews/PDR/figures/board-outline-envelope.png@a2c08e0ef04ec036465ddeb9bd2f6a16d7fb5dfe", "docs/reviews/PDR/figures/ts011-board-field-thermal.png@4751eaeddafafaa921d97b3e2dd1c33f0e97f0f7"]
+product_files_iteration_2: ["docs/decisions/trade-studies/TS-011-enclosure.md@16fc3d6bce1d74d56ecb9642300ce054ece8421f", "hardware/enclosure/board-outline.json@9d4d36a984b07456a4860c6f1d6354297b42808d", "hardware/sim/enclosure/thermal_screen.py@78892ca27ace63c1bbd5965b730b0ccd6e85ab53", "hardware/sim/enclosure/envelope_drawing.py@5de2223bfedb3d45734cf066eeccf3df28629b0a", "hardware/sim/enclosure/trade_matrix.py@c76b0f70d05a64c282a9066204a64ffe1e217fde", "hardware/sim/enclosure/board_field_thermal.py@12b7e3d63cd0ef2921dd80f040a3526b8080cd19", "hardware/sim/enclosure/out/thermal-screen.csv@a8c7d5b1b5f345172a036b590342f67b0adcc273", "hardware/sim/enclosure/out/trade-matrix.txt@c6023d697716d2c024c0033948aaeaa3aa3b7c0e", "hardware/sim/enclosure/out/board-field-thermal.csv@2462fc4d9aad8d75c2ba452d9446b067ddea5316", "docs/reviews/PDR/figures/ts011-thermal-screen.png@47d81e61ee7039b3126158c577170af30686752a", "docs/reviews/PDR/figures/board-outline-envelope.png@a2c08e0ef04ec036465ddeb9bd2f6a16d7fb5dfe", "docs/reviews/PDR/figures/ts011-board-field-thermal.png@4751eaeddafafaa921d97b3e2dd1c33f0e97f0f7"]
 product_files_iteration_1: ["docs/decisions/trade-studies/TS-011-enclosure.md@8d2708f1b0175d73945b7ee32d9d49937f4a51e9", "hardware/enclosure/board-outline.json@27dbacc7dda7f79e6cba3234ee77f6453e304906", "hardware/sim/enclosure/thermal_screen.py@78892ca27ace63c1bbd5965b730b0ccd6e85ab53", "hardware/sim/enclosure/envelope_drawing.py@20815e7581c34c9498e6c8d3972cc738e5c63e8a", "hardware/sim/enclosure/trade_matrix.py@c76b0f70d05a64c282a9066204a64ffe1e217fde", "hardware/sim/enclosure/out/thermal-screen.csv@a8c7d5b1b5f345172a036b590342f67b0adcc273", "hardware/sim/enclosure/out/trade-matrix.txt@c6023d697716d2c024c0033948aaeaa3aa3b7c0e", "docs/reviews/PDR/figures/ts011-thermal-screen.png@47d81e61ee7039b3126158c577170af30686752a", "docs/reviews/PDR/figures/board-outline-envelope.png@ff8aa6c2befd4660f2bf353893ab5673d24f79e3"]
 product_size: 6 alternatives (A, B, C1, C2, C3, D; B, C2, C3 dropped at the mandatory screen), 9 mandatory and 8 enhancing criteria; route sub-matrix of 3 routes and 4 criteria; 22 rank-changing perturbations
 sprint: PDR-prep
 author_agent: "author:WP-PDR-27 wave 1a (Claude as ME designer)"
-reviewer_agent: "reviewer:WP-PDR-27-ts-011-iter1 (independent; authored no part of WP-PDR-27); iteration 2 by reviewer:WP-PDR-27-ts-011-iter2 (independent; authored no part of WP-PDR-27 and no part of its revision 1)"
+reviewer_agent: "reviewer:WP-PDR-27-ts-011-iter1 (independent; authored no part of WP-PDR-27); iteration 2 by reviewer:WP-PDR-27-ts-011-iter2 (independent; authored no part of WP-PDR-27 and no part of its revision 1); iteration 3 by reviewer:WP-PDR-27-ts-011-iter3 (independent; authored no part of WP-PDR-27 and no part of its revisions 1 and 2)"
 # criticality: TS-011 selects the PA-to-ambient heat path and the heat sink whose temperature REQ-SYS-181
 # senses and against which the SW-SAFE thermal unit thresholds (REQ-SYS-118, 155) act (07 section 14.1 row
 # "Thermal protection", safety-critical, HZ-003)
 criticality: safety-critical
 assurance_required: true
 assurance_reviewer_agent: "pending (separate invocation; paired record docs/reviews/PDR/checklists/ts-011-enclosure-software-assurance.md)"
-iteration: 2
+iteration: 3
 readiness_met: true
-# reviewer_verdict (iteration 2): APPROVED; finding-1 and finding-2 (Major) Verified; findings 3 to 6 and the new
-# findings 7 and 8 are Minor and Open (liens due at the CDR readiness declaration, plan rule C1)
+# reviewer_verdict (iteration 3, delta on the revision 2 hunks at 433a944): APPROVED; finding-1 and finding-2
+# (Major) Verified; findings 3 to 8 and the new finding-9 are Minor and Open (liens due at the CDR readiness
+# declaration, plan rule C1)
 reviewer_verdict: APPROVED
 # assurance_verdict: pending the iteration 2 delta of the software assurance pair INSP-087 (its finding-1, Major,
 # is fixed in TS-011 revision 1 rule 14 and is verified by a separate assurance invocation, not by this reviewer)
 assurance_verdict: pending
-# verdict: held at NEEDS CHANGES until the SA pair INSP-087 returns APPROVED (07 section 2.1.1; rule C9); that
+# verdict (iteration 3): still held at NEEDS CHANGES; the SA pair INSP-087 reads iteration 1, NEEDS CHANGES at
+# HEAD e2d3226. Held until the SA pair INSP-087 returns APPROVED (07 section 2.1.1; rule C9); that
 # pair applies the software-assurance template that is still only on cr/CR-012 (blob 5b135285), so under the
 # lead SE convention of 2026-09-27 the lead SE sets this verdict when both hold
 verdict: NEEDS CHANGES
 findings_major: 2
-findings_minor: 6
-findings_open: 6
+findings_minor: 7
+findings_open: 7
 findings_fixed: 0
 findings_verified: 2
 findings_deferred: 0
 deferred_rids: []
 items_no: [CK-RSK-B5, CK-RSK-B7, CK-RSK-B8]
-effort_turns: 100
-effort_minutes: 160
+effort_turns: 130
+effort_minutes: 205
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -245,4 +249,68 @@ FINDINGS:
 - [Minor] finding-7 (new): the rule 3 in-situ measurement reads low (resistor housing loss), assumes a thermocouple (OQ-VV-003) (lien).
 - [Minor] finding-8 (new): the rule 18 posts are outside the M8 bound; 94.1 C at the post near the PA (lien).
 MEASUREMENTS: blobs equal HEAD 12/12; checkers 4 of 4 CHECK PASS; outputs byte-identical 6/6; cases 16 (16 Yes, 2 with a new Minor); renders inspected 3; major open=0; minor open=6; turns=40; minutes=65 (cumulative 100 and 160); iteration=2
+```
+
+## Iteration 3: delta verification of the revision 2 hunks (2026-09-27, HEAD `e2d3226`)
+
+**Scope (rule C1).** Two product blobs drifted after iteration 2: `TS-011-enclosure.md` `16fc3d6b` to `8984c27b` and `board-outline.json` `9d4d36a9` to `d7977cf3`, both changed by `433a944` (TS-011 revision 2, INSP-083 finding-5, re-freeze F0; the lead SE's INSP-083 cross item X-6). This delta reads every hunk of `git diff 16fc3d6b 8984c27b` (11 hunks) and `git diff 9d4d36a9 d7977cf3` (2 hunks) and checks each against its source, `shielding-estimate.md` revision 2 sections 4.5, 4.6, 5 and 7 and `out/shielding-sources.csv` rows `rev2_worst` (reviewed for its own lens in INSP-083 iteration 3). The other 10 product blobs equal iteration 2. Every blob of front matter `product_files` equals `git rev-parse HEAD:<path>` and `git hash-object <path>` (12 of 12); `git log 70d11ef..HEAD` over the product paths shows only `433a944`; no blob is on a `cr/` branch. Findings 3 to 8 were not addressed (revision 2 change log: "Minor findings are not addressed") and are not re-reviewed. Checklist as before (`peer-review-checklist-risk.md` revision A, section B, on main).
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-27 or its revisions 1 and 2 and edited no product file.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran (shielding revision 2, plugged port state, jack-line fails). `grep` otherwise pinned lines in known paths (TS-011, the shielding note, its CSV, the tolerance note, the PDR plan, the risk checklist). The rustos tree was not read.
+
+**Reproduction.** On a `git archive e2d3226` export in the scratchpad: `thermal_screen.py`, `trade_matrix.py`, `envelope_drawing.py` and `shielding_estimate.py` with `--check` each print `CHECK PASS`; the regenerated `out/` directory is identical to the committed one and `board-outline-envelope.png`, `ts011-thermal-screen.png` and `shielding-estimate.png` are byte-identical (the revision 2 change to `board-outline.json` is feature text only and moves no drawn coordinate). `board-outline.json` parses as JSON.
+
+### Hunk-by-hunk verification (rule C7)
+
+| # | Hunk | Check against the source | Result |
+|---|---|---|---|
+| 1 | Status row: revision 2 named with its reason | Change log row 2 matches; AT RISK text unchanged | Yes |
+| 2 | Section 1 finding 3 (plugged state) | Revision 1 rules plugged: every source fails (note 4.5 `rev1_plug` 19 of 19; checker prints `rev1_plug fail 19`). O1 to O4, worse state: no fail from 10 MHz up; A 22.0, C1 and D 22.6 dB at 1.5 GHz (CSV `rev2_worst`, note 4.6); nine fails below about 5 MHz in every option through the jack lines, A included (CSV: A fail spans end at 4.84 MHz; C1 fail rows 9); C1 and D also by the wall below about 7 MHz (C1 fail spans to 7.86 MHz; wall is the limiting term for the buck, R-1 and the ROSC); citations to note 4.5, 4.6 and 7 items 2 to 4 exist | Yes |
+| 3 | Section 3.1 M5: both port states; C4 kept on the empty-port enclosure | Definition matches note section 4.6 (worse of both states). The C4 rule is stated with its reason; see observation O-1 for its effect on the matrix | Yes (the row's closing "Source" still names note revision 1: INSP-083 finding-6, not raised again here) |
+| 4 | Section 4.1 M5 cell A | Empty 24.7 to 25.4 dB at 1.5 GHz; plugged 22.0 dB; rev1 plugged 17.1 dB; conducted bound K = 1 named; PCR-9 ruling named (note 4.5, 4.6, 7 item 3 (c)) | Yes |
+| 5 | Section 4.1 M5 cell B ("as A") | Note 4.6: B within 0.2 dB of A (22.1 dB); B is dropped by M4 regardless | Yes |
+| 6 | Section 4.1 M5 cell C1 | 22.6 dB at 1.5 GHz plugged, 22.3 dB at 10 MHz, BFO 21.3 dB at 9 MHz (CSV and note 4.5); eight sources below 4 MHz plus the ROSC fail from 0.03 to 7.9 MHz (CSV spans 0.03 to 7.86 MHz); "0.0 to 19 dB" is the range over the fail bands (note section 5 rows: 0.0 to 19.9 dB jack lines, 0.3 to 19 dB H field); revision 1 pass withdrawn. D row reads "as C1", which holds (D equals C1 in note 4.6) | Yes |
+| 7 | Section 6 item 2, REQ-SYS-177 scope bullet | "No alternative passes the full range" on present evidence; A only with the jack-line coupling 26 dB below the bound (20 dB plus the 6 dB uncertainty, note 4.5), and still not shown at 1.5 GHz; with 10 MHz up every surviving alternative stays in | Yes |
+| 8 | Section 8 conditions table row 3 (fallback) | Matches note 7 item 3 (c) | Yes |
+| 9 | Section 8 rule 16 O2 and O4 | O2: metal-nose jack, gasket ring over the S2 radial gap 0.85 to 2.15 mm. Reviewer hand: (9.0 - 6.0) / 2 = 1.50 mm nominal, plus or minus 0.65 mm worst case (`mechanical-tolerance-stack.md` section 4 row S2) gives 0.85 to 2.15 mm. O4 planning values match note 7 item 2; the 10 nF phones load is routed to WP-PDR-25 (plan heading "Audio chain and display trade"); jack parts to WP-PDR-38 (BOM) | Yes |
+| 10 | PCR-9 candidate bullet (named cases) | Ten not-shown sources (CSV `rev2_worst`: XOSC, clk_usb, clk_sys, TCXO, SPI, QSPI 37.5, QSPI boot, PCM1808, BFO, prescaler) and nine fails (buck, charger, R-1 to R-5, PWM, ROSC): 10 + 9 = 19 | Yes |
+| 11 | Interfaces bullet (ICD-CTL-KEY O2 and O4; phones interface O4) and the request to the TC-SYS-107 writer | Writer order WP-PDR-11, WP-PDR-02, WP-PDR-45 matches the plan section 5.3 ownership row of `docs/test_cases/sys/test_cases.json`; no baselined file edited | Yes |
+| 12 | Proposed-values row REQ-SYS-177 and change-log row 2 | Keep 20 dB, scope and named cases to PCR-9 (note 7 item 6); the change-log row lists every hunk above | Yes |
+| 13 | `board-outline.json` revision field and the two `minus_x` jack features | Text matches rule 16 O2 and O4; `y` and `z` unchanged (18.0 / 21.9, 52.0 / 21.9); no other key changed | Yes |
+
+**Observation O-1 (no finding).** C4 (low-frequency shielding at 1.5 and 2.2 MHz) is scored on the empty-port enclosure. If it were scored plugged at the K = 1 bound, A would fall from score 5 (66.3 dB) to score 1 (the phones filter alone gives 11.2 dB at 1.5 MHz, note 4.5), A's total would drop from 255 to 215 and the rank-changing perturbation "weight C4 +10" (A top at 282.2) would vanish. C1 and D stay at score 1 either way. So the chosen rule favours the fallback A, not the recommendation, and the top rank (C1 and D at 295) is unchanged under both rules. The study's reason (the jack-line term does not discriminate between options) is adequate.
+
+### Findings (iteration 3)
+
+| Finding | Severity | Item | Location | Description | State | Deferred to |
+|---|---|---|---|---|---|---|
+| finding-1 | Major | CK-RSK-B7, B8, B9 | TS-011 sections 1, 4.1, 6, 7, 8 | See iteration 1; revision 2 touches none of the verified text except M5 | Verified (iteration 2; unchanged at 433a944) | |
+| finding-2 | Major | CK-RSK-B5 | TS-011 sections 3.1 M8, 4.1 | See iteration 1 | Verified (iteration 2; unchanged at 433a944) | |
+| finding-3 to finding-8 | Minor | as iteration 2 | as iteration 2 | Not addressed by revision 2 (change log) | Open | CDR readiness declaration (lien) |
+| <a id="finding-9"></a>finding-9 | Minor | CK-RSK-B8 | TS-011 section 7 (risk rows and the aggregate line) | Revision 2 establishes that, on present evidence, every surviving alternative fails REQ-SYS-177 below about 5 MHz with the plugs in (the jack-line conducted bound, K = 1) and is not shown at 1.5 GHz, and that the fallback A closes the low range only if the CDR layout analysis shows the jack-line coupling 26 dB or more below that bound. Section 7 was not revised: it has no four-part risk row for the jack-line coupling (common to A, C1 and D), A's aggregate stays 9 with no shielding risk, and the only REQ-SYS-177 row is the C1 coating row. Fix: add one risk row (given the tip and ring lines leave on the plug cables, there is a possibility that board noise couples onto them above the 26 dB margin, adversely impacting REQ-SYS-177 for every option, leading to O4 filter changes at CDR or the owner's acceptance by name under PCR-9), marked common to every option, with likelihood and consequence on the 06 section 6 and 7 scales, and restate A's aggregate | Open | CDR readiness declaration (lien) |
+
+finding-9 is Minor: the risk is named in section 1, section 6 item 2, condition 3 and the PCR-9 bullet, and it does not discriminate between the alternatives, so the recommendation does not depend on it; only the section 7 register form is missing.
+
+### Visual closure (iteration 3)
+
+No render is a product of revision 2 in this record: `board-outline-envelope.png` and `ts011-thermal-screen.png` regenerate byte-identical and `ts011-board-field-thermal.png` is unchanged. `docs/reviews/PDR/figures/board-outline-envelope.png` was re-opened and still matches iteration 2 (the jack openings at -X y 18 and 52 are unchanged). The revised `shielding-estimate.png` belongs to INSP-083. renders_inspected 1.
+
+### Cross items (iteration 3, returned to Claude)
+
+- X-5 is closed for this record: the INSP-083 finding-5 fix reaches TS-011 in every place X-5 named (hunks 2, 4 to 8 above).
+- X-6 still holds: the SA pair `ts-011-enclosure-software-assurance.md` (INSP-087) reads `iteration: 1`, `verdict: NEEDS CHANGES` at `e2d3226`, so the record verdict stays held.
+- X-8. finding-7 (b) is now answered by the owner (relayed message, 2026-09-27): the owner has no thermocouple, has a multimeter, a NanoVNA with its standards and a BNC 50 ohm dummy load, and caps new equipment purchases at USD 300 in total. Condition 1 (rule 3 in-situ measurement) therefore needs a thermocouple or other temperature probe bought inside that cap, or another method; the lead SE records this against OQ-VV-003 and owner-actions E-02 when finding-7 is fixed.
+
+### Completion criteria (SWE-088), iteration 3
+
+Reviewer side met: no Major is open, readiness is unchanged (R1, R3 and R4 hold at `433a944`), and findings 3 to 9 are Minor liens due at the CDR readiness declaration (plan rule C1). `reviewer_verdict: APPROVED`. The record `verdict` stays NEEDS CHANGES until the software assurance pair INSP-087 returns APPROVED (07 section 2.1.1; rule C9).
+
+```
+ITERATION 3 (2026-09-27, HEAD e2d3226, product commit 433a944): REVIEWER VERDICT: APPROVED; RECORD VERDICT: NEEDS CHANGES (held for the SA pair INSP-087)
+FINDINGS:
+- [Major] finding-1, finding-2: Verified (unchanged by revision 2).
+- [Minor] finding-3 to finding-8: Open, not in the delta (liens).
+- [Minor] finding-9 (new): section 7 has no risk row for the plug-inserted jack-line bound common to every option (lien).
+MEASUREMENTS: blobs equal HEAD 12/12 (2 drifted and re-read); hunks read 13 (13 Yes); checkers 4 of 4 CHECK PASS; outputs identical; renders inspected 1; major open=0; minor open=7; turns=30; minutes=45 (cumulative 130 and 205); iteration=3
 ```
