@@ -11,27 +11,42 @@ checklist: peer-review-checklist-code
 checklist_revision: B
 checklist_file: docs/reviews/PDR/checklists/code-wp-sw-09.md
 product: "rustos cwht/wp-sw-09: api/src/irq/mod.rs, firmware/pico2/src/irq/mod.rs, firmware/pico2/src/critical_section.rs, firmware/pico2/link.ld and the vector table of firmware/pico2/src/lib.rs (WP-SW-09)"
-product_commit: "9305f593c50f338652dac18f6308d088b083b621"
-product_files: ["docs/decisions/adr/ADR-052-wp-sw-09-interrupts.md@f1ee2e75ae027ffe868366ffeaef417f2a7b19b3", "docs/sprints/SW-02-wp-sw-09-interrupts.md@4adccaf6954561d621236fd72c9d476f16d598dc", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:api/src/irq/mod.rs@260fa0a6ff3eef4bff31511a726ca0577267a248", "rustos:api/src/lib.rs@12d5d0ef9e672bcc1791f4086c9825798535d6a7", "rustos:api/tests/irq_contract.rs@9f118d179919c8801e41346f836f03a52b12bf50", "rustos:firmware/pico2/link.ld@f157f6fa1016b7032c89a3f05db8282d2123c336", "rustos:firmware/pico2/src/critical_section.rs@1f7e011a2f1383b1627f814591726fd937f81320", "rustos:firmware/pico2/src/irq/mod.rs@f1366bfc74315d2d539da8f2b61106f2b1bc3959", "rustos:firmware/pico2/src/lib.rs@6008ddba48a8af1106e4607363bdec1321f7bf54", "rustos:firmware/pico2/src/common/board.rs@7a88c173087b85a8e69347a70f5c6d174d48e6a6", "rustos:firmware/pico2/src/common/reg.rs@f0b8f8732b516609444594dc73b3dc7a317bc19a", "rustos:firmware/pico2/src/common/reg/fake.rs@02e31cf54132c43b9dfba6607e1bc2ed6786d22f"]
+# product_commit (iteration 2): the rustos branch head of cwht/wp-sw-09, c6e5100, the finding-1 fix on the merge
+# 8b67385 of cwht/wp-sw-11 4a8e825 into 9305f59 (iteration 1). Blobs equal git rev-parse c6e5100:<path> (rustos)
+# and git rev-parse e3ce2cb:<path>, HEAD:<path> and git hash-object at HEAD 5c16930 (cwht)
+product_commit: "c6e5100b237a5995c2ec9852b8f8b340fc3b506b"
+product_files: ["docs/decisions/adr/ADR-052-wp-sw-09-interrupts.md@58c06b4f4c2866332065520d296a4a7494113a5c", "docs/sprints/SW-02-wp-sw-09-interrupts.md@e02db842240d91cad7ab066f2543297efb3addb9", "docs/sprints/index.md@7ae0cbcc6087d45ab4df10cac623d453ca13c395", "rustos:firmware/pico2/src/lib.rs@1f3a4c919e3ca69f3ac2ab06f49d11aa9d808383", "rustos:firmware/pico2/src/irq/mod.rs@7f395b2732727a5a68d7a97a52577044198dc870", "rustos:firmware/pico2/src/irq/vectors.rs@8034c93a4cbf3f6de11ad1767c7d8b143820f165", "rustos:firmware/pico2/src/critical_section.rs@1f7e011a2f1383b1627f814591726fd937f81320", "rustos:firmware/pico2/link.ld@f157f6fa1016b7032c89a3f05db8282d2123c336", "rustos:api/src/irq/mod.rs@260fa0a6ff3eef4bff31511a726ca0577267a248", "rustos:api/src/lib.rs@12d5d0ef9e672bcc1791f4086c9825798535d6a7", "rustos:api/tests/irq_contract.rs@9f118d179919c8801e41346f836f03a52b12bf50", "rustos:firmware/pico2/src/common/board.rs@7a88c173087b85a8e69347a70f5c6d174d48e6a6", "rustos:firmware/pico2/src/common/reg.rs@f0b8f8732b516609444594dc73b3dc7a317bc19a", "rustos:firmware/pico2/src/common/reg/fake.rs@02e31cf54132c43b9dfba6607e1bc2ed6786d22f"]
+product_files_iteration_1: ["docs/decisions/adr/ADR-052-wp-sw-09-interrupts.md@f1ee2e75ae027ffe868366ffeaef417f2a7b19b3", "docs/sprints/SW-02-wp-sw-09-interrupts.md@4adccaf6954561d621236fd72c9d476f16d598dc", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:api/src/irq/mod.rs@260fa0a6ff3eef4bff31511a726ca0577267a248", "rustos:api/src/lib.rs@12d5d0ef9e672bcc1791f4086c9825798535d6a7", "rustos:api/tests/irq_contract.rs@9f118d179919c8801e41346f836f03a52b12bf50", "rustos:firmware/pico2/link.ld@f157f6fa1016b7032c89a3f05db8282d2123c336", "rustos:firmware/pico2/src/critical_section.rs@1f7e011a2f1383b1627f814591726fd937f81320", "rustos:firmware/pico2/src/irq/mod.rs@f1366bfc74315d2d539da8f2b61106f2b1bc3959", "rustos:firmware/pico2/src/lib.rs@6008ddba48a8af1106e4607363bdec1321f7bf54", "rustos:firmware/pico2/src/common/board.rs@7a88c173087b85a8e69347a70f5c6d174d48e6a6", "rustos:firmware/pico2/src/common/reg.rs@f0b8f8732b516609444594dc73b3dc7a317bc19a", "rustos:firmware/pico2/src/common/reg/fake.rs@02e31cf54132c43b9dfba6607e1bc2ed6786d22f"]
 product_size: 1027 lines added and 3 removed in 9305f59, of which about 620 non-test lines (irq/mod.rs 312 before its test module, critical_section.rs 148, lib.rs 116, link.ld 56, api irq 58); ADR-052 89 lines; SW-02 61 lines
 sprint: SW-02-wp-sw-09-interrupts
 author_agent: "author:WP-PDR-41 wave 1a (Claude, firmware developer role)"
-reviewer_agent: "reviewer:WP-PDR-41-code (independent code reviewer, iteration 1; authored no part of WP-PDR-41)"
+reviewer_agent: "reviewer:WP-PDR-41-code (independent code reviewer, iterations 1 and 2; authored no part of WP-PDR-41)"
 # criticality: 07 section 14.1 drivers row names the critical section among the drivers the safety-critical
 # components depend on (inherited criticality)
 criticality: safety-critical
 assurance_required: true
-assurance_reviewer_agent: "pending: separate software assurance invocation, record docs/reviews/PDR/checklists/code-wp-sw-09-software-assurance.md (plan WP-PDR-41 Records; 07 section 2.1.1 Code row, and every file that contains unsafe)"
-iteration: 1
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-09, record INSP-102 docs/reviews/PDR/checklists/code-wp-sw-09-software-assurance.md (07 section 2.1.1 Code row and every file with unsafe; iteration 2 delta pending)"
+paired_record: INSP-102
+iteration: 2
+# readiness_met: false: R3 (the ADR is still Proposed) and R5 (no independent test-author file yet) still do not hold;
+# unchanged by revision 2, which the lead SE dispatched with them open (iteration 1 section Readiness)
 readiness_met: false
-reviewer_verdict: NEEDS CHANGES
+# reviewer_verdict: APPROVED at iteration 2 (finding-1 Verified at c6e5100; findings 2 to 6 Minor, carried Open); open Minor findings become liens under rule C1,
+# owner the firmware developer, due at the CDR readiness declaration
+reviewer_verdict: APPROVED
+# assurance_verdict: INSP-102 (the paired software assurance record) was APPROVED at iteration 1; its iteration 2 delta on
+# the fix commit is a separate invocation and has not run, so this record carries pending
 assurance_verdict: pending
+# verdict: held at NEEDS CHANGES. The reviewer verdict is APPROVED at iteration 2, but the software assurance delta
+# of the paired record is not yet filed, readiness R3 and R5 do not hold, and the reviewed blobs exist only on unmerged
+# rustos branches (lead SE convention of 2026-09-27). The software lead sets verdict when the owner's merge and the PCR-4
+# pin-move CR bring the blobs into a configuration cwht consumes, or in the commit right after it
 verdict: NEEDS CHANGES
 findings_major: 1
 findings_minor: 5
-findings_open: 6
+findings_open: 5
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
@@ -42,8 +57,8 @@ assurance_tasks_applied: []
 unsafe_sites_reviewed: 9
 deferred_rids: []
 items_no: [CK-CODE-B2, CK-CODE-B6, CK-CODE-B7, CK-CODE-D7, CK-CODE-H2, CK-CODE-I1, CK-CODE-I3]
-effort_turns: 20
-effort_minutes: 45
+effort_turns: 35
+effort_minutes: 70
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -177,3 +192,68 @@ Lines reviewed: about 620 non-test lines plus the 189-line contract draft and th
 ## Record verdict
 
 `reviewer_verdict: NEEDS CHANGES` on finding-1. Iteration 2 is a delta that verifies finding-1 on a new frozen commit. `verdict` stays `NEEDS CHANGES` until the software assurance record is filed APPROVED and the blobs reach a configuration cwht consumes.
+
+## Iteration 2: delta verification of finding-1 (Major) (2026-09-27, cwht HEAD `5c16930`)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the finding-1 fix only. Findings 2 to 6 (Minor) were not touched (ADR-052 section 8) and are not re-reviewed. Product: rustos `cwht/wp-sw-09` at `c6e5100`, whose parent `8b67385` merges `cwht/wp-sw-11` at `4a8e825` into the iteration 1 head `9305f59`; the package delta is `git diff 8b67385 c6e5100` (`irq/mod.rs` 5, `irq/vectors.rs` 163 new, `lib.rs` 148 changed lines), with ADR-052, SW-02 and the sprint index at cwht `e3ce2cb`, the blobs of front matter `product_files`. Checklist as at iteration 1.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-41, of revision 2 or of the rustos fix commits, and edited no product file. The rustos repository was read with `git show` and in a detached scratch worktree created with `git worktree add --detach` in the scratchpad and removed after the review; the owner's rustos working tree was not read. A throw-away link application (D10 of INSP-096) was built in the scratchpad, outside both repositories.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran (queries: iteration 2 delta record practice for the `code-wp-sw` records; REQ-SW-KEYER-033 sidetone gate) before any search of product or requirement content. One `grep -n` on the known plan file `docs/plan/pdr-work-plan.md`, to locate the WP-PDR-41 section, ran before the first `search_code` query; that is out of the rule's order and is reported here. Afterwards `grep` only pinned lines in known paths (the plan, the 07 `SW-AUDIO` rows, the validator, the rustos datasheet extract through `git show`). The index returned the new ADR-055 section 2.1 text, so it holds the revision 2 files.
+
+### Commands run by the reviewer (evidence)
+
+| # | Command (read-only for both repositories; outputs in the scratchpad) | Result |
+|---|---|---|
+| D1 | `git rev-parse <commit>:<path>` for each of the 55 rustos blobs of the brief at its named commit; `git rev-parse e3ce2cb:<path>`, `git rev-parse HEAD:<path>` (HEAD `5c16930`) and `git hash-object <path>` for the 11 cwht blobs | all 66 equal to the brief; `git log e3ce2cb..HEAD` touches none of the cwht product files |
+| D2 | `cargo +1.98.0 test --offline -p pico2 --lib` and `-p api` in a detached scratch worktree of the rustos repository at `4a8e825`, `c6e5100`, `58fe739`, `38434b2`, `48e07ec` | pico2 37, 49, 75, 81, 101 passed; api 0, 4, 9, 14, 19 passed; 0 failed at every commit |
+| D3 | `cargo +1.98.0 build --offline -p pico2 --target thumbv8m.main-none-eabihf`, dev and `--release`, at the same five commits | no warning, no error |
+| D4 | `cargo +nightly-2026-08-24 miri test --offline -p pico2 --lib` at the stack head `48e07ec` | 101 passed, no undefined behaviour |
+| D5 | `rust-code-analysis-cli --metrics --output-format json --paths <wt>/api --paths <wt>/firmware/pico2 \| .venv/bin/python tools/complexity_gate.py --max 15 --yellow 12` at `48e07ec` | PASS; 399 functions; the only function above 12 is the contract check `api/tests/irq_contract.rs:48` `check_out_of_range` (CC 13, test code, as INSP-096 C5); 4 name-based CS-19 reports, method-name collisions |
+| D6 | `.venv/bin/python tools/unsafe_audit.py --write` then `--check`, `--audited` the worktree `api` and `firmware/pico2`, `--audit-file` in the scratchpad, at `48e07ec` | PASS; 46 sites, 0 without SAFETY, 0 in forbidden crates, all unsigned (signatures due before CDR, CS-07) |
+| D7 | `cargo +1.98.0 clippy --offline -p pico2 -p api --all-targets --message-format=short -- -W clippy::pedantic` (host) at `48e07ec`, filtered to the files the fix commits change | no lint on a line the fix commits add or change; the remaining reports are on unchanged lines or are iteration 1 Minor findings (`module_inception` at `clocks/mod.rs:41` and `timer/mod.rs:32`, INSP-095 finding-6 and INSP-097 finding-5; `timer_tests.rs:16` cast, INSP-097 finding-5) |
+| D8 | `rustfmt +1.98.0 --edition 2024 --check` on the 13 new or changed Rust files other than `gpio/gpio.rs` | no difference; `gpio.rs` keeps its pre-existing non-rustfmt style (INSP-098 finding-2) |
+| D9 | `wc -l firmware/pico2/src/lib.rs` (through `git show`) at `213c536`, `9305f59`, `8b67385`, `c6e5100` and at the later stack heads | 588, 704, 704, 564; then 565 (`58fe739`), 565 (`38434b2`), 566 (`48e07ec`) |
+| D10 | Link test (the author did not repeat it at revision 2): a scratch `#![no_std]` `#![no_main]` binary depending on `pico2` by path, with `pico2::entry!`, `pico2::interrupt!(SPAREIRQ_IRQ_0, ..)` and `pico2::interrupt!(TIMER0_IRQ_0, ..)`, built `--release` for `thumbv8m.main-none-eabihf` with `-C link-arg=-Tlink.ld` against the worktree at `9305f59` and at `c6e5100`; `.vector_table` dumped with the toolchain's `llvm-objdump -s`, symbols with `llvm-nm` | the two `.vector_table` sections are byte-identical; 68 words; slot 0 `0x20082000`, slot 1 `OnReset`, slot 3 `OnHardFault`; slots 16 (`TIMER0_IRQ_0`) and 62 (`SPAREIRQ_IRQ_0`) hold the application handler (`0x10000125`, the two empty handlers folded to one address by the linker), slots 17, 63 and 67 `DefaultHandler` (`0x10000131`) |
+| D11 | Slot map: the 52 `t[n] = Vector { handler: NAME }` lines of `lib.rs` at `9305f59` against the 52 `t[n] = handler(NAME)` lines of `irq/vectors.rs` at `c6e5100`; the 52 names of both extern blocks | identical slot numbers, names and order |
+
+### Verification of finding-1, case by case (rule C7)
+
+| Case | Required by finding-1 | At `c6e5100` | Result |
+|---|---|---|---|
+| The 52 device-interrupt entries | out of `lib.rs` | in `irq/vectors.rs` `with_device_interrupts`, a `const fn` over `[Vector; 68]` that `VECTOR_TABLE` calls (`lib.rs:563`); the table stays a compile-time constant in `.vector_table` (D10) | Verified |
+| The extern block of the 52 symbols | out of `lib.rs` | in `irq/vectors.rs`, with its `// SAFETY:` comment unchanged in substance (D6 counts it) | Verified |
+| The package adds no lines to `lib.rs` | no growth | 564 lines against 588 before the package (D9): the package now removes 24 lines, because the `Vector` union and its `Sync` impl moved too | Verified |
+| No behaviour change | (implicit in a move) | slot map identical (D11); linked table byte-identical (D10); 49 host tests and target builds (D2, D3) | Verified |
+| Pre-existing excess recorded as a rustos item | record it for the owner | ADR-052 section 8 and SW-02 "Phase 1, revision 2" say `lib.rs` 564 lines, the excess predates the package and is reported to the owner as a rustos item | Verified |
+
+Visibility: `irq::vectors` is private and target-only; `Vector` and `with_device_interrupts` are `pub(crate)` and re-exported as `pub(crate)` from `irq`, so the public API of `pico2` is unchanged. The `// SAFETY:` text of the `Sync` impl and of the extern block is unchanged.
+
+### Checklist items re-answered for the fix
+
+| Id | Iteration 2 answer | Evidence |
+|---|---|---|
+| CK-CODE-D7 | No, pre-existing only | the package no longer grows `lib.rs` (finding-1 Verified); `lib.rs` is still above 500 lines from before cwht touched it, which INSP-095 finding-7 (Minor) carries; `irq/mod.rs` 394 and `irq/vectors.rs` 163 lines |
+| CK-CODE-B2, B6 on the moved code | as iteration 1 | the moved `unsafe impl Sync` and extern block keep their SAFETY arguments; findings 2 to 4 unchanged |
+| CK-CODE-J1 | Yes | D3, D10 |
+
+### Findings (current state at iteration 2)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Deferred to |
+|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | CK-CODE-D7 | `lib.rs` (588 to 704 lines at `9305f59`; 564 at `c6e5100`) | CS-18 file length: 116 avoidable lines added to a file already over 500 | Verified (`c6e5100`) | |
+| finding-2 | reviewer | Minor | CK-CODE-B2 | `reg.rs:106`, `:165-171`, `:180-194` | `Mmio` SAFETY text and `address` doc invalid for `RegAddr::NVIC` | Open (lien, rule C1) | CDR readiness declaration |
+| finding-3 | reviewer | Minor | CK-CODE-B6 | `critical_section.rs:60-62`, `:67-69` | `asm!` outside boot code against the letter of CS-10 | Open (lien, rule C1) | CDR readiness declaration |
+| finding-4 | reviewer | Minor | CK-CODE-B2 | `critical_section.rs:94-99`, `:116-124` | `CsCell` SAFETY omits NMI and HardFault, which `PRIMASK` does not mask | Open (lien, rule C1) | CDR readiness declaration |
+| finding-5 | reviewer | Minor | CK-CODE-E1 | ADR-052 section 2 item 4; `critical_section.rs:52` | `critical_section::with` in `pico2` and target-only, where the 07 section 19 row puts it in the `api` column | Open (lien, rule C1) | CDR readiness declaration |
+| finding-6 | reviewer | Minor | CK-CODE-I3 | `critical_section.rs:61`, `:68`; SW-02 line 31 | pedantic lint on new code, while SW-02 reports the new code pedantic-clean | Open (lien, rule C1) | CDR readiness declaration |
+
+No new finding.
+
+### Measurements (SWE-089), iteration 2
+
+Lines reviewed: the 316 changed lines of `8b67385..c6e5100` and the 18 changed lines of ADR-052 and SW-02; the merge `8b67385` was checked only for conflict-free content (its WP-SW-11 part is INSP-095's delta). Unsafe sites: 2 moved (the `Sync` impl and the extern block), text re-read, none added. Findings: 0 new. Effort of this iteration: about 15 turns and 25 minutes (front matter totals include iteration 1).
+
+### Record verdict, iteration 2
+
+`reviewer_verdict: APPROVED`: finding-1 is Verified and no Major is open. Minor findings 2 to 6 become liens under rule C1 (owner the firmware developer, due at the CDR readiness declaration). `verdict` stays `NEEDS CHANGES` until the paired software assurance record INSP-102 re-checks the moved unsafe sites in its iteration 2 delta, readiness R3 and R5 hold, and the owner's merge with the PCR-4 pin-move CR brings `c6e5100` into a configuration cwht consumes.

@@ -12,31 +12,42 @@ checklist: peer-review-checklist-code
 checklist_revision: B
 checklist_file: docs/reviews/PDR/checklists/code-wp-sw-11.md
 product: "rustos cwht/wp-sw-11: firmware/pico2/src/clocks/ and firmware/pico2/src/common/reg.rs (WP-SW-11), with cwht/l-016-6 firmware/pico2/src/lib.rs"
-# product_commit: the rustos branch head of cwht/wp-sw-11 (its parent 5b39e8e is cwht/l-016-6)
-product_commit: "213c536b892af603e46c4f38d9ea1ba886f8d823"
-product_files: ["docs/decisions/adr/ADR-051-wp-sw-11-clocks.md@7f6320cd282cd911cb398c74c986d234fef89795", "docs/sprints/SW-01-wp-sw-11-clocks.md@486f35a1ff2e1b769989eb5cd966c95994041a46", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:l-016-6:firmware/pico2/src/lib.rs@a3b431838acf3d14935b38d19f46706233438fbd", "rustos:firmware/pico2/src/clocks/clocks.rs@685f6ba2c7e667ba902c19bcbbd729a1d2dd26e2", "rustos:firmware/pico2/src/clocks/clocks_tests.rs@9131b879685d517e6d36223f235b289d5babacd3", "rustos:firmware/pico2/src/clocks/mod.rs@b4cd2ebb4cd67b7fde83a2192ef6ae983420a6f6", "rustos:firmware/pico2/src/clocks/regs.rs@959db5cb599505f42b45996a0306ae061ef32279", "rustos:firmware/pico2/src/clocks/tests.rs@158d75d86168535e2a9d008de077e029baae4b33", "rustos:firmware/pico2/src/common/board.rs@06e278af61c3bcaae1d1f67a6e952e70d6bca7c6", "rustos:firmware/pico2/src/common/reg.rs@0f4e3338249d1445ec47a569712f5147549f764b", "rustos:firmware/pico2/src/common/reg/fake.rs@8a61de1ec452aa44d6f42018ca1b46eb83f77575", "rustos:firmware/pico2/src/lib.rs@0a04c25c374e0fab3a36e4819004767ed305cfd2"]
+# product_commit (iteration 2): the rustos branch head of cwht/wp-sw-11, 4a8e825, the finding-1 fix on top of
+# 213c536 (iteration 1). The blobs below equal git rev-parse 4a8e825:<path> (rustos) and git rev-parse
+# e3ce2cb:<path>, HEAD:<path> and git hash-object at HEAD 5c16930 (cwht); product_files_iteration_1 keeps the
+# 213c536 blobs
+product_commit: "4a8e8258ec3640afe15b7588db1e967679bc1d23"
+product_files: ["docs/decisions/adr/ADR-051-wp-sw-11-clocks.md@7085cf5ad97de39c8ce35b02cb56df506a68b62f", "docs/sprints/SW-01-wp-sw-11-clocks.md@2384efff9c888c88a32717ed5a3b3573e56660d3", "docs/sprints/index.md@7ae0cbcc6087d45ab4df10cac623d453ca13c395", "rustos:firmware/pico2/src/clocks/clocks.rs@631080987c36a8696b5884aa6dd7a66bf5f3cd4c", "rustos:firmware/pico2/src/clocks/clocks_tests.rs@bf61fcbf2bc6fa3f9586eadbf47278509bc4e5b6", "rustos:firmware/pico2/src/clocks/mod.rs@6aad5a88af7891dc0b48f7734ab164085249114c", "rustos:firmware/pico2/src/clocks/regs.rs@7b2ea2056760edd8d1b06d2cefb0a034e2521f53", "rustos:firmware/pico2/src/clocks/tests.rs@158d75d86168535e2a9d008de077e029baae4b33", "rustos:firmware/pico2/src/common/reg.rs@0f4e3338249d1445ec47a569712f5147549f764b", "rustos:firmware/pico2/src/common/reg/fake.rs@8a61de1ec452aa44d6f42018ca1b46eb83f77575", "rustos:firmware/pico2/src/common/board.rs@06e278af61c3bcaae1d1f67a6e952e70d6bca7c6", "rustos:firmware/pico2/src/lib.rs@0a04c25c374e0fab3a36e4819004767ed305cfd2"]
+product_files_iteration_1: ["docs/decisions/adr/ADR-051-wp-sw-11-clocks.md@7f6320cd282cd911cb398c74c986d234fef89795", "docs/sprints/SW-01-wp-sw-11-clocks.md@486f35a1ff2e1b769989eb5cd966c95994041a46", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:l-016-6:firmware/pico2/src/lib.rs@a3b431838acf3d14935b38d19f46706233438fbd", "rustos:firmware/pico2/src/clocks/clocks.rs@685f6ba2c7e667ba902c19bcbbd729a1d2dd26e2", "rustos:firmware/pico2/src/clocks/clocks_tests.rs@9131b879685d517e6d36223f235b289d5babacd3", "rustos:firmware/pico2/src/clocks/mod.rs@b4cd2ebb4cd67b7fde83a2192ef6ae983420a6f6", "rustos:firmware/pico2/src/clocks/regs.rs@959db5cb599505f42b45996a0306ae061ef32279", "rustos:firmware/pico2/src/clocks/tests.rs@158d75d86168535e2a9d008de077e029baae4b33", "rustos:firmware/pico2/src/common/board.rs@06e278af61c3bcaae1d1f67a6e952e70d6bca7c6", "rustos:firmware/pico2/src/common/reg.rs@0f4e3338249d1445ec47a569712f5147549f764b", "rustos:firmware/pico2/src/common/reg/fake.rs@8a61de1ec452aa44d6f42018ca1b46eb83f77575", "rustos:firmware/pico2/src/lib.rs@0a04c25c374e0fab3a36e4819004767ed305cfd2"]
 product_size: 1981 lines changed (5b39e8e 29 added; 213c536 1952 added, 1 removed), of which 1013 non-test lines (clocks/mod.rs 321, regs.rs 219, clocks.rs 467 with its test module split out, reg.rs 195 changed); ADR-051 94 lines; SW-01 62 lines
 sprint: SW-01-wp-sw-11-clocks
 author_agent: "author:WP-PDR-41 wave 1a (Claude, firmware developer role)"
-reviewer_agent: "reviewer:WP-PDR-41-code (independent code reviewer, iteration 1; authored no part of WP-PDR-41)"
+reviewer_agent: "reviewer:WP-PDR-41-code (independent code reviewer, iterations 1 and 2; authored no part of WP-PDR-41)"
 # criticality: 07 section 14.1 names clocks and PLL a safety-critical driver (drivers row; ADR-051 decision class 1)
 criticality: safety-critical
 assurance_required: true
-assurance_reviewer_agent: "pending: separate software assurance invocation, record docs/reviews/PDR/checklists/code-wp-sw-11-software-assurance.md (plan WP-PDR-41 Records; 07 section 2.1.1 Code row)"
-iteration: 1
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-11, record INSP-106 docs/reviews/PDR/checklists/code-wp-sw-11-software-assurance.md (07 section 2.1.1 Code row; iteration 2 delta pending)"
+paired_record: INSP-106
+iteration: 2
 # readiness_met: false: R3 (ADR-051 Proposed, not Active), R5 (no independent test-author file yet) and R1 at crate
-# level (pre-existing rustos fmt and clippy debt) do not hold; section "Readiness" below
+# level (pre-existing rustos fmt and clippy debt) do not hold; section "Readiness" below; unchanged at iteration 2
 readiness_met: false
-# reviewer_verdict: NEEDS CHANGES (finding-1 Major)
-reviewer_verdict: NEEDS CHANGES
+# reviewer_verdict: APPROVED at iteration 2 (finding-1 Verified at 4a8e825; findings 2 to 7 Minor, carried Open); open Minor findings become liens under rule C1,
+# owner the firmware developer, due at the CDR readiness declaration
+reviewer_verdict: APPROVED
+# assurance_verdict: INSP-106 (the paired software assurance record) was NEEDS CHANGES at iteration 1; its iteration 2 delta on
+# the fix commit is a separate invocation and has not run, so this record carries pending
 assurance_verdict: pending
-# verdict: NEEDS CHANGES (open Major; assurance pending; blobs on unmerged rustos branches)
+# verdict: held at NEEDS CHANGES. The reviewer verdict is APPROVED at iteration 2, but the software assurance delta
+# of the paired record is not yet filed, readiness R3 and R5 do not hold, and the reviewed blobs exist only on unmerged
+# rustos branches (lead SE convention of 2026-09-27). The software lead sets verdict when the owner's merge and the PCR-4
+# pin-move CR bring the blobs into a configuration cwht consumes, or in the commit right after it
 verdict: NEEDS CHANGES
 findings_major: 1
 findings_minor: 6
-findings_open: 7
+findings_open: 6
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
@@ -45,9 +56,9 @@ assurance_tasks_applied: []
 # lib.rs sites that L-016-6 gates on target_os = "none" (text unchanged, checked for the gating only)
 unsafe_sites_reviewed: 11
 deferred_rids: []
-items_no: [CK-CODE-B7, CK-CODE-C4, CK-CODE-D4, CK-CODE-D7, CK-CODE-D8, CK-CODE-E4, CK-CODE-E9, CK-CODE-H2, CK-CODE-I1, CK-CODE-I3]
-effort_turns: 40
-effort_minutes: 90
+items_no: [CK-CODE-B7, CK-CODE-C4, CK-CODE-D4, CK-CODE-D7, CK-CODE-E9, CK-CODE-H2, CK-CODE-I1, CK-CODE-I3]
+effort_turns: 65
+effort_minutes: 130
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -193,3 +204,76 @@ Lines reviewed: 1013 non-test lines of `213c536` and the 29-line L-016-6 change,
 ## Record verdict
 
 `reviewer_verdict: NEEDS CHANGES` on finding-1. Iteration 2 is a delta (rule C1) that verifies the finding-1 fix on a new frozen commit and re-runs C1 to C3 and C7. Minor findings 2 to 7 may be fixed in the same commit or, after an APPROVED verdict, become liens under rule C1. `verdict` stays `NEEDS CHANGES` until the software assurance record (`code-wp-sw-11-software-assurance.md`) is filed APPROVED and the reviewed blobs reach a configuration cwht consumes (owner merge, PCR-4).
+
+## Iteration 2: delta verification of finding-1 (Major) (2026-09-27, cwht HEAD `5c16930`)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the finding-1 fix only. Findings 2 to 7 (Minor) were not touched by the author (ADR-051 section 8, SW-01 "Phase 1, revision 2") and are not re-reviewed. Product: rustos `cwht/wp-sw-11` at `4a8e825` (revision 1 `213c536` is its parent; `git diff --stat 213c536 4a8e825`: `clocks.rs` 51, `clocks_tests.rs` 168, `mod.rs` 6, `regs.rs` 3 lines changed), with ADR-051, SW-01 and the sprint index at cwht `e3ce2cb`, the blobs of front matter `product_files`. The checklist is `peer-review-checklist-code.md` revision B, as at iteration 1.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-41, of revision 2 or of the rustos fix commits, and edited no product file. The rustos repository was read with `git show` and in a detached scratch worktree created with `git worktree add --detach` in the scratchpad and removed after the review; the owner's rustos working tree was not read. A throw-away link application (D10 of INSP-096) was built in the scratchpad, outside both repositories.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran (queries: iteration 2 delta record practice for the `code-wp-sw` records; REQ-SW-KEYER-033 sidetone gate) before any search of product or requirement content. One `grep -n` on the known plan file `docs/plan/pdr-work-plan.md`, to locate the WP-PDR-41 section, ran before the first `search_code` query; that is out of the rule's order and is reported here. Afterwards `grep` only pinned lines in known paths (the plan, the 07 `SW-AUDIO` rows, the validator, the rustos datasheet extract through `git show`). The index returned the new ADR-055 section 2.1 text, so it holds the revision 2 files.
+
+### Commands run by the reviewer (evidence)
+
+| # | Command (read-only for both repositories; outputs in the scratchpad) | Result |
+|---|---|---|
+| D1 | `git rev-parse <commit>:<path>` for each of the 55 rustos blobs of the brief at its named commit; `git rev-parse e3ce2cb:<path>`, `git rev-parse HEAD:<path>` (HEAD `5c16930`) and `git hash-object <path>` for the 11 cwht blobs | all 66 equal to the brief; `git log e3ce2cb..HEAD` touches none of the cwht product files |
+| D2 | `cargo +1.98.0 test --offline -p pico2 --lib` and `-p api` in a detached scratch worktree of the rustos repository at `4a8e825`, `c6e5100`, `58fe739`, `38434b2`, `48e07ec` | pico2 37, 49, 75, 81, 101 passed; api 0, 4, 9, 14, 19 passed; 0 failed at every commit |
+| D3 | `cargo +1.98.0 build --offline -p pico2 --target thumbv8m.main-none-eabihf`, dev and `--release`, at the same five commits | no warning, no error |
+| D4 | `cargo +nightly-2026-08-24 miri test --offline -p pico2 --lib` at the stack head `48e07ec` | 101 passed, no undefined behaviour |
+| D5 | `rust-code-analysis-cli --metrics --output-format json --paths <wt>/api --paths <wt>/firmware/pico2 \| .venv/bin/python tools/complexity_gate.py --max 15 --yellow 12` at `48e07ec` | PASS; 399 functions; the only function above 12 is the contract check `api/tests/irq_contract.rs:48` `check_out_of_range` (CC 13, test code, as INSP-096 C5); 4 name-based CS-19 reports, method-name collisions |
+| D6 | `.venv/bin/python tools/unsafe_audit.py --write` then `--check`, `--audited` the worktree `api` and `firmware/pico2`, `--audit-file` in the scratchpad, at `48e07ec` | PASS; 46 sites, 0 without SAFETY, 0 in forbidden crates, all unsigned (signatures due before CDR, CS-07) |
+| D7 | `cargo +1.98.0 clippy --offline -p pico2 -p api --all-targets --message-format=short -- -W clippy::pedantic` (host) at `48e07ec`, filtered to the files the fix commits change | no lint on a line the fix commits add or change; the remaining reports are on unchanged lines or are iteration 1 Minor findings (`module_inception` at `clocks/mod.rs:41` and `timer/mod.rs:32`, INSP-095 finding-6 and INSP-097 finding-5; `timer_tests.rs:16` cast, INSP-097 finding-5) |
+| D8 | `rustfmt +1.98.0 --edition 2024 --check` on the 13 new or changed Rust files other than `gpio/gpio.rs` | no difference; `gpio.rs` keeps its pre-existing non-rustfmt style (INSP-098 finding-2) |
+| D9 | Mutation: the iteration 1 `clocks.rs` (blob `685f6ba`) put back over the `4a8e825` one, with one `#[cfg(test)] use super::CLK_SYS_CTRL_SRC;` line added so the new tests compile; then only the step 8 `ENABLE` clear replaced by the iteration 1 one-word write | first run: 3 of 29 `clocks` tests fail, among them `no_aux_select_changes_while_its_generator_is_on_the_aux_path` with "AUXSRC of 0x3c changed on the aux path" (step 3) and the golden sequence; second run: the same aux-rule test fails with "AUXSRC of 0x48 changed on the aux path" (step 8). Worktree restored with `git checkout` after each run |
+| D10 | Datasheet: rustos `docs/extracted/rp2350-datasheet.md` at `2ec64c0` (`git show`), section 8.1.2.2, extract lines 37742 to 37792 | the three conditions before an aux change and the two recommended sequences (with and without a glitchless mux), read against steps 3, 4, 7 and 8 below |
+
+### Verification of finding-1, case by case (rule C7)
+
+The finding named four defects and a test gap; each is checked against section 8.1.2.2 and the code at `4a8e825`.
+
+| Case | Required by finding-1 | At `4a8e825` | Result |
+|---|---|---|---|
+| Step 3, `clk_sys` leaves aux | clear only `SRC`, keep `AUXSRC`, poll `SELECTED` for `clk_ref` | `clocks.rs:251` writes `CLK_SYS_CTRL_SRC` (bit 0, `regs.rs` new constant, Table 558) to `CLK_SYS_CTRL + ALIAS_CLR`; `:252-260` poll `CLK_SYS_SELECTED` for `1 << CLK_SYS_SRC_REF` under mask `0b11`. This is steps 1 and 2 of the glitchless-mux sequence; on a cold boot `AUXSRC` stays ROSC while the mux leaves it | Verified |
+| Step 7, first `AUXSRC` write | only after `SELECTED` shows `clk_ref` | `move_clk_sys_to_pll` (`clocks.rs:315-341`) writes `CLK_SYS_DIV`, then `CLK_SYS_CTRL = AUXSRC_PLL_SYS \| SRC_REF` (glitchless mux still on `clk_ref`, polled in step 3, not moved since), then `SRC_AUX`, then polls `SELECTED` for aux: steps 3 to 5 of the sequence | Verified |
+| Step 8, `clk_peri` (no glitchless mux) | clear `ENABLE` alone, wait for `ENABLED` to clear, then `AUXSRC`, `DIV`, `ENABLE` | `clocks.rs:351` clears `CLK_PERI_ENABLE` through `ALIAS_CLR`; `:352-360` wait for `ENABLED` = 0; `:361` writes `CTRL = AUXSRC_CLK_SYS` (enable still clear), `:362` `DIV`, `:363` sets `ENABLE` through `ALIAS_SET`; `:364-372` wait for `ENABLED`. This is the five-step sequence without a glitchless mux, with the `ENABLED` poll the datasheet asks for ("polling the clock generator's CTRL_ENABLED status until it matches the value of CTRL_ENABLE") | Verified |
+| Step 4, `clk_ref` (not named by the finding; checked because it also writes a control word with an `AUXSRC` field) | no `AUXSRC` change while `clk_ref` is on aux | `CLK_REF_CTRL = SRC_XOSC` writes `AUXSRC = 0`; `clk_ref` is never put on aux by this driver and resets to the ROSC (Table 555), and the D-series test below covers it in both start states | No defect |
+| Test register file | reset values of `CLK_SYS_CTRL` (`0x41`), `CLK_REF_CTRL`, `CLK_PERI_CTRL` | `clocks_tests.rs:15-17` and `healthy()` preset them; `0x41` is `AUXSRC = 0x2` (bits 7:5) with `SRC = 1`, as Table 558 | Verified |
+| Test of the rule | a test fails any `AUXSRC` change while `SELECTED` or `ENABLED` shows the aux path | `assert_aux_changes_only_off_the_aux_path` replays the access log for all three generators, models the set and clear aliases, and allows an `AUXSRC` change only after a status read made since the last change of the holding condition; `no_aux_select_changes_while_its_generator_is_on_the_aux_path` runs it from the cold state and from a restart state (`clk_sys` on `PLL_SYS` through aux, `clk_ref` on the crystal, `clk_peri` running from `PLL_SYS`), which exercises the step 8 path with a real `AUXSRC` change; two should-panic tests show it rejects the iteration 1 step 3 and step 8 writes; D9 shows it fails the iteration 1 code and a step-8-only reversion | Verified |
+| ADR-051 section 2 wording | "Every control field is written explicitly" reworded | ADR-051 section 2 now says the driver relies on no reset value, leaves the aux path by clearing `SRC` alone, and changes an aux select only off the aux path, quoting section 8.1.2.2; `clocks/mod.rs` module doc says the same; section 4.3 adds a dev-board case from a watchdog restart that leaves `clk_sys` on `PLL_SYS` | Verified |
+| CS-37 (CK-CODE-D8) | the fault return of CS-37 is reachable | with no aux change on the aux path, `clk_sys` cannot be glitched or stopped by the driver's own writes, and every wait remains a bounded `poll` with its `ClockFault` | Verified |
+
+Evidence claims of ADR-051 section 4.3 and SW-01 checked: 37 host tests at `4a8e825` (D2), 101 at `48e07ec` natively and under Miri (D2, D4), clean target builds (D3), the mutation result (D9), file lengths `clocks.rs` 466, `clocks_tests.rs` 499, `mod.rs` 323, `regs.rs` 222 (`wc -l`), unsafe audit 46 sites (D6). The ADR's "max CC 12 over `api` and `pico2`" holds for flight code; the gate's maximum over the whole of `api` is 13 in test code (D5), already recorded in INSP-096; not a finding.
+
+### Checklist items re-answered for the fix
+
+| Id | Iteration 2 answer | Evidence |
+|---|---|---|
+| CK-CODE-E4 | Yes | table above; field positions and values of iteration 1 C9 unchanged (`regs.rs` gains only `CLK_SYS_CTRL_SRC`, bit 0 of Table 558) |
+| CK-CODE-D8 | Yes | table above, row CS-37 |
+| CK-CODE-C1, C5, D2, D4, E9 on the changed lines | Yes | no `unwrap`, indexing, `as`, loop or `allow` added in non-test code by the fix |
+| CK-CODE-H1, H3 | Yes | the new tests run on the host against `FakeRegs`; the golden sequence is updated to the datasheet order |
+
+Items that were No at iteration 1 for other reasons (B7, C4, D4, D7, E9, H2, I1, I3) keep their iteration 1 answers; they belong to Minor findings 4 to 7 or to readiness R5.
+
+### Findings (current state at iteration 2)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Deferred to |
+|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | CK-CODE-E4, CK-CODE-D8 | `clocks.rs:251`, `:315-341`, `:351-363`; `clocks_tests.rs` | aux mux changed while selected (section 8.1.2.2) | Verified (`4a8e825`) | |
+| finding-2 | reviewer | Minor | CK-CODE-E6 | ADR-051 line 27; `clocks.rs:32-35` | frequency-counter check cannot confirm the crystal frequency | Open (lien, rule C1) | CDR readiness declaration |
+| finding-3 | reviewer | Minor | CK-CODE-E2 | `mod.rs:96-102`; ADR-051 lines 28, 94 | poll-budget margin of the step 10 waits below the ADR's own 10x revisit condition | Open (lien, rule C1) | CDR readiness declaration |
+| finding-4 | reviewer | Minor | CK-CODE-C4 | `mod.rs:195-210`, `:250`; `reg.rs:213` | plain arithmetic without the CS-14 justification | Open (lien, rule C1) | CDR readiness declaration |
+| finding-5 | reviewer | Minor | CK-CODE-D4, CK-CODE-E9 | `reg.rs:108-109` | `allow(dead_code)` without a CS-21 waiver, on an unused constant | Open (lien, rule C1) | CDR readiness declaration |
+| finding-6 | reviewer | Minor | CK-CODE-I3 | `clocks/mod.rs:41`; SW-01 line 32 | `module_inception` fails `-D warnings`; the sprint record calls it clean | Open (lien, rule C1) | CDR readiness declaration |
+| finding-7 | reviewer | Minor | CK-CODE-D7 | `lib.rs` (550 at `2ec64c0`, 588 at `213c536`, 564 at `c6e5100`) | CS-18 file length exceeded; not recorded in SW-01 | Open (lien, rule C1) | CDR readiness declaration |
+
+No new finding. The finding-7 excess is now smaller than before the packages (INSP-096 iteration 2), but `lib.rs` is still over 500 lines and SW-01 still does not record its length.
+
+### Measurements (SWE-089), iteration 2
+
+Lines reviewed: the 228 changed lines of `213c536..4a8e825` and the 26 changed lines of ADR-051, SW-01 and the index row; the unchanged `common/reg.rs` and `fake.rs` were read for the alias and log semantics the new test relies on. Unsafe sites: none added or changed. Findings: 0 new. Effort of this iteration: about 25 turns and 40 minutes (front matter totals include iteration 1).
+
+### Record verdict, iteration 2
+
+`reviewer_verdict: APPROVED`: finding-1 is Verified and no Major is open. Minor findings 2 to 7 become liens under rule C1 (owner the firmware developer, due at the CDR readiness declaration). `verdict` stays `NEEDS CHANGES` until the paired software assurance record INSP-106 files its iteration 2 delta APPROVED, readiness R3 and R5 hold, and the owner's merge with the PCR-4 pin-move CR brings `4a8e825` into a configuration cwht consumes; the software lead then sets it (lead SE convention of 2026-09-27).
