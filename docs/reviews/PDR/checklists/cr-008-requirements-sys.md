@@ -9,14 +9,17 @@
 # cases (the INSP-025 delta) is docs/reviews/PDR/checklists/cr-008-test-sys.md (INSP-045).
 # The product is CR-008 (Submitted, proposed Class I), prototyped on branch
 # cr/CR-008-srr-liens-l1-and-tc-sys at c629198 and frozen there (plan rule C2).
+# Iteration 2 (2026-09-27, main ae29a98): delta under plan rule C1 on the drift of the CR file only,
+# 3b9266ff (4dab5dc) to 5e6ceb62 (cccbfda section 6.1 impact review round 1, blob ade26204; a244b05
+# revision 2, blob 5e6ceb62). The four branch blobs at c629198 are unchanged and remain the frozen product.
 id: INSP-044
 checklist: peer-review-checklist-requirements
 checklist_revision: C
 checklist_file: docs/reviews/PDR/checklists/cr-008-requirements-sys.md
 product: CR-008
-# product_commit: the branch head that holds the frozen blobs (base ab2af2d on main); the CR file is on main at 4dab5dc
+# product_commit: the branch head that holds the frozen blobs (base ab2af2d on main); the CR file is on main at a244b05 (iteration 2)
 product_commit: "c6291980c83e6e1e55b66ceff2e0b89222669b97"
-product_files: ["docs/requirements/sys/requirements.json@a73449377e8d055f5d247130b8850bf3f5a151d9", "docs/requirements/sys/requirements.md@4e110b16027fbe446e846a8c5f9d2dc5c2899af6", "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065", "docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316", "docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@3b9266ff0d9d29e7d1b70febd1fe7cfbd86ab3dd"]
+product_files: ["docs/requirements/sys/requirements.json@a73449377e8d055f5d247130b8850bf3f5a151d9", "docs/requirements/sys/requirements.md@4e110b16027fbe446e846a8c5f9d2dc5c2899af6", "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065", "docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316", "docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@5e6ceb627a75e769d9898c107b9e87e3bb152f69"]
 product_size: 145 requirements added or changed (1 added, 14 statements, 55 rationales, 10 notes, 40 source_ids, 104 tbr objects); 191 entries, 189 live
 sprint: PDR-prep
 author_agent: "author:WP-PDR-11 (L1 requirements author and TC-SYS test author, one invocation; CR-008 section 4 independence note)"
@@ -26,14 +29,15 @@ reviewer_agent: "reviewer:WP-PDR-11-INSP-003-delta"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+iteration: 2
 readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 # verdict: held at NEEDS CHANGES on the completion criterion "validate_docs.py passes on the record" only.
 # The reviewed blobs are on the CR branch, not in main HEAD; tools/validate_docs.py fails an APPROVED
 # record whose product_files are not in HEAD (record drift rule). The software lead sets APPROVED when
-# CR-008 merges with these blobs unchanged (section "Record verdict"; precedent INSP-031).
+# CR-008 merges with these blobs unchanged (section "Record verdict"; precedent INSP-031). Iteration 2 keeps the
+# hold: the four requirement and test-case blobs are still only on the unmerged branch (lead SE convention).
 verdict: NEEDS CHANGES
 findings_major: 0
 findings_minor: 1
@@ -46,8 +50,9 @@ assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-D4]
-effort_turns: 60
-effort_minutes: 120
+# effort: iteration 1 (60 turns, 120 min) plus iteration 2 delta (14 turns, 25 min)
+effort_turns: 74
+effort_minutes: 145
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -376,4 +381,47 @@ FINDINGS:
 - [Minor] finding-1 CK-REQ-D4 REQ-SYS-167 (and 089) description: "stop charging" has no level; TC-SYS-065 supplies 5 mA from REQ-SYS-087, 088, 093. State the level in the statements.
 ITEMS N/A: CK-REQ-C4, C7, C8, D2, D3, G1 to G8
 MEASUREMENTS: size=145 requirements added or changed (191 entries, 189 live); rows=145; rows_with_wr_failures=0; v_fail=V1:0 V2:0 V3:0 V4:0 V5:0 V6:0; turns=60; minutes=120; major=0; minor=1
+```
+
+## Iteration 2: drift delta on the CR file (2026-09-27, main `ae29a98`)
+
+**Scope (plan rule C1, record drift rule).** The record named the CR file at blob `3b9266ff` (`4dab5dc`). Main has since changed that one file twice: `cccbfda` appended section 6.1, the independent impact review round 1 (blob `ade26204`), and `a244b05` recorded revision 2, the author's fix of R1-F1 (blob `5e6ceb62`, the blob at `main` `ae29a98`). The brief named `ade26204`. Revision 2 had already landed on `main` when this iteration started, so this delta covers both commits and names `5e6ceb62`. The four requirement and test-case blobs are unchanged: `git rev-parse cr/CR-008-srr-liens-l1-and-tc-sys` is still `c629198`, and `git rev-parse c629198:<path>` equals each of the four `product_files` blobs. Nothing in iterations 1 or 2 changes the L1 content, so the iteration 1 rows stand. The only thing to decide was whether the new CR text changes any answer in this record.
+
+**Independence (rule C4).** This invocation authored no part of CR-008, its section 6.1 or 6.2, or the branch, and it edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran first (query: "PDR work plan rule C1 delta iteration record drift product_files verdict"). After that search, `grep -n` and `sed -n` only pinned lines in known files: the plan's rule C1 (line 975), the validator's drift rule (line 924), and the ICD lines that revision 2 cites.
+
+### Hunks read (`git diff 3b9266ff 5e6ceb62`: 5 hunks, 63 insertions, 6 deletions; read as `3b9266ff..ade26204`, 2 hunks, then `ade26204..5e6ceb62`, 5 hunks)
+
+| Hunk | Change | Effect on this record (L1 lens) |
+|---|---|---|
+| `cccbfda` @@ -180 | Section 6.1, impact review round 1: R1-F1 (Major, the Interfaces row said "None" although ICD-CTL-PHONES, ICD-PWR-CELL and ICD-CTL-KEY bind or quote changed statements, including the 50 ms PHONES_DET debounce against the new REQ-SYS-077 20 ms bound); R1-F2 to R1-F5 (Minor); items checked with no finding | Iteration 1 answered CK-REQ-C2 "No ICD value changes; REQ-SYS-077 is internal (CR-008 section 4 Interfaces)". That answer relied on the CR row that R1-F1 shows to be wrong, so it was an escape of this review. It is corrected below on the revision 2 evidence. The "items checked with no finding" repeat this record's counts (14 statements, 1 added, 55 rationales, 10 notes, 40 `source_ids`, 104 owners, 4 plans; volatility 8.0 percent; 0 violations and 4 warnings) and agree with them |
+| `cccbfda` @@ -234 | Section 11 status row for round 1 | Status record only; no effect |
+| `a244b05` @@ -8 | Front matter: `affected_cis` adds row 10; `affected_paths` adds the three ICDs and `render_icd_figures.py`; `affected_ids` adds the three ICD ids; `related` adds WP-PDR-36 and WP-PDR-40 | No L1 field is affected. `affected_ids` still lists 15 of the 145 changed requirements, which is R1-F2 (open in section 6.1, CR-document scope) |
+| `a244b05` @@ -138 | Section 4 Interfaces row rewritten: (a) ICD-CTL-PHONES, where question 2a is an asymmetric detect (50 ms debounce on insertion; at most 10 ms (TBR) on removal; enable low within 20 ms of the removal edge) and question 2b is a 70 ms bound; (b) ICD-PWR-CELL line edits; (c) ICD-CTL-KEY lines 161 and 261 take the SRR decision 37 wording | Each line citation checked at `ae29a98`. ICD-CTL-PHONES line 140 has "debounced 50 ms" with no direction, line 143 is the detect and enable behaviour, and line 215 quotes the old REQ-SYS-077. `render_icd_figures.py` line 404 has "detect debounced 50 ms". ICD-PWR-CELL line 139 credits 0 C to 45 C to REQ-SYS-083; lines 142 and 143 have "rails held off", "refused" and "stopped"; line 234 has "over 60 min". ICD-CTL-KEY lines 161 and 261 have "128 ... or 10 s (TBR)" with D-KN3. Also checked: `hazards.json` HZ-005 K6 places the 50 ms debounce on insertion ("on insertion the output ramps from zero over 100 ms after a 50 ms debounce"); the frozen REQ-SYS-077 statement ("within 20 ms of plug removal and while no plug is inserted") and its rationale ("20 ms covers the jack-detect debounce and the enable path") hold unchanged under 2a; and the REQ-SYS-054 text quoted for ICD-CTL-KEY line 161 equals the frozen statement word for word. The replacement wording for ICD-PWR-CELL ("held below 0.5 V (TBR)", "below 5 mA", "+/-2 min", REQ-SYS-194) equals the frozen REQ-SYS-166, 087, 088, 167 and 194 |
+| `a244b05` @@ -164 | Section 5 step 9: ICD alignment by the ICD writer (WP-PDR-36a/36b) before the ICD baseline, checked under `peer-review-checklist-design.md` section I | Downstream item only, off this branch. The row sits between steps 7 and 8, and step 8 (after approval) follows in time; this ordering is editorial and raises no finding |
+| `a244b05` @@ -223 | Section 6.2 author response: R1-F1 fixed; R1-F2 to R1-F5 not addressed (rule C1) | The round 2 re-check belongs to the impact reviewer; this record does not stand in for it |
+| `a244b05` @@ -278 | Section 11 row for revision 2 and section 12 questions 2a and 2b | Question 2b ("within 70 ms of plug removal") would revise REQ-SYS-077, its rationale and TC-SYS-056 on the branch. If the owner picks 2b, the frozen blobs change and this record needs a further delta. Under 2a no L1 blob changes |
+
+### Items revisited
+
+| Item | Iteration 2 answer | Evidence |
+|---|---|---|
+| CK-REQ-C2 | Yes (corrects the iteration 1 evidence) | Iteration 1 said "No ICD value changes", which was wrong: ICD-CTL-PHONES line 140 conflicts with REQ-SYS-077 if the 50 ms debounce applies at removal. At revision 2 the conflict is named and resolved before the disposition. Under 2a the statement stays as frozen, and the ICD changes through step 9 before the ICD baseline. The ICDs are preliminary stubs, not baselined (CR-008 section 4, row 10), so no baselined interface disagrees with the L1 file. Under 2b the statement changes before the merge, which requires a further delta of this record. The ICD-PWR-CELL and ICD-CTL-KEY edits are wording and citations that follow the frozen statements |
+| CK-REQ-B7 | Yes | The downstream list now includes the three ICDs (section 4 Interfaces, step 9). R1-F5 (b), no PWR L2 child or `leaf` routing for REQ-SYS-194 and no G9 routing, stays open in CR section 6.1. It is a CR-document gap already recorded there, so it is not counted again here (cross item X-6) |
+| CK-REQ-D4 (finding-1) | No (unchanged) | Revision 2 does not change REQ-SYS-089 or 167, and the ICD-PWR-CELL line 234 edit adds only "+/-2 min". Finding-1 stays Open and is a lien under rule C1 unless the MF-CR-008 fix revises the branch |
+
+No new finding. Open Major 0; finding-1 (Minor) Open.
+
+### Cross items added
+
+- X-6 (CR-008 author and impact reviewer): R1-F2 (`affected_ids` completeness), R1-F3 (REQ-SYS-093 "below 5 mA" does not carry the no-boost-ripple assumption; route it to the PWR and SW L2 children) and R1-F5 (REQ-SYS-194 routing and the 110 TBR count) are open in CR section 6.1. From the L1 lens this reviewer concurs with each one. Only R1-F3 touches an L1 statement, and its fix belongs in an L2 child, not in REQ-SYS-093.
+- X-7 (lead SE, lessons learned): the iteration 1 CK-REQ-C2 answer took the CR's Interfaces row on trust and did not check the ICDs named in `design_refs` (REQ-SYS-077 cites ICD-CTL-PHONES). Candidate lesson: for a CR requirement review, grep every changed statement's `design_refs` ICD for the old value.
+
+### Record verdict, iteration 2
+
+`reviewer_verdict: APPROVED`: no Major finding is open, and the drifted CR blob changes no L1 content and no Verified lien row. `product_files` now names the CR at `5e6ceb62` and the four branch blobs at `c629198`. `verdict` stays NEEDS CHANGES under the lead SE convention, because the four reviewed blobs exist only on the unmerged branch `cr/CR-008-srr-liens-l1-and-tc-sys`. The software lead sets APPROVED when CR-008 merges with them unchanged. Any branch change, including the pending MF-CR-008 fix or an owner choice of question 2b, needs a further delta iteration first.
+
+```
+VERDICT (iteration 2): APPROVED (record verdict held at NEEDS CHANGES until CR-008 merges; drift rule)
+FINDINGS: finding-1 [Minor] unchanged, Open (lien under C1 unless fixed on the branch); no new finding
+MEASUREMENTS (iteration 2): hunks=5 (2 + 5 read across the two commits); files_changed=1; product blobs re-identified=4 of 4 unchanged; turns=14; minutes=25; major=0; minor_new=0
 ```
