@@ -1,0 +1,14 @@
+#!/bin/bash
+# Test double for tools/scad2step.py (TV-015; INSP-088 finding-1): a freecadcmd that runs the script it
+# is given under the project interpreter with the stand-in FreeCAD, Part and importCSG modules of
+# fake/freecad_api/. FreeCAD mode then runs its real check code (C1 to C7) on a shape chosen by
+# CWHT_FAKE_FREECAD_CASE, which reaches the C4 and C6 branches that no source of the ADR-008 dialect
+# reaches through FreeCAD 1.1.3. The interpreter is named by CWHT_FAKE_PYTHON (the test sets it to its
+# own interpreter). Like the real freecadcmd it exits 0 whatever the script does.
+here=$(cd "$(dirname "$0")" && pwd)
+if [ -z "${CWHT_FAKE_PYTHON:-}" ]; then
+  echo "freecadcmd-api-double: CWHT_FAKE_PYTHON not set"
+  exit 0
+fi
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$here/freecad_api" "$CWHT_FAKE_PYTHON" "$@"
+exit 0

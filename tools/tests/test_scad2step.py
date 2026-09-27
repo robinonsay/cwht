@@ -9,6 +9,9 @@ Classes that need neither OpenSCAD nor FreeCAD:
   UsageTests           every usage error exits 2
   DoubleTests          not installed (3), other OpenSCAD version (4), no marker from a freecadcmd
                        test double (1), time-out of a hanging double (124, its process group killed)
+  ApiDoubleTests       the C4 and C6 refusals: FreeCAD mode's own check code run under the FreeCAD
+                       API test double fake/freecadcmd-api-double (stand-in FreeCAD, Part and importCSG
+                       modules), with a control case that passes (INSP-088 finding-1)
 Classes that run the locked OpenSCAD and FreeCAD (skipped, with the reason, when either is absent;
 the TV-015 procedure counts a skip as "not run"):
   ConversionTests      the cube known answer through the driver and through the CM plan form
@@ -46,7 +49,7 @@ import scad2step  # noqa: E402
 
 HAVE_TOOLS = os.access(scad2step.LOCK_OPENSCAD, os.X_OK) and os.access(scad2step.LOCK_FREECADCMD, os.X_OK)
 HOOKS = ("CWHT_OPENSCAD", "CWHT_FREECADCMD", "CWHT_SCAD2STEP_EXPECT_OPENSCAD", "CWHT_SCAD2STEP_EXPECT_FREECAD",
-         "CWHT_CSG", "CWHT_STL", "CWHT_STEP")
+         "CWHT_CSG", "CWHT_STL", "CWHT_STEP", "CWHT_FAKE_PYTHON", "CWHT_FAKE_FREECAD_CASE", "CWHT_FAKE_FREECAD_LOG")
 
 
 def clean_env(**extra):
@@ -179,6 +182,82 @@ class DoubleTests(unittest.TestCase):
         self.assertGreaterEqual(elapsed, 3)
         left = subprocess.run(["pgrep", "-f", os.path.join(FAKE, "freecadcmd-hang")], capture_output=True, text=True)
         self.assertEqual(left.stdout.strip(), "", "the hanging double survived")
+
+
+class ApiDoubleTests(unittest.TestCase):
+    """C4 and C6 through the FreeCAD API test double (known-answers.json block scad2step.api_double).
+
+    No source of the ADR-008 dialect makes FreeCAD 1.1.3 return a CompSolid of several solids or a
+    STEP read-back that differs from the exported solid (TV-015 limitation 2), so the driver runs
+    fake/freecadcmd-api-double, which executes tools/scad2step.py under this interpreter with the
+    stand-in modules of fake/freecad_api/. The checks run are the tool's own; only the shapes are
+    stand-ins. Needs neither OpenSCAD nor FreeCAD.
+    """
+    DOUBLE = os.path.join(FAKE, "freecadcmd-api-double")
+    E = KA["api_double"]
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.step = os.path.join(self.tmp.name, "out.step")
+        self.csg = os.path.join(self.tmp.name, "in.csg")
+        self.stl = os.path.join(self.tmp.name, "box.stl")
+        self.log = os.path.join(self.tmp.name, "double.log")
+        with open(self.csg, "wb") as fh:
+            fh.write(b"cube(size = [30, 20, 10], center = false);\n")
+        with open(self.stl, "wb") as fh:
+            fh.write(box_stl_binary(*self.E["stl_box_mm"]))
+        open(self.log, "w").close()
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def convert(self, case):
+        env = clean_env(CWHT_FREECADCMD=self.DOUBLE, CWHT_FAKE_PYTHON=sys.executable,
+                        CWHT_FAKE_FREECAD_CASE=case, CWHT_FAKE_FREECAD_LOG=self.log)
+        r = run("--csg", self.csg, "--stl", self.stl, "--step", self.step, env=env, timeout=120)
+        markers = [ln for ln in r.stdout.splitlines() if ln.startswith("SCAD2STEP ")]
+        with open(self.log) as fh:
+            logged = fh.read()
+        return r, markers, logged
+
+    def test_control_case_passes(self):
+        e = self.E["control"]
+        r, markers, logged = self.convert("control")
+        self.assertEqual(r.returncode, e["exit"], r.stdout + r.stderr)
+        self.assertEqual(markers[-1], e["marker"].format(step=self.step))
+        self.assertTrue(os.path.isfile(self.step))
+        k = kat(r.stdout)
+        for key in ("root", "solids", "valid", "faces", "cylinders", "bspline", "volume", "step_volume", "stl_volume", "stl_facets"):
+            with self.subTest(key=key):
+                self.assertEqual(k[key], str(e[key]))
+        self.assertEqual(k["freecad"], scad2step.LOCK_FREECAD_VERSION)
+        self.assertIn(f"export {self.step} written", logged)
+
+    def check_refused(self, case):
+        e = self.E["seeded"][case]
+        r, markers, logged = self.convert(case)
+        self.assertEqual(r.returncode, e["exit"], r.stdout + r.stderr)
+        self.assertEqual(markers[-1], e["marker"])
+        self.assertIn(e["marker"][len("SCAD2STEP "):], r.stderr)
+        self.assertFalse(os.path.exists(self.step), "a refused conversion left a STEP file")
+        self.assertEqual(f"export {self.step} written" in logged, e["export_logged"], logged)
+
+    def test_c4_compsolid_of_two_solids(self):
+        with open(self.step, "w") as fh:
+            fh.write("stale STEP from an earlier run\n")
+        self.check_refused("c4-compsolid")
+
+    def test_c6_no_step_written(self):
+        self.check_refused("c6-no-file")
+
+    def test_c6_read_back_two_solids(self):
+        self.check_refused("c6-two-solids")
+
+    def test_c6_read_back_invalid(self):
+        self.check_refused("c6-invalid")
+
+    def test_c6_read_back_volume_differs(self):
+        self.check_refused("c6-volume")
 
 
 @unittest.skipUnless(HAVE_TOOLS, "OpenSCAD 2021.01 or FreeCAD 1.1.3 not installed at the locked path")
