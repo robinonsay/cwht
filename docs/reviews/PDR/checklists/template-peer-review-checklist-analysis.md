@@ -12,9 +12,14 @@ checklist: peer-review-checklist-requirements
 checklist_revision: C
 checklist_file: docs/reviews/PDR/checklists/template-peer-review-checklist-analysis.md
 product: docs/templates/peer-review-checklist-analysis.md
-# product_commit: the branch head that holds the frozen blobs (base 573f9f5 on main)
-product_commit: "ac9b7a5cfc61aa03e5520c13be505a68f206f6fe"
-product_files: ["docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921", "docs/templates/peer-review-checklist-software-assurance.md@22b7b6afd241d7bd2deddfe45d9318cab5f0243b", "docs/templates/peer-review-checklist-tool-validation.md@c94fa383a952cde434da7f63eb00ae5d699996d6", "docs/process/08-agent-briefing.md@56c540113110b0d8916219d3cb531d6a76587713", "docs/cm/cr/CR-012-pdr-checklist-templates.md@02f2796402b0c6643686ffbe3cf4318cf4698155"]
+# product_commit: the branch head that holds the frozen blobs (base 573f9f5 on main).
+# Iteration 1: ac9b7a5cfc61aa03e5520c13be505a68f206f6fe. Iteration 2 (delta, rule C1): branch head 7784672;
+# the CR file is on main at eb058f2
+product_commit: "778467249fe42d59706e3c4beb7bcb893d7b2671"
+# product_files at iteration 1: analysis 0386cc6e, software assurance 22b7b6af, tool validation c94fa383,
+# 08 56c54011, CR-012 02f27964. Iteration 2: the SA and TV templates are the 7784672 blobs, the CR file the
+# main blob of eb058f2 (git rev-parse HEAD:<path> at 3d320a3); analysis and 08 unchanged
+product_files: ["docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921", "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4", "docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900", "docs/process/08-agent-briefing.md@56c540113110b0d8916219d3cb531d6a76587713", "docs/cm/cr/CR-012-pdr-checklist-templates.md@f689b05c0fe7095a043d7457754de5e3d104c870"]
 product_size: 1 template (306 lines, sections R, A to J, per-case table, completion criteria), 08 delta (2 hunks, 20 lines), CR-012 (11 sections)
 sprint: PDR-prep
 author_agent: "author:WP-PDR-03 (Claude as checklist owner)"
@@ -23,7 +28,7 @@ reviewer_agent: "reviewer:WP-PDR-03-templates"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+iteration: 2
 readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
@@ -43,8 +48,8 @@ assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G2, CK-REQ-G7]
-effort_turns: 20
-effort_minutes: 35
+effort_turns: 44
+effort_minutes: 70
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -144,4 +149,65 @@ FINDINGS:
 - [Minor] CK-REQ-G2 analysis_kind "other" has no applicable-section rule.
 ITEMS N/A: CK-REQ-G5 (no cybersecurity content)
 MEASUREMENTS: size=1 template plus 08 delta and CR-012; items=9; items_no=2; turns=20; minutes=35; major=0; minor=2
+```
+
+## Iteration 2: delta verification of the drifted blobs (2026-09-27, main `3d320a3`, branch `cr/CR-012-pdr-checklist-templates` at `7784672`)
+
+**Scope (rule C1).** Delta iteration. It reads every hunk of the three blobs named in `product_files` that drifted since iteration 1, under this record's own lens (`peer-review-checklist-requirements.md` revision C, section G and CK-REQ-A8). The drifted blobs are:
+
+- `docs/templates/peer-review-checklist-software-assurance.md` `22b7b6af` to `5b135285` (`7784672`, 1 file, 11 insertions, 8 deletions, 4 hunks);
+- `docs/templates/peer-review-checklist-tool-validation.md` `c94fa383` to `7be809d4` (`7784672`, 14 insertions, 6 deletions, 4 hunks);
+- `docs/cm/cr/CR-012-pdr-checklist-templates.md` `02f27964` to `f689b05c` on `main`, through `91c8c626` (`4552943`) and `7c35f858` (`6086319`) to `f689b05c` (`eb058f2`) (95 insertions, 17 deletions, 9 hunks).
+
+The dispatch brief named the CR file at `7c35f858`. `main` has since moved to `f689b05c` (`eb058f2`, the IR-F1 fix), so this iteration reads `02f27964..f689b05c` and pins `f689b05c`.
+
+Unchanged blobs: the analysis template `0386cc6e` (`git rev-parse 7784672:<path>`) and 08 `56c54011`. `git log ac9b7a5..7784672` touches neither. Findings 1 and 2 of this record are about the analysis template, so they are re-read for state only. Checklist as at iteration 1.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-03, CR-012, the `7784672` fixes or the CR-012 section 6.1 round, and edited no product file.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` was loaded and queried before any manual search. Queries: delta iteration of a record on drifted blobs under rule C1; the SWEHB topic 8.10 section 6 safety-related tasks. `grep` and `git` were used afterwards only to pin lines and blobs.
+
+### Hunks read
+
+| Blob | Hunk | Content | Section G result |
+|---|---|---|---|
+| SA `5b135285` | front matter comment on `assurance_tasks_applied` | "the section B row of product_type" becomes "the task rows SA-B1 requires" | G2 Yes: consistent with the new SA-B1 |
+| SA `5b135285` | task-table heading | Adds the rows "Every product type" and "every other SWE the product implements" | G2 Yes |
+| SA `5b135285` | section B lead paragraph | The rows become the planned minimum. The paragraph quotes 07 section 15 ("of the SWEHB page for each SWE the product implements") and defines "implements" as a SWE the product cites or whose `rmm.json` row names it | G1 Yes: this widens the template to 07 section 15 and narrows nothing. G8 Yes |
+| SA `5b135285` | new row "Every product type" | Adds swe-134 task 5 (SC) and swe-022 task 1 (SC; NASA-STD-8739.8 part relieved by `rmm.json` SWE-022 T) | G8 Yes: both tasks are in 8.10 section 6 (`8-10-facility-software-with-safety-considerations.md` lines 323 and 320); `rmm.json` SWE-022 is `T` |
+| SA `5b135285` | `plans` row | Adds swe-036 tasks 1 and 2 for 07 (SC), with task 2 checked against the 07 section 1.3 "Owner action on receipt" column | G8 Yes: 8.10 line 309 gives tasks 1 and 2; `rmm.json` SWE-036 `FC`; 07 line 35 holds the column |
+| SA `5b135285` | `code` and `test` rows | `code`: adds swe-134 task 3 (SC) for safety-critical loaded data. `test`: adds swe-134 task 3 (SC) and swe-068 task 3 (SC) | G8 Yes: task 3 text at 8.10 line 323 and swe-068 task 3 at line 335. `rmm.json` SWE-068 is `FC`. 07 section 14.1 names the configuration guard's persisted record (line 596), and section 9.7 covers loaded data (line 414) |
+| SA `5b135285` | new paragraph "SC tasks that are not in the table, by decision" | swe-015, swe-151, swe-016 and swe-174 are left out because 07 section 2.1.1 routes none of their products | G1 Yes, G8 Yes: all four are 8.10 section 6 rows (lines 314 to 317). The `rmm.json` dispositions are SWE-015 `T`, SWE-151 `T`, SWE-016 `T` and SWE-174 `NA`, as stated |
+| SA `5b135285` | SA-B1 and completion criteria | Both now use "every task SA-B1 requires" | G2 Yes: the same term is used in all four places (lines 77, 117, 161, 214) |
+| TV `7be809d4` | front matter `product_files` comment and value; new `fixture_trees` | Fixture files are listed one by one. The directory tree moves to `fixture_trees`, which `validate_docs.py` does not read | G7 Yes: `tools/validate_docs.py` line 935 runs `git ls-tree -r --full-tree HEAD` (blobs only), and line 971 gives the message "is not in HEAD" as the comment states. The schema at line 221 has no closed field list for this, since records already carry extra fields such as `checklist_tool_validation` and pass |
+| TV `7be809d4` | Record paragraph | The reviewer edits no TV record. Section 8 is written by the TV record author after filing, then a delta re-issue re-pins `product_files` | G1 Yes: 08 line 41 quotes INDEPENDENCE exactly. 07 section 10.2 (line 451) says "the reviewer of each record updates its own record". 05 line 454 (section 9.2 step 3) says "The independent reviewer checks the TV record and the fixture". The INSP-029 re-issue precedent exists (`srr-deck.md` lines 11 and 14). G3 Yes: roles are named |
+| TV `7be809d4` | R1 | `product_files` blobs file by file, `fixture_trees` trees | G2 Yes: agrees with the front matter and with TV-A3 (line 153, "tree hash or digest", recomputed) |
+| TV `7be809d4` | completion criteria | "section 8 of each record names this review" is removed as a condition and restated as a post-filing author step | G1 Yes: consistent with the Record paragraph |
+| CR `f689b05c` | front matter, "Where the change is", section 1 blob table | Branch head `7784672`. The table has an iteration 2 column | G8 Yes: `git rev-parse 7784672:<path>` equals all four blobs |
+| CR `f689b05c` | section 1 rows for the SA and TV templates | The descriptions now match the `7784672` hunks above | Yes |
+| CR `f689b05c` | section 4 rows Verification and Schedule; row 53 paragraph | Records made against revision A are listed. The effect of each disposition is stated | G1 Yes. CR-1 of iteration 1 stands unchanged: "its finding-2 lien is addressed by this change" is still there. It is now carried by CR-012 IR-F3 (Minor, waiting under rule C1) |
+| CR `f689b05c` | new section 4.1 (29 records; rule at each disposition) | Records filed against revision A | Reproduced: `git grep -l -e 0386cc6e -e 5b135285 -e 7be809d4 HEAD -- 'docs/reviews/*/checklists/*.md'` at `3d320a3` gives 33 files. These are the 29 of the table, plus INSP-031 to INSP-033 (step 3 reviews) and INSP-081 (`ts-011-enclosure.md`, excluded as stated). 5 TV, 19 SA and 5 analysis rows give 29, as the history row says. No record filed since `d5a3058` is missing |
+| CR `f689b05c` | section 5 steps 5 and 8; verification paragraph | Step 5 re-runs the listing. Step 8 re-issues the `checklist` fields after the merge. The verification checks step 8 | G7 Yes: the stand-in rationale holds (`validate_docs.py` line 865: "has no template"). This closes iteration 1 item CR-2 in part: step 8 states that verdicts follow the lead SE convention. IR-F5 carries the rest |
+| CR `f689b05c` | new section 6.1 (round 1: IR-F1 Major, IR-F2 to IR-F6 Minor) | Independent impact review | Iteration 1 item CR-3 is met: the section 6 review ran on the revised CR (`91c8c626`, branch `7784672`). IR-F3 carries CR-1, and IR-F5 carries CR-2 |
+| CR `f689b05c` | section 8 row `7784672`; section 9 rows; section 11 history rows | Commit and verification evidence | `git log -1 --format=%B 7784672` carries `CR: CR-012` as a parsed trailer (IR-F6 concerns `ac9b7a5` only). Section 9 remains "Pending independent verification" |
+
+No em dash in any of the three new blobs (`grep -c` gives 0).
+
+### Result
+
+No new finding. The `7784672` hunks and the CR-012 revision contradict neither the charter, 05, 07, 08 nor `rmm.json`, and every new identifier pins in the corpus (CK-REQ-G1, G2, G7, G8 Yes on the delta). Whether INSP-032 finding-1 and INSP-033 findings 1 and 2 are verified is for those records. This record only confirms that the fixes introduce no section G defect. Findings 1 and 2 (Minor, analysis template) are Open, the blob is unchanged, and under rule C1 they are liens due at the CDR readiness declaration unless a CR-012 revision fixes them.
+
+Commands: `.venv/bin/python tools/validate_docs.py` at `3d320a3` with this record: PASS on this record; 101 passed, 8 failed, all in other records (cm-plan-05-software-assurance, configuration-status, lessons-learned and five SRR records), none touched by this change.
+
+### Record verdict (iteration 2)
+
+Reviewer verdict: APPROVED, with two Minor liens (findings 1 and 2). Record `verdict` is held at NEEDS CHANGES under the lead SE convention of 2026-09-27. Four of the five `product_files` blobs (analysis, SA, TV, 08) exist only on `cr/CR-012-pdr-checklist-templates`. The software lead sets `verdict: APPROVED` when CR-012 merges with these blobs. If the CR-012 file drifts again on `main` before then, a further delta re-pins it (CR-012 IR-F5).
+
+```
+VERDICT: APPROVED (reviewer); record NEEDS CHANGES held until the CR-012 merge
+FINDINGS:
+- [Minor, lien] finding-1 CK-REQ-G7 R2: require tools/ltspice-batch.sh (analysis blob unchanged).
+- [Minor, lien] finding-2 CK-REQ-G2 analysis_kind "other" (analysis blob unchanged).
+NEW FINDINGS: none
+MEASUREMENTS: size=3 drifted blobs, 17 hunks; items=4 (G1, G2, G7, G8 on the delta); turns=24; minutes=35; major=0; minor=0 new
 ```
