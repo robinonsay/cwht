@@ -109,6 +109,22 @@ def main(plots: bool = True) -> int:
     check(not missing, f"every operator setting source named in the note is placed (missing: {missing})")
     per_screen = max(len(v) for v in u.MENU_TREE.values())
     res["max_items_per_category"] = per_screen
+    # INSP-072 finding-1: the Straight-input setting and the calibration trim
+    res["mode_values"] = [{"value": v, "code": c, "meaning": m, "source": s} for v, c, m, s in u.MODE_VALUES]
+    meanings = " ".join(m for _, _, m, _ in u.MODE_VALUES)
+    check(all(x in meanings for x in ("Iambic A", "Iambic B", "Ultimatic", "Bug", "Straight")),
+          "KEYER > MODE offers every REQ-SYS-040 mode")
+    check(all(any(f"REQ-SW-KEYER-002 {k}" == s for *_, s in u.MODE_VALUES) for k in ("tip", "ring", "either")),
+          "KEYER > MODE offers the three REQ-SW-KEYER-002 Straight-input settings (tip, ring, either)")
+    check(len({c for _, c, _, _ in u.MODE_VALUES}) == len(u.MODE_VALUES)
+          and len({v for v, *_ in u.MODE_VALUES}) == len(u.MODE_VALUES),
+          f"the {len(u.MODE_VALUES)} MODE values and their status codes are distinct")
+    check(all(u.Canvas.text_width(u.value_bar_text(v), 2) <= 124 for v, *_ in u.MODE_VALUES),
+          "every MODE value fits the 124-dot edit bar at the 2x font")
+    res["calibration"] = {"entry": u.CAL_ENTRY, "items": [{"item": n, "kind": k, "source": s}
+                                                          for n, k, s in u.CAL_MENU]}
+    check(any("REQ-SYS-035" in s for _, _, s in u.CAL_MENU) and "REQ-SYS-035" not in srcs,
+          "REQ-SYS-035 trim is on the service calibration screen, outside the operator tree (NGO-012)")
 
     # ---- Tuning law and band crossing (REQ-SYS-058, REQ-SYS-164) --------------------------
     steps = [s for _, s in u.STEP_TABLE]
@@ -146,6 +162,16 @@ def main(plots: bool = True) -> int:
           "every message line fits 10 characters at the 2x font (118 dots)")
     check(sorted({r for r, _, _ in u.MESSAGE_TABLE}) == list(range(1, 20)),
           "every cause row 1 to 19 of ConOps Table 3.4-4 with a display text has a message")
+    # INSP-072 finding-2: REQ-SYS-067 rationale fault types without a Table 3.4-4 row
+    res["extra_messages"] = [{"req": r, "fault": t, "display": list(d)} for r, t, d in u.EXTRA_MESSAGES]
+    check({r for r, _, _ in u.EXTRA_MESSAGES} == {"REQ-SYS-134", "REQ-SYS-155", "REQ-SYS-156"},
+          "REQ-SYS-134, REQ-SYS-155 and REQ-SYS-156 each have a message")
+    all_lines = lines + [d for _, _, d in u.EXTRA_MESSAGES]
+    res["message_count_total"] = len(all_lines)
+    check(len(set(all_lines)) == len(all_lines),
+          f"all {len(all_lines)} messages (Table 3.4-4 rows 1 to 19 and the three added) are distinct")
+    check(all(len(x) <= 10 for d in all_lines for x in d),
+          "every added message line fits 10 characters at the 2x font")
 
     # ---- Fault message latency (REQ-SYS-067) ----------------------------------------------
     items, total = u.fault_latency_budget()
@@ -199,9 +225,11 @@ def main(plots: bool = True) -> int:
         FIG.mkdir(parents=True, exist_ok=True)
         for name, fn in u.SCREENS.items():
             path = FIG / f"display-layout-{name}.png"
-            u.render_png(fn(), path, scale=4,
-                         caption=f"display-layout-{name}: LS013B7DH03 128 x 128 dots, 0.18 mm pitch, "
-                                 f"shown at 4x (WP-PDR-33)")
+            cap = (f"display-layout-{name}: LS013B7DH03 128 x 128 dots, 0.18 mm pitch, "
+                   f"shown at 4x (WP-PDR-33)")
+            if len(cap) > 102:   # two caption lines for the longer render names
+                cap = cap.replace(", shown at 4x", ",\nshown at 4x")
+            u.render_png(fn(), path, scale=4, caption=cap)
             print(f"wrote {path.relative_to(ROOT)}")
         make_plot(res)
 

@@ -4,7 +4,7 @@ Run from the repository root:
     .venv/bin/python docs/design/analysis/keyer-host-study/check_keyer_host_study.py
 
 It recomputes every number the note states, asserts each acceptance value, writes
-keyer-host-study-results.json and the three plots beside this file, and exits 1 on any failed
+keyer-host-study-results.json and the four plots beside this file, and exits 1 on any failed
 assertion (08 section 3.4). Pass --no-plots to skip the plots.
 """
 
@@ -217,7 +217,7 @@ def main(plots: bool = True) -> int:
     for w in (5, 10, 15, 25, 50):
         lim_s = limit_ms("proposed", w) / 1000.0
         stream = m.fault_stream_alternating(w, 60.0)
-        span, cnt, t_trip, cause = m.paddle_watchdog(stream, w, m.gap_rule_proposed)
+        span, cnt, t_trip, cause = m.watchdog_relative(stream)
         fault.append({"wpm": w, "squeeze_trip_s": round(lim_s, 3),
                       "baseline_trip_s": SQUEEZE_LIMIT_BASELINE_S,
                       "nogap_trip_s": t_trip, "nogap_cause": cause})
@@ -225,24 +225,66 @@ def main(plots: bool = True) -> int:
               f"squeeze fault at {w} WPM stops at {lim_s:.2f} s, before the 30 s window")
     results["squeeze_fault_stop"] = fault
 
-    # ---- 5. Paddle watchdog on correct sending and on fault streams -----------------------
+    # Speed source of the squeeze limit (INSP-075 finding-2): SW-SAFE takes the dit length from the
+    # configuration-guarded speed value; a complement mismatch or a value outside 5 to 50 WPM is
+    # replaced by 50 WPM. The limit then lies in [2.00 s, 4.80 s] whatever the stored value.
+    src = []
+    for stored, comp in ((0, True), (1, True), (4, True), (5, True), (12, True), (15, True),
+                         (50, True), (51, True), (99, True), (255, True), (-1, True), (None, True),
+                         (15, False), (5, False)):
+        lim = m.squeeze_limit_monitor_ms(stored, comp) / 1000.0
+        src.append({"stored_wpm": stored, "complement_ok": comp, "limit_s": round(lim, 3)})
+    results["squeeze_speed_source"] = src
+    lims = [x["limit_s"] for x in src]
+    results["squeeze_limit_bounds_s"] = [min(lims), max(lims)]
+    check(min(lims) >= SQUEEZE_LIMIT_BASELINE_S - 1e-9 and max(lims) <= 4.8 + 1e-9,
+          f"squeeze limit with the guarded speed lies in {min(lims)} to {max(lims)} s for every stored "
+          f"value, range end and complement failure")
+    # A monitor value above the true stream speed shortens the limit (earlier stop, nuisance side);
+    # a value below it lengthens the limit, at most to 4.80 s (5 WPM)
+    mism = []
+    for true_w in (5, 10, 20, 50):
+        for mon_w in (5, 10, 20, 50):
+            lim = m.squeeze_limit_monitor_ms(mon_w) / 1000.0
+            worst_ok = worst["A"]["max_dits"] * m.dit_us(true_w) / 1e6 * (1 + TIMING_TOL) + DEBOUNCE_EXTRA_MS / 1000.0
+            mism.append({"stream_wpm": true_w, "monitor_wpm": mon_w, "fault_stop_s": round(lim, 3),
+                         "correct_squeeze_cut": worst_ok > lim})
+    results["squeeze_speed_mismatch"] = mism
+    check(all(x["fault_stop_s"] <= 4.8 + 1e-9 for x in mism),
+          "every monitor and stream speed pair stops a squeeze fault by 4.80 s")
+    check(all(not x["correct_squeeze_cut"] for x in mism if x["monitor_wpm"] <= x["stream_wpm"]),
+          "a monitor speed at or below the stream speed never cuts a correct squeeze")
+
+    # ---- 5. Paddle watchdog (REQ-SYS-054): correct sending in every key mode --------------
+    # Three rules are compared (note section 6.2): "current" (baselined 7 dits or 500 ms at the
+    # selected speed), "rev1" (2 dit times at the selected speed, the revision 1 proposal) and "rev2"
+    # (the self-referenced rule of revision 2, keyer_model.watchdog_relative, no keyer parameter).
+    def run_rule(rule: str, stream, sel_wpm: float):
+        if rule == "current":
+            return m.paddle_watchdog(stream, sel_wpm, m.gap_rule_current)
+        if rule == "rev1":
+            return m.paddle_watchdog(stream, sel_wpm, m.gap_rule_proposed)
+        return m.watchdog_relative(stream)
+
+    RULES = ("current", "rev1", "rev2")
     profiles = {"nominal 3/7": (3.0, 7.0), "short word 3/6": (3.0, 6.0),
                 "short word 3/5": (3.0, 5.0), "fast 2.5/5": (2.5, 5.0),
                 "spread 4.5/10": (4.5, 10.0)}
+    # 5a. Corpus P: keyer-timed paddle sending (Iambic A, Iambic B, Ultimatic), every speed
     nogap = {}
-    for rule_name, rule in (("current", m.gap_rule_current), ("proposed", m.gap_rule_proposed)):
-        nogap[rule_name] = {}
+    for rule in RULES:
+        nogap[rule] = {}
         for pname, (ls, ws) in profiles.items():
             rows = []
             for w in SPEEDS_ALL:
                 qso = m.key_stream(m.CORPUS_QSO, w, ls, ws)
                 stress = m.key_stream(m.CORPUS_STRESS, w, ls, ws)
-                s1, c1, t1, _ = m.paddle_watchdog(qso, w, rule)
-                s2, c2, t2, _ = m.paddle_watchdog(stress, w, rule)
+                s1, c1, t1, _ = run_rule(rule, qso, w)
+                s2, c2, t2, _ = run_rule(rule, stress, w)
                 rows.append({"wpm": w, "qso_max_span_s": round(s1, 3), "qso_max_count": c1,
                              "qso_trip": t1 is not None, "stress_max_span_s": round(s2, 3),
                              "stress_max_count": c2, "stress_trip": t2 is not None})
-            nogap[rule_name][pname] = rows
+            nogap[rule][pname] = rows
     results["nogap_corpus"] = nogap
     cur_nom = nogap["current"]["nominal 3/7"]
     cur_trip_speeds = [r["wpm"] for r in cur_nom if r["stress_trip"]]
@@ -258,48 +300,197 @@ def main(plots: bool = True) -> int:
     check(bool(short_trip),
           f"current rule trips the QSO corpus when word spaces are shorter than 7 dits, at "
           f"{short_trip[:3]}...{short_trip[-3:] if short_trip else ''} WPM")
-    prop_any = [(p, r["wpm"]) for p, rows in nogap["proposed"].items() for r in rows
-                if r["qso_trip"] or r["stress_trip"]]
-    check(not prop_any, "proposed 2-dit gap rule trips no corpus sending, every profile, 5 to 50 WPM")
-    prop_max_span = max(max(r["qso_max_span_s"], r["stress_max_span_s"])
-                        for rows in nogap["proposed"].values() for r in rows)
-    prop_max_count = max(max(r["qso_max_count"], r["stress_max_count"])
-                         for rows in nogap["proposed"].values() for r in rows)
-    cur_max_count = max(max(r["qso_max_count"], r["stress_max_count"])
-                        for rows in nogap["current"].values() for r in rows)
-    results["nogap_proposed_max_span_s"] = prop_max_span
-    results["nogap_proposed_max_count"] = prop_max_count
-    results["nogap_current_max_count"] = cur_max_count
-    check(prop_max_span < NOGAP_WINDOW_S / 5, f"proposed rule: longest span {prop_max_span} s < 6 s")
-    check(cur_max_count < NOGAP_COUNT / 2 and prop_max_count < NOGAP_COUNT / 2,
-          f"identical-element count in the corpus {cur_max_count} (current), {prop_max_count} "
-          f"(proposed) is below 64, half of 128")
 
+    def corpus_max(rows_by_profile, key_a, key_b):
+        return max(max(r[key_a], r[key_b]) for rows in rows_by_profile.values() for r in rows)
+
+    for rule in ("rev1", "rev2"):
+        bad = [(p, r["wpm"]) for p, rows in nogap[rule].items() for r in rows
+               if r["qso_trip"] or r["stress_trip"]]
+        check(not bad, f"{rule} rule trips no paddle corpus sending, every profile, 5 to 50 WPM")
+    results["nogap_paddle_max_span_s"] = {r: corpus_max(nogap[r], "qso_max_span_s", "stress_max_span_s")
+                                          for r in RULES}
+    results["nogap_paddle_max_count"] = {r: corpus_max(nogap[r], "qso_max_count", "stress_max_count")
+                                         for r in RULES}
+
+    # 5b. Corpus B: Bug-mode sending. Automatic dits at the selected speed, manual dahs of 3 or 6
+    # Bug dits or drawn from 2.5 to 6, operator spacing in the unit k x Bug dit (note section 3.4)
+    BUG_K = (0.75, 1.0, 1.5, 2.0)
+    BUG_SPACING = {"3/7": (3.0, 7.0), "3/5": (3.0, 5.0), "2.5/5": (2.5, 5.0), "4.5/10": (4.5, 10.0)}
+    BUG_DAHS = {"dah 3": 3.0, "dah 6": 6.0, "dah 2.5 to 6": (2.5, 6.0)}
+    SPEEDS_HAND = (5, 6, 7, 8, 10, 12, 15, 18, 20, 25, 30, 35, 40, 45, 50)
+    bug = {r: {"max_span_s": 0.0, "max_count": 0, "trips": []} for r in RULES}
+    n_bug = 0
+    for k in BUG_K:
+        for sp_name, (ls, ws) in BUG_SPACING.items():
+            for dah_name, dah in BUG_DAHS.items():
+                for w in SPEEDS_HAND:
+                    for seed in (1, 2):
+                        for cname, txt in (("qso", m.CORPUS_QSO), ("stress", m.CORPUS_STRESS)):
+                            st = m.key_stream_bug(txt, w, k, ls, ws, dah, seed=seed)
+                            n_bug += 1
+                            for rule in RULES:
+                                span, cnt, t, _ = run_rule(rule, st, w)
+                                b = bug[rule]
+                                b["max_span_s"] = max(b["max_span_s"], round(span, 3))
+                                b["max_count"] = max(b["max_count"], cnt)
+                                if t is not None:
+                                    b["trips"].append({"k": k, "spacing": sp_name, "dah": dah_name,
+                                                       "wpm": w, "seed": seed, "corpus": cname,
+                                                       "trip_s": round(t, 2)})
+    for rule in RULES:
+        bug[rule]["n_trips"] = len(bug[rule]["trips"])
+        bug[rule]["trips"] = bug[rule]["trips"][:12]
+    results["nogap_bug"] = {"streams": n_bug, **bug}
+    check(bug["rev2"]["n_trips"] == 0,
+          f"rev2 rule trips none of the {n_bug} Bug-mode streams (dahs up to 6 dits, k 0.75 to 2)")
+    check(bug["rev1"]["n_trips"] > 0,
+          f"rev1 2-dit rule trips {bug['rev1']['n_trips']} Bug-mode streams (operator spacing "
+          f"faster than the Bug dits), so revision 1 does not hold for Bug sending")
+
+    # 5c. Corpus S: Straight-key sending, every element and space hand-timed. The current and rev1
+    # rules use the selected keyer speed, which has no relation to the hand speed; the worst
+    # setting is the slowest (5 WPM), the INSP-071 finding-1 counter-example
+    hand = {r: {"max_span_s": 0.0, "max_count": 0, "trips_same_speed": 0, "trips_keyer_5wpm": 0}
+            for r in RULES}
+    n_hand = 0
+    for pname in m.HAND_PROFILES:
+        for w in SPEEDS_HAND:
+            for seed in (1, 2, 3):
+                for txt in (m.CORPUS_QSO, m.CORPUS_STRESS):
+                    st = m.key_stream_hand(txt, w, pname, seed=seed)
+                    n_hand += 1
+                    for rule in RULES:
+                        span, cnt, t, _ = run_rule(rule, st, w)
+                        h = hand[rule]
+                        h["max_span_s"] = max(h["max_span_s"], round(span, 3))
+                        h["max_count"] = max(h["max_count"], cnt)
+                        h["trips_same_speed"] += t is not None
+                        if rule != "rev2":
+                            h["trips_keyer_5wpm"] += run_rule(rule, st, 5)[2] is not None
+    results["nogap_straight"] = {"streams": n_hand, **hand}
+    check(hand["rev2"]["trips_same_speed"] == 0,
+          f"rev2 rule trips none of the {n_hand} Straight-key streams (5 hand profiles, 5 to 50 WPM)")
+    cx = m.key_stream(m.CORPUS_QSO, 20)
+    cx_rows = {}
+    for rule in RULES:
+        span, cnt, t, cause = run_rule(rule, cx, 5)
+        cx_rows[rule] = {"trip_s": None if t is None else round(t, 2), "cause": cause}
+    results["nogap_insp071_counterexample"] = {"text": "QSO corpus hand-sent at 20 WPM, keyer set to 5 WPM",
+                                               **cx_rows}
+    check(cx_rows["current"]["trip_s"] == 30.24 and cx_rows["rev1"]["trip_s"] == 30.24,
+          "INSP-071 counter-example reproduced: current and rev1 trip at 30.24 s")
+    check(cx_rows["rev2"]["trip_s"] is None, "rev2 rule does not trip the INSP-071 counter-example")
+    rev2_span = max(results["nogap_paddle_max_span_s"]["rev2"], bug["rev2"]["max_span_s"],
+                    hand["rev2"]["max_span_s"])
+    rev2_count = max(results["nogap_paddle_max_count"]["rev2"], bug["rev2"]["max_count"],
+                     hand["rev2"]["max_count"])
+    results["nogap_rev2_max_span_s"] = rev2_span
+    results["nogap_rev2_max_count"] = rev2_count
+    check(rev2_span < NOGAP_WINDOW_S / 2,
+          f"rev2 rule: longest span without a qualifying gap over P, B and S is {rev2_span} s, "
+          f"under half the 30 s window")
+    check(rev2_count < NOGAP_COUNT / 2,
+          f"rev2 rule: largest count over P, B and S is {rev2_count}, below 64, half of 128")
+
+    # ---- 5d. Fault side (INSP-075 finding-1): keyer-fault streams under the three rules ----
+    import random
+    rng = random.Random(7)
+    catalogue = []
+    for f in (1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0):
+        catalogue.append(("uniform", f"held dit, space {f:g} dits", [(1.0, f)]))
+        catalogue.append(("uniform", f"held dah, space {f:g} dits", [(3.0, f)]))
+        catalogue.append(("uniform", f"alternating, space {f:g} dits", [(1.0, f), (3.0, f)]))
+    for ratio in (1.0, 2.0, 4.0, 6.0):
+        catalogue.append(("uniform", f"alternating, ratio {ratio:g}", [(1.0, 1.0), (ratio, 1.0)]))
+    for dlt in (-0.5, 0.5, 0.9):
+        catalogue.append(("uniform", f"alternating, weight shift {dlt:+g} dit",
+                          [(1.0 + dlt, 1.0 - dlt), (3.0 + dlt, 1.0 - dlt)]))
+    catalogue.append(("uniform", "stuck element timer (continuous key-down)", [(None, None)]))
+    catalogue.append(("uniform", "random dit/dah order, 1-dit spaces",
+                      [(rng.choice((1.0, 3.0)), 1.0) for _ in range(997)]))
+    catalogue.append(("equal elements", "dits, spaces randomly 1 or 3 dits",
+                      [(1.0, rng.choice((1.0, 3.0))) for _ in range(997)]))
+    for f in (2.0, 3.0, 4.0, 7.0):
+        catalogue.append(("periodic", f"dit-dah pairs, spaces 1 and {f:g} dits", [(1.0, 1.0), (3.0, f)]))
+        catalogue.append(("periodic", f"dit pairs, spaces 1 and {f:g} dits", [(1.0, 1.0), (1.0, f)]))
+        catalogue.append(("periodic", f"dah pairs, spaces 1 and {f:g} dits", [(3.0, 1.0), (3.0, f)]))
+    catalogue.append(("periodic", "repeated S, spaces 1, 1, 3 dits", [(1.0, 1.0), (1.0, 1.0), (1.0, 3.0)]))
+    catalogue.append(("periodic", "repeated K, spaces 1, 1, 3 dits", [(3.0, 1.0), (1.0, 1.0), (3.0, 3.0)]))
+    catalogue.append(("text-like", "random elements, spaces randomly 1 or 3 dits",
+                      [(rng.choice((1.0, 3.0)), rng.choice((1.0, 3.0))) for _ in range(997)]))
+    HORIZON_S = 300.0
     faults = []
-    for w in (5, 15, 25, 50):
-        for rule_name, rule in (("current", m.gap_rule_current), ("proposed", m.gap_rule_proposed)):
-            for fname, stream in (
-                ("held dit", m.fault_stream_held(w, 200, "dit")),
-                ("held dah", m.fault_stream_held(w, 200, "dah")),
-                ("alternating", m.fault_stream_alternating(w, 200)),
-                ("alternating, 2.5-dit gap every 25 s", m.stream_with_gap_every(w, 200, 25, 2.5)),
-                ("alternating, 7.5-dit gap every 25 s", m.stream_with_gap_every(w, 200, 25, 7.5)),
-            ):
-                span, cnt, t_trip, cause = m.paddle_watchdog(stream, w, rule)
-                faults.append({"wpm": w, "rule": rule_name, "stream": fname,
-                               "trip_s": None if t_trip is None else round(t_trip, 3),
+    for cls, name, cyc in catalogue:
+        for w in (5, 15, 25, 50):
+            dit_s = m.dit_us(w) / 1e6
+            period_s = (0.0 if cyc[0][0] is None else max(e + g for e, g in cyc)) * dit_s
+            max_gap_s = 0.0 if cyc[0][0] is None else max(g for _e, g in cyc) * dit_s
+            row = {"class": cls, "stream": name, "wpm": w, "max_gap_s": round(max_gap_s, 3)}
+            for rule in RULES:
+                st = m.fault_stream_cycle(w, HORIZON_S, cyc)
+                _s, _c, t, cause = run_rule(rule, st, w)
+                st2, t0 = m.with_lead_in(lambda t0, cyc=cyc, w=w: m.fault_stream_cycle(w, HORIZON_S, cyc, t0),
+                                         w, m.CORPUS_QSO, 15.0)
+                _s, _c, t2, cause2 = run_rule(rule, st2, w)
+                row[rule] = {"from_idle_s": None if t is None else round(t, 2), "cause": cause,
+                             "after_sending_s": None if t2 is None else round(t2 - t0 / 1e6, 2),
+                             "cause_after_sending": cause2}
+            row["cycle_s"] = round(period_s, 3)
+            faults.append(row)
+    results["nogap_fault_catalogue"] = faults
+    ref_bound = NOGAP_WINDOW_S + m.REF_WINDOW_S
+    for r in faults:
+        rv = r["rev2"]
+        if r["class"] == "uniform" and r["max_gap_s"] < m.ABS_GAP_S:
+            check(rv["from_idle_s"] is not None and rv["from_idle_s"] <= NOGAP_WINDOW_S + r["cycle_s"] + 0.01
+                  and rv["after_sending_s"] is not None
+                  and rv["after_sending_s"] <= ref_bound + r["cycle_s"] + 0.01,
+                  f"rev2 stops '{r['stream']}' at {r['wpm']} WPM: {rv['from_idle_s']} s from idle, "
+                  f"{rv['after_sending_s']} s after correct sending (bound 30 s, 40 s plus one cycle)")
+        if r["class"] in ("equal elements", "periodic") and r["max_gap_s"] < m.ABS_GAP_S:
+            check(rv["from_idle_s"] is not None and rv["after_sending_s"] is not None
+                  and rv["cause"] in ("count", "period", "window"),
+                  f"rev2 stops '{r['stream']}' at {r['wpm']} WPM by {rv['cause']}: "
+                  f"{rv['from_idle_s']} s from idle")
+        if r["class"] == "text-like":
+            check(rv["from_idle_s"] is None,
+                  f"rev2 does not stop the text-like stream at {r['wpm']} WPM within {HORIZON_S:g} s "
+                  f"(residual, note section 6.2; current rule: {r['current']['from_idle_s']} s)")
+    uniform_rev1_missed = sorted({(r["stream"], r["wpm"]) for r in faults
+                                  if r["class"] == "uniform" and r["rev1"]["from_idle_s"] is None})
+    uniform_cur_missed = sorted({(r["stream"], r["wpm"]) for r in faults
+                                 if r["class"] == "uniform" and r["current"]["from_idle_s"] is None})
+    uniform_rev2_missed = sorted({(r["stream"], r["wpm"]) for r in faults
+                                  if r["class"] == "uniform" and r["rev2"]["from_idle_s"] is None})
+    results["nogap_fault_missed"] = {"current": len(uniform_cur_missed), "rev1": len(uniform_rev1_missed),
+                                     "rev2": len(uniform_rev2_missed)}
+    check(not uniform_rev2_missed, "rev2 misses no uniform fault stream of the catalogue")
+    check(len(uniform_rev1_missed) > 0 and len(uniform_cur_missed) > 0,
+          f"uniform streams missed: current {len(uniform_cur_missed)}, rev1 {len(uniform_rev1_missed)} "
+          f"(the INSP-075 finding-1 streams)")
+    slow = [r for r in faults if r["class"] in ("equal elements", "periodic") and r["max_gap_s"] < m.ABS_GAP_S]
+    results["nogap_rev2_periodic_worst_s"] = max(r["rev2"]["from_idle_s"] for r in slow)
+
+    # REQ-SYS-054 verification-note cases under rev2 (revised case wording in note section 7)
+    note_cases = []
+    for w in (5, 25, 50):
+        for name, st in (("held dit lever", m.fault_stream_held(w, 200, "dit")),
+                         ("held dah lever", m.fault_stream_held(w, 200, "dah")),
+                         ("alternating, no qualifying gap", m.fault_stream_alternating(w, 200)),
+                         ("alternating, 7.5-dit gap every 25 s", m.stream_with_gap_every(w, 200, 25, 7.5)),
+                         ("random order, 7.5-dit gap every 25 s", m.stream_random_with_gap_every(w, 200, 25, 7.5))):
+            _s, _c, t, cause = m.watchdog_relative(st)
+            note_cases.append({"wpm": w, "stream": name, "trip_s": None if t is None else round(t, 2),
                                "cause": cause})
-    results["nogap_fault_streams"] = faults
-    for f in faults:
-        if f["stream"] in ("held dit", "held dah", "alternating"):
-            check(f["trip_s"] is not None and f["trip_s"] <= NOGAP_WINDOW_S + 0.5,
-                  f"{f['rule']} rule stops '{f['stream']}' at {f['wpm']} WPM by {f['trip_s']} s")
-        if f["stream"] == "alternating, 7.5-dit gap every 25 s":
-            check(f["trip_s"] is None, f"{f['rule']} rule keeps keying a stream with a 7.5-dit gap "
-                                       f"every 25 s at {f['wpm']} WPM (REQ-SYS-054 note case)")
-        if f["stream"] == "alternating, 2.5-dit gap every 25 s" and f["rule"] == "proposed":
-            check(f["trip_s"] is None, f"proposed rule keeps keying a stream with a 2.5-dit gap "
-                                       f"every 25 s at {f['wpm']} WPM")
+    results["req_sys_054_cases_rev2"] = note_cases
+    for c in note_cases:
+        if c["stream"] in ("held dit lever", "held dah lever", "alternating, no qualifying gap"):
+            check(c["trip_s"] is not None and c["trip_s"] <= NOGAP_WINDOW_S + 0.5,
+                  f"rev2 stops '{c['stream']}' at {c['wpm']} WPM by {c['trip_s']} s ({c['cause']})")
+        if c["stream"] == "random order, 7.5-dit gap every 25 s":
+            check(c["trip_s"] is None, f"rev2 keeps keying a non-repeating stream with a qualifying "
+                                       f"gap every 25 s at {c['wpm']} WPM (window restart)")
 
     # ---- 6. Interlock (REQ-SYS-052, REQ-SW-KEYER-022) --------------------------------------
     il = []
@@ -455,15 +646,17 @@ def make_plots(results: dict, worst: dict) -> None:
     # Plot 2: longest time without a qualifying gap, current and proposed rules
     fig, ax = plt.subplots(figsize=(8.0, 5.0), dpi=120)
     ng = results["nogap_corpus"]
-    for rule, prof, style, col in (("current", "nominal 3/7", "-", "tab:blue"),
-                                   ("current", "short word 3/6", "--", "tab:blue"),
-                                   ("current", "fast 2.5/5", ":", "tab:blue"),
-                                   ("proposed", "nominal 3/7", "-", "tab:green"),
-                                   ("proposed", "fast 2.5/5", ":", "tab:green")):
+    for rule, prof, style, col, lab in (
+            ("current", "nominal 3/7", "-", "tab:blue", "current (7 dits or 500 ms)"),
+            ("current", "short word 3/6", "--", "tab:blue", "current (7 dits or 500 ms)"),
+            ("current", "fast 2.5/5", ":", "tab:blue", "current (7 dits or 500 ms)"),
+            ("rev1", "fast 2.5/5", "-.", "tab:orange", "revision 1 (2 dits at the selected speed; under the green curves)"),
+            ("rev2", "nominal 3/7", "-", "tab:green", "revision 2 (2 x reference interval)"),
+            ("rev2", "fast 2.5/5", ":", "tab:green", "revision 2 (2 x reference interval)")):
         rows = ng[rule][prof]
         ax.plot([r["wpm"] for r in rows],
                 [max(r["qso_max_span_s"], r["stress_max_span_s"]) for r in rows], style,
-                color=col, lw=1.8, label=f"{rule} gap rule, spacing {prof} (letter/word dits)")
+                color=col, lw=1.8, label=f"{lab}, spacing {prof}")
     ax.axhline(NOGAP_WINDOW_S, color="red", lw=2.0, label="REQ-SYS-054 window 30 s")
     ax.text(15.5, 32.5, "Current-rule curves that leave the top of the plot have no\n"
             "qualifying gap at all: a 6-dit word space is under the threshold\n"
@@ -471,13 +664,49 @@ def make_plots(results: dict, worst: dict) -> None:
             "with the whole corpus (hundreds of seconds)", fontsize=7.5)
     ax.set_xlabel("Keyer speed (WPM)")
     ax.set_ylabel("Longest time without a qualifying gap (s)")
-    ax.set_title("REQ-SYS-054: correct sending (QSO and stress corpus) vs the 30 s no-gap window")
+    ax.text(5.5, 12.0, f"Revision 2 over all three corpora (paddle, Bug {results['nogap_bug']['streams']} streams,\n"
+            f"Straight {results['nogap_straight']['streams']} streams): longest span "
+            f"{results['nogap_rev2_max_span_s']:.2f} s, no trip", fontsize=7.5, color="tab:green")
+    ax.set_title("REQ-SYS-054: paddle corpus, longest time without a qualifying gap vs the 30 s window",
+                 fontsize=10)
     ax.set_xlim(5, 50)
     ax.set_ylim(0, 60)
     ax.grid(True, alpha=0.3)
     ax.legend(fontsize=7.5, loc="upper right")
     fig.tight_layout()
     fig.savefig(HERE / "keyer-nogap-vs-speed.png")
+    plt.close(fig)
+
+    # Plot 4: fault side (INSP-075 finding-1): stop time of keyer-fault streams with stretched spaces
+    fc = results["nogap_fault_catalogue"]
+    fig, axes = plt.subplots(1, 2, figsize=(10.0, 4.6), dpi=120, sharey=True)
+    for ax, w in zip(axes, (15, 50)):
+        for rule, col, mk, lab in (("current", "tab:blue", "o", "current (7 dits or 500 ms)"),
+                                   ("rev1", "tab:orange", "s", "revision 1 (2 dits)"),
+                                   ("rev2", "tab:green", "^", "revision 2 (self-referenced)")):
+            for stream_kind, ls in (("alternating", "-"), ("held dit", "--")):
+                rows = [r for r in fc if r["wpm"] == w and r["stream"].startswith(stream_kind + ", space")]
+                xs = [float(r["stream"].split("space ")[1].split(" ")[0]) for r in rows]
+                ys = [r[rule]["after_sending_s"] for r in rows]
+                yp = [y if y is not None else 62.0 for y in ys]
+                ax.plot(xs, yp, ls, color=col, marker=mk, ms=4, lw=1.3,
+                        label=f"{lab}, {stream_kind}" if w == 15 else None)
+        ax.axhline(NOGAP_WINDOW_S, color="0.4", lw=1.0, ls=":")
+        ax.axhline(NOGAP_WINDOW_S + m.REF_WINDOW_S, color="0.4", lw=1.0, ls=":")
+        ax.text(1.05, NOGAP_WINDOW_S + 0.6, "30 s window", fontsize=7)
+        ax.text(1.05, NOGAP_WINDOW_S + m.REF_WINDOW_S + 0.6, "30 s + 10 s reference aging", fontsize=7)
+        ax.text(1.05, 63.2, "plotted at 62 s: not stopped by K4 (K12 backstop at 150 to 180 s)", fontsize=7)
+        ax.set_title(f"{w} WPM, fault starting after 15 s of correct sending", fontsize=9)
+        ax.set_xlabel("Space after every element (dit times)")
+        ax.set_xlim(0.8, 8.2)
+        ax.set_ylim(0, 68)
+        ax.grid(True, alpha=0.3)
+    axes[0].set_ylabel("Time from fault start to K4 stop (s)")
+    axes[0].legend(fontsize=6.5, loc="lower right")
+    fig.suptitle("REQ-SYS-054 fault side: keyer-fault streams with stretched spaces under the three rules",
+                 fontsize=10)
+    fig.tight_layout()
+    fig.savefig(HERE / "keyer-nogap-fault-coverage.png")
     plt.close(fig)
 
     # Plot 3: timeline of a squeezed period in Iambic A at 5 WPM with the latest correct release

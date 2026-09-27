@@ -3,13 +3,13 @@
 | Field | Value |
 |---|---|
 | Product | Analysis note of WP-PDR-33 (`docs/plan/pdr-work-plan.md` section 3.7), G14 TBR group of plan section 10.2 (design part) |
-| Status | Draft, frozen at F0 for its independent review (plan rule C2). It proposes values and a preliminary UI design; it changes no requirement or interface file (plan section 5.3) |
+| Status | Draft, revision 2: fixes the two Major findings of review iteration 1 (INSP-072 findings 1 and 2) for the delta iteration (plan rule C1), frozen again at F0 (rule C2). The Minor findings of iteration 1 are not addressed in this revision. It proposes values and a preliminary UI design; it changes no requirement or interface file (plan section 5.3) |
 | Author | Claude, ME/UI designer role, WP-PDR-33 author invocation, 2026-09-27 |
-| Review record (plan section 3.7) | `docs/reviews/PDR/checklists/analysis-ui-design.md` (independent reviewer, `peer-review-checklist-analysis.md`; the renders also against `peer-review-checklist-visual-product.md` items), INSP number assigned by the lead SE |
+| Review record (plan section 3.7) | `docs/reviews/PDR/checklists/analysis-ui-design.md` (INSP-072, independent reviewer, `peer-review-checklist-analysis.md`; the renders also against `peer-review-checklist-visual-product.md` items) |
 | Analysis kind | timing, other (legibility, menu depth); criticality: mission-critical (`SW-DISPLAY`, `docs/process/07-software-engineering-plan.md` section 14.2 row `SW-DISPLAY`) |
 | Model and checker | `docs/design/analysis/ui-design/ui_model.py`; `docs/design/analysis/ui-design/check_ui_design.py` |
-| Outputs | `docs/design/analysis/ui-design/ui-design-results.json`; plot `docs/design/analysis/ui-design/ui-tuning-step-law.png`; display renders `docs/reviews/PDR/figures/display-layout-{receive,transmit,tune,key-inhibit,id-reminder,menu-level-1,menu-level-2-keyer}.png` |
-| Reproduce | `cd /Users/robinonsay/rust/cwht && .venv/bin/python docs/design/analysis/ui-design/check_ui_design.py` (exit 0, 33 assertions, about 2 s) |
+| Outputs | `docs/design/analysis/ui-design/ui-design-results.json`; plot `docs/design/analysis/ui-design/ui-tuning-step-law.png`; display renders `docs/reviews/PDR/figures/display-layout-{receive,transmit,tune,key-inhibit,id-reminder,menu-level-1,menu-level-2-keyer,menu-level-2-keyer-straight,cal-trim}.png` |
+| Reproduce | `cd /Users/robinonsay/rust/cwht && .venv/bin/python docs/design/analysis/ui-design/check_ui_design.py` (exit 0, 41 assertions, about 2 s) |
 | Credit | Developer evidence (`docs/process/05-configuration-and-data-management.md` section 9.1): the model has no TV record (section 10) |
 
 ## 1. Question and scope
@@ -59,12 +59,13 @@ REQ-SW-KEYER-036 (G14) is in `docs/design/analysis/keyer-host-study.md` section 
 | MENU button | enter level 1 | back one level; from level 1 back to status |
 | FUNC button | press: the tuning knob sets keyer speed for 5 s (REQ-SYS-041 without a menu) | none |
 | MENU and FUNC held 2 s | guest lock set or release, then a tuning-knob push to confirm (REQ-SYS-066 two-step action) | not accepted |
+| FUNC held while switching on | opens the service calibration screen (section 3.3, REQ-SYS-035), after Self-test | not applicable |
 
 Button inputs are debounced at 20 ms (above the 5 ms B3F bounce, I-3), never sharing the keyer's key-input filter (display report UI-BTN-01 candidate). The distinct-event rule of REQ-SW-KEYER-039 governs the confirmation steps; its interval is WP-PDR-40.
 
 ### 3.2 Screens and layout
 
-Seven renders, each at 4x with the true 128 x 128 dot grid (inspected; section 5):
+Nine renders, each at 4x with the true 128 x 128 dot grid (inspected; section 5):
 
 | Render | Content |
 |---|---|
@@ -75,8 +76,10 @@ Seven renders, each at 4x with the true 128 x 128 dot grid (inspected; section 5
 | `display-layout-id-reminder.png` | inverted banner "ID NOW / N0CALL" and "ID EVERY 10 MIN" |
 | `display-layout-menu-level-1.png` | level 1: KEYER, AUDIO, TX, SETUP; the selected row inverted |
 | `display-layout-menu-level-2-keyer.png` | level 2 KEYER: four visible rows of eight, the selected setting's value in an inverted bar "<IAMB A>" |
+| `display-layout-menu-level-2-keyer-straight.png` | level 2 KEYER with MODE in edit on a Straight-input value "<STR RING>", the widest bracketed MODE value (section 3.3) |
+| `display-layout-cal-trim.png` | service calibration screen: RX TRIM selected, range and step lines, value bar "<-30 HZ>", soft labels EXIT and STORE |
 
-Text other than the frequency uses a 5 x 7 dot font drawn at 2x (10 x 14 dots, 2.5 mm high, 10 characters per line) so that status items and menus read at about 0.35 m; the soft-key labels use 1x. Key-mode codes: ST Straight, SO Straight-on-tip, IA, IB, UL Ultimatic, BG Bug. Frequency digits are 11 x 23 dots with a 3-dot stroke; eight digits and two points occupy 105 of 128 dots.
+Text other than the frequency uses a 5 x 7 dot font drawn at 2x (10 x 14 dots, 2.5 mm high, 10 characters per line) so that status items and menus read at about 0.35 m; the soft-key labels use 1x. Key-mode codes: SO Straight keyed from the tip only (Straight-on-tip), SR Straight from the ring only, ST Straight from either contact, IA, IB, UL Ultimatic, BG Bug. Frequency digits are 11 x 23 dots with a 3-dot stroke; eight digits and two points occupy 105 of 128 dots.
 
 ### 3.3 Menu tree (REQ-SYS-062)
 
@@ -84,12 +87,28 @@ Level 0 is the status screen; level 1 is a category; every setting, action and v
 
 | Level 1 | Level 2 items (kind) | Governing source |
 |---|---|---|
-| KEYER | MODE, SPEED, SWAP, SWITCHPT, MAKE MS, BREAK MS, HANG, PRACTICE (settings) | REQ-SYS-040, 056, 041; ConOps 3.5.1 item 3 paddle swap; REQ-SW-KEYER-009; REQ-SYS-048, 162 (decision 48); REQ-SYS-044; Table 3.4-3 PRACTICE |
+| KEYER | MODE, SPEED, SWAP, SWITCHPT, MAKE MS, BREAK MS, HANG, PRACTICE (settings) | REQ-SYS-040, 056, 041; REQ-SW-KEYER-002 (MODE values below); ConOps 3.5.1 item 3 paddle swap; REQ-SW-KEYER-009; REQ-SYS-048, 162 (decision 48); REQ-SYS-044; Table 3.4-3 PRACTICE |
 | AUDIO | TONE HZ, TONE LVL, KEEP UNLK (settings); UNLOCK (action) | REQ-SYS-045; F14 sidetone level; REQ-SYS-170; REQ-SYS-074 |
 | TX | POWER, ENVELOPE (settings); TUNE (action); KEYDN TIME (view) | REQ-SYS-063 (5 W after a separate confirmation); REQ-SYS-014; ConOps T12; REQ-SYS-171 |
 | SETUP | CALL (setting); BENCH TEST, RESET CFG (actions); INFO (view) | REQ-SYS-006; REQ-SYS-179; REQ-SYS-136 |
 
-Outside the menus: frequency, volume, guest lock and the speed shortcut (section 3.1). 24 items in all; none deeper than level 2. The longest category has eight items (two screens of four).
+**MODE values (INSP-072 finding-1).** The Straight-input setting of REQ-SW-KEYER-002 ("from the tip, the ring or either contact") is carried by three Straight values of KEYER > MODE:
+
+| Value | Status code | Meaning | Source |
+|---|---|---|---|
+| IAMB A | IA | Iambic A | REQ-SYS-040 |
+| IAMB B | IB | Iambic B | REQ-SYS-040 |
+| ULTIMATIC | UL | Ultimatic (shown without brackets: the bracketed form exceeds the bar) | REQ-SYS-040 |
+| BUG | BG | Bug | REQ-SYS-040 |
+| STR TIP | SO | Straight keyed from the tip only; the mono-plug choice (Straight-on-tip) | REQ-SW-KEYER-002 tip; REQ-SYS-163 |
+| STR RING | SR | Straight keyed from the ring only | REQ-SW-KEYER-002 ring |
+| STR BOTH | ST | Straight keyed from either contact | REQ-SW-KEYER-002 either |
+
+One MODE selection and its confirmation therefore set both the key-input mode (REQ-SYS-056; accepted with a closed input, REQ-SYS-163) and the Straight input. With a mono plug the operator needs one menu path, not two, while the KEY inhibit is showing. A separate Straight-input item would add a 25th item and a second selection before the mono plug is harmless. Every value fits the 124-dot edit bar at the 2x font (checker; render `display-layout-menu-level-2-keyer-straight.png`).
+
+**Calibration trim (INSP-072 finding-1).** The per-unit receive filter-centre trim of REQ-SYS-035 is outside REQ-SYS-062, because it is not an operator setting: NGO-012 states that "the filter-centre offset is a per-unit calibration stored at acceptance over +/-500 Hz in 10 Hz steps, not an operator control". A setting inside the operator tree could be changed by any operator or guest. The trim therefore sits on a service calibration screen, the "calibration menu" of the REQ-SYS-035 verification note and TC-SYS-023. The screen opens when FUNC is held while switching on, after Self-test, and exits on MENU or at switch-off. Its one item, RX TRIM, sets -500 to +500 Hz in 10 Hz steps with the tuning knob and stores the value after a tuning-knob push (render `display-layout-cal-trim.png`). It is one level from its entry and changes no operator setting.
+
+Outside the menus: frequency, volume, guest lock and the speed shortcut (section 3.1). The operator tree holds 24 items in all (20 menu items and 4 direct controls), recounted with the MODE values above; none is deeper than level 2. The calibration screen holds one more item outside the operator tree. The longest category has eight items (two screens of four).
 
 ### 3.4 Tuning law (REQ-SYS-058, REQ-SYS-164)
 
@@ -134,7 +153,15 @@ Each Table 3.4-4 cause with a display text gets a two-line banner of at most 10 
 | 18 | BATT EMPTY | BATT EMPTY / CHARGE |
 | 19 | CELL HOT: powering down | CELL HOT / POWER DOWN |
 
-All 22 banners are distinct; row 20 has no display (the unit goes dark). The rows 21 to 23 that the ConOps holds TBR (backstop, hardware over-temperature cut-off, frequency verification) get banners when the ConOps enters them.
+Fault types that the REQ-SYS-067 rationale names ("configuration and sensor faults (REQ-SYS-088, 089, 134, 155, 156, 167)") and that Table 3.4-4 has no row for (INSP-072 finding-2). REQ-SYS-088 is row 13, and REQ-SYS-089 and REQ-SYS-167 are row 15. The other three get banners here, and their rows are requested from the ConOps writer (R-U6):
+
+| Governing id | Detected fault | Proposed class | Banner |
+|---|---|---|---|
+| REQ-SYS-155 | PA temperature reading outside its plausible range (open or shorted sensor) | Latched (Fault-safe, as the requirement states) | PA SENSOR / REPORT |
+| REQ-SYS-156 | Forward-power reading implausible for the ALC drive during key-down | Latched (Fault-safe, as the requirement states) | PWR SENSOR / REPORT |
+| REQ-SYS-134 | A stored setting was corrupt or out of range and was replaced by its default at load | Indication, not transmit-stopping: shown after Self-test until the next control input | SETTINGS / DEFAULTED |
+
+All 25 banners (22 for Table 3.4-4 rows 1 to 19 and 3 added) are distinct (checker); row 20 has no display (the unit goes dark). The rows 21 to 23 that the ConOps holds TBR (backstop, hardware over-temperature cut-off, frequency verification) get banners when the ConOps enters them.
 
 ### 3.7 Identification reminder (REQ-SYS-068)
 
@@ -157,11 +184,12 @@ A configuration reset restores Iambic A, 15 WPM, 600 Hz sidetone, 8-dit hang and
 | A-U7 | Pico 2 crystal within +/-50 ppm | Sets the ID reminder error | Any realistic crystal error is below 0.1 s over 540 s |
 | A-U8 | Quadrature edges equally spaced (the PEC11R phase tolerance is not in the research) | Sets the encoder decode capacity | Phase error above 50 percent at 50 detents/s |
 | A-U9 | Usability run operator: 2 rev/s until within 20 kHz, 0.75 rev/s until within 1.5 kHz, 0.4 rev/s until within 150 Hz, then 3 detents/s, with 0.3 s between phases | A scripted operator, not a person | The owner's session (WP-PDR-40) |
+| A-U10 | The display is initialised in the boot path before the configuration load, so a REQ-SYS-134 replacement found at load is reported through the same path as any other detection (request R-U2) | Sets the REQ-SYS-134 latency | A boot order that loads the configuration before the display is ready; the banner would then wait for the display |
 
 ## 5. Validation
 
 - The checker measures the frequency digits from the frame buffer (23 dot rows) rather than trusting the font constant, and asserts every value in sections 6 and 7.
-- Every render was opened and inspected by the author: character shapes, the inverted bands, text fit inside 128 dots, the soft labels. Corrections made during inspection: spaces restored in "BAT 7.6V" and "KEEP 0.3M"; the cryptic key-down line on the transmit screen replaced by the call sign; the ID footer reworded.
+- Every render was opened and inspected by the author: character shapes, the inverted bands, text fit inside 128 dots, the soft labels. Corrections made during inspection: spaces restored in "BAT 7.6V" and "KEEP 0.3M"; the cryptic key-down line on the transmit screen replaced by the call sign; the ID footer reworded. Revision 2 renders (`display-layout-menu-level-2-keyer-straight.png`, `display-layout-cal-trim.png`) inspected the same way: the widest bracketed MODE value "<STR RING>" fits the bar, and a render caption that overran the image width was wrapped onto two lines; the seven revision 1 renders are unchanged byte for byte.
 - The tuning model's crossing times agree with hand calculation: at 2 rev/s (48 detents/s), 1 slow detent and 400 detents of 10 kHz, 400 / 48 = 8.33 s.
 
 ## 6. Results
@@ -185,7 +213,7 @@ The illuminance floor is set by luminance: 3 cd/m2 (A-U2) needs 78.8 lux through
 
 ### 6.3 Menu depth (REQ-SYS-062)
 
-Every one of the 24 operator settings, actions and views of section 3.3 is at level 2 or above. **Confirmed: two levels.**
+Every one of the 24 operator settings, actions and views of section 3.3 is at level 2 or above, recounted with the Straight-input setting carried by the MODE values (every REQ-SYS-040 mode and every REQ-SW-KEYER-002 setting present, checker). The REQ-SYS-035 calibration trim is outside the operator tree for the NGO-012 reason of section 3.3, one level from its own entry. **Confirmed: two levels.**
 
 ### 6.4 Step table and band crossing (REQ-SYS-058, REQ-SYS-164)
 
@@ -209,7 +237,7 @@ At 2 rev/s: 8.33 s, 21.7 s inside the 30 s of REQ-SYS-164. Usability run (A-U9):
 | Optical response at -10 C (A-U5) | 500 |
 | Total | 575.6 |
 
-**Confirmed: 1 s** (margin 424 ms). TC-SYS-005 measures to the display chip-select; the optical part rests on A-U5.
+The budget holds for every message of section 3.6, the three added ones included. The REQ-SYS-155 and REQ-SYS-156 detections report through the same safe-state path. The REQ-SYS-134 detection happens at the configuration load, after display initialisation (A-U10). **Confirmed: 1 s** (margin 424 ms) over all 25 messages. TC-SYS-005 measures to the display chip-select; the optical part rests on A-U5.
 
 ### 6.6 Identification reminder (REQ-SYS-068)
 
@@ -229,9 +257,10 @@ The display bus can carry at most 59.5 full frames per second at 1.1 MHz; the de
 |---|---|---|---|
 | Frequency digits at 0.18 mm pitch | REQ-SYS-061 | 4.14 mm | 0.14 mm |
 | 0.5 m at 300 lux, no lens, plain lens (two surrounds), AR lens | REQ-SYS-165 | section 6.2 table | 3.8 x luminance floor; contrast 5.06 to 21 except the plain-lens specular case 2.74 |
-| Every setting, action and view | REQ-SYS-062 | all at level 2 or above | 0 levels over |
+| Every setting, action and view, the Straight-input setting (tip, ring, either) included | REQ-SYS-062; REQ-SW-KEYER-002 | all at level 2 or above; the three Straight inputs are MODE values | 0 levels over |
+| Filter-centre calibration trim | REQ-SYS-035 ("calibration menu"); NGO-012 | outside the operator tree; service calibration screen, one level from its entry | not applicable |
 | Slow and fast turning; band crossing at 2 rev/s | REQ-SYS-058, REQ-SYS-164 | 10 Hz to 10 kHz; 8.33 s | 21.7 s |
-| Each Table 3.4-4 cause with a text | REQ-SYS-067 | 22 distinct banners; 575.6 ms worst | 424 ms |
+| Each Table 3.4-4 cause with a text, and the REQ-SYS-134, 155 and 156 fault types | REQ-SYS-067 | 25 distinct banners; 575.6 ms worst | 424 ms |
 | Reminder at 540 s after the first key-down | REQ-SYS-068 | -0.027 s / +0.58 s | 4.4 s |
 | Configuration reset | REQ-SYS-136 | five defaults on their ranges | not applicable |
 | Receive, Transmit-keyed, Tune screens | REQ-SYS-060 | all six fields on each render | not applicable |
@@ -256,9 +285,10 @@ No value goes to the owner before this note's record is APPROVED (plan rule C10)
 ## 9. Requests to other writers (plan section 5.3)
 
 - **R-U1 (WP-PDR-39 enclosure concept, WP-PDR-27 enclosure trade):** an AR-coated window lens, or no separate lens over the polarizer, to hold 3:1 contrast in the specular case; recess at most about 2 mm (F23).
-- **R-U2 (WP-PDR-32 firmware architecture):** UI task period 20 ms, display updates on change only and at most 25 frames/s, the frequency rendered from the synthesizer value; the SW module name (SW-DISPLAY or SW-UI) is the architecture ADR's.
-- **R-U3 (WP-PDR-35 SW L2):** L2 children for the step table (section 3.4), the menu tree (section 3.3), the message table (section 3.6) and the ID reminder timer (section 3.7).
+- **R-U2 (WP-PDR-32 firmware architecture):** UI task period 20 ms, display updates on change only and at most 25 frames/s, the frequency rendered from the synthesizer value; the display initialised in the boot path before the configuration load (A-U10); the SW module name (SW-DISPLAY or SW-UI) is the architecture ADR's.
+- **R-U3 (WP-PDR-35 SW L2):** L2 children for the step table (section 3.4), the menu tree with the MODE values and the service calibration screen (section 3.3), the message table with the three added messages (section 3.6) and the ID reminder timer (section 3.7).
 - **R-U4 (ConOps writer, WP-PDR-10; handbook at CDR):** Table 3.4-4 display texts in the 10-character two-line form of section 3.6, or the long forms kept as handbook text.
+- **R-U6 (ConOps writer, WP-PDR-10):** add rows to Table 3.4-4 for REQ-SYS-155 (PA temperature sensor fault, Latched) and REQ-SYS-156 (forward-power detector fault, Latched), with the texts and classes of section 3.6. Add the REQ-SYS-134 setting-replaced indication, which does not stop transmission, as a note to Table 3.4-3 or a row of a companion table of indications. Also name the service calibration screen (FUNC held while switching on) in section 3.5.1.
 - **R-U5 (WP-PDR-40):** the owner's hands-on session tries the step table, the FUNC speed shortcut and the menu, and reads the renders printed at true size (a 23.04 mm square) at 0.5 m.
 
 ## 10. Tools, credit and verification route
@@ -284,3 +314,4 @@ Results are developer evidence (05 section 9.1; checklist CK-ANA-C2) until a TV 
 | Date | Revision | Change |
 |---|---|---|
 | 2026-09-27 | 1 | First issue for the F0 freeze (WP-PDR-33, wave 1a) |
+| 2026-09-27 | 2 | Major findings of iteration 1. INSP-072 finding-1: the REQ-SW-KEYER-002 Straight-input setting as three MODE values with codes SO, SR, ST; the REQ-SYS-035 trim placed outside the operator tree on a service calibration screen for the NGO-012 reason; 24 items recounted; two renders added. INSP-072 finding-2: banners for REQ-SYS-155, REQ-SYS-156 and REQ-SYS-134; distinctness and latency restated over 25 messages; request R-U6 to the ConOps writer; assumption A-U10 |

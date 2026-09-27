@@ -21,6 +21,7 @@ microseconds (float), so element timing is exact to below 1 us (F8: TIMER0 has 1
 from __future__ import annotations
 
 import math
+from collections import deque
 from dataclasses import dataclass, field
 
 # ---------------------------------------------------------------------------------------------
@@ -575,6 +576,268 @@ def stream_with_gap_every(wpm: float, seconds: float, every_s: float, gap_dits: 
             next_gap += every_s * 1e6
         typ = "dah" if typ == "dit" else "dit"
     return out
+
+
+# ---------------------------------------------------------------------------------------------
+# Revision 2: the self-referenced watchdog (note section 6.2; INSP-071 finding-1, INSP-075 findings
+# 1 and 2). It reads only the TX_KEY read-back and uses no keyer parameter, in every key mode.
+#   Reference interval r: the shortest key-up interval that ended in the preceding REF_WINDOW_S
+#     seconds, the current interval included.
+#   Qualifying gap: a key-up interval of at least GAP_FACTOR * r or at least ABS_GAP_S.
+#   Word gap: a key-up interval of at least WORD_FACTOR * r or at least ABS_GAP_S.
+#   (i-a) count_limit consecutive key-down elements of equal duration with no word gap between
+#     them (a sub-word gap does not reset this count; INSP-075 finding-1).
+#   (i-b) count_limit consecutive elements that repeat the element-and-gap pattern with a period of
+#     1 to MAX_PERIOD elements: element j matches element j - p in key-down duration and in the
+#     key-up interval before it.
+#   (ii) window_s seconds without a qualifying gap.
+# "Equal" means the two durations differ by at most SAME_TOL of the longer one. Edges are quantised
+# to the 1 ms read-back sample.
+# ---------------------------------------------------------------------------------------------
+REF_WINDOW_S = 10.0
+GAP_FACTOR = 2.0
+WORD_FACTOR = 4.0
+ABS_GAP_S = 2.0
+SAME_TOL = 0.25
+MAX_PERIOD = 6
+
+
+def _same(a: float, b: float, tol: float) -> bool:
+    return abs(a - b) <= tol * max(a, b) + 1e-6
+
+
+def watchdog_relative(stream, window_s: float = 30.0, count_limit: int = 128,
+                      ref_window_s: float = REF_WINDOW_S, gap_factor: float = GAP_FACTOR,
+                      word_factor: float = WORD_FACTOR, abs_gap_s: float = ABS_GAP_S,
+                      same_tol: float = SAME_TOL, max_period: int = MAX_PERIOD,
+                      quantise_ms: bool = True, detail: bool = False):
+    """Apply the revision 2 watchdog to a key-down stream [(start_us, end_us, typ)].
+
+    The element type label is not used: the monitor sees only TX_KEY. Returns
+    (max_span_s, max_count, trip_time_s or None, trip_cause); max_count is the larger of the
+    (i-a) and (i-b) counts. With detail=True a fifth item gives the separate maxima.
+    """
+    if quantise_ms:
+        stream = [(math.floor(s / 1000.0) * 1000.0, math.floor(e / 1000.0) * 1000.0, t)
+                  for s, e, t in stream]
+        stream = [(s, e, t) for s, e, t in stream if e > s]
+    win = window_s * 1e6
+    ref_win = ref_window_s * 1e6
+    abs_gap = abs_gap_s * 1e6
+    gaps = deque()     # (end_us, length_us), lengths increasing: sliding-window minimum
+    hist = deque(maxlen=max_period + 1)   # (duration, preceding gap) of recent elements
+    runs = [0] * (max_period + 1)         # runs[p]: consecutive matches at period p
+    wstart = None
+    count_a = 0
+    prev_len = None
+    prev_end = None
+    max_span, max_a, max_b = 0.0, 0, 0
+    trip = None
+    for s, e, _typ in stream:
+        d = e - s
+        if prev_end is None:
+            g = math.inf
+            qualifying = word = True
+        else:
+            g = s - prev_end
+            while gaps and gaps[-1][1] >= g:
+                gaps.pop()
+            gaps.append((s, g))
+            while gaps[0][0] < s - ref_win:
+                gaps.popleft()
+            ref = gaps[0][1]
+            qualifying = g >= gap_factor * ref - 1e-6 or g >= abs_gap - 1e-6
+            word = g >= word_factor * ref - 1e-6 or g >= abs_gap - 1e-6
+        if qualifying:
+            wstart = s
+        # (i-a) equal durations, reset by a word gap or a different duration
+        if word or prev_len is None or not _same(d, prev_len, same_tol):
+            count_a = 1
+        else:
+            count_a += 1
+        prev_len = d
+        # (i-b) periodic run; an element after a gap of 2 s or more (or the first) starts afresh
+        hist.append((d, g))
+        best_b = 1
+        for p in range(1, max_period + 1):
+            if len(hist) > p and math.isfinite(g) and g < abs_gap:
+                dp, gp = hist[-1 - p]
+                if math.isfinite(gp) and _same(d, dp, same_tol) and _same(g, gp, same_tol):
+                    runs[p] += 1
+                else:
+                    runs[p] = 0
+            else:
+                runs[p] = 0
+            if runs[p] > 0:
+                best_b = max(best_b, runs[p] + p)
+        span = e - wstart
+        max_span = max(max_span, span)
+        max_a = max(max_a, count_a)
+        max_b = max(max_b, best_b)
+        if trip is None:
+            if count_a >= count_limit:
+                trip = (e / 1e6, "count")
+            elif best_b >= count_limit:
+                trip = (e / 1e6, "period")
+            elif span >= win:
+                trip = (max(s, wstart + win) / 1e6, "window")
+        prev_end = e
+    out = (max_span / 1e6, max(max_a, max_b), (trip[0] if trip else None),
+           (trip[1] if trip else None))
+    if detail:
+        return out + ({"count_a": max_a, "period_b": max_b},)
+    return out
+
+
+def stream_random_with_gap_every(wpm: float, seconds: float, every_s: float, gap_dits: float,
+                                 seed: int = 3):
+    """Non-repeating fault stream: dits and dahs in random order with 1-dit spaces and one gap of
+    gap_dits dits every every_s seconds (revised REQ-SYS-054 verification case, note section 7)."""
+    import random
+    rng = random.Random(seed)
+    dit = dit_us(wpm)
+    t, out, next_gap = 0.0, [], every_s * 1e6
+    while t < seconds * 1e6:
+        typ = rng.choice(("dit", "dah"))
+        L = dit if typ == "dit" else 3.0 * dit
+        out.append((t, t + L, typ))
+        t += L + dit
+        if t >= next_gap:
+            t += (gap_dits - 1.0) * dit
+            next_gap += every_s * 1e6
+    return out
+
+
+def _chars_of(word: str):
+    chars, i = [], 0
+    while i < len(word):
+        if word[i] == "<":
+            j = word.index(">", i)
+            chars.append(word[i:j + 1])
+            i = j + 1
+        else:
+            chars.append(word[i])
+            i += 1
+    return chars
+
+
+def key_stream_bug(text: str, wpm: float, k: float, letter: float, word: float, dah_dits,
+                   jitter: float = 0.15, seed: int = 1):
+    """TX_KEY stream of Bug-mode sending (note section 3.4, corpus B).
+
+    Dits are automatic at the selected speed (dit length b) with automatic 1-dit spaces between
+    consecutive dits. Dahs are manual: dah_dits is a number of Bug dits, or a (low, high) range drawn
+    per dah. Every other space is operator-timed in the operator's unit u = k * b: intra-character
+    spaces next to a dah 1 u, letter spaces `letter` u, word spaces `word` u. Every manual length
+    is scaled by an independent factor uniform in [1 - jitter, 1 + jitter].
+    """
+    import random
+    rng = random.Random(seed)
+    b = dit_us(wpm)
+    u = k * b
+
+    def j(x):
+        return x * (1.0 + rng.uniform(-jitter, jitter))
+
+    t, out = 0.0, []
+    words = text.split()
+    for wi, w in enumerate(words):
+        chars = _chars_of(w)
+        for ci, ch in enumerate(chars):
+            code = MORSE[ch]
+            for ei, c in enumerate(code):
+                if c == ".":
+                    L = b
+                else:
+                    dd = dah_dits if not isinstance(dah_dits, tuple) else rng.uniform(*dah_dits)
+                    L = j(dd * b)
+                out.append((t, t + L, "dit" if c == "." else "dah"))
+                t += L
+                if ei < len(code) - 1:
+                    t += b if (c == "." and code[ei + 1] == ".") else j(u)
+            if ci < len(chars) - 1:
+                t += j(letter * u)
+        if wi < len(words) - 1:
+            t += j(word * u)
+    return out
+
+
+HAND_PROFILES = {
+    # name: (element scale, dah ratio, intra, letter, word, jitter); units of the hand dit
+    "H1 nominal": (1.0, 3.0, 1.0, 3.0, 7.0, 0.15),
+    "H2 heavy": (1.3, 3.5, 0.7, 2.5, 5.0, 0.20),
+    "H3 light": (0.8, 2.5, 1.3, 3.0, 6.0, 0.20),
+    "H4 spread": (1.0, 3.0, 1.0, 4.5, 10.0, 0.20),
+    "H5 run-together": (1.0, 3.0, 1.0, 2.5, 5.0, 0.10),
+}
+
+
+def key_stream_hand(text: str, wpm: float, profile: str, seed: int = 1):
+    """TX_KEY stream of Straight-key sending at hand speed wpm (note section 3.4, corpus S).
+
+    Every element and space is operator-timed: lengths from HAND_PROFILES in hand dits, each scaled
+    by an independent factor uniform in [1 - jitter, 1 + jitter].
+    """
+    import random
+    rng = random.Random(seed)
+    esc, ratio, intra, letter, word, jit = HAND_PROFILES[profile]
+    u = dit_us(wpm)
+
+    def j(x):
+        return x * (1.0 + rng.uniform(-jit, jit))
+
+    t, out = 0.0, []
+    words = text.split()
+    for wi, w in enumerate(words):
+        chars = _chars_of(w)
+        for ci, ch in enumerate(chars):
+            code = MORSE[ch]
+            for ei, c in enumerate(code):
+                L = j(esc * u * (1.0 if c == "." else ratio))
+                out.append((t, t + L, "dit" if c == "." else "dah"))
+                t += L
+                if ei < len(code) - 1:
+                    t += j(intra * u)
+            if ci < len(chars) - 1:
+                t += j(letter * u)
+        if wi < len(words) - 1:
+            t += j(word * u)
+    return out
+
+
+def fault_stream_cycle(wpm: float, seconds: float, cycle, t0: float = 0.0):
+    """Keyer-fault stream repeating cycle [(element_dits, following_gap_dits), ...] from t0 (us).
+
+    element_dits None marks a continuous key-down (a stuck element timer) for the whole duration.
+    """
+    dit = dit_us(wpm)
+    if cycle[0][0] is None:
+        return [(t0, t0 + seconds * 1e6, "dah")]
+    t, out, i = t0, [], 0
+    while t < t0 + seconds * 1e6:
+        el, gp = cycle[i % len(cycle)]
+        out.append((t, t + el * dit, "dit" if el <= 1.0 else "dah"))
+        t += (el + gp) * dit
+        i += 1
+    return out
+
+
+def with_lead_in(fault_builder, wpm: float, lead_text: str, lead_s: float):
+    """Correct paddle sending (nominal spacing) for about lead_s seconds, a 3-dit letter space, then
+    the fault stream. Returns (stream, fault_start_us)."""
+    lead = [x for x in key_stream(lead_text, wpm) if x[1] <= lead_s * 1e6]
+    t0 = lead[-1][1] + 3.0 * dit_us(wpm)
+    return lead + fault_builder(t0), t0
+
+
+def squeeze_limit_monitor_ms(stored_wpm, complement_ok: bool = True, dits: float = 20.0,
+                             floor_s: float = 2.0, lo: int = 5, hi: int = 50) -> float:
+    """REQ-SYS-184 limit as SW-SAFE applies it (revision 2, note section 6.1): the dit length comes
+    from the configuration-guarded speed value; a complement mismatch or a value outside lo to hi
+    WPM is replaced by hi (the shortest limit)."""
+    ok = complement_ok and isinstance(stored_wpm, (int, float)) and lo <= stored_wpm <= hi
+    w = stored_wpm if ok else hi
+    return max(floor_s * 1000.0, dits * dit_us(w) / 1000.0)
 
 
 # ---------------------------------------------------------------------------------------------

@@ -1,4 +1,14 @@
 {
+ "calibration": {
+  "entry": "FUNC held while switching on; exits on MENU or at switch-off",
+  "items": [
+   {
+    "item": "RX TRIM",
+    "kind": "calibration",
+    "source": "REQ-SYS-035 filter-centre trim, +/-500 Hz (TBR) in 10 Hz steps, stored after a tuning-knob push"
+   }
+  ]
+ },
  "crossing": {
   "0.5": {
    "detents": 4001,
@@ -46,6 +56,32 @@
  "digit_subtense_arcmin_0p5m": 28.46,
  "display_max_fps_at_1p1MHz": 59.52,
  "encoder_state_ms_at_50dps": 5.0,
+ "extra_messages": [
+  {
+   "display": [
+    "PA SENSOR",
+    "REPORT"
+   ],
+   "fault": "PA temperature reading outside its plausible range: Fault-safe",
+   "req": "REQ-SYS-155"
+  },
+  {
+   "display": [
+    "PWR SENSOR",
+    "REPORT"
+   ],
+   "fault": "Forward-power reading implausible for the ALC drive: Fault-safe",
+   "req": "REQ-SYS-156"
+  },
+  {
+   "display": [
+    "SETTINGS",
+    "DEFAULTED"
+   ],
+   "fault": "A stored setting was corrupt or out of range and was replaced by its default",
+   "req": "REQ-SYS-134"
+  }
+ ],
  "fault_latency_items_ms": [
   [
    "detection to KEY inhibit report (REQ-SW-KEYER-023, other causes by the same rule)",
@@ -167,7 +203,7 @@
   "KEYER>MODE": {
    "depth": 2,
    "kind": "setting",
-   "source": "REQ-SYS-040, REQ-SYS-056 key-input and keyer mode"
+   "source": "REQ-SYS-040, REQ-SYS-056 key-input and keyer mode; REQ-SW-KEYER-002 Straight-input setting as the values STR TIP, STR RING, STR BOTH (MODE_VALUES)"
   },
   "KEYER>PRACTICE": {
    "depth": 2,
@@ -251,6 +287,7 @@
   }
  },
  "menu_item_count": 24,
+ "message_count_total": 25,
  "message_table": [
   {
    "conops": "KEY CLOSED: check plug",
@@ -427,6 +464,50 @@
     "POWER DOWN"
    ],
    "row": 19
+  }
+ ],
+ "mode_values": [
+  {
+   "code": "IA",
+   "meaning": "Iambic A",
+   "source": "REQ-SYS-040",
+   "value": "IAMB A"
+  },
+  {
+   "code": "IB",
+   "meaning": "Iambic B",
+   "source": "REQ-SYS-040",
+   "value": "IAMB B"
+  },
+  {
+   "code": "UL",
+   "meaning": "Ultimatic",
+   "source": "REQ-SYS-040",
+   "value": "ULTIMATIC"
+  },
+  {
+   "code": "BG",
+   "meaning": "Bug",
+   "source": "REQ-SYS-040",
+   "value": "BUG"
+  },
+  {
+   "code": "SO",
+   "meaning": "Straight, keyed from the tip only (Straight-on-tip; mono plug)",
+   "source": "REQ-SW-KEYER-002 tip",
+   "value": "STR TIP"
+  },
+  {
+   "code": "SR",
+   "meaning": "Straight, keyed from the ring only",
+   "source": "REQ-SW-KEYER-002 ring",
+   "value": "STR RING"
+  },
+  {
+   "code": "ST",
+   "meaning": "Straight, keyed from either contact",
+   "source": "REQ-SW-KEYER-002 either",
+   "value": "STR BOTH"
   }
  ],
  "req_subtense_arcmin_0p5m": 27.5,

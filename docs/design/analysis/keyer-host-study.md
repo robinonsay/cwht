@@ -3,13 +3,13 @@
 | Field | Value |
 |---|---|
 | Product | Analysis note of WP-PDR-33 (`docs/plan/pdr-work-plan.md` section 3.7), G13 TBR group of plan section 10.2 |
-| Status | Draft, frozen at F0 for its independent review (plan rule C2). It proposes values; it changes no requirement, hazard or interface file (plan section 5.3) |
+| Status | Draft, revision 2: fixes the Major findings of review iteration 1 (INSP-071 finding-1; INSP-075 findings 1 and 2) for the delta iteration (plan rule C1), frozen again at F0 (rule C2). The Minor findings of iteration 1 are not addressed in this revision. It proposes values; it changes no requirement, hazard or interface file (plan section 5.3) |
 | Author | Claude, software lead (keyer) role, WP-PDR-33 author invocation, 2026-09-27 |
-| Review records (plan section 3.7) | `docs/reviews/PDR/checklists/analysis-keyer-host-study.md` (independent reviewer, `peer-review-checklist-analysis.md`) and `analysis-keyer-host-study-software-assurance.md` (SA reviewer, `peer-review-checklist-software-assurance.md`), INSP numbers assigned by the lead SE |
+| Review records (plan section 3.7) | `docs/reviews/PDR/checklists/analysis-keyer-host-study.md` (INSP-071, independent reviewer, `peer-review-checklist-analysis.md`) and `analysis-keyer-host-study-software-assurance.md` (INSP-075, SA reviewer, `peer-review-checklist-software-assurance.md`) |
 | Analysis kind | timing, worst-case (checklist sections G6 and G7); criticality safety-critical (`SW-KEYER` and the safe-state manager, `docs/process/07-software-engineering-plan.md` section 14.1) |
 | Model and checker | `docs/design/analysis/keyer-host-study/keyer_model.py` (reference keyer, debounce, monitors, corpus); `docs/design/analysis/keyer-host-study/check_keyer_host_study.py` (asserts every number below) |
-| Outputs | `docs/design/analysis/keyer-host-study/keyer-host-study-results.json`; plots `keyer-squeeze-vs-speed.png`, `keyer-nogap-vs-speed.png`, `keyer-squeeze-timeline.png` in the same folder |
-| Reproduce | `cd /Users/robinonsay/rust/cwht && .venv/bin/python docs/design/analysis/keyer-host-study/check_keyer_host_study.py` (exit 0, 348 assertions, about 30 s) |
+| Outputs | `docs/design/analysis/keyer-host-study/keyer-host-study-results.json`; plots `keyer-squeeze-vs-speed.png`, `keyer-nogap-vs-speed.png`, `keyer-nogap-fault-coverage.png`, `keyer-squeeze-timeline.png` in the same folder |
+| Reproduce | `cd /Users/robinonsay/rust/cwht && .venv/bin/python docs/design/analysis/keyer-host-study/check_keyer_host_study.py` (exit 0, 555 assertions, about 45 s) |
 | Credit | Developer evidence (`docs/process/05-configuration-and-data-management.md` section 9.1): the model has no TV record (section 10) |
 
 ## 1. Question and scope
@@ -64,7 +64,8 @@ Time base: raw contact states are sampled at integer milliseconds; element and s
 
 - **Iambic A and B**: F7 rules 1 to 6 verbatim.
 - **Ultimatic**: while both paddles are held, the last-closed paddle's element repeats; with one held, that paddle's element repeats; a tap of the opposite paddle during an element or its space is remembered as for iambic memory (the REQ-SYS-184 rationale: "a squeeze repeats the last-closed element").
-- **Bug and Straight** are not simulated. The Bug dit contact is an automatic dit stream (a held lever, section 6.2 fault cases); the Bug dah and the straight key are manually timed closures, analysed in section 6.4.
+- **Bug** (REQ-SW-KEYER-011, REQ-SW-KEYER-012): the dit contact gives self-timed dits at the selected speed with 1-dit spaces while it is closed; the dah contact keys for as long as it is closed. So the dahs, every space next to a dah, every letter space and every word space are operator-timed, and only dit-to-dit spaces are keyer-timed. The engine is not simulated for Bug: the monitors see only TX_KEY, which is built from text (`key_stream_bug`, corpus B, section 3.4).
+- **Straight and Straight-on-tip** (REQ-SW-KEYER-002): every element and every space is hand-timed. TX_KEY is built from text with hand-timing profiles (`key_stream_hand`, corpus S, section 3.4). A manually timed closure (the straight key, the Bug dah contact) is also bounded by the manual-closure timeout (section 6.4).
 
 ### 3.3 Operator model for the squeeze study
 
@@ -78,16 +79,34 @@ Script: the first paddle closes at raw 0 ms; the second at raw 0 ms when the run
 
 A run inside a character behaves as the isolated run: the second paddle cannot close before the run's first element starts (else it would change the previous decision), and the release window is the same. The character bound is the longest of its runs. Three whole characters are simulated as a cross-check (section 5.1).
 
-### 3.4 Sending corpus for the paddle watchdog
+### 3.4 Sending corpora for the paddle watchdog
 
-The no-gap watchdog sees only TX_KEY. For correctly sent text, TX_KEY is the ideal element sequence with operator-timed letter and word spaces; the model builds it from text (`key_stream`). Two corpora, author-written, with the placeholder call N0CALL:
+The no-gap watchdog sees only TX_KEY. The model builds TX_KEY from text for each key mode. Two texts, author-written, with the placeholder call N0CALL:
 
-- **QSO corpus**: a complete CW contact (CQ, call exchange with portable suffixes, RST 599 and 5NN, name, QTH, grid square, rig, weather, 73, the prosigns AR, KN, SK, CT, BT, the error signal, HH HH, 55555, 00000, EEEEE, IIIII, SSSSS) and every punctuation character.
+- **QSO text**: a complete CW contact (CQ, call exchange with portable suffixes, RST 599 and 5NN, name, QTH, grid square, rig, weather, 73, the prosigns AR, KN, SK, CT, BT, the error signal, HH HH, 55555, 00000, EEEEE, IIIII, SSSSS) and every punctuation character.
 - **Stress tokens**: the longest tokens an operator plausibly sends without a word space: a 20-letter word, `VE3/N0CALL/QRP`, `N0CALL/MM/QRP/P`, `1234567890`, `0000000000`, a 13-letter word.
 
-Five spacing profiles (letter / word space in dits): nominal 3/7; short word space 3/6 and 3/5; fast 2.5/5; spread 4.5/10. They bound the operator's own spacing; no recorded sending is available (limitation L-2).
+Three corpora send both texts (no recorded sending is available, limitation L-2):
 
-The watchdog model: a key-up gap qualifies when it is at least the gap threshold (the comparator is "at least"); the no-gap span runs from the start of the element after the last qualifying gap; the identical-element count resets on a different element or a qualifying gap; the watchdog trips at the 128th identical element or when the span reaches 30 s.
+| Corpus | Key modes | TX_KEY timing | Profiles | Streams |
+|---|---|---|---|---|
+| P (`key_stream`) | Iambic A, Iambic B, Ultimatic | keyer-timed elements and intra-character spaces; operator-timed letter and word spaces | letter / word space in dits: nominal 3/7; short word 3/6 and 3/5; fast 2.5/5; spread 4.5/10; every speed 5 to 50 WPM | 460 |
+| B (`key_stream_bug`) | Bug | automatic dits and dit-to-dit spaces at the selected speed; manual dahs of 3 or 6 Bug dits, or drawn from 2.5 to 6 per dah; every other space in the operator unit k x Bug dit, with k = 0.75, 1, 1.5, 2 (operator spacing from 1.33 times faster to 2 times slower than the Bug dits); letter / word spaces 3/7, 3/5, 2.5/5, 4.5/10 units; every manual length scaled by an independent factor within +/-15 percent; 15 speeds 5 to 50 WPM; 2 seeds (A-10) | 2880 |
+| S (`key_stream_hand`) | Straight, Straight-on-tip | every element and space hand-timed | five hand profiles H1 to H5 (A-11): nominal; heavy (elements 1.3, dah 3.5, intra 0.7, letter 2.5, word 5); light (elements 0.8, dah 2.5, intra 1.3, letter 3, word 6); spread (letter 4.5, word 10); run-together (letter 2.5, word 5); each length scaled within +/-10 to +/-20 percent; 15 hand speeds 5 to 50 WPM; 3 seeds | 450 |
+
+Three watchdog rules are applied to every stream (section 6.2): the baselined rule ("current"), the revision 1 proposal ("rev1", a gap of 2 dit times at the selected speed) and the revision 2 proposal ("rev2", `watchdog_relative`). For the current and rev1 rules the monitor uses the selected keyer speed. In Straight mode that speed has no relation to the hand speed, so corpus S is also run with the keyer set to 5 WPM, the setting with the longest threshold (the INSP-071 finding-1 counter-example).
+
+The watchdog model, current and rev1 rules: a key-up gap qualifies when it is at least the gap threshold; the no-gap span runs from the start of the element after the last qualifying gap; the identical-element count resets on a different element or a qualifying gap; the watchdog trips at the 128th identical element or when the span reaches 30 s. The rev2 rule is defined in section 6.2; it quantises the TX_KEY edges to the 1 ms read-back sample.
+
+### 3.5 Key-mode scope of the monitors (INSP-071 finding-1)
+
+| Monitor | Runs in | Dit length it uses |
+|---|---|---|
+| REQ-SYS-054 items (i) and (ii), revision 2 rule | every key mode: Straight, Straight-on-tip, Iambic A, Iambic B, Ultimatic, Bug (HZ-004 K4 "whatever the element pattern", on the TX_KEY read-back) | none: the reference interval is measured on TX_KEY (section 6.2), so no keyer parameter enters the monitor |
+| REQ-SYS-184, item (iii) | Iambic A, Iambic B, Ultimatic (its statement) | the selected speed from the configuration-guarded value, with its complement and its 5 to 50 WPM range checked at every use; on a failure the 50 WPM value (section 6.1) |
+| REQ-SYS-053 manual-closure timeout | Straight, Straight-on-tip, the Bug dah contact | none (a time) |
+
+Revision 1 of this note proposed "2 dit times at the selected speed" for item (ii) in every mode without stating the scope. In Straight and Bug sending the selected speed does not fix the operator's spacing, and that rule trips correct sending in both modes (section 6.2). Revision 2 removes the selected speed from items (i) and (ii).
 
 ## 4. Assumptions
 
@@ -97,11 +116,14 @@ The watchdog model: a key-up gap qualifies when it is at least the gap threshold
 | A-2 | Build-time ratio 3.0, weight 50 percent, key compensation 0 (I-4) | Neutral at these values; a ratio of 4.0 raises the worst squeeze to 21 dits (period) and 22 dits (figure 1 in Ultimatic) | A build that changes the ratio; the squeeze limit in dits must then be re-derived (section 6.1, request R-3) |
 | A-3 | Debounce adds at most 3 ms (break minus make) to the both-closed time the monitor sees | Conservative (added) | G12 capture changing the debounce counts; the effect is milliseconds against a limit of seconds |
 | A-4 | Legitimate sending uses the character set of I-12 | The period and semicolon (18 dits, Iambic A) and the figure 1 and apostrophe (18 dits, Ultimatic) set the bound | A longer alternating prosign run; none exists in the set |
-| A-5 | The longest token sent without a word space has at most 20 characters | Sets the current-rule no-gap result at 8 WPM | Longer run-together strings; the proposed rule does not depend on it (section 6.2) |
-| A-6 | Operator letter spaces are at least 2 dits | Sets the proposed gap rule (2 dits) | Letter spaces shorter than 2 dits merge characters; receiving operators and decoders then read one character, so this is not correct sending |
+| A-5 | The longest token sent without a word space has at most 20 characters | Sets the current-rule no-gap result at 8 WPM | Longer run-together strings; the revision 2 rule does not depend on it (section 6.2) |
+| A-6 | Operator letter spaces are at least twice the shortest key-up interval the same stream contains in the preceding 10 s. That interval is the 1-dit keyer space in paddle and Bug sending, or the operator's own shortest intra-character space in Straight and in the manual parts of Bug sending | Sets the revision 2 gap rule (section 6.2) | Letter spaces shorter than twice the intra-character space merge characters: receiving operators and decoders then read one character, so this is not correct sending. Corpora B and S test it with independent jitter on every length (A-10, A-11) |
 | A-7 | W25Q32RV 4 KB sector erase at most 400 ms, page program at most 3 ms, read-back of 512 bytes at most 1 ms (Winbond W25Q-family datasheet values; the W25Q32RV datasheet is not in the repository) | Sets the longest interval in which the watchdog cannot be fed | The WP-SW-08 DML-3 note (WP-PDR-41) states the part's values; a larger erase time raises the watchdog load |
 | A-8 | Bootrom plus runtime start-up to Self-test entry at most 100 ms | Adds to the hang-to-Self-test time | A slower boot; 0.9 s of margin remains (section 6.5) |
 | A-9 | The longest single level reading taken within one full-scale tone start is 30 s | Sets the REQ-SYS-189 margin | A procedure that needs a longer tone; it restarts the tone (TC-SYS-042 and TC-SYS-051 already do) |
+| A-10 | Bug sending (corpus B): manual dahs of 2.5 to 6 Bug dits; operator unit from 0.75 to 2 Bug dits; each manual length within +/-15 percent of its nominal value | Bounds corpus B; the revision 2 rule depends only on A-6, so a wider spread of the unit does not change its result | Bug sending with dahs longer than 6 dits (REQ-SYS-053 also bounds these at 5 s) or with letter spaces under twice the shortest intra-character space (A-6) |
+| A-11 | Straight sending (corpus S): the hand profiles H1 to H5 of section 3.4, independent jitter of +/-10 to +/-20 percent on every length | Bounds corpus S | A recorded Straight-key sending (L-2, request R-7) outside these profiles; it is replayed through `watchdog_relative` before the ruling |
+| A-12 | Keyer-fault streams (section 6.2 catalogue): spaces stretched 1 to 8 dits, element ratio 1 to 6, weight shift from -0.5 to +0.9 dit, a stuck element timer, random element order, equal elements with random spaces, periodic patterns of 2 and 3 elements, and a text-like stream | Sets the fault-side results; the residual is the text-like class | A fault that produces a non-repeating stream with letter-length gaps (the residual, bounded by K12) |
 
 ## 5. Model validation and uncertainty
 
@@ -119,7 +141,8 @@ The watchdog model: a key-up gap qualifies when it is at least the gap threshold
 | Sampling (1 kHz) | 1 ms on every edge | Included: the checker adds the 3 ms debounce offset and compares debounced times |
 | Element timing tolerance (I-6) | 0.5 percent of the squeeze | Included: the checker scales the worst squeeze by 1.005 |
 | Semantics outside F7 (Ultimatic memory, tie rule) | Ultimatic worst case depends only on "last-closed repeats", which the REQ-SYS-184 rationale states | None found; the WP-PDR-41 HostUnit cases re-check the same patterns on the flight keyer (section 10) |
-| Operator spacing (A-5, A-6) | Unbounded in principle | The proposed gap rule removes the dependence on word spacing; the residual is letter spaces below 2 dits (A-6) |
+| Operator spacing (A-5, A-6, A-10, A-11) | Unbounded in principle | The revision 2 rule removes the dependence on word spacing and on the selected speed; the residual is letter spaces under twice the shortest recent key-up interval (A-6) |
+| TX_KEY read-back sampling (1 kHz) | 1 ms on every edge | Included: `watchdog_relative` quantises every edge to 1 ms; at 50 WPM the smallest qualifying margin (2.5-dit letter space against 2 x 1 dit) is 12 ms |
 | Flash timing (A-7) | Part-specific | Watchdog load keeps 2.46 times the assumed worst interval |
 
 ## 6. Results
@@ -152,15 +175,15 @@ Conclusion: normal squeezing trips 2 s, so the `tbr.plan` CR branch is triggered
 
 **Fault side** (HZ-004 row 5, headphones or a shorted TRS cable after boot): keying stops at the limit: 4.80 s at 5 WPM, 2.40 s at 10 WPM, 2.00 s at 12 WPM and above (`squeeze_fault_stop`). The 30 s no-gap window and the 150 s backstop are not reached first. Against the baselined 2 s, the stream lasts up to 2.8 s longer at 5 WPM.
 
+**Speed source (INSP-075 finding-2).** The limit is in dit times, so the squeeze monitor needs the speed. The keyer speed is not in the configuration guard's field list (03 section 4.3; 07 section 14.1 configuration guard row), and the range checks REQ-SW-KEYER-015 and REQ-SW-KEYER-037 sit in the monitored keyer. Proposed design: the settings record holds the speed with its complement, the configuration guard range-checks it with the other safety-relevant fields, and `SW-SAFE` reads that guarded value and repeats the complement and 5 to 50 WPM checks at every use. On any failure (complement mismatch, 0, 4, 51, 255, a negative or a missing value) it uses 50 WPM, the shortest limit (`squeeze_limit_monitor_ms`). Result (`squeeze_speed_source`): the limit lies between 2.00 s and 4.80 s for every stored value, range end and complement failure, so no single corrupted value lengthens a squeeze stream beyond 4.80 s or leaves the limit undefined. A monitor value above the true keyer speed can only shorten the limit (an earlier stop, the nuisance side): for example a 20 WPM monitor value against a 5 WPM stream cuts a correct Iambic A squeeze at 2.00 s. A value at or below the stream speed never cuts a correct squeeze, and the longest fault stop at any pairing is 4.80 s (`squeeze_speed_mismatch`). The field-list change and the new software cause go to their writers (section 9, R-9 and R-8).
+
 REQ-SYS-184 verification-note cases: a 1.9 s squeeze trips neither limit; a 2.1 s squeeze trips the proposed limit at 25 and 50 WPM and not at 5 WPM (limit 4.8 s); a 60 s squeeze trips at every speed; the squeezed C, K and Q at 5 WPM trip the baselined 2 s in Iambic A (C also in Iambic B) and never the proposed limit (`req_sys_184_cases`).
 
 ### 6.2 Paddle watchdog (REQ-SYS-054)
 
-**Identical-element count, 128.** The largest count in correct sending is 55 under the current gap rule (the token `1234567890 0000000000` sent with 5-dit word spaces, which do not qualify above 12 WPM) and 8 under the proposed rule (the error signal). 128 is 2.3 times the worst case. **Confirmed.**
+**Current rule ("7 dit times or 500 ms, whichever is shorter").** A qualifying gap exists in correct paddle sending only at word spaces when the speed is above 7.2 WPM (a 3-dit letter space is shorter than 500 ms), and only at word spaces of 7 dits or more above 16.8 WPM (7 dits is shorter than 500 ms). Results over corpus P (`nogap_corpus`, `keyer-nogap-vs-speed.png`):
 
-**Window 30 s and gap, current rule ("7 dit times or 500 ms, whichever is shorter").** A qualifying gap exists in correct sending only at word spaces when the speed is above 7.2 WPM (a 3-dit letter space is shorter than 500 ms), and only at word spaces of 7 dits or more above 16.8 WPM (7 dits is shorter than 500 ms). Results over the corpus (`nogap_corpus`, `keyer-nogap-vs-speed.png`):
-
-| Spacing profile | QSO corpus trips at | Stress tokens trip at |
+| Spacing profile | QSO text trips at | Stress tokens trip at |
 |---|---|---|
 | nominal 3/7 | none | 8 WPM (the 20-letter word lasts 32.6 s) |
 | short word 3/6 | 15 to 50 WPM | 8, 15 to 43 WPM |
@@ -168,19 +191,49 @@ REQ-SYS-184 verification-note cases: a 1.9 s squeeze trips neither limit; a 2.1 
 | fast 2.5/5 | 13 to 50 WPM | 7, 8, 13 to 41 WPM |
 | spread 4.5/10 | none | none |
 
-So the current rule is met only by exact ITU word spacing, and its threshold sits exactly on the nominal word space above 16.8 WPM: an operator whose word spaces fall slightly under 7 dits (INSP-025 cross item X8) has no qualifying gap at all, and 30 s of ordinary sending trips the watchdog. The `tbr.plan` "else the values change by CR" branch is triggered for the gap.
+The current rule also trips 796 of the 2880 Bug streams and, in Straight, 166 of the 450 hand streams with the keyer set to the hand speed and 241 with it set to 5 WPM (`nogap_bug`, `nogap_straight`). So it is met only by exact ITU word spacing, and its threshold sits on the nominal word space above 16.8 WPM: an operator whose word spaces fall slightly under 7 dits (INSP-025 cross item X8) has no qualifying gap at all, and 30 s of ordinary sending trips the watchdog. The `tbr.plan` "else the values change by CR" branch is triggered for the gap.
 
-**Proposed gap: 2 dit times at the selected speed, with 30 s and 128 unchanged.** Every letter space of correct sending qualifies (A-6), so the longest span in the whole corpus, any profile, any speed, is 4.56 s (the longest character at 5 WPM), 15 percent of the window. The fault streams the watchdog exists for have 1-dit gaps (a held lever, a squeeze stream, an alternating stream from uncleared memory; HZ-004 rows 4 to 6) and a continuous TX_KEY has none (row 10), so they trip exactly as under the current rule:
+**Revision 1 proposal (2 dit times at the selected speed) does not hold.** It passes corpus P, but it is not a rule for every key mode (INSP-071 finding-1). In Straight the selected speed is unrelated to the hand speed: the QSO text hand-sent at 20 WPM with the keyer set to 5 WPM trips it, and the current rule, at 30.24 s (reviewer counter-example reproduced, `nogap_insp071_counterexample`). Over corpus S with the keyer at 5 WPM it trips 228 of 450 streams. In Bug it trips 15 streams, all with the operator spacing faster than the Bug dits (k = 0.75, fast profile). On the fault side (INSP-075 finding-1) it misses every stream whose spaces are stretched to 2 dits or more: 96 of the 156 uniform fault streams of the catalogue below. Its dependence on the selected speed also puts a keyer parameter inside the `SW-SAFE` monitor (INSP-075 finding-2). Revision 1 is withdrawn.
+
+**Revision 2 proposal (self-referenced rule).** The monitor reads only the TX_KEY read-back, in every key mode (section 3.5), and uses no keyer parameter:
+
+| Term | Definition (constant in `keyer_model.py`) |
+|---|---|
+| Reference interval r | the shortest key-up interval on TX_KEY that ended in the preceding 10 s, the current interval included (`REF_WINDOW_S`) |
+| Qualifying gap | a key-up interval of at least 2 r, or of at least 2 s (`GAP_FACTOR`, `ABS_GAP_S`) |
+| Word gap | a key-up interval of at least 4 r, or of at least 2 s (`WORD_FACTOR`) |
+| Equal | two durations that differ by at most 25 percent of the longer (`SAME_TOL`) |
+| (i-a) count | 128 consecutive key-down elements of equal duration with no word gap between them; a letter-length gap does not reset it |
+| (i-b) period count | 128 consecutive elements that repeat the pattern of key-down duration and preceding key-up interval with a period of 1 to 6 elements (`MAX_PERIOD`) |
+| (ii) window | 30 s without a qualifying gap |
+
+Items (i-a) and (i-b) together replace the baselined item (i). A held lever is a period-1 stream, so the 128-element result of the baselined count is unchanged. The count limit 128 and the 30 s window keep their baselined values. Because a stream is judged against its own shortest spacing, items (i) and (ii) have no speed input that a keyer fault or a corrupted setting could falsify (INSP-075 finding-2). Only the 2 s absolute gap, which ends a span after an idle key, is a fixed time. The 2 s value is above the 1.68 s word space at 5 WPM, so correct sending never needs it, and it is below the 7.5 s cutoff floor.
+
+**Correct sending under revision 2** (`nogap_corpus`, `nogap_bug`, `nogap_straight`): no trip in any of the 3790 streams of corpora P, B and S, every profile, every speed. The longest span without a qualifying gap is 9.91 s (Bug, k = 0.75, fast profile, 5 WPM), a margin of 20.1 s to the 30 s window. Corpus P alone: 4.56 s, the longest character at 5 WPM. The largest count is 50 (the token `0000000000`: 50 equal dahs, whose 3-dit letter spaces are under 4 r). That is 0.39 of the 128 limit, against 55 under the current rule. The INSP-071 counter-example does not trip. **Confirmed for every key mode: 128, 30 s, with the gap and count definitions above.**
+
+**Fault side (INSP-075 finding-1).** Catalogue of keyer-fault streams (`nogap_fault_catalogue`, `keyer-nogap-fault-coverage.png`), each at 5, 15, 25 and 50 WPM, each started from an idle key and after 15 s of correct sending, under the three rules, horizon 300 s. Stop times in seconds from the fault start under revision 2 (idle / after sending), with the current rule's stop from idle in brackets; "none" means not stopped within 300 s:
 
 | Fault stream (HZ-004 row) | 5 WPM | 15 WPM | 25 WPM | 50 WPM |
 |---|---|---|---|---|
-| Held dit lever (4) | 30.0 s, window | 20.4 s, count | 12.24 s, count | 6.12 s, count |
-| Held dah lever (4) | 30.0 s, window | 30.0 s, window | 24.53 s, count | 12.26 s, count |
-| Alternating stream (5, 6) | 30.0 s, window | 30.0 s, window | 30.0 s, window | 30.0 s, window |
-| Alternating with a 2.5-dit gap every 25 s | keeps keying | keeps keying | keeps keying | keeps keying |
-| Alternating with a 7.5-dit gap every 25 s (REQ-SYS-054 note case) | keeps keying | keeps keying | keeps keying | keeps keying |
+| Held dit lever, 1-dit spaces (4) | 30.0 / 30.0 window (30.0) | 20.4 / 19.9 count (20.4) | 12.2 / 12.2 count (12.2) | 6.1 / 6.1 count (6.1) |
+| Alternating, 1-dit spaces (5, 6) | 30.0 / 30.0 window (30.0) | 30.0 / 30.0 window (30.0) | 18.5 / 18.5 period (30.0) | 9.2 / 9.2 period (30.0) |
+| Held dit, spaces stretched to 2 dits (INSP-075) | 30.2 / 38.2 window (30.2) | 30.0 / 29.8 (30.0) | 18.3 / 18.3 count (18.3) | 9.2 / 9.1 count (9.2) |
+| Alternating, spaces stretched to 3 dits (INSP-075) | 30.0 / 38.4 window (none) | 30.0 / 39.2 (30.0) | 30.0 / 30.6 (30.0) | 15.4 / 15.3 period (30.0) |
+| Alternating, spaces stretched to 8 dits | 31.0 / 40.6 window (none) | 30.4 / 40.0 (none) | 30.2 / 39.8 (none) | 30.0 / 30.7 (none) |
+| Element ratio corrupted to 6 | 30.0 / 30.0 (30.0) | 30.0 / 30.0 (30.0) | 27.7 / 27.7 period (30.0) | 13.9 / 13.9 period (30.0) |
+| Weight shift +0.9 dit (spaces 0.1 dit) | 30.0 / 30.0 (30.0) | 30.0 / 30.0 (30.0) | 18.5 / 18.5 period (18.4) | 9.3 / 9.3 period (9.2) |
+| Stuck element timer, continuous key-down (10) | 30.0 / 30.0 window (30.0) | 30.0 (30.0) | 30.0 (30.0) | 30.0 (30.0) |
+| Random dit and dah order, 1-dit spaces | 30.0 / 30.0 window (30.0) | 30.0 (30.0) | 30.0 (30.0) | 30.0 (30.0) |
+| Dits, spaces randomly 1 or 3 dits | 92.4 count (none) | 30.8 count (30.1) | 18.5 count (18.5) | 9.2 count (9.2) |
+| Dit-dah pairs, spaces 1 and 3 dits ("AAAA") | 123.1 period (none) | 41.0 period (30.1) | 24.6 period (30.0) | 12.3 period (30.0) |
+| Dah pairs, spaces 1 and 7 dits | 215.8 period (none) | 71.9 period (none) | 43.2 period (none) | 21.6 period (none) |
+| Random elements, spaces randomly 1 or 3 dits (text-like) | none (none) | none (30.0) | none (30.0) | none (30.1) |
 
-Both rules give the same trip times for every stream above (checker section 5). What the proposed rule gives up: a stream with gaps of 2 to 7 dits and no longer gap (letter-spaced characters without word spaces) is no longer caught by the no-gap part. No rev A source produces one: the keyer never inserts a gap longer than one dit by itself, and the bench PARIS generator has 7-dit word spaces, which the current rule does not catch either (HZ-004 row 7, bounded by K13 and K12). Row 8 (pin-map error) is unchanged: K4 may be unable to act there under either rule, and K12 bounds it.
+Every uniform stream (one gap length, any element pattern, gaps under 2 s) is stopped within 30 s plus one element and gap from an idle key, and within 40.8 s after correct sending: the 10 s reference window must first lose the last correct 1-dit space. That is 156 of 156, against 117 for the current rule and 60 for revision 1 (`nogap_fault_missed`). The current rule misses every uniform stream with spaces of 7 dits or more, and at 5 WPM every one with spaces of 2.5 dits or more (a gap of 500 ms or more qualifies). Revision 2 stops every periodic and equal-element stream of the catalogue as well, by the count or the period count. At 5 WPM that can take up to 215.8 s, after the K12 backstop floor of 150 s, so there K12 acts first, as it does under the current rule, which does not stop those streams at 5 WPM at all. Because the rule has no speed parameter, its behaviour scales with the dit length. The four speeds span the range, and only the 2 s absolute gap and the 1 ms sampling break the scaling, both covered at the range ends.
+
+**Coverage given up (residual, routed to WP-PDR-16, request R-8).** A keyer fault that produces a non-repeating stream with a letter-length gap (2 r or more) at least every 30 s is not stopped by K4 items (i) and (ii). On TX_KEY such a stream cannot be told from correct sending of text without word spaces. The current rule stops it within 30 s at 15 to 50 WPM, but only because it treats every letter space as no gap, which is the same property that makes it trip correct sending. Streams whose every key-up interval is 2 s or more are also outside K4, as under the current rule, for which every interval of 500 ms or more qualifies. Both residual streams are bounded by K12 at 150 s to 180 s (REQ-SYS-180) and, while each key-down lasts under the cutoff window, not by K5. A text-like stream also needs the keyer engine to produce varying spaces and elements with no repetition. This changes the HZ-004 coverage table of `docs/safety/hazard-analysis.md` section 5 rows 4, 6 and 10 (firmware control column) and its section 8 fault trees, which WP-PDR-16 revises from this note. The residual also goes into the CR and its impact review (rule C6).
+
+What rows 7 and 8 keep: the bench PARIS loop (row 7) repeats a 14-element word with 7-dit word spaces, outside the period count and with qualifying gaps, as under the current rule (K13 and K12 bound it). K4 may be unable to act on a pin-map error (row 8) under any rule, and K12 bounds it.
 
 ### 6.3 Interlock (REQ-SYS-052, REQ-SW-KEYER-022)
 
@@ -211,11 +264,16 @@ Every case the governing requirement text or its verification note names:
 | Closed inputs at boot, after reset, after mode change, 0 to 2 s | REQ-SYS-052, REQ-SW-KEYER-022 | arms 500 samples after the last closed sample in every case | 50 x the longest bounce |
 | Mono plug, paddle mode and Straight-on-tip | REQ-SYS-052 | never arms / arms at 499 ms | not applicable |
 | Straight on tip, ring, both; Bug dah; held 4.9, 5.0, 5.1, 60 s | REQ-SYS-053, REQ-SW-KEYER-026 | 4.9 s follows the contact; 5.0 s and longer end at 5.0 s | 3.56 s over the longest legitimate closure |
-| Held lever to the 128th element at 5, 25, 50 WPM | REQ-SYS-054 | 5 WPM: window at 30 s first; 25 and 50 WPM: 128th element | count 2.3 x the corpus maximum |
-| Alternating stream, no qualifying gap, 30 s | REQ-SYS-054 | trips at 30.0 s, both rules | not applicable |
-| Qualifying gap every 25 s keeps keying | REQ-SYS-054 | keeps keying, both rules (7.5-dit gap); proposed rule also with 2.5-dit gaps | 5 s |
-| Correct sending 5 to 50 WPM never trips | REQ-SYS-054 | current rule: trips (section 6.2); proposed: never, longest span 4.56 s | 25.4 s |
+| Held lever to the 128th element at 5, 25, 50 WPM | REQ-SYS-054 | revision 2: 5 WPM window at 30.0 s first; 25 and 50 WPM the 128th element (dit 12.24 s and 6.12 s, dah 24.53 s and 12.26 s) (`req_sys_054_cases_rev2`) | count 2.56 x the corpus maximum |
+| Alternating stream, no qualifying gap, 30 s | REQ-SYS-054 | revision 2: 30.0 s at 5 WPM; the period count first at 25 WPM (18.48 s) and 50 WPM (9.24 s) | not applicable |
+| Qualifying gap every 25 s keeps keying | REQ-SYS-054 | revision 2: a non-repeating stream (random dit and dah order, 1-dit spaces) with a 7.5-dit gap every 25 s keeps keying at 5, 25 and 50 WPM (window restart). The alternating stream of the baselined note case stops at 25 and 50 WPM by the period count, which is intended: the CR restates the case with the non-repeating stream | 5 s |
+| Correct paddle sending (corpus P), Iambic A, Iambic B, Ultimatic, 5 to 50 WPM, five spacing profiles | REQ-SYS-054 | current: trips (section 6.2); revision 2: never, longest span 4.56 s | 25.4 s |
+| Correct Bug sending (corpus B): automatic dits, manual dahs to 6 dits, operator unit 0.75 to 2 Bug dits, 2880 streams | REQ-SYS-054 `tbr.plan`; WP-PDR-33 output "Bug dahs" | current trips 796, revision 1 trips 15, revision 2 never; longest span 9.91 s | 20.1 s |
+| Correct Straight sending (corpus S): five hand profiles, 5 to 50 WPM, 450 streams, keyer set to the hand speed and to 5 WPM | REQ-SYS-054; HZ-004 K4 "whatever the element pattern" | current trips 166 and 241, revision 1 trips 0 and 228, revision 2 never (no keyer parameter); longest span 6.84 s | 23.2 s |
+| INSP-071 counter-example: QSO text hand-sent at 20 WPM, keyer set to 5 WPM | REQ-SYS-054 | current and revision 1 trip at 30.24 s; revision 2 never | not applicable |
+| Keyer-fault streams: stretched spaces 1 to 8 dits, ratio 1 to 6, weight shift, stuck element timer, random order, equal elements with random spaces, periodic patterns, text-like; idle and after correct sending; 5, 15, 25, 50 WPM | HZ-004 K4; hazard-analysis section 5 rows 4, 6, 10 | revision 2 stops 156 of 156 uniform streams by 40.8 s and every periodic stream; the text-like class is the residual (section 6.2) | residual bounded by K12 |
 | Both contacts closed 1.9, 2.1, 60 s at 5, 25, 50 WPM in A, B, Ultimatic | REQ-SYS-184 | section 6.1 | not applicable |
+| Squeeze limit with a corrupted, out-of-range or mismatched speed value | REQ-SYS-184; HZ-004 K4 independence | limit between 2.00 s and 4.80 s for every stored value; a monitor value at or below the stream speed never cuts a correct squeeze (section 6.1) | fault stop at most 4.80 s |
 | Squeezed C, K, Q at 5 WPM | REQ-SYS-184 | trip 2 s (C in A and B; K, Q in A); never the proposed limit | at least 8 dits at 5 WPM |
 | Every character, every mode, 5 to 50 WPM | REQ-SYS-184 | proposed limit never tripped | 188 ms minimum |
 | Hang in receive and while keyed | REQ-SYS-131 | Self-test by 1.1 s | 0.9 s |
@@ -231,8 +289,8 @@ Every case the governing requirement text or its verification note names:
 | REQ-SW-KEYER-022 | 500 consecutive samples (unchanged) | 6.3 | confirm | as above |
 | REQ-SYS-053 | 5 s, build range 2 to 6 s (unchanged) | 6.4 | confirm | 3.56 s |
 | REQ-SW-KEYER-026 | 5 s (unchanged) | 6.4 | confirm | 3.56 s |
-| REQ-SYS-054 | 128 identical elements (unchanged) or 30 s (unchanged) without a key-up gap of at least 2 dit times at the selected speed (changed from 7 dit times or 500 ms) | 6.2 | **else a CR: triggered** (PCR-9 row "REQ-SYS-054") | 25.4 s window, count 2.3 x |
-| REQ-SYS-184 | the longer of 2 s and 20 dit times at the selected speed (changed from 2 s; the branch names 16 dits) | 6.1 | **CR branch triggered** (PCR-8), with 20 in place of 16 | 188 ms minimum; 455 ms at 5 WPM |
+| REQ-SYS-054 | Revision 2, in every key mode on the TX_KEY read-back: 128 consecutive equal elements with no word gap, or 128 consecutive elements repeating with a period of 1 to 6 elements (item (i), count unchanged); or 30 s (unchanged) without a qualifying gap. Qualifying gap: at least 2 times the shortest key-up interval of the preceding 10 s, or at least 2 s. Word gap: at least 4 times it, or at least 2 s. Equal: within 25 percent (changed from "7 dit times or 500 ms"; section 6.2 table). Residual: text-like fault streams, bounded by K12 | 6.2 | **else a CR: triggered** (PCR-9 row "REQ-SYS-054") | 20.1 s window over P, B and S; count 2.56 x |
+| REQ-SYS-184 | the longer of 2 s and 20 dit times at the selected speed (changed from 2 s; the branch names 16 dits), with the speed from the configuration-guarded value, complement and 5 to 50 WPM checked at every use, 50 WPM on a failure (section 6.1) | 6.1 | **CR branch triggered** (PCR-8), with 20 in place of 16 | 188 ms minimum; 455 ms at 5 WPM; fault stop 2.00 to 4.80 s for any stored value |
 | REQ-SYS-131 | 2 s (unchanged); design watchdog load 1.0 s | 6.5 | confirm | 0.9 s |
 | REQ-SYS-188 | 120 s (unchanged) | 6.6 | confirm | 30 s to 150 s |
 | REQ-SYS-189 | 60 s (unchanged) | 6.6 | confirm | 2 x |
@@ -242,14 +300,17 @@ No value goes to the owner before this note's record is APPROVED (plan rule C10)
 
 ## 9. Consequences for other products (requests to their writers; plan section 5.3)
 
-- **CR triggers.** PCR-8 (REQ-SYS-184) and the REQ-SYS-054 item of PCR-9 are triggered. The CR changes REQ-SYS-184 and REQ-SYS-054 (statements, rationales, verification notes), their mirrors NGO-021 and MOE-012 ("2 s for a squeeze", "7 dit times or 500 ms"), HZ-004 K4 text and its two `tbr` items, `docs/conops/conops.md` Table 3.4-1 Transmit-keyed row, Table 3.4-4 row 3, section 3.5.1 item 10 and OPS-013, the concept section 7 and 14 item 3 values, TC-SYS-038, and the ICD-CTL-KEY TBR row "Paddle watchdog time cap" (which still reads "128 identical elements or 10 s"). Each CR gets its section 6 impact review from a separate invocation before the owner is asked (rule C6).
+- **CR triggers.** PCR-8 (REQ-SYS-184) and the REQ-SYS-054 item of PCR-9 are triggered. The CR changes REQ-SYS-184 and REQ-SYS-054 (statements, rationales, verification notes), their mirrors NGO-021 and MOE-012 ("2 s for a squeeze", "7 dit times or 500 ms"), HZ-004 K4 text and its two `tbr` items, `docs/conops/conops.md` Table 3.4-1 Transmit-keyed row, Table 3.4-4 row 3, section 3.5.1 item 10 and OPS-013, the concept section 7 and 14 item 3 values, TC-SYS-038, and the ICD-CTL-KEY TBR row "Paddle watchdog time cap" (which still reads "128 identical elements or 10 s"). The REQ-SYS-054 CR carries the revision 2 definitions of section 6.2 and the statement that items (i) and (ii) run in every key mode. It also carries the stated residual and the restated verification-note case (a non-repeating stream with a qualifying gap every 25 s keeps keying; an alternating stream stops by the period count). The L1 statement keeps 128, 30 s and the qualifying-gap definition; the constants (10 s reference window, factors 2 and 4, 2 s absolute gap, 25 percent, period 1 to 6) go to the `SW-SAFE` child (R-10). Each CR gets its section 6 impact review from a separate invocation before the owner is asked (rule C6).
 - **R-1 (WP-PDR-32, firmware architecture):** watchdog load 1.0 s, fed from the main loop only after every safety monitor has run.
 - **R-2 (WP-PDR-32, firmware design rules; WP-PDR-41):** no configuration-store write in Transmit-keyed or while a key input reads closed; defer it to Receive after the hang time.
 - **R-3 (WP-PDR-35, SW L2):** the squeeze limit child states its dit count against the build ratio; a ratio change re-derives it (A-2).
 - **R-4 (WP-PDR-16, hazard analysis):** HZ-004 K9 and HZ-010 K3 credit REQ-SW-KEYER-036 for the tip line only; the ring-line short with no plug is covered by K1, K3 and K4.
 - **R-5 (WP-PDR-35 and WP-PDR-16):** consider re-running the interlock on a plug-presence change from no plug to plug; headphones or a shorted cable inserted after boot would then never key, instead of keying up to the squeeze limit. This is a candidate SW-KEYER requirement, not a value of this study.
 - **R-6 (requirements writer, WP-PDR-11 then WP-PDR-45):** REQ-SYS-053 `tbr.plan` says "configurable range (2 to 6 s)"; SRR decision 48 leaves only the switchpoint and the debounce operator-set, so the range is a build parameter. The REQ-SYS-184 rationale says keying resumes "once either contact opens", while `docs/conops/conops.md` Table 3.4-4 row 3 clears the inhibit when "both paddle contacts are confirmed open"; one of the two changes (the analysis is unaffected).
-- **R-7 (WP-PDR-45):** the HZ-004 K4 `tbr` plan names "HostUnit replays of recorded normal sending"; no recording exists. This study uses the synthetic corpus of section 3.4; a recording from the owner's WP-PDR-40 session, if made, is replayed through `paddle_watchdog` before the ruling.
+- **R-8 (WP-PDR-16, hazard analysis; INSP-075 findings 1 and 2):** (a) the K4 residual of section 6.2 (non-repeating text-like streams, and streams whose every key-up interval is 2 s or more) for the `hazard-analysis.md` section 5 coverage rows 4, 6 and 10 and the section 8 fault trees, bounded by K12; (b) the revised K4 stop times for uniform streams (at most 40.8 s after correct sending, 30 s from idle) and the earlier period-count stops of alternating streams (18.48 s at 25 WPM, 9.24 s at 50 WPM); (c) a new software cause for the squeeze limit: a corrupted or mismatched speed value, bounded by the guarded read to a stop between 2.00 s and 4.80 s.
+- **R-9 (WP-PDR-17, the 03 and 07 writer):** add the keyer speed to the configuration guard field list (03 section 4.3 line 176; 07 section 14.1 configuration guard row, "power step, tune level, guest lock, frequency calibration, thermal thresholds, keyer mode, debounce"). The speed is held with its complement in the settings record, and `SW-SAFE` reads the guarded value (SWE-134 items f and g).
+- **R-10 (WP-PDR-35, SW L2):** the `SW-SAFE` children of REQ-SYS-054 and REQ-SYS-184 state the revision 2 constants of section 6.2 and the speed source of section 6.1. The TX_KEY monitor reads no keyer data. The HostUnit cases replay the section 7 rows for corpora P, B and S and the fault catalogue on the flight monitor.
+- **R-7 (WP-PDR-45):** the HZ-004 K4 `tbr` plan names "HostUnit replays of recorded normal sending"; no recording exists. This study uses the synthetic corpus of section 3.4; a recording from the owner's WP-PDR-40 session, if made, is replayed through `watchdog_relative` (the revision 2 rule) before the ruling, for each key mode the owner uses.
 
 ## 10. Tools, credit and verification route
 
@@ -257,20 +318,22 @@ No value goes to the owner before this note's record is APPROVED (plan rule C10)
 |---|---|---|---|
 | venv Python | 3.13.5 | TV-001 (accredited for schema validation only) | interpreter |
 | `keyer_model.py`, `check_keyer_host_study.py` | this commit | none | every number of sections 5 and 6 |
-| matplotlib | 3.11.2 (venv) | none (plots only) | three plots |
+| matplotlib | 3.11.2 (venv) | none (plots only) | four plots |
 
 Because the model has no TV record, its results are developer evidence (05 section 9.1; checklist item CK-ANA-C2): they neither close a requirement nor go to the owner as TBR values until a TV record covers the model or the owner rules on the basis of developer evidence (owner action proposed in the author's return). HostUnit credit was the plan's first route (WP-PDR-33 "Tools: HostUnit"): it becomes available when WP-PDR-41 delivers the `cwht-core` keyer and WP-PDR-08 accredits the Rust toolchain (TV-020 to TV-022); the TC-SW-KEYER cases for REQ-SW-KEYER-022 and 026 and the SW-SAFE children of REQ-SYS-054 and 184 then replay the section 7 cases on the flight code. REQ-SYS-052 to 054, 131, 184, 188, 189 are Test-method requirements closed by Bench cases after TRR; this analysis is supporting evidence only (04 section 5.1).
 
 ## 11. Limitations
 
 - L-1. The model is not the flight keyer. Ultimatic memory details and the tie rule are the author's; the F7 vectors do not cover Ultimatic.
-- L-2. No recorded sending: the corpus is synthetic and the operator timing is bounded by profiles, not measured.
+- L-2. No recorded sending: corpora P, B and S are synthetic and the operator timing is bounded by profiles (A-10, A-11), not measured.
 - L-3. The character table (I-12) is transcribed without the standard in the corpus.
 - L-4. Flash timing (A-7) and boot time (A-8) are assumptions until the WP-SW-08 note and a dev-board boot measurement.
 - L-5. The squeeze limit in dits holds for the build ratio 3.0 only (A-2).
+- L-6. The revision 2 constants (10 s, factors 2 and 4, 2 s, 25 percent, period 1 to 6) are fixed from synthetic corpora and a synthetic fault catalogue (A-12); the flight monitor's HostUnit cases (R-10) and a recorded sending (R-7) re-check them.
 
 ## 12. Change history
 
 | Date | Revision | Change |
 |---|---|---|
 | 2026-09-27 | 1 | First issue for the F0 freeze (WP-PDR-33, wave 1a) |
+| 2026-09-27 | 2 | Major findings of iteration 1. INSP-071 finding-1: key-mode scope stated (section 3.5); Bug corpus B and Straight corpus S added (section 3.4; A-10, A-11); revision 1 gap rule withdrawn. INSP-075 finding-1: fault catalogue under the current, revision 1 and revision 2 rules; revision 2 self-referenced rule with a count that a letter-length gap does not reset and a period count; residual stated and routed (section 6.2; A-12; R-8). INSP-075 finding-2: REQ-SYS-054 items (i) and (ii) use no keyer parameter; the squeeze limit's speed source guarded and bounded (section 6.1; R-9, R-10). New plot `keyer-nogap-fault-coverage.png` |

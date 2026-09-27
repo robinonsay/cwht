@@ -252,6 +252,16 @@ MESSAGE_TABLE = [
     (19, "CELL HOT: powering down", ("CELL HOT", "POWER DOWN")),
 ]
 
+# REQ-SYS-067 fault types that its rationale names and ConOps Table 3.4-4 has no row for (INSP-072
+# finding-2): (governing id, detected fault, proposed two display lines). Request R-U6 asks the ConOps
+# writer to add them; until then this list is the note's proposal (note section 3.6).
+EXTRA_MESSAGES = [
+    ("REQ-SYS-155", "PA temperature reading outside its plausible range: Fault-safe", ("PA SENSOR", "REPORT")),
+    ("REQ-SYS-156", "Forward-power reading implausible for the ALC drive: Fault-safe", ("PWR SENSOR", "REPORT")),
+    ("REQ-SYS-134", "A stored setting was corrupt or out of range and was replaced by its default",
+     ("SETTINGS", "DEFAULTED")),
+]
+
 
 def _banner(c: Canvas, y, h, lines, scale=2):
     band = Canvas()
@@ -301,7 +311,13 @@ def screen_menu_l1(sel=0) -> Canvas:
     return c
 
 
-def screen_menu_l2_keyer(sel=0) -> Canvas:
+def value_bar_text(v: str) -> str:
+    """Value shown in the inverted edit bar: in angle brackets when that fits 124 dots at 2x."""
+    b = f"<{v}>"
+    return b if Canvas.text_width(b, 2) <= 124 else v
+
+
+def screen_menu_l2_keyer(sel=0, value="IAMB A") -> Canvas:
     c = Canvas()
     items = [name for name, *_ in MENU_TREE["KEYER"]]
     c.text(1, 1, "KEYER", 1)
@@ -315,12 +331,41 @@ def screen_menu_l2_keyer(sel=0) -> Canvas:
             c.invert(0, y, W, 18)
     c.fill(0, 86, W, 1)
     band = Canvas()
-    band.text((W - Canvas.text_width("<IAMB A>", 2)) // 2, 93, "<IAMB A>", 2)
+    vb = value_bar_text(value)
+    band.text((W - Canvas.text_width(vb, 2)) // 2, 93, vb, 2)
     for r in range(89, 111):
         for x in range(W):
             c.px[r][x] = not band.px[r][x]
     c.text(1, 119, "BACK", 1)
     c.text(W - 1 - Canvas.text_width("SET", 1), 119, "SET", 1)
+    return c
+
+
+def screen_menu_l2_keyer_straight() -> Canvas:
+    """KEYER > MODE in edit with a Straight-input value (INSP-072 finding-1)."""
+    return screen_menu_l2_keyer(0, "STR RING")
+
+
+def screen_cal_trim(trim_hz: int = -30) -> Canvas:
+    """Service calibration screen (note section 3.3): entered by holding FUNC while switching on."""
+    c = Canvas()
+    c.text(1, 1, "CAL", 1)
+    c.text(W - 1 - Canvas.text_width("1/1", 1), 1, "1/1", 1)
+    c.fill(0, 9, W, 1)
+    y = 12
+    c.text(4, y + 2, CAL_MENU[0][0], 2)
+    c.invert(0, y, W, 18)
+    c.text(4, 36, "+/-500 HZ", 2)
+    c.text(4, 54, "10 HZ STEP", 2)
+    c.fill(0, 86, W, 1)
+    band = Canvas()
+    vb = value_bar_text(f"{trim_hz:+d} HZ")
+    band.text((W - Canvas.text_width(vb, 2)) // 2, 93, vb, 2)
+    for r in range(89, 111):
+        for x in range(W):
+            c.px[r][x] = not band.px[r][x]
+    c.text(1, 119, "EXIT", 1)
+    c.text(W - 1 - Canvas.text_width("STORE", 1), 119, "STORE", 1)
     return c
 
 
@@ -332,6 +377,8 @@ SCREENS = {
     "id-reminder": screen_id_reminder,
     "menu-level-1": screen_menu_l1,
     "menu-level-2-keyer": screen_menu_l2_keyer,
+    "menu-level-2-keyer-straight": screen_menu_l2_keyer_straight,
+    "cal-trim": screen_cal_trim,
 }
 
 
@@ -361,7 +408,8 @@ def render_png(c: Canvas, path, scale=4, caption=None):
 # ---------------------------------------------------------------------------------------------
 MENU_TREE = {
     "KEYER": [
-        ("MODE", "setting", "REQ-SYS-040, REQ-SYS-056 key-input and keyer mode"),
+        ("MODE", "setting", "REQ-SYS-040, REQ-SYS-056 key-input and keyer mode; REQ-SW-KEYER-002 "
+                            "Straight-input setting as the values STR TIP, STR RING, STR BOTH (MODE_VALUES)"),
         ("SPEED", "setting", "REQ-SYS-041 (also FUNC plus the tuning knob on the status screen)"),
         ("SWAP", "setting", "docs/conops/conops.md 3.5.1 item 3 paddle swap"),
         ("SWITCHPT", "setting", "REQ-SW-KEYER-009 Iambic B switchpoint (decision 48)"),
@@ -389,6 +437,29 @@ MENU_TREE = {
         ("INFO", "view", "firmware version and stored call sign"),
     ],
 }
+
+# Values of KEYER > MODE (INSP-072 finding-1): (value text, status-screen code, meaning, source).
+# The Straight-input setting of REQ-SW-KEYER-002 (tip, ring or either contact) is carried by the three
+# Straight values, so one selection and its confirmation set both the key-input mode (REQ-SYS-056,
+# REQ-SYS-163) and the Straight input.
+MODE_VALUES = [
+    ("IAMB A", "IA", "Iambic A", "REQ-SYS-040"),
+    ("IAMB B", "IB", "Iambic B", "REQ-SYS-040"),
+    ("ULTIMATIC", "UL", "Ultimatic", "REQ-SYS-040"),
+    ("BUG", "BG", "Bug", "REQ-SYS-040"),
+    ("STR TIP", "SO", "Straight, keyed from the tip only (Straight-on-tip; mono plug)", "REQ-SW-KEYER-002 tip"),
+    ("STR RING", "SR", "Straight, keyed from the ring only", "REQ-SW-KEYER-002 ring"),
+    ("STR BOTH", "ST", "Straight, keyed from either contact", "REQ-SW-KEYER-002 either"),
+]
+
+# Service calibration screen (INSP-072 finding-1): the per-unit filter-centre trim of REQ-SYS-035 is a
+# calibration stored at acceptance, "not an operator control" (NGO-012), so it is outside the REQ-SYS-062
+# operator tree. It is reached by holding FUNC while switching on and has one item.
+CAL_ENTRY = "FUNC held while switching on; exits on MENU or at switch-off"
+CAL_MENU = [
+    ("RX TRIM", "calibration", "REQ-SYS-035 filter-centre trim, +/-500 Hz (TBR) in 10 Hz steps, "
+                               "stored after a tuning-knob push"),
+]
 
 NON_MENU_CONTROLS = [
     ("frequency", "tuning knob turn on the status screen", "REQ-SYS-058"),
