@@ -1,6 +1,6 @@
 {
   "id": "cwht-board-outline-envelope",
-  "revision": "1 (PDR draft, WP-PDR-27, TS-011 revision 1; AT RISK CR-003 and CR-006)",
+  "revision": "2 (PDR draft, WP-PDR-27, TS-011 revision 2: jack features per shielding rules O2 and O4, INSP-083 finding-5; AT RISK CR-003 and CR-006)",
   "status": "Draft planning data for WP-PDR-37 (floorplan, KiCad outline) and WP-PDR-39 (cwht-case-c.scad, cwht-case-cnc.scad). Values are the TS-011 and TS-004 author's proposals; they change only through the WP-PDR-27 author until the TS-011 decision, then by the ADR that records it.",
   "sources": [
     "docs/decisions/trade-studies/TS-011-enclosure.md",
@@ -261,12 +261,12 @@
     ],
     "minus_x": [
       {
-        "feature": "key jack opening, diameter 9.0 (planning); nose face 1.0 mm behind the outer face (rule 21); coated collar 6 mm deep behind the wall (shielding rule O2)",
+        "feature": "key jack opening, diameter 9.0 (planning); nose face 1.0 mm behind the outer face (rule 21); coated collar 6 mm deep behind the wall, bonding land for the metal nose of the jack (its sleeve contact) through a conductive gasket ring all round (shielding rule O2, revision 2); tip and ring filtered within 5 mm of the jack pins to the sleeve pin (shielding rule O4)",
         "y": 18.0,
         "z": 21.9
       },
       {
-        "feature": "headphone jack opening, diameter 9.0 (planning); nose face 1.0 mm behind the outer face (rule 21); coated collar 6 mm deep behind the wall (shielding rule O2)",
+        "feature": "headphone jack opening, diameter 9.0 (planning); nose face 1.0 mm behind the outer face (rule 21); coated collar 6 mm deep behind the wall, bonding land for the metal nose of the jack (its sleeve contact) through a conductive gasket ring all round (shielding rule O2, revision 2); tip and ring filtered within 5 mm of the jack pins to the sleeve pin (shielding rule O4)",
         "y": 52.0,
         "z": 21.9
       },

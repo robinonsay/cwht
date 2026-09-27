@@ -29,14 +29,33 @@ and the H-field wall term through the source distance; E3 of the analysis checkl
 limiting term (wall or openings) is reported with it. Two
 opening sets are computed: "rev0" (the openings of revision 0) and "rev1" (the opening rules O1 to O3 of
 the analysis note section 7).
+Revision 2 (INSP-083 finding-5): the plug-inserted state. Below-cutoff attenuation exists only for an empty
+opening: with a 3.5 mm plug in a jack, the plug sleeve and the collar form a coaxial line with no cutoff, and
+the plug's tip and ring conductors leave the shield on the cable. Every port state is computed:
+  "rev1_plug"  rules O1 to O3 of revision 1 with the key and phones plugs and a USB cable inserted: each jack
+               term is its 9 mm opening with no depth credit (aperture only), the USB term is the mated
+               plug-shell seam; the unfiltered jack conductors are not bounded by any model here, so no case
+               of this state can be a pass (the verdict is capped at "not shown");
+  "rev2"       rules O1, O2 (revision 2), O3 and O4, every port empty: each jack is a metal-nose jack whose
+               nose is its sleeve contact, bonded all round to the collar by a conductive gasket ring, so its
+               leaks are the contact ring (8 slots of 3 mm at the wall depth, the O3 model) and the empty nose
+               bore (3.6 mm, 5 mm deep);
+  "rev2_plug"  as rev2 with the key and phones plugs and a USB cable inserted: the bore is filled by the plug,
+               whose sleeve is bonded at the wall through the nose, so the jack leaks are the contact rings;
+               each tip and ring line leaves on the cable through its O4 filter at the jack pins (conducted
+               term |H| = K_COUPLE x the filter's voltage transfer from a Z_SRC source into the Z_CM cable
+               common-mode load, K_COUPLE = 1: the board-level noise is taken to appear in full on the line at
+               the jack, a bound until the WP-PDR-37 layout); the USB term is the mated plug-shell seam, the
+               USB conductors staying inside the cable shield that the plug shell bonds at the wall.
+The governing revision 2 verdict per source is the worse of "rev2" and "rev2_plug" (TC-SYS-107 worst case).
 Bond: two circular contacts of radius a1, a2 at distance d on a sheet Rs:
     R = Rs / (2 pi) * (ln(d/a1) + ln(d/a2)) + contact resistance.
 
 Output is developer evidence (numpy and matplotlib have no TV record of their own).
 Run:  .venv/bin/python hardware/sim/enclosure/shielding_estimate.py [--check]
-Writes hardware/sim/enclosure/out/shielding.csv, out/bond.csv and
-docs/reviews/PDR/figures/shielding-estimate.png. --check exits 1 if a verdict differs from
-EXPECTED (the verdicts stated in the analysis note).
+Writes hardware/sim/enclosure/out/shielding.csv, out/shielding-sources.csv (every port state), out/bond.csv
+and docs/reviews/PDR/figures/shielding-estimate.png. --check exits 1 if a verdict differs from EXPECTED,
+EXPECTED_REV1, EXPECTED_REV2, EXPECTED_SCOPE or EXPECTED_BOND (the verdicts stated in the analysis note).
 """
 from __future__ import annotations
 
@@ -139,6 +158,25 @@ U_WALL_DB = 6.0            # uncertainty where the wall term dominates: Rs gives
                            # finding-2), so the note's overall 6 dB is used
 U_OPEN_DB = 6.0            # uncertainty where openings and joints dominate (section 8)
 
+# Revision 2 (INSP-083 finding-5): plug-inserted state and rules O2 (revision 2) and O4. Planning values (Low)
+# until WP-PDR-38 chooses the parts and WP-PDR-37 places them.
+JACK_BORE = (0.0036, 0.005)    # m: metal nose bore of an empty jack (3.6 mm) and its metal length (5 mm, Low)
+USB_MATED_SEAM = (0.0069, 0.003)  # m: micro-USB plug shell long side in the receptacle shell, 3 mm engagement (Low)
+Z_SRC = 50.0                   # ohm, source impedance of the board-level noise on a jack line (planning)
+Z_CM = 150.0                   # ohm, common-mode impedance of the cable (the usual 150 ohm conducted-emission value,
+                               # recalled, not in the corpus, Low)
+K_COUPLE = 1.0                 # board-level noise on the jack line at the jack pins, relative to the source (bound)
+CAP_ESL, CAP_ESR = 0.6e-9, 0.05  # H, ohm: 0402 shunt capacitor with its via (recalled class values, Low)
+FILTERS = {
+    # O4 filters, each from the jack pin to the bonded sleeve (the nose), within 5 mm of the pin:
+    # key tip and ring: series 1 kohm thick film (0.05 pF parasitic) and 10 nF shunt
+    "key": dict(kind="resistor", r=1000.0, c_par=0.05e-12, c_shunt=10e-9),
+    # phones tip and ring: series ferrite bead of the 600 ohm at 100 MHz class (700 ohm, 1.2 uH, 0.5 pF, 0.05 ohm
+    # DC) and 10 nF shunt (796 ohm at 20 kHz against a 32 ohm earphone; amplifier load check: WP-PDR-25)
+    "phones": dict(kind="bead", r=700.0, l=1.2e-6, c_par=0.5e-12, r_dc=0.05, c_shunt=10e-9),
+}
+PLUG_LINES = ("key", "key", "phones", "phones")   # tip and ring of the key jack and of the phones jack
+
 # Opening sets. rev0: the openings of revision 0 (USB 12 x 10 mm opening, diagonal 15.6 mm; jack holes 9 mm;
 # encoder holes 8.4 mm; all at the wall depth). rev1: the opening rules of the note section 7 item 6:
 #  O1 the micro-USB receptacle sits at the inner end of a coated printed shroud that joins the wall opening
@@ -152,6 +190,18 @@ U_OPEN_DB = 6.0            # uncertainty where openings and joints dominate (sec
 OPENINGS = {
     "rev0": lambda depth: [(0.0156, depth), (0.009, depth), (0.009, depth), (0.0084, depth), (0.0084, depth)],
     "rev1": lambda depth: [(0.0075, 0.005), (0.009, depth + 0.006), (0.009, depth + 0.006)] + [(0.003, depth)] * 16,
+    # revision 2 (INSP-083 finding-5); every port state
+    "rev1_plug": lambda depth: [USB_MATED_SEAM] * 2 + [(0.009, 0.0)] * 2 + [(0.003, depth)] * 16,
+    "rev2": lambda depth: [(0.0075, 0.005)] + [JACK_BORE] * 2 + [(0.003, depth)] * 32,
+    "rev2_plug": lambda depth: [USB_MATED_SEAM] * 2 + [(0.003, depth)] * 32,
+}
+# Port states: (opening set, filtered lines that leave on a cable, verdict capped at "not shown")
+STATES = {
+    "rev0": ("rev0", (), False),
+    "rev1": ("rev1", (), False),
+    "rev1_plug": ("rev1_plug", (), True),
+    "rev2": ("rev2", (), False),
+    "rev2_plug": ("rev2_plug", PLUG_LINES, False),
 }
 
 _DENSE = {"R-5 RP2350 LPOSC 32.768 kHz +/-20 %", "RP2350 ROSC 4.6 to 24 MHz (boot only, rule 11)", "5 V buck 2.4 MHz (synchronised)", "R-1 RP2350 core regulator 3 MHz typ", "R-2 Pico 2 RT6150, about 2 MHz (Low)",
@@ -169,6 +219,17 @@ EXPECTED_REV1 = {
     "C1": (False, _DENSE, _NEAR_12),
     "D": (False, _DENSE, _NEAR_12),
 }
+
+EXPECTED_REV2 = {
+    # option: (set "fail" and set "not shown", worse of rev2 and rev2_plug; set "fail" of rev1_plug).
+    # A and B fail the sources below about 5 MHz in the plugged state through the conducted bound of the jack
+    # lines (K_COUPLE = 1); C1 and D fail them through the wall as well. Above 10 MHz nothing fails in any option,
+    # and every source reaches the plugged 1.5 GHz case at 22.0 to 22.6 dB, margin under 6 dB (not shown).
+    opt: (_DENSE, _ALL - _DENSE, _ALL) for opt in ("A", "B", "C1", "D")
+}
+SCOPE_MHZ = 10.0           # the lower edge of PCR-9 option (a)
+EXPECTED_SCOPE = {"A": 22.0, "B": 22.1, "C1": 22.3, "D": 22.3}  # dB, lowest rev2_worst total from 10 MHz to 1.5 GHz
+# (A and B at 1.5 GHz, plugged; C1 and D at 10 MHz, wall and plugged jack lines; 22.6 dB at 1.5 GHz)
 
 EXPECTED = {
     # option: (12 to 600 MHz, design rules applied: min(plane wave, H field) total >= 20 dB,
@@ -204,10 +265,25 @@ def aperture_t(f_hz: float, length: float, depth: float = 0.0) -> float:
     return t * 10 ** (-(27.3 * depth / length) / 20)
 
 
+def line_t(f_hz: float, name: str) -> float:
+    """Conducted term of one jack line through its O4 filter (rule O4, revision 2): K_COUPLE times the
+    magnitude of the filter's voltage transfer into Z_CM from a Z_SRC source, relative to no filter."""
+    fl = FILTERS[name]
+    w = 2 * math.pi * f_hz
+    if fl["kind"] == "resistor":
+        z_ser = 1 / (1 / fl["r"] + 1j * w * fl["c_par"])
+    else:
+        z_ser = fl["r_dc"] + 1 / (1 / fl["r"] + 1 / (1j * w * fl["l"]) + 1j * w * fl["c_par"])
+    z_sh = CAP_ESR + 1j * w * CAP_ESL + 1 / (1j * w * fl["c_shunt"])
+    z_p = z_sh * Z_CM / (z_sh + Z_CM)
+    return K_COUPLE * abs((z_p / (Z_SRC + z_ser + z_p)) / (Z_CM / (Z_SRC + Z_CM)))
+
+
 def total_se(f_hz: float, opt: str, zw: complex, film: bool = True, seam: float = SEAM_SPACING,
-             openings: str = "rev0", wall_fraction: list | None = None) -> float:
+             openings: str = "rev0", wall_fraction: list | None = None, lines: tuple = ()) -> float:
     """Power (random-phase) sum of the wall and every leak: sqrt(T_wall^2 + sum T_i^2). When
-    wall_fraction is a list, the wall term's share of the summed power is appended to it."""
+    wall_fraction is a list, the wall term's share of the summed power is appended to it. `lines` adds
+    the conducted term of each filtered jack line that leaves on a cable (revision 2, rule O4)."""
     sig, t = OPTIONS[opt]["wall"]
     depth = WALL_DEPTH[opt]
     terms = [10 ** (-slab_se(f_hz, sig, t, zw) / 20)]
@@ -219,9 +295,12 @@ def total_se(f_hz: float, opt: str, zw: complex, film: bool = True, seam: float 
     terms.append(t_win)
     n_seam = int(round(SEAM_LENGTH[opt] / seam))
     terms += [aperture_t(f_hz, seam, SEAM_OVERLAP)] * n_seam
+    t_lines = [line_t(f_hz, name) for name in lines]
+    terms += t_lines
     p_sum = sum(x * x for x in terms)
     if wall_fraction is not None:
         wall_fraction.append(terms[0] ** 2 / p_sum)
+        wall_fraction.append(sum(x * x for x in t_lines) / p_sum)
     t_tot = min(1.0, math.sqrt(p_sum))
     return -20 * math.log10(t_tot)
 
@@ -229,30 +308,37 @@ def total_se(f_hz: float, opt: str, zw: complex, film: bool = True, seam: float 
 GRID_MHZ = np.logspace(math.log10(0.02), math.log10(F_MAX_MHZ), 1400)
 
 
-def curves(opt: str, openings: str):
-    """Total SE (min of plane wave and H field) and the wall share of the leak power on GRID_MHZ."""
-    se, share = [], []
+def curves(opt: str, state: str):
+    """Total SE (min of plane wave and H field) and the wall share of the leak power on GRID_MHZ, for a
+    port state of STATES."""
+    openings, lines, _cap = STATES[state]
+    se, share, lshare = [], [], []
     for fm in GRID_MHZ:
         f = fm * 1e6
         wf_p, wf_h = [], []
-        p_ = total_se(f, opt, complex(Z0, 0), openings=openings, wall_fraction=wf_p)
-        h_ = total_se(f, opt, zw_h(f, R_SRC), openings=openings, wall_fraction=wf_h)
-        if h_ <= p_:
-            se.append(h_)
-            share.append(wf_h[0])
-        else:
-            se.append(p_)
-            share.append(wf_p[0])
-    return np.array(se), np.array(share)
+        p_ = total_se(f, opt, complex(Z0, 0), openings=openings, wall_fraction=wf_p, lines=lines)
+        h_ = total_se(f, opt, zw_h(f, R_SRC), openings=openings, wall_fraction=wf_h, lines=lines)
+        wf = wf_h if h_ <= p_ else wf_p
+        se.append(min(h_, p_))
+        share.append(wf[0])
+        lshare.append(wf[1])
+    return np.array(se), np.array(share), np.array(lshare)
 
 
 def per_source(opt: str, openings: str, cache: dict) -> list[dict]:
     """Worst verdict over every harmonic (to F_MAX_MHZ) of every CLOCK_SOURCES entry, the tolerance band
-    ends included."""
+    ends included. `openings` names a port state of STATES, or "rev2_worst", the lower of rev2 and
+    rev2_plug at every frequency (the governing revision 2 case)."""
     key = (opt, openings)
     if key not in cache:
-        cache[key] = curves(opt, openings)
-    se_c, share_c = cache[key]
+        if openings == "rev2_worst":
+            a, b = cache[(opt, "rev2")], cache[(opt, "rev2_plug")]
+            pick = a[0] <= b[0]
+            cache[key] = tuple(np.where(pick, x, y) for x, y in zip(a, b))
+        else:
+            cache[key] = curves(opt, openings)
+    se_c, share_c, lshare_c = cache[key]
+    cap = openings in STATES and STATES[openings][2]
     lg = np.log10(GRID_MHZ)
     out = []
     rank = {"pass": 0, "not shown": 1, "fail": 2}
@@ -262,15 +348,19 @@ def per_source(opt: str, openings: str, cache: dict) -> list[dict]:
         freqs = freqs[(freqs >= GRID_MHZ[0]) & (freqs <= F_MAX_MHZ)]
         se = np.interp(np.log10(freqs), lg, se_c)
         share = np.interp(np.log10(freqs), lg, share_c)
+        lshare = np.interp(np.log10(freqs), lg, lshare_c)
         unc = np.where(share > 0.5, U_WALL_DB, U_OPEN_DB)
         verdict = np.where(se < SE_REQ, "fail", np.where(se < SE_REQ + unc, "not shown", "pass"))
+        if cap:
+            verdict = np.where(verdict == "pass", "not shown", verdict)
         worst = max(verdict, key=lambda v: rank[v])
         i_min = int(np.argmin(se))
         fails = freqs[verdict == "fail"]
         out.append(dict(option=opt, openings=openings, source=name, fundamental_mhz=f0,
                         harmonics_to_1500=int(len(n)), min_se_db=round(float(se[i_min]), 1),
                         at_mhz=round(float(freqs[i_min]), 2), uncertainty_db=float(unc[i_min]),
-                        limiting_term="wall" if share[i_min] > 0.5 else "openings and joints",
+                        limiting_term="wall" if share[i_min] > 0.5 else (
+                            "jack lines (conducted)" if lshare[i_min] > 0.5 else "openings and joints"),
                         verdict=worst,
                         fail_span_mhz="" if len(fails) == 0 else f"{fails.min():.2f} to {fails.max():.2f}",
                         basis=basis))
@@ -321,7 +411,7 @@ def evaluate():
             bond_ok[(f"{rs:g}", n)] = r <= 0.1
     src_rows, cache = [], {}
     for opt in OPTIONS:
-        for openings in ("rev0", "rev1"):
+        for openings in ("rev0", "rev1", "rev1_plug", "rev2", "rev2_plug", "rev2_worst"):
             src_rows += per_source(opt, openings, cache)
     return rows, verdict, bond_rows, bond_ok, src_rows, cache
 
@@ -346,11 +436,14 @@ def plot(cache, src_rows):
     a1.legend(fontsize=7.5, loc="upper left", ncol=1, framealpha=0.95)
     colors = {"A": "#1f4e79", "B": "#6b8e23", "C1": "#c0504d", "D": "#4bacc6"}
     lg = np.log10(GRID_MHZ)
+    labels = {"rev0": "revision 0 openings", "rev1": "rules O1 to O3, ports empty",
+              "rev2_worst": "rules O1 to O4, worse of empty and plugged"}
     for opt in ("A", "C1"):
-        for openings, lw, ls in (("rev0", 1.2, ":"), ("rev1", 2.4, "-")):
-            se_c, _ = cache[(opt, openings)]
-            a2.semilogx(GRID_MHZ, se_c, color=colors[opt], lw=lw, ls=ls,
-                        label=f"{opt}, {'revision 0 openings' if openings == 'rev0' else 'rules O1 to O3'}")
+        for openings, lw, ls in (("rev0", 1.0, ":"), ("rev1", 1.4, "--"), ("rev2_worst", 2.6, "-")):
+            se_c = cache[(opt, openings)][0]
+            a2.semilogx(GRID_MHZ, se_c, color=colors[opt], lw=lw, ls=ls, label=f"{opt}, {labels[openings]}")
+    a2.axvline(SCOPE_MHZ, color="grey", ls="-.", lw=1)
+    a2.text(SCOPE_MHZ * 1.1, 60, "10 MHz:\nPCR-9\noption (a)", fontsize=8)
     a2.axhspan(0, SE_REQ, color="#f4cccc", alpha=0.5, lw=0)
     a2.axhspan(SE_REQ, SE_REQ + U_OPEN_DB, color="#fff2cc", alpha=0.7, lw=0)
     a2.text(0.025, 8, "fail (below 20 dB)", fontsize=8.5)
@@ -359,14 +452,14 @@ def plot(cache, src_rows):
     a2.set_xlim(0.02, 1500)
     a2.set_xlabel("frequency, MHz (0.02 to 1500 MHz, TC-SYS-107)")
     a2.set_ylabel("total shielding, min of plane wave and H field, dB")
-    a2.set_title("Walls, window film, openings and gasketed joints: total", fontsize=10)
+    a2.set_title("Walls, window film, openings, joints and plugged jack lines: total", fontsize=10)
     a2.grid(alpha=0.3, which="both")
     a2.legend(fontsize=8, loc="upper right", framealpha=0.95)
-    names = [r["source"] for r in src_rows if r["option"] == "C1" and r["openings"] == "rev1"]
+    names = [r["source"] for r in src_rows if r["option"] == "C1" and r["openings"] == "rev2_worst"]
     y = np.arange(len(names))
     vcol = {"pass": "#548235", "not shown": "#bf9000", "fail": "#c00000"}
     for off, opt in ((-0.2, "C1"), (0.2, "A")):
-        rr = {r["source"]: r for r in src_rows if r["option"] == opt and r["openings"] == "rev1"}
+        rr = {r["source"]: r for r in src_rows if r["option"] == opt and r["openings"] == "rev2_worst"}
         vals = [rr[n]["min_se_db"] for n in names]
         a3.barh(y + off, vals, 0.38, color=[vcol[rr[n]["verdict"]] for n in names],
                 edgecolor="k" if opt == "A" else "none", hatch="//" if opt == "A" else None)
@@ -379,11 +472,11 @@ def plot(cache, src_rows):
     a3.invert_yaxis()
     a3.set_xlim(0, 48)
     a3.set_xlabel("lowest total over the fundamental and every harmonic to 1.5 GHz, dB")
-    a3.set_title("Per source, rules O1 to O3 (plain: C1; hatched: A)\ngreen pass, amber not shown, red fail",
-                 fontsize=10)
+    a3.set_title("Per source, rules O1 to O4, worse of empty and plugged ports\n(plain: C1; hatched: A); "
+                 "green pass, amber not shown, red fail", fontsize=10)
     a3.grid(axis="x", alpha=0.3)
     fig.text(0.01, 0.01, "Developer evidence (author estimate, Schelkunoff slab and slot-aperture models); "
-             "docs/design/analysis/shielding-estimate.md revision 1. Sources: clock-plan.md revision 2 sections 2, 2.1.",
+             "docs/design/analysis/shielding-estimate.md revision 2. Sources: clock-plan.md revision 2 sections 2, 2.1.",
              fontsize=8)
     fig.tight_layout(rect=(0, 0.03, 1, 1))
     PNG.parent.mkdir(parents=True, exist_ok=True)
@@ -433,6 +526,28 @@ def main() -> int:
             errs.append(f"{opt} rev1 fail set: got {sorted(got_f)}, expected {sorted(fail_rev1)}")
         if ns_rev1 is not None and got_n != ns_rev1:
             errs.append(f"{opt} rev1 not-shown set: got {sorted(got_n)}, expected {sorted(ns_rev1)}")
+    for opt, (fail2, ns2, fail1p) in EXPECTED_REV2.items():
+        rw = [r for r in src_rows if r["option"] == opt and r["openings"] == "rev2_worst"]
+        r1p = [r for r in src_rows if r["option"] == opt and r["openings"] == "rev1_plug"]
+        got_f = {r["source"] for r in rw if r["verdict"] == "fail"}
+        got_n = {r["source"] for r in rw if r["verdict"] == "not shown"}
+        got_1p = {r["source"] for r in r1p if r["verdict"] == "fail"}
+        got_1p_pass = [r["source"] for r in r1p if r["verdict"] == "pass"]
+        se_c = cache[(opt, "rev2_worst")][0]
+        scope_min = round(float(se_c[GRID_MHZ >= SCOPE_MHZ].min()), 1)
+        top_fail = max([float(r["fail_span_mhz"].split(" to ")[1]) for r in rw if r["fail_span_mhz"]] or [0.0])
+        print(f"REV2 {opt}: worst fail {sorted(got_f)}; worst not shown {sorted(got_n)}; rev1_plug fail "
+              f"{len(got_1p)}; lowest from {SCOPE_MHZ:g} MHz {scope_min} dB; highest failing harmonic {top_fail} MHz")
+        if got_f != fail2:
+            errs.append(f"{opt} rev2 fail set: got {sorted(got_f)}, expected {sorted(fail2)}")
+        if got_n != ns2:
+            errs.append(f"{opt} rev2 not-shown set: got {sorted(got_n)}, expected {sorted(ns2)}")
+        if got_1p != fail1p or got_1p_pass:
+            errs.append(f"{opt} rev1_plug: fail {sorted(got_1p)}, pass {got_1p_pass}")
+        if abs(scope_min - EXPECTED_SCOPE[opt]) > 0.05 or not SE_REQ <= scope_min < SE_REQ + U_OPEN_DB:
+            errs.append(f"{opt} lowest from {SCOPE_MHZ} MHz: got {scope_min}, expected {EXPECTED_SCOPE[opt]}")
+        if top_fail >= SCOPE_MHZ:
+            errs.append(f"{opt} rev2 fails at {top_fail} MHz, at or above {SCOPE_MHZ} MHz")
     if args.check:
         for e in errs:
             print("MISMATCH:", e)
