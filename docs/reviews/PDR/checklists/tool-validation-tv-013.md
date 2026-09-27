@@ -13,12 +13,15 @@ checklist: peer-review-checklist-code
 checklist_revision: B
 checklist_file: docs/reviews/PDR/checklists/tool-validation-tv-013.md
 product: docs/cm/tool-validation/TV-013-measurements.md
-# product_commit: iteration 2 (delta, 2026-09-27) reviews the blobs frozen at c827202 (TV-013, run 3 evidence,
+# product_commit: iteration 3 (delta, 2026-09-27) re-identifies the product at main 3aed3c4: the lock and README
+# drifted (b45c8654 to e1c811b0, 87fb1e8c to 7c90f143, commits 2bfe001 to 1db319a, WP-PDR-07 only); every hunk
+# was read and none touches a TV-013 or measurements.py line; the other 20 blobs and the fixture tree are unchanged.
+# Iteration 2 (delta, 2026-09-27) reviewed the blobs frozen at c827202 (TV-013, run 3 evidence,
 # lock, README) with the test module and the two new fixtures of c28dd60 (equal at c827202 and HEAD); tool blob
 # abe25acb unchanged. Iteration 1 reviewed 71bf509: TV-013 9a7e2b55, test module 7e7ba2bb, fixture tree
 # 39141b58 (13 files), lock 82005d1b, README b267ce08
-product_commit: "c827202144e73328b816e666e48dbcd1b3afaae8"
-product_files: ["docs/cm/tool-validation/TV-013-measurements.md@71a676ef74ba9990dc307d97ed82015f06be5ec2", "docs/cm/tool-validation/evidence/measurements-2026-09-27.log.txt@8868280979b422742e7d04f6ee5869ffa37c8dd2", "docs/cm/tool-validation/evidence/measurements-2026-09-27-r3.log.txt@eff9035ff7a85ac9c7e7778d755ed5f028510909", "tools/measurements.py@abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a", "tools/tests/test_measurements.py@7ccc293e102f58c62d676b94074bc17b3232e166", "tools/tests/fixtures/measurements/invalid.json@15231171b06297dfd45632bef5d22757374b0970", "tools/tests/fixtures/measurements/junit/empty.xml@a5e08f193d942833cc2b5283ff72e8740f7fa773", "tools/tests/fixtures/measurements/junit/run1.xml@cb071c37b1f13fa52fe0a9958aaababfb736f54b", "tools/tests/fixtures/measurements/junit/run2-diff.xml@7294a61c042aa6105dc84d79a702afc7518a4efb", "tools/tests/fixtures/measurements/junit/run2-same.xml@cb071c37b1f13fa52fe0a9958aaababfb736f54b", "tools/tests/fixtures/measurements/junit/run-failing.xml@13eb0ded84967e44f211202655fc0b66c42bd120", "tools/tests/fixtures/measurements/junit/run-skipped.xml@11e505175f394fbe934624cffc91371ea0faf775", "tools/tests/fixtures/measurements/lcov/branch-condition.json@e569b1722f7fa5237f8c1b149a38e714d45b3f70", "tools/tests/fixtures/measurements/lcov/lcov.info@9368449affe9f81534ec020dcf2c983436ff343c", "tools/tests/fixtures/measurements/linkmap/cwht-app.map@e5557024967701cbee3661601e39572bf22afa80", "tools/tests/fixtures/measurements/linkmap/link.ld@8ab6e6e242e3daf0449ff34cb58f75168acabf40", "tools/tests/fixtures/measurements/linkmap/over-red-line.map@ab15c48a1463c8b124198eae273ea02d2877ea57", "tools/tests/fixtures/measurements/linkmap/small.ld@f6be72a5bfa9bcfbe99761771549e9fd95b810d1", "tools/tests/fixtures/measurements/records/records.json@5b760ab006e936e10d28130373b1c525c4dc79c1", "tools/tests/fixtures/measurements/valid.json@3938cd57aaeb99e1c5065594c915c99014d34026", "tools/toolchain.lock.md@b45c8654476be36b3b1918fbe9ff2040ac6c941e", "docs/cm/tool-validation/README.md@87fb1e8cab28baf623981a3386fb260f5263d1be"]
+product_commit: "3aed3c4362c6ffc03a1265bf0d63a6893990d165"
+product_files: ["docs/cm/tool-validation/TV-013-measurements.md@71a676ef74ba9990dc307d97ed82015f06be5ec2", "docs/cm/tool-validation/evidence/measurements-2026-09-27.log.txt@8868280979b422742e7d04f6ee5869ffa37c8dd2", "docs/cm/tool-validation/evidence/measurements-2026-09-27-r3.log.txt@eff9035ff7a85ac9c7e7778d755ed5f028510909", "tools/measurements.py@abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a", "tools/tests/test_measurements.py@7ccc293e102f58c62d676b94074bc17b3232e166", "tools/tests/fixtures/measurements/invalid.json@15231171b06297dfd45632bef5d22757374b0970", "tools/tests/fixtures/measurements/junit/empty.xml@a5e08f193d942833cc2b5283ff72e8740f7fa773", "tools/tests/fixtures/measurements/junit/run1.xml@cb071c37b1f13fa52fe0a9958aaababfb736f54b", "tools/tests/fixtures/measurements/junit/run2-diff.xml@7294a61c042aa6105dc84d79a702afc7518a4efb", "tools/tests/fixtures/measurements/junit/run2-same.xml@cb071c37b1f13fa52fe0a9958aaababfb736f54b", "tools/tests/fixtures/measurements/junit/run-failing.xml@13eb0ded84967e44f211202655fc0b66c42bd120", "tools/tests/fixtures/measurements/junit/run-skipped.xml@11e505175f394fbe934624cffc91371ea0faf775", "tools/tests/fixtures/measurements/lcov/branch-condition.json@e569b1722f7fa5237f8c1b149a38e714d45b3f70", "tools/tests/fixtures/measurements/lcov/lcov.info@9368449affe9f81534ec020dcf2c983436ff343c", "tools/tests/fixtures/measurements/linkmap/cwht-app.map@e5557024967701cbee3661601e39572bf22afa80", "tools/tests/fixtures/measurements/linkmap/link.ld@8ab6e6e242e3daf0449ff34cb58f75168acabf40", "tools/tests/fixtures/measurements/linkmap/over-red-line.map@ab15c48a1463c8b124198eae273ea02d2877ea57", "tools/tests/fixtures/measurements/linkmap/small.ld@f6be72a5bfa9bcfbe99761771549e9fd95b810d1", "tools/tests/fixtures/measurements/records/records.json@5b760ab006e936e10d28130373b1c525c4dc79c1", "tools/tests/fixtures/measurements/valid.json@3938cd57aaeb99e1c5065594c915c99014d34026", "tools/toolchain.lock.md@e1c811b08b742e8ad24ff053efc9c4476fbffd29", "docs/cm/tool-validation/README.md@7c90f14310f7deedf518596bc57c5b4c7e2fc277"]
 fixture_trees: ["tools/tests/fixtures/measurements@ed4414ecd9336349d4ba03cd8257b0079d470d8d"]
 tv_ids: [TV-013]
 tool_class: B
@@ -28,19 +31,23 @@ product_size: 1 record (92 lines), 6 purposes, 18 known-answer tests, 15 fixture
 sprint: PDR-prep
 author_agent: "author:SRR R3 and WP-PDR-08 (Claude as software lead and tool owner)"
 tool_author_agent: "author:SRR R3 (Claude as tool maintainer)"
-reviewer_agent: "reviewer:WP-PDR-08-tv-013-iter2 (independent; authored no part of WP-PDR-08 or the tool; iteration 1 by reviewer:WP-PDR-08-tv-013)"
+reviewer_agent: "reviewer:WP-PDR-08-tv-013-iter3 (independent; authored no part of WP-PDR-08 or the tool; iteration 2 by reviewer:WP-PDR-08-tv-013-iter2, iteration 1 by reviewer:WP-PDR-08-tv-013)"
 criticality: neither
 # assurance_required: the TV template (CR-012) says false; PDR work plan WP-PDR-08 names "independent reviewer
 # plus SA". Section H is answered here as the template directs; the separate SA invocation the plan names is
-# requested from the lead SE (return fix_requests "SA pair needed").
+# filed as INSP-049 (iteration 3 of this record names the pairing, 07 section 2.1.1 and 10.2 Record row).
 assurance_required: true
-assurance_reviewer_agent: "pending (separate invocation, PDR work plan WP-PDR-08)"
-iteration: 2
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-08-tv-013 (paired record INSP-049, docs/reviews/PDR/checklists/tool-validation-tv-013-software-assurance.md; 07 section 2.1.1)"
+paired_record: INSP-049
+iteration: 3
 readiness_met: true
 reviewer_verdict: APPROVED
-assurance_verdict: pending
-# verdict: held at NEEDS CHANGES until the separate SA invocation of WP-PDR-08 is filed and APPROVED (fix request
-# "SA pair needed"); the reviewer lens is APPROVED with liens finding-2 to finding-4
+# assurance_verdict: copied from the paired record INSP-049 (iteration 1, APPROVED; one Minor lien)
+assurance_verdict: APPROVED
+# verdict: held at NEEDS CHANGES (lead SE convention of 2026-09-27): both lenses are APPROVED and every product
+# blob is on main, but the item set applied exists only on the unmerged branch cr/CR-012-pdr-checklist-templates
+# (template blob 7be809d4 at 7784672); the software lead sets APPROVED on INSP-041 and INSP-049 when CR-012
+# merges with that template blob unchanged
 verdict: NEEDS CHANGES
 findings_major: 1
 findings_minor: 3
@@ -53,8 +60,8 @@ assurance_tasks_applied: [swe-136 7.1 task 1, swe-070 7.1 task 1]
 deferred_rids: []
 # items_no: at iteration 2 (TV-C2 and TV-D2 of iteration 1 are Yes; TV-B3 stays No for finding-2 only)
 items_no: [TV-B3, TV-F3, TV-G1-2]
-effort_turns: 28
-effort_minutes: 42
+effort_turns: 40
+effort_minutes: 57
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -305,4 +312,57 @@ FINDINGS: finding-1 Major Verified; finding-2 to finding-4 Minor, lien due CDR; 
 ITEMS N/A: TV-A2, TV-D3, TV-F5, TV-H2, G2 to G4 (unchanged)
 RE-RUN: unittest discover -p test_measurements.py on an export of c827202, twice; exit 0; 18 tests OK; mutation 1 fails 2 of 18; same as run 3
 MEASUREMENTS: elements verified=3; new findings=0; iteration 2 turns=8, minutes=12; cumulative turns=28, minutes=42
+```
+
+## Iteration 3: delta re-identification of the drifted blobs (2026-09-27)
+
+**Scope (rule C1).** A delta, not a new review: two of the 22 blobs of `product_files` drifted on main after iteration 2, `tools/toolchain.lock.md` `b45c8654` to `e1c811b0` and `docs/cm/tool-validation/README.md` `87fb1e8c` to `7c90f143`, through commits `2bfe001`, `d9c7f69`, `99feb43`, `f47360a`, `bd78bd5` and `1db319a` (all WP-PDR-07: TV-014 runs 4 to 6 and accreditation, TV-015 to TV-019 filing). The brief named `be96420b` and `f4757da2`, the blobs at `bd78bd5`; main moved on to `1db319a` before this iteration, so this record takes the current blobs at main `3aed3c4`. The tool, the test module, the fixture tree `ed4414ec`, TV-013 `71a676ef` and both evidence logs were recomputed with `git rev-parse HEAD:<path>` and equal iteration 2. No reviewer re-run is needed: no executable, fixture or expected value changed.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-07, WP-PDR-08 or the tool, wrote neither earlier iteration nor INSP-049, and edited no product file. **Search first:** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: the lock row and TV-013 validation status of `tools/measurements.py`) ran before any `grep`.
+
+### Hunks read (`git diff c827202 3aed3c4`)
+
+| File | Hunk (new lines) | Content | Touches TV-013 or `tools/measurements.py`? |
+|---|---|---|---|
+| lock | 11 to 12, 14 | kicad-cli, LTspice and CrossOver rows of section 1: TV-014 status and wrapper blob `88b71475`, Accredited | No |
+| lock | 45 to 46 | OpenSCAD and FreeCAD rows: TV-015 status | No |
+| lock | 67 to 68, 70, 96 | section 1.1 rows kicad-cli, `normalize_fab.py`, LTspice, scad2step: run results | No |
+| lock | 101 to 103 | new section 1.1 rows `render_tpm.py`, `csa.py`, `check_commit_msg.py` (after the `measurements.py` row at line 100, which is unchanged) | No |
+| lock | 122, 124 to 128 | section 1.2 rows `render_tpm.py`, `csa.py`, `check_commit_msg.py`, `ltspice-batch.sh`, `normalize_fab.py`, `scad2step.py`: "not written" to "exists" | No (the `measurements.py` row moves from line 120 to 123, text unchanged) |
+| lock | 177 | section 1.4 finding 15 (orphaned Wine services, TV-014 run 4) | No |
+| lock | 269 to 274 | section 2 index rows TV-014 to TV-019 | No (TV-013 row, now line 268, unchanged) |
+| lock | 312 to 316 | five log rows for WP-PDR-07 (TV-014 runs 4 to 6, TV-015 run 2, wave 1a tools) | No |
+| README | 38 to 43 | index row TV-014 updated (Validated, Accredited ACC-LTSPICE-001); new rows TV-015 to TV-019 | No (TV-013 row, line 37, unchanged) |
+
+Every line of the lock and README that names `measurements` or TV-013 was compared as text at `c827202` and at `3aed3c4`: identical (same digest of the extracted lines), only line numbers shift. The drift therefore changes no answer of this record.
+
+### Effect on the findings
+
+| Finding | State | Iteration 3 note |
+|---|---|---|
+| finding-1 | Verified (iteration 2) | unaffected |
+| finding-2 | Lien: fix before CDR | unaffected |
+| finding-3 | Lien: fix before CDR | unaffected |
+| finding-4 | Lien: fix before CDR | unaffected in substance, still stale; locations now lock section 1.2 row line 123 (was 120), lock section 2 row TV-013 line 268, README row TV-013 line 37 and owner action 3 line 60 (was 55). The new README rows TV-014 to TV-019 each name a committed blob and run commit, which makes the TV-013 row ("working-tree blob `abe25acb`, new") the only index row of a committed PDR tool still described as uncommitted; no new finding (same defect, same fix) |
+
+New findings: 0. No Major is open; the three Minor findings stay liens due the CDR readiness declaration (PDR package section 15).
+
+### Pairing (07 section 10.2 Record row)
+
+This iteration names the paired software assurance record INSP-049 (`tool-validation-tv-013-software-assurance.md`, `assurance_verdict: APPROVED`, one Minor lien) in `paired_record` and `assurance_reviewer_agent`, and copies its assurance verdict. INSP-049 names the same `product_files` as iteration 2 (lock `b45c8654`, README `87fb1e8c`); its own delta for the same drift is for its reviewer (each reviewer updates only its own record); this record's reading of the hunks above applies unchanged to the assurance lens, since no hunk touches the product.
+
+### Measurements (SWE-089), iteration 3
+
+Blob identities recomputed: 22 and one fixture tree. Hunks read: 13 (lock 12, README 1). New findings: 0. Iteration 3 effort: 12 turns, 15 minutes; cumulative 40 turns, 57 minutes (front matter). Iteration count 3 of the 07 section 10.2 maximum, reached with no Major open, so no escalation.
+
+### Record verdict (iteration 3)
+
+**Reviewer verdict: APPROVED** (liens finding-2 to finding-4), unchanged. **Assurance verdict: APPROVED** (INSP-049). **Record verdict: NEEDS CHANGES, held** under the lead SE convention: the checklist item set applied exists only on the unmerged `cr/CR-012-pdr-checklist-templates` (`7784672`, template blob `7be809d4`). The software lead sets APPROVED on this record and INSP-049 when CR-012 merges with that template blob unchanged. The WP-PDR-09 C-185 change of `tools/measurements.py` remains a re-validation trigger needing its own delta.
+
+```
+VERDICT (iteration 3, 2026-09-27): reviewer APPROVED (liens finding-2 to finding-4); assurance APPROVED (INSP-049); record verdict NEEDS CHANGES (held: CR-012 template not merged)
+PRODUCT: TV-013 71a676ef at main 3aed3c4; tool abe25acb; test module 7ccc293e; fixture tree ed4414ec; lock e1c811b0; README 7c90f143
+FINDINGS: finding-1 Major Verified; finding-2 to finding-4 Minor, lien due CDR; no new finding; no Major open
+DRIFT: lock and README hunks of 2bfe001 to 1db319a read; none touches TV-013 or tools/measurements.py
+MEASUREMENTS: identities=22 blobs + 1 tree; hunks=13; new findings=0; iteration 3 turns=12, minutes=15; cumulative turns=40, minutes=57
 ```
