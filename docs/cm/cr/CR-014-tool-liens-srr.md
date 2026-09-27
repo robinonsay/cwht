@@ -101,11 +101,37 @@ Verification of the implementation (what the independent reviewer checks): the e
 
 Required by plan rule C6 (lesson L4), although a Class II CR that touches no requirement, ICD, hazard or test case would not need it (05 §5.2).
 
+### 6.1 Round 1 (2026-09-27)
+
+Reviewer: Independent impact reviewer (Claude agent invocation 2026-09-27; did not author CR-014, WP-PDR-09 or INSP-100/101). Inputs: this file at `eb200de`; branch head `367b3dd`; `main` at `8c57710`. Searches: vector search of the repository for the 05 section 5 rules, the records that name the changed blobs and the consumers of `measurements.py` output, then `git grep` and a script over every `docs/reviews/*/checklists/*.md` front matter `product_files` on `main`.
+
+Checks run (scratch worktrees of `367b3dd` and `8c57710`, removed afterwards):
+
+| Check | Result |
+|---|---|
+| `affected_paths` against `git diff --name-only main...367b3dd` | 38 files, every one covered, no listed path outside the diff |
+| `affected_cis` against 05 Table 4-1 | Rows 25 (`main.rs`), 27 (lock; `tools/requirements.txt` unchanged against `main`), 28 (tools, tests, fixtures), 30 (TV records, evidence), 40 (`tools/README.md`): complete |
+| Commit trailers | the eight product commits and the merge carry `CR: CR-014`; `f924595` also `CR: CR-001` and changes comment lines only |
+| Blobs of section 1 | the seven branch-head blobs equal the stated ones |
+| Class (05 section 2, section 5.1 accredited-tool row) | Concur, Class II: none of the five tools, `sw_gate.sh` or the comment can change a released image; no requirement, ICD, hazard, test case or operator procedure changes (`git diff` over `docs/requirements`, `docs/test_cases`, `docs/safety`, `docs/icd`, `docs/risk`, `docs/process`: empty) |
+| Effectivity | Concur: `baseline_affected: baseline/srr`, `target_release: none`, no released unit, nothing built from the branch |
+| `tools/traceability.py --report-only` at `367b3dd` | exit 0, 245 requirements, 173 test cases, 0 violations, 2 warnings (REQ-SYS-125, REQ-SYS-148), as stated; report files discarded |
+| `tools/validate_docs.py` at `367b3dd` | exit 1, 9 failures: `fw-b0-toolchain-proof.md` (INSP-016: `main.rs`, `sw_gate.sh`) and `tool-validation-tv-001-to-tv-010.md` (INSP-015) beyond records that fail on `main` already, as stated |
+| Branch `validate_docs.py` (`e5b692e1`) run on the `main` tree at `8c57710` | exit 1, 10 failures, the same records and lines as `main`'s own blob `3aa03681`: the widened record-state read and the two new `ASSURANCE_WHOLE_PRODUCTS` entries fail no record now on `main` |
+| `measurements.py` result-line consumers | none parses a line beginning `PASS` or `FAIL` from it; `sw_gate.sh` uses the exit status (agrees with INSP-101 S11) |
+| `git merge-tree` of `367b3dd` with `main` `8c57710` | CONFLICT in `docs/cm/tool-validation/README.md` and `tools/toolchain.lock.md` (`main` commits `d9c7f69` to `1db319a`, TV-014 and TV-015 runs and ACC-LTSPICE-001) |
+| `git merge-tree` with the branches of CR-008 to CR-013, CR-015, CR-016 | no conflict |
+
+Impact fields: concur with Performance margins, Risk, Software classification and tailoring, Interfaces, Operations and ConOps, Cybersecurity (G0 checks the rustos pin identity; the USB load and key-input paths of 07 section 16 are untouched), Cost, Requirements and traceability, Regulatory and Released units. Safety: concur None with finding-3. Verification: do not concur (finding-1). Schedule: partly concur (finding-2). Documentation: partly concur (finding-4).
+
 | Item | Reviewer (agent invocation) | Date | Finding | Resolution |
 |---|---|---|---|---|
-| Pending | | | | |
+| finding-1 (Major): Verification field and section 5 steps 3 to 7, records invalidated by the merge | Independent impact reviewer (Claude agent invocation 2026-09-27; did not author CR-014, WP-PDR-09 or INSP-100/101) | 2026-09-27 | The field was written against `main` at `72d0a2f`; `main` has moved 65 commits and the list no longer holds. (a) The branch conflicts with `main` in the TV README and the lock, so a second merge of `main` is needed and it re-writes both blobs after INSP-100 and INSP-101 froze `367b3dd`. (b) INSP-041 is APPROVED at iteration 2 (`f38159d`, product commit `c827202`), not NEEDS CHANGES; INSP-038, INSP-040, INSP-042 and INSP-043 are APPROVED, so the merge makes them fail the record drift rule, not "show a drift note only". (c) APPROVED records whose current `product_files` name a CR-014 path and are not listed: INSP-048, INSP-049 (SA pair of INSP-041: `measurements.py`, `test_measurements.py`, TV-013, lock, README), INSP-051, INSP-070 (TV README or `tools/README.md`), INSP-088 (TV README, lock, `tools/README.md`), and INSP-100, INSP-101 themselves (every branch blob, lock and READMEs at `367b3dd`). Without deltas or a recorded ruling, `validate_docs.py` on `main` fails on these records after the merge | Author: merge `main` again and resolve the two conflicts; re-state the Verification field with every record above, its current verdict and its planned delta (or the lead SE convention that covers it); add the re-merge and the INSP-100/101 re-freeze to section 5; mark step 5 with `3837edb` and `1bde213` (both filed APPROVED, iteration 1, open Minors 3 and 2) and step 7 with the INSP-041 state. Verified at round 2 |
+| finding-2 (Minor): Schedule field, dependency on CR-010 | Independent impact reviewer (Claude agent invocation 2026-09-27; did not author CR-014, WP-PDR-09 or INSP-100/101) | 2026-09-27 | 07 section 22 "Tool constants" row on `main` moves `SW-SYNTH` "With the decision 9 change set", and 07 section 14.1 on `main` still marks the `SW-SYNTH` word path "**Proposed**" until CR-010 (Submitted) merges. Merged first, CR-014 would put the tool constant ahead of the list charter section 10 names as the single authoritative one. The CR lists CR-010 as related but states no merge order | Author: state the order (CR-014 merges after CR-010, or the lead SE records that decision 9 of the SRR decision memo suffices for the tool to lead 07) in the Schedule field and in section 7 conditions |
+| finding-3 (Minor): Safety and Verification fields, known limits of the record-state change | Independent impact reviewer (Claude agent invocation 2026-09-27; did not author CR-014, WP-PDR-09 or INSP-100/101) | 2026-09-27 | The Safety field says None. `validate_docs.py` enforces the zero-open-Major rule on the records of safety-critical products; INSP-101 finding-1 (probe S5) shows blob `e5b692e1` passes a record with an open Major `finding-2` when a later table verifies another record's `F-02`, which `3aa03681` fails; INSP-100 finding-1 shows the "Findings" read misses the longer headings the project uses. Neither fails a record on `main` today (check above), so the None stands, but the field does not name the limits | Author: cite INSP-100 finding-1 and INSP-101 finding-1 in the Verification field with their disposition (fixed on the branch before the merge, or carried as TV-003 limitations with the owner's ACC-VALDOCS-001 decision) |
+| finding-4 (Minor): Documentation field, TV record route | Independent impact reviewer (Claude agent invocation 2026-09-27; did not author CR-014, WP-PDR-09 or INSP-100/101) | 2026-09-27 | INSP-100 finding-3: 05 section 9.2 step 5 asks for "a new TV record" on a version change of an Accredited tool after SRR; the CR appends runs and proposed extensions to TV-003, TV-007, TV-010 and TV-012. The CR does not say which reading applies | Author: state the route in the Documentation field (new TV numbers, or the lead SE ruling that a blob change of a project-written tool is not a "version change" with a 05 clarification CR); the owner confirms it in the disposition |
 
-Reviewer concurrence: pending.
+Reviewer concurrence (round 1): concur with Class II, the effectivity, `affected_cis` and `affected_paths`; not concurred on the impact assessment as a whole until finding-1 is resolved (finding-2 to finding-4 may ride as conditions of section 7). Status stays Submitted; round 2 verifies the re-stated fields.
 
 ## 7. CCB disposition (owner)
 
@@ -163,3 +189,4 @@ Traceability report after implementation: not regenerated on the branch (`--repo
 | Date | State | By | Commit on main | Note |
 |---|---|---|---|---|
 | 2026-09-27 | Submitted | Claude (tool owner, WP-PDR-09) | this commit | Branch head `367b3dd`; section 6 review requested (rule C6) |
+| 2026-09-27 | Submitted (section 6 round 1) | Independent impact reviewer (agent invocation) | this commit | Rule C6 review round 1: Class II concurred; 1 Major (records invalidated by the merge, conflict with `main` `8c57710`), 3 Minor; concurrence withheld pending finding-1 |
