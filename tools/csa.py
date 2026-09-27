@@ -27,6 +27,10 @@ read at one git revision (default HEAD), so the report is reproducible from the 
                       each control holding a tbr field), and the open items of every
                       docs/reviews/*/rfa-rid-log.json
 
+Records: an INSP record names a file when the file is one of its product_files (path@blob, inline
+or YAML block list) or the first word of a comma-separated item of its product, or lies under a
+directory so named ("firmware/").
+
 Level rule (05 section 4.1), per row: "none (absent)" without files; L3 for a Record (level L3)
 row when a release/* tag exists; for a CR or Mixed row, L2 when its CR-from event has occurred
 at the revision (the first gate named in the CR-from cell has its baseline/<gate> tag, or a
@@ -193,16 +197,27 @@ def front_matter(text: str) -> dict:
     end = text.find("\n---", 4)
     if end < 0:
         return {}
-    out = {}
+    out, last = {}, None
     for line in text[4:end].splitlines():
-        if not line.strip() or line.lstrip().startswith("#") or line.startswith((" ", "\t")):
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        item = re.match(r"^\s+-\s+(.*)$", line)
+        if item and last is not None:
+            # YAML block list under the last key ("key:" then "  - value" lines)
+            if not isinstance(out.get(last), list):
+                out[last] = []
+            out[last].append(scalar(item.group(1).strip()))
+            continue
+        if line.startswith((" ", "\t")):
             continue
         m = re.match(r"^([A-Za-z_][A-Za-z0-9_]*):\s*(.*)$", line)
         if not m:
+            last = None
             continue
         key, raw = m.group(1), m.group(2).strip()
         raw = re.sub(r"\s+#\s.*$", "", raw) if not raw.startswith(("'", '"')) else raw
         out[key] = scalar(raw)
+        last = key
     return out
 
 
@@ -235,6 +250,11 @@ class RowStatus:
     applied_crs: list[str]
     pending_crs: list[str]
     records: list[str]
+
+
+def names_any(record: dict, files: list[str]) -> bool:
+    """True when an INSP record names one of the files, exactly or by a directory product ("firmware/")."""
+    return any(f in record["named"] or any(f.startswith(p) for p in record["prefixes"]) for f in files)
 
 
 def short(sha: str | None, n: int = 12) -> str:
@@ -294,11 +314,17 @@ class Csa:
             fm = front_matter(self.git.show(self.rev, path) or "")
             if not str(fm.get("id", "")).startswith("INSP-"):
                 continue
-            named = set()
-            for v in [fm.get("product")] + list(fm.get("product_files") or []):
-                if isinstance(v, str):
-                    named.add(v.split("@", 1)[0].strip())
-            out.append({"id": fm["id"], "path": path, "verdict": fm.get("verdict"), "named": named})
+            named, prefixes = set(), []
+            product = fm.get("product")
+            tokens = [t.strip().split()[0] for t in product.split(",") if t.strip()] if isinstance(product, str) else []
+            files = fm.get("product_files") if isinstance(fm.get("product_files"), list) else []
+            tokens += [str(v).split("@", 1)[0].strip() for v in files if v]
+            for t in tokens:
+                if t.endswith("/"):
+                    prefixes.append(t)
+                else:
+                    named.add(t)
+            out.append({"id": fm["id"], "path": path, "verdict": fm.get("verdict"), "named": named, "prefixes": prefixes})
         return out
 
     # -- item 2
@@ -365,8 +391,8 @@ class Csa:
         for row in self.table:
             files = by_row[row.num]
             occurred, split = self.cr_event(row)
-            recs = sorted({r["id"] for r in self.records if r["named"] & set(files)}, key=lambda x: int(x[5:]))
-            approved = any(r["verdict"] == "APPROVED" and r["named"] & set(files) for r in self.records)
+            recs = sorted({r["id"] for r in self.records if names_any(r, files)}, key=lambda x: int(x[5:]))
+            approved = any(r["verdict"] == "APPROVED" and names_any(r, files) for r in self.records)
             if not row.specs:
                 level = "n/a (no pathspec: outside the repository)"
             elif not files:

@@ -111,6 +111,16 @@ class FrontMatterTests(unittest.TestCase):
         self.assertEqual([p.split("@")[0] for p in rec["product_files"]], ["a.md", "b.md"])
         self.assertEqual(csa.front_matter("no front matter"), {})
 
+    def test_block_list_and_directory_product(self):
+        text = ("---\nid: INSP-016\nproduct: firmware/ (FW-B0 workspace), tools/sw_gate.sh, docs/a.md (delta)\n"
+                "product_files:\n  - docs/b.md@1234\n  - \"docs/c.md@5678\"\nverdict: APPROVED\n---\n")
+        fm = csa.front_matter(text)
+        self.assertEqual(fm["product_files"], ["docs/b.md@1234", "docs/c.md@5678"])
+        rec = {"named": {"tools/sw_gate.sh", "docs/a.md", "docs/b.md", "docs/c.md"}, "prefixes": ["firmware/"]}
+        self.assertTrue(csa.names_any(rec, ["firmware/cwht-core/src/lib.rs"]))
+        self.assertTrue(csa.names_any(rec, ["docs/c.md"]))
+        self.assertFalse(csa.names_any(rec, ["docs/d.md", "firmwarex/a"]))
+
 
 class FixtureRepoTests(unittest.TestCase):
     @classmethod
