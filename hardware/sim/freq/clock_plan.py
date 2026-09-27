@@ -7,11 +7,16 @@ Run from the repository root:
 
     .venv/bin/python hardware/sim/freq/clock_plan.py            # check, print tables, exit status
     .venv/bin/python hardware/sim/freq/clock_plan.py --plot     # also render the figure
+    .venv/bin/python hardware/sim/freq/clock_plan.py --rosc-running   # seeded case: the ROSC left running
+                                                                      # (ADR-051 as written, no rule 11): exit 1
 
 Exit status 0 when every rule of ADR-031 (section "RULES") holds for the proposed plan, 1 otherwise.
 Sources that cannot be placed by frequency (status "residual": free-running, not synchronisable and
 not switchable off in operation, or with a frequency set by the board) are reported as named
 residual lines (clock-plan.md section 2.1), not as rule failures.
+Revision 2 (INSP-056 finding-8): the RP2350 ring oscillator (ROSC) is in the inventory as a clear-class clock
+that rule 11 switches off in operation; with --rosc-running it is treated as running and rules 1 and 2 fail.
+The RP2350 low-power oscillator (LPOSC) is residual source R-5.
 Arithmetic is exact (fractions.Fraction); a clock line is the interval n*f*(1 +/- tol).
 
 Tool status (05 section 9.1): class B evidence-generating script without a TV record; its output is
@@ -41,6 +46,13 @@ XOSC_PPM = F(65)                                    # RP2350 datasheet Table 596
 TCXO_PPM = F("2.5")                                 # REQ-SYS-010 ceiling
 CLK_SYS = 150 * MHz                                 # 07 WP-SW-11: clk_sys = clk_peri = 150 MHz; RP2350 section 12.2.1.2: I2C ic_clk is clk_sys
 
+# RP2350 on-chip oscillators (revision 2, INSP-056 finding-8). Datasheet extract at rustos commit 2ec64c0f.
+ROSC_RANGE = (F("4.6") * MHz, F("24.0") * MHz)      # section 8.3.1 (extract lines 41086 to 41093): "4.6MHz to 19.6MHz without
+                                                    # randomisation and 4.6MHz to 24.0MHz with randomisation"; the wider range is used
+LPOSC_INITIAL = (F("26.2144") * kHz, F("39.3216") * kHz)    # section 8.4.1 Table 615 F0.initial min / max (32.768 typ)
+LPOSC_TRIMMED = (F("32.27648") * kHz, F("33.25952") * kHz)  # Table 615 F0.trimmed; drift +/-14 % (temperature) and +/-20 %
+                                                            # (supply) come on top of either range
+
 # I2C SCL model (RP2350 datasheet section 12.2.14, Figure 89):
 #   SCL_High_time = (HCNT + IC_FS_SPKLEN + 7) * ic_clk + SCL_Fall_time
 #   SCL_low_time  = (LCNT + 1) * ic_clk - SCL_Fall_time + SCL_Rise_time
@@ -57,6 +69,23 @@ def i2c_scl_range():
     lo = 1 / (t0 + I2C_TR_NS[1] * F(1, 10**9))
     hi = 1 / (t0 + I2C_TR_NS[0] * F(1, 10**9))
     return cyc, lo, hi
+
+
+def merged(ls):
+    """Merge overlapping harmonic intervals [(n, a, b)] into (a, b, n_first, n_last) segments."""
+    out = []
+    for n, a, b in sorted(ls, key=lambda t: t[1]):
+        if out and a <= out[-1][1]:
+            pa, pb, n0, _ = out[-1]
+            out[-1] = (pa, max(pb, b), n0, n)
+        else:
+            out.append((a, b, n, n))
+    return out
+
+
+def covers(ls, band):
+    """True when the union of the harmonic intervals ls covers the whole band without a gap."""
+    return any(a <= band[0] and b >= band[1] for a, b, _, _ in merged(ls))
 
 
 def min_dev_to_segment(f_nom: F):
@@ -88,6 +117,7 @@ class Clock:
     tol_ppm: F
     cls: str           # "clear" (>= 4 MHz, must have no in-band line) or "dense" (< 4 MHz)
     status: str        # fixed / proposed / allowed / option / rejected / tx-only / by-design / off-in-op / boot-only / residual
+                       # (off-in-op: runs at boot or in a state outside operation and is switched off in operation by a rule)
     source: str
     coherent: bool = False   # derived from XOSC so that 144 MHz / f is an integer (line exactly on 144.000 MHz)
     known: bool = True       # False: frequency not in the corpus (value-of-information item), no lines computed
@@ -121,12 +151,20 @@ def plan_bands(if_mhz: str, side: str):
     return IF, lo_band, img, (IF - IF_HALF, IF + IF_HALF)
 
 
-def clocks_base():
-    """The plan: every clock with its status and source."""
+def clocks_base(rosc_running: bool = False):
+    """The plan: every clock with its status and source. rosc_running=True models ADR-051 as written, without rule 11."""
     c = []
     c.append(Clock("XOSC 12 MHz (Pico 2 crystal, clk_ref)", 12 * MHz, 12 * MHz, XOSC_PPM, "clear", "fixed", "Pico 2 ABM8-272-T3; RP2350 Table 596", True))
     c.append(Clock("clk_usb / clk_adc 48 MHz (PLL_USB)", 48 * MHz, 48 * MHz, XOSC_PPM, "clear", "fixed", "RP2350 8.1 Table 537: clk_adc must be 48 MHz", True))
     c.append(Clock("clk_sys = clk_peri 150 MHz (PLL_SYS)", 150 * MHz, 150 * MHz, XOSC_PPM, "clear", "fixed", "07 WP-SW-11 (150 MHz)"))
+    # ROSC (revision 2, INSP-056 finding-8): clocks the chip at boot; stops only when software disables it
+    # (section 8.3.1 "You can disable the ROSC once you've switched the system clocks to the XOSC"; ROSC CTRL.ENABLE
+    # 0xd1e DISABLE, Table 605). Rule 11: the clocks driver disables it once clk_ref and clk_sys are proven off it.
+    rosc_name = ("RP2350 ROSC 4.6 to 24.0 MHz (seeded case: left running, no rule 11)" if rosc_running
+                 else "RP2350 ROSC 4.6 to 24.0 MHz (boot clock; disabled in operation by rule 11)")
+    c.append(Clock(rosc_name, ROSC_RANGE[0], ROSC_RANGE[1], F(0), "clear",
+                   "fixed" if rosc_running else "off-in-op",
+                   "RP2350 8.3.1 (4.6 to 24.0 MHz), 8.1.1.2 (restarts after DORMANT 'in the same configuration'), Table 605 CTRL.ENABLE"))
     c.append(Clock("TCXO 25.000 MHz", 25 * MHz, 25 * MHz, TCXO_PPM, "clear", "proposed", "TS-007 R-M4, this plan"))
     c.append(Clock("TCXO 26.000 MHz (alternative)", 26 * MHz, 26 * MHz, TCXO_PPM, "clear", "rejected", "F21 Abracon ATX-13 frequency"))
     c.append(Clock("TCXO 27.000 MHz (alternative)", 27 * MHz, 27 * MHz, TCXO_PPM, "clear", "rejected", "F16 Si5351 25 or 27 MHz"))
@@ -159,6 +197,11 @@ def clocks_base():
     _, lo, hi = i2c_scl_range()
     c.append(Clock(f"I2C SCL {float(lo/kHz):.1f} to {float(hi/kHz):.1f} kHz (375 ic_clk + rise 20 to 300 ns)", lo, hi, XOSC_PPM, "dense", "residual",
                    "RP2350 12.2.14 Figure 89: period set by the counts plus the rise time; non-coherent; lines only during transactions"))
+    # LPOSC (revision 2, INSP-056 finding-8): RC oscillator of the always-on domain; cannot be stopped while the
+    # switched-core domain is powered (Table 487 LPOSC.MODE "This feature has been removed"; Table 101 WAITING_POWCK:
+    # "The solution is to not stop LPOSC when the switched-core power domain is powered")
+    c.append(Clock("RP2350 LPOSC 32.768 kHz RC (26.2 to 39.3 kHz untrimmed)", LPOSC_INITIAL[0], LPOSC_INITIAL[1], F(0), "dense", "residual",
+                   "RP2350 8.4, 8.4.1 Table 615 (+/-20 % initial, +/-1.5 % trimmed); Tables 101, 487: runs whenever the chip is powered"))
     return c
 
 
@@ -178,11 +221,11 @@ def fmt_lines(ls):
     return "; ".join(f"n={n}: {float(a/MHz):.4f}-{float(b/MHz):.4f}" for n, a, b in ls) if ls else "none"
 
 
-def evaluate(verbose=True):
+def evaluate(verbose=True, rosc_running=False):
     """Return (failures, findings table rows)."""
     fails = []
     rows = []
-    clocks = clocks_base()
+    clocks = clocks_base(rosc_running)
     # Rule R1: every proposed/fixed clear-class clock has no line in the REQ-SYS-034 range except a
     # coherent line inside the 144.000 MHz exclusion.
     for c in clocks:
@@ -226,9 +269,28 @@ def residuals(clocks):
         else:
             cw = lines_in(c, CW_SEG)
             rf = lines_in(c, RF)
-            out.append((c, f"{len(cw)} harmonic interval(s) meet the CW-only segment (n = {cw[0][0]} to {cw[-1][0]}), {len(rf)} meet 144 to 148 MHz" if cw
-                           else f"no line in the CW-only segment over the stated range; {len(rf)} line(s) in 144 to 148 MHz"))
+            txt = (f"{len(cw)} harmonic interval(s) meet the CW-only segment (n = {cw[0][0]} to {cw[-1][0]}), {len(rf)} meet 144 to 148 MHz" if cw
+                   else f"no line in the CW-only segment over the stated range; {len(rf)} line(s) in 144 to 148 MHz")
+            if covers(rf, RF):
+                txt += "; the intervals overlap and cover 144 to 148 MHz without a gap"
+            out.append((c, txt))
     return out
+
+
+def rosc_table(rosc_running=False):
+    """ROSC lines (INSP-056 finding-8): what rule 11 removes, and the LPOSC coverage at both Table 615 ranges."""
+    rosc = [c for c in clocks_base(rosc_running) if c.name.startswith("RP2350 ROSC")][0]
+    cw = lines_in(rosc, CW_SEG)
+    rf = lines_in(rosc, RF)
+    rows = [f"ROSC {float(ROSC_RANGE[0]/MHz)} to {float(ROSC_RANGE[1]/MHz)} MHz, status {rosc.status}: if running, harmonic orders "
+            f"n = {cw[0][0]} to {cw[-1][0]} ({len(cw)} orders) meet the CW-only segment, n = {rf[0][0]} to {rf[-1][0]} meet 144 to 148 MHz; "
+            f"covers 144 to 148 MHz without a gap: {covers(rf, RF)}"]
+    for label, rng in (("untrimmed", LPOSC_INITIAL), ("trimmed", LPOSC_TRIMMED)):
+        lp = Clock("LPOSC", rng[0], rng[1], F(0), "dense", "residual", "")
+        ls = lines_in(lp, RF)
+        rows.append(f"LPOSC {label} {float(rng[0]/kHz):.4f} to {float(rng[1]/kHz):.4f} kHz: {len(ls)} harmonic intervals meet 144 to 148 MHz "
+                    f"(n = {ls[0][0]} to {ls[-1][0]}); cover 144 to 148 MHz without a gap: {covers(ls, RF)}")
+    return rows
 
 
 def plan_matrix(clocks):
@@ -260,8 +322,8 @@ def plan_matrix(clocks):
     return out
 
 
-def report():
-    fails, rows, clocks = evaluate()
+def report(rosc_running=False):
+    fails, rows, clocks = evaluate(rosc_running=rosc_running)
     print("TABLE clocks: name | class | status | lines in 144-148 MHz | lines in CW-only segment 144.010-144.100")
     for c, rf, in034, cw in rows:
         if c.status == "residual":
@@ -292,6 +354,9 @@ def report():
     print(f"\nTABLE I2C SCL (RP2350 12.2.14): HCNT {I2C_HCNT} + SPKLEN {I2C_SPKLEN} + 7 + LCNT {I2C_LCNT} + 1 = {cyc} ic_clk = {float(F(cyc)/CLK_SYS*10**6):.3f} us, "
           f"plus rise {float(I2C_TR_NS[0])} to {float(I2C_TR_NS[1])} ns: SCL {float(lo/kHz):.2f} to {float(hi/kHz):.2f} kHz; "
           f"144 MHz / SCL = {float(144*MHz/hi):.1f} to {float(144*MHz/lo):.1f} (not an integer over the range: non-coherent)")
+    print("\nTABLE RP2350 oscillators (rule 11 and residual R-5, revision 2):")
+    for r in rosc_table(rosc_running):
+        print(f"  {r}")
     print("\nTABLE residual sources (named residual lines, clock-plan.md section 2.1):")
     res = residuals(clocks)
     for c, text in res:
@@ -334,14 +399,16 @@ def plot(out: Path):
             # typical value only: drawn at +/-10 % for display; the conclusion needs only 69 ppm (checker text)
             drawn = Clock(c.name, c.f * F("0.9"), c.f * F("1.1"), F(0), c.cls, c.status, c.source)
         ls = lines_in(drawn, (lo, hi))
-        for n, a, b in ls[:2000]:
+        # overlapping intervals are merged before drawing (revision 2: the ROSC and LPOSC intervals overlap into one span)
+        for a, b, n0, n1 in merged(ls):
+            a, b = max(a, lo), min(b, hi)
             if (b - a) < F("0.05") * MHz:
                 ax.plot([float((a + b) / 2 / MHz)], [i], marker="|", markersize=14 if c.cls == "clear" else 5,
                         mew=2.2 if c.cls == "clear" else 0.8, color=colour, linestyle="none")
             else:
                 ax.plot([float(a / MHz), float(b / MHz)], [i, i], color=colour, lw=5, solid_capstyle="butt")
-            if c.cls == "clear" and len(ls) < 12:
-                ax.text(float((a + b) / 2 / MHz), i + 0.3, f"{n}", fontsize=6, ha="center")
+            if c.cls == "clear" and len(ls) < 12 and n0 == n1:
+                ax.text(float((a + b) / 2 / MHz), i + 0.3, f"{n0}", fontsize=6, ha="center")
     ax.set_yticks(range(len(allc)))
     ax.set_yticklabels([f"{c.name} [{c.status}]" + (" (drawn +/-10 %)" if c.status == "residual" and c.known and c.f == c.f_hi and c.tol_ppm == 0 else "") for c in allc], fontsize=7)
     ax.set_xlim(float(lo / MHz), float(hi / MHz))
@@ -360,8 +427,10 @@ def plot(out: Path):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--plot", action="store_true", help="render docs/reviews/PDR/figures/clock-plan-harmonics.png")
+    ap.add_argument("--rosc-running", action="store_true",
+                    help="seeded case: model the ROSC as running in operation (ADR-051 as written, without rule 11); expect exit 1")
     a = ap.parse_args(argv)
-    rc = report()
+    rc = report(rosc_running=a.rosc_running)
     if a.plot:
         plot(Path("docs/reviews/PDR/figures/clock-plan-harmonics.png"))
     return rc
