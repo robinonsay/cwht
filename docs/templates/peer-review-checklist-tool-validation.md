@@ -26,9 +26,15 @@ product: docs/cm/tool-validation/TV-NNN-<tool>.md
 # so that an all-digit hash stays a string
 product_commit: "<commit>"
 # product_files: path@git blob at product_commit of every TV record reviewed, every repository tool
-# file validated, its known-answer test module, each committed evidence log, and the lock; a fixture
-# directory is listed by its tree hash (git rev-parse <commit>:<dir>)
-product_files: ["docs/cm/tool-validation/TV-NNN-<tool>.md@<blob>", "tools/<tool>.py@<blob>", "tools/tests/test_<tool>.py@<blob>", "tools/tests/fixtures/<tool>@<tree>", "tools/toolchain.lock.md@<blob>"]
+# file validated, its known-answer test module, every fixture file, each committed evidence log, and
+# the lock. Every entry is a file blob: the record drift rule of tools/validate_docs.py compares
+# product_files with git ls-tree -r HEAD, which lists blobs only, so a directory entry is "not in
+# HEAD" and fails the record once its verdict is APPROVED. List a fixture directory file by file, from
+# git ls-tree -r <commit> tools/tests/fixtures/<tool>/, and give its tree hash in fixture_trees
+product_files: ["docs/cm/tool-validation/TV-NNN-<tool>.md@<blob>", "tools/<tool>.py@<blob>", "tools/tests/test_<tool>.py@<blob>", "tools/tests/fixtures/<tool>/<file>@<blob>", "tools/toolchain.lock.md@<blob>"]
+# fixture_trees: path@tree of each fixture directory at product_commit (git rev-parse <commit>:<dir>),
+# the directory identity item TV-A3 recomputes; tools/validate_docs.py does not read this field
+fixture_trees: ["tools/tests/fixtures/<tool>@<tree>"]
 # tv_ids: every TV-NNN reviewed in this record
 tv_ids: [TV-NNN]
 # tool_class: A (product-generating) | B (evidence-generating), per record (05 section 9.1)
@@ -104,7 +110,9 @@ Answer every item Yes, No or N/A with evidence (TV record section and line, comm
 
 ## Record
 
-This file, copied to `docs/reviews/<REVIEW>/checklists/tool-validation-tv-nnn-<tool>.md` (or `tool-validation-tv-nnn-to-tv-mmm.md` for a set), is the single peer-review record for the TV records in `tv_ids` (charter section 5). The slug follows the `<type>-<product-stem>` rule of 01 section 13 with type `tool-validation`. The reviewer also writes the date, its invocation and the result into section 8 ("Independent review") of each TV record in scope, which is the only change it makes to a TV record (05 section 9.2 step 3); the accreditation in section 9 is the owner's.
+This file, copied to `docs/reviews/<REVIEW>/checklists/tool-validation-tv-nnn-<tool>.md` (or `tool-validation-tv-nnn-to-tv-mmm.md` for a set), is the single peer-review record for the TV records in `tv_ids` (charter section 5). The slug follows the `<type>-<product-stem>` rule of 01 section 13 with type `tool-validation`.
+
+**The reviewer edits no TV record** (08 section 1 INDEPENDENCE, "A reviewer never edits the product it reviews", and section 3.2; 07 section 10.2, each reviewer updates only its own record). 05 section 9.2 step 3 has the independent reviewer check the TV record and the fixture; this record is that check and its only output. After this record is filed, the TV record author (Claude as software lead and tool owner, as for TV-001 to TV-010 after INSP-015) writes the result into section 8 ("Independent review") of each TV record in scope: this record's `INSP-NNN` and path, the reviewer invocation, the date and the verdict. The owner's accreditation decision goes into section 9 and the lock (05 section 9.2 step 3). Both edits change TV record blobs that this record names after the review. So the author makes them in commits that touch only sections 8 and 9, the record's status line and the README and lock status rows. A reviewer invocation then re-issues this record at the same iteration as a delta verification (PDR work plan rule C2; the SRR re-issues of INSP-015 and INSP-029). The re-issue confirms that the diff stays within those parts and names the new blobs in `product_files`. Until the re-issue, an APPROVED record fails the record drift rule of `tools/validate_docs.py`.
 
 ### Findings (filled by the reviewer; the owner ruling column is transcribed by Claude at the review)
 
@@ -130,7 +138,7 @@ Finding rules: ids are `finding-<n>`, numbered from 1 in this record, each with 
 
 | # | Criterion | Evidence |
 |---|---|---|
-| R1 | Every TV record in scope, the tool files, the known-answer test module, the fixture and the evidence logs are committed; `product_files` lists their blobs and trees at `product_commit` (PDR work plan rule C2; INSP-015 F-02) | `git rev-parse` output; `git status --short` on the paths prints nothing |
+| R1 | Every TV record in scope, the tool files, the known-answer test module, the fixture and the evidence logs are committed; at `product_commit`, `product_files` lists the blob of every file, with fixture files one by one, and `fixture_trees` lists the tree of each fixture directory (PDR work plan rule C2; INSP-015 F-02) | `git ls-tree -r` and `git rev-parse` output; `git status --short` on the paths prints nothing |
 | R2 | The known-answer command named in each record's section 3 runs from the repository root and exits 0 on the committed state | command and exit status |
 | R3 | `cd /Users/robinonsay/rust/cwht && .venv/bin/python -m unittest discover -s tools/tests` passes, and `/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/validate_docs.py` exits 0 | tool output lines |
 | R4 | Each tool has its `tools/toolchain.lock.md` rows (section 1 version row, section 1.1 sanity-check row, section 5 status) and each record is in the `docs/cm/tool-validation/README.md` index | lock; README |
@@ -233,7 +241,7 @@ Finding rules: ids are `finding-<n>`, numbered from 1 in this record, each with 
 
 ## Completion criteria (SWE-088 b, c)
 
-`verdict: APPROVED` when: readiness R1 to R5 were true; for every record in `tv_ids`, every applicable item is answered and the others are listed as N/A; the per-record table has a row for every record with the reviewer's own re-run; the per-purpose table has a row for every purpose of every record; zero open Major findings; every Minor finding fixed, or deferred with an owner decision reference and a gate (a Minor finding raised after the first APPROVED verdict is a lien due at the next readiness declaration, PDR work plan rule C1); section 8 of each record names this review; the front matter is complete with the measurements (SWE-089) filled; and `/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/validate_docs.py` passes on the record itself. Findings stay Open until Claude marks them Verified after re-reading the corrected records at their new blobs. On record closure each Deferred finding becomes `RID-<REVIEW>-NNN` in the `rfa-rid-log.json` of its named gate, citing this `INSP-NNN` and the finding id, and is listed in `deferred_rids`. Accreditation itself is the owner's decision, recorded in section 9 of each TV record and in `tools/toolchain.lock.md` (05 section 9.2 step 3), never this record's.
+`verdict: APPROVED` when: readiness R1 to R5 were true; for every record in `tv_ids`, every applicable item is answered and the others are listed as N/A; the per-record table has a row for every record with the reviewer's own re-run; the per-purpose table has a row for every purpose of every record; zero open Major findings; every Minor finding fixed, or deferred with an owner decision reference and a gate (a Minor finding raised after the first APPROVED verdict is a lien due at the next readiness declaration, PDR work plan rule C1); the front matter is complete with the measurements (SWE-089) filled; and `/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/validate_docs.py` passes on the record itself. Section 8 of each TV record is written by its author after this record is filed, and the delta re-issue of the Record paragraph checks it; it is not a condition of this verdict. Findings stay Open until Claude marks them Verified after re-reading the corrected records at their new blobs. On record closure each Deferred finding becomes `RID-<REVIEW>-NNN` in the `rfa-rid-log.json` of its named gate, citing this `INSP-NNN` and the finding id, and is listed in `deferred_rids`. Accreditation itself is the owner's decision, recorded in section 9 of each TV record and in `tools/toolchain.lock.md` (05 section 9.2 step 3), never this record's.
 
 ## Verdict format (returned by the reviewer)
 
