@@ -78,9 +78,9 @@ Classification rationale: Class II proposed. The change fixes the counting conve
 | 3 | `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (real analyzer output, known answers per rule) | Claude (tool owner) | `e34a27b` |
 | 4 | TV-012 run 2 and end-to-end check on an export of the step 1 to 3 commit; firmware and rustos `2ec64c0` run | Claude (tool owner) | runs on `e34a27b`; recorded in the TV-012 commit (section 8) |
 | 5 | Independent review of the TV-012 re-validation (INSP-015 delta); ACC-COMPLEXITY-001 then takes effect per the owner's close-out concurrence | independent reviewer; Claude records | pending |
-| 6 | Amendment 1 (section 12): 07 CS-38, section 8.2 complexity threshold, section 11.2 MSR-17 threshold, section 14.3 waiver rule, revision A.7 | Claude (07 author) | the amendment 1 commit (section 8) |
-| 7 | Amendment 1: `tools/complexity_gate.py` CS-19 main-loop credit for `cwht-app::main`; `tools/tests/test_complexity_gate.py` class `MainLoopTests`; fixture `tools/tests/fixtures/complexity_gate/cwht-app/` and `rca-main-loop.json` (real analyzer output) | Claude (tool owner) | the amendment 1 commit (section 8) |
-| 8 | Amendment 1: TV-012 run 3 (tests, end-to-end check, mutation check against blob `9cdc9195`) and the gate run on the firmware and rustos `2ec64c0` | Claude (tool owner) | pending |
+| 6 | Amendment 1 (section 12): 07 CS-38, section 8.2 complexity threshold, section 11.2 MSR-17 threshold, section 14.3 waiver rule, revision A.7 | Claude (07 author) | `106bc3a` |
+| 7 | Amendment 1: `tools/complexity_gate.py` CS-19 main-loop credit for `cwht-app::main`; `tools/tests/test_complexity_gate.py` class `MainLoopTests`; fixture `tools/tests/fixtures/complexity_gate/cwht-app/` and `rca-main-loop.json` (real analyzer output) | Claude (tool owner) | `106bc3a` (blob `ddf10798`) |
+| 8 | Amendment 1: TV-012 run 3 (tests, end-to-end check, mutation check against blob `9cdc9195`) and the gate run on the firmware and rustos `2ec64c0` | Claude (tool owner) | runs on `106bc3a`; recorded in the TV-012 run 3 commit (section 8) |
 | 9 | Independent review of the impact assessment (section 6, Class I) and of the TV-012 run 3 re-validation (INSP-015 delta) | independent reviewers; Claude records | pending |
 
 Verification of the implementation: the INSP-015 delta reviewer re-runs TV-012 section 3, re-derives the known answers from the fixture sources under the section 1 item 1 convention and checks the gate run of section 9.
@@ -117,7 +117,8 @@ Disposition history:
 |---|---|---|
 | `e34a27b` (the commit that adds this file) | `docs/process/07-software-engineering-plan.md` (step 1), `tools/complexity_gate.py` (step 2), `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (step 3) | yes |
 | the TV-012 run 2 commit | `docs/cm/tool-validation/TV-012-complexity-gate.md` (step 4); this file (sections 5, 8, 9, 11) | yes |
-| the amendment 1 commit | this file (front matter class, sections 4, 5, 6, 7, 8, 11 and 12), `docs/process/07-software-engineering-plan.md` (step 6), `tools/complexity_gate.py`, `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (step 7) | yes |
+| `106bc3a` (the amendment 1 commit) | this file (front matter class, sections 4, 5, 6, 7, 8, 11 and 12), `docs/process/07-software-engineering-plan.md` (step 6), `tools/complexity_gate.py`, `tools/tests/test_complexity_gate.py` and `tools/tests/fixtures/complexity_gate/` (step 7) | yes |
+| the TV-012 run 3 commit | `docs/cm/tool-validation/TV-012-complexity-gate.md` (step 8); this file (sections 5, 8, 9, 11) | yes |
 
 Traceability report after implementation: not affected (no requirement, test case or hazard changes); renders regenerated: none.
 
@@ -127,6 +128,8 @@ Traceability report after implementation: not affected (no requirement, test cas
 |---|---|---|---|
 | Convention and allowance in the tool | Steps 2 and 3 | TV-012 run 2 (section 4): 18 known-answer tests, 0 skipped, pass on an export of `e34a27b`; the analyzer's output on the fixture is byte-identical to `rca.json`; mutation check discriminates each rule | pass (author run); independent check pending (INSP-015 delta) |
 | Gate G5 complexity on the firmware and rustos `2ec64c0` | Step 4 | TV-012 section 4, run 2 gate row (export of `e34a27b`, clean export of rustos `2ec64c0`, one `--paths` per root) | CS-17: no failure (52 functions, max CC 5, mean 1.46). CS-38: **one failure**, `cwht-app` `main` CC 4 (analyzer 2, of which 1 is the CS-19 main `loop`, plus 2 `let ... else`) against allowance 3 (1 + 2 CS-11 failure arms). `safe_state_halt` passes on the halt-loop allowance. Open for the owner: the ruling covers the two halt loops, not the CS-19 main loop (TV-012 limitation 8) |
+| Amendment 1: convention, allowance and main-loop credit in the tool | Steps 7 and 8 | TV-012 run 3 (section 4): 27 known-answer tests, 0 skipped, pass on an export of `106bc3a`; the analyzer's output on both fixtures is byte-identical to `rca.json` and `rca-main-loop.json`; the mutation check discriminates each rule of the amendment | pass (author run); independent check pending (INSP-015 delta) |
+| Amendment 1: gate G5 complexity on the firmware and rustos `2ec64c0` | Step 8 | TV-012 section 4, run 3 gate row (export of `106bc3a`, clean export of rustos `2ec64c0`, one `--paths` per root) | **pass**: CS-17 no failure (52 functions, max CC 5, mean 1.46, none above 12); CS-38 no failure (`cwht-app` `main` CC 4 against allowance 4: 1 + 2 CS-11 failure arms + 1 CS-19 main loop; `safe_state_halt` CC 2 against 2). The open item of the row above is resolved (section 12.4) |
 
 Independent verifier (agent invocation): pending (INSP-015 delta).
 
@@ -146,7 +149,8 @@ Independent verifier (agent invocation): pending (INSP-015 delta).
 |---|---|---|---|---|
 | 2026-09-26 | Dispositioned | Claude (07 author and tool owner), transcribing the owner | `e34a27b` | Written after the owner approved it as SRR close-out item 4 (the close-out item served as the request); steps 1 to 3 applied in the same commit |
 | 2026-09-26 | Dispositioned | Claude (tool owner) | the TV-012 run 2 commit | Step 4 done: TV-012 run 2 pass; gate G5 CS-38 fails on the `cwht-app::main` main loop, which the ruling does not cover (section 9); owner decision requested |
-| 2026-09-27 | Dispositioned | Claude (07 author and tool owner), transcribing the owner | the amendment 1 commit | Amendment 1 (SRR close-out item A) and Class I (item C) recorded (section 12); steps 6 and 7 applied in the same commit; section 6 impact review pending |
+| 2026-09-27 | Dispositioned | Claude (07 author and tool owner), transcribing the owner | `106bc3a` | Amendment 1 (SRR close-out item A) and Class I (item C) recorded (section 12); steps 6 and 7 applied in the same commit; section 6 impact review pending |
+| 2026-09-27 | Dispositioned | Claude (tool owner) | the TV-012 run 3 commit | Step 8 done: TV-012 run 3 pass; gate G5 complexity passes on the firmware and rustos `2ec64c0` (section 9); steps 5 and 9 (independent reviews) pending |
 
 ## 12. Amendment 1 (2026-09-27): the CS-19 main loop of `cwht-app::main` (SRR close-out item A) and Class I (item C)
 
