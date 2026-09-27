@@ -11,7 +11,7 @@ baseline_affected: baseline/srr
 affected_cis: [2, 3]
 affected_paths: [docs/process/03-software-classification-and-rmm.md, docs/process/07-software-engineering-plan.md, docs/process/rmm.json, docs/process/rmm.md]
 affected_ids: [SWE-023, SWE-134, SWE-205, SWE-219, SWE-220, WP-SW-14, HZ-008, REQ-SYS-182]
-related: [INSP-009, INSP-017, INSP-010, INSP-018, OQ-SAF-014, ADR-027, CR-003, CR-006, RSK-013, RSK-046]
+related: [INSP-009, INSP-017, INSP-010, INSP-018, INSP-006, INSP-037, OQ-SAF-014, ADR-027, CR-003, CR-006, RSK-013, RSK-046]
 target_release: none
 branch: cr/CR-010-apply-srr-decisions-9-and-40
 disposition: null
@@ -27,6 +27,8 @@ date_closed: null
 Template: `docs/templates/change-request.md`. Process: `docs/process/05-configuration-and-data-management.md` §5.1 to §5.3. File location: this file, committed on `main` with `Refs: CR-010`. Status: **Submitted**. Work package: WP-PDR-17 of `docs/plan/pdr-work-plan.md` (revision 2), wave 0 part, "decision 9/40 change set first". The PDR work plan rule C6 requires the section 6 independent review before the owner's disposition, although the template does not require it for a Class II change that touches no requirement, ICD, hazard or test case.
 
 **Where the change is.** The full product change is prepared on the branch `cr/CR-010-apply-srr-decisions-9-and-40`, commit `5cd87cf` on base `ab2af2d`, as the Submitted state of 05 §5.2 allows ("Branch `cr/CR-NNN-<slug>` may be opened for prototyping; nothing merges"). The exact before and after text is `git diff ab2af2d 5cd87cf`. Nothing is merged to `main` before the owner's disposition and the section 9 verification.
+
+**Revision 2 (2026-09-27, CR file only).** The section 6 review INSP-037 (`docs/reviews/PDR/checklists/classification-03-software-classification-and-rmm.md`, iteration 1, commit `f2f528f`) raised one Major finding (finding-1) against this file: the tool results it stated and the "None invalidated" verification impact did not hold for the committed change set. Revision 2 resolves finding-1 only (plan rule C1) and changes no product file: the branch stays at `5cd87cf` with the four blobs of the table below. It states the tool results as measured at `5cd87cf` (sections 1.3, 5 step 1, 8), names the five APPROVED SRR records the change invalidates as evidence for the changed blobs, INSP-006 included (section 4 Verification and Documentation), and orders the implementation so the delta records that name the new blobs are committed on the CR branch before the merge, so that `main` never carries the drift (section 5 steps 4 to 6, section 9). Section 6 records the review and the response. Findings 2 to 6 of INSP-037 (Minor, on the product text) stay open in that record; under plan rule C1 they become liens due at the CDR readiness declaration once the record is APPROVED. The revision 1 text stays in the history of this file (`git show 9fd0962:docs/cm/cr/CR-010-apply-srr-decisions-9-and-40.md`).
 
 | File (Table 4-1 row) | Blob at `baseline/srr` and on `main` | Blob on the branch (`5cd87cf`) |
 |---|---|---|
@@ -102,6 +104,8 @@ Only the `implementation` field of five rows changes (checked by script: no othe
 
 `rmm.md` is re-rendered by `tools/render_rmm.py` (exit 0) and `tools/render_rmm.py --check` exits 0 (100 rows; FC 75, T 17, NA 8; In place 40; unchanged).
 
+Repository checks at the committed branch state `5cd87cf` (revision 2 correction; INSP-037 finding-1): `tools/render_rmm.py --check` exit 0; `tools/traceability.py --report-only` 0 violations, 2 warnings (the same as on `main`); `tools/validate_docs.py` **exit 1**, 45 passed and 5 failed of 50; unit tests **FAILED**, 424 run, 1 failure (`test_validate_docs.RepositoryTests.test_repository_exit_zero`), 3 skipped. All five `validate_docs.py` failures are the record drift rule (SRR package section 2.3, R13) on APPROVED SRR records that name the pre-change blobs, and the unit-test failure is the same five: INSP-009 and INSP-017 (03, `rmm.json`, `rmm.md`), INSP-006 (`rmm.json`), INSP-010 and INSP-018 (07). They are a consequence of the change, not a defect in it, and they clear only when those records name the new blobs (section 4 Verification; section 5 step 5). Revision 1 of this file and the branch commit message stated exit 0 and 424 tests OK; those statements were wrong for the committed state (section 8).
+
 ## 2. Reason
 
 1. The owner's rulings of SRR decisions 9 and 40 are not yet stated in three baselined documents: 03 and the RMM (INSP-009 finding-10, "The rulings are not applied to 03 or to `rmm.json` SWE-134", Minor, Lien: fix before PDR, owner 03 author) and 07 (section 14.1 still marks the three rows Proposed and WP-SW-14 conditional). OQ-SAF-014 in `hazards.json` names 03, 07 section 14, the SEMP, the charter and `rmm.json` rows SWE-134, SWE-205, SWE-219 and SWE-220 as the targets.
@@ -131,12 +135,12 @@ Workaround while the CR is open: WP-PDR-32 and WP-PDR-35 read the branch `cr/CR-
 | Interfaces | None: no ICD; no external interface |
 | Operations and ConOps | None: no `OPS-` scenario, operator procedure or handbook text changes |
 | Cybersecurity | None: the USB firmware-load path and the key-input command path (07 section 16) are unchanged |
-| Verification | None invalidated: no `TC-*` exists yet for `SW-SYNTH`, `SW-SAFE` or the menu path. The SWE-219 decision tables and independence-pair tests of 07 section 9.6 cover the three components from their first design (this was already required by the SRR ruling; this CR states it). No evidence class changes |
+| Verification | **Five APPROVED SRR review records are invalidated as evidence for the changed blobs** (revision 2; INSP-037 finding-1). Each names in `product_files` a blob this CR replaces, so it no longer reviews the committed product, and the record drift rule of `tools/validate_docs.py` fails it (SRR package section 2.3, R13; charter section 11 rule 2): INSP-009 `docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm.md` (03 `ed270f44`, `rmm.json` `e326ddd1`, `rmm.md` `54e351f4`); INSP-017 `classification-03-software-classification-and-rmm-software-assurance.md` (the same three); INSP-006 `cm-plan-05.md` (`rmm.json` `e326ddd1`, a product file of the 05 review); INSP-010 `software-plan-07.md` and INSP-018 `software-plan-07-software-assurance.md` (07 `bfe05f43`). All five are at iteration 3, verdict APPROVED. Each needs a delta re-issue of iteration 3 by a new invocation of its reviewer role, verifying the delta `git diff ab2af2d <branch head>` on its product files and naming the new blobs (section 5 step 5); until then `tools/validate_docs.py` exits 1 and `test_repository_exit_zero` fails on any tree that holds the new blobs. No other APPROVED record names a changed blob: with the four branch files overlaid on `main` at `1b93d83` in a scratch worktree, `validate_docs.py` fails these five records and, besides them, only the tool-validation record INSP-015 (`tool-validation-tv-001-to-tv-010.md`, drift on `docs/cm/tool-validation/README.md` and `tools/toolchain.lock.md`), which already fails on `main` itself and is unrelated to this CR. Test evidence: none invalidated; no `TC-*` exists yet for `SW-SYNTH`, `SW-SAFE` or the menu path. The SWE-219 decision tables and independence-pair tests of 07 section 9.6 cover the three components from their first design (this was already required by the SRR ruling; this CR states it). No evidence class changes |
 | Cost | None: no BOM, fabrication or shipping line |
 | Schedule | None new: WP-SW-14 was already in the FW-B1 set of 07 section 3.1 under the decision 40 condition, which the SRR ruling met (ADR-027 section 2 already records it as required). Consequential text outside this CR: `docs/plan/schedule.md` FM-3 still reads "(and WP-SW-14 if package decision 40 adopts REQ-SYS-182)" |
 | Requirements and traceability | None: no requirement or test case added, changed or retired; volatility contribution 0. `tools/traceability.py --report-only` on the branch: 245 requirements, 173 test cases, 0 violations, 2 warnings (the same as on `main`) |
 | Regulatory | None: no 47 CFR Part 97 clause affected |
-| Documentation | Changed by this CR: the four files of the table above. Consequential changes by their own writers and vehicles (PDR work plan section 5.3): SEMP section 7.1 ("the mission-critical frequency control and configuration load", WP-PDR-13); `docs/plan/schedule.md` FM-3 (WP-PDR-02, then WP-PDR-46); `tools/validate_docs.py` `SAFETY_CRITICAL_MODULES` (`SW-SYNTH`, WP-PDR-09); `hazards.json` OQ-SAF-014 closure and items X14 and X16 (WP-PDR-16b); charter section 10 decision 40 citation (owner, OD-31; 03 item g carries the wording) |
+| Documentation | Changed by this CR: the four files of the table above. Review records that must change with it, committed on the CR branch before the merge (section 5 step 5): the delta re-issues of INSP-009, INSP-017, INSP-006, INSP-010 and INSP-018 (paths in the Verification field), each naming the new blobs. Consequential changes by their own writers and vehicles (PDR work plan section 5.3): SEMP section 7.1 ("the mission-critical frequency control and configuration load", WP-PDR-13); `docs/plan/schedule.md` FM-3 (WP-PDR-02, then WP-PDR-46); `tools/validate_docs.py` `SAFETY_CRITICAL_MODULES` (`SW-SYNTH`, WP-PDR-09); `hazards.json` OQ-SAF-014 closure and items X14 and X16 (WP-PDR-16b); charter section 10 decision 40 citation (owner, OD-31; 03 item g carries the wording) |
 | Released units | None: no unit and no firmware release exists |
 
 Classification rationale: Class II (05 section 2, adapted from the SE HB section 6.5.1.2.3 minor change). The change records in the configuration documentation rulings the owner already made at SRR (decisions 9 and 40, memo section 8, and the classification approval of memo section 7.1). It has no impact on form, fit, function, interchangeability, interfaces, safety, verification evidence or operator procedures beyond those rulings: the safety-critical set, the criteria unions and the SWE-134, SWE-219 and SWE-220 scope are the ones the owner approved. It touches no requirement, ICD, hazard or test case. The owner confirms or changes the class in section 7.
@@ -145,24 +149,35 @@ Classification rationale: Class II (05 section 2, adapted from the SE HB section
 
 | Step | Artifact and path | Responsible | Done (SHA) |
 |---|---|---|---|
-| 1 | Change set prepared on `cr/CR-010-apply-srr-decisions-9-and-40` (03, 07, `rmm.json`, `rmm.md`); `tools/render_rmm.py` render and `--check`; `tools/validate_docs.py`; `tools/traceability.py --report-only`; unit tests | Claude (software lead, 03 and 07 author; WP-PDR-17) | `5cd87cf` (prototype before disposition) |
-| 2 | Section 6 independent impact review against `git diff ab2af2d 5cd87cf` | Independent reviewer (a separate invocation that authored no part of this CR or the change set) | |
+| 1 | Change set prepared on `cr/CR-010-apply-srr-decisions-9-and-40` (03, 07, `rmm.json`, `rmm.md`); `tools/render_rmm.py` render and `--check`; `tools/validate_docs.py`; `tools/traceability.py --report-only`; unit tests | Claude (software lead, 03 and 07 author; WP-PDR-17) | `5cd87cf` (prototype before disposition). Results at `5cd87cf`: `render_rmm.py --check` exit 0; `traceability.py --report-only` 0 violations, 2 warnings; `validate_docs.py` exit 1 (45 of 50 passed; the five record drift failures of section 4 Verification); unit tests 424 run, 1 failure (`test_repository_exit_zero`, the same cause), 3 skipped |
+| 2 | Section 6 independent impact review against `git diff ab2af2d 5cd87cf` | Independent reviewer (a separate invocation that authored no part of this CR or the change set) | INSP-037 iteration 1 at `f2f528f` (1 Major, 5 Minor; section 6.1); iteration 2 delta on revision 2 pending |
 | 3 | Owner disposition (section 7) | Owner | |
-| 4 | Rebase or merge the branch onto current `main`; resolve any conflict with CR-003, CR-006 or CR-009 hunks in `rmm.json` (those CRs touch other rows) by keeping both; re-render `rmm.md`; re-run the four commands; every commit carries `CR: CR-010` | Claude | |
-| 5 | Section 9 verification; delta iterations of INSP-009 and INSP-017 (03 and RMM) and INSP-010 and INSP-018 (07) verify INSP-009 finding-10 for the decision 9 and 40 parts | Independent reviewers | |
-| 6 | Owner merge approval; `merge(CR-010): ...` with `--no-ff`; CSA regenerated | Owner, then Claude | |
+| 4 | Rebase or merge the branch onto current `main`; resolve any conflict with CR-003, CR-006, CR-007 or CR-009 hunks in `rmm.json` (those CRs touch other rows) by keeping both; re-render `rmm.md`; run `render_rmm.py --check` (exit 0) and `traceability.py --report-only` (0 violations, report files restored). `validate_docs.py` and the unit tests are expected to fail here on exactly the five records of section 4 Verification (plus any failure `main` itself carries at that time); any other failure is fixed before step 5. The resulting branch head is frozen (plan rule C2) and its blobs go to the step 5 reviewers. If the rebase changes any of the four blobs reviewed at `5cd87cf`, INSP-037 and its software assurance pair verify that delta first. Every product commit carries `CR: CR-010` | Claude | |
+| 5 | Section 9 verification, and delta re-issues of iteration 3 of the five invalidated SRR records at the frozen branch head: INSP-009 and INSP-017 (03, `rmm.json`, `rmm.md`; they also verify INSP-009 finding-10 for the decision 9 and 40 parts), INSP-010 and INSP-018 (07), and INSP-006 (`rmm.json` only: the reviewer confirms the delta is the five `implementation` fields and does not touch the 05 review's conclusions). Each re-issue verifies the delta, names the new blobs in `product_files` and is committed **on the CR branch**, records only, with `Refs: CR-010`. They are not committed on `main` before the merge, where they would name blobs that `main` does not hold and fail the same rule | Independent reviewers (new invocations of each record's reviewer role, plan rule C4) | |
+| 6 | On the branch head that carries the step 5 records: `validate_docs.py` exit 0 and the unit tests pass (if `main` then carries failures from other changes, the branch shows exactly `main`'s failure set and none of them is a record naming a CR-010 path); then owner merge approval; `merge(CR-010): ...` with `--no-ff`; CSA regenerated. The merge brings the product blobs and the records that name them into `main` in one commit, so no commit on `main` fails the record drift rule because of CR-010. If a product file changes after step 5, step 5 repeats for the records that name it before the merge | Owner, then Claude | |
 
-Verification of the implementation (what the independent reviewer will check): every "proposed", "Proposed", "if ... concurs", "if decision 40 adopts", "if REQ-SYS-182 is adopted" and "conditional" occurrence tied to decisions 9 or 40 in the four files is resolved or intentionally kept (the section 4.2 table of 03 is kept by design); the quotes of decisions 9 and 40 equal the memo text; no criteria union, SWE-134 allocation, module list or class changed; `rmm.json` differs from `e326ddd1` in the five `implementation` fields only; `tools/render_rmm.py --check`, `tools/validate_docs.py`, `tools/traceability.py --report-only` and the unit tests exit 0.
+Verification of the implementation (what the independent reviewer will check): every "proposed", "Proposed", "if ... concurs", "if decision 40 adopts", "if REQ-SYS-182 is adopted" and "conditional" occurrence tied to decisions 9 or 40 in the four files is resolved or intentionally kept (the section 4.2 table of 03 is kept by design); the quotes of decisions 9 and 40 equal the memo text; no criteria union, SWE-134 allocation, module list or class changed; `rmm.json` differs from `e326ddd1` in the five `implementation` fields only; `tools/render_rmm.py --check`, `tools/validate_docs.py`, `tools/traceability.py --report-only` and the unit tests exit 0 at the step 6 branch head, after the step 5 delta records (at `5cd87cf` and until step 5, `validate_docs.py` and the unit tests fail on the five drift records by construction; the interval is confined to the CR branch, which is not a baseline and from which nothing is built or released, so `main` is not affected and no owner-accepted failure condition is sought).
 
 ## 6. Independent review of the impact assessment
 
 Required by the PDR work plan rule C6 (every CR raised in the phase is reviewed before the owner is asked; lesson L4, `docs/cm/deviations.md` entries 1 and 2), although the template would mark a Class II change without requirement, ICD, hazard or test impact "Not required".
 
+### 6.1 Round 1 (2026-09-27)
+
+The review is recorded in full in INSP-037 (`docs/reviews/PDR/checklists/classification-03-software-classification-and-rmm.md`, iteration 1, commit `f2f528f`, verdict NEEDS CHANGES), which serves both as the WP-PDR-17 classification review and as this section 6 review (its "CR-010 section 6 impact review" table). It concurs with Class II and with twelve of the fourteen impact fields, and dissents on Verification and Documentation. The rows below summarize it; the record governs.
+
 | Item | Reviewer (agent invocation) | Date | Finding | Resolution |
 |---|---|---|---|---|
-| | | | | |
+| finding-1 (Major): sections 1.3, 4 Verification and Documentation, 5 steps 1, 4, 5, 8 | `reviewer:WP-PDR-17-classification` (INSP-037) | 2026-09-27 | At `5cd87cf` `validate_docs.py` exits 1 (45 of 50) and `test_repository_exit_zero` fails, because five APPROVED SRR records (INSP-006, 009, 010, 017, 018) name the replaced blobs; the CR stated exit 0 and "None invalidated", and step 5 named four of the five | Revision 2, section 6.2 |
+| finding-2 to finding-6 (Minor): product text of 03, 07 and `rmm.json` | Same | 2026-09-27 | 03 header scope; the 0.5.0-pha difference statement and the 07 section 14.1 lead; RFX-D4 still pending; SWE-205 concurrence state; 03 item f | Open in INSP-037; not changed in revision 2 (plan rule C1); liens due at the CDR readiness declaration once the record is APPROVED |
 
-Reviewer concurrence: pending.
+### 6.2 Author response (revision 2)
+
+| Finding | Response | Where |
+|---|---|---|
+| finding-1 (Major) | Agreed. The tool results were re-measured at `5cd87cf` in a detached scratch worktree and equal the reviewer's (45 passed, 5 failed; 424 tests, 1 failure). Section 1.3 and step 1 now state them; section 8 records that the branch commit message and revision 1 stated exit 0, and the commit is not amended because INSP-037 froze it (plan rule C2). The Verification field names the five invalidated records, their paths and the blobs each names, INSP-006 included, and the delta re-issue each needs; the Documentation field lists those re-issues. The implementation order is changed so that the drift never reaches `main`: the five delta re-issues are committed on the CR branch at the frozen branch head (step 5), the repository checks must pass there (step 6), and the merge then brings products and records together. The failing interval is confined to the unmerged CR branch, so no owner-accepted failure condition is needed. Also checked: with the four branch files overlaid on `main` at `1b93d83`, no other APPROVED record fails because of the change | Revision note; sections 1.3, 4, 5, 8, 9 |
+
+Reviewer concurrence: pending (INSP-037 iteration 2).
 
 ## 7. CCB disposition (owner)
 
@@ -189,6 +204,8 @@ Disposition history (append only):
 |---|---|---|
 | `5cd87cf` (branch, prototype before disposition) | `docs/process/03-software-classification-and-rmm.md`, `docs/process/07-software-engineering-plan.md`, `docs/process/rmm.json`, `docs/process/rmm.md` | Yes |
 
+Correction (revision 2; INSP-037 finding-1): the message of `5cd87cf` says "validate_docs exit 0 (50 passed)" and "unittest 424 tests OK (3 skipped)". At `5cd87cf` `validate_docs.py` exits 1 (45 passed, 5 failed, the record drift failures of section 4 Verification) and the unit tests report 1 failure (`test_repository_exit_zero`). The traceability and `render_rmm.py` statements of the message hold. The commit is not amended because the INSP-037 review froze it; this section is the correction of record.
+
 Traceability report after implementation: to be generated at merge; renders regenerated: `docs/process/rmm.md` (branch).
 
 ## 9. Verification of implementation
@@ -197,7 +214,8 @@ Traceability report after implementation: to be generated at merge; renders rege
 |---|---|---|---|
 | Safety and classification text | Section 5 verification list | | |
 | RMM fields | `rmm.json` diff limited to five `implementation` fields; `render_rmm.py --check` exit 0 | | |
-| Tool runs | `validate_docs.py`, `traceability.py --report-only`, unit tests exit 0 after the merge preparation | | |
+| Tool runs | `validate_docs.py`, `traceability.py --report-only`, unit tests exit 0 at the step 6 branch head, after the step 5 delta records (or `main`'s own failure set only, with no record naming a CR-010 path) | | |
+| Review records (revision 2) | Delta re-issues of INSP-009, INSP-017, INSP-006, INSP-010 and INSP-018 committed on the CR branch, each naming the branch-head blobs (section 5 step 5) | | |
 
 Independent verifier (agent invocation): pending.
 
@@ -215,7 +233,8 @@ Independent verifier (agent invocation): pending.
 
 | Date | State | By | Commit on main | Note |
 |---|---|---|---|---|
-| 2026-09-27 | Submitted | Claude (software lead, WP-PDR-17) | this commit | Created with the impact assessment complete; change set prototyped on the branch at `5cd87cf`. Number CR-010 taken because CR-007 (WP-PDR-05), CR-008 and CR-009 were claimed by parallel wave 0 work packages |
+| 2026-09-27 | Submitted | Claude (software lead, WP-PDR-17) | `9fd0962` | Created with the impact assessment complete; change set prototyped on the branch at `5cd87cf`. Number CR-010 taken because CR-007 (WP-PDR-05), CR-008 and CR-009 were claimed by parallel wave 0 work packages |
+| 2026-09-27 | Submitted (revision 2) | Claude (software lead, WP-PDR-17) | this commit | INSP-037 finding-1 (Major) resolved in this file only: tool results at `5cd87cf` corrected, the five invalidated SRR records named, delta re-issues ordered on the CR branch before the merge; product blobs unchanged (branch still `5cd87cf`) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
