@@ -6,9 +6,9 @@ checklist_file: docs/reviews/SRR/checklists/process-04-verification-and-validati
 product: docs/process/04-verification-and-validation.md
 # product_commit: the review baseline HEAD (the product files were last changed at b301df2 (04) and 4e3f891 (docs/vv/README.md))
 product_commit: "adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1"
-# product_files: committed blobs verified at iteration 2 (git rev-parse HEAD:<path> at HEAD 33ac1ce4822c9571d8fb4797c58e7c0f0152f41f); iteration 1 reviewed 04 blob ecff54d70d1c3bb8c90be0803f4b9720596adfc0 at adcfe09
-product_files: ["docs/process/04-verification-and-validation.md@76bb24c3f3f43c1f7d3eb1b1be156824488153a8", "docs/vv/README.md@878869d346d936e4ad38ef5a51ef18175a0774fa"]
-product_size: 18 sections (599 lines) plus docs/vv/README.md (35 lines)
+# product_files: HEAD blobs delta-verified at the post-SRR-ruling delta (2026-09-26, HEAD ebe5873): 04 changed at d992052 (CR-002 step 1, SRR decision 113), CR-002 added at d992052 and reviewed as the change record of that edit; iteration 2 verified 04 blob 76bb24c3f3f43c1f7d3eb1b1be156824488153a8 at 33ac1ce; iteration 1 reviewed 04 blob ecff54d70d1c3bb8c90be0803f4b9720596adfc0 at adcfe09
+product_files: ["docs/process/04-verification-and-validation.md@0b197bba692237ed9860ba49c4422f12fa8512dc", "docs/vv/README.md@878869d346d936e4ad38ef5a51ef18175a0774fa", "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@730708236d0da5e515786f16aaab55cd6bd392b8"]
+product_size: 18 sections (601 lines) plus docs/vv/README.md (35 lines) plus CR-002 (147 lines, delta only)
 sprint: SRR-prep
 author_agent: "author:process-04 (Claude main session, lead SE; maintainer per the 04 header)"
 reviewer_agent: "reviewer:INSP-021"
@@ -19,6 +19,7 @@ assurance_reviewer_agent: none
 iteration: 2
 # readiness_met: true at the re-issue of 2026-09-26 (package item R8): R3 met by the author self-check filed at ca22e37 and confirmed by the reviewer; see Re-issue
 readiness_met: true
+# post-SRR-ruling delta (2026-09-26, HEAD ebe5873): CR-002 step 1 verified, no new Major; new Minor finding-6 and finding-7 (CR-002) are liens due PDR; verdict stays APPROVED
 # reviewer_verdict: finding-1 Verified at iteration 2; every Minor finding is "Lien: fix before PDR" (convergence rule of 2026-09-26)
 # verdict: APPROVED (with liens finding-2 to finding-4, fix before PDR) at the re-issue of 2026-09-26 without a further product review;
 # iteration 2 held it at NEEDS CHANGES only on readiness R3 (finding-5), which the author self-check now meets (finding-5 Verified)
@@ -26,7 +27,7 @@ reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 findings_major: 1
-findings_minor: 4
+findings_minor: 6
 findings_open: 0
 findings_fixed: 0
 findings_verified: 2
@@ -38,8 +39,8 @@ assurance_tasks_applied: []
 deferred_rids: []
 # items_no: R3 answered Yes at the re-issue (finding-5 Verified)
 items_no: [CK-REQ-G1, CK-REQ-G7]
-effort_turns: 63
-effort_minutes: 80
+effort_turns: 85
+effort_minutes: 110
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -256,3 +257,73 @@ MEASUREMENTS: re-issue items=R1 to R5 + blobs; no=0; new findings=0; verified=1 
 ```
 
 `record_status` stays Open: the liens are neither Verified nor Deferred by an owner decision, and the software lead closes the record (07 section 10.2, action tracking).
+
+## Post-SRR-ruling delta (reviewer; SRR package item R16; 2026-09-26, HEAD `ebe5873`)
+
+Written by `reviewer:INSP-021`, the reviewer role of this record, not the author (charter section 11 rule 4; 08 section 3.1); the reviewer edited no product. The owner approved the SRR on 2026-09-26 (`docs/reviews/SRR/minutes.md`: disposition Approved with liens; key decisions K1 to K17 and the consent agenda ruled as recommended). This section delta-verifies every commit that touched this record's products after the last verified blobs, and adds CR-002 to `product_files` as the change record of the only product edit. Everything above this section stands as recorded.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: CR-002 change request, verification and validation process 04, SRR ruling) ran before any `grep`; `grep`, `git log` and `git show` were used afterwards only to pin lines, commits and blobs.
+
+**Commits in scope.** `git log --oneline 33ac1ce..HEAD -- docs/process/04-verification-and-validation.md docs/vv/README.md` prints one commit, `d992052` ("docs(04): CR-002 admits Inspection for documentary hazard controls (SRR decision 113)"); `git log -- docs/cm/cr/CR-002-inspection-for-documentary-requirements.md` prints the same single commit. `docs/vv/README.md` is unchanged (blob `878869d3`). Reviewed blobs at HEAD `ebe5873`: 04 `0b197bba`, README `878869d3`, CR-002 `73070823`; the working tree equals HEAD for all three.
+
+**Ruling applied.** SRR decision 113 (key decision K12, owner ruling 2026-09-26; `decisions-for-owner.md` line 144), Recommendation cell, which is the ruling text: "Approve the CR; Claude writes it and the four method changes." The row asks for "a CR to 04 rule 7.3.6 admitting Inspection for requirements that state a documentary or physical property, so REQ-SYS-122 (handbook content), REQ-SYS-124 (engraved legend), REQ-SYS-137 and REQ-SYS-138 (placement split) close by Inspection instead of Analysis." Decision 30 (same K12, Recommendation "REQ-SYS-122 moves to Inspection if decision 113 is approved") is consistent with it.
+
+**Delta verification of `d992052` against 04 (`git show d992052 -- docs/process/04-verification-and-validation.md`, 3 hunks, 5 insertions, 3 deletions).**
+
+| Change (04 line at HEAD) | Check | Result |
+|---|---|---|
+| Header, new paragraph "Changes after the SRR approval" (line 7) | Names CR-002 by path, SRR decision 113 and the ruling date, and lists the three places changed; consistent with the header's "Change authority: owner, via `CR-NNN` after SRR" | Correct |
+| Section 3 paragraph "Hazard-tracing requirements" (line 68) | Inserts the Inspection route between the Test route and the Analysis route for non-software modules only; the `REQ-SW-*` sentence (every hazard-tracing `REQ-SW-*` by Test, SWE-192, RMM row FC) is unchanged, so no RMM or compliance row is contradicted (RMM row SWE-192 unchanged; `render_compliance.py --check` exit 0; `render_rmm.py --check` fails only on row SWE-033, cross item X7). The route is bounded to "a documentary or physical property" with the three named examples, which match the four requirements of the ruling. It agrees with the method rule in the preceding paragraph of the same section ("If it states a physical or documentary property, the method is Inspection"), which is the INSP-003 finding-17 contradiction the ruling cures. "Credit row `I`, section 5.2" exists: the section 5.2 table row `I` is Inspection, closing, credit event "CDR (design data), receipt (as-built), baselining review (documents)" | Correct |
+| Rule 7.3.6 (line 248) | Three alternatives for a non-software hazard-tracing requirement (Test; Inspection with a closing Inspection case and the `Inspection accepted per CR-002` note; Analysis with a register risk); the software sentence and the `HAZARD_INVERSE` sentence are unchanged. Consistent with rule 3 (a case is closing only with the requirement's method and credit row `I` with Inspection) and with CR-002 section 1 item 2, which quotes the before and after text exactly | Correct |
+| Section 7.4 row 7.3.6 (line 280) | Adds the tool change (accept the Inspection route) with an interim hand check by the procedure reviewer, recorded in the gate's traceability review; status stays "partly"; due PDR, matching CR-002 section 4 row Schedule ("item 7 before the PDR readiness declaration") | Correct; see finding-7 for the interim tool state |
+
+No new defect in 04: 0 em dashes in the blob; no `TBD`, `TBR`, "as appropriate" or "should consider" added; no new SE, SWE or CFR citation; the finding-2 to finding-4 liens are untouched by the diff (their cited 04 line numbers are now 2 higher, because of the new header paragraph; the text they cite is unchanged). The applied change is the one the ruling ordered, no broader: it does not admit Inspection for any hazard control that states a number or behavior (CR-002 section 3 row 2 rejects that). CK-REQ-G1 and CK-REQ-G7 keep their answers (No, on the liens only); G2 to G4, G6 and G8 stay Yes for the changed text.
+
+**Delta review of CR-002 (`73070823`, added at `d992052`).** Checked against the ruling and the tree: the before text of item 1 and item 2 matches `git show d992052^:docs/process/04-verification-and-validation.md`; the source row, the quoted recommendation and the decision 30 quotation match `decisions-for-owner.md` lines 143 and 144; INSP-003 finding-17 exists as cited (`requirements-sys.md` line 108); the "before" notes (RSK-016 for REQ-SYS-122 and 124, RSK-034 for REQ-SYS-137 and 138) match `git show cd61450^:docs/requirements/sys/requirements.json`; the hazard list of the Safety row matches the trace union `tools/traceability.py` reports for REQ-SYS-122; the CCB disposition (Approved, 2026-09-26, class to be confirmed) and the lifecycle departure (Dispositioned before the Class I Assessed state) are disclosed and logged as `docs/cm/deviations.md` entry 1 with a closure plan. Scope is correct: SWE-192, the RMM and the compliance matrix are unchanged. Two Minor findings follow.
+
+**Implementation state at HEAD (steps 2 to 5, other authors' products; read, not reviewed here).** Step 2 is done at `cd61450` (the four requirements carry method Inspection and notes beginning `Inspection accepted per CR-002`); step 3 is done at `ebe5873` (TC-SYS-085, 086, 091 retyped; commit body "SRR decision 113 (CR-002 item 5)"); step 4 is not done (`docs/safety/hazard-analysis.md` line 261 still reads "close by the Analysis method accepted per RSK-016"); step 5 is not done, and `tools/traceability.py --report-only` at HEAD reports 4 violations, `HAZARD_REQ_NOT_TESTED` for REQ-SYS-122, 124, 137 and 138 ("has method Inspection and no verification_note beginning 'Analysis accepted per RSK-NNN'").
+
+### Delta findings (2026-09-26, HEAD `ebe5873`)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-6"></a>finding-6 | reviewer | Minor | CK-REQ-G7 | CR-002 section 5 (column "Done (SHA)") and section 8 (implementation record) | The CR's implementation tracking is behind the tree: section 5 and section 8 record only step 1, but step 2 landed at `cd61450` and step 3 at `ebe5873`; neither commit carries the `CR: CR-002` trailer that section 8's "Trailer check" column records (`git show -s --format=%B cd61450 ebe5873`: decision 113 is cited in the body, no `CR:` line). Step 4 (hazard analysis section 8.1), scheduled "before the `baseline/srr` tag" in section 4 row Schedule, is not done (hazard-analysis line 261). Fix: fill section 5 and section 8 with `cd61450` and `ebe5873` and the trailer result; complete step 4 or re-date it; route step 4 to the hazard analysis author (cross item X5) | Lien: fix before PDR | Not needed | |
+| <a id="finding-7"></a>finding-7 | reviewer | Minor | CK-REQ-G7 | CR-002 section 4 rows Verification and Schedule; section 5 closing paragraph | The impact assessment does not state the interim effect of landing steps 2 and 3 before step 5: from `cd61450` `tools/traceability.py --report-only` reports 4 `HAZARD_REQ_NOT_TESTED` violations for REQ-SYS-122, 124, 137 and 138 (observed at HEAD `ebe5873`), while SRR package section 4 criterion S4 ("Traceability report passes", Hard) was met on 0 violations and the `baseline/srr` tag follows R16. 04 itself is decision-complete on the point (row 7.3.6, line 280: the procedure reviewer checks the Inspection route by hand until the tool accepts it), so the defect is the CR's missing statement, not the plan. Fix: either move step 5 (tool rule and known-answer test) before the tag, or state in section 4 that the four violations are expected until step 5, are hand-checked per 04 row 7.3.6, and are recorded in the SRR traceability review (cross item X4) | Lien: fix before PDR | Not needed | |
+
+Findings closed by the rulings: none needed. This record had no open Major finding before the rulings (finding-1 Verified at iteration 2, `33ac1ce`), and no ruling bears on the liens finding-2 to finding-4 (decisions 1, 30, 99 and 113 were checked; decision 1 approves 04 for the functional baseline on this record's APPROVED verdict, as recorded above). The liens stand unchanged, due at the PDR readiness declaration.
+
+### Lien table (post-SRR-ruling delta)
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-2 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE) | PDR readiness declaration |
+| finding-3 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE) | PDR readiness declaration |
+| finding-4 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE); `tools/traceability.py` owner if implemented instead of re-dated | PDR readiness declaration |
+| finding-6 | Minor | Lien: fix before PDR | CR-002 originator (Claude) | PDR readiness declaration (step 4 part: before `baseline/srr` as CR-002 schedules it, or re-dated) |
+| finding-7 | Minor | Lien: fix before PDR | CR-002 originator (Claude); `tools/traceability.py` owner for step 5 | PDR readiness declaration |
+
+### Cross items (post-SRR-ruling delta; for the integrating session)
+
+- X4: lead SE and `tools/traceability.py` owner: the tree at HEAD `ebe5873` gives 4 `HAZARD_REQ_NOT_TESTED` violations (REQ-SYS-122, 124, 137, 138) from CR-002 steps 2 and 3 without step 5. Before the `baseline/srr` tag, either implement CR-002 step 5 or record the hand check of 04 row 7.3.6 in the SRR traceability review and re-state package criterion S4.
+- X5: hazard analysis author (INSP-008): CR-002 step 4 is open; `docs/safety/hazard-analysis.md` section 8.1 line 261 still closes REQ-SYS-122 and REQ-SYS-124 by "the Analysis method accepted per RSK-016".
+- X7: RMM author: `tools/render_rmm.py --check` fails at HEAD `ebe5873` on row SWE-033 (status Planned while every named path exists); outside this record's products.
+- X6: CR-002 section 6 (independent review of the impact assessment) is assigned to the INSP-003 reviewer; this delta does not perform it and does not close `docs/cm/deviations.md` entry 1.
+
+**Tool runs (2026-09-26, HEAD `ebe5873`, repository root, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (after writing this section) | 1 | 37 passed, 13 failed, 50 checked; this record PASS as APPROVED with the three `product_files` blobs at HEAD (record drift check included). The 13 failures are other SRR records (for example `hazard-analysis.md`, `test-cases-sys.md`, `conops-and-concept.md`) whose products changed in the R16 commits and whose reviewers re-issue them in this run; none is this record |
+| `tools/traceability.py --report-only` | 0 | 245 requirements, 173 test cases, 4 violations (`HAZARD_REQ_NOT_TESTED` REQ-SYS-122, 124, 137, 138; finding-7), 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, REQ-SYS-148); `docs/vv/traceability-report.md` and `traceability.json` restored with `git checkout` |
+| `tools/render_rmm.py --check` | 1 | one failure, row SWE-033 ("status 'Planned' but every named path exists"), not an 04 row and not touched by `d992052`; cross item X7 |
+| `tools/render_compliance.py --check` | 0 | validation passed, render current |
+
+**Measurements (delta).** Commits verified: 1 (`d992052`); product hunks checked: 4 in 04, 1 new file (CR-002); items re-checked: CK-REQ-G1 to G8, A8, R1, R4; new findings: 2 Minor, 0 Major; effort 22 turns, 30 minutes (added to the front matter totals).
+
+```
+POST-SRR-RULING DELTA (2026-09-26, HEAD ebe5873, package item R16): VERDICT: APPROVED (with liens)
+COMMITS: d992052 (04 CR-002 step 1, SRR decision 113 (owner ruling 2026-09-26)): applies the ruling correctly; no new Major
+FINDINGS: finding-1 Major Verified (unchanged); finding-5 Verified (unchanged); finding-2 to finding-4 Minor, Lien: fix before PDR (unchanged); new finding-6 and finding-7 Minor (CR-002 tracking and interim traceability state), Lien: fix before PDR; open Major 0
+PRODUCT: docs/process/04-verification-and-validation.md@0b197bba, docs/vv/README.md@878869d3, docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@73070823
+MEASUREMENTS: commits=1; new major=0; new minor=2; lien=5; open_major=0; turns=22; minutes=30; cumulative turns=85, minutes=110
+```
