@@ -100,7 +100,8 @@ Each approval in the 03 section 9 signature block has its own line, transcribed 
 | Relief for SWE-154, 156, 157, 159 and 210, as CIO/SAISO designee | "`<owner wording, verbatim>`" | `<YYYY-MM-DD>` |
 | Health and medical implications of the SWE-022, SWE-023 and SWE-219 tailoring, reviewed as HMTA | "`<owner wording, verbatim>`" | `<YYYY-MM-DD>` |
 | Human safety risk of the SWE-022, SWE-023 and SWE-219 tailoring, accepted as the risk taker | "`<owner wording, verbatim>`" | `<YYYY-MM-DD>` |
-| Classification and safety-critical determination (03 sections 3 and 4), approved as SMA TA with independent concurrence `INSP-<NNN>` (`docs/reviews/SRR/checklists/classification-03-software-classification-and-rmm.md`, checklist `docs/templates/peer-review-checklist-classification.md`) | "`<owner wording, verbatim>`" | `<YYYY-MM-DD>` |
+| Same risk accepted as official spokesperson for bystanders and household members (03 section 4.4; each other operator signs in the as-built record before hand-over) | "`<owner wording, verbatim>`" | `<YYYY-MM-DD>` |
+| Classification and safety-critical determination (03 sections 3 and 4), approved as SMA TA with the two independent concurrences: `INSP-<NNN>` peer review (`docs/reviews/<REVIEW>/checklists/classification-03-software-classification-and-rmm.md`) and `INSP-<NNN>` software assurance (`docs/reviews/<REVIEW>/checklists/classification-03-software-classification-and-rmm-software-assurance.md`), checklist `docs/templates/peer-review-checklist-classification.md` | "`<owner wording, verbatim>`" | `<YYYY-MM-DD>` |
 
 Note: 03 section 9 suggests wordings such as "Approved as ETA and SMA TA". Transcribe what the owner actually said, not the suggestion (charter section 2). A line the owner did not approve stays empty, and the matching rows are not approved.
 

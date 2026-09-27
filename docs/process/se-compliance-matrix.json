@@ -1,7 +1,7 @@
 {
   "title": "cwht NPR 7123.1D Compliance Matrix (Appendix H, Table H-1)",
-  "status": "Draft for SRR; becomes part of the functional baseline when the owner approves the SEMP (SE-06, SE-38)",
-  "revision_date": "2026-09-25",
+  "status": "Baselined at SRR: approved by the owner as Decision Authority and Engineering Technical Authority (SE-06) with the tailoring of SRR package section 17, recorded in docs/reviews/SRR/decision-memo.md section 7 (signed 2026-09-26); part of the functional baseline baseline/srr. After SRR a change to a row is a CR (05 Table 4-1 row 3); this revision is CR-015",
+  "revision_date": "2026-09-27",
   "source": "docs/references/md/npr-7123-1d/14-appendixh.md (Table H-1, 62 rows). SE-01 to SE-05, SE-49 and SE-50 are deleted requirements (NPR 7123.1D App. J Table J-1, docs/references/md/npr-7123-1d/16-appendixj.md; §2.1.4.3 records SE-01 to SE-05 deleted) and have no row in Table H-1",
   "governing_tailoring": "docs/process/00-charter.md section 1 (tailoring vs customization), section 3 (combined reviews; DR and DRR not held) and section 12 (tailoring register); NPR 7123.1D §2.2.1 (tailoring by deviation or waiver, with rationale, risk evaluation and approval), §2.2.2 (customization) and §5.2.2.2 (minimum products of a review that is not held need a waiver or deviation; a combined or resequenced review is customization); docs/process/01-lifecycle-and-reviews.md section 3.5",
   "comply_codes": {
@@ -15,12 +15,13 @@
     "short_form": "Optional cwht paraphrase used only in summaries; never quoted as NASA text.",
     "relief_type": "T rows only: deviation or waiver (NPR 7123.1D §2.2.1.2, App. A).",
     "risk_evaluation": "T rows: likelihood, consequence and band on the 06 sections 6 to 8 scales, or 'negligible' with the reason (NPR 7123.1D §2.2.1.3).",
-    "implementation_ref": "Repository artifact (path) that evidences compliance, per the charter section 5 document tree. Files not yet written are still the committed location."
+    "implementation_ref": "Repository artifact (path) that evidences compliance, per the charter section 5 document tree. Files not yet written are still the committed location.",
+    "revision_date": "Date of the last content change of this file; it is set in every change that alters content, and the render follows it (INSP-024 finding-6)."
   },
   "approval": {
-    "submitted_by": "Claude (lead systems engineer)",
-    "approved_by": null,
-    "approval_memo": "docs/reviews/SRR/decision-memo.md (pending)"
+    "submitted_by": "Robin Onsay as Program/Project Manager (charter section 2; Table H-1 'Submitted By'); prepared by Claude (lead systems engineer)",
+    "approved_by": "Robin Onsay as Engineering Technical Authority and Decision Authority (Table H-1 'Approved By'), 2026-09-26",
+    "approval_memo": "docs/reviews/SRR/decision-memo.md section 7 (tailoring approved with the SRR, SE-24 to SE-31, SE-44, SE-51, SE-52, SE-55, SE-56; signed 2026-09-26)"
   },
   "rows": [
     {
@@ -70,8 +71,8 @@
       "rationale": "This requirement ensures that the program/project and the ETA identifies how they will execute the designs, whether through buying items off the shelf or contracting to have them built, building/coding them within the Center, or reusing products already developed by another program/project. The specifics for how each program/project will make this determination for the various components/assemblies within the product hierarchy are documented in the SEMP or other equivalent program/project documentation.",
       "short_form": "Identify and implement an ETA-approved Product Implementation process (make, buy, reuse).",
       "comply": "FC",
-      "justification": "Buy: PCBWay turnkey fabrication and assembly, PCBWay CNC enclosure, DigiKey parts, released only by CDR approval (procurement release); receipt inspection on delivery. Make: firmware implemented per the software engineering plan on owner-developed rustos (reuse of the owner's own crates). The firmware make/buy assessment is recorded as the trade study docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md (firmware runtime and HAL; Draft, decided at SRR) followed by its ADR at the next free number (06 section 14.1 class 1 item h; 07 section 17.2 and section 1.3 row t; SWE-033), an SRR entrance product.",
-      "implementation_ref": "docs/plan/semp.md; hardware/bom/; docs/process/07-software-engineering-plan.md section 17.2; docs/process/06-risk-and-decision-analysis.md section 14.1; docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md; docs/decisions/adr/ADR-NNN-*.md"
+      "justification": "Buy: PCBWay turnkey fabrication and assembly, PCBWay CNC enclosure, DigiKey parts, released only by CDR approval (procurement release); receipt inspection on delivery. Make: the owner hand-solders the through-hole and exposed-pad parts (kit model, SI-031; Accepted ADR-007; charter section 12 row 'Assembly model (SI-031)', Customized), per the controlled split hardware/releases/HW-MB-rev<X>-<n>/cwht-MB-rev<X>-hand-assembly.csv generated from the design BOM category of every line (charter section 5; SEMP section 5.5); firmware is implemented per the software engineering plan on owner-developed rustos (reuse of the owner's own crates). The firmware make/buy assessment is recorded as the trade study docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md (firmware runtime and HAL; Draft, decided at SRR) followed by its ADR at the next free number (06 section 14.1 class 1 item h; 07 section 17.2 and section 1.3 row t; SWE-033), an SRR entrance product.",
+      "implementation_ref": "docs/plan/semp.md; hardware/bom/; docs/process/07-software-engineering-plan.md section 17.2; docs/process/06-risk-and-decision-analysis.md section 14.1; docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md; docs/decisions/adr/ADR-NNN-*.md; docs/decisions/adr/ADR-007-pcbway-turnkey-smt-kit-model.md; hardware/releases/HW-MB-rev<X>-<n>/cwht-MB-rev<X>-hand-assembly.csv"
     },
     {
       "se_id": "SE-12",
@@ -310,7 +311,7 @@
       "rationale": "The entrance and success criteria in Appendix G are provided as guidelines (not requirements). It is expected that they will be modified as needed by the program/project according to their size, complexity, type of end product being produced, formality, and risk acceptance posture. Specific names of documents may be provided for clarity, non-applicable products eliminated, and new products added as needed for clarity and completeness.",
       "short_form": "Participate in developing entrance and success criteria for each review.",
       "comply": "FC",
-      "justification": "Entrance and success criteria tailored from NPR 7123.1D App. G Tables G-4, G-6, G-7, G-10 and G-11 with project artifact names; owner approves them as part of the SEMP.",
+      "justification": "Entrance and success criteria are tailored from the NPR 7123.1D App. G tables named in 01 sections 4.3, 5.3, 6.3, 7.3 and 8.3: SRR from Tables G-3 and G-4, PDR from G-5 and G-6, CDR from G-7, TRR from G-10 plus SIR Table G-9 items 3.1, 3.2 and 8, and SAR from G-11 plus Table G-12 items 1 to 3, 5 to 7, 9.3 to 9.5 and 12, with project artifact names; the owner approved them with 01 at SRR (decision 1).",
       "implementation_ref": "docs/process/01-lifecycle-and-reviews.md"
     },
     {
@@ -320,8 +321,8 @@
       "rationale": "For an MCR one of the key products is capturing the stakeholder expectations. These may be identified as needs, goals, and objectives, or other methods for capturing their expectations. These are captured in a document or a database/model. After all comments from the MCR are dispositioned, the set of stakeholder expectations are updated with the approved comments and then baselined.",
       "short_form": "MCR minimum product: baselined stakeholder identification and expectation definitions.",
       "comply": "FC",
-      "justification": "MCR is combined with SRR (customization); the stakeholder expectations (NGO-NNN, success criteria) are an SRR entrance product and are baselined in the functional baseline.",
-      "implementation_ref": "docs/requirements/l0-stakeholder/expectations.json; docs/reviews/SRR/package.md"
+      "justification": "MCR is combined with SRR (customization). Both halves of the product are SRR entrance products, baselined in the functional baseline: the stakeholder identification is the stakeholders array of expectations.json (ten entries, 02 section 3.0, checked by tools/traceability.py rule T-21 STAKEHOLDERS_MISSING), and the expectation definitions are the NGO-NNN entries with their MOE-NNN success criteria.",
+      "implementation_ref": "docs/requirements/l0-stakeholder/expectations.json (stakeholders, ngos, moes); docs/process/02-requirements-and-traceability.md section 3.0; docs/reviews/SRR/package.md"
     },
     {
       "se_id": "SE-36",
@@ -568,8 +569,8 @@
       "rationale": "In addition to the life-cycle reviews, the technical teams need to periodically monitor the technical progress of their program/project. These may be held formally or informally with relevant personnel.",
       "short_form": "Monitor the technical effort through periodic technical reviews.",
       "comply": "FC",
-      "justification": "Between life-cycle reviews, every sprint closes with a recorded technical review (gate results, reviewer verdicts, measurements) and the owner receives a status summary; TPMs are reported at each closure.",
-      "implementation_ref": "docs/sprints/; docs/plan/tpm.json; docs/plan/measurements.json"
+      "justification": "The technical effort between life-cycle reviews is monitored by the five technical reviews of 01 section 2.1: the sprint-closure technical review of every software sprint (gate results, reviewer verdicts, measurements, TPMs reported, owner status summary); milestone status in every package (schedule against actual dates and vendor lead times, procurement status); independent peer review of every product before it is cited as review evidence (App. G Table G-19); the software architecture review before PDR (SWE-143); and Phase E periodic status after SAR. Hardware and systems work before the first sprint is monitored by the peer reviews and the milestone status, and between gates by the status notes of SEMP section 7.4.",
+      "implementation_ref": "docs/process/01-lifecycle-and-reviews.md section 2.1; docs/reviews/<REVIEW>/checklists/; docs/sprints/; docs/plan/schedule.md; docs/plan/status/; docs/plan/tpm.json; docs/plan/measurements.json"
     },
     {
       "se_id": "SE-06",
@@ -628,7 +629,7 @@
       "rationale": "If the program/project has hardware elements, tracking of the remaining margins associated with their mass is a required leading indicator measure by the Agency. This is especially important for flight projects. For ground or other projects in which mass is not relevant, a waiver to this requirement can be documented in the SEMP or other equivalent program/project documentation.",
       "short_form": "TPMs include mass margins for projects with hardware.",
       "comply": "FC",
-      "justification": "Handheld form factor makes mass a stakeholder concern (SI-001); a mass budget with margin is a TPM from PDR (estimated) through SAR (measured), with the provisional allocation of 350 g recorded in the charter tailoring register (section 12).",
+      "justification": "Handheld form factor makes mass a stakeholder concern (SI-001); mass margin is TPM-001 (key mass-margin) from SRR through SAR under its margin_policy: >= 20 % on the allocation from a bottom-up estimate at SRR, >= 15 % at PDR, >= 10 % at CDR with BOM masses and CAD mass properties, and >= 0 % measured at SAR, with the provisional allocation of 350 g recorded in the charter tailoring register (section 12). The SRR estimate was liened (RFA-SRR-002, lien L-2) and is produced before the PDR readiness declaration.",
       "implementation_ref": "docs/plan/tpm.json"
     },
     {
@@ -638,7 +639,7 @@
       "rationale": "If the program/project has elements that require power, tracking of the remaining margins associated with their power consumption is a required leading indicator measure by the Agency. This is especially important for flight projects. For ground or other projects in which power consumption is not relevant, a waiver to this requirement can be documented in the SEMP or other equivalent program/project documentation.",
       "short_form": "TPMs include power margins for powered projects.",
       "comply": "FC",
-      "justification": "Battery energy and peak current budgets (receive, transmit at 5 W, charging) with margin are TPMs from PDR through SAR.",
+      "justification": "Battery energy and peak current budgets (receive, transmit at 5 W, charging) with margin are TPM-002 (key power-margin) from SRR through SAR under its margin_policy: >= 20 % per mode from the concept-level estimate at SRR, >= 20 % per mode by analysis at PDR, >= 10 % per mode by analysis at CDR, measured on the delivered board at TRR, and >= 0 % measured in every mode at SAR.",
       "implementation_ref": "docs/plan/tpm.json"
     },
     {
