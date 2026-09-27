@@ -9,8 +9,8 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Item | Count |
 |---|---|
 | Requirements | 190 |
+| Status Active | 188 |
 | Status Closed | 2 |
-| Status Draft | 188 |
 | Method Analysis | 38 |
 | Method Demonstration | 8 |
 | Method Inspection | 25 |
@@ -25,196 +25,196 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 
 | ID | Title | Method | Status | Parent |
 |---|---|---|---|---|
-| REQ-SYS-001 | A1A emission only | Inspection | Draft | - |
-| REQ-SYS-002 | Operating modes and transitions | Test | Draft | - |
-| REQ-SYS-003 | Self-test before transmit | Test | Draft | - |
-| REQ-SYS-004 | Carrier end on an inhibit, flag or latched fault | Test | Draft (TBR) | - |
-| REQ-SYS-005 | Fault-safe exit | Test | Draft | - |
-| REQ-SYS-006 | Operator call sign | Test | Draft | - |
-| REQ-SYS-007 | Keying only from the key jack | Test | Draft | - |
-| REQ-SYS-008 | Transmit frequency range with band-edge guard | Test | Draft (TBR) | - |
-| REQ-SYS-009 | Transmit inhibit outside the guard | Test | Draft (TBR) | - |
-| REQ-SYS-010 | Carrier frequency accuracy | Analysis | Draft (TBR) | - |
-| REQ-SYS-011 | Selectable power steps below 5 W | Test | Draft (TBR) | - |
-| REQ-SYS-012 | Rated output power with level control | Test | Draft (TBR) | - |
-| REQ-SYS-013 | Survival into open, short and high SWR | Test | Draft | - |
-| REQ-SYS-014 | Keying envelope | Analysis | Draft (TBR) | - |
-| REQ-SYS-015 | Occupied bandwidth | Analysis | Draft (TBR) | - |
+| REQ-SYS-001 | A1A emission only | Inspection | Active | - |
+| REQ-SYS-002 | Operating modes and transitions | Test | Active | - |
+| REQ-SYS-003 | Self-test before transmit | Test | Active | - |
+| REQ-SYS-004 | Carrier end on an inhibit, flag or latched fault | Test | Active (TBR) | - |
+| REQ-SYS-005 | Fault-safe exit | Test | Active | - |
+| REQ-SYS-006 | Operator call sign | Test | Active | - |
+| REQ-SYS-007 | Keying only from the key jack | Test | Active | - |
+| REQ-SYS-008 | Transmit frequency range with band-edge guard | Test | Active (TBR) | - |
+| REQ-SYS-009 | Transmit inhibit outside the guard | Test | Active (TBR) | - |
+| REQ-SYS-010 | Carrier frequency accuracy | Analysis | Active (TBR) | - |
+| REQ-SYS-011 | Selectable power steps below 5 W | Test | Active (TBR) | - |
+| REQ-SYS-012 | Rated output power with level control | Test | Active (TBR) | - |
+| REQ-SYS-013 | Survival into open, short and high SWR | Test | Active | - |
+| REQ-SYS-014 | Keying envelope | Analysis | Active (TBR) | - |
+| REQ-SYS-015 | Occupied bandwidth | Analysis | Active (TBR) | - |
 | REQ-SYS-016 | Necessary bandwidth | Analysis | Closed | - |
-| REQ-SYS-017 | Spurious emission absolute limit | Test | Draft | - |
-| REQ-SYS-018 | Spurious emission design margin | Test | Draft (TBR) | - |
-| REQ-SYS-019 | Tune carrier power | Test | Draft (TBR) | - |
-| REQ-SYS-020 | Tune carrier timeout | Test | Draft (TBR) | - |
-| REQ-SYS-021 | Receive frequency range | Test | Draft | - |
-| REQ-SYS-022 | Minimum discernible signal | Analysis | Draft (TBR) | - |
-| REQ-SYS-023 | Minimum discernible signal target | Analysis | Draft (TBR) | - |
-| REQ-SYS-024 | Receive passband width | Analysis | Draft (TBR) | - |
-| REQ-SYS-025 | Receive -60 dB bandwidth | Analysis | Draft (TBR) | - |
-| REQ-SYS-026 | Stopband rejection from 2 kHz to 5 kHz | Analysis | Draft (TBR) | - |
-| REQ-SYS-027 | Ultimate receive rejection | Analysis | Draft (TBR) | - |
-| REQ-SYS-028 | Passband ripple | Analysis | Draft (TBR) | - |
-| REQ-SYS-029 | Adjacent-signal desensitization | Analysis | Draft (TBR) | - |
-| REQ-SYS-030 | No gain pumping from an adjacent signal | Analysis | Draft (TBR) | - |
-| REQ-SYS-031 | Reciprocal mixing dynamic range | Analysis | Draft (TBR) | - |
-| REQ-SYS-032 | Receive level control range | Analysis | Draft (TBR) | - |
-| REQ-SYS-033 | Receiver spurious response rejection | Analysis | Draft (TBR) | - |
-| REQ-SYS-034 | Internally generated receive spurious signals | Test | Draft (TBR) | - |
-| REQ-SYS-035 | Receive filter-centre calibration trim | Demonstration | Draft (TBR) | - |
-| REQ-SYS-036 | Receive recovery after transmit | Analysis | Draft (TBR) | - |
-| REQ-SYS-037 | Receiver input overload survival | Test | Draft (TBR) | - |
-| REQ-SYS-038 | Straight-key keying | Demonstration | Draft | - |
-| REQ-SYS-039 | Iambic paddle keying | Demonstration | Draft | - |
-| REQ-SYS-040 | Keyer modes | Test | Draft | - |
-| REQ-SYS-041 | Keyer speed range | Test | Draft | - |
-| REQ-SYS-042 | Element and space timing accuracy | Test | Draft | - |
-| REQ-SYS-043 | Paddle-to-element latency | Test | Draft | - |
-| REQ-SYS-044 | Semi break-in hang time | Test | Draft (TBR) | - |
-| REQ-SYS-045 | Sidetone frequency | Test | Draft | - |
-| REQ-SYS-046 | CW pitch equals sidetone | Analysis | Draft | - |
-| REQ-SYS-047 | Key contact thresholds | Test | Draft | - |
-| REQ-SYS-048 | Key closure debounce | Test | Draft (TBR) | - |
-| REQ-SYS-049 | Key input abuse tolerance | Test | Draft (TBR) | - |
-| REQ-SYS-050 | Electrostatic discharge tolerance | Analysis | Draft | - |
-| REQ-SYS-051 | Key input RF immunity | Test | Draft | - |
-| REQ-SYS-052 | Key-closed interlock at power-on and reset | Test | Draft (TBR) | - |
-| REQ-SYS-053 | Straight-key timeout | Test | Draft (TBR) | - |
-| REQ-SYS-054 | Paddle watchdog | Test | Draft (TBR) | - |
-| REQ-SYS-055 | Hardware transmit cutoff | Test | Draft (TBR) | - |
-| REQ-SYS-056 | Key input mode selection | Test | Draft | - |
-| REQ-SYS-057 | Operator control set | Inspection | Draft | - |
-| REQ-SYS-058 | Tuning with rate-dependent step | Test | Draft (TBR) | - |
-| REQ-SYS-059 | Volume control | Test | Draft (TBR) | - |
-| REQ-SYS-060 | Status display content | Demonstration | Draft | - |
-| REQ-SYS-061 | Display character size | Inspection | Draft (TBR) | - |
-| REQ-SYS-062 | Menu depth | Demonstration | Draft (TBR) | - |
-| REQ-SYS-063 | Deliberate selection of 5 W | Test | Draft | - |
-| REQ-SYS-064 | Default power step | Test | Draft (TBR) | - |
-| REQ-SYS-065 | Guest lock transmit inhibit | Test | Draft | - |
-| REQ-SYS-066 | Guest lock set and release | Test | Draft | - |
-| REQ-SYS-067 | Fault cause display | Test | Draft (TBR) | - |
-| REQ-SYS-068 | Identification reminder | Test | Draft (TBR) | - |
-| REQ-SYS-069 | Separation reminder per power step | Test | Draft (TBR) | - |
-| REQ-SYS-070 | Charge state indication | Test | Draft | - |
-| REQ-SYS-071 | Headphone output ceiling | Test | Draft (TBR) | - |
-| REQ-SYS-072 | Headphone output worst case | Test | Draft (TBR) | - |
-| REQ-SYS-073 | Headphone ceiling under a single component failure | Analysis | Draft (TBR) | - |
-| REQ-SYS-074 | Default audio level cap | Test | Draft (TBR) | - |
-| REQ-SYS-075 | Receive mute at key-down | Analysis | Draft | - |
-| REQ-SYS-076 | Headphone transients | Analysis | Draft (TBR) | - |
-| REQ-SYS-077 | Amplifier off without headphones | Test | Draft | - |
-| REQ-SYS-078 | Headphone load and channels | Test | Draft (TBR) | - |
-| REQ-SYS-079 | Headphone output short-circuit tolerance | Test | Draft | - |
-| REQ-SYS-080 | Two 18650 cells in holders | Inspection | Draft | - |
-| REQ-SYS-081 | Charge termination voltage | Test | Draft (TBR) | - |
-| REQ-SYS-082 | Charge temperature window | Test | Draft (TBR) | - |
-| REQ-SYS-083 | Independent cell over-voltage protection | Test | Draft (TBR) | - |
-| REQ-SYS-084 | Cell under-voltage cutoff | Test | Draft (TBR) | - |
-| REQ-SYS-085 | Over-current and short-circuit protection | Analysis | Draft (TBR) | - |
-| REQ-SYS-086 | Reverse cell insertion | Test | Draft (TBR) | - |
-| REQ-SYS-087 | Cell insertion check | Test | Draft (TBR) | - |
-| REQ-SYS-088 | Dual-path cell voltage check | Test | Draft (TBR) | - |
-| REQ-SYS-089 | Charge safety timer | Test | Draft (TBR) | - |
-| REQ-SYS-090 | USB input current | Test | Draft | - |
-| REQ-SYS-091 | Charge time | Test | Draft | - |
-| REQ-SYS-092 | Hardware transmit inhibit with USB power | Test | Draft | - |
-| REQ-SYS-093 | Charging paused while receiving | Test | Draft | - |
-| REQ-SYS-094 | Battery life at 1:9 | Test | Draft | - |
-| REQ-SYS-095 | Battery life at 1:4 | Test | Draft (TBR) | - |
-| REQ-SYS-096 | Low-battery warning | Test | Draft | - |
-| REQ-SYS-097 | Low-battery transmit inhibit | Test | Draft (TBR) | - |
-| REQ-SYS-098 | Low-battery power-down | Test | Draft (TBR) | - |
-| REQ-SYS-099 | Cell over-temperature lockout | Test | Draft (TBR) | - |
-| REQ-SYS-100 | Current drawn when switched off | Test | Draft (TBR) | - |
-| REQ-SYS-101 | Mechanical power switch | Test | Draft | - |
-| REQ-SYS-102 | Unit mass | Test | Draft (TBR) | - |
-| REQ-SYS-103 | External envelope | Inspection | Draft (TBR) | - |
-| REQ-SYS-104 | Antenna connector | Inspection | Draft | - |
-| REQ-SYS-105 | Antenna port mechanical load path | Test | Draft (TBR) | - |
-| REQ-SYS-106 | Antenna port mating life | Analysis | Draft (TBR) | - |
-| REQ-SYS-107 | Counterpoise attachment | Test | Draft (TBR) | - |
-| REQ-SYS-108 | Connector access through the enclosure | Demonstration | Draft | - |
-| REQ-SYS-109 | Enclosure material and finish | Inspection | Draft | - |
-| REQ-SYS-110 | Edge break | Analysis | Draft | - |
-| REQ-SYS-111 | Knob clearance | Analysis | Draft | - |
-| REQ-SYS-112 | PA thermal path at continuous key-down | Analysis | Draft (TBR) | - |
-| REQ-SYS-113 | Hand-hold surface temperature | Analysis | Draft (TBR) | - |
-| REQ-SYS-114 | Operating temperature | Analysis | Draft (TBR) | - |
-| REQ-SYS-115 | Storage temperature | Analysis | Draft (TBR) | - |
-| REQ-SYS-116 | Drop survival | Test | Draft (TBR) | - |
-| REQ-SYS-117 | Light rain | Test | Draft (TBR) | - |
-| REQ-SYS-118 | PA over-temperature inhibit | Test | Draft (TBR) | - |
-| REQ-SYS-119 | Transmit held off during reset and firmware load | Test | Draft | - |
-| REQ-SYS-120 | Two independent conditions for RF output | Test | Draft | - |
-| REQ-SYS-121 | RF exposure evaluation | Analysis | Draft | - |
-| REQ-SYS-122 | Operations handbook safety content | Inspection | Draft | - |
+| REQ-SYS-017 | Spurious emission absolute limit | Test | Active | - |
+| REQ-SYS-018 | Spurious emission design margin | Test | Active (TBR) | - |
+| REQ-SYS-019 | Tune carrier power | Test | Active (TBR) | - |
+| REQ-SYS-020 | Tune carrier timeout | Test | Active (TBR) | - |
+| REQ-SYS-021 | Receive frequency range | Test | Active | - |
+| REQ-SYS-022 | Minimum discernible signal | Analysis | Active (TBR) | - |
+| REQ-SYS-023 | Minimum discernible signal target | Analysis | Active (TBR) | - |
+| REQ-SYS-024 | Receive passband width | Analysis | Active (TBR) | - |
+| REQ-SYS-025 | Receive -60 dB bandwidth | Analysis | Active (TBR) | - |
+| REQ-SYS-026 | Stopband rejection from 2 kHz to 5 kHz | Analysis | Active (TBR) | - |
+| REQ-SYS-027 | Ultimate receive rejection | Analysis | Active (TBR) | - |
+| REQ-SYS-028 | Passband ripple | Analysis | Active (TBR) | - |
+| REQ-SYS-029 | Adjacent-signal desensitization | Analysis | Active (TBR) | - |
+| REQ-SYS-030 | No gain pumping from an adjacent signal | Analysis | Active (TBR) | - |
+| REQ-SYS-031 | Reciprocal mixing dynamic range | Analysis | Active (TBR) | - |
+| REQ-SYS-032 | Receive level control range | Analysis | Active (TBR) | - |
+| REQ-SYS-033 | Receiver spurious response rejection | Analysis | Active (TBR) | - |
+| REQ-SYS-034 | Internally generated receive spurious signals | Test | Active (TBR) | - |
+| REQ-SYS-035 | Receive filter-centre calibration trim | Demonstration | Active (TBR) | - |
+| REQ-SYS-036 | Receive recovery after transmit | Analysis | Active (TBR) | - |
+| REQ-SYS-037 | Receiver input overload survival | Test | Active (TBR) | - |
+| REQ-SYS-038 | Straight-key keying | Demonstration | Active | - |
+| REQ-SYS-039 | Iambic paddle keying | Demonstration | Active | - |
+| REQ-SYS-040 | Keyer modes | Test | Active | - |
+| REQ-SYS-041 | Keyer speed range | Test | Active | - |
+| REQ-SYS-042 | Element and space timing accuracy | Test | Active | - |
+| REQ-SYS-043 | Paddle-to-element latency | Test | Active | - |
+| REQ-SYS-044 | Semi break-in hang time | Test | Active (TBR) | - |
+| REQ-SYS-045 | Sidetone frequency | Test | Active | - |
+| REQ-SYS-046 | CW pitch equals sidetone | Analysis | Active | - |
+| REQ-SYS-047 | Key contact thresholds | Test | Active | - |
+| REQ-SYS-048 | Key closure debounce | Test | Active (TBR) | - |
+| REQ-SYS-049 | Key input abuse tolerance | Test | Active (TBR) | - |
+| REQ-SYS-050 | Electrostatic discharge tolerance | Analysis | Active | - |
+| REQ-SYS-051 | Key input RF immunity | Test | Active | - |
+| REQ-SYS-052 | Key-closed interlock at power-on and reset | Test | Active (TBR) | - |
+| REQ-SYS-053 | Straight-key timeout | Test | Active (TBR) | - |
+| REQ-SYS-054 | Paddle watchdog | Test | Active (TBR) | - |
+| REQ-SYS-055 | Hardware transmit cutoff | Test | Active (TBR) | - |
+| REQ-SYS-056 | Key input mode selection | Test | Active | - |
+| REQ-SYS-057 | Operator control set | Inspection | Active | - |
+| REQ-SYS-058 | Tuning with rate-dependent step | Test | Active (TBR) | - |
+| REQ-SYS-059 | Volume control | Test | Active (TBR) | - |
+| REQ-SYS-060 | Status display content | Demonstration | Active | - |
+| REQ-SYS-061 | Display character size | Inspection | Active (TBR) | - |
+| REQ-SYS-062 | Menu depth | Demonstration | Active (TBR) | - |
+| REQ-SYS-063 | Deliberate selection of 5 W | Test | Active | - |
+| REQ-SYS-064 | Default power step | Test | Active (TBR) | - |
+| REQ-SYS-065 | Guest lock transmit inhibit | Test | Active | - |
+| REQ-SYS-066 | Guest lock set and release | Test | Active | - |
+| REQ-SYS-067 | Fault cause display | Test | Active (TBR) | - |
+| REQ-SYS-068 | Identification reminder | Test | Active (TBR) | - |
+| REQ-SYS-069 | Separation reminder per power step | Test | Active (TBR) | - |
+| REQ-SYS-070 | Charge state indication | Test | Active | - |
+| REQ-SYS-071 | Headphone output ceiling | Test | Active (TBR) | - |
+| REQ-SYS-072 | Headphone output worst case | Test | Active (TBR) | - |
+| REQ-SYS-073 | Headphone ceiling under a single component failure | Analysis | Active (TBR) | - |
+| REQ-SYS-074 | Default audio level cap | Test | Active (TBR) | - |
+| REQ-SYS-075 | Receive mute at key-down | Analysis | Active | - |
+| REQ-SYS-076 | Headphone transients | Analysis | Active (TBR) | - |
+| REQ-SYS-077 | Amplifier off without headphones | Test | Active | - |
+| REQ-SYS-078 | Headphone load and channels | Test | Active (TBR) | - |
+| REQ-SYS-079 | Headphone output short-circuit tolerance | Test | Active | - |
+| REQ-SYS-080 | Two 18650 cells in holders | Inspection | Active | - |
+| REQ-SYS-081 | Charge termination voltage | Test | Active (TBR) | - |
+| REQ-SYS-082 | Charge temperature window | Test | Active (TBR) | - |
+| REQ-SYS-083 | Independent cell over-voltage protection | Test | Active (TBR) | - |
+| REQ-SYS-084 | Cell under-voltage cutoff | Test | Active (TBR) | - |
+| REQ-SYS-085 | Over-current and short-circuit protection | Analysis | Active (TBR) | - |
+| REQ-SYS-086 | Reverse cell insertion | Test | Active (TBR) | - |
+| REQ-SYS-087 | Cell insertion check | Test | Active (TBR) | - |
+| REQ-SYS-088 | Dual-path cell voltage check | Test | Active (TBR) | - |
+| REQ-SYS-089 | Charge safety timer | Test | Active (TBR) | - |
+| REQ-SYS-090 | USB input current | Test | Active | - |
+| REQ-SYS-091 | Charge time | Test | Active | - |
+| REQ-SYS-092 | Hardware transmit inhibit with USB power | Test | Active | - |
+| REQ-SYS-093 | Charging paused while receiving | Test | Active | - |
+| REQ-SYS-094 | Battery life at 1:9 | Test | Active | - |
+| REQ-SYS-095 | Battery life at 1:4 | Test | Active (TBR) | - |
+| REQ-SYS-096 | Low-battery warning | Test | Active | - |
+| REQ-SYS-097 | Low-battery transmit inhibit | Test | Active (TBR) | - |
+| REQ-SYS-098 | Low-battery power-down | Test | Active (TBR) | - |
+| REQ-SYS-099 | Cell over-temperature lockout | Test | Active (TBR) | - |
+| REQ-SYS-100 | Current drawn when switched off | Test | Active (TBR) | - |
+| REQ-SYS-101 | Mechanical power switch | Test | Active | - |
+| REQ-SYS-102 | Unit mass | Test | Active (TBR) | - |
+| REQ-SYS-103 | External envelope | Inspection | Active (TBR) | - |
+| REQ-SYS-104 | Antenna connector | Inspection | Active | - |
+| REQ-SYS-105 | Antenna port mechanical load path | Test | Active (TBR) | - |
+| REQ-SYS-106 | Antenna port mating life | Analysis | Active (TBR) | - |
+| REQ-SYS-107 | Counterpoise attachment | Test | Active (TBR) | - |
+| REQ-SYS-108 | Connector access through the enclosure | Demonstration | Active | - |
+| REQ-SYS-109 | Enclosure material and finish | Inspection | Active | - |
+| REQ-SYS-110 | Edge break | Analysis | Active | - |
+| REQ-SYS-111 | Knob clearance | Analysis | Active | - |
+| REQ-SYS-112 | PA thermal path at continuous key-down | Analysis | Active (TBR) | - |
+| REQ-SYS-113 | Hand-hold surface temperature | Analysis | Active (TBR) | - |
+| REQ-SYS-114 | Operating temperature | Analysis | Active (TBR) | - |
+| REQ-SYS-115 | Storage temperature | Analysis | Active (TBR) | - |
+| REQ-SYS-116 | Drop survival | Test | Active (TBR) | - |
+| REQ-SYS-117 | Light rain | Test | Active (TBR) | - |
+| REQ-SYS-118 | PA over-temperature inhibit | Test | Active (TBR) | - |
+| REQ-SYS-119 | Transmit held off during reset and firmware load | Test | Active | - |
+| REQ-SYS-120 | Two independent conditions for RF output | Test | Active | - |
+| REQ-SYS-121 | RF exposure evaluation | Analysis | Active | - |
+| REQ-SYS-122 | Operations handbook safety content | Inspection | Active | - |
 | REQ-SYS-123 | Operation from the handbook | Test | Closed | - |
-| REQ-SYS-124 | Enclosure legend | Inspection | Draft | - |
-| REQ-SYS-125 | Build quantity cap | Inspection | Draft | - |
-| REQ-SYS-126 | Controller module | Inspection | Draft | - |
-| REQ-SYS-127 | Firmware language and platform | Inspection | Draft | - |
-| REQ-SYS-128 | Host-testable application layering | Inspection | Draft | - |
-| REQ-SYS-129 | Single interrupt priority design rule | Inspection | Draft | - |
-| REQ-SYS-130 | Safe state first on reset, panic and latched fault | Test | Draft | - |
-| REQ-SYS-131 | Firmware hang recovery | Test | Draft (TBR) | - |
-| REQ-SYS-132 | Firmware image integrity | Test | Draft | - |
-| REQ-SYS-133 | Firmware update over USB | Demonstration | Draft | - |
-| REQ-SYS-134 | Stored configuration integrity | Test | Draft | - |
-| REQ-SYS-135 | Settings persistence | Test | Draft | - |
-| REQ-SYS-136 | Configuration defaults | Test | Draft (TBR) | - |
-| REQ-SYS-137 | Turnkey surface-mount assembly | Inspection | Draft | - |
-| REQ-SYS-138 | Owner hand-soldered parts | Inspection | Draft | - |
-| REQ-SYS-139 | Circuit board fabrication rules | Inspection | Draft (TBR) | - |
-| REQ-SYS-140 | Parts sourcing | Inspection | Draft | - |
-| REQ-SYS-141 | Transmit monitor port | Test | Draft (TBR) | - |
-| REQ-SYS-142 | Test points | Inspection | Draft | - |
-| REQ-SYS-143 | Boot banner and serial telemetry | Test | Draft | - |
-| REQ-SYS-144 | No manual alignment | Test | Draft | - |
-| REQ-SYS-145 | Band-dependent functions partitioned | Inspection | Draft | - |
-| REQ-SYS-146 | Reserved band control | Inspection | Draft | - |
-| REQ-SYS-147 | Unit cost | Analysis | Draft (TBR) | - |
-| REQ-SYS-148 | Open-source publication | Inspection | Draft | - |
-| REQ-SYS-149 | No transmitter supply from USB alone | Test | Draft (TBR) | - |
-| REQ-SYS-150 | Telemetry without USB power | Test | Draft | - |
-| REQ-SYS-151 | Spurious emissions into a mismatched load | Test | Draft (TBR) | - |
-| REQ-SYS-152 | Rated power into a mismatched load | Test | Draft (TBR) | - |
-| REQ-SYS-153 | High pack voltage transmit lockout | Test | Draft (TBR) | - |
-| REQ-SYS-154 | Synthesizer fault response | Test | Draft (TBR) | - |
-| REQ-SYS-155 | PA temperature sensor fault response | Test | Draft (TBR) | - |
-| REQ-SYS-156 | Forward-power detector fault response | Test | Draft (TBR) | - |
-| REQ-SYS-157 | Receive audio held muted through transmit and hang | Analysis | Draft | - |
-| REQ-SYS-158 | Receive audio restore fade | Analysis | Draft (TBR) | - |
-| REQ-SYS-159 | Sidetone onset latency | Test | Draft (TBR) | - |
-| REQ-SYS-160 | Straight-key contact to RF latency | Test | Draft (TBR) | - |
-| REQ-SYS-161 | Constant lead-in over an over | Test | Draft (TBR) | - |
-| REQ-SYS-162 | Key opening debounce | Test | Draft (TBR) | - |
-| REQ-SYS-163 | Key-mode selection with a closed input | Test | Draft | - |
-| REQ-SYS-164 | Band crossing time | Test | Draft (TBR) | - |
-| REQ-SYS-165 | Display legibility without a backlight | Analysis | Draft (TBR) | - |
-| REQ-SYS-166 | Rails held off for out-of-window cells | Test | Draft (TBR) | - |
-| REQ-SYS-167 | Charge current-fall supervision | Test | Draft (TBR) | - |
-| REQ-SYS-168 | Cell cover pinch gap | Analysis | Draft (TBR) | - |
-| REQ-SYS-169 | Audio unlock expiry | Test | Draft (TBR) | - |
-| REQ-SYS-170 | Audio cap at power-on | Test | Draft | - |
-| REQ-SYS-171 | Key-down time display | Test | Draft | - |
-| REQ-SYS-172 | Delivered antenna gain | Analysis | Draft (TBR) | - |
-| REQ-SYS-173 | Headphone audio while keying with long leads | Demonstration | Draft | - |
-| REQ-SYS-174 | Key jack wiring | Inspection | Draft | - |
-| REQ-SYS-175 | Antenna port on one end | Inspection | Draft | - |
-| REQ-SYS-176 | Receive-mode emissions at the antenna port | Test | Draft (TBR) | - |
-| REQ-SYS-177 | Enclosure emissions from digital and switching circuits | Analysis | Draft (TBR) | - |
-| REQ-SYS-178 | Owner-procured parts sourcing | Inspection | Draft | - |
-| REQ-SYS-179 | Bench test mode entry | Test | Draft | - |
-| REQ-SYS-180 | Transmission-length hardware backstop | Test | Draft (TBR) | - |
-| REQ-SYS-181 | Hardware PA over-temperature cut-off | Test | Draft (TBR) | - |
-| REQ-SYS-182 | Independent frequency verification before and during transmit | Test | Draft (TBR) | - |
-| REQ-SYS-183 | RF-off level at the antenna port | Test | Draft (TBR) | - |
-| REQ-SYS-184 | Paddle squeeze limit | Test | Draft (TBR) | - |
-| REQ-SYS-185 | Further cell over-voltage layer | Test | Draft (TBR) | - |
-| REQ-SYS-186 | Separate cell-sense paths per protection layer | Test | Draft (TBR) | - |
-| REQ-SYS-187 | Bench test mode power step | Test | Draft | - |
-| REQ-SYS-188 | Bench test mode timeout | Test | Draft (TBR) | - |
-| REQ-SYS-189 | Bench full-scale test tone limit | Test | Draft (TBR) | - |
-| REQ-SYS-190 | Bench test mode not retained over reset | Test | Draft | - |
+| REQ-SYS-124 | Enclosure legend | Inspection | Active | - |
+| REQ-SYS-125 | Build quantity cap | Inspection | Active | - |
+| REQ-SYS-126 | Controller module | Inspection | Active | - |
+| REQ-SYS-127 | Firmware language and platform | Inspection | Active | - |
+| REQ-SYS-128 | Host-testable application layering | Inspection | Active | - |
+| REQ-SYS-129 | Single interrupt priority design rule | Inspection | Active | - |
+| REQ-SYS-130 | Safe state first on reset, panic and latched fault | Test | Active | - |
+| REQ-SYS-131 | Firmware hang recovery | Test | Active (TBR) | - |
+| REQ-SYS-132 | Firmware image integrity | Test | Active | - |
+| REQ-SYS-133 | Firmware update over USB | Demonstration | Active | - |
+| REQ-SYS-134 | Stored configuration integrity | Test | Active | - |
+| REQ-SYS-135 | Settings persistence | Test | Active | - |
+| REQ-SYS-136 | Configuration defaults | Test | Active (TBR) | - |
+| REQ-SYS-137 | Turnkey surface-mount assembly | Inspection | Active | - |
+| REQ-SYS-138 | Owner hand-soldered parts | Inspection | Active | - |
+| REQ-SYS-139 | Circuit board fabrication rules | Inspection | Active (TBR) | - |
+| REQ-SYS-140 | Parts sourcing | Inspection | Active | - |
+| REQ-SYS-141 | Transmit monitor port | Test | Active (TBR) | - |
+| REQ-SYS-142 | Test points | Inspection | Active | - |
+| REQ-SYS-143 | Boot banner and serial telemetry | Test | Active | - |
+| REQ-SYS-144 | No manual alignment | Test | Active | - |
+| REQ-SYS-145 | Band-dependent functions partitioned | Inspection | Active | - |
+| REQ-SYS-146 | Reserved band control | Inspection | Active | - |
+| REQ-SYS-147 | Unit cost | Analysis | Active (TBR) | - |
+| REQ-SYS-148 | Open-source publication | Inspection | Active | - |
+| REQ-SYS-149 | No transmitter supply from USB alone | Test | Active (TBR) | - |
+| REQ-SYS-150 | Telemetry without USB power | Test | Active | - |
+| REQ-SYS-151 | Spurious emissions into a mismatched load | Test | Active (TBR) | - |
+| REQ-SYS-152 | Rated power into a mismatched load | Test | Active (TBR) | - |
+| REQ-SYS-153 | High pack voltage transmit lockout | Test | Active (TBR) | - |
+| REQ-SYS-154 | Synthesizer fault response | Test | Active (TBR) | - |
+| REQ-SYS-155 | PA temperature sensor fault response | Test | Active (TBR) | - |
+| REQ-SYS-156 | Forward-power detector fault response | Test | Active (TBR) | - |
+| REQ-SYS-157 | Receive audio held muted through transmit and hang | Analysis | Active | - |
+| REQ-SYS-158 | Receive audio restore fade | Analysis | Active (TBR) | - |
+| REQ-SYS-159 | Sidetone onset latency | Test | Active (TBR) | - |
+| REQ-SYS-160 | Straight-key contact to RF latency | Test | Active (TBR) | - |
+| REQ-SYS-161 | Constant lead-in over an over | Test | Active (TBR) | - |
+| REQ-SYS-162 | Key opening debounce | Test | Active (TBR) | - |
+| REQ-SYS-163 | Key-mode selection with a closed input | Test | Active | - |
+| REQ-SYS-164 | Band crossing time | Test | Active (TBR) | - |
+| REQ-SYS-165 | Display legibility without a backlight | Analysis | Active (TBR) | - |
+| REQ-SYS-166 | Rails held off for out-of-window cells | Test | Active (TBR) | - |
+| REQ-SYS-167 | Charge current-fall supervision | Test | Active (TBR) | - |
+| REQ-SYS-168 | Cell cover pinch gap | Analysis | Active (TBR) | - |
+| REQ-SYS-169 | Audio unlock expiry | Test | Active (TBR) | - |
+| REQ-SYS-170 | Audio cap at power-on | Test | Active | - |
+| REQ-SYS-171 | Key-down time display | Test | Active | - |
+| REQ-SYS-172 | Delivered antenna gain | Analysis | Active (TBR) | - |
+| REQ-SYS-173 | Headphone audio while keying with long leads | Demonstration | Active | - |
+| REQ-SYS-174 | Key jack wiring | Inspection | Active | - |
+| REQ-SYS-175 | Antenna port on one end | Inspection | Active | - |
+| REQ-SYS-176 | Receive-mode emissions at the antenna port | Test | Active (TBR) | - |
+| REQ-SYS-177 | Enclosure emissions from digital and switching circuits | Analysis | Active (TBR) | - |
+| REQ-SYS-178 | Owner-procured parts sourcing | Inspection | Active | - |
+| REQ-SYS-179 | Bench test mode entry | Test | Active | - |
+| REQ-SYS-180 | Transmission-length hardware backstop | Test | Active (TBR) | - |
+| REQ-SYS-181 | Hardware PA over-temperature cut-off | Test | Active (TBR) | - |
+| REQ-SYS-182 | Independent frequency verification before and during transmit | Test | Active (TBR) | - |
+| REQ-SYS-183 | RF-off level at the antenna port | Test | Active (TBR) | - |
+| REQ-SYS-184 | Paddle squeeze limit | Test | Active (TBR) | - |
+| REQ-SYS-185 | Further cell over-voltage layer | Test | Active (TBR) | - |
+| REQ-SYS-186 | Separate cell-sense paths per protection layer | Test | Active (TBR) | - |
+| REQ-SYS-187 | Bench test mode power step | Test | Active | - |
+| REQ-SYS-188 | Bench test mode timeout | Test | Active (TBR) | - |
+| REQ-SYS-189 | Bench full-scale test tone limit | Test | Active (TBR) | - |
+| REQ-SYS-190 | Bench test mode not retained over reset | Test | Active | - |
 
 ## 3. Requirements
 
@@ -226,7 +226,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-004 asks for true CW, not tone-modulated FM; CON-003, 47 CFR 97.305(a) (CW on any frequency authorized to the control operator) and the 2 m row of 97.305(c), which starts MCW and the other emissions at 144.1 MHz, keep 144.000 to 144.100 MHz CW-only; NGO-018 states A1A only. The method is Inspection because 04 section 6.1 does not credit the close-in keying spectrum; SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1. Assumes: the sidetone is audio-only and never modulates the carrier (docs/design/concept.md section 7.2). Ops: OPS-004, OPS-005. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the transmit-chain schematic and the firmware keying path: the on-off envelope is the only carrier modulation and no audio path reaches the RF chain. Pre-build (supporting): HostUnit, no firmware path modulates the envelope other than on-off keying. Post-build (supporting): Bench, tinySA Ultra max-hold of the keyed carrier through the attenuator for gross modulation beyond 10 kHz. Closing case: TC-SYS-001. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-TX-001 |
@@ -244,7 +244,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: the ConOps mode set (Off, Charging, Self-test, Receive, Transmit-keyed, Tune, Bench-test, Firmware-update, Fault-safe) with the flags GUEST, PRACTICE, USB and LOWBATT (Table 3.4-3) is the behaviour the owner validates (appendix D item D1). The forbidden transitions F1 to F9 (no carrier without a passed Self-test, while USB power is present, while GUEST is set, or outside the band guard; Bench-test entered only from Receive) are safety properties. The bench test mode is REQ-SYS-179, blocked while GUEST is set or USB is present (HZ-011 K6) and bounded by REQ-SYS-020 and REQ-SYS-055. Ops: OPS-001, OPS-002, OPS-011, OPS-013, OPS-021, OPS-022. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (bounded by REQ-SYS-055 and REQ-SYS-092). Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-004 K7; HZ-011 K6. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit state-machine test of every allowed and forbidden transition on cwht-core with injected events; Emulation scenario for event ordering only (ACC-EMU-001). The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench walk-through of every allowed and forbidden transition on the delivered unit into the dummy load, mode changes read from the UART telemetry (REQ-SYS-150) and PA_EN captured by the logic capture. Closing cases: TC-SYS-002, TC-SYS-003. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -262,7 +262,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-005 (first power-on) and MOE-003; the Self-test mode of docs/conops/conops.md section 3.4 checks rails, both cell voltages by two paths, cell temperature, PA enable low, display, stored configuration and firmware hash; a closed key input is the KEY inhibit of REQ-SYS-052, not a Self-test check (appendix D item D2). A failed check leaves the radio in Fault-safe with the item shown. Ops: OPS-001. Controls HZ-004 K1 and HZ-014 K1. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (the self-test is the firmware layer; REQ-SYS-055 and REQ-SYS-119 bound its failure). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected failures of each self-test item checks that transmit stays disarmed; Emulation of boot ordering. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, each check forced (a cell simulator out of range, key closed, corrupt configuration written through the test interface), result read from the UART telemetry (REQ-SYS-150) with PA_EN on the logic capture and the dummy load connected. Closing case: TC-SYS-004. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -280,7 +280,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-012 and HZ-004 K7 (every fault path enters the safe state first). The causes are the Inhibit, flag and Latched classes of docs/conops/conops.md Tables 3.4-3 and 3.4-4 that stop a carrier; the ConOps states the same 20 ms (appendix D item D3). The carrier ends through the shaped fall, because an abrupt cut causes key clicks (47 CFR 97.307(b)); at the 8 ms setting the fall is complete 13.6 ms after it starts, so 20 ms leaves margin for detection. Resets and firmware load are REQ-SYS-119 and REQ-SYS-130. Ops: OPS-013, OPS-014, OPS-016, OPS-020, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-055 backs it). TBR: the ICD-TX-SW sequencer timing table. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit fault injection on the simulated microsecond clock measures command-to-envelope-zero latency for one cause of each class (an inhibit, a flag, a latched fault). The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, fault-injection build on the delivered unit, one injected cause of each class during a keyed carrier, logic capture of the injection marker and of PA_EN, whose release follows the completed fall and so bounds RF at the REQ-SYS-183 level (measured in PA_EN-low states by the REQ-SYS-183 cases); the analog fall shape is bounded by the envelope Analysis of REQ-SYS-014. The -40 dBc point of the previous statement (12.7 ms into the 13.6 ms fall at the 8 ms setting) is an intermediate point of the same fall. Closing case: TC-SYS-005. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -299,7 +299,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: only the Latched class of docs/conops/conops.md Table 3.4-4 (rows 10 to 15) enters Fault-safe (T06, T09, T17); Inhibit-class causes and flags self-clear and are bounded by REQ-SYS-004, REQ-SYS-053 and REQ-SYS-054 (appendix D item D4). The exits are T24 (acknowledgment after the cause has cleared, or the switch turned on for a Fault-safe entered from Charging, both through Self-test) and T25 (switch off, USB removed with the switch off, or the T20 power-down); property F5 bars every other exit, and a controller reset re-enters Fault-safe through T09. A transient fault cannot silently re-arm the transmitter, and REQ-SYS-067 tells the operator why (MOE-012). Ops: OPS-013, OPS-014, OPS-016, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-004 K7. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, each latched cause cleared with and without acknowledgment, a controller reset while latched, and each T25 event. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit with an injected latched cause (repeated watchdog reset and a cell-sense disagreement), mode read from the display and the UART telemetry (REQ-SYS-150) after clearance without and with acknowledgment and after a reset. Closing case: TC-SYS-005. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -317,7 +317,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: operator model OPS-A (ADR-015, accepted by SRR decision 17, owner ruling 2026-09-26): each unit is the station of the licensee holding it and shows that licensee's call sign (NGO-020, CON-006, 47 CFR 97.103(b)). 10 characters holds the longest US call sign with a portable indicator. One case closes it: the call sign shown after a power cycle proves both its storage and its display. The hazard analysis no longer counts it as a control of HZ-006 K8, which the handbook carries (REQ-SYS-122). Ops: OPS-006. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, entry, persistence and display of 1 to 10 characters. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, call signs of 1 and 10 characters entered through the controls, power cycled, displayed call sign read. Closing case: TC-SYS-006. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -335,7 +335,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-006; this station is not one of the automatically controlled stations that 47 CFR 97.109(d) admits only where Part 97 designates them (for example beacons, 97.203), so every element comes from the operator's key. Revision A has no message memory or beacon (docs/design/concept.md section 12), so identification is keyed by the operator and the 20 WPM automatic-ID limit of 47 CFR 97.119(b)(1) (CON-005) never applies. The exception is the Bench-test mode of docs/conops/conops.md section 3.4 (REQ-SYS-179, HZ-004 K13): machine-generated Morse into the dummy load only (appendix D item D8). Ops: OPS-004. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (no single software event starts a keying source). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, no keying source other than the debounced key inputs and the confirmed test-mode generator; Inspection of the keying call graph. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of TX_KEY for 10 min in each mode with the key jack open, then of the test-mode generator, which keys only after its confirmation. Closing case: TC-SYS-007. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-028, REQ-TX-014 |
@@ -353,7 +353,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-024, ADR-016 and CON-001 give the full US 2 m band; NGO-011 and ADR-023 keep a 1.2 kHz guard, SRR decision 25 (owner ruling 2026-09-26), option (a) with the +/-2.5 ppm reference of REQ-SYS-010): the -60 dB keying-sideband point lies up to 750 Hz (TBR) from the carrier (REQ-TX-006) and the reference errs by up to +/-370 Hz at 148 MHz, so 750 + 370 = 1120 Hz, 80 Hz inside the guard, keeps the -60 dB level inside 144.000 to 148.000 MHz (47 CFR 97.301(a), 97.307(b); docs/research/regulatory-corpus-and-operators.md F7, F8). SRR decision 26 (same ruling) keeps full-band transmit without a band-plan lock. The guard does not keep the carrier off the 12 MHz crystal and 48 MHz USB harmonics, which fall within +/-9.4 kHz of 144.000 MHz (REQ-SYS-034). Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-008; the band limit is tested on every unit). KDR: synthesizer range and band table. TBR: the TS-NNN-synthesizer-reference frequency error budget and the TS-006 sideband offset of REQ-TX-006 confirm the 1.2 kHz guard at PDR. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4. |
 | Verification method | Test |
 | Verification note | Pre-build: HostUnit frequency-plan limits; Simulation of the synthesizer register table. Post-build (closing): Bench, tinySA Ultra marker on the carrier at 144.0012 and 147.9988 MHz through the attenuator into the dummy load. Closing case: TC-SYS-008. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | REQ-TX-002 |
@@ -372,7 +372,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: the ConOps forbids any transmit with a carrier outside the guard (docs/conops/conops.md section 3.4); CON-003 and 47 CFR 97.307(b) confine keyed emissions to the band. Receive stays available from 144.000 MHz, so tuning to the edge is lawful and only transmit is refused. This check runs inside the frequency-control component, so it cannot catch a corrupted frequency word that component itself writes (HZ-008 cause C7); REQ-SYS-182 adds the independent measurement (OQ-SAF-013). RF off is the REQ-SYS-183 level. Ops: OPS-020. TBR follows the guard value of the band-range requirement, 1.2 kHz by SRR decision 25 (owner ruling 2026-09-26). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-008; firmware band limit tested on every unit). TBR: value is a research or author proposal pending the decision named in the tbr plan. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, key events at 143.999 to 144.0011 MHz and 147.9989 to 148.000 MHz produce no PA_EN. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, keyed at 144.0005 and 147.9995 MHz into the dummy load: no PA_EN on the logic capture and no carrier on the tinySA Ultra through the attenuator. Closing case: TC-SYS-008. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-TX-003 |
@@ -391,7 +391,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-018 and MOP-008 set +/-2.5 ppm (+/-365 Hz at 146 MHz); with the 1.2 kHz guard of REQ-SYS-008 the -60 dB sidebands, up to 750 Hz (TBR) from the carrier (REQ-TX-006), stay in band with 80 Hz to spare (docs/research/regulatory-corpus-and-operators.md F8). Two units can differ by 730 Hz, beyond the 250 Hz half-passband (RSK-002), so the listener tunes to the friend and nets on the sidetone (REQ-SYS-046). SRR decision 25 (owner ruling 2026-09-26) accepted ADR-023 option (a): the +/-2.5 ppm grade is kept and the guard widened, rather than a tighter reference that the bench cannot verify without a counter (CON-016); SRR decision 56 (same ruling) confirms the synthesizer trade parameters. Assumes: a TCXO independent of the Pico 2 crystal (concept.md section 7.4). Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 5 and 7 (Analysis accepted per RSK-011, which carries HZ-008). KDR: reference oscillator grade and synthesizer (TS-NNN-synthesizer-reference). TBR: estimated pending TS-NNN-synthesizer-reference; the operating span is the environment set of SRR decision 85. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-011 (HZ-008; RSK-002 remains the netting-offset risk): pre-build Simulation budget of the reference datasheet tolerance (initial, temperature, one-year aging) and synthesizer error; no frequency counter on the bench (CON-016). Post-build (supporting): Bench, tinySA Ultra marker against an off-air reference at room temperature. Closing case: TC-SYS-009. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -410,7 +410,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-019 and MOP-004; the steps give the minimum power necessary (CON-007, 47 CFR 97.313(a)) and bound RF exposure (HZ-001 K1, HZ-006 K1; docs/research/rf-exposure-evaluation.md RFX-10). Adopted by SRR decision 22 (owner ruling 2026-09-26; RFX-D1). The 5 W step is REQ-SYS-012, so the two do not overlap. The transmit range is that of REQ-SYS-008; 6.4-8.4 V is the pack voltage measured in receive as for REQ-SYS-097. +/-1 dB exceeds the 10 to 15 percent diode-probe uncertainty that closes power (04 section 6.2); the ALC design target is +/-0.5 dB (MOP-004 target, TPM-015). Ops: OPS-007. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 4 and 5 (HZ-006 safe step set; HZ-001 Marginal, tested on every unit). TBR: tolerance pending TS-006. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation, LTspice PA and ALC model at each step over pack voltage. Post-build (closing): Bench, diode RF probe across the dummy load read on the multimeter, P = Vpk^2 / 100, at 144.05, 146.00 and 147.95 MHz with the bench supply at 6.4 and 8.4 V; tinySA Ultra through the calibrated attenuator as the secondary reading (04 section 6.2). Closing case: TC-SYS-011; TC-SYS-010, the diode-probe characterization with credit row SUPPORT, is supporting only (04 section 7.3 rule 3). |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-TX-004 |
@@ -429,7 +429,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-003 and ADR-003 set 5 W (NGO-009, NGO-010, MOE-001, MOE-002). The +/-1 dB tolerance exceeds the 10 to 15 percent uncertainty of the closing diode RF probe, as 04 section 6.2 requires; the ALC design target stays +/-0.5 dB (MOP-004, TPM-015), as HZ-001 K4, HZ-003 K4 and HZ-008 K3 assume. The 6.3 W bound sets REQ-SYS-069. Assumes: pack voltage measured in receive (REQ-SYS-097); key-down sag leaves about 5.8 V at the drain, and the PD54008L-E gives 4.5 to 5.0 W at 6 V (docs/research/pa-turnkey-candidates-followup.md implication 5). Ops: OPS-004. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (ALC fault bounded by REQ-SYS-156); 8.2 row 11. KDR: PA device (ADR-012), ALC loop, thermal path and battery. TBR: pending TS-003 and TS-006. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation, LTspice PA plus ALC transient over 6.4 to 8.4 V at 144, 146 and 148 MHz. Post-build (closing): Bench, bench supply as the pack at 6.4, 7.4 and 8.4 V through a series resistance equal to the cell and holder resistance, diode RF probe across the dummy load read on the multimeter (04 section 6.2), tinySA Ultra through the calibrated attenuator as the secondary reading. Closing case: TC-SYS-011; TC-SYS-010, the diode-probe characterization with credit row SUPPORT, is supporting only (04 section 7.3 rule 3). |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -448,7 +448,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: antennas get removed, broken or shorted while keyed (OPS-015; docs/research/antenna-and-erp.md ANT-04); HZ-003 K5, HZ-009 K3 and HZ-012 K4 rely on the transmitter tolerating it. The delivered hardware cutoff (REQ-SYS-055) ends any continuous key-down within 13 s, so the stress is written as keying at 80 percent duty: 5 s key-downs, below the 7.5 s cutoff floor, re-keyed within 1 s. No cutoff bypass is fitted for the test. Assumes: survival means every transmit requirement is still met afterwards. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (Marginal hazards; the port survives the open load a broken jack presents); 8.2 row 14. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation of PA voltage and current stress into open and short on the behavioural model. Post-build (closing): Bench, open, short and 10:1 fixtures at four phases, straight key held for the 5 s timeout and re-keyed within 1 s for 60 s each, then power and spurious re-measured with the diode probe and the tinySA Ultra. Closing case: TC-SYS-012. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -466,7 +466,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-018 (5 ms, configurable 3 to 8 ms) and CON-003 (no keyclicks, 47 CFR 97.307(a), (b)); default 5 ms (REQ-SYS-136); not speed-adaptive, no mid-ramp reversal (HZ-008 K4). Convention: 10-to-90 percent, so the 3 ms setting is a 5.1 ms full transition and REQ-SYS-015 (292 Hz) and the REQ-SYS-008 guard (-60 dB at 614 Hz) hold at every setting (docs/research/regulatory-corpus-and-operators.md F7); under the full-transition convention of DECISION-11 (D-KN6) the floor becomes 5 ms full. Method: Analysis per 04 section 6.2; SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (listed; Analysis accepted per RSK-011). TBR: the TS-006 transient at PDR confirms the range and the 10-to-90 percent convention, which SRR decision 28 (same ruling) adopted as written (D-KN6). |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-011: pre-build (closing) Simulation of the envelope sequence through the shaping network and PA model at 3, 5 and 8 ms with the FFT checker (docs/research/regulatory-corpus-and-operators.md ACTION-8). The firmware ramp-step timing is the REQ-SW child allocated at PDR and closed by Bench logic capture of the ramp steps (04 section 6.2). Post-build (supporting): Bench logic capture of the ramp steps at each setting. Closing case: TC-SYS-013. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-TX-005 |
@@ -485,7 +485,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: 47 CFR 97.307(a) and CON-003 limit bandwidth to that necessary; NGO-018 sets 350 Hz, which the envelope of REQ-SYS-014 meets at every setting (292 Hz at the 5.1 ms full transition of the 3 ms setting; docs/research/regulatory-corpus-and-operators.md F7) at the 50 WPM maximum (ADR-024). Method: Analysis per 04 section 6.1 and 6.2, which do not credit the tinySA Ultra for the close-in keying spectrum; a CR changes the method to Test if the tinySA TV record shows the resolution bandwidth adequate (ACTION-9). SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1; the ruling keeps the move to Test by CR open. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (listed; Analysis accepted per RSK-011). TBR: tinySA Ultra resolution bandwidth unverified (RSK-011, ACTION-9). Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-011: pre-build (closing) FFT of the simulated keyed envelope with the PA model at the 3, 5 and 8 ms settings, 26 dB bandwidth by the 97.3(a)(8) power-containment definition (ACTION-8). Post-build (supporting): Bench, tinySA Ultra max-hold at the narrowest resolution bandwidth through the attenuator into the dummy load. Closing case: TC-SYS-013. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-TX-006 |
@@ -522,7 +522,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: 47 CFR 97.307(e) (eCFR 2026-09-23) for a transmitter of 25 W or less between 30 and 225 MHz: at most 25 uW and at least 40 dB below the fundamental; at every step of 0.5 W or more the 25 uW figure is the tighter bound (53 dB at 5 W), so it implies the 40 dB relative limit (CON-002, NGO-017, MOE-006). Temperature is covered by REQ-SYS-114 and loads up to SWR 2:1 by REQ-SYS-151. HZ-008 names the victim services at 2f, 3f and 7f. Ops: OPS-008, OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (the harmonic filter is the accepted single point, measured on every unit); 8.2 row 10. KDR: PA line-up and harmonic filter. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1, K5. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation, LTspice harmonic levels through the low-pass filter with vendor inductor models. Post-build (closing): Bench, tinySA Ultra through the calibrated attenuator into the dummy load, 9 kHz to 1.5 GHz, at 144.05, 146.00 and 147.95 MHz, each step and 6.4 and 8.4 V pack, max-hold over keyed dits, 2f, 3f and 7f reported. Closing case: TC-SYS-014. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | REQ-TX-007 |
@@ -540,7 +540,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-017 and ADR-022 (accepted by SRR decision 29, owner ruling 2026-09-26, with owner choice V-5 options a and c) set 60 dB, 7 dB above the 53 dB floor at 5 W, because the harmonics fall on military, 70 cm and aeronautical services (HZ-008) and variation erodes margin (docs/research/part97-regulatory-basis.md F2). Allocation to the transmitter at PDR: harmonic low-pass filter at least 40 dB at 288 MHz and 35 dB at 432 MHz with at most 0.5 dB insertion loss (docs/research/pa-device-candidates.md F16, F17), and at least 40 dB from 288 MHz to 1.5 GHz (TBR) so inductor self-resonance cannot let a high-order harmonic through (docs/research/pa-turnkey-candidates-followup.md implication 6). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 10. KDR: filter and PA. TBR: margin pending TS-003. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1, K2, K5. |
 | Verification method | Test |
 | Verification note | Pre-build: Simulation of the line-up and filter. Post-build (closing): Bench, tinySA Ultra with the calibrated attenuator at 5 W, 9 kHz to 1.5 GHz, three frequencies, max-hold across the keying envelope. Closing case: TC-SYS-014. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | REQ-TX-008, REQ-TX-009, REQ-TX-010, REQ-TX-011 |
@@ -559,7 +559,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: the tune carrier is the only continuous carrier in normal use and the worst exposure case (HZ-001 K2, HZ-006 K2, HZ-012 K1); at 0.5 W the bystander distance is 0.29 m (docs/research/rf-exposure-evaluation.md RFX-12(a), RFX-D3, adopted by SRR decision 36 option a, owner ruling 2026-09-26). NGO-019. The bench test mode's continuous carrier is a tune carrier under this requirement and REQ-SYS-020 (ConOps section 3.5.2 item 2). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (HZ-006 safe default). TBR: the RF exposure evaluation at PDR confirms the step. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, tune entry selects the 0.5 W set point whatever the operating step. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, diode RF probe across the dummy load during tune (04 section 6.2), with and without the confirmation of a higher step. Closing case: TC-SYS-015. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -578,7 +578,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-019 bounds a tune carrier to at most 10 s; a nominal 5 s within this 5.5 s bound (HZ-001 K2) ends it at least 2 s before the 7.5 s floor of the hardware cutoff (REQ-SYS-055), which would otherwise end a legitimate tune in Fault-safe (keyer-verification-and-key-input-network.md F13 item 4). It also bounds exposure and PA heating below the RFX-12(a) 10 s case (HZ-006 K2, HZ-012 K1). Adopted by SRR decision 36 option a (owner ruling 2026-09-26; RFX-D3 with D-KN2), rather than a 10 s tune with the cutoff window moved above 11 s. Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-055 bounds a failure of this timer); 8.2 row 1. TBR: the RF exposure evaluation and the PA thermal analysis at PDR confirm the value. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of TX_KEY and PA_EN during tune at 0.5 W and at a confirmed 5 W, carrier duration read against 5.5 s. Closing case: TC-SYS-015. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -597,7 +597,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-024, ADR-016, NGO-011 and CON-001 (2 m privileges of 144.000 to 148.000 MHz): the operator listens across the whole US 2 m band including the band edges where transmit is guarded. Ops: OPS-003, OPS-020. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, frequency plan covers 144.000 to 148.000 MHz. Post-build (closing): Bench, tinySA Ultra generator through the attenuator used as a frequency source only (not a level reference, 04 section 6.2), tone heard at 144.000, 146.000 and 148.000 MHz. Closing case: TC-SYS-016. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -615,7 +615,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-012, MOE-010 and MOP-006; -140 dBm (noise figure 7 dB, FT-290R class) lets a 5 W friend be copied at the NGO-009 and NGO-010 ranges (docs/research/cw-selectivity-options.md F1; docs/research/2m-cw-transceiver-reference-designs.md F14). Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Ops: OPS-003. KDR: front-end device and filter losses (TS-001). TBR: selectivity set carried to the PDR trade. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis, noise-figure and filter-loss cascade in docs/design/budgets.md for the TS-001 architecture (MDS = -147 dBm + NF in 500 Hz, TPM-005). Post-build (supporting): TC-VAL reception of a known weak station (MOE-010) and a relative Bench check with the tinySA Ultra generator. Closing case: TC-SYS-017. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -634,7 +634,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-012 sets -142 dBm (noise figure 5 dB) as the target; the design should reach it, but docs/research/antenna-and-erp.md F10 shows it buys about 1 dB with a whip in residential noise, so it is a Goal. Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Ops: OPS-003. TBR: value pending the TS-001 trade. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis, the noise-figure cascade of the MDS requirement. Post-build (supporting): as the MDS requirement. Closing case: TC-SYS-017. |
-| Status | Draft |
+| Status | Active |
 | Priority | Goal |
 | Parent | - |
 | Children | - |
@@ -653,7 +653,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-012 and MOE-010 (weak signal through a narrow passband); docs/research/cw-selectivity-options.md implication 1. The range admits both TS-001 candidates, A (commercial 8-pole crystal filter, Inrad #111 at 400 Hz, F3) and B (1.0 kHz roofing ladder plus 24-bit ADC and DSP), so the L1 value does not decide the PDR trade. Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Ops: OPS-003. TBR: value closes with TS-001. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of the end-to-end response combining the passive filter path (NanoVNA S21 through test connectors, a supporting L2 Test) and, for architecture B, the DSP filter (HostUnit of the REQ-SW child), per the 04 section 6.2 receiver and audio frequency response row; Simulation data in docs/research/sim/cw-selectivity/. Post-build (supporting): Bench NanoVNA sweep of the IF filter path. Closing case: TC-SYS-018. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -672,7 +672,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-012 (reject a strong signal 2 kHz away); docs/research/cw-selectivity-options.md implication 1 and F8 (a 4-pole ladder at 3.7 kHz fails this number). This bounds the skirt width at the -60 dB points; REQ-SYS-026 bounds stopband lobes from 2 to 5 kHz and REQ-SYS-027 beyond 5 kHz, which a non-monotonic DSP or crystal response needs. Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Ops: OPS-003. TBR: value closes with TS-001. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of the end-to-end response combining the passive filter path (NanoVNA S21 through test connectors, a supporting L2 Test) and, for architecture B, the DSP filter (HostUnit of the REQ-SW child), per the 04 section 6.2 receiver and audio frequency response row; Simulation data in docs/research/sim/cw-selectivity/. Post-build (supporting): Bench NanoVNA sweep of the IF filter path. Closing case: TC-SYS-018. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -691,7 +691,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-012 and MOE-010; a friend 5 km away arrives near -53 dBm (docs/research/cw-selectivity-options.md F1), so a weak station needs about 60 dB of selectivity against a signal 2 kHz away. Distinct from REQ-SYS-025: that bounds the skirt at the -60 dB points, this bounds rebound lobes of a DSP or crystal stopband between 2 and 5 kHz. Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Ops: OPS-003. TBR: value closes with TS-001. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of the end-to-end response combining the passive filter path (NanoVNA S21 through test connectors, a supporting L2 Test) and, for architecture B, the DSP filter (HostUnit of the REQ-SW child), per the 04 section 6.2 receiver and audio frequency response row; Simulation data in docs/research/sim/cw-selectivity/. Post-build (supporting): Bench NanoVNA sweep of the IF filter path. Closing case: TC-SYS-018. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -710,7 +710,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: docs/research/cw-selectivity-options.md implication 1; more than about 85 dB buys nothing until the synthesizer phase noise is known (F1), so 80 dB is set just under the reciprocal-mixing floor. MOE-010. Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Ops: OPS-003. TBR: value closes with TS-001. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of the end-to-end response combining the passive filter path (NanoVNA S21 through test connectors, a supporting L2 Test) and, for architecture B, the DSP filter (HostUnit of the REQ-SW child), per the 04 section 6.2 receiver and audio frequency response row; Simulation data in docs/research/sim/cw-selectivity/. Post-build (supporting): Bench NanoVNA sweep of the IF filter path. Closing case: TC-SYS-018. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -729,7 +729,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: docs/research/cw-selectivity-options.md implication 1; ripple above 2 dB changes the tone level as a signal is tuned across the passband, which the owner hears while netting (MOE-010). Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Ops: OPS-003. TBR: value closes with TS-001. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of the end-to-end response combining the passive filter path (NanoVNA S21 through test connectors, a supporting L2 Test) and, for architecture B, the DSP filter (HostUnit of the REQ-SW child), per the 04 section 6.2 receiver and audio frequency response row; Simulation data in docs/research/sim/cw-selectivity/. Post-build (supporting): Bench NanoVNA sweep of the IF filter path. Closing case: TC-SYS-018. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -748,7 +748,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-010, MOP-007 and docs/research/cw-selectivity-options.md implication 3 (friend at 5 km is -53 dBm). Stated as signal-to-noise loss, not audio level, because an AGC can hold the level while reciprocal mixing lifts the noise; the bound needs LO phase noise near -107 dBc/Hz at 2 kHz, an input to TS-NNN-synthesizer-reference beside REQ-SYS-031. Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Assumes: a supporting two-signal check needs an interferer whose sidebands and phase noise in the wanted passband are at or below -140 dBm, which a keyed cwht unit does not guarantee (docs/research/regulatory-corpus-and-operators.md F7). Ops: OPS-003. TBR: value closes with TS-001. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis, selectivity plus reciprocal-mixing budget from the TS-001 filter response and the TS-NNN-synthesizer-reference phase-noise data. Post-build (supporting): Bench, tinySA Ultra generator as the wanted signal and an unkeyed second unit through a combiner and attenuators as the interferer, (S+N)/N compared by ear and by multimeter AC RMS with and without the interferer. Closing case: TC-SYS-019. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -767,7 +767,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-012 and MOE-010 (no audible AGC pumping); an AGC detector ahead of the narrow filter would duck the wanted signal with each interfering element (docs/research/cw-selectivity-options.md F13). The 1 dB figure is this author's quantification of no audible pumping; the analysis case keys the interferer at 20 WPM. Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Assumes: the interferer purity of REQ-SYS-029 for any supporting check. Ops: OPS-003. TBR: value closes with TS-001. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis, AGC loop simulation with the TS-001 filter and detector placement and a 20 WPM keyed interferer. Post-build (supporting): Demonstration, owner listening for pumping with a keyed second unit through a combiner and attenuators. Closing case: TC-SYS-020. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -786,7 +786,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: the local oscillator phase noise sets close-in rejection (85 dB for -112 dBc/Hz, 106 dB for -133 dBc/Hz; docs/research/cw-selectivity-options.md F1; docs/research/2m-cw-transceiver-reference-designs.md implication 5). SI-029 lets the synthesizer trade TS-NNN-synthesizer-reference choose; this sets its floor. MOE-010. Ops: OPS-003. TBR: value is a research or author proposal pending the decision named in the tbr plan. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis, phase-noise budget from the selected synthesizer and reference data. Post-build (supporting): Bench, tinySA Ultra generator at 10 kHz offset with noise read at the audio output. Closing case: TC-SYS-019. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -805,7 +805,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-011 (comfortable listening for hours) and MOE-002 (a strong signal from 100 m arrives near -19 dBm, docs/research/cw-selectivity-options.md F1). The window and 6 dB spread are this author's proposal pending the TS-001 AGC design. Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Ops: OPS-003. TBR: value closes with TS-001. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis, AGC range simulation of the TS-001 architecture from -120 to -20 dBm. Post-build (supporting): Bench, tinySA Ultra generator stepped through attenuators as a relative source, audio level read as multimeter AC RMS on the steady tone. Closing case: TC-SYS-020. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -824,7 +824,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-010 and the ConOps RF environment (FM repeater outputs and other handhelds, docs/conops/conops.md section 4); 70 dB matches transverter practice (docs/research/2m-cw-transceiver-reference-designs.md F6). The value is this author's proposal pending the IF choice in TS-001. Method: Analysis, because ADR-021 does not adopt the tinySA Ultra generator as a level reference and the bench has no calibrated source (04 section 6.2 receiver row). Ops: OPS-003, OPS-017. TBR: value closes with TS-001. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of the image and IF rejection from the front-end filter and mixer responses (04 section 6.2 image-rejection row). Post-build (supporting): Bench, tinySA Ultra generator at the computed image and IF frequencies as a relative source. Closing case: TC-SYS-021. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -843,7 +843,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-010: birdies mask weak signals. The 12 MHz crystal 12th and 48 MHz USB clock 3rd harmonics fall near 144.000 MHz (docs/research/display-and-ui-parts.md F10); the Pico 2 crystal ABM8-272-T3 has +/-30 ppm tolerance, +/-30 ppm stability and +/-5 ppm first-year aging (RP2350 datasheet section 8.2.1.1, Table 596), so the line lies within +/-9.4 kHz of 144.000 MHz and the range excludes 144.000 to 144.010 MHz (closes ACTION-11 of docs/research/regulatory-corpus-and-operators.md). Adopted as written by SRR decision 57 (owner ruling 2026-09-26), rather than the full range with shielding, USB PLL off and a PDR harmonic analysis. The 147.999 MHz upper limit is a receive-tuning bound, not the transmit guard of SRR decision 25. The clock plan keeps other clocks off the band (HZ-008 K6). Ops: OPS-003, OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. TBR: exclusion and allowance close with the PDR clock plan. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis, clock-harmonic table of every clock source with the crystal tolerance. Post-build (closing): Bench, birdie survey with the antenna port terminated, tuning 144.010 to 147.999 MHz and logging audio level, predicted birdies checked with the tinySA Ultra and a near-field probe (04 section 6.2 internal spurious row). Closing case: TC-SYS-022. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -862,7 +862,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-012 and docs/research/cw-selectivity-options.md implication 4: filter-centre uncertainty (ladder +/-150 Hz, crystal marking offset, temperature) needs a stored per-unit BFO centre calibration in the 10 Hz steps of ADR-016 section 2. It is a calibration value, distinct from the CW pitch, which equals the sidetone (REQ-SYS-045, REQ-SYS-046), as NGO-012 now states. Ops: OPS-012, OPS-003. TBR: part of the TS-001 selectivity set. |
 | Verification method | Demonstration |
 | Verification note | Pre-build (supporting): HostUnit, trim range, steps and per-unit storage. Post-build (closing): Bench demonstration in the calibration menu: -500, 0 and +500 Hz and single 10 Hz steps set, value retained after a power cycle. Closing case: TC-SYS-023. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -881,7 +881,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: semi break-in (SI-036, CON-021, ADR-010) returns to receive after the hang; the relay release time (4 ms maximum, docs/research/tr-switch-candidates.md F7) and LNA re-powering must not blank the start of the reply (NGO-014, MOE-005). The value is this author's proposal. Method: Analysis, because the 3 dB sensitivity recovery needs a calibrated weak source and an audio envelope capture, neither credited in 04 section 6.1. Ops: OPS-004. TBR: value pending the sequencer timing table. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis, T/R release and LNA supply settling from datasheets and Simulation of the receive-chain recovery. Post-build (supporting): Bench, logic capture of the T/R drive and LNA enable after hang expiry and an owner listening check on a weak signal. Closing case: TC-SYS-024. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -900,7 +900,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: several units operate together (SI-019, OPS-018); with 0 dBi antennas a 5 W unit couples about +21 dBm at 1 m and +27 dBm at 0.5 m in free space, above the +17 dBm LNA absolute maximum (docs/research/tr-switch-candidates.md F3). SRR decision 57 (owner ruling 2026-09-26) adopted +27 dBm with a receiver limiter (TS-001) rather than +17 dBm with a unit-to-unit antenna spacing rule; SRR decision 61 (same ruling) adds a second protection stage per the fault analysis. Assumes: survival means the receive noise floor and a reference tone's audio level stay within 1 dB of their values before exposure. Ops: OPS-017, OPS-018. TBR: level pending the TS-001 front end. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation of the protection stage. Post-build (closing): Bench, a second unit at 5 W through a NanoVNA-characterized 10 dB attenuator into the antenna port for 60 s at 80 percent duty (5 s key-downs), noise floor and a tinySA Ultra generator tone (a relative source) read as multimeter AC RMS before and after. Closing case: TC-SYS-025. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -919,7 +919,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-018 (core requirement) names the straight key; one requirement per key type so each closes by its own demonstration (docs/process/02-requirements-and-traceability.md section 4.6). CON-012 fixes the jack: tip is the straight key, sleeve common. ADR-009. Ops: OPS-005. KDR: key input network, keyer firmware and keying verification effort (RSK-012). |
 | Verification method | Demonstration |
 | Verification note | Pre-build: HostUnit and Emulation of the straight-key path. Post-build (closing): Bench with the owner's straight key into the dummy load, logic capture of TX_KEY against the contact; confirming OnAir in OPS-005. Closing case: TC-SYS-026. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | REQ-SW-KEYER-001, REQ-SW-KEYER-002 |
@@ -937,7 +937,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-018 (core requirement) names iambic paddles with a built-in keyer; CON-012 fixes tip as dit and ring as dah. ADR-009. Ops: OPS-004. KDR: keyer firmware, golden-vector reference model and keying verification effort (RSK-012). |
 | Verification method | Demonstration |
 | Verification note | Pre-build: HostUnit golden-vector tests against the independent keyer reference model; Emulation scenario. Post-build (closing): Bench with the owner's paddle, logic capture; confirming OnAir in OPS-004. Closing case: TC-SYS-026. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | REQ-SW-KEYER-003, REQ-SW-KEYER-004, REQ-SW-KEYER-005 |
@@ -955,7 +955,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-013 lists the five modes so that each friend keys with their own habit (SI-019, MOE-005); docs/research/keyer-verification-and-key-input-network.md F14 and D-KN1 (SRR decision 43, owner ruling 2026-09-26, adopted all five modes with Iambic A default, rather than the descope set Straight, Iambic A and B of docs/design/concept.md section 12; SRR decision 48 exposes only the switchpoint and the debounce as menu tunables). Ops: OPS-004, OPS-005. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit golden vectors per mode from tools/keyer_ref.py, squeeze and release cases included. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of both paddle contacts and the keyer test point in each mode with the owner's paddle; the captured contact edges are replayed through tools/keyer_ref.py and the outputs compared. Closing case: TC-SYS-027. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-006, REQ-SW-KEYER-007, REQ-SW-KEYER-008, REQ-SW-KEYER-009, REQ-SW-KEYER-010, REQ-SW-KEYER-011, REQ-SW-KEYER-012 |
@@ -973,7 +973,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-033 and ADR-024 accept 5 to 50 WPM; NGO-013 sets 1 WPM steps. 5 WPM lets beginner friends operate (SI-019). Speed follows PARIS (dit = 1200 / WPM ms). Ops: OPS-004. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock at 5, 15, 25 and 50 WPM. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of the keyer test point for a PARIS string at 5, 15, 25 and 50 WPM and at 1 WPM increments near each. Closing case: TC-SYS-028. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-015, REQ-SW-KEYER-016, REQ-SW-KEYER-037 |
@@ -991,7 +991,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-013, MOE-005 and MOP-012; +/-0.5 ms is the floor above 24 WPM (docs/research/keyer-verification-and-key-input-network.md F8; adopted by SRR decision 50, owner ruling 2026-09-26). The reference point is the keyer output on a test point (REQ-SYS-142), because TX_KEY overhangs each key-up by the full fall plus 1 ms (F11) and cannot show element lengths; radiated elements follow it by the constant lead-in of REQ-SYS-161. Straight-key elements have no nominal length and are excluded; the +3 ms debounce extension applies to Straight mode only (F6). Timing credit is Bench, never Emulation (CON-025). Ops: OPS-004. KDR: rustos timer and alarm work package and the logic-capture enabling product. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated microsecond clock against the reference model. Post-build (closing): Bench, Pico-based logic capture at 100 kHz or faster of the keyer test point at 5, 25 and 50 WPM. Closing case: TC-SYS-028. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | REQ-SW-KEYER-013, REQ-SW-KEYER-014 |
@@ -1009,7 +1009,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-013 and MOE-005 (no sluggishness). The 3 ms is measured from the contact: 1 ms sampling plus the 2 ms make filter (docs/research/keyer-verification-and-key-input-network.md F8; adopted by SRR decision 50, owner ruling 2026-09-26). A queued dit or dah memory element starts at the end of the inter-element space, which REQ-SYS-042 times. Ops: OPS-004. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock. Post-build (closing): Bench, logic capture of the paddle contact at the jack and of the keyer test point, 50 closures from idle at 15 and 50 WPM. Closing case: TC-SYS-029. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-017, REQ-SW-KEYER-019 |
@@ -1027,7 +1027,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-036, CON-021 and ADR-010 fix semi break-in with an adjustable hang; NGO-014. The setting is in dits of the displayed speed in every mode, Straight included (docs/research/keyer-verification-and-key-input-network.md F11), and the 3-dit floor keeps the relay closed within a character: a fixed 50 ms floor would release it between elements below 24 WPM, the full QSK that SI-036 excludes and the per-element relay wear case (docs/research/tr-switch-candidates.md F5). Adopted by SRR decision 47 (owner ruling 2026-09-26; D-KN4), which accepts ADR-026 superseding ADR-010; it replaces the 6.1-dit and fixed 50 to 2500 ms options of ADR-010 section 2, and ConOps section 3.5.1 item 4 follows by the routed item. Default 8 dits (REQ-SYS-136). Ops: OPS-004, OPS-005. TBR: the sequencer timing table at PDR confirms the range. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of the keyer test point and the T/R drive at 5, 15 and 50 WPM with 3, 8 and 30 dit settings. Closing case: TC-SYS-030. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-032 |
@@ -1046,7 +1046,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-014 and SI-036 (the operator hears the sidetone while sending); docs/research/keyer-verification-and-key-input-network.md F14 and D-KN5 (adopted by SRR decision 46, owner ruling 2026-09-26). The sidetone frequency is the CW pitch of REQ-SYS-046. The sidetone is audio only and never modulates the carrier (CON-003). Ops: OPS-004, OPS-005. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, generated tone frequency. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of the sidetone PWM line (04 section 6.1) at 300, 600 and 1000 Hz and single 10 Hz steps. Closing case: TC-SYS-031. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1064,7 +1064,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-014: zero-beating a received station against the sidetone nets the transmitter to it, which is how two units up to 730 Hz apart (REQ-SYS-010) find each other inside the 500 Hz passband (MOE-010, RSK-002). This CW pitch follows the sidetone setting of REQ-SYS-045 and is distinct from the filter-centre trim of REQ-SYS-035. Method: Analysis of the frequency plan, because 04 section 6.1 credits no instrument that reads an audio frequency to 10 Hz. Ops: OPS-003, OPS-004. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of the frequency plan: receive LO and BFO offsets against the sidetone setting over its range, trim included. Post-build (supporting): Bench, a tinySA Ultra tone at the transmit frequency zero-beaten by ear against the sidetone at 300, 600 and 1000 Hz; OnAir netting in a TC-VAL case. Closing case: TC-SYS-032. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1082,7 +1082,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-012 and SI-034: the owner's key and paddle brands are unknown, so the input accepts worn contacts and open-collector keyer outputs (docs/design/concept.md section 9, ICD-CTL-KEY; docs/research/keyer-verification-and-key-input-network.md F3, F4, adopted by SRR decision 50, owner ruling 2026-09-26). HZ-010 K2 sets the pad levels. Ops: OPS-004, OPS-005. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-010 Marginal). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation of the input network with the pad thresholds and E9 leakage. Post-build (closing): Bench, resistor substitution across tip-sleeve and ring-sleeve, key state read at the keyer test point with the logic capture. Closing case: TC-SYS-033. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1100,7 +1100,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: bounce of unknown keys must not add or drop elements (MOE-005, HZ-010 K3, HZ-004 K9); docs/research/keyer-verification-and-key-input-network.md F6 (adopted by SRR decision 50, owner ruling 2026-09-26). At the 1 kHz sample rate of HZ-004 K9, 2 ms means 2 consecutive 1 ms samples that read the contact closed (the count REQ-SW-KEYER-020 allocates). The fast make keeps paddle latency within REQ-SYS-043; the opening filter is REQ-SYS-162. Ops: OPS-004, OPS-005, OPS-017. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. TBR: stands until the owner's key and paddle bounce is captured. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with recorded bounce patterns on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of the owner's key and paddle contacts and of the keyer test point, 50 closures. Closing case: TC-SYS-034. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-020 |
@@ -1119,7 +1119,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: a cross-plugged headphone amplifier, an external keyer or a miswired cable can drive the key contacts (HZ-010 K1; docs/research/keyer-verification-and-key-input-network.md F4, F5, D-KN7, adopted by SRR decision 49, owner ruling 2026-09-26). 10 min is well past the thermal time constant of the clamp and series resistor, so it stands for indefinite exposure. Assumes: survival means the keying requirements are met afterwards. Ops: OPS-013, OPS-017. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. TBR: the clamp dissipation analysis at PDR confirms the bound and duration. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation of clamp and series-resistor currents. Post-build (closing): Bench supply current-limited at 50 mA (TBR: the PDR clamp dissipation analysis of docs/icd/ICD-CTL-KEY.md section 3.2.7.1 against the TPD2E2U06 ratings confirms the limit or lowers it) applied to tip and to ring for 10 min at each polarity, then keying re-checked with the logic capture. Closing case: TC-SYS-033. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1138,7 +1138,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: handheld use with plugged leads (docs/conops/conops.md section 4; docs/research/keyer-verification-and-key-input-network.md F5, adopted by SRR decision 49, owner ruling 2026-09-26); HZ-010 K1 and K5. No ESD generator exists on the bench (CON-016), so the method is Analysis of the clamp ratings and layout. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-010 Marginal; Analysis accepted per RSK-024); 8.2 row 15. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-024 (HZ-010): pre-build Analysis of clamp datasheet ratings, series impedance and ground return per jack; no ESD generator on the bench (CON-016). No closing post-build measurement. Closing case: TC-SYS-035. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1156,7 +1156,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: the enclosure is small against the wavelength, so leads carry antenna current (docs/research/antenna-and-erp.md F5, ANT-06); HZ-010 K2, K4, K6 and HZ-004 K9. Ops: OPS-017. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (a false key event from RF pickup would be a single event initiating transmission). |
 | Verification method | Test |
 | Verification note | Pre-build: Simulation of the input filter attenuation at 146 MHz. Post-build (closing): Bench, transmit from the test-mode PARIS generator into the dummy load and with the reference antenna, 5 minute logic capture of both key inputs. Closing case: TC-SYS-036. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1174,7 +1174,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: a stuck paddle or a key held at switch-on must not transmit (NGO-021, MOE-012; HZ-004 K1, HZ-014 K6; docs/research/keyer-verification-and-key-input-network.md F13 item 1, adopted by SRR decision 50, owner ruling 2026-09-26). The 500 ms is continuous. Only the inputs the selected mode uses are checked, so a mono (TS) plug that grounds the ring does not lock out a straight key in Straight-on-tip mode (SI-018; REQ-SYS-163), while in paddle modes the closed ring keeps transmit disarmed. Ops: OPS-013, OPS-005, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. TBR: the HostUnit bounce study at PDR confirms the interlock time. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, closed inputs at boot, after a reset and after a mode change for 0 to 2 s. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, mono plug and closed paddle at power-on in paddle and Straight-on-tip modes, logic capture of PA_EN with the dummy load. Closing case: TC-SYS-037. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-022 |
@@ -1193,7 +1193,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-021 and MOE-012: a held or shorted manually timed contact (the straight key, and the dah contact in Bug mode) ends within 5 s, 2.5 s below the 7.5 s floor of the hardware cutoff so firmware acts first; the sidetone stays on so the operator hears it (HZ-004 K3, HZ-001 K3, HZ-003 K3, HZ-006 K6, HZ-012 K2; docs/research/keyer-verification-and-key-input-network.md F13, D-KN3; SRR decision 37, owner ruling 2026-09-26, adopted the 5 s manual-closure timeout including the Bug dah). Class: Inhibit (KEY), self-clearing, docs/conops/conops.md Table 3.4-4 row 2: the unit stays in Receive and re-arms when the contact is confirmed open (REQ-SYS-162), without Fault-safe (appendix D item D5). Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-055 is the dissimilar hardware layer). TBR: the HostUnit study at PDR confirms the value and fixes the configurable range. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, straight key held closed, and the Bug-mode dah contact held closed, into the dummy load, logic capture of the contact and PA_EN. Closing case: TC-SYS-038. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-026, REQ-SW-KEYER-027 |
@@ -1212,7 +1212,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-021 and MOE-012: a stuck lever, a shorted cable or a keyer fault gives an endless element stream that the hardware cutoff REQ-SYS-055 does not see, because every TX_KEY edge restarts it (HZ-004 K4). SRR decision 37 (owner ruling 2026-09-26) adopted the HZ-004 K4 no-gap watchdog (OQ-SAF-001; D-KN3) in place of the former count of 128 elements or 10 s, because it also bounds a toggling stream: keying ends after 128 consecutive identical elements, or after 30 s in which TX_KEY has had no key-up gap of at least 7 dit times at the selected speed or 500 ms, whichever is shorter, whatever the element pattern. The watchdog runs on the TX_KEY read-back in a unit separate from the keyer engine, so a keyer fault that produces a stream does not also disable it (HZ-004 K4); the sidetone continues and an alert is shown. The squeeze of both contacts is REQ-SYS-184 (K4 item (iii), same ruling), and REQ-SYS-180 (SRR decision 38) ends in hardware a stream this watchdog misses. Class: Inhibit (KEY), self-clearing: keying resumes once both contacts read open (docs/conops/conops.md Table 3.4-4 row 3, which the ConOps author aligns to these values under SRR decision 42; appendix D D5, D18). The 13 s bound of MOE-012 holds for a continuous key-down; a toggling stream from a live firmware is bounded at 30 s here and at 2 s for a squeeze (OQ-SAF-006 item 4). Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 3. TBR: the 30 s window and the gap values; the HostUnit study at PDR confirms that no legitimate sending reaches them. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-001 K3; HZ-003 K3; HZ-004 K4; HZ-006 K6; HZ-012 K2. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock at 5, 25 and 50 WPM: a held lever to the 128th identical element; a fault-injected alternating stream with no qualifying gap for 30 s; a stream with a qualifying gap every 25 s, which keeps keying; then release of one lever and of both. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench into the dummy load at 5, 25 and 50 WPM, each paddle lever held, then a fault-injection build sending an alternating stream with no qualifying gap, then release; logic capture of the contacts, the keyer test point, TX_KEY and PA_EN: keying ends at the 128th identical element or 30 s after the last qualifying gap and resumes only after both contacts read open. Closing case: TC-SYS-038. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1231,7 +1231,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-021 and MOE-012 require a bound on unintended transmission that holds when firmware is hung (HZ-004 K5; shared by HZ-001 K3, HZ-003 K3, HZ-006 K6, HZ-012 K2, HZ-014 K3). The 7.5 s floor is 2.5 s above the 5 s manual-closure timeout (REQ-SYS-053) and 2 s above the 5.5 s tune bound (REQ-SYS-020), so firmware acts first and no legitimate carrier reaches the cutoff; 13 s bounds any fault carrier (docs/research/keyer-verification-and-key-input-network.md F13, D-KN2, adopted by SRR decision 36 option a, owner ruling 2026-09-26, with the 74LVC1G123 and a capacitor chosen from its DC-bias curve, R-KN1). Every TX_KEY edge restarts this cutoff, so a toggling stream is ended in hardware by REQ-SYS-180 at 150 s to 180 s (SRR decision 38, same ruling). RF off is the REQ-SYS-183 level. Ops: OPS-013, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 2 and 4; 8.2 rows 1 and 2. KDR: hardware monostable and its cutoff node (TS-006). TBR: window pending the capacitor DC-bias analysis at PDR. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-001 K9; HZ-003 K8; HZ-004 K5; HZ-006 K9; HZ-012 K5; HZ-014 K3. |
 | Verification method | Test |
 | Verification note | Pre-build: Simulation of the monostable timing over component tolerance and temperature. Post-build (closing): Bench, fault-injection firmware build holding TX_KEY high, logic capture of PA_EN and RF into the dummy load. Closing case: TC-SYS-039. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -1250,7 +1250,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: automatic mono-plug detection is deferred (D-KN8, adopted by SRR decision 44, owner ruling 2026-09-26); with Straight-on-tip chosen by the operator the ring is ignored, so a mono plug is harmless (HZ-004 K2). The mode persists across power cycles (REQ-SYS-135); a paddle plugged in later keys as a straight key on its dit lever, bounded by REQ-SYS-053, and the status screen shows the mode (REQ-SYS-060). With a mono plug the ring never opens, so the selection is accepted while the KEY inhibit is active (REQ-SYS-163) and the REQ-SYS-052 interlock then re-runs on the newly used inputs (docs/conops/conops.md OPS-013 step 1; appendix D item D10). Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 d). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, no event other than the menu selection changes the mode, including plug insertion. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench with TS and TRS plugs inserted and removed in each mode, mode read from the display. Closing case: TC-SYS-037. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-024 |
@@ -1268,7 +1268,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-006, CON-023 and ADR-006 keep the controls minimal (tuning knob, volume knob, small display); NGO-015 adds two buttons. The count names the encoder push actions so it is unambiguous (docs/research/display-and-ui-parts.md, adopted by SRR decisions 78 and 79, owner ruling 2026-09-26). A band control position is reserved (REQ-SYS-146). Ops: OPS-003. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the enclosure CAD render and the BOM. Post-build: receipt Inspection. Closing case: TC-SYS-040. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1286,7 +1286,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-015 (tuning knob with detents and speed-dependent step) and CON-023; 10 Hz steps allow zero-beating (docs/research/display-and-ui-parts.md F12). A 1 kHz ceiling would need 4000 detents, about 167 turns, to cross 4 MHz, so the ceiling is 10 kHz and REQ-SYS-164 bounds the crossing time. Ops: OPS-003. TBR: step table pending the PDR UI design. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected encoder edge timing. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, encoder turned slowly and fast, encoder lines on the logic capture and the frequency from the UART telemetry (REQ-SYS-150). Closing case: TC-SYS-041. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1305,7 +1305,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-006 and CON-023 (volume knob); MOE-011 (comfortable level). The step count is this author's proposal; steps are ramped at 1 dB per ms or slower (HZ-005 K3). Ops: OPS-003. TBR: value is a research or author proposal pending the decision named in the tbr plan. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, level table and ramp. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, multimeter AC RMS across a 32 ohm load at each step with the steady 700 Hz test tone. Closing case: TC-SYS-042. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1324,7 +1324,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-015 lists what is always visible during operation; MOE-008 (a friend operates from the handbook) needs the state on screen. Off, menus and Fault-safe (which shows its cause, REQ-SYS-067) are outside the scope. Ops: OPS-003, OPS-004, OPS-007. |
 | Verification method | Demonstration |
 | Verification note | Pre-build: HostUnit render of the status frame to an image, inspected. Post-build (closing): Bench demonstration in each mode. Closing case: TC-SYS-043. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1342,7 +1342,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-015 (small display readable in daylight); 4 mm reads at arm's length; the value is this author's proposal. Legibility without a backlight is REQ-SYS-165 (no backlight in revision A, docs/research/display-and-ui-parts.md F2, D-UI-02; SRR decision 77, owner ruling 2026-09-26, selected the LS013B7DH03 family with no light in build 1; SRR decision 79 ratified the 4.0 mm value). Ops: OPS-003. TBR: height pending the PDR display layout. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the rendered status frame at the display's pixel pitch. Post-build (supporting): calipers on the displayed digits at receipt (OQ-VV-002). Closing case: TC-SYS-044. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1361,7 +1361,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-008 (a Technician friend on the air within 30 minutes from the handbook) and NGO-015 (two buttons); a shallow menu keeps the handbook short. The value is this author's proposal. Ops: OPS-006, OPS-007. TBR: value is a research or author proposal pending the decision named in the tbr plan. |
 | Verification method | Demonstration |
 | Verification note | Pre-build: HostUnit menu-tree enumeration. Post-build (closing): Bench demonstration of every setting. Closing case: TC-SYS-043. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1380,7 +1380,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-019 and HZ-001 K1, HZ-006 K1: 5 W needs a deliberate action distinct from tuning and volume (docs/research/rf-exposure-evaluation.md RFX-11, RFX-D2, adopted by SRR decision 23, owner ruling 2026-09-26). Ops: OPS-007. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (HZ-006 safe defaults; SWE-134 d). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, every input sequence without the confirmation leaves the step below 5 W. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, each control sequence of the procedure applied, resulting step read from the display and 5 W confirmed with the diode probe only after the confirmation press. Closing case: TC-SYS-045. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1398,7 +1398,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-019 and HZ-001 K1, HZ-006 K1, HZ-012 K1, HZ-014 K2: a new, reset or corrupted unit must not start at 5 W (docs/research/rf-exposure-evaluation.md RFX-11, RFX-D2, adopted by SRR decision 23, owner ruling 2026-09-26). The selected step persists otherwise. Ops: OPS-001, OPS-007. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (HZ-006 and HZ-014 safe defaults). TBR: the RF exposure evaluation at PDR confirms the default. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with blank, reset and corrupt configuration images. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, power measured with the diode RF probe across the dummy load after a configuration reset and after a first boot (04 section 6.2). Closing case: TC-SYS-046. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1417,7 +1417,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-020 and MOE-009: a unit handed to an unlicensed guest cannot transmit by accident, and release is a deliberate licensee action governed by the operator rules card (appendix D item D9; CON-006, 47 CFR 97.7; ADR-015 accepted by SRR decision 17, owner ruling 2026-09-26; the lock of SRR decision 19 and guest keying restricted to 0.5 W and 1 W with the control operator present by SRR decision 20); HZ-006 K3 and docs/research/regulatory-corpus-and-operators.md FW-03 (key, keyer and any memory). Every source is covered: key, paddle, tune carrier and the bench test mode. The negative form is kept (WR-08) because the requirement is the prohibition itself and no positive statement covers every source. Receive and tuning stay available. RF off is the REQ-SYS-183 level. Ops: OPS-019. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 4 and 6 (the lock backs the operator rule, never replaces it). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, key, paddle, tune and test-mode events in the locked state produce no PA_EN, before and after a simulated power cycle. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, a locked unit keyed by key, paddle, tune menu and test mode into the dummy load before and after a power cycle, logic capture of PA_EN. Closing case: TC-SYS-047. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1435,7 +1435,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-020 (licensee-settable lock) and HZ-006 K3 (deliberate two-step release); an accidental release by a guest defeats the lock. ADR-015 accepted by SRR decision 17 and the lock and its release adopted by SRR decision 19 (owner ruling 2026-09-26). Ops: OPS-019. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 d). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, all single-button and knob sequences leave the lock state unchanged. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, every single-button, button-pair and knob sequence of the procedure applied to a locked and an unlocked unit, lock state read from the display. Closing case: TC-SYS-047. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1453,7 +1453,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-012 (the radio tells the operator why), and the ConOps Fault-safe messages such as 'KEY CLOSED: check plug' (docs/conops/conops.md section 3.4); HZ-004 K3 shows 'KEY?' on a timeout. It is also the indication of charging, configuration and sensor faults (REQ-SYS-088, 089, 134, 155, 156, 167). The message table is allocated to L2 at PDR. Ops: OPS-013, OPS-014, OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. TBR: 1 s has no source; it is this author's proposal covering the refresh of a memory LCD. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, each fault type yields its message on the rendered frame. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, each fault injected, logic capture of the injection marker and the display chip-select, message read and its latency measured. Closing case: TC-SYS-005. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-023 |
@@ -1472,7 +1472,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: 47 CFR 97.119(a) (eCFR 2026-09-23) and CON-005 require identification 'at least every 10 minutes during a communication'; a reminder at 9 min leaves a minute to identify before the deadline. NGO-020 asks for a reminder. Identification is keyed by the operator (no automatic ID in revision A); an end-of-communication prompt was considered and is not required, the final ID being the operator's rule (CON-005). Ops: OPS-004, OPS-006. TBR: lead time is this author's proposal. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, first key-down on the logic capture and the reminder event in the UART telemetry (REQ-SYS-150), interval measured. Closing case: TC-SYS-048. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1491,7 +1491,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-006 K5 and docs/research/rf-exposure-evaluation.md RFX-13 (convenience, RFX-D4, adopted by SRR decisions 31 and 33, owner ruling 2026-09-26); NGO-019. The design should show it; it is a Goal. At +1 dB (REQ-SYS-011, REQ-SYS-012) the Table 2 method (general population, 2.56 reflection, 0 dBd, 40 percent CW duty) gives, rounded up to 0.1 m, 0.3, 0.3, 0.5 and 0.7 m while keying and 0.4, 0.5, 0.7 and 1.1 m during tune at 0.5, 1, 2 and 5 W. Ops: OPS-018. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (convenience only). TBR: values close with the PDR exposure evaluation. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, rendered frame per step and in tune against the evaluation table. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, every step and tune selected, displayed value compared with docs/design/analysis/rf-exposure-evaluation.md. Closing case: TC-SYS-049. |
-| Status | Draft |
+| Status | Active |
 | Priority | Goal |
 | Parent | - |
 | Children | - |
@@ -1510,7 +1510,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: OPS-002 and MOE-004 (charging state unambiguous); HZ-011 K5 tells the operator that transmit is inhibited while charging. The indication with the switch off uses the charger status output (docs/conops/conops.md section 5). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-011 Marginal). |
 | Verification method | Test |
 | Verification note | Pre-build: HostUnit for the on-screen state. Post-build (closing): Bench, USB applied with the switch off and on, indicator observed through each charge phase with a bench supply as the cells. Closing case: TC-SYS-050. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1528,7 +1528,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-016, MOE-011 and HZ-005 K1: fixed passive parts and fixed amplifier gain bound the level at about 96.5 dB SPL for boundary headphones (docs/research/audio-output-and-hearing-safety.md recommended baseline, adopted by SRR decisions 64 and 65, owner ruling 2026-09-26). Ops: OPS-003. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 1 (hardware ceiling independent of firmware); 8.2 row 9. TBR: the single-failure analysis at PDR confirms the values. |
 | Verification method | Test |
 | Verification note | Pre-build: Simulation of the passive network and amplifier gain. Post-build (closing): Bench, full-scale 700 Hz test-mode tone, multimeter AC voltage across a 32 ohm load. Closing case: TC-SYS-051. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1547,7 +1547,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-016 and HZ-005 K1, K3: square waves and clipped patterns carry more energy than a sine; 150 mVrms bounds the worst case whatever firmware does (docs/research/audio-output-and-hearing-safety.md recommended baseline). Ops: OPS-003. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 1 (hardware ceiling independent of firmware). SRR decision 64 (owner ruling 2026-09-26) adopted audio level policy (a). TBR: the single-failure analysis at PDR confirms the value. |
 | Verification method | Test |
 | Verification note | Pre-build: Simulation with full-scale square and alternating-code patterns. Post-build (closing): Bench, test-mode patterns, multimeter AC voltage across 32 ohm. Closing case: TC-SYS-051. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1566,7 +1566,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-005 K7: the passive ceiling must not depend on one part; an open series element fails silent and the shunt element is redundant or bounded (docs/research/audio-output-and-hearing-safety.md). No fault-injection fixture exists, so the method is Analysis. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 1 and 7 (Analysis accepted per RSK-017); 8.2 row 9. SRR decision 64 (owner ruling 2026-09-26) adopted audio level policy (a). TBR: the single-failure analysis at PDR confirms the value. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-017: pre-build single-failure Analysis (open and short of each part in the output path) with Simulation of each case at PDR. No post-build measurement. Closing case: TC-SYS-052. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1585,7 +1585,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-016, MOE-011 and HZ-005 K2, K3: the default cap is about 85 dB(A) class; unlocking needs a menu action and a confirmation (docs/research/audio-output-and-hearing-safety.md D2 option a, adopted by SRR decisions 64 and 67, owner ruling 2026-09-26). A limiter enforces the active cap on receive audio and sidetone. Ops: OPS-003. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 1 (the firmware cap is the dissimilar second layer under the hardware ceiling). TBR: the single-failure analysis at PDR confirms the value. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, limiter output never exceeds the cap for any input before acknowledgement. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, multimeter AC RMS across 32 ohm at full volume with the full-scale 700 Hz test tone, before and after acknowledgement. Closing case: TC-SYS-053. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1604,7 +1604,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-016 (raised-cosine mute at every transmit transition), MOE-011 (no click at key-down) and HZ-005 K4; the operator hears only the sidetone while sending (SI-036). Method: Analysis, because no instrument of 04 section 6.1 reads a 60 dB audio change within 2 ms. Ops: OPS-004, OPS-005. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 1 and 7 (item 7 table, HZ-005 K4 row; Analysis accepted per RSK-017; the hardware ceiling bounds the level). |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-017: pre-build (closing) Analysis combining the audio-chain fade (the REQ-SW child closed by HostUnit on the simulated clock, allocated at PDR) with the analog output path. Post-build (supporting): Bench, multimeter AC RMS on a steady received tone before and during key-down, and an owner listening check. Closing case: TC-SYS-054. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1622,7 +1622,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-011 (no audible click, thump or pop) and HZ-005 K4, K5 (amplifier enabled only after the source settles, no DC step). No oscilloscope exists (CON-016), so the peak is bounded by Analysis and the listening test supports it. The 10 mV figure is this author's proposal. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 1 and 7 (Analysis accepted per RSK-017). SRR decisions 64 and 65 (owner ruling 2026-09-26) adopted audio level policy (a) and the PWM source. TBR: the single-failure analysis at PDR confirms the value. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-017: pre-build Simulation of the enable, ramp and coupling-capacitor transients. Post-build (supporting): owner listening test at the default cap per MOE-011. Closing case: TC-SYS-055. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1641,7 +1641,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-016 and HZ-005 K6: nothing plays into an open jack and insertion ramps from zero (switched jack detect, docs/research/display-and-ui-parts.md F17, adopted by SRR decision 66, owner ruling 2026-09-26). Ops: OPS-003. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 1 (the hardware ceiling bounds a failure of this shutdown). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, detect state drives the enable. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, amplifier enable line logged by the logic capture on plug removal and insertion. Closing case: TC-SYS-056. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1659,7 +1659,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-013 (headphones are the only output) and SI-005; mono audio on both channels works with TS and TRS plugs and earbuds (docs/design/concept.md section 9, ICD-CTL-PHONES). Ops: OPS-003. TBR: the 1 dB match is this author's proposal pending the audio design. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation of amplifier output into 16 and 64 ohm. Post-build (closing): Bench, multimeter AC RMS on tip and on ring into 16, 32 and 64 ohm with the steady 700 Hz test tone at the default cap. Closing case: TC-SYS-057. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1678,7 +1678,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: a TS plug or a key plugged into the headphone jack shorts ring or tip to sleeve (HZ-010 K5, OPS-013). Survival means the audio requirements are met afterwards. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-010 Marginal). |
 | Verification method | Test |
 | Verification note | Pre-build: Analysis of the amplifier short-circuit protection. Post-build (closing): Bench, TS plug inserted for 10 minutes at full volume, then output re-measured. Closing case: TC-SYS-057. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1696,7 +1696,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: constraint CON-011 from SI-023 and ADR-005 (owner decision); the operator replaces cells in the field (docs/conops/conops.md section 5). Assumes: approved cells of at most 3500 mAh (handbook approved-cell list, HZ-002 K8), the capacity the REQ-SYS-089 timer is sized for. Ops: OPS-012. Constraint: the cell format and holders are the owner's decision. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the BOM, holder footprint and enclosure CAD. Post-build: receipt Inspection and cell swap. Closing case: TC-SYS-058. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1714,7 +1714,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022 and HZ-002 K1: Li-ion overcharge is the Catastrophic hazard; 4.20 V is the standard CC-CV end point and the BQ25887 class gives 4.179 to 4.221 V (docs/research/power-tree-and-charging.md F5, D-PWR-01, adopted by SRR decision 70, owner ruling 2026-09-26). Ops: OPS-002. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3 (the overcharge branch is single-fault tolerant with this charger regulation and OVP, the 4.25 V protector of REQ-SYS-083 and the firmware dual sensing of REQ-SYS-088; two-fault tolerance is claimed only when the 4.30 V secondary protector has its requirement and each layer its own Kelvin sense route, OQ-SAF-008, OQ-SAF-009). TBR: the charger design at PDR confirms the value. |
 | Verification method | Test |
 | Verification note | Pre-build: Analysis of the charger regulation tolerance. Post-build (closing): Bench, two bench-supply cell simulators with series resistance, cell voltages read with the multimeter at termination. Closing case: TC-SYS-059. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1733,7 +1733,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022, NGO-026 (charges from 0 to 45 C) and HZ-002 K1, K6: the temperature-windowed profile (docs/research/power-tree-and-charging.md F5, F16). Assumes: the sensor sits against the cell body in the holder (HZ-002 K6); docs/plan/technology-assessment.md section 3.11 records that with these holders the NTC may sense the board, so sensor placement is allocated to PWR and ME at PDR with a bench thermal check. Ops: OPS-002, OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3; 8.2 row 6. TBR: tolerance pending the NTC divider analysis. |
 | Verification method | Test |
 | Verification note | Pre-build: Analysis of the NTC divider thresholds. Post-build (closing): Bench, fixed resistors substituted for the cell NTC at the 0 C and 45 C equivalents, charge current read on the multimeter. Closing case: TC-SYS-060. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1752,7 +1752,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022 (protection independent of the charger) and HZ-002 K2: the second layer against overcharge (docs/research/power-tree-and-charging.md F11, D-PWR-03, adopted by SRR decision 72, owner ruling 2026-09-26: S-8252 class plus BQ29209 class). The 4.25 V floor keeps 29 mV above the 4.221 V charger maximum (F5) against nuisance trips during balancing; the S-8252 variant is chosen at PDR so that its +/-20 mV at 25 C plus temperature drift stays in the band. The BQ29209-class 4.30 V layer (HZ-002 K3) is REQ-SYS-185 and the separate sense paths (HZ-002 K9) are REQ-SYS-186, both added by the same ruling (OQ-SAF-008, OQ-SAF-009). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3 (single-fault tolerant overcharge branch with the charger of REQ-SYS-081 and the firmware dual sensing of REQ-SYS-088; the 4.30 V layer of REQ-SYS-185 with the separate sense paths of REQ-SYS-186 makes the branch two-fault tolerant once both are verified). TBR: band pending the PDR protector variant selection. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis of the protector threshold over 0 to 45 C and of the margin to the charger VREG and balancing behaviour. Post-build (closing): Bench, cell simulator raised through the band with the charger held off, protector FET state read with the multimeter at room temperature. Closing case: TC-SYS-061. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1771,7 +1771,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022 and HZ-007 K1: over-discharge damages Li-ion cells and makes later charging hazardous; the S-8252 class detects at 2.500 V +/-50 mV (docs/research/power-tree-and-charging.md F11). Ops: OPS-009. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3 (the firmware power-down REQ-SYS-098 is the dissimilar layer); 8.2 row 5. SRR decision 72 (owner ruling 2026-09-26) adopted the S-8252 class protector (D-PWR-03). TBR: threshold pending the PDR protector variant selection. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis of the protector thresholds. Post-build (closing): Bench, cell simulator lowered through 2.50 V with the firmware power-down disabled in a test build, load current read on the multimeter. Closing case: TC-SYS-062. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1790,7 +1790,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022 and HZ-007 K1, K2: a shorted load or wiring fault must not heat the cells (docs/research/power-tree-and-charging.md F11: 0.200 V across a 20 to 40 mohm FET pair trips at 5 to 10 A; a PCB fuse backs it up). The 3 A floor keeps the 2.1 A key-down pulses clear of a trip as FET resistance rises with temperature. No electronic load or high-current source is on the bench, so the method is Analysis. Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 7 (Analysis accepted per RSK-007); 8.2 row 7. SRR decision 72 (owner ruling 2026-09-26) adopted the S-8252 class protector with the dual N-FET (D-PWR-03). TBR: band pending the power trade study. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-007: pre-build Analysis of the protector trip voltage over FET resistance and temperature and of the fuse rating against the 2.1 A key-down pulses. No post-build short-circuit test. Closing case: TC-SYS-063. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1809,7 +1809,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-007 K3, K5, K6: user-replaceable cells (CON-011) get inserted backwards; polarity marks, the protector FET window and a reverse-polarity element bound the fault (docs/research/power-tree-and-charging.md F12, F13). Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: value is a research or author proposal pending the decision named in the tbr plan. |
 | Verification method | Test |
 | Verification note | Pre-build: Simulation of the reverse path. Post-build (closing): Bench supply current-limited to 100 mA emulating one reversed cell, current read on the multimeter, then normal operation re-checked. Closing case: TC-SYS-062. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1828,7 +1828,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-002 K5: mismatched or damaged cells are a charging hazard (docs/research/power-tree-and-charging.md F13, F24). The two conditions form one insertion check with one pass/fail result, so one closing case covers the statement; keeping the rails off is REQ-SYS-166. Ops: OPS-012, OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: thresholds pending the power trade study. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-002 K5; HZ-007 K3. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected cell readings. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, two cell simulators set 400 mV apart, then one at 2.4 V and one at 4.4 V, USB applied, charge current read on the multimeter. Closing case: TC-SYS-064. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1847,7 +1847,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-002 K4: dissimilar redundant sensing (charger ADC and controller ADC) detects a failed sense path before it masks an overcharge (docs/research/power-tree-and-charging.md F14, F15). The fault message is REQ-SYS-067. Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: the threshold follows the calibration analysis. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected disagreement. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, a divider resistor substituted to create a 150 mV disagreement during charge, charge current read on the multimeter. Closing case: TC-SYS-064. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1866,7 +1866,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-002 K1 and K5: a charge that does not terminate indicates a cell or charger fault (docs/research/power-tree-and-charging.md F5). With about 450 mA reaching the charger after the module's 40 mA (F18, F22), a 3000 mAh pack takes about 11 h and a 3500 mAh pack about 13 h (F3 method), so 15 h keeps compliant charges clear of a nuisance fault and exceeds the 12 h bound of REQ-SYS-091; the BQ25887 12 h default is reprogrammed or backed by firmware. Assumes: cells of at most 3500 mAh (REQ-SYS-080). The no-current-fall criterion is REQ-SYS-167. Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: timer pending the power trade study. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock with injected charge-current profiles; Analysis of the 15 h constant. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, cell simulators held below termination by a load resistor, charge current logged until the charge stops. Closing case: TC-SYS-065. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1885,7 +1885,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-010 and NGO-022: all charge current passes through the Pico 2 module's micro-USB and VBUS copper, whose rating above 500 mA is unconfirmed (HZ-011 K4; docs/research/power-tree-and-charging.md D-PWR-02). 500 mA covers the charger input and the module's 40 mA (F18), so the charger limit sits near 450 mA (L2). USB 2.0 allows 100 mA before configuration (F1) and no firmware enumerates with the switch off; SRR decision 71 (owner ruling 2026-09-26) accepts that deviation with a handbook note naming a 5 V charger or a 500 mA port, keeps 500 mA as the default and admits DCP detection only after TS-005 qualifies the VBUS path. Ops: OPS-002. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-011 Marginal; the unrated VBUS path is a listed single point). |
 | Verification method | Test |
 | Verification note | Pre-build: Analysis of the input current limit setting. Post-build (closing): Bench, USB power through a meter at the start of charge with discharged cells and the radio switched on. Closing case: TC-SYS-050. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1903,7 +1903,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-004 (full recharge in at most 12 h) and NGO-025 (about 10 h at 500 mA; docs/research/power-tree-and-charging.md F3). With about 450 mA reaching the charger after the module's 40 mA (F18, F22) the estimate is about 11 h, so the margin is under 1 h and is carried in the PDR power budget. The start point is the REQ-SYS-098 power-down. Ops: OPS-002. |
 | Verification method | Test |
 | Verification note | Pre-build: Analysis of charge current and efficiency. Post-build (closing): Bench, owner's 3000 mAh cells discharged to cutoff, timed charge from a USB port with a USB current meter. Closing case: TC-SYS-059. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1921,7 +1921,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022 (transmitter inhibited by hardware while charging), MOE-004 and the ConOps forbidden transition 'Transmit-keyed while USB power is present'; it makes every firmware load transmit-inert (HZ-014 K4). The hazard analysis now carries this as HZ-011 K1, a VBUS sense of its own forcing the PA-path enable low, with the firmware VBUS inhibit as the dissimilar layer (HZ-011 K6, REQ-SYS-002). The earlier design basis had the reverse interlock, charging disabled while transmitting (PWR-PATH-01, docs/research/power-tree-and-charging.md F22; docs/design/concept.md section 7.7, now updated to this requirement); adopted by SRR decision 75 (owner ruling 2026-09-26; D-PWR-07, to be recorded by ADR). RF off is the REQ-SYS-183 level. Ops: OPS-002, OPS-011. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 2 and 4 (hardware element independent of firmware). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation of the VBUS-gated enable path; HostUnit for the firmware indication. Post-build (closing): Bench, fault-injection firmware build asserting TX_KEY with USB applied, RF into the dummy load read on the tinySA Ultra and PA_EN logged by the logic capture. Closing case: TC-SYS-066. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1939,7 +1939,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022 (receive allowed while charging with charging paused) and HZ-002 K6, HZ-011 K2: receiver load would mask charge termination (docs/research/power-tree-and-charging.md D-PWR-07, adopted by SRR decision 75, owner ruling 2026-09-26). Ops: OPS-002. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 5 (termination is not masked by the receive load). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit of the charge-control state. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, charge current read on a USB current meter with the switch off and on. Closing case: TC-SYS-050. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1957,7 +1957,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-034 and ADR-020 (owner decision: 10 percent transmitting with 45 percent key-down, display on, audio at normal level), NGO-025, MOE-004, MOP-010; TPM-008's 50 percent is stale and routed to the TPM owner. The end point is the REQ-SYS-097 transmit inhibit. Assumes: docs/research/power-tree-and-charging.md F23 predicts 6.4 to 13.0 h to 3.0 V per cell; it is re-run to the 3.2 V inhibit at PDR, receive current is a mandatory TS-001 criterion, and a shortfall risk is routed to the risk author. Ops: OPS-004, OPS-009. KDR: receiver current (TS-001), PA efficiency (TS-003) and cell capacity. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis, power budget in docs/design/budgets.md. Post-build (closing): Bench, test-mode 1:9 keying pattern at 45 percent key-down into the dummy load on the owner's cells with USB disconnected, elapsed time to transmit inhibit read from the UART telemetry (REQ-SYS-150). Closing case: TC-SYS-067. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -1975,7 +1975,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-025 and MOE-004 add a busier duty cycle (docs/research/power-tree-and-charging.md F23, adopted by SRR decision 76, owner ruling 2026-09-26), with the ADR-020 key-down fraction and the REQ-SYS-097 end point. Assumes: fresh cells, as for REQ-SYS-094. Ops: OPS-004, OPS-009. TBR: floor pending the PDR power budget. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis, power budget. Post-build (closing): Bench, as the 1:9 run with a 1:4 pattern, USB disconnected, time read from the UART telemetry (REQ-SYS-150). Closing case: TC-SYS-068. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -1994,7 +1994,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-004 and MOP-011 (the low battery announces itself in time to finish the conversation); HZ-007 K4 includes the gauge and warning. Ops: OPS-009. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3 (firmware layer above the protector). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with a discharge-curve model. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, warning and inhibit events logged from the UART telemetry (REQ-SYS-150) during the 1:9 battery-life run. Closing case: TC-SYS-067. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2012,7 +2012,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-007 K4: transmitting from a depleted pack draws the deepest dips and risks over-discharge. A per-cell threshold on the mid-tap sense catches a 2S imbalance (3.5 V plus 2.5 V) that a pack threshold misses; 3.2 V per cell is 6.4 V for a balanced pack, the lower bound of REQ-SYS-011 and REQ-SYS-012, which use the same receive measurement. The ConOps statement that output 'follows the pack voltage below' 6.4 V is routed to the ConOps author. Ops: OPS-009. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3; 8.2 row 5. TBR: the threshold follows the cell discharge analysis. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected cell voltages. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, two supplies as the cells, one stepped through 3.20 V while keying into the dummy load, logic capture of PA_EN. Closing case: TC-SYS-069. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2031,7 +2031,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-007 K4: a controlled shutdown above the 2.50 V protector trip avoids reliance on the protector in normal use; 3.0 V per cell matches ADR-020 and the F23 model (docs/research/power-tree-and-charging.md). The per-cell reading catches an imbalanced pack. Settings persist (REQ-SYS-135). Ops: OPS-009. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3 (dissimilar firmware layer above the protector); 8.2 row 5. TBR: value pending the power trade study. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected cell voltages. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, two supplies as the cells, one stepped through 3.00 V, pack current read on the multimeter. Closing case: TC-SYS-069. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2050,7 +2050,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-007 K4: discharge heating inside a pocket or sun-loaded enclosure (docs/research/power-tree-and-charging.md F5). It backs, but does not implement, the cell separation of HZ-002 K7. Power-down ends transmission too, so one outcome closes it. Assumes: the sensed location of REQ-SYS-082. Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3; 8.2 row 6. TBR: value pending the power trade study. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected temperature. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, fixed resistor substituted for the cell NTC at the 58 C and 62 C equivalents, pack current read on the multimeter. Closing case: TC-SYS-060. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2069,7 +2069,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: OPS-010 (storage and transport): only the protector and charger input stay alive (about 25 uA, docs/research/power-tree-and-charging.md D-PWR-08); 50 uA drains 3000 mAh in about 7 years. Ops: OPS-010. TBR: value is a research or author proposal pending the decision named in the tbr plan. |
 | Verification method | Test |
 | Verification note | Pre-build: Analysis of datasheet quiescent currents. Post-build (closing): Bench, multimeter microamp range in the pack lead. Closing case: TC-SYS-070. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2088,7 +2088,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022 (a mechanical switch removes power) and HZ-004 K11, HZ-007 K6: the operator can kill a stuck transmitter or a fault without firmware (docs/research/power-tree-and-charging.md D-PWR-08, adopted by SRR decision 74, owner ruling 2026-09-26). Ops: OPS-010, OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 1 (hardware action independent of firmware). |
 | Verification method | Test |
 | Verification note | Pre-build: Inspection of the schematic. Post-build (closing): Bench, PA rail and VSYS voltages read with the multimeter with the switch off. Closing case: TC-SYS-070. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2106,7 +2106,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-001 (pocket handheld), NGO-006; MOP-001 and TPM-001 carry the provisional 350 g allocation (charter section 12, SE-62). Two cells are about 96 g (ADR-005). MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-010. KDR: enclosure wall thickness and PA thermal mass. TBR: value is a research or author proposal pending the decision named in the tbr plan. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis, BOM and CAD mass roll-up in docs/design/budgets.md. Post-build (closing): Bench, kitchen or postal scale; Blocked until OQ-VV-002 confirms the owner has one (04 section 6.3). Closing case: TC-SYS-071. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -2125,7 +2125,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-001 and NGO-026 (sized by the two cells and the controller module; two 18650 holders are about 77 x 41 mm, the Pico 2 51 x 21 mm; docs/research/antenna-and-erp.md F5 estimates 120 to 140 mm length). The numbers are this author's proposal for the TPM-016 allocation. MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-010. KDR: enclosure CNC part and PCB outline. TBR: value is a research or author proposal pending the decision named in the tbr plan. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the enclosure CAD bounding box. Post-build (supporting): calipers on receipt, pending OQ-VV-002 (04 section 6.3). Closing case: TC-SYS-040. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -2144,7 +2144,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-008 (antenna on one end) and docs/research/antenna-and-erp.md ANT-01 and DECISION-1 (adopted by SRR decision 80, owner ruling 2026-09-26): SMA-plug handheld antennas fit without adapters, and stainless is rated 500 matings versus 100 for brass. Ops: OPS-015. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the BOM part and drawing. Post-build: receipt Inspection. Closing case: TC-SYS-058. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2162,7 +2162,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-026 (the board carries no antenna bending load) and HZ-009 K1, K2, K6: a 40 cm whip pushed with 10 N yields a brass SMA neck (docs/research/antenna-and-erp.md F8, ANT-02); the enclosure boss carries the moment. Rotation is judged against a witness mark and RF continuity by return loss, one case with one pass/fail. Ops: OPS-010, OPS-015. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 14. TBR: the 1 dB limit is this author's proposal. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis of the boss and nut; fit check on an H2C print. Post-build (closing): Bench, 10 N hung at 0.40 m in four directions on the printed part and on the first machined enclosure, witness mark inspected, NanoVNA return loss at 144 to 148 MHz before and after. Closing case: TC-SYS-072. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2181,7 +2181,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-009 K2: antennas are swapped often (docs/research/antenna-and-erp.md F8; the research figure of 1000 cycles exceeds any rated SMA and is corrected to the stainless rating). A 500-cycle test would consume the part, so the method is Analysis of the rating. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-009 Marginal; Analysis accepted per RSK-025); 8.2 row 14. The 0.45 to 0.56 N m torque is a brass-jack value (antenna-and-erp F8); the PDR connector selection checks it against the stainless-body jack datasheet (about 0.90 N m class) and revises it with ICD-TX-ANT section 3.2.2 if it differs. TBR: the 1 dB limit is this author's proposal. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-025 (HZ-009): pre-build Analysis of the jack datasheet rating and the torque in the handbook. Post-build (supporting): NanoVNA return loss at receipt and at SAR. Closing case: TC-SYS-073. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2200,7 +2200,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-009 K4 and docs/research/antenna-and-erp.md ANT-03: the 48 cm counterpoise tail is part of the pocket reference antenna (NGO-009, MOE-001); anodize insulates, so contact areas are masked. Ops: OPS-004. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. TBR: 20 mm and 10 mohm are this author's values pending the enclosure layout. |
 | Verification method | Test |
 | Verification note | Pre-build: Inspection of the drawing masking callouts. Post-build (closing): Bench, 1 A from the bench supply between lug and shell, millivolt drop read on the multimeter. Closing case: TC-SYS-072. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2219,7 +2219,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-005, CON-010, CON-012 and CON-013 (plugs in use); the micro-USB opening is 12.0 x 10.0 mm for a 10.6 x 8.5 mm overmold (docs/research/display-and-ui-parts.md F21). Ops: OPS-002, OPS-004. |
 | Verification method | Demonstration |
 | Verification note | Pre-build: Inspection of the CAD; H2C fit-check print with real plugs. Post-build (closing): receipt demonstration with the owner's key, headphones and a USB cable. Closing case: TC-SYS-074. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2237,7 +2237,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: constraint CON-015 (SI-008, ADR-008): PCBWay CNC aluminum from OpenSCAD via FreeCAD STEP. Alloy 6061 with bead blast and Type II anodize is the research recommendation (docs/research/enclosure-cnc-and-openscad-pipeline.md A3, A4, adopted by SRR decision 83, owner ruling 2026-09-26). Ops: OPS-012. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the STEP, drawing and order notes. Post-build: receipt Inspection and multimeter continuity at the masked areas. Closing case: TC-SYS-075. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2255,7 +2255,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-013 K1 and K4 (sharp edges of a machined part held in the hand and carried in a pocket; RSK-018). The check is geometric on the STEP model before the order; receipt is a snag inspection. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-013 Marginal; Analysis accepted per RSK-018). |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-018: pre-build Analysis, scripted edge-break check on the STEP model and drawing callouts. Post-build (supporting): receipt finger-drag and cotton-swab snag inspection. Closing case: TC-SYS-076. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2273,7 +2273,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-013 K2 (pinch point at the knobs; docs/research/display-and-ui-parts.md R-UI-08). The cell-cover pinch criterion is REQ-SYS-168. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-013 Marginal; Analysis accepted per RSK-018). |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-018: pre-build (closing) CAD clearance measurement of the knob models. Post-build (supporting): receipt Inspection with a 1.0 mm feeler. Closing case: TC-SYS-076. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2291,7 +2291,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-003 K1 and K7; continuous key-down is the steady-state bound of every duty cycle and 45 C is the top of REQ-SYS-114. The basis is the PD54008L-E PowerFLAT (docs/research/pa-turnkey-candidates-followup.md implications 1, 3 and 11) with the line-up at about 11.4 W DC for 5 W (docs/research/pa-device-candidates.md F19); the RD07MUS2B basis of pcbway-export F17 is dropped. HZ-003 K1 quotes 100 C at 25 C for 5 min; aligning it to this single limit is routed. The junction cannot be measured, so the method is Analysis. Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 5 and 7 (Analysis accepted per RSK-006). KDR: pedestal, via fill and enclosure wall. TBR: limit pending TS-003. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-006: pre-build (closing) thermal resistance chain analysis junction to ambient in docs/design/analysis/thermal-budget.md. Post-build (supporting): Bench, PA NTC read from the UART telemetry (REQ-SYS-150) during 5 min of 5 s key-downs at 80 percent duty into the dummy load. Closing case: TC-SYS-077. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -2310,7 +2310,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-003 K1 and K7 (contact burn); RSK-006, RSK-026. Continuous key-down is the analysis case; the delivered unit cannot sustain it (REQ-SYS-055), so no cutoff bypass is needed. Method: Analysis, because no thermometer is in the bench inventory (04 section 6.2 thermal row, OQ-VV-003). 48 C has no standard in the corpus (docs/safety/hazard-analysis.md section 11 open item 7). Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 5 and 7 (Analysis accepted per RSK-006). TBR: value pending a touch-temperature basis. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-006: pre-build (closing) thermal budget of the PA-to-enclosure path at 5 min continuous key-down. Post-build (supporting): Demonstration, 5 min of 5 s key-downs at 80 percent duty into the dummy load inside the enclosure, PA NTC read from the UART telemetry; surface read only if OQ-VV-003 yields a thermocouple. Closing case: TC-SYS-077. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2329,7 +2329,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-026 and docs/conops/conops.md section 4 (adopted by SRR decision 85, owner ruling 2026-09-26); the display (-10 to +60 C), encoders and reference oscillator bound the range. No environmental chamber exists, so the full range closes by Analysis of part ratings and a room plus cold-day check. MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-004. TBR: adopted as TBR by SRR decision 85; the TPM-006 span is reconciled at PDR. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of every part's rated range against -10 to +45 C and of frequency drift. Post-build (supporting): Bench at room temperature and OnAir on a cold day with the tinySA Ultra frequency check. Closing case: TC-SYS-078. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2348,7 +2348,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: docs/conops/conops.md section 4 storage and transport row (adopted by SRR decision 85, owner ruling 2026-09-26); a car in summer or winter. MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-010. TBR: adopted as TBR by SRR decision 85; the TPM-006 span is reconciled at PDR. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of part storage ratings. No post-build test. Closing case: TC-SYS-078. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2367,7 +2367,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-026 (survives pocket carry and a 1.0 m drop, adopted by SRR decision 85, owner ruling 2026-09-26); cells stay seated in their holders through the drop. The enclosure analysis at PDR sizes walls, boss and board mounting. MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-010. TBR: adopted as TBR by SRR decision 85; the TPM-006 span is reconciled at PDR. |
 | Verification method | Test |
 | Verification note | Pre-build: Analysis of board and holder retention. Post-build (closing): Bench, drop on six faces of one unit, then the acceptance test. Closing case: TC-SYS-079. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2386,7 +2386,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-026 (tolerates light rain when upright with plugs inserted; not water resistant) and docs/conops/conops.md section 4 (adopted by SRR decision 85, owner ruling 2026-09-26). IPX2 is this author's quantification of light rain. MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-004. TBR: adopted as TBR by SRR decision 85; the TPM-006 span is reconciled at PDR. |
 | Verification method | Test |
 | Verification note | Pre-build: Inspection of the openings in the CAD. Post-build (closing): Bench, drip test on one unit, dried, then the acceptance test. Closing case: TC-SYS-080. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2405,7 +2405,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-003 K2: the sensed point is the PA thermistor at the PA device on the board thermal pad; fold-back precedes the inhibit and recovery uses hysteresis. The 85 C value is an author proposal below the 110 C junction limit of REQ-SYS-112 (PD54008L-E basis, docs/research/pa-turnkey-candidates-followup.md; the RD07MUS2B basis of pcbway-export F17 is dropped) by the sensor-to-junction rise that the PDR thermal analysis (TS-003) fixes; 100 ms bounds post-threshold dissipation to about 1 J. Sensor failure is REQ-SYS-155; REQ-SYS-181 (SRR decision 39, owner ruling 2026-09-26) is the firmware-independent layer above this inhibit. RF off is the REQ-SYS-183 level. Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 8. TBR: the threshold follows the PA thermal analysis. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected sensor values checks threshold, hysteresis and latency. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, sensor signal injected at its test pad while keyed into the dummy load, logic capture of the injection and PA_EN. Closing case: TC-SYS-081. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2424,7 +2424,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-004 K6 and HZ-014 K3: pad states during reset and in the bootloader must read inactive at the PA logic (docs/research/keyer-verification-and-key-input-network.md F13). The three states form one condition, firmware not running, with one pass/fail result. The fail-safe receive position of the unpowered T/R relay (docs/research/tr-switch-candidates.md TR-04) is allocated to REQ-TX at PDR. RF off is the REQ-SYS-183 level. Ops: OPS-011, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 2 (external pull-downs independent of firmware). |
 | Verification method | Test |
 | Verification note | Pre-build: Simulation of the pull-down network against pad leakage. Post-build (closing): Bench, BOOTSEL held and RUN pulsed, PA_EN and TX_KEY logged and RF into the dummy load read on the tinySA Ultra. Closing case: TC-SYS-082. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2442,7 +2442,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-004 K8 (SWE-134 f, i): no single software fault initiates a transmission; both states are stored with their complement and checked before use (docs/design/concept.md section 8). RF off is the REQ-SYS-183 level. Ops: OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 2 and 4 (SWE-134 i). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit fault injection corrupting each condition alone. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, fault-injection build with each condition forced alone, PA_EN logged by the logic capture. Closing case: TC-SYS-083. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-030 |
@@ -2460,7 +2460,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: 47 CFR 97.13(c)(1) requires compliance with '1.1307(b), 2.1091, and 2.1093 ... where applicable' against the 1.1310 limits (CON-004): the mobile posture is a 2.1091 case and the handheld posture within 20 cm a 2.1093 (SAR) case; operators at the occupational tier, others at the general-population tier (SI-030, ADR-014). HZ-001 K8, HZ-006. The method is OET 65 Supplement B plus SAR by analogy (RFX-D6, adopted by SRR decisions 31 and 32, owner ruling 2026-09-26: the exposure posture and SAR evidence by analogy, with no FDTD estimate in revision A). Ops: OPS-018, OPS-022. SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (Analysis accepted per RSK-016). Constraint: a licensee record kept as a requirement because the hazard controls cite it. KDR: gates the first OnAir series. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-001 K8; HZ-006 K4. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-016: pre-build Analysis in docs/design/analysis/rf-exposure-evaluation.md (MPE distances per step, SAR analogy), updated at TRR with Bench power per step from the tinySA Ultra. Closing case: TC-SYS-084. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | REQ-TX-015 |
@@ -2478,7 +2478,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-004 and 47 CFR 1.1310 require exposure information for the occupational tier; hazards.json allocates to the handbook the separation rules, antenna gain envelope, cell guidance, audio policy, stuck-key actions, antenna handling, battery replacement and the posture and operator-model procedures (HZ-001 K5, K6; HZ-002 K8; HZ-003 K6; HZ-004 K10, K11; HZ-005 K8; HZ-006 K4, K8; HZ-007 K7; HZ-009 K5; HZ-011 K5; HZ-012 K3; HZ-013 K5). Method: Inspection by SRR decision 113 (owner ruling 2026-09-26) through CR-002, which admits Inspection under 04 rule 7.3.6 for a documentary property (INSP-003 finding-17); SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1, as that ruling states for the move to Inspection. SRR decisions 17, 18 and 20 (same ruling) set the operator-model, exposure-tier and guest content the handbook carries. Leaf: one system-level document that every module contributes to and none owns. Ops: OPS-006, OPS-018. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 6. |
 | Verification method | Inspection |
 | Verification note | Inspection accepted per CR-002 (SRR decision 113): pre-build (closing) checklist inspection by an independent reviewer of docs/ops/operations-handbook.md against every Documentation and Operator procedure control of docs/safety/hazards.json. Post-build: a printed copy with each unit. Closing case: TC-SYS-085. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2514,7 +2514,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-001 K7 and HZ-006 K7: the legend tells anyone holding the unit that it is a licensed-operator transmitter and where the exposure information is (docs/research/rf-exposure-evaluation.md RFX-14, RFX-D9, engraving adopted by SRR decision 34, owner ruling 2026-09-26); CON-006. '5 W nominal' because REQ-SYS-012 admits up to 6.3 W; marking into the metal (engraved or laser-marked) makes it last the unit's life. Method: Inspection by SRR decision 113 (owner ruling 2026-09-26) through CR-002, which admits Inspection under 04 rule 7.3.6 for a physical property (INSP-003 finding-17). Ops: OPS-019. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 6. |
 | Verification method | Inspection |
 | Verification note | Inspection accepted per CR-002 (SRR decision 113): pre-build (closing) inspection of the engraving artwork and drawing callout against the legend text and depth. Post-build (supporting): receipt Inspection. Closing case: TC-SYS-086. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2532,7 +2532,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-008 and CON-024 (SI-035, ADR-025). 47 CFR 15.23(a) (eCFR 2026-09-23) reads: 'Equipment authorization is not required for devices that are not marketed, are not constructed from a kit, and are built in quantities of five or less for personal use.' No kit of parts is sold or supplied, so the 'kit model' of SI-031 and ADR-007 names the owner's assembly split, not a 15.23(a) kit (ConOps section 1.2 assumption 5). Leaf: a programmatic cap on the build records that no L2 module can hold, so it is verified at system level only. SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1; SRR decision 86 (same ruling) confirms five boards fabricated and three to five assembled. Ops: OPS-012. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the CDR release package quantities and the unit serial register (CWHT-A-NNN). Post-build: SAR configuration audit. Closing case: TC-SYS-087. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2550,7 +2550,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: constraint CON-009 from SI-007 and ADR-004; bare RP2350 was rejected for assembly and reuse reasons (docs/research/pcbway-fabrication-and-assembly.md F16). Ops: OPS-011. Constraint: the module is the owner's decision, so a part name appears at L1; verified at system level only (leaf) because the module is a bought assembly with no L2 decomposition. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the BOM and schematic. Post-build: receipt Inspection. Closing case: TC-SYS-058. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2568,7 +2568,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: constraint CON-009 from SI-007 and SI-033. Ops: OPS-011. Constraint: the language and operating system are the owner's decision. Developing the new peripheral drivers upstream in rustos (ADR-019, SI-033; work packages for clocks, timer and alarms, IRQ, I2C, SPI, ADC, PWM, watchdog, NV storage and PIO I2S) is a development activity recorded in ADR-019 and 07 section 19, not a product requirement. Verified at system level only (leaf): the constraint applies to the whole firmware image. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the workspace manifests, lock file and rustos revision in the version description. Closing case: TC-SYS-088. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2586,7 +2586,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-026, CON-025, ADR-011 and NGO-024: application logic is verified on the host with injected device models (dependency injection), which is the primary software evidence; emulation is optional and never used for timing (ACC-EMU-001, event ordering only). Ops: OPS-011. Constraint: the layering is the owner's method decision, kept at L1 as a constraint on the delivered firmware. KDR: firmware architecture and the host device-model harness. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection that cwht-core is no_std with forbid(unsafe_code) and depends only on rustos api traits, plus the CI host build log. Closing case: TC-SYS-088. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -2604,7 +2604,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: design rule from the emulator accreditation scope and the timer design (docs/research/emulator-accreditation-and-timer-irq.md F13): one priority with run-to-completion handlers keeps event ordering deterministic and inside the credited ACC-EMU-001 scope. NGO-024, CON-025. SRR decision 93 (owner ruling 2026-09-26) adopts the firmware design rules, recorded by an ADR, and SRR decision 52 (same ruling) the 1 kHz TIMER0 polling (INSP-003 finding-19). It is held at L1 until the SW file exists and moves to REQ-SW at PDR by retirement and a new id (02 section 11.1 rule 3), with the companion rules (PWM slices 0 to 7 only, GPIO through SIO). Constraint: names an internal design element because the emulator scope depends on it. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection, static check of NVIC priority writes in cwht-app and the rustos board crate. Closing case: TC-SYS-088. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2622,7 +2622,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-004 K7 and HZ-005 K5 (SWE-134 a, c, l): the shared safe-state manager is the first action on every reset, panic and latched-fault path, and the reset reason is recorded. The full safe state follows docs/conops/conops.md Table 3.4-1 (Fault-safe row) and Table 3.4-4 rows 9 to 15; charging disabled covers the latched cell and charger causes (rows 13 to 15, HZ-002). Inhibit-class causes and flags, the key-down timeouts included, apply the transmit part only (REQ-SYS-004), so the stuck-key sidetone of rows 2 and 3 keeps sounding (appendix D item D6). After Self-test passes, audio and charging are restored as the mode allows (row 9). Ops: OPS-013, OPS-016, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 a, c and l). Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-002 K4, K5; HZ-004 K7; HZ-005 K5. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit of the startup, panic and latched-fault paths, checking the order of the five safe-state actions and that an Inhibit-class cause leaves the sidetone and charging unchanged; Emulation for event ordering only. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, reset, panic and a latched fault injected in two configurations, because VBUS inhibits transmit in hardware (REQ-SYS-092) and pauses charging while switched on (REQ-SYS-093): keyed with USB absent, logic capture of PA_EN, TX_KEY, the T/R drive and the amplifier enable; and Charging with the switch off and USB present, logic capture of the charger enable. Closing case: TC-SYS-082. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-031 |
@@ -2640,7 +2640,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-004 K7 and HZ-014 K6: a hung loop must not leave the transmitter keyed beyond the hardware bound; the reset is the Reset class of docs/conops/conops.md Table 3.4-4 (T18 through Self-test; a reset while latched re-enters Fault-safe through T09, REQ-SYS-005), the REQ-SYS-130 safe state comes first and the key-closed interlock re-runs. The order that starts the watchdog before transmit is armed is a firmware design rule allocated to REQ-SW at PDR. Ops: OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (dissimilar to the hardware cutoff). TBR: period pending the software design. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit of the arming order; Emulation of a hang for ordering only. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, fault-injection build with a deliberate hang in receive and while keyed, logic capture of the reset and PA_EN. Closing case: TC-SYS-082. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2659,7 +2659,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-014 K1, K5 and K7 (SWE-134 a, f; SWE-193): a corrupt, truncated or wrong-target image must never enable the PA; only tagged releases are flashed. Security: the 07 section 16.2 row 'Firmware image integrity' over the USB loading surface of CON-010 (charter section 12 scope), residual RSK-015 (tag cyber). Secure boot is evaluated by ADR at PDR and not enabled in revision A unless the owner decides. RF off is the REQ-SYS-183 level. Ops: OPS-011. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 16. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit and Emulation with valid, corrupted, truncated and wrong-target images; Emulation is never closing (SI-026). The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench at each unit's ATP with a corrupted image, dummy load connected, logic capture of PA_EN. Closing case: TC-SYS-089. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2677,7 +2677,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-010 and SI-022 (the module's micro-USB is the only connector for firmware and charging); OPS-011 lets a friend update from the handbook (MOE-008). |
 | Verification method | Demonstration |
 | Verification note | Pre-build: Inspection of the release script output (UF2). Post-build (closing): Bench demonstration of a UF2 copy and picotool verify with the cells removed. Closing case: TC-SYS-090. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2695,7 +2695,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-014 K2 (SWE-193): safety-relevant fields (power step, guest lock, calibration, thresholds, keyer mode, debounce) are range-checked at load; defaults are the 1 W step, 0.5 W tune and 30 mVrms cap. The configuration-fault message is REQ-SYS-067. Security: the 07 section 16.2 row 'Persisted configuration and calibration' (charter section 12 scope, CON-010 loading surface), residual RSK-015 (tag cyber); the persistent event log of 07 section 16.5 (SWE-210 as tailored) is an L2 requirement of SW-DIAG at PDR. Ops: OPS-001, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with corrupted copy A, copy B and both, and each field out of range. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench at ATP with a corrupted configuration written through the test interface, settings read from the display. Closing case: TC-SYS-089. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2713,7 +2713,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: docs/conops/conops.md section 5 (settings persist in non-volatile storage); the station call sign, guest lock and calibration must survive a cell swap. Ops: OPS-006, OPS-012. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with the NV store model. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, settings changed, cells removed for 1 minute, settings read back. Closing case: TC-SYS-006. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2731,7 +2731,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-013, NGO-014 and NGO-018 name the defaults; docs/research/keyer-verification-and-key-input-network.md D-KN1, D-KN4, D-KN5, D-KN6, D-KN10 (adopted by SRR decisions 28, 43, 45, 46 and 47, owner ruling 2026-09-26). The 1 W step and 30 mVrms cap defaults are separate safety requirements. Ops: OPS-001. TBR: the PDR keyer design confirms the defaults. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit after a configuration reset. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, configuration reset, settings read from the menus. Closing case: TC-SYS-046. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2750,7 +2750,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-009, SI-031 and ADR-007: PCBWay places the surface-mount parts and the owner hand-solders the through-hole parts (REQ-SYS-138). Single-side placement (docs/research/pcbway-fabrication-and-assembly.md PCB-ASM-08) moves to L2 ME or CTL at PDR. It is HZ-015 K3 (no hidden-pad or fine-pitch hand soldering), so the method is Inspection by SRR decision 113 (owner ruling 2026-09-26) through CR-002, which admits Inspection under 04 rule 7.3.6 for a documentary property (INSP-003 finding-17); SRR decision 88 (same ruling) confirms full turnkey assembly with single-side placement as an L2 requirement at PDR. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 6 (HZ-015 is Catastrophic; the part split is the design layer beside the station and procedure controls K1, K2 and K4). Constraint: CON-014. KDR: part choices and the Pico 2 castellation reflow question (F16). |
 | Verification method | Inspection |
 | Verification note | Inspection accepted per CR-002 (SRR decision 113; HZ-015): pre-build (closing) inspection of the BOM package column and the CPL against the PCBWay assembly rules with the kicad-cli export checker: every surface-mount part is placed by PCBWay. Post-build (supporting): receipt Inspection. Closing case: TC-SYS-091. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -2768,7 +2768,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-031 and CON-014: the owner solders through-hole parts and simple pads but no BGA, QFN or hidden-pad package; the list lives in hardware/releases/HW-MB-rev<X>-<n>/cwht-MB-rev<X>-hand-assembly.csv (charter section 5). It is HZ-015 K3 with REQ-SYS-137, so the method is Inspection by SRR decision 113 (owner ruling 2026-09-26) through CR-002, which admits Inspection under 04 rule 7.3.6 for a documentary property (INSP-003 finding-17); SRR decision 88 (same ruling) confirms full turnkey assembly with single-side placement as an L2 requirement at PDR. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 6 (HZ-015 is Catastrophic; the part split is the design layer beside the station and procedure controls K1, K2 and K4). |
 | Verification method | Inspection |
 | Verification note | Inspection accepted per CR-002 (SRR decision 113; HZ-015): pre-build (closing) inspection of the hand-assembly CSV against the BOM package column: only through-hole parts and exposed-pad modules are left to the owner. Post-build (supporting): as-built record. Closing case: TC-SYS-091. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2786,7 +2786,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-027 (five 4-layer boards); docs/research/pcbway-fabrication-and-assembly.md F9 and D-PCB-01 (adopted by SRR decision 87, owner ruling 2026-09-26). Thickness is traded in TS-004 (1.0 mm cuts the PA via-array thermal resistance, needs four bosses); IPC-4761 Type VII filled vias under the PA and QFN pads. The layer count and thickness are internal design elements held at L1 until the L2 files exist; they move to REQ-CTL or REQ-ME at PDR by retirement and a new id (02 section 11.1 rule 3). Ops: OPS-012. TBR: thickness pending TS-004 under the rule of SRR decision 87. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection, kicad-cli DRC with the PCBWay rule set and the fabrication notes. Post-build: receipt Inspection and PCBWay report. Closing case: TC-SYS-092. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2805,7 +2805,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-014 (turnkey-placed parts and the PA device) and SI-028 (ADR-012): the PA in particular, because the Mitsubishi RD07MUS2B line is consigned only (docs/research/pa-turnkey-candidates-followup.md); a stocked catalog part is by definition not consignment-only. Owner-procured hand-soldered parts follow REQ-SYS-178, which keeps TS-001 candidate A eligible. Ops: OPS-012. KDR: PA and filter selection, single-source risk RSK-005. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the BOM with timestamped distributor stock for every line at CDR. Closing case: TC-SYS-093. |
-| Status | Draft |
+| Status | Active |
 | Priority | KDR |
 | Parent | - |
 | Children | - |
@@ -2823,7 +2823,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-006 and CON-016: a fixed sample lets the tinySA Ultra measure power and spurious without the full 5 W on its input and allows in-enclosure checks. No research report sets the coupling; 40 dB is this author's proposal, putting 5 W (37 dBm) at -3 dBm, inside the tinySA Ultra input range without its external attenuator. Adopted by SRR decision 62 (owner ruling 2026-09-26). Ops: OPS-008, OPS-012. TBR: value pending the TX design. |
 | Verification method | Test |
 | Verification note | Pre-build: Simulation of the tap network. Post-build (closing): Bench, NanoVNA through-path calibration from the antenna port to the monitor port at 144, 146, 148, 292 and 438 MHz. Closing case: TC-SYS-094. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2842,7 +2842,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: docs/conops/conops.md section 3.5.2 item 3: the Pico-based logic capture closes the timing requirements on real hardware (CON-025: timing is never credited from emulation); the keyer output is the REQ-SYS-042 and REQ-SYS-043 reference point and the UART pads carry REQ-SYS-150. The envelope drive is whichever node TS-006 selects. Adopted by SRR decision 62 (owner ruling 2026-09-26); the list names internal nodes and moves to REQ-CTL at PDR by retirement and a new id. Ops: OPS-012. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the schematic and layout. Post-build: receipt Inspection. Closing case: TC-SYS-092. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2860,7 +2860,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: docs/conops/conops.md section 3.5.2 item 1 and HZ-014 K5 (the boot banner confirms the flashed release against its version description). USB serial is used at boot, where no transmission occurs. Ops: OPS-001, OPS-011. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (process control CM check). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit of the banner and telemetry formatter; Emulation of the boot output, never closing (SI-026). The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, USB serial log at boot compared with the version description of the flashed release. Closing case: TC-SYS-095. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2878,7 +2878,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-023 and MOE-003 (every later unit passes acceptance the first time) and CON-016 (no alignment instruments beyond the owner's bench); tuned coils or trimmers would need instruments the owner lacks. Ops: OPS-012. |
 | Verification method | Test |
 | Verification note | Pre-build: Inspection of the BOM for adjustable parts. Post-build (closing): Bench, acceptance test of each unit with only the firmware calibration step. Closing case: TC-SYS-096. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2896,7 +2896,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-002, CON-022, NGO-008 and NGO-030 (ADR-002): a 70 cm revision replaces the synthesizer range, front-end filter, PA match, harmonic filter and T/R element only (docs/design/concept.md section 10). Ops: OPS-012 (the acceptance and hand-over of a unit built from the partitioned design). Constraint: an architecture-level growth constraint, verified on the architecture at PDR and CDR. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of docs/design/architecture.md and the PCB region map at PDR and CDR. Closing case: TC-SYS-097. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2914,7 +2914,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-006 (band control in future), NGO-030 and CON-023 (no controls beyond what a future band control needs); docs/design/concept.md section 10 item 3. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the enclosure CAD, pin map (ICD-CTL-SW) and display layout. Closing case: TC-SYS-097. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2932,7 +2932,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-028, MOE-007 and MOP-016; the SRR envelope is USD 323 to 610 per unit for three units (docs/plan/cost-estimate.md). SRR decision 90 (owner ruling 2026-09-26) fixes the budget at USD 610 per unit (TPM-014), with the instrument line outside it; SRR decision 86 (same ruling) keeps three assembled units as the planning value. Ops: OPS-012. TBR: the CDR quotes confirm the value. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis, labor-free cost model at each gate with CDR quotes. Post-build (supporting): Inspection of invoices at SAR. Closing case: TC-SYS-098. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2951,7 +2951,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-019 from SI-025 and ADR-017; NGO-029 (complete open-source design and process record). Ops: OPS-012 (units built and accepted from the published records). Constraint: the license and repository are the owner's decision; kept as a constraint requirement rather than moved to the CM plan because SAR audits it, and verified at system level only (leaf) because no subsystem owns the repository. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the LICENSE file, third-party notices and the pushed baseline tags. Closing case: TC-SYS-099. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2969,7 +2969,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-011 K3 and HZ-014 K4: the transmitter rail comes only from the protected pack, so with the cells removed only the Pico 2 runs from VBUS and a firmware load cannot energise the transmitter, independently of the REQ-SYS-092 inhibit (docs/research/power-tree-and-charging.md F22; hazards.json OQ-SAF-011). Adopted by SRR decision 75 (owner ruling 2026-09-26; D-PWR-07). Ops: OPS-011, OPS-002. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 2 and 4 (supply topology independent of firmware). Constraint: the supply rail is named because the control is a supply-topology property. TBR: the residual level is this author's proposal. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Inspection of the power-tree schematic for any path from VBUS to the transmitter rail. Post-build (closing): Bench, cells removed, USB applied in bootloader and application states, transmitter rail read with the multimeter while a fault-injection build asserts TX_KEY. Closing case: TC-SYS-066. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -2988,7 +2988,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: CON-016 and MOE-003: closing runs log during transmit and battery-life tests, but USB serial brings VBUS, which REQ-SYS-092 treats as charging (transmit inhibited) and which powers the module through its own diode, changing the drain under test (docs/research/power-tree-and-charging.md F2, F22). Assumes: a 3.3 V USB-UART adapter, or a second Pico 2 as a UART bridge, is added to the 04 section 6.1 fixture list with its TV record; owner of the assumption: Claude as 04 author, closing gate PDR (docs/plan/technology-assessment.md section 3.22 records that none exists yet). Adopted with the probe test-point list and test access ratified by SRR decision 62 (owner ruling 2026-09-26), which includes the UART pads (REQ-SYS-142). Ops: OPS-009, OPS-012. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit of the telemetry formatter. Post-build (closing): Bench, USB disconnected and the unit on cells, telemetry read through the adapter at the UART pads during receive and during keying into the dummy load. Closing case: TC-SYS-095. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3006,7 +3006,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: 47 CFR 97.307(e) applies whatever the antenna presents; OPS-015 and NGO-017 call for harmonics measured into a mismatch, since harmonic levels change with load SWR (docs/research/antenna-and-erp.md ANT-04: hand-detuned whips show 8 dB return loss). REQ-SYS-017 covers the 50 ohm case. Adopted by SRR decision 62 (owner ruling 2026-09-26; the 2:1 bound is ANT-04's rated-power condition). Ops: OPS-015. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 10. TBR: mismatch bound pending the PA device trade. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation of the PA and filter into 2:1 loads at four phases. Post-build (closing): Bench, NanoVNA-characterized 2:1 fixtures at four phases ahead of the calibrated attenuator, tinySA Ultra 9 kHz to 1.5 GHz at 144.05, 146.00 and 147.95 MHz, levels corrected for the fixture loss. Closing case: TC-SYS-100. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-TX-012 |
@@ -3025,7 +3025,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: docs/research/antenna-and-erp.md ANT-04 (rated power with SWR up to 2:1; hand-detuned whips show 8 dB return loss), HZ-003 K5 and HZ-009 K3; 4.0 W is the -1 dB bound of REQ-SYS-012 including mismatch loss. Adopted by SRR decision 62 (owner ruling 2026-09-26). Ops: OPS-015, OPS-004. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 14. TBR: bound pending the PA device trade. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation of the PA and filter into 2:1 loads at four phases. Post-build (closing): Bench at 146.00 MHz and 6.4 V: the four NanoVNA-characterized 2:1 fixtures of REQ-SYS-151 ahead of the calibrated attenuator, delivered power from the tinySA Ultra carrier reading as P_in = P_meas (1 - \\|S11\\|^2) / \\|S21\\|^2 with the fixture and attenuator S-parameters, plus the 25 ohm and 100 ohm resistive fixtures with the diode RF probe across the fixture, P = Vpk^2 / (2 R). Closing case: TC-SYS-100. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3044,7 +3044,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-008 K3 and docs/research/pa-device-candidates.md implication 11: without ALC authority 8.5 to 10 W at 8.4 V exceeds the ratings after the PA, and a charger fault or a bench supply above the charged pack raises it further; the lockout sits above the 8.44 V charger maximum (docs/research/power-tree-and-charging.md F5). Adopted by SRR decision 62 (owner ruling 2026-09-26). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. TBR: threshold pending the PA device trade. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected pack voltage. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench supply as the pack stepped through 8.60 V while keying into the dummy load, logic capture of PA_EN. Closing case: TC-SYS-069. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3063,7 +3063,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: 02 section 2.4 lists synthesizer unlock as a mandatory fault response; an unlocked or mis-programmed synthesizer can put the carrier outside the band (47 CFR 97.307(b); HZ-008 K7, an independent count of the synthesizer output checked before PA_EN). REQ-SYS-009 checks only the set frequency; the 1.2 kHz guard of SRR decision 25 (owner ruling 2026-09-26) stays with REQ-SYS-008 to REQ-SYS-010, and this catches gross errors. The two detections form one check with one outcome; the independence of the frequency count from the frequency-control component and the permit before key-down are REQ-SYS-182, while this requirement is the Fault-safe response; the RF removal time is REQ-SYS-004. Adopted by SRR decisions 40 and 62 (owner ruling 2026-09-26), with frequency control safety-critical by SRR decision 9. Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. TBR: tolerance pending the TS-NNN-synthesizer-reference synthesizer design. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected lock-detect and frequency-count faults. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, fault-injection build forcing loss of lock and a synthesizer 12 kHz off its set frequency at key-down and during an over into the dummy load, logic capture of PA_EN and the tinySA Ultra showing no carrier. Closing case: TC-SYS-101. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3082,7 +3082,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-003 K2 and section 8.2 row 8 of the hazard analysis: an open PA thermistor reads cold and would silently defeat REQ-SYS-118; the range check catches open and short sensors (SWE-134 g), and the RP2350 on-die sensor cross-check is an L2 design item. Adopted by SRR decision 62 (owner ruling 2026-09-26). Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 8. TBR: range pending the thermistor selection. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected open and short sensor values. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, sensor opened and shorted at its test pad in receive and while keyed into the dummy load, logic capture of the event and PA_EN. Closing case: TC-SYS-081. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3101,7 +3101,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-008 K3, HZ-003 K4 and section 8.2 row 11 of the hazard analysis: a detector reading low lets the ALC drive toward the 10 W no-ALC case; the plausibility check (SWE-134 g) compares the reading with the drive level, and the range table is an L2 design item. Adopted by SRR decision 62 (owner ruling 2026-09-26). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 11. TBR: latency pending the ALC design. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected detector readings. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, detector output forced low and high at its test pad while keyed into the dummy load, logic capture of the event and PA_EN. Closing case: TC-SYS-101. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3120,7 +3120,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-005 K4 (held muted through transmit and the hang interval), SI-036 and CON-021 (the operator hears only the sidetone while sending, no listening between elements). REQ-SYS-075 bounds the fade-in of the mute. Method: Analysis, because no instrument of 04 section 6.1 reads a 60 dB audio change. Adopted by SRR decision 69 (owner ruling 2026-09-26; docs/research/audio-output-and-hearing-safety.md). Ops: OPS-004, OPS-005. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 1 and 7 (item 7 table, HZ-005 K4 row; Analysis accepted per RSK-017). |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-017: pre-build (closing) Analysis of the mute path with the audio-chain state machine (the REQ-SW child closed by HostUnit, allocated at PDR). Post-build (supporting): Bench, owner listening check with a strong received signal while sending at 5, 15 and 50 WPM. Closing case: TC-SYS-054. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3138,7 +3138,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-016 (raised-cosine mute and unmute at every transmit transition), MOE-011 (no click at hang expiry) and HZ-005 K4 (restored with a 5 to 20 ms fade). Method: Analysis, because no instrument of 04 section 6.1 captures the audio envelope. Adopted by SRR decision 69 (owner ruling 2026-09-26). Ops: OPS-004, OPS-005. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 1 and 7 (item 7 table, HZ-005 K4 row; Analysis accepted per RSK-017). TBR: duration pending the audio design. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-017: pre-build (closing) Analysis of the fade (the REQ-SW child closed by HostUnit on the simulated clock) with the analog output path. Post-build (supporting): owner listening check for clicks at hang expiry per MOE-011. Closing case: TC-SYS-054. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3157,7 +3157,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-005 (a sidetone that follows the hand) and HZ-005 K4 (sidetone onset within 1 ms of key-down); 4 ms is the 3 ms contact-to-keyer latency of REQ-SYS-043 plus 1 ms (docs/research/keyer-verification-and-key-input-network.md F11, F14, adopted by SRR decision 50, owner ruling 2026-09-26). Ops: OPS-004, OPS-005. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (Test). TBR: the sequencer timing table at PDR confirms the value. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of the contact at the jack and the sidetone PWM line, 50 closures of key and paddle. Closing case: TC-SYS-029. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-033 |
@@ -3176,7 +3176,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: MOE-005 (no sluggishness with the straight key); 15 ms is up to 1 ms sampling plus the 2 ms make filter of REQ-SYS-048 plus the at most 12 ms lead-in of REQ-SYS-161 (ADR-026, which supersedes ADR-010 by SRR decision 47; docs/research/keyer-verification-and-key-input-network.md F11, ratified by SRR decision 50, owner ruling 2026-09-26). Ops: OPS-005. TBR: value pending the T/R trade. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit sequencer model on the simulated clock. Post-build (closing): Bench, logic capture of the straight-key contact and the envelope ramp-step start (04 section 6.1), first and later elements of an over. Closing case: TC-SYS-102. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-018 |
@@ -3195,7 +3195,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: ADR-026, which supersedes ADR-010, sets a constant lead-in of at most 12 ms for every element of an over; the HF3-class relay needs operate plus bounce of up to 8 ms before RF (docs/research/tr-switch-candidates.md F7, TR-03). Delaying the whole over by one constant lead-in preserves the first element through the relay operate time and keeps every element and space of REQ-SYS-042, where extending only the first element would shorten the first space by 8 to 12 ms, leaving 12 to 16 ms of a 24 ms space at 50 WPM. Adopted by SRR decision 47 (owner ruling 2026-09-26; D-KN4), which accepts ADR-026; SRR decision 61 (same ruling) confirms the relay T/R element; TPM-013. Ops: OPS-004, OPS-005. TBR: value pending the T/R trade. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit sequencer model on the simulated clock. Post-build (closing): Bench, logic capture of the keyer test point, the T/R drive and the envelope ramp steps for PARIS overs at 15 and 50 WPM, delay of each element measured. Closing case: TC-SYS-102. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3214,7 +3214,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: at the 1 kHz sample rate of HZ-004 K9, 5 ms means 5 consecutive 1 ms samples that read the contact open (the count REQ-SW-KEYER-021 allocates). Bounce of unknown keys must not add elements (MOE-005, HZ-010 K3, HZ-004 K9); the slower break absorbs make- and break-bounce (docs/research/keyer-verification-and-key-input-network.md F6, adopted by SRR decision 50, owner ruling 2026-09-26). Ops: OPS-004, OPS-005. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. TBR: stands until the owner's key and paddle bounce is captured. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with recorded bounce patterns on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of the owner's key and paddle contacts and of the keyer test point, 50 openings. Closing case: TC-SYS-034. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-021 |
@@ -3233,7 +3233,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: a mono (TS) plug grounds the ring permanently, so without this the Straight-on-tip selection could never be made with the plug in (OPS-013, OPS-005; docs/research/keyer-verification-and-key-input-network.md F13 item 1, adopted by SRR decisions 44 and 50, owner ruling 2026-09-26). Transmit stays disarmed until the inputs the new mode uses pass REQ-SYS-052. HZ-004 K2. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 d). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, selection with each input closed. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, TS plug with a straight key inserted, Straight-on-tip selected, transmit arming after the tip reads open 500 ms captured with PA_EN on the logic capture. Closing case: TC-SYS-037. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-025 |
@@ -3251,7 +3251,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-015 and SI-024: the whole 4 MHz band must be reachable by the knob; at 48 detents per second the rate-dependent step of REQ-SYS-058 must reach about 2.8 kHz, inside its 10 kHz ceiling. The values are this author's proposal. Ops: OPS-003. TBR: pending the PDR UI design. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected encoder edge timing. Post-build (closing): Bench, owner turns the tuning knob continuously, encoder lines on the logic capture give the rate and time, frequency read from the UART telemetry (REQ-SYS-150). Closing case: TC-SYS-041. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3270,7 +3270,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-015 (small reflective display readable in daylight) and D-UI-02 (no display light in revision A; docs/research/display-and-ui-parts.md F2; adopted by SRR decisions 77 and 79, owner ruling 2026-09-26: the LS013B7DH03 with no light in build 1). 300 lux is ordinary room lighting; the reflective display gains contrast with more light. Method: Analysis, because the bench has no illuminance meter. Ops: OPS-003. TBR: pending the PDR display design. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of the display datasheet reflectance and contrast at 300 lux with the character height of REQ-SYS-061. Post-build (supporting): Demonstration, owner reads the frequency at 0.5 m in room lighting and in daylight. Closing case: TC-SYS-103. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3289,7 +3289,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-007 K3: a reversed, deeply discharged or damaged cell must not be loaded; the protector FETs stay off outside the window and firmware enables the rails only after both cells read inside it (docs/research/power-tree-and-charging.md F12, F24). Split from the charging refusal of REQ-SYS-087. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: window pending the power trade study. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with injected cell readings. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, two supplies as the cells, one at 2.4 V and then at 4.4 V, rail voltages read with the multimeter at switch-on. Closing case: TC-SYS-064. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3308,7 +3308,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-002 K5: a charge whose constant-voltage current does not fall indicates a shorted or damaged cell or a charger fault (docs/research/power-tree-and-charging.md F24, charge-state watchdog). Split from the timer of REQ-SYS-089; the fault message is REQ-SYS-067. The values are this author's proposal. Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: pending the charge-profile analysis. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock with injected charge-current profiles. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, a cell simulator loaded so that the constant-voltage current stays flat, charge current logged until the charge stops. Closing case: TC-SYS-065. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3327,7 +3327,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-013 K3 (no lever-action pinch at the battery cover): a gap below 4 mm admits no fingertip and one above 25 mm cannot trap a finger. The values follow finger-gap practice; the standard is not in the corpus, so they are this author's proposal. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-013 Marginal; Analysis accepted per RSK-018). TBR: pending the enclosure design. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-018: pre-build (closing) CAD sweep of the cover through its travel with the gap measured at each step. Post-build (supporting): receipt Inspection with 4 mm and 25 mm gauges. Closing case: TC-SYS-076. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3346,7 +3346,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-005 K2 (the acknowledgment expires after 20 h of cumulative unlocked operation) and NGO-016; docs/research/audio-output-and-hearing-safety.md D2 (adopted by SRR decisions 64 and 67, owner ruling 2026-09-26). ConOps section 5 still persists the unlock without expiry (routed). Ops: OPS-003. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 1 (firmware layer under the hardware ceiling). TBR: pending the PDR audio design. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on a bench supply, cap unlocked and the unit run 20 h, multimeter AC RMS across 32 ohm at full volume with the full-scale 700 Hz test tone before and after. Closing case: TC-SYS-104. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3365,7 +3365,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-005 K2 (the unlock reverts at power-on unless explicitly persisted) and NGO-016; docs/research/audio-output-and-hearing-safety.md D2 (adopted by SRR decision 64, owner ruling 2026-09-26). Ops: OPS-001, OPS-003. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 1 (firmware layer under the hardware ceiling). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit with and without the persistent selection. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, cap unlocked, power cycled with and without the persistent selection, multimeter AC RMS across 32 ohm at full volume with the full-scale test tone. Closing case: TC-SYS-053. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3383,7 +3383,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-006 K5 and docs/research/rf-exposure-evaluation.md RFX-13(b): the licensee's source-based time-averaging evidence in the field (ConOps section 3.5.1 item 5, OPS-004 step 3). It is a convenience function, not safety-critical (RFX-D4, adopted by SRR decision 33, owner ruling 2026-09-26), so it is a Goal; the design should provide it. Ops: OPS-004, OPS-018. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (convenience only). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit accumulator arithmetic against synthetic keying. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, test-mode PARIS generator keyed for 7 min into the dummy load, displayed totals compared with the key-down sum from the logic capture. Closing case: TC-SYS-049. |
-| Status | Draft |
+| Status | Active |
 | Priority | Goal |
 | Parent | - |
 | Children | - |
@@ -3401,7 +3401,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: HZ-006 K4, HZ-001 K8 and docs/research/rf-exposure-evaluation.md RFX-16: the separation values of REQ-SYS-069 and the evaluation of REQ-SYS-121 assume 0 dBd; a +2 dBd whip grows the 5 W bystander distance by 26 percent (RFX-R4). CON-004. Method: Analysis of published and literature gains (F4), because EIRP relative to a reference dipole is not credited in 04 section 6.1. Adopted by SRR decision 81 (owner ruling 2026-09-26). Ops: OPS-018. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 4 and 7 (item 7 table, delivered antenna gain row; Analysis accepted per RSK-016). TBR: pending the antenna choice. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-016: pre-build (closing) Analysis of the reference antennas' published gain and the literature data of RFX F4. Post-build (supporting): Bench, tinySA Ultra EIRP comparison against a reference half-wave dipole (KX4O method, RFX-A5) recorded in the RF exposure evaluation. Closing case: TC-SYS-084. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3420,7 +3420,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: docs/research/antenna-and-erp.md ANT-06 (no audible change with 1.0 to 1.5 m unshielded leads) and OPS-017 step 2: lead currents couple RF into the audio stage; HZ-010 K4's common-mode suppression is the means. Adopted by SRR decision 69 (owner ruling 2026-09-26). Ops: OPS-017. |
 | Verification method | Demonstration |
 | Verification note | Pre-build (supporting): Analysis, choke impedance of at least 500 ohm at 146 MHz. Post-build (closing): Bench demonstration, owner listens at the default cap while the test-mode PARIS generator keys 5 W into the dummy load and into the reference antenna with 1.5 m leads fitted. Closing case: TC-SYS-105. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3438,7 +3438,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-034 (the owner's key and paddle use standard 3.5 mm TRS plugs) and SI-018. Ops: OPS-004, OPS-005. Constraint: CON-012 fixes the jack and its wiring (ADR-009), so the connector appears at L1. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the schematic, BOM connector and ICD-CTL-KEY pin table. Post-build (supporting): receipt continuity check with a TRS plug. Closing case: TC-SYS-058. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3456,7 +3456,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-008 (antenna on one end) and NGO-006. Ops: OPS-010, OPS-015. Constraint: the owner's enclosure layout decision; the connector type is REQ-SYS-104. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the enclosure CAD. Post-build (supporting): receipt Inspection. Closing case: TC-SYS-040. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3474,7 +3474,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: 47 CFR 15.23(b) expects the builder of home-built equipment to meet the technical standards 'to the greatest extent practicable' with good engineering practice, and 15.5 applies; LO leakage and clock harmonics conducted to the antenna reach other stations. -57 dBm is common receiver-spurious practice, this author's proposal; the design should meet it, so it is a Goal. No numbered SRR decision names this Goal; it is adopted with the L1 set by the owner's SRR approval (owner ruling 2026-09-26, docs/reviews/SRR/minutes.md, Disposition). Ops: OPS-003. TBR: the limit, which the receiver design confirms at PDR. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis, LO and clock leakage through the T/R and front-end isolation. Post-build (closing): Bench, tinySA Ultra at the antenna port in receive, 9 kHz to 1.5 GHz, at 144.05, 146.00 and 147.95 MHz tuning. Closing case: TC-SYS-106. |
-| Status | Draft |
+| Status | Active |
 | Priority | Goal |
 | Parent | - |
 | Children | REQ-TX-016 |
@@ -3493,7 +3493,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: 47 CFR 15.23(b) (good engineering practice to the greatest extent practicable) for the digital section of a home-built device; the closed aluminum enclosure, the clock plan and filtered feedthroughs are the means. A relative limit is used because the bench cannot measure field strength; the design should meet it, so it is a Goal. Method: Analysis; SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1. Ops: OPS-017. TBR: the 20 dB figure, which the enclosure and clock-plan design confirms at PDR. |
 | Verification method | Analysis |
 | Verification note | Pre-build (closing): Analysis of enclosure shielding and aperture leakage at the clock and converter frequencies. Post-build (supporting): Bench, tinySA Ultra with a near-field probe over the open board and over the closed enclosure, levels compared. Closing case: TC-SYS-107. |
-| Status | Draft |
+| Status | Active |
 | Priority | Goal |
 | Parent | - |
 | Children | - |
@@ -3512,7 +3512,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SI-009 (parts from DigiKey or equivalent) and SI-028 (no bespoke or consignment-only part): through-hole parts the owner buys and solders may come from a named catalog source outside the turnkey distributors, which keeps TS-001 candidate A eligible (Inrad #111 sold from inrad.net, docs/research/cw-selectivity-options.md F3; KVG by quotation, docs/research/2m-cw-transceiver-reference-designs.md F33). Ops: OPS-012. |
 | Verification method | Inspection |
 | Verification note | Pre-build (closing): Inspection of the hand-assembly list against dated catalog pages and quotes at CDR. Closing case: TC-SYS-093. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3530,7 +3530,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: the bench test mode (PARIS generator, full-scale test tone, continuous carrier under the tune limits, watchdog demonstration; docs/conops/conops.md section 3.5.2 item 2) is the only keying source other than the key jack (REQ-SYS-007) and the only source of a full-scale tone, so entry takes two deliberate actions (HZ-004 K13, HZ-005 K9; SWE-134 d). It is a sub-mode of REQ-SYS-002 and REQ-SYS-065 blocks it under guest lock. SRR decision 41 (owner ruling 2026-09-26) adopted the rest of the HZ-004 K13 guard (OQ-SAF-016), each as a requirement of its own (WR-03): the forced 0.5 W step (REQ-SYS-187), the 120 s mode timeout (REQ-SYS-188), the 60 s full-scale tone limit of HZ-005 K9 (REQ-SYS-189) and the exit at every reset without persistence (REQ-SYS-190); SRR decision 42 (same ruling) aligns the ConOps bench-test limit to them. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 d). |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, every input sequence without the confirmation leaves the mode unchanged. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, each control sequence of the procedure applied, mode read from the display and TX_KEY on the logic capture. Closing case: TC-SYS-007. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-SW-KEYER-029 |
@@ -3548,7 +3548,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SRR decision 38 (owner ruling 2026-09-26) adopted the backstop with the 150 s to 180 s window (OQ-SAF-003, HZ-004 K12). The cutoff REQ-SYS-055 restarts on every TX_KEY edge, so a toggling TX_KEY stream is stopped only by firmware (HZ-004 K4, K13): docs/safety/hazard-analysis.md section 8.2 row 3. Continuous transmit: the T/R drive held in transmit, with no pause longer than the hang time (REQ-SYS-044). The 150 s floor sits above the 120 s bench test-mode timeout of REQ-SYS-188 (SRR decisions 41 and 42, which replace the 60 s ConOps activation limit) and the 30 s no-gap watchdog of REQ-SYS-054 (SRR decision 37), so firmware acts first. RF off is the REQ-SYS-183 level. Ops: OPS-013, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.2 row 3; dissimilar to K4 and K13. TBR: the window, which the PDR timing Simulation confirms. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-001 K10; HZ-003 K10; HZ-004 K12; HZ-006 K10; HZ-012 K6; HZ-014 K8. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation of the backstop monostable timing over component tolerance, temperature and capacitor DC bias. Post-build (closing): Bench, part A with a fault-injection build that holds the T/R drive in transmit and toggles TX_KEY (continuous 15 WPM dits at 6.5, 7.4 and 8.4 V, and a 50 WPM PARIS loop) with the firmware timeouts and the hang-time return disabled, part B with the release build and the operator sending for 200 s with the straight key and with the paddle; 0.5 W into the calibrated attenuator, logic capture of the T/R drive, TX_KEY, PA_EN and the RF-present indicator, tinySA Ultra max hold: RF ends 150 s to 180 s after the T/R drive enters transmit, stays at the REQ-SYS-183 level until the return to receive, and is present again in a re-arm run after it. Closing case: TC-SYS-108. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3567,7 +3567,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SRR decision 39 (owner ruling 2026-09-26) adopted the cut-off with 95 C +/-3 C and 100 ms (OQ-SAF-012, HZ-003 K9). HZ-003 is Critical and a PA thermistor reading cold defeats the fold-back and the REQ-SYS-118 inhibit with no control independent of firmware: docs/safety/hazard-analysis.md section 8.2 row 8. The element is a second heat-sink sensor with a comparator, thermal fuse or PTC that removes the PA-path enable of REQ-SYS-055 with hysteresis. The band 92 C to 98 C lies above the 88 C upper bound of the REQ-SYS-118 inhibit, so firmware acts first; 100 ms matches the REQ-SYS-118 response. RF off is the REQ-SYS-183 level. Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.2 row 8; dissimilar to REQ-SYS-118 and REQ-SYS-155. TBR: threshold, tolerance and response time, which the PDR thermal analysis confirms. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Simulation or Analysis of the comparator threshold and hysteresis over component tolerance and the sensor curve, which also shows the sensor share of the +/-3 C. Post-build (closing): Bench, fault-injection build with the REQ-SYS-118 inhibit, the fold-back and the cut-off-seen detection disabled, the cut-off sensor replaced at its test pad by the NTC substitution fixture (25, 80 and 90 C, T_trip at the 98 C upper bound less the sensor and fixture tolerances, and 100 C), keyed at 0.5 W into the calibrated attenuator with the straight key and the paddle at 6.5, 7.4 and 8.4 V; logic capture of the fixture marker, PA_EN and the RF-present indicator, tinySA Ultra zero span: carrier present at 90 C, ended within 100 ms of the switch to T_trip or 100 C while PA_EN stays asserted, and held at the REQ-SYS-183 level at or above T_trip. Closing case: TC-SYS-109. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3586,7 +3586,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: SRR decision 40 (owner ruling 2026-09-26) adopted the independent verification with the 10 kHz window and 100 ms, and SRR decision 9 (same ruling) makes frequency control safety-critical (OQ-SAF-013, HZ-008 K7). One frequency-control software fault can put 5 W on 150 to 174 MHz, which the harmonic filter passes, and REQ-SYS-009 checks inside the same component: docs/safety/hazard-analysis.md section 8.2 row 4. Independent means a prescaled sample of the synthesizer output counted by a unit separate from the synthesizer driver on the RP2350 crystal timebase; no valid measurement means no agreement. 10 kHz catches gross errors. 100 ms bounds detection plus the REQ-SYS-004 fall during transmit; REQ-SYS-154 is the Fault-safe response. RF off is the REQ-SYS-183 level. Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.2 row 4. TBR: window and time, which the PDR prescaler, counter and timebase design confirms. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit of the permit logic with injected counts (agreeing, 12 kHz off, 150.000 MHz, no measurement); Inspection of the schematic and the software design for the independence of the counter, its timebase and its component from the frequency-control path. Post-build (closing): Bench, fault-injection build programming the synthesizer to 150.000 MHz or 12 kHz above or below the displayed 146.000 MHz, or stopping the measurement, applied before a key-down or Tune and 1 s into an over, keyed at 0.5 W into the calibrated attenuator with the straight key and the paddle; logic capture of the injection marker, PA_EN and the RF-present indicator, tinySA Ultra zero span at the programmed frequency: no carrier above the REQ-SYS-183 level before transmit, RF ended within 100 ms during transmit; the release build keys normally at 144.0012, 146.000 and 147.9988 MHz with both key types. Closing case: TC-SYS-110. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | REQ-TX-013 |
@@ -3605,7 +3605,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: REQ-SYS-004 and the controls REQ-SYS-009, 055, 065, 092, 118, 119, 120, 132, 180, 181 and 182 require RF to end or stay off; this states once the level that counts as off, so every closing case applies one criterion (INSP-003 finding-1). -57 dBm equals the receive-mode antenna-port limit of REQ-SYS-176, because an unkeyed transmitter is in its receive configuration; it is 94 dB below 5 W and 84 dB below 0.5 W, so the completed REQ-SYS-004 fall reaches it at every step. Ops: OPS-013, OPS-019, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 2 (the level holds with PA_EN low whatever firmware does). TBR: the level, set with REQ-SYS-176 by the receiver design at PDR. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-004 K7. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis of the off-state isolation of the PA, T/R element and synthesizer at the carrier frequency. Post-build (closing): Bench, tinySA Ultra through the calibrated attenuator at the set carrier frequency in each off state that a hazard-control case produces (forbidden transitions, guard inhibit, guest lock, USB present, reset and bootloader, single condition forced, synthesizer fault, backstop, over-temperature cut-off, frequency disagreement), reading corrected by the attenuator S21 with the noise floor referred to the antenna port at least 6 dB below the level. Closing cases: TC-SYS-003, TC-SYS-008, TC-SYS-047, TC-SYS-066, TC-SYS-082, TC-SYS-083, TC-SYS-101, TC-SYS-108, TC-SYS-109, TC-SYS-110. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3624,7 +3624,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-021 and MOE-012: headphones or a shorted TRS cable plugged into the key jack after boot close both paddle contacts, which the iambic modes read as a squeeze and turn into an endless alternating dit-dah stream that the hardware cutoff REQ-SYS-055 does not see (HZ-004 causes C2, C3). SRR decision 37 (owner ruling 2026-09-26) adopted the HZ-004 K4 no-gap watchdog with this 2 s squeeze limit (K4 item (iii); OQ-SAF-002; D-KN3); REQ-SYS-054 holds items (i) and (ii). In Ultimatic mode a squeeze repeats the last-closed element, a stream of identical elements that the limit also ends. Keying resumes once either contact opens; the sidetone continues and an alert is shown, as for REQ-SYS-054. The check runs on the debounced contact states in a unit separate from the keyer engine (HZ-004 K4); its SW child is allocated at PDR. Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 3 (REQ-SYS-180 is the hardware backstop). TBR: the longest squeezed character at 5 WPM (C, 11 dit times, 2.64 s) exceeds 2 s; if normal squeezing trips it, the limit becomes the longer of 2 s and 16 dit times (OQ-SAF-002 plan). Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-004 K4; HZ-001 K3; HZ-003 K3; HZ-006 K6; HZ-012 K2. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock, both contacts held closed for 1.9, 2.1 and 60 s after boot in Iambic A, Iambic B and Ultimatic at 5, 25 and 50 WPM, and normal squeezed characters (C, K, Q) at 5 WPM, which do not trip. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench into the dummy load, a 32 ohm headphone plug and a shorted TRS plug inserted into the key jack after boot in each iambic and Ultimatic mode, logic capture of the contacts, TX_KEY and PA_EN: keying ends within 2 s of the contacts closing and stays ended until a contact opens. Closing case: TC-SYS-038. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3643,7 +3643,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022 and HZ-002 K3: Li-ion overcharge is the Catastrophic hazard, and a third layer independent of the charger (REQ-SYS-081), the 4.25 V protector (REQ-SYS-083) and the firmware dual sensing (REQ-SYS-088) makes the overcharge branch two-fault tolerant with the separate sense paths of REQ-SYS-186. SRR decision 72 (owner ruling 2026-09-26) adopted the S-8252 plus BQ29209 topology (D-PWR-03) and this requirement (OQ-SAF-008). 4.30 V is the HZ-002 K3 nominal (docs/research/power-tree-and-charging.md F11, BQ29209 class); the band sits at or above the 4.25-4.30 V band of REQ-SYS-083 so that this layer does not act before it, and 4.35 V bounds its threshold accuracy and drift (this author's proposal). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: the band, which the protector variant selection at PDR fixes. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-002 K3. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Analysis of the secondary protector threshold over 0 to 45 C against the band and the REQ-SYS-083 band. Post-build (closing): Bench, a bench supply substituting for each cell in turn, the charger held on and the 4.25 V protector disabled in a fault-injection build, the cell voltage raised from 4.25 V to 4.40 V in 5 mV steps; the charge path state read with the multimeter: it opens at a threshold within 4.30-4.35 V. Closing case: TC-SYS-111. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3662,7 +3662,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022, HZ-002 K9 and HZ-007: the charger, the 4.25 V protector, the 4.30 V layer and the firmware dividers share one MID sense net in the concept, so one open or high-resistance sense connection blinds per-cell over-voltage and under-voltage detection in every layer at once, a named single point (hazards.json HZ-002 and HZ-007 single-point failures). SRR decision 72 (owner ruling 2026-09-26) adds this constraint (OQ-SAF-009); separate sense routes from each cell terminal, one per layer with its own series resistor, are the expected means, stated as a performance so that the design chooses the routing. 10 kohm is this author's proposal for a failed but not open connection, well above the 300 ohm series resistance of HZ-007 K3. Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: the resistance, which the PDR sense-path analysis sets from the input impedance of each layer. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-002 K9. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): Inspection of the schematic and layout for a separate sense path per layer and cell terminal; Analysis of each layer's reading with 10 kohm in its sense path. Post-build (closing): Bench, bench supplies substituting for the cells, each layer's sense connection opened in turn and then replaced by 10 kohm at its test link; for each case one cell raised above the over-voltage band and lowered below the under-voltage threshold: every other layer acts, read on the multimeter and the UART telemetry. Closing case: TC-SYS-112. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3681,7 +3681,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: the bench test mode generates keying without the operator's key (REQ-SYS-007), so its RF exposure and heating are bounded at the lowest step (HZ-004 K13; HZ-001 and HZ-006 exposure). SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles; SRR decision 42 (same ruling) aligns the ConOps bench-test limit, which the ConOps author changes from 60 s per keyed activation. The step tolerance is that of REQ-SYS-011. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-004 K13. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, the power command in every test sub-mode entered from each of the four steps. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit into the calibrated attenuator and the dummy load; the bench test mode entered by the REQ-SYS-179 sequence, logic capture of TX_KEY, PA_EN and the TEST indication; with 5 W set before entry, the diode RF probe across the dummy load reads the 0.5 W step within +/-1 dB in the PARIS generator, the continuous carrier and the watchdog demonstration. Closing case: TC-SYS-113. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3699,7 +3699,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: a PARIS loop has 7-dit word spaces, so the no-gap watchdog REQ-SYS-054 does not see it and the cutoff REQ-SYS-055 is retriggered; the timeout and REQ-SYS-180 are its controls (HZ-004 K13, K12). SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles; SRR decision 42 (same ruling) aligns the ConOps bench-test limit, which the ConOps author changes from 60 s per keyed activation. 120 s covers the longest bench measurement a test mode supports (element timing at 5 WPM, about 60 s) and stays below the 150 s floor of REQ-SYS-180. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 3. TBR: the timeout, which the PDR test-mode design confirms against the bench procedures. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-004 K13. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock, each test sub-mode left running: exit at 120 s. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit into the calibrated attenuator and the dummy load; the bench test mode entered by the REQ-SYS-179 sequence, logic capture of TX_KEY, PA_EN and the TEST indication; each keying sub-mode left running ends, and the unit leaves the mode, at most 120 s after entry. Closing case: TC-SYS-113. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3718,7 +3718,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-016 and HZ-005 K9: the full-scale tone is the only source of the 100 mVrms ceiling level, so its duration is bounded as the keying test modes are. SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles; SRR decision 42 (same ruling) aligns the ConOps bench-test limit, which the ConOps author changes from 60 s per keyed activation. OQ-SAF-016 and HZ-005 K9 set 60 s for the tone, the shorter limit that decision 42 records for it. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-071 bounds the level in hardware). TBR: the limit, which the PDR audio and test-mode design confirms. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-005 K9. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit on the simulated clock, the tone started and left running: ended at 60 s. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit, headphones off the ear and a 32 ohm load on the headphone jack, the tone started from the bench test mode, the load voltage read by the audio input of the logic capture: the tone ends at most 60 s after it starts. Closing case: TC-SYS-113. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
@@ -3737,7 +3737,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: a test mode that survives a reset or is restored from the configuration store would start a keying stream or a full-scale tone without the two operator actions of REQ-SYS-179 (HZ-004 K13, HZ-005 K9; SWE-134 d). SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles; SRR decision 42 (same ruling) aligns the ConOps bench-test limit, which the ConOps author changes from 60 s per keyed activation. One outcome covers both parts of the ruling: exit on every reset, and no persistence across power cycles. Ops: OPS-012, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-004 K13; HZ-005 K9. |
 | Verification method | Test |
 | Verification note | Pre-build (supporting): HostUnit, the test mode active at a watchdog reset, a commanded reset and a power cycle with the configuration store written: inactive after each. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit into the calibrated attenuator and the dummy load; the bench test mode entered by the REQ-SYS-179 sequence, logic capture of TX_KEY, PA_EN and the TEST indication; the mode active at a reset button press, a fault-injected watchdog reset and a power-switch cycle: after each restart the display shows no TEST indication and TX_KEY stays idle for 60 s. Closing case: TC-SYS-113. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
