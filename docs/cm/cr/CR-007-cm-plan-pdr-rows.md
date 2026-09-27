@@ -1,0 +1,246 @@
+---
+id: CR-007
+title: Add the allocated-baseline admission rows to the CM plan and close its SRR liens
+status: Submitted
+class: II
+originator: Claude
+date_opened: 2026-09-27
+phase: B
+configuration_at_origination: baseline/srr (tag on 779f93f); HEAD ab2af2d on main; 05 blob f8de2081f7542ed0bbe47897d8b63e845b8c3114
+baseline_affected: baseline/srr
+affected_cis: [2, 3, 53]
+affected_paths: [docs/process/05-configuration-and-data-management.md, docs/process/rmm.json, docs/process/rmm.md, docs/templates/change-request.md, docs/templates/adr.md]
+affected_ids: [SWE-063, SWE-085, SWE-136, INSP-006, INSP-030, RFA-SRR-006, RFA-SRR-007]
+related: [CR-001, CR-003, CR-006, INSP-011, INSP-015, TV-011, TV-012, TV-013, RFA-SRR-003]
+target_release: none
+branch: cr/CR-007-cm-plan-pdr-rows
+disposition: null
+disposition_date: null
+relook_trigger: null
+relook_by: null
+merge_sha: null
+date_closed: null
+---
+
+# CR-007: Add the allocated-baseline admission rows to the CM plan and close its SRR liens
+
+Template: `docs/templates/change-request.md`. Process: `docs/process/05-configuration-and-data-management.md` (called 05 below) §5.1 to §5.3. File location: this file, committed on `main` with `Refs: CR-007`; the product changes go on the branch `cr/CR-007-cm-plan-pdr-rows` after disposition. Source: `docs/plan/pdr-work-plan.md` (revision 2, `ab2af2d`) WP-PDR-05 output 3 and register row PCR-1 (plan section 6.2); owner decision OD-36. Status: **Submitted**. The section 6 review (independent reviewer, CM lens, plus the software assurance reviewer) comes before the owner's disposition (plan rule C6; lesson 14 of `docs/lessons-learned.md`).
+
+05 is CR-controlled from SRR (Table 4-1 row 2) and is in `baseline/srr` at blob `f8de2081`. The text under Table 4-2 requires this change: "The allocated, product and as-built baselines get their own Table 4-2 rows by a Class II CR against this plan before the PDR readiness declaration." The SRR records also left twelve Minor liens against 05, each "Lien: fix before PDR", and they are applied here together:
+
+| Carried item (plan section 10.1) | Source | Change item below |
+|---|---|---|
+| C-081 | INSP-006 finding-10 (`docs/reviews/SRR/checklists/cm-plan-05.md`): Table 4-1 row 13 pre-baseline ADR exception | C3, C15 |
+| C-082 | INSP-006 finding-11 with observation O-6 (author item S-1): status line, row 9 dated schema list, Table 4-2 "not yet in H1" annotations | C1, C2, C6 |
+| C-083 | INSP-006 finding-12: §5.1 row 2 not bounded | C8 |
+| C-084 | INSP-030 finding-1 (`docs/reviews/SRR/checklists/cm-plan-05-software-assurance.md`): no software assurance part in change control and release | C7, C9, C12, C15 |
+| C-085 | INSP-030 finding-2: `rmm.json` rows SWE-136, SWE-063, SWE-085 disagree with 05 | C14, C16 |
+| C-086 | INSP-030 finding-3: build flavours carry the delivered image's identity | C11 |
+| C-087 | INSP-030 finding-4: safety-critical firmware files not identified | C4, C10 |
+| C-088 | INSP-030 finding-5: no Table 4-1 row for `docs/plan/status/` | C5 |
+| C-090 | Baseline check 3 OBS-1 (`docs/reviews/SRR/baseline-check.md` section 3): Table 4-2 row 2 "nothing else" wording for `docs/process/README.md` | C6 |
+| C-093 | SRR package lien L-7 (RFA-SRR-007): §9.2 known-answer rows for `tools/unsafe_audit.py`, `tools/complexity_gate.py`, `tools/measurements.py`, and a §13 note on TV-011 to TV-013 | C13 |
+| P-29 | 05 §4.4 text under Table 4-2 (gate reader product P-29): allocated-baseline admission rows | C6 |
+
+Line numbers below are those of 05 at blob `f8de2081`.
+
+## 1. Description of the change
+
+**C1. Status line (line 3).** Before: "**Status:** Draft for SRR (functional baseline); revision 3, 2026-09-25. Revision 2 applied pre-record review comments of the integrating session; no peer-review record exists for them. Revision 3 applies the findings of the first L1 record, `INSP-006` (...), and returns the plan to that reviewer for verification." and, later in the same line, "Until that memo is signed both processes are proposed, and this plan is at level L1 at most."
+After, for the first sentences: "**Status:** Baselined in the functional baseline `baseline/srr` (tag on `779f93f`; Table 4-1 row 2, CR-controlled from SRR); revision 4, <date of implementation>, by CR-007 (Class II). Revision history: revision 2 (2026-09-25) applied pre-record review comments of the integrating session; revision 3 (2026-09-25) applied INSP-006 finding-1 to finding-9; the pre-baseline edits of 2026-09-26 (Table 4-1 row 13 at `0ab3d6e`, SRR decision 105; AL-15, INSP-006 finding-7; Table 4-1 row 3 and the §5.1 Log row at `0834da2`, SRR decision 10 (c)) were verified by INSP-006 and INSP-030 on blob `f8de2081`, the blob in `baseline/srr`; revision 4 applies INSP-006 finding-10 to finding-12, INSP-030 finding-1 to finding-5, baseline check 3 observation OBS-1 and the §9.2 rows of SRR lien L-7, and adds the allocated-baseline admission rows (Table 4-2 part B)." For the ETA sentence: "ETA approval of this CM process (SE-20) and of this technical data management process (SE-21) is the owner's approval of this plan in `docs/reviews/SRR/decision-memo.md` (SRR decision 1, signed 2026-09-26, memo commit `0bcea39`); from the `baseline/srr` tag the plan is at level L2." Every other part of the line (Expands, Owner, Author, Governing text) is unchanged. If CR-003 is implemented first, its 05 edit becomes revision 4 and this change revision 5; the implementing commit numbers the revision and lists both.
+
+**C2. Table 4-1 row 9, Pathspec cell (line 95).** Before: "(every schema under `docs/`; on 2026-09-25: `docs/requirements/schema.json`, `docs/requirements/l0-stakeholder/schema.json`, `docs/test_cases/schema.json`, `docs/risk/schema.json`, `docs/safety/schema.json`, `docs/process/rmm.schema.json`, `docs/process/se-compliance-matrix.schema.json`, `docs/plan/tpm.schema.json`, `docs/templates/rfa-rid-log.schema.json`)". After: "(every schema under `docs/`; on 2026-09-27, eleven files (`git ls-files 'docs/*schema.json'`): `docs/design/allocation.schema.json`, `docs/plan/measurements.schema.json`, `docs/plan/tpm.schema.json`, `docs/process/rmm.schema.json`, `docs/process/se-compliance-matrix.schema.json`, `docs/requirements/l0-stakeholder/schema.json`, `docs/requirements/schema.json`, `docs/risk/schema.json`, `docs/safety/schema.json`, `docs/templates/rfa-rid-log.schema.json`, `docs/test_cases/schema.json`)". The pathspec itself is unchanged.
+
+**C3. Table 4-1 row 13, Notes (line 99).** Before: "One exception, before the `baseline/srr` tag only: the one-time pre-baseline correction of the Accepted ADRs found by INSP-011 (...) may fold the reconciled decision class, assumptions, hazard, section 4.1, errata and reviewer lines into the ADR files, never section 2 (Decision), under that INSP record with the owner's approval in the SRR decision memo; every later edit follows the rule above." After: "One exception existed before the `baseline/srr` tag only and is now closed: the one-time pre-baseline correction of the Accepted ADRs found by INSP-011 (`docs/decisions/adr/reconciliation-srr.md` section 7 ruling R-1 option (A)) folded the reconciled decision class, assumptions, hazard, section 4.1, errata and reviewer lines and a new section 8 "Change log" into the ADR files, never section 2 (Decision), under that INSP record. The exception text was added at `0ab3d6e` and the corrections were applied before the owner's ruling; SRR decision 105 (owner ruling 2026-09-26, `docs/reviews/SRR/decision-memo.md` section 8.0) approved option (A), so no restore of the earlier ADR blobs was needed. The corrected ADR blobs are those of `baseline/srr`. Every later edit follows the rule above; `docs/templates/adr.md` points here."
+
+**C4. Table 4-1 row 25, Notes (line 111).** Append: "Safety-critical and mission-critical code (INSP-030 finding-4; SWE-081): the files that implement each component of the 07 §14.1 tables are the paths in the `code` field of the `docs/design/allocation.json` elements whose `module` is that component (schema `docs/design/allocation.schema.json`). The map is set with the module boundaries of the software section of `docs/design/architecture.md` at PDR and completed with the code units of `docs/design/software-design.md` at CDR. CSA item 2 lists these paths as sub-rows of this row with their criticality, and the CR Safety field (§5.3) cites the map."
+
+**C5. Table 4-1, two new rows** (row rules of §4.2: rows are appended, never renumbered):
+
+| # | CI | Pathspec | ID scheme | Class | CR from | Notes |
+|---|---|---|---|---|---|---|
+| 56 | Status notes between reviews | `docs/plan/status/` | `status-YYYY-MM-DD.md` (charter §5) | Record | n/a | Owner statements transcribed verbatim (charter §4 item 4) with the lead SE reading and TPM status (SEMP §7.4). A note is never edited after its commit; a correction or an owner correction of the reading is a later dated note that cites it. Informational: no baseline content (INSP-030 finding-5). |
+| 57 | Phase work plans | `docs/plan/*-work-plan.md` | n/a | Log | n/a | Working plans of a life-cycle phase (for example `docs/plan/pdr-work-plan.md`); revised by `Refs:` commits with a revision entry in the file; not baselined; inputs to the next review package (agenda and milestones). |
+
+Row 57 is added because the first CSA issue (`docs/process/configuration-status.md` item 2, WP-PDR-05) found two tracked files that match no row: `docs/plan/status/status-2026-09-27.md` (committed at `72e1863`) and `docs/plan/pdr-work-plan.md` (committed at `51600e8`, revised at `ab2af2d`). 05 §4.2 says untracked files are never committed unless they match a row, so both commits departed from it; the CSA reports the departure (item 11) for the lead SE to enter in `docs/cm/deviations.md`, and these two rows close it.
+
+**C6. Table 4-2.** (a) The title becomes "Table 4-2. Baseline admission evidence. Part A: functional baseline (SRR)." (b) The paragraph above it (line 170): the sentence "Records marked "not yet in H1" are not yet in the record plan of `docs/reviews/SRR/package.md` §2 item H1 and are added to it by Claude (cross item of this revision)." is deleted, and its last sentence becomes: "Part B (allocated baseline, PDR) follows Part A. The product baseline (CDR) and the as-built baseline (SAR) get their own parts by a Class II CR against this plan before the CDR and the SAR readiness declaration respectively. Where this plan or a record cites "Table 4-2" without a part, it means Part A for `baseline/srr` and Part B for `baseline/pdr`." (c) The Record column of Part A names the records that exist (INSP-006 finding-11 observation O-6): row 2 process documents "01: INSP-019; 02: INSP-020; 04: INSP-021; 05: INSP-006 with INSP-030; 06: INSP-007; 07: INSP-010 with INSP-018; 08: INSP-022; SEMP: INSP-005"; row 2 schedule and cost estimate "INSP-023"; row 3 compliance matrix "INSP-024; tool run in the baseline record"; row 17 "INSP-025". (d) Row 2 `docs/process/README.md` (line 177, OBS-1): "confirms that it names every file of rows 1 to 3 and nothing else" becomes "confirms that it names every file of rows 1 to 3; any other entry is a pointer to a file of another row and carries no technical content". (e) New Part B, below Part A:
+
+**Table 4-2 Part B: allocated baseline (PDR).** Each CR-class CI of the Allocated line of the baselines table enters `baseline/pdr` only with the evidence below. The rules above Part A apply unchanged: an `INSP-NNN` record is required where a checklist for the product type exists (`docs/process/08-agent-briefing.md` §3.5, including the checklists that WP-PDR-03 adds: `peer-review-checklist-analysis.md`, `peer-review-checklist-software-assurance.md`, `peer-review-checklist-tool-validation.md`); a record whose product is a 07 §2.1.1 "Yes" product needs its software assurance pair; a record admits only the blob it names; a CI changed after its record needs a delta iteration naming the new blob (01 §13; the record drift rule of `tools/validate_docs.py`). Record paths are those of `docs/plan/pdr-work-plan.md` section 3.
+
+| Row | CI | Admission evidence | Record or check |
+|---|---|---|---|
+| 1, 2, 3, 5, 6, 7, 9, 17 (L1 cases), 27, 51, 52, 53 | Functional baseline as amended | An unchanged CI is admitted by blob equality with `baseline/srr` (`git diff --quiet baseline/srr <R> -- <path>`). A changed CI is admitted at its new blob only with (a) each approved CR that changed it, with its §9 verification by an independent reviewer passed, and (b) a delta iteration of its SRR record, or its PDR successor record, naming the new blob; an `Editorial:` change is listed in CSA item 5 and sampled by the independent reviewer. Row 3 also needs `tools/render_rmm.py --check` and `tools/render_compliance.py --check` exit 0; row 9 needs `tools/validate_docs.py` exit 0 and the unit tests passing; row 27 needs the TV records of §13 PDR row and the AL-4 comparison. Row 52 (`docs/design/concept.md`) becomes a Record at the tag (row 52 Notes) | CR files (§9 and §10); SRR records INSP-001 to INSP-025 and their PDR deltas; tool runs in the baseline record |
+| 8 | L2 requirement files: `docs/requirements/{rx,tx,pwr,ctl,me}/requirements.json`, `docs/requirements/sw/requirements.json`, `docs/requirements/sw/sw-<sub>/requirements.json`, each with its rendered `.md` | One `INSP-NNN` per file, `peer-review-checklist-requirements.md` sections A to F, with the V1 to V6 validation of every requirement (SE HB §4.2.1.2.4); for software files the software assurance pair where 07 §2.1.1 says Yes; `tools/traceability.py` with the PDR rules, zero violations; zero TBD; every open TBR an L2 TBR with owner, plan and `close_by` no later than CDR (charter §7; 02 §8 rule 5); status Draft to Active only by the PDR decision memo (02 §8.3) | `docs/reviews/PDR/checklists/requirements-<module>.md`, `requirements-sw-<sub>.md` and `requirements-sw-<sub>-software-assurance.md`; traceability report `docs/reviews/PDR/traceability-report.md` |
+| 10 | Interface control documents `docs/icd/` | One `INSP-NNN` per ICD, or per named set, `peer-review-checklist-design.md` section I; software assurance pair for `ICD-CTL-SW`, `ICD-TX-SW`, `ICD-PWR-SW`, `ICD-SW-HOST` and any ICD one of whose sides is a 07 §14.1 component; both side owners' validation recorded in the ICD; zero TBD | `docs/reviews/PDR/checklists/icd-<a>-<b>.md`, `icd-<a>-<b>-software-assurance.md`, `icd-external-set.md` |
+| 11 | `docs/design/architecture.md` | `INSP-NNN`, `peer-review-checklist-design.md` sections A, B and H, with the software assurance pair (07 §2.1.1: the software section is Yes as a whole; SWE-143 as tailored) | `docs/reviews/PDR/checklists/design-architecture.md`, `design-architecture-software-assurance.md` |
+| 11 | `docs/design/allocation.json` | `INSP-NNN`, `peer-review-checklist-design.md`; `tools/validate_docs.py` exit 0 (schema `docs/design/allocation.schema.json`); `tools/traceability.py` zero violations, with every Active SYS requirement allocated or tagged `leaf` | `docs/reviews/PDR/checklists/design-allocation.md` |
+| 11 | `docs/design/budgets.md` | `INSP-NNN`, `peer-review-checklist-analysis.md`; every computed value it cites comes from a tool with an Accredited TV record (§9.1) or is recomputable by hand from the cited inputs | `docs/reviews/PDR/checklists/analysis-budgets.md` |
+| 15 | `docs/safety/hazard-analysis.md`, `docs/safety/hazards.json` | `INSP-NNN`, `peer-review-checklist-safety.md`, with the software assurance pair; `tools/render_risk.py --check --gate PDR --hazards docs/safety/hazards.json` exit 0; `tools/traceability.py` zero violations; every hazard has an allocated control requirement (01 §12.2); the residual-risk acceptances recorded in the PDR decision memo | `docs/reviews/PDR/checklists/hazard-analysis.md`, `hazard-analysis-software-assurance.md` |
+| 16 | `docs/vv/plan.md` | `INSP-NNN`, `peer-review-checklist-requirements.md` section G, with the software assurance pair for the software sections (07 §2.1.1) | `docs/reviews/PDR/checklists/plan-vv-plan.md`, `plan-vv-plan-software-assurance.md` |
+| 17 | Test cases not citing an L1 requirement (every module other than `sys`, including the test-only modules of 04 §1) | One `INSP-NNN` per module file or named set, `peer-review-checklist-test.md`, with the software assurance pair for cases of safety-critical and mission-critical components (07 §2.1.1); `tools/traceability.py` zero violations; case status Draft to Active only on the APPROVED record (02 §8.4) | `docs/reviews/PDR/checklists/test-cases-l2-hardware.md`, `test-cases-sw.md` and their pairs; INSP-016 for `docs/test_cases/sw-tool/` |
+| 34 | TPM and MOP definitions in `docs/plan/tpm.json` (measured values are Record) | `INSP-NNN`, `peer-review-checklist-analysis.md`; `tools/validate_docs.py` exit 0 (schema `docs/plan/tpm.schema.json`); the status plots rendered by `tools/render_tpm.py` (TV record due PDR, §13) and inspected; owner approval of the definitions (SE-40 "Approved") in the PDR decision memo | `docs/reviews/PDR/checklists/tpm-definitions.md`; decision memo |
+| 48 | `docs/design/analysis/rf-exposure-evaluation.md` | `INSP-NNN`, `peer-review-checklist-analysis.md`; every regulatory citation resolves to `docs/references/md/regulatory/` | `docs/reviews/PDR/checklists/analysis-rf-exposure-evaluation.md` |
+| 50 | `docs/plan/integration-plan.md` | `INSP-NNN`, `peer-review-checklist-requirements.md` section G | `docs/reviews/PDR/checklists/plan-integration-plan.md` |
+| 54 | `docs/vv/README.md` | Reviewed with the V&V plan: the `plan-vv-plan.md` record lists `docs/vv/README.md` in `product_files` and answers section G for it; its package layout agrees with rows 19, 38 and §8.3 | `docs/reviews/PDR/checklists/plan-vv-plan.md` |
+| 21, 23, 24 (informational) | Preliminary schematic, enclosure CAD, simulation decks | Not admitted as CR-class content. Recorded in baseline record §2b with their hashes and the records that reviewed them (design checklist section J; analysis checklist) | Baseline record §2b |
+| 28 (controlled outside the set) | Tools with a TV record | Listed in baseline record §2c at their hash; each blob equals the blob its Accredited TV record names (§9.2 step 3); a tool without accreditation is listed as Validated or Not yet validated and its output is developer evidence only | TV records; baseline record §2c |
+| 25, 26 | Firmware source, external `rustos` | Not controlled until the first `release/FW-*` tag (rows 25 and 26); recorded in baseline record §2c for information with the lock §3 pin, as at SRR | Baseline record §2c |
+
+**C7. §3 roles table, rows "Independent reviewer" (line 58) and "Software assurance" (line 60).** Independent reviewer, second cell, before: "Reviews the impact assessment of every Class I CR and of every Class II CR that touches requirements, ICDs, hazards or test cases before disposition; reviews editorial classification ...". After: the same text, with "; with the software assurance reviewer where §5.2 names it" added after "before disposition". Software assurance, third cell, before: "Check at each review that this plan is being followed: tags present and annotated (signed once the key is configured), CSA current, CR trailers on commits, no unreviewed class-CR merges, Table 4-1 matching every tracked file. Findings the owner adopts become RIDs (01 section 10.1)." After: "A software assurance reviewer is an independent reviewer agent invocation other than the author and other than the file reviewer of the same product (07 §2.1.1). It (1) reviews the impact assessment and the implementation of the CRs that §5.2 routes to it; (2) confirms at each release the §8.1 step 8 items; (3) performs the interim configuration checks of §7.4 at each review, which are the software assurance audits of SWE-082 and SWE-085 (SWEHB section 7.1 task 2 of each): tags present and annotated (signed once the key is configured), CSA current, CR trailers on commits, no unreviewed class-CR merges, Table 4-1 matching every tracked file. Findings the owner adopts become RIDs (01 section 10.1)."
+
+**C8. §5.1 row 2 (line 229).** Before, first cell: "Change to a tailoring row (RMM, compliance matrix) after SRR". After: "Change to a tailoring row after SRR: the disposition, `tailoring_rationale` or `residual_risk` of an `rmm.json` row, or a compliance-matrix row (Table 4-1 row 3 Notes; a `status` move or implementation-path update alone is the Log row below)". The second cell is unchanged.
+
+**C9. §5.2, rows "Assessed" (line 251) and "Verified" (line 255).** Assessed, second cell, before: "Independent reviewer has reviewed the impact assessment (mandatory for Class I; for Class II when requirements, ICDs, hazards or test cases are affected; otherwise marked "Not required")." After: the same, followed by: "The software assurance reviewer (§3) also reviews it, as a separate invocation, when the CR changes a product that 07 §2.1.1 marks Yes for software assurance (for example 03, 05, 07, a software requirement file, the software section of `docs/design/architecture.md`, code of a safety-critical or mission-critical component) or when its Safety field names a component of the 07 §14.1 tables. For such a CR the review is mandatory whatever its class; it is written in the CR's section 6." Actor cell: "Independent reviewer agent; software assurance reviewer where named". Verified, second cell, before: "Independent reviewer confirms each impact item was closed as planned (...)". After: the same, followed by: "For a CR the Assessed row routes to the software assurance reviewer, that reviewer also confirms the implementation, in the CR's section 9." Actor cell: "Independent reviewer agent; software assurance reviewer where named".
+
+**C10. §5.3 Safety field (line 265) and §6 CSA item 2 (line 293).** Safety, second cell, after "listed by module id": add "with the affected paths taken from the Table 4-1 row 25 map". CSA item 2, content cell: append "; sub-rows of row 25 for the safety-critical and mission-critical paths of the row 25 map, each with its criticality (07 §14.1), level, hash and last commit". Source cell: append ", `docs/design/allocation.json` (`code`), 07 §14.1".
+
+**C11. Build-flavour identity (INSP-030 finding-3).** (a) §8.1 paragraph "Build flavours" (line 391): after "each flavour of a release is built by the same script at S with its Cargo feature named in the VDD," insert "embeds its own build identity `vX.Y.Z+<short S>.<flavour>` (the script sets `CWHT_BUILD_ID` with the suffix; flavours `instr` for the instrumented build and `fi` for the fault-injection build), so that `picotool info -a` and the version the radio shows name the flavour,". (b) §4.3 row "Firmware release" (line 152), "Where marked" cell: append "A build flavour of a release (§8.1) carries `vX.Y.Z+<short S>.<flavour>`; a version string with a flavour suffix never identifies a delivered image." (c) §8.3 step 2 (line 424): before the sentence "The same day Claude appends ..." insert "If the program version that `picotool info -a` reports carries a flavour suffix (§4.3), the unit is not delivered: Claude opens an NCR and the owner re-flashes the released image." (d) PCA-05 (line 346), Pass criterion cell: prepend "No delivered unit reports a version string with a flavour suffix;". (e) §8.4 "Anomaly contact rule" (line 432): after "the firmware version string (`picotool info -a` or the version shown by the radio)" insert ", which names a build flavour if one is installed". (f) §9.2 table row `tools/release.sh`, `tools/image_trailer.py`: append "; a flavour build embeds `vX.Y.Z+<short S>.<flavour>` and the release build embeds no suffix". `tools/release.sh` does not exist yet (TV before the first release candidate, §13 CDR row), so no tool changes now.
+
+**C12. §8.1 step 8 (line 385).** Before: "The independent reviewer checks the VDD and the release directory at A against the template checklist; the result is written in step 11." After: "The independent reviewer checks the VDD and the release directory at A against the template checklist, and the software assurance reviewer (§3) confirms the VDD row "Security and coding-standard confirmation (SWEHB 5.16 j)" against the `tools/sw_gate.sh` log at S (INSP-030 finding-1; SWEHB `swe-063` section 7.1 task 2); both results are written in step 11."
+
+**C13. §9.2 known-answer table and §13 (SRR lien L-7; C-093).** Three rows are added to the §9.2 table after the `tools/review_trend.py` row:
+
+| Tool | Known-answer test (pass criterion) |
+|---|---|
+| `tools/unsafe_audit.py` (TV-011, due CDR) | `-p 'test_unsafe_audit.py'` passes on `tools/tests/fixtures/unsafe_audit/`: the nine hand-counted sites of `audited/src/lib.rs` are found with their kinds and lines and none of the decoys; the seeded CS-06 fault (a block without a SAFETY comment) and the seeded CS-05 fault (a site in a forbidden root) are each reported; `--write` then `--check` keeps signatures (TV-011 section 3, 14 tests). |
+| `tools/complexity_gate.py` fed by `rust-code-analysis-cli` (TV-012, due CDR) | `-p 'test_complexity_gate.py'` passes on `tools/tests/fixtures/complexity_gate/`: each function's own CC equals the hand-computed value; the CS-17 limit, the CS-38 target-only allowances (board take, driver-construction failure arms, the three CS-19 unbounded loops) and the CS-19 cycle report print the stored FAIL, ALLOWANCE and MSR-17 lines; a waiver named in the decision memo is honoured and an unnamed one is not; the analyzer's output on the fixture sources equals the stored JSON (TV-012 section 3, run 3, 27 tests). |
+| `tools/measurements.py` (TV-013, due PDR) | `-p 'test_measurements.py'` passes on `tools/tests/fixtures/measurements/`: the FW-B0 link map gives FLASH 1608 B and RAM 8200 B, the MSR-18 and MSR-19 seed values taken from an independent source; a map above the red line fails; the record rules reject the seeded faults on temporary git repositories (TV-013 section 3, 16 tests). |
+
+Below the §13 table, add: "State of the three tools written after SRR (2026-09-27): TV-011 (`tools/unsafe_audit.py`, due CDR) and TV-013 (`tools/measurements.py`, due PDR) are Validated and not accredited; TV-012 (`tools/complexity_gate.py`, due CDR) was accredited early, ACC-COMPLEXITY-001 of 2026-09-26 (SRR close-out item 4, INSP-015 re-issue 3), and is re-validated on every version change (§9.2 step 4)."
+
+**C14. §14.1, new alignment row AL-16** (INSP-030 finding-2):
+
+| # | Other document | Statement there | This plan | Resolution |
+|---|---|---|---|---|
+| AL-16 | `docs/process/rmm.json` rows SWE-136, SWE-063 and SWE-085 (implementation texts) | SWE-136: "Accreditation is the owner's approval of the lock file at PDR and its re-check at TRR", and four TV records planned for SRR. SWE-063: "Planned for TRR: the first VDD for the release under test". SWE-085: "Planned for TRR: tools/release.sh and the first firmware/releases/vX.Y.Z/ release with its VDD" | §9.2 step 3: accreditation is the owner's decision recorded in each TV record; §13 SRR row: ten TV records; §4.4 Product row, §8.1 and §13 CDR row: the first release candidate, with its VDD and the `tools/release.sh` TV record, precedes CDR | CR-007 restates the three implementation texts (C16) through the `rmm.json` writer of the phase (WP-PDR-17, plan section 5.3), then `tools/render_rmm.py --check` exit 0. Done when CR-007 closes |
+
+**C15. Templates (Table 4-1 row 53).** (a) `docs/templates/change-request.md` section 6, first paragraph, after "otherwise write "Not required: Class II, no requirement/ICD/hazard/test impact"": add "A software assurance reviewer (a separate invocation) also reviews the assessment, whatever the class, when the CR changes a product that 07 §2.1.1 marks Yes or when the Safety row of section 4 names a 07 §14.1 component (CM plan §5.2 Assessed row); its rows carry "software assurance" in the Reviewer column, and section 9 carries its verification of the implementation." (b) `docs/templates/adr.md` comment block, after "Accepted ADRs are never edited except to change Status to Superseded and add the superseding ADR id; a changed decision is a new ADR.": add "The rule and its one closed pre-baseline exception are CM plan Table 4-1 row 13." No peer-review checklist changes, so the row 53 rule ("A checklist change invalidates L1 reviews") re-runs no `INSP-NNN` record.
+
+**C16. `docs/process/rmm.json` implementation texts (Table 4-1 row 3, CR part: implementation text beyond a path update).** Only the sentences named change; `disposition`, `tailoring_rationale`, `residual_risk` and `status` are unchanged.
+- SWE-136, before: "Accreditation is the owner's approval of the lock file at PDR and its re-check at TRR. Planned for SRR: TV records for the venv Python with jsonschema, tools/traceability.py, tools/validate_docs.py and tools/render_rmm.py (unit tests under tools/tests/ exist for the three scripts)." After: "Accreditation is the owner's decision recorded in section 9 of each TV record ("Accredited for purposes 1 to n at version v") after its independent review, entered as Accredited in tools/toolchain.lock.md section 5 (05 section 9.2 step 3). The TV records due at each gate are those of 05 section 13: at SRR, TV-001 to TV-010, accredited by SRR decision 114; at PDR, CDR and TRR, the rows listed there."
+- SWE-063, before: "Planned for TRR: the first VDD for the release under test." After: "Planned before CDR: the first VDD, for the first release candidate release/FW-v0.9.0-rc1 (05 sections 4.4 Product row, 8.1 and 13 CDR row; 07 section 3.1 FW-B2); every later release and candidate has its own VDD."
+- SWE-085, before: "Planned for TRR: tools/release.sh and the first firmware/releases/vX.Y.Z/ release with its VDD." After: "Planned before CDR: tools/release.sh with tools/image_trailer.py, whose TV record precedes the first release candidate (05 section 13 CDR row), and the first release candidate directory firmware/releases/v0.9.0-rc1/ with its VDD (05 sections 4.4 and 8.1)."
+`docs/process/rmm.md` is re-rendered by `tools/render_rmm.py` in the same commit.
+
+## 2. Reason
+
+05 §4.4 requires the allocated-baseline admission rows by a Class II CR against 05 before the PDR readiness declaration, and every wave 3 record of the PDR phase must produce the evidence those rows name (plan register PCR-1: "Blocks readiness (05 §4.4). No fallback"). The twelve SRR liens against 05 (INSP-006 finding-10 to finding-12, INSP-030 finding-1 to finding-5, baseline check 3 OBS-1, SRR lien L-7 part) are due at the PDR readiness declaration (`docs/reviews/SRR/decision-memo.md` section 6, RFA-SRR-006 and RFA-SRR-007), and 05 is CR-controlled from SRR, so they need a CR. INSP-030 already named the vehicle, in the text below its lien table: "the four liens are applied by one Class II CR against 05 before the PDR readiness declaration, the vehicle section 4.4 already names for the PDR rows of Table 4-2". The first CSA issue found the status note and the PDR work plan committed with no Table 4-1 row (C5). Workaround while the CR is open: none needed for the functional baseline; the wave 3 records follow Part B as drafted here, at risk of the disposition (plan rule C8).
+
+## 3. Alternatives considered
+
+| Alternative | Why rejected or deferred |
+|---|---|
+| Do nothing | 05 §4.4 then blocks the PDR readiness declaration, and the twelve liens stay open past their due event, the PDR readiness declaration (SRR memo section 6). |
+| One CR per lien | Twelve CRs against the same file in one wave break the one-writer rule (plan section 5.3, lesson 17) and multiply review invocations; the liens are small and disjoint. |
+| Write the product (CDR) and as-built (SAR) admission rows now as well | The product-baseline CIs (schematic, BOM, release packages) and their checklist items (design section J at CDR) are defined only preliminarily at PDR; rows written now would guess at CDR evidence. Kept as owner question Q2. |
+| Put the safety-critical code map in 07 §14.1 instead of `allocation.json` | 07 §14.1 lists components, not files, and changes by CR; the allocation file already has a required `code` field per element and is regenerated with the design, so the map lives with the design data and 05 only points to it. |
+| Class the status notes and the work plan in one Log row | Status notes transcribe owner statements verbatim, which the charter treats as record (charter §4 item 4); a Record row keeps them append-only. |
+
+## 4. Impact assessment (CM plan §5.3)
+
+| Field | Assessment (numbers, IDs, paths) |
+|---|---|
+| Performance margins | None: no MOP, TPM or budget is defined or changed by a CM procedure. |
+| Safety | No `HZ-NNN` changes. No component of the 07 §14.1 tables changes. The change adds software assurance review to CRs that touch those components (C9) and identifies their code paths (C4, C10), which strengthens control of them. Hazard analysis re-issue: no. RF exposure evaluation (row 48): no. |
+| Risk | None added, closed or re-scored: no `RSK-NNN` in `docs/risk/register.json` concerns the CM procedures changed here. |
+| Software classification and tailoring | No classification change and no disposition, `tailoring_rationale` or `residual_risk` change. Three `rmm.json` implementation texts change (C16: SWE-136, SWE-063, SWE-085), which is CR-part content of Table 4-1 row 3; `rmm.md` is re-rendered. No compliance-matrix row changes. |
+| Interfaces | None: no ICD is affected; no external-interface change. |
+| Operations and ConOps | No `OPS-NNN` scenario changes. The anomaly contact rule text (§8.4) gains a clause that the version string names a flavour (C11 (e)); the hand-over procedure a recipient follows is unchanged, so no operator procedure changes. |
+| Cybersecurity | None: neither the USB firmware-load path nor the key-input command path changes (07 §16). The flavour identity (C11) makes an installed fault-injection image visible in `picotool info -a`, which supports the release-integrity mitigations. |
+| Verification | No `TC-NNN` is invalidated, added or modified. Admission evidence for `baseline/pdr` is defined (C6 Part B); it names checklists and records the PDR plan already schedules. Records to re-run as deltas on the changed 05 blob: INSP-006 and INSP-030, as the PDR records `docs/reviews/PDR/checklists/cm-plan-05.md` and `cm-plan-05-software-assurance.md` (plan WP-PDR-05). |
+| Cost | None: no BOM, vendor or shipping change. |
+| Schedule | Section 6 review Tue 2026-09-29 morning; disposition at owner session B1a Tue 2026-09-29 (OD-36; 05 §5.2 Class II target: one working session); implementation and the delta records before freeze F1, Sun 2026-10-04 (plan section 5.2). CR-003 revision 3 (Submitted) also changes 05 (its section 4 Documentation row: line 13, the line 154 ME-ENC row, §8.2 steps 1, 3, 5, 6 and row 23 Notes); the hunks are disjoint from those of this CR, and whichever CR is implemented second rebases on the other and numbers the revision (C1). CR-006 does not change 05. |
+| Requirements and traceability | None: no requirement is added, modified or retired; volatility contribution 0 (SWE-200). |
+| Regulatory | None: no 47 CFR clause is affected. |
+| Documentation | `docs/process/05-configuration-and-data-management.md` (row 2); `docs/process/rmm.json` and `docs/process/rmm.md` (row 3); `docs/templates/change-request.md`, `docs/templates/adr.md` (row 53); `docs/process/configuration-status.md` regenerated after the merge (row 35, Log). No VDD or release package exists. |
+| Released units | None: no unit exists. |
+
+Classification rationale: Class II proposed. The change corrects and extends CM procedures and configuration documentation without impact to form, fit, function, interchangeability, interfaces, safety, verification evidence or operator procedures (05 §2 Class II). The SE HB §6.5.1.2.3 minor-change basis applies; Class I and Class II are project labels (05 §2). The section 6 review below is performed although 05 §5.2 would mark it "Not required" for a Class II CR with no requirement, ICD, hazard or test impact, because the PDR plan rule C6 reviews every phase CR before disposition, and because 05 is a 07 §2.1.1 "Yes" product for software assurance, which is the rule C9 introduces.
+
+## 5. Implementation plan
+
+| Step | Artifact and path | Responsible | Done (SHA) |
+|---|---|---|---|
+| 1 | Section 6 review of this CR: independent reviewer (CM lens) and software assurance reviewer, separate invocations that authored none of it | Reviewer agents (plan wave 1a, Tue 09-29 AM) | |
+| 2 | Owner disposition in section 7 (OD-36, session B1a) | Robin; Claude transcribes | |
+| 3 | Branch `cr/CR-007-cm-plan-pdr-rows`: 05 edits C1 to C14 in one commit with `CR: CR-007` | Claude (CM function) | |
+| 4 | Templates C15 (`docs/templates/change-request.md`, `docs/templates/adr.md`) on the same branch | Claude (template owner) | |
+| 5 | `rmm.json` texts C16 and the `rmm.md` re-render, by the phase `rmm.json` writer (WP-PDR-17, plan section 5.3), with `tools/render_rmm.py --check` exit 0 | Claude (03 and RMM author) | |
+| 6 | `tools/validate_docs.py` exit 0; `python -m unittest discover -s tools/tests` all passing; `tools/traceability.py --report-only` zero violations (report files restored) | Claude | |
+| 7 | Section 9 verification of the implementation by the independent reviewer and the software assurance reviewer, as the delta records `docs/reviews/PDR/checklists/cm-plan-05.md` and `cm-plan-05-software-assurance.md` on the new 05 blob | Reviewer agents | |
+| 8 | Owner merge approval; `git merge --no-ff` (`merge(CR-007): ...`) before freeze F1 (Sun 2026-10-04); merge SHA in section 10 | Robin; Claude | |
+| 9 | CSA regenerated (`docs/process/configuration-status.md`), with rows 56 and 57 in item 2 and the row 25 sub-rows once the map exists | Claude (CM function) | |
+
+Verification of the implementation (what the independent reviewer checks): every before and after string of section 1 against the committed files at the merge; Table 4-1 rows 1 to 55 unchanged except the cells named; rows 56 and 57 appended with no renumbering; every tracked file matching exactly one row after the merge (CSA item 2 unmatched list empty); Part B rows name only checklists that exist in `docs/templates/` at the merge (the three WP-PDR-03 checklists included); `tools/render_rmm.py --check` exit 0; the three `rmm.json` rows differ from `e326ddd1` only in the implementation sentences of C16.
+
+## 6. Independent review of the impact assessment
+
+Required here by PDR plan rule C6 and by the rule this CR adds (05 is a 07 §2.1.1 "Yes" product); see the classification rationale. Reviewers: an independent reviewer (CM lens) and a software assurance reviewer, each a separate invocation that authored none of this CR. Scheduled Tue 2026-09-29 morning (plan section 5.2 wave 1a).
+
+| Item | Reviewer (agent invocation) | Date | Finding | Resolution |
+|---|---|---|---|---|
+| Pending | | | | |
+
+Reviewer concurrence: pending.
+
+## 7. CCB disposition (owner)
+
+| Field | Value |
+|---|---|
+| Decision | Not dispositioned |
+| Class confirmed | |
+| Date | |
+| Conditions | |
+| Rationale | |
+| Waiver scope (if Approved (waiver)) | n/a |
+| Re-look trigger and re-look-by review (if Deferred) | |
+| Source | |
+
+Disposition history (append only):
+
+| Date | Decision | New target | Source |
+|---|---|---|---|
+| | | | |
+
+## 8. Implementation record
+
+| Commit | Files | Trailer check (`CR: CR-007` present) |
+|---|---|---|
+| | | |
+
+Traceability report after implementation: pending; renders regenerated: `docs/process/rmm.md`.
+
+## 9. Verification of implementation
+
+| Impact item | Planned closure (from §4/§5) | Evidence (report path, TC id, analysis file) | Result |
+|---|---|---|---|
+| | | | |
+
+Independent verifier (agent invocation): pending.
+
+## 10. Closure
+
+| Field | Value |
+|---|---|
+| Owner merge approval | |
+| Merge commit | |
+| Waiver entered in CSA item 12 and affected VDDs | n/a |
+| CSA regenerated | |
+| Date closed | |
+
+## 11. History
+
+| Date | State | By | Commit on main | Note |
+|---|---|---|---|---|
+| 2026-09-27 | Submitted | Claude (CM function, WP-PDR-05) | this file's first commit | Raised as PCR-1 of `docs/plan/pdr-work-plan.md` section 6.2 for the 05 §4.4 allocated-baseline rows and the 05 SRR liens (C-081 to C-088, C-090, C-093); section 6 review requested before disposition (OD-36) |
+
+## 12. Questions for the owner (answer with the disposition)
+
+| # | Question | Recommendation |
+|---|---|---|
+| Q1 | Approve CR-007 as Class II? | Approve. It changes CM procedures only, and 05 §4.4 makes it a condition of the PDR readiness declaration. |
+| Q2 | The admission rows of the product (CDR) and as-built (SAR) baselines: add them by a Class II CR before the CDR and SAR readiness declarations respectively (C6 (b)), or write them now? | Before each readiness declaration. 05 §4.4 as written asks for all three before PDR; the product-baseline evidence (design section J at CDR, release packages) is known only preliminarily at PDR. |
+| Q3 | Status notes as a Record row (append only; a correction is a later dated note) and phase work plans as a Log row (C5)? | Confirm. It keeps your verbatim statements unedited, as charter §4 item 4 does for chat approvals. |
+| Q4 | Software assurance review of every CR that changes a 07 §2.1.1 "Yes" product or names a 07 §14.1 component, whatever its class (C9)? | Confirm. It adds one reviewer invocation per such CR, and it closes the gap INSP-030 finding-1 found live in CR-001 (a Class II change to 07 safety-state rules marked "Not required"). |
+| Q5 | Flavour suffixes `instr` and `fi` in the embedded build identity (C11)? | Confirm. Any other short lower-case names serve equally; the rule that matters is that a flavour is visible in `picotool info -a` and never on a delivered unit. |
