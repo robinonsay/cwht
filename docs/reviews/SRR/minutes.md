@@ -108,3 +108,5 @@ Recorded:
   - (1) an enclosure style whose face and end plates are separate flat panels, ordered cut to drawing, either as PCBWay CNC aluminum plates or as bare PCB panels in the same PCBWay order (copper for shielding, silkscreen for the legend), so that the extruded body needs no holes;
   - (2) a machining-to-drawing service for catalog enclosures, whose capability, quote and lead time the study must confirm;
   - (3) PCBWay CNC of the complete box (option A) as the fallback.
+
+Owner statement, verbatim: "I like that suggestion." Option B is to use an extruded enclosure style with separate flat face and end plates. PCBWay cuts the plates in the same order as the board, either as bare PCB panels or as CNC aluminum plates, so the extruded body needs no machining. The catalog enclosure is chosen at PDR first, and the board outline and the printed case (option C) follow its envelope.
