@@ -5,44 +5,52 @@
 # (section G and A8) for the 02 retirement text, plus readiness R5 for a CR. The two schema enums are
 # reviewed against 05 Table 4-1 row 9 (schema change rule) and the tools that read them.
 # This record is the WP-PDR-12 review of PCR-3 (PDR work plan section 6.2; rule C6 section 6 impact
-# review), iteration 1. Its companion for CR-015 is docs/reviews/PDR/checklists/cr-015-process-01-02-08.md
+# review), iteration 1 in full and iteration 2 (delta, rule C1: finding-1 only). Its companion for CR-015 is docs/reviews/PDR/checklists/cr-015-process-01-02-08.md
 # (INSP-060); the two were one brief and are split so that each CR's merge can satisfy the drift rule.
 id: INSP-061
 checklist: peer-review-checklist-requirements
 checklist_revision: C
 checklist_file: docs/reviews/PDR/checklists/cr-016-retired-status-schema.md
 product: CR-016
-# product_commit: the CR-016 branch head that holds the frozen blobs (base 11b1b1d on main); the CR file is on main at a525ea2
+# product_commit: the CR-016 branch head that holds the frozen schema and 02 blobs (base 11b1b1d on main).
+# Iteration 2 (delta, 2026-09-27) reviews the revised CR file, blob 987f72e2 on main at 9bda072, with the three
+# branch blobs unchanged at 33e0916. Iteration 1 reviewed the CR file blob 8ea665e5 (main a525ea2).
 product_commit: "33e0916d94a503926d5567f74e3b4e3ab7e57b48"
-product_files: ["docs/requirements/schema.json@32d0a2516d91a635f5690790944db334a97aa987", "docs/test_cases/schema.json@f8eae82a3d0684b4703b90cddf82d7042f2ddb87", "docs/process/02-requirements-and-traceability.md@09d6df9c5554e4270f54d05c22eaa612079adb98", "docs/cm/cr/CR-016-retired-status-schema.md@8ea665e568587f9da8463b50b62df9a2e4b912a6"]
+product_files: ["docs/cm/cr/CR-016-retired-status-schema.md@987f72e2d32f7f8a637110091fca8f924c5dbb7b", "docs/requirements/schema.json@32d0a2516d91a635f5690790944db334a97aa987", "docs/test_cases/schema.json@f8eae82a3d0684b4703b90cddf82d7042f2ddb87", "docs/process/02-requirements-and-traceability.md@09d6df9c5554e4270f54d05c22eaa612079adb98"]
 product_size: 4 files; 2 schema enums, 7 locations in 02 (sections 2.3, 8.2 T-10 and T-19, 8.3, 8.4, 11.3 lead, table and step 1), 14 impact fields
 sprint: PDR-prep
 author_agent: "author:WP-PDR-12 (process owner, lead SE role; CR-016 author)"
-reviewer_agent: "reviewer:WP-PDR-12-iteration-1 (CR-016 section 6 impact review)"
+reviewer_agent: "reviewer:WP-PDR-12-iteration-2 (CR-016 section 6 impact review, delta; independent, authored no part of WP-PDR-12; iteration 1 by reviewer:WP-PDR-12-iteration-1)"
 # criticality and assurance: CR-016 changes no software requirement file (07 section 2.1.1 row 1) and 02 is an
 # "Other process document" (No in every column): no software assurance pair
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+iteration: 2
 readiness_met: true
-# reviewer_verdict: one Major finding (finding-1, classification against 05 Table 4-1 row 9)
-reviewer_verdict: NEEDS CHANGES
+# reviewer_verdict: iteration 2 verifies finding-1 (Major) fixed in CR-016 blob 987f72e2; finding-2 and
+# finding-3 (Minor) are liens due the CDR readiness declaration (rule C1)
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
+# verdict: held at NEEDS CHANGES (lead SE convention of 2026-09-27, INSP-031 practice): the schema and 02 blobs
+# exist only on the unmerged branch cr/CR-016-retired-status-schema; the record verdict is set to APPROVED in
+# the CR-016 merge commit (or the commit right after it) when those blobs reach main unchanged
 verdict: NEEDS CHANGES
 findings_major: 1
 findings_minor: 2
-findings_open: 3
+# findings_open: no finding is Open; finding-1 Verified, finding-2 and finding-3 liens due CDR (rule C1)
+findings_open: 0
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
+# items_no: at iteration 2, CK-REQ-G1 stays No for finding-2 only and CK-REQ-G2 for finding-3 only
 items_no: [CK-REQ-G1, CK-REQ-G2]
-effort_turns: 30
-effort_minutes: 60
+effort_turns: 44
+effort_minutes: 85
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -168,4 +176,69 @@ FINDINGS:
 - [Minor] CK-REQ-G2 CR-016 sections 4 and 5: 04, 05 and tool docstring hunks need a named vehicle; delta after the 02 re-blobbing merge.
 ITEMS N/A: CK-REQ-A1 to A7, B to F (no requirement content); CK-REQ-G4, G5
 MEASUREMENTS: size=4 files; technical checks=7; impact fields=14; turns=30; minutes=60; major=1; minor=2
+```
+
+## Iteration 2: delta verification of finding-1 (Major) (2026-09-27)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the Major fix only. Products at the frozen blobs of `product_files`: CR-016 blob `987f72e2` (on `main` at `9bda072`, the author's fix commit, and still the `main` HEAD blob); `docs/requirements/schema.json` `32d0a251`, `docs/test_cases/schema.json` `f8eae82a` and 02 `09d6df9c` at branch head `33e0916` (`git rev-parse cr/CR-016-retired-status-schema` is `33e0916`, so the branch did not move). Each blob was recomputed with `git rev-parse` at `main`, `9bda072`, `33e0916` and the branch tip: 4 of 4 equal to the brief. `git log 9bda072..main -- docs/cm/cr/CR-016-retired-status-schema.md` is empty. The delta read is `git diff 8ea665e5 987f72e2` (front matter `class`, section 1.1 new paragraph, section 4 Schedule row and classification rationale, section 5 step 5, section 6 basis sentence, section 11 history row, section 12 Q2); the three branch blobs are unchanged since iteration 1, so their technical check stands.
+
+**Checklist.** As iteration 1: `docs/templates/peer-review-checklist-requirements.md` revision C, CK-REQ-G1 against 05 Table 4-1 row 9 and 05 section 2, and readiness R5.
+
+**Acceptance criteria (rule C7).** The five fix elements finding-1 names, and each clause of 05 Table 4-1 row 9 (the governing clause) as a case: (1) `class: I`; (2) the classification rationale restated against row 9; (3) the row 9 clause "lists the re-validation it triggers"; (4) the row 9 migration clause ("carries the migration of every affected data file in its implementation"); (5) the row 9 atomic-commit clause ("one commit (or one CR merge) carries the schema and every data file it affects, with the `tools/validate_docs.py` result and the unit-test count in the commit message") placed in step 5; (6) Q2's recommendation; plus the Class I consequences of 05 section 5.2 that the revision now cites (state Assessed mandatory for Class I; the Class I cycle-time target).
+
+**Independence (rule C4).** This invocation authored no part of CR-016, its branch or WP-PDR-12, did not write iteration 1 of this record, and edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query "INSP-061 CR-016 retired status schema review record finding-1 Class I") ran before any manual search; `grep -n` then only pinned lines of 05 (rows 2, 9, 28; section 5.2 lines 251 and 259) and of `tools/validate_docs.py` at `33e0916`.
+
+### Verification of finding-1 (Major)
+
+| # | Element | Evidence at the frozen blobs | Result |
+|---|---|---|---|
+| 1 | `class: I` | CR-016 front matter line 5 `class: I`; the CR template's field admits `I` or `II` | Done |
+| 2 | Rationale against row 9 | Section 4 "Classification rationale: Class I" quotes row 9 "is Class I when it adds or changes a required field or an enum" (verbatim with 05 line 95 on `main`), applies it to the `Retired` value added to two `status` enums, and states that the baselined CM rule governs over the PCR-3 register estimate | Done |
+| 3 | Re-validation list (row 9) | Section 1.1 "Re-validation and migration" names nine data files. Reviewer check: at `33e0916` `tools/validate_docs.py` maps `docs/requirements/**/requirements.json` and `docs/test_cases/**/test_cases.json` to the two schemas (lines 140, 146) and the `<name>.example.json` templates to them (lines 173, 174); `git ls-tree` at `33e0916` and at `main` lists exactly those nine files outside the fixture root. The list also covers files added on `main` before the merge (waves 2a and 2b L2 files), and step 5 restates it at the merge head | Done, complete |
+| 4 | Migration clause | Section 1.1: no data file is affected, so no migration is carried; the enums only widen. Reviewer re-run with `jsonschema` (venv Python) of the nine blobs against the `33e0916` schemas: 9 of 9 PASS at `33e0916` and 9 of 9 PASS at `main` HEAD. The fixture schema copies are excluded as row 28 fixtures, which row 9's own pathspec text states ("schema copies inside the fixture root are fixtures of row 28"). Keeping REQ-SYS-016 and REQ-SYS-123 in the interim form is correctly not a migration (their status does not change; 02 section 8.3) | Done, confirmed |
+| 5 | Atomic-commit clause in step 5 | Step 5: the `--no-ff` merge is the one commit carrying both schemas and every affected data file (none); its message body states the re-validated files, the `validate_docs.py` result at the merge head (exit status, pass count, each failing file, admitted only where `main` already fails and never a requirement or test-case file) and the unit-test count (run, failures, errors, skipped); a failing data file forces its migration onto the branch with `CR: CR-016` before the merge, so the merge still carries it | Done |
+| 6 | Q2 | Section 12 Q2 "Confirm Class I", recommendation citing row 9 | Done |
+| 7 | 05 section 5.2 Class I consequences | Section 6 basis: the review is mandatory for Class I (05 line 251, state Assessed) and points to this record. Section 4 Schedule: disposition B2 Fri 10-02 is 5 days after submission on 2026-09-27 and before PDR, inside "the next review or 14 days, whichever is earlier" (05 line 259) | Correct |
+
+finding-1 is **Verified**.
+
+### Scan of the delta for new defects
+
+The new text was read in full against 05 section 2, Table 4-1 rows 9 and 28 and section 5.2. No new finding. The classification now agrees with the class definitions (05 section 2 Class II would fit on impact alone; row 9 is the specific rule and the CR says so). The history row records the revision and states that finding-2 and finding-3 are not addressed, which is accurate. The PCR-3 register row still reads "II" (cross item X-2 of iteration 1, lead SE, outside this product).
+
+### Findings (iteration 2; current state of every finding of this record)
+
+| Finding | Severity | State | Note |
+|---|---|---|---|
+| finding-1 | Major | Verified | Closed at iteration 2 on CR-016 blob `987f72e2` (elements 1 to 7 above) |
+| finding-2 | Minor | Lien: fix before CDR | 02 T-14, section 9 rule 2, T-11 and section 8.5 T-19 at `33e0916` still name only the interim retirement form (unchanged branch blob). Owner: Claude as 02 process owner (WP-PDR-12 author); due the CDR readiness declaration, and in any case in the branch before the CR-016 merge so the merged 02 is consistent; listed in PDR package section 15 |
+| finding-3 | Minor | Lien: fix before CDR | CR-016 section 4 Documentation and section 5 steps 5 and 6 unchanged: the 04, 05 and tool docstring hunks still have no named vehicle, and the step 6 delta stays conditional. Same owner and due; if a later revision adds paths to `affected_paths`, that revision is a delta of this record before the disposition |
+
+### Section 6 impact review of CR-016, iteration 2 (for the lead SE to enter, cross item X-1)
+
+Reviewer: this invocation. Date 2026-09-27. Class (05 section 2; Table 4-1 row 9): **concur Class I** (finding-1 Verified). Every other row of the iteration 1 table stands: Documentation and Schedule "partly concur" carry finding-3 as a lien. **Reviewer concurrence:** concur with the impact assessment and the classification; no open Major; the CR may go to the owner's disposition (OD-37, B2 Fri 10-02), with finding-2 and finding-3 presented as liens.
+
+### Checklist answers changed at iteration 2
+
+| Id | Iteration 1 | Iteration 2 | Evidence |
+|---|---|---|---|
+| CK-REQ-G1 | No (finding-1, finding-2) | No (finding-2 only) | finding-1 Verified |
+| CK-REQ-G2 | No (finding-3) | No (finding-3 only) | unchanged |
+| R5 | Yes | Yes | fourteen fields filled; class now per row 9 |
+
+### Measurements (SWE-089), iteration 2
+
+Items re-checked: finding-1 fix elements 7; product blobs 4 identities; reviewer runs 1 (`jsonschema` over 9 files at 2 refs). New findings: 0. Findings verified: 1 (Major). Iteration 2 effort: 14 turns, 25 minutes; cumulative 44 turns, 85 minutes (front matter).
+
+### Record verdict (iteration 2)
+
+Reviewer verdict **APPROVED**: finding-1 (Major) is Verified; finding-2 and finding-3 (Minor) are liens due the CDR readiness declaration under rule C1. Software assurance pair: not required (07 section 2.1.1; unchanged from iteration 1). Record `verdict` stays **NEEDS CHANGES** only under the lead SE convention of 2026-09-27 (INSP-031 practice): the schema and 02 blobs of `product_files` exist only on the unmerged branch `cr/CR-016-retired-status-schema`. When CR-016 merges and `git rev-parse HEAD:<path>` equals the three branch blobs above (or a delta iteration verifies new blobs, which finding-3 (b) makes likely for 02), the merge commit or the commit right after it sets `verdict: APPROVED`.
+
+```
+VERDICT (iteration 2, 2026-09-27): reviewer APPROVED (with liens finding-2, finding-3); record verdict NEEDS CHANGES (held until the CR-016 merge)
+FINDINGS:
+- [Major] finding-1 Verified (CR-016 987f72e2: Class I by 05 Table 4-1 row 9; re-validation list, migration statement and merge-commit content present)
+- [Minor] finding-2 Lien, due CDR
+- [Minor] finding-3 Lien, due CDR
+MEASUREMENTS: elements verified=7; new findings=0; iteration 2 turns=14, minutes=25; cumulative turns=44, minutes=85
 ```
