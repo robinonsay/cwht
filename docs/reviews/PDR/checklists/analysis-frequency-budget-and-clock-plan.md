@@ -8,45 +8,52 @@
 # absent from docs/templates/, so the field names the design checklist (SEMP section 7.2 design analyses), as
 # INSP-040 and INSP-041 did for the branch-only tool-validation template. The delta iteration after CR-012
 # merges switches the field to peer-review-checklist-analysis.
+# Iteration 2 (delta, rule C1) at the re-freeze F0 commit 802347b: the four Major fixes of iteration 1, on the
+# seven blobs below (ADR-031 is now in product_files, so its record is this one). CR-012 is still not merged at
+# 8abb467 (branch cr/CR-012-pdr-checklist-templates), so X-1 stands and the checklist field is unchanged.
 id: INSP-056
 checklist: peer-review-checklist-design
 checklist_revision: A
 checklist_file: docs/reviews/PDR/checklists/analysis-frequency-budget-and-clock-plan.md
 product: docs/design/analysis/frequency-budget.md
-product_commit: "9ac2c42d1ff7b82e3734506aba14dec8eadc3923"
-product_files: ["docs/design/analysis/frequency-budget.md@1a7be266d1a309391aea99b51dd4a2a82e892d4c", "docs/design/analysis/clock-plan.md@6e733d06f4a05c4b2505e1c1b4a175556cd631b6", "hardware/sim/freq/freq_budget.py@3cd21cb19c9f4835ac7505829af99379e2610dd5", "hardware/sim/freq/clock_plan.py@b21bc3b8cc18b07c426bb3a75704da5f3958b037", "docs/reviews/PDR/figures/frequency-budget.png@7ecf505fd974469caabbc9fdad7bf255e3d9be90", "docs/reviews/PDR/figures/clock-plan-harmonics.png@c22bb722aaa32f7ef2bace0e338506336c96b85a"]
+product_commit: "802347bb9b6549fe7ee4a8005ce7605fc2cabc3a"
+product_files: ["docs/design/analysis/frequency-budget.md@79d47fbbcae7fbfc5dde43ebde5c6e6b20917f94", "docs/design/analysis/clock-plan.md@8582121a860eb75dd093b62c9d6bb03cd5acd363", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "hardware/sim/freq/clock_plan.py@b939229725b0e1f37a723d7399dcda72c990a8fe", "docs/reviews/PDR/figures/frequency-budget.png@d77a0b3afac520643fdda042d188612b9123848e", "docs/reviews/PDR/figures/clock-plan-harmonics.png@19f47e3d8a1307ec478b98be68f673da08191562", "docs/decisions/adr/ADR-031-clock-plan.md@a578ca16aa6e5d23269b2591205f3d1e696ebf14"]
 analysis_kind: [budget, timing, worst-case, other]
-product_size: 2 notes; 31 checker cases (27 PASS, 4 INFO) and 22 clocks in 6 IF plans; 2 checkers; 2 plots
+product_size: 2 notes and 1 ADR; 39 checker cases (35 PASS, 4 INFO) and 28 clock rows (4 named residual sources) in 6 IF plans; 2 checkers; 2 plots
 tools_used: ["venv Python 3.13.5 (TV-001 accredits the interpreter; no TV record covers hardware/sim/freq/*.py, developer evidence per 05 section 9.1)"]
-values_proposed: ["REQ-SYS-008: 144.0012 to 147.9988 MHz", "REQ-SYS-009: 144.0012 to 147.9988 MHz", "REQ-TX-002: 144.0012 to 147.9988 MHz", "REQ-SYS-010: +/-2.5 ppm, -10 to +45 C, one year after calibration", "REQ-SYS-154: 10 kHz", "REQ-SYS-182: 10 kHz and 100 ms (route R3)", "REQ-TX-013: fixed ratio 8, sample below 20 MHz, within 1 kHz", "REQ-SYS-034: 144.010 to 147.999 MHz, 3 dB above MDS", "TPM-006: cbe 0.834 / 0.984 / 1.234 ppm by class, credit false"]
+values_proposed: ["REQ-SYS-008: 144.0012 to 147.9988 MHz", "REQ-SYS-009: 144.0012 to 147.9988 MHz", "REQ-TX-002: 144.0012 to 147.9988 MHz", "REQ-SYS-010: +/-2.5 ppm, -10 to +45 C, one year after calibration", "REQ-SYS-154: 10 kHz true-error limit, measured SW-SAFE threshold 5.0 kHz (route R3), lock-detect primary for the unlocked trigger", "REQ-SYS-182: 10 kHz and 100 ms (route R3)", "REQ-TX-013: fixed ratio 8, sample below 20 MHz, within 1 kHz", "REQ-SYS-034: 144.010 to 147.999 MHz, 3 dB above MDS", "TPM-006: cbe 0.834 / 0.984 / 1.234 ppm by class, credit false"]
 renders_inspected: 2
 sprint: PDR-prep
 author_agent: "author:WP-PDR-20 wave 1a (Claude as RF designer TX)"
-reviewer_agent: "reviewer:WP-PDR-20-analysis-iter1 (independent; authored no part of WP-PDR-20)"
+reviewer_agent: "reviewer:WP-PDR-20-analysis-iter2 (independent; authored no part of WP-PDR-20; iteration 1 by reviewer:WP-PDR-20-analysis-iter1)"
 # criticality: the frequency budget sets the window, times and calibration bound of the SW-SAFE frequency
 # verification unit and the SW-SYNTH frequency-word path (07 section 14.1, safety-critical by SRR decision 9);
 # section J answered here
 criticality: safety-critical
-# assurance_required: a stand-alone analysis note is not a row of 07 section 2.1.1 (template comment); the
-# product path and slug carry no sw-<sub> token
-assurance_required: false
-assurance_reviewer_agent: none
-iteration: 1
+# assurance_required: iteration 1 set false (a stand-alone analysis note is not a row of 07 section 2.1.1).
+# Iteration 2: ADR-031 is now a product file of this record, and 07 section 2.1.1 row "Trade studies and ADRs
+# whose decision constrains a safety-critical or mission-critical component" applies: ADR-031 section 2 item 4
+# fixes configuration constants of the WP-SW-11 clocks driver and of SW-SYNTH (SPI divisor 8), both
+# safety-critical in 07 section 14.1 (ADR-031 section 4.3 names WP-SW-11 safety-critical), and item 8 adds SW
+# requirements (GPIO23, I2C traffic rule). The SA pair is a separate invocation (rule C4); it is not done here
+assurance_required: true
+assurance_reviewer_agent: "pending (software assurance pair of INSP-056 for ADR-031, to be dispatched by the lead SE; 07 section 2.1.1)"
+iteration: 2
 readiness_met: true
 reviewer_verdict: NEEDS CHANGES
-assurance_verdict: not-required
+assurance_verdict: pending
 verdict: NEEDS CHANGES
-findings_major: 4
-findings_minor: 3
-findings_open: 7
+findings_major: 5
+findings_minor: 4
+findings_open: 5
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 4
 findings_deferred: 0
 assurance_tasks_applied: [swe-070 7.1 task 1, swe-134 7.1 task 1, swe-134 7.1 task 6]
 deferred_rids: []
-items_no: [CK-ANA-A4, CK-ANA-B1, CK-ANA-D3, CK-ANA-E3, CK-ANA-E5, CK-ANA-F1, CK-ANA-F4, CK-ANA-J2]
-effort_turns: 44
-effort_minutes: 80
+items_no: [CK-ANA-D2, CK-ANA-D3, CK-ANA-E5, CK-ANA-F1, CK-ANA-F4, CK-ANA-J2]
+effort_turns: 40
+effort_minutes: 60
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -254,3 +261,158 @@ MEASUREMENTS: size=31 checker cases, 22 clocks, 6 IF plans; inputs_checked=24; r
 ## Measurements (SWE-089)
 
 Items checked 59 applicable (readiness 6, A 6, B 6, C 5, D 4, E 7, F 4, G 10, H 3, I 2, J 3, less the N/A items); items answered No 8; findings 4 Major, 3 Minor; fixed 0; deferred 0; iteration 1; renders inspected 2; effort 44 turns, about 80 minutes (shared session with INSP-055).
+
+## Iteration 2: delta verification of finding-1 to finding-4 (Major) (2026-09-27)
+
+**Scope (rule C1).** A delta that verifies the four Major fixes only. The products were re-frozen at `802347b` (freeze F0, rule C2): `frequency-budget.md` `79d47fbb`, `clock-plan.md` `8582121a`, `freq_budget.py` `d82269e6`, `clock_plan.py` `b9392297`, `frequency-budget.png` `d77a0b3a`, `clock-plan-harmonics.png` `19f47e3d`, and now ADR-031 `a578ca16`. Each blob is equal at `802347b`, at `HEAD` (`8abb467`) and in the working tree (`git rev-parse` and `git hash-object`). No product blob lives on a `cr/` branch, so the record verdict is set in this commit. The change was read as `git diff 9ac2c42 802347b` on the two notes and ADR-031, together with the checker functions each fix touches. The iteration 1 blobs are in the front matter of `8fea433`. The iteration 1 checklist answers stand except where this section changes them. Minor findings 5 to 7 were not addressed (rule C1) and were not re-checked.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-20 (TS-007, both notes, ADR-031, the checkers, the figures) and did not write iteration 1 of this record or INSP-055 or INSP-074. It edited no product file.
+
+**Search first (charter section 11 rule 1).** One `git log`, `git status` and `grep -n "WP-PDR-20"` over the plan file (a known path) ran in the same step that loaded the search tool. That order is recorded here as a deviation. `mcp__claude-context__search_code` then ran before every other manual search. Queries on `/Users/robinonsay/rust/cwht`: the INSP-056 record and the WP-PDR-20 products; the REQ-SYS-154 and 182 wording; ROSC use in the cwht clock configuration; display-module oscillators. On `/Users/robinonsay/rust/rustos`: RP2350 ROSC and LPOSC. `grep` afterwards only pinned lines. RP2350 and Pico 2 text was read only from committed objects, `git show 2ec64c0f:docs/extracted/rp2350-datasheet.md` and `pico-2-datasheet.md`, exported to the scratchpad. The rustos working tree was not read.
+
+**Acceptance criteria for the delta (rule C7).**
+- REQ-SYS-154, "on key-down or during transmission when its synthesizer is unlocked or off its set frequency by over 10 kHz". That gives four cases: off-frequency at key-down, off-frequency during transmission, unlocked at key-down, and unlocked during transmission.
+- REQ-SYS-182, "withhold RF, or end it within 100 ms, unless ... agrees ... within 10 kHz". Both branches, with the no-false-trip condition at the release-build frequencies 144.0012 and 147.9988 MHz.
+- TC-SYS-101 and the REQ-SYS-182 verification note: the 12 kHz injection, at key-down and during an over.
+- The WP-PDR-20 output "harmonic table of every clock against 144 to 148 MHz and the IF". Every source that runs in operation, against both ends of 144.010 to 147.999 MHz and against the CW-only segment 144.010 to 144.100 MHz.
+- I2C SCL over the whole rise-time range; the QSPI SCK over every CLKDIV the plan allows.
+- ADR-031 items 2, 3, 4, 6, 7 and 8 against `clock-plan.md` revision 1.
+
+### Verification of the Major findings
+
+**finding-1 (REQ-SYS-154 true error against the measured window): Verified.**
+
+| Element of the fix | Result | Evidence |
+|---|---|---|
+| Measured threshold T distinct from the 10 kHz true-error limit, with both conditions | Yes | Section 3.3 "Measured threshold and true-error limit": no false trip d < T; no missed trip T + d <= 10 kHz. `undetected_bound("R3")` = T + d (checker lines 183 to 191), the correct bound for measured = true + e with abs(e) <= d |
+| T = 5.0 kHz inside the R3 interval at both intervals | Yes | Checker "TABLE R3 threshold interval": 4518.0 < T <= 5482.0 (iv12), 2518.0 < T <= 7482.0 (iv13). Reviewer hand check: d12 = 8 x 500 + 370 + 148 = 4 518 Hz, 5 000 - 4 518 = 482 Hz, 10 000 - 9 518 = 482 Hz; d13 = 8 x 250 + 518 = 2 518 Hz, both margins 2 482 Hz |
+| REQ-SYS-182 unchanged and consistent | Yes | C-12w: T <= 10 kHz, so RF is withheld on every disagreement over 10 kHz. REQ-SYS-182 is a "withhold unless agrees within 10 kHz" statement, so a tighter SW-SAFE threshold satisfies it. The release-build edges keep d < T (C-12, at TX_MAX) |
+| TC-SYS-101 consequence named | Yes | C-18: 12 000 - 4 518 = 7 482 Hz > T (margin 2 482 Hz); 12 000 - 2 518 = 9 482 Hz (margin 4 482 Hz). The case needs no change |
+| Sensitivity of the 482 Hz margin | Yes | C-16a: 8a + 518 < 5 000 and 5 518 + 8a <= 10 000 give a <= 560.25 Hz at both intervals (reviewer). It is stated as the WP-SW-14 dev-board acceptance limit, with interval 13 as the fallback (C-14.A2 11.5 ms, stated) |
+| R1 alternative restated | Yes | `min_154_limit("R1", 13)` = 11 990 + 2 000 + 9 620 = 23 610 Hz (reviewer), "at least 23.7 kHz" in section 3.3 and section 4, both by CR |
+| Values table | Yes | Section 4 row REQ-SYS-154 gives the limit, the threshold and the "else a CR" branch; T goes to WP-PDR-35 as an L2 value, and no requirement file is edited |
+
+**finding-2 (unlocked trigger): Verified.**
+
+| Element of the fix | Result | Evidence |
+|---|---|---|
+| Case at key-down | Yes | U-1.A1 and U-1.A2: the lock-detect indication is read after the last write and just before the `PA_EN` prerequisite (07 section 14.2 `SW-SYNTH` items g and l), inside the 2 ms software allocation of C-14. The FC0 interval 12 check is the second means. Checker: PASS, 6.00 and 7.50 ms within the 12 ms lead-in |
+| Case during transmission | Yes | U-2: 10 ms lock-detect sample (allocation to WP-PDR-32) + 20 ms (REQ-SYS-004) = 30.0 ms. The checker compares it with the 100 ms of REQ-SYS-182 and with C-15 (46.0 ms). REQ-SYS-154 sets no time of its own (statement read), so using the REQ-SYS-182 time is a reasonable proxy and is stated as such |
+| Unlocked inside the window | Yes | An unlocked VCO inside T is caught only by lock detect. The note says so and names the "else a CR" branch if the LMX2571 has no lock-detect indication (section 3.3, section 4 last column) |
+| Research gap routed | Yes | The lock-detect form goes to TS-007 value-of-information item 4 (INSP-055 finding-4 is Minor on the same gap, confirmed). Pin or SPI status forms are covered by requests to WP-PDR-36a and 35, and A1 by the Si5351A status bit (AN619 is not in the corpus, stated) |
+| Requests | Yes | WP-PDR-35: the lock-detect requirements and the HostUnit cases at 4.9 and 5.1 kHz; WP-PDR-32: the timing analysis; WP-PDR-16b: HZ-008 C8 and K7 wording; WP-PDR-36a: the pin |
+
+One wording error in the U-1 row is new finding-9 (Minor). No result changes.
+
+**finding-3 (clock inventory): Verified for the four sources it named.** The new omission found while checking the completeness claim is new finding-8 (Major).
+
+| Element of the fix | Result | Evidence |
+|---|---|---|
+| RP2350 core regulator (R-1) | Yes | Section 2.1: typical 3 MHz only, with no min or max (datasheet Table 1441 row fsw, extract line 100935 area). Switching whenever the core runs: "In Normal mode, the regulator operates in a switching mode" (extract line 32844). Low power mode is not possible under software control (line 32905). The 48th harmonic reaches 144.010 MHz at +69.4 ppm (reviewer: 10 kHz / 144 MHz = 69.44 ppm) |
+| Pico 2 RT6150 (R-2) | Yes | Pico 2 datasheet section 5.4 (extract lines 697 to 702): PS low gives PFM, PS high gives PWM, and PWM under heavy load "irrespective of the PS pin state". The frequency is not in the corpus (VOI-CP-2). The GPIO23-high proposal, with its battery cost, goes to WP-PDR-24 and 29 |
+| TPA6130A2 charge pump (R-3) | Yes | 300 to 500 kHz (display research F15). Reviewer count: n from ceil(144.010 / 0.5) = 289 to floor(144.100 / 0.3) = 480, 192 intervals, equal to the checker. Whether R-3 exists depends on D-UI-05 (WP-PDR-25) |
+| QSPI SCK | Yes | CLKDIV reset `0x04` and "Odd and even divisors are supported" (extract line 93386); boot `CLKDIV is set to 12` (line 28498). Clear set 1 to 24: a line needs n/d in [0.96007, 0.98666], and (d - 1)/d < 0.96 for d <= 24 (reviewer). The checker table agrees; CLKDIV 25 is the first coherent one, 26 the first in the band |
+| Rules 2 and 6 and REQ-SYS-034 restated | Yes | Rule 2 applies to placeable clocks, rule 6 separates switchers that can be synchronised or switched off from R-1 to R-3, and new rule 10 governs level. For the residual lines, the REQ-SYS-034 allowance row says the Analysis gives no support and the Test is the evidence. The TRR "else a CR" branch is named |
+| ADR-031 | Yes | Context, assumptions 4 and 5, items 2, 6, 7 and 8, option A, sections 4.1, 4.3 and 4.4, the memo wording and the revisit conditions all follow revision 1 and match `clock-plan.md` section 2.1 |
+
+**finding-4 (I2C SCL model): Verified.**
+
+| Element of the fix | Result | Evidence |
+|---|---|---|
+| Section 12.2.14 equations | Yes | Quoted in the checker (lines 44 to 47) and in section 2.1 R-4, as in the datasheet (extract lines 75469 to 75470). The fall time cancels in the period: (HCNT + SPKLEN + 7) + (LCNT + 1) ic_clk + tr. ic_clk is clk_sys (line 73861) |
+| Rise-time range and SCL | Yes | Reviewer: 160 + 8 + 7 + 199 + 1 = 375 ic_clk = 2.500 us; 1 / 2.520 us = 396.8 kHz, 1 / 2.800 us = 357.1 kHz; 144 MHz / SCL = 362.9 to 403.2, which is not a single integer, so SCL is non-coherent. The 20 to 300 ns range is labelled an allocation, and the 300 ns Fast-mode ceiling "not in the corpus" |
+| CW-segment count | Yes | n = ceil(144.010 / 0.3968) = 363 to floor(144.100 / 0.3571) = 403: 41 intervals, as the checker says |
+| Classification and control | Yes | Residual R-4, non-coherent, with the receive traffic rule (event-driven, no poll faster than once a second, each transaction at most 1 ms), sent to WP-PDR-32 and 35. The REQ-SYS-034 Test runs with traffic generated. Rule 3 now excludes I2C |
+| Rule 4 divisor statement | Yes | "I2C SCL 400 kHz with HCNT + LCNT = 375" has been removed. Rule 4 and ADR-031 item 4 state the counts and the range. The counts meet the constraints of section 12.2.14.1 (LCNT 199 > SPKLEN + 7 = 15) |
+
+### Reviewer re-runs
+
+| Command | Exit | Result |
+|---|---|---|
+| `git archive 802347b hardware/sim/freq <two PNGs>` into the scratchpad; `.venv/bin/python hardware/sim/freq/freq_budget.py --plot` | 0 | "RESULT: 35 pass, 0 fail", 4 INFO (C-13.iv12, C-13.iv13, C-16a, C-17), as `frequency-budget.md` section 7 says |
+| `.venv/bin/python hardware/sim/freq/clock_plan.py --plot` (same export) | 0 | "RESULT: 0 rule failure(s) in the proposed plan; 4 named residual source(s)", as `clock-plan.md` section 7 says |
+| `git hash-object` of the regenerated PNGs | 0 | `d77a0b3a` and `19f47e3d`: byte-identical to the frozen figures |
+
+### Visual closure (iteration 2)
+
+Both frozen figures were opened with the Read tool (2 renders).
+- `frequency-budget.png`, right panel: the REQ-SYS-154 10 kHz limit (red dashed) and the 5 kHz threshold T (green dash-dot) are both in the legend, not over the bars. The R3 bars show healthy disagreement 4.5, 2.5 and 1.5 kHz, all under T, and undetected error 9.5, 7.5 and 6.5 kHz, all under 10 kHz. The R1 bars show 14.0, 12.0 and 11.0 kHz against 27.6, 23.6 and 21.6 kHz. These agree with the checker.
+- `clock-plan-harmonics.png`: the title wraps onto three lines and names the magenta residual class. The four residual rows are drawn: I2C, the charge pump and the regulator as full-span bars, and the RT6150 with the text "frequency not in the corpus". The QSPI 37.5 MHz n = 4 mark is at 150 MHz.
+- The legend still covers the XOSC n = 14 label at 168 MHz. This is cosmetic and not a finding, as in iteration 1.
+
+### New findings at iteration 2
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-8"></a>finding-8 | reviewer (iteration 2, while verifying the finding-3 completeness claim) | Major | CK-ANA-F1, CK-ANA-E5 | `clock-plan.md` section 2 inventory, section 2 result line ("The rules hold for every source that can be placed"), section 5 row REQ-SYS-034 range; ADR-031 section 1 ("Every other clock can be placed") and section 2 header | See the note after this table | Open | Pending | |
+| <a id="finding-9"></a>finding-9 | reviewer (iteration 2) | Minor | CK-ANA-D2 | `frequency-budget.md` section 3.3, unlocked table row U-1, column "Second means" | See the note after this table | Open | Pending | |
+
+**finding-8 (RP2350 oscillators missing from the inventory).**
+- **Defect.** The inventory still omits two RP2350 oscillators that run in operation:
+  - **Ring oscillator (ROSC).** "It provides the clock to the cores during boot". It runs at "a nominal 11MHz" and "is guaranteed to be in the range 4.6MHz to 19.6MHz without randomisation and 4.6MHz to 24.0MHz with randomisation" (RP2350 datasheet section 8.3.1, extract lines 41086 to 41093). It stops only if software disables it: "You can disable the ROSC once you've switched the system clocks to the XOSC". After DORMANT it restarts "in the same configuration" (section 8.1.1.2).
+  - **Low-power oscillator (LPOSC).** Nominal 32.768 kHz, an RC oscillator that starts with the core supply, with an initial accuracy of +/-20 % and +/-1.5 % after trimming (section 8.4, extract lines 41641 and 41663).
+- **Why the ROSC matters.** The cwht clock bring-up, ADR-051 section 2 (WP-SW-11), moves clk_ref and clk_sys off the ROSC but never stops it. So the ROSC is a clear-class clock, running in operation, whose frequency cannot be placed. Harmonic orders 8 to 31 can fall in 144.010 to 144.100 MHz (24 orders; for example n = 13 at 11.0777 to 11.0846 MHz).
+- **Why the LPOSC matters.** It is a dense, non-coherent source with lines about 33 kHz apart in every band.
+- **Consequence.** The claim of rules 1 and 2 ("0 rule failures", "Every other clock can be placed"), the REQ-SYS-034 range support and the HZ-008 K6 expected-birdie list are not established. The defect class is the same as finding-3.
+- **Fix.** Add both sources, with their ranges and datasheet lines.
+  - For the ROSC, choose one of two routes. Either (a) add a rule that the clocks driver disables the ROSC once clk_ref and clk_sys run from the XOSC and PLL_SYS, and again after any DORMANT exit, with a request to the WP-SW-11 and ADR-051 writer and to WP-PDR-35 for an SW-CTL requirement and its HostUnit check. Or (b) name it residual R-5.
+  - Name the LPOSC as a residual source (R-6), or show that it is stopped in operation.
+  - Update the checker, the figure, rule 2, the REQ-SYS-034 row and ADR-031 to match.
+
+**finding-9 (U-1 threshold wording).**
+- **Defect.** The U-1 row says "an unlocked output more than 5.482 kHz off trips". With T = 5.0 kHz and d = 4 518 Hz at interval 12, a trip is guaranteed only above T + d = 9.518 kHz. An error from 5.482 to 9.518 kHz may pass. The same section later states the correct 9.518 kHz bound.
+- **Effect.** No result changes, since lock detect is the primary means.
+- **Fix.** Replace 5.482 with 9.518 kHz, and say that errors above T - d = 0.482 kHz may trip.
+
+### Findings (iteration 2 state)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | CK-ANA-E3, E5, F1 | `frequency-budget.md` section 3.3, section 4 row REQ-SYS-154 | Measured threshold T = 5.0 kHz distinct from the 10 kHz true-error limit; both conditions, C-16a sensitivity and C-18 for TC-SYS-101 confirmed by re-run and hand check | Verified | Pending | |
+| finding-2 | reviewer | Major | CK-ANA-F1 | `frequency-budget.md` section 3.3 table U-1, U-2; section 4; section 5 | Unlocked trigger at both moments with the lock-detect means, the time budget and the "else a CR" branch; confirmed | Verified | Pending | |
+| finding-3 | reviewer | Major | CK-ANA-F1, A6 | `clock-plan.md` sections 2, 2.1, 3, 5; ADR-031 | Core regulator, RT6150, charge pump and QSPI SCK added and classified; rules 2 and 6 and REQ-SYS-034 restated; confirmed against the datasheets (the further omission is finding-8) | Verified | Pending | |
+| finding-4 | reviewer | Major | CK-ANA-A4, B1 | `clock-plan.md` section 2.1 R-4, rule 4; `clock_plan.py`; ADR-031 item 4 | I2C modelled per section 12.2.14 over 20 to 300 ns rise, non-coherent residual R-4 with a traffic rule; confirmed | Verified | Pending | |
+| finding-5 | reviewer | Minor | CK-ANA-D3 | as iteration 1 | Not re-checked (delta, not addressed) | Open | Pending | |
+| finding-6 | reviewer | Minor | CK-ANA-F4, A5 | as iteration 1 | Not re-checked (delta, not addressed) | Open | Pending | |
+| finding-7 | reviewer | Minor | CK-ANA-J2, H1 | as iteration 1 | Not re-checked (delta, not addressed) | Open | Pending | |
+| finding-8 | reviewer | Major | CK-ANA-F1, E5 | `clock-plan.md` section 2 and 5; ADR-031 sections 1 and 2 | ROSC (4.6 to 24 MHz, not stopped by ADR-051) and LPOSC (32.768 kHz +/-20 %) missing from "every clock" | Open | Pending | |
+| finding-9 | reviewer | Minor | CK-ANA-D2 | `frequency-budget.md` section 3.3 row U-1 | "more than 5.482 kHz off trips" should be 9.518 kHz (T + d) | Open | Pending | |
+
+### Checklist items changed at this iteration
+
+| Id | Iteration 2 answer | Evidence |
+|---|---|---|
+| CK-ANA-A4 | Yes | I2C input corrected (finding-4 Verified); the FC0 time basis of finding-5 is Minor and open |
+| CK-ANA-B1 | Yes | I2C model per section 12.2.14 (finding-4 Verified) |
+| CK-ANA-D2 | No (Minor) | Note text and checker agree except the U-1 wording (finding-9) |
+| CK-ANA-E3 | Yes | REQ-SYS-154 reported against the true-error limit with signed margins; the 482 Hz margin has its sensitivity (C-16a) |
+| CK-ANA-E5 | No | REQ-SYS-154 and 182 proposals now supported; the REQ-SYS-034 range proposal is not, because the inventory is incomplete (finding-8) |
+| CK-ANA-F1 | No | All four REQ-SYS-154 cases are present (off-frequency and unlocked, at key-down and during transmission). The "every clock" case is incomplete (finding-8) |
+| CK-ANA-J2 | No (Minor) | swe-134 items h and l are now consistent with REQ-SYS-154 (findings 1, 2 Verified); the finding-7 TCXO-fault bound is still open |
+| CK-ANA-I1, I2 | Yes | Two renders opened (visual closure above) |
+
+### Cross items (not findings)
+
+- **X-1.** Unchanged: CR-012 is not merged at `8abb467`, so the `checklist` field keeps the design checklist.
+- **X-6 (software assurance pair).** ADR-031 is now a product of this record. 07 section 2.1.1, row "Trade studies and ADRs whose decision constrains a safety-critical or mission-critical component", therefore requires an SA pair. The reason is that ADR-031 item 4 fixes configuration constants of the WP-SW-11 clocks driver and the SW-SYNTH SPI, both safety-critical in 07 section 14.1. `assurance_required` is now true and `assurance_verdict` is pending. The record verdict cannot become APPROVED until the pair is APPROVED. This reviewer did not apply the SA lens.
+- **X-7.** Route (a) of finding-8 is a request to the ADR-051 and WP-SW-11 writer (plan WP-PDR-41). ADR-051 is outside WP-PDR-20's files, so the WP-PDR-20 author sends it as a request (plan section 5.3) and does not edit it.
+
+### Verdict (iteration 2)
+
+```
+VERDICT: NEEDS CHANGES
+PRODUCT: docs/design/analysis/frequency-budget.md@79d47fbb, docs/design/analysis/clock-plan.md@8582121a, hardware/sim/freq/freq_budget.py@d82269e6, hardware/sim/freq/clock_plan.py@b9392297, docs/reviews/PDR/figures/frequency-budget.png@d77a0b3a, docs/reviews/PDR/figures/clock-plan-harmonics.png@19f47e3d, docs/decisions/adr/ADR-031-clock-plan.md@a578ca16 at 802347b
+FINDINGS:
+- [Major] finding-1 Verified: measured threshold T = 5.0 kHz distinct from the 10 kHz true-error limit; margins 482 / 2 482 Hz; TC-SYS-101 trips.
+- [Major] finding-2 Verified: unlocked trigger at key-down (U-1) and during transmission (U-2, 30 ms), lock detect primary, CR branch named.
+- [Major] finding-3 Verified: core regulator, RT6150, charge pump, QSPI SCK added; residual lines R-1 to R-3; rules restated.
+- [Major] finding-4 Verified: I2C SCL 357.1 to 396.8 kHz per section 12.2.14, residual R-4 with a traffic rule.
+- [Major] finding-8 (new): ROSC (4.6 to 24 MHz, left running by ADR-051) and LPOSC (32.768 kHz) missing from the inventory.
+- [Minor] finding-9 (new): U-1 second-means wording 5.482 kHz should be 9.518 kHz.
+- [Minor] finding-5 to finding-7 carried Open (not addressed, not re-checked, rule C1).
+VALUES PROPOSED: REQ-SYS-008, 009, REQ-TX-002, REQ-SYS-010, REQ-TX-013, TPM-006 as iteration 1 (supported); REQ-SYS-154: 10 kHz true error with T = 5.0 kHz and lock detect (supported, subject to TS-007 value-of-information item 4 and the C-16a dev-board limit); REQ-SYS-182: 10 kHz, 100 ms with R3 (supported; finding-7 Minor open); REQ-SYS-034: 144.010 to 147.999 MHz, 3 dB (not supported, finding-8)
+SA PAIR: required (07 section 2.1.1, ADR-031); pending
+MEASUREMENTS: size=39 checker cases, 28 clock rows, 6 IF plans, 1 ADR; renders=2; turns=40; minutes=60; major=5 (4 verified, 1 new open); minor=4 open
+```
+
+Next: the author fixes finding-8 (and finding-9 at their option) and re-freezes. Iteration 3 of this record is then a delta on finding-8. It is the last iteration before escalation to the owner (rule C1; 07 section 10.2). The lead SE dispatches the SA pair for ADR-031 (X-6). Under rule C10, no value of either note goes to the owner until this record, with its SA pair, is APPROVED.
