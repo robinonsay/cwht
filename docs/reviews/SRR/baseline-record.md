@@ -244,6 +244,113 @@ Deviations (`docs/cm/deviations.md`): entries 1 to 4 all Closed at `bb2485e` (§
 | L1 TBRs | TBR | Robin on Claude's evidence | **109**, every one `close_by: PDR` (recounted at `49104a5`, unchanged; the P9 change touched status only) | PDR |
 | L2 TBRs | TBR | Robin on Claude's evidence | **25**: REQ-TX 14, REQ-SW-KEYER 11 (recounted at `49104a5`, unchanged) | PDR |
 
+### 0.4 Record status, 2026-09-27 at `824a362`: commit R
+
+Status line, 2026-09-27 (Claude, integrator and CM function): preconditions re-checked at HEAD `824a3624980db067853e2438ac4f56b53cf554ad`, the parent of this commit, after the INSP-010 X-9 copy delta (`824a362`). That delta closes the only gap that section 0.3 and the independent baseline check 2 (`docs/reviews/SRR/baseline-check.md`, `61ab1d7`, NOT READY FOR TAG on P5 only) left open. This section supersedes §0.3 for current status and, for current values, §1, §2, §3, §5 and §7. §0, §0.1, §0.2, §0.3 and §1 to §7 are kept unchanged as the record of the earlier states.
+
+**This commit is R.** P1 to P9 are met (§0.4.2). P10 is pending: it is the post-tag step. This commit changes one file only, this record; every hash in §0.4.3 is `git rev-parse 824a362:<path>`, so it equals the blob or tree at R. Claude applies `baseline/srr` to this commit with the §8 commands only after the independent baseline check is repeated at R, with every hash taken by `git ls-tree R -- <path>` (CM plan §4.4 step 4; §9 row 2), and reads READY FOR TAG. Claude then pushes (P10). `baseline_tag` in the decision memo stays `null` until Claude tags. The fill-once fields of the front matter, §8a and §9 are written in the post-tag record commit (CM plan §4.4 step 6).
+
+#### 0.4.1 Tool results at `824a362` (2026-09-27, run by the integrator from the repository root)
+
+| Check | Command | Result |
+|---|---|---|
+| Document validation | `.venv/bin/python tools/validate_docs.py` | exit 0, 50 passed, 0 failed, 50 checked |
+| Traceability | `.venv/bin/python tools/traceability.py --report-only`, then `git checkout -- docs/vv/traceability-report.md docs/vv/traceability.json` | exit 0; 245 requirements, 173 test cases, **0 violations**, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and REQ-SYS-148, as recorded in §0.3.1). Rendered files restored |
+| Risk register | `.venv/bin/python tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | exit 0; 65 risks, 159 candidates, 0 warnings, `register.md` current |
+| RMM | `.venv/bin/python tools/render_rmm.py --check` | exit 0; 100 rows (FC 75, T 17, NA 8), `rmm.md` current |
+| Compliance matrix | `.venv/bin/python tools/render_compliance.py --check` | exit 0; 62 rows (FC 49, T 4, NA 9), validation passed, rendered file current |
+| Tool unit tests | `.venv/bin/python -m unittest discover -s tools/tests` | exit 0; 424 tests run, OK |
+| Object store | `git fsck --full` | exit 0; 6 dangling blobs and 4 dangling commits, no errors |
+| AL-4 venv pins | `tools/requirements.txt` (comments and blank lines removed, sorted) against `.venv/bin/pip freeze` (sorted) | identical, 35 pins |
+| Working tree | `git status --short` after the runs | clean |
+| Tracked files | `git ls-files \| wc -l` | 1177 (unchanged since `49104a5`) |
+| Change since §0.3 | `git diff --stat 49104a5 824a362` | 3 files, all records: `baseline-record.md` (§0.3, `4c4e0d1`), `baseline-check.md` (check 2, `61ab1d7`), `checklists/software-plan-07.md` (INSP-010 X-9 copy delta, `824a362`). No CI, informational item or controlled tool changed |
+
+#### 0.4.2 Preconditions at `824a362`
+
+| # | Precondition | State on 2026-09-27 at `824a362` | Evidence |
+|---|---|---|---|
+| P1 | No open Major finding in the SRR records (memo §9 condition 2; CM plan §4.4 step 1) | **Met.** None of the 30 records in `docs/reviews/SRR/checklists/` holds an open Major. All 30 read `verdict: APPROVED`, `reviewer_verdict: APPROVED` and `readiness_met: true` | Front matter of the 30 records at `824a362`; baseline check 2 D11 for the Major rows |
+| P2 | The five Major findings that waited on the rulings are closed (memo §9 condition 2) | **Met, 5 of 5**, unchanged since §0.3.2 | INSP-016 delta 2 (`6a969b9`); memo §13.3 |
+| P3 | `tools/validate_docs.py` exit 0 and the unit tests passing (Table 4-2 rows 9 and 53) | **Met.** 50 of 50; 424 tests OK. The record drift rule passes for every record, including INSP-010 after its X-9 copy delta | §0.4.1 |
+| P4 | `tools/traceability.py` passes | **Met.** 0 violations, 2 warnings; tool blob `12de3545` unchanged | §0.4.1 |
+| P5 | Every CI holds its Table 4-2 admission evidence | **Met.** The row 2 gap for 07 is closed by the INSP-010 X-9 copy delta (`824a362`, record blob `e7b16d25`): `assurance_verdict: APPROVED` copied from INSP-018 at `738da03` (record unchanged since, blob `9076d5a2`, `verdict: APPROVED` with liens finding-8, finding-9, finding-11; finding-10 Verified closed by `106bc3a`), `reviewer_verdict: APPROVED` and `readiness_met: true` unchanged, `verdict: APPROVED` with liens finding-14 to finding-18, finding-20, finding-22. The integrator re-checked all seven INSP-010 `product_files` against `git rev-parse 824a362:<path>`: 07 `bfe05f43`, CR-001 `0f4cca4c`, CR-005 `9b0129ef`, `docs/plan/measurements.json` `5e2d1755`, `docs/plan/measurements.schema.json` `c30b7f3e`, `tools/tests/fixtures/measurements/valid.json` `3938cd57` and `invalid.json` `15231171`, all equal (the X-9 delta re-checked the first three; the other four are checked here). Both INSP-018 `product_files` (07 `bfe05f43`, `measurements.json` `5e2d1755`) are equal. Every other CI keeps the evidence of §0.3.3 with its blob unchanged | §0.4.3 "Admission" column |
+| P6 | Hard entrance row 20 (FW-B0 toolchain proof) Met | **Met**, unchanged since §0.3.2: TC-SW-TOOL-001 run 6 (`8d12b383`, `result: Pass`, gate exit 0); INSP-016 APPROVED with liens (`6a969b9`) | Run 6 report; INSP-016 delta 2 |
+| P7 | The functional baseline content carries the rulings | **Met**, unchanged since §0.3.2 (no CI changed since `49104a5`) | §0.4.3 |
+| P8 | Repository protection in place before the tag (SRR decision 15; close-out item 6) | **Met**, unchanged since §0.3.2: the owner's confirmation is transcribed in the minutes (`786822a`, `2ee4868`; minutes blob `5a5f4ed6` unchanged) | Minutes |
+| P9 | L1 requirement status Draft to Active at the baseline | **Met.** `docs/requirements/sys/requirements.json` blob `f128235e`: 188 Active, 2 Closed (retired), 0 Draft; INSP-003 P9 status delta (`08922d9`) APPROVED with liens | Status count at `824a362` |
+| P10 | `main` pushed with the tag (charter §8; CM plan §4.4 step 5) | **Pending (post-tag step).** Local `main` at `824a362` is 91 commits ahead of the local tracking ref `origin/main` (`7647516`); R makes it 92. No network command was run. After the independent check at R reads READY FOR TAG, Claude tags R and pushes with `git push origin main --follow-tags` (§8) | `git rev-list --count origin/main..HEAD` = 91 |
+
+Deviations, CRs and the RFA/RID log are unchanged since §0.3: `docs/cm/deviations.md` blob `bcb91b5c` (entries 1 to 4 closed, no open entry, so CM plan §4.4 step 1 does not block the tag); CR-001 `0f4cca4c`, CR-002 `c007177f`, CR-004 `b9fc9510`, CR-005 `9b0129ef` (the §0.3.4 states stand); `docs/reviews/SRR/rfa-rid-log.json` `906d4a19` (the §0.3 states stand). The decision memo (`4c09ef55`, last changed at `305a11e`) reads `baseline_tag: null`. The §0.3.5 liens and TBRs are carried forward unchanged; INSP-010 adds no new lien (its liens finding-14 to finding-18, finding-20 and finding-22 are under L-6, RFA-SRR-006, due PDR).
+
+#### 0.4.3 Configuration items at `824a362` (the parent of R)
+
+Each hash is `git rev-parse 824a362:<path>` (a blob for a file, a tree for a directory), re-taken on 2026-09-27 by a script over every path and hash pair of §0.3.3 (68 pairs, 0 differ) plus direct reads of the firmware tree, `firmware/unsafe-audit.md` and the cited records. Because R changes only this record, each hash is also the hash at R.
+
+| Row (Table 4-1) | CI | Path | Hash at `824a362` | Changed since `49104a5` | Peer review record | Admission (Table 4-2) |
+|---|---|---|---|---|---|---|
+| 1 | Process charter | `docs/process/00-charter.md` | `41575d218c2228825704ce0b080a967c890fe43f` | no | none (owner direction) | Met (SRR decision 1) |
+| 2 | 01 | `docs/process/01-lifecycle-and-reviews.md` | `eabbbd57953c84164e848f36dc327542ac015c00` | no | INSP-019 | Met: APPROVED (`119cb36`) |
+| 2 | 02 | `docs/process/02-requirements-and-traceability.md` | `fcdc544555477f0115535348f8ce388453a9034f` | no | INSP-020 | Met: APPROVED (`6257cfe`) |
+| 2 | 04 | `docs/process/04-verification-and-validation.md` | `0b197bba692237ed9860ba49c4422f12fa8512dc` | no | INSP-021 | Met: APPROVED with liens (close-out item C delta `49104a5` at `08922d9`) |
+| 2 | 05 | `docs/process/05-configuration-and-data-management.md` | `f8de2081f7542ed0bbe47897d8b63e845b8c3114` | no | INSP-006 with INSP-030 | Met: APPROVED (`d8df6a9`, `ff0a610`) |
+| 2 | 06 | `docs/process/06-risk-and-decision-analysis.md` | `7a92d21f24a1733d70ae083576e708274bfd1a6d` | no | INSP-007 | Met: APPROVED with liens (`a50aba8`) |
+| 2 | 07 (revision A.7) | `docs/process/07-software-engineering-plan.md` | `bfe05f4327e79fa15c24d2cf8c14249804f946a8` | no | INSP-010 with INSP-018 | Met: INSP-010 APPROVED with liens finding-14 to finding-18, finding-20, finding-22 (X-9 copy delta `824a362`; `reviewer_verdict` APPROVED at `c8a5143`); INSP-018 APPROVED with liens finding-8, finding-9, finding-11 (delta 2 `738da03`) |
+| 2 | 08 | `docs/process/08-agent-briefing.md` | `01a36bac8d5f133dadd5b384f92f95f225371663` | no | INSP-022 | Met: APPROVED (`119cb36`) |
+| 2 | Process index | `docs/process/README.md` | `3664073bc2563f604fb7b1c639a2689a20fb0e6a` | no | none (§7.4 interim check) | Met: 05 §7.4 interim check at `824a362`: the index names all 11 other tracked `docs/process/*.md` files (00 to 08, `rmm.md`, `se-compliance-matrix.md`); blob unchanged since `f3e8801` |
+| 2 | SEMP | `docs/plan/semp.md` | `ccfdecf98a6e2dc1371eb057e6aa37903b672de1` | no | INSP-005 | Met: APPROVED with liens (`1e56df4`) |
+| 2 | Schedule | `docs/plan/schedule.md` | `82b44894a7613459e41d6827f181d13172390539` | no | INSP-023 | Met: APPROVED (`2f619f8`) |
+| 2 | Cost estimate | `docs/plan/cost-estimate.md` | `0dda83cbd5ada9474562cc1741df67a31e1a7ffb` | no | INSP-023 | Met: APPROVED |
+| 3 | Classification record | `docs/process/03-software-classification-and-rmm.md` | `ed270f443e2ab648480017df8ad3d0221400cf4c` | no | INSP-009 with INSP-017 | Met: APPROVED (`b54064b`); APPROVED with liens (`af03338`) |
+| 3 | RMM | `docs/process/rmm.json` | `e326ddd1b7296d7d7fe172be6f33535cee3192d7` | no | INSP-009, INSP-017 | Met; `render_rmm.py --check` exit 0 |
+| 3 | RMM rendering | `docs/process/rmm.md` | `54e351f4df231d1a1e74e6eef4bd07db9a408fa0` | no | rendered | Met |
+| 3 | Compliance matrix | `docs/process/se-compliance-matrix.json` | `790d256214e07beb736f2f414a8eaf384ecf2440` | no | INSP-024 | Met: APPROVED; `render_compliance.py --check` exit 0 |
+| 3 | Compliance rendering | `docs/process/se-compliance-matrix.md` | `09426930b27e3b51182ab28086c6c73000f274d9` | no | rendered | Met |
+| 5 | Stakeholder expectations | `docs/requirements/l0-stakeholder/expectations.json` | `52b6cf5e8f7b4b9fec7ed4c6aa68313967d7104c` | no | INSP-001 | Met: APPROVED (`511c0ca`) |
+| 5 | Expectations rendering | `docs/requirements/l0-stakeholder/expectations.md` | `f460c1fb300a29533cf7abdd19ae768130299a5f` | no | rendered | Met |
+| 6 | ConOps (directory) | `docs/conops/` | tree `0b04e66c5bed4ea55df42c65ae91fc1e3189b167` | no | INSP-002 | Met: APPROVED (`1cb8b12`) |
+| 6 | ConOps revision 3 | `docs/conops/conops.md` | `6c3fbb2be814f5d0a5b2979968e309f6a846445a` | no | INSP-002 | Met |
+| 6 | ConOps figures | `docs/conops/figures/conops-context.mmd`, `.png`; `conops-modes.mmd`, `.png` | `55ebae2e15589bf9951456dc04400b7ccb96ea27`, `2e4647f81c61a1d2df05637efa3ee3d71a506e09`; `829a46f800db84ae5196cf3946d4376eb813fc0f`, `b3a08b6770c7c019b67e4b19cd2cdcbba3e8ce6c` | no | INSP-002 | Met |
+| 7 | L1 requirements (directory) | `docs/requirements/sys/` | tree `86ea40ebafc0b5de4c773acf78d91b6a55a1efc4` | no | INSP-003 | Met: APPROVED with liens (P9 status delta `08922d9`) |
+| 7 | L1 requirements (190: 188 Active, 2 Closed retired) | `docs/requirements/sys/requirements.json` | `f128235ee109cdc325e37c32000ebf9d6027454d` | no | INSP-003 | Met |
+| 7 | L1 rendering | `docs/requirements/sys/requirements.md` | `553f7f48aaaea5934f73e59a64d0e0d3b9a7ba5d` | no | rendered | Met |
+| 9 | Schemas (the 11 files of §2a row 9, same order) | `docs/design/allocation.schema.json`; `docs/plan/measurements.schema.json`; `docs/plan/tpm.schema.json`; `docs/process/rmm.schema.json`; `docs/process/se-compliance-matrix.schema.json`; `docs/requirements/l0-stakeholder/schema.json`; `docs/requirements/schema.json`; `docs/risk/schema.json`; `docs/safety/schema.json`; `docs/templates/rfa-rid-log.schema.json`; `docs/test_cases/schema.json` | `c17e011ba352839fd8c816a9ef5daf978757dfe2`; `c30b7f3e7466bf4e4474afd031c2c9c91db42be8`; `df3bd894ffec8841245617d0b0c7be6457ddd632`; `ae2f87dd97c7dc9b0e9e4fd5eccbdf35db69e13b`; `ef156b0fcfaaca3b44543154a454b0a965e72a2c`; `d0a79903f8952ed75cf421ff2a73d068f6a32b29`; `ca049dfb0a4480f8de889fe112add0a2e893915f`; `473cd797db582ae2dc4ed14fa83213c3bf2a6d09`; `e96accaad02dcb33a3dfdbcc8da11fd4f28bed84`; `38898b0c260c3292fbc65c59d632790ad4e650f7`; `d4b70163ca13c6263147a49a39f602b88a81517a` | no | none | Met: validate 50 of 50, 424 tests OK (P3); TV-001, TV-003 Accredited |
+| 17 | TC-SYS cases (113) | `docs/test_cases/sys/test_cases.json` | `a18824aaf62d5139cdc558e52174726bd5d2f673` | no | INSP-025 | Met: APPROVED (`08e5c9b`); 0 violations |
+| 17 | TC-SYS rendering | `docs/test_cases/sys/test_cases.md` | `45e7ca5101b2def1a1f9f7d7ea5e2aa3e851e21a` | no | rendered | Met |
+| 27 | Toolchain lock | `tools/toolchain.lock.md` | `04819139c8a10cc6a970d7d08684f7487bf968bb` | no | INSP-015 | Met: APPROVED with liens F-07 to F-13 (re-issue 4 `0359409`, which names blob `04819139`); rustos pin `2ec64c0` (CR-004) unchanged |
+| 27 | Venv pins | `tools/requirements.txt` | `ef9820618aafd7fb8d62a24fda4f029a3ffdeb62` | no | none | Met: AL-4, 35 pins equal |
+| 51 | Technology assessment | `docs/plan/technology-assessment.md` | `d46abde01adf320630dc317d0a80aa6f197181e5` | no | INSP-014 | Met: APPROVED |
+| 52 | Design concept | `docs/design/concept.md` | `6f026f92ae4f090dc85e94e554a0845514adbce9` | no | INSP-002 | Met: APPROVED (`1cb8b12`) |
+| 53 | Templates and checklists (22 entries: 21 files plus the row 9 schema) | `docs/templates/` | tree `e94d4ce59c8b62879a1627950eca953281415c03` | no | none | Met (P3) |
+
+Controlled items outside the baseline set (§2c; rows 28, 26 and 25) at `824a362`:
+
+| Row | CI | Path or pin | Hash at `824a362` | Changed since `49104a5` | TV record and accreditation |
+|---|---|---|---|---|---|
+| 28 | Traceability checker | `tools/traceability.py` | `12de354531f27afd59e9a18798516d218821d6c0` | no | TV-002, ACC-TRACE-001 extended to this blob (TV-002 run 5 `bf654e6`; effective on INSP-015 re-issue 3 `26011f1`) |
+| 28 | Document validator | `tools/validate_docs.py` | `3aa0368147b9af3e6e1546f808afb7aedf7f2226` | no | TV-003, ACC-VALDOCS-001 |
+| 28 | RMM renderer | `tools/render_rmm.py` | `2386a37fbfb9d7d06c333e0f00981b6fc67e1f27` | no | TV-004, ACC-RMM-001 |
+| 28 | Compliance renderer | `tools/render_compliance.py` | `d67d6b5e601a64b013b64e8de3cd0fc3deb96ffa` | no | TV-005, ACC-COMPL-001 |
+| 28 | Risk renderer | `tools/render_risk.py` | `d38ba1dd25ac8ef5ecb04ce5b1ea907bb60eee8c` | no | TV-006, ACC-RISK-001 |
+| 28 | Review trend | `tools/review_trend.py` | `04493157ae1c3245ca600bf1c29069dfe3192810` | no | TV-007, ACC-TREND-001 |
+| 28 | Deck renderer | `tools/slides/render_deck.py` | `b42425e9e9d2ca2b860284914b78ccbabecd38a0` | no | TV-008, ACC-DECK-001 |
+| 28 | Review figures | `tools/render_review_figures.py` | `6f3018fdffe25107247f5ef9d010c5cc7d1aaf3e` | no | TV-010, ACC-FIGS-001 |
+| 28 | Complexity gate | `tools/complexity_gate.py` | `ddf1079847046d52a268e48a6c82180bd84cca6f` | no | TV-012, ACC-COMPLEXITY-001 extended to this blob by TV-012 run 3 (`0da559a`, record blob `bd99a11d`) and effective from 2026-09-27 on INSP-015 re-issue 4 (`0359409`); liens F-11, F-13. Earlier accredited blob `9cdc9195` |
+| 28 | Unsafe audit, measurements | `tools/unsafe_audit.py`, `tools/measurements.py` | `cc3aaa2ad82a52a63615c6af082567007b2d7e6e`, `abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a` | no | TV-011, TV-013: Validated, not accredited (due CDR, PDR) |
+| 28 | Software gate | `tools/sw_gate.sh` | `29a37127312e242bce2aa8f41602e3bcd4360f2f` | no | No TV record yet (due CDR); the change is recorded in the lock §1.1 row and checked by INSP-015 re-issue 4 and INSP-016 delta 2 |
+| 26 | External rustos | lock §3 | pin `2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c` (CR-004, `5792350`) | no | `git -C /Users/robinonsay/rust/rustos rev-parse master` = `2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c` on 2026-09-27 (ref read only; the owner's rustos working tree was neither read nor modified) |
+| 25 | Firmware source | `firmware/` | tree `de1c87cb4190121b965dcc0ae59f3e590421fee9`; `firmware/unsafe-audit.md` `18ef484bf050797e9493d68071efdc0259d423a6` | no | informational until the first `release/FW-*` tag |
+
+Informational items (§2b rows 14, 15, 8, 17, 4), all unchanged since `f3e8801` and equal at `824a362`: `docs/risk/register.json` `0c25c0c5b6ca801b02e47c29c19bb8ed44aa5c79`, `docs/risk/register.md` `a3a983e5cdf7e769666fab26d5f2e7f3b373db1f`; `docs/safety/hazard-analysis.md` `52c8ce16856499afc1b701e1ddb103788fcb1af9`, `docs/safety/hazards.json` `81cacde47d4f2066ecac3947f3acf65e646b1ad0`; `docs/requirements/tx/requirements.json` `8b9d81e8d0f8f605427ef5876adc0f891585a569`, `docs/requirements/sw/sw-keyer/requirements.json` `f9141160c4d92ad80ae91144c2499b22292d4b16`; `docs/test_cases/tx/test_cases.json` `3528d0626e450345a79c9865780db0938b8cff05`, `docs/test_cases/sw-keyer/test_cases.json` `2716ca3f53d349c84f2a4a717a3b7daa1566792f`, `docs/test_cases/sw-tool/test_cases.json` `fee1e7246af59d5e8a43ed1b9cdf483854053fdc`; `docs/requirements/l0-stakeholder/stakeholder-inputs.md` `362250fbaa62c937ffc391477ff9c71f1d41514c`.
+
+Records cited by this section, at `824a362`: INSP-010 `docs/reviews/SRR/checklists/software-plan-07.md` `e7b16d253bca68be38bf049b6fb2a596f8b91ee2` (X-9 copy delta `824a362`); INSP-018 `docs/reviews/SRR/checklists/software-plan-07-software-assurance.md` `9076d5a2d59a827d869057f00b40c8644274de02` (delta 2 `738da03`); `docs/reviews/SRR/baseline-check.md` `7d1eb0896d7f97450395345fdddc9bbe8abf2986` (check 2, `61ab1d7`); decision memo `4c09ef559326951fd9fd2a269e03ec7709aa1441`; minutes `5a5f4ed611f3aeb86d47a610a65ee6d4e9384518`; RFA/RID log `906d4a19e188285e23e942201e9a01f08aca3ad7`; deviations log `bcb91b5c9a267ead07c910e5daf503fc0808ee64`; TC-SW-TOOL-001 run 6 `8d12b38333b4ae863dc8689eed39658dcc276e68`; CR-001 `0f4cca4cb1e2562af05a7c435f41e6ba82d17f26`, CR-002 `c007177f7c3a50bc9ad2f0e4fcdeb798f530c045`, CR-004 `b9fc951091280e1c4e30c5fc0b81a1aae7483aa0`, CR-005 `9b0129efd09e75170a4542d011ff6b1298ad2820`.
+
+**Tool accreditation state.** Unchanged since §0.3.3: TV-001 to TV-010 and TV-012 Accredited on the blobs above (TV-002 at `12de3545`, TV-012 at `ddf10798`); TV-011 and TV-013 Validated, not accredited; `tools/sw_gate.sh` (`29a37127`) has no TV record (due CDR).
+
+**Next steps (Claude, after this commit).**
+1. The independent baseline check is repeated at R by a reviewer agent that did not author this record, with every hash taken by `git ls-tree R -- <path>` (CM plan §4.4 step 4; §9 row 2).
+2. If it reads READY FOR TAG, Claude runs the §8 commands on R (unsigned annotated tag `baseline/srr`), pushes `main` with the tag (P10), and writes the fill-once fields, §8a and §9 in the post-tag record commit, with the decision memo `baseline_tag` set by amendment (memo section 13).
+
 ## 1. Baseline definition
 
 | Field | Value |
