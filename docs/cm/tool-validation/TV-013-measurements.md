@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Record | TV-013 |
-| Status | **Validated** (2026-09-26) on the working-tree file identified in section 1; the same blobs were committed in `3de1e2d` and re-run on a commit export on 2026-09-27 (section 4, run 2). Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Validated** (2026-09-26) on the working-tree file identified in section 1; the same blobs were committed in `3de1e2d` and re-run on a commit export on 2026-09-27 (section 4, run 2); run 3 at `c28dd60` (2026-09-27) with the two known answers added for the "all passed" clause of purpose 2 (review INSP-041 iteration 1 finding-1). Independent review (delta iteration) and owner accreditation pending (sections 8 and 9) |
 | Class | B, evidence-generating (CM plan section 9.1: gate G2, G3 and G6 steps; MSR-13, MSR-14, MSR-18, MSR-19; the cross-record rules of `docs/plan/measurements.json`) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9; the measurement tool of 07 sections 8.4 and 11 (SWE-090, SWE-093, SWE-186) |
 | Due | PDR (CM plan section 13 PDR row); filed at SRR because gate steps G2 and G3 of TC-SW-TOOL-001-r2 (SRR package item R3, entrance row 20) use it before PDR (CM plan section 9.1) |
@@ -15,8 +15,8 @@
 | File | Git blob | SHA-256 | State against commit `400e59d` |
 |---|---|---|---|
 | `tools/measurements.py` | `abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a` | `46f0cf185ea0f941d2cbe3f65cf0c02788d65cee53ddd626e0d7ceb1837701bc` | untracked (new) |
-| `tools/tests/test_measurements.py` | `7e7ba2bbdb3569ba42924b6d974bcdb70f69f58b` | `ce1ee1b9edefc3daccb3f90a0fd8f96827778809038f324cacc7b6439a38048a` | untracked |
-| `tools/tests/fixtures/measurements/` (`linkmap/`, `junit/`, `lcov/`, `records/`; `valid.json` and `invalid.json` belong to the schema test of `test_tools.py`) | 13 files, tree digest `250e0e1e86fba48494ded9377b21e9d1efad5d8b193fd5582ec59be1dbbe0c23` | | 11 untracked, 2 equal to `400e59d` |
+| `tools/tests/test_measurements.py` | `7e7ba2bbdb3569ba42924b6d974bcdb70f69f58b` (runs 1 and 2); `7ccc293e102f58c62d676b94074bc17b3232e166` (run 3) | `ce1ee1b9edefc3daccb3f90a0fd8f96827778809038f324cacc7b6439a38048a` (runs 1 and 2); `a92fdcc989a4dd38f68853af67085bfbbe84857bef94b8ac5262e49ae87d94ae` (run 3) | untracked at `400e59d`; blob `7ccc293e` committed in `c28dd60` (adds `test_identical_failing_runs_fail` and `test_identical_skipped_runs_fail`) |
+| `tools/tests/fixtures/measurements/` (`linkmap/`, `junit/`, `lcov/`, `records/`; `valid.json` and `invalid.json` belong to the schema test of `test_tools.py`) | 13 files, tree digest `250e0e1e86fba48494ded9377b21e9d1efad5d8b193fd5582ec59be1dbbe0c23` (runs 1 and 2; git tree `39141b58` at `d3de579`); 15 files, git tree `ed4414ecd9336349d4ba03cd8257b0079d470d8d` (run 3) | | 11 untracked, 2 equal to `400e59d`; at `c28dd60` two files added: `junit/run-failing.xml` (blob `13eb0ded`, one failure) and `junit/run-skipped.xml` (blob `11e50517`, one skipped case) |
 
 **Install source:** the repository (CM plan Table 4-1 row 28). **Runtime:** TV-001 interpreter, standard library only; `git` (TV-009) for `--check-records`.
 
@@ -31,7 +31,7 @@
 
 ## 3. Known-answer test
 
-**Fixtures:** `tools/tests/fixtures/measurements/`: `linkmap/cwht-app.map` (byte copy of `docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.map`, SHA-256 `e9ba4361...ee1d1a`) with `linkmap/link.ld` (rustos `firmware/pico2/link.ld` at the locked commit `c54d35a`); known answer FLASH 1608 B and RAM 8200 B, the values the SRR seed records MSR-18 and MSR-19 transcribed from the TC-SW-TOOL-001-r1 gate log, an independent source. `linkmap/over-red-line.map` with `small.ld` (1 KiB regions): hand-computed FLASH 0x310 = 784 B (76.56 percent, above the red line) and RAM 0x100 = 256 B (25 percent). `junit/`: identical runs, a seeded failure, an empty run. `lcov/`: hand-counted per-crate totals and an llvm-cov export. `records/records.json`: five records with a re-key by `supersedes` and a Not yet measured record retired by the first Measured one.
+**Fixtures:** `tools/tests/fixtures/measurements/`: `linkmap/cwht-app.map` (byte copy of `docs/vv/reports/TC-SW-TOOL-001-r1/cwht-app.map`, SHA-256 `e9ba4361...ee1d1a`) with `linkmap/link.ld` (rustos `firmware/pico2/link.ld` at the locked commit `c54d35a`); known answer FLASH 1608 B and RAM 8200 B, the values the SRR seed records MSR-18 and MSR-19 transcribed from the TC-SW-TOOL-001-r1 gate log, an independent source. `linkmap/over-red-line.map` with `small.ld` (1 KiB regions): hand-computed FLASH 0x310 = 784 B (76.56 percent, above the red line) and RAM 0x100 = 256 B (25 percent). `junit/`: identical runs, a seeded failure, an empty run, and (from run 3) two runs identical to themselves that hold one failed case (`run-failing.xml`) or one skipped case (`run-skipped.xml`), so only the "all passed" clause of purpose 2 can fail them; the expected output (exit 1, the `NOT PASSED` line of the case, `passed in both: 2`) is hand-derived from the three cases of each file. `lcov/`: hand-counted per-crate totals and an llvm-cov export. `records/records.json`: five records with a re-key by `supersedes` and a Not yet measured record retired by the first Measured one.
 
 **Run command** (repository root):
 
@@ -39,7 +39,7 @@
 .venv/bin/python -m unittest discover -v -s tools/tests -p test_measurements.py
 ```
 
-**Pass criteria:** all 16 tests pass, none skipped: `LinkMapTests` 5 (1608 and 8200 B and the MSR values 0.04 and 1.54 percent; the red-line FAIL and PASS lines; exit 0 on the FW-B0 map; the assessment boundaries; missing map and empty map), `DiffRunsTests` 3, `CoverageTests` 2 (the seven stored lines; NOT PRODUCED lines and the required lcov), `RecordsTests` 5 (a temporary git repository with the records and their evidence committed together passes with both re-derivations; the seeded faults give exactly the six stored FAIL lines (catalog id, date order, dangling `supersedes`, an edited committed record, and two evidence hashes checked in the working tree); a committed re-derivation mismatch fails; outside a work tree the git rules are reported not applied and a wrong `updated` fails; `--analyze` gives the three stored current records), `UsageTests` 1.
+**Pass criteria:** all 18 tests pass, none skipped (16 in runs 1 and 2): `LinkMapTests` 5 (1608 and 8200 B and the MSR values 0.04 and 1.54 percent; the red-line FAIL and PASS lines; exit 0 on the FW-B0 map; the assessment boundaries; missing map and empty map), `DiffRunsTests` 5 (identical passed runs pass; a seeded difference, an empty run, two identical runs with a failed case and two identical runs with a skipped case each exit 1 with the stored lines), `CoverageTests` 2 (the seven stored lines; NOT PRODUCED lines and the required lcov), `RecordsTests` 5 (a temporary git repository with the records and their evidence committed together passes with both re-derivations; the seeded faults give exactly the six stored FAIL lines (catalog id, date order, dangling `supersedes`, an edited committed record, and two evidence hashes checked in the working tree); a committed re-derivation mismatch fails; outside a work tree the git rules are reported not applied and a wrong `updated` fails; `--analyze` gives the three stored current records), `UsageTests` 1.
 
 ## 4. Result
 
@@ -49,9 +49,10 @@
 | Gate integration | 2026-09-26 02:37 | working tree on `400e59d`; rustos `c54d35a` | `tools/sw_gate.sh --keep-going` steps G2 link map, G3 identical result sets, G6 measurements | pass: FLASH 1608 B (0.04 percent), RAM 8200 B (1.54 percent), equal to the TC-SW-TOOL-001-r1 values; G3 run sets identical, all passed; G6 MSR-13 cwht-core lines 17 of 17 and cwht-hal-mock 53 of 53, MSR-14 and the emulation report NOT PRODUCED (nightly components and emulator absent) |
 | Gate integration, TC-SW-TOOL-001 run 3 | 2026-09-26 19:28 | HEAD `0bcea39` (git archive, blob `abe25acb` unchanged); rustos branch `2ec64c0` | `tools/sw_gate.sh` steps G2 link map, G3 identical result sets, G6 measurements, both modes | pass: FLASH 1608 B (0.04 percent), RAM 8200 B (1.54 percent), unchanged; G3 run sets identical, all passed; G6 MSR-13 cwht-core 17 of 17 lines and cwht-hal-mock 53 of 53; MSR-14 now produced (nightly `llvm-tools` installed under SRR decision 109): branches 4 of 4, lines 70 of 70, regions 70 of 70; emulation report NOT PRODUCED (SKIP stub) |
 | 2 (commit-bound) | 2026-09-27 | `d3de579` (git archive export; `tools/measurements.py` blob `abe25acb` and `tools/tests/test_measurements.py` blob `7e7ba2bb`, both unchanged since `3de1e2d`, the commit that added them; fixture tree object `39141b58`) | 16, 0 skipped, run twice | pass in both passes; this binds the section 3 result to a commit (README common owner action 3) |
+| 3 (INSP-041 finding-1) | 2026-09-27 11:56 | `c28dd60` (git archive export; `tools/measurements.py` blob `abe25acb` unchanged, `tools/tests/test_measurements.py` blob `7ccc293e`, fixture tree `ed4414ec`, 15 files) | 18, 0 skipped, run twice | pass in both passes. Mutation check: the "all passed" clause removed (`measurements.py` line 189 `ok = bool(a) and a == b`, the mutation of INSP-041) makes `test_identical_failing_runs_fail` and `test_identical_skipped_runs_fail` fail (exit 1, 2 of 18), so purpose 2 has a known answer for each of its three clauses |
 | Repository records | 2026-09-26 | `400e59d`, `docs/plan/measurements.json` | `--check-records` | exit 1: 80 evidence entries of 89 records fail the preservation rule at `1d423e5`, the first commit containing the records: 56 name evidence committed later with the recorded hash (at HEAD "equal to the record"), 24 name evidence whose file changed before or after (at HEAD "differs from the record"). A finding against the records file (07 section 11.1: a record is superseded at the commit when its evidence changes), not a tool defect |
 
-Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt` (run 1); `evidence/measurements-2026-09-27.log.txt` (run 2); `evidence/sw-gate-2026-09-26.log.txt` (gate integration). Run 3 gate integration: `docs/vv/reports/TC-SW-TOOL-001-r3/sw-gate-keep-going.txt`.
+Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt` (run 1); `evidence/measurements-2026-09-27.log.txt` (run 2); `evidence/measurements-2026-09-27-r3.log.txt` (run 3 and its mutation check); `evidence/sw-gate-2026-09-26.log.txt` (gate integration). Run 3 gate integration: `docs/vv/reports/TC-SW-TOOL-001-r3/sw-gate-keep-going.txt`.
 
 ## 5. Reproducibility
 
@@ -75,7 +76,11 @@ Not required for class B. Deterministic function of the inputs; the git rules re
 
 ## 8. Independent review (CM plan section 9.2 step 3)
 
-Pending. The reviewer re-runs section 3 and recomputes the over-red-line answers from the fixture map. Reviewer invocation, date and result are recorded here. Record: `docs/reviews/PDR/checklists/tool-validation-tv-013.md` (PDR work plan WP-PDR-08), product frozen at the commit that holds this revision of the record. Note for the reviewer and the work plan: WP-PDR-09 changes `tools/measurements.py` for C-185 (PASS lines) in wave 1; that change is a re-validation trigger (section 7), so the review either follows it or is followed by a delta iteration on the changed blob.
+| Iteration | Date | Record and reviewer | Verdict | Majors | Author action |
+|---|---|---|---|---|---|
+| 1 | 2026-09-27 | INSP-041 (`docs/reviews/PDR/checklists/tool-validation-tv-013.md`, commit `1b93d83`), independent reviewer | NEEDS CHANGES (1 Major, 3 Minor) | finding-1 (no known answer for the "all passed" clause of purpose 2) | fixed: `test_identical_failing_runs_fail` and `test_identical_skipped_runs_fail` with fixtures `junit/run-failing.xml` and `junit/run-skipped.xml` (`c28dd60`), run 3, mutation check; delta iteration requested. Minor findings 2 to 4 left open for the reviewer's disposition (rule C1) |
+
+Iteration 1 brief: the reviewer re-runs section 3 and recomputes the over-red-line answers from the fixture map. Reviewer invocation, date and result are recorded here. Record: `docs/reviews/PDR/checklists/tool-validation-tv-013.md` (PDR work plan WP-PDR-08), product frozen at the commit that holds this revision of the record. Note for the reviewer and the work plan: WP-PDR-09 changes `tools/measurements.py` for C-185 (PASS lines) in wave 1; that change is a re-validation trigger (section 7), so the review either follows it or is followed by a delta iteration on the changed blob.
 
 ## 9. Accreditation (owner)
 

@@ -1,0 +1,57 @@
+# TV-013 run 3: section 3 known-answer test on a git archive export of cwht c28dd60d2fdcb8058b51b31786c7d0b0b71e5d0d (2026-09-27 11:56 CDT, two passes), after review INSP-041 iteration 1 finding-1
+abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a  tools/measurements.py  (equal to the working tree: yes)
+7ccc293e102f58c62d676b94074bc17b3232e166  tools/tests/test_measurements.py  (equal to the working tree: yes)
+ed4414ecd9336349d4ba03cd8257b0079d470d8d  tools/tests/fixtures/measurements (tree object; 15 files)
+last commit touching tools/measurements.py: 3de1e2d Gate scripts, record drift rule, figure generator fixes and TV-011 to TV-013 (SRR R3, R5, R11, R13)
+last commit touching the test module or the fixture: c28dd60 test(tools): same-path K20-4/K20-5, lcov seeded gap K21-4, identical failing JUnit runs (WP-PDR-08)
+## pass 1
+test_optional_inputs_not_produced_and_lcov_required (test_measurements.CoverageTests.test_optional_inputs_not_produced_and_lcov_required) ... ok
+test_totals (test_measurements.CoverageTests.test_totals) ... ok
+test_empty_run_fails (test_measurements.DiffRunsTests.test_empty_run_fails) ... ok
+test_identical_failing_runs_fail (test_measurements.DiffRunsTests.test_identical_failing_runs_fail) ... ok
+test_identical_runs_pass (test_measurements.DiffRunsTests.test_identical_runs_pass) ... ok
+test_identical_skipped_runs_fail (test_measurements.DiffRunsTests.test_identical_skipped_runs_fail) ... ok
+test_seeded_difference_fails (test_measurements.DiffRunsTests.test_seeded_difference_fails) ... ok
+test_assessment_rules (test_measurements.LinkMapTests.test_assessment_rules) ... ok
+test_fw_b0_map_reproduces_the_seed_records (test_measurements.LinkMapTests.test_fw_b0_map_reproduces_the_seed_records) ... ok
+test_missing_map_or_region_is_a_usage_error (test_measurements.LinkMapTests.test_missing_map_or_region_is_a_usage_error) ... ok
+test_pass_on_the_fw_b0_map (test_measurements.LinkMapTests.test_pass_on_the_fw_b0_map) ... ok
+test_red_line (test_measurements.LinkMapTests.test_red_line) ... ok
+test_analyze_current_records (test_measurements.RecordsTests.test_analyze_current_records) ... ok
+test_committed_records_pass_and_values_are_rederived (test_measurements.RecordsTests.test_committed_records_pass_and_values_are_rederived) ... ok
+test_git_rules_not_applied_outside_a_work_tree (test_measurements.RecordsTests.test_git_rules_not_applied_outside_a_work_tree) ... ok
+test_rederivation_mismatch_in_a_commit (test_measurements.RecordsTests.test_rederivation_mismatch_in_a_commit) ... ok
+test_seeded_record_faults (test_measurements.RecordsTests.test_seeded_record_faults) ... ok
+test_usage_errors_exit_two (test_measurements.UsageTests.test_usage_errors_exit_two) ... ok
+Ran 18 tests in 0.981s
+OK
+exit=0
+## pass 2
+test_optional_inputs_not_produced_and_lcov_required (test_measurements.CoverageTests.test_optional_inputs_not_produced_and_lcov_required) ... ok
+test_totals (test_measurements.CoverageTests.test_totals) ... ok
+test_empty_run_fails (test_measurements.DiffRunsTests.test_empty_run_fails) ... ok
+test_identical_failing_runs_fail (test_measurements.DiffRunsTests.test_identical_failing_runs_fail) ... ok
+test_identical_runs_pass (test_measurements.DiffRunsTests.test_identical_runs_pass) ... ok
+test_identical_skipped_runs_fail (test_measurements.DiffRunsTests.test_identical_skipped_runs_fail) ... ok
+test_seeded_difference_fails (test_measurements.DiffRunsTests.test_seeded_difference_fails) ... ok
+test_assessment_rules (test_measurements.LinkMapTests.test_assessment_rules) ... ok
+test_fw_b0_map_reproduces_the_seed_records (test_measurements.LinkMapTests.test_fw_b0_map_reproduces_the_seed_records) ... ok
+test_missing_map_or_region_is_a_usage_error (test_measurements.LinkMapTests.test_missing_map_or_region_is_a_usage_error) ... ok
+test_pass_on_the_fw_b0_map (test_measurements.LinkMapTests.test_pass_on_the_fw_b0_map) ... ok
+test_red_line (test_measurements.LinkMapTests.test_red_line) ... ok
+test_analyze_current_records (test_measurements.RecordsTests.test_analyze_current_records) ... ok
+test_committed_records_pass_and_values_are_rederived (test_measurements.RecordsTests.test_committed_records_pass_and_values_are_rederived) ... ok
+test_git_rules_not_applied_outside_a_work_tree (test_measurements.RecordsTests.test_git_rules_not_applied_outside_a_work_tree) ... ok
+test_rederivation_mismatch_in_a_commit (test_measurements.RecordsTests.test_rederivation_mismatch_in_a_commit) ... ok
+test_seeded_record_faults (test_measurements.RecordsTests.test_seeded_record_faults) ... ok
+test_usage_errors_exit_two (test_measurements.UsageTests.test_usage_errors_exit_two) ... ok
+Ran 18 tests in 1.033s
+OK
+exit=0
+## mutation check (INSP-041 mutation 1): a copy of the export with tools/measurements.py line 189 changed to 'ok = bool(a) and a == b', module re-run
+  mutated line 189: ok = bool(a) and a == b
+  FAIL: test_identical_failing_runs_fail (test_measurements.DiffRunsTests.test_identical_failing_runs_fail)
+  FAIL: test_identical_skipped_runs_fail (test_measurements.DiffRunsTests.test_identical_skipped_runs_fail)
+  Ran 18 tests in 1.030s
+  FAILED (failures=2)
+  exit=1
