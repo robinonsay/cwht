@@ -28,7 +28,7 @@
       "class_a_applicable": true,
       "authority_npr": "Center",
       "disposition": "FC",
-      "implementation": "Make-or-buy assessment for every firmware component (owner's rustos versus Embassy or RTIC runtime, HAL and PAC crate selection, keyer and DSP written in-house) recorded as trade study docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md with criteria and scores; SRR entrance product. Prepared by Claude (software lead); approved by the owner in docs/reviews/SRR/decision-memo.md.",
+      "implementation": "Make-or-buy assessment for every firmware component (owner's rustos versus Embassy or RTIC runtime, HAL and PAC crate selection, keyer and DSP written in-house) recorded as trade study docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md with criteria and scores; SRR entrance product. Prepared by Claude (software lead); approved by the owner in docs/reviews/SRR/decision-memo.md (SRR decision 107, owner ruling 2026-09-26: option A0 with the four TS-002 section 8 revisit triggers), and the decision is recorded in docs/decisions/adr/ADR-027-firmware-runtime-rustos-a0.md.",
       "tailoring_rationale": null,
       "residual_risk": null,
       "authority": "Owner as ETA, SMA TA, HMTA and CIO/SAISO designee",
@@ -36,7 +36,7 @@
         "Claude (lead SE, software lead)",
         "Owner (PM, Decision Authority, ETA, SMA TA)"
       ],
-      "status": "Planned",
+      "status": "In place",
       "charter_ref": "Section 5 (trade studies)"
     },
     {
