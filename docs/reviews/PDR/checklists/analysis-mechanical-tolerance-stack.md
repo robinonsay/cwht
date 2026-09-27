@@ -14,35 +14,44 @@ checklist_revision: B
 checklist_analysis: "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/analysis-mechanical-tolerance-stack.md
 product: docs/design/analysis/mechanical-tolerance-stack.md
-product_commit: "70a3a33"
-product_files: ["docs/design/analysis/mechanical-tolerance-stack.md@78409153455c926873119ef8a981ea688bd4d453", "hardware/sim/enclosure/tolerance_stack.py@376e403c255c8cffcb4694e8160394f3a158a07b", "hardware/sim/enclosure/envelope_drawing.py@20815e7581c34c9498e6c8d3972cc738e5c63e8a", "hardware/enclosure/board-outline.json@27dbacc7dda7f79e6cba3234ee77f6453e304906", "hardware/sim/enclosure/out/tolerance-stack.csv@3e17c2097f3fcc3fdb3f24b50713622c3da8dd2f", "docs/reviews/PDR/figures/tolerance-stack.png@2ee6e410cec881db08c928d37b590d785d559c04", "docs/reviews/PDR/figures/board-outline-envelope.png@ff8aa6c2befd4660f2bf353893ab5673d24f79e3"]
+# product_commit (iteration 2): 70d11ef, the WP-PDR-27 revision 1 commit that fixes finding-1 (re-freeze F0,
+# rule C2). Every blob below equals git rev-parse 70d11ef:<path>, HEAD:<path> and git hash-object at HEAD d1148c2;
+# all are on main. product_files_iteration_1 keeps the 70a3a33 blobs.
+product_commit: "70d11ef54a5bc477cda9e9fa01e7295e1365f147"
+product_files: ["docs/design/analysis/mechanical-tolerance-stack.md@b31768da93013553dadf9d076cde850e1e2ed2e3", "hardware/sim/enclosure/tolerance_stack.py@376e403c255c8cffcb4694e8160394f3a158a07b", "hardware/sim/enclosure/drop_and_axial.py@3513caaa66caac267aa905fd54a19949eb66ea92", "hardware/sim/enclosure/envelope_drawing.py@5de2223bfedb3d45734cf066eeccf3df28629b0a", "hardware/enclosure/board-outline.json@9d4d36a984b07456a4860c6f1d6354297b42808d", "hardware/sim/enclosure/out/tolerance-stack.csv@3e17c2097f3fcc3fdb3f24b50713622c3da8dd2f", "hardware/sim/enclosure/out/drop-and-axial.csv@91d97bf4a8923ab2af48037cefbeb3dccba848b5", "docs/reviews/PDR/figures/tolerance-stack.png@2ee6e410cec881db08c928d37b590d785d559c04", "docs/reviews/PDR/figures/drop-and-axial.png@0f68e1063c0c94573bd2d4fad0c3392035dc9386", "docs/reviews/PDR/figures/board-outline-envelope.png@a2c08e0ef04ec036465ddeb9bd2f6a16d7fb5dfe"]
+product_files_iteration_1: ["docs/design/analysis/mechanical-tolerance-stack.md@78409153455c926873119ef8a981ea688bd4d453", "hardware/sim/enclosure/tolerance_stack.py@376e403c255c8cffcb4694e8160394f3a158a07b", "hardware/sim/enclosure/envelope_drawing.py@20815e7581c34c9498e6c8d3972cc738e5c63e8a", "hardware/enclosure/board-outline.json@27dbacc7dda7f79e6cba3234ee77f6453e304906", "hardware/sim/enclosure/out/tolerance-stack.csv@3e17c2097f3fcc3fdb3f24b50713622c3da8dd2f", "docs/reviews/PDR/figures/tolerance-stack.png@2ee6e410cec881db08c928d37b590d785d559c04", "docs/reviews/PDR/figures/board-outline-envelope.png@ff8aa6c2befd4660f2bf353893ab5673d24f79e3"]
 analysis_kind: [worst-case, other]
 product_size: 13 stacks (S1 to S9 with variants), 3 load checks (L1 to L3), 6 envelope checks (E1 to E6), 2 checkers, 1 data file, 2 plots
 tools_used: ["venv Python 3.13.5 (TV-001 accredits the interpreter; numpy and matplotlib class B without a TV record; no TV record covers hardware/sim/enclosure/*.py; developer evidence per 05 section 9.1)"]
-values_proposed: ["REQ-SYS-105: 1 dB return-loss change (keep; tbr.plan step not executed: finding-2)", "REQ-SYS-107: 20 mm and 10 mohm (keep; 10 mohm not computed: finding-2)", "REQ-SYS-116: 1.0 m (keep; cases missing: finding-1)", "REQ-SYS-117: IPX2 (keep; finding-4)", "REQ-SYS-168: 4 mm and 25 mm (keep; supported by the sliding-door design rule)"]
-renders_inspected: 2
+values_proposed: ["REQ-SYS-105: 1 dB return-loss change (keep; tbr.plan step not executed: finding-2)", "REQ-SYS-107: 20 mm and 10 mohm (keep; 10 mohm not computed: finding-2)", "REQ-SYS-116: 1.0 m (keep; per face with the antenna fitted, rows D1 to D20, rules 6 and 17 to 20: supported at iteration 2)", "REQ-SYS-117: IPX2 (keep; finding-4)", "REQ-SYS-168: 4 mm and 25 mm (keep; supported by the sliding-door design rule)"]
+renders_inspected: 4
 sprint: PDR-prep
 author_agent: "author:WP-PDR-27 wave 1a (Claude as ME designer)"
-reviewer_agent: "reviewer:WP-PDR-27-analysis-tolerance-iter1 (independent; authored no part of WP-PDR-27)"
+reviewer_agent: "reviewer:WP-PDR-27-analysis-tolerance-iter1 (independent; authored no part of WP-PDR-27); iteration 2 by reviewer:WP-PDR-27-analysis-tolerance-iter2 (independent; authored no part of WP-PDR-27 and no part of its revision 1)"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+iteration: 2
 readiness_met: true
-reviewer_verdict: NEEDS CHANGES
+# reviewer_verdict (iteration 2): APPROVED; finding-1 (Major) Verified; findings 2 to 5 and the new findings 6 and 7
+# are Minor and Open (liens due at the CDR readiness declaration, plan rule C1)
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
+# verdict: held at NEEDS CHANGES. No SA pair is required. The applied analysis template is still only on cr/CR-012
+# (blob 0386cc6e), so, per the lead SE convention of 2026-09-27, the record verdict is set to APPROVED in the
+# CR-012 merge commit (or the commit right after it) if that blob is unchanged
 verdict: NEEDS CHANGES
 findings_major: 1
-findings_minor: 4
-findings_open: 5
+findings_minor: 6
+findings_open: 6
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-ANA-B1, CK-ANA-D3, CK-ANA-E3, CK-ANA-E5, CK-ANA-F1]
-effort_turns: 30
-effort_minutes: 45
+effort_turns: 55
+effort_minutes: 85
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -214,3 +223,68 @@ CK-ANA-G1 to G6, CK-ANA-J1 to J3 (criticality neither), CK-ANA-B2, B4, C5, E6, G
 ## Measurements (SWE-089)
 
 Items checked 40 (A1 to A6, B1 to B6, C1 to C5, D1 to D4, E1 to E7, F1 to F4, G7-1, G7-2, H1 to H3, I1, I2) plus readiness 6; items answered No 5; findings 1 Major, 4 Minor; fixed 0, deferred 0; iteration 1; renders inspected 2; inputs checked 24 (every stack contributor and allowance); effort about 30 turns and 45 minutes (session shared with INSP-081 to INSP-083).
+
+## Iteration 2: delta verification of finding-1 (Major) (2026-09-27, HEAD `d1148c2`)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the fix of finding-1 only. Findings 2 to 5 (Minor) were not addressed by the author (note change log, revision 1 row; section 7 marks the IPX2 text as the revision 0 text with finding-4 open) and are not re-reviewed. Product: the 10 blobs of front matter `product_files`, committed as `70d11ef` (note revision 1, re-freeze F0). Each equals `git rev-parse 70d11ef:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` (10 of 10). `git log 70d11ef..HEAD` shows no later change to any product file. No blob is on a `cr/` branch. Checklist as iteration 1: `peer-review-checklist-analysis.md` revision A, blob `0386cc6e`, still only on `cr/CR-012-pdr-checklist-templates` at `7784672` (not merged at `d1148c2`).
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-27 and no part of revision 1. It edited no product file.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search. `grep` then only pinned lines in known paths (the note, `drop_and_axial.py`, `board-outline.json`). The rustos tree was not read.
+
+**Reproduction.** On a `git archive 70d11ef` export in the scratchpad: `drop_and_axial.py --check`, `tolerance_stack.py --check` and `envelope_drawing.py --check` each exit 0 with `CHECK PASS`; the regenerated `drop-and-axial.csv`, `tolerance-stack.csv`, `drop-and-axial.png`, `tolerance-stack.png` and `board-outline-envelope.png` hash to the frozen blobs (5 of 5 byte-identical).
+
+### Verification of finding-1, case by case (rule C7)
+
+| # | Case the finding named | Check | Result |
+|---|---|---|---|
+| 1 | (a) REQ-SYS-116 "each face": one row per face or per distinct load path, with the faces named | Section 6 rows D1 to D20 and the "Face by face" paragraph: -Z back (D1 to D4), +Z front (D5 to D12), +/-Y sides (D13 to D15), +X end (D16 to D19), -X end (D20, and the end face lands because the jacks are recessed, rule 21); the heat sink in plane is stated (1.6 MPa on 600 mm2) | Yes |
+| 2 | (a) the loads each face drives into different parts: guard and heat-sink pocket, display lens and knobs, port block and antenna, jacks and USB | D1, D2 (back); D5 with rule 17 (knob tops recessed), D12 (display glass); D16 to D19 (port block); A1 to A3 and rule 21 (jack noses recessed so the -X face lands on the case) | Yes |
+| 3 | (a) the +X impact with the whip fitted as a moment on the port block against the L1 capacity | D16: 8.0 N m (a 10 N push on a 40 cm whip, 4.0 N m, times 2 for a suddenly applied load; `antenna-and-erp.md` F8) on the 12 mm arm, 667 N on 144 mm2 = 4.63 MPa against 45 MPa, margin 9.7; D17: the same moment on the two inserts alone, 333 N each against 500 N, margin 1.50, at the M2 rule and named as the bound. The whip's base yield assumption is stated in section 11 | Yes |
+| 4 | (a) revision 0 load paths that fail are found and replaced | D6 (heat sink into the board, 48 mm span): hand 490 N x 0.048 / 4 = 5.88 N m on Z = 0.062 x 0.001^2 / 6 = 1.033e-8 m3 gives 569 MPa, margin 0.70 at 1000 g (CSV 569.61, 0.70); D7 with the two rule 18 posts: 490 / (2 x 28.27 mm2) = 8.67 MPa (CSV 8.67); D8 posts 45 / 8.67 = 5.19 (CSV). D9 fails and D10 passes with four posts; D14 fails and D15 passes with rule 20; D18 not shown and D19 passes with the rule 6 flange. Each replaced design is kept as a failing row, as section 10 says | Yes |
+| 5 | (b) REQ-SYS-108 "fully seated": axial stacks for the key jack, headphone jack and USB receptacle | Section 4.1 A1, A2: nose recess 1.0 mm +/- (0.15 + 0.20 + 0.10 + 0.20) = 0.35 to 1.65 mm; radial room (9.0 - 7.0) / 2 - 0.65 = 0.35 mm for the admitted plug (rule 21). A3: 3.0 + 2.0 - 1.3 = 3.7 mm +/- 0.9 = 2.8 to 4.6 mm, inside the 8.0 mm overmold length, with the O1 shroud section kept to the receptacle face | Yes (the admitted-plug definition: new finding-7, Minor) |
+| 6 | (b) encoder bushing thread engagement through the front wall | A4: need 2.6 + 2.0 + 0.5 + 2.0 = 7.1 mm plus 0.9 mm of stack; a 7 mm bushing is 1.0 mm short (fail, recorded); A5: a 9 mm bushing leaves 1.0 mm (pass), rule 22 | Yes (the rule 22 inner jam nut is not stacked: new finding-6, Minor) |
+| 7 | The unit mass (iteration 1 finding-5 remark) | 0.375 kg used in section 6 (3.68 J) | Yes (finding-5 otherwise not in the delta) |
+
+**Result: finding-1 Verified.**
+
+### Findings (iteration 2)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | CK-ANA-F1 | note sections 4.1 and 6; `drop_and_axial.py` | See iteration 1 | Verified (iteration 2, revision 1 at 70d11ef) | n/a | |
+| finding-2 | reviewer | Minor | CK-ANA-E5 | note sections 5 and 10 | Not in the delta | Open | Pending | CDR readiness declaration (lien) |
+| finding-3 | reviewer | Minor | CK-ANA-B1 | note section 4 S6c | Not in the delta | Open | Pending | CDR readiness declaration (lien) |
+| finding-4 | reviewer | Minor | CK-ANA-F1, F2 | note section 7 | Not in the delta | Open | Pending | CDR readiness declaration (lien) |
+| finding-5 | reviewer | Minor | CK-ANA-D3, E3 | note section 9 E2, E6; S3 | Not in the delta (the 0.375 kg part is now used) | Open | Pending | CDR readiness declaration (lien) |
+| <a id="finding-6"></a>finding-6 | reviewer | Minor | CK-ANA-F1 | note section 4.1 A5 and rule 22; `drop_and_axial.py` `ENC_GAP_BODY_TO_WALL` (2.6 mm), `NUT` (2.0 mm) | Rule 22 runs an inner jam nut against the wall inner face, inside the 2.6 mm gap between the encoder body top and the wall. The A5 stack checks the outer thread only; the same 0.9 mm of Z contributors that it applies can close the gap to 1.7 mm, less than a 2.0 mm nut, and the body cannot then be held off the wall by the jam nut as the rule intends. Fix: add the jam-nut fit to A5 (gap at the worst case against the nut thickness) and set the body-to-wall gap, a thin jam nut, or a spacer so it passes | Open | Pending | CDR readiness declaration (lien) |
+| <a id="finding-7"></a>finding-7 | reviewer | Minor | CK-ANA-E5 | note section 4.1 A1, A2 and rule 21 ("the admitted plug for REQ-SYS-108 is one whose overmold is at most 7.0 mm over its first 2 mm") | REQ-SYS-108 requires "fully seated mating plugs" at the key and headphone jacks with no plug-size limit. The pass is now conditional on a plug definition that narrows the requirement, and it is not checked against the plugs the owner will use (the owner's straight key and paddle are to be named at OD-22; common 3.5 mm cables have overmolds of 8 mm or more, which would stop at the face 0.35 to 1.65 mm short of full seating). Fix: state the definition as a proposed REQ-SYS-108 interpretation for the owner (with ICD-CTL-KEY), check it against the OD-22 key, paddle and headphone plugs, or widen the opening | Open | Pending | CDR readiness declaration (lien) |
+
+Neither new finding is Major: each concerns a rule the fix added, with a design step that closes it, and neither changes a drop or axial verdict of the recommended design.
+
+### Visual closure (iteration 2)
+
+Two renders opened with the Read tool (renders_inspected 4 cumulative):
+- `docs/reviews/PDR/figures/drop-and-axial.png` (new): horizontal bars of the margin at 2000 g for D1 to D20 with 1000 g diamonds, hatched for the revision 0 design and plain for revision 1 rules, coloured pass, not shown and fail, the dashed 1.5 line (M2 rule) and a dotted 1.0 line; bars off the 12 scale carry their value; the right-hand text lists A1 to A5 with verdicts and rules. The values match the CSV (for example D6 0.35, D17 1.50, D18 1.47, D19 2.45). The D6 and D9 value labels overlap their diamonds, cosmetic.
+- `docs/reviews/PDR/figures/board-outline-envelope.png` (revised): the rule 18 posts appear as triangles at the positions of `board-outline.json`, and the rule 14 sensors in the PA pad. The jack recess of rule 21 and the port-block flange of rule 6 are not drawn in the X-Z section; the section is a Z-stack view and the note gives both rules in text, so not a finding.
+- `docs/reviews/PDR/figures/tolerance-stack.png` is byte-identical to iteration 1 and was not re-reviewed.
+
+### Cross items (iteration 2, returned to Claude)
+
+- X-1. The record `verdict` is held only for the CR-012 merge (lead SE convention of 2026-09-27); no SA pair is required.
+- X-2. The rule 18 posts that D7, D8 and D10 need touch the hot board; INSP-081 iteration 2 finding-8 bounds them for M8 (94.1 C at the post near the PA).
+- X-3. The plugs-inserted state also matters to shielding (INSP-083 iteration 2 finding-5): a jack sleeve bonded at the wall (its possible fix) changes the jack mounting and the A1 and A2 stacks.
+
+### Completion criteria (SWE-088), iteration 2
+
+Reviewer side met: no Major is open, readiness is met (R1, R2 and R4 to R6 re-checked at `70d11ef`), and findings 2 to 7 are Minor liens due at the CDR readiness declaration (plan rule C1; PDR package section 15). `reviewer_verdict: APPROVED`. The record `verdict` stays NEEDS CHANGES until CR-012 merges with the analysis template blob `0386cc6e` unchanged; it is then set to APPROVED in that merge commit or the commit right after it.
+
+```
+ITERATION 2 (2026-09-27, HEAD d1148c2, product commit 70d11ef): REVIEWER VERDICT: APPROVED; RECORD VERDICT: NEEDS CHANGES (held for the CR-012 merge only)
+FINDINGS:
+- [Major] finding-1: Verified (drop rows D1 to D20 per face and load path, +X whip moment D16 and D17 against the L1 capacity; axial stacks A1 to A3; encoder thread A4 and A5; rules 6 and 17 to 22).
+- [Minor] finding-2 to finding-5: Open, not in the delta (liens).
+- [Minor] finding-6 (new): the rule 22 inner jam nut is not stacked (1.7 mm worst-case gap against a 2.0 mm nut) (lien).
+- [Minor] finding-7 (new): the rule 21 admitted-plug definition narrows REQ-SYS-108 and is unchecked against the OD-22 plugs (lien).
+MEASUREMENTS: blobs equal HEAD 10/10; checkers 3 of 3 CHECK PASS; outputs byte-identical 5/5; cases 7 (7 Yes, 2 with a new Minor); hand checks 6; renders inspected 2 (4 cumulative); major open=0; minor open=6; turns=25; minutes=40 (cumulative 55 and 85); iteration=2
+```
