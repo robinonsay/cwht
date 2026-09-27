@@ -5,13 +5,25 @@ Reads the JSON that `rust-code-analysis-cli --metrics --output-format json --pat
 writes (one JSON object per analysed file, concatenated; a JSON array of them is
 also accepted) from standard input or --input, and applies:
 
-* CS-17 (SWE-220): every function has cyclomatic complexity (CC) of at most
-  --max (15); a function above 12 (--yellow) is reported for the design
-  reviewer's attention. A function above --max fails unless a waiver of 07
-  section 14.3 covers it (--waivers).
+* The CC measure (CR-005, SRR close-out item 4): the own cyclomatic
+  complexity that rust-code-analysis-cli 0.0.25 reports (every `match` arm
+  counts, `_` included; a bare `loop` counts as a decision), plus one for each
+  `let ... else` statement of the function, which the analyzer does not count.
+* CS-17 (SWE-220): every function has CC of at most --max (15); a function
+  above 12 (--yellow) is reported for the design reviewer's attention. A
+  function above --max fails unless a waiver of 07 section 14.3 covers it
+  (--waivers).
 * CS-38: in a file that carries the line `// @target-only`, every function is
-  straight-line (CC 1), except the CS-11 board take: a function whose body
-  contains the call `::take()` is allowed one decision per such call.
+  straight-line (CC 1) except for the per-file allowance of CR-001 and CR-005,
+  credited to the function whose body holds each item:
+  - one for each CS-11 failure arm: a `let Some(..) = ..::take() else { .. }`
+    (board take) or `let Ok(..) = .. else { .. }` (driver construction)
+    statement whose else block is exactly `safe_state_halt()` (CR-001);
+  - one for the bare `loop` of each CS-19 halt loop: the `#[panic_handler]`
+    function and the function `safe_state_halt` (CR-005).
+  Each function is checked against its own share, so one function's allowance
+  never covers another function's decision. A two-arm `match` failure branch
+  is not recognized (the analyzer counts both arms): it fails closed.
 * CS-19: a name-based call graph of the analysed functions (calls written as
   `name(` or `.name(` outside comments and literals) is searched for cycles;
   each cycle is REPORTed for the reviewer (07 CS-19 enforcement "G ... reports
@@ -26,9 +38,17 @@ with "sum" (the space plus every nested space) or a plain number (the space
 alone). A function's own CC is its "sum" less the "sum" of its direct child
 spaces (closures and nested functions are their own spaces). An own CC below 1
 means the input is not in this format and stops the run (exit 2), as does an
-input with no function space: an empty pipe is never a pass. The format is
-checked against the hand-computed functions of 07 section 8.3 once
-rust-code-analysis-cli is installed (TV-012 limitation 1).
+input with no function space: an empty pipe is never a pass. The fixture
+analyzer output tools/tests/fixtures/complexity_gate/rca.json is real
+rust-code-analysis-cli 0.0.25 output on the fixture sources (TV-012 section 3).
+
+A `let ... else` is recognized in the comment- and literal-masked source: a
+statement-initial `let` whose statement reaches, at bracket depth 0 and before
+its `;`, an `else` not directly preceded by `}` (Rust rejects a let-else
+initializer that ends in `}`). It is credited to the innermost function space
+whose line range holds the `let` line; a line that is the first or last line
+of a nested space is shared, and a let-else on it is counted for both spaces
+(over-count, never under-count).
 
 Waivers (--waivers FILE): a JSON list of objects {"id": "W<n>", "file": path
 suffix, "function": name, "cc": maximum, "memo": path of the decision memo}.
@@ -59,6 +79,12 @@ from unsafe_audit import mask_rust  # noqa: E402  (shared comment and literal ma
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TARGET_ONLY = "// @target-only"
 TAKE_CALL = re.compile(r"::take\s*\(\s*\)")
+LET = re.compile(r"(?<![A-Za-z0-9_])let(?![A-Za-z0-9_])")
+ELSE = re.compile(r"else(?![A-Za-z0-9_])")
+HALT_BODY = re.compile(r"^safe_state_halt\s*\(\s*\)\s*;?$")
+BARE_LOOP = re.compile(r"(?<![A-Za-z0-9_])loop\s*\{")
+HALT_FN = "safe_state_halt"
+PANIC_ATTR = re.compile(r"#\[\s*panic_handler\s*\]")
 CALL = re.compile(r"(?<![A-Za-z0-9_])([a-z_][a-z0-9_]*)\s*(?:::<[^>]*>)?\s*\(")
 NOT_CALLS = frozenset({"if", "while", "for", "match", "return", "loop", "fn", "in", "as", "let", "move", "unsafe", "ref", "mut", "where", "impl", "dyn", "else", "break", "continue", "some", "ok", "err"})
 
@@ -73,9 +99,22 @@ class Function:
     name: str
     start: int
     end: int
-    cc: int
+    cc: int  # the CR-005 measure: rca_cc + let_else
+    rca_cc: int = 0  # own CC as the analyzer reports it
+    let_else: int = 0  # `let ... else` statements credited to this function (CR-005)
+    children: tuple[tuple[int, int], ...] = ()  # line ranges of the direct child spaces
     target_only: bool = False
-    allowed: int | None = None  # CS-38 allowance for target-only functions
+    allowed: int | None = None  # CS-38 allowance for target-only functions: 1 + arms + halt_loop
+    arms: int = 0  # admitted CS-11 failure arms (CR-001)
+    halt_loop: int = 0  # CS-19 halt loop allowance (CR-005)
+
+
+@dataclass
+class LetElse:
+    line: int  # 1-based line of the `let` keyword
+    pattern: str
+    init: str
+    block: str  # text inside the else braces
 
 
 def parse_stream(text: str) -> list[dict]:
@@ -116,7 +155,9 @@ def walk(space: dict, file: str, out: list[Function]) -> None:
             own = own_cc(child)
             if own < 1 or abs(own - round(own)) > 1e-6:
                 raise InputError(f"{file}: function '{child.get('name')}' has own CC {own}; the input is not in the assumed format")
-            out.append(Function(file, str(child.get("name") or "<closure>"), int(child.get("start_line", 0)), int(child.get("end_line", 0)), int(round(own))))
+            kids = tuple((int(k.get("start_line", 0)), int(k.get("end_line", 0))) for k in child.get("spaces") or [])
+            cc = int(round(own))
+            out.append(Function(file, str(child.get("name") or "<closure>"), int(child.get("start_line", 0)), int(child.get("end_line", 0)), cc, rca_cc=cc, children=kids))
         walk(child, file, out)
 
 
@@ -138,23 +179,118 @@ def source_lines(path: Path) -> list[str] | None:
         return None
 
 
+def _prev_char(code: str, i: int) -> str:
+    j = i - 1
+    while j >= 0 and code[j].isspace():
+        j -= 1
+    return code[j] if j >= 0 else ""
+
+
+def _closing(code: str, i: int) -> int:
+    """Index of the bracket closing the one at i, or -1."""
+    depth = 0
+    for k in range(i, len(code)):
+        if code[k] in "([{":
+            depth += 1
+        elif code[k] in ")]}":
+            depth -= 1
+            if depth == 0:
+                return k
+    return -1
+
+
+def let_else_sites(code: str) -> list[LetElse]:
+    """Every `let ... else { .. }` statement of comment- and literal-masked Rust code (CR-005)."""
+    sites: list[LetElse] = []
+    for m in LET.finditer(code):
+        if _prev_char(code, m.start()) not in ("", ";", "{", "}", "]"):
+            continue  # `if let`, `while let`, let chains: not a let statement
+        depth, eq, k = 0, -1, m.end()
+        while k < len(code):
+            c = code[k]
+            if c in "([{":
+                depth += 1
+            elif c in ")]}":
+                depth -= 1
+                if depth < 0:
+                    break
+            elif depth == 0 and c == ";":
+                break
+            elif depth == 0 and c == "=" and eq < 0 and code[k + 1:k + 2] not in ("=", ">") and code[k - 1] not in "<>!=":
+                eq = k
+            elif depth == 0 and eq >= 0 and ELSE.match(code, k) and not (code[k - 1].isalnum() or code[k - 1] == "_"):
+                if _prev_char(code, k) != "}":
+                    j = k + 4
+                    while j < len(code) and code[j].isspace():
+                        j += 1
+                    end = _closing(code, j) if j < len(code) and code[j] == "{" else -1
+                    if end > 0:
+                        sites.append(LetElse(code.count("\n", 0, m.start()) + 1, code[m.end():eq].strip(), code[eq + 1:k].strip(), code[j + 1:end].strip()))
+                    break
+            k += 1
+    return sites
+
+
+def own_lines(f: Function) -> set[int]:
+    """Lines of f that are not strictly inside a direct child space (shared boundary lines stay)."""
+    return {ln for ln in range(f.start, f.end + 1) if not any(a < ln < b for a, b in f.children)}
+
+
+def is_admitted_arm(site: LetElse) -> bool:
+    """A CS-11 failure arm of CR-001: board take or driver construction, else block only safe_state_halt()."""
+    if not HALT_BODY.match(site.block):
+        return False
+    if site.pattern.startswith("Some") and TAKE_CALL.search(site.init):
+        return True
+    return site.pattern.startswith("Ok")
+
+
+def is_panic_handler(f: Function, code_lines: list[str]) -> bool:
+    k = f.start - 1  # 0-based index of the fn line
+    if 0 <= k < len(code_lines) and PANIC_ATTR.search(code_lines[k].split("fn", 1)[0]):
+        return True
+    k -= 1
+    while k >= 0:
+        line = code_lines[k].strip()
+        if not line:
+            k -= 1
+            continue
+        if not line.startswith("#["):
+            return False
+        if PANIC_ATTR.search(line):
+            return True
+        k -= 1
+    return False
+
+
 def apply_source_rules(functions: list[Function], base: Path) -> dict[str, str]:
-    """Mark target-only functions with their CS-38 allowance; return {file: masked code} for the call graph."""
+    """Add the CR-005 let-else count to each function's CC and mark target-only functions with their
+    CS-38 allowance (CR-001, CR-005); return {file: masked code} for the call graph."""
     masked: dict[str, str] = {}
     for file in sorted({f.file for f in functions}):
         path = Path(file) if Path(file).is_absolute() else base / file
         lines = source_lines(path)
         if lines is None:
-            raise InputError(f"source file {file} named by the analyzer cannot be read (CS-38 tags and CS-19 need it)")
+            raise InputError(f"source file {file} named by the analyzer cannot be read (CS-38 tags, CR-005 let-else and CS-19 need it)")
         code, _ = mask_rust("\n".join(lines))
         masked[file] = code
         tagged = any(line.strip() == TARGET_ONLY for line in lines)
         code_lines = code.split("\n")
+        sites = let_else_sites(code)
         for f in functions:
-            if f.file == file and tagged:
+            if f.file != file:
+                continue
+            mine = own_lines(f)
+            own_sites = [s for s in sites if s.line in mine]
+            f.let_else = len(own_sites)
+            f.cc = f.rca_cc + f.let_else
+            if tagged:
                 f.target_only = True
-                body = "\n".join(code_lines[max(0, f.start - 1):f.end])
-                f.allowed = 1 + len(TAKE_CALL.findall(body))
+                f.arms = sum(1 for s in own_sites if is_admitted_arm(s))
+                body = "\n".join(code_lines[i - 1] for i in sorted(mine) if 0 < i <= len(code_lines))
+                if (f.name == HALT_FN or is_panic_handler(f, code_lines)) and BARE_LOOP.search(body):
+                    f.halt_loop = 1
+                f.allowed = 1 + f.arms + f.halt_loop
     return masked
 
 
@@ -235,10 +371,24 @@ def waiver_for(f: Function, waivers: list[dict]) -> dict | None:
     return None
 
 
+def allowances(functions: list[Function]) -> dict[str, dict[str, int]]:
+    """Per-file CS-38 allowance of CR-001 and CR-005: the admitted items of every tagged file."""
+    out: dict[str, dict[str, int]] = {}
+    for f in functions:
+        if f.target_only:
+            a = out.setdefault(f.file, {"allowance": 0, "cs11_failure_arms": 0, "cs19_halt_loops": 0})
+            a["cs11_failure_arms"] += f.arms
+            a["cs19_halt_loops"] += f.halt_loop
+            a["allowance"] += f.arms + f.halt_loop
+    return out
+
+
 def evaluate(functions: list[Function], limit: int, yellow: int, waivers: list[dict]) -> tuple[list[str], list[str], dict]:
     fails, notes = [], []
     for f in functions:
         where = f"{f.file}:{f.start} {f.name}"
+        if f.let_else:
+            notes.append(f"COUNT {where} CC {f.cc} = analyzer {f.rca_cc} + {f.let_else} let ... else (CR-005)")
         if f.cc > limit:
             w = waiver_for(f, waivers)
             if w:
@@ -252,7 +402,9 @@ def evaluate(functions: list[Function], limit: int, yellow: int, waivers: list[d
             if w:
                 notes.append(f"WAIVED CS-38 {where} CC {f.cc} > {f.allowed} under {w['id']} ({w['memo']})")
             else:
-                fails.append(f"CS-38 {where} CC {f.cc} > {f.allowed} in a {TARGET_ONLY} file (straight-line target-only code; CS-11 board take allowance included)")
+                fails.append(f"CS-38 {where} CC {f.cc} > {f.allowed} in a {TARGET_ONLY} file (straight-line target-only code; allowance {f.arms} CS-11 failure arm(s) and {f.halt_loop} CS-19 halt loop(s), CR-001 and CR-005)")
+    for file, a in sorted(allowances(functions).items()):
+        notes.append(f"ALLOWANCE CS-38 {file}: {a['allowance']} ({a['cs11_failure_arms']} CS-11 failure arm(s), {a['cs19_halt_loops']} CS-19 halt loop(s); CR-001, CR-005)")
     ccs = [f.cc for f in functions]
     msr = {
         "functions": len(ccs),
@@ -291,7 +443,7 @@ def main(argv: list[str] | None = None) -> int:
     cycles = call_cycles(functions, masked)
     notes = [f"NOTE {p}" for p in problems] + notes
     if args.json:
-        print(json.dumps({"msr_17": msr, "failures": fails, "notes": notes, "cs_19_cycles": cycles}, indent=2))
+        print(json.dumps({"msr_17": msr, "failures": fails, "notes": notes, "cs_19_cycles": cycles, "cs_38_allowances": allowances(functions)}, indent=2))
     else:
         for line in fails:
             print(f"FAIL {line}")
