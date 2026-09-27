@@ -11,21 +11,24 @@
 # Iteration 2 (delta, rule C1) at the re-freeze F0 commit 802347b: the four Major fixes of iteration 1, on the
 # seven blobs below (ADR-031 is now in product_files, so its record is this one). CR-012 is still not merged at
 # 8abb467 (branch cr/CR-012-pdr-checklist-templates), so X-1 stands and the checklist field is unchanged.
+# Iteration 3 (delta, rule C1) at the re-freeze F0 commit 4153acf: the finding-8 fix only. clock-plan.md,
+# ADR-031, clock_plan.py and clock-plan-harmonics.png changed; frequency-budget.md, freq_budget.py and
+# frequency-budget.png are unchanged since 802347b. CR-012 is still not merged at 4153acf, so X-1 stands.
 id: INSP-056
 checklist: peer-review-checklist-design
 checklist_revision: A
 checklist_file: docs/reviews/PDR/checklists/analysis-frequency-budget-and-clock-plan.md
 product: docs/design/analysis/frequency-budget.md
-product_commit: "802347bb9b6549fe7ee4a8005ce7605fc2cabc3a"
-product_files: ["docs/design/analysis/frequency-budget.md@79d47fbbcae7fbfc5dde43ebde5c6e6b20917f94", "docs/design/analysis/clock-plan.md@8582121a860eb75dd093b62c9d6bb03cd5acd363", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "hardware/sim/freq/clock_plan.py@b939229725b0e1f37a723d7399dcda72c990a8fe", "docs/reviews/PDR/figures/frequency-budget.png@d77a0b3afac520643fdda042d188612b9123848e", "docs/reviews/PDR/figures/clock-plan-harmonics.png@19f47e3d8a1307ec478b98be68f673da08191562", "docs/decisions/adr/ADR-031-clock-plan.md@a578ca16aa6e5d23269b2591205f3d1e696ebf14"]
+product_commit: "4153acf1006f919fc1e6ff72715f6f2694d9dead"
+product_files: ["docs/design/analysis/frequency-budget.md@79d47fbbcae7fbfc5dde43ebde5c6e6b20917f94", "docs/design/analysis/clock-plan.md@07b5309613279d906bfdd3549618bb39ae8c7d81", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "hardware/sim/freq/clock_plan.py@7e321b3d3355d8e94b464110292c3909483d3832", "docs/reviews/PDR/figures/frequency-budget.png@d77a0b3afac520643fdda042d188612b9123848e", "docs/reviews/PDR/figures/clock-plan-harmonics.png@0a4d221c1c1690aa28331d0c429e65278feacb07", "docs/decisions/adr/ADR-031-clock-plan.md@58ceb119651feeadfc79a4c3d61ecfa916fa52d4"]
 analysis_kind: [budget, timing, worst-case, other]
-product_size: 2 notes and 1 ADR; 39 checker cases (35 PASS, 4 INFO) and 28 clock rows (4 named residual sources) in 6 IF plans; 2 checkers; 2 plots
+product_size: 2 notes and 1 ADR; 39 checker cases (35 PASS, 4 INFO) and 30 clock rows (5 named residual sources, 1 seeded case) in 6 IF plans; 2 checkers; 2 plots
 tools_used: ["venv Python 3.13.5 (TV-001 accredits the interpreter; no TV record covers hardware/sim/freq/*.py, developer evidence per 05 section 9.1)"]
 values_proposed: ["REQ-SYS-008: 144.0012 to 147.9988 MHz", "REQ-SYS-009: 144.0012 to 147.9988 MHz", "REQ-TX-002: 144.0012 to 147.9988 MHz", "REQ-SYS-010: +/-2.5 ppm, -10 to +45 C, one year after calibration", "REQ-SYS-154: 10 kHz true-error limit, measured SW-SAFE threshold 5.0 kHz (route R3), lock-detect primary for the unlocked trigger", "REQ-SYS-182: 10 kHz and 100 ms (route R3)", "REQ-TX-013: fixed ratio 8, sample below 20 MHz, within 1 kHz", "REQ-SYS-034: 144.010 to 147.999 MHz, 3 dB above MDS", "TPM-006: cbe 0.834 / 0.984 / 1.234 ppm by class, credit false"]
 renders_inspected: 2
 sprint: PDR-prep
 author_agent: "author:WP-PDR-20 wave 1a (Claude as RF designer TX)"
-reviewer_agent: "reviewer:WP-PDR-20-analysis-iter2 (independent; authored no part of WP-PDR-20; iteration 1 by reviewer:WP-PDR-20-analysis-iter1)"
+reviewer_agent: "reviewer:WP-PDR-20-analysis-iter3 (independent; authored no part of WP-PDR-20 or of its revision 2; iteration 1 by reviewer:WP-PDR-20-analysis-iter1, iteration 2 by reviewer:WP-PDR-20-analysis-iter2)"
 # criticality: the frequency budget sets the window, times and calibration bound of the SW-SAFE frequency
 # verification unit and the SW-SYNTH frequency-word path (07 section 14.1, safety-critical by SRR decision 9);
 # section J answered here
@@ -38,22 +41,28 @@ criticality: safety-critical
 # requirements (GPIO23, I2C traffic rule). The SA pair is a separate invocation (rule C4); it is not done here
 assurance_required: true
 assurance_reviewer_agent: "pending (software assurance pair of INSP-056 for ADR-031, to be dispatched by the lead SE; 07 section 2.1.1)"
-iteration: 2
+iteration: 3
 readiness_met: true
-reviewer_verdict: NEEDS CHANGES
+# reviewer_verdict (iteration 3): APPROVED; finding-8 (Major) Verified, so all five Major findings are Verified;
+# findings 5, 6, 7, 9 and the new finding-10 are Minor and Open (liens due at the CDR readiness declaration,
+# plan rule C1)
+reviewer_verdict: APPROVED
+# assurance_verdict: the SA pair for ADR-031 (07 section 2.1.1, X-6) has not run; no paired record exists
 assurance_verdict: pending
+# verdict: held at NEEDS CHANGES until the SA pair is APPROVED (07 sections 2.1.1 and 10.2) and, per the lead SE
+# convention of 2026-09-27, until CR-012 merges with the analysis template blob 0386cc6e unchanged (X-1)
 verdict: NEEDS CHANGES
 findings_major: 5
-findings_minor: 4
+findings_minor: 5
 findings_open: 5
 findings_fixed: 0
-findings_verified: 4
+findings_verified: 5
 findings_deferred: 0
 assurance_tasks_applied: [swe-070 7.1 task 1, swe-134 7.1 task 1, swe-134 7.1 task 6]
 deferred_rids: []
-items_no: [CK-ANA-D2, CK-ANA-D3, CK-ANA-E5, CK-ANA-F1, CK-ANA-F4, CK-ANA-J2]
-effort_turns: 40
-effort_minutes: 60
+items_no: [CK-ANA-A5, CK-ANA-D2, CK-ANA-D3, CK-ANA-F4, CK-ANA-J2]
+effort_turns: 30
+effort_minutes: 45
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -416,3 +425,113 @@ MEASUREMENTS: size=39 checker cases, 28 clock rows, 6 IF plans, 1 ADR; renders=2
 ```
 
 Next: the author fixes finding-8 (and finding-9 at their option) and re-freezes. Iteration 3 of this record is then a delta on finding-8. It is the last iteration before escalation to the owner (rule C1; 07 section 10.2). The lead SE dispatches the SA pair for ADR-031 (X-6). Under rule C10, no value of either note goes to the owner until this record, with its SA pair, is APPROVED.
+
+## Iteration 3: delta verification of finding-8 (Major) (2026-09-27)
+
+**Scope (rule C1).** A delta that verifies the one open Major fix, finding-8, only. The author re-froze the products at `4153acf` (freeze F0, rule C2), which is also `HEAD` at review time: `clock-plan.md` `07b53096`, ADR-031 `58ceb119`, `clock_plan.py` `7e321b3d` and `clock-plan-harmonics.png` `0a4d221c`. `frequency-budget.md` `79d47fbb`, `freq_budget.py` `d82269e6` and `frequency-budget.png` `d77a0b3a` are unchanged since `802347b`. Each blob was checked equal at `HEAD` (`git rev-parse HEAD:<path>`) and in the working tree (`git hash-object`). `4153acf` is on `main`, and no product blob lives only on a `cr/` branch. The change was read as `git diff 802347b 4153acf` on `clock-plan.md`, ADR-031 and `clock_plan.py`. This is the third and last iteration before escalation to the owner (rule C1; 07 section 10.2). Minor findings 5, 6, 7 and 9 were not addressed (rule C1) and were not re-checked. The iteration 1 and 2 checklist answers stand except where this section changes them.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-20 (TS-007, both notes, ADR-031, the checkers, the figures, revision 2) and did not write iterations 1 or 2 of this record, or INSP-055 or INSP-074. It edited no product file.
+
+**Search first (charter section 11 rule 1).** The step that loaded the search tool also ran one `git log`, `git show --stat` and `ls` of this directory (no search). `mcp__claude-context__search_code` then ran before every manual search. Queries on `/Users/robinonsay/rust/cwht`: the INSP-056 record and finding-8; TRNG use in the cwht firmware; the ADR-051 clock bring-up. On `/Users/robinonsay/rust/rustos`: the ROSC CTRL and STATUS registers; the TRNG entropy source. `grep` and `sed -n` afterwards only pinned lines of known files. RP2350 text was read only from the committed object `git show 2ec64c0f:docs/extracted/rp2350-datasheet.md`, exported to the scratchpad. The search index returned rustos extract text; every quoted line below was re-read from that committed object. The rustos working tree was not read.
+
+**Acceptance criteria for the delta (rule C7).** These are the cases the finding-8 fix clause lists:
+- ROSC added, with its range and datasheet lines, and either route (a) (a disable rule, with requests to WP-PDR-41 and WP-PDR-35 and a HostUnit check) or route (b) (a named residual source).
+- LPOSC added as a named residual source, or shown to be stopped in operation.
+- Checker, figure, rule 2, the REQ-SYS-034 row and ADR-031 updated to match.
+
+The governing output ("harmonic table of every clock against 144 to 148 MHz and the IF") is checked against both ends of 144.010 to 147.999 MHz and the CW-only segment 144.010 to 144.100 MHz. For the ROSC, both datasheet ranges are checked (4.6 to 19.6 MHz without randomisation, 4.6 to 24.0 MHz with it). For the LPOSC, both Table 615 ranges are checked (initial and trimmed). For rule 11, every state in which the ROSC restarts is checked: power-up, DORMANT exit and switched-core power-up.
+
+### Verification of finding-8
+
+**finding-8 (RP2350 oscillators missing from the inventory): Verified.** The author took route (a) for the ROSC and made the LPOSC residual R-5.
+
+| Element of the fix | Result | Evidence |
+|---|---|---|
+| ROSC in the inventory with range and source | Yes | `clock-plan.md` section 2 row "RP2350 ring oscillator (ROSC), 4.6 to 24.0 MHz", status off in operation (rule 11). The quotes from section 8.3.1 match the extract: the range at lines 41089 to 41091 and "You can disable the ROSC" at line 41093, both inside the note's range 41086 to 41093; "started automatically during RP2350 power up" is at line 41082. The new class "Off in operation" in section 1 covers it and the charger boost |
+| Route (a): rule 11 is correct against the datasheet | Yes | Order: "The system clock must be switched to another source before setting this field to DISABLE otherwise the chip will lock up" (Table 605, line 41353), and the rule disables only after both SELECTED read-backs. Encoding: 0xd1e is DISABLE (Table 605). Read-back: STATUS.ENABLED is bit 12, RO, "Oscillator is enabled but not necessarily running and stable" (Table 612, line 41599), so ENABLED = 0 is the right post-condition. Fault: the read-back failure gives a ClockFault, consistent with the other ADR-051 steps |
+| Rule 11: every ROSC restart state covered | Yes | Power-up: the ROSC "is started automatically during RP2350 power up" (8.3.1), so the bring-up disables it. DORMANT: "When exiting DORMANT mode, the ROSC restarts in the same configuration" (8.1.1.2, line 37453). Switched-core power-up: "The ROSC is unpowered when the switched-core domain is powered down, but starts immediately when the switched-core powers up" (line 37451), and Table 101 confirms that clk_ref runs from the ROSC at switched-core power-up. Rule 11 repeats the disable after both. The DORMANT repeat is redundant when the ROSC was already disabled (the "same configuration" is disabled), but it does no harm and the rule is correct either way |
+| "Nothing needs the ROSC after bring-up" | Yes | Resus "switches clk_sys to a known good clock source (clk_ref)" (8.1.4, line 37973), and clk_ref runs from the XOSC. With the ROSC running but not selected, resus behaves the same, so stopping the ROSC loses no fallback. POWMAN USE_FAST_POWCK reset 1 selects clk_ref (line 34510). Reviewer: the cwht search found no TRNG or ROSC RANDOMBIT use in cwht |
+| Fault state | Yes | After a ClockFault the ROSC may still clock the chip. The radio stays in the ADR-051 safe state (REQ-SYS-130), so these lines occur in a fault state, not in operation. Stated in rule 11, last item |
+| Fallback named | Yes | ADR-031 assumption 6 and revisit condition: without rule 11 the ROSC is R-6 and the REQ-SYS-034 range support does not hold. The `clock-plan.md` section 5 range row states the same "else" branch |
+| Requests | Yes | WP-PDR-41 (the ADR-051 and WP-SW-11 writer; ADR-051 is outside WP-PDR-20's files, plan section 5.3), WP-PDR-35 (SW-CTL requirement with a HostUnit check: the CTRL write comes after both read-backs, and a stuck ENABLED gives the fault), WP-PDR-16b (rule 11 into HZ-008 K6), and TC-SYS-022 (a pre-step that confirms the ROSC is off) |
+| ROSC order counts | Yes | Reviewer: CW-only segment, n = ceil(144.010 / 24.0) = 7 to floor(144.100 / 4.6) = 31, which is 25 orders. Band, n = 6 (6 x 24.0 = 144.000 MHz) to floor(148 / 4.6) = 32. Neighbouring intervals overlap because n x 24.0 >= (n + 1) x 4.6 for every n >= 1, so they cover the band. Without randomisation: ceil(144.010 / 19.6) = 8, so orders 8 to 31 (limitation 8). All agree with the checker and the note |
+| LPOSC as residual R-5 | Yes | Table 615 (lines 41668 to 41685): F0.initial 26.2144 / 32.768 / 39.3216 kHz, F0.trimmed 32.27648 / 33.25952 kHz, drift +/-14 % with temperature and +/-20 % with supply. Cannot be stopped: Table 487 MODE "This feature has been removed" (line 34212), and Table 101 WAITING_POWCK "The solution is to not stop LPOSC when the switched-core power domain is powered" (line 6704). Reviewer counts: untrimmed n = ceil(144 / 0.0393216) = 3 663 to floor(148 / 0.0262144) = 5 645, which is 1 983 intervals; trimmed 4 330 to 4 585, which is 256; CW-only segment 3 663 to 5 496, which is 1 834. Coverage holds because n x f_hi >= (n + 1) x f_lo for n >= 2 (untrimmed) and n >= 33 (trimmed). All agree with the checker. Control is level only, plus the allocated rule that no clock generator, clk_gpout or frequency-counter output takes the LPOSC in operation |
+| Rule 2, REQ-SYS-034 rows, ADR-031 | Yes | Rule 2 now covers R-1 to R-5 and adds "the ROSC meets it only by rule 11". The section 5 range row is conditioned on rule 11, and the allowance row covers R-1 to R-5. ADR-031: context (five residual sources plus the ROSC), research consulted, assumptions 4 and 6, items 2 and 8, new item 9 (it matches rule 11 point by point), option A, section 4.1 (new SW-CTL row and the LPOSC routing rule), 4.2, 4.3 (Test with R-1 to R-5 active and the ROSC confirmed off), 4.4, memo wording, revisit conditions and change log. None contradicts `clock-plan.md` revision 2 |
+| Checker | Yes | `ROSC_RANGE`, `LPOSC_INITIAL`, `LPOSC_TRIMMED` equal the datasheet values. The ROSC status is `off-in-op` normally and `fixed` under `--rosc-running`, so rules 1 and 2 test it only in the seeded case. The `merged` and `covers` helpers are correct for intervals sorted by lower end (reviewer read) |
+
+### Reviewer re-runs
+
+| Command | Exit | Result |
+|---|---|---|
+| `git archive 4153acf hardware/sim/freq <two PNGs>` into the scratchpad; `.venv/bin/python hardware/sim/freq/clock_plan.py --plot` | 0 | "RESULT: 0 rule failure(s) in the proposed plan; 5 named residual source(s)"; table "RP2350 oscillators" as quoted above; 30 clock rows |
+| `.venv/bin/python hardware/sim/freq/clock_plan.py --rosc-running` (same export) | 1 | "FAIL RULE-1" and "FAIL RULE-2" for the ROSC (n = 7 to 32 in range, 7 to 31 in the CW-only segment); "RESULT: 2 rule failure(s) in the proposed plan; 5 named residual source(s)". The seeded case catches the ROSC left running, as the note says |
+| `.venv/bin/python hardware/sim/freq/freq_budget.py` (same export) | 0 | "RESULT: 35 pass, 0 fail" (unchanged product; run only to confirm) |
+| `git hash-object` of the regenerated `clock-plan-harmonics.png` | 0 | `0a4d221c`: byte-identical to the frozen figure |
+
+### Visual closure (iteration 3)
+
+Both frozen figures were opened with the Read tool (2 renders).
+- `clock-plan-harmonics.png`: the title names "olive off in operation" and "magenta named residual". The LPOSC row ([residual], magenta) and the ROSC row ([off-in-op], olive, labelled "disabled in operation by rule 11") are each one merged bar across 124 to 170 MHz, as reproduction section 7 says. The other rows match iteration 2. The legend still covers the XOSC n = 14 label at 168 MHz (cosmetic, as before).
+- `frequency-budget.png`: unchanged blob; opened to confirm the render is the frozen one.
+
+### New finding at iteration 3
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-10"></a>finding-10 | reviewer (iteration 3, while checking the finding-8 completeness claim) | Minor | CK-ANA-A5 | `clock-plan.md` section 2 and rule 11; ADR-031 item 9 | See the note after this table | Open | Pending | CDR readiness declaration (lien, rule C1) |
+
+**finding-10 (TRNG ring oscillator not stated).**
+- **Defect.** The RP2350 TRNG has its own ring oscillator. It is "a free-running oscillator with no direct connection to the system clocks" (section 12.12.1, extract lines 91111 to 91155). It runs only while TRNG RND_SOURCE_ENABLE.RND_SRC_EN = 1, and its reset value is 0 (Table 1267). The datasheet gives no frequency for it. The note does not mention it, and rule 11 covers only the main ROSC and its RANDOMBIT and COUNT registers.
+- **Why Minor.** It is not running in operation as the design stands: the reset value is 0, and cwht has no TRNG use (reviewer search). So no case of "every clock running in operation" is missing. What is missing is a stated assumption, with its control, that the TRNG entropy source stays disabled in operation. Whether the bootrom leaves it disabled after boot is not in the corpus.
+- **Fix (lien).** Add the TRNG ring oscillator to section 2 as off in operation. Extend rule 11, the WP-PDR-35 request and ADR-031 item 9 so that RND_SRC_EN reads 0 after bring-up (or the TRNG is held in reset), with the same read-back pattern. Otherwise name it residual R-6 with "frequency not in the corpus".
+
+### Findings (iteration 3 state)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Major | CK-ANA-E3, E5, F1 | `frequency-budget.md` section 3.3, section 4 | Verified at iteration 2 (product unchanged) | Verified | Pending | |
+| finding-2 | reviewer | Major | CK-ANA-F1 | `frequency-budget.md` section 3.3 | Verified at iteration 2 (product unchanged) | Verified | Pending | |
+| finding-3 | reviewer | Major | CK-ANA-F1, A6 | `clock-plan.md` sections 2, 2.1, 3, 5; ADR-031 | Verified at iteration 2; the revision 2 edits keep R-1 to R-4 as they were | Verified | Pending | |
+| finding-4 | reviewer | Major | CK-ANA-A4, B1 | `clock-plan.md` R-4, rule 4; `clock_plan.py`; ADR-031 item 4 | Verified at iteration 2; the I2C table re-runs the same | Verified | Pending | |
+| finding-5 | reviewer | Minor | CK-ANA-D3 | as iteration 1 | Not addressed, not re-checked (rule C1); lien due at the CDR readiness declaration | Open | Pending | CDR readiness declaration |
+| finding-6 | reviewer | Minor | CK-ANA-F4, A5 | as iteration 1 | Not addressed, not re-checked (rule C1); lien | Open | Pending | CDR readiness declaration |
+| finding-7 | reviewer | Minor | CK-ANA-J2, H1 | as iteration 1 | Not addressed, not re-checked (rule C1); lien | Open | Pending | CDR readiness declaration |
+| finding-8 | reviewer | Major | CK-ANA-F1, E5 | `clock-plan.md` sections 1, 2, 2.1, 3 (rules 2 and 11), 5, 6, 7; ADR-031 sections 1 to 8; `clock_plan.py`; figure | ROSC off in operation by rule 11 (route (a)), with seeded case `--rosc-running`; LPOSC residual R-5; confirmed against the datasheet, re-run and render | Verified | Pending | |
+| finding-9 | reviewer | Minor | CK-ANA-D2 | `frequency-budget.md` section 3.3 row U-1 | Not addressed (rule C1); lien | Open | Pending | CDR readiness declaration |
+| finding-10 | reviewer | Minor | CK-ANA-A5 | `clock-plan.md` section 2, rule 11; ADR-031 item 9 | TRNG ring oscillator not stated as off in operation; lien | Open | Pending | CDR readiness declaration |
+
+### Checklist items changed at this iteration
+
+| Id | Iteration 3 answer | Evidence |
+|---|---|---|
+| CK-ANA-A5 | No (Minor) | The assumption that the TRNG entropy source stays disabled is not stated (finding-10); finding-6 is also still open |
+| CK-ANA-E5 | Yes | The REQ-SYS-034 range proposal is now supported, and it is conditioned on rule 11 with the "else" branch (R-6, assumption 6) named |
+| CK-ANA-F1 | Yes | Every clock running in operation is in the inventory: the ROSC is off in operation by rule 11, and the LPOSC is residual R-5. Both ROSC ranges and both LPOSC ranges were checked against both band ends and the CW-only segment |
+| CK-ANA-I1, I2 | Yes | Two renders opened; the new rows agree with the checker output |
+
+### Cross items (not findings)
+
+- **X-1.** Unchanged: CR-012 is not merged at `4153acf` (`git merge-base --is-ancestor` fails). The `checklist` field keeps the design checklist. The analysis template blob is still `0386cc6e` on the branch.
+- **X-6 (software assurance pair).** Still required (07 section 2.1.1, ADR-031), and it has not run: no paired record exists for INSP-056. Rule 11 adds a safety-critical WP-SW-11 step with a fault path, and the SA pair should cover it. This reviewer did not apply the SA lens.
+- **X-7.** Rule 11 is a request to WP-PDR-41, and ADR-031 assumption 6 carries it. Until WP-PDR-41 adopts it, the firmware as written matches the seeded case (2 rule failures). The owner ruling of REQ-SYS-034 at B2 (rule C10) therefore rests on assumption 6 being confirmed before B2, as the ADR states.
+
+### Verdict (iteration 3)
+
+```
+VERDICT: NEEDS CHANGES (record verdict held; reviewer verdict APPROVED)
+PRODUCT: docs/design/analysis/frequency-budget.md@79d47fbb, docs/design/analysis/clock-plan.md@07b53096, hardware/sim/freq/freq_budget.py@d82269e6, hardware/sim/freq/clock_plan.py@7e321b3d, docs/reviews/PDR/figures/frequency-budget.png@d77a0b3a, docs/reviews/PDR/figures/clock-plan-harmonics.png@0a4d221c, docs/decisions/adr/ADR-031-clock-plan.md@58ceb119 at 4153acf
+FINDINGS:
+- [Major] finding-8 Verified: ROSC off in operation by rule 11 (route (a), CTRL.ENABLE 0xd1e after both SELECTED read-backs, STATUS.ENABLED read-back with fault, repeated after DORMANT exit and switched-core power-up), fallback R-6 named, seeded case exits 1; LPOSC residual R-5 (Tables 487, 101, 615).
+- [Major] finding-1 to finding-4 Verified at iteration 2, products unchanged or consistent.
+- [Minor] finding-10 (new): TRNG ring oscillator not stated as off in operation; lien due at the CDR readiness declaration.
+- [Minor] finding-5, 6, 7, 9 Open, not addressed (rule C1); liens due at the CDR readiness declaration.
+VALUES PROPOSED: REQ-SYS-008, 009, REQ-TX-002, REQ-SYS-010, REQ-TX-013, TPM-006, REQ-SYS-154, REQ-SYS-182 as iteration 2 (supported); REQ-SYS-034: 144.010 to 147.999 MHz, 3 dB above MDS (supported, given rule 11 per ADR-031 assumption 6)
+SA PAIR: required (07 section 2.1.1, ADR-031); not yet run
+MEASUREMENTS: size=39 checker cases, 30 clock rows, 6 IF plans, 1 ADR; renders=2; turns=30; minutes=45; major=5 (5 verified, 0 open); minor=5 open (liens)
+```
+
+The record verdict is held at NEEDS CHANGES for two reasons. First, the SA pair (X-6) has not returned APPROVED (07 sections 2.1.1 and 10.2). Second, under the lead SE convention of 2026-09-27, the analysis template blob `0386cc6e` has to reach `main` through CR-012 (X-1). When both are met, the record verdict is set to APPROVED in that commit, without another product iteration. Under rule C10, no value of either note goes to the owner before then.
+
+## Measurements (SWE-089), iteration 3
+
+Items re-checked 5 (A5, E5, F1, I1, I2); items answered No 5 (A5, D2, D3, F4, J2, all Minor); findings 5 Major (all Verified), 5 Minor (Open, liens); fixed 0; deferred 0; iteration 3; renders inspected 2; effort 30 turns, about 45 minutes.
