@@ -25,10 +25,17 @@ product: "rustos cwht/wp-sw-03: api/src/pwm/mod.rs, firmware/pico2/src/pwm/ and 
 # on the unmerged rustos branch cwht/wp-sw-03 (git -C rustos rev-parse 6df18af:<path>, checked 2026-09-27: all
 # equal); the three cwht blobs are on main and equal HEAD and 618e441 (git rev-parse). The lead SE branch-only
 # convention therefore applies to the rustos blobs and to the checklist template
-product_commit: "6df18afc4c98f278c93aafc2a2ca345333b69640"
-product_files: ["docs/decisions/adr/ADR-055-wp-sw-03-pwm-output.md@7b2a9d920d57d0a03e4b995de811cad0e68215c3", "docs/sprints/SW-05-wp-sw-03-pwm.md@975d9268b5b455d7436b919e67fe02d948014764", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:api/src/pwm/mod.rs@1c13d0ad73ffb972a59399d9b93ce11b1b7d406f", "rustos:api/tests/pwm_contract.rs@7df5fdd237aefba2b13ec72d62945ba38092146b", "rustos:api/src/lib.rs@5e79e2b739469c8c077c9a637814977e956e88a5", "rustos:firmware/pico2/src/pwm/mod.rs@9c8ed4c4ba7c2b279cd736c518897206b40689f4", "rustos:firmware/pico2/src/pwm/pwm.rs@75bca4e87fe68c4f61906e27b18b0d43cc07fb9f", "rustos:firmware/pico2/src/pwm/pwm_tests.rs@c3286c6d9db9bb776f1d8c2e79107eff1755e60e", "rustos:firmware/pico2/src/pwm/tests.rs@c0a59856277c6e45e70dab78f3b6fe058ac4da2b", "rustos:firmware/pico2/src/common/board.rs@eeb8407e77a93718c7e0a2cb320fa2ec6b25f4cc", "rustos:firmware/pico2/src/common/reg.rs@ec94f2cdee391615d8fd88b0650a3f830bc2ef80", "rustos:firmware/pico2/src/lib.rs@5122df422db03e15da04aa9cc784d4b96d437ec0", "rustos:docs/icd/rp2350/pwm/index.md@17e8dabbc10f7a54ce6e50cb0cd50d97378af8f7", "rustos:docs/icd/rp2350/pwm/01_overview.md@346e561de8e7aea729ffb4e6274d0778d327634b", "rustos:docs/icd/rp2350/pwm/02_registers.md@7f93b2004a0d0065bec0342e5f7a0bc28acb5a7a", "rustos:docs/icd/rp2350/index.md@426a75dfd588af945bba6b5533da819b93d18a75"]
+# product_commit and product_files (iteration 2, 2026-09-27): rustos cwht/wp-sw-03 at 48e07ec (branch tip checked
+# with git rev-parse cwht/wp-sw-03), the INSP-099 finding-1 and INSP-105 finding-1 fix on the merge 9df9c57 of
+# cwht/wp-sw-02 38434b2; the fourteen rustos: blobs equal git -C rustos rev-parse 48e07ec:<path> and exist only on
+# the unmerged branch; the three cwht blobs equal git rev-parse HEAD:<path> and git hash-object at HEAD ae29a98
+# (ADR-055 and SW-05 revision 2 committed at e3ce2cb). Drift from iteration 1: ADR-055, SW-05, the sprint index,
+# api/src/pwm/mod.rs, pwm/pwm.rs, pwm/pwm_tests.rs, lib.rs (merge only) and the PWM ICD 01_overview.md
+product_commit: "48e07ec7d651f8f323f8b82b2af5d5647afe0fe3"
+product_files: ["docs/decisions/adr/ADR-055-wp-sw-03-pwm-output.md@c2c7cc999e033340195dd7363fe661b91ece0318", "docs/sprints/SW-05-wp-sw-03-pwm.md@d904d7deaa3553e5685244931a0b96730a8ee8dc", "docs/sprints/index.md@7ae0cbcc6087d45ab4df10cac623d453ca13c395", "rustos:api/src/pwm/mod.rs@b859f3705320a2d88bcd6839c540b8068ef6b6ab", "rustos:api/tests/pwm_contract.rs@7df5fdd237aefba2b13ec72d62945ba38092146b", "rustos:api/src/lib.rs@5e79e2b739469c8c077c9a637814977e956e88a5", "rustos:firmware/pico2/src/pwm/mod.rs@9c8ed4c4ba7c2b279cd736c518897206b40689f4", "rustos:firmware/pico2/src/pwm/pwm.rs@92b634e18bcbd4316a92edbfcef66b228b85a93c", "rustos:firmware/pico2/src/pwm/pwm_tests.rs@82d96ce9f75326f3254ebced6a4ff3b64d4b53ff", "rustos:firmware/pico2/src/pwm/tests.rs@c0a59856277c6e45e70dab78f3b6fe058ac4da2b", "rustos:firmware/pico2/src/common/board.rs@eeb8407e77a93718c7e0a2cb320fa2ec6b25f4cc", "rustos:firmware/pico2/src/common/reg.rs@ec94f2cdee391615d8fd88b0650a3f830bc2ef80", "rustos:firmware/pico2/src/lib.rs@46107a9e0e48a88f4ce1c53441bb8bc482c818b2", "rustos:docs/icd/rp2350/pwm/index.md@17e8dabbc10f7a54ce6e50cb0cd50d97378af8f7", "rustos:docs/icd/rp2350/pwm/01_overview.md@98ae5870e970cfdfe644dcb19a3dd7823552b32c", "rustos:docs/icd/rp2350/pwm/02_registers.md@7f93b2004a0d0065bec0342e5f7a0bc28acb5a7a", "rustos:docs/icd/rp2350/index.md@426a75dfd588af945bba6b5533da819b93d18a75"]
+product_files_iteration_1: ["docs/decisions/adr/ADR-055-wp-sw-03-pwm-output.md@7b2a9d920d57d0a03e4b995de811cad0e68215c3", "docs/sprints/SW-05-wp-sw-03-pwm.md@975d9268b5b455d7436b919e67fe02d948014764", "docs/sprints/index.md@fb217bcb6ff684b8117f104970a4e091a4899b1c", "rustos:api/src/pwm/mod.rs@1c13d0ad73ffb972a59399d9b93ce11b1b7d406f", "rustos:api/tests/pwm_contract.rs@7df5fdd237aefba2b13ec72d62945ba38092146b", "rustos:api/src/lib.rs@5e79e2b739469c8c077c9a637814977e956e88a5", "rustos:firmware/pico2/src/pwm/mod.rs@9c8ed4c4ba7c2b279cd736c518897206b40689f4", "rustos:firmware/pico2/src/pwm/pwm.rs@75bca4e87fe68c4f61906e27b18b0d43cc07fb9f", "rustos:firmware/pico2/src/pwm/pwm_tests.rs@c3286c6d9db9bb776f1d8c2e79107eff1755e60e", "rustos:firmware/pico2/src/pwm/tests.rs@c0a59856277c6e45e70dab78f3b6fe058ac4da2b", "rustos:firmware/pico2/src/common/board.rs@eeb8407e77a93718c7e0a2cb320fa2ec6b25f4cc", "rustos:firmware/pico2/src/common/reg.rs@ec94f2cdee391615d8fd88b0650a3f830bc2ef80", "rustos:firmware/pico2/src/lib.rs@5122df422db03e15da04aa9cc784d4b96d437ec0", "rustos:docs/icd/rp2350/pwm/index.md@17e8dabbc10f7a54ce6e50cb0cd50d97378af8f7", "rustos:docs/icd/rp2350/pwm/01_overview.md@346e561de8e7aea729ffb4e6274d0778d327634b", "rustos:docs/icd/rp2350/pwm/02_registers.md@7f93b2004a0d0065bec0342e5f7a0bc28acb5a7a", "rustos:docs/icd/rp2350/index.md@426a75dfd588af945bba6b5533da819b93d18a75"]
 # inputs read (not reviewed)
-input_files: ["docs/reviews/PDR/checklists/code-wp-sw-03.md (INSP-099 iteration 1, main 9d3734c)", "docs/safety/hazards.json (HZ-005 causes C2 and C4, controls K4 and K5)", "docs/requirements/sw/sw-keyer/requirements.json (REQ-SW-KEYER-027, 033, 035)", "docs/test_cases/sw-keyer/test_cases.md (TC-SW-KEYER-039 acceptance criteria)", "docs/process/07-software-engineering-plan.md (sections 2.1.1, 14.1, 14.2, 14.3, 15, 17.1, 19)", "docs/process/rmm.json (rows SWE-022, 027, 060, 061, 062, 134, 135, 185, 207, 219, 220)", "docs/plan/pdr-work-plan.md (sections 3.8 WP-PDR-41, 5.1)", "rustos 6df18af:firmware/pico2/src/common/reset.rs and gpio/gpio.rs (git show only; not product files)"]
+input_files: ["docs/reviews/PDR/checklists/code-wp-sw-03.md (INSP-099 iteration 1, main 9d3734c; iteration 2 at HEAD ae29a98)", "docs/safety/hazards.json (HZ-005 causes C2 and C4, controls K4 and K5)", "docs/requirements/sw/sw-keyer/requirements.json (REQ-SW-KEYER-027, 033, 035)", "docs/test_cases/sw-keyer/test_cases.md (TC-SW-KEYER-039 acceptance criteria)", "docs/process/07-software-engineering-plan.md (sections 2.1.1, 14.1, 14.2, 14.3, 15, 17.1, 19)", "docs/process/rmm.json (rows SWE-022, 027, 060, 061, 062, 134, 135, 185, 207, 219, 220)", "docs/plan/pdr-work-plan.md (sections 3.8 WP-PDR-41, 5.1)", "rustos 6df18af:firmware/pico2/src/common/reset.rs and gpio/gpio.rs (git show only; not product files)"]
 paired_record: INSP-099
 # product_type: code (07 section 2.1.1 row "Code", Yes for a safety-critical component). Task set applied: the
 # section B row "Every product type"; the section B row "code"; and the section 7.1 tasks of the other SWEs the
@@ -39,39 +46,51 @@ product_type: code
 # criticality: 07 section 14.1 drivers row (line 601): "PWM (sidetone and audio level)", pico2 WP-SW-03, criticality
 # "as the components they serve", inherited from SW-AUDIO (HZ-005) and the SW-KEYER sidetone gate
 criticality: safety-critical
-product_size: "about 470 non-test Rust lines (pwm/mod.rs 165 before its tests, pwm.rs 226, api pwm 80), 18 developer tests, 187-line contract draft, 197 ICD lines; ADR-055 90 lines; SW-05 61 lines; 17 product files"
+product_size: "about 470 non-test Rust lines (pwm/mod.rs 165 before its tests, pwm.rs 226, api pwm 80), 18 developer tests, 187-line contract draft, 197 ICD lines; ADR-055 90 lines; SW-05 61 lines; 17 product files. Iteration 2 delta: git diff 9df9c57 48e07ec, 4 files, 116 insertions and 23 deletions; ADR-055 revision 2 (about 35 changed lines) and SW-05 (12 lines)"
 sprint: SW-05-wp-sw-03-pwm
 author_agent: "author:WP-PDR-41 wave 1a (Claude, firmware developer role)"
 reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-03"
 assurance_required: true
-assurance_reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-03 (software assurance function; paired file review INSP-099 by reviewer:WP-PDR-41-code)"
-iteration: 1
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-41-code-wp-sw-03 (software assurance function, iterations 1 and 2; paired file review INSP-099 by reviewer:WP-PDR-41-code)"
+iteration: 2
 readiness_met: true
 # reviewer_verdict and assurance_verdict: NEEDS CHANGES at iteration 1 on finding-1 (Major) of this record and on
 # INSP-099 finding-1 (Major), whose severity the assurance lens confirms
-reviewer_verdict: NEEDS CHANGES
-assurance_verdict: NEEDS CHANGES
+# iteration 2: APPROVED. finding-1 (Major) is Verified at 48e07ec, and INSP-099 finding-1 (Major, concurred) is
+# Verified by INSP-099 iteration 2, with which this delta concurs under the assurance lens. No Major is open.
+# findings 2 and 3 (Minor, not addressed, rule C1) and finding-4 (Minor, new) are liens due at the CDR readiness
+# declaration
+reviewer_verdict: APPROVED
+assurance_verdict: APPROVED
 # verdict: set by Claude as software lead (07 section 10.2). Held at NEEDS CHANGES: this review and INSP-099 are
 # NEEDS CHANGES, and under the lead SE convention of 2026-09-27 the record verdict of a review of branch-only blobs
 # is set only in the merge commit (or the commit right after it) when the blobs reach a configuration cwht
-# consumes (the owner's rustos merge and the PCR-4 pin-move CR)
+# consumes (the owner's rustos merge and the PCR-4 pin-move CR).
+# Iteration 2: still held. Both reviews are APPROVED, but the fourteen rustos blobs exist only on the unmerged
+# branch cwht/wp-sw-03 and the checklist only on cr/CR-012-pdr-checklist-templates (lead SE convention 2026-09-27)
 verdict: NEEDS CHANGES
+# counts cover iterations 1 and 2: finding-1 (Major) Verified at iteration 2; finding-4 (Minor) new at iteration 2;
+# open = findings 2, 3 and 4 (Minor liens)
 findings_major: 1
-findings_minor: 2
+findings_minor: 3
 findings_open: 3
-findings_fixed: 0
-findings_verified: 0
+findings_fixed: 1
+findings_verified: 1
 findings_deferred: 0
 assurance_findings_major: 1
-assurance_findings_minor: 2
+assurance_findings_minor: 3
 assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-060 7.1 task 1", "swe-060 7.1 task 2", "swe-061 7.1 task 1", "swe-061 7.1 task 2", "swe-207 7.1 task 1", "swe-185 7.1 task 1", "swe-135 7.1 task 1", "swe-135 7.1 task 2", "swe-135 7.1 task 3", "swe-135 7.1 task 5", "swe-135 7.1 task 6", "swe-135 7.1 task 7", "swe-134 7.1 task 2", "swe-087 7.1 task 4", "swe-062 7.1 task 1", "swe-062 7.1 task 2", "swe-219 7.1 task 1", "swe-220 7.1 task 1", "swe-220 7.1 task 2", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-205 7.1 task 4", "swe-052 7.1 task 1", "swe-052 7.1 task 2", "swe-192 7.1 task 1", "swe-027 7.1 task 1", "swe-087 7.1 task 1", "swe-087 7.1 task 2", "swe-088 7.1 task 1", "swe-088 7.1 task 2", "swe-089 7.1 task 1", "swe-080 7.1 task 2", "swe-080 7.1 task 3", "swe-081 7.1 task 2"]
 swe134_items_checked: [a, b, c, d, e, f, g, h, i, j, k, l]
 deferred_rids: []
-items_no: ["SA-C-a", "SA-C-j", "swe-134 7.1 task 2", "swe-087 7.1 task 4", "swe-134 7.1 task 6", "swe-062 7.1 task 1"]
-effort_turns: 32
-effort_minutes: 60
+# items_no at iteration 2 (iteration 1: SA-C-a, SA-C-j, swe-134 7.1 task 2, swe-087 7.1 task 4, swe-134 7.1 task 6,
+# swe-062 7.1 task 1); SA-C-a, SA-C-j, swe-134 task 2 and swe-087 task 4 are Yes at iteration 2
+items_no: ["swe-134 7.1 task 6", "swe-062 7.1 task 1"]
+# effort cumulative: iteration 1 32 turns, 60 min; iteration 2 24 turns, 45 min
+effort_turns: 56
+effort_minutes: 105
 record_status: Open
 date: 2026-09-27
+date_updated: 2026-09-27
 date_closed: null
 ---
 
@@ -306,4 +325,117 @@ TASKS APPLIED: 36 (front matter assurance_tasks_applied)
 TASKS N/A (relief): swe-135 7.1 task 4 (rmm.json SWE-135 FC Planned), swe-134 7.1 task 3 (07 section 9.7), swe-022 7.1 task 1 NASA-STD-8739.8 part (rmm.json SWE-022 T)
 SWE-134 ITEMS CHECKED: a, b, c, d, e, f, g, h, i, j, k, l
 MEASUREMENTS: size=about 470 non-test Rust lines, 17 files; tasks=38; tasks_no=4; turns=32; minutes=60; major=1; minor=2
+```
+
+## Iteration 2: assurance delta at rustos `48e07ec` (2026-09-27, cwht HEAD `ae29a98`)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the fix of finding-1 (Major) only. Findings 2 and 3 (Minor) were not addressed by the author (ADR-055 section 8, SW-05 "Phase 1, revision 2") and are not re-reviewed. INSP-099 finding-1 (Major, concurred at iteration 1) belongs to INSP-099, whose iteration 2 records it Verified; this delta reads its hunks only under the assurance lens (SA-C-j). Product: rustos `cwht/wp-sw-03` at `48e07ec` (`git rev-parse cwht/wp-sw-03` equals it), parent `9df9c57`, which merges `cwht/wp-sw-02` at `38434b2` into the iteration 1 head `6df18af`. The package delta is `git diff 9df9c57 48e07ec`: `api/src/pwm/mod.rs`, `docs/icd/rp2350/pwm/01_overview.md`, `pwm/pwm.rs` and `pwm/pwm_tests.rs`, 116 insertions and 23 deletions. `lib.rs` (`5122df42` to `46107a9e`) changes only through the merge (the INSP-096 vector move), which INSP-102 reviews. ADR-055 `7b2a9d92` to `c2c7cc99` and SW-05 `975d9268` to `d904d7de` (revision 2, `e3ce2cb`); the sprint index `fb217bcb` to `7ae0cbcc` is the FW-B1 row move INSP-104 read. Checklist as at iteration 1.
+
+**Independence (rule C4).** Same role as iteration 1. This invocation authored no part of revision 2, the rustos fix commit or INSP-099, and edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: "software assurance record iteration 2 delta verification of Major fix, product_files updated, finding Verified"). Afterwards `grep` was used only on known paths and `git grep` on committed rustos objects. **rustos.** The owner's working tree was not read or changed. All runs used a detached scratch worktree of `48e07ec` (`git worktree add --detach` under the session scratchpad) with a scratch `CARGO_TARGET_DIR`. Every mutant was reverted with `git checkout -- .`; `git status --short` was empty before `git worktree remove`, and the target directory was deleted. No branch was created, nothing was pushed or merged, every `cargo` run was `--offline` with `RUSTUP_AUTO_INSTALL=0`, and nothing was downloaded. LTspice was not run.
+
+### Assurance re-runs and checks, iteration 2
+
+| # | Check | Result |
+|---|---|---|
+| T0 | Blob identities: `git -C rustos rev-parse 48e07ec:<path>` for the fourteen rustos entries; `git rev-parse HEAD:<path>` and `git hash-object <path>` for the three cwht entries | All seventeen equal the brief's list and INSP-099 iteration 2 (front matter `product_files`) |
+| T1 | `cargo +1.98.0 test --offline -p pico2 pwm`; `-p api --test pwm_contract`; `-p pico2` | 20 passed; 5 passed; 101 passed; none failed. Agrees with SW-05 revision 2 and ADR-055 section 4.3 |
+| T2 | Mutants of `release` (`pwm.rs:124-138`), each against `cargo test -p pico2 pwm` and reverted: M1 set-alias write removed; M2 set and clear swapped; M3 set moved after the `RESET_DONE` poll; M4 set of bit 6 instead of 16; M5 set as a plain write to `RESET` | All five killed, each by both new tests (`release_resets_then_releases_waits_and_disables_all_slices`, `release_from_a_restart_that_left_pwm_running_starts_from_reset`) |
+| T3 | `cargo +1.98.0 clippy --offline -p pico2 --all-targets -- -W clippy::pedantic`; `cargo +1.98.0 build --offline -p pico2 --target thumbv8m.main-none-eabihf` | Only `module_inception` at `pwm/mod.rs:29` in the package files (INSP-099 finding-2, unchanged). Target build without warning |
+| T4 | Datasheet anchors of the fix, read in the PWM ICD at `48e07ec` | `02_registers.md:7-8`: the `+0x2000` set and `+0x3000` clear aliases of section 2.1.3; `reg.rs:129` `ALIAS_SET = 0x2000`. Tables 1131 to 1135: `CSR.EN` 0, `CTR` 0, `CC` 0, `TOP` 0xffff at reset. `reset.rs:34`: `RESETS` bit 16 is `PWM`, equal to `RESET_BIT_PWM` (`pwm/mod.rs:63`) |
+| T5 | Boot path of the stack at `48e07ec`: `git grep "RESET_OFFSET + ALIAS_SET"` over `firmware`; `Rp2350Pwm::new` signature (`pwm.rs:82-91`) and the clock bring-up table (`clocks.rs:20-28`) | The PWM reset is asserted only in `release`, called only from `Rp2350Pwm::new`, which needs `&ClocksReady`. Clock bring-up runs first: crystal start, `clk_sys` moved to `clk_ref`, PLL, and a 1 ms frequency-counter measurement (step 10). No earlier boot code resets PWM (finding-4) |
+
+### Hunk reading of the fix
+
+- **`pwm.rs` `75bca4e8` to `92b634e1`, `release`.** One line added: `regs.write(RegAddr::RESET, RESET_OFFSET + ALIAS_SET, RESET_BIT_PWM)` before the existing clear, poll and `EN = 0`, with the `ALIAS_SET` import. The doc comment names HZ-005 C2 and this finding. The poll waits for `RESET_DONE` bit 16 after the clear, so the release is complete before `EN` is written (T2 M3 shows the order is tested). On hardware, the assert returns every slice register to its reset value (T4), so `CSR.EN = 0` and `CC = 0`, and a PWM-function pin is driven low. The module note is updated to the same effect. The other hunks of this file (`update_on`, `CTR = TOP`) are the INSP-099 finding-1 fix.
+- **`pwm_tests.rs` `c3286c6d` to `82d96ce9`.** The release test now checks the writes (set, clear, `EN`) and the full access order through `FakeRegs::log()` (set, clear, `RESET_DONE` read, `EN`). The warm-start test seeds `RESET` as out of reset and checks that the first write is the set alias. `FakeRegs` does not model the reset side effect on the slice registers, so this test shows the assert is issued even when PWM is already released, not that the slices return to reset. That is the limit of a host test, and the dev-board restart case (ADR-055 section 4.3) is the evidence for the hardware effect. Both tests kill every T2 mutant.
+- **`api/src/pwm/mod.rs` `1c13d0ad` to `b859f370`.** PWM-6 reads "A newly constructed output is disabled (low), after a power-on start and after a restart alike." The claim holds for a newly constructed output. The PWM-4 hunk is the INSP-099 finding-1 fix.
+- **`01_overview.md` `346e561d` to `98ae5870`.** Bring-up step 1 now sets bit 16 through `+0x2000`, clears it through `+0x3000`, waits for `RESET_DONE`, then writes `EN = 0`. This equals the code. Step 5 (on and off) is the INSP-099 finding-1 fix.
+- **ADR-055 `7b2a9d92` to `c2c7cc99`.** Section 2 item 2 describes the reset-first release and cites section 12.5.3, Tables 1131 to 1135. Section 4.3 claims SWE-134 item a ("known state at first start and at restarts") and states the driver's share of HZ-005 C2. The dev-board check gains a restart case: the tone is left running, then a watchdog reset whose scope excludes PWM (and a debugger reset), and the PWM pin is to read low "from the new boot until its output is attached". Section 8 records the revision. That last criterion is not what the design gives (finding-4).
+- **SW-05 `975d9268` to `d904d7de`.** "Phase 1, revision 2" lists this fix and its files. The evidence it states (101 host tests) is reproduced by T1.
+
+### Verification of finding-1 (Major), element by element (rule C7)
+
+| Element of the iteration 1 fix (first option) | Evidence | Result |
+|---|---|---|
+| `release` asserts the PWM reset through the set alias before clearing it | `pwm.rs:125-126`; T4 alias and bit | Verified |
+| Every start begins from the section 12.5.3 reset state | T4 reset values; ICD step 1 equals the code; a slice the new boot never attaches is now stopped at `CC = 0` instead of frozen at its last level | Verified from `Rp2350Pwm::new` onward. The interval from the restart to `new` is finding-4 (Minor) |
+| Host test of the set, clear, poll and `EN` order | `release_resets_then_releases_waits_and_disables_all_slices`; T2 kills M1 to M5 | Verified |
+| Restart added to PWM-6 | `api/src/pwm/mod.rs` PWM-6 | Verified |
+| Restart added to the `devcheck-pwm-r1` check | ADR-055 section 4.3 "Added at revision 2" restart case | Verified as a planned check. Its pass criterion is corrected under finding-4 |
+| ADR text (section 2 item 2, section 3 row C consequence) | Section 2 item 2 revised. Row C still describes clearing `CSR.EN` as the rejected off method, which remains true and is no longer the start state | Verified |
+
+finding-1 is **Verified** at `48e07ec`. The concern of iteration 1, a slice left running or frozen high by an earlier image for the whole of the new boot, cannot occur after `Rp2350Pwm::new`. It does not depend on the reset scope of the restart or on `RESETS.WDSEL`.
+
+### INSP-099 finding-1 under the assurance lens (concurrence, not re-raised)
+
+ADR-055 section 2.1 now states the latency of every operation. On and off take at most one count, 1.71 µs at 150 MHz, at any frequency. Duty and frequency changes take up to one tone period. This answers the iteration 1 assurance addition (S7): mute latency is 1.71 µs, which leaves the 10 ms `SW-AUDIO` budget of items j and l to the handler path. Whether the safe-state mute goes through the PWM output or the K5 amplifier enable is allocated to WP-PDR-32 and WP-PDR-36 (cross item X-2 stands). The TC-SW-KEYER-039 carrier term is reported to WP-PDR-35 (X-3 stands). The forced-wrap click argument (a period cut short once, no level held) is consistent with HZ-005 K4 as far as a two-level driver can be. The envelope and the DC step are allocated to `SW-AUDIO` under TS-010, AT RISK. SA-C-j is Yes. This concurs with INSP-099 iteration 2 (Verified).
+
+### Task table, rows re-answered at iteration 2
+
+Rows not listed stand as at iteration 1. The delta adds no `unsafe`, no dependency, and no requirement or hazard link.
+
+| Task | Safety-critical designation (SWEHB 8.10 section 6) | Applied | Result and evidence | Relief (N/A only) | Finding ids |
+|---|---|---|---|---|---|
+| swe-134 7.1 task 2 | SC | Yes | Item a holds from `Rp2350Pwm::new` on (finding-1 Verified). Item j holds for the driver's share (INSP-099 finding-1 Verified; concurrence above). The boot window before `new` is finding-4 | | finding-4 |
+| swe-087 7.1 task 4 | SC | Yes | As swe-134 task 2 | | finding-4 |
+| swe-087 7.1 task 2 | | Yes | finding-1 Verified with evidence (T1 to T4 and the element table). Findings 2 and 3 are carried as liens with their fixes named | | none |
+| swe-062 7.1 task 1 | SC | No | T1 passes, and T2 shows the new tests guard the fix. The contract test is still the author's draft, with no independent test (finding-3, not addressed) | | finding-3 |
+| swe-134 7.1 task 6 | SC | No | Not re-reviewed (rule C1). ADR-055 section 2.1 now states the level allocation (K4 DC step, K5 mid-scale idle to `SW-AUDIO`) and section 4.3 cites C2, so finding-2 appears to be largely addressed. Its closure is for the next delta | | finding-2 |
+| swe-205 7.1 task 1 | SC | Yes | The boot window of finding-4 is a remaining part of HZ-005 C2 ("a full-scale PWM pattern at start-up"). No new hazard, cause or control is needed | | finding-4 |
+| swe-135 7.1 task 3 | | Yes | T3: no new lint result in the package | | none |
+| swe-220 7.1 task 1 and task 2 | SC | Yes | `release` gains one straight-line write (CC unchanged). SW-05 revision 2 reports `complexity_gate.py --max 15` PASS, max CC 12 | | none |
+| SA-C-a | SC | Yes | Known safe state from `Rp2350Pwm::new` at every start, power-on or restart (finding-1 Verified). The window from the restart to `new` is finding-4 (Minor) | | finding-4 |
+| SA-C-j | SC | Yes | On and off within one count (≤ 1.71 µs); duty at the next period (ADR-055 section 2.1; INSP-099 iteration 2) | | none |
+| SA-A3 | | Yes | Same `product_commit` `48e07ec` and the same seventeen blobs as INSP-099 iteration 2 (T0) | | none |
+| SA-E1 | | Yes | Earlier reviews: iteration 1 of this record and of INSP-099. finding-1 is verified above | | none |
+| SA-F3 | | Yes | For the package's "Software assurance findings" section: assurance APPROVED at iteration 2, 0 Major open, 3 Minor liens (findings 2, 3 and 4) due at the CDR readiness declaration | | finding-2, finding-3, finding-4 |
+
+### Findings (current state at iteration 2)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | assurance | Major | SA-C-a; `swe-134 7.1 task 2`; `swe-087 7.1 task 4` | `pwm.rs:124-138` (`92b634e1`); `api/src/pwm/mod.rs` PWM-6 (`b859f370`); ADR-055 section 2 item 2 (`c2c7cc99`) | The PWM output state after a restart that does not reset the PWM block was not a known safe state. Fixed by the reset-first `release` (element table above) | Verified | | |
+| finding-2 | assurance | Minor | `swe-134 7.1 task 6`; SA-D1 | ADR-055 section 2.1 and section 4.3 | As at iteration 1. Not re-reviewed (rule C1). Revision 2 text appears to address it; the next delta verifies it | Open (lien, rule C1) | Pending | CDR readiness declaration |
+| finding-3 | assurance | Minor | `swe-062 7.1 task 1`; SA-A4 | SW-05 phase 2; INSP-099 CK-CODE-H2 | As at iteration 1: no independent test of the driver and no tracked item that blocks the merge. Not addressed (rule C1) | Open (lien, rule C1) | Pending | CDR readiness declaration |
+| <a id="finding-4"></a>finding-4 | assurance | Minor | SA-C-a; `swe-205 7.1 task 1`; `swe-134 7.1 task 2` | ADR-055 section 4.3 dev-board restart case and section 2 item 2 (`c2c7cc99`); `pwm.rs` module note and `Rp2350Pwm::new` (`92b634e1`, `:82-91`); PWM ICD bring-up step 1 (`98ae5870`) | The reset-first `release` makes the state known from `Rp2350Pwm::new` onward, but not "from the new boot". `new` needs `&ClocksReady`, so it runs after clock bring-up (T5: crystal start, `clk_sys` moved to `clk_ref` and back, a 1 ms frequency measurement). No earlier boot code resets PWM. After a restart whose scope excludes PWM, each slice the earlier image left running keeps running through this window, at a pitch that follows `clk_sys` (roughly a tenth of the tone frequency while `clk_sys` runs from `clk_ref`), and a slice left at `CC = TOP + 1` holds a DC high. This is a remaining part of HZ-005 C2. The ADR-055 restart criterion "the PWM pin read low from the new boot until its output is attached" cannot pass as written, and neither the ADR nor the ICD states the window. Minor: the window is bounded (milliseconds, ended by `new`), the level is the earlier image's normal output, and the hardware amplifier enable of K5 is the independent control for it | Open (lien, rule C1) | Pending | CDR readiness declaration |
+
+**finding-4 fix.** Choose one:
+
+- State the window in ADR-055 section 2 item 2 and section 4.3 and in the PWM ICD: from the restart to `Rp2350Pwm::new`, bounded by the clock bring-up time. Change the dev-board restart criterion to "low from `Rp2350Pwm::new` until the output is attached, and the window from the restart to `new` measured and recorded". Name `SW-AUDIO` (the K5 amplifier enable, which must be de-asserted over a restart) as the control for the window, as a cross item to WP-PDR-32 and WP-PDR-36.
+- Or reset PWM (and the other output blocks, as cross item X-5) in the earliest boot code, before clock bring-up, so the pin is low from the new boot, and keep the criterion.
+
+### Cross items, iteration 2
+
+| # | Item |
+|---|---|
+| X-6 | INSP-099 reads `assurance_verdict: pending`. Its reviewer updates it to APPROVED from this delta (07 section 10.2) |
+| X-7 | WP-PDR-32 and WP-PDR-36 (`SW-AUDIO`, `ICD-CTL-PHONES` section 3.2.6): whether the K5 amplifier enable is a GPIO that a restart outside the `IO_BANK0` reset scope leaves asserted, which would remove the independent control for the finding-4 window. The same `release`-only pattern is in `Rp2350Gpio::new` (X-5) |
+
+### Commands run, iteration 2
+
+| Command | Result |
+|---|---|
+| `git -C /Users/robinonsay/rust/rustos rev-parse cwht/wp-sw-03`; `rev-parse 48e07ec:<path>` (14); `git rev-parse HEAD:<path>` and `git hash-object` (3) | T0 |
+| `git -C /Users/robinonsay/rust/rustos diff 6df18af 48e07ec -- firmware/pico2/src/pwm api/src/pwm docs/icd/rp2350/pwm`; `diff --stat 9df9c57 48e07ec`; `git diff <old> <new>` for ADR-055 and SW-05 | every hunk of the package read (above) |
+| `git -C /Users/robinonsay/rust/rustos worktree add --detach <scratchpad>/rustos-sa03-it2 48e07ec`, then `worktree remove` | T1 to T4; clean; removed; target directory deleted |
+| `/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/validate_docs.py` | this record PASS. Overall exit 1: 102 passed, 8 failed, 110 checked; the 8 failures are other records, none in this record's scope |
+
+### Measurements (SWE-089), iteration 2
+
+Lines reviewed: the 139 changed lines of `9df9c57..48e07ec` in the four package files, about 35 changed lines of ADR-055 and 12 of SW-05. Unsafe sites added: 0. Mutants: 5, all killed. Findings: finding-1 (Major) Verified; 1 new Minor (finding-4); findings 2 and 3 carried. Effort of this iteration: about 24 turns and 45 minutes (the front matter totals include iteration 1).
+
+### Record verdict, iteration 2
+
+`assurance_verdict: APPROVED` and `reviewer_verdict: APPROVED`. finding-1 (Major) is Verified at `48e07ec`, and the concurred INSP-099 finding-1 is Verified by INSP-099 iteration 2. No Major is open. Findings 2, 3 and 4 (Minor) become liens under rule C1: the owner is the firmware developer (finding-3 with the SW-05 phase 2 test author), due at the CDR readiness declaration. `verdict` stays `NEEDS CHANGES` under the lead SE convention of 2026-09-27. The fourteen rustos blobs exist only on the unmerged branch `cwht/wp-sw-03`, and the checklist applied exists only on `cr/CR-012-pdr-checklist-templates`. The software lead sets `verdict` in the commit that brings `48e07ec` into a configuration cwht consumes (the owner's merge and the PCR-4 pin-move CR), or in the commit right after it.
+
+```
+ASSURANCE VERDICT (iteration 2, 2026-09-27): APPROVED (liens finding-2, finding-3, finding-4); record verdict NEEDS CHANGES (held, lead SE convention)
+PRODUCT: rustos cwht/wp-sw-03 at 48e07ec (pwm.rs@92b634e1, pwm_tests.rs@82d96ce9, api pwm@b859f370, 01_overview.md@98ae5870, and 13 more as front matter); ADR-055@c2c7cc99, SW-05@d904d7de; PAIRED RECORD: INSP-099
+FINDINGS:
+- [Major] finding-1 Verified (reset asserted through the set alias before release; order tested; PWM-6 covers restarts; dev-board restart case planned)
+- [Minor] finding-2 Open (lien), not re-reviewed
+- [Minor] finding-3 Open (lien), not addressed
+- [Minor] finding-4 Open (lien), new: the window from restart to Rp2350Pwm::new (clock bring-up) is unstated, and the dev-board criterion "low from the new boot" cannot pass
+- (concurred) INSP-099 finding-1 Verified by INSP-099 iteration 2
+MEASUREMENTS: lines=139 code+doc, about 47 cwht; mutants=5 (5 killed); iteration 2 turns=24, minutes=45; cumulative turns=56, minutes=105
 ```
