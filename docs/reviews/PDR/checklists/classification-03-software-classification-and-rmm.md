@@ -9,6 +9,8 @@
 # 07 bfe05f4327e79fa15c24d2cf8c14249804f946a8, rmm.json e326ddd1b7296d7d7fe172be6f33535cee3192d7,
 # rmm.md 54e351f4df231d1a1e74e6eef4bd07db9a408fa0. The CR file is on main (committed at 9fd0962).
 # This record is also the section 6 independent impact review of CR-010 (plan rule C6).
+# Iteration 2 (2026-09-27): delta verification of finding-1 (Major) on CR-010 revision 2 (blob ebce01d6,
+# commit 02e7b52 on main); the four product blobs on the branch are unchanged (branch head still 5cd87cf).
 id: INSP-037
 checklist: peer-review-checklist-classification
 checklist_revision: A
@@ -16,7 +18,7 @@ checklist_file: docs/reviews/PDR/checklists/classification-03-software-classific
 product: docs/process/03-software-classification-and-rmm.md
 # product_commit: the CR-010 branch head (the four product files); the CR file blob is on main HEAD
 product_commit: "5cd87cff741653c1f3746029d66c7d42c5a0b1d2"
-product_files: ["docs/process/03-software-classification-and-rmm.md@1e03b873b404deeaa86ba2393806cda74996187d", "docs/process/07-software-engineering-plan.md@3ae7d73b01810e47fd10251d798e0a047aaa72dd", "docs/process/rmm.json@a907a087f1302e275ea56bdb7bba89638777a319", "docs/process/rmm.md@17ea4733a4d41b54424619f8682db815b05d4ebf", "docs/cm/cr/CR-010-apply-srr-decisions-9-and-40.md@cfb643d5e8942aae34931c3433e334243305d06c"]
+product_files: ["docs/process/03-software-classification-and-rmm.md@1e03b873b404deeaa86ba2393806cda74996187d", "docs/process/07-software-engineering-plan.md@3ae7d73b01810e47fd10251d798e0a047aaa72dd", "docs/process/rmm.json@a907a087f1302e275ea56bdb7bba89638777a319", "docs/process/rmm.md@17ea4733a4d41b54424619f8682db815b05d4ebf", "docs/cm/cr/CR-010-apply-srr-decisions-9-and-40.md@ebce01d6359441d53690c437d32b8ca305790b28"]
 # input_files: the hazard source of record at main HEAD (0.5.0-pha, commit bfea9c7) and the SRR memo at main HEAD
 input_files: ["docs/safety/hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0", "docs/reviews/SRR/decision-memo.md@110102bf003f1c4c28cc9365c9af7dee39e79abd"]
 product_size: 4 files changed (03 fifth revision, 07 revision A.8, rmm.json 5 implementation fields, rmm.md render; 72 insertions, 71 deletions) plus the CR-010 file (226 lines, 14 impact fields)
@@ -29,20 +31,23 @@ criticality: safety-critical
 # invocation (rule C4; 07 section 2.1); it is not yet assigned (fix request "SA pair needed").
 assurance_required: true
 assurance_reviewer_agent: "not yet assigned (SA pair needed; paired record to be filed as classification-03-software-classification-and-rmm-software-assurance.md)"
-iteration: 1
-# readiness_met: false. R1 fails at the committed state 5cd87cf: tools/validate_docs.py exits 1 (45 passed,
-# 5 failed), every failure being the record drift the change set itself causes (finding-1). R2 and R3 hold.
-# The review was held because the R1 failures are the subject of finding-1, not an unrelated defect.
+iteration: 2
+# readiness_met: false. R1 still fails at the committed state 5cd87cf: tools/validate_docs.py exits 1 (45 passed,
+# 5 failed), every failure being the record drift the change set itself causes. At iteration 2 the CR states this
+# truthfully and confines it to the CR branch (finding-1 Verified). R1 becomes true at the CR-010 section 5 step 6
+# branch head, after the five SRR delta re-issues; readiness_met is set true then, before verdict APPROVED.
 readiness_met: false
-reviewer_verdict: NEEDS CHANGES
+reviewer_verdict: APPROVED
 # assurance_verdict: the paired assurance record is not yet filed (SA pair needed)
 assurance_verdict: NEEDS CHANGES
+# verdict: held at NEEDS CHANGES (a) until the SA pair is APPROVED and (b) while the reviewed blobs are on the CR
+# branch only (the INSP-031 and INSP-033 hold); set APPROVED at the CR-010 merge with these blobs unchanged.
 verdict: NEEDS CHANGES
 findings_major: 1
-findings_minor: 5
-findings_open: 6
+findings_minor: 6
+findings_open: 0
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
@@ -51,8 +56,8 @@ deferred_rids: []
 # items_no: R1 (finding-1); CL-4 (the section 4.2 table differs from hazards.json 0.5.0-pha, carried by X13
 # to the PDR re-run by design); CL-8 (finding-3)
 items_no: [R1, CL-4, CL-8]
-effort_turns: 44
-effort_minutes: 60
+effort_turns: 72
+effort_minutes: 100
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -157,4 +162,66 @@ FINDINGS:
 - [Minor] finding-6 03 item f still Open although charter section 2 carries the capacities.
 ITEMS N/A: none
 MEASUREMENTS: size=4 files plus CR; turns=44; minutes=60; major=1; minor=5
+```
+
+## Iteration 2: delta verification of finding-1 (Major) (2026-09-27, CR-010 revision 2)
+
+**Scope (rule C1).** Iteration 2 is a delta that verifies the Major fix only. Product: `docs/cm/cr/CR-010-apply-srr-decisions-9-and-40.md` blob `ebce01d6359441d53690c437d32b8ca305790b28` (revision 2, commit `02e7b52` on `main`; `git rev-parse HEAD:<path>` at `c28dd60` gives the same blob). The four product files are unchanged: `git rev-parse cr/CR-010-apply-srr-decisions-9-and-40` is still `5cd87cf`, and `git ls-tree 5cd87cf` gives 03 `1e03b873`, 07 `3ae7d73b`, `rmm.json` `a907a087` and `rmm.md` `17ea4733`, the blobs of iteration 1. The delta was read as `git diff --word-diff 9fd0962 02e7b52 -- <CR path>` (32 insertions, 13 deletions, CR file only). The checklist answers CL-1 to CL-9, V1 to V4, V6 and V7 of iteration 1 stand, because no product blob changed.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-17, CR-010 (either revision) or the branch commit, did not write iteration 1 of this record, and edited no product file.
+
+**Search first (charter section 11 rule 1).** One `grep -n "^#"` over the plan file (a heading listing of a known path) ran before the search tool was loaded; it is recorded here as a deviation from the rule's order. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` then ran before every other manual search (queries: the WP-PDR-17 review record and CR-010; the iteration 2 delta record practice; the record drift rule in `tools/validate_docs.py`). `git grep` and `grep -n` were used afterwards only to pin lines and front matter fields.
+
+**Software assurance participant.** Unchanged from iteration 1: the SA second review (07 section 2.1.1, "Software plans" Yes) is a separate invocation and is not performed here. The paired record `classification-03-software-classification-and-rmm-software-assurance.md` is not yet filed.
+
+### Verification of finding-1 (Major)
+
+Each element of the iteration 1 expected fix was checked against revision 2 and re-measured independently.
+
+| # | Expected fix element | Revision 2 text (blob `ebce01d6`) | Independent check | Result |
+|---|---|---|---|---|
+| 1 | Correct the tool results in section 1.3 | Section 1.3 last paragraph: `render_rmm.py --check` exit 0; `traceability.py --report-only` 0 violations, 2 warnings; `validate_docs.py` exit 1, 45 passed and 5 failed of 50; unit tests 424 run, 1 failure (`test_repository_exit_zero`), 3 skipped; the five records named | Detached scratch worktree at `5cd87cf` (removed after use): `validate_docs: 45 passed, 5 failed, 50 checked`, the five FAIL lines being INSP-017, INSP-009, INSP-006 (`cm-plan-05.md`), INSP-018, INSP-010; `unittest discover -s tools/tests`: `Ran 424 tests ... FAILED (failures=1, skipped=3)` | Holds |
+| 2 | Correct section 5 step 1 | Step 1 "Done" cell gives the same results at `5cd87cf` | Same runs | Holds |
+| 3 | Correct section 8 (commit message cannot be amended) | Section 8 "Correction (revision 2; INSP-037 finding-1)" quotes the `5cd87cf` message claims and states the measured results; the commit is not amended (rule C2) | The quoted claims equal the claims iteration 1 found in the commit message; the traceability and `render_rmm.py` statements of the message are confirmed as holding | Holds |
+| 4 | Section 4 Verification names the five records, INSP-006 included | "Five APPROVED SRR review records are invalidated as evidence for the changed blobs", each with its path and the replaced blob(s); each needs a delta re-issue of iteration 3 by a new invocation of its reviewer role | `git show HEAD:<record>` front matter: INSP-009 and INSP-017 name 03 `ed270f44`, `rmm.json` `e326ddd1`, `rmm.md` `54e351f4`; INSP-006 names `rmm.json` `e326ddd1`; INSP-010 and INSP-018 name 07 `bfe05f43`; all five `iteration: 3`, `verdict: APPROVED`. Every blob and path the field states equals the record | Holds |
+| 5 | No other APPROVED record is affected | Verification field: with the branch files overlaid on `main` at `1b93d83`, only the five fail, plus INSP-015, which fails on `main` itself | Repeated on current `main` `c28dd60`: scratch worktree with the four `5cd87cf` files committed over HEAD gives exactly the five plus INSP-015 (`docs/cm/tool-validation/README.md` and `tools/toolchain.lock.md` drift); `validate_docs.py` on `main` alone fails only INSP-015. `git grep` over `docs/reviews` for pins of the four paths: the only other hits are `input_files` entries of INSP-026, INSP-027 and INSP-030, which the drift rule does not read (`check_record_drift` reads `product_files` and `product_blob`) | Holds |
+| 6 | Documentation field lists the delta re-issues | "Review records that must change with it, committed on the CR branch before the merge (section 5 step 5)", the five records named | Read | Holds |
+| 7 | Order the implementation so the records naming the new blobs land with or before the merge, or record an owner-accepted failure interval | Step 4: rebase, `render_rmm.py --check` and traceability, expect exactly the five drift failures, freeze the head (C2), and INSP-037 plus its SA pair verify any blob change first. Step 5: the five delta re-issues committed on the CR branch, records only, `Refs: CR-010`. Step 6: `validate_docs.py` exit 0 and unit tests pass at that head (or `main`'s own failure set, none on a record naming a CR-010 path), then the `--no-ff` merge. Section 5 closing paragraph and section 9 rows agree | `check_record_drift` compares each named blob with `git ls-tree HEAD`, so a record committed on the branch naming the branch blobs passes at the branch head and at the merge commit; step 4 already requires re-review when a rebase changes a blob (CR-003, CR-006 and CR-007 all list `rmm.json` in `affected_paths`, so this is likely). The failing interval stays on an unmerged branch that is neither a baseline nor a build source | Holds (one gap, finding-7, Minor) |
+| 8 | Section 6 records the review and the response | 6.1 summarises INSP-037 iteration 1 (1 Major, 5 Minor; twelve fields concurred, Verification and Documentation dissented); 6.2 author response; "Reviewer concurrence: pending (INSP-037 iteration 2)" | Summary equals this record's iteration 1 | Holds |
+| 9 | No product file or out-of-scope change | Revision note: CR file only; history row 2 | `git diff 9fd0962 02e7b52 --stat`: one file. The only change outside the finding-1 items is "CR-007" added to the step 4 conflict list, which is correct (CR-007 `affected_paths` holds `rmm.json` and `rmm.md`) | Holds |
+
+**finding-1: Verified.** The CR now tells the CCB the true verification impact and tool state of the committed change, names all five invalidated records, and orders the implementation so that `main` does not receive the product blobs without the records that name them. The Verification and Documentation fields of the section 6 impact review change from Dissent to **Concur**; with them all fourteen fields and the Class II classification are concurred.
+
+**Readiness at iteration 2.** R1 is still No at `5cd87cf` (45 of 50), by construction and now stated in the CR; it becomes Yes at the step 6 branch head. R2 Yes (unchanged blob). R3 Yes, with finding-3 (unchanged). V5 is answered as the CR now states it: exit 0 is required at the step 6 head, not at `5cd87cf`. `readiness_met` stays false until the step 6 head passes.
+
+**Scan of the delta for new defects.** One Minor, finding-7. Step 6 says "The merge brings the product blobs and the records that name them into `main` in one commit, so no commit on `main` fails the record drift rule because of CR-010." That holds for the five SRR re-issues, but this record (INSP-037) and its SA pair live on `main` and also name the `5cd87cf` blobs. They do not fail today because a record that is not APPROVED only gets a drift note. When both lenses are APPROVED before the merge, the record `verdict` has to stay held at NEEDS CHANGES until the merge, as INSP-031 and INSP-033 do for CR-012. Otherwise `main` fails the rule on INSP-037 before the merge. The CR does not name that hold. This record applies the hold (front matter `verdict` comment), so the gap has no present effect.
+
+### Findings (iteration 2; current state of every finding of this record)
+
+| Finding | Severity | State | Disposition |
+|---|---|---|---|
+| finding-1 | Major | Verified | Closed at iteration 2 on CR-010 revision 2, blob `ebce01d6` (table above) |
+| finding-2 | Minor | Lien: fix before CDR | 03 header fifth-revision scope; not addressed (author election, rule C1). Owner: Claude as software lead (03 author); due the CDR readiness declaration, or earlier in the WP-PDR-17 re-run revision of 03; listed in PDR package section 15 |
+| finding-3 | Minor | Lien: fix before CDR | 03 section 4.3 lead 0.5.0-pha scope and 07 section 14.1 lead; same owner and due; the 07 part goes through the 07 writer order of plan section 5.3 (WP-PDR-13, then WP-PDR-47) |
+| finding-4 | Minor | Lien: fix before CDR | RFX-D4 "pending" against SRR decision 33 in 03 and 07; same owner and due, 07 part as for finding-3 |
+| finding-5 | Minor | Lien: fix before CDR | `rmm.json` SWE-205 concurrence state; owner Claude as software lead (the WP-PDR-17 `rmm.json` writer slot); same due |
+| finding-6 | Minor | Lien: fix before CDR | 03 section 6.5 item f; owner Claude as software lead; same due |
+| finding-7 | Minor | Lien: fix before CDR | CR-010 section 5 step 6 does not name the verdict hold for INSP-037 and its SA pair (scan above); fix by naming, in step 6, that the software lead sets both record verdicts to APPROVED at the merge (with `readiness_met` true after the step 6 run). Owner: Claude as CR-010 originator; due the CR-010 merge, at the latest the CDR readiness declaration |
+
+Findings by severity: 1 Major (Verified), 6 Minor (liens). Zero Major findings remain.
+
+### Measurements (SWE-089), iteration 2
+
+Items re-checked: finding-1 expected-fix elements 9; product blobs 5; SRR record front matters 5, plus 3 `input_files` records; tool runs 4 (validate_docs at `5cd87cf`, on `main` `c28dd60`, on the overlay, and the unit tests at `5cd87cf`). New findings: 1 (Minor). Findings verified: 1 (Major). Iteration 2 effort: 28 turns, 40 minutes; cumulative 72 turns, 100 minutes (front matter).
+
+### Record verdict
+
+**Reviewer verdict: APPROVED**, with liens finding-2 to finding-7. The record `verdict` stays NEEDS CHANGES for two reasons. (a) The paired software assurance record is not filed (SA pair needed). (b) The reviewed product blobs are only on the CR branch, so an APPROVED verdict on `main` would fail the record drift rule. The software lead sets `verdict: APPROVED` and `readiness_met: true` at the CR-010 merge, when the SA pair is APPROVED, the blobs are unchanged and the step 6 run passes. If step 4 changes a blob, this record first gets a delta iteration.
+
+```
+VERDICT (iteration 2, 2026-09-27): reviewer APPROVED (with liens finding-2 to finding-7); record verdict NEEDS CHANGES (held: SA pair not filed; branch-only blobs)
+PRODUCT: CR-010 revision 2 ebce01d6 (main 02e7b52); branch cr/CR-010-apply-srr-decisions-9-and-40 at 5cd87cf, blobs unchanged
+FINDINGS: finding-1 Major Verified; finding-2 to finding-7 Minor, lien due CDR; no Major open
+ITEMS N/A: none
+MEASUREMENTS: elements verified=9; tool runs=4; new findings=1 (Minor); iteration 2 turns=28, minutes=40; cumulative turns=72, minutes=100
 ```
