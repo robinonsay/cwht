@@ -1,0 +1,38 @@
+# TV-019 known-answer run, 2026-09-27 12:58:29 CDT, host Darwin 25.6.0 arm64, macOS 26.6.2
+# repository HEAD b308f8c2c309bd2b99e33fcca7a792f5f03c183d (tool(csa): read YAML block lists and directory products of INSP records (WP-PDR-)
+## A. identities
+tools/check_commit_msg.py blob 5488dd98b21220261835a74112b49a508865c346 sha256 8e7e981d5764f3d21439b849208f7a848706e9a87b788329a5e10eb3dadf412c unchanged from HEAD
+tools/csa.py blob dd9b6fede610f61d033d88222450981315559ed5 sha256 919d3d560d9d7811ca24c6cf6e18b4ca0e4f9298669916a813fe6f59d003f42c unchanged from HEAD
+tools/tests/test_check_commit_msg.py blob d8595b98493088523e448b29e6d99bd2242e9998 sha256 e87d78dc7a5f83313ffdb5c51484a5d12f7136515222dbeb7e0f71c7aaad2d81 unchanged from HEAD
+docs/process/05-configuration-and-data-management.md blob f8de2081f7542ed0bbe47897d8b63e845b8c3114 sha256 e9f99070ff01c68d86d8f96832372547be7947360eae7d93b1129be49232b2f0 unchanged from HEAD
+tools/tests/fixtures/csa git tree at HEAD 92fd0e50c0d61bf2c8e71b9e6b7dc518c6733d30
+tools/tests/fixtures/csa tracked files 4, digest (sha256 of the sorted shasum list) cdc66c09e8b6857543abf762ff462fe7584dab42514ff80d97ef5e9cc06ba872
+494a9cb1c61ad3c4a4fdd2d713f357611dd24c7a4e926222eecdd35611d831a4  tools/tests/fixtures/csa/build_repo.py
+850673024e77171485f496628946c31abbeb93dd09aa4df119e082bae5dbfbe0  tools/tests/fixtures/csa/cm-plan-05.md
+0271ddb684e93779efa2ab57ec764a8f168223af6eef63c343bc1bffbdc862d9  tools/tests/fixtures/csa/expected.json
+55896729e942b4b37e14c81c5b6afc751e51611cebcc849eafd883c043b88295  tools/tests/fixtures/csa/hand-csa-9fd0962.json
+tools/tests/fixtures/csa untracked or modified files: 0
+## B. versions
+interpreter: Python 3.13.5 (/Users/robinonsay/rust/cwht/.venv/bin/python); git: git version 2.50.1 (Apple Git-155)
+## C. known-answer module(s)
+$ .venv/bin/python -m unittest discover -v -s tools/tests -p test_check_commit_msg.py
+test_bad_message_fails (test_check_commit_msg.HookTests.test_bad_message_fails) ... ok
+test_comment_lines_ignored (test_check_commit_msg.HookTests.test_comment_lines_ignored) ... ok
+test_good_message_passes (test_check_commit_msg.HookTests.test_good_message_passes) ... ok
+test_message_file_mode (test_check_commit_msg.HookTests.test_message_file_mode) ... ok
+test_refs_separated_by_blank_line_is_not_a_trailer (test_check_commit_msg.HookTests.test_refs_separated_by_blank_line_is_not_a_trailer) ... ok
+test_check_commit_api_matches_cli (test_check_commit_msg.RangeTests.test_check_commit_api_matches_cli) ... ok
+test_clean_range_exit_0 (test_check_commit_msg.RangeTests.test_clean_range_exit_0) ... ok
+test_every_commit (test_check_commit_msg.RangeTests.test_every_commit) ... ok
+test_recognized_kinds (test_check_commit_msg.RefsTests.test_recognized_kinds) ... ok
+test_hand_csa_trailer_metric (test_check_commit_msg.RepositoryTests.test_hand_csa_trailer_metric) ... ok
+test_merge_type (test_check_commit_msg.SubjectTests.test_merge_type) ... ok
+test_types (test_check_commit_msg.SubjectTests.test_types) ... ok
+test_usage_errors_exit_2 (test_check_commit_msg.UsageTests.test_usage_errors_exit_2) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 8.121s
+
+OK
+exit=0
+# end 12:58:38 CDT

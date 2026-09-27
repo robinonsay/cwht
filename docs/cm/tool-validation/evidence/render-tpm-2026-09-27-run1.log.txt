@@ -1,0 +1,50 @@
+# TV-017 known-answer run, 2026-09-27 12:48:47 CDT, host Darwin 25.6.0 arm64, macOS 26.6.2
+# repository HEAD c90df2d3bc8fbd4c6fbf7d522abe208f802e8fc9 (tool(render_tpm): name the TPM file read in the table header and pad the trend y)
+## A. identities
+tools/render_tpm.py blob f37985d67e94998c9de4f790dccac7592f9ccd34 sha256 95a0cffb9a480533035a408ac096280b748ebd2e416f2e824455bde6b0b0193e unchanged from HEAD
+tools/tests/test_render_tpm.py blob a6b93352bffd5c15907e4e37209cfe5911c8b17d sha256 18f5232b54fd88823382acd3032726a5ba49c85256d861841783b7e85cf8239c unchanged from HEAD
+docs/plan/tpm.json blob e7f2070d93f4abeed28c32e48670dcef90930bb0 sha256 3ffec70a9e8f5a4af520ad43b436b211e2ebb32229d0f627720a1e63d5296120 unchanged from HEAD
+tools/tests/fixtures/render_tpm git tree at HEAD 9a6aff2536b65027c9fc4eb0a424a92fd139dcc9
+tools/tests/fixtures/render_tpm tracked files 2, digest (sha256 of the sorted shasum list) 02c031f263c08afa0f98e99bababa18f76a13a853ddea10fc760aa6ce63942d0
+fb0553b597202794356c1d2b99aeee24d46b020f291b46643c4f5dd0ecf524b5  tools/tests/fixtures/render_tpm/expected.json
+686288ea3aaf000724a94f9a1a805bc62a0a1760781669147930f9e9a52b04fe  tools/tests/fixtures/render_tpm/tpm.json
+tools/tests/fixtures/render_tpm untracked or modified files: 0
+## B. versions
+interpreter: Python 3.13.5 (/Users/robinonsay/rust/cwht/.venv/bin/python); git: git version 2.50.1 (Apple Git-155)
+matplotlib: 3.11.2; pillow: 12.3.0
+## C. known-answer module(s)
+$ .venv/bin/python -m unittest discover -v -s tools/tests -p test_render_tpm.py
+test_check_writes_nothing (test_render_tpm.RenderTests.test_check_writes_nothing) ... ok
+test_chip_colour_of_each_row (test_render_tpm.RenderTests.test_chip_colour_of_each_row) ... ok
+test_exit_and_files (test_render_tpm.RenderTests.test_exit_and_files) ... ok
+test_markdown_rows (test_render_tpm.RenderTests.test_markdown_rows) ... ok
+test_pixel_sizes (test_render_tpm.RenderTests.test_pixel_sizes) ... ok
+test_project_tpm_json_checks (test_render_tpm.RepositoryTests.test_project_tpm_json_checks) ... ok
+test_pdr_rows (test_render_tpm.RowKnownAnswerTests.test_pdr_rows) ... ok
+test_trend_points (test_render_tpm.RowKnownAnswerTests.test_trend_points) ... ok
+test_trr_d2_rows (test_render_tpm.RowKnownAnswerTests.test_trr_d2_rows) ... ok
+test_each_seeded_fault (test_render_tpm.SeededFaultTests.test_each_seeded_fault) ... ok
+test_empty_tpms (test_render_tpm.SeededFaultTests.test_empty_tpms) ... ok
+test_usage_errors_exit_2 (test_render_tpm.UsageTests.test_usage_errors_exit_2) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.194s
+
+OK
+exit=0
+## E. fixture renders for inspection (visual closure)
+render_tpm: TPM-003 review-trend: trend plotted by tools/review_trend.py, not here
+render_tpm: TPM-005 no-history-reporting: no numeric cbe on or before 2026-10-06, no trend plot
+render_tpm: TPM-006 not-due: no numeric cbe on or before 2026-10-06, no trend plot
+render_tpm: wrote /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//tv017.Kns2oz/tpm-status.png
+render_tpm: wrote /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//tv017.Kns2oz/tpm-table.md
+render_tpm: wrote /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//tv017.Kns2oz/tpm-trend-own-green.png
+render_tpm: wrote /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//tv017.Kns2oz/tpm-trend-own-yellow-after-status-note.png
+render_tpm: wrote /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//tv017.Kns2oz/tpm-trend-carried-srr-reporting.png
+render_tpm: wrote /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T//tv017.Kns2oz/tpm-trend-late-entry-ignored.png
+render_tpm: PDR: 7 TPMs; green 2, yellow 1, red 3, not due 1
+exit=0
+copied tpm-status.png and tpm-trend-own-yellow-after-status-note.png to /Users/robinonsay/rust/cwht/docs/cm/tool-validation/evidence with the prefix render-tpm-fixture-
+af7a8ac9db09332f303feebfccdd436fb1b218603d0e580a73557f9e7e0f39ad  /Users/robinonsay/rust/cwht/docs/cm/tool-validation/evidence/render-tpm-fixture-tpm-status.png
+bca50ca4971cbaecdaa33d628fa4efc3098c4fbb4a7a93ea1ba823de4d10dda8  /Users/robinonsay/rust/cwht/docs/cm/tool-validation/evidence/render-tpm-fixture-trend-own-yellow-after-status-note.png
+# end 12:48:49 CDT

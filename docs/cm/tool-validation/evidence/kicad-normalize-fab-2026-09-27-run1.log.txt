@@ -1,0 +1,82 @@
+# TV-016 known-answer run, 2026-09-27 12:49:25 CDT, host Darwin 25.6.0 arm64, macOS 26.6.2
+# repository HEAD c90df2d3bc8fbd4c6fbf7d522abe208f802e8fc9 (tool(render_tpm): name the TPM file read in the table header and pad the trend y)
+## A. identities
+tools/normalize_fab.py blob f3eaac395b279bceb32fb3ba850632acfe426782 sha256 f22d843c4c18ab0d4e1242539e3e5cf3d93cb34343aa114fee93b18324ab5f91 unchanged from HEAD
+tools/tests/test_normalize_fab.py blob 707a22d594671b9125fd5f8134c57d290121e413 sha256 4bb1169f1ada082f269534e9165fd1b3fd350c4037fa91f2b0f96a7de18855ec unchanged from HEAD
+tools/tests/test_kicad_cli.py blob 780117af30155408b4c4f56574d72cfd261c0b88 sha256 377f57a555d2b255728b1b47998ddb8c70bbc8ac844311c2847d105cda3b8473 unchanged from HEAD
+tools/tests/fixtures/kicad git tree at HEAD 03063f2a45abd42f532e4b035cfac71fe578de90
+tools/tests/fixtures/kicad tracked files 15, digest (sha256 of the sorted shasum list) 0d9fca9db9e605542dcbe00ea2be37e7db9584fd3c7183e6cc87e9fd41888b1c
+fae6c8bf24dbfcc9cead1a35e859f02d856b5747d8f832b87f498e04d5cb4df7  tools/tests/fixtures/kicad/clean.kicad_pcb
+c5c89ea4db4ddcd1d7a15c29d4785d373cc154ebb4d50dfceda3550847c6dab3  tools/tests/fixtures/kicad/clean.kicad_pro
+b881644f2c42dbdd8f0e031aef756cc5f3d97902a4211f8a6e0aee4c270764f4  tools/tests/fixtures/kicad/clean.kicad_sch
+eb06e7d05f32a2fb49d98888624e8655509e31d6b8ac80ab73d348c48de017fa  tools/tests/fixtures/kicad/expected/clean-SHA256SUMS.normalized
+c96d765db2d5f932fd4378b3e72437153ebe609b11a66e14689ab86062c1ad6e  tools/tests/fixtures/kicad/expected/clean-bom.csv
+ec9db5b50b0236ee71301681b023dc11753ff16b5d669c926254e5b8e0feef39  tools/tests/fixtures/kicad/expected/clean-cpl.csv
+2c3b8312fded1f73ad708b17db8d95eea3b76425471dacae6facbd091bec506c  tools/tests/fixtures/kicad/fp-lib-table
+2afa880de6d1c73e190721d75fefe6cbcb87ae2f622ecf29f7df5a7c477cde5d  tools/tests/fixtures/kicad/known-answers.json
+61103798b52c7e2535800a6253a9d06d89fe6e676f608ce7dd8756250005f93b  tools/tests/fixtures/kicad/make_expected_normalized.sh
+9ece8e5484397ffa31edd7391ef1ef425d7e6a3b06f58dd0e8cbf29f45454787  tools/tests/fixtures/kicad/make_fixture_pcb.py
+1f73a2275e9e5cb2628a2a745fe312db38a19540d2fa78557c9414682bdfe4c4  tools/tests/fixtures/kicad/make_fixture_sch.py
+21fa6de8d7ec64c8775c918bfad1d3257a125d3bbfba1541ba74d6386793af5f  tools/tests/fixtures/kicad/seeded.kicad_pcb
+1904966ca0f2057399d224ae463bcb94b7a14cd23a2f27a09a4d5c952c7a0b28  tools/tests/fixtures/kicad/seeded.kicad_pro
+b889d4e80edbb3516f3fb90074e09938eb4ace69a36f9eb3b7471ed5293105fb  tools/tests/fixtures/kicad/seeded.kicad_sch
+0b7fb2b428b44b857655b9ca7d911d3f237bb8eb6f8ec494845e3b99a0669dc0  tools/tests/fixtures/kicad/sym-lib-table
+tools/tests/fixtures/kicad untracked or modified files: 0
+## B. versions
+interpreter: Python 3.13.5 (/Users/robinonsay/rust/cwht/.venv/bin/python); git: git version 2.50.1 (Apple Git-155)
+kicad-cli: 10.0.6
+perl (expected-list generator only): v5.40.2
+## C. known-answer module(s)
+$ .venv/bin/python -m unittest discover -v -s tools/tests -p test_normalize_fab.py
+test_bad_stored_line_and_bad_zip_exit_2 (test_normalize_fab.CliTests.test_bad_stored_line_and_bad_zip_exit_2) ... ok
+test_check_fails_on_changed_added_and_missing (test_normalize_fab.CliTests.test_check_fails_on_changed_added_and_missing) ... ok
+test_check_passes_after_time_stamp_only_change (test_normalize_fab.CliTests.test_check_passes_after_time_stamp_only_change) ... ok
+test_empty_directory_exit_2 (test_normalize_fab.CliTests.test_empty_directory_exit_2) ... ok
+test_listing_is_sorted_shasum_format_and_excludes_sums_and_hidden (test_normalize_fab.CliTests.test_listing_is_sorted_shasum_format_and_excludes_sums_and_hidden) ... ok
+test_root_names_relative_to_root (test_normalize_fab.CliTests.test_root_names_relative_to_root) ... ok
+test_sums_then_check_pass (test_normalize_fab.CliTests.test_sums_then_check_pass) ... ok
+test_usage_errors_exit_2 (test_normalize_fab.CliTests.test_usage_errors_exit_2) ... ok
+test_write_dir_holds_normalized_files (test_normalize_fab.CliTests.test_write_dir_holds_normalized_files) ... ok
+test_zip_members_listed_zip_itself_not (test_normalize_fab.CliTests.test_zip_members_listed_zip_itself_not) ... ok
+test_csv_unchanged (test_normalize_fab.RuleTests.test_csv_unchanged) ... ok
+test_drill_report_created_on_deleted (test_normalize_fab.RuleTests.test_drill_report_created_on_deleted) ... ok
+test_excellon_two_date_lines_deleted (test_normalize_fab.RuleTests.test_excellon_two_date_lines_deleted) ... ok
+test_gerber_crlf_lines (test_normalize_fab.RuleTests.test_gerber_crlf_lines) ... ok
+test_gerber_job_creation_date_member (test_normalize_fab.RuleTests.test_gerber_job_creation_date_member) ... ok
+test_gerber_three_date_lines_deleted (test_normalize_fab.RuleTests.test_gerber_three_date_lines_deleted) ... ok
+test_other_type_is_raw (test_normalize_fab.RuleTests.test_other_type_is_raw) ... ok
+test_pdf_dates_zeroed_same_length (test_normalize_fab.RuleTests.test_pdf_dates_zeroed_same_length) ... ok
+test_step_file_name_time_stamp (test_normalize_fab.RuleTests.test_step_file_name_time_stamp) ... ok
+test_stp_split_header_with_escaped_quote (test_normalize_fab.RuleTests.test_stp_split_header_with_escaped_quote) ... ok
+test_date_like_line_outside_table_survives (test_normalize_fab.SeededFaultTests.test_date_like_line_outside_table_survives) ... ok
+test_one_byte_change_in_copper_changes_hash (test_normalize_fab.SeededFaultTests.test_one_byte_change_in_copper_changes_hash) ... ok
+test_one_byte_change_in_step_body_changes_hash (test_normalize_fab.SeededFaultTests.test_one_byte_change_in_step_body_changes_hash) ... ok
+test_time_stamp_change_keeps_hash (test_normalize_fab.SeededFaultTests.test_time_stamp_change_keeps_hash) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.551s
+
+OK
+exit=0
+$ .venv/bin/python -m unittest discover -v -s tools/tests -p test_kicad_cli.py
+test_drc_clean_none (test_kicad_cli.ErcDrcTests.test_drc_clean_none) ... ok
+test_drc_seeded_exactly_one_clearance (test_kicad_cli.ErcDrcTests.test_drc_seeded_exactly_one_clearance) ... ok
+test_erc_clean_none (test_kicad_cli.ErcDrcTests.test_erc_clean_none) ... ok
+test_erc_seeded_exactly_one_unconnected_pin (test_kicad_cli.ErcDrcTests.test_erc_seeded_exactly_one_unconnected_pin) ... ok
+test_cpl_and_bom_line_for_line (test_kicad_cli.ExportTests.test_cpl_and_bom_line_for_line) ... ok
+test_drill_files_hits_and_diameters (test_kicad_cli.ExportTests.test_drill_files_hits_and_diameters) ... ok
+test_drill_report_counts (test_kicad_cli.ExportTests.test_drill_report_counts) ... ok
+test_gerber_set_of_the_layer_list (test_kicad_cli.ExportTests.test_gerber_set_of_the_layer_list) ... ok
+test_step_bounding_box (test_kicad_cli.ExportTests.test_step_bounding_box) ... ok
+test_exports_match_stored_list (test_kicad_cli.NormalizedExportTests.test_exports_match_stored_list) ... ok
+test_one_byte_change_in_copper_fails_check (test_kicad_cli.NormalizedExportTests.test_one_byte_change_in_copper_fails_check) ... ok
+test_raw_exports_differ (test_kicad_cli.NormalizedExportTests.test_raw_exports_differ) ... ok
+test_two_exports_normalize_equal (test_kicad_cli.NormalizedExportTests.test_two_exports_normalize_equal) ... ok
+test_locked_version (test_kicad_cli.VersionTests.test_locked_version) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 6.248s
+
+OK
+exit=0
+# end 12:49:32 CDT
