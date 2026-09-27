@@ -6,7 +6,7 @@ class: II
 originator: Claude
 date_opened: 2026-09-27
 phase: B
-configuration_at_origination: baseline/srr (tag on 779f93f); change set prepared on branch base 573f9f5 (main); branch head ac9b7a5
+configuration_at_origination: baseline/srr (tag on 779f93f); change set prepared on branch base 573f9f5 (main); branch head 7784672 (ac9b7a5 plus the iteration 1 Major fixes)
 baseline_affected: baseline/srr
 affected_cis: [2, 53]
 affected_paths: [docs/templates/peer-review-checklist-analysis.md, docs/templates/peer-review-checklist-software-assurance.md, docs/templates/peer-review-checklist-tool-validation.md, docs/process/08-agent-briefing.md]
@@ -26,14 +26,14 @@ date_closed: null
 
 Template: `docs/templates/change-request.md`. Process: `docs/process/05-configuration-and-data-management.md` §5.1 to §5.3. File location: this file, committed on `main` with `Refs: CR-012`. Status: **Submitted**. Work package: WP-PDR-03 of `docs/plan/pdr-work-plan.md` (revision 2), wave 0, "Missing checklist templates". CR-007 to CR-011 were claimed by parallel wave 0 work packages (files on `main` or branches `cr/CR-008-*` and `cr/CR-011-*`), so this CR takes CR-012.
 
-**Where the change is.** The full product change is prepared on the branch `cr/CR-012-pdr-checklist-templates`, commit `ac9b7a5` on base `573f9f5`, as the Submitted state of 05 §5.2 allows ("Branch `cr/CR-NNN-<slug>` may be opened for prototyping; nothing merges"). The exact before and after text is `git diff 573f9f5 ac9b7a5`. Nothing is merged to `main` before the owner's disposition and the section 9 verification. These are also the blobs frozen for the WP-PDR-03 template review (PDR work plan rule C2).
+**Where the change is.** The full product change is prepared on the branch `cr/CR-012-pdr-checklist-templates`, head `7784672` on base `573f9f5` (`ac9b7a5`, then `7784672` with the Major fixes of the template reviews INSP-032 and INSP-033, iteration 1), as the Submitted state of 05 §5.2 allows ("Branch `cr/CR-NNN-<slug>` may be opened for prototyping; nothing merges"). The exact before and after text is `git diff 573f9f5 7784672`. Nothing is merged to `main` before the owner's disposition and the section 9 verification. The blobs at `ac9b7a5` were frozen for iteration 1 of the WP-PDR-03 template reviews; the blobs at `7784672` are frozen for their iteration 2 delta (PDR work plan rule C2).
 
-| File (Table 4-1 row) | Blob at `baseline/srr` and on `main` | Blob on the branch (`ac9b7a5`) |
-|---|---|---|
-| `docs/templates/peer-review-checklist-analysis.md` (row 53) | none (new file) | `0386cc6e78da65578b1cce8b2f793cd3db224921` |
-| `docs/templates/peer-review-checklist-software-assurance.md` (row 53) | none (new file) | `22b7b6afd241d7bd2deddfe45d9318cab5f0243b` |
-| `docs/templates/peer-review-checklist-tool-validation.md` (row 53) | none (new file) | `c94fa383a952cde434da7f63eb00ae5d699996d6` |
-| `docs/process/08-agent-briefing.md` (row 2) | `01a36bac8d5f133dadd5b384f92f95f225371663` | `56c540113110b0d8916219d3cb531d6a76587713` |
+| File (Table 4-1 row) | Blob at `baseline/srr` and on `main` | Blob on the branch at `ac9b7a5` (iteration 1) | Blob on the branch at `7784672` (iteration 2) |
+|---|---|---|---|
+| `docs/templates/peer-review-checklist-analysis.md` (row 53) | none (new file) | `0386cc6e78da65578b1cce8b2f793cd3db224921` | unchanged |
+| `docs/templates/peer-review-checklist-software-assurance.md` (row 53) | none (new file) | `22b7b6afd241d7bd2deddfe45d9318cab5f0243b` | `5b13528504868b2add0f0b1e329c63aa2b54cdf4` |
+| `docs/templates/peer-review-checklist-tool-validation.md` (row 53) | none (new file) | `c94fa383a952cde434da7f63eb00ae5d699996d6` | `7be809d4ceb9a202473eb19da3627fe0cd427900` |
+| `docs/process/08-agent-briefing.md` (row 2) | `01a36bac8d5f133dadd5b384f92f95f225371663` | `56c540113110b0d8916219d3cb531d6a76587713` | unchanged |
 
 ## 1. Description of the change
 
@@ -42,8 +42,8 @@ Template: `docs/templates/change-request.md`. Process: `docs/process/05-configur
 | File | Content |
 |---|---|
 | `peer-review-checklist-analysis.md` | Record `docs/reviews/<REVIEW>/checklists/analysis-<product-stem>.md`. Product types (`analysis_kind`): simulation decks and checkers, budgets, thermal, RF exposure, cascades, timing, worst-case. Sections: readiness R1 to R6; A question and traceable inputs; B model validity (SWEHB `swe-070` section 3); C tools, TV status and reproducibility (SWE-070, SWE-136, 05 §9); D units and arithmetic; E results, margins, proposed TBR values and TPM estimates, credit rules of 04 §5; F every case named (PDR work plan rule C7); G1 to G7 kind-specific items; H hazards, risks, records; I visual closure; J assurance items for analyses of 07 §14.1 components. Per-case table, findings table, completion criteria, verdict format |
-| `peer-review-checklist-software-assurance.md` | Paired assurance record `docs/reviews/<REVIEW>/checklists/<product-slug>-software-assurance.md` (07 §10.2). Section B is the SWE-to-task table per 07 §2.1.1 product type (requirements, plans, trade studies and ADRs, design, code, test, NCR, MC/DC and unsafe audit), with the SWEHB section 7.1 tasks to apply and the safety-critical designations of SWEHB topic 8.10 §6; sections A dispatch and independence, C SWE-134 items a to l against 07 §14.2, D software safety analysis and hazard traceability (SWE-205, SWE-052, SWE-184, SWE-192), E peer review and CM assurance, F assurance risks and metrics. Reliefs are cited from `rmm.json` (SWE-022 and SWE-023, T) and never assumed |
-| `peer-review-checklist-tool-validation.md` | Record `docs/reviews/<REVIEW>/checklists/tool-validation-tv-nnn-<tool>.md`. Sections: readiness R1 to R5; A identification; B purposes; C known-answer test (every clause of the 05 §9.2 table row); D results and reproducibility; E limitations and re-validation triggers; F accreditation readiness and indexes; G1 to G4 kind-specific items (repository tools, external tools, emulator, instrument firmware); H SWEHB `swe-136` and `swe-070` section 7.1 tasks. INSP-015 items TV-S1 to TV-S10 are carried item by item (column "Carries"), and INSP-015 findings F-01, F-02, F-04 and F-05 are made explicit checks |
+| `peer-review-checklist-software-assurance.md` | Paired assurance record `docs/reviews/<REVIEW>/checklists/<product-slug>-software-assurance.md` (07 §10.2). Section B is the SWE-to-task table per 07 §2.1.1 product type (requirements, plans, trade studies and ADRs, design, code, test, NCR, MC/DC and unsafe audit), with the SWEHB section 7.1 tasks to apply and the safety-critical designations of SWEHB topic 8.10 §6, plus a row "Every product type" (swe-134 task 5, swe-022 task 1) and the rule that the tasks of any other SWE the product implements are also applied (07 §15); every SC task of 8.10 §6 is in a row except those of swe-015, swe-151, swe-016 and swe-174, whose products 07 §2.1.1 does not route (stated in the template); sections A dispatch and independence, C SWE-134 items a to l against 07 §14.2, D software safety analysis and hazard traceability (SWE-205, SWE-052, SWE-184, SWE-192), E peer review and CM assurance, F assurance risks and metrics. Reliefs are cited from `rmm.json` (SWE-022 and SWE-023, T) and never assumed |
+| `peer-review-checklist-tool-validation.md` | Record `docs/reviews/<REVIEW>/checklists/tool-validation-tv-nnn-<tool>.md`. Sections: readiness R1 to R5; A identification; B purposes; C known-answer test (every clause of the 05 §9.2 table row); D results and reproducibility; E limitations and re-validation triggers; F accreditation readiness and indexes; G1 to G4 kind-specific items (repository tools, external tools, emulator, instrument firmware); H SWEHB `swe-136` and `swe-070` section 7.1 tasks. The reviewer edits no TV record: the TV record author writes section 8 after the record is filed, and a delta re-issue re-pins `product_files`. `product_files` lists fixture files one by one (the record drift rule of `tools/validate_docs.py` reads blobs only), and the new field `fixture_trees` carries each fixture directory's tree hash. INSP-015 items TV-S1 to TV-S10 are carried item by item (column "Carries"), and INSP-015 findings F-01, F-02, F-04 and F-05 are made explicit checks |
 
 Each template carries the front matter of 01 §13 (the `tools/validate_docs.py` record schema); a filled copy of each passes `tools/validate_docs.py` (section 9).
 
@@ -149,6 +149,7 @@ Disposition history (append only):
 | Commit | Files | Trailer check (`CR: CR-012` present) |
 |---|---|---|
 | `ac9b7a5` (branch `cr/CR-012-pdr-checklist-templates`, prototype) | the four files of the table above | yes |
+| `7784672` (branch, Major fixes of INSP-032 finding-1 and INSP-033 finding-1 and finding-2, template review iteration 1) | `peer-review-checklist-software-assurance.md`, `peer-review-checklist-tool-validation.md` | yes |
 
 Traceability report after implementation: not affected (no requirement, test case or hazard file changes); renders regenerated: none (no visual product).
 
@@ -156,9 +157,9 @@ Traceability report after implementation: not affected (no requirement, test cas
 
 | Impact item | Planned closure (from §4/§5) | Evidence (report path, TC id, analysis file) | Result |
 |---|---|---|---|
-| Scope | Diff touches exactly the four paths | `git diff --stat 573f9f5 ac9b7a5`: 4 files, 792 insertions, 9 deletions (author run, 2026-09-27) | Pending independent verification |
+| Scope | Diff touches exactly the four paths | `git diff --stat 573f9f5 ac9b7a5`: 4 files, 792 insertions, 9 deletions (author run, 2026-09-27); after the fixes, `git diff --stat 573f9f5 7784672`: 4 files, 803 insertions, 9 deletions | Pending independent verification |
 | Tools unaffected | `tools/validate_docs.py` and the unit tests show no new failure against the base | Author run on `main` at `573f9f5` (the change is not on `main`, and neither tool reads the templates' bodies or 08): `validate_docs.py` 50 passed, 1 failed; the failure is pre-existing SRR record drift (`risk-register-06.md` and `tool-validation-tv-001-to-tv-010.md` name blobs that later wave 0 commits changed), not this change; unit tests 453 run, 1 failure (`RepositoryTests.test_repository_exit_zero`, the same drift), 11 skipped | Pending independent verification |
-| Filled templates validate | A copy of each template, with only the placeholders filled, passes the record schema | Author run on a `git archive` export of `573f9f5` with the branch files overlaid: `validate_docs.py --root <export>`: the three sample records `analysis-rx-cascade.md`, `requirements-sw-keyer-software-assurance.md`, `tool-validation-tv-014-ltspice.md` PASS; 54 passed, 0 failed | Pending independent verification |
+| Filled templates validate | A copy of each template, with only the placeholders filled, passes the record schema | Author run on a `git archive` export of `573f9f5` with the branch files overlaid: `validate_docs.py --root <export>`: the three sample records `analysis-rx-cascade.md`, `requirements-sw-keyer-software-assurance.md`, `tool-validation-tv-014-ltspice.md` PASS; 54 passed, 0 failed. After the fixes (author run, 2026-09-27): export of `7784672` made a git work tree, with a filled copy of the tool validation template at verdict APPROVED (TV-001, the 7 fixture files of `tools/tests/fixtures/schema/` listed by blob, the tree in `fixture_trees`) committed: `validate_docs.py --root <probe>` PASS on that record under the record drift rule; a negative control with the fixture directory as a `product_files` entry FAIL ("is not in HEAD; record drift rule"), the INSP-033 finding-2 reproduction | Pending independent verification |
 
 Independent verifier (agent invocation): pending.
 
@@ -177,3 +178,4 @@ Independent verifier (agent invocation): pending.
 | Date | State | By | Commit on main | Note |
 |---|---|---|---|---|
 | 2026-09-27 | Submitted | Claude (WP-PDR-03 author) | the commit that adds this file | Created with the impact assessment complete; product change prototyped on `cr/CR-012-pdr-checklist-templates` at `ac9b7a5`; section 6 review (rule C6) and the WP-PDR-03 template reviews pending |
+| 2026-09-27 | Submitted | Claude (WP-PDR-03 author) | the commit that records this row | Template reviews iteration 1 (`5f57f93`): INSP-031 no Major; INSP-032 1 Major, INSP-033 2 Major. The Majors are fixed on the branch at `7784672` (step 6: fix on the branch first, `CR: CR-012`); Minor findings wait (PDR work plan rule C1). Iteration 2 delta of INSP-032 and INSP-033 and the section 6 review pending |
