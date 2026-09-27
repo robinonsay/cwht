@@ -1,0 +1,8 @@
+alt,label,board_mm,t_access_5min_c,margin_113_k,tj_45c_worst_c,tj_45c_nom_c,margin_112_k,t_printed_peak_c,hdt_margin_oper_k,hdt_margin_store_k,m4_113,m4_112,m8
+A,A CNC 6061 box (fallback),1.0,33.0,15.0,96.4,86.8,13.6,,,,True,True,
+B,B catalog extrusion + PCB plates,1.6,36.0,12.0,110.8,98.4,-0.8,,,,True,False,
+C1,"C1 PETG case, guarded fin heatsink",1.0,28.8,19.2,107.5,95.7,2.5,52.8,16.2,9.0,True,True,True
+C1e,C1e variant: C1 with the fins exposed,1.0,41.4,6.6,105.4,94.1,4.6,51.8,17.2,9.0,True,True,True
+C2,"C2 PETG case, internal heatsink",1.0,37.9,10.1,129.6,113.7,-19.6,81.0,-12.0,9.0,True,False,False
+C3,"C3 PETG case, flat Al back plate",1.0,44.8,3.2,124.7,109.7,-14.7,56.6,12.4,9.0,True,False,True
+D,D extruded body + printed face and ends,1.0,37.4,10.6,103.5,92.6,6.5,58.3,10.7,9.0,True,True,True

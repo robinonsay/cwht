@@ -1,0 +1,46 @@
+== TS-011 main
+totals: C1 295 (59.0 %), D 295 (59.0 %), A 255 (51.0 %)
+top: ['C1', 'D']
+perturbations that change the top rank: 
+  weight C2 schedule +10: top ['C1'] (A 236.8, C1 319.1, D 307.4)
+  weight C2 schedule -10: top ['D'] (A 273.2, C1 270.9, D 282.6)
+  weight C3 thermal margin +10: top ['D'] (A 272.1, C1 272.1, D 283.8)
+  weight C3 thermal margin -10: top ['C1'] (A 237.9, C1 317.9, D 306.2)
+  weight C4 low-frequency shielding +10: top ['A'] (A 282.2, C1 273.3, D 273.3)
+  score C1/C1 cost 2->3: top ['C1'] (A 255, C1 320, D 295)
+  score C1/C1 cost 2->1: top ['D'] (A 255, C1 270, D 295)
+  score C1/C3 thermal margin 1->2: top ['C1'] (A 255, C1 310, D 295)
+  score C1/C4 low-frequency shielding 1->2: top ['C1'] (A 255, C1 305, D 295)
+  score C1/C5 port retention 3->4: top ['C1'] (A 255, C1 305, D 295)
+  score C1/C5 port retention 3->2: top ['D'] (A 255, C1 285, D 295)
+  score D/C1 cost 2->3: top ['D'] (A 255, C1 295, D 320)
+  score D/C1 cost 2->1: top ['C1'] (A 255, C1 295, D 270)
+  score D/C2 schedule 4->5: top ['D'] (A 255, C1 295, D 310)
+  score D/C2 schedule 4->3: top ['C1'] (A 255, C1 295, D 280)
+  score D/C3 thermal margin 2->3: top ['D'] (A 255, C1 295, D 310)
+  score D/C3 thermal margin 2->1: top ['C1'] (A 255, C1 295, D 280)
+  score D/C4 low-frequency shielding 1->2: top ['D'] (A 255, C1 295, D 305)
+  score D/C5 port retention 3->4: top ['D'] (A 255, C1 295, D 305)
+  score D/C5 port retention 3->2: top ['C1'] (A 255, C1 295, D 285)
+  score D/C7 iteration cost 4->5: top ['D'] (A 255, C1 295, D 305)
+  score D/C7 iteration cost 4->3: top ['C1'] (A 255, C1 295, D 285)
+robustness: Not robust
+
+== TS-011 route (OD-38)
+totals: Ra 475 (95.0 %), Rb 220 (44.0 %), Rc 190 (38.0 %)
+top: ['Ra']
+perturbations that change the top rank: none
+robustness: Robust
+
+== TS-004 thickness and via fill (relaxed screen, all four)
+totals: T1 410 (82.0 %), T3 305 (61.0 %), T4 305 (61.0 %), T2 300 (60.0 %)
+top: ['T1']
+perturbations that change the top rank: none
+robustness: Robust
+
+== TS-004 panelization
+totals: P1 455 (91.0 %), P2 330 (66.0 %)
+top: ['P1']
+perturbations that change the top rank: none
+robustness: Robust
+

@@ -1,0 +1,14 @@
+id,title,worst,rss,allowance,rule,passes,basis
+S1,"SMA axis to board, if the jack were board-mounted (rigid)",0.8,0.346,0.1,worst,False,rigid board-mount SMA: about 0.1 mm misalignment before the joint is loaded (author rule)
+S2,Jack nose in its wall opening (radial),0.65,0.335,1.5,worst,True,opening 9.0 mm around a 6.0 mm nose: 1.5 mm per side
+S3,Encoder bushing in its front-wall hole (radial),0.65,0.335,0.75,worst,True,hole 8.5 mm around a 7.0 mm bushing: 0.75 mm per side
+S4a,"Display active area inside the 24.0 mm window, glass located on the board",0.8,0.424,0.48,worst,False,(24.0 - 23.04)/2 per side
+S4b,"Display active area inside the 24.0 mm window, glass located in the front-shell pocket",0.3,0.224,0.48,worst,True,(24.0 - 23.04)/2 per side; pocket 27.0 x 30.7 for glass 26.6 x 30.3
+S5a,USB plug overmold in the 12.0 x 10.0 opening (ICD-CTL-USB),0.9,0.436,0.7,worst,False,"(12.0 - 10.6)/2 per side, width"
+S5b,USB plug overmold in a 12.6 x 10.6 opening (proposed),0.9,0.436,1.0,worst,True,"(12.6 - 10.6)/2 per side, width"
+S6a,"Gap pad compression, heatsink fixed in a printed pocket",0.5,0.255,0.1,worst,False,0.5 mm pad held between 10 % and 40 % compression: 0.375 +/-0.10 mm
+S6b,"Gap pad compression, CNC fallback pedestal (same part as the bosses)",0.1,0.071,0.1,worst,True,as S6a
+S6c,"Gap pad compression, spring-loaded heatsink (option C design rule)",0.5,0.255,0.6,worst,True,"spring travel +/-0.6 mm: compression set by the spring force, not by the stack"
+S7,Board edge to inner wall,0.7,0.361,2.0,worst,True,2.0 mm design clearance (outline JSON)
+S8,Knob skirt in a knob recess (REQ-SYS-111 1.0 mm radial),0.75,0.35,1.0,worst,True,recess diameter = knob + 2 x (1.0 + 1.0): 1.0 mm per side beyond the 1.0 mm requirement
+S9,Counterpoise hole to SMA axis (REQ-SYS-107 20 mm TBR),0.1,0.1,8.0,worst,True,20 mm limit minus 12 mm design distance

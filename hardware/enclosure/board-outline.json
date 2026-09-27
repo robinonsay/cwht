@@ -1,0 +1,254 @@
+{
+  "id": "cwht-board-outline-envelope",
+  "revision": "0 (PDR draft, WP-PDR-27; AT RISK CR-003 and CR-006)",
+  "status": "Draft planning data for WP-PDR-37 (floorplan, KiCad outline) and WP-PDR-39 (cwht-case-c.scad, cwht-case-cnc.scad). Values are the TS-011 and TS-004 author's proposals; they change only through the WP-PDR-27 author until the TS-011 decision, then by the ADR that records it.",
+  "sources": [
+    "docs/decisions/trade-studies/TS-011-enclosure.md",
+    "docs/decisions/trade-studies/TS-004-board-thickness-and-panelization.md",
+    "docs/design/analysis/mechanical-tolerance-stack.md",
+    "docs/icd/ICD-PWR-CELL.md 3.2.2 (Keystone 1043P 77 x 20.65 x 14.86 mm, pair about 41.3 x 77 mm)",
+    "docs/icd/ICD-CTL-USB.md 3.2.2 (wall opening 12.0 x 10.0 mm, opening centre about 2.3 mm above the carrier PCB)",
+    "docs/icd/ICD-TX-ANT.md 3.2.2 (SMA bulkhead jack, HEX 8 nut, counterpoise within 20 mm)",
+    "docs/reviews/PDR/owner-actions.md 2.4 (planning outline 130 x 62 mm)"
+  ],
+  "units": "mm",
+  "frame": "Enclosure frame: origin at the outer corner of the back face at the key-jack end; +X along the length toward the antenna end (REQ-SYS-175: antenna port on the +X end face), +Y across the width, +Z from the back face (cell door and heatsink guard) to the front face (display and knobs). Board frame: origin at the board's lower-left corner seen from the top side, axes parallel to the enclosure frame.",
+  "envelope": {
+    "requirement": "REQ-SYS-103: 140 x 70 x 40 mm (TBR), excluding antenna and knobs",
+    "option_c_case_outer": [
+      140.0,
+      70.0,
+      30.0
+    ],
+    "heatsink_protrusion_allowance_z": 10.0,
+    "wall_thickness_printed": 2.0,
+    "wall_thickness_cnc_fallback": 1.5,
+    "outer_edge_fillet_min": 1.0,
+    "note": "The CNC fallback (option A) uses the same outer 140 x 70 x 30 mm, the same board frame and the same end-face openings; its pedestal replaces the heatsink (TS-011 section 8)."
+  },
+  "z_stack": [
+    {
+      "layer": "back wall (the heatsink guard frame protrudes up to 10 mm beyond it, within REQ-SYS-103)",
+      "z0": 0.0,
+      "z1": 2.0
+    },
+    {
+      "layer": "holder zone (Keystone 1043P 14.86 mm on the board bottom, plus 1.04 mm clearance)",
+      "z0": 2.0,
+      "z1": 17.9
+    },
+    {
+      "layer": "board, 1.0 mm (TS-004)",
+      "z0": 17.9,
+      "z1": 18.9
+    },
+    {
+      "layer": "top-side part zone (tallest top part 8.5 mm plus 0.6 mm clearance)",
+      "z0": 18.9,
+      "z1": 28.0
+    },
+    {
+      "layer": "front wall with display-glass pocket",
+      "z0": 28.0,
+      "z1": 30.0
+    }
+  ],
+  "board": {
+    "outline": [
+      130.0,
+      62.0
+    ],
+    "thickness": 1.0,
+    "corner_radius": 2.0,
+    "origin_in_enclosure": [
+      5.0,
+      4.0,
+      17.9
+    ],
+    "clearance_to_inner_wall": {
+      "x_each_end": 3.0,
+      "y_each_side": 2.0
+    },
+    "outline_tolerance": "+/-0.2 routed (pcbway-fabrication-and-assembly.md F9)",
+    "panelization": "single board with two 5 mm tab-routed rails on the long edges, removed by the owner (TS-004 recommendation)"
+  },
+  "mounting": {
+    "holes": [
+      [
+        4.0,
+        4.0
+      ],
+      [
+        4.0,
+        58.0
+      ],
+      [
+        78.5,
+        4.0
+      ],
+      [
+        78.5,
+        58.0
+      ],
+      [
+        126.5,
+        4.0
+      ],
+      [
+        126.5,
+        58.0
+      ]
+    ],
+    "hole_diameter": 3.2,
+    "fastener": "M3 x 6 pan head from the top side into brass heat-set inserts in back-shell bosses (option C) or tapped 6061 bosses (CNC fallback)",
+    "boss_diameter_bottom_keepout": 7.5,
+    "top_side_head_keepout_diameter": 7.0,
+    "support_posts": {
+      "count": 2,
+      "diameter": 5.0,
+      "rule": "one printed post under each front-panel button (positions set by WP-PDR-37 with WP-PDR-39 at the button locations); bottom-side copper-free contact pad 6 mm diameter",
+      "basis": "TS-004 section 4 stiffness (tolerance_stack.py L3): a 1.0 mm board deflects 3.17 mm under 10 N at the middle of a 120 mm span and 0.76 mm across the 74.5 mm span of the six-boss layout; the posts bring the button deflection under 0.3 mm"
+    }
+  },
+  "keepouts_bottom": [
+    {
+      "name": "cell holder pair (Keystone 1043P x 2, through-hole, owner-soldered)",
+      "x": [
+        1.5,
+        78.5
+      ],
+      "y": [
+        10.35,
+        51.65
+      ],
+      "z_below_board": 14.86
+    },
+    {
+      "name": "heatsink footprint (no bottom-side parts, no through-hole pins protruding more than 0.5 mm)",
+      "x": [
+        82.5,
+        122.5
+      ],
+      "y": [
+        2.0,
+        60.0
+      ]
+    },
+    {
+      "name": "PA thermal pad: mask-free ENIG copper 15 x 15 mm, fed by the 25-via array (pcbway-export-and-vendor-questions.md F16, F18)",
+      "x": [
+        92.5,
+        107.5
+      ],
+      "y": [
+        23.5,
+        38.5
+      ]
+    }
+  ],
+  "keepouts_top": [
+    {
+      "name": "port block overhang and SMA pigtail landing",
+      "x": [
+        122.0,
+        130.0
+      ],
+      "y": [
+        22.0,
+        40.0
+      ],
+      "height_above_board": 9.1
+    },
+    {
+      "name": "mounting screw heads",
+      "centres": "each mounting hole",
+      "diameter": 7.0
+    }
+  ],
+  "heatsink": {
+    "type": "purchased extruded aluminum heatsink, black anodized, fins parallel to X, fin tips toward -Z (outward through the back)",
+    "footprint": [
+      40.0,
+      58.0
+    ],
+    "position_x_y_in_board_frame": [
+      82.5,
+      2.0
+    ],
+    "base_thickness_min": 3.0,
+    "overall_height_max": 23.0,
+    "fin_tip_recess_behind_guard_min": 2.5,
+    "in_situ_thermal_resistance_max_k_per_w": 5.5,
+    "note": "The base sits on the gap pad under the board; the fins pass through an opening in the back wall and end at least 2.5 mm behind a printed guard 2.0 mm thick carried on a raised frame, so the heatsink and guard use up to 10 mm of the REQ-SYS-103 Z allowance beyond the 30 mm case (40 mm total). The in-situ value includes the guard; the catalog free-air rating must be lower (TS-011 section 8 design rule 3).",
+    "guard_thickness": 2.0
+  },
+  "port_block": {
+    "type": "6061 block, PCBWay CNC, ordered with the board at CDR (TS-011 C1); D-hole for the SMA bulkhead thread (anti-rotation), M3 counterpoise hole within 20 mm of the port axis, two M3 clearance holes to heat-set inserts in the end-wall boss",
+    "outline": [
+      12.0,
+      20.0,
+      12.0
+    ],
+    "sma_axis_in_enclosure": {
+      "y": 35.0,
+      "z": 23.5
+    },
+    "pcb_connection": "RG-316 pigtail about 35 mm long from the jack to board pads (owner-soldered, SI-031), compliant, so the port block tolerance does not load a board joint (mechanical-tolerance-stack.md stack S1)"
+  },
+  "end_faces": {
+    "plus_x": [
+      {
+        "feature": "SMA bulkhead jack through the port block",
+        "y": 35.0,
+        "z": 23.5
+      }
+    ],
+    "minus_x": [
+      {
+        "feature": "key jack opening, diameter 9.0 (planning)",
+        "y": 18.0,
+        "z": 21.9
+      },
+      {
+        "feature": "headphone jack opening, diameter 9.0 (planning)",
+        "y": 52.0,
+        "z": 21.9
+      },
+      {
+        "feature": "micro-USB opening 12.6 x 10.6 (proposed change from ICD-CTL-USB 12.0 x 10.0, stack S5)",
+        "y": 35.0,
+        "z": 21.2
+      },
+      {
+        "feature": "jack markings KEY and PHONES, 3.5 mm characters, debossed 0.6 mm with contrasting inlay, above each opening",
+        "z": 26.5
+      }
+    ]
+  },
+  "faces": {
+    "back": "cell door over the holder zone (x 6 to 83), heatsink guard grille over the heatsink (x 87 to 128) with slots 6.0 mm wide, legend-free",
+    "front": "display window, two encoders, two buttons: positions set by WP-PDR-39 and WP-PDR-40 inside x 10 to 125",
+    "side_y0": "RF exposure legend (REQ-SYS-124), three lines of 3.5 mm characters, debossed 0.6 mm with contrasting inlay, in x 15 to 115, z 8 to 24",
+    "side_y70": "free"
+  },
+  "accessible_surface_set_preliminary": {
+    "finger": "straight test finger, 12 mm diameter, hemispherical tip, 80 mm reach (REQ-SYS-113 TBR, proposed in TS-011 section 8)",
+    "accessible": [
+      "every outer face of the front and back shells",
+      "the heatsink guard grille (outer face and slot walls to 0.8 mm depth)",
+      "the cell door",
+      "the knobs and the front face around them",
+      "the display lens",
+      "the SMA jack body beyond the nut and the nut",
+      "the counterpoise screw head",
+      "the antenna radiator",
+      "the jack and USB openings to the depth the finger reaches"
+    ],
+    "not_accessible": [
+      "heatsink fins and base (behind the guard, tips recessed at least 2.5 mm behind a guard whose 6.0 mm slots admit the finger 0.80 mm)",
+      "the port block except its end face around the nut",
+      "every internal part"
+    ],
+    "status": "Preliminary, by design rule. The scripted finger check on the assembly model (WP-PDR-39 model, TC-SYS-077 procedure, TV record per CR-003 R3-F3) generates the set that WP-PDR-28b uses."
+  }
+}
