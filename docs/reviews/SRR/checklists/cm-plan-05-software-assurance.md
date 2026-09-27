@@ -17,14 +17,20 @@ product: docs/process/05-configuration-and-data-management.md
 # (last commit touching 05 is 0ab3d6e; the same blob INSP-006 iteration 3 verified at adcfe09)
 # iteration 1 baseline: ade0e097c51f27a4d28755161becf75064fc8bee. Iteration 2 (re-issue, package item R19 (b), no further
 # product review): HEAD 860e84e; git log ade0e09..HEAD on 05 is empty, so the product blob is unchanged
-product_commit: "860e84e6346d09d69f83f584bc94855c638b4531"
-product_blob: "63ed566240ffc7f055b65f93f579a6bb1498e9f1"
+# Post-SRR-ruling delta (2026-09-26): HEAD 5122a6bd262665a79ac03a9b687731f48f75041c; 05 changed at 0834da2 (SRR decision 10 (c)),
+# and the charter edit 6ea6b1d (decisions 7, 10 (a), (b)) is reviewed with it. The iteration 2 values were product_commit
+# 860e84e6346d09d69f83f584bc94855c638b4531 and 05 blob 63ed566240ffc7f055b65f93f579a6bb1498e9f1.
+product_commit: "5122a6bd262665a79ac03a9b687731f48f75041c"
+product_blob: "f8de2081f7542ed0bbe47897d8b63e845b8c3114"
 # product_files: re-checked at the iteration 2 re-issue equal to git rev-parse HEAD:<path> and git hash-object at HEAD 860e84e
-product_files: ["docs/process/05-configuration-and-data-management.md@63ed566240ffc7f055b65f93f579a6bb1498e9f1"]
+# product_files at the post-SRR-ruling delta: 05 and the charter blob after 6ea6b1d, both equal to git rev-parse HEAD:<path> at 5122a6b
+product_files: ["docs/process/05-configuration-and-data-management.md@f8de2081f7542ed0bbe47897d8b63e845b8c3114", "docs/process/00-charter.md@41575d218c2228825704ce0b080a967c890fe43f"]
 # inputs read (not reviewed), committed blobs at HEAD 860e84e. Iteration 1 read at ade0e09: tools/toolchain.lock.md@2687fb04,
 # tools/validate_docs.py@33ab5a83, docs/reviews/SRR/checklists/cm-plan-05.md@d688ff4b (the other six are unchanged since ade0e09);
 # the cm-plan-05.md blob now read carries the 05 author self-check filed at 8ef95d3 and the INSP-006 re-issue of 09d48be
-input_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/process/rmm.json@30fcde240eeb6a147359de8c5d8cdd93364dc9c8", "docs/process/00-charter.md@131608b78e178432e34f8eb9fc385dae07020c6d", "docs/templates/version-description.md@030e8865c656ea0924ecd0196e7e1c6076bede3d", "docs/templates/change-request.md@c1e03e6de00f6f81dd005e9ca243da633c2e29f6", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@d582073ec6067ac9a64030ce8b5d66971c27da13", "tools/toolchain.lock.md@0ad60317be7e509c1e1968d2d9f4813f3904253f", "tools/validate_docs.py@3aa0368147b9af3e6e1546f808afb7aedf7f2226", "docs/reviews/SRR/checklists/cm-plan-05.md@b2cf5a0e2338cd1aadeaa82769a5602057c28426"]
+# inputs at the post-SRR-ruling delta: 07 and rmm.json re-read at HEAD 5122a6b; the charter moved to product_files; 03 and the
+# decision list read at HEAD (03@ed270f443e2ab648480017df8ad3d0221400cf4c, decisions-for-owner.md@a8931d91253462b687aefd2de715e1adaf0fee45); others as at iteration 2
+input_files: ["docs/process/07-software-engineering-plan.md@37d472b501578504b7fa23422c4f74193647e458", "docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7", "docs/templates/version-description.md@030e8865c656ea0924ecd0196e7e1c6076bede3d", "docs/templates/change-request.md@c1e03e6de00f6f81dd005e9ca243da633c2e29f6", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@d582073ec6067ac9a64030ce8b5d66971c27da13", "tools/toolchain.lock.md@0ad60317be7e509c1e1968d2d9f4813f3904253f", "tools/validate_docs.py@3aa0368147b9af3e6e1546f808afb7aedf7f2226", "docs/reviews/SRR/checklists/cm-plan-05.md@b2cf5a0e2338cd1aadeaa82769a5602057c28426"]
 product_size: 16 sections, 672 lines; Table 4-1 with 55 rows, Tables 4-2 and 6-1; release procedure of 12 steps (section 8.1), FCA-01 to FCA-10, PCA-01 to PCA-10
 sprint: SRR-prep
 author_agent: "author:cm-plan (Claude lead SE, CM function; revision 3 of 2026-09-25 with the 2026-09-26 edits of Table 4-1 row 13 and AL-15)"
@@ -35,7 +41,8 @@ assurance_required: true
 # author (author:cm-plan) and from the file reviewer of the paired record INSP-006 (reviewer:cm-plan)
 assurance_reviewer_agent: "sa-reviewer:cm-plan (software assurance function; paired file review INSP-006 by reviewer:cm-plan)"
 paired_record: INSP-006
-# iteration 2: re-issue without a further product review (package item R19 (b); R15-F3); see "Iteration 2" at the end
+# iteration 2: re-issue without a further product review (package item R19 (b); R15-F3); see "Iteration 2" at the end.
+# The post-SRR-ruling delta (2026-09-26) is a dated section of iteration 2, as INSP-009 and INSP-017 record theirs
 iteration: 2
 # readiness_met: iteration 1 false on R3 only (no author self-check of 05 on record). Iteration 2 true: R3 is met by the
 # 05 author self-check filed at 8ef95d3 in docs/reviews/SRR/checklists/cm-plan-05.md (package item R7; INSP-006 cross item X-5);
@@ -49,21 +56,22 @@ reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
 verdict: APPROVED
 findings_major: 0
-findings_minor: 4
+# findings_minor, findings_deferred, assurance_findings_minor: finding-5 is new at the post-SRR-ruling delta (lien)
+findings_minor: 5
 findings_open: 0
 findings_fixed: 0
 findings_verified: 0
-# findings_deferred: the four liens (fix before PDR), carried by the package as Routine items, not RIDs
-findings_deferred: 4
+# findings_deferred: the four liens (fix before PDR), carried by the package as Routine items, not RIDs; five from the post-SRR-ruling delta (finding-5)
+findings_deferred: 5
 assurance_findings_major: 0
-assurance_findings_minor: 4
+assurance_findings_minor: 5
 assurance_tasks_applied: [swe-079 7.1 task 1, swe-080 7.1 task 1, swe-080 7.1 task 2, swe-080 7.1 task 3, swe-081 7.1 task 1, swe-081 7.1 task 2, swe-082 7.1 task 1, swe-082 7.1 task 2, swe-083 7.1 task 1, swe-084 7.1 task 1, swe-085 7.1 task 1, swe-085 7.1 task 2, swe-063 7.1 task 1, swe-063 7.1 task 2, swe-136 7.1 task 1, swe-187 7.1 task 1, swe-187 7.1 task 2, swe-013 7.1 task 1]
 deferred_rids: []
 # items_no: iteration 2 answers (R3 moved from No to Yes at the re-issue; every other answer unchanged)
 items_no: [CK-REQ-G1, CK-REQ-G3, CK-REQ-G4, SA-080-1, SA-081-2, SA-082-1, SA-063-1, SA-063-2, SA-136-1]
-# effort: iteration 1 42 turns, 60 min; iteration 2 (re-issue) 20 turns, 25 min
-effort_turns: 62
-effort_minutes: 85
+# effort: iteration 1 42 turns, 60 min; iteration 2 (re-issue) 20 turns, 25 min; post-SRR-ruling delta 18 turns, 25 min
+effort_turns: 80
+effort_minutes: 110
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -263,4 +271,58 @@ READINESS: R1 Yes (product), R2 N/A, R3 Yes (05 author self-check at 8ef95d3), R
 PRODUCT: docs/process/05-configuration-and-data-management.md@63ed566240ffc7f055b65f93f579a6bb1498e9f1 (unchanged since ade0e09)
 FINDINGS: finding-1 to finding-4 Minor, Lien: fix before PDR; no new finding; count of open Major findings 0
 MEASUREMENTS: items=32; no=9; major=0; minor=4; lien=4; open_major=0; iteration=2; turns=62; minutes=85
+```
+
+## Post-SRR-ruling delta (2026-09-26, HEAD `5122a6b`, SRR package item R16)
+
+**Scope and independence.** Same role (`sa-reviewer:cm-plan`, software assurance function), new invocation. This reviewer authored neither 05, the charter, the decision memo nor INSP-006, and edited no product. The text above is the iteration 1 and 2 record and is left as written. Context: the owner approved the SRR on 2026-09-26 (Approved with liens), every decision ruled as recommended, so the ruling texts are the "Recommendation" cells of `docs/reviews/SRR/decisions-for-owner.md` Part 1. Rule applied: convergence rule, charter section 4 item 3. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep` (query on the decisions 6, 7, 8 and 10 recommendation cells; its hits located the decision list rows and memo section 7.1), and `grep -n` then only pinned the decision 10 row, 03 section 6.4 item 7 and item X7, 03 section 6.5 items f and g, SEMP F-09, 07 section 22 and the 05 Table 4-1 rows; known paths were read directly.
+
+**Commits since `product_commit` `860e84e`** (`git log 860e84e..HEAD`): on 05, one, `0834da2`; on the charter, one, `6ea6b1d` (reviewed here as the assignment directs; it is not a 05 change). Every hunk of both was read.
+
+| Commit | Hunk | Ruling or finding cited | Ruling text (Recommendation cell) and source item | Assurance result |
+|---|---|---|---|---|
+| `0834da2` | Table 4-1 row 3: class CR to Mixed; Notes name the CR part (the 03 record, the compliance matrix, every `rmm.json` disposition, `tailoring_rationale`, `residual_risk` and every field not named as Log) and the Log part (a row's `status` move Planned to In place with removal of `Planned for`, and the implementation-path update to the satisfying artifact, committed with `Refs: <artifact id>` in the same change as the artifact, then the `rmm.md` re-render and `render_rmm.py --check` exit 0; `meta.approval` per 03 section 6.4 item 3) | Decision 10 (c); 03 section 6.5 item X7 | "Approve (a) to (c)"; (c) "the rmm.json status moves and implementation-path updates as Log class after SRR (03 item X7)"; X7 "dispositions, rationale and residual risk stay CR-controlled" | Correct. The Log part is exactly the two edit kinds X7 names; everything else stays CR, which is stricter than X7 requires. "Mixed" is defined in 05 section 4.2 ("the Notes column states which parts are CR and which are Log") and the Notes do so. The Log route keeps an objective gate (`render_rmm.py` rejects a status that disagrees with the named paths), and a Planned-to-In-place move is never editorial (05 section 2) but is not a tailoring change, so charter section 1 ("Tailoring change = CR") is not contradicted. A reverse move (In place to Planned) is not named as Log and so stays CR, the conservative reading |
+| `0834da2` | Section 5.1: new vehicle row "`status` move or implementation-path update of an `rmm.json` row after SRR (disposition, `tailoring_rationale` and `residual_risk` unchanged)" to "Log commit with `Refs: <artifact id>`" | Decision 10 (c) | as above | Correct; the parenthesis scopes the row so it does not overlap the row above it ("Change to a tailoring row ... after SRR" to CR) |
+| `6ea6b1d` | Charter section 2: owner also Health and Medical TA and CIO/SAISO designee for the software cybersecurity requirements | Decision 7; 03 section 6.5 item f | "Approve both" (relief and capacities) | Correct; the capacities 03 section 7 and the `rmm.json` `authority` fields rely on now exist in the charter |
+| `6ea6b1d` | Charter section 5: se-compliance-matrix schema; `docs/vv/reports/<TC-ID>-r<N>/`; `docs/design/sw/<module>.md`; `docs/sprints/index.md`; `firmware/devcheck/`, `firmware/emu/`, `firmware/THIRD-PARTY-NOTICES.md`; status notes `docs/plan/status/status-YYYY-MM-DD.md` | Decision 10 (b); 07 section 22 row "Artifacts beyond charter section 5"; SEMP appendix F item F-09 | "Approve (a) to (c)"; (b) "charter section 5 rows for status notes and the artifacts 07 section 22 lists" | Correct: all seven 07 section 22 artifacts and the F-09 status-notes path are added. For CM coverage (SWE-079, SWE-081): 05 Table 4-1 covers the seven 07 section 22 artifacts (rows 9, 11, 25, 44 to 46); it has no row for the status-notes path (finding-5) |
+| `6ea6b1d` | Charter section 10: safety-critical list extended (boot path, configuration guard and fault annunciation within the safe-state manager; menu override command path; scheduler and runtime; transmit frequency-word path and frequency verification unit) and mission-critical list (remainder of frequency control, configuration store and non-safety fields, key-input and keyer-mode selection path) | Decisions 9 and 10 (a); 03 section 6.5 item g | 10 (a) "charter section 10 safety-critical list wording per 03 section 6.5 item g"; 9 "Concur, with frequency control safety-critical ... and the override command path safety-critical as 03 proposes" | Correct: the text is item g's decision 9 reading with the X20 addition and the INSP-009 finding-1 mission-critical addition. The list still defers to 07 section 14.1 as the single authoritative component list, so the pico2 drivers and the TX_KEY watchdog that 03 section 4.3 names are covered there |
+
+Both commits are pre-baseline Log changes with `Refs:` trailers (05 Table 4-1 rows 1 and 2 are CR from the SRR tag, which is held), as decision 10 ruled ("a pre-baseline Log change"). No change applies a ruling wrongly and none introduces a defect that makes the functional baseline wrong or contradictory. This record has no Major finding, so none closes. Observation (not a finding of this record): 03 section 6.4 item 7 and section 6.5 rows f, g and X7 still describe the pre-ruling state; that is a 03 defect carried as INSP-017 finding-9 (Minor lien).
+
+**New finding (post-SRR-ruling delta).**
+
+| Finding | Kind | Severity | Items | Location | Statement | Why not Major |
+|---|---|---|---|---|---|---|
+| <a id="finding-5"></a>finding-5 (F-05, post-SRR-ruling delta) | assurance | Minor | CK-REQ-G1, SA-079-1 | 05 Table 4-1 (no row names `docs/plan/status/`); charter section 5 row "Status notes between reviews" (`6ea6b1d`) | The charter now names status notes `docs/plan/status/status-YYYY-MM-DD.md` as a project artifact, but 05 Table 4-1 assigns that path no row, control class or CR-from event, so its change control is undefined (SWE-079, SWE-081 identification of items) | No status note exists yet (`docs/plan/status/` is absent at HEAD); status notes are informational between reviews and carry no baseline content; the fix is one Table 4-1 row (Log or Record) |
+
+**Lien table (addition).**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-5 | Minor | Lien: fix before PDR | 05 author (Claude, lead SE, CM function) | PDR readiness declaration, or before the first status note is committed if earlier |
+
+Existing liens finding-1 to finding-4 are unchanged; neither commit touched the lines they cite.
+
+**Answers at the delta.** R1 Yes (this record passes `validate_docs.py`); R2 N/A; R3 Yes as at iteration 2 (the `0834da2` change is a ruled R16 edit, not a new revision needing a new self-check); R4 Yes (0 em dashes in the new 05 lines and in the charter hunks); R5 N/A. CK-REQ-G1 No (finding-1, finding-5); every other answer of iteration 2 stands. SA-079-1 (items identified and controlled) Yes for the Table 4-1 row 3 change, No for finding-5.
+
+**Completion criteria (SWE-088 b, c; 07 section 10.2): met.** Reviewer and assurance verdict APPROVED; readiness met; zero open Major findings; `product_files` equal the HEAD blobs. `verdict: APPROVED` (with liens finding-1 to finding-5). Paired record: INSP-006 (`docs/reviews/SRR/checklists/cm-plan-05.md`) was re-issued in parallel on the same 05 blob `f8de2081` (commit `d8df6a9`, APPROVED with liens), so the pair again names one product state.
+
+### Tool runs (2026-09-26, post-SRR-ruling delta, HEAD `5122a6b`, `.venv/bin/python`)
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` | 1 | this record PASS; every remaining failure is another record (drift or open-Major state of records being re-issued in parallel; INSP-006 passes after its re-issue `d8df6a9`), none caused by this edit |
+| `tools/traceability.py --report-only` | 0 | 245 requirements, 173 test cases, 4 violations (`HAZARD_REQ_NOT_TESTED`, REQ-SYS-137 and REQ-SYS-138 among them), 2 warnings; none concerns 05 or the charter; report files restored with `git checkout` |
+| `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | 0 | 65 risks, 159 candidates, 0 warnings, hazard cross-check |
+| `tools/render_rmm.py --check` | 0 | 100 rows; In place 40; `rmm.md` current (the row 3 Log route's gate) |
+| `tools/render_compliance.py --check` | 0 | validation passed, rendered file current |
+| `-m unittest discover -s tools/tests` | 1 | 400 tests, 1 failure: `test_repository_exit_zero`, on the `validate_docs.py` failures above |
+| `git rev-parse HEAD:<05>`, `HEAD:<charter>` | 0 | `f8de2081`, `41575d21`, equal to `product_files` |
+
+```
+POST-SRR-RULING DELTA (2026-09-26, HEAD 5122a6b): VERDICT: APPROVED (with liens finding-1 to finding-5)
+PRODUCT: docs/process/05-configuration-and-data-management.md@f8de2081; docs/process/00-charter.md@41575d21
+DELTA: 0834da2 applies SRR decision 10 (c) (03 item X7) correctly; 6ea6b1d applies decisions 7 and 10 (a), (b) correctly
+FINDINGS: new finding-5 Minor (no 05 Table 4-1 row for the charter status-notes path), Lien: fix before PDR; open Major 0
+MEASUREMENTS: major=0; minor=5; lien=5; open_major=0; turns=80; minutes=110
 ```
