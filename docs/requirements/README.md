@@ -4,7 +4,7 @@ Requirement data for the cwht transceiver, from stakeholder inputs down to subsy
 
 ## Layout
 
-Files marked `[created before SRR]` or `[created at PDR]` do not exist yet; the mark names the gate before which they are written.
+State on `main` at `7bb994f` (2026-09-27, after `baseline/srr`). Files marked `[created at PDR]` do not exist yet; the mark names the gate before which they are written. Files marked `(exists)` are in `baseline/srr`.
 
 ```
 docs/requirements/
@@ -15,36 +15,36 @@ docs/requirements/
 │   ├── schema.json                    JSON Schema for expectations.json (stakeholders, NGO, MOE, CON entries); stakeholders
 │   │                                  required once the file carries a baseline tag (process sections 3.0 and 11.2)
 │   ├── expectations.json              NGO-NNN (one Need, Goals, Objectives), MOE-NNN, CON-NNN; baseline null until SRR;
-│   │                                  stakeholders array added before SRR (process section 14, AL-02-21)
+│   │                                  stakeholders array (ten entries, process section 3.0), baselined at SRR
 │   └── expectations.md                rendered from expectations.json by tools/traceability.py --render (never hand-edited)
-├── sys/requirements.json              L1  module SYS      REQ-SYS-NNN        (exists, Draft; + rendered requirements.md)
+├── sys/requirements.json              L1  module SYS      REQ-SYS-NNN        (exists, 190 entries, baselined at SRR; + rendered requirements.md)
 ├── rx/requirements.json               L2  module RX       REQ-RX-NNN                                  [created at PDR]
-├── tx/requirements.json               L2  module TX       REQ-TX-NNN                                  [created before SRR: the regulatory REQ-TX-*, 01 section 4.3 row 25]
+├── tx/requirements.json               L2  module TX       REQ-TX-NNN        (exists, 16 entries: the regulatory REQ-TX-*, 01 section 4.3 row 25; completed at PDR)
 ├── pwr/requirements.json              L2  module PWR      REQ-PWR-NNN                                 [created at PDR]
 ├── ctl/requirements.json              L2  module CTL      REQ-CTL-NNN                                 [created at PDR]
 ├── me/requirements.json               L2  module ME       REQ-ME-NNN                                  [created at PDR]
 ├── sw/requirements.json               L2  module SW       REQ-SW-NNN        (firmware-wide)           [created at PDR]
 └── sw/sw-<sub>/requirements.json      L2  module SW-<SUB> REQ-SW-<SUB>-NNN  (e.g. sw/sw-keyer -> SW-KEYER)
-                                       sw/sw-keyer [created before SRR] (SI-018); other <sub> created by the architecture ADR at PDR
+                                       sw/sw-keyer (exists, 39 entries; SI-018); other <sub> [created at PDR] by the architecture ADR
 ```
 
 The `module` field of each file is the upper-cased name of the file's immediate parent directory (`sys` is `SYS`, `sw` is `SW`, `sw/sw-keyer` is `SW-KEYER`); `tools/traceability.py` rejects any other pairing (rule T-02). Charter section 6 writes the software layout as `docs/requirements/sw/sw-<sub>/requirements.json`. The layouts `sw/keyer/` and `sw-keyer/` directly under `docs/requirements/` are not used.
 
-Related directories and files (state read on 2026-09-25 at 18:15; the files change as the SRR products are written):
+Related directories and files (state read on `main` at `7bb994f`, 2026-09-27; the files change as the PDR products are written):
 
-| Artifact | Path | Ids and fields | State on 2026-09-25 |
+| Artifact | Path | Ids and fields | State at `7bb994f` |
 |---|---|---|---|
-| Verification cases | `docs/test_cases/<module>/test_cases.json` (`<module>` is the module id lower-cased, e.g. `sys`, `tx`, `sw-keyer`, plus the test-only modules `val`, `atp`, `sw-cov`, `sw-reg`, `sw-tool` of charter section 6 and 04 section 1) | `TC-<MOD>-NNN`, `requirement_ids` | schema only; the `Draft` closing case of every L1 requirement is written before SRR (process section 4.1 step 7) |
-| ConOps scenarios | `docs/conops/conops.md` | `OPS-001` to `OPS-021` headings | exists |
-| Interface control documents | `docs/icd/ICD-<A>-<B>.md` (template `docs/templates/icd.md`) | `ICD-<A>-<B>` in `design_refs` | none yet; external stubs before SRR (reviewed, not baselined), all baselined at PDR |
-| Hazards | `docs/safety/hazards.json` (schema `docs/safety/schema.json`) | `HZ-001` to `HZ-015` (version 0.2.0-pha, 2026-09-25); each control's `control_req_ids`, the hazard-level `requirement_ids` as their union | exists |
-| Measures | `docs/plan/tpm.json` | `MOP-001` to `MOP-020` in `mops[]`; `TPM-001` to `TPM-017` in `tpms[]`, each with `mop_id` (null for the process leading indicators TPM-003, TPM-009, TPM-012) | exists |
-| Decisions | `docs/decisions/adr/ADR-NNN-<slug>.md`, `docs/decisions/trade-studies/TS-NNN-<slug>.md` (templates `docs/templates/adr.md`, `trade-study.md`) | `ADR-NNN`, `TS-NNN` in `source_ids` | `ADR-001` to `ADR-025` exist; no trade study yet |
+| Verification cases | `docs/test_cases/<module>/test_cases.json` (`<module>` is the module id lower-cased, e.g. `sys`, `tx`, `sw-keyer`, plus the test-only modules `val`, `atp`, `sw-cov`, `sw-reg`, `sw-tool` of charter section 6 and 04 section 1) | `TC-<MOD>-NNN`, `requirement_ids` | exists: 173 cases in `sys` (113), `tx` (16), `sw-keyer` (43) and `sw-tool` (1); the other module files are written with their requirements at PDR |
+| ConOps scenarios | `docs/conops/conops.md` | `OPS-001` to `OPS-022` headings | exists, baselined at SRR |
+| Interface control documents | `docs/icd/ICD-<A>-<B>.md` (template `docs/templates/icd.md`) | `ICD-<A>-<B>` in `design_refs` | five external stubs exist (`ICD-CTL-KEY`, `ICD-CTL-PHONES`, `ICD-CTL-USB`, `ICD-PWR-CELL`, `ICD-TX-ANT`; reviewed at SRR, not baselined); the internal ICDs are written at PDR, and all are baselined at PDR |
+| Hazards | `docs/safety/hazards.json` (schema `docs/safety/schema.json`) | `HZ-001` to `HZ-015` (version 0.5.0-pha); each control's `control_req_ids`, the hazard-level `requirement_ids` as their union | exists |
+| Measures | `docs/plan/tpm.json` | `MOP-001` to `MOP-020` in `mops[]`; `TPM-001` to `TPM-020` in `tpms[]`, each with `mop_id` (null for TPM-003, TPM-009, TPM-012, TPM-018, TPM-019 and TPM-020, each with a `mop_note`) | exists |
+| Decisions | `docs/decisions/adr/ADR-NNN-<slug>.md`, `docs/decisions/trade-studies/TS-NNN-<slug>.md` (templates `docs/templates/adr.md`, `trade-study.md`) | `ADR-NNN`, `TS-NNN` in `source_ids` | `ADR-001` to `ADR-027` and `TS-001`, `TS-002` exist; the PDR trade studies take TS-003 onward |
 | Regulatory corpus | `docs/references/md/regulatory/47cfr-<part>.<section>.md` or `47cfr-<part>.<section>-<slug>.md` (Parts 1, 2, 15, 97; eCFR issue 2026-09-23; fetch procedure in that directory's README) | `47CFR<part>.<section>[(paragraph)]` in `source_ids` | exists |
-| Change requests | `docs/cm/cr/CR-NNN-<slug>.md` (template `docs/templates/change-request.md`) | `CR-NNN` | none before SRR |
+| Change requests | `docs/cm/cr/CR-NNN-<slug>.md` (template `docs/templates/change-request.md`) | `CR-NNN` | `CR-001` to `CR-012` on `main`; later numbers are taken when each CR file is created |
 | Product waivers | A `CR-NNN` with disposition `Approved (waiver)` or an item `W<n>` of a review decision memo (05 section 2); register in CSA item 12 of `docs/process/configuration-status.md` (05 section 6) | requirement id, tag `waived` (process section 8.7) | none yet |
 | Traceability outputs | `docs/vv/traceability-report.md`, `docs/vv/traceability.json`; inputs `docs/vv/ncr/`, `docs/vv/reports/` | matrices, findings, measurements; `NCR-NNN`, `<TC-ID>-rN` | outputs exist and are rewritten by every plain run |
-| Measurements | `docs/plan/measurements.json` | requirements volatility `MSR-02` (mirrored to `TPM-012`) | created at PDR |
+| Measurements | `docs/plan/measurements.json` | requirements volatility `MSR-02` (mirrored to `TPM-012`) | exists (committed at `1d423e5`, SRR seed) |
 
 Templates: `docs/templates/requirements.example.json` (three schema-valid SYS requirements: a KDR carrier-power requirement linked to MOP-004 and TPM-015, a Baseline paddle-timing requirement linked to MOP-012 and TPM-013 and closed on the Bench at system level, and a hazard control for HZ-003 carrying a TBR; every cited `SI`, `NGO`, `MOE`, `OPS`, `ADR`, `MOP`, `TPM` and `HZ` id exists in the repository; `child_ids` are empty because the children do not exist yet; the `REQ-SW-*` and `TC-*` ids named in `verification_note` are illustrative), `docs/templates/adr.md`, `docs/templates/icd.md`, `docs/templates/peer-review-checklist-requirements.md` (reviewer checklist).
 
@@ -99,4 +99,4 @@ Outputs land in `docs/vv/`: `traceability-report.md` (summary, findings, the SE 
 
 ## Identifier rules (charter section 6)
 
-`REQ-<MOD>-NNN` and `TC-<MOD>-NNN` where `<MOD>` is `SYS`, `RX`, `TX`, `PWR`, `CTL`, `ME`, `SW` or `SW-<SUB>` (test-only `VAL`, `ATP`, `SW-COV`, `SW-REG`, `SW-TOOL` for cases; `VER` is reserved and unused); `NGO-NNN`, `MOE-NNN`, `CON-NNN`, `OPS-NNN`, `SI-NNN` at L0; stakeholder entries keyed by unique `name`; `ICD-<A>-<B>` for interfaces (process section 3.5 fixes the token order). Three digits, allocated sequentially per file, never reused. Charter section 6 omits the firmware-wide `SW` from its module list; process section 14 (CI-9) carries that edit.
+`REQ-<MOD>-NNN` and `TC-<MOD>-NNN` where `<MOD>` is `SYS`, `RX`, `TX`, `PWR`, `CTL`, `ME`, `SW` or `SW-<SUB>` (test-only `VAL`, `ATP`, `SW-COV`, `SW-REG`, `SW-TOOL` for cases; `VER` is reserved and unused); `NGO-NNN`, `MOE-NNN`, `CON-NNN`, `OPS-NNN`, `SI-NNN` at L0; stakeholder entries keyed by unique `name`; `ICD-<A>-<B>` for interfaces (process section 3.5 fixes the token order). Three digits, allocated sequentially per file, never reused.
