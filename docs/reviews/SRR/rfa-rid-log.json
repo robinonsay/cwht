@@ -1,7 +1,7 @@
 {
   "review": "SRR",
   "package_revision": 8,
-  "updated": "2026-09-26",
+  "updated": "2026-09-27",
   "items": [
     {
       "id": "RID-SRR-001",
@@ -748,7 +748,7 @@
       "type": "RFA",
       "severity": "Routine",
       "review": "SRR",
-      "state": "Open",
+      "state": "Answered",
       "originator": "owner",
       "opened": "2026-09-26",
       "product": "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md",
@@ -772,6 +772,42 @@
           "to": "Open",
           "by": "owner",
           "note": "Raised by the owner's close-out ruling on item 8 (\"Raise an RFA for the independent impact review of CR-002, which was approved before that review, due before PDR.\"), owner statement \"I concur with your recommendations\", docs/reviews/SRR/minutes.md section \"Close-out decisions (after the first close-out run)\", commit dd39332; assignee Claude (lead SE); links docs/cm/deviations.md entry 1; raised after the memo was signed, so recorded by decision memo amendment A-6, not as a section 6 lien; recorded by the review secretary."
+        },
+        {
+          "date": "2026-09-27",
+          "from": "Open",
+          "to": "Answered",
+          "by": "claude",
+          "note": "Answer delivered: the independent Class I impact reviews of CR-002, CR-004 and CR-005 at commit 8b86c16 and the deviations.md closures of entries 1 to 4 at commit bb2485e, performed before the baseline/srr tag as SRR close-out item C rules (minutes section \"Close-out decisions A to C and repository protection\", commit 786822a, owner statement \"Done and added. I approve the other recommendations\"); decision memo amendment A-7; recorded by the review secretary. Verified waits for the owner (01 section 10.3: the owner verifies an RFA)."
+        }
+      ],
+      "response": "Answered by the independent Class I impact review of CR-002 section 4, recorded in CR-002 section 6 at commit 8b86c16 (2026-09-27; checked at HEAD 0da559a). Reviewer: a separate independent reviewer agent that authored none of CR-002, CR-004 and CR-005 and none of their implementing commits, performed in place of the INSP-003 reviewer that this item's requested action names, as SRR close-out item C (minutes 786822a) and docs/cm/deviations.md entry 4 provide. Result: impact review complete, reviewer concurrence \"Concur with comments\"; Class I concurred; findings 1 to 3, all Minor, liens due PDR for their owners (finding-1 hazard-analysis scope wider than section 8.1, carried by INSP-008 finding-17; finding-2 tool-validation consequences and affected_cis rows 30 and 40 not named; finding-3 04 section 7.4 row 7.3.6 stale since c774851). No finding changes the owner's basis, so CR-002 does not return to Submitted. The same commit records the Class I impact reviews of CR-004 and CR-005 (as amended), which close-out item C adds to this item's scope (findings all Minor, liens due PDR; neither CR returns to Submitted). docs/cm/deviations.md entries 1 to 4 are closed by dated closure lines citing this RFA at commit bb2485e. Item C closes this RFA early (before the tag rather than at the PDR readiness declaration); the owner verifies the answer (01 section 10.3), so the item stays Answered until the owner's verification is transcribed.",
+      "answered": "2026-09-27",
+      "evidence": [
+        {
+          "kind": "cr",
+          "ref": "CR-002",
+          "note": "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md section 6, independent impact review and reviewer concurrence at 8b86c16"
+        },
+        {
+          "kind": "commit",
+          "ref": "8b86c16",
+          "note": "Independent Class I impact reviews of CR-002, CR-004 and CR-005 (SRR close-out item C)"
+        },
+        {
+          "kind": "cr",
+          "ref": "CR-004",
+          "note": "docs/cm/cr/CR-004-rustos-pin-2ec64c0.md section 6 at 8b86c16 (item C scope)"
+        },
+        {
+          "kind": "cr",
+          "ref": "CR-005",
+          "note": "docs/cm/cr/CR-005-complexity-counting-convention.md section 6 at 8b86c16 (item C scope, CR as amended under item A)"
+        },
+        {
+          "kind": "commit",
+          "ref": "bb2485e",
+          "note": "docs/cm/deviations.md closures of entries 1 to 4 citing this RFA"
         }
       ]
     }
