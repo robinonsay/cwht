@@ -17,7 +17,8 @@ checklist_revision: B
 checklist_tool_validation: "docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/tool-validation-tv-014-to-tv-019.md
 product: docs/cm/tool-validation/TV-014-ltspice-batch.md
-# product_commit: iteration 3 re-issue 3 (the second delta of the owner's route (1) fix loop, on the finding-21 fix)
+# product_commit: iteration 3 re-issue 4 (accreditation delta) reviews 1db319a (OD-24b recorded): TV-014 80bcdedf,
+# TV README 7c90f143, lock e1c811b0; all other product blobs unchanged since bd78bd5. Iteration 3 re-issue 3 (the second delta of the owner's route (1) fix loop, on the finding-21 fix)
 # reviews bd78bd5 (the author's run 6 record commit): wrapper 88b71475 and test module e90b0ef1 of 45531ac, fixture
 # tree f1497c52, run 6 procedure 72dfa2d7 and transcript f87f8fac, TV-014 9c6d477a, lock be96420b, TV README
 # f4757da2, tools/README.md a5e9cab6; every product blob is unchanged at HEAD 7126a80 (the one later commit touches
@@ -31,8 +32,8 @@ product: docs/cm/tool-validation/TV-014-ltspice-batch.md
 # aa746f0 freeze of iteration 2 except the TV README (87fb1e8c) and the lock (b45c8654), which c827202
 # (WP-PDR-08) changed on rows other than LTspice. Iteration 2 reviewed aa746f0 and iteration 1 b362395 (blobs
 # in the front matter of dfde624 and 3e9d30f)
-product_commit: "bd78bd586fb9fe873d67bb1418217fddaa6cdec4"
-product_files: ["tools/ltspice-batch.sh@88b71475464bf97ff4e21ec188443edd9c74837b", "tools/tests/test_ltspice_batch.py@e90b0ef1468c4118d6b5116a68e19c6bd2b50a54", "tools/tests/fixtures/ltspice/known-answers.json@84ecdd0ab4773e4be4871cff6f14860fd170f608", "tools/tests/fixtures/ltspice/fake-support/bin/wine@42177aad7ef4ab945c870836c93e7735e5c4f350", "tools/tests/fixtures/ltspice/fake-support/bin/wineserver@6d853df3c6e169d489e38deb281685261b900282", "tools/tests/fixtures/ltspice/rc-step-tran.net@bd19be4123841c512402ffec3009d815ded2de02", "docs/cm/tool-validation/TV-014-ltspice-batch.md@9c6d477af267f9595b7850e9cf8c8f8aec25f2df", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run6.sh@72dfa2d7395ee6c31b38db7859036da3edbcea1b", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run6.log.txt@f87f8fac8c22aff08e425174296fee11d50178d5", "docs/cm/tool-validation/README.md@f4757da23bcd4f8220e51de21cc76321cf33fb94", "tools/toolchain.lock.md@be96420b699fe659e7360194d2ce054263121915", "tools/README.md@a5e9cab6415d6d94a33fef03a18f4a408fc4ca29"]
+product_commit: "1db319ad1907ceb3806d758f8df923d6b29c861d"
+product_files: ["tools/ltspice-batch.sh@88b71475464bf97ff4e21ec188443edd9c74837b", "tools/tests/test_ltspice_batch.py@e90b0ef1468c4118d6b5116a68e19c6bd2b50a54", "tools/tests/fixtures/ltspice/known-answers.json@84ecdd0ab4773e4be4871cff6f14860fd170f608", "tools/tests/fixtures/ltspice/fake-support/bin/wine@42177aad7ef4ab945c870836c93e7735e5c4f350", "tools/tests/fixtures/ltspice/fake-support/bin/wineserver@6d853df3c6e169d489e38deb281685261b900282", "tools/tests/fixtures/ltspice/rc-step-tran.net@bd19be4123841c512402ffec3009d815ded2de02", "docs/cm/tool-validation/TV-014-ltspice-batch.md@80bcdedfafe4d84a66cb156b5e08270e00e86884", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run6.sh@72dfa2d7395ee6c31b38db7859036da3edbcea1b", "docs/cm/tool-validation/evidence/ltspice-batch-2026-09-27-run6.log.txt@f87f8fac8c22aff08e425174296fee11d50178d5", "docs/cm/tool-validation/README.md@7c90f14310f7deedf518596bc57c5b4c7e2fc277", "tools/toolchain.lock.md@e1c811b08b742e8ad24ff053efc9c4476fbffd29", "tools/README.md@a5e9cab6415d6d94a33fef03a18f4a408fc4ca29"]
 fixture_trees: ["tools/tests/fixtures/ltspice@f1497c5258ed078d44ccc7bb0d4ef95573c871ee"]
 tv_ids: [TV-014]
 tool_class: B
@@ -43,7 +44,7 @@ product_size: 1 record (TV-014), 4 purposes, 46 known-answer tests, 14 fixture f
 sprint: PDR-prep
 author_agent: "author:WP-PDR-07 (Claude as tool owner)"
 tool_author_agent: "author:WP-PDR-07 (Claude as tool owner)"
-reviewer_agent: "reviewer:WP-PDR-07-tool-validation-iter6 (independent; authored no part of WP-PDR-07, TV-014, the wrapper, the tests, the doubles, runs 5 and 6, the finding-20 or finding-21 fix or earlier iterations; iteration 3 re-issue 2 by reviewer:WP-PDR-07-tool-validation-iter5; iteration 3 re-issue 1 by reviewer:WP-PDR-07-tool-validation-iter4; iteration 1 by reviewer:WP-PDR-07-tool-validation-iter1, iteration 2 by reviewer:WP-PDR-07-tool-validation-iter2, iteration 3 by reviewer:WP-PDR-07-tool-validation-iter3)"
+reviewer_agent: "reviewer:WP-PDR-07-tool-validation-iter7 (independent; authored no part of 1db319a or of the product; iteration 3 re-issue 3 by reviewer:WP-PDR-07-tool-validation-iter6; authored no part of WP-PDR-07, TV-014, the wrapper, the tests, the doubles, runs 5 and 6, the finding-20 or finding-21 fix or earlier iterations; iteration 3 re-issue 2 by reviewer:WP-PDR-07-tool-validation-iter5; iteration 3 re-issue 1 by reviewer:WP-PDR-07-tool-validation-iter4; iteration 1 by reviewer:WP-PDR-07-tool-validation-iter1, iteration 2 by reviewer:WP-PDR-07-tool-validation-iter2, iteration 3 by reviewer:WP-PDR-07-tool-validation-iter3)"
 # criticality: neither (03 sections 4.3.1 and 6.1.1: no tool is a safety-critical or mission-critical
 # component). 07 section 2.1.1: code of a "Neither" component needs no assurance review unless the file holds
 # unsafe (a shell script has none); the tool validation template has no 2.1.1 row. The swe-136 and swe-070
@@ -68,12 +69,12 @@ iteration: 3
 # (finding-17). Iteration 3 is the last iteration; finding-1 stays Open, so the record is escalated to the owner
 # (rule C1; 07 sections 3.4 phase 3 and 10.2)
 readiness_met: false
-# reviewer_verdict: APPROVED at iteration 3 re-issue 3 (finding-21 Verified; finding-1 and finding-20 re-checked on
+# reviewer_verdict: APPROVED held at iteration 3 re-issue 4 (1db319a records exactly OD-24b; new Minor finding-23). APPROVED at iteration 3 re-issue 3 (finding-21 Verified; finding-1 and finding-20 re-checked on
 # run 6 and held Verified; no Major open). The 14 open Minor findings become liens under rule C1, owner the tool owner
 # (WP-PDR-07), due at the CDR readiness declaration unless fixed before
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-# verdict: held at NEEDS CHANGES only because readiness R3 does not hold (validate_docs.py exits 1 on 10 other
+# verdict: NEEDS CHANGES held at iteration 3 re-issue 4 for the same reason (R3). Held at NEEDS CHANGES only because readiness R3 does not hold (validate_docs.py exits 1 on 10 other
 # records; tools/validate_docs.py refuses an APPROVED verdict with readiness_met false). The lead SE sets verdict
 # APPROVED, with readiness_met true, in the commit that makes validate_docs.py exit 0 (or the commit right after it),
 # provided no product blob has changed; OD-24b (accreditation) may go to the owner on the reviewer verdict
@@ -785,3 +786,45 @@ RE-RUN: CWHT_LTSPICE_INTEGRATION=1 CWHT_LTSPICE_SLOW=1 .venv/bin/python -m unitt
 KEY CHECK: CaptureAnalytics=false on line 3, count 1, before (14:55:42, 14:58:04, 14:59:11, 15:02:32, 15:03:00) and after (14:58:42, 15:01:49, 15:02:50, 15:03:13, 15:03:37) every reviewer run
 MEASUREMENTS: size=1 record, 4 purposes, 46 tests, 14 fixture files, 465 LOC; turns=36; minutes=40; major=5; minor=17; unsafe_sites=0
 ```
+
+## Iteration 3 re-issue 4: accreditation delta on 1db319a (2026-09-27)
+
+**Scope (rule C1 delta).** Only the commits since the re-issue 3 product blobs that touch products: `1db319a` (TV-014, TV README, lock). `57eacc9` adds evidence files only (no product blob); `bb09ad2` and `1f4495b` touch the status note only. Wrapper `88b71475`, test module `e90b0ef1`, fixture tree `f1497c52`, run 6 procedure and transcript and `tools/README.md` are unchanged at HEAD. No LTspice run was made.
+
+**Source decision.** Status note `docs/plan/status/status-2026-09-27.md` section 13 (`bb09ad2`): owner words "Perfect! We can approve it"; ACC-LTSPICE-001 for wrapper blob `88b71475464bf97ff4e21ec188443edd9c74837b` (TV-014 run 6) with LTspice 26.0.2 as locked; credit-bearing from 2026-09-27; written into TV-014 section 9 and the lock.
+
+| Check | Result |
+|---|---|
+| TV-014 section 9 row (blob `80bcdedf`) quotes the owner words verbatim and cites sections 12 and 13 and `bb09ad2` | Met |
+| Scope equals the proposed ACC-LTSPICE-001 statement: purposes 1 to 4, blob `88b71475` (commit `45531ac`), bundle `26.0.2.1`, `LTspice.exe` SHA-256 `a94eb178...793f06` (equal to the lock row), bottle 25.0.1.38665 | Met; no scope added or widened |
+| Date 2026-09-27; limitation 8 discharged (section 13: credit-bearing from that date) | Met |
+| Added text beyond section 13: limitations carried, finding-22 lien, change of blob, build, hash or Wine layer is a re-validation trigger | Restates section 6, section 7 and this record; no new decision. Liens: only finding-22 named (finding-23) |
+| Lock (`e1c811b0`): LTspice row Accreditation "Accredited", Wine layer row "Accredited (with LTspice, ACC-LTSPICE-001)", section 5 TV-014 row | Met; the Wine layer is inside the scope statement (bottle 25.0.1.38665) |
+| TV README (`7c90f143`) TV-014 row Accredited with the same citations | Met |
+| Commit hygiene: `1db319a` touches only the three files; the pre-existing TS-012 change not included | Met (`git show --stat 1db319a`) |
+
+### New finding
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-23 | reviewer | Minor | TV-F1, TV-F3 | TV-014 section 8 and section 9 row; TV README TV-014 row; lock LTspice row and section 5 TV-014 row | Stale or partial text beside the accreditation: TV-014 section 8 still reads "Pending" (review done at `018ab62`); the README and lock section 5 rows still say "pending: INSP-038 delta on finding-21"; the lock LTspice TV column still starts "TV pending (due PDR)"; the section 9 row names only finding-22 as a lien, not the 14 liens of re-issue 3. The decision itself is recorded correctly | Open | Pending | |
+
+All other findings are as at iteration 3 re-issue 3 (not re-checked). finding-23 is a lien under rule C1 with the others (tool owner, CDR readiness declaration).
+
+### Reviewer run
+
+| Command | Exit | Result |
+|---|---|---|
+| `.venv/bin/python tools/validate_docs.py` (with this record) | 1 | this record PASS with no drift note; the same 10 other records FAIL on record drift as at re-issue 3 (finding-17 class) |
+
+### Verdict (iteration 3 re-issue 4)
+
+```
+VERDICT: APPROVED (reviewer verdict held; record verdict held at NEEDS CHANGES for readiness R3 only: validate_docs.py exits 1 on 10 other records)
+PRODUCT: 1db319a (TV-014 80bcdedf, TV README 7c90f143, lock e1c811b0); other product blobs unchanged since bd78bd5
+FINDINGS:
+- 1db319a records exactly the OD-24b decision of status note section 13 (bb09ad2); scope equals ACC-LTSPICE-001 as proposed.
+- [Minor] finding-23 (new) Open: stale "pending" text in TV-014 section 8, README and lock section 5 rows; section 9 names one lien of 15. Lien.
+MEASUREMENTS: size=3 files, 5 changed lines; major=0; minor=1
+```
+
