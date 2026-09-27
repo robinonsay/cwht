@@ -3,24 +3,27 @@
 # docs/process/06-risk-and-decision-analysis.md sections 14.3 step 6 and 16). Independent review of TS-004
 # with docs/templates/peer-review-checklist-risk.md section B (PDR work plan WP-PDR-27, record path as the
 # plan names it). Iteration 1 at freeze F0 (rule C2, freeze commit 70a3a33).
+# Iteration 2 (delta, rules C1 and C2) at main e2d3226: one product blob drifted after the freeze,
+# hardware/enclosure/board-outline.json 27dbacc7 -> d7977cf3 (commits 70d11ef and 433a944, TS-011
+# revisions 1 and 2). The other six blobs are unchanged. Every blob below is on main; none is branch-only.
 id: INSP-082
 checklist: peer-review-checklist-risk
 checklist_revision: A
 checklist_file: docs/reviews/PDR/checklists/ts-004-board-thickness-and-panelization.md
 product: docs/decisions/trade-studies/TS-004-board-thickness-and-panelization.md
-product_commit: "70a3a33"
+product_commit: "e2d3226"
 product_blob: 03eb004d28ec84b9419fc43d1efc6ad7374c1393
-product_files: ["docs/decisions/trade-studies/TS-004-board-thickness-and-panelization.md@03eb004d28ec84b9419fc43d1efc6ad7374c1393", "hardware/sim/enclosure/thermal_screen.py@78892ca27ace63c1bbd5965b730b0ccd6e85ab53", "hardware/sim/enclosure/tolerance_stack.py@376e403c255c8cffcb4694e8160394f3a158a07b", "hardware/sim/enclosure/trade_matrix.py@c76b0f70d05a64c282a9066204a64ffe1e217fde", "hardware/sim/enclosure/out/trade-matrix.txt@c6023d697716d2c024c0033948aaeaa3aa3b7c0e", "hardware/enclosure/board-outline.json@27dbacc7dda7f79e6cba3234ee77f6453e304906", "docs/reviews/PDR/figures/ts011-thermal-screen.png@47d81e61ee7039b3126158c577170af30686752a"]
+product_files: ["docs/decisions/trade-studies/TS-004-board-thickness-and-panelization.md@03eb004d28ec84b9419fc43d1efc6ad7374c1393", "hardware/sim/enclosure/thermal_screen.py@78892ca27ace63c1bbd5965b730b0ccd6e85ab53", "hardware/sim/enclosure/tolerance_stack.py@376e403c255c8cffcb4694e8160394f3a158a07b", "hardware/sim/enclosure/trade_matrix.py@c76b0f70d05a64c282a9066204a64ffe1e217fde", "hardware/sim/enclosure/out/trade-matrix.txt@c6023d697716d2c024c0033948aaeaa3aa3b7c0e", "hardware/enclosure/board-outline.json@d7977cf385e8f76af8ad098497333b2f606cf1f8", "docs/reviews/PDR/figures/ts011-thermal-screen.png@47d81e61ee7039b3126158c577170af30686752a"]
 product_size: 4 thickness and via alternatives (T1 to T4; T2 to T4 dropped at M3) and 2 panel forms; 5 mandatory and 5 enhancing criteria, panel sub-decision 4 criteria
 sprint: PDR-prep
 author_agent: "author:WP-PDR-27 wave 1a (Claude as ME designer)"
-reviewer_agent: "reviewer:WP-PDR-27-ts-004-iter1 (independent; authored no part of WP-PDR-27)"
+reviewer_agent: "reviewer:WP-PDR-27-ts-004-iter2 (delta; independent; authored no part of WP-PDR-27 or of TS-011 revisions 1 and 2)"
 # criticality: the study sets the board thickness and via treatment inside the heat path whose node and
 # sensor TS-011 selects; it selects no 07 section 14.1 component, sensor or threshold (lead SE may overrule)
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+iteration: 2
 readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
@@ -33,8 +36,8 @@ findings_verified: 0
 findings_deferred: 0
 deferred_rids: []
 items_no: []
-effort_turns: 20
-effort_minutes: 30
+effort_turns: 32
+effort_minutes: 50
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -119,3 +122,51 @@ CK-RSK-A1 to CK-RSK-A11 and readiness R2 (the product is a trade study).
 ## Measurements (SWE-089)
 
 Items checked 10 (section B) plus readiness 4; items answered No 0; findings 0 Major, 2 Minor; fixed 0, deferred 0; iteration 1; renders inspected 1; effort about 20 turns and 30 minutes (session shared with INSP-081, 073, 074).
+
+## Iteration 2: delta on the drifted blob (2026-09-27, main HEAD `e2d3226`)
+
+**Scope (rules C1 and C2).** Iteration 1 was APPROVED with no Major finding, so this delta verifies only that the product set still supports the record after the one blob that changed since the freeze. `git rev-parse HEAD:<path>` and `git hash-object <path>` at `e2d3226` equal each other for all 7 product files. Six equal their iteration 1 blobs. `hardware/enclosure/board-outline.json` moved from `27dbacc7` (the `70a3a33` draft) to `d7977cf3` through `70d11ef` (TS-011 revision 1) and `433a944` (TS-011 revision 2). The old blob survives only on the stale `cr/CR-014` branch; the new one is on main, so the record verdict is not held under the lead SE convention. The TS-004 study itself (`03eb004d`) did not change.
+
+**Independence and search.** This invocation authored no part of WP-PDR-27, TS-004 or TS-011 revisions 1 and 2, and edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (delta iteration practice, record drift rule) ran before any `grep`; `grep` afterwards only pinned lines in known paths (the plan rules C1 and C2, TS-004 references to the outline, the validator). The rustos tree was not read.
+
+**Hunks read (`git diff 27dbacc7 d7977cf3`, 100 insertions, 9 deletions, 9 hunks), each against the TS-004 lens:**
+
+| Hunk | Change | Effect on TS-004 |
+|---|---|---|
+| 1 `revision` | 0 to 2, TS-011 revision 2 jack features | None |
+| 2 `sources` | adds `board_field_thermal.py` and `drop_and_axial.py` | None |
+| 3 `mounting` | adds `boss_gussets` and six `front_shell_posts` (6 mm, top side, copper-free pads) | None. `board.thickness` 1.0, `board.outline` 130 x 62, `board.panelization` (two 5 mm tab-routed rails) and the six `mounting.holes` are unchanged, so M5 (decision 87, six bosses) and P1 still hold. The front-shell posts bear on the board top against a front-face drop; the K2 criterion is button-press deflection toward the back, carried by the unchanged `support_posts` (count 2, basis TS-004 L3), so K2 and its scores are unchanged |
+| 4 `keepouts_top` | adds post pads and the NTC-1 and NTC-2 3 x 3 mm keepouts | None. The sensors sit on the top copper of the PA thermal pad; the Type VII filled and capped via array of T1 leaves that surface plated flat, so nothing in the via-fill choice conflicts |
+| 5 `heatsink` | in-situ maximum 5.5 to 6.11 K/W; 5.5 kept as `in_situ_thermal_resistance_design_point_k_per_w`; catalog limit 4.28 K/W; guard slot and rib widths | Consistent with M3. TS-004 M3 screens at 5.5 K/W, now the design point. The 6.11 K/W maximum is the T1 threshold: chain 9.74 K/W below the heat sink (which includes the 1.0 mm via array, 4.7 K/W), and 45 + 4.1 x (9.74 + 6.11) = 110.0 C; 45 + 4.1 x (9.74 + 5.5) = 107.5 C, equal to TS-004 M3 for T1. T2 adds 2.9 K/W and still fails M3 anywhere in the range. This quantifies the direction finding-1 asks TS-004 to state; it does not close finding-1, because TS-004 section 6 is unchanged |
+| 6 `port_block` | adds a 20 x 20 x 2 mm inner flange | None |
+| 7, 8 `end_faces.minus_x` | jack collars, gasket ring, filtering rule; USB shroud | None (end-wall features off the board) |
+| 9 new `thermal_sensors`, `case_filament` | NTC placement rule 14; PC-class filament rule 15 | None on thickness, via fill or panel form. The filament rule concerns M8 of TS-011, not a TS-004 criterion |
+
+**Reproduction.** On main at `e2d3226`: `trade_matrix.py --check`, `thermal_screen.py --check` and `tolerance_stack.py --check` each exit 0; none of the three reads `board-outline.json`, and `git status` shows no tracked output change afterwards.
+
+**Visual closure.** No render changed (`ts011-thermal-screen.png` still `47d81e61`, inspected at iteration 1); no render is needed for this delta.
+
+### Findings (iteration 2; current state of every finding of this record)
+
+| Finding | Severity | State | Disposition |
+|---|---|---|---|
+| finding-1 | Minor | Open | Unchanged: TS-004 section 6 still states only the favourable direction. The outline now carries the 6.11 K/W T1 threshold, which is the number the fix sentence should cite. Lien due the CDR readiness declaration under rule C1 if not fixed before the TS-004 re-issue of cross item X-1 |
+| finding-2 | Minor | Open | Unchanged: K5 anchors and the K2 to K4 interpolation rule not stated. Lien as finding-1 |
+
+No new finding. No Major finding.
+
+### Record verdict (iteration 2)
+
+`reviewer_verdict: APPROVED` and `verdict: APPROVED`: zero Major findings, two Minor findings open as liens (rule C1), readiness met, and every blob of `product_files` equals `git rev-parse HEAD:<path>` on main. Cross item X-1 stands (the design-to-cost pivot of the status note will re-plan TS-004; any re-issue is a new delta iteration of this record under rule C2).
+
+### Commands (iteration 2)
+
+- `git rev-parse HEAD:<path>` and `git hash-object <path>` at `e2d3226` for the 7 product files: equal; one changed blob (`d7977cf3`).
+- `git log --oneline 70a3a33..HEAD -- hardware/enclosure/board-outline.json`: `70d11ef`, `433a944`.
+- `git diff 27dbacc7 d7977cf3`: 9 hunks, all read.
+- The three enclosure checkers `--check`: exit 0.
+- `.venv/bin/python tools/validate_docs.py`: this record passes (see return).
+
+### Measurements (SWE-089, iteration 2)
+
+Blobs re-checked 7; drifted 1; hunks read 9; new findings 0; open Minor 2 (liens); renders inspected 0 (none changed); effort about 12 turns and 20 minutes; cumulative 32 turns and 50 minutes.
