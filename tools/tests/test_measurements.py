@@ -9,7 +9,10 @@ schema test of test_tools.py and are not used here):
   linkmap/over-red-line.map, small.ld  1 KiB regions; hand-computed FLASH 0x310 = 784 B (76.56 %,
                                  above the 70 % red line) and RAM 0x100 = 256 B (25 %)
   junit/                         run1 = run2-same (3 passed cases); run2-diff has one seeded failure;
-                                 empty.xml has no case
+                                 empty.xml has no case; run-failing.xml (one failure) and
+                                 run-skipped.xml (one skipped case) are each compared with themselves,
+                                 so the runs are identical and only the "all passed" clause can fail
+                                 them (INSP-041 finding-1)
   lcov/                          hand-counted totals per crate and an llvm-cov JSON export
   records/records.json           five records: a supersedes re-key, a Not yet measured record retired
                                  by the first Measured record, MSR-18 and MSR-19 citing the map
@@ -112,6 +115,32 @@ class DiffRunsTests(unittest.TestCase):
         result = run_cli("--diff-runs", str(FIXTURE / "junit/empty.xml"), str(FIXTURE / "junit/empty.xml"))
         self.assertEqual(1, result.returncode)
         self.assertIn("FAIL run 1 holds no test case", result.stdout)
+
+    def test_identical_failing_runs_fail(self) -> None:
+        # Identical and non-empty: only the "all passed" clause of purpose 2 can reject this pair.
+        result = run_cli("--diff-runs", str(FIXTURE / "junit/run-failing.xml"), str(FIXTURE / "junit/run-failing.xml"))
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertEqual(
+            [
+                "run 1: 3 cases, run 2: 3 cases, passed in both: 2",
+                "NOT PASSED ('cwht-core::heartbeat', 'spin_wait_counts', 'failure')",
+                "FAIL identical result sets, all passed (SWE-186)",
+            ],
+            result.stdout.splitlines(),
+        )
+
+    def test_identical_skipped_runs_fail(self) -> None:
+        # A skipped case is not a passed case: two identical runs with one skipped case fail.
+        result = run_cli("--diff-runs", str(FIXTURE / "junit/run-skipped.xml"), str(FIXTURE / "junit/run-skipped.xml"))
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertEqual(
+            [
+                "run 1: 3 cases, run 2: 3 cases, passed in both: 2",
+                "NOT PASSED ('cwht-core::heartbeat', 'spin_wait_counts', 'skipped')",
+                "FAIL identical result sets, all passed (SWE-186)",
+            ],
+            result.stdout.splitlines(),
+        )
 
 
 class CoverageTests(unittest.TestCase):

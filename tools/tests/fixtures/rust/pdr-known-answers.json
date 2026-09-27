@@ -9,7 +9,16 @@
   "cov-kat": {
     "tool": "cargo +1.98.0 llvm-cov (TV-021)",
     "clean": "--summary-only --fail-under-lines 100 --fail-under-regions 100: exit 0; TOTAL lines 13 of 13, functions 3 of 3, regions 7 of 7 (100.00 percent each)",
-    "seeded-gap": "--features seeded-gap --text --fail-under-lines 100 --fail-under-regions 100: exit 1; exactly one line with count 0, line 6 (`1`)"
+    "seeded-gap": "--features seeded-gap --text --fail-under-lines 100 --fail-under-regions 100: exit 1; exactly one line with count 0, line 6 (`1`)",
+    "seeded-gap-lcov": {
+      "command": "cargo +1.98.0 llvm-cov --locked --features seeded-gap --lcov --output-path <f>, then tools/measurements.py --coverage <f> (TV-021 K21-4, INSP-040 finding-2)",
+      "exit": 0,
+      "da_zero": ["DA:6,0"],
+      "lf": 6,
+      "lh": 5,
+      "measurements_line_contains": "lines 5/6 = 83.33 %",
+      "provenance": "hand-derived from src/lib.rs: llvm-cov gives a line record to each line that starts a counted region, here lines 2 (fn sign), 3 (if x < 0), 4 (-1), 6 (1), 8 (closing brace of sign) and 12 (test negative); line 15 (test positive) is compiled out by seeded-gap; the only test calls sign(-5), so line 6 is never executed: LF 6, LH 5, DA:6,0, and 5/6 = 83.33 percent"
+    }
   },
   "cond-kat": {
     "tool": "RUSTFLAGS=-Zcoverage-options=condition cargo +nightly-2026-08-24 llvm-cov --branch --text (TV-023, MSR-14, non-credit)",
@@ -31,14 +40,14 @@
   "rustos-blinky": {
     "tool": "cargo +1.98.0 build --release (TV-020; 07 sections 8.3 and 17.3)",
     "source": "rustos templates/pico2 at the lock section 3 pin 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c with the three-line Cargo.toml diff of docs/vv/reports/TC-SW-TOOL-001-r3/blinky-build.txt (package name; api and pico2 as path dependencies into the export)",
-    "same_layout": "two clean builds in one layout (different target directories) give byte-identical ELF files",
-    "reference": "docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf, ELF SHA-256 3c0ac0747a761bf9880e21f80ba613cfcb5e8f5ddddbdea7af85dbf8952bbd08, loadable image (rust-objcopy -O binary) SHA-256 c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df, 2008 bytes",
-    "layout_dependence": "the crate disambiguator hashes in the symbol names (for example _RNvCs<hash>_5pico2...) are derived from the absolute path of each path dependency, and the linker places functions in symbol order, so builds in layouts at different absolute paths may place main and rust_begin_unwind in a different order: equal loadable size (2008 bytes) and sections, different bytes. The ELF hash of the reference is therefore reproduced only at the reference's own absolute path"
+    "same_path": "pass criterion (K20-4): two clean builds of the same source at one absolute path (layout A, different target directories) both exit 0 and give byte-identical ELF files and byte-identical loadable images (rust-objcopy -O binary); checked by cmp, no hand judgement",
+    "reference": "docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf, ELF SHA-256 3c0ac0747a761bf9880e21f80ba613cfcb5e8f5ddddbdea7af85dbf8952bbd08, loadable image (rust-objcopy -O binary) SHA-256 c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df, 2008 bytes; built on 2026-09-26 at another absolute path, so it is not a pass criterion of any check",
+    "cross_path_observation": "not a pass criterion: the layout B build and the reference are compared with the layout A build and reported (loadable image equal or not; section table of rust-size -A equal or not). The crate disambiguator hashes in the symbol names (for example _RNvCs<hash>_5pico2...) are derived from the absolute path of each path dependency, and the linker places functions in symbol order, so a build at another absolute path may place main and rust_begin_unwind in a different order: equal section sizes, different bytes (TV-020 limitation 1; INSP-040 finding-1). The reference ELF is reproduced only at its own absolute path"
   },
   "cwht-app": {
     "tool": "cargo +1.98.0 build -p cwht-app --release --locked --target thumbv8m.main-none-eabihf (TV-020, MSR-28)",
     "reference": "docs/vv/reports/TC-SW-TOOL-001-r3/cwht-app.elf (built at 0bcea39; firmware/ sources unchanged since, only firmware/unsafe-audit.md differs), ELF SHA-256 388d1d16dae55d33fcc0c69d33689abcf6d056bcc16e44a18abab2ac2300a5bf, loadable image SHA-256 828bca3546099ab8c65131c87bed5fc355208d0aade12cf315e9915c836e61f4",
-    "same_layout": "two clean builds in one layout give byte-identical ELF files",
-    "cross_layout": "the loadable image is byte-identical across layouts and equal to the reference; the ELF differs across layouts because the release profile keeps debug information, which names the build path"
+    "same_path": "pass criterion (K20-5, MSR-28): two clean builds of the same source at one absolute path (layout A, different target directories) both exit 0 and give byte-identical ELF files and byte-identical loadable images; checked by cmp, no hand judgement",
+    "cross_path_observation": "not a pass criterion: the layout B build and the reference are compared with the layout A build and reported (loadable image equal or not; section table of rust-size -A equal or not). The ELF differs across paths because the release profile keeps debug information, which names the build path; the loadable image was equal across paths in runs 1 and 2, which is not guaranteed, because cwht-app takes the rustos crates as path dependencies (the mechanism of the rustos-blinky entry)"
   }
 }
