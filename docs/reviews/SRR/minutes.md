@@ -154,3 +154,15 @@ Recorded:
 - Items A to C are ruled as recommended.
 - The owner confirms that the repository protection of close-out item 6 is in place (precondition P8).
 - The presenter's anonymous check (GitHub REST API, 2026-09-27) shows branch `main` reported as `protected: true`. Rulesets are not visible without authentication, so the tag rule rests on the owner's confirmation.
+
+### Run 4 acceptance and repository protection detail
+
+The presenter asked the owner two things:
+- Check whether the `main` protection also applies to the admin account, since the anonymous API showed the admin enforcement flag off. If the rule was made on the Rulesets page, no action was needed; if it was made under Settings, Branches, the owner should tick "Do not allow bypassing the above settings".
+- Accept the results of TC-SW-TOOL-001 run 4: steps 11 and 12 (OA-1) and the OA-2 picotool verify known answer.
+
+Owner statement, verbatim: "I think the github settings are fine and yes I approve the results"
+
+Recorded:
+- The owner keeps the repository protection as set (P8 stands).
+- The owner accepts the TC-SW-TOOL-001 run 4 results. Section 12 of `docs/vv/reports/TC-SW-TOOL-001-r4.md` now records the acceptance.

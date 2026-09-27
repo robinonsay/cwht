@@ -176,4 +176,4 @@ The reviewer, not the author, changes the record (`docs/reviews/SRR/checklists/f
 
 - Results authenticated by (conductor): claude, 2026-09-26
 - Witnessed by: owner, 2026-09-26 19:17 to 19:23 CDT (steps 11 and 12 performed by the owner's hands and counted by the owner; statements transcribed verbatim in `docs/reviews/SRR/minutes.md`, "OA-1 and OA-2 performed")
-- Authorization of acceptability (owner): pending
+- Authorization of acceptability (owner): accepted 2026-09-27. Owner statement, verbatim: "yes I approve the results" (`docs/reviews/SRR/minutes.md`, "Run 4 acceptance and repository protection detail"). Transcribed by Claude (lead SE).
