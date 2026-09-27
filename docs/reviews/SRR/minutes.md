@@ -65,3 +65,32 @@ The owner brought the Pico 2 during the session. Owner statement, verbatim: "I g
 | OA-2 picotool verify known answer | `kat-target.uf2`, from `picotool uf2 convert` (sha256 `f8ef643e...c093`, equal to the known answer), loaded; `picotool verify kat-target.elf`; then a copy with one byte flipped at flash `0x1000002f`, 19:23 CDT | true image OK (exit 0); altered copy "First mismatch at 0x1000002f", exit 245 | none needed | Pass |
 
 Raw outputs are filed with the TC-SW-TOOL-001 run 4 report after the close-out run finishes. This closes the owner part of entrance row 20. INSP-016 re-verifies the evidence.
+
+### Schedule and enclosure inputs (after the disposition)
+
+Owner statement on the schedule, verbatim: "But in general, I agree with the schedule. I'm fine with, you know, slipping the schedule I'd rather do it right." The proposed rebaseline is approved:
+- PDR about Tue 2026-09-29;
+- CDR and orders about Sat 2026-10-03 to Sun 2026-10-04, with PCBWay closed 10-01 to 10-04;
+- boards about 10-20 to 10-23;
+- enclosures and TRR about 10-22 to 10-27.
+
+`docs/plan/schedule.md` is updated after the close-out run, with an INSP-023 delta re-issue.
+
+Owner input on the enclosure, verbatim: "something we should consider for the enclosure for the radio is a like cots um, aluminum or metal box that we can buy from like Amazon or some other provider uh, instead of getting it CNC'd, which might be cheaper. Uh, and building it to that specification rather than CNCing our own. Um, another thought is like 3D printing with the H2C uh, and coating it with like a spray a metal spray paint, which we've done before on other projects, and it has been you know RF proof uh, quote unquote. Uh, we've been able to verify that it like um, you know would uh, limit EMI for GPS testing. So like that might be another possibility."
+
+Lead SE disposition:
+- The input is recorded as a new stakeholder input, SI-037.
+- REQ-SYS-109 (CNC-machined aluminum enclosure, anodized) names a solution. A change request (CR-003) is drafted to make it solution-neutral, keeping every performance requirement the enclosure carries:
+  - thermal: REQ-SYS-112 and 113;
+  - shielding: REQ-SYS-177;
+  - antenna-port load: REQ-SYS-105;
+  - drop and rain: REQ-SYS-116 and 117;
+  - legend: REQ-SYS-124;
+  - edges and clearance: REQ-SYS-110 and 111;
+  - envelope and mass: REQ-SYS-102 and 103.
+- The CR goes to the owner for disposition after `baseline/srr` is tagged, so the tag carries exactly what was approved at SRR.
+- An enclosure trade study for PDR compares four options:
+  - (A) PCBWay CNC aluminum;
+  - (B) a catalog extruded-aluminum box from DigiKey or Mouser, machined by the owner or by PCBWay secondary operations;
+  - (C) an H2C print with a conductive metal coating;
+  - (D) a hybrid of an extruded aluminum body with printed front and end parts.
