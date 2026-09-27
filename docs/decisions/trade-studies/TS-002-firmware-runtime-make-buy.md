@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | ID | TS-002 |
-| Status | Draft, revision 1 (findings F-08 to F-10 of INSP-013 applied; awaiting the reviewer's verification of the fixes) |
+| Status | Decided 2026-09-26: option A0 approved with the four revisit triggers of section 8 (SRR decision 107, owner ruling 2026-09-26, key decision K9; `docs/reviews/SRR/minutes.md`); resulting ADR: ADR-027 (`docs/decisions/adr/ADR-027-firmware-runtime-rustos-a0.md`). Reviewed at revision 1: INSP-013 APPROVED with liens and software assurance record INSP-027 APPROVED with liens, both on blob `574cee3d`. |
 | Decision class trigger | 06 section 14.1 class 1 item (h), a software acquisition-versus-development decision (SWE-033) for the runtime, HAL and PAC crates; this report is the NPR 7150.2D section 6.1 item t make/buy record (`docs/process/07-software-engineering-plan.md` section 1.3 row t). Also item (c): the runtime drivers GPIO, TIMER, PWM, ADC, watchdog, critical section and clocks are in the safety-critical call path listed in 07 section 14.1 |
 | Decision maker | Robin (owner, Decision Authority; also SMA Technical Authority for the software assurance concurrence) |
 | Recommender | Claude (trade study author invocation, 2026-09-25) |

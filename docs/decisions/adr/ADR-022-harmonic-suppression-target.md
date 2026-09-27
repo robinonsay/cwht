@@ -3,13 +3,13 @@
 | Field | Value |
 |---|---|
 | ID | ADR-022 |
-| Status | Proposed, pending owner decision at SRR |
+| Status | Accepted |
 | Date proposed | 2026-09-25 |
-| Date decided | pending (SRR) |
-| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 item (c): touches HZ-008, which names this ADR, and HZ-001 and HZ-003 through the ALC set-point of section 2; also the mission-critical ALC unit of `SW-TXSEQ` in `docs/process/07-software-engineering-plan.md` section 14.1). No TS for the margin value: a proposal from research, admitted without a TS only if the owner's SRR disposition applies the customization of `reconciliation-srr.md` section 6 item (ii); otherwise a TS-NNN is opened before the decision. The PA and filter designs that must meet the target are traded in TS-001 (draft) and the PDR studies TS-003 and TS-006 |
+| Date decided | 2026-09-26 (SRR decision 29, owner ruling) |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 item (c): touches HZ-008, which names this ADR, and HZ-001 and HZ-003 through the ALC set-point of section 2; also the mission-critical ALC unit of `SW-TXSEQ` in `docs/process/07-software-engineering-plan.md` section 14.1). No TS for the margin value: a proposal from research, recorded by this ADR alone under SEMP customization 11 (`docs/plan/semp.md` section 9.0 and section 5.17), which customizes 06 section 14.1, item (ii) (ruling R-2 of `reconciliation-srr.md` section 7, adopted by the owner as SRR decision 106 on 2026-09-26), applied by the owner's disposition of SRR decision 29 (section 6). The PA and filter designs that must meet the target are traded in TS-001 (draft) and the PDR studies TS-003 and TS-006 |
 | Decision authority | Robin (owner; the decision fixes a regulatory L1 requirement value and drives filter order, PA topology and enclosure partitioning) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | INSP-011 iteration 1 (2026-09-25): NEEDS CHANGES, findings F-01, F-02 and F-03 apply; this revision (2026-09-25, ADR author invocation applying INSP-011) carries the fixes; re-review pending in INSP-011 iteration 2 |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 to 3 (2026-09-25 and 2026-09-26); iteration 3 verdict NEEDS CHANGES only on the owner rulings of F-01 (SRR decision 106), both ruled on 2026-09-26, with liens F-11 and F-13 against this file; this post-ruling revision applies the rulings and the two liens; verification of the revision by the reviewer is pending (package item R16) |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline: regulatory L1 requirement) |
 | Change request | none (pre-baseline) |
@@ -20,7 +20,7 @@
 
 - Driving inputs and expectations: SI-014 (Part 97), SI-003 (5 W), SI-010 (proof before power-on), SI-034 (tinySA)
 - Requirements that constrain the decision: the 5 W ceiling (ADR-003) and the ALC that holds it across the pack voltage
-- Hazards in play (`docs/safety/hazards.json` 0.4.0-pha): HZ-008 control K1, the transmit low-pass filter goals this ADR sets the margin for (harmonic and spurious emissions into safety-of-life and other radio services: the second harmonic in a Federal aeronautical band, the seventh at 1030 MHz aeronautical radionavigation; HZ-008 names this ADR, and REQ-SYS-018, REQ-TX-008 to REQ-TX-011 cite it and carry HZ-008); HZ-001 and HZ-003 (control K4 of each is the ALC set-point this ADR states)
+- Hazards in play (`docs/safety/hazards.json` 0.4.3-pha): HZ-008 control K1, the transmit low-pass filter goals this ADR sets the margin for (harmonic and spurious emissions into safety-of-life and other radio services: the second harmonic in a Federal aeronautical band, the seventh at 1030 MHz aeronautical radionavigation; HZ-008 names this ADR, and REQ-SYS-018, REQ-TX-008 to REQ-TX-011 cite it and carry HZ-008); HZ-001 and HZ-003 (control K4 of each is the ALC set-point this ADR states)
 - Research consulted: `docs/research/part97-regulatory-basis.md` F2 (arithmetic: 53.0 dB at 5 W, 53.8 dB at 6 W, 60 dB at the 25 W tier; measurement point and span; harmonic bands), REQ-candidate RF-04 (60 dB target, spur not above -23 dBm, about 7 dB margin), RISK RF-1, RF-2, DECISION-4; `docs/research/pa-device-candidates.md` F1 (10 uW floor equals 57.0 dBc at 5 W), F16 (harmonic data quality ranking), F17 (required filter attenuation: goals 40 dB at 288 to 296 MHz and 35 dB at 432 to 444 MHz with insertion loss not above 0.5 dB at 148 MHz, including a 5 dB implementation margin; 7th-order Chebyshev or 5th-order elliptic reaches it on paper), F18 (without ALC the cap tightens to 55.9 dBc at 8.4 V), F20 (gate-bias ALC degrades 2fo toward class C, absorbed by the 40 dB goal), implication 2; `docs/research/regulatory-corpus-and-operators.md` F9 (victim services at 2f, 3f, 7f), REQ-candidate RF-10, RISK RF-4, RF-5; `docs/research/tr-switch-candidates.md` TR-05 (LPF at the antenna port after the T/R node); `docs/plan/tpm.json` TPM-007 (margin = achieved dBc minus 53; planned value 10 dB by analysis)
 - Guidance consulted: 47 CFR 97.307(c), (e), 97.3(a)(43) (eCFR 2026-09-23); 47 CFR 2.1057(a)(1) (span by analogy); SE HB App. C (quantified with units and tolerance); SE HB §6.8
 - Assumptions the decision rests on, and how and by when each is confirmed:
@@ -28,20 +28,20 @@
   2. Inductor self-resonance and layout leakage erode the simulated filter attenuation by no more than the 5 dB implementation margin inside the goals (`pa-device-candidates.md` F17). Confirmed by NanoVNA S21 of the built filter at receipt, before TRR.
   3. The tinySA Ultra, through a calibrated attenuator, measures a -23 dBm spur with the accuracy the margin needs. Confirmed by its tool-validation record before TRR (ADR-021).
 
-## 2. Decision (proposed)
+## 2. Decision
 
-The L1 regulatory requirement reads: at every power step and every frequency in 144.000 to 148.000 MHz, each spurious emission delivered to the antenna port is at most 25 uW (-16.0 dBm) and at least 40 dB below the fundamental (47 CFR 97.307(e)); at 5.0 W this is at least 53.0 dB below carrier. The design target, written as a derived L2 transmitter requirement, is at least 60 dB below carrier at 5 W (each spur at most -23 dBm, 5 uW) at every instant of the keying envelope, which gives about 7 dB of margin over the floor and also meets the 60 dB relative clause of the over-25 W tier. The harmonic low-pass filter goals, measured at the assembled filter's own terminals, are at least 40 dB at 288 to 296 MHz and at least 35 dB at 432 to 444 MHz with passband insertion loss at most 0.5 dB at 148 MHz; the filter sits at the antenna port after the T/R node. The ALC design target holds 5.0 W within plus or minus 0.5 dB above 6.4 V so the absolute cap does not tighten at full charge; the requirement it serves, REQ-SYS-012, is plus or minus 1 dB (TBR, closing at PDR with TS-003 and TS-006). The measurement span is 9 kHz to 1.5 GHz with 2f, 3f and 7f reported individually. Verification: Analysis (LTspice behavioural PA harmonics plus S-parameter filter simulation with vendor inductor self-resonance models) at PDR and CDR, then Bench with the tinySA Ultra through a calibrated attenuator into 50 ohms (ADR-021) at TRR and on every unit.
+The L1 regulatory requirement reads: at every power step and every frequency in 144.000 to 148.000 MHz, each spurious emission delivered to the antenna port is at most 25 uW (-16.0 dBm) and at least 40 dB below the fundamental (47 CFR 97.307(e)); at 5.0 W this is at least 53.0 dB below carrier. The design target, written as a derived L2 transmitter requirement, is at least 60 dB below carrier at 5 W (each spur at most -23 dBm, 5 uW) at every instant of the keying envelope, which gives about 7 dB of margin over the floor and also meets the 60 dB relative clause of the over-25 W tier. The harmonic low-pass filter goals, stated as the attenuation between the PA output and the antenna port (the point where 47 CFR 97.307(e) applies), are at least 40 dB at 288 to 296 MHz, at least 35 dB at 432 to 444 MHz and at least 40 dB from 576 MHz to 1.5 GHz (which covers the seventh harmonic in the 1030 MHz aeronautical band of HZ-008), with passband insertion loss at most 0.5 dB at 148 MHz; the filter sits at the antenna port after the T/R node. The ALC design target holds 5.0 W within plus or minus 0.5 dB above 6.4 V so the absolute cap does not tighten at full charge; the requirement it serves, REQ-SYS-012, is plus or minus 1 dB (TBR, closing at PDR with TS-003 and TS-006). The measurement span is 9 kHz to 1.5 GHz with 2f, 3f and 7f reported individually. Verification: Analysis (LTspice behavioural PA harmonics plus S-parameter filter simulation with vendor inductor self-resonance models) at PDR and CDR, then Bench with the tinySA Ultra through a calibrated attenuator into 50 ohms (ADR-021) at TRR and on every unit.
 
 ## 3. Alternatives considered
 
 | Option | Description | Why not chosen (or why chosen) |
 |---|---|---|
-| A (proposed) | 53 dB floor as the regulatory requirement; 60 dBc design target; 40/35 dB filter goals | About 7 dB margin against one-lot vendor data and layout erosion; the target coincides with the higher regulatory tier; achievable with a 7th-order or elliptic filter |
+| A (chosen) | 53 dB floor as the regulatory requirement; 60 dBc design target; filter goals 40 dB (2f), 35 dB (3f) and 40 dB from 576 MHz to 1.5 GHz between PA output and antenna port | About 7 dB margin against one-lot vendor data and layout erosion; the target coincides with the higher regulatory tier; achievable with a 7th-order or elliptic filter |
 | B | 53 dB minimum only | Rejected: zero margin; a 3 dB layout erosion (RISK RF-1) would fail the ATP |
 | C | 57 dBc (the 10 uW "need not be reduced below" floor) | Not chosen: 4 dB margin; no natural filter design point |
 | D | 70 dBc | Rejected: 9th-order filter or a shielded cavity, higher insertion loss (each 0.5 dB costs 11 percent of 5 W), no regulatory or interference need |
 
-No trade study for the margin value. The previous revision called this class 2 content; that was wrong, because the value touches HZ-008 (06 section 14.1 item (c)). The class 1 status and the route are in the header.
+No trade study for the margin value. The previous revision called this class 2 content; that was wrong, because the value touches HZ-008 (06 section 14.1 item (c)). The class 1 status and the route (SEMP customization 11 item (ii), SRR decision 106) are in the header.
 
 ## 4. Consequences
 
@@ -52,7 +52,7 @@ No trade study for the margin value. The previous revision called this class 2 c
 | REQ-SYS-017 (spurious absolute limit, 25 uW at every power step) and REQ-TX-007 (same at L2) | allocated; both cite ADR-021, not this ADR; HZ-008 | The regulatory floor of section 2 |
 | REQ-SYS-018 (at least 60 dB, TBR, below the mean carrier at the 5 W step) | allocated at L1, cites this ADR; HZ-008 | The requirement authors placed the design target at L1, not only at L2 as this ADR proposed |
 | REQ-TX-008 (same target at L2) | allocated, cites this ADR; HZ-008; TBR | |
-| REQ-TX-009 (40 dB at 288 to 296 MHz), REQ-TX-010 (35 dB at 432 to 444 MHz), REQ-TX-011 (40 dB at 576 MHz to 1.5 GHz) | allocated, cite this ADR; HZ-008; TBR | The requirements state the goals between PA output and antenna port and add the 576 MHz to 1.5 GHz goal; section 2 states them at the filter's own terminals. The owner's disposition fixes which reference point stands (`reconciliation-srr.md` section 5 row V-5) |
+| REQ-TX-009 (40 dB at 288 to 296 MHz), REQ-TX-010 (35 dB at 432 to 444 MHz), REQ-TX-011 (40 dB at 576 MHz to 1.5 GHz) | allocated, cite this ADR; HZ-008; TBR | Section 2 and the requirements agree: goals between PA output and antenna port, including the 576 MHz to 1.5 GHz goal (SRR decision 29, V-5 options a and c; `reconciliation-srr.md` section 5.2 row V-5 closed) |
 | ALC: 5.0 W plus or minus 0.5 dB above 6.4 V | allocated as REQ-SYS-012 at plus or minus 1 dB (TBR) with plus or minus 0.5 dB as the ALC target of its TBR plan | ADR-003 tolerance: `reconciliation-srr.md` section 5 row V-3 |
 | Harmonics of concern reported individually at 2f, 3f, 7f (candidate RF-10) | not created as a separate requirement; the bands of REQ-TX-009 to REQ-TX-011 cover 2f, 3f and 7f and the Bench procedure (ACTION-3) reports them individually | Bench procedure written at PDR |
 
@@ -65,7 +65,7 @@ No trade study for the margin value. The previous revision called this class 2 c
 
 ### 4.3 Verification and safety
 
-- Verification cases to add or change: TC-TX-NNN (Analysis: PA harmonic content plus filter response with parasitics, pass at 60 dBc), TC-TX-NNN (Bench: spurious scan 9 kHz to 1.5 GHz at 0.5, 1, 2, 5 W at 144.0, 146.0 and 148.0 MHz), TC-TX-NNN (Bench: filter S21 on the NanoVNA against the 40/35 dB goals)
+- Verification cases to add or change: TC-TX-NNN (Analysis: PA harmonic content plus filter response with parasitics, pass at 60 dBc), TC-TX-NNN (Bench: spurious scan 9 kHz to 1.5 GHz at 0.5, 1, 2, 5 W at 144.0, 146.0 and 148.0 MHz), TC-TX-NNN (Bench: filter S21 on the NanoVNA against the three goals of section 2)
 - Evidence class implications: Analysis reduces risk before the build; the credit run is Bench on the delivered unit (charter section 9); the instrument is the tinySA (ADR-021)
 - Hazard analysis update required: yes (HZ-008 controls K1, K2 and K5 carry this ADR's target and filter goals; HZ-008 already names this ADR, so the hazard analysis and this ADR now agree)
 - Safety-critical software scope changed: no (the ALC set-point is mission-critical in `SW-TXSEQ`, 07 section 14.1, already listed)
@@ -83,12 +83,24 @@ none (the regulatory requirement replaces the spectrum-certification items marke
 
 ## 6. Decision record
 
-Pending. Proposed wording for the SRR decision memo: "The spurious-emission requirement is written at the 97.307(e) values (25 uW, 40 dB); the design target is 60 dB below carrier at 5 W with the 40 dB at 288 MHz and 35 dB at 432 MHz filter goals; TPM-007's planned value is restated as 7 dB margin with 10 dB as goal." The owner's disposition will be transcribed here verbatim with its date; until then this ADR is Proposed.
+> Owner (2026-09-26, SRR session, `docs/reviews/SRR/minutes.md` section "Rulings"): "I concur with your recommendations for the key decisions."
+
+Recorded ruling (minutes, same section): key decision K12 of package section 13.1.1, which contains SRR decision 29, is ruled as recommended; the ruling text is the "Recommendation" cell of decision 29 in `docs/reviews/SRR/decisions-for-owner.md` Part 1: "Adopt; accept ADR-022 with the HZ-008 link (OQ-SAF-021). V-5: options a and c, because 47 CFR 97.307(e) applies at the antenna port, TC-TX-009 to TC-TX-011 measure from the filter test point to the antenna port, and the third band covers the 7f aeronautical band of HZ-008; the ADR-022 section 2 text is then corrected by the route of decision 105."
+
+> Owner (2026-09-26, SRR disposition, `docs/reviews/SRR/minutes.md` section "Disposition"): "I approve of this and the SRR."
+
+Class 1 without a trade study: recorded by this ADR alone under SEMP customization 11 (`docs/plan/semp.md` section 9.0 and section 5.17), which customizes 06 section 14.1, item (ii) (SRR decision 106, owner ruling 2026-09-26), applied by the disposition above, so no TS section 10 is cited. The SRR decision memo carries the same ruling.
+
+The ruling adopts section 2 of this revision: the 60 dB design target with the 53 dB limit at 5 W, the filter goals between PA output and antenna port (V-5 option a) and the third band from 576 MHz to 1.5 GHz in this ADR (V-5 option c), with HZ-008 named (OQ-SAF-021). The previous revision proposed the memo wording "The spurious-emission requirement is written at the 97.307(e) values (25 uW, 40 dB); the design target is 60 dB below carrier at 5 W with the 40 dB at 288 MHz and 35 dB at 432 MHz filter goals; TPM-007's planned value is restated as 7 dB margin with 10 dB as goal." The TPM-007 part is not in the ruling: the planned-value reconciliation of section 4.4 stays with the TPM owner (ADR README open item 5).
 
 ## 7. Related
 
 - Supersedes: none
 - Superseded by: none
 - Trade study: TS-001 (receiver and PA concept, draft) and the PDR studies TS-003 (PA device and line-up) and TS-006 (ALC and envelope topology) of `docs/design/concept.md` section 11.2 use the target as a criterion; no TS for the margin itself (see the Decision class row)
-- Review where presented: SRR (decision requested); PDR (filter design against the goals)
+- Review where presented: SRR, decided 2026-09-26 (SRR decision 29, key decision K12); PDR (filter design against the goals)
 - Revisit conditions: the PDR Analysis shows 60 dBc unreachable with the stocked PA device and a 7th-order filter (then the owner chooses between a higher-order filter, a different device under ADR-012, or a target between 57 and 60 dBc); the chosen device's measured harmonics make 40/35 dB filter goals unnecessary (the goals may relax by a superseding ADR, the 60 dBc target stays)
+
+## 8. Change log
+
+- 2026-09-26 (after the SRR rulings): under SRR decision 29 (owner ruling 2026-09-26, key decision K12), section 2 corrected before acceptance to V-5 option a (filter goals between PA output and antenna port, as REQ-TX-009 to REQ-TX-011 state) and option c (the 40 dB goal from 576 MHz to 1.5 GHz joins this ADR); sections 3, 4.1 and 4.3 aligned; Status set to Accepted and section 6 filled with the owner's disposition. The Decision class row and the section 3 closing paragraph cite SEMP customization 11 item (ii) of 06 section 14.1 adopted as SRR decision 106 (owner ruling 2026-09-26), which clears INSP-011 lien F-11 for this file; the reviewer row names INSP-011 iteration 3 and the hazard line cites `hazards.json` 0.4.3-pha, against which the HZ-008 link and the hazard ids of REQ-SYS-018 and REQ-TX-008 to REQ-TX-011 were re-checked on 2026-09-26 (INSP-011 lien F-13). Author: Claude (ADR author invocation, SRR post-ruling work R16).

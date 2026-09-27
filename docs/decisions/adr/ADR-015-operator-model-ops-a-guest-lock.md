@@ -3,13 +3,13 @@
 | Field | Value |
 |---|---|
 | ID | ADR-015 |
-| Status | Proposed, pending owner decision at SRR |
+| Status | Accepted |
 | Date proposed | 2026-09-25 |
-| Date decided | pending (SRR) |
-| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 item (c): touches HZ-006, whose controls K3 (receive-only guest lock) and K8 (operator model OPS-A) this ADR proposes, and the receive-only guest lock of `SW-TXSEQ` in `docs/process/07-software-engineering-plan.md` section 14.1). No TS: this is a proposal from research, admitted without a TS only if the owner's SRR disposition applies the customization of `reconciliation-srr.md` section 6 item (ii); otherwise a TS-NNN is opened before the decision |
+| Date decided | 2026-09-26 (SRR decision 17, owner ruling) |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 item (c): touches HZ-006, whose controls K3 (receive-only guest lock) and K8 (operator model OPS-A) this ADR proposes, and the receive-only guest lock of `SW-TXSEQ` in `docs/process/07-software-engineering-plan.md` section 14.1). No TS: a proposal from research, recorded by this ADR alone under SEMP customization 11 (`docs/plan/semp.md` section 9.0 and section 5.17), which customizes 06 section 14.1, item (ii) (ruling R-2 of `reconciliation-srr.md` section 7, adopted by the owner as SRR decision 106 on 2026-09-26), applied by the owner's disposition of SRR decision 17 (section 6) |
 | Decision authority | Robin (owner; the decision fixes ConOps scenarios and a firmware function in the functional baseline) |
 | Author | Claude (technical data manager invocation, 2026-09-25) |
-| Independent reviewer | INSP-011 iteration 1 (2026-09-25): NEEDS CHANGES, findings F-01, F-02 and F-03 apply; this revision (2026-09-25, ADR author invocation applying INSP-011) carries the fixes; re-review pending in INSP-011 iteration 2 |
+| Independent reviewer | INSP-011 (`docs/reviews/SRR/checklists/adrs-001-to-025.md`): iterations 1 to 3 (2026-09-25 and 2026-09-26); iteration 3 verdict NEEDS CHANGES only on the owner rulings of F-01 (SRR decision 106), both ruled on 2026-09-26, with liens F-11 and F-13 against this file; this post-ruling revision applies the rulings and the two liens; verification of the revision by the reviewer is pending (package item R16) |
 | Life-cycle phase | Pre-A / A |
 | Baseline affected | baseline/srr (functional baseline: ConOps, L1) |
 | Change request | none (pre-baseline) |
@@ -20,7 +20,7 @@ With licensed friends operating loaned units (ADR-014), three lawful configurati
 
 - Driving inputs and expectations: SI-019, SI-030, SI-014, SI-025 (open design: the model must work for any licensee)
 - Requirements that constrain the decision: none yet
-- Hazards in play (`docs/safety/hazards.json` 0.3.0-pha): HZ-006 (RF exposure of bystanders, household members and non-licensee holders: control K3 is the receive-only guest lock and K8 the operator model OPS-A; REQ-SYS-065, REQ-SYS-066 and REQ-TX-003 cite this ADR and carry HZ-006); HZ-008 (REQ-TX-003, RF isolation with PA enable deasserted, cites this ADR and carries HZ-008). Unlicensed transmission itself is a regulatory and mission harm handled as a requirement
+- Hazards in play (`docs/safety/hazards.json` 0.4.3-pha): HZ-006 (RF exposure of bystanders, household members and non-licensee holders: control K3 is the receive-only guest lock and K8 the operator model OPS-A; REQ-SYS-065, REQ-SYS-066 and REQ-TX-003 cite this ADR and carry HZ-006); HZ-008 (REQ-TX-003, RF isolation with PA enable deasserted, cites this ADR and carries HZ-008). Unlicensed transmission itself is a regulatory and mission harm handled as a requirement
 - Research consulted: `docs/research/regulatory-corpus-and-operators.md` F2 (control operator rules), F4 (unlicensed person: may listen, may key only as a supervised third party, may never operate alone), F5 (OPS-A recommended default; OPS-B records duty; OPS-C bounded), REQ-candidates OPS-02, OPS-03, FW-03 (guest lock), FW-04 (per-unit call sign, auto-ID at most 20 WPM), DOC-02 (operator rules card), RISK REG-4, REG-7, DECISION-6, DECISION-7; `docs/research/part97-regulatory-basis.md` F10 (97.119(b)(1): automatic identification at most 20 WPM)
 - Guidance consulted: 47 CFR 97.5(c), 97.103(a) and (b), 97.105(b), 97.115(b)(1), 97.119(a), (b)(1) and (e) (eCFR 2026-09-23); SE HB §6.8
 - Assumptions the decision rests on, and how and by when each is confirmed:
@@ -28,7 +28,7 @@ With licensed friends operating loaned units (ADR-014), three lawful configurati
   2. The guest lock can be released only by a deliberate action that a guest cannot perform by accident (SWE-134 item d, two independent operator actions). Confirmed when the L2 `SW-TXSEQ` requirements are reviewed at PDR.
   3. No FCC or ARRL interpretation narrows third-party participation (ACTION-7 of `regulatory-corpus-and-operators.md`). Re-checked at each review; a change is a revisit condition (section 7).
 
-## 2. Decision (proposed)
+## 2. Decision
 
 The ConOps default is OPS-A: each cwht unit is the amateur station of the licensee holding it; that licensee is station licensee and control operator, identifies with their own call sign, and is responsible for the unit's compliance including RF exposure. OPS-B remains a documented alternative: when a unit is operated as the owner's station with a designated control operator, a dated designation note is kept in the owner's station records and identification follows 97.119(a) and (e). Unlicensed guests follow OPS-C (ADR-014). The firmware provides a licensee-settable receive-only guest lock that inhibits the transmitter (key, keyer and any memory) until released by a deliberate action, so a unit can be handed to a guest with no risk of unlicensed transmission; the lock state is shown on the display. Each unit stores its operator's call sign, shows it on the display, and uses it for any automatic identification memory at not more than 20 WPM; an empty call sign disables automatic identification rather than sending a default. The handbook carries a one-page operator rules card.
 
@@ -36,12 +36,12 @@ The ConOps default is OPS-A: each cwht unit is the amateur station of the licens
 
 | Option | Description | Why not chosen (or why chosen) |
 |---|---|---|
-| A (proposed) | OPS-A default; OPS-B documented alternative; guest lock; per-unit call sign | No records burden; each licensee already qualifies for the controlled-environment exposure treatment; the lock closes the main unlicensed-keying pathway |
+| A (chosen) | OPS-A default; OPS-B documented alternative; guest lock; per-unit call sign | No records burden; each licensee already qualifies for the controlled-environment exposure treatment; the lock closes the main unlicensed-keying pathway |
 | B | OPS-B default (owner's station, designated control operators) | Not recommended: owner's call sign on every unit, owner and friend equally responsible, records duty; 97.119(e) indicator when the friend's class exceeds General |
 | C | No guest lock; rely on operator discipline | Not recommended: a unit set down at a gathering is the foreseeable REG-4 case; the lock costs a menu item and a stored flag |
 | D | Receive-only units for friends | Rejected: contradicts SI-019 (friends operate) |
 
-No trade study: the rule text and the owner's population (ADR-014) leave A and B as live options; the ADR presents both for the owner. The choice is class 1 (header), so the ADR without a TS stands only under the owner's ruling on `reconciliation-srr.md` section 6.
+No trade study: the rule text and the owner's population (ADR-014) leave A and B as live options; the ADR presents both for the owner. The choice is class 1 (header); the ADR without a TS stands under SEMP customization 11 (`docs/plan/semp.md` section 9.0 and section 5.17), which customizes 06 section 14.1, item (ii) (SRR decision 106), and the owner chose A at SRR (SRR decision 17, section 6).
 
 ## 4. Consequences
 
@@ -83,12 +83,24 @@ none
 
 ## 6. Decision record
 
-Pending. Proposed wording for the SRR decision memo: "Operator model OPS-A is the ConOps default; OPS-B is permitted with records; the receive-only guest lock and per-unit call sign are baselined as L1 requirements." The owner's disposition will be transcribed here verbatim with its date; until then this ADR is Proposed.
+> Owner (2026-09-26, SRR session, `docs/reviews/SRR/minutes.md` section "Rulings"): "I concur with your recommendations for the key decisions."
+
+Recorded ruling (minutes, same section): key decision K5 of package section 13.1.1, which contains SRR decision 17, is ruled as recommended; the ruling text is the "Recommendation" cell of decision 17 in `docs/reviews/SRR/decisions-for-owner.md` Part 1: "OPS-A default, OPS-B only by a dated record; accept ADR-015."
+
+> Owner (2026-09-26, SRR disposition, `docs/reviews/SRR/minutes.md` section "Disposition"): "I approve of this and the SRR."
+
+Class 1 without a trade study: recorded by this ADR alone under SEMP customization 11 (`docs/plan/semp.md` section 9.0 and section 5.17), which customizes 06 section 14.1, item (ii) (SRR decision 106, owner ruling 2026-09-26), applied by the disposition above, so no TS section 10 is cited. The SRR decision memo carries the same ruling.
+
+The ruling adopts section 2 as written: OPS-A is the ConOps default and OPS-B is permitted only with a dated designation record in the owner's station records. The proposed memo wording of the previous revision was: "Operator model OPS-A is the ConOps default; OPS-B is permitted with records; the receive-only guest lock and per-unit call sign are baselined as L1 requirements." The guest-lock release is option a of SRR decision 19 (two-step release), ruled in the same key decision K5.
 
 ## 7. Related
 
 - Supersedes: none
 - Superseded by: none
 - Trade study: none (see the Decision class row)
-- Review where presented: SRR (decision requested); INSP-011 findings F-01 to F-03 applied in this revision
+- Review where presented: SRR, decided 2026-09-26 (SRR decision 17, key decision K5); INSP-011 findings F-01 to F-03 applied in the 2026-09-25 revision, liens F-11 and F-13 in the 2026-09-26 revision
 - Revisit conditions: an FCC or ARRL interpretation on third-party participation (ACTION-7 of the corpus report); the owner prefers OPS-B; a unit is transferred rather than lent (then that unit is simply the new owner's station under OPS-A and the design is unchanged)
+
+## 8. Change log
+
+- 2026-09-26 (after the SRR rulings): Status set to Accepted and section 6 filled with the owner's disposition under SRR decision 17 (owner ruling 2026-09-26, key decision K5, accept ADR-015); the Decision class row and the section 3 closing paragraph cite SEMP customization 11 item (ii) of 06 section 14.1 adopted as SRR decision 106 (owner ruling 2026-09-26), which also clears INSP-011 lien F-11 for this file; the reviewer row names INSP-011 iteration 3 and the hazard line cites `hazards.json` 0.4.3-pha, whose HZ-006 controls K3 and K8 and the hazard ids of REQ-SYS-065, REQ-SYS-066 and REQ-TX-003 were re-checked on 2026-09-26 and agree (INSP-011 lien F-13). The decision text of section 2 is unchanged apart from its heading. Author: Claude (ADR author invocation, SRR post-ruling work R16).
