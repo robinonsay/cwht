@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Record | TV-013 |
-| Status | **Validated** (2026-09-26) on the working-tree file identified in section 1, not yet committed. Independent review and owner accreditation pending (sections 8 and 9) |
+| Status | **Validated** (2026-09-26) on the working-tree file identified in section 1; the same blobs were committed in `3de1e2d` and re-run on a commit export on 2026-09-27 (section 4, run 2). Independent review and owner accreditation pending (sections 8 and 9) |
 | Class | B, evidence-generating (CM plan section 9.1: gate G2, G3 and G6 steps; MSR-13, MSR-14, MSR-18, MSR-19; the cross-record rules of `docs/plan/measurements.json`) |
 | Governs | SWE-136 (NPR 7150.2D section 4.4.8), SWE-070 (section 4.5.6) through CM plan section 9; the measurement tool of 07 sections 8.4 and 11 (SWE-090, SWE-093, SWE-186) |
 | Due | PDR (CM plan section 13 PDR row); filed at SRR because gate steps G2 and G3 of TC-SW-TOOL-001-r2 (SRR package item R3, entrance row 20) use it before PDR (CM plan section 9.1) |
@@ -48,9 +48,10 @@
 | 1 | 2026-09-26 02:32 | working tree on `400e59d`, identities of section 1 | 16 (`CoverageTests` 2, `DiffRunsTests` 3, `LinkMapTests` 5, `RecordsTests` 5, `UsageTests` 1), 0 skipped | pass |
 | Gate integration | 2026-09-26 02:37 | working tree on `400e59d`; rustos `c54d35a` | `tools/sw_gate.sh --keep-going` steps G2 link map, G3 identical result sets, G6 measurements | pass: FLASH 1608 B (0.04 percent), RAM 8200 B (1.54 percent), equal to the TC-SW-TOOL-001-r1 values; G3 run sets identical, all passed; G6 MSR-13 cwht-core lines 17 of 17 and cwht-hal-mock 53 of 53, MSR-14 and the emulation report NOT PRODUCED (nightly components and emulator absent) |
 | Gate integration, TC-SW-TOOL-001 run 3 | 2026-09-26 19:28 | HEAD `0bcea39` (git archive, blob `abe25acb` unchanged); rustos branch `2ec64c0` | `tools/sw_gate.sh` steps G2 link map, G3 identical result sets, G6 measurements, both modes | pass: FLASH 1608 B (0.04 percent), RAM 8200 B (1.54 percent), unchanged; G3 run sets identical, all passed; G6 MSR-13 cwht-core 17 of 17 lines and cwht-hal-mock 53 of 53; MSR-14 now produced (nightly `llvm-tools` installed under SRR decision 109): branches 4 of 4, lines 70 of 70, regions 70 of 70; emulation report NOT PRODUCED (SKIP stub) |
+| 2 (commit-bound) | 2026-09-27 | `d3de579` (git archive export; `tools/measurements.py` blob `abe25acb` and `tools/tests/test_measurements.py` blob `7e7ba2bb`, both unchanged since `3de1e2d`, the commit that added them; fixture tree object `39141b58`) | 16, 0 skipped, run twice | pass in both passes; this binds the section 3 result to a commit (README common owner action 3) |
 | Repository records | 2026-09-26 | `400e59d`, `docs/plan/measurements.json` | `--check-records` | exit 1: 80 evidence entries of 89 records fail the preservation rule at `1d423e5`, the first commit containing the records: 56 name evidence committed later with the recorded hash (at HEAD "equal to the record"), 24 name evidence whose file changed before or after (at HEAD "differs from the record"). A finding against the records file (07 section 11.1: a record is superseded at the commit when its evidence changes), not a tool defect |
 
-Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt` (run 1); `evidence/sw-gate-2026-09-26.log.txt` (gate integration). Run 3 gate integration: `docs/vv/reports/TC-SW-TOOL-001-r3/sw-gate-keep-going.txt`.
+Evidence: `evidence/python-tools-2026-09-26-r5-worktree.log.txt` (run 1); `evidence/measurements-2026-09-27.log.txt` (run 2); `evidence/sw-gate-2026-09-26.log.txt` (gate integration). Run 3 gate integration: `docs/vv/reports/TC-SW-TOOL-001-r3/sw-gate-keep-going.txt`.
 
 ## 5. Reproducibility
 
@@ -74,7 +75,7 @@ Not required for class B. Deterministic function of the inputs; the git rules re
 
 ## 8. Independent review (CM plan section 9.2 step 3)
 
-Pending. The reviewer re-runs section 3 and recomputes the over-red-line answers from the fixture map. Reviewer invocation, date and result are recorded here.
+Pending. The reviewer re-runs section 3 and recomputes the over-red-line answers from the fixture map. Reviewer invocation, date and result are recorded here. Record: `docs/reviews/PDR/checklists/tool-validation-tv-013.md` (PDR work plan WP-PDR-08), product frozen at the commit that holds this revision of the record. Note for the reviewer and the work plan: WP-PDR-09 changes `tools/measurements.py` for C-185 (PASS lines) in wave 1; that change is a re-validation trigger (section 7), so the review either follows it or is followed by a delta iteration on the changed blob.
 
 ## 9. Accreditation (owner)
 

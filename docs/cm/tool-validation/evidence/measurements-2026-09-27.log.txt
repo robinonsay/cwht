@@ -1,0 +1,44 @@
+# TV-013 run 2: section 3 known-answer test on a git archive export of cwht d3de5793b26f9c83d696724764d7ac898631b9c2 (2026-09-27, two passes)
+abe25acbcf3c7ae0bc3d2cd11ac490c026a61b7a  tools/measurements.py  (equal to the working tree: yes)
+7e7ba2bbdb3569ba42924b6d974bcdb70f69f58b  tools/tests/test_measurements.py  (equal to the working tree: yes)
+39141b58900149f3506c2caedfa9bf8512d89669  tools/tests/fixtures/measurements (tree object)
+commit adding tools/measurements.py: 3de1e2d Gate scripts, record drift rule, figure generator fixes and TV-011 to TV-013 (SRR R3, R5, R11, R13)
+last commit touching tools/measurements.py or its test or fixture: 3de1e2d Gate scripts, record drift rule, figure generator fixes and TV-011 to TV-013 (SRR R3, R5, R11, R13)
+## pass 1
+test_optional_inputs_not_produced_and_lcov_required (CoverageTests.test_optional_inputs_not_produced_and_lcov_required) ... ok
+test_totals (CoverageTests.test_totals) ... ok
+test_empty_run_fails (DiffRunsTests.test_empty_run_fails) ... ok
+test_identical_runs_pass (DiffRunsTests.test_identical_runs_pass) ... ok
+test_seeded_difference_fails (DiffRunsTests.test_seeded_difference_fails) ... ok
+test_assessment_rules (LinkMapTests.test_assessment_rules) ... ok
+test_fw_b0_map_reproduces_the_seed_records (LinkMapTests.test_fw_b0_map_reproduces_the_seed_records) ... ok
+test_missing_map_or_region_is_a_usage_error (LinkMapTests.test_missing_map_or_region_is_a_usage_error) ... ok
+test_pass_on_the_fw_b0_map (LinkMapTests.test_pass_on_the_fw_b0_map) ... ok
+test_red_line (LinkMapTests.test_red_line) ... ok
+test_analyze_current_records (RecordsTests.test_analyze_current_records) ... ok
+test_committed_records_pass_and_values_are_rederived (RecordsTests.test_committed_records_pass_and_values_are_rederived) ... ok
+test_git_rules_not_applied_outside_a_work_tree (RecordsTests.test_git_rules_not_applied_outside_a_work_tree) ... ok
+test_rederivation_mismatch_in_a_commit (RecordsTests.test_rederivation_mismatch_in_a_commit) ... ok
+test_seeded_record_faults (RecordsTests.test_seeded_record_faults) ... ok
+test_usage_errors_exit_two (UsageTests.test_usage_errors_exit_two) ... ok
+Ran 16 tests in 0.964s
+OK
+## pass 2
+test_optional_inputs_not_produced_and_lcov_required (CoverageTests.test_optional_inputs_not_produced_and_lcov_required) ... ok
+test_totals (CoverageTests.test_totals) ... ok
+test_empty_run_fails (DiffRunsTests.test_empty_run_fails) ... ok
+test_identical_runs_pass (DiffRunsTests.test_identical_runs_pass) ... ok
+test_seeded_difference_fails (DiffRunsTests.test_seeded_difference_fails) ... ok
+test_assessment_rules (LinkMapTests.test_assessment_rules) ... ok
+test_fw_b0_map_reproduces_the_seed_records (LinkMapTests.test_fw_b0_map_reproduces_the_seed_records) ... ok
+test_missing_map_or_region_is_a_usage_error (LinkMapTests.test_missing_map_or_region_is_a_usage_error) ... ok
+test_pass_on_the_fw_b0_map (LinkMapTests.test_pass_on_the_fw_b0_map) ... ok
+test_red_line (LinkMapTests.test_red_line) ... ok
+test_analyze_current_records (RecordsTests.test_analyze_current_records) ... ok
+test_committed_records_pass_and_values_are_rederived (RecordsTests.test_committed_records_pass_and_values_are_rederived) ... ok
+test_git_rules_not_applied_outside_a_work_tree (RecordsTests.test_git_rules_not_applied_outside_a_work_tree) ... ok
+test_rederivation_mismatch_in_a_commit (RecordsTests.test_rederivation_mismatch_in_a_commit) ... ok
+test_seeded_record_faults (RecordsTests.test_seeded_record_faults) ... ok
+test_usage_errors_exit_two (UsageTests.test_usage_errors_exit_two) ... ok
+Ran 16 tests in 0.971s
+OK

@@ -1,0 +1,555 @@
+# TV-020 to TV-023 known-answer runs, WP-PDR-08 (procedure: rust-tv-2026-09-27.sh as committed in d3de579)
+# Two runs of the whole procedure on git archive exports of d3de579; scratch paths shown as <scratch>.
+
+######################################################################## RUN 1
+
+================================================================ 0. identity 2026-09-27 10:53:42 CDT
+cwht commit tested: d3de5793b26f9c83d696724764d7ac898631b9c2
+rustos pin exported: 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c (lock section 3; git archive of the commit object)
+fixture tree digests (git rev-parse <commit>:<path>):
+  1eae87cd88cfec51f5b46f8450b24a2dd7f5894c  tools/tests/fixtures/rust/kat-target
+  d70d2554d7ca0f4c3e7e16fdebbb7998cbe80f9a  tools/tests/fixtures/rust/kat-host
+  970e59d5059906dfea91dd2bae5769da2d66fc0d  tools/tests/fixtures/rust/cov-kat
+  cca3b34803faee4b9f4a39f4b993e5fc656202f2  tools/tests/fixtures/rust/cond-kat
+  bf632e485880160f57271332f77cc5ea9de78ce4  tools/tests/fixtures/rust/miri-kat
+  dbc9eae482a0a62f663b66d0f3ca7e36fddfb0b0  tools/tests/fixtures/rust/harness-seeded
+  6311da66a6047b51fa6fe4500e4019c58aba2a00  tools/tests/fixtures/rust/known-answers.json
+  7799f6b63e26e8fca0c2cb68270c3ff9d7841d05  firmware/Cargo.toml
+  784605ca28b94ea0d3ace66a5797c11cbbced80d  firmware/Cargo.lock
+  ca29c2548ff35887352c340bf5c5b49475758ddb  firmware/rust-toolchain.toml
+  00b81042cf7f73ff6ffa67f013b4c78ef6884a63  firmware/.config/nextest.toml
+  42020b54612e1bcb2c64149353575b6fa6883d96  firmware/clippy.toml
+rustup 1.29.1 (d95a37b6a 2026-08-13)
+1.98.0-aarch64-apple-darwin (overridden by '<scratch>/A/cwht/firmware/rust-toolchain.toml')
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+clippy 0.1.98 (88d9e12ae1 2026-08-18)
+commit-hash: 88d9e12ae178fab0fb5cc050a94da85685d449ea
+LLVM version: 22.1.8
+rustc 1.100.0-nightly (fb6531d55 2026-08-23)
+miri 0.1.0 (fb6531d550 2026-08-23)
+cargo-llvm-cov 0.9.1
+cargo-nextest 0.9.146 (8af696ddc 2026-09-21)
+binary SHA-256:
+a11618eca0956a8aa4372c2bc898690b513cbdfa2cb9125b2a5301e360ed5b49  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/bin/rustc
+1de2e84c15443b70444eecfa959ff9099dd8c1a5606b6d9ef5bc0ea9c25bc7f9  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/bin/cargo
+6a1ccc398ad5466587424fd97625bad2a9296d4ef031a853b99eb80362f6e1e9  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/bin/clippy-driver
+bf89162b33afa0518da4004ab5f0e13f5b5cd143e6349a1720a003944910837b  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/bin/cargo-clippy
+7076a5f18caf0b455fc8b5c1e287a29e6a0f65f92b211ac8636a79b249a3c603  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/rustc
+8e7dfea13d2c912c380aee5d2e59bd6abb6f2aca283372b7efb34c31b3395b35  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/cargo
+e722a39e149c8e27f6f5ad77a670e0ff43ee9e85ddee072b097b6a50f58054ff  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/miri
+cce4744232fcece2793ab4c3367b84d63957734a9f0fce60c7f98020a488dd0a  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/cargo-miri
+aa14e9c0d0632b6c940852f1edbf4d54223012c3e9fcdaab40a3ed7c288b7129  ~/.cargo/bin/cargo-llvm-cov
+ab1c2c2a7e7590dfc6aef2f12dc13322729af87c2d16c35c5b85003220bbe487  ~/.cargo/bin/cargo-nextest
+installed channel manifests:
+b17aaaeded2ac77b968b406613ec319b001f105793900a6f852a72a03e241ba9  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/lib/rustlib/multirust-channel-manifest.toml
+0bfdc1def95ad183d9c83f9ee8b646f4d3643ce43118100d8bd99daa52eb7690  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/multirust-channel-manifest.toml
+llvm-tools used by cargo-llvm-cov:
+479d56bef693273f9917440ff1f116cc1d4fd5a99e067613d30592e9deab95ad  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/llvm-cov
+8219cc21b846b087e2f7d2dd6ded6b8aec62f9390209d50eebb4fa3e00370ecf  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/llvm-profdata
+49939152d7a4d91fe8d11013f3d4b0ba1f72d657f97bc0a8a8d12deb23b8069f  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/llvm-cov
+5ccef12a53670008df2e09d86a4321d2078183a1c00714d5f02d38a785bac042  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/llvm-profdata
+  LLVM version 22.1.8-rust-1.98.0-stable
+  LLVM version 23.1.0-rust-1.100.0-nightly
+cargo install metadata (~/.cargo/.crates2.json):
+  cargo-llvm-cov 0.9.1 (registry+https://github.com/rust-lang/crates.io-index) profile release target aarch64-apple-darwin built by rustc 1.98.0 (88d9e12ae 2026-08-18)
+  cargo-nextest 0.9.146 (registry+https://github.com/rust-lang/crates.io-index) profile release target aarch64-apple-darwin built by rustc 1.98.0 (88d9e12ae 2026-08-18)
+
+================================================================ 1. TV-020 rustc and cargo: fixture kat-target, three release builds, ELF SHA-256 identical and equal to the stored value
+    Finished `release` profile [optimized] target(s) in 0.95s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.42s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.42s
+exit=0
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  <scratch>/k1/thumbv8m.main-none-eabihf/release/kat-target
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  <scratch>/k2/thumbv8m.main-none-eabihf/release/kat-target
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  <scratch>/k3/thumbv8m.main-none-eabihf/release/kat-target
+stored elf_sha256: 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+
+================================================================ 2. TV-020 cargo test (reference runner): kat-host clean, then seeded-fail
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=0
+test tests::seeded_failure ... FAILED
+---- tests::seeded_failure stdout ----
+thread 'tests::seeded_failure' (9854220) panicked at src/lib.rs:57:9:
+    tests::seeded_failure
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=101
+
+================================================================ 3. TV-020 clippy: kat-host clean, seeded-lint (clippy::correctness), seeded-unwrap (project lint table in force)
+exit=0
+error: this comparison involving the minimum or maximum element for this type contains a case that is always true or always false
+   = note: `#[deny(clippy::absurd_extreme_comparisons)]` on by default
+error: could not compile `kat-host` (lib) due to 1 previous error
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+error: used `unwrap()` on an `Option` value
+   = note: requested on the command line with `-D clippy::unwrap-used`
+error: could not compile `kat-host` (lib) due to 1 previous error
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+
+================================================================ 4. TV-020 rustos blinky (07 sections 8.3 and 17.3): templates/pico2 of the pin, two clean builds in two directories, against docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf
+template diff (layout A; the same three lines as TC-SW-TOOL-001-r3 blinky-build.txt, paths into the export):
+2c2
+< name = "{{project-name}}"
+---
+> name = "blinky"
+11,12c11,12
+< api = { git = "https://github.com/robinonsay/rustos" }
+< pico2 = { git = "https://github.com/robinonsay/rustos" }
+---
+> api = { path = "<scratch>/A/rustos/api" }
+> pico2 = { path = "<scratch>/A/rustos/firmware/pico2" }
+(diff exit 0)
+    Finished `release` profile [optimized] target(s) in 0.54s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.44s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.49s
+exit=0
+4685cbfa82918170cda0c7ff8d23e9404a5626b2e0991c976c34189073d09fda  <scratch>/b1/thumbv8m.main-none-eabihf/release/blinky
+4685cbfa82918170cda0c7ff8d23e9404a5626b2e0991c976c34189073d09fda  <scratch>/b2/thumbv8m.main-none-eabihf/release/blinky
+a32fae1f036df9adebd0a2450607b4ba1a137b5a3b8ee3050a6232eca8b5730a  <scratch>/b3/thumbv8m.main-none-eabihf/release/blinky
+3c0ac0747a761bf9880e21f80ba613cfcb5e8f5ddddbdea7af85dbf8952bbd08  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf
+loadable image (rust-objcopy -O binary):
+c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df  <scratch>/b1/thumbv8m.main-none-eabihf/release/blinky.bin
+c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df  <scratch>/b3/thumbv8m.main-none-eabihf/release/blinky.bin
+c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf.bin
+
+================================================================ 5. TV-020 MSR-28 (07 section 11.2): cwht-app release, clean builds in layouts A (twice) and B, against docs/vv/reports/TC-SW-TOOL-001-r3/cwht-app.elf
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.50s
+exit=0
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.52s
+exit=0
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.52s
+exit=0
+b5bb665aa3f0b4c3750b77793565d8fa68b2207c269e766e51270d2be8f597c8  <scratch>/a1/thumbv8m.main-none-eabihf/release/cwht-app
+b5bb665aa3f0b4c3750b77793565d8fa68b2207c269e766e51270d2be8f597c8  <scratch>/a2/thumbv8m.main-none-eabihf/release/cwht-app
+2201af96a25e831cdde7b6a7fbfb5c6a68b61eb88f2fd98499ea546410221033  <scratch>/a3/thumbv8m.main-none-eabihf/release/cwht-app
+388d1d16dae55d33fcc0c69d33689abcf6d056bcc16e44a18abab2ac2300a5bf  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/cwht-app.elf
+firmware/ differences between the r3 build commit 0bcea39 and the commit tested:
+ firmware/unsafe-audit.md | 74 ++++++++++++++++++++++++------------------------
+ 1 file changed, 37 insertions(+), 37 deletions(-)
+loadable image (rust-objcopy -O binary):
+828bca3546099ab8c65131c87bed5fc355208d0aade12cf315e9915c836e61f4  <scratch>/a1/thumbv8m.main-none-eabihf/release/cwht-app.bin
+828bca3546099ab8c65131c87bed5fc355208d0aade12cf315e9915c836e61f4  <scratch>/a3/thumbv8m.main-none-eabihf/release/cwht-app.bin
+828bca3546099ab8c65131c87bed5fc355208d0aade12cf315e9915c836e61f4  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/cwht-app.elf.bin
+debug sections naming a build path (layout A build 1):
+  strings containing the scratch path: 7
+
+================================================================ 6. TV-020 HostUnit suite twice (07 section 17.3; SWE-186): firmware workspace, cargo nextest --profile ci and cargo test, layout A
+     Summary [   0.008s] 10 tests run: 10 passed, 0 skipped
+exit=0
+     Summary [   0.007s] 10 tests run: 10 passed, 0 skipped
+exit=0
+independent comparison (stdlib XML): run1 10 triples, run2 10 triples, identical True, all passed True
+   cwht-core::heartbeat default_equals_new passed
+   cwht-core::heartbeat failed_write_keeps_level_and_retries_same_transition passed
+   cwht-core::heartbeat first_step_drives_high_then_alternates passed
+   cwht-core::heartbeat half_period_spin_count_equals_rustos_blinky_delay passed
+   cwht-core::heartbeat spin_wait_calls_spin_exactly_count_times passed
+   cwht-hal-mock::gpio input_reads_set_level_and_injected_fault passed
+   cwht-hal-mock::gpio output_failing_after_zero_fails_first_write passed
+   cwht-hal-mock::gpio output_fails_after_scripted_count passed
+   cwht-hal-mock::gpio output_history_saturates_at_capacity passed
+   cwht-hal-mock::gpio output_records_writes_in_order passed
+tools/measurements.py --diff-runs (TV-013, developer evidence until ACC-MEASURE-001):
+run 1: 10 cases, run 2: 10 cases, passed in both: 10
+PASS identical result sets, all passed (SWE-186)
+exit=0
+cargo test run 1: 16 test lines
+cargo test run 2: 16 test lines
+cargo test run 1 and run 2 sorted outputs identical
+   4 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+   2 test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+================================================================ 7. TV-021 cargo-llvm-cov (stable 1.98.0, llvm-tools of the pin): cov-kat 100 percent, then seeded-gap
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL 13 0 100.00% 3 0 100.00% 7 0 100.00% 0 0 -
+exit=0
+    6|      0|        1
+exit=1
+
+================================================================ 8. TV-021 firmware workspace coverage twice (the G6 MSR-13 command), lcov identical
+     Summary [   0.013s] 10 tests run: 10 passed, 0 skipped
+exit=0
+     Summary [   0.013s] 10 tests run: 10 passed, 0 skipped
+exit=0
+lcov run 1 and run 2 identical
+  cwht-core: lines 17 of 17, functions 4 of 4
+  cwht-hal-mock: lines 53 of 53, functions 10 of 10
+
+================================================================ 9. TV-022 cargo-nextest: kat-host seeded-fail names the test and exits non-zero; clean exit 0 with the stored count
+        FAIL [   0.008s] (3/4) kat-host tests::seeded_failure
+     Summary [   0.009s] 4 tests run: 3 passed, 1 failed, 0 skipped
+        FAIL [   0.008s] (3/4) kat-host tests::seeded_failure
+exit=100
+     Summary [   0.009s] 3 tests run: 3 passed, 0 skipped
+exit=0
+
+================================================================ 10. TV-022 X10 harness self-test (03 section 6.5 item X10): harness-seeded against the real cwht-core and cwht-hal-mock
+---- features: none
+     Summary [   0.007s] 5 tests run: 5 passed, 0 skipped
+exit=0
+  JUnit: 5 testcases, failed 0: []
+---- features: seeded-pair
+        FAIL [   0.006s] (5/5) harness-seeded::harness d01_c2_false
+     Summary [   0.007s] 5 tests run: 4 passed, 1 failed, 0 skipped
+        FAIL [   0.006s] (5/5) harness-seeded::harness d01_c2_false
+exit=100
+  JUnit: 5 testcases, failed 1: ['d01_c2_false']
+---- features: seeded-mock-fault
+        FAIL [   0.007s] (4/5) harness-seeded::harness heartbeat_through_mock_toggles
+     Summary [   0.007s] 5 tests run: 4 passed, 1 failed, 0 skipped
+        FAIL [   0.007s] (4/5) harness-seeded::harness heartbeat_through_mock_toggles
+exit=100
+  JUnit: 5 testcases, failed 1: ['heartbeat_through_mock_toggles']
+---- features: seeded-pair,seeded-mock-fault
+        FAIL [   0.007s] (2/5) harness-seeded::harness d01_c2_false
+        FAIL [   0.007s] (3/5) harness-seeded::harness heartbeat_through_mock_toggles
+     Summary [   0.007s] 5 tests run: 3 passed, 2 failed, 0 skipped
+        FAIL [   0.007s] (2/5) harness-seeded::harness d01_c2_false
+        FAIL [   0.007s] (3/5) harness-seeded::harness heartbeat_through_mock_toggles
+exit=100
+  JUnit: 5 testcases, failed 2: ['d01_c2_false', 'heartbeat_through_mock_toggles']
+---- reference runner: cargo test --features seeded-pair
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test d01_c2_false ... FAILED
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=101
+---- the harness fixture test build prints no warning (informational)
+exit=0
+
+================================================================ 11. TV-023 MSR-14 on nightly-2026-08-24 (non-credit): cond-kat seeded unexercised condition outcome, then complete
+  |  Branch (3:8): [True: 1, False: 1]
+  |  Branch (3:13): [True: 1, False: 0]
+exit=0
+  |  Branch (3:8): [True: 2, False: 1]
+  |  Branch (3:13): [True: 1, False: 1]
+exit=0
+
+================================================================ 12. TV-023 MSR-14 on the firmware workspace (the G6 command), twice
+     Summary [   0.010s] 10 tests run: 10 passed, 0 skipped
+exit=0
+     Summary [   0.010s] 10 tests run: 10 passed, 0 skipped
+exit=0
+  run 1 totals (covered, count): {'branches': (4, 4), 'lines': (70, 70), 'regions': (70, 70), 'functions': (14, 14)}
+  run 2 totals equal to run 1: True
+
+================================================================ 13. TV-023 Miri (MSR-08, CS-03; non-credit): miri-kat clean, then seeded-oob
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=0
+test tests::in_bounds_read ... ok
+test tests::prefix_sums ... ok
+test tests::seeded_out_of_bounds_read ... error: Undefined Behavior: memory access failed: attempting to access 4 bytes, but got alloc54296+0x10 which is at or beyond the end of the allocation of size 16 bytes
+error: test failed, to rerun pass `--lib`
+exit=1
+
+================================================================ 14. TV-023 Miri on the gate G5 scope (rustos api host tests, cargo +nightly-2026-08-24 miri test -p api --lib, layout A)
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+exit=0
+
+================================================================ end 10:54:04
+
+######################################################################## RUN 2
+
+================================================================ 0. identity 2026-09-27 10:54:05 CDT
+cwht commit tested: d3de5793b26f9c83d696724764d7ac898631b9c2
+rustos pin exported: 2ec64c0f15c8cd2dbcaa241abffdd72f8cae467c (lock section 3; git archive of the commit object)
+fixture tree digests (git rev-parse <commit>:<path>):
+  1eae87cd88cfec51f5b46f8450b24a2dd7f5894c  tools/tests/fixtures/rust/kat-target
+  d70d2554d7ca0f4c3e7e16fdebbb7998cbe80f9a  tools/tests/fixtures/rust/kat-host
+  970e59d5059906dfea91dd2bae5769da2d66fc0d  tools/tests/fixtures/rust/cov-kat
+  cca3b34803faee4b9f4a39f4b993e5fc656202f2  tools/tests/fixtures/rust/cond-kat
+  bf632e485880160f57271332f77cc5ea9de78ce4  tools/tests/fixtures/rust/miri-kat
+  dbc9eae482a0a62f663b66d0f3ca7e36fddfb0b0  tools/tests/fixtures/rust/harness-seeded
+  6311da66a6047b51fa6fe4500e4019c58aba2a00  tools/tests/fixtures/rust/known-answers.json
+  7799f6b63e26e8fca0c2cb68270c3ff9d7841d05  firmware/Cargo.toml
+  784605ca28b94ea0d3ace66a5797c11cbbced80d  firmware/Cargo.lock
+  ca29c2548ff35887352c340bf5c5b49475758ddb  firmware/rust-toolchain.toml
+  00b81042cf7f73ff6ffa67f013b4c78ef6884a63  firmware/.config/nextest.toml
+  42020b54612e1bcb2c64149353575b6fa6883d96  firmware/clippy.toml
+rustup 1.29.1 (d95a37b6a 2026-08-13)
+1.98.0-aarch64-apple-darwin (overridden by '<scratch>/A/cwht/firmware/rust-toolchain.toml')
+rustc 1.98.0 (88d9e12ae 2026-08-18)
+cargo 1.98.0 (797e8a9bc 2026-08-05)
+clippy 0.1.98 (88d9e12ae1 2026-08-18)
+commit-hash: 88d9e12ae178fab0fb5cc050a94da85685d449ea
+LLVM version: 22.1.8
+rustc 1.100.0-nightly (fb6531d55 2026-08-23)
+miri 0.1.0 (fb6531d550 2026-08-23)
+cargo-llvm-cov 0.9.1
+cargo-nextest 0.9.146 (8af696ddc 2026-09-21)
+binary SHA-256:
+a11618eca0956a8aa4372c2bc898690b513cbdfa2cb9125b2a5301e360ed5b49  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/bin/rustc
+1de2e84c15443b70444eecfa959ff9099dd8c1a5606b6d9ef5bc0ea9c25bc7f9  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/bin/cargo
+6a1ccc398ad5466587424fd97625bad2a9296d4ef031a853b99eb80362f6e1e9  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/bin/clippy-driver
+bf89162b33afa0518da4004ab5f0e13f5b5cd143e6349a1720a003944910837b  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/bin/cargo-clippy
+7076a5f18caf0b455fc8b5c1e287a29e6a0f65f92b211ac8636a79b249a3c603  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/rustc
+8e7dfea13d2c912c380aee5d2e59bd6abb6f2aca283372b7efb34c31b3395b35  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/cargo
+e722a39e149c8e27f6f5ad77a670e0ff43ee9e85ddee072b097b6a50f58054ff  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/miri
+cce4744232fcece2793ab4c3367b84d63957734a9f0fce60c7f98020a488dd0a  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/bin/cargo-miri
+aa14e9c0d0632b6c940852f1edbf4d54223012c3e9fcdaab40a3ed7c288b7129  ~/.cargo/bin/cargo-llvm-cov
+ab1c2c2a7e7590dfc6aef2f12dc13322729af87c2d16c35c5b85003220bbe487  ~/.cargo/bin/cargo-nextest
+installed channel manifests:
+b17aaaeded2ac77b968b406613ec319b001f105793900a6f852a72a03e241ba9  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/lib/rustlib/multirust-channel-manifest.toml
+0bfdc1def95ad183d9c83f9ee8b646f4d3643ce43118100d8bd99daa52eb7690  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/multirust-channel-manifest.toml
+llvm-tools used by cargo-llvm-cov:
+479d56bef693273f9917440ff1f116cc1d4fd5a99e067613d30592e9deab95ad  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/llvm-cov
+8219cc21b846b087e2f7d2dd6ded6b8aec62f9390209d50eebb4fa3e00370ecf  ~/.rustup/toolchains/1.98.0-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/llvm-profdata
+49939152d7a4d91fe8d11013f3d4b0ba1f72d657f97bc0a8a8d12deb23b8069f  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/llvm-cov
+5ccef12a53670008df2e09d86a4321d2078183a1c00714d5f02d38a785bac042  ~/.rustup/toolchains/nightly-2026-08-24-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/bin/llvm-profdata
+  LLVM version 22.1.8-rust-1.98.0-stable
+  LLVM version 23.1.0-rust-1.100.0-nightly
+cargo install metadata (~/.cargo/.crates2.json):
+  cargo-llvm-cov 0.9.1 (registry+https://github.com/rust-lang/crates.io-index) profile release target aarch64-apple-darwin built by rustc 1.98.0 (88d9e12ae 2026-08-18)
+  cargo-nextest 0.9.146 (registry+https://github.com/rust-lang/crates.io-index) profile release target aarch64-apple-darwin built by rustc 1.98.0 (88d9e12ae 2026-08-18)
+
+================================================================ 1. TV-020 rustc and cargo: fixture kat-target, three release builds, ELF SHA-256 identical and equal to the stored value
+    Finished `release` profile [optimized] target(s) in 0.50s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.44s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.43s
+exit=0
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  <scratch>/k1/thumbv8m.main-none-eabihf/release/kat-target
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  <scratch>/k2/thumbv8m.main-none-eabihf/release/kat-target
+3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d  <scratch>/k3/thumbv8m.main-none-eabihf/release/kat-target
+stored elf_sha256: 3201d382b9b1e32ec69da84ae966fd40671ecd820e32de6ef3135fb69f66df7d
+
+================================================================ 2. TV-020 cargo test (reference runner): kat-host clean, then seeded-fail
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=0
+test tests::seeded_failure ... FAILED
+---- tests::seeded_failure stdout ----
+thread 'tests::seeded_failure' (9872729) panicked at src/lib.rs:57:9:
+    tests::seeded_failure
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=101
+
+================================================================ 3. TV-020 clippy: kat-host clean, seeded-lint (clippy::correctness), seeded-unwrap (project lint table in force)
+exit=0
+error: this comparison involving the minimum or maximum element for this type contains a case that is always true or always false
+   = note: `#[deny(clippy::absurd_extreme_comparisons)]` on by default
+error: could not compile `kat-host` (lib) due to 1 previous error
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+error: used `unwrap()` on an `Option` value
+   = note: requested on the command line with `-D clippy::unwrap-used`
+error: could not compile `kat-host` (lib) due to 1 previous error
+error: could not compile `kat-host` (lib test) due to 1 previous error
+exit=101
+
+================================================================ 4. TV-020 rustos blinky (07 sections 8.3 and 17.3): templates/pico2 of the pin, two clean builds in two directories, against docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf
+template diff (layout A; the same three lines as TC-SW-TOOL-001-r3 blinky-build.txt, paths into the export):
+2c2
+< name = "{{project-name}}"
+---
+> name = "blinky"
+11,12c11,12
+< api = { git = "https://github.com/robinonsay/rustos" }
+< pico2 = { git = "https://github.com/robinonsay/rustos" }
+---
+> api = { path = "<scratch>/A/rustos/api" }
+> pico2 = { path = "<scratch>/A/rustos/firmware/pico2" }
+(diff exit 0)
+    Finished `release` profile [optimized] target(s) in 0.54s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.47s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.50s
+exit=0
+c17844ce00ed53b1b6f2b13c7e7724876af4dcadc7ec6549910433fdc895a35f  <scratch>/b1/thumbv8m.main-none-eabihf/release/blinky
+c17844ce00ed53b1b6f2b13c7e7724876af4dcadc7ec6549910433fdc895a35f  <scratch>/b2/thumbv8m.main-none-eabihf/release/blinky
+accd1699c2f88d6def4b928d7f669d0063da4ef886c7bdece052386ca28fcf9e  <scratch>/b3/thumbv8m.main-none-eabihf/release/blinky
+3c0ac0747a761bf9880e21f80ba613cfcb5e8f5ddddbdea7af85dbf8952bbd08  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf
+loadable image (rust-objcopy -O binary):
+c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df  <scratch>/b1/thumbv8m.main-none-eabihf/release/blinky.bin
+c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df  <scratch>/b3/thumbv8m.main-none-eabihf/release/blinky.bin
+c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf.bin
+
+================================================================ 5. TV-020 MSR-28 (07 section 11.2): cwht-app release, clean builds in layouts A (twice) and B, against docs/vv/reports/TC-SW-TOOL-001-r3/cwht-app.elf
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.54s
+exit=0
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.52s
+exit=0
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.52s
+exit=0
+cda502dedef6c8281660d32b84f6ccfbc5d9aa534e6f095bcc44d588354da44c  <scratch>/a1/thumbv8m.main-none-eabihf/release/cwht-app
+cda502dedef6c8281660d32b84f6ccfbc5d9aa534e6f095bcc44d588354da44c  <scratch>/a2/thumbv8m.main-none-eabihf/release/cwht-app
+8dc64084408641c50bfe3964ec3f754b2aeb9d60c699ae2cf64f81b93aae753f  <scratch>/a3/thumbv8m.main-none-eabihf/release/cwht-app
+388d1d16dae55d33fcc0c69d33689abcf6d056bcc16e44a18abab2ac2300a5bf  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/cwht-app.elf
+firmware/ differences between the r3 build commit 0bcea39 and the commit tested:
+ firmware/unsafe-audit.md | 74 ++++++++++++++++++++++++------------------------
+ 1 file changed, 37 insertions(+), 37 deletions(-)
+loadable image (rust-objcopy -O binary):
+828bca3546099ab8c65131c87bed5fc355208d0aade12cf315e9915c836e61f4  <scratch>/a1/thumbv8m.main-none-eabihf/release/cwht-app.bin
+828bca3546099ab8c65131c87bed5fc355208d0aade12cf315e9915c836e61f4  <scratch>/a3/thumbv8m.main-none-eabihf/release/cwht-app.bin
+828bca3546099ab8c65131c87bed5fc355208d0aade12cf315e9915c836e61f4  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/cwht-app.elf.bin
+debug sections naming a build path (layout A build 1):
+  strings containing the scratch path: 7
+
+================================================================ 6. TV-020 HostUnit suite twice (07 section 17.3; SWE-186): firmware workspace, cargo nextest --profile ci and cargo test, layout A
+     Summary [   0.014s] 10 tests run: 10 passed, 0 skipped
+exit=0
+     Summary [   0.007s] 10 tests run: 10 passed, 0 skipped
+exit=0
+independent comparison (stdlib XML): run1 10 triples, run2 10 triples, identical True, all passed True
+   cwht-core::heartbeat default_equals_new passed
+   cwht-core::heartbeat failed_write_keeps_level_and_retries_same_transition passed
+   cwht-core::heartbeat first_step_drives_high_then_alternates passed
+   cwht-core::heartbeat half_period_spin_count_equals_rustos_blinky_delay passed
+   cwht-core::heartbeat spin_wait_calls_spin_exactly_count_times passed
+   cwht-hal-mock::gpio input_reads_set_level_and_injected_fault passed
+   cwht-hal-mock::gpio output_failing_after_zero_fails_first_write passed
+   cwht-hal-mock::gpio output_fails_after_scripted_count passed
+   cwht-hal-mock::gpio output_history_saturates_at_capacity passed
+   cwht-hal-mock::gpio output_records_writes_in_order passed
+tools/measurements.py --diff-runs (TV-013, developer evidence until ACC-MEASURE-001):
+run 1: 10 cases, run 2: 10 cases, passed in both: 10
+PASS identical result sets, all passed (SWE-186)
+exit=0
+cargo test run 1: 16 test lines
+cargo test run 2: 16 test lines
+cargo test run 1 and run 2 sorted outputs identical
+   4 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+   2 test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+================================================================ 7. TV-021 cargo-llvm-cov (stable 1.98.0, llvm-tools of the pin): cov-kat 100 percent, then seeded-gap
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL 13 0 100.00% 3 0 100.00% 7 0 100.00% 0 0 -
+exit=0
+    6|      0|        1
+exit=1
+
+================================================================ 8. TV-021 firmware workspace coverage twice (the G6 MSR-13 command), lcov identical
+     Summary [   0.010s] 10 tests run: 10 passed, 0 skipped
+exit=0
+     Summary [   0.014s] 10 tests run: 10 passed, 0 skipped
+exit=0
+lcov run 1 and run 2 identical
+  cwht-core: lines 17 of 17, functions 4 of 4
+  cwht-hal-mock: lines 53 of 53, functions 10 of 10
+
+================================================================ 9. TV-022 cargo-nextest: kat-host seeded-fail names the test and exits non-zero; clean exit 0 with the stored count
+        FAIL [   0.010s] (4/4) kat-host tests::seeded_failure
+     Summary [   0.010s] 4 tests run: 3 passed, 1 failed, 0 skipped
+        FAIL [   0.010s] (4/4) kat-host tests::seeded_failure
+exit=100
+     Summary [   0.009s] 3 tests run: 3 passed, 0 skipped
+exit=0
+
+================================================================ 10. TV-022 X10 harness self-test (03 section 6.5 item X10): harness-seeded against the real cwht-core and cwht-hal-mock
+---- features: none
+     Summary [   0.013s] 5 tests run: 5 passed, 0 skipped
+exit=0
+  JUnit: 5 testcases, failed 0: []
+---- features: seeded-pair
+        FAIL [   0.010s] (4/5) harness-seeded::harness d01_c2_false
+     Summary [   0.013s] 5 tests run: 4 passed, 1 failed, 0 skipped
+        FAIL [   0.010s] (4/5) harness-seeded::harness d01_c2_false
+exit=100
+  JUnit: 5 testcases, failed 1: ['d01_c2_false']
+---- features: seeded-mock-fault
+        FAIL [   0.009s] (2/5) harness-seeded::harness heartbeat_through_mock_toggles
+     Summary [   0.010s] 5 tests run: 4 passed, 1 failed, 0 skipped
+        FAIL [   0.009s] (2/5) harness-seeded::harness heartbeat_through_mock_toggles
+exit=100
+  JUnit: 5 testcases, failed 1: ['heartbeat_through_mock_toggles']
+---- features: seeded-pair,seeded-mock-fault
+        FAIL [   0.010s] (4/5) harness-seeded::harness d01_c2_false
+        FAIL [   0.011s] (5/5) harness-seeded::harness heartbeat_through_mock_toggles
+     Summary [   0.012s] 5 tests run: 3 passed, 2 failed, 0 skipped
+        FAIL [   0.010s] (4/5) harness-seeded::harness d01_c2_false
+        FAIL [   0.011s] (5/5) harness-seeded::harness heartbeat_through_mock_toggles
+exit=100
+  JUnit: 5 testcases, failed 2: ['d01_c2_false', 'heartbeat_through_mock_toggles']
+---- reference runner: cargo test --features seeded-pair
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test d01_c2_false ... FAILED
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=101
+---- the harness fixture test build prints no warning (informational)
+exit=0
+
+================================================================ 11. TV-023 MSR-14 on nightly-2026-08-24 (non-credit): cond-kat seeded unexercised condition outcome, then complete
+  |  Branch (3:8): [True: 1, False: 1]
+  |  Branch (3:13): [True: 1, False: 0]
+exit=0
+  |  Branch (3:8): [True: 2, False: 1]
+  |  Branch (3:13): [True: 1, False: 1]
+exit=0
+
+================================================================ 12. TV-023 MSR-14 on the firmware workspace (the G6 command), twice
+     Summary [   0.014s] 10 tests run: 10 passed, 0 skipped
+exit=0
+     Summary [   0.013s] 10 tests run: 10 passed, 0 skipped
+exit=0
+  run 1 totals (covered, count): {'branches': (4, 4), 'lines': (70, 70), 'regions': (70, 70), 'functions': (14, 14)}
+  run 2 totals equal to run 1: True
+
+================================================================ 13. TV-023 Miri (MSR-08, CS-03; non-credit): miri-kat clean, then seeded-oob
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit=0
+test tests::in_bounds_read ... ok
+test tests::prefix_sums ... ok
+test tests::seeded_out_of_bounds_read ... error: Undefined Behavior: memory access failed: attempting to access 4 bytes, but got alloc54296+0x10 which is at or beyond the end of the allocation of size 16 bytes
+error: test failed, to rerun pass `--lib`
+exit=1
+
+================================================================ 14. TV-023 Miri on the gate G5 scope (rustos api host tests, cargo +nightly-2026-08-24 miri test -p api --lib, layout A)
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+exit=0
+
+================================================================ end 10:54:26
+
+######################################################################## APPENDIX: dry run section 4 (2026-09-27 10:50, before the fixtures were committed)
+# Same procedure (before the PY path fix) run on a scratch clone of cwht with the four fixtures committed there (clone commit 07cf1f2, not in the repository), scratch root <dry>.
+# Kept because it shows the layout dependence of the rustos blinky loadable image: here layout A differs from layout B and from the r3 reference.
+================================================================ 4. TV-020 rustos blinky (07 sections 8.3 and 17.3): templates/pico2 of the pin, two clean builds in two directories, against docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf
+template diff (layout A; the same three lines as TC-SW-TOOL-001-r3 blinky-build.txt, paths into the export):
+2c2
+< name = "{{project-name}}"
+---
+> name = "blinky"
+11,12c11,12
+< api = { git = "https://github.com/robinonsay/rustos" }
+< pico2 = { git = "https://github.com/robinonsay/rustos" }
+---
+> api = { path = "<scratch>/A/rustos/api" }
+> pico2 = { path = "<scratch>/A/rustos/firmware/pico2" }
+(diff exit 0)
+    Finished `release` profile [optimized] target(s) in 0.61s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.46s
+exit=0
+    Finished `release` profile [optimized] target(s) in 0.52s
+exit=0
+07b0326d5572e0f2a424f100d13c568997844bd2e089b8a07c82190b2b097625  <scratch>/b1/thumbv8m.main-none-eabihf/release/blinky
+07b0326d5572e0f2a424f100d13c568997844bd2e089b8a07c82190b2b097625  <scratch>/b2/thumbv8m.main-none-eabihf/release/blinky
+cf0cf8f071de8beda8197754c9115f70b51bc8e6205221c3e6f8b15317171b8c  <scratch>/b3/thumbv8m.main-none-eabihf/release/blinky
+3c0ac0747a761bf9880e21f80ba613cfcb5e8f5ddddbdea7af85dbf8952bbd08  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf
+loadable image (rust-objcopy -O binary):
+7c20cba4eb11476c13394f20966863dd57c5b928a95c388e31eb886609a36857  <scratch>/b1/thumbv8m.main-none-eabihf/release/blinky.bin
+c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df  <scratch>/b3/thumbv8m.main-none-eabihf/release/blinky.bin
+c6d27ba14d7161db90244c64f129abe22cacc0a06560579be7e0c66562a831df  <scratch>/A/cwht/docs/vv/reports/TC-SW-TOOL-001-r3/rustos-blinky.elf.bin
+
+# Symbol table of the two layout builds of that dry run (rust-nm -n, first differing lines): the crate disambiguator hashes differ, and main and rust_begin_unwind swap places.
+2,5c2,5
+< 10000000 _RNvCs9Bc0GV4RA3w_5pico212VECTOR_TABLE
+< 10000110 _RNvCs9Bc0GV4RA3w_5pico29BOOT_INFO
+< 10000124 _RNvCs5T1uCrRtjNK_6blinky4main
+< 100002d0 _RNvCs6rREvFdRhLb_7___rustc17rust_begin_unwind
+---
+> 10000000 _RNvCs225Rjk9CTJ1_5pico212VECTOR_TABLE
+> 10000110 _RNvCs225Rjk9CTJ1_5pico29BOOT_INFO
+> 10000124 _RNvCs6rREvFdRhLb_7___rustc17rust_begin_unwind
+> 1000012a _RNvCshucxPtuMtpl_6blinky4main
+10c10
+< 1000034c _RNvMNtNtCs9Bc0GV4RA3w_5pico26common5boardNtB2_6Rp23504take

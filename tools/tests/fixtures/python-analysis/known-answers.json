@@ -1,0 +1,28 @@
+{
+  "description": "Expected answers of the TV-024 known-answer test (03 section 6.5 item X9). Status: expected, not yet run (the tools are not installed; TV-024 section 9). TV-024 run 1 confirms or corrects each value and records the tool versions here.",
+  "analyzer": {
+    "tool": "ruff (version pinned at install)",
+    "command": "ruff check --no-cache --isolated --select E,W,F,B,S,C90 --line-length 120 --config 'lint.mccabe.max-complexity = 15' --output-format concise <path>",
+    "clean": {"path": "clean/", "exit": 0, "findings": []},
+    "seeded": {
+      "seeded/undefined_name.py": ["F821"],
+      "seeded/shell_true.py": ["S602"],
+      "seeded/eval_use.py": ["S307"],
+      "seeded/over_limit.py": ["C901"]
+    },
+    "seeded_exit": 1
+  },
+  "coverage": {
+    "tool": "coverage.py (version pinned at install)",
+    "complete": {
+      "command": "cd cov && coverage run --branch -m unittest test_calc && coverage report --include=calc.py --show-missing --fail-under=100",
+      "exit": 0,
+      "calc.py": {"statements": 4, "missing": 0, "branches": 2, "partial": 0, "percent": 100}
+    },
+    "seeded_gap": {
+      "command": "cd cov && coverage run --branch -m unittest test_calc_gap && coverage report --include=calc.py --show-missing --fail-under=100",
+      "exit": 2,
+      "calc.py": {"statements": 4, "missing": 1, "missing_lines": [7], "branches": 2, "partial": 1}
+    }
+  }
+}
