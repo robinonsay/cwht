@@ -5,10 +5,12 @@ checklist_revision: C
 checklist_file: docs/reviews/SRR/checklists/process-04-verification-and-validation.md
 product: docs/process/04-verification-and-validation.md
 # product_commit: the review baseline HEAD (the product files were last changed at b301df2 (04) and 4e3f891 (docs/vv/README.md))
-product_commit: "adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1"
+# product_commit at the close-out delta (2026-09-26): HEAD 26011f1; the iteration 1 baseline was adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
+product_commit: "26011f1a03958859a1ae48be8b155aebafe1ec45"
 # product_files: HEAD blobs delta-verified at the post-SRR-ruling delta (2026-09-26, HEAD ebe5873): 04 changed at d992052 (CR-002 step 1, SRR decision 113), CR-002 added at d992052 and reviewed as the change record of that edit; iteration 2 verified 04 blob 76bb24c3f3f43c1f7d3eb1b1be156824488153a8 at 33ac1ce; iteration 1 reviewed 04 blob ecff54d70d1c3bb8c90be0803f4b9720596adfc0 at adcfe09
-product_files: ["docs/process/04-verification-and-validation.md@0b197bba692237ed9860ba49c4422f12fa8512dc", "docs/vv/README.md@878869d346d936e4ad38ef5a51ef18175a0774fa", "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@730708236d0da5e515786f16aaab55cd6bd392b8"]
-product_size: 18 sections (601 lines) plus docs/vv/README.md (35 lines) plus CR-002 (147 lines, delta only)
+product_files: ["docs/process/04-verification-and-validation.md@0b197bba692237ed9860ba49c4422f12fa8512dc", "docs/vv/README.md@878869d346d936e4ad38ef5a51ef18175a0774fa", "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@36224b454743671097e638252b1c7fe5c1de2949"]
+# close-out delta (2026-09-26, HEAD 26011f1): CR-002 changed at bf654e6 (73070823 to 36224b45, SRR close-out items 5 and 7); 04 and README unchanged
+product_size: 18 sections (601 lines) plus docs/vv/README.md (35 lines) plus CR-002 (150 lines, delta only)
 sprint: SRR-prep
 author_agent: "author:process-04 (Claude main session, lead SE; maintainer per the 04 header)"
 reviewer_agent: "reviewer:INSP-021"
@@ -20,6 +22,7 @@ iteration: 2
 # readiness_met: true at the re-issue of 2026-09-26 (package item R8): R3 met by the author self-check filed at ca22e37 and confirmed by the reviewer; see Re-issue
 readiness_met: true
 # post-SRR-ruling delta (2026-09-26, HEAD ebe5873): CR-002 step 1 verified, no new Major; new Minor finding-6 and finding-7 (CR-002) are liens due PDR; verdict stays APPROVED
+# close-out delta (2026-09-26, HEAD 26011f1): bf654e6 verified, finding-7 Verified (CR-002 step 5 landed before the tag at c774851); new Minor finding-8 and finding-9 are liens due PDR; no Major open; verdict stays APPROVED
 # reviewer_verdict: finding-1 Verified at iteration 2; every Minor finding is "Lien: fix before PDR" (convergence rule of 2026-09-26)
 # verdict: APPROVED (with liens finding-2 to finding-4, fix before PDR) at the re-issue of 2026-09-26 without a further product review;
 # iteration 2 held it at NEEDS CHANGES only on readiness R3 (finding-5), which the author self-check now meets (finding-5 Verified)
@@ -27,10 +30,10 @@ reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 findings_major: 1
-findings_minor: 6
+findings_minor: 8
 findings_open: 0
 findings_fixed: 0
-findings_verified: 2
+findings_verified: 3
 # the four Minor findings are liens "fix before PDR" (convergence rule of 2026-09-26), listed in the lien table, not Deferred RIDs
 findings_deferred: 0
 assurance_findings_major: 0
@@ -39,8 +42,8 @@ assurance_tasks_applied: []
 deferred_rids: []
 # items_no: R3 answered Yes at the re-issue (finding-5 Verified)
 items_no: [CK-REQ-G1, CK-REQ-G7]
-effort_turns: 85
-effort_minutes: 110
+effort_turns: 105
+effort_minutes: 135
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -326,4 +329,75 @@ COMMITS: d992052 (04 CR-002 step 1, SRR decision 113 (owner ruling 2026-09-26)):
 FINDINGS: finding-1 Major Verified (unchanged); finding-5 Verified (unchanged); finding-2 to finding-4 Minor, Lien: fix before PDR (unchanged); new finding-6 and finding-7 Minor (CR-002 tracking and interim traceability state), Lien: fix before PDR; open Major 0
 PRODUCT: docs/process/04-verification-and-validation.md@0b197bba, docs/vv/README.md@878869d3, docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@73070823
 MEASUREMENTS: commits=1; new major=0; new minor=2; lien=5; open_major=0; turns=22; minutes=30; cumulative turns=85, minutes=110
+```
+
+## Close-out delta (reviewer; SRR close-out items 5 and 7; 2026-09-26, HEAD `26011f1`)
+
+Written by `reviewer:INSP-021`, the reviewer role of this record, not the author (charter section 11 rule 4; 08 section 3.1); the reviewer edited no product. Trigger: record drift reported by `tools/validate_docs.py`: `product_files` named CR-002 at blob `73070823` while HEAD holds `36224b45`. Rulings in force: the owner's close-out concurrence "I concur with your recommendations" (`docs/reviews/SRR/minutes.md`, section "Close-out decisions (after the first close-out run)", commit `dd39332`), items 1 to 12 ruled as recommended; item 5 reads "update `tools/traceability.py` now (CR-002 step 5), then re-validate and re-accredit it, rather than record a deviation"; item 7 reads "CR-002 is Class I". Convergence rule (charter section 4 item 3): only open Major findings and ruled work change products before the gate; new Minor findings are liens due PDR. Everything above this section stands as recorded.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: SRR close-out item 5 traceability CR-002 step 5 brought forward before `baseline/srr`; item 7 CR-002 Class I) ran before any `grep`; `grep`, `git log` and `git show` were used afterwards only to pin lines, commits and blobs.
+
+**Commits in scope.** `git log --oneline ebe5873..HEAD` over the three product files prints one commit, `bf654e6` ("TV-002 run 5 and CR-002 step 5 record ..."), which touches CR-002 only (9 lines: 6 insertions, 3 deletions; 4 hunks). 04 is unchanged (blob `0b197bba`) and `docs/vv/README.md` is unchanged (blob `878869d3`). The other files of `bf654e6` (`docs/cm/tool-validation/TV-002-traceability.md`, `tools/README.md`) and the tool commit `c774851` are not this record's products; they are reviewed by INSP-015 re-issue 3 (`26011f1`, APPROVED with liens), which is the independent review of TV-002 run 5. This record covers no tool validation record, so it makes no accreditation effective. Reviewed blobs at HEAD `26011f1`: 04 `0b197bba`, README `878869d3`, CR-002 `36224b45`; the working tree equals HEAD for all three.
+
+**Delta verification of `bf654e6` against CR-002 (`git show bf654e6 -- docs/cm/cr/CR-002-inspection-for-documentary-requirements.md`).**
+
+| Change (CR-002 line at HEAD) | Check | Result |
+|---|---|---|
+| Section 5 step 5 "Done (SHA)" cell (line 80): `c774851`, brought forward from the PDR readiness declaration to before the tag by close-out item 5, re-validation TV-002 run 5 | `c774851` exists and changes `tools/traceability.py` and `tools/tests/test_traceability.py` only; its message states rule 7.3.6 now accepts the `Inspection accepted per CR-002` route for modules other than `SW` and `SW-<SUB>`, which is CR-002 item 7 and 04 rule 7.3.6 (line 248). Close-out item 5 is quoted correctly from the minutes. Repository run at HEAD `26011f1`: `tools/traceability.py --report-only` exit 0, 245 requirements, 173 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, 148); the four `HAZARD_REQ_NOT_TESTED` of finding-7 are gone. Known answers re-run: `unittest discover -s tools/tests -k InspectionRouteTests` ran 6 tests, OK | Correct |
+| Section 7 "Class confirmed" (line 99) and new disposition history row (line 112) | Close-out item 7 "CR-002 is Class I" and the owner statement are quoted verbatim from `minutes.md`; the superseded value is kept inside the cell ("Before that ruling the field read: ..."), so no history is lost; the history row is appended, not rewritten | Correct |
+| Section 8 implementation record, new row `c774851` (line 119) | `git show -s --format=%B c774851` carries the trailer `CR: CR-002`; the files listed match `git show --stat c774851` | Correct |
+| Section 9 row "Tool rule" (line 131) | The verification evidence named (`InspectionRouteTests` variants, TV-002 run 5, 182 tests, TV-002 section 4.1 run R-2 exit 0 with 0 violations) matches TV-002 lines 29 to 35 and the repository run above; it states that the independent verification is by the INSP-015 delta, which is now done at `26011f1` (APPROVED with liens) | Correct; the cell's "pending" is now stale, see finding-8 |
+| Section 10 new row (line 150) | Appended row, state Dispositioned, commit `c774851` and "the commit that records this row"; consistent with sections 5, 7 and 8 | Correct |
+
+No new defect of Major weight: no requirement, method, hazard control, RMM or compliance row changes; the edit records work that the rulings ordered and that the tree confirms. 0 em dashes in blob `36224b45`; no `TBD`, `TBR`, "as appropriate" or "should consider" added; the one new citation (close-out items 5 and 7, `dd39332`) resolves. The CR still leaves some cells that `bf654e6` made stale (finding-8), and 04 row 7.3.6 now lags the tool (finding-9); both are documentary and Minor.
+
+**Effect on earlier findings.**
+- finding-7 (Minor, CR-002 interim traceability state): Verified. Its first fix alternative, "move step 5 (tool rule and known-answer test) before the tag", is what close-out item 5 ordered and `c774851` implemented; `bf654e6` records it in section 5 and section 8; the interim state the finding described no longer exists (0 violations at HEAD `26011f1`). Cross item X4 of the post-SRR-ruling delta is resolved by the same commits.
+- finding-6 (Minor, CR-002 tracking): stays a lien. Section 5 and section 8 still record neither step 2 (`cd61450`) nor step 3 (`ebe5873`), neither commit carries `CR: CR-002` (`git show -s --format=%B cd61450 ebe5873 | grep -c '^CR:'` prints 0), and step 4 is still open (`docs/safety/hazard-analysis.md` line 261 still reads "close by the Analysis method accepted per RSK-016"; cross item X5 stands).
+- finding-1 and finding-5 stay Verified; finding-2 to finding-4 stay liens (04 unchanged).
+
+### Delta findings (2026-09-26, HEAD `26011f1`)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-8"></a>finding-8 | reviewer | Minor | CK-REQ-G7 | CR-002 line 64 (section 4 row Schedule), line 70 (classification rationale), line 121 (section 8), line 131 (section 9 row Tool rule) | `bf654e6` updated sections 5, 7, 8, 9 and 10 but left four statements that now contradict them: line 64 still schedules "item 7 before the PDR readiness declaration" though section 5 records it done before the tag under close-out item 5; line 70 still says "the class is confirmed at the next owner exchange" though section 7 records the confirmation; line 121 still reads "pending steps 2 to 5" though step 5 is done and the repository run gives 0 violations; line 131 still reads independent verification "pending" though INSP-015 re-issue 3 (`26011f1`) is APPROVED. Fix: re-state the four places as dated updates that keep the original text (as section 7 already does) | Lien: fix before PDR | Not needed | |
+| <a id="finding-9"></a>finding-9 | reviewer | Minor | CK-REQ-G7 | 04 line 280 (section 7.4 row 7.3.6) | The row still lists the Inspection route under "missing" with "until the tool accepts it, the procedure reviewer checks each such requirement by hand", due PDR, and calls the tool change "CR-002 implementation step 3"; CR-002 section 5 numbers it step 5 (step 3 is the TC-SYS retyping), and since `c774851` the tool accepts the route. The wrong step number was introduced at `d992052` and not caught by the post-SRR-ruling delta; the "missing" text became stale at `c774851`. The `HAZARD_INVERSE` promotion part of the row is unaffected. Fix: move the Inspection route to the "implemented" column citing `c774851` and CR-002 step 5, under a CR-002 change note in the 04 header | Lien: fix before PDR | Not needed | |
+
+### Lien table (close-out delta)
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-2 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE) | PDR readiness declaration |
+| finding-3 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE) | PDR readiness declaration |
+| finding-4 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE); `tools/traceability.py` owner if implemented instead of re-dated | PDR readiness declaration |
+| finding-6 | Minor | Lien: fix before PDR | CR-002 originator (Claude) | PDR readiness declaration (step 4 part: before `baseline/srr` as CR-002 schedules it, or re-dated) |
+| finding-8 | Minor | Lien: fix before PDR | CR-002 originator (Claude) | PDR readiness declaration |
+| finding-9 | Minor | Lien: fix before PDR | 04 author (Claude, lead SE) | PDR readiness declaration |
+
+### Cross items (close-out delta; for the integrating session)
+
+- X4: resolved by `c774851` and `bf654e6` (0 violations at HEAD `26011f1`); no action.
+- X5 stands: CR-002 step 4 (hazard analysis section 8.1) is open; CR-002 schedules it before the `baseline/srr` tag.
+- X6 stands: CR-002 section 6 (independent impact review) is still pending; close-out item 8 orders an RFA for it, due before PDR.
+- X7: closed; `tools/render_rmm.py --check` exits 0 at HEAD `26011f1`.
+
+**Tool runs (2026-09-26, HEAD `26011f1`, repository root, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (after writing this section) | 0 | 50 passed, 0 failed, 50 checked; this record PASS as APPROVED with the three `product_files` blobs at HEAD (record drift check included) |
+| `tools/traceability.py --report-only` | 0 | 245 requirements, 173 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125, REQ-SYS-148); `docs/vv/traceability-report.md` and `traceability.json` restored with `git checkout` |
+| `unittest discover -s tools/tests -k InspectionRouteTests` | 0 | 6 tests, OK |
+| `unittest discover -s tools/tests` | 0 | 415 tests, OK (before this section was written, `test_validate_docs.RepositoryTests.test_repository_exit_zero` failed on this record's drift only; it passes after it) |
+| `tools/render_rmm.py --check` | 0 | 100 rows, render current |
+| `tools/render_compliance.py --check` | 0 | validation passed, render current |
+
+**Measurements (delta).** Commits verified: 1 (`bf654e6`, CR-002 part; `c774851` read for the step 5 claim); product hunks checked: 4 in CR-002; items re-checked: CK-REQ-G1, G7, A8, R1, R4; findings verified: 1 (finding-7); new findings: 2 Minor, 0 Major; effort 20 turns, 25 minutes (added to the front matter totals).
+
+```
+CLOSE-OUT DELTA (2026-09-26, HEAD 26011f1, SRR close-out items 5 and 7): VERDICT: APPROVED (with liens)
+COMMITS: bf654e6 (CR-002 step 5 record and Class I confirmation): applies close-out items 5 and 7 correctly; no new Major
+FINDINGS: finding-7 Verified (c774851, bf654e6); finding-1 and finding-5 Verified (unchanged); finding-2, 3, 4, 6 Lien (unchanged); new finding-8 and finding-9 Minor, Lien: fix before PDR; open Major 0
+PRODUCT: docs/process/04-verification-and-validation.md@0b197bba, docs/vv/README.md@878869d3, docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@36224b45
+MEASUREMENTS: commits=1; new major=0; new minor=2; verified=1; lien=6; open_major=0; turns=20; minutes=25; cumulative turns=105, minutes=135
 ```
