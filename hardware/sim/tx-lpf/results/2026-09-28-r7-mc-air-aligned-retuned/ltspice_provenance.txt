@@ -1,0 +1,3 @@
+ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 3600 s
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=lpf_r7.cir sha256=ca32268e1e788843719b677c879674a2f46ee9a9a951a70039e2370bb8681b24 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=6s outputs=[lpf_r7.db lpf_r7.log lpf_r7.log.raw lpf_r7.op.raw lpf_r7.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-lpf/results/2026-09-28-r7-mc-air-aligned-retuned
