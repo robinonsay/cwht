@@ -12,12 +12,55 @@ Block of the WP-PDR-20 analyses (synthesizer, reference, frequency budget, clock
 | `tx_spur_plan.py` | TS-012 transmit clock spur plan: every clock line from 118 to 175 MHz while transmitting, at the GVA-84+ input and at the antenna, for plans B0, B1, P and PB and for finalists A4 and A5 | `docs/design/analysis/spurs-ts012.md` |
 | `tx_spur_filters.cir` | LTspice AC deck: drive low-pass with the 18 dB pad, option C10 drive bandpass, harmonic 7-pole low-pass (ideal and inductor Q 60) | as above |
 | `tx_spur_bpf_tol.cir` | LTspice AC deck: tolerance corners (every L and every C at 0.95, 1, 1.05) of the option C10 drive bandpass | as above |
+| `tx_spur_c7_tap.cir` | LTspice transient deck (revision 1): the /8 prescaler tap on CLK1 with a series resistor of 0 to 330 ohm, 144 corners; checks a valid 74LVC1G80 clock (VIH, VIL, tW, transition rate) | as above |
+| `tx_spur_c7_iso.cir` | LTspice AC deck (revision 1): reverse isolation of the tap's series resistor for the flip-flop kickback (current into the pin; ground bounce behind CI) | as above |
+| `tx_spur_trap.cir` | LTspice AC deck (revision 1): 150 MHz series-LC trap T1 on a 50 ohm node, L 47 nH to 2.2 uH, Q 60 and 100; attenuation at 150 MHz against carrier loss | as above |
 
 LTspice runs only through `tools/ltspice-batch.sh` (ACC-LTSPICE-001, blob `88b71475`); the GUI is never opened. `.raw` files are parsed with spicelib from the project venv.
 
 ## Runs
 
-### `results/txspur-20260928-01/` (2026-09-28): TS-012 transmit clock spur plan (WP-PDR-20 pre-order item, TS-012 revision 4)
+### `results/txspur-20260928-02/` (2026-09-28): revision 1 of the spur plan (fixes review finding-1 and finding-2 of revision 0)
+
+Reproduce from the repository root:
+
+```
+for d in tx_spur_filters tx_spur_bpf_tol tx_spur_c7_tap tx_spur_c7_iso tx_spur_trap; do
+  tools/ltspice-batch.sh -t 900 -o hardware/sim/freq/results/txspur-20260928-02 -b hardware/sim/freq/$d.cir; done
+.venv/bin/python hardware/sim/freq/tx_spur_plan.py --run-id txspur-20260928-02
+```
+
+Every LTspice run exited 0 through the wrapper (`*.wrapper.txt` holds each wrapper result line); the checker exits **1: residual lines** (TS-012 7.3 met by wording only). Its console output is `checker-output.txt`.
+
+| Output | Content |
+|---|---|
+| `results.json` | Per plan and finalist: the TS-012 criterion in the numbers and by wording, residual lines over 60 dBc and over 25 uW (at the three carriers and over the band), each residual line with its credited and its named-only changes (`cases.<plan>/<finalist>/<carrier>.residual_lines`); `c7` (valid clock and isolation per resistor, every corner); `t1_trap` (sizing and verdict); filter checks; C10 corners; ADR-031 re-check; exit-status meaning |
+| `lines.csv` | Every line with the residual flags and the columns `credited_in_numbers` and `named_not_credited` |
+| `spectrum-gva-A5-144.050.png`, `spectrum-gva-A4-144.050.png` | Every line of B0, B1, P, PB against -61 and -68 dBm at the GVA-84+ input |
+| `antenna-P-PB-144.050.png`, `antenna-P-PB-147.950.png` | Plans P and PB for A5 and A4 at the SMA, -16 and -23 dBm limits, residual lines labelled |
+| `worst-line-vs-carrier.png` | Strongest line, residual lines over -23 dBm and over -16 dBm across 144.010 to 147.990 MHz |
+| `c7-prescaler-tap.png` | CP pin swing per series resistor against VIH and VIL (with the 0.10 V margin), worst-corner waveforms, LTspice isolation against the revision 0 formula |
+| `t1-trap.png` | T1 relative suppression against carrier loss (Q 60, 100; 147.990 and 144.050 MHz) with the 11.0 and 4.0 dB needs; trap responses |
+| `filters.png`, `c10-tolerance.png` | As in run 01 (same decks, re-run) |
+| `*.log`, `*.raw` and the other LTspice outputs; `*.cir`, `tx_spur_plan.py` | LTspice outputs of the five decks; copies of the decks and the script as run |
+
+Summary (line levels ESTIMATES of Low confidence; filters, C7 and T1 from LTspice):
+
+| Plan | Worst line at the SMA, high estimate (A5 and A4) | Residual lines over -23 dBm over the band | Of which over -16 dBm (25 uW) | TS-012 criterion |
+|---|---|---|---|---|
+| B0, B1 | -0.4 dBm (/8 prescaler 7/8 fc) | 16 to 19 | 10 | not met |
+| P | -4.3 dBm (/8 kickback 7/8 fc) | 10 to 12 | 4 | met by wording only (residual lines) |
+| PB | -12.1 dBm (150.000 MHz, and the /8 kickback at 9/8 fc) | 6 to 8 | 3 | met by wording only (residual lines) |
+
+- **C7 (finding-2).** Revision 0's 330 ohm tap stops the 74LVC1G80 clock: the pin misses VIH and VIL by 0.26 V at the low corner. Its isolation is 5.5 dB in LTspice, not the 23 dB claimed. The largest valid value is 47 ohm (0.23 V margin), which buys 0.4 dB. The /8 kickback sidebands are therefore residual lines.
+- **T1 (finding-1).** No trap size gives the 11.0 dB relative suppression that 60 dBc needs at 147.990 MHz (best 9.2 dB). For 25 uW, 4.0 dB costs 1.7 dB of carrier. T1 is withdrawn as the fallback.
+- A4 and A5 differ by at most 0.8 dB on every residual line, so the spur plan still does not discriminate between them.
+
+Every PNG of this run was opened and inspected after rendering (visual closure, 2026-09-28).
+
+### `results/txspur-20260928-01/` (2026-09-28, superseded by run 02): TS-012 transmit clock spur plan (WP-PDR-20 pre-order item, TS-012 revision 4)
+
+Kept for the record. Its "PASS" for P and PB was the TS-012 wording only (review finding-1), and its C7 credit of 23 dB was invalid (finding-2).
 
 Reproduce from the repository root:
 

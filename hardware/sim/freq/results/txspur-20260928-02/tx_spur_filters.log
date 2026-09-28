@@ -1,0 +1,27 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.iZdz19/tx_spur_filters.cir
+Start Time: Mon Sep 28 18:10:25 2026
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+.OP point found by inspection.
+.OP point found by inspection.
+Total elapsed time: 0.093 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.iZdz19/tx_spur_filters.cir
+
+d_144: mag(V(outd)) =(-25.3859703664dB,0°) at 144000000
+b_pk: MAX(mag(V(outb)) )=(-25.5483551324dB,0°) FROM 140000000 TO 152000000
+b_fpk: mag(V(outb))=b_pk AT 148000000
+b_144: mag(V(outb)) =(-25.7378582895dB,0°) at 144000000
+b_148: mag(V(outb)) =(-25.5483551324dB,0°) at 148000000
+b_125: mag(V(outb)) =(-43.0115121618dB,0°) at 125000000
+b_150: mag(V(outb)) =(-25.6123606109dB,0°) at 150000000
+b_175: mag(V(outb)) =(-36.9825455856dB,0°) at 175000000
+o_150: mag(V(outo)) =(-6.11947019958dB,0°) at 150000000
+o_175: mag(V(outo)) =(-8.46277253474dB,0°) at 175000000
+o_288: mag(V(outo)) =(-53.9339517238dB,0°) at 288000000
+o_432: mag(V(outo)) =(-81.9843084312dB,0°) at 432000000

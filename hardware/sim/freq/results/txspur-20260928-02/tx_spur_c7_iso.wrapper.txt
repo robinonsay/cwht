@@ -1,0 +1,3 @@
+ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 600 s
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=tx_spur_c7_iso.cir sha256=028b3196165173ee0be77bf89ed65f3d637ec54792cee8f4d4b52ae5792f059f version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=4s outputs=[tx_spur_c7_iso.log tx_spur_c7_iso.op.raw tx_spur_c7_iso.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/freq/results/txspur-20260928-02

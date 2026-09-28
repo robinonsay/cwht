@@ -1,0 +1,27 @@
+* tx_spur_trap.cir: sizing of the 150 MHz series-LC trap T1 with its carrier cost (review finding-1 item c)
+* Product: docs/design/analysis/spurs-ts012.md (revision 1); checker hardware/sim/freq/tx_spur_plan.py.
+* Run only through tools/ltspice-batch.sh (ACC-LTSPICE-001). AC analysis.
+*
+* A series L-C to ground, resonant at 150.000 MHz, on a 50 ohm node (50 ohm source, 50 ohm load), against the
+* same node with no trap. L = 47, 100, 220, 470 nH, 1, 1.5 and 2.2 uH (C down to 0.51 pF, the smallest a hand-built
+* part can hold against its pad parasitics); C = 1 / ((2 pi 150 MHz)^2 L); inductor Q 60 and 100
+* at 150 MHz (series R; ESTIMATE for 1812SMS-class and air-core parts), ideal capacitor.
+* The checker reads, per L and Q: attenuation at 150.000 MHz, carrier loss at 144.010, 144.050, 146.000 and
+* 147.990 MHz, and the relative suppression (attenuation at 150 MHz minus the carrier loss), which is what
+* sets the dBc of the 150 MHz line when the ALC restores the carrier.
+.param f0=150e6
+.step param lt list 47n 100n 220n 470n 1u 1.5u 2.2u
+.step param qt list 60 100
+.param ct=1/((2*pi*f0)**2*lt)
+V1 s 0 AC 1
+Rs s n 50
+Lt n x {lt}
+Rt x y {2*pi*f0*lt/qt}
+Ct y 0 {ct}
+Rl n 0 50
+V2 s2 0 AC 1
+Rs2 s2 n2 50
+Rl2 n2 0 50
+.ac lin 3001 140e6 155e6
+.save V(n) V(n2)
+.end

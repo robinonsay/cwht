@@ -1,0 +1,43 @@
+* tx_spur_c7_iso.cir: reverse isolation that a series resistor at the prescaler tap gives the CLK1 net (C7, finding-2)
+* Product: docs/design/analysis/spurs-ts012.md (revision 1); checker hardware/sim/freq/tx_spur_plan.py.
+* Run only through tools/ltspice-batch.sh (ACC-LTSPICE-001). AC analysis.
+*
+* Revision 0 credited db20((330 + 25) / 25) = 23 dB, a divider that holds only if the kickback source at the pin
+* has a low impedance. The kickback of a CMOS input is a small current into, or a ground-bounce voltage behind,
+* its input capacitance, so the capacitance itself sits in the divider. Two models, both 1 A or 1 V AC:
+*  I  current injected at the CP pin (internal switching coupled through a small capacitance: a high-impedance source)
+*  G  ground bounce of the flip-flop die: CI returns to a node gch driven by 1 V (supply and ground bounce at fc/8
+*     rates), the pad capacitance returns to the board ground
+* The CLK1 node network is the one of tx_spur_c7_tap.cir with the source voltage at AC ground. The checker takes
+* V(clk) at each Rser against Rser = 0 over 126.0 to 129.5 MHz (7/8 fc) and 162.0 to 166.5 MHz (9/8 fc); the
+* credited isolation is the smallest over both models, both source resistances and both pad capacitances.
+.step param rser list 0.001 47 100 150 220 330
+.step param rsrc list 25 50
+.step param cpad list 1p 3p
+* ---- I ----
+RsI clkI 0 {rsrc}
+C1I clkI 0 18p Rser=0.1 Lser=1n
+L1I clkI lpfI 82n Rser=0.75 Cpar=0.21p
+C2I lpfI 0 18p Rser=0.1 Lser=1n
+RpI lpfI 0 50
+CtI clkI t1I 100p Rser=0.1 Lser=1n
+RserI t1I pinI {rser}
+CinI pinI 0 5p
+CpdI pinI 0 {cpad}
+RbI pinI 0 5.18k
+II 0 pinI AC 1
+* ---- G ----
+RsG clkG 0 {rsrc}
+C1G clkG 0 18p Rser=0.1 Lser=1n
+L1G clkG lpfG 82n Rser=0.75 Cpar=0.21p
+C2G lpfG 0 18p Rser=0.1 Lser=1n
+RpG lpfG 0 50
+CtG clkG t1G 100p Rser=0.1 Lser=1n
+RserG t1G pinG {rser}
+CinG pinG gch 5p
+CpdG pinG 0 {cpad}
+RbG pinG 0 5.18k
+VG gch 0 AC 1
+.ac lin 401 100e6 200e6
+.save V(clkI) V(clkG) V(pinI) V(pinG)
+.end

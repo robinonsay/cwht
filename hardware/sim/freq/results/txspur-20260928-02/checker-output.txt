@@ -1,0 +1,188 @@
+{
+ "overall": "RESIDUAL (TS-012 7.3 met by wording only; residual lines close at the bench)",
+ "criterion": {
+  "A5": {
+   "B0": {
+    "ts012_criterion_numbers": "as written: up to 18 lines over 60 dBc, 11 over 25 uW (no change applied)",
+    "ts012_criterion_wording": "not met as written",
+    "residual_60dBc_max_over_carriers": 18,
+    "residual_25uW_max_over_carriers": 11,
+    "residual_60dBc_min_max_over_band": [
+     17,
+     19
+    ],
+    "residual_25uW_min_max_over_band": [
+     10,
+     10
+    ],
+    "worst_line_ant_hi_dBm_over_band": -0.4,
+    "worst_line_gva_ref_hi_dBm_over_band": -45.4,
+    "all_lines_under_60dBc_at_high_estimate": false,
+    "all_lines_under_25uW_at_high_estimate": false,
+    "residual_without_any_named_change": 0
+   },
+   "B1": {
+    "ts012_criterion_numbers": "as written: up to 18 lines over 60 dBc, 11 over 25 uW (no change applied)",
+    "ts012_criterion_wording": "not met as written",
+    "residual_60dBc_max_over_carriers": 18,
+    "residual_25uW_max_over_carriers": 11,
+    "residual_60dBc_min_max_over_band": [
+     17,
+     19
+    ],
+    "residual_25uW_min_max_over_band": [
+     10,
+     10
+    ],
+    "worst_line_ant_hi_dBm_over_band": -0.4,
+    "worst_line_gva_ref_hi_dBm_over_band": -45.4,
+    "all_lines_under_60dBc_at_high_estimate": false,
+    "all_lines_under_25uW_at_high_estimate": false,
+    "residual_without_any_named_change": 0
+   },
+   "P": {
+    "ts012_criterion_numbers": "RESIDUAL: up to 11 lines over the 60 dBc target at the three carriers (10 to 12 over the band), 4 over 25 uW at the high estimate",
+    "ts012_criterion_wording": "met by wording only: 11 residual lines not shown, 4 over 25 uW, closing at the bench",
+    "residual_60dBc_max_over_carriers": 11,
+    "residual_25uW_max_over_carriers": 4,
+    "residual_60dBc_min_max_over_band": [
+     10,
+     12
+    ],
+    "residual_25uW_min_max_over_band": [
+     4,
+     4
+    ],
+    "worst_line_ant_hi_dBm_over_band": -4.3,
+    "worst_line_gva_ref_hi_dBm_over_band": -49.3,
+    "all_lines_under_60dBc_at_high_estimate": false,
+    "all_lines_under_25uW_at_high_estimate": false,
+    "residual_without_any_named_change": 0
+   },
+   "PB": {
+    "ts012_criterion_numbers": "RESIDUAL: up to 7 lines over the 60 dBc target at the three carriers (6 to 8 over the band), 3 over 25 uW at the high estimate",
+    "ts012_criterion_wording": "met by wording only: 7 residual lines not shown, 3 over 25 uW, closing at the bench",
+    "residual_60dBc_max_over_carriers": 7,
+    "residual_25uW_max_over_carriers": 3,
+    "residual_60dBc_min_max_over_band": [
+     6,
+     8
+    ],
+    "residual_25uW_min_max_over_band": [
+     3,
+     3
+    ],
+    "worst_line_ant_hi_dBm_over_band": -12.1,
+    "worst_line_gva_ref_hi_dBm_over_band": -57.1,
+    "all_lines_under_60dBc_at_high_estimate": false,
+    "all_lines_under_25uW_at_high_estimate": false,
+    "residual_without_any_named_change": 0
+   }
+  },
+  "A4": {
+   "B0": {
+    "ts012_criterion_numbers": "as written: up to 17 lines over 60 dBc, 10 over 25 uW (no change applied)",
+    "ts012_criterion_wording": "not met as written",
+    "residual_60dBc_max_over_carriers": 17,
+    "residual_25uW_max_over_carriers": 10,
+    "residual_60dBc_min_max_over_band": [
+     16,
+     18
+    ],
+    "residual_25uW_min_max_over_band": [
+     10,
+     10
+    ],
+    "worst_line_ant_hi_dBm_over_band": -0.4,
+    "worst_line_gva_ref_hi_dBm_over_band": -45.4,
+    "all_lines_under_60dBc_at_high_estimate": false,
+    "all_lines_under_25uW_at_high_estimate": false,
+    "residual_without_any_named_change": 0
+   },
+   "B1": {
+    "ts012_criterion_numbers": "as written: up to 17 lines over 60 dBc, 10 over 25 uW (no change applied)",
+    "ts012_criterion_wording": "not met as written",
+    "residual_60dBc_max_over_carriers": 17,
+    "residual_25uW_max_over_carriers": 10,
+    "residual_60dBc_min_max_over_band": [
+     16,
+     18
+    ],
+    "residual_25uW_min_max_over_band": [
+     10,
+     10
+    ],
+    "worst_line_ant_hi_dBm_over_band": -0.4,
+    "worst_line_gva_ref_hi_dBm_over_band": -45.4,
+    "all_lines_under_60dBc_at_high_estimate": false,
+    "all_lines_under_25uW_at_high_estimate": false,
+    "residual_without_any_named_change": 0
+   },
+   "P": {
+    "ts012_criterion_numbers": "RESIDUAL: up to 11 lines over the 60 dBc target at the three carriers (10 to 12 over the band), 4 over 25 uW at the high estimate",
+    "ts012_criterion_wording": "met by wording only: 11 residual lines not shown, 4 over 25 uW, closing at the bench",
+    "residual_60dBc_max_over_carriers": 11,
+    "residual_25uW_max_over_carriers": 4,
+    "residual_60dBc_min_max_over_band": [
+     10,
+     12
+    ],
+    "residual_25uW_min_max_over_band": [
+     4,
+     4
+    ],
+    "worst_line_ant_hi_dBm_over_band": -4.3,
+    "worst_line_gva_ref_hi_dBm_over_band": -49.3,
+    "all_lines_under_60dBc_at_high_estimate": false,
+    "all_lines_under_25uW_at_high_estimate": false,
+    "residual_without_any_named_change": 0
+   },
+   "PB": {
+    "ts012_criterion_numbers": "RESIDUAL: up to 7 lines over the 60 dBc target at the three carriers (6 to 8 over the band), 3 over 25 uW at the high estimate",
+    "ts012_criterion_wording": "met by wording only: 7 residual lines not shown, 3 over 25 uW, closing at the bench",
+    "residual_60dBc_max_over_carriers": 7,
+    "residual_25uW_max_over_carriers": 3,
+    "residual_60dBc_min_max_over_band": [
+     6,
+     8
+    ],
+    "residual_25uW_min_max_over_band": [
+     3,
+     3
+    ],
+    "worst_line_ant_hi_dBm_over_band": -12.1,
+    "worst_line_gva_ref_hi_dBm_over_band": -57.1,
+    "all_lines_under_60dBc_at_high_estimate": false,
+    "all_lines_under_25uW_at_high_estimate": false,
+    "residual_without_any_named_change": 0
+   }
+  }
+ },
+ "c7": {
+  "design_rser_ohm": 47.0,
+  "credited_isolation_dB": 0.4,
+  "rser_max_valid_ohm": 47.0,
+  "revision0_330ohm": "INVALID CLOCK: worst margin -0.26 V; LTspice isolation 5.5 dB against the 23 dB claimed"
+ },
+ "t1": {
+  "need_relative_dB_for_60dBc": 11.0,
+  "need_relative_dB_for_25uW": 4.0,
+  "best_relative_suppression_at_147990_dB": 9.15,
+  "meets_60dBc_at_147990_any_size": false,
+  "verdict": "WITHDRAWN as the fallback: no size reaches the 60 dBc suppression at 147.990 MHz (best 9.2 dB against 11.0 dB), and the 25 uW suppression costs at least 1.7 dB of carrier at 147.990 MHz that neither drive chain has to spare (WP-PDR-21 runs d2 and p1/p2)",
+  "line_150_ant_hi_dBm_PB": -12.0
+ }
+}
+P A5 144.050: residual 10 over 60 dBc, 4 over 25 uW: 126.044 -4.3 dBm (4 coincident lines at 126.044 MHz (amplitude sum)); 162.056 -5.2 dBm (4 coincident lines at 162.056 MHz (amplitude sum)); 125.000 -11.4 dBm (2 coincident lines at 125.000 MHz (amplitude sum)); 150.000 -12.5 dBm (2 coincident lines at 150.000 MHz (amplitude sum)); 175.000 -16.8 dBm (2 coincident lines at 175.000 MHz (amplitude sum)); 163.100 -17.8 dBm (2 coincident lines at 163.100 MHz (amplitude sum)); 138.100 -18.4 dBm (2 coincident lines at 138.100 MHz (amplitude sum)); 142.050 -21.5 dBm (2 coincident lines at 142.050 MHz (amplitude sum)); 146.050 -21.7 dBm (2 coincident lines at 146.050 MHz (amplitude sum)); 143.550 -23.0 dBm (fractional / integer-boundary spur fc -0.5 MHz (re)
+P A5 146.000: residual 10 over 60 dBc, 4 over 25 uW: 127.750 -4.3 dBm (4 coincident lines at 127.750 MHz (amplitude sum)); 164.250 -5.4 dBm (4 coincident lines at 164.250 MHz (amplitude sum)); 125.000 -11.3 dBm (2 coincident lines at 125.000 MHz (amplitude sum)); 150.000 -12.2 dBm (3 coincident lines at 150.000 MHz (amplitude sum)); 175.000 -16.7 dBm (2 coincident lines at 175.000 MHz (amplitude sum)); 142.000 -17.9 dBm (3 coincident lines at 142.000 MHz (amplitude sum)); 167.000 -18.1 dBm (2 coincident lines at 167.000 MHz (amplitude sum)); 144.000 -19.8 dBm (6 coincident lines at 144.000 MHz (amplitude sum)); 148.000 -20.8 dBm (6 coincident lines at 148.000 MHz (amplitude sum)); 145.500 -23.0 dBm (fractional / integer-boundary spur fc -0.5 MHz (re)
+P A5 147.950: residual 11 over 60 dBc, 4 over 25 uW: 129.456 -4.3 dBm (4 coincident lines at 129.456 MHz (amplitude sum)); 166.444 -5.6 dBm (4 coincident lines at 166.444 MHz (amplitude sum)); 125.000 -11.2 dBm (2 coincident lines at 125.000 MHz (amplitude sum)); 150.000 -12.3 dBm (2 coincident lines at 150.000 MHz (amplitude sum)); 175.000 -16.6 dBm (2 coincident lines at 175.000 MHz (amplitude sum)); 145.900 -18.3 dBm (2 coincident lines at 145.900 MHz (amplitude sum)); 170.900 -18.7 dBm (2 coincident lines at 170.900 MHz (amplitude sum)); 120.900 -19.7 dBm (2 coincident lines at 120.900 MHz (amplitude sum)); 145.950 -21.5 dBm (2 coincident lines at 145.950 MHz (amplitude sum)); 149.950 -21.7 dBm (2 coincident lines at 149.950 MHz (amplitude sum)); 147.450 -23.0 dBm (fractional / integer-boundary spur fc -0.5 MHz (re)
+P A4 144.050: residual 10 over 60 dBc, 4 over 25 uW: 126.044 -4.3 dBm (4 coincident lines at 126.044 MHz (amplitude sum)); 162.056 -5.2 dBm (4 coincident lines at 162.056 MHz (amplitude sum)); 125.000 -12.0 dBm (2 coincident lines at 125.000 MHz (amplitude sum)); 150.000 -13.2 dBm (2 coincident lines at 150.000 MHz (amplitude sum)); 175.000 -17.5 dBm (2 coincident lines at 175.000 MHz (amplitude sum)); 163.100 -18.4 dBm (2 coincident lines at 163.100 MHz (amplitude sum)); 138.100 -19.0 dBm (2 coincident lines at 138.100 MHz (amplitude sum)); 142.050 -21.5 dBm (2 coincident lines at 142.050 MHz (amplitude sum)); 146.050 -21.7 dBm (2 coincident lines at 146.050 MHz (amplitude sum)); 143.550 -23.0 dBm (fractional / integer-boundary spur fc -0.5 MHz (re)
+P A4 146.000: residual 10 over 60 dBc, 4 over 25 uW: 127.750 -4.3 dBm (4 coincident lines at 127.750 MHz (amplitude sum)); 164.250 -5.4 dBm (4 coincident lines at 164.250 MHz (amplitude sum)); 125.000 -11.9 dBm (2 coincident lines at 125.000 MHz (amplitude sum)); 150.000 -12.8 dBm (3 coincident lines at 150.000 MHz (amplitude sum)); 175.000 -17.4 dBm (2 coincident lines at 175.000 MHz (amplitude sum)); 142.000 -18.5 dBm (3 coincident lines at 142.000 MHz (amplitude sum)); 167.000 -18.6 dBm (2 coincident lines at 167.000 MHz (amplitude sum)); 144.000 -20.6 dBm (6 coincident lines at 144.000 MHz (amplitude sum)); 148.000 -21.2 dBm (6 coincident lines at 148.000 MHz (amplitude sum)); 145.500 -23.0 dBm (fractional / integer-boundary spur fc -0.5 MHz (re)
+P A4 147.950: residual 11 over 60 dBc, 4 over 25 uW: 129.456 -4.3 dBm (4 coincident lines at 129.456 MHz (amplitude sum)); 166.444 -5.6 dBm (4 coincident lines at 166.444 MHz (amplitude sum)); 125.000 -11.7 dBm (2 coincident lines at 125.000 MHz (amplitude sum)); 150.000 -12.9 dBm (2 coincident lines at 150.000 MHz (amplitude sum)); 175.000 -17.3 dBm (2 coincident lines at 175.000 MHz (amplitude sum)); 145.900 -18.9 dBm (2 coincident lines at 145.900 MHz (amplitude sum)); 170.900 -19.2 dBm (2 coincident lines at 170.900 MHz (amplitude sum)); 120.900 -20.4 dBm (2 coincident lines at 120.900 MHz (amplitude sum)); 145.950 -21.5 dBm (2 coincident lines at 145.950 MHz (amplitude sum)); 149.950 -21.7 dBm (2 coincident lines at 149.950 MHz (amplitude sum)); 147.450 -23.0 dBm (fractional / integer-boundary spur fc -0.5 MHz (re)
+PB A5 144.050: residual 7 over 60 dBc, 3 over 25 uW: 150.000 -12.1 dBm (2 coincident lines at 150.000 MHz (amplitude sum)); 162.056 -12.1 dBm (4 coincident lines at 162.056 MHz (amplitude sum)); 126.044 -15.1 dBm (4 coincident lines at 126.044 MHz (amplitude sum)); 138.100 -18.0 dBm (2 coincident lines at 138.100 MHz (amplitude sum)); 146.050 -21.5 dBm (2 coincident lines at 146.050 MHz (amplitude sum)); 142.050 -21.9 dBm (2 coincident lines at 142.050 MHz (amplitude sum)); 144.550 -23.0 dBm (fractional / integer-boundary spur fc +0.5 MHz (re)
+PB A5 146.000: residual 7 over 60 dBc, 3 over 25 uW: 150.000 -12.0 dBm (3 coincident lines at 150.000 MHz (amplitude sum)); 164.250 -13.2 dBm (4 coincident lines at 164.250 MHz (amplitude sum)); 127.750 -15.3 dBm (4 coincident lines at 127.750 MHz (amplitude sum)); 142.000 -17.7 dBm (3 coincident lines at 142.000 MHz (amplitude sum)); 144.000 -20.0 dBm (6 coincident lines at 144.000 MHz (amplitude sum)); 148.000 -20.7 dBm (6 coincident lines at 148.000 MHz (amplitude sum)); 146.500 -23.0 dBm (fractional / integer-boundary spur fc +0.5 MHz (re)
+PB A5 147.950: residual 7 over 60 dBc, 3 over 25 uW: 150.000 -12.2 dBm (2 coincident lines at 150.000 MHz (amplitude sum)); 166.444 -14.0 dBm (4 coincident lines at 166.444 MHz (amplitude sum)); 129.456 -15.0 dBm (4 coincident lines at 129.456 MHz (amplitude sum)); 145.900 -18.2 dBm (2 coincident lines at 145.900 MHz (amplitude sum)); 145.950 -21.6 dBm (2 coincident lines at 145.950 MHz (amplitude sum)); 149.950 -21.7 dBm (2 coincident lines at 149.950 MHz (amplitude sum)); 147.450 -23.0 dBm (fractional / integer-boundary spur fc -0.5 MHz (re)
+PB A4 144.050: residual 7 over 60 dBc, 3 over 25 uW: 162.056 -12.1 dBm (4 coincident lines at 162.056 MHz (amplitude sum)); 150.000 -12.7 dBm (2 coincident lines at 150.000 MHz (amplitude sum)); 126.044 -15.1 dBm (4 coincident lines at 126.044 MHz (amplitude sum)); 138.100 -18.6 dBm (2 coincident lines at 138.100 MHz (amplitude sum)); 146.050 -21.5 dBm (2 coincident lines at 146.050 MHz (amplitude sum)); 142.050 -21.9 dBm (2 coincident lines at 142.050 MHz (amplitude sum)); 144.550 -23.0 dBm (fractional / integer-boundary spur fc +0.5 MHz (re)
+PB A4 146.000: residual 7 over 60 dBc, 3 over 25 uW: 150.000 -12.6 dBm (3 coincident lines at 150.000 MHz (amplitude sum)); 164.250 -13.2 dBm (4 coincident lines at 164.250 MHz (amplitude sum)); 127.750 -15.3 dBm (4 coincident lines at 127.750 MHz (amplitude sum)); 142.000 -18.3 dBm (3 coincident lines at 142.000 MHz (amplitude sum)); 144.000 -20.8 dBm (6 coincident lines at 144.000 MHz (amplitude sum)); 148.000 -21.1 dBm (6 coincident lines at 148.000 MHz (amplitude sum)); 146.500 -23.0 dBm (fractional / integer-boundary spur fc +0.5 MHz (re)
+PB A4 147.950: residual 7 over 60 dBc, 3 over 25 uW: 150.000 -12.9 dBm (2 coincident lines at 150.000 MHz (amplitude sum)); 166.444 -14.0 dBm (4 coincident lines at 166.444 MHz (amplitude sum)); 129.456 -15.0 dBm (4 coincident lines at 129.456 MHz (amplitude sum)); 145.900 -18.9 dBm (2 coincident lines at 145.900 MHz (amplitude sum)); 145.950 -21.6 dBm (2 coincident lines at 145.950 MHz (amplitude sum)); 149.950 -21.7 dBm (2 coincident lines at 149.950 MHz (amplitude sum)); 147.450 -23.0 dBm (fractional / integer-boundary spur fc -0.5 MHz (re)
+exit status 1: RESIDUAL (TS-012 7.3 met by wording only; residual lines close at the bench)

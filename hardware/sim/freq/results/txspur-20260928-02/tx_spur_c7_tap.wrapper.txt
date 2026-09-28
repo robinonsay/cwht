@@ -1,0 +1,2 @@
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=tx_spur_c7_tap.cir sha256=e783220b69a50e80d3bc50590881958e6c5e17aeac7f1db532556b1055451ecf version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=67s outputs=[tx_spur_c7_tap.log tx_spur_c7_tap.op.raw tx_spur_c7_tap.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/freq/results/txspur-20260928-02
