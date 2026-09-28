@@ -1,0 +1,68 @@
+# WP-PDR-28 thermal model, TS-012 finalists: results and verdicts
+
+Run id `2026-09-28-ts012-r1`; model `hardware/sim/thermal/thermal_model.py`, runner `ts012_thermal.py` (copies in `scripts/`). Every number is an estimate from a lumped model whose inputs are classed in `inputs.csv` (D datasheet, DD derived from a datasheet, R requirement, E estimate).
+
+Corner (REQ-SYS-112): 45 C ambient, 8.4 V pack, ALC holding 5 W at the SMA, continuous key-down, steady state. REQ-SYS-113: 25 C ambient, 5 min continuous key-down from a soak.
+
+## Per layout
+
+| Metric | Limit | A5-R4 | A5-DC | A4-R4 | A4-DC |
+|---|---|---|---|---|---|
+| PA dissipation at the corner, W | - | 9.94 | 9.94 | 5.55 | 5.55 |
+| Junction, steady, continuous, C | 110 | 142.1 FAIL | 125.9 FAIL | 130.9 FAIL | 122.6 FAIL |
+| Junction, favourable stack of inputs, C | 110 | 112.5 FAIL | 97.4 PASS | 100.8 PASS | 91.9 PASS |
+| Junction, adverse stack of inputs, C | 110 | 183.5 FAIL | 174.0 FAIL | 179.9 FAIL | 174.0 FAIL |
+| Module case (A5) or AFT05 tab (A4), C | 90 (A5 guidance) | 121.8 | 105.7 | 106.5 | 98.2 |
+| Sink, steady, continuous, C | 85 / 95 trips | 116.9 | 100.7 | 92.9 | 84.6 |
+| Time to sink 85 C from soak, min | - | 5.0 | 5.7 | 11.8 | nan |
+| Time to sink 95 C from soak, min | - | 7.0 | 9.2 | nan | nan |
+| Time to junction 110 C from soak, min | - | 5.0 | 5.7 | 5.7 | 6.2 |
+| Junction peak at 50 % duty (10 s on), C | 110 | 114.4 FAIL | 104.2 PASS | 111.5 FAIL | 105.2 PASS |
+| Max duty holding 110 C (10 s key-downs), fraction | - | 0.40 | 0.60 | 0.45 | 0.60 |
+| Duty-limit sink setpoint S (refuse new key-down), C | - | 82.4 | 82.4 | 70.2 | 70.2 |
+| Junction bound by the 85 C PA-case inhibit, nominal, C | 110 | 105.3 PASS | 105.3 PASS | 109.4 PASS | 109.4 PASS |
+|   same, trip at +3 C tolerance, C | 110 | 108.3 PASS | 108.3 PASS | 112.4 FAIL | 112.4 FAIL |
+|   same, +3 C and adverse dissipation and Rth, C | 110 | 113.7 FAIL | 113.7 FAIL | 121.2 FAIL | 121.2 FAIL |
+| Junction, continuous at 25 C ambient, C | (info) | 122.9 | 106.1 | 111.9 | 102.8 |
+| Duty-limited corner: sink, C | - | 82.5 | 84.2 | 71.6 | 71.1 |
+| Duty-limited corner: module case / tab, C | 90 (A5) | 84.4 | 87.2 | 77.7 | 79.3 |
+| Duty-limited corner: hottest PETG, C | 60 | 70.7 FAIL | 60.1 FAIL | 58.6 PASS | 56.4 PASS |
+|   which part | - | BH1 | BH1 | EF | BH1 |
+| Duty-limited corner: FR4 end wall, C | 105 | nan | 66.3 PASS | nan | 60.4 PASS |
+| Duty-limited corner: PA-bay air (relay, GVA), C | - | 69.8 | 61.4 | 63.5 | 57.2 |
+| Duty-limited corner: PA-bay air against the G5V-2 rating, C | 65 | 69.8 FAIL | 61.4 PASS | 63.5 PASS | 57.2 PASS |
+| Duty-limited corner: main-bay air, C | 55 | 60.2 FAIL | 57.8 FAIL | 63.5 FAIL | 55.2 FAIL |
+| Duty-limited corner: cells, steady, C | 55 / 60 | 59.6 FAIL | 58.9 FAIL | 61.5 FAIL | 55.2 FAIL |
+| FR4 end wall, continuous, C | 105 | nan | 74.8 PASS | nan | 66.9 PASS |
+| PA-bay air (G5V-2 ambient rating 65 C), steady, continuous, C | 65 | 88.8 FAIL | 67.1 FAIL | 73.3 FAIL | 61.0 PASS |
+| Hottest PETG hot face, continuous, C | 60 (HDT 69) | 92.3 FAIL | 66.0 FAIL | 68.3 FAIL | 59.6 PASS |
+|   which part | - | BH1 | GUARD | EF | BH1 |
+| Hottest PETG hot face, 50 % duty steady, C | 60 | 74.6 FAIL | 58.7 PASS | 59.6 PASS | 55.6 PASS |
+| Cells after 30 min at 50 % duty, C | 55 (a) | 52.4 PASS | 51.1 PASS | 53.0 PASS | 49.5 PASS |
+| Main-bay air after 30 min at 50 % duty, C | 55 (a) | 59.3 FAIL | 55.4 FAIL | 62.3 FAIL | 53.5 PASS |
+| Cells, 50 % duty steady (long session), C | 55 | 61.3 FAIL | 57.5 FAIL | 62.4 FAIL | 54.4 PASS |
+| Cells, continuous steady, C | 60 trip (b) | 69.9 | 64.2 | 71.5 | 58.2 |
+| Time to cell 60 C trip, continuous, min | - | 41.7 | 61.5 | 37.7 | nan |
+| Hottest accessible surface, 25 C, 5 min (rev 4: fin tips included), C | 48 | 65.6 FAIL | 37.4 PASS | 50.4 FAIL | 32.6 PASS |
+| Bare sink at 25 C, 5 min (needs the guard if > 48), C | 48 | 65.6 FAIL | 62.8 FAIL | 50.4 FAIL | 49.1 FAIL |
+
+## LTspice cross-check (A5-DC, electrical analogue)
+
+LTspice 26.0.2 through tools/ltspice-batch.sh; deck SHA-256 `b804c27865123211861316addb70af9b9728d4b31d58235fff5b63482d6b4901`; maximum difference to the Python solver after 30 s: **0.017 K** (criterion 0.5 K): **PASS**.
+
+| Node | LTspice at 7200 s | Python at 7200 s | Python steady | max diff K |
+|---|---|---|---|---|
+| J2 | 125.94 | 125.94 | 125.95 | 0.017 |
+| CASE | 105.69 | 105.69 | 105.69 | 0.017 |
+| SINK | 100.74 | 100.74 | 100.74 | 0.017 |
+| EW | 74.47 | 74.47 | 74.51 | 0.008 |
+| BAY | 66.99 | 66.99 | 67.05 | 0.005 |
+| CELL | 63.24 | 63.24 | 64.17 | 0.001 |
+
+## Tornado (top five per metric)
+
+- A5-DC tj (base 125.9 C): k_orient [E] 119.5 to 145.2; a5_idd [DD] 117.5 to 125.9; a5_bond [E] 123.5 to 128.4; r_feed [E] 125.9 to 121.4; a5_rjc2 [D] 123.9 to 128.0
+- A4-DC tj (base 122.6 C): a4_isat [DD] 110.8 to 137.6; k_orient [E] 116.9 to 134.6; a4_r_pad [E] 121.0 to 126.4; a4_rjc [D] 120.2 to 125.1; r_feed [E] 122.6 to 118.2
+- A5-DC cell50 (base 57.5 C): g_cell_wall [E] 59.4 to 56.3; r_cellpath [E] 57.0 to 59.5; r_feed [E] 57.5 to 59.8; p_lm2940 [DD] 56.1 to 58.0; relay_hold [E] 57.3 to 58.6
+- A5-DC petg (base 66.0 C): k_orient [E] 64.8 to 69.0; r_frac [E] 64.8 to 68.6; vent_area_dc [E] 69.6 to 66.0; phi_dc [E] 64.9 to 68.1; h_out_c [E] 66.9 to 64.4
+
