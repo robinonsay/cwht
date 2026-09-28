@@ -1,0 +1,41 @@
+{
+  "run": "2026-09-28-d1-gva-model",
+  "ltspice": {
+    "deck": "gva_check.cir",
+    "deck_sha256": "eb121249e9fa047304f4ac94f7c2ff85e4c7a514fd5681722f394aca9f74035c",
+    "exit": 0,
+    "log_first_line": "LTspice 26.0.2 for MacOS",
+    "wrapper_provenance": [
+      "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 3600 s",
+      "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
+      "ltspice-batch: result: PASS deck=gva_check.cir sha256=eb121249e9fa047304f4ac94f7c2ff85e4c7a514fd5681722f394aca9f74035c version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=7s outputs=[gva_check.log gva_check.op.raw gva_check.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-d1-gva-model"
+    ]
+  },
+  "rows": [
+    {
+      "set": "min",
+      "p1db_target": 19.4,
+      "p1db_sim": 19.37,
+      "p3db_target": 20.7,
+      "p3db_sim": 20.69,
+      "pass_": true
+    },
+    {
+      "set": "typ",
+      "p1db_target": 20.4,
+      "p1db_sim": 20.37,
+      "p3db_target": 21.7,
+      "p3db_sim": 21.69,
+      "pass_": true
+    },
+    {
+      "set": "high",
+      "p1db_target": 21.4,
+      "p1db_sim": 21.37,
+      "p3db_target": 22.7,
+      "p3db_sim": 22.69,
+      "pass_": true
+    }
+  ],
+  "pass": true
+}

@@ -1,0 +1,94 @@
+{
+  "run": "2026-09-28-d3-drive-a4",
+  "finalist": "A4",
+  "ltspice": {
+    "deck": "drive_a4.cir",
+    "deck_sha256": "b7767c8896983e0d430900130f8db62e940ebbcb3233ab79b2bdd803832f0cee",
+    "exit": 0,
+    "log_first_line": "LTspice 26.0.2 for MacOS",
+    "wrapper_provenance": [
+      "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 3600 s",
+      "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
+      "ltspice-batch: result: PASS deck=drive_a4.cir sha256=b7767c8896983e0d430900130f8db62e940ebbcb3233ab79b2bdd803832f0cee version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=16s outputs=[drive_a4.log drive_a4.op.raw drive_a4.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-d3-drive-a4"
+    ]
+  },
+  "n_corners": 270,
+  "pad_loss_db": {
+    "a5_in": 18.416,
+    "a5_out": 2.995,
+    "a4_in": 11.971
+  },
+  "pin_pa_w": {
+    "min": 0.05030334650783131,
+    "nominal": 0.09582817710328338,
+    "max": 0.16787708538658472
+  },
+  "pin_pa_dbm": {
+    "min": 17.015968781282908,
+    "nominal": 19.814932268363936,
+    "max": 22.24991420561425
+  },
+  "pin_pa_criterion_corners_w": {
+    "min": 0.06747509333494846,
+    "max": 0.1494563793927795
+  },
+  "corner_min": {
+    "rsrc": 50.0,
+    "gain": 22.5,
+    "p1db": "min",
+    "freq": 148000000.0,
+    "src": "low",
+    "vddo": 3.2,
+    "tr": 1.5e-09,
+    "duty": 0.45,
+    "pin_pa_w": 0.05030334650783131,
+    "pin_pa_dbm": 17.015968781282908,
+    "gva_in_dbm": -5.2860294222632,
+    "h3_dbc_gva_in": -56.032789650838765,
+    "gva_in_peak_v": 0.17370571196079254,
+    "clk_vpp": 2.2241055965423584
+  },
+  "corner_max": {
+    "rsrc": 25.0,
+    "gain": 25.3,
+    "p1db": "high",
+    "freq": 144000000.0,
+    "src": "high",
+    "vddo": 3.4,
+    "tr": 5e-10,
+    "duty": 0.5,
+    "pin_pa_w": 0.16787708538658472,
+    "pin_pa_dbm": 22.24991420561425,
+    "gva_in_dbm": -1.0547213092411756,
+    "h3_dbc_gva_in": -34.46203556560336,
+    "gva_in_peak_v": 0.2817169725894928,
+    "clk_vpp": 3.2318968772888184
+  },
+  "nominal_corner": {
+    "rsrc": 50.0,
+    "gain": 24.1,
+    "p1db": "typ",
+    "freq": 146000000.0,
+    "src": "nom",
+    "vddo": 3.3,
+    "tr": 1e-09,
+    "duty": 0.5,
+    "pin_pa_w": 0.09582817710328338,
+    "pin_pa_dbm": 19.814932268363936,
+    "gva_in_dbm": -3.6239133356822557,
+    "h3_dbc_gva_in": -45.42101857002222,
+    "gva_in_peak_v": 0.20871329307556152,
+    "clk_vpp": 2.4996607303619385
+  },
+  "h3_dbc_gva_in_worst": -34.46203556560336,
+  "h3_pass": true,
+  "gva_in_dbm_max": -1.0547213092411756,
+  "gva_absmax_pass": true,
+  "clk_vpp": {
+    "min": 2.219895839691162,
+    "max": 3.241826057434082
+  },
+  "overdrive_w": 0.2,
+  "corners_above_overdrive": 0,
+  "overdrive_pass": true
+}

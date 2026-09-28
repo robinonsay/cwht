@@ -1,0 +1,314 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.6OF5Ft/gva_check.cir
+Start Time: Mon Sep 28 17:45:38 2026
+Options:plotwinsize=0
+
+.step pin=-20 iv=0
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-19 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-18 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-17 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-16 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-15 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-14 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-13 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-12 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-11 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-10 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-9 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-8 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-7 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-6 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-5 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-4 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-3 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-2 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-1 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=0 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=1 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=2 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=3 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=4 iv=0
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-20 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-19 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-18 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-17 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-16 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-15 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-14 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-13 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-12 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-11 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-10 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-9 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-8 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-7 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-6 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-5 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-4 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-3 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-2 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-1 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=0 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=1 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=2 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=3 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=4 iv=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-20 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-19 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-18 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-17 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-16 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-15 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-14 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-13 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-12 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-11 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-10 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-9 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-8 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-7 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-6 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-5 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-4 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-3 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-2 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=-1 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=0 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=1 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=2 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=3 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step pin=4 iv=2
+.OP point found by inspection.
+.OP point found by inspection.
+Total elapsed time: 3.177 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.6OF5Ft/gva_check.cir
+

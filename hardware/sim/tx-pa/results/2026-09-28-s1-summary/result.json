@@ -1,0 +1,51 @@
+{
+  "run": "2026-09-28-s1-summary",
+  "inputs": [
+    "2026-09-28-d2-drive-a5",
+    "2026-09-28-d3-drive-a4",
+    "2026-09-28-p1-power-a5",
+    "2026-09-28-p2-power-a4"
+  ],
+  "a5_sot_pad": {
+    "freq_span_within_unit_db": 0.3363876153142282,
+    "step_db": 1.0,
+    "meas_db": 1.0,
+    "drift_db": 0.3,
+    "half_width_db": 1.9681938076571142,
+    "target_mw": 17.3,
+    "min_mw": 10.995797225043706,
+    "max_mw": 27.218581233777744,
+    "pass": true
+  },
+  "a5": {
+    "drive_window_all_corners": false,
+    "drive_window_criterion_corners": false,
+    "pin_mw": [
+      5.966751180710074,
+      12.612283820054337,
+      29.520994956570522
+    ],
+    "h3_pass": true,
+    "sma_6v4_low_typ_w": 3.7081215381622314,
+    "sma_6v4_nominal_w": 4.867831230163574,
+    "sma_6v4_low_minmodule_w": 3.0344719886779785,
+    "req012_low_typ": false,
+    "sot_sma_6v4_low_typ_w": 3.8272457122802734,
+    "sot_sma_6v4_low_minmodule_w": 3.1386055946350098,
+    "sot_req012_low_typ": false,
+    "req012_low_minmodule": false
+  },
+  "a4": {
+    "pin_mw": [
+      50.30334650783131,
+      95.82817710328338,
+      167.87708538658472
+    ],
+    "overdrive_pass": true,
+    "h3_pass": true,
+    "sma_6v4_low_w": 2.0499138832092285,
+    "sma_6v4_nominal_w": 3.5436246395111084,
+    "sma_6v4_high_w": 4.492593765258789,
+    "req012_low": false
+  }
+}
