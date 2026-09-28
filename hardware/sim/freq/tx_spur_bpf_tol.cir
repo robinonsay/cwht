@@ -1,0 +1,35 @@
+* tx_spur_bpf_tol.cir: tolerance corners of the option C10 drive bandpass (tx_spur_filters.cir circuit B)
+* Product: docs/design/analysis/spurs-ts012.md. Run only through tools/ltspice-batch.sh (ACC-LTSPICE-001).
+* Every inductor scaled by kl and every capacitor by kc together (the worst detuning direction):
+* kl, kc in {0.95, 0.98, 1, 1.02, 1.05}: the 2 % corners are the 1812SMS G tolerance and 2 % C0G parts
+* (the proposed purchase); the 5 % corners are reported for J-tolerance parts.
+* Pass (the note's criterion for C10), at every 2 % corner: S21 at 144 and 148 MHz within 3 dB of the
+* nominal value at 146 MHz, so the module drive stays inside 10 to 30 mW after the pad trim that
+* WP-PDR-21 already provides, and at least 10 dB of rejection at 125 MHz against the passband.
+.param R0=50 fq=150e6 Qd=60
+.param K18=10**(18/20)
+.param Rsh=R0*(K18+1)/(K18-1) Rse=R0*(K18*K18-1)/(2*K18)
+.param Lr=47n Csb=7.5p Crb=16p Ccb=2.4p
+.step param kl list 0.95 0.98 1 1.02 1.05
+.step param kc list 0.95 0.98 1 1.02 1.05
+VB srcb 0 AC 1
+RSB srcb b0 {R0}
+CSB1 b0 b1 {Csb*kc}
+LRB1 b1 xb1 {Lr*kl}
+RRB1 xb1 0 {2*pi*fq*Lr*kl/Qd}
+CRB1 b1 0 {Crb*kc}
+CCB b1 b2 {Ccb*kc}
+LRB2 b2 xb2 {Lr*kl}
+RRB2 xb2 0 {2*pi*fq*Lr*kl/Qd}
+CRB2 b2 0 {Crb*kc}
+CSB2 b2 b3 {Csb*kc}
+RPB1 b3 0 {Rsh}
+RPB2 b3 outb {Rse}
+RPB3 outb 0 {Rsh}
+RLB outb 0 {R0}
+.ac lin 401 100e6 200e6
+.meas AC s144 FIND mag(V(outb)) AT 144e6
+.meas AC s148 FIND mag(V(outb)) AT 148e6
+.meas AC s125 FIND mag(V(outb)) AT 125e6
+.meas AC s175 FIND mag(V(outb)) AT 175e6
+.end

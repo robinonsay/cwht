@@ -1,0 +1,116 @@
+* tx_spur_filters.cir: filter transfers used by the TS-012 transmit clock spur plan (WP-PDR-20 pre-order item)
+* Product: docs/design/analysis/spurs-ts012.md; checker hardware/sim/freq/tx_spur_plan.py
+* Run only through tools/ltspice-batch.sh (ACC-LTSPICE-001). AC analysis, 50 ohm source and load.
+*
+* Five circuits, one AC source each (1 V behind 50 ohm, so S21 = 2 V(out)):
+*  D  drive low-pass (TS-012 section 7.3: 3-pole, fc about 170 MHz, one 1812SMS and two 1206 C0G),
+*     synthesized here as a 3-pole Butterworth pi (C-L-C) at fc = 170 MHz, followed by the 18 dB pi pad
+*     that sits ahead of the GVA-84+ (A5). Node outd is the GVA-84+ input.
+*  DQ the same with an inductor Q of 60 at 150 MHz (series R, ESTIMATE: no Coilcraft Q model read here)
+*  B  proposed option C10: 2-resonator top-C coupled drive bandpass at about 146 MHz (Butterworth
+*     prototype, 3 dB width about 20 MHz so 2 to 5 % part tolerance needs no tuning), 1812SMS 47 nH with Q 60
+*     at 150 MHz (ESTIMATE), E24 C0G values (7.5 pF series, 16 pF shunt, 2.4 pF coupling), followed by the
+*     same 18 dB pad (its passband loss, about 1.6 dB with Q 60, equals the low-pass's, so the module
+*     drive of TS-012 7.3 is unchanged; a first scratch run with a 16 dB pad showed this). Node outb.
+*  O  harmonic low-pass (TS-012 section 7.3: 7-pole Chebyshev, fc 165 MHz), 0.1 dB ripple prototype
+*     (g-values 1.1811, 1.4228, 2.0966, 1.5733; this ripple reproduces the adversarial C8 figures of
+*     47.9 dB at 288 MHz and 75.9 dB at 432 MHz), capacitor first
+*  OQ the same with inductor Q 60 at 150 MHz
+* Ideal capacitors; no pad or via parasitics. WP-PDR-21 owns the real LPF deck (Coilcraft SRF and Q
+* models); its result supersedes rows O and OQ when it exists.
+
+.param R0=50
+.param fq=150e6 Qd=60
+* drive LPF, Butterworth n=3 (g = 1, 2, 1)
+.param fcd=170e6 wd=2*pi*fcd
+.param Cd=1/(wd*R0) Ld=2*R0/wd
+* 18 dB pi pad in 50 ohm: K = 10^(18/20)
+.param K18=10**(18/20)
+.param Rsh=R0*(K18+1)/(K18-1) Rse=R0*(K18*K18-1)/(2*K18)
+* harmonic LPF, Chebyshev 0.1 dB n=7
+.param fco=165e6 wo=2*pi*fco
+.param g1=1.1811 g2=1.4228 g3=2.0966 g4=1.5733
+.param C1o=g1/(wo*R0) L2o=g2*R0/wo C3o=g3/(wo*R0) L4o=g4*R0/wo
+
+* ---- D: drive LPF + 18 dB pad, ideal ----
+VD srcd 0 AC 1
+RSD srcd ind {R0}
+CD1 ind 0 {Cd}
+LD1 ind md {Ld}
+CD2 md 0 {Cd}
+RPD1 md 0 {Rsh}
+RPD2 md outd {Rse}
+RPD3 outd 0 {Rsh}
+RLD outd 0 {R0}
+
+* ---- DQ: drive LPF + 18 dB pad, inductor Q 60 at 150 MHz ----
+VDQ srcdq 0 AC 1
+RSDQ srcdq indq {R0}
+CDQ1 indq 0 {Cd}
+LDQ1 indq xdq {Ld}
+RLQD xdq mdq {2*pi*fq*Ld/Qd}
+CDQ2 mdq 0 {Cd}
+RPDQ1 mdq 0 {Rsh}
+RPDQ2 mdq outdq {Rse}
+RPDQ3 outdq 0 {Rsh}
+RLDQ outdq 0 {R0}
+
+* ---- B: option C10, drive bandpass + 18 dB pad (Q 60 inductors) ----
+.param Lr=47n Csb=7.5p Crb=16p Ccb=2.4p
+VB srcb 0 AC 1
+RSB srcb b0 {R0}
+CSB1 b0 b1 {Csb}
+LRB1 b1 xb1 {Lr}
+RRB1 xb1 0 {2*pi*fq*Lr/Qd}
+CRB1 b1 0 {Crb}
+CCB b1 b2 {Ccb}
+LRB2 b2 xb2 {Lr}
+RRB2 xb2 0 {2*pi*fq*Lr/Qd}
+CRB2 b2 0 {Crb}
+CSB2 b2 b3 {Csb}
+RPB1 b3 0 {Rsh}
+RPB2 b3 outb {Rse}
+RPB3 outb 0 {Rsh}
+RLB outb 0 {R0}
+
+* ---- O: 7-pole 0.1 dB Chebyshev low-pass, ideal ----
+VO srco 0 AC 1
+RSO srco o1 {R0}
+CO1 o1 0 {C1o}
+LO2 o1 o3 {L2o}
+CO3 o3 0 {C3o}
+LO4 o3 o5 {L4o}
+CO5 o5 0 {C3o}
+LO6 o5 outo {L2o}
+CO7 outo 0 {C1o}
+RLO outo 0 {R0}
+
+* ---- OQ: the same with inductor Q 60 at 150 MHz ----
+VOQ srcoq 0 AC 1
+RSOQ srcoq q1 {R0}
+COQ1 q1 0 {C1o}
+LOQ2 q1 q2a {L2o}
+RQ2 q2a q3 {2*pi*fq*L2o/Qd}
+COQ3 q3 0 {C3o}
+LOQ4 q3 q4a {L4o}
+RQ4 q4a q5 {2*pi*fq*L4o/Qd}
+COQ5 q5 0 {C3o}
+LOQ6 q5 q6a {L2o}
+RQ6 q6a outoq {2*pi*fq*L2o/Qd}
+COQ7 outoq 0 {C1o}
+RLOQ outoq 0 {R0}
+
+.ac lin 1601 100e6 500e6
+.meas AC d_144 FIND mag(V(outd)) AT 144e6
+.meas AC b_pk MAX mag(V(outb)) FROM 140e6 TO 152e6
+.meas AC b_fpk WHEN mag(V(outb))=b_pk
+.meas AC b_144 FIND mag(V(outb)) AT 144e6
+.meas AC b_148 FIND mag(V(outb)) AT 148e6
+.meas AC b_125 FIND mag(V(outb)) AT 125e6
+.meas AC b_150 FIND mag(V(outb)) AT 150e6
+.meas AC b_175 FIND mag(V(outb)) AT 175e6
+.meas AC o_150 FIND mag(V(outo)) AT 150e6
+.meas AC o_175 FIND mag(V(outo)) AT 175e6
+.meas AC o_288 FIND mag(V(outo)) AT 288e6
+.meas AC o_432 FIND mag(V(outo)) AT 432e6
+.end

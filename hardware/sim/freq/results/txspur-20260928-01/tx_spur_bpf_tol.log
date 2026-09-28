@@ -1,0 +1,225 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.c82I9g/tx_spur_bpf_tol.cir
+Start Time: Mon Sep 28 17:43:13 2026
+
+.step kl=0.95 kc=0.95
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=0.98 kc=0.95
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1 kc=0.95
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.02 kc=0.95
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.05 kc=0.95
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=0.95 kc=0.98
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=0.98 kc=0.98
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1 kc=0.98
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.02 kc=0.98
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.05 kc=0.98
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=0.95 kc=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=0.98 kc=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1 kc=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.02 kc=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.05 kc=1
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=0.95 kc=1.02
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=0.98 kc=1.02
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1 kc=1.02
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.02 kc=1.02
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.05 kc=1.02
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=0.95 kc=1.05
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=0.98 kc=1.05
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1 kc=1.05
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.02 kc=1.05
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step kl=1.05 kc=1.05
+.OP point found by inspection.
+.OP point found by inspection.
+Total elapsed time: 0.262 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.c82I9g/tx_spur_bpf_tol.cir
+
+
+Measurement: s144
+  step	mag(V(outb)) 	at
+     1	(-29.3200334087dB,0°)	144000000
+     2	(-27.4197634938dB,0°)	144000000
+     3	(-26.5889587373dB,0°)	144000000
+     4	(-26.0888803392dB,0°)	144000000
+     5	(-25.7548115719dB,0°)	144000000
+     6	(-27.486806427dB,0°)	144000000
+     7	(-26.3203287198dB,0°)	144000000
+     8	(-25.9322109368dB,0°)	144000000
+     9	(-25.7391180397dB,0°)	144000000
+    10	(-25.626491782dB,0°)	144000000
+    11	(-26.6799236928dB,0°)	144000000
+    12	(-25.9467099907dB,0°)	144000000
+    13	(-25.7378582895dB,0°)	144000000
+    14	(-25.6412817679dB,0°)	144000000
+    15	(-25.5975411969dB,0°)	144000000
+    16	(-26.1679180582dB,0°)	144000000
+    17	(-25.744902969dB,0°)	144000000
+    18	(-25.6373036723dB,0°)	144000000
+    19	(-25.5943028704dB,0°)	144000000
+    20	(-25.6203667678dB,0°)	144000000
+    21	(-25.7743293344dB,0°)	144000000
+    22	(-25.6074429441dB,0°)	144000000
+    23	(-25.5817848625dB,0°)	144000000
+    24	(-25.6117346595dB,0°)	144000000
+    25	(-25.8125688192dB,0°)	144000000
+
+Measurement: s148
+  step	mag(V(outb)) 	at
+     1	(-26.4716459062dB,0°)	148000000
+     2	(-25.8375460009dB,0°)	148000000
+     3	(-25.6707612493dB,0°)	148000000
+     4	(-25.5968663859dB,0°)	148000000
+     5	(-25.5675759873dB,0°)	148000000
+     6	(-25.8565393325dB,0°)	148000000
+     7	(-25.6158427102dB,0°)	148000000
+     8	(-25.5626020683dB,0°)	148000000
+     9	(-25.5550246085dB,0°)	148000000
+    10	(-25.655830557dB,0°)	148000000
+    11	(-25.6738983933dB,0°)	148000000
+    12	(-25.5565053531dB,0°)	148000000
+    13	(-25.5483551324dB,0°)	148000000
+    14	(-25.5987962533dB,0°)	148000000
+    15	(-25.8562347006dB,0°)	148000000
+    16	(-25.5802809684dB,0°)	148000000
+    17	(-25.5426667672dB,0°)	148000000
+    18	(-25.5931640729dB,0°)	148000000
+    19	(-25.7356395233dB,0°)	148000000
+    20	(-26.2043597192dB,0°)	148000000
+    21	(-25.5363382616dB,0°)	148000000
+    22	(-25.6349082656dB,0°)	148000000
+    23	(-25.8317160587dB,0°)	148000000
+    24	(-26.1757945178dB,0°)	148000000
+    25	(-27.0021963117dB,0°)	148000000
+
+Measurement: s125
+  step	mag(V(outb)) 	at
+     1	(-49.0752614355dB,0°)	125000000
+     2	(-47.4382391118dB,0°)	125000000
+     3	(-46.3178428424dB,0°)	125000000
+     4	(-45.1713083134dB,0°)	125000000
+     5	(-43.3968866993dB,0°)	125000000
+     6	(-47.2745731259dB,0°)	125000000
+     7	(-45.5391321189dB,0°)	125000000
+     8	(-44.3471577885dB,0°)	125000000
+     9	(-43.1240686534dB,0°)	125000000
+    10	(-41.2256682527dB,0°)	125000000
+    11	(-46.0601042082dB,0°)	125000000
+    12	(-44.254392074dB,0°)	125000000
+    13	(-43.0115121618dB,0°)	125000000
+    14	(-41.7343772676dB,0°)	125000000
+    15	(-39.7500880184dB,0°)	125000000
+    16	(-44.833005119dB,0°)	125000000
+    17	(-42.9535068729dB,0°)	125000000
+    18	(-41.6575950841dB,0°)	125000000
+    19	(-40.3248553097dB,0°)	125000000
+    20	(-38.2548656507dB,0°)	125000000
+    21	(-42.9666789761dB,0°)	125000000
+    22	(-40.9711242804dB,0°)	125000000
+    23	(-39.5935076927dB,0°)	125000000
+    24	(-38.1777684275dB,0°)	125000000
+    25	(-35.9897367347dB,0°)	125000000
+
+Measurement: s175
+  step	mag(V(outb)) 	at
+     1	(-32.9709857096dB,0°)	175000000
+     2	(-34.4336977417dB,0°)	175000000
+     3	(-35.3292592077dB,0°)	175000000
+     4	(-36.1637584916dB,0°)	175000000
+     5	(-37.3097342802dB,0°)	175000000
+     6	(-34.191781051dB,0°)	175000000
+     7	(-35.5431493908dB,0°)	175000000
+     8	(-36.3668242129dB,0°)	175000000
+     9	(-37.1334949572dB,0°)	175000000
+    10	(-38.1866108664dB,0°)	175000000
+    11	(-34.9209991004dB,0°)	175000000
+    12	(-36.2023884286dB,0°)	175000000
+    13	(-36.9825455856dB,0°)	175000000
+    14	(-37.7087645855dB,0°)	175000000
+    15	(-38.7070251497dB,0°)	175000000
+    16	(-35.5889654063dB,0°)	175000000
+    17	(-36.8050365476dB,0°)	175000000
+    18	(-37.5452402337dB,0°)	175000000
+    19	(-38.234562616dB,0°)	175000000
+    20	(-39.1829834054dB,0°)	175000000
+    21	(-36.4886784092dB,0°)	175000000
+    22	(-37.6159238265dB,0°)	175000000
+    23	(-38.3024406487dB,0°)	175000000
+    24	(-38.9424067533dB,0°)	175000000
+    25	(-39.8243108427dB,0°)	175000000
