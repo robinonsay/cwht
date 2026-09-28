@@ -1,7 +1,7 @@
 ---
 id: CR-011
 title: Add the PDR rule set and the --gate, --volatility and --fix-children options to tools/traceability.py
-status: Submitted
+status: Dispositioned
 class: II
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: [TV-002, ACC-TRACE-001, ACC-TRACE-002, INSP-015, INSP-020, RFA-SRR
 related: [CR-002, CR-003, CR-006, CR-007, CR-008, CR-009, CR-012, RFA-SRR-007, INSP-015, INSP-020, TV-009]
 target_release: none
 branch: cr/CR-011-traceability-pdr-rules
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -195,20 +195,20 @@ Reviewer concurrence, round 2: **IR-F1 (Major) is closed (Verified).** Every ite
 
 | Field | Value |
 |---|---|
-| Decision | Pending |
-| Class confirmed | Pending (proposed II) |
-| Date | |
-| Conditions | Proposed: merge only after section 5 steps 4 to 6. Merge only when the plain run on the merge commit gives 0 violations. CR-008 completes its `affected_ids` before its disposition. Each later L0, L1 or `TC-SYS` CR merges only with its disposition Approved on `main` and its changed ids in `affected_ids`, and the plain run is re-run after each such merge (section 4.1) |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | II (proposed II; concurred in sections 6.1 and 6.3) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner beyond the proposed conditions, adopted with the recommendation (lead SE reading): merge only after section 5 steps 4 to 6; merge only when the plain run on the merge commit gives 0 violations; each later L0, L1 or `TC-SYS` CR merges only with its disposition Approved on `main` and its changed ids in `affected_ids`, and the plain run is re-run after each such merge (section 4.1). The clause "CR-008 completes its `affected_ids` before its disposition" was not met: CR-008 is dispositioned in the same commit with R1-F2 open, so it becomes a condition on the CR-008 merge |
+| Rationale | `tools/traceability.py` is under CR control since ACC-TRACE-001; the PDR rule set and options are dated at PDR by 02 and 04. Section 6.3: IR-F1 (Major) Verified; IR-F2 to IR-F6 Minor and open |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -232,11 +232,13 @@ Traceability report after implementation: `docs/vv/traceability-report.md` on th
 
 Independent verifier (agent invocation): pending.
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `2b004b1`. Trial merge: `validate_docs.py` 101 passed, 9 failed; one new failure, `docs/reviews/PDR/checklists/tool-validation-tv-015-to-tv-019.md` (INSP-088, APPROVED, names `tools/README.md@a5e9cab6`; the branch changes it to `c872e3d8`). Plain run of the branch tool on the trial merge: 245 requirements, 173 test cases, 0 violations, 96 warnings (section 4.1 row "CR-011 alone"). Merge held: section 5 step 5 (INSP-042 carries `assurance_verdict: pending`; INSP-042 and INSP-043 pin this file at a superseded blob) and step 6 (INSP-015 and INSP-020 deltas) are not done; INSP-088 needs a delta on the new `tools/README.md` blob (the CR-014 step 7a practice).
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | pending |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | pending |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | pending |
@@ -249,3 +251,4 @@ Independent verifier (agent invocation): pending.
 | 2026-09-27 | Submitted | Claude (tool owner, WP-PDR-06) | this commit | Implementation on the branch at `4774562` submitted with the CR for the section 6 review; merge waits for the disposition (05 §5.2) |
 | 2026-09-27 | Submitted (revision 2) | Claude (tool owner, WP-PDR-06) | this commit | Branch head `2b004b1` after the INSP-043 finding-1 fix (run 7); CR file brought up to date before the section 6 review; no product file changed |
 | 2026-09-27 | Submitted (revision 3) | Claude (tool owner, WP-PDR-06) | this commit | Section 6.1 IR-F1 (Major) resolved: section 1 plain-run codes, section 4 and 4.1 effect on open CRs and merge condition, `related`, section 5 and 9 re-runs; IR-F1 re-check pending; Minor findings open |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-011`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: section 5 steps 5 and 6 not done; new INSP-088 drift on `tools/README.md` (section 9 pre-merge check) |

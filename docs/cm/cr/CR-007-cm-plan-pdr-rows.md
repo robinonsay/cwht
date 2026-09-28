@@ -1,7 +1,7 @@
 ---
 id: CR-007
 title: Add the allocated-baseline admission rows to the CM plan and close its SRR liens
-status: Submitted
+status: Dispositioned
 class: II
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: [SWE-063, SWE-085, SWE-136, INSP-006, INSP-010, INSP-018, INSP-030
 related: [CR-001, CR-003, CR-006, CR-010, CR-013, INSP-011, INSP-015, TV-011, TV-012, TV-013, RFA-SRR-003]
 target_release: none
 branch: cr/CR-007-cm-plan-pdr-rows
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -265,20 +265,20 @@ Reviewer concurrence (CM lens): concur with Class II; concur that the CR may go 
 
 | Field | Value |
 |---|---|
-| Decision | Not dispositioned |
-| Class confirmed | |
-| Date | |
-| Conditions | |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | II (proposed II; concurred by the CM-lens impact review, rounds 1 and 2, section 6.3) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner. Implementation follows section 5 steps 3 to 9 |
+| Rationale | 05 section 4.4 requires the allocated-baseline admission rows by a Class II CR against 05 before the PDR readiness declaration, and the twelve SRR liens against 05 are due at that declaration. Section 6.3: IR-F1 (Major) Verified, 0 Major open, IR-F2 to IR-F8 Minor and open. Departure recorded at the disposition: the software assurance reviewer's impact review of revision 2, which section 6 (lead paragraph and section 6.2 item 2) required before OD-36 under PDR work plan rule C6, had not been performed when the owner approved. The configuration manager routes it to the lead SE: that review is performed before the section 5 step 3 branch is opened, and if it finds an impact that changes the owner's basis, the CR returns to Submitted for re-disposition (the lesson 14 practice; the lead SE decides whether it is a `docs/cm/deviations.md` entry, since 05 section 5.2 itself does not require the review for this class) |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -296,11 +296,13 @@ Traceability report after implementation: pending; renders regenerated: `docs/pr
 
 Independent verifier (agent invocation): pending.
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. No branch `cr/CR-007-cm-plan-pdr-rows` exists at `e288add` (`git branch --list 'cr/CR-007*'` is empty), so there is nothing to merge or trial. Section 5 steps 3 to 5a (05, templates, `rmm.json` and `rmm.md`, 07) are not implemented, and the software assurance impact review named in section 7 is outstanding. Merge held until the implementation, the step 6 tool runs and the step 7 verification exist.
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | |
@@ -312,6 +314,7 @@ Independent verifier (agent invocation): pending.
 |---|---|---|---|---|
 | 2026-09-27 | Submitted | Claude (CM function, WP-PDR-05) | this file's first commit | Raised as PCR-1 of `docs/plan/pdr-work-plan.md` section 6.2 for the 05 §4.4 allocated-baseline rows and the 05 SRR liens (C-081 to C-088, C-090, C-093); section 6 review requested before disposition (OD-36) |
 | 2026-09-27 | Submitted (revision 2) | Claude (CM function, WP-PDR-05) | this revision's commit | Section 6.1 round 1 (CM lens): IR-F1 (Major) resolved by C17 (07 §2.1, §2.1.1, §2.2, §15, §23) and the 07 citations in C7, C9, C12 and C15 (a); Minor findings open (rule C1; section 6.2); round 2 re-check of IR-F1 and the software assurance impact review pending |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-007`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: no branch; implementation (section 5 steps 3 to 7) and the software assurance impact review outstanding (section 9 pre-merge check) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
@@ -322,3 +325,5 @@ Independent verifier (agent invocation): pending.
 | Q3 | Status notes as a Record row (append only; a correction is a later dated section or note) and phase work plans as a Log row (C5)? | Confirm. It keeps your verbatim statements unedited, as charter §4 item 4 does for chat approvals. |
 | Q4 | Software assurance review of every CR that changes a 07 §2.1.1 "Yes" product or names a 07 §14.1 component, whatever its class (C9), with the matching change to the software assurance plan 07 (C17)? | Confirm. It adds one reviewer invocation per such CR, and it closes the gap INSP-030 finding-1 found live in CR-001 (a Class II change to 07 safety-state rules marked "Not required"). Consequence for 07: approving C9 also approves C17, which adds the CR, release and configuration-check rows to 07 §2.1.1 and the same tasks to 07 §2.1, §2.2 and §15, so that 07 §2.1.1 stays the single rule that dispatches the reviewer and 05 cites it. 07 then gets a delta review by its file reviewer and software assurance pair (INSP-010, INSP-018), and CR-007 takes a 07 revision number after CR-010 and CR-013. Without C17, 05 and 07 would state two different dispatch rules. |
 | Q5 | Flavour suffixes `instr` and `fi` in the embedded build identity (C11)? | Confirm. Any other short lower-case names serve equally; the rule that matters is that a flavour is visible in `picotool info -a` and never on a delivered unit. |
+
+Answers recorded with the disposition (2026-09-28; the lead SE reading of the owner's approval "as recommended", the owner is asked to correct any answer): Q1 approved, Class II. Q2 product (CDR) and as-built (SAR) admission rows added by a Class II CR before each readiness declaration. Q3 confirmed: status notes a Record row, phase work plans a Log row. Q4 confirmed: C9 with the matching 07 change C17. Q5 confirmed: flavour suffixes `instr` and `fi`.

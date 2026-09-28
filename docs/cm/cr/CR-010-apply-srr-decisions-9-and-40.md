@@ -1,7 +1,7 @@
 ---
 id: CR-010
 title: Apply SRR decisions 9 and 40 to the classification record, the software plan and the RMM
-status: Submitted
+status: Dispositioned
 class: II
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: [SWE-023, SWE-134, SWE-205, SWE-219, SWE-220, WP-SW-14, HZ-008, RE
 related: [INSP-009, INSP-017, INSP-010, INSP-018, INSP-006, INSP-037, OQ-SAF-014, ADR-027, CR-003, CR-006, RSK-013, RSK-046]
 target_release: none
 branch: cr/CR-010-apply-srr-decisions-9-and-40
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -206,20 +206,20 @@ Reviewer concurrence: concur with Class II, with the content of the change set a
 
 | Field | Value |
 |---|---|
-| Decision | |
-| Class confirmed | |
-| Date | |
-| Conditions | |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | II (proposed II; concurred by INSP-037 iterations 1 to 3 and the section 6 round 2 review) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner. The merge follows section 5 steps 4 to 6 (the five SRR record re-issues committed on the CR branch before the merge) |
+| Rationale | States the owner's SRR rulings of decisions 9 and 40 in 03, 07 and the RMM, with no change to the approved safety-critical set. INSP-037 finding-1 (Major) Verified; findings 2 to 7 and IR2-F1 to IR2-F5 Minor |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -242,11 +242,13 @@ Traceability report after implementation: to be generated at merge; renders rege
 
 Independent verifier (agent invocation): pending.
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `5cd87cf`. Trial merge: `validate_docs.py` 97 passed, 13 failed; five new failures, the five SRR records section 4 names: `classification-03-software-classification-and-rmm.md` (INSP-009), its assurance pair (INSP-017), `cm-plan-05.md` (INSP-006, `rmm.json`), `software-plan-07.md` (INSP-010) and its assurance pair (INSP-018). `traceability.py --report-only`: 0 violations, 2 warnings. Merge held: section 5 step 4 (rebase and freeze) and step 5 (the five delta re-issues committed on the CR branch) are not done, so step 6 cannot pass.
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | |
@@ -258,6 +260,7 @@ Independent verifier (agent invocation): pending.
 |---|---|---|---|---|
 | 2026-09-27 | Submitted | Claude (software lead, WP-PDR-17) | `9fd0962` | Created with the impact assessment complete; change set prototyped on the branch at `5cd87cf`. Number CR-010 taken because CR-007 (WP-PDR-05), CR-008 and CR-009 were claimed by parallel wave 0 work packages |
 | 2026-09-27 | Submitted (revision 2) | Claude (software lead, WP-PDR-17) | this commit | INSP-037 finding-1 (Major) resolved in this file only: tool results at `5cd87cf` corrected, the five invalidated SRR records named, delta re-issues ordered on the CR branch before the merge; product blobs unchanged (branch still `5cd87cf`) |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-010`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: section 5 steps 4 to 6 (five SRR record re-issues on the branch) not done (section 9 pre-merge check) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
@@ -266,3 +269,5 @@ Independent verifier (agent invocation): pending.
 | Q1 | Approve CR-010, which states your SRR rulings of decisions 9 and 40 in 03, 07 and the RMM, with no change to the safety-critical set you approved? | Approve, after the section 6 review reports no Major finding |
 | Q2 | Confirm Class II | Confirm: it records rulings already made and touches no requirement, ICD, hazard or test case |
 | Q3 | Charter section 10 citation (separate from this CR, because the charter is yours to change): adopt the closing parenthesis proposed in 03 section 6.5 item g, which adds SRR decision 40 and names 03 section 4.3 as the determination record | Adopt with the other charter edits of the PDR work plan (OD-31), before freeze F1 |
+
+Answers recorded with the disposition (2026-09-28; the lead SE reading of the owner's approval "as recommended", the owner is asked to correct any answer): Q1 approved. Q2 Class II confirmed. Q3 (charter section 10 citation) is the owner's charter edit and is not part of this disposition; it stays with OD-31.

@@ -1,7 +1,7 @@
 ---
 id: CR-014
 title: Close the SRR tool liens in validate_docs, review_trend, render_review_figures, complexity_gate, measurements and sw_gate
-status: Submitted
+status: Dispositioned
 class: II
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: [TV-001, TV-003, TV-007, TV-010, TV-012, TV-013, ACC-VALDOCS-001, 
 related: [CR-001, CR-004, CR-005, CR-007, CR-010, CR-011, CR-012, RID-SRR-004, RID-SRR-014, RFA-SRR-007, INSP-015, INSP-016, INSP-029, INSP-041, INSP-043, INSP-100, INSP-101]
 target_release: none
 branch: cr/CR-014-tool-liens-srr
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -221,20 +221,20 @@ Reviewer concurrence (round 2): concur with Class II, the effectivity, `affected
 
 | Field | Value |
 |---|---|
-| Decision | Pending |
-| Class confirmed | Pending (proposed II) |
-| Date | |
-| Conditions | Proposed: (1) merge only after section 5 steps 3b to 7a are done and step 3c shows no unread change on a CR-014 path; (2) merge only after CR-010 has merged; if CR-010 is Deferred or Rejected, a CR-014 revision first reverts the `SW-SYNTH` move (Schedule field); (3) the TV record route as the owner rules on section 12 Q1 (reading (b) proposed; reading (a) adds new TV records before the merge); (4) INSP-100 finding-2 and INSP-101 finding-2 ride as liens of those records under plan rule C1 unless fixed in step 3b; INSP-100 finding-3 closes with the Q1 ruling |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | II (proposed II; concurred in the section 6 round 2 review) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner beyond the proposed conditions, adopted with the recommendation (lead SE reading): (1) merge only after section 5 steps 3b to 7a are done and step 3c shows no unread change on a CR-014 path; (2) merge only after CR-010 has merged; (3) the TV record route of section 12 Q1, answered (b); (4) INSP-100 finding-2 and INSP-101 finding-2 ride as liens under plan rule C1 unless fixed in step 3b; INSP-100 finding-3 closes with the Q1 ruling |
+| Rationale | Closes the SRR tool liens (RID-SRR-004, RID-SRR-014, RFA-SRR-007 L-7 part, INSP-015 and INSP-029 items). Section 6 round 2: finding-1 to finding-4 Verified, no Major open, R2-F1 and R2-F2 Minor |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -259,11 +259,13 @@ Traceability report after implementation: not regenerated on the branch (`--repo
 |---|---|---|---|
 | | | | |
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `fd000c6`. Trial merge of CR-010 then CR-014: `validate_docs.py` 95 passed, 15 failed; new failures are CR-010's five plus `docs/reviews/PDR/checklists/tool-validation-tv-015-to-tv-019.md` (INSP-088: TV README, lock, `tools/README.md`) and `docs/reviews/SRR/checklists/fw-b0-toolchain-proof.md` (INSP-016: `firmware/cwht-app/src/main.rs`, `tools/sw_gate.sh`). `traceability.py --report-only`: 0 violations, 2 warnings. Merge held: CR-010 not merged; section 5 steps 3b, 3c, 5 (re-freeze), 6, 7 and 7a are pending.
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | |
@@ -277,6 +279,7 @@ Traceability report after implementation: not regenerated on the branch (`--repo
 | 2026-09-27 | Submitted (section 6 round 1) | Independent impact reviewer (agent invocation) | this commit | Rule C6 review round 1: Class II concurred; 1 Major (records invalidated by the merge, conflict with `main` `8c57710`), 3 Minor; concurrence withheld pending finding-1 |
 | 2026-09-27 | Submitted (revision 2) | Claude (CR author, WP-PDR-09) | the commit that records revision 2 (`Refs: CR-014`) | Section 6.1 findings answered (section 6.2): `main` `17c1648` merged into the branch at `fd000c6`; Verification re-stated with section 4.1 (14 records that name a CR-014 path, their verdicts and deltas); section 5 steps 3a to 3c and 7a; merge after CR-010; INSP-100 finding-1 and INSP-101 finding-1 to be fixed before the merge (step 3b); TV record route put to the owner (section 12). Round 2 of the impact review requested |
 | 2026-09-27 | Submitted (section 6 round 2) | Independent impact reviewer (agent invocation, round 2) | this commit | Rule C6 review round 2 on revision 2 (`5ae4b329`, branch `fd000c6`): finding-1 (Major) and finding-2 to finding-4 Verified; new Minor R2-F1 (effect of the step 3b rule on `main`) and R2-F2 (group D obligation not stated in CR-011); no open Major; concurred for disposition |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-014`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: after CR-010; section 5 steps 3b to 7a pending (section 9 pre-merge check) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
@@ -285,3 +288,4 @@ Traceability report after implementation: not regenerated on the branch (`--repo
 | Q1 | TV record route for a project-written tool changed under an approved CR (05 section 9.2 step 5; INSP-100 finding-3; INSP-043 finding-2 for TV-002 under CR-011): (a) a new TV record per changed blob, or (b) a run appended to the existing TV record with the ACC statement extended to the new blob, and 05 clarified by its writer? | (b) | (b): the four records stand as reviewed; the CM plan writer carries the 05 section 9.2 step 5 and row 27 clarification (CR-007 revision, or a new CR); TV-003, TV-007, TV-010, TV-012 and TV-002 cite the ruling. (a): before the merge the tool owner opens four new TV records (successors of TV-003, TV-007, TV-010 and TV-012) and the step 5 deltas review them; the same applies to TV-002 under CR-011 |
 | Q2 | Merge order: CR-014 after CR-010 (Schedule field)? | Yes | Yes: step 8 waits for the CR-010 merge. No: the tool reports `SW-SYNTH` as safety-critical while 07 section 14.1 still says Proposed, on the strength of SRR decision 9 alone, and the owner's ruling is recorded here as the decision memo for that gap |
 
+Answers recorded with the disposition (2026-09-28; the lead SE reading of the owner's approval "as recommended", the owner is asked to correct any answer): Q1 (b): a run appended to the existing TV record with the ACC statement extended to the new blob; the CM plan writer carries the 05 section 9.2 step 5 and row 27 clarification (a CR-007 revision or a new CR). Q2 yes: CR-014 merges after CR-010.

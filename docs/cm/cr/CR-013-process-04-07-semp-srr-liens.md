@@ -1,7 +1,7 @@
 ---
 id: CR-013
 title: Fix the SRR peer review liens of 04, 07 and the SEMP
-status: Submitted
+status: Dispositioned
 class: II
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: [INSP-021, INSP-010, INSP-018, INSP-005, RFA-SRR-006, OQ-SE-001, O
 related: [CR-001, CR-002, CR-004, CR-005, CR-010, CR-011, CR-003, CR-006, INSP-024, INSP-030, INSP-027]
 target_release: none
 branch: cr/CR-013-process-04-07-semp-srr-liens
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -192,24 +192,24 @@ Reviewer concurrence: concur with Class II and with the change as a closure of t
 
 ## 7. CCB disposition (owner)
 
-Not dispositioned. Requested at owner session B1b (Thu 10-01), or B2 (Fri 10-02) at the latest, after the section 6 review and after CR-010's disposition. Questions for the owner are in section 12.
+Dispositioned 2026-09-28 (table below); originally requested at owner session B1b (Thu 10-01), or B2 (Fri 10-02) at the latest, after the section 6 review and after CR-010's disposition. Questions for the owner are in section 12.
 
 | Field | Value |
 |---|---|
-| Decision | |
-| Class confirmed | |
-| Date | |
-| Conditions | |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | II (proposed II; concurred in section 6) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner. The merge follows section 5 steps 4 to 6, after CR-010 merges |
+| Rationale | Fixes the SRR liens of INSP-021, INSP-010, INSP-018 and INSP-005 in 04, 07 and the SEMP. Section 6: 0 Major, IR-F1 to IR-F3 Minor and open |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -229,11 +229,13 @@ Traceability report after implementation: to be regenerated at merge; no render 
 
 Independent verifier (agent invocation): pending.
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `41c588c`, stacked on the CR-010 change set `5cd87cf`, so it cannot merge before CR-010. Trial merge of CR-010 then CR-013: `validate_docs.py` 95 passed, 15 failed; seven new failures, CR-010's five plus `docs/reviews/SRR/checklists/process-04-verification-and-validation.md` (INSP-021) and `semp.md` (INSP-005). `traceability.py --report-only`: 0 violations, 2 warnings. Merge held: CR-010 not merged; IR-F1 (the SRR records INSP-021, INSP-010, INSP-018 and INSP-005 keep naming the old blobs after the PDR deltas INSP-058, INSP-059 and INSP-064) is unresolved; INSP-059 carries `assurance_verdict: NEEDS CHANGES`.
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | |
@@ -244,9 +246,12 @@ Independent verifier (agent invocation): pending.
 | Date | State | By | Commit on main | Note |
 |---|---|---|---|---|
 | 2026-09-27 | Draft, then Submitted | Claude (WP-PDR-13 author) | this file's commit | Created with the impact assessment complete; product prototype on the branch at `41c588c`, built on the CR-010 change set `5cd87cf` |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-013`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: after CR-010; SRR record re-issues (IR-F1) not done (section 9 pre-merge check) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
 1. Approve CR-013 as Class II? Recommendation: approve. Every change fixes a Minor lien of an SRR record or states a fact already true of the tree.
 2. INSP-010 finding-15: which rule for superseded measurement records? (a) the tool tests the superseding record and skips the superseded one, or (b) the plan states that the check reports current records only and superseded failures stay as history. Recommendation: (a), because it keeps `--check-records` able to exit 0 without editing history, and the TV-013 re-run shows the change. Either answer goes to the tool owner and WP-PDR-47; it is not part of this CR's product change.
 3. Charter edits CE-1 to CE-3 (`docs/reviews/PDR/owner-actions.md` section 11) are asked separately under OD-31 at B3; they do not depend on this CR.
+
+Answers recorded with the disposition (2026-09-28; the lead SE reading of the owner's approval "as recommended", the owner is asked to correct any answer): Q1 approved, Class II. Q2 (a): the tool tests the superseding measurement record and skips the superseded one; the answer goes to the tool owner and WP-PDR-47, outside this CR's product. Q3 (charter edits) stays with OD-31.

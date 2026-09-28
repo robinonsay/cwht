@@ -1,7 +1,7 @@
 ---
 id: CR-009
 title: Fix the SRR peer review liens of the L0 set, the ConOps and the concept
-status: Submitted
+status: Dispositioned
 class: I
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: [NGO-021, NGO-026, MOE-012, CON-006, CON-007, OPS-020]
 related: [INSP-001, INSP-002, CR-003, CR-006, RSK-064, RSK-065, RSK-007, HZ-007, REQ-SYS-053, REQ-SYS-054, REQ-SYS-116, REQ-SYS-117, REQ-SYS-184, REQ-SYS-187, MOE-006, SI-014]
 target_release: none
 branch: cr/CR-009-l0-conops-srr-liens
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -204,24 +204,24 @@ Reviewer concurrence: R1-F1 is closed, and I concur with the class, the effectiv
 
 ## 7. CCB disposition (owner)
 
-Not dispositioned. Requested at owner session B1a (Tue 09-29), after the section 6 review, so that the branch merges before WP-PDR-02 implements CR-003 and CR-006 on the same files. Questions for the owner are in section 12.
+Dispositioned 2026-09-28 (table below); originally requested at owner session B1a (Tue 09-29), after the section 6 review, so that the branch merges before WP-PDR-02 implements CR-003 and CR-006 on the same files. Questions for the owner are in section 12.
 
 | Field | Value |
 |---|---|
-| Decision | |
-| Class confirmed | |
-| Date | |
-| Conditions | |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | I (proposed I; concurred in section 6.1, unchanged by round 2) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner. The merge follows section 5 steps 5 and 6, with R1-F2 resolved before step 5 and the INSP-002 delta on `conops.md@dfe50c4c` before the merge (section 6.3 concurrence) |
+| Rationale | Fixes eight SRR liens of INSP-001 and INSP-002 due before PDR (finding-16 goes to CR-003). Section 6.3: R1-F1 (Major) Verified; R1-F2 to R1-F4 and R2-F5 Minor and open |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -242,11 +242,13 @@ Traceability report after implementation: to be regenerated at merge; renders re
 
 Independent verifier (agent invocation): pending.
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `56b4bcd`. Scope: `git diff --name-only main...` gives the four product paths and two SRR records (`docs/reviews/SRR/checklists/expectations.md`, `conops-and-concept.md`, commit `64eb688`, R1-F2). Trial merge: `validate_docs.py` 101 passed, 9 failed; one new failure, `docs/reviews/SRR/checklists/conops-and-concept.md` (INSP-002, APPROVED, names `conops.md@8415dba2`, the revision 1 blob; the branch holds `dfe50c4c`). `traceability.py --report-only`: 0 violations, 2 warnings. Merge held: no record names `conops.md@dfe50c4c` (`git grep dfe50c4c` on `main` and on the branch is empty), so the INSP-002 delta that section 6.3 requires before the merge is not filed; R1-F2 (the record commit on the product branch) is unresolved, and removing `64eb688` rewrites `56b4bcd`, a judgement for the CR author and the lead SE, not a mechanical merge step.
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | |
@@ -261,8 +263,11 @@ Independent verifier (agent invocation): pending.
 | 2026-09-27 | Submitted (impact review round 1 recorded) | Independent reviewer agent | the commit that records section 6.1 | Impact review complete with 1 Major (R1-F1, finding-19 half fixed) and 3 Minor (R1-F2 to R1-F4) findings; stays Submitted for author revision before disposition |
 | 2026-09-27 | Submitted (revision 2) | Claude (CR author, WP-PDR-10) | the commit that records revision 2 | R1-F1 resolved: ConOps section 8 rows for RSK-064 and RSK-065 on the branch at `56b4bcd`; sections 1.2, 2, 3, 4 (Risk, Schedule), 5, 6.2 and 8 updated; new frozen ConOps blob `dfe50c4c`; R1-F2 to R1-F4 (Minor) not changed (rule C1); INSP-002 delta and round 2 re-check requested |
 | 2026-09-27 | Submitted (impact review round 2 recorded) | Independent reviewer agent | the commit that records section 6.3 | R1-F1 verified closed on `56b4bcd` (`conops.md@dfe50c4c`); new Minor R2-F5 (RSK-065 row citation); R1-F2 to R1-F4 carried; 0 Major open; stays Submitted |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-009`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: INSP-002 delta on `conops.md@dfe50c4c` not filed; R1-F2 (record commit `64eb688` on the branch) open (section 9 pre-merge check) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
 1. Approve CR-009 as Class I? Recommendation: approve.
 2. OPS-020 step 5: accept the band-edge acceptance at the 5 W step, keyed from the paddle in Transmit-keyed mode with the tinySA holding the maximum over bursts? Recommendation: accept; the 5 W step is the worst case for the keying sidebands, and Bench-test cannot reach it (REQ-SYS-187).
+
+Answers recorded with the disposition (2026-09-28; the lead SE reading of the owner's approval "as recommended", the owner is asked to correct any answer): Q1 approved, Class I. Q2 accepted: the OPS-020 step 5 band-edge acceptance at the 5 W step from the paddle in Transmit-keyed mode.

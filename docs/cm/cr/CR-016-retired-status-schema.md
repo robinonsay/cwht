@@ -1,7 +1,7 @@
 ---
 id: CR-016
 title: Add the Retired status to the requirement and test-case schemas
-status: Assessed
+status: Dispositioned
 class: I
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: []
 related: [CR-015, INSP-020, CR-011]
 target_release: none
 branch: cr/CR-016-retired-status-schema
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -155,20 +155,20 @@ Measurements: impact fields checked 14; data files re-validated 9; blob identiti
 
 | Field | Value |
 |---|---|
-| Decision | Not dispositioned |
-| Class confirmed | |
-| Date | |
-| Conditions | |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | I (concurred by the section 6 review, INSP-061 iteration 2, finding-1 Verified) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner. Effectivity after `baseline/pdr` (section 12 Q3 as recommended); the merge follows section 5 step 5 |
+| Rationale | Adds the Retired status to the requirement and test-case schemas (plan register PCR-3). INSP-061: finding-1 (Major) Verified; finding-2 and finding-3 Minor, liens due CDR |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -188,11 +188,13 @@ Traceability report after implementation: pending (step 5); renders regenerated:
 
 Independent verifier (agent invocation): pending.
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `33e0916`. Scope: `git diff --stat main...` 3 files, 15 insertions, 14 deletions. Trial merge: `validate_docs.py` 102 passed, 8 failed, the baseline set (no new failure); `traceability.py --report-only`: 0 violations, 2 warnings. Merge not due: the effectivity is after `baseline/pdr` (Q3), and section 5 step 5 has the consequential 04, 05 and tool hunks written by their writers first.
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | |
@@ -205,6 +207,7 @@ Independent verifier (agent invocation): pending.
 | 2026-09-27 | Submitted | Claude (WP-PDR-12 author) | the commit that adds this file | Created with the impact assessment complete; product change prototyped on `cr/CR-016-retired-status-schema` at `33e0916`; section 6 review (rule C6) pending; effective after `baseline/pdr` unless ruled otherwise |
 | 2026-09-27 | Submitted (revised) | Claude (WP-PDR-12 author) | the commit that makes this revision (`Refs: CR-016`) | INSP-061 finding-1 (Major) fixed: proposed class II to I (05 Table 4-1 row 9); classification rationale restated; row 9 re-validation list and migration statement added to section 1.1; merge-commit content added to step 5; Q2 changed. Branch and product blobs unchanged at `33e0916`. Minor findings 2 and 3 of INSP-061 are not addressed in this revision |
 | 2026-09-27 | Assessed | Independent reviewer agent (CR-016 section 6 impact review) | the commit that records this row (`Refs: CR-016`) | Section 6 entered: INSP-061 iterations 1 and 2 (cross item X-1) and impact review round 1 (section 6.1); Class I and effectivity concurred; no open Major; new Minor IR-F1 (four consequential locations missing from section 4 Documentation) and IR-F2 (branch base is `443b2a3`, not `11b1b1d`); ready for OD-37 at B2 |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-016`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: effectivity after `baseline/pdr` (section 9 pre-merge check) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
@@ -214,3 +217,5 @@ Independent verifier (agent invocation): pending.
 | Q2 | Confirm Class I | Confirm: 05 Table 4-1 row 9 makes a schema CR that adds an enum value Class I; the change adds `Retired` to two enums, migrates no data file (section 1.1) and changes no requirement or test case |
 | Q3 | Effectivity: after `baseline/pdr`, or now? | After `baseline/pdr`, so the allocated baseline is written in one retirement vocabulary |
 | Q4 | Keep REQ-SYS-016 and REQ-SYS-123 in their interim form (`Closed` with tag `retired`)? | Keep: a retired entry never changes status, and the tool reads both forms |
+
+Answers recorded with the disposition (2026-09-28; the lead SE reading of the owner's approval "as recommended", the owner is asked to correct any answer): Q1 approved. Q2 Class I confirmed. Q3 effectivity after `baseline/pdr`. Q4 REQ-SYS-016 and REQ-SYS-123 keep their interim form.

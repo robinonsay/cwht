@@ -1,7 +1,7 @@
 ---
 id: CR-008
 title: Fix the SRR peer review liens of the L1 requirements and the TC-SYS cases
-status: Submitted
+status: Dispositioned
 class: I
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: [REQ-SYS-014, REQ-SYS-044, REQ-SYS-045, REQ-SYS-054, REQ-SYS-077, 
 related: [INSP-003, INSP-025, RFA-SRR-006, RFA-SRR-007, RID-SRR-003, CR-002, CR-003, CR-006, CR-009, WP-PDR-11, WP-PDR-36, WP-PDR-40]
 target_release: none
 branch: cr/CR-008-srr-liens-l1-and-tc-sys
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -255,24 +255,24 @@ Reviewer concurrence: R1-F1 is **Verified**, so the CR has no open Major finding
 
 ## 7. CCB disposition (owner)
 
-Not dispositioned. Requested at owner session B1a (Tue 09-29, OD-37), after the section 6 review, so that the branch merges before WP-PDR-02 implements CR-003 and CR-006 on the same files. Questions for the owner are in section 12.
+Dispositioned 2026-09-28 (table below); originally requested at owner session B1a (Tue 09-29, OD-37), after the section 6 review, so that the branch merges before WP-PDR-02 implements CR-003 and CR-006 on the same files. Questions for the owner are in section 12.
 
 | Field | Value |
 |---|---|
-| Decision | |
-| Class confirmed | |
-| Date | |
-| Conditions | |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | I (proposed I; concurred in section 6.1, unchanged by round 2) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner. The merge follows section 5 steps 3 to 8 and, if CR-011 merges first, its section 4.1 condition (every changed id in `affected_ids`, R1-F2) |
+| Rationale | Fixes the SRR liens of INSP-003 and INSP-025 due before PDR. Section 6.3: R1-F1 (Major) Verified; R1-F2 to R1-F5 and R2-F1 to R2-F3 Minor and open, accepted as liens with the disposition |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -292,11 +292,13 @@ Traceability report after implementation: to be regenerated at merge; renders re
 
 Independent verifier (agent invocation): pending.
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `c629198`. Scope: `git diff --stat main...` 4 files (the frozen blobs of section 5). Trial merge: `validate_docs.py` 100 passed, 10 failed; two new failures, both APPROVED SRR records naming the `baseline/srr` blobs of the four files: `docs/reviews/SRR/checklists/requirements-sys.md` (INSP-003) and `test-cases-sys.md` (INSP-025). The PDR delta records INSP-044 and INSP-045 name the branch blobs but do not change the SRR records' `product_files`. `traceability.py --report-only`: 246 requirements, 174 test cases, 0 violations, 4 warnings (`HAZARD_INVERSE` and `SYS_UNALLOCATED` on REQ-SYS-194, as section 4 predicts). Merge held: section 5 steps 3 (`hazards.json`) and 5 (`allocation.json`) are not on the branch (R1-F4); INSP-003 and INSP-025 are not re-issued to name the merged blobs; `affected_ids` still lists 15 of 145 requirements and 29 of 65 cases (R1-F2), which fails the CR-011 plain run if CR-011 merges first.
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | |
@@ -310,6 +312,7 @@ Independent verifier (agent invocation): pending.
 | 2026-09-27 | Submitted (impact review round 1 recorded) | Independent reviewer agent | the commit that records section 6.1 | Impact review complete with 1 Major (R1-F1, Interfaces row and the REQ-SYS-077 debounce conflict) and 4 Minor (R1-F2 to R1-F5) findings; stays Submitted for author revision before disposition |
 | 2026-09-27 | Submitted (revision 2) | Claude (WP-PDR-11 author) | the commit that records revision 2 (`Refs: CR-008`) | R1-F1 fixed (section 6.2): Interfaces row names ICD-CTL-PHONES, ICD-PWR-CELL and ICD-CTL-KEY with routing to WP-PDR-36a/36b (step 9); REQ-SYS-077 resolved by an asymmetric plug detect (question 2a, alternative 2b); row 10 added to `affected_cis`. R1-F2 to R1-F5 (Minor) open; round 2 re-check requested |
 | 2026-09-27 | Submitted (impact review round 2 recorded) | Independent reviewer agent | the commit that records section 6.3 | Delta on revision 2 (rule C1): R1-F1 Verified, no Major open, reviewer concurs with disposition; 3 new Minor (R2-F1 HZ-010 K5 wording, R2-F2 WP-PDR-36a routing, R2-F3 removal-debounce TBR closure and bookkeeping); R1-F2 to R1-F5 open |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-008`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: section 5 steps 3 and 5 not on the branch; INSP-003 and INSP-025 drift; `affected_ids` incomplete (R1-F2) (section 9 pre-merge check) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
@@ -319,3 +322,5 @@ Independent verifier (agent invocation): pending.
    - 2b. Or instead keep the 50 ms debounce in both directions and relax REQ-SYS-077 to "within 70 ms of plug removal" (the author revises the statement, its rationale and TC-SYS-056 on the branch before the merge)? Recommendation: not preferred; it loosens the value the case used, for no design saving.
 3. Accept the split of REQ-SYS-083: the room-temperature threshold by Bench Test, and new REQ-SYS-194 for 0 C to 45 C by Analysis accepted per RSK-007, a new Analysis exception for a control of the Catastrophic HZ-002? Recommendation: accept; the bench has no chamber, and the Test of the same threshold at room temperature stays.
 4. Accept that one-sided bounds (5 s, 30 s, 2 s, 120 s, 60 s, and the 2 ms and 5 ms debounce minima) are verified with the instrument accuracy applied inward (04 §8.2), with no allowance beyond the bound? Recommendation: accept; the design then targets inside the bound.
+
+Answers recorded with the disposition (2026-09-28; the lead SE reading of the owner's approval "as recommended", the owner is asked to correct any answer): Q1 approved, Class I. Q2 accepted, with 2a (asymmetric plug detect: 50 ms on insertion, at most 10 ms (TBR) on removal, enable low within 20 ms), recorded in the ICDs by section 5 step 9. Q3 accepted: REQ-SYS-083 at room temperature by Bench Test and new REQ-SYS-194 by Analysis accepted per RSK-007. Q4 accepted.

@@ -1,7 +1,7 @@
 ---
 id: CR-015
 title: Fix the SRR record liens of 01, 02, 08, the process index and the compliance matrix
-status: Submitted
+status: Dispositioned
 class: II
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: []
 related: [INSP-019, INSP-020, INSP-022, INSP-024, RFA-SRR-006, CR-011, CR-012, CR-013, CR-016]
 target_release: none
 branch: cr/CR-015-process-liens-01-02-08
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -209,20 +209,20 @@ Reviewer concurrence (round 1): concur with Class II and with the change (INSP-0
 
 | Field | Value |
 |---|---|
-| Decision | Not dispositioned |
-| Class confirmed | |
-| Date | |
-| Conditions | |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | II (proposed II; concurred by INSP-060, section 6) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner. The merge follows section 5 steps 6 and 7, after CR-012 merges (Q4) |
+| Rationale | Fixes the 26 SRR record liens of INSP-019, INSP-020, INSP-022 and INSP-024. Section 6 (INSP-060): no Major; INSP-060 finding-1 to finding-3, IR-F4 and IR-F5 Minor and open |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -243,11 +243,13 @@ Traceability report after implementation: not affected (no requirement, test cas
 
 Independent verifier (agent invocation): pending.
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `7efd900`, stacked on the CR-012 head `7784672`. Scope: `git diff --stat 7784672 7efd900` 8 files, 136 insertions, 84 deletions (section 9 row 1 reproduced). Trial merge of CR-012 then CR-015: `validate_docs.py` 99 passed, 11 failed; three new failures, the SRR records `process-01-lifecycle-and-reviews.md` (INSP-019), `process-08-agent-briefing.md` (INSP-022) and `compliance-matrix.md` (INSP-024), which still name the `baseline/srr` blobs (INSP-020 already fails on `main`). INSP-060 carries their deltas but does not change their `product_files`, and it pins this file at `8a77b0ab`, which this disposition commit changes, so its verdict cannot be set APPROVED without a re-pin by its reviewer. `traceability.py --report-only`: 0 violations, 2 warnings. Merge held: CR-012 not merged; the four SRR records not re-issued.
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | |
@@ -259,6 +261,7 @@ Independent verifier (agent invocation): pending.
 |---|---|---|---|---|
 | 2026-09-27 | Submitted | Claude (WP-PDR-12 author) | the commit that adds this file | Created with the impact assessment complete; product change prototyped on `cr/CR-015-process-liens-01-02-08` at `7efd900` (base `7784672`, the CR-012 head); the step 3 record deltas and the section 6 review (rule C6) pending |
 | 2026-09-27 | Submitted | Claude (lead SE transcription) | the commit that records this row | Section 6 round 1 entered from INSP-060 (`b133a4b`): concur Class II, 0 Major, 3 Minor; two Minor effectivity items added at entry (IR-F4 LTspice accreditation text in 08 §1, IR-F5 PDR dates after the TS-012 re-plan); the step 3 deltas are INSP-060; disposition pending (OD-37) |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-015`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: after CR-012; SRR records INSP-019, INSP-022, INSP-024 drift (re-issues not done) (section 9 pre-merge check) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
@@ -268,3 +271,5 @@ Independent verifier (agent invocation): pending.
 | Q2 | Confirm Class II | Confirm: process text, two templates and the text of fully compliant matrix rows; no requirement, ICD, hazard or test case |
 | Q3 | Confirm the compliance-matrix approval block: submitted by you as Program/Project Manager (Claude as preparer), approved by you as Engineering Technical Authority on 2026-09-26 with the SRR memo section 7 | Confirm: it records the approval the SRR memo already holds, in the Table H-1 roles |
 | Q4 | Accept the merge order: CR-015 merges with or after CR-012 | Accept: both change 08, and the INSP-022 delta then verifies the final 08 once |
+
+Answers recorded with the disposition (2026-09-28; the lead SE reading of the owner's approval "as recommended", the owner is asked to correct any answer): Q1 approved. Q2 Class II confirmed. Q3 confirmed: the compliance-matrix approval block as proposed. Q4 accepted: CR-015 merges with or after CR-012.

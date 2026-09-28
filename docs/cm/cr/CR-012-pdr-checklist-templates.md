@@ -1,7 +1,7 @@
 ---
 id: CR-012
 title: Add the analysis, software assurance and tool validation checklists; update 08 sections 3.1 and 3.5
-status: Submitted
+status: Dispositioned
 class: II
 originator: Claude
 date_opened: 2026-09-27
@@ -14,8 +14,8 @@ affected_ids: []
 related: [INSP-015, INSP-017, INSP-018, INSP-022, INSP-026, INSP-027, INSP-030, RFA-SRR-006, CR-007, CR-010]
 target_release: none
 branch: cr/CR-012-pdr-checklist-templates
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-28
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -137,6 +137,8 @@ Records filed on `main` that apply a Submitted template blob of this CR, as thei
 | Analysis `0386cc6e` | INSP-083 `analysis-shielding-estimate.md` | `shielding-estimate.md` | `peer-review-checklist-design` | `checklist_analysis` | NEEDS CHANGES (reviewer APPROVED) |
 | Analysis `0386cc6e` | INSP-084 `analysis-mechanical-tolerance-stack.md` | `mechanical-tolerance-stack.md` | `peer-review-checklist-design` | `checklist_analysis` | NEEDS CHANGES (reviewer APPROVED) |
 
+Listing re-run at the disposition (section 5 step 5; IR-F7), configuration manager, 2026-09-28, `main` at `e288add`: `git grep -l -e 0386cc6e -e 5b135285 -e 7be809d4 HEAD -- 'docs/reviews/*/checklists/*.md'` returns 34 records: the 33 of `d5a3058` and one new record, INSP-111 (`analysis-frequency-budget-and-clock-plan-software-assurance.md`, SA pair of INSP-056 for ADR-031; `assurance_checklist` names `5b135285`; reviewer and assurance verdicts APPROVED, record verdict NEEDS CHANGES, held for this merge and the analysis template), which joins the table above for step 8. Verdict columns refreshed: INSP-066 is now APPROVED (iteration 2); INSP-087 and INSP-103 to INSP-106 now carry reviewer and assurance verdicts APPROVED with the record verdict held; INSP-075 reviewer and assurance NEEDS CHANGES (iteration 3, finding-7 Major); every other row is as tabulated. Records whose record verdict is APPROVED while their template is branch-only: INSP-047, INSP-066, INSP-088.
+
 Rule at each disposition (Table 4-1 row 53):
 
 | Disposition | Effect on the records above |
@@ -217,20 +219,20 @@ Reviewer concurrence (round 2): IR-F1 is closed. There is no open Major finding.
 
 | Field | Value |
 |---|---|
-| Decision | Not dispositioned |
-| Class confirmed | |
-| Date | |
-| Conditions | |
-| Rationale | |
+| Decision | Approved |
+| Class confirmed | II (proposed II; concurred in sections 6.1 and 6.2) |
+| Date | 2026-09-28 |
+| Conditions | None stated by the owner. The merge follows section 5 steps 6 to 8 |
+| Rationale | 08 section 3.5 blocks every analysis, software assurance and tool validation review until the checklists exist; SRR decision 117. Section 6.2: IR-F1 (Major) Verified; IR-F2 to IR-F7 Minor and open. Template reviews INSP-031, INSP-032 and INSP-033 reviewer APPROVED at iteration 2 |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
-| Source | |
+| Source | Chat transcription by Claude (configuration manager) on 2026-09-28. The presenter asked the owner to approve CR-007 to CR-016, the SRR lien fixes that passed their impact reviews (recommendation: approve all ten). Owner statement, verbatim: "Um, and then, yeah, I think you're uh, good to continue." The lead SE reads it as approval of item 1 as recommended, with the branches to merge after the section 9 checks (`docs/plan/status/status-2026-09-28.md` section 1, commit `e288add`, which transcribes the full statement); the owner is asked to correct any line |
 
 Disposition history (append only):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
 
 ## 8. Implementation record
 
@@ -251,11 +253,13 @@ Traceability report after implementation: not affected (no requirement, test cas
 
 Independent verifier (agent invocation): pending.
 
+Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `7784672`. Scope: `git diff --stat main...` 4 files, 803 insertions, 9 deletions (section 9 row 1 reproduced). Trailers: `7784672` carries `CR: CR-012`; `ac9b7a5` does not parse as a trailer (IR-F6). Trial merge: `validate_docs.py` 101 passed, 9 failed; one new failure, `docs/reviews/SRR/checklists/process-08-agent-briefing.md` (INSP-022, APPROVED, names `08-agent-briefing.md@01a36bac`, the `baseline/srr` blob; the branch holds `56c54011`). This fails the section 9 row "Tools unaffected" (no new failure against the first parent, IR-F6). `traceability.py --report-only`: 0 violations, 2 warnings. Merge held until INSP-022 is re-issued to name the merged 08 blob (its reviewer, or the INSP-060 delta route of CR-015 if the two CRs merge together), or the lead SE rules the drift a tracked known failure. Verdicts at the merge (trial, lead SE convention of 2026-09-27): of the records held only for this branch with both lenses APPROVED, INSP-041 (`tool-validation-tv-013.md`) and INSP-083 (`analysis-shielding-estimate.md`) validate as APPROVED; INSP-031 and INSP-033 fail the drift rule on their pin of this file (`f689b05c`, `91c8c626`; IR-F5); INSP-072 and INSP-084 fail the rule that every open finding of an APPROVED record is shown Minor in the latest iteration's tables; INSP-049 fails drift on the lock and the TV README. The others wait for a pairing or another branch (their front matter comments).
+
 ## 10. Closure
 
 | Field | Value |
 |---|---|
-| Owner merge approval | |
+| Owner merge approval | 2026-09-28, with the disposition: "their branches merge after the section 9 checks" (lead SE reading, `docs/plan/status/status-2026-09-28.md` section 1). Merge held at the disposition: see the section 9 configuration manager pre-merge check |
 | Merge commit | |
 | Waiver entered in CSA item 12 and affected VDDs | n/a |
 | CSA regenerated | |
@@ -268,3 +272,4 @@ Independent verifier (agent invocation): pending.
 | 2026-09-27 | Submitted | Claude (WP-PDR-03 author) | the commit that adds this file | Created with the impact assessment complete; product change prototyped on `cr/CR-012-pdr-checklist-templates` at `ac9b7a5`; section 6 review (rule C6) and the WP-PDR-03 template reviews pending |
 | 2026-09-27 | Submitted | Claude (WP-PDR-03 author) | the commit that records this row | Template reviews iteration 1 (`5f57f93`): INSP-031 no Major; INSP-032 1 Major, INSP-033 2 Major. The Majors are fixed on the branch at `7784672` (step 6: fix on the branch first, `CR: CR-012`); Minor findings wait (PDR work plan rule C1). Iteration 2 delta of INSP-032 and INSP-033 and the section 6 review pending |
 | 2026-09-27 | Submitted | Claude (WP-PDR-03 author) | the commit that records this row | Section 6.1 round 1 IR-F1 (Major) fixed: section 4 rows Verification and Schedule and the row 53 paragraph list the 29 records made against revision A (new section 4.1, listed at `d5a3058`, with the rule at each disposition); new section 5 step 8 re-issues each record's checklist field after the merge. IR-F2 to IR-F6 (Minor) wait (PDR work plan rule C1). Re-submitted for the round 2 re-check of IR-F1 |
+| 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-012`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: new INSP-022 drift on 08 needs a record re-issue (section 9 pre-merge check) |
