@@ -1,0 +1,27 @@
+* det_char.cir: static transfer of the TS-012 ALC detector (1N5711W on the LPF output side)
+* cwht WP-PDR-22 pre-order keying analysis, hardware/sim/tx-keying (analysis record docs/design/analysis/keying-ts012.md)
+* A 146 MHz carrier of amplitude {A} (volts peak at the 50 ohm load, 5 W = 22.36 V) drives the assumed tap:
+* 2.2 k series, 180 ohm shunt (ratio 0.0756, 1.69 V peak at the diode at 5 W; tap values are this deck's
+* assumption, WP-PDR-22 sets the real tap), then a series 1N5711W, a hold capacitor and 47 k load. The hold is 22 pF
+* here (1 us) so that each step settles in 5 us (at least 4.5 time constants); the envelope deck uses the same static law with the
+* 470 pF of the design (22 us video pole). Output: the settled mean of V(det) from 4 to 5 us per
+* amplitude (.meas vdet in the .log, read by keying_run.py).
+* Diode: HSMS-280x SPICE parameters (Avago/Broadcom data sheet: IS 3e-8, N 1.08, RS 30, CJO 1.6p, BV 75),
+* used as a surrogate for the 1N5711W (same 70 V class silicon Schottky; estimate).
+.param A=1
+V1 load 0 SIN(0 {A} 146Meg)
+Rt load tap 2.2k
+Rs tap 0 180
+D1 tap det D5711
+Ch det 0 22p
+Rl det 0 47k
+.model D5711 D(Is=3e-8 N=1.08 Rs=30 Cjo=1.6p Vj=0.65 M=0.5 Eg=0.69 Xti=2 BV=75 Ibv=1e-5)
+.step param A list 0.05 0.1 0.2 0.35 0.6 1 1.7 3 5 9 15 22.36 28
+* maximum step 0.0625 ns (110 points per carrier cycle) with Gear integration: at 0.5 and 0.25 ns the
+* integration error on the diode capacitance charge exceeds the square-law output below 1 V; 0.0625 ns
+* trapezoidal and Gear agree within 0.3 % (convergence check 2026-09-28, record section 4.1)
+.options method=gear
+.tran 0 5u 0 0.0625n
+.meas tran vdet AVG V(det) FROM 4u TO 5u
+.save V(det)
+.end

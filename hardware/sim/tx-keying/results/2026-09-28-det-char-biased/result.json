@@ -1,0 +1,78 @@
+{
+ "run_id": "2026-09-28-det-char-biased",
+ "deck": "det_char_biased.cir",
+ "detector": "mitigated detector: shunt 1N5711W at 21 uA with matched reference diode",
+ "points": [
+  {
+   "amplitude_vpk": 0.05,
+   "power_dbm": -16.02,
+   "vdet_v": 8.27945567115e-05
+  },
+  {
+   "amplitude_vpk": 0.1,
+   "power_dbm": -10.0,
+   "vdet_v": 0.000330664271633
+  },
+  {
+   "amplitude_vpk": 0.2,
+   "power_dbm": -3.98,
+   "vdet_v": 0.00131475360301
+  },
+  {
+   "amplitude_vpk": 0.35,
+   "power_dbm": 0.88,
+   "vdet_v": 0.00396145568346
+  },
+  {
+   "amplitude_vpk": 0.6,
+   "power_dbm": 5.56,
+   "vdet_v": 0.0111291464805
+  },
+  {
+   "amplitude_vpk": 1,
+   "power_dbm": 10.0,
+   "vdet_v": 0.0278096864279
+  },
+  {
+   "amplitude_vpk": 1.7,
+   "power_dbm": 14.61,
+   "vdet_v": 0.0647408017643
+  },
+  {
+   "amplitude_vpk": 3,
+   "power_dbm": 19.54,
+   "vdet_v": 0.142507664705
+  },
+  {
+   "amplitude_vpk": 5,
+   "power_dbm": 23.98,
+   "vdet_v": 0.270735029259
+  },
+  {
+   "amplitude_vpk": 9,
+   "power_dbm": 29.08,
+   "vdet_v": 0.536205175516
+  },
+  {
+   "amplitude_vpk": 15,
+   "power_dbm": 33.52,
+   "vdet_v": 0.943428491359
+  },
+  {
+   "amplitude_vpk": 22.36,
+   "power_dbm": 36.99,
+   "vdet_v": 1.44789414475
+  },
+  {
+   "amplitude_vpk": 28,
+   "power_dbm": 38.94,
+   "vdet_v": 1.83699033226
+  }
+ ],
+ "vdet_at_5W": 1.44789414475,
+ "amplitude_where_output_equals_offset_vpk": {
+  "4.5mV": 0.374070709886576,
+  "10.6mV": 0.5849409835274919
+ },
+ "note": "the loop cannot regulate below the amplitude at which the detector output equals the loop offset (blind zone); 5 W is 22.36 V peak"
+}

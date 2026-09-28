@@ -1,0 +1,200 @@
+{
+ "a4-asis": {
+  "all_steps_pass": {
+   "t1090": false,
+   "shape": false,
+   "overshoot": true,
+   "bw26": false,
+   "sideband": false,
+   "keyup_1uW": false,
+   "vgg": true,
+   "setpoint": false
+  },
+  "bw26_hz_max": 416.6666666668282,
+  "side_db_max": -49.803766075713476,
+  "keyup_at_gate_dbm_max": 2.5445434612112625,
+  "loop_tail_at_gate_dbm_max": 2.51779285495688,
+  "shape_err_max": 0.19197740018461432,
+  "t1090_err_ms_max": 2.7126959590511515,
+  "steps": 6
+ },
+ "a4-mitig": {
+  "all_steps_pass": {
+   "t1090": true,
+   "shape": true,
+   "overshoot": true,
+   "bw26": true,
+   "sideband": true,
+   "keyup_1uW": false,
+   "vgg": true,
+   "setpoint": true
+  },
+  "bw26_hz_max": 291.66666666677975,
+  "side_db_max": -67.18910348497496,
+  "keyup_at_gate_dbm_max": -19.499984741210938,
+  "loop_tail_at_gate_dbm_max": -73.73395332299519,
+  "shape_err_max": 0.025183761902624613,
+  "t1090_err_ms_max": 0.057777372719922226,
+  "steps": 30
+ },
+ "a5-asis": {
+  "all_steps_pass": {
+   "t1090": false,
+   "shape": false,
+   "overshoot": true,
+   "bw26": false,
+   "sideband": false,
+   "keyup_1uW": false,
+   "vgg": true,
+   "setpoint": true
+  },
+  "bw26_hz_max": 541.6666666668766,
+  "side_db_max": -48.277675920938954,
+  "keyup_at_gate_dbm_max": 9.863636608912,
+  "loop_tail_at_gate_dbm_max": 9.855784356899793,
+  "shape_err_max": 0.2713846994683365,
+  "t1090_err_ms_max": 2.843870642707823,
+  "steps": 6
+ },
+ "a5-mitig": {
+  "all_steps_pass": {
+   "t1090": true,
+   "shape": true,
+   "overshoot": true,
+   "bw26": true,
+   "sideband": true,
+   "keyup_1uW": false,
+   "vgg": true,
+   "setpoint": true
+  },
+  "bw26_hz_max": 291.66666666677975,
+  "side_db_max": -64.10154401600097,
+  "keyup_at_gate_dbm_max": -17.500003814697266,
+  "loop_tail_at_gate_dbm_max": -150.0,
+  "shape_err_max": 0.03289403875439374,
+  "t1090_err_ms_max": 0.28522736392719583,
+  "steps": 30
+ },
+ "pwm_ripple": [
+  {
+   "finalist": "a4",
+   "pwm_hz": 30500.0,
+   "bits": 12,
+   "filter_gain": 0.01182612060354861,
+   "pa_slope_v_per_v": 20.617468646286902,
+   "ff_sideband_dbc": -49.791616470204175,
+   "ref_sideband_dbc": -67.9885532972909
+  },
+  {
+   "finalist": "a4",
+   "pwm_hz": 61000.0,
+   "bits": 11,
+   "filter_gain": 0.0030489369773041915,
+   "pa_slope_v_per_v": 20.617468646286902,
+   "ff_sideband_dbc": -67.31749422562862,
+   "ref_sideband_dbc": -85.78303033505698
+  },
+  {
+   "finalist": "a4",
+   "pwm_hz": 122100.0,
+   "bits": 10,
+   "filter_gain": 0.0007670913586340703,
+   "pa_slope_v_per_v": 20.617468646286902,
+   "ff_sideband_dbc": -85.26137133886643,
+   "ref_sideband_dbc": -103.79677405423647
+  },
+  {
+   "finalist": "a5",
+   "pwm_hz": 30500.0,
+   "bits": 12,
+   "filter_gain": 0.01182612060354861,
+   "pa_slope_v_per_v": 44.10701356188326,
+   "ff_sideband_dbc": -43.18617026268068,
+   "ref_sideband_dbc": -67.9885532972909
+  },
+  {
+   "finalist": "a5",
+   "pwm_hz": 61000.0,
+   "bits": 11,
+   "filter_gain": 0.0030489369773041915,
+   "pa_slope_v_per_v": 44.10701356188326,
+   "ff_sideband_dbc": -60.71204801810513,
+   "ref_sideband_dbc": -85.78303033505698
+  },
+  {
+   "finalist": "a5",
+   "pwm_hz": 122100.0,
+   "bits": 10,
+   "filter_gain": 0.0007670913586340703,
+   "pa_slope_v_per_v": 44.10701356188326,
+   "ff_sideband_dbc": -78.65592513134294,
+   "ref_sideband_dbc": -103.79677405423647
+  }
+ ],
+ "loop_margin_mitigated": [
+  {
+   "finalist": "a4",
+   "drain_v": 6.1,
+   "point": "steepest",
+   "amplitude_v": 5.222658957107562,
+   "crossover_hz": 1314.4336188459552,
+   "phase_margin_deg": 79.46042896265202
+  },
+  {
+   "finalist": "a4",
+   "drain_v": 6.1,
+   "point": "near 5 W",
+   "amplitude_v": 18.016102919635202,
+   "crossover_hz": 4.1792706276422695,
+   "phase_margin_deg": 89.96629836361221
+  },
+  {
+   "finalist": "a4",
+   "drain_v": 8.1,
+   "point": "steepest",
+   "amplitude_v": 6.93500615615922,
+   "crossover_hz": 1779.9233787836918,
+   "phase_margin_deg": 75.79421607473509
+  },
+  {
+   "finalist": "a4",
+   "drain_v": 8.1,
+   "point": "near 5 W",
+   "amplitude_v": 22.646719389680122,
+   "crossover_hz": 589.1348578512244,
+   "phase_margin_deg": 85.25467488306256
+  },
+  {
+   "finalist": "a5",
+   "drain_v": 5.5,
+   "point": "steepest",
+   "amplitude_v": 9.908314974198564,
+   "crossover_hz": 1224.3594528900987,
+   "phase_margin_deg": 80.17535363841715
+  },
+  {
+   "finalist": "a5",
+   "drain_v": 5.5,
+   "point": "near 5 W",
+   "amplitude_v": 22.409462465228824,
+   "crossover_hz": 115.5919670610493,
+   "phase_margin_deg": 89.06790770686757
+  },
+  {
+   "finalist": "a5",
+   "drain_v": 7.9,
+   "point": "steepest",
+   "amplitude_v": 13.642685931282466,
+   "crossover_hz": 1705.711698860089,
+   "phase_margin_deg": 76.37520364918447
+  },
+  {
+   "finalist": "a5",
+   "drain_v": 7.9,
+   "point": "near 5 W",
+   "amplitude_v": 21.58736334046698,
+   "crossover_hz": 1183.8625243512274,
+   "phase_margin_deg": 80.49728805914825
+  }
+ ]
+}

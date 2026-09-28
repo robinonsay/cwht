@@ -1,0 +1,7 @@
+run,tset_ms,vd,vsh,vos,pset_w,ptop_w,rise_ms,fall_ms,shape_err_rise,shape_err_fall,overshoot_db,bw26_hz,side_max_db,side_max_at_hz,off60_hz,vgg_max,keyup_window_max_dbm,keyup_loop_tail_max_dbm,loop_tail_at_gate_dbm,at_gate_dbm,gate_step_rel_db,ideal_bw26_hz,ideal_side_max_db,pass_t1090,pass_shape,pass_overshoot,pass_bw26,pass_sideband,pass_keyup_1uW,pass_vgg,pass_setpoint
+1,3,6.1,0,0,5,3.221,1.637,2.453,0.192,0.1155,0,416.7,-49.8,-755,1435,3.26,14.18,14.18,2.518,2.545,-32.54,291.7,-73.98,FAIL,FAIL,PASS,FAIL,FAIL,FAIL,PASS,FAIL
+2,5,6.1,0,0,5,3.221,3.046,4.195,0.1696,0.1025,0,250,-53.4,775,1315,3.26,10.53,10.52,0.09706,0.1439,-34.94,208.3,-84.47,FAIL,FAIL,PASS,PASS,FAIL,FAIL,PASS,FAIL
+3,8,6.1,0,0,5,3.221,5.287,6.875,0.1519,0.09331,0,166.7,-54.58,-815,1045,3.26,7.071,7.061,-2.941,-2.847,-37.93,125,-91.79,FAIL,FAIL,PASS,PASS,FAIL,FAIL,PASS,FAIL
+4,3,8.1,0,0,5,4.994,2.43,3.504,0.1376,0.04671,0,291.7,-53.82,755,1295,2.379,12.55,12.54,1.497,1.531,-35.45,291.7,-73.98,FAIL,FAIL,PASS,PASS,FAIL,FAIL,PASS,PASS
+5,5,8.1,0,0,5,4.994,4.389,5.773,0.116,0.04226,0,208.3,-56.12,795,1085,2.379,9.714,9.709,-0.7235,-0.6669,-37.65,208.3,-84.47,FAIL,FAIL,PASS,PASS,FAIL,FAIL,PASS,PASS
+6,8,8.1,0,0,5,4.994,7.461,9.164,0.1001,0.04089,0,125,-57.48,755,975,2.379,6.388,6.377,-3.521,-3.413,-40.4,125,-91.79,FAIL,FAIL,PASS,PASS,FAIL,FAIL,PASS,PASS

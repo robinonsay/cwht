@@ -1,0 +1,78 @@
+{
+ "run_id": "2026-09-28-det-char",
+ "deck": "det_char.cir",
+ "detector": "TS-012 detector: series 1N5711W, zero bias, 47 k load",
+ "points": [
+  {
+   "amplitude_vpk": 0.05,
+   "power_dbm": -16.02,
+   "vdet_v": 4.87137333238e-06
+  },
+  {
+   "amplitude_vpk": 0.1,
+   "power_dbm": -10.0,
+   "vdet_v": 1.95321299027e-05
+  },
+  {
+   "amplitude_vpk": 0.2,
+   "power_dbm": -3.98,
+   "vdet_v": 7.88444642955e-05
+  },
+  {
+   "amplitude_vpk": 0.35,
+   "power_dbm": 0.88,
+   "vdet_v": 0.000247493984125
+  },
+  {
+   "amplitude_vpk": 0.6,
+   "power_dbm": 5.56,
+   "vdet_v": 0.000779085097036
+  },
+  {
+   "amplitude_vpk": 1,
+   "power_dbm": 10.0,
+   "vdet_v": 0.00256096899799
+  },
+  {
+   "amplitude_vpk": 1.7,
+   "power_dbm": 14.61,
+   "vdet_v": 0.0106159267076
+  },
+  {
+   "amplitude_vpk": 3,
+   "power_dbm": 19.54,
+   "vdet_v": 0.0494127640339
+  },
+  {
+   "amplitude_vpk": 5,
+   "power_dbm": 23.98,
+   "vdet_v": 0.146371257715
+  },
+  {
+   "amplitude_vpk": 9,
+   "power_dbm": 29.08,
+   "vdet_v": 0.380621701463
+  },
+  {
+   "amplitude_vpk": 15,
+   "power_dbm": 33.52,
+   "vdet_v": 0.760293535405
+  },
+  {
+   "amplitude_vpk": 22.36,
+   "power_dbm": 36.99,
+   "vdet_v": 1.24207909877
+  },
+  {
+   "amplitude_vpk": 28,
+   "power_dbm": 38.94,
+   "vdet_v": 1.61702868342
+  }
+ ],
+ "vdet_at_5W": 1.24207909877,
+ "amplitude_where_output_equals_offset_vpk": {
+  "4.5mV": 1.2341094140217617,
+  "10.6mV": 1.69904781491736
+ },
+ "note": "the loop cannot regulate below the amplitude at which the detector output equals the loop offset (blind zone); 5 W is 22.36 V peak"
+}

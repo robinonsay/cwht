@@ -1,0 +1,105 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.g9siV8/keying_a5_mitig.cir
+Start Time: Mon Sep 28 18:43:59 2026
+Options:reltol=1e-4
+
+.step run=1
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+reltol = 0.0001
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=2
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=3
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=4
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=5
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=6
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=7
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=8
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=9
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=10
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=11
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=12
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=13
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=14
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=15
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=16
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=17
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=18
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=19
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=20
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=21
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=22
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=23
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=24
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=25
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=26
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=27
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=28
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=29
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=30
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 6.936 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.g9siV8/keying_a5_mitig.cir
+

@@ -1,0 +1,3 @@
+ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 600 s
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=keying_a4_mitig.cir sha256=90a814c4805fed8580f43334a55571fc39e99c4a869bdebb82dce85d884f36ea version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=10s outputs=[keying_a4_mitig.log keying_a4_mitig.op.raw keying_a4_mitig.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-keying/results/2026-09-28-a4-mitig
