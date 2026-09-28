@@ -580,17 +580,26 @@ def stream_with_gap_every(wpm: float, seconds: float, every_s: float, gap_dits: 
 
 
 # ---------------------------------------------------------------------------------------------
-# Revision 3: the self-referenced watchdog (note section 6.2; INSP-071 finding-1, INSP-075 findings
-# 1, 2 and 6). It reads only the TX_KEY read-back and uses no keyer parameter, in every key mode.
+# Revision 4: the self-referenced watchdog (note section 6.2; INSP-071 finding-1, INSP-075 findings
+# 1, 2, 6 and 7). It reads only the TX_KEY read-back and uses no keyer parameter, in every key mode.
 # Revision 2 took r as the minimum of the window, so one short key-up interval set it for 10 s
-# (INSP-075 finding-6); revision 3 filters read-back glitches and takes a quantile.
+# (INSP-075 finding-6); revision 3 filters read-back glitches and takes a quantile. Revision 3 let a
+# spurious key-down element of 10 ms or more split a space into two short intervals that, two in one
+# 10 s window at 5 WPM, became the lower quartile (INSP-075 finding-7); revision 4 adds the split
+# filter below.
 #   Glitch length G (GLITCH_MS): a key-up interval shorter than G is bridged (the key-down on either
 #     side is one element); a key-down pulse shorter than G is a glitch pulse: it is not an element
 #     for (i-a) or (i-b), it still counts as key-down for the (ii) window, and the key-up interval
 #     it sits in is left out of the reference set. The gap tests apply to each pulse-free part.
+#   Split filter (SPLIT_FRAC, REF_MIN_N): e is the lower quartile (nearest rank) of the durations of
+#     the key-downs of GLITCH_MS or more that started in the preceding REF_WINDOW_S seconds. Once the
+#     reference set and that set each hold at least REF_MIN_N entries, a key-down pulse shorter than
+#     SPLIT_FRAC * min(r, e) (r and e as they stand when the pulse starts) is a split pulse and is
+#     treated exactly as a glitch pulse: no element, key-down for (ii), its key-up interval kept out
+#     of the reference set. It still enters the set of key-down durations.
 #   Reference interval r: the lower quartile (nearest rank, REF_QUANTILE) of the key-up intervals
-#     without a glitch pulse that ended in the preceding REF_WINDOW_S seconds, the current interval
-#     included. With no such interval only the ABS_GAP_S gap qualifies.
+#     without a glitch or split pulse that ended in the preceding REF_WINDOW_S seconds, the current
+#     interval included. With no such interval only the ABS_GAP_S gap qualifies.
 #   Qualifying gap: a key-up interval of at least GAP_FACTOR * r or at least ABS_GAP_S.
 #   Word gap: a key-up interval of at least WORD_FACTOR * r or at least ABS_GAP_S.
 #   (i-a) count_limit consecutive key-down elements of equal duration with no word gap between
@@ -600,7 +609,8 @@ def stream_with_gap_every(wpm: float, seconds: float, every_s: float, gap_dits: 
 #     key-up interval before it.
 #   (ii) window_s seconds without a qualifying gap.
 # "Equal" means the two durations differ by at most SAME_TOL of the longer one. Edges are quantised
-# to the 1 ms read-back sample. glitch_ms=0 with ref_quantile=None reproduces the revision 2 rule.
+# to the 1 ms read-back sample. split_frac=None reproduces the revision 3 rule; glitch_ms=0 with
+# ref_quantile=None and split_frac=None reproduces the revision 2 rule.
 # ---------------------------------------------------------------------------------------------
 REF_WINDOW_S = 10.0
 GAP_FACTOR = 2.0
@@ -610,6 +620,8 @@ SAME_TOL = 0.25
 MAX_PERIOD = 6
 GLITCH_MS = 10.0
 REF_QUANTILE = 0.25
+SPLIT_FRAC = 0.5
+REF_MIN_N = 4
 
 
 def _same(a: float, b: float, tol: float) -> bool:
@@ -621,13 +633,15 @@ def watchdog_relative(stream, window_s: float = 30.0, count_limit: int = 128,
                       word_factor: float = WORD_FACTOR, abs_gap_s: float = ABS_GAP_S,
                       same_tol: float = SAME_TOL, max_period: int = MAX_PERIOD,
                       glitch_ms: float = GLITCH_MS, ref_quantile=REF_QUANTILE,
+                      split_frac=SPLIT_FRAC, ref_min_n: int = REF_MIN_N,
                       quantise_ms: bool = True, detail: bool = False):
-    """Apply the revision 3 watchdog to a key-down stream [(start_us, end_us, typ)].
+    """Apply the revision 4 watchdog to a key-down stream [(start_us, end_us, typ)].
 
     The element type label is not used: the monitor sees only TX_KEY. Returns
     (max_span_s, max_count, trip_time_s or None, trip_cause); max_count is the larger of the
-    (i-a) and (i-b) counts. With detail=True a fifth item gives the separate maxima.
-    ref_quantile=None takes the minimum (revision 2); glitch_ms=0 disables the glitch filter.
+    (i-a) and (i-b) counts. With detail=True a fifth item gives the separate maxima and the number
+    of split pulses. ref_quantile=None takes the minimum (revision 2); glitch_ms=0 disables the
+    glitch filter; split_frac=None disables the split filter (revision 3).
     """
     if quantise_ms:
         stream = [(math.floor(s / 1000.0) * 1000.0, math.floor(e / 1000.0) * 1000.0)
@@ -657,7 +671,15 @@ def watchdog_relative(stream, window_s: float = 30.0, count_limit: int = 128,
     last_end = None      # end of the last key-down of any kind
     dirty = False        # a glitch pulse lies in the current key-up interval
     max_span, max_a, max_b = 0.0, 0, 0
+    n_split = 0
     trip = None
+    kd_fifo = deque()    # (start_us, duration_us) of key-downs of GLITCH_MS or more, in time order
+    kd_sorted = []
+
+    def kd_now():
+        if len(kd_sorted) < ref_min_n:
+            return None
+        return kd_sorted[max(0, math.ceil(REF_QUANTILE * len(kd_sorted)) - 1)]
 
     def ref_now():
         if not ref_sorted:
@@ -676,8 +698,18 @@ def watchdog_relative(stream, window_s: float = 30.0, count_limit: int = 128,
         while ref_fifo and ref_fifo[0][0] < s - ref_win:
             _t_end, old = ref_fifo.popleft()
             del ref_sorted[bisect.bisect_left(ref_sorted, old)]
-        if d < glitch - 1e-6:
-            # glitch pulse: no element; the pulse-free part before it may still qualify
+        while kd_fifo and kd_fifo[0][0] < s - ref_win:
+            _t_s, old = kd_fifo.popleft()
+            del kd_sorted[bisect.bisect_left(kd_sorted, old)]
+        e_ref = kd_now()
+        split = (split_frac is not None and d >= glitch - 1e-6 and len(ref_sorted) >= ref_min_n
+                 and e_ref is not None and d < split_frac * min(ref_now(), e_ref) - 1e-6)
+        n_split += split
+        if d >= glitch - 1e-6:
+            kd_fifo.append((s, d))
+            bisect.insort(kd_sorted, d)
+        if d < glitch - 1e-6 or split:
+            # glitch or split pulse: no element; the pulse-free part before it may still qualify
             if wstart is None or gap_is(part, gap_factor):
                 wstart = s
             dirty = True
@@ -731,44 +763,60 @@ def watchdog_relative(stream, window_s: float = 30.0, count_limit: int = 128,
     out = (max_span / 1e6, max(max_a, max_b), (trip[0] if trip else None),
            (trip[1] if trip else None))
     if detail:
-        return out + ({"count_a": max_a, "period_b": max_b},)
+        return out + ({"count_a": max_a, "period_b": max_b, "split_pulses": n_split},)
     return out
 
 
 def watchdog_rev2(stream, **kw):
     """The withdrawn revision 2 rule (minimum reference, no glitch filter), kept for comparison."""
-    return watchdog_relative(stream, glitch_ms=0.0, ref_quantile=None, **kw)
+    return watchdog_relative(stream, glitch_ms=0.0, ref_quantile=None, split_frac=None, **kw)
 
 
-def perturb_short_interval(stream, every_s: float, kind: str, wpm: float, short_dits: float = 0.4):
+def watchdog_rev3(stream, **kw):
+    """The withdrawn revision 3 rule (glitch filter and lower quartile, no split filter), kept for
+    comparison."""
+    return watchdog_relative(stream, split_frac=None, **kw)
+
+
+def perturb_short_interval(stream, every_s: float, kind: str, wpm: float, short_dits: float = 0.4,
+                           length_us: float | None = None):
     """Insert a short key-up or key-down interval into a fault stream every every_s seconds
-    (note section 6.2, INSP-075 finding-6 variants).
+    (note section 6.2, INSP-075 finding-6 and finding-7 variants).
 
-    kind "up1" / "up15": a 1 ms / 15 ms key-up break in the middle of the element in progress;
-    "down1": a 1 ms key-down pulse in the middle of the next space; "short": the next space
+    kind "up": a key-up break of length_us in the middle of the element in progress (aliases "up1"
+    and "up15": 1 ms and 15 ms); "down": a spurious key-down element of length_us in the middle of
+    the next space (alias "down1": 1 ms). The element sits centred in the space when it fits with
+    GLITCH_MS of key-up on each side; otherwise it is inserted: the space is split into two halves
+    around it and the rest of the stream moves later by length_us. "short": the next space
     shortened to short_dits dits (the rest of the stream moves earlier).
     """
+    alias = {"up1": ("up", 1000.0), "up15": ("up", 15000.0), "down1": ("down", 1000.0)}
+    if kind in alias:
+        kind, length_us = alias[kind]
     dit = dit_us(wpm)
     out, nxt, shift = [], every_s * 1e6, 0.0
     for i, (s, e, t) in enumerate(stream):
-        s, e = s - shift, e - shift
-        due = s >= nxt or (kind in ("up1", "up15") and e > nxt)
-        if due and kind in ("up1", "up15"):
-            brk = 1000.0 if kind == "up1" else 15000.0
-            if e - s > brk + 2000.0:
+        s, e = s + shift, e + shift
+        due = s >= nxt or (kind == "up" and e > nxt)
+        if due and kind == "up":
+            if e - s > length_us + 2000.0:
                 mid = s + (e - s) / 2.0
-                out += [(s, mid, t), (mid + brk, e, t)]
+                out += [(s, mid, t), (mid + length_us, e, t)]
                 nxt += every_s * 1e6
                 continue
-        elif due and kind == "down1" and i + 1 < len(stream):
-            nxt_s = stream[i + 1][0] - shift
-            mid = (e + nxt_s) / 2.0
-            out += [(s, e, t), (mid, mid + 1000.0, t)]
+        elif due and kind == "down" and i + 1 < len(stream):
+            space = stream[i + 1][0] + shift - e
+            if length_us + 2.0 * GLITCH_MS * 1000.0 <= space:
+                a = e + (space - length_us) / 2.0
+            else:
+                a = e + space / 2.0
+                shift += length_us
+            out += [(s, e, t), (a, a + length_us, t)]
             nxt += every_s * 1e6
             continue
         elif due and kind == "short" and i + 1 < len(stream):
-            gap = stream[i + 1][0] - shift - e
-            shift += max(0.0, gap - short_dits * dit)
+            gap = stream[i + 1][0] + shift - e
+            shift -= max(0.0, gap - short_dits * dit)
             out.append((s, e, t))
             nxt += every_s * 1e6
             continue
