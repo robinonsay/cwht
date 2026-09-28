@@ -1,0 +1,515 @@
+{
+ "run_id": "2026-09-28-r02-bpf-three-section",
+ "checker": "check_bpf.py",
+ "requirement": "REQ-SYS-033 >= 70 dB image rejection (TBR)",
+ "items": [
+  {
+   "deck": "bpf_2p3p2_bw6",
+   "title": "2 + 3 + 2 resonators (BPF3 before the ring), 6 MHz",
+   "steps": [
+    {
+     "step": "qu=100",
+     "metrics": {
+      "section_loss_worst_db": [
+       1.964169059962189,
+       4.352416022646466,
+       1.964169059962189
+      ],
+      "section_loss_best_db": [
+       1.8451296614909978,
+       3.918864282771518,
+       1.8451296614909978
+      ],
+      "chain_loss_worst_db": 8.280754142570844,
+      "chain_loss_best_db": 7.6195252640094,
+      "section_rejection_re_146_db": {
+       "124 MHz": [
+        26.685403899029215,
+        49.96146361265459,
+        26.685403899029215
+       ],
+       "128 MHz": [
+        22.06298861840706,
+        43.19221186837074,
+        22.062988618407058
+       ],
+       "130 MHz": [
+        19.46597867464063,
+        39.36196535275898,
+        19.46597867464063
+       ],
+       "132 MHz": [
+        16.618796704052595,
+        35.12329262987873,
+        16.618796704052595
+       ]
+      },
+      "IF 8 MHz": {
+       "image_rejection_min_db": 67.78937722559195,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 132.0,
+       "halfif_filter_atten_min_db": 0.08777916735362012,
+       "halfif_filter_atten_max_db": 15.566158643068858,
+       "pass_req_70": false,
+       "meets_80": false,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 582.2917648618003
+      },
+      "IF 10 MHz": {
+       "image_rejection_min_db": 86.74668029279287,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 128.0,
+       "halfif_filter_atten_min_db": 1.2928584098461862,
+       "halfif_filter_atten_max_db": 22.81742691934729,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 549.5460907497682
+      }
+     }
+    },
+    {
+     "step": "qu=120",
+     "metrics": {
+      "section_loss_worst_db": [
+       1.699808082654312,
+       3.762813908352496,
+       1.699808082654312
+      ],
+      "section_loss_best_db": [
+       1.5989409722153056,
+       3.3883042712224616,
+       1.5989409722153056
+      ],
+      "chain_loss_worst_db": 7.1624300736611195,
+      "chain_loss_best_db": 6.602554457722271,
+      "section_rejection_re_146_db": {
+       "124 MHz": [
+        26.911365899436312,
+        50.47459204372434,
+        26.911365899436312
+       ],
+       "128 MHz": [
+        22.27772007039767,
+        43.69575662989389,
+        22.27772007039767
+       ],
+       "130 MHz": [
+        19.671116992897165,
+        39.85748989910663,
+        19.671116992897165
+       ],
+       "132 MHz": [
+        16.809189638429345,
+        35.60663720760279,
+        16.809189638429345
+       ]
+      },
+      "IF 8 MHz": {
+       "image_rejection_min_db": 68.71961179434587,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 132.0,
+       "halfif_filter_atten_min_db": 0.05308593249154381,
+       "halfif_filter_atten_max_db": 15.773910661189962,
+       "pass_req_70": false,
+       "meets_80": false,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 583.6652217998306
+      },
+      "IF 10 MHz": {
+       "image_rejection_min_db": 87.74579208057362,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 128.0,
+       "halfif_filter_atten_min_db": 1.1462479357395505,
+       "halfif_filter_atten_max_db": 23.223323782897502,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 550.8290637957716
+      }
+     }
+    },
+    {
+     "step": "qu=150",
+     "metrics": {
+      "section_loss_worst_db": [
+       1.433906186082406,
+       3.167012058658609,
+       1.4339061860824052
+      ],
+      "section_loss_best_db": [
+       1.3512159479640413,
+       2.853704973694431,
+       1.3512159479640413
+      ],
+      "chain_loss_worst_db": 6.03482443082342,
+      "chain_loss_best_db": 5.58240844401136,
+      "section_rejection_re_146_db": {
+       "124 MHz": [
+        27.138080835522757,
+        50.99086972064648,
+        27.138080835522757
+       ],
+       "128 MHz": [
+        22.49345507394084,
+        44.202848849472204,
+        22.49345507394084
+       ],
+       "130 MHz": [
+        19.877442694975723,
+        40.35688511170695,
+        19.877442694975727
+       ],
+       "132 MHz": [
+        17.000994828485467,
+        36.09432573551104,
+        17.000994828485467
+       ]
+      },
+      "IF 8 MHz": {
+       "image_rejection_min_db": 69.66520330499783,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 132.0,
+       "halfif_filter_atten_min_db": 0.020496459117807397,
+       "halfif_filter_atten_max_db": 15.982074086124378,
+       "pass_req_70": false,
+       "meets_80": false,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 585.0032742198586
+      },
+      "IF 10 MHz": {
+       "image_rejection_min_db": 88.75864690986974,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 128.0,
+       "halfif_filter_atten_min_db": 0.9854117642990783,
+       "halfif_filter_atten_max_db": 23.638171924257783,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 552.0921090779183
+      }
+     }
+    },
+    {
+     "step": "qu=200",
+     "metrics": {
+      "section_loss_worst_db": [
+       1.1665946862879768,
+       2.575657621157641,
+       1.1665946862879768
+      ],
+      "section_loss_best_db": [
+       1.101130252226864,
+       2.314665788476894,
+       1.1011302522268616
+      ],
+      "chain_loss_worst_db": 4.908385880428838,
+      "chain_loss_best_db": 4.559656898303394,
+      "section_rejection_re_146_db": {
+       "124 MHz": [
+        27.36538116585828,
+        51.51007780468341,
+        27.365381165858285
+       ],
+       "128 MHz": [
+        22.710031650414862,
+        44.71327391803735,
+        22.710031650414866
+       ],
+       "130 MHz": [
+        20.084800547020834,
+        40.85994150678904,
+        20.084800547020834
+       ],
+       "132 MHz": [
+        17.194070541830925,
+        36.58615939582361,
+        17.19407054183093
+       ]
+      },
+      "IF 8 MHz": {
+       "image_rejection_min_db": 70.62577357486131,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 132.0,
+       "halfif_filter_atten_min_db": -0.009506650442881792,
+       "halfif_filter_atten_max_db": 16.190130569057402,
+       "pass_req_70": true,
+       "meets_80": false,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 586.2945261851308
+      },
+      "IF 10 MHz": {
+       "image_rejection_min_db": 89.78481031424295,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 128.0,
+       "halfif_filter_atten_min_db": 0.8087803664399944,
+       "halfif_filter_atten_max_db": 24.06165700708113,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 553.3243823163702
+      }
+     }
+    }
+   ],
+   "plots": [
+    "bpf_2p3p2_bw6_s21_image.png",
+    "bpf_2p3p2_bw6_passband.png"
+   ]
+  },
+  {
+   "deck": "bpf_2p3p3_bw6",
+   "title": "2 + 3 + 3 resonators (BPF3 before the ring), 6 MHz",
+   "steps": [
+    {
+     "step": "qu=100",
+     "metrics": {
+      "section_loss_worst_db": [
+       1.964169059962189,
+       4.352416022646466,
+       4.352416022646467
+      ],
+      "section_loss_best_db": [
+       1.8451296614909978,
+       3.918864282771518,
+       3.918864282771518
+      ],
+      "chain_loss_worst_db": 10.669001105255122,
+      "chain_loss_best_db": 9.689720828323608,
+      "section_rejection_re_146_db": {
+       "124 MHz": [
+        26.685403899029215,
+        49.96146361265459,
+        49.96146361265459
+       ],
+       "128 MHz": [
+        22.06298861840706,
+        43.19221186837074,
+        43.19221186837074
+       ],
+       "130 MHz": [
+        19.46597867464063,
+        39.36196535275898,
+        39.36196535275898
+       ],
+       "132 MHz": [
+        16.618796704052595,
+        35.12329262987873,
+        35.12329262987873
+       ]
+      },
+      "IF 8 MHz": {
+       "image_rejection_min_db": 86.03275218809947,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 132.0,
+       "halfif_filter_atten_min_db": 0.14624962917682716,
+       "halfif_filter_atten_max_db": 23.023860504661997,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 663.287268576194
+      },
+      "IF 10 MHz": {
+       "image_rejection_min_db": 107.61478257943794,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 128.0,
+       "halfif_filter_atten_min_db": 1.9973525558281224,
+       "halfif_filter_atten_max_db": 32.66806147645553,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": true,
+       "if_feedthrough_rejection_db": 626.6946777778936
+      }
+     }
+    },
+    {
+     "step": "qu=120",
+     "metrics": {
+      "section_loss_worst_db": [
+       1.699808082654312,
+       3.762813908352496,
+       3.7628139083524954
+      ],
+      "section_loss_best_db": [
+       1.5989409722153056,
+       3.3883042712224616,
+       3.3883042712224616
+      ],
+      "chain_loss_worst_db": 9.225435899359303,
+      "chain_loss_best_db": 8.385939729069484,
+      "section_rejection_re_146_db": {
+       "124 MHz": [
+        26.911365899436312,
+        50.47459204372434,
+        50.47459204372434
+       ],
+       "128 MHz": [
+        22.27772007039767,
+        43.69575662989389,
+        43.69575662989389
+       ],
+       "130 MHz": [
+        19.671116992897165,
+        39.85748989910663,
+        39.85748989910663
+       ],
+       "132 MHz": [
+        16.809189638429345,
+        35.60663720760279,
+        35.60663720760279
+       ]
+      },
+      "IF 8 MHz": {
+       "image_rejection_min_db": 87.27462287697391,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 132.0,
+       "halfif_filter_atten_min_db": 0.09006410084799832,
+       "halfif_filter_atten_max_db": 23.47960600952311,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 665.0224165033723
+      },
+      "IF 10 MHz": {
+       "image_rejection_min_db": 108.92139215352444,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 128.0,
+       "halfif_filter_atten_min_db": 1.7865338186865554,
+       "halfif_filter_atten_max_db": 33.38882915808874,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": true,
+       "if_feedthrough_rejection_db": 628.3264170486877
+      }
+     }
+    },
+    {
+     "step": "qu=150",
+     "metrics": {
+      "section_loss_worst_db": [
+       1.433906186082406,
+       3.167012058658609,
+       3.167012058658609
+      ],
+      "section_loss_best_db": [
+       1.3512159479640413,
+       2.853704973694431,
+       2.8537049736944278
+      ],
+      "chain_loss_worst_db": 7.767930303399624,
+      "chain_loss_best_db": 7.074897730608622,
+      "section_rejection_re_146_db": {
+       "124 MHz": [
+        27.138080835522757,
+        50.99086972064648,
+        50.99086972064648
+       ],
+       "128 MHz": [
+        22.49345507394084,
+        44.202848849472204,
+        44.202848849472204
+       ],
+       "130 MHz": [
+        19.877442694975723,
+        40.35688511170695,
+        40.35688511170695
+       ],
+       "132 MHz": [
+        17.000994828485467,
+        36.09432573551104,
+        36.09432573551104
+       ]
+      },
+      "IF 8 MHz": {
+       "image_rejection_min_db": 88.53586318734814,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 132.0,
+       "halfif_filter_atten_min_db": 0.0345999067744156,
+       "halfif_filter_atten_max_db": 23.947877913136733,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 666.7204350620437
+      },
+      "IF 10 MHz": {
+       "image_rejection_min_db": 110.24536966072583,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 128.0,
+       "halfif_filter_atten_min_db": 1.5506078174678324,
+       "halfif_filter_atten_max_db": 34.131028800954006,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": true,
+       "if_feedthrough_rejection_db": 629.9387146713785
+      }
+     }
+    },
+    {
+     "step": "qu=200",
+     "metrics": {
+      "section_loss_worst_db": [
+       1.1665946862879768,
+       2.575657621157641,
+       2.575657621157641
+      ],
+      "section_loss_best_db": [
+       1.101130252226864,
+       2.314665788476894,
+       2.3146657884768937
+      ],
+      "chain_loss_worst_db": 6.317679371950881,
+      "chain_loss_best_db": 5.754921136687428,
+      "section_rejection_re_146_db": {
+       "124 MHz": [
+        27.36538116585828,
+        51.51007780468341,
+        51.51007780468341
+       ],
+       "128 MHz": [
+        22.710031650414862,
+        44.71327391803735,
+        44.71327391803735
+       ],
+       "130 MHz": [
+        20.084800547020834,
+        40.85994150678904,
+        40.85994150678904
+       ],
+       "132 MHz": [
+        17.194070541830925,
+        36.58615939582361,
+        36.58615939582361
+       ]
+      },
+      "IF 8 MHz": {
+       "image_rejection_min_db": 89.81549577327817,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 132.0,
+       "halfif_filter_atten_min_db": -0.01970497084289491,
+       "halfif_filter_atten_max_db": 24.42879841453084,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": false,
+       "if_feedthrough_rejection_db": 668.3590466056266
+      },
+      "IF 10 MHz": {
+       "image_rejection_min_db": 111.58568592628961,
+       "at_tuned_mhz": 148.0,
+       "image_mhz": 128.0,
+       "halfif_filter_atten_min_db": 1.2864814375564348,
+       "halfif_filter_atten_max_db": 34.894428701387234,
+       "pass_req_70": true,
+       "meets_80": true,
+       "meets_90": true,
+       "if_feedthrough_rejection_db": 631.5099234635037
+      }
+     }
+    }
+   ],
+   "plots": [
+    "bpf_2p3p3_bw6_s21_image.png",
+    "bpf_2p3p3_bw6_passband.png"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,219 @@
+{
+ "run_id": "2026-09-28-r03-bpf-three-section-mc",
+ "checker": "check_bpf.py",
+ "requirement": "REQ-SYS-033 >= 70 dB image rejection (TBR)",
+ "items": [
+  {
+   "deck": "bpf_2p3p2_bw6_mcA",
+   "title": "2 + 3 + 2, 6 MHz, tolerance mode A (TS-012: 20 % caps)",
+   "summary": {
+    "n": 200,
+    "IF 8 MHz": {
+     "image_rejection_min_db": 50.051141559867816,
+     "p5_db": 58.502778959330286,
+     "median_db": 67.75689085183737,
+     "fraction_ge_70": 0.36,
+     "fraction_ge_80": 0.01,
+     "fraction_ge_90": 0.0
+    },
+    "IF 10 MHz": {
+     "image_rejection_min_db": 70.58251736605521,
+     "p5_db": 78.10517307331114,
+     "median_db": 86.64061534079595,
+     "fraction_ge_70": 1.0,
+     "fraction_ge_80": 0.895,
+     "fraction_ge_90": 0.27
+    },
+    "chain_loss_worst_db": {
+     "max": 15.824073883767015,
+     "p95": 13.656712897871936,
+     "median": 11.104326305259551
+    },
+    "bpf1_loss_worst_db": {
+     "max": 5.845121856292038,
+     "p95": 3.9188443830637723,
+     "median": 2.718493198443869
+    },
+    "section_loss_worst_db_max": [
+     5.845121856292038,
+     9.451654898596924,
+     5.243954022192476
+    ],
+    "section_loss_worst_db_p95": [
+     3.9188443830637723,
+     7.818225314577587,
+     4.269078635799054
+    ],
+    "section_loss_worst_db_median": [
+     2.718493198443869,
+     5.506892589789709,
+     2.7823577592819007
+    ],
+    "halfif_filter_atten_min_db_IF8": -2.2638795033840484,
+    "halfif_filter_atten_min_db_IF10": -1.8800321345781992
+   },
+   "plots": [
+    "bpf_2p3p2_bw6_mcA_montecarlo.png"
+   ]
+  },
+  {
+   "deck": "bpf_2p3p2_bw6_mcB",
+   "title": "2 + 3 + 2, 6 MHz, tolerance mode B (proposed part spec)",
+   "summary": {
+    "n": 200,
+    "IF 8 MHz": {
+     "image_rejection_min_db": 60.8139979910014,
+     "p5_db": 63.3137106590158,
+     "median_db": 68.07512908536759,
+     "fraction_ge_70": 0.235,
+     "fraction_ge_80": 0.0,
+     "fraction_ge_90": 0.0
+    },
+    "IF 10 MHz": {
+     "image_rejection_min_db": 80.51182981380745,
+     "p5_db": 82.76375862836485,
+     "median_db": 86.97925280764774,
+     "fraction_ge_70": 1.0,
+     "fraction_ge_80": 1.0,
+     "fraction_ge_90": 0.105
+    },
+    "chain_loss_worst_db": {
+     "max": 11.354829053198927,
+     "p95": 10.176495501335282,
+     "median": 8.85358657740293
+    },
+    "bpf1_loss_worst_db": {
+     "max": 2.5939554753691447,
+     "p95": 2.3068852664024253,
+     "median": 2.0542206533512215
+    },
+    "section_loss_worst_db_max": [
+     2.5939554753691447,
+     7.377995445206005,
+     2.5636026286514384
+    ],
+    "section_loss_worst_db_p95": [
+     2.3068852664024253,
+     6.043241296757159,
+     2.3637614170834116
+    ],
+    "section_loss_worst_db_median": [
+     2.0542206533512215,
+     4.721320371280885,
+     2.0669935580932863
+    ],
+    "halfif_filter_atten_min_db_IF8": -0.8233512156213703,
+    "halfif_filter_atten_min_db_IF10": -0.28786517249761445
+   },
+   "plots": [
+    "bpf_2p3p2_bw6_mcB_montecarlo.png"
+   ]
+  },
+  {
+   "deck": "bpf_2p3p3_bw6_mcA",
+   "title": "2 + 3 + 3, 6 MHz, tolerance mode A (TS-012: 20 % caps)",
+   "summary": {
+    "n": 200,
+    "IF 8 MHz": {
+     "image_rejection_min_db": 70.58078829399207,
+     "p5_db": 76.38287521057737,
+     "median_db": 86.55440406390034,
+     "fraction_ge_70": 1.0,
+     "fraction_ge_80": 0.86,
+     "fraction_ge_90": 0.255
+    },
+    "IF 10 MHz": {
+     "image_rejection_min_db": 93.59333859088044,
+     "p5_db": 98.81159896515854,
+     "median_db": 107.9575514785208,
+     "fraction_ge_70": 1.0,
+     "fraction_ge_80": 1.0,
+     "fraction_ge_90": 1.0
+    },
+    "chain_loss_worst_db": {
+     "max": 18.537300515089424,
+     "p95": 16.75766423834711,
+     "median": 13.872916231061685
+    },
+    "bpf1_loss_worst_db": {
+     "max": 5.845121856292038,
+     "p95": 3.9188443830637723,
+     "median": 2.718493198443869
+    },
+    "section_loss_worst_db_max": [
+     5.845121856292038,
+     9.451654898596924,
+     8.994391352126211
+    ],
+    "section_loss_worst_db_p95": [
+     3.9188443830637723,
+     7.818225314577587,
+     7.683618339808464
+    ],
+    "section_loss_worst_db_median": [
+     2.718493198443869,
+     5.506892589789709,
+     5.519251463392191
+    ],
+    "halfif_filter_atten_min_db_IF8": -2.5168203901546473,
+    "halfif_filter_atten_min_db_IF10": -1.1746602790583633
+   },
+   "plots": [
+    "bpf_2p3p3_bw6_mcA_montecarlo.png"
+   ]
+  },
+  {
+   "deck": "bpf_2p3p3_bw6_mcB",
+   "title": "2 + 3 + 3, 6 MHz, tolerance mode B (proposed part spec)",
+   "summary": {
+    "n": 200,
+    "IF 8 MHz": {
+     "image_rejection_min_db": 78.08200587230378,
+     "p5_db": 81.33426049039792,
+     "median_db": 86.3988825174786,
+     "fraction_ge_70": 1.0,
+     "fraction_ge_80": 0.975,
+     "fraction_ge_90": 0.085
+    },
+    "IF 10 MHz": {
+     "image_rejection_min_db": 100.49351670522135,
+     "p5_db": 103.4196297200533,
+     "median_db": 107.94021854315878,
+     "fraction_ge_70": 1.0,
+     "fraction_ge_80": 1.0,
+     "fraction_ge_90": 1.0
+    },
+    "chain_loss_worst_db": {
+     "max": 14.02394073831939,
+     "p95": 13.211160038812503,
+     "median": 11.607730371759775
+    },
+    "bpf1_loss_worst_db": {
+     "max": 2.5939554753691447,
+     "p95": 2.3068852664024253,
+     "median": 2.0542206533512215
+    },
+    "section_loss_worst_db_max": [
+     2.5939554753691447,
+     7.377995445206005,
+     6.529491677462041
+    ],
+    "section_loss_worst_db_p95": [
+     2.3068852664024253,
+     6.043241296757159,
+     5.9837772852649325
+    ],
+    "section_loss_worst_db_median": [
+     2.0542206533512215,
+     4.721320371280885,
+     4.75487607860131
+    ],
+    "halfif_filter_atten_min_db_IF8": -0.9367865834424816,
+    "halfif_filter_atten_min_db_IF10": -0.09719276041544411
+   },
+   "plots": [
+    "bpf_2p3p3_bw6_mcB_montecarlo.png"
+   ]
+  }
+ ]
+}
