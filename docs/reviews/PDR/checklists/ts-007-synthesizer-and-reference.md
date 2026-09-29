@@ -10,9 +10,13 @@ checklist: peer-review-checklist-risk
 checklist_revision: A
 checklist_file: docs/reviews/PDR/checklists/ts-007-synthesizer-and-reference.md
 product: docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md
-product_commit: "9ac2c42d1ff7b82e3734506aba14dec8eadc3923"
-product_blob: 72c47383cbaec09b6d1cc8d9ac8f7912b61c72fb
-product_files: ["docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md@72c47383cbaec09b6d1cc8d9ac8f7912b61c72fb", "hardware/sim/freq/ts007_matrix.py@64c8aad44c9c9da777e6be544cb9553478236481", "docs/reviews/PDR/figures/ts-007-sensitivity.png@e0fb0048a8d6c9ba98016ddb892df33677d5b013"]
+# Delta iteration 2 (2026-09-29, supersession): product_commit, product_blob and the TS-007 entry of
+# product_files name cfc9111 and blob 3d1e4e59 (Status row only). Iteration 1 values, kept: product_commit
+# 9ac2c42d1ff7b82e3734506aba14dec8eadc3923, product_blob 72c47383cbaec09b6d1cc8d9ac8f7912b61c72fb. The checker
+# and the figure are unchanged since 9ac2c42.
+product_commit: "cfc9111d6cc0ede052f254bececf09d89d0699f3"
+product_blob: 3d1e4e59f1109199a378e31da99289f01f3f7e21
+product_files: ["docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md@3d1e4e59f1109199a378e31da99289f01f3f7e21", "hardware/sim/freq/ts007_matrix.py@64c8aad44c9c9da777e6be544cb9553478236481", "docs/reviews/PDR/figures/ts-007-sensitivity.png@e0fb0048a8d6c9ba98016ddb892df33677d5b013"]
 product_size: 2 scored alternatives (A1, A2; A0 listed, 4 pruned), 8 mandatory and 7 enhancing criteria (Part A); 2 reference candidates and 4 mandatory rules (Part B); 26 sensitivity runs plus 2 variants
 sprint: PDR-prep
 author_agent: "author:WP-PDR-20 wave 1a (Claude as RF designer TX)"
@@ -22,27 +26,37 @@ reviewer_agent: "reviewer:WP-PDR-20-ts-007-iter1 (independent; authored no part 
 # by SRR decision 9)
 criticality: safety-critical
 assurance_required: true
-assurance_reviewer_agent: "pending (separate invocation; paired record docs/reviews/PDR/checklists/ts-007-synthesizer-and-reference-software-assurance.md)"
-iteration: 1
+# assurance_reviewer_agent, paired_record and assurance_verdict: copied at delta iteration 2 from INSP-074
+# (committed 7c05d72, iteration 1, assurance verdict APPROVED on blob 72c47383; 07 section 10.2 Record row).
+# Iteration 1 value: "pending (separate invocation; paired record ...-software-assurance.md)"
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-20-ts-007 (paired record INSP-074, docs/reviews/PDR/checklists/ts-007-synthesizer-and-reference-software-assurance.md)"
+paired_record: INSP-074
+iteration: 2
 readiness_met: true
 reviewer_verdict: APPROVED
-assurance_verdict: pending
+assurance_verdict: APPROVED
 # verdict: held at NEEDS CHANGES until the software assurance pair returns APPROVED (07 section 2.1.1;
-# rule C9); the lead SE sets it
+# rule C9); the lead SE sets it. Delta iteration 2: the reviewer does not set it; see cross item X-4 there
 verdict: NEEDS CHANGES
 findings_major: 0
 findings_minor: 5
-findings_open: 5
+# findings_open: delta iteration 2 closes all five by supersession (none fixed or verified in TS-007):
+# finding-1, finding-2 and finding-5 moot; finding-3 and finding-4 carried to TS-012, which decides them
+findings_open: 0
 findings_fixed: 0
 findings_verified: 0
 findings_deferred: 0
 deferred_rids: []
 items_no: [CK-RSK-B5]
-effort_turns: 44
-effort_minutes: 70
-record_status: Open
+# effort: cumulative (iteration 1: 44 turns, 70 minutes; delta iteration 2: 22 turns, 30 minutes)
+effort_turns: 66
+effort_minutes: 100
+# record_status: Closed by supersession at delta iteration 2 (06 section 14.6; ADR-056 section 7 "Other
+# records"; plan section 3.0a row TS-007 "Superseded outright"). Reopens if the owner does not confirm the
+# TS-007 row at PDR session S1 (OD-10 part 1). Iteration 1 value: Open
+record_status: Closed
 date: 2026-09-27
-date_closed: null
+date_closed: 2026-09-29
 ---
 
 # Peer review record: TS-007 synthesizer and frequency reference (INSP-055, iteration 1)
@@ -131,3 +145,81 @@ CK-RSK-A1 to CK-RSK-A11 and readiness R2 (the product is a trade study, not the 
 ## Measurements (SWE-089)
 
 Items checked 10 (section B) plus readiness 4; items answered No 1 (CK-RSK-B5); findings 0 Major, 5 Minor; fixed 0, deferred 0; iteration 1; renders inspected 1; effort 44 turns, about 70 minutes (shared session with INSP-056).
+
+## Delta iteration 2 (2026-09-29, supersession of TS-007 by TS-012; independent reviewer, new invocation)
+
+**Scope.** TS-007 changed once since iteration 1: `cfc9111` ("docs(decisions): TS-001 and TS-007 status rows superseded by TS-012 (ADR-056)", WP-PDR-54 part 1). The new blob is `3d1e4e59f1109199a378e31da99289f01f3f7e21` (was `72c47383`). `git log --oneline 9ac2c42..HEAD` over the three product files lists `cfc9111` only; `git rev-parse HEAD:<path>` and `git hash-object <path>` give `3d1e4e59` at `HEAD` `f8dcf8c`. The checker `ts007_matrix.py` (`64c8aad4`) and the figure `ts-007-sensitivity.png` (`e0fb0048`) are unchanged. This delta verifies the edit and records how the review ends; it does not re-review the study's content.
+
+**Independence (rule C4).** A new invocation of the independent reviewer role. It authored no part of TS-007, TS-012, ADR-056, the `cfc9111` edit or INSP-074, and it edited no product file.
+
+**Search first (rule C3).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: INSP-055 and TS-007 delta records; review records closed by supersession). `git show`, `git diff`, `diff`, `grep` and `sed` were used afterwards only to pin lines and blobs. The rustos repository was not read.
+
+### Verification of the `cfc9111` edit (06 section 14.6)
+
+06 section 14.6: "the only edit to the old file is its Status line, which becomes 'Superseded by TS-MMM'".
+
+| # | Check | Method | Result |
+|---|---|---|---|
+| V1 | The edit is the Status line only | `git diff --numstat 72c4738 3d1e4e5`: 1 insertion, 1 deletion. `diff` of the two blobs with line 6 removed from each: identical (361 other lines). Line 6 is the header row `\| Status \| ... \|` | Yes |
+| V2 | The row reads "Superseded by TS-MMM" | New line 6 opens "**Superseded by TS-012 (ADR-056).**" | Yes |
+| V3 | The kept status text is verbatim | Old line 6 is `\| Status \| In review \|`. New line 6 ends "Previous status, kept as written: In review \|": the old value, character for character | Yes |
+| V4 | No criterion, weight, score, ranking, recommendation, section 9 Dissent or section 10 Decision changed | Follows from V1; section 10 fields are still empty, so TS-007 carries no owner decision | Yes |
+| V5 | The row's factual claims | TS-012 line 6 Status "Decided 2026-09-29: A5, the owner's choice (section 10)"; TS-012 section 8.3 BOM row 9 (Adafruit 2045 Si5351A) and row 29 (TG2520SMN); section 8.1 line 586 "25 MHz crystal removed"; D-17 (line 1053) route R3; ADR-056 section 2 item 2 (line 59) names the same replacement of A2; plan section 3.0a row TS-007 "Superseded outright"; plan WP-PDR-20 split into 20a and 20b with the analyses the row lists; TS-007 line 14 "ADR-030 (provisional number ...)", which the row says is not taken | Correct |
+| V6 | The row does not overstate the state | It says ADR-056 records the decision and the owner's confirmation at S1 (OD-10 part 1) is pending. ADR-056 line 6: Proposed, items 2 to 4 for confirmation at S1 | Correct |
+
+Result: the edit is the one 06 section 14.6 allows, and it keeps the prior status verbatim. No new finding.
+
+### Disposition of the iteration 1 findings
+
+TS-007 will not be revised, re-scored or decided (plan section 3.0a "Superseded outright"; ADR-056 section 7 "TS-007's reviews INSP-055 and INSP-074 end with the study superseded (lead SE disposition)"). Each finding is therefore closed without a fix in TS-007. A finding is **moot** when its subject is not part of the chosen design, or when TS-012 does not decide it and it has no TS-007 fix to wait for. It is **carried** when the same question applies to the chosen A5 design and TS-012 decides it.
+
+| Finding | Severity | State | Reason and where it now lives |
+|---|---|---|---|
+| finding-1 | Minor | Closed (moot by supersession) | Its subject is the A2 (LMX2571) mandatory passes M3 and M6 and the missing confidence tags on mandatory cells. A2 is not taken: TS-012 section 3.2 line 110 prunes the LMX2571 as "reflow-only", and TS-007 is not re-scored, so no cell needs a tag |
+| finding-2 | Minor | Closed (moot by supersession) | Its subject is the A2 C1 value at 12.5 kHz instead of 10 kHz. A2 is not taken. For the chosen Si5351A, TS-012 section 7.3 line 553 gives RMDR about 78 to 83 dB, and section 8.10 line 901 proposes the REQ-SYS-031 delta to 78 dB (TBR) at 10 kHz; those figures belong to the TS-012 records (INSP-110, INSP-118), not to this one |
+| finding-3 | Minor | Closed (carried to TS-012, decided there) | The BFO PLL assignment on the Si5351A applies to A5. TS-012 section 7.3 line 556: "CLK0 and CLK1 share PLL A in time, BFO on PLL B", and D-12 (line 1048) item C6: "PLL B parked and CLK0 and CLK2 off in transmit, I2C only in the lead-in". The BFO is on a fixed PLL, so the per-step divider rewrite this finding named does not arise. The spur consequence is in `spurs-ts012.md` (INSP-113) |
+| finding-4 | Minor | Closed (carried to TS-012, decided there) | Lock detect applies to A5. TS-012 section 7.3 revision 6 (line 491): "SW-SYNTH reads the lock status and SW-SAFE compares the count" before PA_EN is set; section 8.12 row WP-PDR-35, 41 (line 999) lists "the lock-status read before PA_EN"; D-17 gives the independent FC0 check. The remaining Si5351A relock-time read is WP-PDR-20a's analysis (plan section 3.0a), not a TS-007 matter |
+| finding-5 | Minor | Closed (moot by supersession) | Its subject is TS-007's M7 battery figure at 45 % key-down against TPM-008's 50 %. TS-007's M7 decides nothing now, and TS-012 does not decide the battery life: section 8.10 line 935 (REQ-SYS-094) gives "8 to 14 h" and hands the budget to WP-PDR-29. The key-down basis is passed to WP-PDR-29 as cross item X-2 |
+
+Counts at this delta: 5 Minor, 0 Major; open 0; fixed 0; verified 0; deferred 0; closed by supersession 5 (moot 3, carried to TS-012 2).
+
+### Readiness (delta iteration 2)
+
+| # | Criterion | Result | Evidence |
+|---|---|---|---|
+| R1 | `validate_docs.py` exits 0 | Yes | Run with this delta; this record PASS |
+| R2 | Section A only | N/A | Trade study |
+| R3 | Sections 1 to 9 filled, section 10 empty | Yes | Unchanged by `cfc9111` (V1, V4) |
+| R4 | Author's return names the decision need and gate | N/A at this delta | The decision is TS-012's (ADR-056) |
+
+### Pairing
+
+INSP-074 (software assurance pair, `7c05d72`, iteration 1) returned assurance verdict APPROVED on blob `72c47383` with four Minor findings open. This delta copies that verdict into `assurance_verdict` and sets `paired_record: INSP-074` (07 section 10.2 Record row). INSP-074 also names blob `72c47383`, so it drifts from `HEAD`, and its own findings need the same disposition (cross item X-1).
+
+### Cross items (outside this record's scope)
+
+- **X-1.** INSP-074's reviewer writes its own supersession delta: the new blob `3d1e4e59` and the disposition of its four Minor findings. This reviewer did not assess them.
+- **X-2.** WP-PDR-29 (budgets and TPMs): compute the TPM-008 battery estimate on the TPM-008 definition (50 % key-down within the transmit minute, `docs/plan/tpm.json`), not the 45 % of the research model (iteration 1 finding-5 arithmetic: 9.52 h and 8.69 h at 50 % against 9.74 h and 8.88 h at 45 %).
+- **X-3.** If the owner does not confirm the TS-007 row at S1 (OD-10 part 1), this record reopens and the five findings return to Open.
+- **X-4.** Record verdict. The completion criteria of 07 section 10.2 are now met: reviewer verdict APPROVED, assurance verdict APPROVED (INSP-074), no Major finding open, named blobs equal `HEAD`. The lead SE sets `verdict`, as the iteration 1 front matter says.
+
+### Commands (delta iteration 2)
+
+- `git log --oneline 9ac2c42..HEAD -- <three product files>`: `cfc9111` only.
+- `git show cfc9111 -- docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md`: one hunk, line 6.
+- `git diff --numstat 72c4738 3d1e4e5`: `1 1`; `diff <(git show 72c4738 | sed 6d) <(git show 3d1e4e5 | sed 6d)`: no output.
+- `git rev-parse HEAD:<path>` and `git hash-object <path>`: `3d1e4e59`, `64c8aad4`, `e0fb0048`.
+- `.venv/bin/python tools/validate_docs.py`: exit 0; this record PASS.
+
+### Measurements (delta iteration 2, SWE-089)
+
+Commits verified 1 (1 hunk); checks 6 (V1 to V6), all Yes or Correct; findings dispositioned 5 (moot 3, carried 2); new findings 0; renders 0 (no figure changed). Effort 22 turns, about 30 minutes (cumulative 66 turns, 100 minutes).
+
+### Verdict (delta iteration 2)
+
+```
+DELTA ITERATION 2 (2026-09-29, supersession; HEAD f8dcf8c, product commit cfc9111): VERDICT: APPROVED (reviewer); record CLOSED by supersession
+PRODUCT: TS-007@3d1e4e59 (Status row only, 06 section 14.6: verified; prior status "In review" kept verbatim)
+FINDINGS: finding-1, finding-2, finding-5 Minor, Closed (moot); finding-3, finding-4 Minor, Closed (carried to TS-012, decided there); open Major 0; new 0
+MEASUREMENTS: checks=6; turns=22; minutes=30; cumulative turns=66, minutes=100
+```
