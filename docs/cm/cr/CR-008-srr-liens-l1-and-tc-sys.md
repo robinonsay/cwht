@@ -163,7 +163,7 @@ Independence note (charter §2): WP-PDR-11 assigns the L1 author and the TC-SYS 
 | 4 | `docs/safety/hazard-analysis.md` §8.1 items 3 and 7: REQ-SYS-194 as the Analysis exception for HZ-002 K2 over temperature (RSK-007) | Safety analyst (WP-PDR-16) | |
 | 5 | `docs/design/allocation.json`: REQ-SYS-194 allocated as REQ-SYS-083 is (PWR) | Writer of `allocation.json` (WP-PDR-02, then WP-PDR-31) | |
 | 6 | `docs/risk/register.json` RSK-007: cite REQ-SYS-194 | Risk manager (WP-PDR-18, Log class) | |
-| 7 | Delta iterations of INSP-003 and INSP-025 verify each lien on the frozen blobs below | Independent reviewers (new invocations of `reviewer:requirements-sys` and `reviewer:INSP-025`) | |
+| 7 | Delta iterations of INSP-003 and INSP-025 verify each lien on the frozen blobs below | Independent reviewers (new invocations of `reviewer:requirements-sys` and `reviewer:INSP-025`) | `ebeb069` on the branch (2026-09-29, section "CR-008 delta" of each record; records only). INSP-003 needs a further delta on `allocation.json` after step 5, and INSP-008 needs one on `hazards.json` after step 3 (section 9, 2026-09-29 check) |
 | 9 | ICD alignment of the section 4 Interfaces row: `docs/icd/ICD-CTL-PHONES.md` lines 140, 143 and 215 and `docs/icd/figures/render_icd_figures.py` line 404 with its render (the resolution the owner picks in question 2), `docs/icd/ICD-PWR-CELL.md` lines 50, 139, 142, 143, 146, 210, 217, 234 and 235, `docs/icd/ICD-CTL-KEY.md` lines 161 and 261; not on this branch (the ICDs are CR-controlled from PDR) | ICD writer (WP-PDR-36a timing rows, WP-PDR-36b the rest), before the ICD baseline at PDR; checked by the ICD reviewer (`peer-review-checklist-design.md` section I) | |
 | 8 | After approval: rebase onto `main` if `main` moved these files, re-render, re-run `tools/validate_docs.py`, `tools/traceability.py` and the unit tests, merge `--no-ff` with the owner's merge approval, before WP-PDR-02 merges CR-003 and CR-006 | Claude (CM) | |
 
@@ -276,11 +276,17 @@ Disposition history (append only):
 
 ## 8. Implementation record
 
-Not yet implemented (the branch holds a prototype only).
+Partly implemented on the branch (state 2026-09-29, WP-PDR-55 merge batch 1).
+- Steps 1 and 2 are the approved prototype at `c629198`, whose frozen blobs are unchanged.
+- Step 7 is done at `ebeb069` (the INSP-003 and INSP-025 re-issues, records only).
+- Steps 3 (`hazards.json`) and 5 (`allocation.json`) are not on the branch. Section 5 assigns them to the writer of those files (plan section 5.3), not to the configuration manager. The invocation that ran this check did not write them, because it also re-issued INSP-003, whose product includes `allocation.json` (plan rule C4). Their inputs are all APPROVED, so they can start now.
+- Steps 4 and 6 follow the merge (WP-PDR-16, WP-PDR-18), and step 9 is off the branch (the ICD writer, WP-PDR-36b).
+- Step 8 is held (section 9).
 
 | Commit | Files | Trailer check (`CR: CR-008` present) |
 |---|---|---|
 | `c629198` (prototype, branch `cr/CR-008-srr-liens-l1-and-tc-sys`) | `requirements.json`, `requirements.md`, `test_cases.json`, `test_cases.md` | Present |
+| `ebeb069` (branch, step 7 record re-issues) | `docs/reviews/SRR/checklists/requirements-sys.md` (INSP-003), `docs/reviews/SRR/checklists/test-cases-sys.md` (INSP-025) | Not required (records only; `Refs: CR-008, INSP-003, INSP-025, INSP-044, INSP-045, WP-PDR-55`; `tools/check_commit_msg.py --range c629198..ebeb069` PASS) |
 
 Traceability report after implementation: to be regenerated at merge; renders regenerated: `docs/requirements/sys/requirements.md`, `docs/test_cases/sys/test_cases.md`.
 
@@ -293,6 +299,47 @@ Traceability report after implementation: to be regenerated at merge; renders re
 Independent verifier (agent invocation): pending.
 
 Configuration manager pre-merge check (2026-09-28; performed at the disposition, not the independent verification, which stays pending). Method: `git merge-tree --write-tree` of the branch head with `main` (no conflict), then a trial `git merge --no-ff` in a detached scratch worktree of `main` (discarded afterwards, no ref kept), `tools/validate_docs.py` and `tools/traceability.py --report-only` on the trial merge, and the failure set compared with the baseline. Baseline on `main` at `e288add`: `tools/validate_docs.py` 102 passed, 8 failed (all record drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md`); `python -m unittest discover -s tools/tests` 596 run, 1 failure (`test_repository_exit_zero`, the same drift), 14 skipped; `tools/traceability.py --report-only` 0 violations, 2 warnings. Branch head `c629198`. Scope: `git diff --stat main...` 4 files (the frozen blobs of section 5). Trial merge: `validate_docs.py` 100 passed, 10 failed; two new failures, both APPROVED SRR records naming the `baseline/srr` blobs of the four files: `docs/reviews/SRR/checklists/requirements-sys.md` (INSP-003) and `test-cases-sys.md` (INSP-025). The PDR delta records INSP-044 and INSP-045 name the branch blobs but do not change the SRR records' `product_files`. `traceability.py --report-only`: 246 requirements, 174 test cases, 0 violations, 4 warnings (`HAZARD_INVERSE` and `SYS_UNALLOCATED` on REQ-SYS-194, as section 4 predicts). Merge held: section 5 steps 3 (`hazards.json`) and 5 (`allocation.json`) are not on the branch (R1-F4); INSP-003 and INSP-025 are not re-issued to name the merged blobs; `affected_ids` still lists 15 of 145 requirements and 29 of 65 cases (R1-F2), which fails the CR-011 plain run if CR-011 merges first.
+
+Configuration manager pre-merge check, update (2026-09-29, WP-PDR-55 merge batch 1).
+
+**Who ran it.** One invocation, acting as configuration manager for the check and, for the step 7 record re-issues, as an independent reviewer. It authored no part of CR-008, of `c629198`, of INSP-044 or INSP-045, or of the section 6 reviews. This is still not the independent verification of this section, which stays pending.
+
+**Method.** The work ran in detached scratch work trees under the scratchpad, discarded afterwards with no ref kept; the CR branch work ran in a separate work tree.
+- `git merge-tree --write-tree` of the branch head with `main`: no conflict.
+- Rebase not needed, and not done. `git log ab2af2d..main` shows no commit touching `docs/requirements/sys/`, `docs/test_cases/sys/`, `docs/safety/`, `docs/design/allocation.json`, `docs/icd/`, or the INSP-003, INSP-025 and INSP-008 records.
+- The step 7 record re-issues (INSP-003, INSP-025) were written by this invocation as reviewer and committed on the branch at `ebeb069`, records only.
+- A trial `git merge --no-ff` of `ebeb069` into `main`, then `tools/validate_docs.py`, `tools/traceability.py --report-only --render` and `python -m unittest discover -s tools/tests`, with the results compared with `main`.
+
+**Baseline on `main`.** `main` moved during the check, and both trial merges were run.
+- At `c12872d`: `tools/validate_docs.py` gives 109 passed, 8 failed, 117 checked. `python -m unittest discover -s tools/tests`: 596 run, 17 skipped, 1 failure (`test_repository_exit_zero`, which runs `validate_docs.py` over the tree and so fails on the same drift).
+- At `fd12ced` (after the CR-015 record deltas): 110 passed, 7 failed. The SRR `process-02-requirements-and-traceability.md` failure is gone.
+
+**Trial merges (`main` plus `ebeb069`).**
+- `validate_docs.py`: at `c12872d`, 109 passed, 8 failed; at `fd12ced`, 110 passed, 7 failed. Each time the failure set equals `main`'s exactly (diff of the FAIL lines empty). INSP-003 and INSP-025 PASS, so the two CR-008 failures of the 2026-09-28 check are cleared.
+- `tools/traceability.py --report-only --render` (both trees): 246 requirements, 174 test cases, 0 violations, 4 warnings. These are `SYS_UNALLOCATED` REQ-SYS-125 and 148, the confirmed leaf gaps, and `HAZARD_INVERSE` and `SYS_UNALLOCATED` REQ-SYS-194. `--render` leaves `requirements.md` unchanged.
+- Unit tests on the `fd12ced` trial: 596 run, 17 skipped, 1 failure (`test_repository_exit_zero`, as on `main`).
+- One earlier run on the `c12872d` trial, made while several other agents' test runs held the shared LTspice lock, also gave 3 subprocess timeout errors in `test_ltspice_batch.InstallAndVersionTests`. The re-run gave none. CR-008 changes no tool or test file.
+
+**The seven `validate_docs.py` failures that remain (trial merge on `fd12ced`).** None of them names a CR-008 path, and no CR-008 change can clear them. Each is an APPROVED record on `main` whose `product_files` name a blob that `main` no longer holds, so the drift rule fails it. Each is cleared by a delta of its own record by its reviewer, or by the merge of the CR that carries it:
+- (1) to (3) PDR `cm-plan-05-software-assurance.md`, `configuration-status.md` and `lessons-learned.md` name `docs/cm/cr/CR-007-cm-plan-pdr-rows.md@92b200ad`, and `main` holds `ee11ec70` (the CR-007 file changed after those reviews).
+- (4) SRR `adrs-001-to-025.md` (INSP-011) names the ADR-001 to ADR-027 files and `docs/decisions/adr/README.md` at their SRR blobs; WP-PDR-14 (`0f4a7ad`) and later ADR commits changed all 28.
+- (5) SRR `tool-validation-tv-001-to-tv-010.md` names `docs/cm/tool-validation/README.md@22f7b2bf` and `tools/toolchain.lock.md@04819139` (`main` `7c90f143`, `e1c811b0`).
+- (6) SRR `trade-studies-ts-001-ts-002.md` names TS-001@`2a0c40a8` and TS-002@`6c385dfc` (`main` `152c2b90`, `6b18cee8`).
+- (7) SRR `trade-study-ts-002-software-assurance.md` names TS-002@`6c385dfc`.
+
+The branch therefore meets the CR-010 step 6 form of the merge condition: it shows exactly `main`'s failure set, and none of the failures is a record naming a CR-008 path.
+
+**Other drift the trial shows (notes, not failures).** INSP-044 and INSP-045 (verdict NEEDS CHANGES, held for the merge) name this CR file at `5e6ceb62` and `3b9266ff`. `main` holds a later blob, and this update changes it again. So the software lead cannot set them APPROVED at the merge without a delta on the CR file, or without taking the CR file out of their `product_files`.
+
+**Merge held. What still blocks it:**
+- (a) Section 5 steps 3 (`hazards.json`: REQ-SYS-194 in HZ-002 K2 `control_req_ids` and HZ-002 `requirement_ids`) and 5 (`allocation.json`: REQ-SYS-194 allocated as REQ-SYS-083 is) are not on the branch. They are for the writer of those files (plan section 5.3), in an invocation that does not review them. They clear the two REQ-SYS-194 warnings.
+- (b) After (a), two deltas are needed on the branch, each by a reviewer that authored neither step. INSP-003 needs one on `allocation.json`, which it names at `442de2fd`. INSP-008 (`docs/reviews/SRR/checklists/hazard-analysis.md`, APPROVED) needs one on `hazards.json`, which it names at `81cacde4`. New pre-merge finding: section 5 does not name the INSP-008 re-issue, and without it the merge adds an INSP-008 drift failure to `main`.
+- (c) The independent verification of this section (a separate verifier invocation, WP-PDR-55).
+- (d) After (a) to (c), a re-run of this check on the branch head, then the owner's merge approval at S1 (batch 1).
+
+Conditional item: R1-F2 (`affected_ids` lists 15 of 145 requirements and 29 of 65 cases) matters only for the CR-011 plain run. CR-011 is in batch 2, after this merge, so R1-F2 does not block this merge. It is left to the CR author, because the check invocation had to author no part of CR-008.
+
+Not blocking the merge: steps 4 and 6 (after the merge), step 9 (ICD writer, off the branch), and the Minor residuals INSP-044 finding-1 and INSP-045 finding-1 to finding-3 (liens under plan rule C1).
 
 ## 10. Closure
 
@@ -313,6 +360,7 @@ Configuration manager pre-merge check (2026-09-28; performed at the disposition,
 | 2026-09-27 | Submitted (revision 2) | Claude (WP-PDR-11 author) | the commit that records revision 2 (`Refs: CR-008`) | R1-F1 fixed (section 6.2): Interfaces row names ICD-CTL-PHONES, ICD-PWR-CELL and ICD-CTL-KEY with routing to WP-PDR-36a/36b (step 9); REQ-SYS-077 resolved by an asymmetric plug detect (question 2a, alternative 2b); row 10 added to `affected_cis`. R1-F2 to R1-F5 (Minor) open; round 2 re-check requested |
 | 2026-09-27 | Submitted (impact review round 2 recorded) | Independent reviewer agent | the commit that records section 6.3 | Delta on revision 2 (rule C1): R1-F1 Verified, no Major open, reviewer concurs with disposition; 3 new Minor (R2-F1 HZ-010 K5 wording, R2-F2 WP-PDR-36a routing, R2-F3 removal-debounce TBR closure and bookkeeping); R1-F2 to R1-F5 open |
 | 2026-09-28 | Dispositioned (Approved) | Claude (configuration manager), transcribing the owner | the commit that records this row (`Refs: CR-008`) | Owner approval of CR-007 to CR-016 as recommended (`status-2026-09-28.md` section 1); merge held at the disposition: section 5 steps 3 and 5 not on the branch; INSP-003 and INSP-025 drift; `affected_ids` incomplete (R1-F2) (section 9 pre-merge check) |
+| 2026-09-29 | Dispositioned (Approved), merge held | Claude (configuration manager, WP-PDR-55; independent reviewer for the step 7 re-issues) | the commit that records this row (`Refs: CR-008`) | Step 7 done on the branch at `ebeb069`: INSP-003 (finding-12, 25 to 31) and INSP-025 (finding-2 to 5, 7 to 12) re-issued as CR-008 deltas, every lien Verified, both APPROVED. Trial merges into `c12872d` and `fd12ced`: `validate_docs.py` 109/8 and 110/7 (passed/failed), each exactly `main`'s failure set, none on a CR-008 path; traceability 0 violations, 4 warnings. Merge still held on steps 3 and 5, the resulting INSP-003 and INSP-008 deltas (the INSP-008 re-issue is a new pre-merge finding), the section 9 independent verification, and the owner's S1 approval (section 9, 2026-09-29) |
 
 ## 12. Questions for the owner (answer with the disposition)
 
