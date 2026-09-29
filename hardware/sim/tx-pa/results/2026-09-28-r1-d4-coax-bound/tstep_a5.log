@@ -1,0 +1,61 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.eGLOR1/tstep_a5.cir
+Start Time: Mon Sep 28 19:38:52 2026
+Options:plotwinsize=0
+
+.step idx=0
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+C1: Increased Cpar to 1.8e-17
+C2: Increased Cpar to 1.8e-17
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=1
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=2
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=3
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=4
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=5
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=6
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=7
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=8
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=9
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=10
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=11
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=12
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=13
+Direct Newton iteration succeeded in finding operating point.
+
+.step idx=14
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 1.038 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.eGLOR1/tstep_a5.cir
+

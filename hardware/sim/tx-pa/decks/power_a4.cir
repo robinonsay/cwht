@@ -2,9 +2,9 @@
 * Pack EMF Vp (swept 6.4 to 8.4 V; equal to the voltage read in receive within 10 mV) behind the drain feed rfeed;
 * the 5 V bus (0.25 A, est.) and the PA drain current Pout/(eta*Vd) load the feed, so the key-down sag is solved
 * by LTspice. V(pmod) is the PA output power in watts, V(psma) the power at the SMA after the output LPF and relay.
-* 1458 corners flattened into one .step (idx), first dimension fastest: irf, ieta, ipin, ifr, in, imatch, iloss.
+* 10206 corners flattened into one .step (idx), first dimension fastest: irf, ieta, ipin, ifr, in, imatch, iloss, itc.
 .param idx=0
-.step param idx 0 1457 1
+.step param idx 0 10205 1
 .param irf=floor(idx/1)-3*floor(idx/3)
 .param ieta=floor(idx/3)-2*floor(idx/6)
 .param ipin=floor(idx/6)-3*floor(idx/18)
@@ -12,8 +12,12 @@
 .param in=floor(idx/54)-3*floor(idx/162)
 .param imatch=floor(idx/162)-3*floor(idx/486)
 .param iloss=floor(idx/486)-3*floor(idx/1458)
-.param rf=table(irf,0,0.26,1,0.35,2,0.45)
-.param pin=table(ipin,0,0.0503033,1,0.0958282,2,0.167877)
+.param itc=floor(idx/1458)-7*floor(idx/10206)
+* temperature cases (itc): 0 25 C; 1 -10 C, PA +0 dB; 2 -10 C, PA +0.53 dB; 3 +45 C, case 80 C, -0.005 dB/K; 4 +45 C, case 80 C, -0.015 dB/K; 5 +45 C, case 100 C, -0.005 dB/K; 6 +45 C, case 100 C, -0.015 dB/K
+.param rf=table(itc*3+irf,0,0.26,1,0.35,2,0.45,3,0.3016,4,0.41135,5,0.5396,6,0.3016,7,0.41135,8,0.5396,9,0.293,10,0.41741,11,0.5675,12,0.293,13,0.41741,14,0.5675,15,0.293,16,0.41741,17,0.5675,18,0.293,19,0.41741,20,0.5675)
+.param kt=table(itc,0,1,1,1,2,1.1285,3,0.938642,4,0.82699,5,0.917276,6,0.771792)
+.param kxl=table(itc,0,1,1,1,2,1,3,0.977237,4,0.977237,5,0.977237,6,0.977237)
+.param pin=table(ipin,0,0.0458425,1,0.0894078,2,0.179968)
 .param fr=table(ifr,0,1.44e+08,1,1.46e+08,2,1.48e+08)
 .param loss=table(iloss,0,0.4,1,0.5,2,0.6)
 .param w=(fr-135e6)/20e6
@@ -25,13 +29,13 @@
 .param kmatch=pow(10,-match/10)
 * AFT05MS004N: Pout at 7.5 V versus Pin, NXP reference circuit (Figure 13, 135 and 155 MHz, interpolated in f)
 .param p75=(1-w)*table(pinw,0.02,1.067,0.02244,1.2452,0.02518,1.4493,0.02825,1.6745,0.0317,1.9349,0.03557,2.2573,0.03991,2.6091,0.04477,3.0188,0.05024,3.4559,0.05637,3.9546,0.06325,4.4676,0.07096,4.9542,0.07962,5.4248,0.08934,5.7587,0.10024,6.0906,0.11247,6.2488,0.12619,6.3685,0.14159,6.4569,0.15887,6.5328,0.17825,6.5752,0.2,6.6442)+w*table(pinw,0.02,2.1564,0.02244,2.5188,0.02518,2.8976,0.02825,3.2758,0.0317,3.6951,0.03557,4.2096,0.03991,4.7087,0.04477,5.2142,0.05024,5.7041,0.05637,6.1085,0.06325,6.4639,0.07096,6.7409,0.07962,6.9604,0.08934,7.1486,0.10024,7.2943,0.11247,7.4191,0.12619,7.5297,0.14159,7.6192,0.15887,7.7041,0.17825,7.7764,0.2,7.7693)
-Bmod pmod 0 V=p75*pow(max(V(d),1)/7.5,n)*kmatch
+Bmod pmod 0 V=p75*pow(max(V(d),1)/7.5,n)*kmatch*kt
 Rmod pmod 0 1meg
 Bpa d 0 I=V(pmod)/(eta*max(V(d),1))
 Vp p 0 7.4
 Rf p d {rf}
 Ibus d 0 0.25
-Bsma psma 0 V=V(pmod)*kloss
+Bsma psma 0 V=V(pmod)*kloss*kxl
 Rsma psma 0 1meg
 .dc Vp 6.4 8.4 0.05
 .save V(d) V(pmod) V(psma) I(Vp)

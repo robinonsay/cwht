@@ -1,0 +1,51 @@
+* tstep_a4.cir: A4: Si5351A CLK1 -> coax -> drive LPF -> 12 dB pad -> GVA-84+ -> AFT05MS004N reference-circuit input (50 ohm)
+* cwht WP-PDR-21 pre-order drive-window analysis, revision 1, hardware/sim/tx-pa (record docs/design/analysis/pa-drive-ts012.md)
+* 15 steps flattened into one .step (idx): coax length fastest, then corner set (max, 25 ohm; max, 50 ohm; nominal; min, 25 ohm; min, 50 ohm), then frequency.
+* The Si5351 CLK1 is a trapezoid Thevenin source of VDDO swing with the DC removed (the drive path is AC coupled)
+* behind 25 or 50 ohm. Interface as designed (TS-012 section 8.1): the prescaler tap and the pin stub load the pin
+* on the main board; a 50 ohm coax (Si5351 Rev. 1.3 Figure 16 topology) carries CLK1 through the bulkhead to the
+* drive LPF on the RF board. The checker takes the fundamental and 3rd harmonic at V(gin) and V(pa_in), and the
+* pin impedance V(clk)/I(Rsrc) at the fundamental, by DFT of the last three periods in the .raw.
+.param idx=0
+.step param idx 0 14 1
+.param ilen=floor(idx/1)-1*floor(idx/1)
+.param iset=floor(idx/1)-5*floor(idx/5)
+.param ifr=floor(idx/5)-3*floor(idx/15)
+.param clen=0.1
+.param rsrc=table(iset,0,25,1,50,2,50,3,25,4,50)
+.param gdb=table(iset,0,25.3,1,25.3,2,24.1,3,22.5,4,22.5)
+.param vsat=table(iset,0,3.7669,1,3.7669,2,3.3572,3,2.9921,4,2.9921)
+.param vddo=table(iset,0,3.4,1,3.4,2,3.3,3,3.2,4,3.2)
+.param tr=table(iset,0,8.33333e-10,1,8.33333e-10,2,1.66667e-09,3,2.5e-09,4,2.5e-09)
+.param duty=table(iset,0,0.5,1,0.5,2,0.5,3,0.45,4,0.45)
+.param freq=table(ifr,0,1.44e+08,1,1.46e+08,2,1.48e+08)
+.param T=1/freq
+.param ton=duty*T-tr
+.param G=pow(10,gdb/20)
+.param p=2.7046
+V1 vs 0 PULSE({-duty*vddo} {(1-duty)*vddo} 0 {tr} {tr} {ton} {T})
+Rsrc vs clk {rsrc}
+* lumped load on the CLK1 pin (main board): prescaler tap (100 pF into the 74LVC1G80) 5 pF (est.) and
+* header pin, pads and stub 2 pF (est.): 7 pF against the Table 7 maximum of 15 pF
+Ctap clk 0 5p
+Cstub clk 0 2p
+* 50 ohm coax through the bulkhead (lossless; velocity factor 0.66, length clen in metres)
+T1 clk 0 lpfin 0 Td={clen/(0.66*299792458)} Z0=50
+* 3-pole drive LPF on the RF board: 18 pF C0G 1206 (ESR, ESL plus via est.), 82 nH 1812SMS class (Q 100, SRF 1.2 GHz est.)
+C1 lpfin 0 18p Rser=0.1 Lser=1n
+L1 lpfin lpf 82n Rser=0.75 Cpar=0.21p
+C2 lpf 0 18p Rser=0.1 Lser=1n
+* 12 dB input pad (E24 1 %)
+Rp1 lpf 0 82.0
+Rp2 lpf gin 91.0
+Rp3 gin 0 82.0
+* GVA-84+ behavioural: 50 ohm input, Rapp limiter, 50 ohm output
+Rgin gin 0 50
+Bg gs 0 V=2*{G}*V(gin)/pow(1+pow(abs({G}*V(gin))/{vsat},2*{p}),1/(2*{p}))
+Rgo gs pa_in 50
+* AFT05MS004N NXP 136-174 MHz reference circuit input (50 ohm system, datasheet Table 8)
+Rpa pa_in 0 50
+.tran 0 112n 90n 10p
+.options plotwinsize=0
+.save V(clk) V(gin) V(pa_in) I(Rsrc)
+.end

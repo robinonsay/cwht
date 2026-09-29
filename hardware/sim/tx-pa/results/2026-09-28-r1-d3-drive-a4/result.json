@@ -1,0 +1,165 @@
+{
+  "run": "2026-09-28-r1-d3-drive-a4",
+  "finalist": "A4",
+  "ltspice": {
+    "deck": "drive_a4.cir",
+    "deck_sha256": "070ff766154aab9b1c3a585832fa8ccb5e8febd4ee0f6553f2da604942bbff5f",
+    "exit": 0,
+    "log_first_line": "LTspice 26.0.2 for MacOS",
+    "wrapper_provenance": [
+      "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 3600 s",
+      "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
+      "ltspice-batch: result: PASS deck=drive_a4.cir sha256=070ff766154aab9b1c3a585832fa8ccb5e8febd4ee0f6553f2da604942bbff5f version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=27s outputs=[drive_a4.log drive_a4.op.raw drive_a4.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-r1-d3-drive-a4"
+    ]
+  },
+  "n_corners": 810,
+  "pinpad_option": false,
+  "interface": {
+    "c_tap_pf": 5.0,
+    "c_stub_pf": 2.0,
+    "lumped_pin_c_pf": 7.0,
+    "cl_max_pf": 15.0,
+    "lumped_pin_c_pass": true,
+    "coax_m": [
+      0.05,
+      0.1,
+      0.15
+    ],
+    "coax_vf": 0.66,
+    "coax_z0": 50.0
+  },
+  "pad_loss_db": {
+    "a5_in": 18.416,
+    "a5_out": 2.995,
+    "a4_in": 11.971,
+    "pin": 5.904,
+    "a5_in_rf": 11.971
+  },
+  "pin_pa_w": {
+    "min": 0.04584252303370577,
+    "nominal": 0.08940778495013711,
+    "max": 0.17996843773094262
+  },
+  "pin_pa_dbm": {
+    "min": 16.612685118708175,
+    "nominal": 19.51375335503837,
+    "max": 22.551963466522512
+  },
+  "pin_pa_criterion_corners_w": {
+    "min": 0.062315395813280376,
+    "max": 0.16344943140718576
+  },
+  "corner_min": {
+    "rsrc": 50.0,
+    "gain": 22.5,
+    "p1db": "min",
+    "freq": 148000000.0,
+    "src": "low",
+    "vddo": 3.2,
+    "tr": 1.5e-09,
+    "duty": 0.45,
+    "coax_m": 0.1,
+    "pin_pa_w": 0.04584252303370577,
+    "pin_pa_dbm": 16.612685118708175,
+    "gva_in_dbm": -5.7334386300639135,
+    "h3_dbc_gva_in": -53.304435956727545,
+    "gva_out_dbm": 16.612685118708175,
+    "gva_in_peak_v": 0.16611868143081665,
+    "clk_vpp": 1.8728564977645874,
+    "pin_load_cp_pf": 19.248841917495053,
+    "pin_load_rp_ohm": 90.16665026047481,
+    "pin_load_absz_ohm": 47.489957776631314
+  },
+  "corner_max": {
+    "rsrc": 25.0,
+    "gain": 25.3,
+    "p1db": "high",
+    "freq": 144000000.0,
+    "src": "high",
+    "vddo": 3.4,
+    "tr": 5e-10,
+    "duty": 0.5,
+    "coax_m": 0.15,
+    "pin_pa_w": 0.17996843773094262,
+    "pin_pa_dbm": 22.551963466522512,
+    "gva_in_dbm": -0.21426930432273503,
+    "h3_dbc_gva_in": -39.56002951106718,
+    "gva_out_dbm": 22.551963466522512,
+    "gva_in_peak_v": 0.30693796277046204,
+    "clk_vpp": 3.1627681255340576,
+    "pin_load_cp_pf": 23.005648269168375,
+    "pin_load_rp_ohm": 66.8656791878007,
+    "pin_load_absz_ohm": 39.01586191573548
+  },
+  "nominal_corner": {
+    "rsrc": 50.0,
+    "gain": 24.1,
+    "p1db": "typ",
+    "freq": 146000000.0,
+    "src": "nom",
+    "vddo": 3.3,
+    "tr": 1e-09,
+    "duty": 0.5,
+    "coax_m": 0.1,
+    "pin_pa_w": 0.08940778495013711,
+    "pin_pa_dbm": 19.51375335503837,
+    "gva_in_dbm": -4.059301268090463,
+    "h3_dbc_gva_in": -42.42517950245103,
+    "gva_out_dbm": 19.51375335503837,
+    "gva_in_peak_v": 0.1976185292005539,
+    "clk_vpp": 2.354449510574341,
+    "pin_load_cp_pf": 18.695353823611356,
+    "pin_load_rp_ohm": 89.37478892108453,
+    "pin_load_absz_ohm": 48.834803536910705
+  },
+  "h3_dbc_gva_in_worst": -30.92768370286878,
+  "h3_pass": true,
+  "gva_in_dbm_max": -0.21426930432273503,
+  "gva_absmax_pass": true,
+  "gva_out_dbm": {
+    "nominal": 19.51375335503837,
+    "max": 22.551963466522512
+  },
+  "clk_vpp": {
+    "min": 1.6629927158355713,
+    "max": 3.663874626159668
+  },
+  "pin_load": {
+    "cp_pf_min": 13.599255390631862,
+    "cp_pf_max": 24.60982264854712,
+    "rp_ohm_min": 65.09513436077593,
+    "absz_ohm_min": 36.283142470669944,
+    "absz_ohm_max": 64.56203838478109
+  },
+  "per_coax": {
+    "0.05": {
+      "min_mw": 46.77004245720277,
+      "max_mw": 170.5446141176014,
+      "crit_min_mw": 63.30816351219706,
+      "crit_max_mw": 151.3137984734455,
+      "above_overdrive": 0,
+      "overdrive_margin_db": 0.6919198693633664
+    },
+    "0.10": {
+      "min_mw": 45.84252303370577,
+      "max_mw": 174.65758633952717,
+      "crit_min_mw": 62.315395813280375,
+      "crit_max_mw": 156.38903424303774,
+      "above_overdrive": 0,
+      "overdrive_margin_db": 0.5884254148281569
+    },
+    "0.15": {
+      "min_mw": 46.04447662983834,
+      "max_mw": 179.9684377309426,
+      "crit_min_mw": 62.53876238932793,
+      "crit_max_mw": 163.44943140718576,
+      "above_overdrive": 0,
+      "overdrive_margin_db": 0.4583364901172992
+    }
+  },
+  "overdrive_margin_db": 0.4583364901172992,
+  "overdrive_margin_with_temp_db": 0.3583364901172992,
+  "overdrive_w": 0.2,
+  "corners_above_overdrive": 0,
+  "overdrive_pass": true
+}
