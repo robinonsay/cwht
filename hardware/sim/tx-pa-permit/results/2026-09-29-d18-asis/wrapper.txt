@@ -1,0 +1,3 @@
+ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 36000 s
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=d18_asis.cir sha256=74242e81dde54bcbbc32556b698a3db2eac2d99d270f132952021eea95819013 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=7s outputs=[d18_asis.log d18_asis.op.raw d18_asis.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa-permit/results/2026-09-29-d18-asis

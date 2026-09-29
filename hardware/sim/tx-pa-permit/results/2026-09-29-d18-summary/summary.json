@@ -1,0 +1,344 @@
+{
+  "run_id": "2026-09-29-d18-summary",
+  "keyup_all_pass": {
+    "t_on_ms": true,
+    "clamp_release_ms": true,
+    "vgs_on_v": true,
+    "drop_mv": true,
+    "inrush_a": true,
+    "bus_dip_mv": true,
+    "vgs_off_v": true,
+    "vtx5_keyup_mv": true,
+    "t_off_ms": true,
+    "clamp_gate_keyup_v": true,
+    "vgg_keyup_mv": true,
+    "pre_permit_off": true,
+    "keyup_dbm_L1": true,
+    "keyup_dbm_L2": true,
+    "keyup_dbm_L3": true,
+    "keyup_dbm_L4": true
+  },
+  "keyup_failing": {
+    "t_on_ms": [],
+    "clamp_release_ms": [],
+    "vgs_on_v": [],
+    "drop_mv": [],
+    "inrush_a": [],
+    "bus_dip_mv": [],
+    "vgs_off_v": [],
+    "vtx5_keyup_mv": [],
+    "t_off_ms": [],
+    "clamp_gate_keyup_v": [],
+    "vgg_keyup_mv": [],
+    "pre_permit_off": [],
+    "keyup_dbm_L1": [],
+    "keyup_dbm_L2": [],
+    "keyup_dbm_L3": [],
+    "keyup_dbm_L4": []
+  },
+  "asis_expected_defect": {
+    "driver_not_off_in_some_cases": true,
+    "req_tx_014_fails_in_some_cases": true
+  },
+  "asis_n_driver_powered": 25,
+  "asis_n_req_tx_014_fail": 21,
+  "asis_cases": 36,
+  "seq": [
+    {
+      "tag": "S1",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "S2",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "S3",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "S4",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "L1",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "L2",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "L3",
+      "passed": {
+        "off_when_not_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "L4",
+      "passed": {
+        "off_when_not_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "F1",
+      "passed": {
+        "off_when_not_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "F2",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver_after_permit": "on (P-FET gate holds its charge)",
+        "clamp": "on"
+      }
+    },
+    {
+      "tag": "F3",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver": "on",
+        "clamp": "on"
+      }
+    },
+    {
+      "tag": "F4",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver": "off",
+        "clamp": "off"
+      }
+    },
+    {
+      "tag": "F5",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver": "off",
+        "clamp": "off"
+      }
+    }
+  ],
+  "levels": {
+    "L1": {
+      "name": "estimates (GVA-84+ unpowered 19.6 dB, module VGG-off 30 dB)",
+      "pin_dbm": -5.267541260631923,
+      "iso_gva_db": 19.569295820427158,
+      "iso_mod_db": 30.0,
+      "steady_analytic_dbm": -58.33683708105908,
+      "worst_sim_dbm": -58.33683708105908
+    },
+    "L2": {
+      "name": "GVA-84+ passive bound (0 dB), module 30 dB",
+      "pin_dbm": -5.267541260631923,
+      "iso_gva_db": 0.0,
+      "iso_mod_db": 30.0,
+      "steady_analytic_dbm": -38.76754126063192,
+      "worst_sim_dbm": -38.76754126063192
+    },
+    "L3": {
+      "name": "estimate, module at the datasheet 'up to 60 dB'",
+      "pin_dbm": -5.267541260631923,
+      "iso_gva_db": 19.569295820427158,
+      "iso_mod_db": 60.0,
+      "steady_analytic_dbm": -88.33683708105909,
+      "worst_sim_dbm": -88.33683708105909
+    },
+    "L4": {
+      "name": "drive bound (smallest pad, highest pre-pad level), GVA-84+ 0 dB, module 30 dB",
+      "pin_dbm": -0.4936373073770639,
+      "iso_gva_db": 0.0,
+      "iso_mod_db": 30.0,
+      "steady_analytic_dbm": -33.993637307377064,
+      "worst_sim_dbm": -33.993637307377064
+    }
+  },
+  "derived": {
+    "p_gva_in_sot_dbm": -5.267541260631923,
+    "p_gva_in_bound_dbm": -0.4936373073770639,
+    "rf_est_ohm": 851.6226953450209,
+    "iso_gva_est_db": 19.569295820427158,
+    "breakeven_iso_sum_db": {
+      "sot": 21.232458739368077,
+      "bound": 26.006362692622936
+    }
+  },
+  "req_sys_183_clk1_on_info": {
+    "L1": -1.3368370810590804,
+    "L2": 18.232458739368077,
+    "L3": -31.336837081059087,
+    "L4": 23.006362692622936
+  },
+  "static_checks": [
+    {
+      "check": "GPIO high at U1 input (RP2350 VOH min)",
+      "value": 2.62,
+      "limit": 2.0,
+      "sense": ">=",
+      "margin": 0.6200000000000001,
+      "passed": true,
+      "basis": "RP2350 Table 1436 VOH 2.62 V; 74LVC1G11 VIH 2.0 V"
+    },
+    {
+      "check": "GPIO driven low at U1 input (RP2350 VOL max)",
+      "value": 0.5,
+      "limit": 0.8,
+      "sense": "<=",
+      "margin": 0.30000000000000004,
+      "passed": true,
+      "basis": "VOL 0.5 V; VIL 0.8 V"
+    },
+    {
+      "check": "GPIO high impedance (reset, boot): 4.7 k pull-down x E9 leakage 120 uA",
+      "value": 0.5640000000000001,
+      "limit": 0.8,
+      "sense": "<=",
+      "margin": 0.236,
+      "passed": true,
+      "basis": "RP2350-E9 about 120 uA (typical, A2 stepping); break-even leakage 170 uA"
+    },
+    {
+      "check": "Q high at U1 input: 5 V bus min less 10 k x (LM393 IOH 20 nA + U1 II 1 uA)",
+      "value": 4.7398,
+      "limit": 2.0,
+      "sense": ">=",
+      "margin": 2.7398,
+      "passed": true,
+      "basis": "LM2940 4.75 V; LM393 IOH-LKG 20 nA max at 5 V; 74LVC1G11 II +/-1 uA"
+    },
+    {
+      "check": "Q high at U1 input does not exceed VI max (5 V bus max)",
+      "value": 5.25,
+      "limit": 5.5,
+      "sense": "<=",
+      "margin": 0.25,
+      "passed": true,
+      "basis": "74LVC1G11 VI 0 to 5.5 V at any VCC (5 V tolerant input, IOFF at VCC 0)"
+    },
+    {
+      "check": "Q low at U1 input (LM393 VOL max, full range, at 4 mA; here 0.53 mA)",
+      "value": 0.7,
+      "limit": 0.8,
+      "sense": "<=",
+      "margin": 0.10000000000000009,
+      "passed": true,
+      "basis": "TI SLCS005AH"
+    },
+    {
+      "check": "2N3904 base current, U1 high at its guaranteed minimum",
+      "value": 0.00013649999999999998,
+      "limit": 0.0001,
+      "sense": ">=",
+      "margin": 3.649999999999998e-05,
+      "passed": true,
+      "basis": "(2.3 - 0.85) / 10 k - 0.85 / 100 k"
+    },
+    {
+      "check": "Forced beta, branch P (collector current / base current)",
+      "value": 3.496503496503497,
+      "limit": 40.0,
+      "sense": "<=",
+      "margin": 36.5034965034965,
+      "passed": true,
+      "basis": "2N3904 hFE min 40 at 0.1 mA, 70 at 1 mA (onsemi 2N3903/D Rev. 9)"
+    },
+    {
+      "check": "Forced beta, branch C",
+      "value": 3.8461538461538463,
+      "limit": 40.0,
+      "sense": "<=",
+      "margin": 36.15384615384615,
+      "passed": true,
+      "basis": "as above"
+    },
+    {
+      "check": "P-FET VGS permitted, 5 V bus 4.75 V less the bead drop (magnitude)",
+      "value": 4.1090909090909085,
+      "limit": 4.0,
+      "sense": ">=",
+      "margin": 0.10909090909090846,
+      "passed": true,
+      "basis": "10 k / 1 k divider from the 2N3904 VCE(sat) 0.2 V; DMP3099L RDS(on) 99 mohm specified at -4.5 V"
+    },
+    {
+      "check": "P-FET VGS not permitted: 10 k x 2N3904 collector leakage (ICEX 50 nA max at 25 C, x 100 hot, E)",
+      "value": 0.05,
+      "limit": 0.73,
+      "sense": "<=",
+      "margin": 0.6799999999999999,
+      "passed": true,
+      "basis": "DMP3099L |VGS(th)| min 1.0 V at 25 C, 0.73 V at 125 C (Figure 7 slope, DD/E)"
+    },
+    {
+      "check": "Driver node not permitted: 2.2 k bleed x DMP3099L IDSS (800 nA at 25 C x 64 for +60 K, E)",
+      "value": 0.11263999999999999,
+      "limit": 3.14,
+      "sense": "<=",
+      "margin": 3.0273600000000003,
+      "passed": true,
+      "basis": "GVA-84+ conducts above about 3.1 V (E)"
+    },
+    {
+      "check": "Clamp gate not permitted: 5 V bus min less 10 k x (2N3904 5 uA hot + 2N7002 IGSS 0.1 uA)",
+      "value": 4.699,
+      "limit": 4.5,
+      "sense": ">=",
+      "margin": 0.19899999999999984,
+      "passed": true,
+      "basis": "2N7002 RDS(on) 5.3 ohm max specified at 4.5 V"
+    },
+    {
+      "check": "Clamp gate permitted: 2N3904 VCE(sat) max against the 2N7002 VGS(th) min at 150 C",
+      "value": 0.2,
+      "limit": 0.6,
+      "sense": "<=",
+      "margin": 0.39999999999999997,
+      "passed": true,
+      "basis": "Nexperia 2N7002 VGS(th) 0.6 V min at 150 C"
+    },
+    {
+      "check": "VGG clamped, error amplifier at 5.25 V, 2N7002 RDS(on) at 150 C (scaled from the 10 V ratio)",
+      "value": 0.01899629309120029,
+      "limit": 0.05,
+      "sense": "<=",
+      "margin": 0.03100370690879971,
+      "passed": true,
+      "basis": "module dead zone to about 2.3 V"
+    }
+  ]
+}

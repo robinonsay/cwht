@@ -1,0 +1,53 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.7nyksi/d18_seq.cir
+Start Time: Tue Sep 29 15:43:36 2026
+Options:plotwinsize=0
+
+.step case=1
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=2
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=3
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=4
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=5
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=6
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=7
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=8
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=9
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=10
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=11
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=12
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=13
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 1.095 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.7nyksi/d18_seq.cir
+

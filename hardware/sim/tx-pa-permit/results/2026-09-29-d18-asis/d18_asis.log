@@ -1,0 +1,122 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.DVN8UU/d18_asis.cir
+Start Time: Tue Sep 29 15:43:24 2026
+Options:plotwinsize=0
+
+.step case=1
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=2
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=3
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=4
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=5
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=6
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=7
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=8
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=9
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=10
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=11
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=12
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=13
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=14
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=15
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=16
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=17
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=18
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=19
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=20
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=21
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=22
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=23
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=24
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=25
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=26
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=27
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=28
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=29
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=30
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=31
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=32
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=33
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=34
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=35
+Direct Newton iteration succeeded in finding operating point.
+
+.step case=36
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 2.709 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.DVN8UU/d18_asis.cir
+
