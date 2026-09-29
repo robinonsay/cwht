@@ -35,12 +35,20 @@ product: docs/design/analysis/frequency-budget.md
 # note, fixing INSP-056 finding-11 and finding-12 and this record's finding-7). Each blob equals git rev-parse
 # 9dc9d63:<path>, git rev-parse HEAD:<path> at HEAD 23e2388 and git hash-object <path> (12 of 12); git merge-base
 # --is-ancestor 9dc9d63 main is true; a13a00e and 23e2388 touch no product file. The iteration 2 set is kept below
-product_commit: "9dc9d63c046a6f41aa73152694e3e48bab058c42"
-product_files: ["docs/design/analysis/frequency-budget.md@def3f708fb9858a89e1425ac19aafe04c03de807", "hardware/sim/freq/r3_a5.py@e4140a3d7629c1254afed81851db8941c1584216", "hardware/sim/freq/README.md@39ae3a3befcec38d1cf11a7c8866ce113a90e327", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "hardware/sim/freq/results/r3a5-20260929-02/results.json@920eddb5dafe4a2084cfac21321e03cf438133bf", "hardware/sim/freq/results/r3a5-20260929-02/checker-output.txt@76181155d52b0a3378d7941f087cd9cd67b48bc5", "hardware/sim/freq/results/r3a5-20260929-02/r3_a5.py@e4140a3d7629c1254afed81851db8941c1584216", "hardware/sim/freq/results/r3a5-20260929-02/settle-and-guard.png@a141b33ed44a481a3ef23dd326fc536dbe75866e", "hardware/sim/freq/results/r3a5-20260929-02/relock-sequence.png@54cad129f28db5d9e20087fd24c04ceca7ff2fd8", "hardware/sim/freq/results/r3a5-20260929-02/ratio-freshness.png@a88ebc4bb931267b5b8ca664fbaf7bdae0e91262", "hardware/sim/freq/results/r3a5-20260929-02/r3-budget-and-buffer.png@01d10aac5b202c75204baaec0f5a6072747df24a", "hardware/sim/freq/results/r3a5-20260929-02/xosc-slope.png@ff5d30b3ec314514aa737f349f097a02a68ff86d"]
+# product_commit and product_files (iteration 3 re-issue 1, delta 3 of WP-PDR-20a; re-freeze F0 at d030ce2, revision 4 of the
+# note, fixing this record's finding-13). Each blob equals git rev-parse d030ce2:<path>, git rev-parse HEAD:<path>
+# at HEAD ac9cd1a and git hash-object <path> (13 of 13); git merge-base --is-ancestor d030ce2 main is true;
+# ac9cd1a (the author response) touches no product file. The iteration 3 set is kept as product_files_iteration_3
+product_commit: "d030ce277699a984b973a45b35432cbd5334571c"
+product_files: ["docs/design/analysis/frequency-budget.md@28c29b8aa34f0ed5efc857439355be90823f66bc", "hardware/sim/freq/r3_a5.py@a907344b2b658e5e7a56a7b3891805822ecea58b", "hardware/sim/freq/README.md@6af50391a7d144057bd1581139eae535169330f9", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "hardware/sim/freq/results/r3a5-20260929-03/results.json@3cf60c629d345b247d925f8f7910377c84ac43fd", "hardware/sim/freq/results/r3a5-20260929-03/checker-output.txt@46aa41baea3080a0097f02b27dd95c73f3c9b4ec", "hardware/sim/freq/results/r3a5-20260929-03/r3_a5.py@a907344b2b658e5e7a56a7b3891805822ecea58b", "hardware/sim/freq/results/r3a5-20260929-03/reference-budget-a5.png@a16ed5d15aa2bee9925889ec7078e74022144177", "hardware/sim/freq/results/r3a5-20260929-03/settle-and-guard.png@a141b33ed44a481a3ef23dd326fc536dbe75866e", "hardware/sim/freq/results/r3a5-20260929-03/relock-sequence.png@54cad129f28db5d9e20087fd24c04ceca7ff2fd8", "hardware/sim/freq/results/r3a5-20260929-03/ratio-freshness.png@a88ebc4bb931267b5b8ca664fbaf7bdae0e91262", "hardware/sim/freq/results/r3a5-20260929-03/r3-budget-and-buffer.png@01d10aac5b202c75204baaec0f5a6072747df24a", "hardware/sim/freq/results/r3a5-20260929-03/xosc-slope.png@ff5d30b3ec314514aa737f349f097a02a68ff86d"]
+product_commit_iteration_3: "9dc9d63c046a6f41aa73152694e3e48bab058c42"
+product_files_iteration_3: ["docs/design/analysis/frequency-budget.md@def3f708fb9858a89e1425ac19aafe04c03de807", "hardware/sim/freq/r3_a5.py@e4140a3d7629c1254afed81851db8941c1584216", "hardware/sim/freq/README.md@39ae3a3befcec38d1cf11a7c8866ce113a90e327", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "hardware/sim/freq/results/r3a5-20260929-02/results.json@920eddb5dafe4a2084cfac21321e03cf438133bf", "hardware/sim/freq/results/r3a5-20260929-02/checker-output.txt@76181155d52b0a3378d7941f087cd9cd67b48bc5", "hardware/sim/freq/results/r3a5-20260929-02/r3_a5.py@e4140a3d7629c1254afed81851db8941c1584216", "hardware/sim/freq/results/r3a5-20260929-02/settle-and-guard.png@a141b33ed44a481a3ef23dd326fc536dbe75866e", "hardware/sim/freq/results/r3a5-20260929-02/relock-sequence.png@54cad129f28db5d9e20087fd24c04ceca7ff2fd8", "hardware/sim/freq/results/r3a5-20260929-02/ratio-freshness.png@a88ebc4bb931267b5b8ca664fbaf7bdae0e91262", "hardware/sim/freq/results/r3a5-20260929-02/r3-budget-and-buffer.png@01d10aac5b202c75204baaec0f5a6072747df24a", "hardware/sim/freq/results/r3a5-20260929-02/xosc-slope.png@ff5d30b3ec314514aa737f349f097a02a68ff86d"]
 product_commit_iteration_2: "7593cea717e17fe2e542cb1cebb1d36c1fc948f6"
 product_files_iteration_2: ["docs/design/analysis/frequency-budget.md@14229c9dfd943bc463eadab399f2bdbe8ac7f9cd", "hardware/sim/freq/r3_a5.py@eebcd167109046a0aff3cd0a238ef35470a6b155", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "hardware/sim/freq/results/r3a5-20260929-01/results.json@53c58eaa1a66f7ff01adad52756d79efc5eb40f9", "hardware/sim/freq/results/r3a5-20260929-01/checker-output.txt@c73f1e60fb9d0ead825cdafbccbe5ec527795c12", "hardware/sim/freq/results/r3a5-20260929-01/r3_a5.py@eebcd167109046a0aff3cd0a238ef35470a6b155", "hardware/sim/freq/results/r3a5-20260929-01/relock-sequence.png@f9dac5c884981c38907165854f0c9ac66908e999", "hardware/sim/freq/results/r3a5-20260929-01/ratio-freshness.png@0a86c27e2cd71fd579e8055718d318f6b0122d8a", "hardware/sim/freq/results/r3a5-20260929-01/xosc-slope.png@ff5d30b3ec314514aa737f349f097a02a68ff86d", "hardware/sim/freq/results/r3a5-20260929-01/r3-budget-and-buffer.png@c0493e761f1e2571570515f88057f64184233750"]
 product_commit_iteration_1: "4153acf1006f919fc1e6ff72715f6f2694d9dead"
 product_files_iteration_1: ["docs/design/analysis/frequency-budget.md@79d47fbbcae7fbfc5dde43ebde5c6e6b20917f94", "docs/design/analysis/clock-plan.md@07b5309613279d906bfdd3549618bb39ae8c7d81", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "hardware/sim/freq/clock_plan.py@7e321b3d3355d8e94b464110292c3909483d3832", "docs/reviews/PDR/figures/frequency-budget.png@d77a0b3afac520643fdda042d188612b9123848e", "docs/reviews/PDR/figures/clock-plan-harmonics.png@0a4d221c1c1690aa28331d0c429e65278feacb07", "docs/decisions/adr/ADR-031-clock-plan.md@58ceb119651feeadfc79a4c3d61ecfa916fa52d4"]
+# inputs read at iteration 3 re-issue 1 (not reviewed), at HEAD ac9cd1a
+input_files_iteration_3_reissue_1: ["docs/reviews/PDR/checklists/analysis-frequency-budget-and-clock-plan.md (INSP-056 as committed at 0e4ba56: iteration 3 re-issue 2, reviewer APPROVED at 9dc9d63, paired_record INSP-111)", "docs/safety/hazards.json 0.5.0-pha (HZ-008 C7, K4, K7)", "docs/risk/register.md (RSK-002 steps S3 and S4: calibration constant settable from the menu, zero-beat against a signal of known frequency)", "docs/process/07-software-engineering-plan.md (section 10.2 completion criteria and Record row: up to three author-review iterations per file, then escalation to the owner)", "docs/plan/pdr-work-plan.md (revision 7; rule C1)", "hardware/sim/freq/results/r3a5-20260929-02/checker-output.txt@76181155 (the revision 3 run, for the word-for-word comparison)"]
 # inputs read at iteration 3 (not reviewed), at HEAD 23e2388
 input_files_iteration_3: ["Seiko Epson brief sheet 'TCXO / VC-TCXO TG2016SMN / TG2520SMN' (web-fetch tool from download.epsondevice.com, PDF SHA-256 df16ac04cdec1db7eedcb21ef19c0a87f17dcf061fe55e1aafa053037d846612, equal to the checker's; 'Specifications (characteristics)' table read with pdftotext in the scratchpad)", "Skyworks Si5351A/B/C-B data sheet Rev. 1.3 (web-fetch tool, PDF SHA-256 f3bc5285...a4851101f, equal to the checker's; the period and cycle-to-cycle jitter rows and their notes 2 and 3)", "docs/reviews/PDR/checklists/analysis-frequency-budget-and-clock-plan.md (INSP-056 as committed at a13a00e: iteration 3 re-issue 1 and the author response; the uncommitted working-tree edits of its concurrent delta were read only to avoid duplicate findings)", "docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md (R-M3 row; Part B screening row RB2 TG2520SMN)", "docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md (A5 row; section 7.3 revision 6 key-down sequence)", "docs/safety/hazards.json 0.5.0-pha (HZ-008 K4, K7)", "docs/requirements/tx/requirements.md (REQ-TX-006 verification note, TC-TX-006)", "docs/plan/pdr-work-plan.md (revision 7; rule C1, section 3.0 row 20)"]
 # inputs read at iteration 2 (not reviewed), at HEAD fd12ced
@@ -58,26 +66,33 @@ product_type: trade-study-or-adr
 # of the frequency verification unit (SW-SAFE) and the SW-SYNTH frequency-word path, both Proposed safety-critical
 # in 07 section 14.1 (HZ-008; 07 section 14.2 rows a, b, f, g, h, i, k, l for each)
 criticality: safety-critical
-product_size: "iteration 3: 1 analysis note revision 3 (569 lines; diff against revision 2 of 201 lines, sections 2, 3.1 A5 rows G-1 to G-7, 3.4.1 to 3.4.4, 4 to 8), 1 revised checker (947 lines, 53 output lines: 38 PASS, 14 INFO, 1 RESULT), the checker README, 5 figures. Iteration 2: 1 analysis note revision 2 (492 lines; new section 3.4, 150 lines, 4 subsections, 2 revisit conditions, 2 measurements M-1 and M-2, 2 rules R-FRESH-1 and R-FRESH-2, 14 revision 2 requests), 1 new checker (725 lines, 33 output lines: 23 PASS, 10 INFO), 4 figures. Iteration 1: 1 ADR (164 lines; 9 decision items, 4 options, 6 assumptions), read with clock-plan.md revision 2 (186 lines, rule 11) and the checker clock_plan.py (30 clock rows, 5 residual sources, 1 seeded case)"
+product_size: "iteration 3 re-issue 1: 1 analysis note revision 4 (667 lines; diff against revision 3 of 109 insertions and 11 deletions: new section 3.5 with 2 tables, 5 cases and 3 options, qualified rows in sections 3.2, 4 and 5, 8 new section 5 request rows, section 6 items 15 to 18), 1 revised checker (1 170 lines, 68 output lines: 43 PASS, 24 INFO, 1 RESULT; 15 new case lines), the checker README, 6 figures (1 new). Iteration 3: 1 analysis note revision 3 (569 lines; diff against revision 2 of 201 lines, sections 2, 3.1 A5 rows G-1 to G-7, 3.4.1 to 3.4.4, 4 to 8), 1 revised checker (947 lines, 53 output lines: 38 PASS, 14 INFO, 1 RESULT), the checker README, 5 figures. Iteration 2: 1 analysis note revision 2 (492 lines; new section 3.4, 150 lines, 4 subsections, 2 revisit conditions, 2 measurements M-1 and M-2, 2 rules R-FRESH-1 and R-FRESH-2, 14 revision 2 requests), 1 new checker (725 lines, 33 output lines: 23 PASS, 10 INFO), 4 figures. Iteration 1: 1 ADR (164 lines; 9 decision items, 4 options, 6 assumptions), read with clock-plan.md revision 2 (186 lines, rule 11) and the checker clock_plan.py (30 clock rows, 5 residual sources, 1 seeded case)"
 sprint: PDR-prep
-author_agent: "author:WP-PDR-20a analysis (Claude, invocations of 2026-09-29; revision 2, and revision 3 for the Major findings). Iteration 1 product: author:WP-PDR-20 wave 1a (Claude as RF designer TX)"
-reviewer_agent: "sa-reviewer:WP-PDR-20a-insp-111-delta-iter2"
+author_agent: "author:WP-PDR-20a analysis (Claude, invocations of 2026-09-29; revision 2, revision 3 for the Major findings, and revision 4 for finding-13). Iteration 1 product: author:WP-PDR-20 wave 1a (Claude as RF designer TX)"
+reviewer_agent: "sa-reviewer:WP-PDR-20a-insp-111-delta-iter3"
+reviewer_agent_iteration_3: "sa-reviewer:WP-PDR-20a-insp-111-delta-iter2"
 reviewer_agent_iteration_2: "sa-reviewer:WP-PDR-20a-insp-111-delta"
 reviewer_agent_iteration_1: "sa-reviewer:WP-PDR-20-insp-056-adr-031"
 assurance_required: true
-assurance_reviewer_agent: "sa-reviewer:WP-PDR-20a-insp-111-delta-iter2 (software assurance function, iteration 3; iteration 2 by sa-reviewer:WP-PDR-20a-insp-111-delta, iteration 1 by sa-reviewer:WP-PDR-20-insp-056-adr-031; paired file review INSP-056, whose delta on 9dc9d63 runs beside this one and is not committed at HEAD 23e2388)"
-# iteration 3 of this record is iteration 2 of the WP-PDR-20a delta (a delta that verifies the Major fix, rule C1);
-# one more delta iteration is allowed before escalation to the owner (07 section 10.2)
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-20a-insp-111-delta-iter3 (software assurance function, iteration 3 re-issue 1; iteration 3 by sa-reviewer:WP-PDR-20a-insp-111-delta-iter2, iteration 2 by sa-reviewer:WP-PDR-20a-insp-111-delta, iteration 1 by sa-reviewer:WP-PDR-20-insp-056-adr-031; paired file review INSP-056, reviewer APPROVED at 9dc9d63, committed 0e4ba56; its review of revision 4 at d030ce2 is not filed at HEAD ac9cd1a)"
+# iteration 3 re-issue 1 of this record is iteration 3 of the WP-PDR-20a delta (a delta that verifies the
+# finding-13 fix, rule C1). The record schema caps iteration at 3, so it is filed as a re-issue of iteration 3, as
+# INSP-056 files its WP-PDR-20a deltas. It is the third author-review iteration on the WP-PDR-20a product; with
+# NEEDS CHANGES the software lead escalates to the owner (07 section 10.2 Completion criteria; cross item X-16)
 iteration: 3
 # readiness_met: R1 to R3 hold at iteration 2; R4 holds for independence (this invocation is neither the
 # WP-PDR-20a author nor any INSP-056 reviewer) and is pending for the filing of the INSP-056 delta, which the lead
 # SE dispatched concurrently under plan row 20 (cross item X-6 of iteration 2). Iteration 1: R1 to R4 held
 readiness_met: true
-# reviewer_verdict and assurance_verdict at iteration 3: NEEDS CHANGES. finding-7 (Major) is Verified; finding-13
-# (Major, new) is open: for A5's TG2520SMN the note's HZ-008 K4 calibration bound does not hold. Iteration 2:
-# NEEDS CHANGES (finding-7). Iteration 1 (ADR-031 at 4153acf): APPROVED, zero Major, six Minor liens (rule C1)
+# reviewer_verdict and assurance_verdict at iteration 3 re-issue 1: NEEDS CHANGES. finding-13 (Major) is Verified; finding-16
+# (Major, new, in the finding-13 fix) is open: option (c) as routed to the owner and to WP-PDR-35 puts no bound on the
+# first (factory) calibration value and is described as keeping the band edge safe. Iteration 3: NEEDS CHANGES
+# (finding-13; finding-7 Verified). Iteration 2: NEEDS CHANGES (finding-7). Iteration 1 (ADR-031 at 4153acf):
+# APPROVED, zero Major, six Minor liens (rule C1)
 reviewer_verdict: NEEDS CHANGES
 assurance_verdict: NEEDS CHANGES
+reviewer_verdict_iteration_3: NEEDS CHANGES
+assurance_verdict_iteration_3: NEEDS CHANGES
 reviewer_verdict_iteration_2: NEEDS CHANGES
 assurance_verdict_iteration_2: NEEDS CHANGES
 reviewer_verdict_iteration_1: APPROVED
@@ -89,34 +104,40 @@ assurance_verdict_iteration_1: APPROVED
 # APPROVED on both records when INSP-056 carries the pairing and CR-012 merges with the template blobs
 # unchanged (INSP-056 X-1 holds for the analysis template 0386cc6e as well)
 # At iteration 2 the record verdict is held at NEEDS CHANGES by finding-7 (Major) as well; at iteration 3 by
-# finding-13 (Major)
+# finding-13 (Major); at iteration 3 re-issue 1 by finding-16 (Major)
 verdict: NEEDS CHANGES
 # findings (all iterations): finding-1 to finding-6 (iteration 1, Minor, Open liens); finding-7 (iteration 2,
 # Major, Verified at iteration 3); finding-8 to finding-12 (iteration 2, Minor, Open); finding-13 (iteration 3,
-# Major, Open); finding-14 and finding-15 (iteration 3, Minor, Open)
-findings_major: 2
-findings_minor: 13
-findings_open: 14
+# Major, Verified at iteration 3 re-issue 1); finding-14 and finding-15 (iteration 3, Minor, Open); finding-16 (iteration 3 re-issue 1,
+# Major, Open); finding-17 and finding-18 (iteration 3 re-issue 1, Minor, Open)
+findings_major: 3
+findings_minor: 15
+findings_open: 16
 findings_fixed: 0
-findings_verified: 1
+findings_verified: 2
 findings_deferred: 0
-assurance_findings_major: 2
-assurance_findings_minor: 13
-assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-033 7.1 task 2", "swe-039 7.1 task 3", "swe-039 7.1 task 4", "swe-071 7.1 task 1", "swe-134 7.1 task 1", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-136 7.1 task 1", "swe-070 7.1 task 1", "swe-080 7.1 task 1", "swe-080 7.1 task 2", "swe-081 7.1 task 2", "swe-087 7.1 task 2", "swe-088 7.1 task 1", "swe-089 7.1 task 1"]
+assurance_findings_major: 3
+assurance_findings_minor: 15
+assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-033 7.1 task 2", "swe-039 7.1 task 4", "swe-134 7.1 task 1", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-136 7.1 task 1", "swe-070 7.1 task 1", "swe-080 7.1 task 1", "swe-080 7.1 task 2", "swe-081 7.1 task 2", "swe-087 7.1 task 2", "swe-088 7.1 task 1", "swe-089 7.1 task 1"]
+assurance_tasks_applied_iteration_3: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-033 7.1 task 2", "swe-039 7.1 task 3", "swe-039 7.1 task 4", "swe-071 7.1 task 1", "swe-134 7.1 task 1", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-136 7.1 task 1", "swe-070 7.1 task 1", "swe-080 7.1 task 1", "swe-080 7.1 task 2", "swe-081 7.1 task 2", "swe-087 7.1 task 2", "swe-088 7.1 task 1", "swe-089 7.1 task 1"]
 assurance_tasks_applied_iteration_2: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-033 7.1 task 1", "swe-033 7.1 task 2", "swe-033 7.1 task 3", "swe-039 7.1 task 3", "swe-039 7.1 task 4", "swe-057 7.1 task 2", "swe-134 7.1 task 1", "swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-205 7.1 task 3", "swe-071 7.1 task 1", "swe-136 7.1 task 1", "swe-070 7.1 task 1", "swe-080 7.1 task 1", "swe-080 7.1 task 2", "swe-081 7.1 task 2", "swe-087 7.1 task 2", "swe-089 7.1 task 1"]
 assurance_tasks_applied_iteration_1: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-033 7.1 task 1", "swe-033 7.1 task 2", "swe-033 7.1 task 3", "swe-039 7.1 task 4", "swe-057 7.1 task 2", "swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-136 7.1 task 1", "swe-070 7.1 task 1", "swe-205 7.1 task 3", "swe-205 7.1 task 1", "swe-134 7.1 task 1", "swe-052 7.1 task 2", "swe-080 7.1 task 1", "swe-080 7.1 task 2", "swe-081 7.1 task 2", "swe-087 7.1 task 2", "swe-088 7.1 task 1", "swe-089 7.1 task 1"]
-swe134_items_checked: [c, g, h, i, j, k, l]
+swe134_items_checked: [c, g, h, k]
+swe134_items_checked_iteration_3: [c, g, h, i, j, k, l]
 swe134_items_checked_iteration_2: [b, c, e, g, h, i, j, k, l]
 swe134_items_checked_iteration_1: [a, c, e, g, h, i, j, k, l]
 deferred_rids: []
-items_no: ["swe-033 7.1 task 2", "swe-039 7.1 task 3", "swe-134 7.1 task 1", "swe-134 7.1 task 6", "swe-205 7.1 task 1", SA-C-g, SA-C-j, SA-D1, SA-D6]
+items_no: ["swe-033 7.1 task 2", "swe-134 7.1 task 1", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-136 7.1 task 1", SA-C-g, SA-D1, SA-D6]
+items_no_iteration_3: ["swe-033 7.1 task 2", "swe-039 7.1 task 3", "swe-134 7.1 task 1", "swe-134 7.1 task 6", "swe-205 7.1 task 1", SA-C-g, SA-C-j, SA-D1, SA-D6]
 items_no_iteration_2: ["swe-033 7.1 task 2", "swe-039 7.1 task 3", "swe-057 7.1 task 2", "swe-134 7.1 task 1", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-205 7.1 task 3", "swe-071 7.1 task 1", "swe-080 7.1 task 1", SA-C-b, SA-C-e, SA-C-g, SA-C-h, SA-C-j, SA-D1, SA-D2, SA-D6]
 items_no_iteration_1: ["swe-033 7.1 task 2", "swe-057 7.1 task 2", "swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-136 7.1 task 1", "swe-070 7.1 task 1", "swe-205 7.1 task 3", "swe-205 7.1 task 1", "swe-134 7.1 task 1", "swe-052 7.1 task 2", "swe-080 7.1 task 1", "swe-080 7.1 task 2", "swe-088 7.1 task 1", SA-A4, SA-C-e, SA-C-h, SA-C-j, SA-D1, SA-D2, SA-D6, SA-E3]
-# effort: iteration 1 40 turns, 70 minutes; iteration 2 45 turns, 95 minutes; iteration 3 45 turns, 85 minutes
-effort_turns: 130
-effort_minutes: 250
+# effort: iteration 1 40 turns, 70 minutes; iteration 2 45 turns, 95 minutes; iteration 3 45 turns, 85 minutes;
+# iteration 3 re-issue 1 40 turns, 75 minutes
+effort_turns: 170
+effort_minutes: 325
 date_iteration_2: 2026-09-29
 date_iteration_3: 2026-09-29
+date_iteration_3_reissue_1: 2026-09-29
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -816,3 +837,185 @@ Written by the WP-PDR-20a author invocation (not a reviewer). It records the fix
 **One number differs from the finding (for the reviewer to confirm).** On the finding's own reading (band referred to +25 C) the checker gives 92.8 Hz beyond the band for the +/-0.9 ppm case, 181.6 Hz for +/-1.5 ppm, and a 55.2 Hz guard margin in the clamped case; the finding gives 97.8, 186.6 and 50.2 Hz. Each differs by 5.0 Hz. The finding adds the 5 Hz word term to the reference error (2.7 + 0.9 + 0.034 ppm) and then compares with G-6, 2.972 ppm, which already has the word term (and S_RAMP) taken off: (1 200 - 5 - 5 - 750) / 147.9988 MHz. Hand check: 3.6 ppm x 147.9988 MHz = 532.8 Hz; 532.8 + 5 + 5 + 750 = 1 292.8 Hz, 92.8 Hz beyond the 1.2 kHz guard. The finding's conclusions stand either way.
 
 No pin, no timing value and no section 3.4 result changed (cross item X-14).
+
+## Iteration 3 re-issue 1: WP-PDR-20a delta 3, verification of finding-13 at re-freeze `d030ce2` (2026-09-29, HEAD `ac9cd1a`)
+
+**Scope (rule C1).** This is iteration 3 of the WP-PDR-20a delta: a delta that verifies the fix of finding-13 (Major). The whole of the fix is read: new section 3.5, the qualified rows of sections 3.2, 4 and 5, the eight revision 4 request rows, section 6 items 15 to 18, and the checker change with its run. A defect found in the fix is reported as a finding. finding-7 is checked only for change. The Minor findings 8 to 12, 14 and 15 were not addressed by the author (note change history, revision 4 row) and are not re-reviewed.
+
+**Product.** The thirteen `product_files` of the front matter at re-freeze `d030ce2` (freeze F0, rule C2): `frequency-budget.md` revision 4 `28c29b8a`, `r3_a5.py` `a907344b`, `hardware/sim/freq/README.md` `6af50391`, `freq_budget.py` `d82269e6` (unchanged, imported), and the run `r3a5-20260929-03` (`results.json` `3cf60c62`, `checker-output.txt` `46aa41ba`, the script copy `a907344b`, `reference-budget-a5.png` `a16ed5d1` and five PNGs whose blobs equal those of run `r3a5-20260929-02`). Each blob equals `git rev-parse d030ce2:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` (13 of 13). `d030ce2` is on `main`, and the one later commit, `ac9cd1a` (the author response in this record), touches no product file. **Paired record:** INSP-056, reviewer verdict APPROVED at `9dc9d63` (iteration 3 re-issue 2, commit `0e4ba56`), which now names this record (`paired_record: INSP-111`, `assurance_verdict: NEEDS CHANGES`). INSP-056 has not reviewed revision 4 (cross item X-17).
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-20 or 20a (either note, either checker, any run or figure, TS-007, TS-012, the thermal model) and wrote no earlier iteration of this record or of INSP-055, INSP-056, INSP-074, INSP-110 or INSP-118. It edited no product file and no other record.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search. Queries: the WP-PDR-20a record and INSP-111; the calibration procedure and constant (RSK-002 steps S3 and S4). Before the tool was loaded only the tool-loading call ran. `git`, `grep -n` and `sed -n` were used afterwards only on known files. The rustos repository was not read. The TG2520SMN brief sheet was not re-fetched: its terms are quoted in iteration 3 and in the note section 2, and the author reports the same SHA-256 (`df16ac04...7d846612`).
+
+### Verification of finding-13
+
+| Fix part | Where | Verified | Evidence |
+|---|---|---|---|
+| (a) A5 reference budget from the checker, identities 1 and 2 with the TG2520SMN terms, 1.0 ppm band change and 0.4 ppm step used consistently, identity 2 stated as failing, sections 3.2 and 4 not valid for A5 | Section 3.5; section 1 question 6; section 2 revision 4 rows; section 3.2 header note; RB-0 to RB-5, KA-R5, KA-R6; `reference-budget-a5.png` | Yes | Hand, exact fractions, G-6 = 440 / 147.9988 = 2.97300 ppm and margin = 1 200 - (e x 147.9988 + 5 + 5 + 750) Hz: RB-1 +40.4 / -33.6 Hz; RB-2 (+/-0.9) -92.8 / -166.8 Hz; RB-2 (+/-1.5) -181.6 / -255.6 Hz; RB-3 2.034 ppm, +144.0 Hz; RB-4 2.634 ppm, +55.2 Hz; guard range limit 2.973 - 2.7 = 0.272 ppm. All equal to the run. The two readings of the fo-TC band are a sound response to the unstated reference temperature, and the governing pp reading is the hazard-side one. The uncalibrated terms use +/-0.1 ppm each for load and supply (a distance from nominal), and the calibrated terms use the 0.4 ppm step (a change between states), as section 3.4.2 does. Section 3.2 now says it is superseded for A5 |
+| (b) Section 4 REQ-SYS-010 row and its "else a CR", section 5 WP-PDR-35 (+/-0.9 ppm) and WP-PDR-16b (K4) requests qualified for A5 and held open | Section 4 rows REQ-SYS-008 and REQ-SYS-010, the revision 4 bullets, TPM-006; section 5 revision 1 rows (inline "held open for A5") and revision 4 rows | Yes | The REQ-SYS-010 "else a CR" is open for A5 and does not go to the owner as "No". REQ-SYS-009 and REQ-TX-002 follow the REQ-SYS-008 row through the revision 4 bullet. WP-PDR-35 is asked not to write the +/-0.9 ppm requirement for A5. WP-PDR-16b is asked to hold the K4 bound open, with C7 covering a value wrong inside its range |
+| (c) Options named, choice routed to the lead SE for the owner | Section 3.5 options table; section 5 revision 4 row "Lead SE, for the owner"; RB-6a to RB-6c | Yes, with finding-16 | The three options are named with their arithmetic (RB-6a 84.8 Hz inside; RB-6b 1 381.6 / 1 455.6 Hz; RB-6c delta at most 0.972 ppm, 10.8 Hz at 0.9 ppm, all recomputed equal), and the note does not choose. Option (c), as defined, protects re-calibrations and stored-value corruption but not the first calibration, and the text for the owner and for WP-PDR-35 does not say so (finding-16) |
+| (d) TS-007 R-M3 result for RB2 to WP-PDR-54 and WP-PDR-20b | Section 5 revision 4 rows WP-PDR-54, WP-PDR-20b, and WP-PDR-38 for the full datasheet | Yes | "Not met", on both readings |
+
+**The 5.0 Hz difference: confirmed.** The author is right. Iteration 3 compared 2.7 + 0.9 + 0.034 ppm with G-6, and G-6 already has the 5 Hz word term taken off, so the word term was counted twice. Counted once: 3.6 ppm x 147.9988 MHz = 532.8 Hz, plus 5 + 5 + 750 Hz = 1 292.8 Hz, which is 92.8 Hz beyond the 1.2 kHz guard. The correct iteration 3 figures are 92.8 Hz (not 97.8), 181.6 Hz (not 186.6) and a 55.2 Hz margin (not 50.2). Iteration 3's text is left as filed. The conclusions of finding-13 stand.
+
+**finding-13: Verified.** For A5 the note no longer sends on the +/-0.9 ppm bound, the K4 bound or the REQ-SYS-010 "No". It computes the A5 reference budget and routes the choice to the owner.
+
+**finding-7: stays Verified.** The note diff has no hunk in section 3.4, the 52 revision 3 checker case lines are unchanged (only the RESULT line differs), and `settle-and-guard.png` has the same blob. One revision 3 code line did change (finding-18). It does not touch the finding-7 cases.
+
+**Other re-freeze checks.**
+- **Uncalibrated unit (RB-1).** A unit with no valid constant is 33.6 Hz beyond the band on the governing reading. That result is new and on the hazard side, and it is routed to WP-PDR-35 and 16b. RSK-002 step S4 calibrates by zero-beat in receive, so a rule that withholds transmission without a valid constant does not block the calibration itself. The option (b) statement is wrong (finding-17).
+- **Two-unit offset (RB-7).** 2 x (0.1 + 1.0 + 0.4 + 0.034) ppm x 146 MHz = 447.9 Hz; with 0.5 ppm aging, 593.9 Hz. Equal to the run. RSK-002's 100 Hz trigger ("worst-case error after calibration exceeds 100 Hz") is already far exceeded on the TS-007 classes. The note routes the A5 figure to WP-PDR-18.
+- **SW-SAFE threshold basis.** Under route R3 the TCXO error cancels in the count (section 3.3), so the B-12 and B-16 margins do not depend on the reference budget. A unit whose carrier is off by more than REQ-SYS-010 still meets the 10 kHz REQ-SYS-154 limit.
+
+### Findings (iteration 3 re-issue 1)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-16"></a>finding-16 | assurance | Major | `swe-134 7.1 task 6`, `swe-205 7.1 task 1`, `swe-033 7.1 task 2`, SA-C-g, SA-D1, SA-D6 | Section 3.5 options table row (c) and finding 3.5; section 5 revision 4 rows "Lead SE, for the owner", WP-PDR-35 (option (c) text) and WP-PDR-16b; section 6 item 18; RB-6c | See the note after this table | Open | Pending | |
+| <a id="finding-17"></a>finding-17 | assurance | Minor | `swe-134 7.1 task 1`, SA-C-k | Section 3.5 "An uncalibrated unit"; section 5 revision 4 rows WP-PDR-35 ("Under every option...") and WP-PDR-16b ("under every option but (a)"), and the row "Lead SE, for the owner" | See the note after this table | Open | Pending | |
+| <a id="finding-18"></a>finding-18 | assurance | Minor | `swe-136 7.1 task 1` | `r3_a5.py` `buffer_lines()` (line 461) and case BL-1 (line 772); constant `TCXO_TOL_PPM` (line 221) | See the note after this table | Open | Pending | |
+
+**finding-16 (Major): option (c) leaves the first calibration unguarded, and the owner is told it keeps the band edge safe.**
+- **Defect.** Option (c) accepts a calibration constant only within +/-delta of the stored factory offset. The factory offset is itself the first calibration value, entered by the same zero-beat procedure (RSK-002 step S4, "store the constant"). Nothing in option (c) bounds it or checks it independently.
+  - The WP-PDR-35 request says that under (c) the +/-0.9 ppm range requirement "is replaced by" the relative bound. So the only absolute bound on the value goes away.
+  - Section 6 item 18 says that a wrong factory measurement "is outside what the integrity check can catch. It is covered only by the verified procedure". That is a procedural control. The options table, finding 3.5, the WP-PDR-16b row and the text for the owner do not carry this limit.
+  - What a wrong factory value does (plot below). With the constant equal to the stored value, the -60 dB point stays inside the band only while the factory value is within 0.972 ppm of the truth. A later re-calibration that is wrong but within the 0.9 ppm delta leaves only 0.072 ppm.
+  - With no bound, the only limit is the SW-SAFE count, which lets a true error of up to 9 740 Hz through at key-down (B-16.iv12), about 66 ppm. That is far worse than the +/-0.9 ppm range that section 3.2 offered.
+  - If an absolute +/-1.5 ppm bound were kept on the factory value, the worst case would be the RB-2 +/-1.5 ppm case: 181.6 Hz (ref25) or 255.6 Hz (pp) beyond the band.
+  - Options (a) and (b) protect against any wrong constant within their range, the first calibration included (RB-6a 84.8 Hz inside; RB-6b sized for it). Option (c) protects only later re-calibrations and a corrupted stored value. The three options are not equal ways "to keep the band edge safe", which is how the owner text puts them.
+- **Also, the other direction (availability; in the same fix).** Two correct calibrations can differ by the band change (1.0 ppm), a year of aging (0.5 ppm) and two calibration uncertainties (0.2 ppm): 1.7 ppm, or up to 2.1 ppm if the two calibration states differ by the 0.4 ppm step. A delta of 0.972 ppm rejects a correct re-calibration made at a different temperature or after a year. The unit then keeps its first constant, and re-calibration (RSK-002 step S4) cannot restore REQ-SYS-010 after the first year. The note does not state this.
+- **Why Major.** This defect is of the same class as finding-13, on the hazard side. The note gives the owner a choice between three safety controls for HZ-008 cause C7 ("a calibration value out of range"; incorrect action, SWEHB `swe-205` 7.1 task 1). It describes one of them, (c), as equal to the others when it leaves the most likely wrong-value event uncontrolled: a wrong first zero-beat on a hand-built unit calibrated once by the owner. If she picks (c) on that text, and WP-PDR-35 writes the requested requirement, the SW-SYNTH requirements lose the absolute bound, and K4 carries a gap that no Test closing case would exercise. Option (c) is also the choice that avoids a part change and a CR, so it is the option most likely to be picked on cost.
+- **Fix (author; text and one checker case, no pin or timing change).**
+  - In the options table (row (c), "Effect" column), in finding 3.5 and in the owner text, state option (c)'s limit plainly: it guards later calibration values and a corrupted stored value, but not a wrong first calibration.
+  - Name how option (c) would guard the first calibration too, and do not choose between the ways. For example:
+    - keep an absolute bound on the factory value, and state its residual (the RB-2 case for that bound);
+    - an independent check of the factory value before band-edge transmission is enabled. For example, a carrier measurement at 146 MHz on the tinySA Ultra into the dummy load (the TC-SYS-008 set-up), which must agree within 0.972 ppm less the instrument's uncertainty, or a second zero-beat against a different known signal. Name what the check must show.
+  - Replace "is replaced by" in the WP-PDR-35 option (c) text with the relative bound added to an absolute bound on the stored factory value, and add the first-calibration check chosen above. In the WP-PDR-16b row, name the first-calibration part of K4 as procedural (or as a Test on each unit), apart from the software part.
+  - State the re-calibration consequence of the delta bound (correct re-calibrations up to about 1.7 ppm away are rejected). Say how option (c) permits a re-calibration after the first year: for example a new factory value set by the same verified and checked procedure.
+  - Add a checker case beside RB-6c for a wrong factory value (the guard limit 0.972 ppm, and the residual under the absolute bound), and add it to `reference-budget-a5.png`.
+
+**finding-17 (Minor): the uncalibrated-unit rule is stated as needed "under every option", but option (b) does not need it.**
+- With option (b)'s guard, an uncalibrated TG2520SMN unit keeps its -60 dB point inside the band on both readings:
+  - 1.5 kHz guard, pp: 1 500 - (3.2 x 147.9988 + 760) = 266.4 Hz inside;
+  - 1.4 kHz guard: 240.4 Hz inside on ref25 and 166.4 Hz on pp.
+  - A constant of 0 is inside option (b)'s +/-1.5 ppm range, and option (b)'s guard is sized for any constant in that range (RB-6b).
+- The WP-PDR-35 row ("Under every option on the pp reading... no transmission without a valid constant") and the WP-PDR-16b row ("a K4 condition under every option but (a)") are therefore wrong for (b). Under (c) the rule is already part of the option.
+- The owner text leaves out the uncalibrated-unit result altogether, although it is new and bears on the choice. It is a reason to prefer (a) or (b) if a lost constant should still allow transmission.
+- **Why Minor.** The error is on the safe side (it withholds transmission more often than needed). Every option either needs the rule or tolerates it.
+- **Fix.** State the rule per option: needed under (c) and under the present 1.2 kHz guard with the TG2520SMN; not needed for the guard under (a) or (b). Add one sentence on it to the owner text.
+
+**finding-18 (Minor): revision 4 changed a revision 3 checker case without saying so, and the case now prints a tolerance it does not use.**
+- **Defect.** In `buffer_lines()`, the tolerance on the squared 25 MHz harmonics changed from `TCXO_TOL_PPM` (2.5 ppm, `fb.REF_CEIL_PPM`; revision 3 line 401) to the new `TG_TOL_PPM` (1.5 ppm, the +25 C tolerance only).
+  - BL-1 still prints "(+/-2.5 ppm)". `TCXO_TOL_PPM` is now defined and used nowhere.
+  - 1.5 ppm is narrower than both the ceiling and the TG2520SMN uncalibrated total (2.7 / 3.2 ppm), so the change is on the non-conservative side.
+  - The note (section 7) and the author response give "the 52 revision 3 case lines are unchanged word for word" as the evidence that revision 3 is untouched. The unchanged text hides this change.
+- **Why Minor.** The result does not move: the nearest harmonic is 2 001 kHz from a receive window, and 3.2 ppm of 200 MHz is 0.64 kHz. The change is outside rule C1's scope, and it makes a printed line false.
+- **Fix.** Restore `TCXO_TOL_PPM` in `buffer_lines()`, or use the uncalibrated total and print it. Add a check that the revision 3 constants are unchanged, and not only their printed lines.
+
+**Reviewer plot for finding-16: option (c), margin of the -60 dB point against the error of the stored factory value.** It was rendered by the reviewer with the venv Python (numpy, matplotlib) from the section 3.5 method, and opened before this record cites it. It is not committed, and the Commands section gives its arithmetic. X axis: the error of the stored factory value beyond the 0.1 ppm calibration uncertainty, 0 to 3.5 ppm. Y axis: the margin of the -60 dB point inside 148.000 MHz.
+- Blue: the constant equal to the stored value. It falls from +144.0 Hz and crosses zero at 0.972 ppm.
+- Red: a re-calibration wrong within the 0.9 ppm delta. It starts at +10.8 Hz and crosses zero at 0.072 ppm.
+- Green dashed: option (a), at +84.8 Hz.
+- Marker at 2.7 ppm: the most an absolute +/-1.5 ppm bound allows on the pp reading, where the blue line reads -255.6 Hz (RB-2).
+
+### Findings (iteration 3 re-issue 1; current state of every finding of this record)
+
+| Finding | Severity | State | Note |
+|---|---|---|---|
+| finding-1 to finding-6 | Minor | Open | Iteration 1 liens on ADR-031 (rule C1), due at the CDR readiness declaration; ADR-031 not revised |
+| finding-7 | Major | Verified | Iteration 3; unchanged at `d030ce2` (above) |
+| finding-8 to finding-12 | Minor | Open | Not addressed in revisions 3 and 4. They become liens at the delta's first APPROVED verdict, due at the CDR readiness declaration (rule C1), unless the author fixes them with finding-16 |
+| finding-13 | Major | Verified | Iteration 3 re-issue 1, on `28c29b8a`, `a907344b` and run `r3a5-20260929-03` (table above) |
+| finding-14, finding-15 | Minor | Open | Iteration 3; as findings 8 to 12 |
+| finding-16 | Major | Open | Iteration 3 re-issue 1; blocks the delta |
+| finding-17, finding-18 | Minor | Open | Iteration 3 re-issue 1; as findings 8 to 12 |
+
+### Task table (iteration 3 re-issue 1; tasks applied in this delta)
+
+| Task | Safety-critical designation (SWEHB 8.10 section 6) | Applied | Result and evidence | Relief (N/A only) | Finding ids |
+|---|---|---|---|---|---|
+| swe-134 7.1 task 5 | SC | Yes | Assurance participation in the review of the re-freeze, which sets the calibration-value controls of `SW-SYNTH` (Proposed safety-critical) and the options for HZ-008 K4 | | none |
+| swe-022 7.1 task 1 | SC | Yes | Against 07 section 15 with this template; NASA-STD-8739.8 part relieved | `rmm.json` SWE-022 T | none |
+| swe-033 7.1 task 2 | SC | No | The option (c) requirement text for WP-PDR-35 drops the absolute bound on the stored factory value | | finding-16 |
+| swe-039 7.1 task 4 | | Yes | Section 3.5 terms equal the brief-sheet quotes of iteration 3; hash as the checker's | | none |
+| swe-134 7.1 task 1 | SC | No | Items c, g, h and k checked for the revision 4 design values (section C below); item g carries finding-16, item k finding-17 | | finding-16, finding-17 |
+| swe-134 7.1 task 6 | SC | No | The K4 statement for option (c) to WP-PDR-16b omits the first-calibration part | | finding-16 |
+| swe-205 7.1 task 1 | SC | No | Incorrect action "a wrong first calibration value" walked under each option: controlled by (a) and (b), not by (c) as written | | finding-16 |
+| swe-136 7.1 task 1 | | No | The checker stays class B developer evidence with the TV need stated. The re-run reproduces the run. One revision 3 case changed its tolerance without disclosure | | finding-18 |
+| swe-070 7.1 task 1 | | Yes | Section 3.5 is datasheet bounds on two stated readings, and the two readings are carried to the plot | | none |
+| swe-080 7.1 task 1 | SC | Yes | The held-open items and the A5 values reach every consumer named (35, 16b, 54, 20b, 29, 18, 38, the lead SE). The README summary agrees with section 3.5 | | none |
+| swe-080 7.1 task 2 | | Yes | `tools/check_commit_msg.py --range 23e2388..ac9cd1a`: PASS for `d030ce2` (rows 24, 49) and `ac9cd1a` (row 33), both with `Refs:` | | none |
+| swe-081 7.1 task 2 | SC | Yes | Every product file committed at `d030ce2` on `main`. The run `r3a5-20260929-02` is kept as the revision 3 record | | none |
+| swe-087 7.1 task 2 | | Yes | finding-13 Verified with evidence. The author's 5.0 Hz point is confirmed above. The Minor findings are stated as not addressed | | none |
+| swe-088 7.1 task 1 | | Yes | INSP-056 iteration 3 re-issue 2 (committed `0e4ba56`) meets NPR 7150.2D 5.3.3 a to d for revision 3. Revision 4 is not yet in it (X-17) | | none |
+| swe-089 7.1 task 1 | | Yes | Measurements below | | none |
+
+### Checklist items changed at iteration 3 re-issue 1
+
+| Id | Answer | Evidence |
+|---|---|---|
+| SA-A3 | N/A | This record names the `d030ce2` blobs. INSP-056 names `9dc9d63` (X-17) |
+| SA-C-g | No | For A5 the +/-0.9 ppm bound is no longer offered. The option (c) replacement has no absolute bound on the stored factory value (finding-16) |
+| SA-C-h | Yes | Unchanged from iteration 3 (section 3.4 not changed) |
+| SA-C-j | N/A | Not re-reviewed; finding-15 stays open |
+| SA-C-k | Yes, with finding-17 | A missing or corrupt constant withholds transmission with no fall back to 0 (RB-1, RB-6c). The per-option statement is wrong for (b) (finding-17) |
+| SA-C-c | Yes | As iteration 3 |
+| SA-D1 | No | The software contribution "wrong calibration value" is controlled for re-calibrations only under option (c). The first calibration is procedural and not stated as such (finding-16) |
+| SA-D6 | No | The WP-PDR-16b row for option (c) must separate the procedural part of K4 (finding-16) |
+| SA-E1, SA-E2, SA-E3 | Yes | swe-087, the measurements below, swe-080 task 2 |
+| SA-F1 | Yes | X-13 carried in the note's section 5 WP-PDR-18 row; no new risk request |
+
+### Readiness (iteration 3 re-issue 1)
+
+| # | Criterion | Result | Evidence |
+|---|---|---|---|
+| R1 | Product committed and frozen | Yes | 13 of 13 blobs equal at `d030ce2`, `HEAD` and the working tree; `git log d030ce2..HEAD` touches no product file |
+| R2 | Product type and criticality | Yes | As iteration 2 |
+| R3 | `validate_docs.py`, `traceability.py --report-only` | Yes | Commands |
+| R4 | Paired file review filed; independence | Partly | Independence holds (C4 above). INSP-056 is filed and paired, but on `9dc9d63` (X-17) |
+
+### Cross items (iteration 3 re-issue 1, for the lead SE; not findings on the note)
+
+- **X-16 (escalation).** This is the third author-review iteration on the WP-PDR-20a product (record iterations 2, 3 and 3 re-issue 1), and the verdict is NEEDS CHANGES. Under 07 section 10.2 (Completion criteria: "up to three author-review iterations per file, then escalation to the owner") the software lead escalates to the owner. The finding-13 option decision already goes to her (X-15). The finding-16 fix is text and one checker case, so the lead SE may put both on the same owner sheet.
+- **X-17.** INSP-056 approved revision 3 at `9dc9d63`. Revision 4 changed the note after that verdict, to fix this record's Major. Section 3.5 is analysis content (budget, worst case), and the INSP-056 analysis items apply to it. The lead SE decides whether INSP-056 runs a delta on `d030ce2` (or on the finding-16 re-freeze). Neither record can be APPROVED until both name the same product commit.
+- **X-15 (updated).** The owner-sheet text for the section 3.5 decision should come from the finding-16 fix. It should say that option (c) guards later calibration values but not a wrong first calibration unless one of the named checks is added, and give the uncalibrated-unit result (finding-17).
+- **X-14 (still applies).** finding-16, 17 and 18 change no pin, no timing value and no section 3.4 result. Under the owner's direction that work runs continuously and starts as soon as its inputs allow (status note 2026-09-29 section 8), WP-PDR-32 and 36a can go on using section 3.4 now. WP-PDR-35 holds only the calibration-value requirement, which the note already holds open.
+
+### Commands (iteration 3 re-issue 1)
+
+- `git rev-parse d030ce2:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` for the thirteen product files: equal (13 of 13). `git merge-base --is-ancestor d030ce2 main`: true. `git log --oneline ac9cd1a..HEAD`: empty (HEAD is `ac9cd1a`). The five revision 3 PNGs in `r3a5-20260929-03` have the same blobs as in `r3a5-20260929-02`. `cmp` of the script copy against `r3_a5.py`: equal.
+- `git archive d030ce2 hardware/sim docs/design/analysis | tar -x -C <scratchpad>/exp4`, then `.venv/bin/python hardware/sim/freq/r3_a5.py --run-id sa-rerun4` there: exit 0, 4.6 s, "RESULT: 43 pass, 0 fail, 24 info". `checker-output.txt` with the run id normalized: identical. `results.json`: differs only at the `run_id` line. `freq_budget.py` in the same export: "RESULT: 35 pass, 0 fail".
+- `grep -vE 'KA-R5|KA-R6|RB-'` on the new `checker-output.txt`, then `diff` against `r3a5-20260929-02/checker-output.txt`: only the RESULT line differs. `git diff 9dc9d63 d030ce2 -- hardware/sim/freq/r3_a5.py`: 229 insertions and 5 deletions. The deletions are two docstring lines, the run-id line and the `buffer_lines()` tolerance line (finding-18).
+- Exact-fraction Python in the shell for the verification table, finding-16 and finding-17: G-6 2.97300 ppm; RB-1 +40.4 / -33.6 Hz; RB-2 -92.8, -166.8, -181.6, -255.6 Hz; RB-3 +144.0 Hz; RB-4 +55.2 Hz; RB-6a +84.8 Hz; RB-6c +10.8 Hz; delta limit 0.97300 ppm. The iteration 3 double count comes out at 97.80 Hz. Option (b) uncalibrated: +266.4 Hz (1.5 kHz, pp), +240.4 Hz (1.4 kHz, ref25) and +166.4 Hz (1.4 kHz, pp). 9 740 Hz / 147.9988 MHz = 65.8 ppm.
+- Reviewer plot: `.venv/bin/python <scratchpad>/opt_c.py <scratchpad>/insp111-iter4-option-c.png`. Printed margins: e_f 0 → +144.0 / +10.8 Hz; 0.972 → +0.1 / -133.1 Hz; 2.7 → -255.6 / -388.8 Hz.
+- `.venv/bin/python tools/check_commit_msg.py --range 23e2388..ac9cd1a`: 25 commits, PASS (`d030ce2` rows 24, 49; `ac9cd1a` row 33).
+- `.venv/bin/python tools/validate_docs.py` and `.venv/bin/python tools/traceability.py --report-only --output <scratchpad>/traceability-report.md`. The first `validate_docs.py` run failed this record on `iteration: 4` (schema maximum 3), so the delta is filed as iteration 3 re-issue 1, as INSP-056 files its WP-PDR-20a deltas. The re-run gave 117 passed, 0 failed, 117 checked, this record PASS. Traceability: "245 requirements, 173 test cases, 0 violation(s), 2 warning(s)" (REQ-SYS-125 and REQ-SYS-148, not touched by the note); `git status docs/vv` clean afterwards.
+
+### Visual closure (iteration 3 re-issue 1)
+
+- `reference-budget-a5.png` (new, blob `a16ed5d1`), opened with the Read tool before this record cites it.
+  - Left panel: ten bars of reference error against the dotted 1.5 ppm R-M3 line, the dashed 2.5 ppm line and the red 2.972 ppm G-6 line. Four bars are red: no calibration on pp 3.200, and the four wrong-constant cases 3.600, 4.100, 4.200, 4.700.
+  - Right panel: margins +84.8, +144.0, +55.2, +40.4, -33.6, +10.8, -92.8, -166.8, -181.6 and -255.6 Hz. As RB-1 to RB-6c.
+  - The bar for a +1.5 ppm unit held at +/-0.9 ppm (2.600) is green, because the colour is set by the band edge. Its REQ-SYS-010 excess shows only as the bar crossing the dashed line, as RB-4 says.
+  - There is no bar for a wrong factory value under option (c) (finding-16).
+- The finding-16 reviewer plot was opened after each render. Two changes followed inspection: the marker was moved from 1.5 to 2.7 ppm, since an absolute +/-1.5 ppm bound allows an error up to the RB-2 total, and the legend was moved off a label.
+- The five other figures have the same blobs as iteration 3 and were not re-opened.
+
+### Measurements (iteration 3 re-issue 1)
+
+Tasks in the table: 15, all applied, none N/A. Tasks answered No: 5. Checklist items answered No: 3 (SA-C-g, SA-D1, SA-D6). SWE-134 items checked: 4 (c, g, h, k). Findings: finding-13 Verified, finding-7 unchanged Verified; new findings 1 Major and 2 Minor, all Open. Record totals: 3 Major (2 Verified, 1 Open) and 15 Minor (all Open). Renders inspected: 2 (one product figure, one reviewer plot). Effort: about 40 turns and 75 minutes.
+
+### Verdict (iteration 3 re-issue 1)
+
+```
+ASSURANCE VERDICT: NEEDS CHANGES
+PRODUCT: docs/design/analysis/frequency-budget.md@28c29b8a with r3_a5.py@a907344b, run r3a5-20260929-03 (6 figures) and README@6af50391, at d030ce2; PAIRED RECORD: INSP-056
+FINDINGS:
+- [Major] finding-13 Verified: section 3.5 gives the A5 reference budget; the +/-0.9 ppm bound, the K4 bound and the REQ-SYS-010 "No" are held open for A5 and the choice goes to the owner. The author's 5.0 Hz correction is confirmed (92.8, 181.6 Hz and 55.2 Hz).
+- [Major] finding-16 Open: option (c) bounds a calibration value only against the stored factory value, which itself has no bound or independent check; the WP-PDR-35 text drops the absolute bound, and the owner is told all three options keep the band edge safe.
+- [Minor] finding-17 Open: "no transmission without a valid constant under every option" is wrong for option (b), and the owner text omits the uncalibrated-unit result.
+- [Minor] finding-18 Open: BL-1's tolerance changed from 2.5 to 1.5 ppm in code while its printed line still says 2.5 ppm.
+- [Major] finding-7 Verified (unchanged). [Minor] finding-1 to finding-6, finding-8 to finding-12, finding-14, finding-15 Open (not re-reviewed).
+RECORD VERDICT: NEEDS CHANGES (open Major; third author-review iteration, escalation to the owner under 07 section 10.2, X-16; held in any case until INSP-056 names the same product commit and CR-012 merges with the template blob unchanged)
+```
