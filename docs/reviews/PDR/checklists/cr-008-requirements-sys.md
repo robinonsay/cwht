@@ -461,6 +461,13 @@ MEASUREMENTS (iteration 2): hunks=5 (2 + 5 read across the two commits); files_c
 
 Sections 1 to 4, 6.1 and 6.2, and every section 5 cell other than the three Done cells, are byte-identical between `5e6ceb62` and `aa65e826`. The diff has no hunk there.
 
+### Findings at the re-pin delta
+
+| Finding | Severity | State | Basis |
+|---|---|---|---|
+| finding-1 | Minor | Lien (rule C1; due at the CDR readiness declaration) | Was Open. CR-008 was dispositioned Approved on 2026-09-28 without a revision, and section 7 accepts the section 6 Minors as liens |
+| finding-2 | Minor | Open (fix before the merge; record text only) | New at this delta: CR-008 section 10 "Owner merge approval" against section 9 item (d) and plan OD-43 at S1 (findings table) |
+
 ### Items revisited
 
 | Item | Answer at this delta | Evidence |
