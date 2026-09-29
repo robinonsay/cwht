@@ -17,17 +17,18 @@ Owner of the block: Claude (analysis author invocation, 2026-09-28). Analysis re
 | `cascade.py` | NF, gain and MDS cascade (revision 2: TC-SYS-017 corner losses, J310 port case, TPM-005 thresholds); half-IF referral; verdicts; plots. Exit 1 when REQ-SYS-022 fails at the corner for the proposed configuration |
 | `bpf_nodal.py` | Numpy nodal AC solver that parses the same netlist lines as the decks (search tool of revision 2; agreement with LTspice checked in r07) |
 | `tolerance.py` | Tolerance boxes (modes A and B), alignment models (none, aligned at 50 ohm, aligned in circuit), port model, vertex corner search, binomial bounds |
-| `worst_case.py` | Revision 2 runs r08 (Monte Carlo 20,000 and worst-case corners), r09 (J310 port impedances, VSWR design input), r10 (leakage at the corners): `prepare` writes the decks, `check` reads the LTspice `.raw`, compares with the numpy prediction (0.01 dB) and plots. Exit 1 when the proposed 2 + 3 + 3 fails its acceptance |
+| `worst_case.py` | Revision 2 runs r08 (Monte Carlo 20,000 and worst-case corners), r09 (J310 port impedances, VSWR design input), r10 (leakage at the corners), and revision 3 run r12 (alignment residual limit at the design-input corner): `prepare` writes the decks, `check` reads the LTspice `.raw`, compares with the numpy prediction (0.01 dB) and plots. Exit 1 when the proposed 2 + 3 + 3 fails its acceptance |
 | `validate_nodal.py` | Run r07: numpy solver against every step of r01 to r04 (acceptance 0.01 dB) |
 
 Reproduce (revision 1): `.venv/bin/python hardware/sim/rx-frontend/make_decks.py`, then `run_sims.py`, then
 `check_bpf.py results/<run-id>` for r01 to r04, `check_halfif.py results/2026-09-28-r05-halfif-mixers`.
 Revision 2: `validate_nodal.py` (r07); `worst_case.py prepare r08`, `run_sims.py 2026-09-28-r08-bpf-tolerance-corners`,
 `worst_case.py check r08`, and the same for r09 and r10; then `cascade.py` (writes r11; r06 keeps the revision 1 script).
+Revision 3: `worst_case.py prepare r12` (about 17 minutes on 12 processes), `run_sims.py 2026-09-28-r12-bpf-residual-design-input`, `worst_case.py check r12`.
 
 Exit statuses (review finding 4): `check_bpf.py` exits 1 on any REQ-SYS-033 FAIL in its run, so r01, r02 and r03 exit 1
 by design (the TS-012 2 + 3 filter, and 2 + 3 + 2 at IF 8, fail); r04 exits 0. `worst_case.py check` exits 0 for r08,
-r09 and r10 (the proposed 2 + 3 + 3 meets each run's acceptance, with the margins below). `cascade.py` exits 1:
+r09, r10 and r12 (the proposed 2 + 3 + 3 meets each run's acceptance, with the margins below; in r12 only up to a residual of +/-0.32 %). `cascade.py` exits 1:
 REQ-SYS-022 fails at the TC-SYS-017 corner. `validate_nodal.py` exits 0.
 
 ## Runs
@@ -44,6 +45,7 @@ REQ-SYS-022 fails at the TC-SYS-017 corner. `validate_nodal.py` exits 0.
 | `results/2026-09-28-r08-bpf-tolerance-corners/` | Finding 1. Numpy Monte Carlo 20,000 runs and the worst-case corner (vertex search plus interior check) of each tolerance box, for 2+3, 2+3+3, 2+3+4 (IF 8) and 2+3+2 (IF 10); modes A and B; revision 1 model (no re-alignment) and aligned at 50 ohm; every corner re-simulated in LTspice; LTspice Monte Carlo 1,000 runs of 2+3+3 | 2+3+3 at IF 8, worst-case corner: mode A 49.1 dB (**FAIL**; 0.32 % of 20,000 builds below 70 dB) and mode B 67.2 dB (**FAIL**) without re-alignment; aligned at 50 ohm: mode A 70.1 dB, mode B **75.6 dB (PASS)**. 2+3+4: 91.4 dB. 2+3+2 IF 10: 78.9 dB. LTspice agrees with every numpy corner to 0.01 dB |
 | `results/2026-09-28-r09-bpf-port-impedance/` | Finding 2. Sections between MMBFJ310 port impedances (input 56 to 125 ohm, 5 pF; drain 50 to 200 ohm, 2.5 pF) and on VSWR circles; LTspice re-simulation of the named cases | 2+3+3 mode B corner with datasheet J310 ports: down to 68.0 dB (aligned at 50) and 61.3 dB (aligned in circuit): **FAIL**. Design input every internal port VSWR 1.2 or better: 72.1 dB (PASS). BPF1 into 125 ohm: +0.63 dB loss at Q 120 |
 | `results/2026-09-28-r10-bpf-leakage-corner/` | Finding 5. Stray C per section with a worst-phase bound at nominal, at the mode B corner and at the design-input corner (VSWR 1.2); LTspice at SGN +1 and -1 | 2+3+3 design-input corner with 0.03 pF per section: **70.2 dB, PASS by 0.2 dB**; 0.1 pF gives 66.4 dB (FAIL). 2+3+4: 80.1 dB. 2+3+2 IF 10: 72.5 dB |
+| `results/2026-09-28-r12-bpf-residual-design-input/` | Review iteration 2, finding 6. Alignment residual swept +/-0.05 to +/-1.5 % at the 50 ohm, VSWR 1.2 and design-input corners (mode B, aligned at 50 ohm, VSWR 1.2 ports, 0.03 pF per section, worst phase); bisection of the residual that holds 70 dB; LTspice at the limit, +/-0.3 % and +/-0.75 % | 2+3+3 design-input corner: 70.19 dB at +/-0.3 % (estimate), **limit +/-0.32 %** (0.87 dB per 0.1 %), 65.96 dB at +/-0.75 % (**FAIL**; the revision 2 limit of +/-0.75 % is withdrawn). Limits: 2+3+2 IF 10 +/-0.68 % (69.53 dB at +/-0.75 %, FAIL), 2+3+4 +/-0.97 % (73.64 dB at +/-0.75 %). LTspice agrees on 18 cases (3.6e-4 dB) |
 | `results/2026-09-28-r11-cascade-tpm005/` | Findings 2 and 3. Cascade with TC-SYS-017 corner losses (mode B vertices, Q 100, ports VSWR 1.2), a J310 port case, TPM-005 thresholds | 2+3+3 with the ring: MDS -141.2 nominal (TPM-005 Yellow), -140.6 J310 port (Yellow), **-138.0 corner (REQ-SYS-022 FAIL, Yellow)**, -133.7 stack (Red). No configuration meets the TPM-005 PDR margin policy of -142 dBm |
 
 Superseded attempts are not kept: the first r01 to r05 outputs of 2026-09-28 used a capacitive leakage model with one
@@ -54,6 +56,9 @@ Failed JFET cases keep their LTspice log gzip-compressed (`*.log.gz`, the logs a
 
 - Revision 2 alignment model: each resonator re-tuned after assembly (Dishal node resonance, 50 ohm ports) with a
   +/-0.3 % residual (estimate); the review showed that without re-alignment the mode B corner fails (67.2 dB).
+  The residual that holds 70 dB at the design-input corner is at most +/-0.32 % for 2 + 3 + 3 (r12; +/-0.68 % for
+  2 + 3 + 2 at IF 10, +/-0.97 % for 2 + 3 + 4), so the +/-0.3 % estimate leaves 0.02 % of headroom; the achieved
+  residual is not measured.
 - J310 ports are modelled as a shunt R and C per port from datasheet values; no J310 stage was simulated.
 
 - Ideal isolation between sections (the J310 stages are not simulated; their tuned-drain selectivity is not credited).
