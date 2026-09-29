@@ -1,0 +1,2 @@
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=lpf_r11.cir sha256=651467dfe7db1668efa8dcd34a9af706344d4b094752e1334b329db1f0e33228 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=6s outputs=[lpf_r11.db lpf_r11.log lpf_r11.log.raw lpf_r11.op.raw lpf_r11.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-lpf/results/2026-09-28-r11-wc-1812sms-retuned

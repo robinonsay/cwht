@@ -254,8 +254,10 @@
     }
   },
   "scripts_sha256": {
-    "run_lpf.py": "487dd5d0a6cc113063cc3a03f51d94b27569692995082e450ab12bd03a4e7a48",
-    "lpf_model.py": "16c771db9ef4886d4bdda34d6db8f6fd9e9179fbcb00b2319b73e2125cfca720",
-    "retune_screen.py": "5f5071cf7c96a3ec189e8ed9d24cfdcea0c301fc7bee8aaa078ddc6c448dd541"
+    "run_lpf.py": "4edbc81239bdb554150afff78f3c309bf7d689b55cf1f86965fd07137d4d0957",
+    "lpf_model.py": "ede49dd19fb31cf9d2be3ac8e1e9d419cf859fbbc0532149664ce15ed4e211fa",
+    "retune_screen.py": "5f5071cf7c96a3ec189e8ed9d24cfdcea0c301fc7bee8aaa078ddc6c448dd541",
+    "lpf_nodal.py": "82f3b67c7787a7e5c503631a7b406df3b02f117a1497c6879597338d81b5e7b7",
+    "worst_case.py": "6025b7c5e4a4425136f0e545601ed1709bffe90d1c9a6e9e89aaf1c6516899af"
   }
 }

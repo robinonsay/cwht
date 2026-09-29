@@ -1,0 +1,2359 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.hU1Dkb/lpf_r12.cir
+Start Time: Mon Sep 28 19:59:39 2026
+
+.step run=1
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=3
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=4
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=5
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=6
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=7
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=8
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=9
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=10
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=11
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=12
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=13
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=14
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=15
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=16
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=17
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=18
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=19
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=20
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=21
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=22
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=23
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=24
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=25
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=26
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=27
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=28
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=29
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=30
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=31
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=32
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=33
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=34
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=35
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=36
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=37
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=38
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=39
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=40
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=41
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=42
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=43
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=44
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=45
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=46
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=47
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=48
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=49
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=50
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=51
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=52
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=53
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=54
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=55
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=56
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=57
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=58
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=59
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=60
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=61
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=62
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=63
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=64
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=65
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=66
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=67
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=68
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=69
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=70
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=71
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=72
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=73
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=74
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=75
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=76
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=77
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=78
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=79
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=80
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=81
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=82
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=83
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=84
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=85
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=86
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=87
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=88
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=89
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=90
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=91
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=92
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=93
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=94
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=95
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=96
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=97
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=98
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=99
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=100
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=101
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=102
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=103
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=104
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=105
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=106
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=107
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=108
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=109
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=110
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=111
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=112
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=113
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=114
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=115
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=116
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=117
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=118
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=119
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=120
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=121
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=122
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=123
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=124
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=125
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=126
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=127
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=128
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=129
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=130
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=131
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=132
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=133
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=134
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=135
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=136
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=137
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=138
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=139
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=140
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=141
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=142
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=143
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=144
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=145
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=146
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=147
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=148
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=149
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=150
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=151
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=152
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=153
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=154
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=155
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=156
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=157
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=158
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=159
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=160
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=161
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=162
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=163
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=164
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=165
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=166
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=167
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=168
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=169
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=170
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=171
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=172
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=173
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=174
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=175
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=176
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=177
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=178
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=179
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=180
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=181
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=182
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=183
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=184
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=185
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=186
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=187
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=188
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=189
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=190
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=191
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=192
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=193
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=194
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=195
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=196
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=197
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=198
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=199
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=200
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=201
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=202
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=203
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=204
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=205
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=206
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=207
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=208
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=209
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=210
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=211
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=212
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=213
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=214
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=215
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=216
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=217
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=218
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=219
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=220
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=221
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=222
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=223
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=224
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=225
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=226
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=227
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=228
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=229
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=230
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=231
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=232
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=233
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=234
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=235
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=236
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=237
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=238
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=239
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=240
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=241
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=242
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=243
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=244
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=245
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=246
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=247
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=248
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=249
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=250
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=251
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=252
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=253
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=254
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=255
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=256
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=257
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=258
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=259
+.OP point found by inspection.
+.OP point found by inspection.
+Total elapsed time: 2.789 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.hU1Dkb/lpf_r12.cir
+
+
+Measurement: s21_146
+  step	V(out_m) 	at
+     1	(-0.295487016403dB,84.6730747653°)	146000000
+     2	(-0.387396743678dB,53.4404347354°)	146000000
+     3	(-0.471153965388dB,66.7776208235°)	146000000
+     4	(-0.355037920873dB,64.8354079565°)	146000000
+     5	(-0.416822948395dB,68.7050596658°)	146000000
+     6	(-0.379160100944dB,67.9244804547°)	146000000
+     7	(-0.495612488577dB,72.0770451403°)	146000000
+     8	(-0.356750403802dB,66.5796378978°)	146000000
+     9	(-0.452475777485dB,62.2896362584°)	146000000
+    10	(-0.452453398185dB,65.5411487066°)	146000000
+    11	(-0.46594487747dB,65.6243757673°)	146000000
+    12	(-0.43389017567dB,69.4865441989°)	146000000
+    13	(-0.351009747388dB,64.873868362°)	146000000
+    14	(-0.435828723184dB,70.5639993797°)	146000000
+    15	(-0.454173078709dB,64.8672226709°)	146000000
+    16	(-0.347929443695dB,71.6355943729°)	146000000
+    17	(-0.332815424619dB,66.3051552662°)	146000000
+    18	(-0.468661242867dB,62.873063509°)	146000000
+    19	(-0.438447133706dB,72.2900261809°)	146000000
+    20	(-0.423768562514dB,68.6836652923°)	146000000
+    21	(-0.387288399559dB,66.7617481196°)	146000000
+    22	(-0.372802293038dB,74.3847671923°)	146000000
+    23	(-0.481613112187dB,66.2510639198°)	146000000
+    24	(-0.344508609417dB,67.5738499884°)	146000000
+    25	(-0.43618178012dB,77.1755028138°)	146000000
+    26	(-0.409912386818dB,66.6524282205°)	146000000
+    27	(-0.402427986366dB,73.5631943187°)	146000000
+    28	(-0.456428603203dB,69.0314375079°)	146000000
+    29	(-0.479660141797dB,70.5388690651°)	146000000
+    30	(-0.490296399574dB,75.2501739689°)	146000000
+    31	(-0.379297169983dB,69.0444309487°)	146000000
+    32	(-0.444635682229dB,71.9087685249°)	146000000
+    33	(-0.490238613972dB,70.7386046919°)	146000000
+    34	(-0.408304264343dB,62.9112967011°)	146000000
+    35	(-0.39385431702dB,69.3393437304°)	146000000
+    36	(-0.345652075717dB,67.7219157549°)	146000000
+    37	(-0.347581868409dB,69.0151384115°)	146000000
+    38	(-0.562920821854dB,68.7729807969°)	146000000
+    39	(-0.447929719119dB,67.0225866233°)	146000000
+    40	(-0.493877981223dB,67.0748909273°)	146000000
+    41	(-0.446520664225dB,61.9477903444°)	146000000
+    42	(-0.406879286659dB,66.738467013°)	146000000
+    43	(-0.550257680398dB,70.1793176703°)	146000000
+    44	(-0.419027988249dB,70.0159616177°)	146000000
+    45	(-0.460437665959dB,69.7553574044°)	146000000
+    46	(-0.416064968625dB,66.1683635051°)	146000000
+    47	(-0.370386530401dB,67.0754357346°)	146000000
+    48	(-0.514833586049dB,66.3670478611°)	146000000
+    49	(-0.378909333521dB,65.3054319962°)	146000000
+    50	(-0.492069636411dB,63.4922648649°)	146000000
+    51	(-0.493104058544dB,66.8125309376°)	146000000
+    52	(-0.542895105338dB,65.9031021958°)	146000000
+    53	(-0.465588665576dB,67.7210690688°)	146000000
+    54	(-0.396229106085dB,69.5074323341°)	146000000
+    55	(-0.480318448639dB,67.3235735459°)	146000000
+    56	(-0.493928955872dB,68.9920163284°)	146000000
+    57	(-0.462111174614dB,71.805805487°)	146000000
+    58	(-0.371795614058dB,65.2226745027°)	146000000
+    59	(-0.453336095857dB,65.4681889076°)	146000000
+    60	(-0.430990415695dB,70.6629015014°)	146000000
+    61	(-0.462703571628dB,65.822991066°)	146000000
+    62	(-0.472639947218dB,69.9882397161°)	146000000
+    63	(-0.432899765479dB,63.6437774862°)	146000000
+    64	(-0.40576416643dB,65.5128403539°)	146000000
+    65	(-0.379627565396dB,73.3058352322°)	146000000
+    66	(-0.404509689433dB,71.2028193412°)	146000000
+    67	(-0.432993672766dB,65.5481446874°)	146000000
+    68	(-0.450110919312dB,64.6748741484°)	146000000
+    69	(-0.352053086604dB,69.3027666271°)	146000000
+    70	(-0.409886534319dB,71.7474311446°)	146000000
+    71	(-0.345159534913dB,71.4983288158°)	146000000
+    72	(-0.360176966472dB,53.8339079601°)	146000000
+    73	(-0.296252409181dB,77.4751840747°)	146000000
+    74	(-0.450022547789dB,73.1812799732°)	146000000
+    75	(-0.455616236247dB,68.3542812161°)	146000000
+    76	(-0.465190529862dB,70.1768558055°)	146000000
+    77	(-0.441836927871dB,70.4124781416°)	146000000
+    78	(-0.425626099665dB,68.3061838804°)	146000000
+    79	(-0.51003984506dB,65.5851587978°)	146000000
+    80	(-0.343747472139dB,70.7759690054°)	146000000
+    81	(-0.514084521042dB,70.8284260183°)	146000000
+    82	(-0.441480522474dB,68.7124271814°)	146000000
+    83	(-0.314766651329dB,69.5937123681°)	146000000
+    84	(-0.423167782158dB,65.6812831407°)	146000000
+    85	(-0.484942802523dB,68.0682816271°)	146000000
+    86	(-0.536973191428dB,62.5365676621°)	146000000
+    87	(-0.420016429129dB,72.3676250833°)	146000000
+    88	(-0.474111613905dB,64.8843349675°)	146000000
+    89	(-0.461519504566dB,67.922940362°)	146000000
+    90	(-0.424498514679dB,64.3084815499°)	146000000
+    91	(-0.405052006895dB,67.7762689502°)	146000000
+    92	(-0.352001115107dB,71.326645267°)	146000000
+    93	(-0.613927481855dB,67.2113128705°)	146000000
+    94	(-0.288344974325dB,73.0684520695°)	146000000
+    95	(-0.483872618329dB,69.6600548312°)	146000000
+    96	(-0.420240846784dB,63.5489947234°)	146000000
+    97	(-0.506191457409dB,68.5036389769°)	146000000
+    98	(-0.4898229769dB,66.8875815346°)	146000000
+    99	(-0.39940003556dB,67.1128677896°)	146000000
+   100	(-0.361603007183dB,70.5213227913°)	146000000
+   101	(-0.385921941838dB,71.7738089741°)	146000000
+   102	(-0.479933110486dB,69.7948847134°)	146000000
+   103	(-0.635498581543dB,64.5457332751°)	146000000
+   104	(-0.445564529134dB,73.4737176986°)	146000000
+   105	(-0.448853957812dB,68.4668944024°)	146000000
+   106	(-0.457408604793dB,75.0659719648°)	146000000
+   107	(-0.292533034307dB,63.495824704°)	146000000
+   108	(-0.487064892189dB,65.1404305077°)	146000000
+   109	(-0.301483270085dB,69.2923894178°)	146000000
+   110	(-0.595265880871dB,67.9551295466°)	146000000
+   111	(-0.399480296162dB,71.2439460963°)	146000000
+   112	(-0.345569387594dB,69.9552623136°)	146000000
+   113	(-0.520219931263dB,71.4343728649°)	146000000
+   114	(-0.369896540663dB,64.6818773213°)	146000000
+   115	(-0.384860104894dB,68.431347098°)	146000000
+   116	(-0.474117528029dB,74.3728031805°)	146000000
+   117	(-0.435245808152dB,72.547684303°)	146000000
+   118	(-0.399515446447dB,69.0977648612°)	146000000
+   119	(-0.435881816819dB,66.1131280211°)	146000000
+   120	(-0.497363463745dB,63.8075718135°)	146000000
+   121	(-0.511597368606dB,54.7948647342°)	146000000
+   122	(-0.583742396672dB,65.9048929348°)	146000000
+   123	(-0.396146793787dB,66.0955998591°)	146000000
+   124	(-0.355845668852dB,70.1262499217°)	146000000
+   125	(-0.381397204329dB,75.4992962942°)	146000000
+   126	(-0.44751622426dB,65.671304735°)	146000000
+   127	(-0.503282289815dB,68.5311875537°)	146000000
+   128	(-0.434176429498dB,66.1224789289°)	146000000
+   129	(-0.519899385713dB,71.9182631583°)	146000000
+   130	(-0.394585469579dB,77.3403798731°)	146000000
+   131	(-0.453719658638dB,66.2236054261°)	146000000
+   132	(-0.441958805075dB,66.9186182268°)	146000000
+   133	(-0.3795149226dB,67.6234579186°)	146000000
+   134	(-0.394694417918dB,69.1702665394°)	146000000
+   135	(-0.49481032871dB,62.8753017936°)	146000000
+   136	(-0.341127218251dB,67.3413416238°)	146000000
+   137	(-0.283643697733dB,71.6220182665°)	146000000
+   138	(-0.587799990125dB,60.4634811803°)	146000000
+   139	(-0.368939074291dB,72.5552847436°)	146000000
+   140	(-0.495359277797dB,70.5074780088°)	146000000
+   141	(-0.412328218083dB,69.6570042955°)	146000000
+   142	(-0.4958468063dB,64.8183202116°)	146000000
+   143	(-0.548913436386dB,61.3175107342°)	146000000
+   144	(-0.465232872722dB,73.2722958673°)	146000000
+   145	(-0.425029190585dB,69.0249634439°)	146000000
+   146	(-0.472533281311dB,68.6149700333°)	146000000
+   147	(-0.427873184586dB,66.2147876477°)	146000000
+   148	(-0.317590016275dB,74.2513665392°)	146000000
+   149	(-0.447041587532dB,72.8253422138°)	146000000
+   150	(-0.357955265919dB,76.9589972367°)	146000000
+   151	(-0.338489079523dB,64.0834073653°)	146000000
+   152	(-0.484224812453dB,64.5585306382°)	146000000
+   153	(-0.339534023219dB,73.8636017392°)	146000000
+   154	(-0.389926431464dB,71.1048937878°)	146000000
+   155	(-0.398726951447dB,66.3985801173°)	146000000
+   156	(-0.354756731188dB,72.5081747773°)	146000000
+   157	(-0.494179089937dB,79.6616133217°)	146000000
+   158	(-0.348652836214dB,66.4160625028°)	146000000
+   159	(-0.372913794138dB,71.4512162052°)	146000000
+   160	(-0.434439692042dB,69.8101570589°)	146000000
+   161	(-0.48620651448dB,75.1516161406°)	146000000
+   162	(-0.468031887968dB,65.5681179987°)	146000000
+   163	(-0.420702693492dB,73.0904192847°)	146000000
+   164	(-0.464084122272dB,68.3025564552°)	146000000
+   165	(-0.512272593406dB,74.418725863°)	146000000
+   166	(-0.519531456759dB,69.0147240923°)	146000000
+   167	(-0.379734243971dB,71.6313584311°)	146000000
+   168	(-0.488788708684dB,63.1715806846°)	146000000
+   169	(-0.366335060858dB,76.6665406981°)	146000000
+   170	(-0.284867818767dB,72.5750678972°)	146000000
+   171	(-0.451702201821dB,63.9997201655°)	146000000
+   172	(-0.429574679299dB,74.7965068888°)	146000000
+   173	(-0.401387885491dB,72.3039231456°)	146000000
+   174	(-0.51923565718dB,64.8708194123°)	146000000
+   175	(-0.458077813463dB,66.668094563°)	146000000
+   176	(-0.408379611981dB,70.0964824563°)	146000000
+   177	(-0.38724387908dB,75.2684613147°)	146000000
+   178	(-0.301157511431dB,71.3876412827°)	146000000
+   179	(-0.422958253952dB,73.8710130882°)	146000000
+   180	(-0.467802986232dB,72.0783650907°)	146000000
+   181	(-0.422378552814dB,69.6534408127°)	146000000
+   182	(-0.386763752567dB,68.6423253887°)	146000000
+   183	(-0.520598037822dB,70.3944276949°)	146000000
+   184	(-0.451174534263dB,62.6091186566°)	146000000
+   185	(-0.327381079482dB,68.3721925175°)	146000000
+   186	(-0.381039148196dB,71.0695619734°)	146000000
+   187	(-0.419072151582dB,64.3215419031°)	146000000
+   188	(-0.389300770494dB,67.74329743°)	146000000
+   189	(-0.35298462142dB,76.2404446603°)	146000000
+   190	(-0.444161306826dB,65.9269653895°)	146000000
+   191	(-0.38991261371dB,62.2311592823°)	146000000
+   192	(-0.464018670275dB,66.3002403919°)	146000000
+   193	(-0.482449154522dB,65.4057427496°)	146000000
+   194	(-0.343112295804dB,68.8988034405°)	146000000
+   195	(-0.381485309006dB,73.0219072653°)	146000000
+   196	(-0.493075234291dB,73.7788314867°)	146000000
+   197	(-0.477479695626dB,67.2975510601°)	146000000
+   198	(-0.472107602343dB,66.4445235149°)	146000000
+   199	(-0.565602003045dB,65.0918891739°)	146000000
+   200	(-0.449587035162dB,76.0590228755°)	146000000
+   201	(-0.413770251265dB,73.6880323703°)	146000000
+   202	(-0.484432603233dB,69.0559177193°)	146000000
+   203	(-0.39633840473dB,74.4445700357°)	146000000
+   204	(-0.41596838598dB,61.8147464534°)	146000000
+   205	(-0.406926555588dB,64.9534955809°)	146000000
+   206	(-0.432733061497dB,69.4597919898°)	146000000
+   207	(-0.490933093597dB,67.2140304953°)	146000000
+   208	(-0.526283770971dB,64.6603704913°)	146000000
+   209	(-0.392374042497dB,65.0071010056°)	146000000
+   210	(-0.329536106478dB,74.4019253637°)	146000000
+   211	(-0.486894145287dB,62.193915728°)	146000000
+   212	(-0.469460699262dB,59.9223419862°)	146000000
+   213	(-0.311555470586dB,71.6446011871°)	146000000
+   214	(-0.410404677438dB,59.8984826592°)	146000000
+   215	(-0.481688557886dB,62.7860471162°)	146000000
+   216	(-0.38064732945dB,70.2403788052°)	146000000
+   217	(-0.405267219604dB,62.561490083°)	146000000
+   218	(-0.4541999605dB,68.4341007409°)	146000000
+   219	(-0.414026209262dB,73.5604624498°)	146000000
+   220	(-0.375240012041dB,65.3460501002°)	146000000
+   221	(-0.427332220347dB,73.6287681274°)	146000000
+   222	(-0.416098588007dB,69.4040904251°)	146000000
+   223	(-0.477208745552dB,65.0217316905°)	146000000
+   224	(-0.422886586259dB,70.7804338858°)	146000000
+   225	(-0.428829441667dB,63.2675311082°)	146000000
+   226	(-0.397110705406dB,63.7054531751°)	146000000
+   227	(-0.448037447012dB,76.1927735166°)	146000000
+   228	(-0.382933394546dB,66.7867217056°)	146000000
+   229	(-0.412404869938dB,68.3405090825°)	146000000
+   230	(-0.337201985633dB,73.237816795°)	146000000
+   231	(-0.422465954835dB,69.7479447477°)	146000000
+   232	(-0.431437741979dB,67.3744756901°)	146000000
+   233	(-0.464069110295dB,67.0092061623°)	146000000
+   234	(-0.359499013806dB,66.1215992316°)	146000000
+   235	(-0.496249637524dB,69.313118572°)	146000000
+   236	(-0.38950355854dB,69.9402709132°)	146000000
+   237	(-0.42315751484dB,69.262887181°)	146000000
+   238	(-0.338082070713dB,66.0989434666°)	146000000
+   239	(-0.413034051374dB,67.4518744071°)	146000000
+   240	(-0.444035124452dB,65.796872381°)	146000000
+   241	(-0.327556847183dB,76.5617198994°)	146000000
+   242	(-0.40257975095dB,72.7590107001°)	146000000
+   243	(-0.378384250055dB,73.9381334049°)	146000000
+   244	(-0.397036023697dB,70.593102495°)	146000000
+   245	(-0.509247473087dB,71.4618903323°)	146000000
+   246	(-0.383475307706dB,67.3954261112°)	146000000
+   247	(-0.51006151657dB,68.4106368363°)	146000000
+   248	(-0.406507137668dB,72.2582091422°)	146000000
+   249	(-0.497942275327dB,60.0860238007°)	146000000
+   250	(-0.349367366512dB,71.8772724079°)	146000000
+   251	(-0.431286205361dB,66.1664973444°)	146000000
+   252	(-0.406203440591dB,64.9756143106°)	146000000
+   253	(-1.46488507221dB,64.311495123°)	146000000
+   254	(-0.184473446351dB,91.6194317031°)	146000000
+   255	(-0.184473446351dB,91.6194317031°)	146000000
+   256	(-0.28472427988dB,52.2471117348°)	146000000
+   257	(-0.417371772896dB,91.6499551649°)	146000000
+   258	(-0.417371772896dB,91.6499551649°)	146000000
+   259	(-0.818548895678dB,46.6757712271°)	146000000
+
+Measurement: s21_148
+  step	V(out_m) 	at
+     1	(-0.308442593538dB,79.5464711242°)	148000000
+     2	(-0.403266013988dB,47.2078254954°)	148000000
+     3	(-0.495490807127dB,60.7728583067°)	148000000
+     4	(-0.368111440364dB,58.7330233818°)	148000000
+     5	(-0.439563641397dB,63.2280375334°)	148000000
+     6	(-0.399942592316dB,62.3519045522°)	148000000
+     7	(-0.530099150362dB,66.6059280758°)	148000000
+     8	(-0.374014562566dB,60.4789851163°)	148000000
+     9	(-0.471733989231dB,56.0004195886°)	148000000
+    10	(-0.475228434989dB,59.3848205555°)	148000000
+    11	(-0.487066202377dB,59.851417708°)	148000000
+    12	(-0.456765381663dB,63.5473470404°)	148000000
+    13	(-0.366463054693dB,58.858244879°)	148000000
+    14	(-0.455154668717dB,64.7183047626°)	148000000
+    15	(-0.474326387531dB,58.893082433°)	148000000
+    16	(-0.363014619435dB,66.0080545981°)	148000000
+    17	(-0.347203911039dB,60.67409486°)	148000000
+    18	(-0.486642125485dB,56.8455713524°)	148000000
+    19	(-0.46099518561dB,66.6552074943°)	148000000
+    20	(-0.441284042379dB,63.0061892307°)	148000000
+    21	(-0.405374345436dB,61.0045143878°)	148000000
+    22	(-0.390364253075dB,68.8250619381°)	148000000
+    23	(-0.506028495756dB,60.5609793927°)	148000000
+    24	(-0.356229601548dB,61.780577892°)	148000000
+    25	(-0.457259887058dB,71.8195138257°)	148000000
+    26	(-0.431392012571dB,60.8151010797°)	148000000
+    27	(-0.422232357051dB,67.8896316532°)	148000000
+    28	(-0.476849488342dB,63.3371348117°)	148000000
+    29	(-0.511395425869dB,65.2039042948°)	148000000
+    30	(-0.516308538458dB,69.8167583513°)	148000000
+    31	(-0.395307565201dB,63.3526837848°)	148000000
+    32	(-0.46659061823dB,66.3256170093°)	148000000
+    33	(-0.515948027197dB,65.0775745611°)	148000000
+    34	(-0.426829453023dB,57.1505517827°)	148000000
+    35	(-0.41509982145dB,63.9301563577°)	148000000
+    36	(-0.355878943824dB,61.7981080187°)	148000000
+    37	(-0.361575499049dB,63.0454814439°)	148000000
+    38	(-0.590056703354dB,63.0876046478°)	148000000
+    39	(-0.467469438353dB,60.9499920707°)	148000000
+    40	(-0.516320938111dB,61.1504227952°)	148000000
+    41	(-0.465394939681dB,55.974862757°)	148000000
+    42	(-0.420604745779dB,60.9287606445°)	148000000
+    43	(-0.575355510582dB,64.3375702099°)	148000000
+    44	(-0.437555436599dB,64.3290958903°)	148000000
+    45	(-0.487420082173dB,64.0873971187°)	148000000
+    46	(-0.435365485381dB,60.1415878239°)	148000000
+    47	(-0.388713458481dB,61.3469814081°)	148000000
+    48	(-0.541113375127dB,60.3710013316°)	148000000
+    49	(-0.39638232787dB,59.4310379548°)	148000000
+    50	(-0.515180515239dB,57.390943135°)	148000000
+    51	(-0.512156253488dB,60.9419192199°)	148000000
+    52	(-0.56844329117dB,60.1740984215°)	148000000
+    53	(-0.487351376078dB,61.8873502992°)	148000000
+    54	(-0.413472108227dB,63.9506161996°)	148000000
+    55	(-0.503659821492dB,61.5693645565°)	148000000
+    56	(-0.517510936706dB,63.2365711586°)	148000000
+    57	(-0.488781898147dB,66.2237586684°)	148000000
+    58	(-0.38663019373dB,59.2224329728°)	148000000
+    59	(-0.470998336906dB,59.587743146°)	148000000
+    60	(-0.4543528002dB,65.0975306587°)	148000000
+    61	(-0.484461772545dB,60.0572283474°)	148000000
+    62	(-0.501372835052dB,64.4777396842°)	148000000
+    63	(-0.451705055294dB,57.8180200765°)	148000000
+    64	(-0.423542371359dB,59.4385637418°)	148000000
+    65	(-0.395855309549dB,67.5652790679°)	148000000
+    66	(-0.422863308431dB,65.8176954062°)	148000000
+    67	(-0.453950998662dB,59.5037422193°)	148000000
+    68	(-0.471913713986dB,58.4053549415°)	148000000
+    69	(-0.366400875767dB,63.421388702°)	148000000
+    70	(-0.427863471905dB,66.120875908°)	148000000
+    71	(-0.364864278151dB,66.0542065876°)	148000000
+    72	(-0.380560101734dB,47.1170870181°)	148000000
+    73	(-0.306598875095dB,71.9345181418°)	148000000
+    74	(-0.472101373382dB,67.5044336369°)	148000000
+    75	(-0.471915639852dB,62.6340784187°)	148000000
+    76	(-0.487559683263dB,64.3907515644°)	148000000
+    77	(-0.458426353764dB,64.7161537969°)	148000000
+    78	(-0.44424801825dB,62.6629115033°)	148000000
+    79	(-0.539549554076dB,59.7080618383°)	148000000
+    80	(-0.362429748251dB,65.1152293375°)	148000000
+    81	(-0.545291498116dB,65.2449445498°)	148000000
+    82	(-0.46255036629dB,63.0680288852°)	148000000
+    83	(-0.329587296432dB,63.9264111944°)	148000000
+    84	(-0.440518026794dB,59.8920511585°)	148000000
+    85	(-0.509731107827dB,62.2980028439°)	148000000
+    86	(-0.560350230823dB,56.4650261806°)	148000000
+    87	(-0.440233886987dB,66.6082356345°)	148000000
+    88	(-0.495390597884dB,58.8424648635°)	148000000
+    89	(-0.481118687981dB,62.1266145618°)	148000000
+    90	(-0.44460906049dB,58.035274268°)	148000000
+    91	(-0.420681200142dB,61.8299636129°)	148000000
+    92	(-0.370045662637dB,65.753101131°)	148000000
+    93	(-0.649480304561dB,61.4431765413°)	148000000
+    94	(-0.300073845744dB,67.6299898508°)	148000000
+    95	(-0.509166034267dB,63.6025562298°)	148000000
+    96	(-0.438815563207dB,57.4960873486°)	148000000
+    97	(-0.533063550584dB,62.4946362465°)	148000000
+    98	(-0.512857333317dB,60.9237612907°)	148000000
+    99	(-0.417854755117dB,61.4403218329°)	148000000
+   100	(-0.37609460833dB,65.0192075747°)	148000000
+   101	(-0.404984095996dB,66.204940767°)	148000000
+   102	(-0.501283113598dB,64.1616989638°)	148000000
+   103	(-0.670251559358dB,58.7485016576°)	148000000
+   104	(-0.472393751189dB,68.027260482°)	148000000
+   105	(-0.468311192715dB,62.5333180792°)	148000000
+   106	(-0.480692019028dB,69.5680836551°)	148000000
+   107	(-0.304249609682dB,57.7131923544°)	148000000
+   108	(-0.506076935019dB,58.9208217338°)	148000000
+   109	(-0.31438855171dB,63.8171145911°)	148000000
+   110	(-0.626587944031dB,61.9264383104°)	148000000
+   111	(-0.419017877906dB,65.8010762915°)	148000000
+   112	(-0.35822045065dB,64.2335404098°)	148000000
+   113	(-0.548031395312dB,65.6910340073°)	148000000
+   114	(-0.382712276585dB,58.6086960134°)	148000000
+   115	(-0.402255555181dB,62.6983348322°)	148000000
+   116	(-0.494712232475dB,68.7871237811°)	148000000
+   117	(-0.453740491735dB,67.0618122064°)	148000000
+   118	(-0.423458143046dB,63.5714725533°)	148000000
+   119	(-0.456454179204dB,60.223939123°)	148000000
+   120	(-0.524112968643dB,58.0929291204°)	148000000
+   121	(-0.540471725579dB,48.1829005391°)	148000000
+   122	(-0.615615000385dB,59.9537581082°)	148000000
+   123	(-0.414709632915dB,60.3467888653°)	148000000
+   124	(-0.371489094652dB,64.3969244219°)	148000000
+   125	(-0.407124764808dB,70.2488455837°)	148000000
+   126	(-0.466764772542dB,59.6592101914°)	148000000
+   127	(-0.534010693217dB,63.0385590464°)	148000000
+   128	(-0.451990170932dB,60.281690042°)	148000000
+   129	(-0.548522266988dB,66.2984217278°)	148000000
+   130	(-0.414871805081dB,72.0531287098°)	148000000
+   131	(-0.476358277141dB,60.1352089219°)	148000000
+   132	(-0.461453612419dB,61.1456592249°)	148000000
+   133	(-0.396821665404dB,61.6061443594°)	148000000
+   134	(-0.411959679756dB,63.3728850303°)	148000000
+   135	(-0.518612815648dB,56.8530322361°)	148000000
+   136	(-0.355140504263dB,61.6711529002°)	148000000
+   137	(-0.293516471925dB,65.8883187862°)	148000000
+   138	(-0.614593283964dB,54.3480792616°)	148000000
+   139	(-0.384113347203dB,66.7077064574°)	148000000
+   140	(-0.520988304062dB,64.9523470157°)	148000000
+   141	(-0.434507348282dB,64.1254212478°)	148000000
+   142	(-0.5218611737dB,58.8261901319°)	148000000
+   143	(-0.574293285615dB,55.2152615937°)	148000000
+   144	(-0.486668842153dB,67.5666106296°)	148000000
+   145	(-0.446156212157dB,63.181006314°)	148000000
+   146	(-0.499724235796dB,62.8900743496°)	148000000
+   147	(-0.445244725009dB,60.0698159224°)	148000000
+   148	(-0.332190238711dB,68.6555451972°)	148000000
+   149	(-0.465458758977dB,67.1743037463°)	148000000
+   150	(-0.375457881916dB,71.5209228481°)	148000000
+   151	(-0.353518208554dB,58.2432990766°)	148000000
+   152	(-0.509547376268dB,58.9201797215°)	148000000
+   153	(-0.356636931207dB,68.451577142°)	148000000
+   154	(-0.405973007889dB,65.2217272914°)	148000000
+   155	(-0.415594589941dB,60.4409548838°)	148000000
+   156	(-0.372452922592dB,66.939674277°)	148000000
+   157	(-0.518004752114dB,74.3434224517°)	148000000
+   158	(-0.362593387041dB,60.6758273215°)	148000000
+   159	(-0.390176744578dB,65.9303582451°)	148000000
+   160	(-0.45436692943dB,63.9007313621°)	148000000
+   161	(-0.514967291862dB,69.7814617142°)	148000000
+   162	(-0.490331047093dB,59.8050358743°)	148000000
+   163	(-0.437039036485dB,67.4819008971°)	148000000
+   164	(-0.485008532371dB,62.4640446768°)	148000000
+   165	(-0.541206445187dB,68.8988909542°)	148000000
+   166	(-0.543495063663dB,63.0991048145°)	148000000
+   167	(-0.396901333727dB,66.1359635717°)	148000000
+   168	(-0.512234297906dB,57.0480070949°)	148000000
+   169	(-0.383509092369dB,71.0629192035°)	148000000
+   170	(-0.297526703281dB,67.2066836957°)	148000000
+   171	(-0.472642164323dB,58.1060113505°)	148000000
+   172	(-0.44917316741dB,69.0698088049°)	148000000
+   173	(-0.420932926679dB,66.6041444904°)	148000000
+   174	(-0.541488942628dB,59.1799280239°)	148000000
+   175	(-0.482049134439dB,61.1025540856°)	148000000
+   176	(-0.423558217858dB,64.4604499621°)	148000000
+   177	(-0.403379578136dB,69.8100449502°)	148000000
+   178	(-0.316976818044dB,65.7506607264°)	148000000
+   179	(-0.445603734854dB,68.2640186188°)	148000000
+   180	(-0.489322476779dB,66.5369287472°)	148000000
+   181	(-0.441363495297dB,63.929234705°)	148000000
+   182	(-0.401434647485dB,62.9655563138°)	148000000
+   183	(-0.547458477168dB,64.8413607975°)	148000000
+   184	(-0.478296063442dB,56.305156887°)	148000000
+   185	(-0.342391870286dB,62.8812081166°)	148000000
+   186	(-0.401293120506dB,65.492425536°)	148000000
+   187	(-0.436576836027dB,58.5053839193°)	148000000
+   188	(-0.408572482213dB,62.1481068995°)	148000000
+   189	(-0.367334543831dB,70.7202188707°)	148000000
+   190	(-0.462957547542dB,60.1223900149°)	148000000
+   191	(-0.407325431498dB,56.1650666925°)	148000000
+   192	(-0.483004549868dB,60.4282857231°)	148000000
+   193	(-0.510270579487dB,59.7876302888°)	148000000
+   194	(-0.358194788894dB,63.1584138493°)	148000000
+   195	(-0.404565148857dB,67.6818177429°)	148000000
+   196	(-0.517316945248dB,68.2725303714°)	148000000
+   197	(-0.500331285649dB,61.662010865°)	148000000
+   198	(-0.498015202209dB,60.6545072763°)	148000000
+   199	(-0.594559518492dB,59.3261676634°)	148000000
+   200	(-0.471255487124dB,70.5167036819°)	148000000
+   201	(-0.432370897617dB,68.0529135867°)	148000000
+   202	(-0.512640169945dB,63.5625176856°)	148000000
+   203	(-0.417592715142dB,69.0215030205°)	148000000
+   204	(-0.437261756675dB,55.4802813487°)	148000000
+   205	(-0.425817691372dB,58.8765614913°)	148000000
+   206	(-0.45067208257dB,63.7191908674°)	148000000
+   207	(-0.516145229356dB,61.5755645767°)	148000000
+   208	(-0.552357792456dB,58.5314224774°)	148000000
+   209	(-0.408288429902dB,59.094548798°)	148000000
+   210	(-0.34668175936dB,68.9607184456°)	148000000
+   211	(-0.509762029473dB,55.9873091048°)	148000000
+   212	(-0.492523100042dB,53.422656256°)	148000000
+   213	(-0.323736788338dB,65.9807710199°)	148000000
+   214	(-0.429040948106dB,53.8288122597°)	148000000
+   215	(-0.510889510632dB,56.4719123706°)	148000000
+   216	(-0.392507565428dB,64.5325095791°)	148000000
+   217	(-0.425198061406dB,56.7603388786°)	148000000
+   218	(-0.473268452607dB,62.8806565316°)	148000000
+   219	(-0.437520524899dB,68.0965795734°)	148000000
+   220	(-0.391317835355dB,59.5130008576°)	148000000
+   221	(-0.445483746729dB,68.1063998147°)	148000000
+   222	(-0.446220332358dB,63.9819163491°)	148000000
+   223	(-0.499956067471dB,58.9756545196°)	148000000
+   224	(-0.445294141835dB,65.0318030236°)	148000000
+   225	(-0.444122185804dB,57.280494442°)	148000000
+   226	(-0.412640190832dB,57.8781026892°)	148000000
+   227	(-0.470902182164dB,70.7781750049°)	148000000
+   228	(-0.399657762085dB,60.9591211403°)	148000000
+   229	(-0.432267312015dB,62.7082867107°)	148000000
+   230	(-0.350281530587dB,67.7997565845°)	148000000
+   231	(-0.445086833107dB,64.2852610384°)	148000000
+   232	(-0.452130185732dB,61.7038348168°)	148000000
+   233	(-0.482239983468dB,61.1539331888°)	148000000
+   234	(-0.373820033998dB,60.1140383747°)	148000000
+   235	(-0.519554385594dB,63.6218716222°)	148000000
+   236	(-0.404836355633dB,64.1202367078°)	148000000
+   237	(-0.439475375099dB,63.5110927052°)	148000000
+   238	(-0.351907182888dB,60.1990796629°)	148000000
+   239	(-0.432581462676dB,61.9182051901°)	148000000
+   240	(-0.466733539677dB,59.8737879179°)	148000000
+   241	(-0.342327254788dB,71.0861654442°)	148000000
+   242	(-0.423436461708dB,67.1736308401°)	148000000
+   243	(-0.399710491153dB,68.4947493851°)	148000000
+   244	(-0.423053460499dB,65.0579261839°)	148000000
+   245	(-0.535385698812dB,65.6782167084°)	148000000
+   246	(-0.403941186289dB,61.6592112572°)	148000000
+   247	(-0.536575929294dB,62.4408945879°)	148000000
+   248	(-0.423532491664dB,66.6611435061°)	148000000
+   249	(-0.526239622907dB,53.6254434753°)	148000000
+   250	(-0.363442282637dB,66.0208104162°)	148000000
+   251	(-0.452138123844dB,60.1276743935°)	148000000
+   252	(-0.424185438984dB,59.250535883°)	148000000
+   253	(-1.5625274872dB,58.6068046683°)	148000000
+   254	(-0.194926332808dB,86.9443310887°)	148000000
+   255	(-0.194926332808dB,86.9443310887°)	148000000
+   256	(-0.309724708806dB,44.9990154326°)	148000000
+   257	(-0.434479924291dB,86.9784464921°)	148000000
+   258	(-0.434479924291dB,86.9784464921°)	148000000
+   259	(-0.902825962281dB,39.0781067107°)	148000000
+
+Measurement: s21_288
+  step	V(out_m) 	at
+     1	(-45.4930780406dB,168.365053424°)	288000000
+     2	(-52.1927671376dB,159.58550797°)	288000000
+     3	(-76.2145272011dB,-154.77741013°)	288000000
+     4	(-72.6225012891dB,176.871153434°)	288000000
+     5	(-43.1475125548dB,163.460794741°)	288000000
+     6	(-46.6276007679dB,162.018550508°)	288000000
+     7	(-51.1936763708dB,164.529840995°)	288000000
+     8	(-54.4320964542dB,164.331333508°)	288000000
+     9	(-55.7890028342dB,164.672335454°)	288000000
+    10	(-51.1704487249dB,167.730063625°)	288000000
+    11	(-48.0446066233dB,168.468203773°)	288000000
+    12	(-48.8976196883dB,164.46071528°)	288000000
+    13	(-52.1316681919dB,164.595687392°)	288000000
+    14	(-63.0470996363dB,173.815865797°)	288000000
+    15	(-53.4503878004dB,167.495326086°)	288000000
+    16	(-48.3351230666dB,162.959967656°)	288000000
+    17	(-45.1770213203dB,163.977120973°)	288000000
+    18	(-47.5090178333dB,165.326194607°)	288000000
+    19	(-57.498945141dB,171.341839411°)	288000000
+    20	(-51.6049268225dB,167.814332207°)	288000000
+    21	(-52.1678274571dB,164.486450337°)	288000000
+    22	(-47.5229729232dB,164.309852864°)	288000000
+    23	(-45.2142177348dB,164.626063461°)	288000000
+    24	(-51.1856711244dB,167.13492379°)	288000000
+    25	(-46.67892452dB,167.195714424°)	288000000
+    26	(-50.2330070115dB,161.785600774°)	288000000
+    27	(-54.9037722137dB,167.814014125°)	288000000
+    28	(-49.4223886323dB,166.655124326°)	288000000
+    29	(-46.6299505477dB,164.659406282°)	288000000
+    30	(-47.7618149762dB,163.757524638°)	288000000
+    31	(-48.4316602885dB,163.347125545°)	288000000
+    32	(-45.8652822097dB,165.617374339°)	288000000
+    33	(-49.9348336984dB,164.873260461°)	288000000
+    34	(-51.7593245499dB,163.992564196°)	288000000
+    35	(-45.0300179925dB,166.948357146°)	288000000
+    36	(-59.9202744322dB,167.801480015°)	288000000
+    37	(-52.9657929153dB,163.036262964°)	288000000
+    38	(-47.8609438092dB,167.781746803°)	288000000
+    39	(-60.4061759721dB,170.169620812°)	288000000
+    40	(-51.6605634362dB,168.498056435°)	288000000
+    41	(-50.06919754dB,164.617060845°)	288000000
+    42	(-46.9299850375dB,165.998709985°)	288000000
+    43	(-61.380885513dB,174.926942464°)	288000000
+    44	(-46.8542953958dB,166.54250842°)	288000000
+    45	(-48.5531655868dB,162.912285773°)	288000000
+    46	(-47.6658339966dB,164.265773085°)	288000000
+    47	(-48.738289303dB,164.984713295°)	288000000
+    48	(-51.4597778674dB,163.977873014°)	288000000
+    49	(-49.8147124998dB,167.920776932°)	288000000
+    50	(-59.2872714835dB,168.147924602°)	288000000
+    51	(-49.3044736472dB,165.410182982°)	288000000
+    52	(-49.565658502dB,163.689614181°)	288000000
+    53	(-50.5632543796dB,166.982060917°)	288000000
+    54	(-49.5568460397dB,166.874274712°)	288000000
+    55	(-49.2403608919dB,163.340631916°)	288000000
+    56	(-56.9175184283dB,170.844841479°)	288000000
+    57	(-52.0771814254dB,164.183622662°)	288000000
+    58	(-57.1082682553dB,164.833766656°)	288000000
+    59	(-50.9483306638dB,162.405828124°)	288000000
+    60	(-49.5514134024dB,162.014143449°)	288000000
+    61	(-46.8363542841dB,164.183330578°)	288000000
+    62	(-46.3272180938dB,163.809497067°)	288000000
+    63	(-51.3499987117dB,165.395670499°)	288000000
+    64	(-49.9345995595dB,164.091795714°)	288000000
+    65	(-52.2829015159dB,166.766919689°)	288000000
+    66	(-43.5914501685dB,170.029105519°)	288000000
+    67	(-48.5496352619dB,163.936059786°)	288000000
+    68	(-74.994999807dB,-163.586031829°)	288000000
+    69	(-46.8245543074dB,164.205053369°)	288000000
+    70	(-47.9054855408dB,164.773137665°)	288000000
+    71	(-47.4853691118dB,163.764063707°)	288000000
+    72	(-52.848423945dB,159.19871517°)	288000000
+    73	(-51.6519487151dB,168.17009905°)	288000000
+    74	(-58.9890295303dB,168.5808129°)	288000000
+    75	(-45.3618172832dB,166.929638507°)	288000000
+    76	(-52.9428616343dB,167.77511601°)	288000000
+    77	(-47.6854057777dB,164.85533866°)	288000000
+    78	(-46.9612146386dB,162.090779828°)	288000000
+    79	(-55.9012365279dB,166.877528689°)	288000000
+    80	(-48.7226360219dB,161.667469564°)	288000000
+    81	(-48.556064106dB,164.933378455°)	288000000
+    82	(-52.743597333dB,163.000430041°)	288000000
+    83	(-48.0984060262dB,161.604778327°)	288000000
+    84	(-49.8297464929dB,166.989749904°)	288000000
+    85	(-53.9410031676dB,164.304715985°)	288000000
+    86	(-53.7119286361dB,165.568606913°)	288000000
+    87	(-56.2039952638dB,169.262952645°)	288000000
+    88	(-60.9610736619dB,169.768053427°)	288000000
+    89	(-46.4558685861dB,169.789801544°)	288000000
+    90	(-55.5878081074dB,167.225305422°)	288000000
+    91	(-54.7538126897dB,166.5284916°)	288000000
+    92	(-48.4963932833dB,164.325408049°)	288000000
+    93	(-48.4256992546dB,165.526662599°)	288000000
+    94	(-49.243277931dB,164.860682828°)	288000000
+    95	(-70.9328554101dB,-39.5970556355°)	288000000
+    96	(-56.1923301189dB,161.162117743°)	288000000
+    97	(-52.9268786537dB,169.979216535°)	288000000
+    98	(-56.7829162076dB,169.214087454°)	288000000
+    99	(-46.1325205666dB,163.345391818°)	288000000
+   100	(-45.6832262386dB,164.046765587°)	288000000
+   101	(-50.9872228362dB,165.559940837°)	288000000
+   102	(-46.3383187159dB,163.930011451°)	288000000
+   103	(-46.6578911565dB,162.943262754°)	288000000
+   104	(-43.8467830267dB,166.87220274°)	288000000
+   105	(-48.8594053875dB,165.935725534°)	288000000
+   106	(-46.7203956438dB,165.932217361°)	288000000
+   107	(-49.1021092152dB,161.177637287°)	288000000
+   108	(-67.7513635078dB,-30.7893517828°)	288000000
+   109	(-44.6802905157dB,162.392708714°)	288000000
+   110	(-57.3687404435dB,169.905742848°)	288000000
+   111	(-47.329076694dB,167.075161538°)	288000000
+   112	(-50.4973150801dB,162.662847553°)	288000000
+   113	(-48.1410742867dB,164.225339999°)	288000000
+   114	(-48.691332058dB,160.814227137°)	288000000
+   115	(-51.3666019095dB,163.054621131°)	288000000
+   116	(-53.0591441418dB,166.787473336°)	288000000
+   117	(-43.8511921473dB,165.790436097°)	288000000
+   118	(-48.9650310155dB,163.433849032°)	288000000
+   119	(-53.8731266978dB,168.945547955°)	288000000
+   120	(-46.4847005517dB,159.947921347°)	288000000
+   121	(-51.8845737626dB,161.376267281°)	288000000
+   122	(-58.6602098531dB,172.279643038°)	288000000
+   123	(-48.7662612525dB,161.558326473°)	288000000
+   124	(-51.6374325842dB,162.44037405°)	288000000
+   125	(-45.8239177172dB,164.488248368°)	288000000
+   126	(-54.4837033932dB,166.794263983°)	288000000
+   127	(-47.937655039dB,164.876209204°)	288000000
+   128	(-47.9711076067dB,168.5016455°)	288000000
+   129	(-46.9931833548dB,167.003776287°)	288000000
+   130	(-47.1061897775dB,166.987607396°)	288000000
+   131	(-56.254892105dB,165.991857462°)	288000000
+   132	(-50.6909014792dB,168.095486999°)	288000000
+   133	(-53.9091683384dB,164.905423962°)	288000000
+   134	(-47.5300006149dB,165.563633712°)	288000000
+   135	(-57.0639432628dB,171.202295506°)	288000000
+   136	(-46.7680447214dB,164.448795281°)	288000000
+   137	(-50.5447166933dB,164.443457263°)	288000000
+   138	(-49.1647008198dB,163.871239206°)	288000000
+   139	(-61.4981325786dB,170.984182038°)	288000000
+   140	(-47.1735892965dB,165.673093325°)	288000000
+   141	(-47.1567536629dB,163.611308108°)	288000000
+   142	(-57.6395676817dB,165.325712654°)	288000000
+   143	(-48.1627221196dB,167.30385894°)	288000000
+   144	(-48.6866321752dB,163.869487779°)	288000000
+   145	(-60.7470082362dB,168.910667411°)	288000000
+   146	(-47.932195458dB,161.851865038°)	288000000
+   147	(-50.2463626929dB,167.222483999°)	288000000
+   148	(-51.3392630112dB,163.562312349°)	288000000
+   149	(-48.4276961745dB,166.484923549°)	288000000
+   150	(-53.2930593229dB,167.601118169°)	288000000
+   151	(-53.0456987526dB,163.303671077°)	288000000
+   152	(-46.2169536006dB,163.434048568°)	288000000
+   153	(-46.2850577315dB,165.107029341°)	288000000
+   154	(-54.1176709632dB,167.199357072°)	288000000
+   155	(-55.3059555482dB,166.923402475°)	288000000
+   156	(-53.0195543183dB,163.078340098°)	288000000
+   157	(-48.9607090962dB,169.114151355°)	288000000
+   158	(-51.7064296545dB,164.395040698°)	288000000
+   159	(-47.8679070501dB,166.708911872°)	288000000
+   160	(-61.9711753059dB,177.158497272°)	288000000
+   161	(-46.8373773605dB,166.579287982°)	288000000
+   162	(-48.1813592521dB,166.163642225°)	288000000
+   163	(-47.0366045777dB,167.595357097°)	288000000
+   164	(-56.0137274514dB,171.958712552°)	288000000
+   165	(-55.7544651601dB,167.759971323°)	288000000
+   166	(-61.7572005832dB,171.778672217°)	288000000
+   167	(-51.8591563285dB,168.708011213°)	288000000
+   168	(-73.6758649258dB,-162.837269363°)	288000000
+   169	(-63.6152047881dB,173.602366568°)	288000000
+   170	(-41.8512753625dB,167.915589014°)	288000000
+   171	(-47.8373930392dB,164.632555077°)	288000000
+   172	(-57.4211631321dB,168.390321944°)	288000000
+   173	(-54.2816406815dB,164.538213105°)	288000000
+   174	(-44.6877108143dB,166.539140294°)	288000000
+   175	(-49.5635972708dB,163.743086786°)	288000000
+   176	(-49.1249585937dB,167.514058021°)	288000000
+   177	(-45.7989269673dB,166.441151149°)	288000000
+   178	(-47.0525957179dB,160.714791624°)	288000000
+   179	(-60.7087882124dB,170.612590875°)	288000000
+   180	(-46.0706705171dB,169.209771766°)	288000000
+   181	(-54.0057973653dB,166.921242781°)	288000000
+   182	(-45.1234018314dB,164.433068852°)	288000000
+   183	(-53.0800642006dB,167.465516295°)	288000000
+   184	(-52.1296547378dB,168.452901387°)	288000000
+   185	(-43.3001013998dB,161.481700971°)	288000000
+   186	(-45.1627302895dB,162.964078455°)	288000000
+   187	(-47.0190378995dB,163.327611775°)	288000000
+   188	(-48.566065369dB,163.806130212°)	288000000
+   189	(-47.8125054872dB,165.958269473°)	288000000
+   190	(-53.2572034524dB,167.62129961°)	288000000
+   191	(-51.3886004836dB,164.53569267°)	288000000
+   192	(-52.9351620175dB,166.737750175°)	288000000
+   193	(-48.19314659dB,161.099686673°)	288000000
+   194	(-53.7059048001dB,164.807678553°)	288000000
+   195	(-49.0524672772dB,162.269481602°)	288000000
+   196	(-45.3165837497dB,166.251290061°)	288000000
+   197	(-48.4642747997dB,165.2862943°)	288000000
+   198	(-49.7153878977dB,161.717970644°)	288000000
+   199	(-47.9562759177dB,160.482036566°)	288000000
+   200	(-55.1604412569dB,172.780913095°)	288000000
+   201	(-56.1165995601dB,173.363304124°)	288000000
+   202	(-45.3755257831dB,162.89333814°)	288000000
+   203	(-51.2312726576dB,170.503046806°)	288000000
+   204	(-59.6703507522dB,167.550962514°)	288000000
+   205	(-48.7875219523dB,162.533590368°)	288000000
+   206	(-49.2195180334dB,166.569948788°)	288000000
+   207	(-45.5691957989dB,164.711977799°)	288000000
+   208	(-59.5587869544dB,174.254335644°)	288000000
+   209	(-49.1059421653dB,166.371567783°)	288000000
+   210	(-43.9476517365dB,162.808986983°)	288000000
+   211	(-70.9877861047dB,-169.709381958°)	288000000
+   212	(-71.0689523544dB,-179.100378714°)	288000000
+   213	(-48.7979802458dB,164.853837364°)	288000000
+   214	(-54.4759994497dB,161.63257832°)	288000000
+   215	(-76.7273155611dB,-62.5646892857°)	288000000
+   216	(-47.0792618661dB,167.524865122°)	288000000
+   217	(-47.7398558245dB,160.632899554°)	288000000
+   218	(-49.2741375244dB,162.509289236°)	288000000
+   219	(-45.506644065dB,162.466733653°)	288000000
+   220	(-52.2048674255dB,164.489293213°)	288000000
+   221	(-44.3106598257dB,165.042594587°)	288000000
+   222	(-44.1110093481dB,159.748929495°)	288000000
+   223	(-62.8163111113dB,175.046230479°)	288000000
+   224	(-54.3490306785dB,164.442684561°)	288000000
+   225	(-49.1379919259dB,164.188815049°)	288000000
+   226	(-45.327142567dB,165.540459423°)	288000000
+   227	(-45.4031801603dB,166.102176255°)	288000000
+   228	(-49.6670538122dB,164.832526502°)	288000000
+   229	(-50.6385463819dB,166.292905851°)	288000000
+   230	(-43.2722396752dB,164.815004344°)	288000000
+   231	(-45.2057802296dB,164.10689274°)	288000000
+   232	(-50.9567342317dB,164.490194058°)	288000000
+   233	(-47.763228662dB,167.260667458°)	288000000
+   234	(-48.4673994817dB,164.569715228°)	288000000
+   235	(-47.048646972dB,165.919205801°)	288000000
+   236	(-54.5987959416dB,164.82363665°)	288000000
+   237	(-57.8432591762dB,169.933140815°)	288000000
+   238	(-55.7000486753dB,164.168109947°)	288000000
+   239	(-46.1335932807dB,165.493111732°)	288000000
+   240	(-49.7974978041dB,165.294284857°)	288000000
+   241	(-48.8238144858dB,165.704918312°)	288000000
+   242	(-56.7815152626dB,168.062236642°)	288000000
+   243	(-45.4566334708dB,165.882803845°)	288000000
+   244	(-50.6348007372dB,164.789411204°)	288000000
+   245	(-48.5213393342dB,166.643527051°)	288000000
+   246	(-52.2243095097dB,159.797529535°)	288000000
+   247	(-58.9410216261dB,171.550694904°)	288000000
+   248	(-48.285962805dB,161.016391299°)	288000000
+   249	(-51.2879496898dB,165.951497912°)	288000000
+   250	(-57.529373709dB,167.885359068°)	288000000
+   251	(-49.6182864678dB,163.206596486°)	288000000
+   252	(-45.1918667467dB,165.183886956°)	288000000
+   253	(-71.5651173027dB,-147.691940426°)	288000000
+   254	(-35.6255250297dB,173.182586808°)	288000000
+   255	(-35.6255250297dB,173.182586808°)	288000000
+   256	(-58.302530657dB,-27.9472981452°)	288000000
+   257	(-35.6485415558dB,175.759502446°)	288000000
+   258	(-35.6485415558dB,175.759502446°)	288000000
+   259	(-57.8584960737dB,-29.5117614002°)	288000000
+
+Measurement: s21_432
+  step	V(out_m) 	at
+     1	(-84.4060135328dB,-54.8147057742°)	432000000
+     2	(-82.9926311024dB,-56.7786467922°)	432000000
+     3	(-69.9034046351dB,-55.3667582716°)	432000000
+     4	(-69.2320857674dB,-51.5340652876°)	432000000
+     5	(-67.6766910405dB,130.84585741°)	432000000
+     6	(-80.6747389639dB,129.470560475°)	432000000
+     7	(-72.0062689566dB,-50.828655412°)	432000000
+     8	(-85.4236031124dB,-50.7593211947°)	432000000
+     9	(-93.8140700965dB,-54.714305711°)	432000000
+    10	(-90.7410607967dB,135.854708259°)	432000000
+    11	(-93.7709152886dB,-73.8677650792°)	432000000
+    12	(-73.643932014dB,130.534652814°)	432000000
+    13	(-79.689238805dB,-52.7232615797°)	432000000
+    14	(-69.4464863753dB,-50.1836928304°)	432000000
+    15	(-76.6476097242dB,-50.3565266143°)	432000000
+    16	(-88.1984325637dB,133.349143364°)	432000000
+    17	(-75.1111319117dB,132.090508203°)	432000000
+    18	(-70.5748415214dB,131.569201165°)	432000000
+    19	(-68.415442537dB,-48.9243193772°)	432000000
+    20	(-70.9552428075dB,-50.7777311667°)	432000000
+    21	(-72.7013238189dB,-52.1096073399°)	432000000
+    22	(-80.1422319283dB,131.969207215°)	432000000
+    23	(-70.6486816613dB,131.713086987°)	432000000
+    24	(-74.6799940933dB,-50.0695630547°)	432000000
+    25	(-91.4434184629dB,145.379090731°)	432000000
+    26	(-81.5574314856dB,129.92530065°)	432000000
+    27	(-70.869411701dB,-51.2544772501°)	432000000
+    28	(-81.9149599888dB,-51.6949830115°)	432000000
+    29	(-84.9270759804dB,-57.4301994974°)	432000000
+    30	(-95.8001547824dB,-76.5192515477°)	432000000
+    31	(-91.6244895049dB,136.56161496°)	432000000
+    32	(-72.7161837205dB,130.943462575°)	432000000
+    33	(-100.130113036dB,148.816625921°)	432000000
+    34	(-71.7396478676dB,-50.6199552996°)	432000000
+    35	(-77.8951760883dB,136.810233668°)	432000000
+    36	(-68.525948949dB,-50.2776332088°)	432000000
+    37	(-90.0649190347dB,-53.0046506562°)	432000000
+    38	(-89.7949610446dB,-64.1886111097°)	432000000
+    39	(-70.1550069243dB,-52.0111657653°)	432000000
+    40	(-77.4140776751dB,-51.9171327496°)	432000000
+    41	(-96.7862463006dB,148.28957081°)	432000000
+    42	(-77.4222930718dB,132.42701269°)	432000000
+    43	(-71.0795149956dB,-50.3917464603°)	432000000
+    44	(-76.2233065272dB,133.555148088°)	432000000
+    45	(-85.4329057389dB,132.787649132°)	432000000
+    46	(-71.9395092517dB,130.193087476°)	432000000
+    47	(-85.4061830812dB,-55.6919829325°)	432000000
+    48	(-81.0970731344dB,130.231710592°)	432000000
+    49	(-82.5066606509dB,-52.9849390153°)	432000000
+    50	(-71.851534656dB,-54.0667761175°)	432000000
+    51	(-79.3410218204dB,132.3272612°)	432000000
+    52	(-89.1152980587dB,-61.3405831274°)	432000000
+    53	(-79.3151581346dB,-51.5978665168°)	432000000
+    54	(-72.4401145367dB,-50.4931325223°)	432000000
+    55	(-84.7490186341dB,131.883089183°)	432000000
+    56	(-69.0521236134dB,-48.9067369281°)	432000000
+    57	(-73.8279137088dB,-53.9446601458°)	432000000
+    58	(-71.6906134273dB,-51.6505826855°)	432000000
+    59	(-92.4644397609dB,132.745033113°)	432000000
+    60	(-83.5673086158dB,-55.6692614173°)	432000000
+    61	(-74.292913602dB,131.618815588°)	432000000
+    62	(-74.468450648dB,131.944170726°)	432000000
+    63	(-74.7087079039dB,-53.3273807203°)	432000000
+    64	(-73.0608404912dB,130.722856525°)	432000000
+    65	(-84.199241146dB,-51.0371256773°)	432000000
+    66	(-75.9465690619dB,138.041234086°)	432000000
+    67	(-71.3887030231dB,130.456600669°)	432000000
+    68	(-70.5623018867dB,-52.1663477199°)	432000000
+    69	(-70.3349560114dB,129.870543098°)	432000000
+    70	(-84.3712713049dB,134.721252319°)	432000000
+    71	(-102.796798515dB,-84.7071596217°)	432000000
+    72	(-79.2015898872dB,126.581387504°)	432000000
+    73	(-73.2502907103dB,-48.5229490397°)	432000000
+    74	(-69.962064748dB,-51.0383575514°)	432000000
+    75	(-69.6679050348dB,134.04603303°)	432000000
+    76	(-76.5446370197dB,-53.2944134884°)	432000000
+    77	(-78.5203432725dB,131.434184726°)	432000000
+    78	(-79.5195102823dB,130.360209384°)	432000000
+    79	(-72.9189946728dB,-54.0254389496°)	432000000
+    80	(-83.4697067501dB,129.490671146°)	432000000
+    81	(-78.296756001dB,132.695889176°)	432000000
+    82	(-73.0224118226dB,-55.032082764°)	432000000
+    83	(-80.5820503322dB,130.064429597°)	432000000
+    84	(-78.7284326998dB,-52.06061259°)	432000000
+    85	(-76.5809758541dB,-53.1743591436°)	432000000
+    86	(-81.7683903361dB,-52.1075193139°)	432000000
+    87	(-72.3226579913dB,-49.771601546°)	432000000
+    88	(-71.4193311555dB,-53.4450046384°)	432000000
+    89	(-72.417939174dB,135.238166937°)	432000000
+    90	(-81.690355508dB,-49.9371750949°)	432000000
+    91	(-76.4580604714dB,-50.3030786792°)	432000000
+    92	(-86.2473746154dB,-55.5954414808°)	432000000
+    93	(-81.3165353108dB,133.144594438°)	432000000
+    94	(-70.7885466697dB,-49.0627310229°)	432000000
+    95	(-68.7405646629dB,-49.5353584008°)	432000000
+    96	(-81.5074397527dB,-53.9757759717°)	432000000
+    97	(-81.6479567648dB,-51.0159010251°)	432000000
+    98	(-71.2256819487dB,-49.9891741376°)	432000000
+    99	(-73.3868038591dB,130.306913074°)	432000000
+   100	(-76.2921407727dB,131.204695497°)	432000000
+   101	(-73.3993248369dB,-51.3460480467°)	432000000
+   102	(-72.4895240099dB,131.059943428°)	432000000
+   103	(-70.0786096974dB,129.109929849°)	432000000
+   104	(-70.5771375249dB,132.642593088°)	432000000
+   105	(-74.340091493dB,131.737952629°)	432000000
+   106	(-77.2783070599dB,131.836568811°)	432000000
+   107	(-81.516387489dB,-54.2150899424°)	432000000
+   108	(-68.1210310733dB,-50.157092607°)	432000000
+   109	(-76.5494125698dB,130.280723541°)	432000000
+   110	(-76.1536288018dB,-49.9706261553°)	432000000
+   111	(-76.7922197988dB,-52.38681488°)	432000000
+   112	(-84.5540150899dB,-56.5723074929°)	432000000
+   113	(-73.767131868dB,129.318897912°)	432000000
+   114	(-75.1597696802dB,126.391328128°)	432000000
+   115	(-82.7279118505dB,-53.8282303642°)	432000000
+   116	(-75.38848929dB,-51.7587339121°)	432000000
+   117	(-68.9845376476dB,132.292426205°)	432000000
+   118	(-78.4641533981dB,-53.2396343528°)	432000000
+   119	(-71.7590735215dB,-50.6284089623°)	432000000
+   120	(-74.0504574778dB,127.634919599°)	432000000
+   121	(-75.3733587221dB,127.468861961°)	432000000
+   122	(-70.1154968927dB,-52.0172759167°)	432000000
+   123	(-104.304135488dB,-92.7901404717°)	432000000
+   124	(-93.6857425394dB,-55.3225626782°)	432000000
+   125	(-99.140582699dB,-83.8332545513°)	432000000
+   126	(-76.982146741dB,-50.9214303894°)	432000000
+   127	(-92.859562402dB,-71.9462810135°)	432000000
+   128	(-83.5141294041dB,137.493095151°)	432000000
+   129	(-79.930572766dB,134.59299558°)	432000000
+   130	(-79.4015038946dB,-52.3811576914°)	432000000
+   131	(-78.1517623586dB,-52.0262290306°)	432000000
+   132	(-76.8534591719dB,-50.6537432869°)	432000000
+   133	(-76.4675939475dB,-53.6284554473°)	432000000
+   134	(-75.9426119168dB,129.945320884°)	432000000
+   135	(-68.2596512213dB,-49.7613304288°)	432000000
+   136	(-83.5212551066dB,132.866829194°)	432000000
+   137	(-83.5598075903dB,-51.3678479675°)	432000000
+   138	(-74.7849157295dB,130.458619884°)	432000000
+   139	(-70.4953643942dB,-48.3351217013°)	432000000
+   140	(-80.0191768935dB,134.114321333°)	432000000
+   141	(-81.5158025456dB,132.413908009°)	432000000
+   142	(-73.4616850102dB,-52.4628638214°)	432000000
+   143	(-74.8683742673dB,133.011065052°)	432000000
+   144	(-78.0916070172dB,129.059828141°)	432000000
+   145	(-68.7441379989dB,-50.5713811153°)	432000000
+   146	(-81.0101875197dB,129.004280332°)	432000000
+   147	(-79.0574112539dB,132.985926116°)	432000000
+   148	(-80.9111741951dB,-52.9909039447°)	432000000
+   149	(-105.496568221dB,-149.37715031°)	432000000
+   150	(-69.1219739567dB,-52.2834781916°)	432000000
+   151	(-72.2557643369dB,-53.4648624967°)	432000000
+   152	(-76.1736094089dB,132.884884323°)	432000000
+   153	(-87.083642455dB,135.656728106°)	432000000
+   154	(-76.5204931738dB,-50.0060048816°)	432000000
+   155	(-73.0988485098dB,-49.7901986872°)	432000000
+   156	(-72.8861952178dB,-54.0741755436°)	432000000
+   157	(-78.4235177392dB,-52.0026583552°)	432000000
+   158	(-72.1944676906dB,-52.5513451697°)	432000000
+   159	(-85.4522126818dB,-54.8277629168°)	432000000
+   160	(-67.5292562928dB,-49.0169157761°)	432000000
+   161	(-95.6218449455dB,158.80772627°)	432000000
+   162	(-88.3520783172dB,141.920582931°)	432000000
+   163	(-83.7374206847dB,136.926648449°)	432000000
+   164	(-69.0335327975dB,-49.0769888358°)	432000000
+   165	(-69.9858288529dB,-50.7024519096°)	432000000
+   166	(-70.3542235588dB,-53.5042186052°)	432000000
+   167	(-68.8793588308dB,-47.6485801674°)	432000000
+   168	(-68.967276555dB,-53.2602929348°)	432000000
+   169	(-67.2565534607dB,-49.8238964689°)	432000000
+   170	(-67.1313501346dB,133.8219053°)	432000000
+   171	(-82.7917189454dB,133.237288062°)	432000000
+   172	(-72.7796885947dB,-48.703183176°)	432000000
+   173	(-73.1432576931dB,-51.734564483°)	432000000
+   174	(-70.6545316598dB,132.62510384°)	432000000
+   175	(-75.5702883858dB,-54.5393405798°)	432000000
+   176	(-77.2208351534dB,-51.0137420975°)	432000000
+   177	(-77.1298206656dB,132.810306997°)	432000000
+   178	(-72.9388191478dB,128.217874499°)	432000000
+   179	(-68.8843478468dB,-50.606677095°)	432000000
+   180	(-76.1262498039dB,135.972436038°)	432000000
+   181	(-71.310430257dB,-53.1920997178°)	432000000
+   182	(-70.4061258858dB,131.058666224°)	432000000
+   183	(-69.7648926872dB,-48.9877019131°)	432000000
+   184	(-97.4012933394dB,140.257611594°)	432000000
+   185	(-69.8242523301dB,128.454779311°)	432000000
+   186	(-69.7802004013dB,129.236576684°)	432000000
+   187	(-74.7439040939dB,130.052800836°)	432000000
+   188	(-78.1616341392dB,-54.6397974374°)	432000000
+   189	(-92.2953640976dB,138.127874123°)	432000000
+   190	(-71.7608104013dB,-51.6849374975°)	432000000
+   191	(-93.3098347775dB,-60.1858599938°)	432000000
+   192	(-74.4015371512dB,-52.82644463°)	432000000
+   193	(-105.110261729dB,-138.07434131°)	432000000
+   194	(-71.2020519459dB,-51.7121866707°)	432000000
+   195	(-72.5305676299dB,-54.5039953283°)	432000000
+   196	(-71.3103430622dB,131.421484769°)	432000000
+   197	(-88.5260783909dB,-62.0028131403°)	432000000
+   198	(-99.218635663dB,143.821705911°)	432000000
+   199	(-78.0324669584dB,126.83196461°)	432000000
+   200	(-68.8037324801dB,-47.3067089207°)	432000000
+   201	(-67.3417160558dB,-49.3965125547°)	432000000
+   202	(-72.6330959681dB,130.832156828°)	432000000
+   203	(-70.4725879076dB,-48.083912672°)	432000000
+   204	(-74.0088847899dB,-50.2392228198°)	432000000
+   205	(-74.8077559254dB,127.820295432°)	432000000
+   206	(-89.2053609544dB,138.083030658°)	432000000
+   207	(-71.0756999866dB,131.767350617°)	432000000
+   208	(-69.2030266354dB,-49.3131167747°)	432000000
+   209	(-90.7371062299dB,142.032606698°)	432000000
+   210	(-69.8588989703dB,128.474140953°)	432000000
+   211	(-68.9017108292dB,-52.0537360645°)	432000000
+   212	(-71.4596053174dB,-52.0471970824°)	432000000
+   213	(-99.3375421878dB,-65.2527304674°)	432000000
+   214	(-76.7992063974dB,-54.7457213689°)	432000000
+   215	(-68.2556229845dB,-52.4982006206°)	432000000
+   216	(-76.5641483267dB,133.736081322°)	432000000
+   217	(-79.155071243dB,128.904100214°)	432000000
+   218	(-78.2794275455dB,-55.3153454876°)	432000000
+   219	(-74.0229101737dB,130.301596882°)	432000000
+   220	(-73.1164452356dB,-50.4997543728°)	432000000
+   221	(-70.708398212dB,130.149195059°)	432000000
+   222	(-71.3898374334dB,126.822045526°)	432000000
+   223	(-69.5249792146dB,-50.1114849439°)	432000000
+   224	(-79.2291358354dB,-51.296595154°)	432000000
+   225	(-77.2781717479dB,130.689845642°)	432000000
+   226	(-68.9702351245dB,132.889339451°)	432000000
+   227	(-71.4035588095dB,131.449026949°)	432000000
+   228	(-105.870731945dB,160.187671025°)	432000000
+   229	(-74.2521243237dB,-50.6360912877°)	432000000
+   230	(-69.3179860586dB,131.449947747°)	432000000
+   231	(-77.1508081675dB,133.062070533°)	432000000
+   232	(-72.7436979698dB,-51.866701848°)	432000000
+   233	(-76.6851855028dB,131.977372309°)	432000000
+   234	(-74.9068498622dB,130.193000089°)	432000000
+   235	(-76.5136634067dB,133.292846547°)	432000000
+   236	(-77.4591604028dB,-53.1189863099°)	432000000
+   237	(-67.251621541dB,-48.88823697°)	432000000
+   238	(-71.2401442714dB,-51.8629608549°)	432000000
+   239	(-87.6617502911dB,140.577140523°)	432000000
+   240	(-82.4445090094dB,132.944579339°)	432000000
+   241	(-79.6572649804dB,-51.9581983132°)	432000000
+   242	(-68.3204689507dB,-50.4082390553°)	432000000
+   243	(-73.94568292dB,132.920315573°)	432000000
+   244	(-72.4707002223dB,-50.9374705874°)	432000000
+   245	(-76.1610121061dB,130.929402089°)	432000000
+   246	(-77.4376471867dB,-56.3502746602°)	432000000
+   247	(-68.8332478774dB,-49.6806207198°)	432000000
+   248	(-90.9147740704dB,132.710213626°)	432000000
+   249	(-76.3841673419dB,130.471822636°)	432000000
+   250	(-72.2297647964dB,-50.0487556632°)	432000000
+   251	(-76.3812971576dB,129.366223274°)	432000000
+   252	(-71.6705963866dB,133.8803295°)	432000000
+   253	(-67.6405559347dB,-49.5074507352°)	432000000
+   254	(-59.1468537336dB,137.379446389°)	432000000
+   255	(-59.1468537336dB,137.379446389°)	432000000
+   256	(-70.4844749549dB,-59.1881863854°)	432000000
+   257	(-59.1501554468dB,138.973776784°)	432000000
+   258	(-59.1501554468dB,138.973776784°)	432000000
+   259	(-70.4999196442dB,-58.6900479158°)	432000000
+
+Measurement: echo_l4
+  step	L4L
+     1	(-141.988288267dB,0°)
+     2	(-141.466978458dB,0°)
+     3	(-141.769485525dB,0°)
+     4	(-141.529774993dB,0°)
+     5	(-141.567987033dB,0°)
+     6	(-141.800052534dB,0°)
+     7	(-141.724193274dB,0°)
+     8	(-141.60825338dB,0°)
+     9	(-141.909940055dB,0°)
+    10	(-141.852752152dB,0°)
+    11	(-141.524993722dB,0°)
+    12	(-141.792597944dB,0°)
+    13	(-141.477061627dB,0°)
+    14	(-141.877299258dB,0°)
+    15	(-141.688858792dB,0°)
+    16	(-141.51743315dB,0°)
+    17	(-141.896496436dB,0°)
+    18	(-141.933591447dB,0°)
+    19	(-141.843052574dB,0°)
+    20	(-141.75056034dB,0°)
+    21	(-141.583675299dB,0°)
+    22	(-141.727095215dB,0°)
+    23	(-141.779643746dB,0°)
+    24	(-141.899199277dB,0°)
+    25	(-141.842645573dB,0°)
+    26	(-141.920252054dB,0°)
+    27	(-141.919092792dB,0°)
+    28	(-141.639232766dB,0°)
+    29	(-141.881706776dB,0°)
+    30	(-141.853248866dB,0°)
+    31	(-141.685194455dB,0°)
+    32	(-141.72803625dB,0°)
+    33	(-141.927236903dB,0°)
+    34	(-141.937860431dB,0°)
+    35	(-141.763675515dB,0°)
+    36	(-141.68784815dB,0°)
+    37	(-141.919772079dB,0°)
+    38	(-141.637341623dB,0°)
+    39	(-141.50892219dB,0°)
+    40	(-141.602869836dB,0°)
+    41	(-141.582115097dB,0°)
+    42	(-141.591796627dB,0°)
+    43	(-141.982679304dB,0°)
+    44	(-141.666026725dB,0°)
+    45	(-141.754458585dB,0°)
+    46	(-141.570644703dB,0°)
+    47	(-141.644055313dB,0°)
+    48	(-141.908233578dB,0°)
+    49	(-141.516936655dB,0°)
+    50	(-141.556081211dB,0°)
+    51	(-141.754086539dB,0°)
+    52	(-141.677640716dB,0°)
+    53	(-141.664765178dB,0°)
+    54	(-141.839374146dB,0°)
+    55	(-141.720511885dB,0°)
+    56	(-141.939494554dB,0°)
+    57	(-141.577305977dB,0°)
+    58	(-141.746522592dB,0°)
+    59	(-141.975872195dB,0°)
+    60	(-141.885536996dB,0°)
+    61	(-141.804468061dB,0°)
+    62	(-141.978371879dB,0°)
+    63	(-141.584150607dB,0°)
+    64	(-141.866781804dB,0°)
+    65	(-141.684290738dB,0°)
+    66	(-141.568668543dB,0°)
+    67	(-141.580958415dB,0°)
+    68	(-141.622388514dB,0°)
+    69	(-141.521321272dB,0°)
+    70	(-141.659296037dB,0°)
+    71	(-141.82045369dB,0°)
+    72	(-141.471743326dB,0°)
+    73	(-141.78459931dB,0°)
+    74	(-141.986625287dB,0°)
+    75	(-141.732495893dB,0°)
+    76	(-141.544805958dB,0°)
+    77	(-141.861120519dB,0°)
+    78	(-141.702070195dB,0°)
+    79	(-141.746167878dB,0°)
+    80	(-141.595968693dB,0°)
+    81	(-141.955908198dB,0°)
+    82	(-141.705541877dB,0°)
+    83	(-141.547571759dB,0°)
+    84	(-141.683355485dB,0°)
+    85	(-141.530098189dB,0°)
+    86	(-141.785525259dB,0°)
+    87	(-141.781793263dB,0°)
+    88	(-141.670140913dB,0°)
+    89	(-141.818085773dB,0°)
+    90	(-141.792364124dB,0°)
+    91	(-141.968304461dB,0°)
+    92	(-141.731933939dB,0°)
+    93	(-141.563756627dB,0°)
+    94	(-141.609371887dB,0°)
+    95	(-141.687849205dB,0°)
+    96	(-141.938436954dB,0°)
+    97	(-141.481095496dB,0°)
+    98	(-141.748776531dB,0°)
+    99	(-141.682873664dB,0°)
+   100	(-141.97084883dB,0°)
+   101	(-141.486162886dB,0°)
+   102	(-141.912366707dB,0°)
+   103	(-141.729223285dB,0°)
+   104	(-141.499976687dB,0°)
+   105	(-141.939385965dB,0°)
+   106	(-141.84779732dB,0°)
+   107	(-141.726256dB,0°)
+   108	(-141.702821482dB,0°)
+   109	(-141.693346916dB,0°)
+   110	(-141.818712228dB,0°)
+   111	(-141.922711936dB,0°)
+   112	(-141.629481482dB,0°)
+   113	(-141.72623163dB,0°)
+   114	(-141.758503215dB,0°)
+   115	(-141.875968923dB,0°)
+   116	(-141.835567442dB,0°)
+   117	(-141.58170972dB,0°)
+   118	(-141.754626542dB,0°)
+   119	(-141.778433811dB,0°)
+   120	(-141.686845008dB,0°)
+   121	(-141.503033916dB,0°)
+   122	(-141.675451507dB,0°)
+   123	(-141.743608845dB,0°)
+   124	(-141.853561746dB,0°)
+   125	(-141.85591677dB,0°)
+   126	(-141.853209085dB,0°)
+   127	(-141.824329857dB,0°)
+   128	(-141.575020078dB,0°)
+   129	(-141.56872369dB,0°)
+   130	(-141.866455526dB,0°)
+   131	(-141.485680542dB,0°)
+   132	(-141.546751787dB,0°)
+   133	(-141.473941478dB,0°)
+   134	(-141.854362813dB,0°)
+   135	(-141.797661327dB,0°)
+   136	(-141.530043286dB,0°)
+   137	(-141.651502152dB,0°)
+   138	(-141.889726278dB,0°)
+   139	(-141.970070729dB,0°)
+   140	(-141.924566519dB,0°)
+   141	(-141.870407223dB,0°)
+   142	(-141.794900184dB,0°)
+   143	(-141.566291295dB,0°)
+   144	(-141.838621688dB,0°)
+   145	(-141.90285123dB,0°)
+   146	(-141.671619087dB,0°)
+   147	(-141.886371237dB,0°)
+   148	(-141.775057544dB,0°)
+   149	(-141.489071942dB,0°)
+   150	(-141.764612008dB,0°)
+   151	(-141.741933672dB,0°)
+   152	(-141.521754888dB,0°)
+   153	(-141.789337838dB,0°)
+   154	(-141.592560347dB,0°)
+   155	(-141.86002077dB,0°)
+   156	(-141.746479048dB,0°)
+   157	(-141.969564021dB,0°)
+   158	(-141.471997485dB,0°)
+   159	(-141.861574664dB,0°)
+   160	(-141.862781168dB,0°)
+   161	(-141.856741717dB,0°)
+   162	(-141.660231857dB,0°)
+   163	(-141.592417405dB,0°)
+   164	(-141.84641563dB,0°)
+   165	(-141.895884875dB,0°)
+   166	(-141.509904991dB,0°)
+   167	(-141.821685563dB,0°)
+   168	(-141.635355474dB,0°)
+   169	(-141.951611851dB,0°)
+   170	(-141.597216111dB,0°)
+   171	(-141.553427993dB,0°)
+   172	(-141.861981477dB,0°)
+   173	(-141.656393532dB,0°)
+   174	(-141.52168762dB,0°)
+   175	(-141.527824679dB,0°)
+   176	(-141.540893828dB,0°)
+   177	(-141.891726101dB,0°)
+   178	(-141.792972711dB,0°)
+   179	(-141.925071693dB,0°)
+   180	(-141.775740578dB,0°)
+   181	(-141.559376527dB,0°)
+   182	(-141.818226052dB,0°)
+   183	(-141.864973969dB,0°)
+   184	(-141.484911734dB,0°)
+   185	(-141.651799444dB,0°)
+   186	(-141.566561759dB,0°)
+   187	(-141.908884965dB,0°)
+   188	(-141.50781861dB,0°)
+   189	(-141.644169719dB,0°)
+   190	(-141.953906598dB,0°)
+   191	(-141.750414774dB,0°)
+   192	(-141.528252405dB,0°)
+   193	(-141.66668861dB,0°)
+   194	(-141.843143857dB,0°)
+   195	(-141.960719366dB,0°)
+   196	(-141.842933371dB,0°)
+   197	(-141.94355133dB,0°)
+   198	(-141.640574542dB,0°)
+   199	(-141.686304984dB,0°)
+   200	(-141.670783109dB,0°)
+   201	(-141.982642199dB,0°)
+   202	(-141.725382963dB,0°)
+   203	(-141.912834365dB,0°)
+   204	(-141.794058664dB,0°)
+   205	(-141.509159871dB,0°)
+   206	(-141.478983068dB,0°)
+   207	(-141.475005765dB,0°)
+   208	(-141.559597922dB,0°)
+   209	(-141.938581362dB,0°)
+   210	(-141.553822704dB,0°)
+   211	(-141.578029884dB,0°)
+   212	(-141.556383567dB,0°)
+   213	(-141.821275276dB,0°)
+   214	(-141.673324984dB,0°)
+   215	(-141.866372612dB,0°)
+   216	(-141.827639574dB,0°)
+   217	(-141.79478164dB,0°)
+   218	(-141.571346197dB,0°)
+   219	(-141.790932511dB,0°)
+   220	(-141.552120382dB,0°)
+   221	(-141.849568267dB,0°)
+   222	(-141.695832052dB,0°)
+   223	(-141.750139587dB,0°)
+   224	(-141.981107959dB,0°)
+   225	(-141.980440224dB,0°)
+   226	(-141.588614139dB,0°)
+   227	(-141.955234782dB,0°)
+   228	(-141.661513779dB,0°)
+   229	(-141.525000969dB,0°)
+   230	(-141.605420125dB,0°)
+   231	(-141.598027289dB,0°)
+   232	(-141.803296354dB,0°)
+   233	(-141.924191451dB,0°)
+   234	(-141.679597564dB,0°)
+   235	(-141.973471344dB,0°)
+   236	(-141.906179109dB,0°)
+   237	(-141.946447083dB,0°)
+   238	(-141.669828255dB,0°)
+   239	(-141.916134666dB,0°)
+   240	(-141.501752454dB,0°)
+   241	(-141.762383747dB,0°)
+   242	(-141.955533951dB,0°)
+   243	(-141.928280127dB,0°)
+   244	(-141.983710653dB,0°)
+   245	(-141.752201045dB,0°)
+   246	(-141.721280654dB,0°)
+   247	(-141.586219958dB,0°)
+   248	(-141.575582385dB,0°)
+   249	(-141.564037412dB,0°)
+   250	(-141.622315227dB,0°)
+   251	(-141.503958214dB,0°)
+   252	(-141.467427882dB,0°)
+   253	(-141.466978458dB,0°)
+   254	(-141.988288267dB,0°)
+   255	(-141.988288267dB,0°)
+   256	(-141.988288267dB,0°)
+   257	(-141.988288267dB,0°)
+   258	(-141.988288267dB,0°)
+   259	(-141.466978458dB,0°)

@@ -84,8 +84,29 @@ PA_HARMONICS = {
 }
 
 
-def pa_harmonic_dbc(alt: str, n: int, step_w: float) -> float:
-    d = PA_HARMONICS[alt]["full" if step_w >= 5.0 else "backoff"]
+# Pack voltages named by REQ-SYS-017, REQ-TX-007 and REQ-SYS-012 (6.4 to 8.4 V) and the datasheet condition
+# (revision 2, review finding-3). The ALC holds the carrier at the step at every pack voltage, so the
+# carrier at the antenna is the same; what changes with the pack voltage is the PA operating state:
+#   A5 at the 5 W step: at 6.4 V the module runs at or near its full output (4.5 to 5.1 W at the module,
+#     TS-012 7.3), taken at the datasheet maxima (E: the guarantee is at 7.2 V, 6 W); at 7.2 V the step is
+#     0.8 dB under the 6 W guarantee point, taken at the datasheet maxima (E for the 0.8 dB); at 8.4 V the
+#     module could make about 10.5 W (F8), so 5 W is a VGG back-off state outside the guarantee and the
+#     back-off convention (-17 dBc 2f, -25 dBc 3f and above, E) is used. The lower steps use the back-off
+#     convention at every pack voltage.
+#   A4: the F17 assumption at every step and every pack voltage (no vendor data).
+PACK_V = (6.4, 7.2, 8.4)
+
+
+def pa_state(alt: str, step_w: float, pack_v: float = 7.2) -> str:
+    if step_w < 5.0:
+        return "backoff"
+    if alt == "A5" and pack_v > 7.2 + 1e-9:
+        return "backoff"
+    return "full"
+
+
+def pa_harmonic_dbc(alt: str, n: int, step_w: float, pack_v: float = 7.2) -> float:
+    d = PA_HARMONICS[alt][pa_state(alt, step_w, pack_v)]
     return d[2] if n == 2 else d["hi"]
 
 
@@ -181,13 +202,16 @@ PAD_C = (_node_min, 0.5 * (_node_min + _node_max), _node_max)
 TRACE_L = (0.5e-9, 1.0e-9, 2.0e-9)
 # Stray capacitance pad to pad across a coil (fringe across the 1.7 mm gap) (E)
 ACROSS_C = (0.02e-12, 0.05e-12, 0.08e-12)
-# Mutual coupling between adjacent coils (parallel axes, about 8 to 10 mm apart) (E)
-K_1812 = (1e-4, 0.005, 0.01)
-K_AIR = (1e-4, 0.015, 0.03)
+# Mutual coupling between adjacent coils (parallel axes, about 8 to 10 mm apart) (E). The sign depends on
+# the winding sense and the orientation of each coil on the board, which the layout does not fix, so the
+# range is signed (revision 2, review finding-1: revision 1 drew only positive K). The nominal stays at
+# the positive mid value so that run r1 is unchanged.
+K_1812 = (-0.01, 0.005, 0.01)
+K_AIR = (-0.03, 0.015, 0.03)
 # Layout leakage around the filter (E): direct input-to-output capacitance between the end nodes and
 # pads with a bottom ground pour (0.0005 to 0.005 pF), and coupling between the first and last coils
-K26_1812 = (1e-4, 0.001, 0.003)
-K26_AIR = (1e-4, 0.002, 0.006)
+K26_1812 = (-0.003, 0.001, 0.003)
+K26_AIR = (-0.006, 0.002, 0.006)
 C_IO = (0.5e-15, 2e-15, 5e-15)
 
 # ---------------------------------------------------------------------------------------------
@@ -342,3 +366,122 @@ PARAM_ORDER = (
     [f"C{i + 1}{k}" for i in CAP_POS for k in ("C", "ESR", "ESL", "Lvia", "Cpad")]
     + [f"L{i + 1}{k}" for i in COIL_POS for k in ("L", "R", "C", "Ltr", "Q", "SRF")]
     + ["K24", "K46", "K26", "Cio"])
+
+
+# ---------------------------------------------------------------------------------------------
+# Worst-case (extreme value) parameter space (revision 2, review finding-1)
+# ---------------------------------------------------------------------------------------------
+# The free parameters of one filter instance and their bounds: the same ranges the Monte Carlo draws
+# from, every parameter of every part independent (a conservative superset: on one board the via rule
+# and the board thickness are common to the four capacitors). Coil R and Cpar are derived from L, Q and
+# SRF exactly as coil_params does.
+CAP_FREE = ("C", "ESR", "ESL", "Lvia", "Cpad")
+COIL_FREE = ("L", "Q", "SRF", "Cacr", "Ltr")
+
+
+TRAP_FREE = ("Ct", "CtESR", "CtESL")
+# Trap capacitors (small C0G, 1206 or 0603) across a coil: below 10 pF the tolerance is absolute; the
+# 'C' code is +/-0.25 pF (part-number convention, D); ESR and ESL as for the shunt capacitors (E)
+TRAP_TOL_F = 0.25e-12
+
+
+def free_names(traps: dict | None = None) -> list[str]:
+    names = ([f"C{i + 1}{k}" for i in CAP_POS for k in CAP_FREE]
+             + [f"L{i + 1}{k}" for i in COIL_POS for k in COIL_FREE] + ["K24", "K46", "K26", "Cio"])
+    for n in sorted(traps or {}):
+        names += [f"L{n}{k}" for k in TRAP_FREE]
+    return names
+
+
+def param_bounds(kind: str, vals: list[float] | None = None, coil_tol: float | None = None,
+                 cap_tol: float = 0.05, traps: dict | None = None) -> dict:
+    """{free name: (lo, nominal, hi)} for one build. traps: {coil number 2, 4 or 6: trap C nominal}."""
+    vals = BOM if vals is None else vals
+    b = {}
+    for n, ct in (traps or {}).items():
+        b[f"L{n}Ct"] = (ct - TRAP_TOL_F, ct, ct + TRAP_TOL_F)
+        b[f"L{n}CtESR"] = CAP_ESR
+        b[f"L{n}CtESL"] = CAP_ESL
+    for i in CAP_POS:
+        c = vals[i]
+        b[f"C{i + 1}C"] = (c * (1 - cap_tol), c, c * (1 + cap_tol))
+        b[f"C{i + 1}ESR"] = CAP_ESR
+        b[f"C{i + 1}ESL"] = CAP_ESL
+        b[f"C{i + 1}Lvia"] = VIA_L
+        b[f"C{i + 1}Cpad"] = PAD_C
+    for i in COIL_POS:
+        l_nom = vals[i]
+        if kind == "1812":
+            spec = COILCRAFT[l_nom]
+            tol = 0.05 if coil_tol is None else coil_tol
+            q = (spec["q_min"], spec["q_min"], 130.0)
+            srf = (spec["srf_min"], spec["srf_min"], 1.3 * spec["srf_min"])
+        else:
+            a = air_coil(l_nom)
+            tol = 0.10 if coil_tol is None else coil_tol
+            q = (a["q_146"] * 0.6, a["q_146"] * 0.8, a["q_146"] * 1.0)
+            s0 = a["srf_GHz"] * 1e9
+            srf = (s0 / math.sqrt(1.5), s0, s0 / math.sqrt(0.5))
+        b[f"L{i + 1}L"] = (l_nom * (1 - tol), l_nom, l_nom * (1 + tol))
+        b[f"L{i + 1}Q"] = q
+        b[f"L{i + 1}SRF"] = srf
+        b[f"L{i + 1}Cacr"] = ACROSS_C
+        b[f"L{i + 1}Ltr"] = TRACE_L
+    kr = K_1812 if kind == "1812" else K_AIR
+    k26 = K26_1812 if kind == "1812" else K26_AIR
+    b["K24"] = kr
+    b["K46"] = kr
+    b["K26"] = k26
+    b["Cio"] = C_IO
+    return b
+
+
+def deck_params(kind: str, free: dict) -> dict:
+    """Deck parameter dict (the keys of PARAM_ORDER) from a free-parameter dict."""
+    p = {}
+    for i in CAP_POS:
+        for k in CAP_FREE:
+            p[f"C{i + 1}{k}"] = free[f"C{i + 1}{k}"]
+    for i in COIL_POS:
+        n = f"L{i + 1}"
+        l, q, srf = free[n + "L"], free[n + "Q"], free[n + "SRF"]
+        p[n + "L"] = l
+        p[n + "R"] = 2 * math.pi * (Q_FREQ if kind == "1812" else 146e6) * l / q
+        p[n + "C"] = 1 / ((2 * math.pi * srf) ** 2 * l) + free[n + "Cacr"]
+        p[n + "Ltr"] = free[n + "Ltr"]
+        p[n + "Q"] = q
+        p[n + "SRF"] = srf
+    for k in ("K24", "K46", "K26", "Cio"):
+        p[k] = free[k]
+    for k, v in free.items():
+        if any(k.endswith(t) for t in TRAP_FREE):
+            p[k] = v
+    return p
+
+
+# ---------------------------------------------------------------------------------------------
+# Frequency grid of the revision 2 decks (.ac list) and of the corner search
+# ---------------------------------------------------------------------------------------------
+# 2 MHz from 2 to 1600 MHz for the plots and the 576 MHz to 1.5 GHz band, the carrier range 144 to 148 MHz
+# in 0.25 MHz steps, and n times every one of those carriers for n = 2 to 10, so that the harmonic of
+# each carrier and the loss at that carrier come from the same instance (review finding-4).
+PB_FINE = np.round(np.arange(F_LO, F_HI + 1, 0.25e6))
+BASE_GRID = np.round(np.arange(2e6, 1600e6 + 1, 2e6))
+FREQS = np.unique(np.concatenate([BASE_GRID, PB_FINE] + [n * PB_FINE for n in HARMONICS]))
+
+
+def sample_free(bounds: dict, names: list[str], rng=None, corner: int = 0,
+                tol_names: tuple = ("C", "L", "Ct")) -> dict:
+    """One instance in the free-parameter box. rng given: every parameter uniform over its bounds (the
+    revision 1 distributions, drawn in this order). corner -1/+1 without rng: every L, C and trap C at
+    its bound, parasitics nominal (the revision 1 tolerance corners). Neither: the nominal."""
+    out = {}
+    for n in names:
+        lo, nom, hi = bounds[n]
+        if rng is not None:
+            out[n] = float(rng.uniform(lo, hi))
+        elif corner and any(n.endswith(t) and n[:2] + t == n for t in tol_names if len(n) == 2 + len(t)):
+            out[n] = lo if corner < 0 else hi
+        else:
+            out[n] = nom
+    return out
