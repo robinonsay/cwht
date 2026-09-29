@@ -12,14 +12,20 @@
 # Iteration 2 (2026-09-27, main ae29a98): delta under plan rule C1 on the drift of the CR file only,
 # 3b9266ff (4dab5dc) to 5e6ceb62 (cccbfda section 6.1 impact review round 1, blob ade26204; a244b05
 # revision 2, blob 5e6ceb62). The four branch blobs at c629198 are unchanged and remain the frozen product.
+# CR file re-pin delta (2026-09-29, main 0680af9; WP-PDR-55): delta under plan rule C1 on the drift of the CR file,
+# 5e6ceb62 (a244b05) to aa65e826 (6485bd3 section 6.3, a17af87 disposition, 9c40ef9 and 726cd44 sections 5, 8, 9);
+# the CR sections this record reviewed changed (section 5 Done cells; front matter status), so a delta, not a removal.
+# Iteration stays 2: a re-pin delta is not a new review iteration (INSP-003 convention).
 id: INSP-044
 checklist: peer-review-checklist-requirements
 checklist_revision: C
 checklist_file: docs/reviews/PDR/checklists/cr-008-requirements-sys.md
 product: CR-008
 # product_commit: the branch head that holds the frozen blobs (base ab2af2d on main); the CR file is on main at a244b05 (iteration 2)
+# re-pin delta: product_commit stays c629198 (the four frozen blobs, equal at the branch head e26ce46); the CR file is on main at 726cd44
 product_commit: "c6291980c83e6e1e55b66ceff2e0b89222669b97"
-product_files: ["docs/requirements/sys/requirements.json@a73449377e8d055f5d247130b8850bf3f5a151d9", "docs/requirements/sys/requirements.md@4e110b16027fbe446e846a8c5f9d2dc5c2899af6", "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065", "docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316", "docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@5e6ceb627a75e769d9898c107b9e87e3bb152f69"]
+# product_files at iteration 2: the four as below and docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@5e6ceb627a75e769d9898c107b9e87e3bb152f69
+product_files: ["docs/requirements/sys/requirements.json@a73449377e8d055f5d247130b8850bf3f5a151d9", "docs/requirements/sys/requirements.md@4e110b16027fbe446e846a8c5f9d2dc5c2899af6", "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065", "docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316", "docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@aa65e8261da4193707b561dba6e8a841451cf88f"]
 product_size: 145 requirements added or changed (1 added, 14 statements, 55 rationales, 10 notes, 40 source_ids, 104 tbr objects); 191 entries, 189 live
 sprint: PDR-prep
 author_agent: "author:WP-PDR-11 (L1 requirements author and TC-SYS test author, one invocation; CR-008 section 4 independence note)"
@@ -38,21 +44,25 @@ assurance_verdict: not-required
 # record whose product_files are not in HEAD (record drift rule). The software lead sets APPROVED when
 # CR-008 merges with these blobs unchanged (section "Record verdict"; precedent INSP-031). Iteration 2 keeps the
 # hold: the four requirement and test-case blobs are still only on the unmerged branch (lead SE convention).
+# The re-pin delta keeps the hold for the same reason.
 verdict: NEEDS CHANGES
+# re-pin delta counts: finding-1 Open to Lien (rule C1: CR-008 dispositioned Approved on 2026-09-28 without a revision;
+# due at the CDR readiness declaration), counted in findings_deferred; finding-2 new, Minor, Open (fix before the merge,
+# record text only). Was minor 1, open 1, deferred 0
 findings_major: 0
-findings_minor: 1
+findings_minor: 2
 findings_open: 1
 findings_fixed: 0
 findings_verified: 0
-findings_deferred: 0
+findings_deferred: 1
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-D4]
-# effort: iteration 1 (60 turns, 120 min) plus iteration 2 delta (14 turns, 25 min)
-effort_turns: 74
-effort_minutes: 145
+# effort: iteration 1 (60 turns, 120 min) plus iteration 2 delta (14 turns, 25 min) plus the re-pin delta (12 turns, 25 min)
+effort_turns: 86
+effort_minutes: 170
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -75,8 +85,11 @@ date_closed: null
 | Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
 |---|---|---|---|---|---|---|---|---|
 | <a id="finding-1"></a>finding-1 | reviewer | Minor | CK-REQ-D4 (INSP-003 finding-25 class) | REQ-SYS-167 `description` (also REQ-SYS-089, unchanged by the CR); TC-SYS-065 `acceptance_criteria` | CR-008 turns "refuse", "stop" and "pause" charging into a measurable level (charge current below 5 mA) in REQ-SYS-087, 088 and 093, but REQ-SYS-167 ("shall stop charging when its constant-voltage charge current falls by less than 20 mA ...") and REQ-SYS-089 ("shall stop any charge that lasts longer than 15 h") keep "stop charging" with no level. Their closing case TC-SYS-065, which the CR edits, now supplies the level itself: "charging stopped means a charge current below 5 mA, the level of REQ-SYS-087, 088 and 093". That is the pattern INSP-003 finding-25 recorded (a pass/fail value set in the case, taken from a sibling), now introduced in a case this CR amends. Minor, as finding-25 was: the value is narrow, visible and identical to the sibling statements, so no verifier reaches a different result. Fix: state "hold charge current below 5 mA" in REQ-SYS-089 and REQ-SYS-167 (Class I, with CR-008 or at the PDR TBR closure of REQ-SYS-167), or cite the level from the requirement once it is stated there | Open | Pending | |
+| <a id="finding-2"></a>finding-2 | reviewer (re-pin delta) | Minor | R5 (CR record content); 05 section 5.2 (Closed: "owner approves the merge") | CR-008 section 10, row "Owner merge approval" (`aa65e826`, line 352) | The cell reads "2026-09-28, with the disposition: 'their branches merge after the section 9 checks' (lead SE reading ...)". That makes the record look as though the owner approved the merge on 2026-09-28. The plan instead puts the merge approval of CR-008, 009, 010, 013, 015 and 016 at session S1 as OD-43 (`pdr-work-plan.md` S1 row, "OD-43 batch 1"), and CR-008 section 9 item (d) of the same file says "then the owner's merge approval at S1 (batch 1)". The two parts of the record disagree about an owner approval point. Minor, because the cell also says "Merge held at the disposition", and no product or blob depends on it. Fix (configuration manager, record text only, before the merge): give the cell "Pending: owner merge approval at S1 (OD-43, batch 1)", keep the 2026-09-28 reading as the disposition's context, and fill it with the S1 answer | Open | Not needed | Before the CR-008 merge |
 
 **Counts.** 1 finding, Minor; open Major 0. Under plan rule C1 the Minor finding is a lien if CR-008 is not revised before its disposition.
+
+**Counts at the re-pin delta (2026-09-29).** 2 findings, both Minor; open Major 0. finding-1 is a Lien (rule C1: CR-008 was dispositioned Approved on 2026-09-28 without a revision; due at the CDR readiness declaration). finding-2 is new and Open, to be fixed before the merge (record text only).
 
 ### Lien verification (INSP-003 liens, RFA-SRR-007 L-7, INSP-025 cross items on the L1 side)
 
@@ -424,4 +437,48 @@ No new finding. Open Major 0; finding-1 (Minor) Open.
 VERDICT (iteration 2): APPROVED (record verdict held at NEEDS CHANGES until CR-008 merges; drift rule)
 FINDINGS: finding-1 [Minor] unchanged, Open (lien under C1 unless fixed on the branch); no new finding
 MEASUREMENTS (iteration 2): hunks=5 (2 + 5 read across the two commits); files_changed=1; product blobs re-identified=4 of 4 unchanged; turns=14; minutes=25; major=0; minor_new=0
+```
+
+## Re-pin delta on the CR file (2026-09-29, main `0680af9`; WP-PDR-55)
+
+**Scope (plan rule C1, record drift rule).** The record named the CR file at `5e6ceb62` (`a244b05`). `main` changed that file four times after that: `6485bd3` (section 6.3, impact review round 2, blob `9cb5db1f`), `a17af87` (owner disposition, `d10804cd`), `9c40ef9` (section 9 pre-merge check and the step 7 Done cell, `4ae5e83e`) and `726cd44` (section 8 and the step 3 and 5 Done cells, `aa65e826`, the blob at `main` `0680af9`). This record reviewed sections 1, 4 and 5 (iteration 1) and, at iteration 2, the section 6.1 and 6.2 hunks. Section 5 changed, so this is a delta, and the CR file is re-pinned at `aa65e826`. Taking the file out of `product_files` would have been right only if no reviewed section had changed. The four frozen blobs have not changed: `git rev-parse e26ce46:<path>` (the branch head after the INSP-003 and INSP-008 updates) equals `c629198:<path>` for `requirements.json` `a7344937`, `requirements.md` `4e110b16`, `test_cases.json` `117c08de` and `test_cases.md` `00e4454f`. The branch commits after `c629198` (`ebeb069` records, `a36a828` `hazards.json` and `allocation.json`, `e26ce46` records) touch none of them. So the iteration 2 condition "any branch change ... needs a further delta" is not triggered for this record's L1 lens.
+
+**Independence (rule C4).** This invocation authored no part of CR-008, of its sections 6 to 9, of steps 3 and 5, of this record's iterations 1 and 2, or of the INSP-003 and INSP-025 deltas at `ebeb069`. It wrote the INSP-003 and INSP-008 updates at `e26ce46`, which are records, not this product. It edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran first (query: CR-008 SRR liens, REQ-SYS-194, INSP-003 and INSP-008 delta). After it, `git diff -U0 5e6ceb62 aa65e826` and `sed -n` only pinned lines.
+
+### Hunks read (`git diff -U0 5e6ceb62 aa65e826`: 16 hunks, 94 insertions, 16 deletions)
+
+| Hunk (new lines) | Section | Change | Effect on this record (L1 lens) |
+|---|---|---|---|
+| 4; 17 and 18 | Front matter | `status` Submitted to Dispositioned; `disposition` Approved, `disposition_date` 2026-09-28 | Consistent with section 7 and with the 05 section 5.2 state table (Dispositioned: the owner records the decision and the class). `affected_ids`, `affected_paths` and `affected_cis` are unchanged from revision 2. No L1 field is affected |
+| 162, 164, 166 | 5 | "Done (SHA)" cells of steps 3, 5 and 7 filled (`a36a828`, `a36a828`, `ebeb069`) | Only the Done column changes. The artifact, the responsible role and the ordering of every step are unchanged, including step 9 read at iteration 2. The SHAs resolve on the branch (`git log c629198..e26ce46`). The step 7 cell says that INSP-003 and INSP-008 need further deltas. Both are now on the branch at `e26ce46` (INSP-003 section "CR-008 allocation delta", INSP-008 section "CR-008 hazards delta"), so the cell is out of date but not wrong, and it is left for the CM record |
+| 236 to 255 | 6.3 (new) | Impact review round 2: R1-F1 Verified; new Minor R2-F1 (the HZ-010 K5 undirected 50 ms), R2-F2 (WP-PDR-36a routing), R2-F3 (closure of the 10 ms removal TBR, bookkeeping) | Reviewer text, not the author's. It confirms the revision 2 Interfaces row, which the iteration 2 CK-REQ-C2 answer relied on. None of R2-F1 to R2-F3 names an L1 statement. R2-F1 is a hazard control text, and R2-F3 (a) is an ICD TBR with no bench source. From the L1 lens this reviewer concurs, without counting them here |
+| 258 to 275 | 7 | Disposition: Approved, Class I, 2026-09-28, no owner conditions; rationale accepts R1-F2 to R1-F5 and R2-F1 to R2-F3 as liens; source transcribed from `status-2026-09-28.md` section 1 (`e288add`) | The CR was dispositioned without a revision. So, under rule C1, finding-1 of this record becomes a lien due at the CDR readiness declaration, as the iteration 1 counts said it would. Section 12 records question 2 answered 2a, so REQ-SYS-077 keeps its frozen statement and the iteration 2 CK-REQ-C2 answer stands |
+| 279 to 296 | 8 | Implementation record for steps 1, 2, 3, 5 and 7, with the `ebeb069` and `a36a828` rows of the commit table | Checked against the branch: the commit list and file sets are exact, and the new blobs are `416b3e19` and `028facf7`. The step 5 text says "seven hunks", but `git diff` shows six (editorial; INSP-003 "CR-008 allocation delta"). No L1 blob changes |
+| 305 to 347 | 9 | Configuration manager pre-merge check (2026-09-28) and its update (2026-09-29) | CM record, not the independent verification (which is still pending, as it says). Its note that this record names the CR at `5e6ceb62` is what this delta clears. Items (a) and (b) of its blocker list are now done on the branch (`a36a828`, `e26ce46`) |
+| 352 | 10 | "Owner merge approval" filled with the 2026-09-28 disposition reading | Disagrees with section 9 item (d) and with plan S1 OD-43: **finding-2** (Minor, Open) |
+| 365 to 367 | 11 | History rows for round 2, the disposition and the 2026-09-29 pre-merge check | Status record only. The rows agree with sections 6.3, 7 and 9 |
+| 377 and 378 | 12 | Answers recorded with the disposition: Q1 Class I, Q2 accepted with 2a, Q3 and Q4 accepted | Q2 with 2a means no L1 blob changes, as the iteration 2 row for section 12 foresaw. Q3 confirms the REQ-SYS-083 and REQ-SYS-194 split that iteration 1 reviewed |
+
+Sections 1 to 4, 6.1 and 6.2, and every section 5 cell other than the three Done cells, are byte-identical between `5e6ceb62` and `aa65e826`. The diff has no hunk there.
+
+### Items revisited
+
+| Item | Answer at this delta | Evidence |
+|---|---|---|
+| CK-REQ-D4 (finding-1) | No (unchanged) | REQ-SYS-089 and 167 are unchanged in the frozen blob. finding-1 moves from Open to Lien under rule C1, due at the CDR readiness declaration (CR-008 section 7 accepts the section 6 Minors as liens, and no revision was made before the disposition) |
+| CK-REQ-C2 | Yes (unchanged) | Question 2 was answered 2a, so REQ-SYS-077 is unchanged, and the ICDs align through step 9 before the ICD baseline |
+| CK-REQ-B7 | Yes (unchanged) | The downstream list is unchanged. Steps 3 and 5 are done on the branch, and steps 4, 6 and 9 are still downstream |
+| R5 | Yes, with finding-2 | The impact assessment is unchanged and attached. The section 10 cell misstates the owner's merge approval point |
+
+### Record verdict at the re-pin delta
+
+`reviewer_verdict: APPROVED`. No Major finding is open. finding-1 is a Lien, and the new finding-2 is a Minor record-text defect to fix before the merge. `product_files` names the CR at `aa65e826` and the four branch blobs at `c629198`. `verdict` stays NEEDS CHANGES under the lead SE convention, because the four reviewed blobs exist only on the unmerged branch. The software lead sets APPROVED in the merge commit.
+
+Note for the merge (lead SE, software lead): the merge and its CM record will change the CR file again (`merge_sha`, sections 8 to 10, and the finding-2 fix). When the verdict is set, re-pin after a delta of those hunks, or take the CR file out of `product_files`. The second is enough if the delta finds, as here, that sections 1 to 5 changed only in the Done cells.
+
+```
+VERDICT (re-pin delta, 2026-09-29): APPROVED (record verdict held at NEEDS CHANGES until CR-008 merges; drift rule)
+FINDINGS: finding-1 [Minor] Lien (rule C1, due CDR readiness declaration); finding-2 [Minor] new, Open: CR-008 section 10 "Owner merge approval" cell against section 9 (d) and plan OD-43 at S1; fix before the merge
+PRODUCTS: CR-008@aa65e826 (was 5e6ceb62); requirements.json@a7344937, requirements.md@4e110b16, test_cases.json@117c08de, test_cases.md@00e4454f (c629198, equal at the branch head e26ce46)
+MEASUREMENTS (re-pin delta): hunks=16; files_changed=1; product blobs re-identified=4 of 4 unchanged; turns=12; minutes=25; major=0; minor_new=1
 ```
