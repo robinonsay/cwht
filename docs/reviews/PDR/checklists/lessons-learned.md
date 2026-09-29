@@ -10,9 +10,14 @@ checklist: peer-review-checklist-requirements
 checklist_revision: C
 checklist_file: docs/reviews/PDR/checklists/lessons-learned.md
 product: docs/lessons-learned.md
-product_commit: "e119181d0a3b40e2438c269d919460a5b050e26f"
-product_files: ["docs/lessons-learned.md@ec30a264fdef25ff291ddad5b1ebebbed8f9dee9", "docs/reviews/PDR/package.md@967117cff3521ad00c59ba33a81de3e6381850e9", "docs/reviews/PDR/rfa-rid-log.json@7b2860b209db8582356bb38e0e168cc28d2107ed", "docs/reviews/PDR/checklists/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/reviews/PDR/figures/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/reviews/PDR/slides/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/process/configuration-status.md@07909eb643e44f5e57dff38c3a30de1a4099df4f", "docs/cm/cr/CR-007-cm-plan-pdr-rows.md@92b200ad5bc9e8cc41f602ddc504e2ae04b2154c"]
-product_size: 1 file, 3 sections, 17 entries (48 lines)
+# product_commit: iteration 1 e119181 (blob ec30a264); iteration 2 (delta, 2026-09-29) 391f0e5, entry 18 (blob d250e8fb)
+product_commit: "391f0e5deb9087e538da6aca5c61dc1e11d7d26b"
+# iteration 2 (2026-09-29, delta): docs/lessons-learned.md re-pinned from ec30a264 to d250e8fb (entry 18, verified in
+# section "Delta iteration 2"); the entry "docs/cm/cr/CR-007-cm-plan-pdr-rows.md@92b200ad5bc9e8cc41f602ddc504e2ae04b2154c" is
+# dropped: the CR file is a record revised at each lifecycle step (revisions 2 to 4, 96cb7b1 to 7668322) and this record
+# reviewed none of its content (precedent INSP-060, fd12ced). Every remaining blob equals git rev-parse HEAD:<path> at 9dc9d63.
+product_files: ["docs/lessons-learned.md@d250e8fbe734120ad3cc208687505dfc973ef55e", "docs/reviews/PDR/package.md@967117cff3521ad00c59ba33a81de3e6381850e9", "docs/reviews/PDR/rfa-rid-log.json@7b2860b209db8582356bb38e0e168cc28d2107ed", "docs/reviews/PDR/checklists/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/reviews/PDR/figures/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/reviews/PDR/slides/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/process/configuration-status.md@07909eb643e44f5e57dff38c3a30de1a4099df4f"]
+product_size: 1 file, 3 sections, 18 entries (49 lines; iteration 1 read 17 entries, 48 lines)
 sprint: PDR-prep
 author_agent: "author:WP-PDR-05 (Claude, lead SE)"
 reviewer_agent: "reviewer:WP-PDR-05 (independent reviewer)"
@@ -20,14 +25,16 @@ reviewer_agent: "reviewer:WP-PDR-05 (independent reviewer)"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+# iteration 2: delta on entry 18 (391f0e5) and CR-007 re-pin, section "Delta iteration 2" at the end
+iteration: 2
 readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
 findings_major: 0
-findings_minor: 1
-findings_open: 1
+# iteration 2 adds finding-2 (Minor, a lien under rule C1)
+findings_minor: 2
+findings_open: 2
 findings_fixed: 0
 findings_verified: 0
 findings_deferred: 0
@@ -36,8 +43,9 @@ assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G2]
-effort_turns: 8
-effort_minutes: 15
+# effort: iteration 1 8 turns, 15 minutes; iteration 2 adds 16 turns, 30 minutes
+effort_turns: 24
+effort_minutes: 45
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -105,4 +113,50 @@ FINDINGS:
 - [Minor] CK-REQ-G2 entry 8 names WP-PDR-12 as the vehicle for an 08 section 5 change that WP-PDR-12 does not list.
 ITEMS N/A: CK-REQ-G4, CK-REQ-G5, CK-REQ-G6, CK-REQ-G7
 MEASUREMENTS: size=17 entries; items=9; items_no=1; turns=8; minutes=15; major=0; minor=1
+```
+
+## Delta iteration 2 (2026-09-29, entry 18 and re-pin; reviewer, new invocation)
+
+**Why and scope (rules C1 and C2).** On `main` at `9dc9d63`, `tools/validate_docs.py` failed this record on record drift: the product moved from `ec30a264` to `d250e8fb` (commit `391f0e5`, "entry 18, parts lifecycle as a mandatory screen for part-selecting studies", `Refs: TS-012, WP-PDR-54, WP-PDR-05`), and the context file CR-007 moved from `92b200ad` to `abec03c5`. This delta verifies every changed hunk of the product since `ec30a264` and re-pins the CR. Product: `docs/lessons-learned.md` blob `d250e8fb`; `git rev-parse HEAD:docs/lessons-learned.md` and `git hash-object` both give `d250e8fb` at `9dc9d63`; `git log --format=%h -- docs/lessons-learned.md` lists only `391f0e5` and `e119181`, so `git diff ec30a264 d250e8fb` is the whole change: 2 insertions, 1 deletion (the entry 18 row, and the index row `risk` from `1` to `1, 18`).
+
+**Independence (rule C4) and search first.** A new invocation of this record's reviewer role. It authored no part of WP-PDR-05, entry 18, TS-012, the lifecycle research, the status note or iteration 1 of this record, and edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`. The rustos tree was not read and no web page was read.
+
+**CR-007 re-pin.** This record reviewed no CR-007 content (the CR appears only in entry 14's "Applied in" cell, which did not change). The CR file is revised at each lifecycle step, so it is dropped from `product_files` (precedent: INSP-060 in `fd12ced`). The other six blobs equal `git rev-parse HEAD:<path>` at `9dc9d63`.
+
+### Entry 18 against its sources (every claim, rule C7)
+
+| Claim in entry 18 | Source read | Result |
+|---|---|---|
+| Date 2026-09-29, area `risk`, gate PDR, state Planned | Rule 4 area list (`risk` is a tag; 06 is the risk and decision analysis plan and holds the trade-study rules, 06 §14); commit date of `391f0e5`; the gate is PDR because the decision was taken in the PDR phase | Agrees |
+| TS-012 did not weight lifecycle status; sourcing folded into M2, C5 and RSK-038 | TS-012 at `6497900` §10, "Lead SE reading" item 1: "it folded sourcing into M2, C5 and the section 7.1 risks, with RSK-038 (stock and end of life) as the carrier" | Agrees (condensed; the 7.1 risks are carried by RSK-038) |
+| The recommended A4 rests on the End-of-Life NXP AFT05MS004NT1 | TS-012 §10 item 2; INSP-110 (`ts-012-design-to-cost.md`) "Findings (iteration 1)" finding-1 (Major): the NXP page marks the AFT05MS004N "End of Life" | Agrees |
+| Owner quote "I'm leaning towards A5 if it doesn't use outdated components", and "A5" | `docs/plan/status/status-2026-09-29.md` section 4 (added at `f35eb78`) and section 5 (added at `13176ee`): both are exact substrings of the verbatim statements | Agrees |
+| 39 of 39 A5 parts Active | `docs/research/a5-parts-lifecycle-2026-09-29.md` at `f193784`: "Result: 39 of 39 entries Active"; 39 table rows with status Active | Agrees |
+| The owner chose A5, not the recommendation | TS-012 §10 "Decision" and status note section 5 | Agrees |
+| Source cell ids | `6497900`, `f193784`, `f35eb78`, `13176ee` each exist and touch the named file; TS-012 §10 carries "Lead SE reading" items 1 to 3 and "Lessons learned" | Agrees |
+| Action: lifecycle screen (Active at the maker, source and read date) as a mandatory criterion, or ask the owner at opening | TS-012 §10 "Lessons learned" candidate entry; the entry adds "read date" and "recorded before the recommendation goes to the owner", which narrow it and match the research note's columns | Agrees |
+| Applied in: next part-selecting study (for example the WP-PDR-27 TS-004 and TS-011 re-scores), and 06 §14 at its next revision | `docs/plan/pdr-work-plan.md` revision 7: WP-PDR-54 carries the entry itself ("Also: the `docs/lessons-learned.md` entry of TS-012 §10"); WP-PDR-27 outputs select products (TS-011 "with one recommended product" coating) but name no lifecycle criterion; no WP output revises 06 §14 (WP-PDR-18 fixes 06 §15 and §17 text only; WP-PDR-51 records the 06 re-approval) | finding-2 |
+| Index row `risk`: 1, 18 | Section 3 of `d250e8fb` | Agrees; every entry 1 to 18 appears once |
+| Style | `grep -c TBD`: 0; em dashes: 0; rule 3 (append only): entries 1 to 17 unchanged by the diff | Agrees |
+
+### Findings of the delta
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 | reviewer | Minor | CK-REQ-G2 | Entry 8, "Applied in" cell | Unchanged by `391f0e5`: WP-PDR-12 outputs still do not list 08 §5. Lien (rule C1) | Open | Pending | CDR readiness declaration |
+| <a id="finding-2"></a>finding-2 | reviewer | Minor | CK-REQ-G2 | Entry 18, "Applied in" cell (line 36) | The entry names two vehicles, and neither carries the action in the plan. WP-PDR-27 (the example study) selects at least one product, the TS-011 coating ("with one recommended product"), but its outputs name no lifecycle criterion, and the entry makes it conditional ("if they select parts"). No work package of plan revision 7 revises 06 §14, so "the 06 section 14 trade-study rules at their next revision" has no planned owner or date. This is the class of entry 8's finding-1. Fix: the lead SE adds the lifecycle screen to the WP-PDR-27 brief or outputs (cross item to the plan writer), and names the vehicle and due event for the 06 §14 change (for example a CR against 06 raised with the 06 re-approval of WP-PDR-51), or the entry names the vehicles that do carry it | Open | Pending | CDR readiness declaration |
+
+Open Major: 0. New findings: 1 Minor (finding-2), a lien under rule C1, since this record's first APPROVED verdict was at iteration 1.
+
+**Observation (no finding).** Rule 5 says "The PDR package section 19 lists entries 1 to 17"; `docs/reviews/PDR/package.md` section 19 at `967117cf` is still the template placeholder, and after entry 18 the package author's list under the same rule is entries 1 to 18. The rule itself tells the package author to list every entry added since the last review, so nothing is lost; the sentence can be updated when the package is written (WP-PDR-48).
+
+### Delta verdict
+
+```
+DELTA ITERATION 2 (2026-09-29): VERDICT: APPROVED
+FINDINGS:
+- [Minor] finding-1 (iteration 1) Open, lien.
+- [Minor] CK-REQ-G2 finding-2: entry 18 names WP-PDR-27 and a 06 section 14 revision as vehicles; neither carries the lifecycle screen in plan revision 7.
+PRODUCTS: docs/lessons-learned.md@d250e8fb (391f0e5); CR-007 dropped (not reviewed content); six other blobs unchanged
+MEASUREMENTS: size=1 entry + 1 index row; claims checked=11; items_no=1; turns=16; minutes=30; cumulative turns=24, minutes=45; major=0; minor=1 new
 ```
