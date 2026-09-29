@@ -12,11 +12,16 @@ product: docs/decisions/trade-studies/
 # product_commit is the last commit touching either product at that HEAD (git log -1 -- docs/decisions/trade-studies/).
 # Post-SRR-ruling delta 2026-09-26 (package item R16): product_commit is the last commit touching either product at HEAD 5122a6b,
 # 2362183 (ADRs: apply SRR owner rulings (R16)), which changed the TS-002 Status row only (blob 574cee3d to 6c385dfc); TS-001 is unchanged
-product_commit: "2362183"
+# PDR-period delta 2026-09-29 (record drift; independent reviewer): product_commit is cfc9111, the last commit touching either product at HEAD 39e8554;
+# the two commits since 2362183 are 443b2a3 (WP-PDR-14 errata, TS-001 header and TS-002 decision record) and cfc9111 (TS-001 Status row superseded by TS-012)
+product_commit: "cfc9111"
 # product_files: the committed blobs (git rev-parse HEAD:<path> at adcfe09; unchanged since e597e49) re-reviewed at iteration 3;
 # re-issue 2026-09-26 (package item R8): both blobs re-checked equal to git rev-parse HEAD:<path> at ca22e37
 # Post-SRR-ruling delta 2026-09-26: both blobs equal git rev-parse HEAD:<path> and git hash-object at HEAD 5122a6b (TS-002 now 6c385dfc; the 574cee3d blob is kept in the git history of this record)
-product_files: ["docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf", "docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@6c385dfc77c61619d31756418c479c5beca7b527"]
+# PDR-period delta 2026-09-29: both blobs equal git rev-parse HEAD:<path> and git hash-object at HEAD 39e8554 (TS-001 2a0c40a8 to c53414d9 to 152c2b90; TS-002 6c385dfc to 6b18cee8);
+# product_files_srr_delta keeps the list of the post-SRR-ruling delta
+product_files: ["docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md@152c2b90f93bb517cadc19121690c45e06ef1c5b", "docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@6b18cee831a67dc9550e6082c595023d77bcd704"]
+product_files_srr_delta: ["docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf", "docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@6c385dfc77c61619d31756418c479c5beca7b527"]
 product_size: 2 trade studies (revision 1: TS-001 686 lines, TS-002 361 lines), 3 plus 1 decision matrices
 sprint: SRR-prep
 author_agent: "author:trades (Claude trade study author invocation, 2026-09-25, named as Recommender in both TS headers)"
@@ -36,6 +41,7 @@ readiness_met: true
 # assurance_verdict: equals the verdict of the paired record INSP-027 (01 section 13).
 # verdict: APPROVED (with liens finding-11, finding-12) at the re-issue: reviewer APPROVED, assurance APPROVED, readiness met,
 # no Major finding open (07 section 10.2 completion criteria); set by the re-issue of package item R8
+# PDR-period delta 2026-09-29: APPROVED, no lien open; the 443b2a3 errata close finding-11 to finding-13 and the cfc9111 Status-row edit is the only edit 06 section 14.6 allows
 # Post-SRR-ruling delta 2026-09-26: APPROVED (with liens finding-11, finding-12, finding-13); the 2362183 Status-row edit applies SRR decision 107 correctly; no Major; new Minor finding-13 is a lien
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
@@ -44,9 +50,10 @@ findings_major: 2
 findings_minor: 11
 findings_open: 0
 findings_fixed: 0
-findings_verified: 10
+# PDR-period delta 2026-09-29: finding-11, finding-12 and finding-13 verified fixed (443b2a3), so 13 verified and 0 deferred
+findings_verified: 13
 # findings_deferred: liens finding-11, finding-12 and (post-SRR-ruling delta) finding-13, "fix before PDR"
-findings_deferred: 3
+findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -56,9 +63,9 @@ deferred_rids: []
 items_no: []
 # effort: iteration 1 48 turns and 55 minutes; iteration 2 20 turns and 25 minutes; delta verification 6 turns and 15 minutes;
 # iteration 3 (independent reviewer) 32 turns and 40 minutes; re-issue (package item R8) 10 turns and 15 minutes;
-# post-SRR-ruling delta 12 turns and 20 minutes
-effort_turns: 128
-effort_minutes: 170
+# post-SRR-ruling delta 12 turns and 20 minutes; PDR-period delta (2026-09-29) 26 turns and 40 minutes
+effort_turns: 154
+effort_minutes: 210
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -69,6 +76,8 @@ date_closed: null
 **Checklist:** `docs/templates/peer-review-checklist-design.md` revision B, sections A, B and H as `docs/process/08-agent-briefing.md` section 3.1 assigns to trade studies, with the other sections marked N/A. By assignment the decision-analysis criteria of `docs/process/06-risk-and-decision-analysis.md` section 14 are applied as well. They are applied as the ten trade-study items of 06 section 16, under the ids 06 section 16 gives them (`CK-RSK-B1` to `B10`). The minimum content judged is SRR entrance row 5 (`docs/process/01-lifecycle-and-reviews.md` section 4.3: alternative concepts analyzed, with a trade summary giving criteria and scores), SRR success criterion 8 (01 section 4.4), and the SWE-033 make/buy record (NPR 7150.2D section 3.1.2; section 6.1 item t). **Gate:** SRR, package items H5 and H14 (`docs/reviews/SRR/package.md` section 2). **Answer legend:** Yes = Pass, No = Fail, N/A = not applicable. Every answer carries its evidence.
 
 **Search-first compliance:** `mcp__claude-context__search_code` was run on `/Users/robinonsay/rust/cwht` before any manual search. The queries covered the SRR H5 and H14 shortfalls with SWE-033, and the Inrad and KVG filter data with the ladder Monte Carlo. `grep -n` was used afterwards only to pin the lines the hits pointed to. Known paths were read directly.
+
+**PDR-period delta (2026-09-29, record drift, HEAD `39e8554`, product commit `cfc9111`): verdict APPROVED (no lien open).** The two commits since the post-SRR-ruling delta are verified hunk by hunk: `443b2a3` (WP-PDR-14) fixes finding-11, finding-12 and finding-13 as their expected fixes state and records the TS-002 corrections as append-only errata without changing a score, rank or recommendation; `cfc9111` changes only the TS-001 Status row, to "Superseded by TS-012 (ADR-056)", as 06 section 14.6 allows. No new finding. Details: section "PDR-period delta (2026-09-29)".
 
 **Post-SRR-ruling delta (2026-09-26, package item R16, HEAD `5122a6b`, product commit `2362183`): verdict APPROVED (with liens finding-11, finding-12 and finding-13).** The only product change since the re-issue is the TS-002 Status row (commit `2362183`), which records SRR decision 107 correctly. No Major finding. The new Minor finding-13 (TS-002 section 10 still empty while the Status row reads Decided) is a lien. See "Post-SRR-ruling delta" at the end.
 
@@ -674,4 +683,71 @@ PRODUCT: TS-001@2a0c40a8d86cc6858e011b735a00ff4cd7e54caf (unchanged), TS-002@6c3
 FINDINGS: open Major 0; new Minor 1 (finding-13); liens finding-11 (TS-001 part), finding-12, finding-13
 MEASUREMENTS (delta): commits verified=1 (2362183, 1 hunk in the product); blobs equal HEAD 2/2; turns=12; minutes=20; cumulative turns=128, minutes=170; iteration=3 (post-SRR-ruling delta)
 VALIDATE_DOCS: this record PASS (overall result in the commit message)
+```
+
+## PDR-period delta (2026-09-29, record drift; HEAD `39e8554`, product commit `cfc9111`)
+
+**Scope and independence.** Written by a new invocation of the reviewer role (engineering lens). It authored neither study, the errata of `443b2a3`, the supersession edit of `cfc9111`, TS-012, ADR-056 or INSP-027, and it edited no product and no earlier section of this record (the front matter keeps every earlier value in a comment). Reason: on main `tools/validate_docs.py` failed this record by the record drift rule, because both named blobs (TS-001 `2a0c40a8`, TS-002 `6c385dfc`) differ from HEAD. Convergence rule (charter section 4 item 3): a new Minor finding would be a lien.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query "SRR record delta iteration re-issue product_files product_commit re-pin"); `grep`, `git log`, `git show` and `sed` afterwards only pinned lines, commits and blobs.
+
+**Product state.** `git log --oneline 2362183..HEAD` over the two files lists `443b2a3` ("WP-PDR-14 TS-001 and TS-002 errata for the INSP-013 and INSP-027 liens", 2026-09-27) and `cfc9111` ("TS-001 and TS-007 status rows superseded by TS-012 (ADR-056)", 2026-09-29). TS-001 `2a0c40a8` to `c53414d9` (`443b2a3`) to `152c2b90` (`cfc9111`); TS-002 `6c385dfc` to `6b18cee8` (`443b2a3` only). At HEAD `39e8554` `git rev-parse HEAD:<path>` equals `git hash-object` for both. Every hunk was read in full with `git show`.
+
+**Governing rules for the edits.** 05 Table 4-1 row 12: a trade study is "Immutable once the decision is taken"; 06 section 14.5 bullet 4: the owner's decision "is recorded in section 10 of the report with date and rationale"; 06 section 14.6: on reopening, "the only edit to the old file is its Status line". TS-001 was Draft (undecided) until `cfc9111`, so its header edit in `443b2a3` is an ordinary pre-decision revision. TS-002 is decided (SRR decision 107); its `443b2a3` edits are the decision-record fill that finding-13 asked for (after the `baseline/srr` tag, `779f93f` 2026-09-27 09:02, so under the recording reading that finding-13 named), the header reviewer row that finding-12 asked for, and append-only errata. That reading is authorized by `docs/plan/pdr-work-plan.md` WP-PDR-14 (Outputs: TS-002 "§10 and header"; Reviewer: this record's delta), and it is stated in TS-002 section 10 and in the errata preface.
+
+**Delta verification of `443b2a3`, TS-001 (2 hunks).**
+
+| Hunk | Check | Result |
+|---|---|---|
+| Status row: "Draft, revision 2 (2026-09-27) ... revision 2 corrects this header only. Interim SRR rulings on decisions 54, 55 and 58 (section 8.4 ...); decided at PDR" | finding-11 (TS-001 part) expected fix: update the Status line. Iterations 2 and 3 verified revision 1 (sections "Closure (iteration 2)" and "Iteration 3"); TS-001 header "Decide by" row says PDR; decisions 54, 55, 58 are the K8 interim rulings (minutes line 23) | Correct; finding-11 fixed |
+| Independent reviewer row: iterations 2 and 3, re-issue and post-SRR-ruling delta results; "TS-001 needs no software assurance record (07 section 2.1.1 trade-study row ...)" | finding-12 (TS-001 part) expected fix: name the iteration 2 and 3 results. Iteration 3 table closes F-01 to F-10; the no-assurance statement agrees with this record's front matter comment on 07 section 2.1.1 | Correct; finding-12 TS-001 part fixed |
+| Change log row 2 | Header only; no criterion, weight, score, ranking or recommendation changed: the diff has no other hunk | Correct |
+
+**Delta verification of `443b2a3`, TS-002 (4 hunks: header rows, section 1 decision line, section 10, new "Errata after the decision").** Sections 2 to 9 and Appendix A have no hunk, so no score, weight, total (A0 400, A1 265, A2 220, A3 220, line 233), ranking, robustness verdict or trigger changed.
+
+| Item | Source checked | Result |
+|---|---|---|
+| Independent reviewer row names INSP-027 and the 07 section 2.1.1 routing | INSP-027 front matter `verdict: APPROVED`, its section "Post-SRR-ruling delta"; finding-12 | Correct; finding-12 TS-002 part fixed |
+| Resulting ADR: ADR-027, 2026-09-26, cites ADR-004 and ADR-019 | ADR-027 line 6 `Accepted`, line 8 date decided 2026-09-26, line 99 builds on ADR-004, ADR-011, ADR-019 | Correct |
+| Dates row; section 1 decision line | Decision 107 in `decision-memo.md` line 240 (K9); minutes line 23 (K9 covers 107 and 110) | Correct |
+| Section 10: Decision, Decided by, Rationale, Records, Revisit conditions | `decisions-for-owner.md` line 113 ruling text; minutes lines 21 and 47 (both owner quotes verbatim), sections "Rulings" (line 19) and "Disposition" (line 45); ADR-027 section 6 line 88 quotes the ruling, line 100 the four triggers; the four triggers in section 10 match TS-002 section 8 lines 312 to 315 word for word in substance | Correct; finding-13 fixed. The preface states that filling section 10 records a decision already taken |
+| Section 10 lessons 1 to 4 | Each names the INSP-027 finding it draws on | Correct in form |
+| Errata 1 (C1 and reused rustos code) | 07 section 17.1 rows `api` and `pico2`; 07 section 9.9 line 424; charter (00) line 161 ("tested to the custom-code level in full"); C1 weight 20 (line 136), so 5 to 4 gives 400 - 20 = 380, and 380 - 265 = 115 | Correct |
+| Errata 2 (evidence superseded) | TC-SW-TOOL-001 runs 1 to 6 in `docs/vv/reports/`; run 2 line 108 (37 sites, 36 without SAFETY) and line 109 (cargo deny, `api` and `pico2` unlicensed, closes on decision 110); run 6 `credit: false`, line 142 (`sw_gate: PASS (G0 to G6)`, exit 0), line 161 (cargo deny and unsafe audit PASS, 37 sites, 0 without SAFETY, 37 unsigned); rustos pin `2ec64c0` (CR-004); TS-002 line 267 hygiene risk 5 / Yellow; line 205 C4 A0 "53 lines"; line 184 M3 A0 "pass, with an owner action"; RSK-013 names TS-002 (`register.json`) | Correct |
+| Errata 3 (assurance statements) | TS-002 line 277 ("if Claude dispatches") and line 318 ("No software assurance review has run"); INSP-027 exists | Correct |
+| Errata 4 (HZ-008, WP-SW-14) | 07 section 14.1 rows 20 and 21 (both Proposed, HZ-008); 07 section 19 WP-SW-05, WP-SW-06, WP-SW-14 (conditional on decision 40); decision 40 in K2 (minutes line 23); REQ-SYS-182 in `requirements.json`; C3 anchor "1: >= 11" (line 90), so 13 work packages keep A0 C3 at 1 | Correct |
+| Errata 5 (rounding) | C3 anchors 3 at 6 and 5 at 2 or fewer: 3 packages interpolate to 4.5; C3 weight 20 (line 138): A1 265 + 10 = 275, A2 and A3 230; at 5: 285 and 240; A0 400 leads by at least 115 | Correct |
+| Errata 6 (decision recorded) | The replaced texts quoted are the removed lines of the diff | Correct |
+
+**Delta verification of `cfc9111`, TS-001 (1 hunk, line 6 only).** The Status row becomes "**Superseded by TS-012 (ADR-056).**" with the prior status kept verbatim. Checks: the diff has one changed line, the Status line, which is the only edit 06 section 14.6 allows on a superseded study; TS-012 section 10 (line 1194) records the owner's decision of 2026-09-29 (A5); TS-012 cites TS-001 (line 987, WP-PDR-19 row); the row's receiver and PA claims (RA07M1317M-501; diode-ring mixer; 2 + 3 + 4 band-pass filter at IF 8 MHz, D-15; 500 Hz ladder re-admitted; Inrad #111 and 24-bit ADC dropped; analog audio) match TS-012 lines 24, 604 and 987; the row states that ADR-056 is the record, that the owner's confirmation at PDR session S1 (OD-10 part 1) is pending, and that TS-001 is not re-scored. Result: correct. ADR-056 is Proposed and the S1 confirmation is pending; the row says both, so it does not overstate the state.
+
+**Findings at the delta.** No new finding.
+
+| Finding | Severity | State |
+|---|---|---|
+| F-01, F-02 | Major | Closed (Verified, iteration 2) |
+| F-03 to F-10 | Minor | Closed (Verified, iteration 2) |
+| finding-11 | Minor | Closed (Verified at this delta; `443b2a3` TS-001 Status row; TS-002 part cleared at `2362183`) |
+| finding-12 | Minor | Closed (Verified at this delta; `443b2a3` reviewer rows of both studies) |
+| finding-13 | Minor | Closed (Verified at this delta; `443b2a3` TS-002 section 10 and errata entry 6) |
+
+No Major finding is open. Counts: 13 findings (2 Major, 11 Minor), all Closed (Verified); open 0, liens 0.
+
+**Readiness.** R1 to R3 N/A; R4 Yes. `readiness_met: true`.
+
+**Pairing and related records.** INSP-027 delta iteration 2 (`dd7b976`, committed during this delta by its own reviewer) names TS-002 blob `6b18cee8`, verdict APPROVED, its six Minor findings verified; this record's `assurance_verdict` stays `APPROVED`, equal to INSP-027. Two PDR records also review `443b2a3`: INSP-054 (`docs/reviews/PDR/checklists/trade-studies-ts-001-ts-002.md`, no finding) and its software assurance pair INSP-062 (2 Minor). This delta was done without relying on either. After this delta's own checks, the reviewer read the INSP-062 findings and agrees with both. (1) Errata entry 2 (b) says the hygiene risk "is carried by RSK-013". RSK-013 does name TS-002, which this delta checked, but its condition is the driver work packages, not the FW-B0 hygiene gate. (2) The count "twelve work packages" is still uncorrected in TS-002 section 7 row 1 and section 8, although errata entry 4 establishes 13. Both are errata-completeness matters that INSP-062 already carries, with an appended errata entry as the fix. They leave no finding of this record open and are not raised again here.
+
+**Cross items (outside this record's scope).**
+1. TS-002 author: the INSP-062 finding-1 and finding-2 errata entries. When they land, TS-002 drifts from this record again, and a further delta re-pins it.
+2. `docs/plan/pdr-work-plan.md` section 3.0a table row 19 says "TS-001 §10 records it"; `cfc9111` records the supersession in the Status line only, as 06 section 14.6 requires, and TS-001 section 10 is unchanged. The plan author corrects the row wording.
+3. The software lead may close this record (`record_status`), since no lien remains (07 section 10.2).
+
+**Completion criteria (SWE-088; 07 section 10.2) at the delta: met.** Reviewer verdict APPROVED; assurance verdict APPROVED (INSP-027, subject to cross item 1); readiness met; no Major open; named blobs equal HEAD.
+
+```
+PDR-PERIOD DELTA (2026-09-29, HEAD 39e8554, product commit cfc9111, record drift): VERDICT: APPROVED
+PRODUCT: TS-001@152c2b90f93bb517cadc19121690c45e06ef1c5b, TS-002@6b18cee831a67dc9550e6082c595023d77bcd704 (both equal to HEAD)
+FINDINGS: open Major 0; new 0; finding-11, finding-12, finding-13 Closed (Verified); liens 0
+MEASUREMENTS (delta): commits verified=2 (443b2a3: 6 hunks; cfc9111: 1 hunk in the product); errata entries checked=6; blobs equal HEAD 2/2; turns=26; minutes=40; cumulative turns=154, minutes=210
+VALIDATE_DOCS: this record PASS
 ```
