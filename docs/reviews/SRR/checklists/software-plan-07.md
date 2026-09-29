@@ -25,7 +25,10 @@ product: docs/process/07-software-engineering-plan.md
 # CR-010 delta (2026-09-29, iteration 3 re-issue, CR-010 section 5 step 5): product_commit moves to 5cd87cf, the CR-010 change set
 # on branch cr/CR-010-apply-srr-decisions-9-and-40 (07 revision A.8), after delta verification of git diff ab2af2d 5cd87cf on 07;
 # earlier value 68a44ed (CR-005 amendment delta and X-9 copy delta). See "CR-010 delta".
-product_commit: "5cd87cff741653c1f3746029d66c7d42c5a0b1d2"
+# CR-013 delta (2026-09-29, CR-013 SRR record re-issue, CR-013 section 6.1 IR-F1 and CR-010 cross item X-12): product_commit
+# moves to 41c588c, the CR-013 prototype on branch cr/CR-013-process-04-07-semp-srr-liens (07 revision A.9), after delta
+# verification of git diff 5cd87cf 41c588c on 07; earlier value 5cd87cf (CR-010 delta). See "CR-013 delta".
+product_commit: "41c588cddc9a97cec536482dc2bd164e2bf81ea3"
 # re-issue 2026-09-26 (package item R8, no further product review): all five blobs re-checked equal to git rev-parse HEAD:<path>
 # and git hash-object at HEAD 1af795c; git log adcfe09..HEAD on the five paths is empty
 # post-SRR-ruling delta: 07 blob d0f8baf6 (iteration 3 and R8) replaced by 37d472b5 (4364ebb); CR-001 added as a product
@@ -36,7 +39,9 @@ product_commit: "5cd87cff741653c1f3746029d66c7d42c5a0b1d2"
 # 0da559a, 8b86c16); every blob equals git rev-parse HEAD:<path> and git hash-object at 68a44ed
 # CR-010 delta: 07 blob bfe05f43 replaced by 3ae7d73b (5cd87cf, revision A.8); the six other blobs are unchanged and equal
 # git rev-parse <rev>:<path> at both 5cd87cf and main 908d21a
-product_files: ["docs/process/07-software-engineering-plan.md@3ae7d73b01810e47fd10251d798e0a047aaa72dd", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@0f4cca4cb1e2562af05a7c435f41e6ba82d17f26", "docs/cm/cr/CR-005-complexity-counting-convention.md@9b0129efd09e75170a4542d011ff6b1298ad2820", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b", "docs/plan/measurements.schema.json@c30b7f3e7466bf4e4474afd031c2c9c91db42be8", "tools/tests/fixtures/measurements/valid.json@3938cd57aaeb99e1c5065594c915c99014d34026", "tools/tests/fixtures/measurements/invalid.json@15231171b06297dfd45632bef5d22757374b0970"]
+# CR-013 delta: 07 blob 3ae7d73b replaced by 0ad37a43 (41c588c, revision A.9); the six other blobs are unchanged and equal
+# git rev-parse <rev>:<path> at both 41c588c and main 7593cea
+product_files: ["docs/process/07-software-engineering-plan.md@0ad37a43a9d365408b78488f6c2b02933af56837", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@0f4cca4cb1e2562af05a7c435f41e6ba82d17f26", "docs/cm/cr/CR-005-complexity-counting-convention.md@9b0129efd09e75170a4542d011ff6b1298ad2820", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b", "docs/plan/measurements.schema.json@c30b7f3e7466bf4e4474afd031c2c9c91db42be8", "tools/tests/fixtures/measurements/valid.json@3938cd57aaeb99e1c5065594c915c99014d34026", "tools/tests/fixtures/measurements/invalid.json@15231171b06297dfd45632bef5d22757374b0970"]
 # product_blob: git hash-object of each reviewed file. Iteration 1 (2026-09-25): 07 1b8864b0121f3f8547e1b194d63b41752ab946b9,
 # measurements.json 9bb5989e7080c55e8c97d82e64256a07f9b8788f (07 revision A.3, 960 lines; 47 records).
 # Iteration 2 (2026-09-26): 07 eba15bcb8ab0cecfd8bc155bd749bc89fdcddb34 (revision A.4, uncommitted on HEAD 28e49e6),
@@ -45,11 +50,13 @@ product_files: ["docs/process/07-software-engineering-plan.md@3ae7d73b01810e47fd
 # close-out delta: 07 revision A.6 blob at HEAD 3b45ed7 (post-SRR-ruling delta blob 37d472b5)
 # CR-005 amendment delta: 07 revision A.7 blob at HEAD 68a44ed (close-out delta blob a9f92d82)
 # CR-010 delta: 07 revision A.8 blob at 5cd87cf (CR-005 amendment delta blob bfe05f43)
-product_blob: "3ae7d73b01810e47fd10251d798e0a047aaa72dd"
+# CR-013 delta: 07 revision A.9 blob at 41c588c (CR-010 delta blob 3ae7d73b)
+product_blob: "0ad37a43a9d365408b78488f6c2b02933af56837"
 product_second: docs/plan/measurements.json
 product_second_blob: "5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b"
 # product_size at the CR-010 delta: 07 revision A.8 at 5cd87cf, 1014 lines (earlier text: A.5 at 4364ebb, 1011 lines)
-product_size: 07 revision A.8 as committed at 5cd87cf (CR-010 branch), 23 sections and annexes A to D, 1014 lines (A.5 1011 lines, A.4 1010 lines); CR-001 132 lines; measurements.json 89 records (62 current after supersession); schema 256 lines
+# product_size at the CR-013 delta: 07 revision A.9 at 41c588c, 1010 lines (earlier text: A.8 at 5cd87cf, 1014 lines)
+product_size: 07 revision A.9 as committed at 41c588c (CR-013 branch), 23 sections and annexes A to D, 1010 lines (A.8 1014 lines, A.5 1011 lines, A.4 1010 lines); CR-001 132 lines; measurements.json 89 records (62 current after supersession); schema 256 lines
 sprint: SRR-prep
 author_agent: author:software-plan (Claude software lead; revision A.3 of 2026-09-25, SRR items H14 07 part and H16 SWE-089)
 reviewer_agent: reviewer:software-plan
@@ -72,6 +79,7 @@ readiness_met: true
 # close-out delta: NEEDS CHANGES on finding-21 (Major, open; the fix needs an owner ruling, TC-SW-TOOL-001 run 5 item B9)
 # CR-005 amendment delta: APPROVED (finding-21 Verified closed by 106bc3a; no Major open; new finding-22 Minor lien)
 # CR-010 delta: APPROVED (5cd87cf applies SRR decisions 9 and 40 to 07 correctly; no Major; no new finding)
+# CR-013 delta: APPROVED (41c588c closes finding-14, 16, 17, 18, 20 and 22 on 0ad37a43; no Major; no new finding)
 reviewer_verdict: APPROVED
 # assurance_verdict copied from the paired record INSP-018 (assurance_verdict APPROVED, re-read at HEAD 1af795c)
 # CR-005 amendment delta: INSP-018 read at HEAD 68a44ed (last commit ab494e9) shows assurance_verdict NEEDS CHANGES (its
@@ -80,6 +88,9 @@ reviewer_verdict: APPROVED
 # its finding-10 Verified closed by 106bc3a); copied, no further product review
 # CR-010 delta (2026-09-29): INSP-018 as filed on main 908d21a reads assurance_verdict APPROVED on 07 bfe05f43; copied as read.
 # Its delta on 3ae7d73b by a separate software assurance invocation is cross item X-11
+# CR-013 delta (2026-09-29): INSP-018 on the CR-013 branch (eff05e0) still reads assurance_verdict APPROVED on 07 bfe05f43;
+# copied as read. Its delta on 0ad37a43 by a separate software assurance invocation is cross item X-13 (the PDR assurance
+# record INSP-073 already reads assurance_verdict APPROVED on 0ad37a43)
 assurance_verdict: APPROVED
 # close-out delta: verdict NEEDS CHANGES (open Major finding-21); readiness stays met
 # CR-005 amendment delta: NEEDS CHANGES only because the paired assurance verdict is not APPROVED (07 sections 2.1.1 and
@@ -89,6 +100,9 @@ assurance_verdict: APPROVED
 # CR-010 delta: APPROVED (with liens finding-14 to finding-18, finding-20, finding-22), subject to X-11: reviewer APPROVED,
 # assurance as filed, readiness met, no Major open, named blobs equal git rev-parse 5cd87cf:<path> (7 of 7); if the INSP-018
 # delta does not return APPROVED, this verdict returns to NEEDS CHANGES (07 section 10.2)
+# CR-013 delta: APPROVED (with lien finding-15), subject to X-11 and X-13: reviewer APPROVED, assurance as filed, readiness met,
+# no Major open, named blobs equal git rev-parse 41c588c:<path> (7 of 7); if the INSP-018 deltas do not return APPROVED on
+# 0ad37a43, this verdict returns to NEEDS CHANGES (07 section 10.2)
 verdict: APPROVED
 # close-out delta: finding-21 (Major) new and Open; finding-19 (Minor lien) Verified closed by e34a27b
 findings_major: 3
@@ -96,11 +110,13 @@ findings_major: 3
 # iteration 3. Open 0; verified (Closed) 13 = finding-1 to finding-13; deferred = 4 liens (finding-14 to 17)
 # post-SRR-ruling delta: finding-18 to finding-20 (Minor) new, all Lien: fix before PDR; deferred = 7 liens
 # CR-005 amendment delta: finding-21 Verified closed by 106bc3a; finding-22 (Minor) new, Lien: fix before PDR
+# CR-013 delta: finding-14, 16, 17, 18, 20, 22 Verified on 0ad37a43 (verified 15 to 21, fixed 15 to 21); finding-15 stays the
+# only lien (deferred 7 to 1); no new finding
 findings_minor: 19
 findings_open: 0
-findings_fixed: 15
-findings_verified: 15
-findings_deferred: 7
+findings_fixed: 21
+findings_verified: 21
+findings_deferred: 1
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -110,15 +126,18 @@ deferred_rids: []
 # post-SRR-ruling delta: G2 added (finding-19); G1 also rests on finding-18 and finding-20
 # close-out delta: G1 and G2 now also rest on finding-21 (G2 no longer on finding-19, closed)
 # CR-005 amendment delta: G1 rests on finding-17, 18, 20; G2 now rests on finding-22 (finding-21 closed)
-items_no: [CK-REQ-G1, CK-REQ-G2, CK-REQ-G6, CK-REQ-G7]
+# CR-013 delta: G1 and G2 Yes (finding-17, 18, 20, 22 Verified); G6 rests on finding-15; G7 on the section 8.1 table remainder
+# of finding-14, which the PDR record INSP-059 carries as its finding-1
+items_no: [CK-REQ-G6, CK-REQ-G7]
 # effort cumulative: iteration 1 42 turns, 55 min; iteration 2 24 turns, 35 min; iteration 3 30 turns, 40 min;
 # re-issue (package item R8) 6 turns, 15 min
 # post-SRR-ruling delta 14 turns, 30 min
 # close-out delta (CR-005) 22 turns, 40 min
 # CR-005 amendment delta 18 turns, 35 min
 # CR-010 delta (shared with INSP-009 and INSP-006) 12 turns, 25 min
-effort_turns: 168
-effort_minutes: 275
+# CR-013 delta 16 turns, 30 min
+effort_turns: 184
+effort_minutes: 305
 record_status: Open
 date: 2026-09-25
 date_updated: 2026-09-29
@@ -778,4 +797,61 @@ FINDINGS: none new; open Major 0; O-14 concurs with INSP-050 finding-2 (two "whe
 PRODUCT: 07@3ae7d73b, CR-001@0f4cca4c, CR-005@9b0129ef, measurements.json@5e2d1755, schema@c30b7f3e, valid.json@3938cd57, invalid.json@15231171 (equal to 5cd87cf, 7/7)
 PAIRING: INSP-018 assurance_verdict APPROVED as filed on bfe05f43; its CR-010 delta by a separate SA invocation (X-11)
 MEASUREMENTS (delta): turns=12; minutes=25; cumulative turns=168, minutes=275
+```
+
+## CR-013 delta (2026-09-29, iteration 3 re-issue; reviewer role, new invocation)
+
+**Scope and independence.** Written by a new invocation in the reviewer role (`reviewer:software-plan`, engineering lens), dispatched as the configuration manager of WP-PDR-55 merge batch 1 for CR-013 (plan rule C4). It authored no part of CR-013, of WP-PDR-13, of the prototype `41c588c`, of CR-010 or its change set `5cd87cf`, of the CR-010 delta above, or of the PDR records INSP-059 and INSP-073, and it edited no product file. It is not the software assurance reviewer: INSP-018 is left to a separate invocation (cross item X-13). Earlier sections are history and are not rewritten; the front matter comments name the superseded values. Trigger: CR-013 (Class II, Approved 2026-09-28) replaces 07 `3ae7d73b` (revision A.8, CR-010) with `0ad37a43` (revision A.9). CR-013 section 6.1 IR-F1 and the CR-010 delta's cross item X-12 ask this record to name the new blob. The CR-013 branch carries the CR-010 delta above through the merge `eff05e0` (of `e54ce91`), so this section is written on top of it and the two branches do not conflict on this record. It is committed on the CR-013 branch, records only, so that the merge brings the blob and this record into `main` together.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: CR-013 merge batch 1 pre-merge checks and SRR record re-issue; the `validate_docs.py` record drift and record state rules). `git diff`, `git show` and `grep` were used afterwards only to pin lines. The rustos repository was not read (brief rule); the rustos licence facts rest on CR-013 section 6.1 ("the rustos licence facts of 07 section 17.1 hold").
+
+**Commits examined.** `git log 5cd87cf..41c588c` lists one commit, `41c588c` (trailer `CR: CR-013`). It changes 07 in 18 hunks (`git diff -U0`; 22 insertions, 26 deletions) at branch lines 31, 317, 331, 344, 356, 401, 446, 465, 492, 623, 728, 849, 853 to 866 (section 22), 882 (new revision row A.9) and 969 (Annex C), 1010 lines. Every hunk was read as a word diff. The six other product files of this record are unchanged and equal `git rev-parse <rev>:<path>` at `41c588c` and at `main` `7593cea` (6 of 6). `main` has not changed 07 since `ab2af2d`, so the merge brings exactly `0ad37a43`.
+
+**Delta verification of this record's liens (branch line numbers of blob `0ad37a43`).**
+
+| Finding | Fix at | Checked against | Result |
+|---|---|---|---|
+| finding-14 | Line 331: the lock "section 1 lists" the five tools "each in the row named after the tool", with the rule that the plan cites lock rows by name; the FW-B0 installs of `miri`, `llvm-tools` and `rust-code-analysis-cli` 0.0.25 recorded as done (2026-09-26, SRR decision 109) | `tools/toolchain.lock.md` on `main`: row `nightly-2026-08-24 (date-pinned)` (line 21) and row `rust-code-analysis-cli` "0.0.25 (2026-09-26 ...)" (line 32) | Verified for the paragraph the finding named. The section 8.1 table's Miri and nightly status cells still read "Not installed": INSP-059 finding-1, not repeated |
+| finding-16 | Line 465: schema and fixture at `1d423e5`, `tools/validate_docs.py` passes the file; `tools/measurements.py --check-records` at `3de1e2d` with `test_measurements.py`, TV-013. Line 492: "which did not exist then ... committed at `3de1e2d`". Section 22 row "Measurements schema and tool rows" removed with its evidence in the lead-in | `git log -1 1d423e5` (tools, schemas, SRR H12 and H17); `git show --stat 3de1e2d` adds `tools/measurements.py` and `TV-013-measurements.md` | Verified |
+| finding-17 | Line 623 (section 14.2 row i, L1 column): "180, 181 and 182 adopted by SRR decisions 38, 39 and 40; 181 is HZ-003 K9), as `hazard-analysis.md` section 7 row i names them"; section 22 row "Hazard analysis follow-ups" agrees | `docs/safety/hazard-analysis.md` on `main`, section 7 row i requirement cell: "REQ-SYS-055, 071, 083, 092, 119, 120, 180, 181, 182 (180, 181 and 182 adopted at SRR by package decisions 38, 39 and 40)"; its hazard table line 94 gives HZ-003 "K9, REQ-SYS-181 (adopted at SRR, decision 39)". The CR-010 hunk of the same cell is kept | Verified |
+| finding-18 | Line 31 (section 1.2) and line 401 (section 9.5 item 3): the CS-11 failure arms of `cwht-app::main`, the board `take()` `None` arm and the `Err` arm of each rustos driver constructor that returns `Result`, each in the MC/DC table as `target-only: Inspection` (CR-001 section 5, SRR decision 108) | CR-001 blob `0f4cca4c` (this record's product): the admitted arms and the inspection rule; 07 CS-11 and CS-38 unchanged. The MC/DC scope is stated completely and not widened (CR-013 section 6.1 "Safety", concurred) | Verified |
+| finding-20 | Line 446 (section 10.2 Readiness criteria): the waiver cites memo section 8.2 "Decision 115 (b): readiness waiver for the FW-B0 record" and W1 (amendment A-1, `decision-memo.md#W1`) | `docs/reviews/SRR/decision-memo.md` on `main`: heading "### 8.2 Decision 115 (b)" (line 352) and anchor `id="W1"` in amendment A-1 (line 425) | Verified |
+| finding-22 | Line 356 (section 8.4 G5) and line 969 (Annex C): `miri test -p api --lib` with the close-out item B and FW-B1 note; line 317 (section 8.1 Miri row) states the `api`-only scope at rustos `2ec64c0` | `tools/sw_gate.sh` on `main` line 337: `miri test -p api --lib` | Verified |
+| finding-15 | Line 859 (new section 22 row "Evidence preservation of the SRR roll-up"): records that `--check-records` fails 80 evidence hashes and that the fix the finding names does not clear it as the tool stands; states options (a) and (b), owners and due gate | `tools/measurements.py` on `main`, `check_records` (line 305 onward): every `Measured` record is tested against the first commit containing it, superseded or not | Correctly left open: stays "Lien: fix before PDR" (CR-013 section 1.4) |
+
+**Rest of the diff.** Section 8.3 (line 344) now states the 05 section 13 schedule for the software tools; checked row by row against 05 section 13 on `main`: the PDR and CDR software tools named in 07 are all in the 05 rows of the same gate, and 07 names 05 as the single authoritative schedule. The CDR row of 05 also names `tools/release.sh`, `tools/image_trailer.py` and `shasum`, which 07 omits: INSP-073 finding-1 (software assurance, Minor), not repeated. Section 17.1 (line 728): pin `2ec64c0` by CR-004, superseded pin `c54d35a`, `OQ-SW-001` answered, notices file with WP-PDR-47. Section 22 (lines 849 to 866): six rows removed with their closing evidence in the lead-in, the remaining rows re-dated to their PDR writers; the "Paired assurance record fields" removal drops the INSP-009 and INSP-017 remainder (INSP-059 finding-2), and the lead-in still describes the rows as Log-controlled SRR items (INSP-059 finding-3); both are Minor and carried there. Revision row A.9 (line 882) lists the changed sections. No hunk touches CS-01 to CS-39, the section 14.1 component set, a SWE-134 item or a criterion. 0 em dashes in the blob (`grep -c`); no bare `TBD` added.
+
+**Observations (not findings).**
+- **O-16 (07 author).** The section 22 row of finding-15 still reads "Decide between (a) ... and (b)". The owner answered CR-013 question 2 with (a) at the disposition of 2026-09-28 (CR-013 section 12, lead SE reading). The row is true of the blob's date and names the right owner and gate; the next 07 revision states the decision. Editing the product now would restart this delta.
+- **O-17 (07 author).** Revision row A.9 reads "CR-013 (Class II, Submitted ...)" with status "pending CR-013 disposition"; CR-013 has been Approved since 2026-09-28. Same kind as O-15 of the CR-010 delta.
+
+**Finding states at this delta (supersede earlier rows; record state rule of `tools/validate_docs.py`).**
+
+| Finding | Severity | State | Disposition |
+|---|---|---|---|
+| finding-1 to finding-13 | Major and Minor | Verified | Closed (iterations 2 and 3); untouched by `41c588c` |
+| finding-14, finding-16, finding-17, finding-18, finding-20, finding-22 | Minor | Verified | Closed by `41c588c` (this delta); the finding-14 table remainder is INSP-059 finding-1 |
+| finding-15 | Minor | Lien: fix before PDR | Unchanged; the tool or rule decision comes first (07 section 22 row, line 859) |
+| finding-19 | Minor | Verified | Closed by `e34a27b` (close-out delta); unchanged |
+| finding-21 | Major | Verified | Closed by `106bc3a` (CR-005 amendment delta); unchanged |
+
+No Major finding is open, and no new finding is raised.
+
+**Cross items (outside this record's scope).**
+- **X-13 (software assurance reviewer).** INSP-018 still names 07 `bfe05f43` on this branch and fails the record drift rule on any tree that holds `0ad37a43`. Its deltas for CR-010 (`3ae7d73b`, X-11) and CR-013 (`0ad37a43`) are software assurance reviews by a separate invocation (07 sections 2.1.1 and 10.2; plan rule C4); one delta may cover both, since the CR-013 branch contains CR-010. The PDR assurance record INSP-073 (`docs/reviews/PDR/checklists/software-plan-07-software-assurance.md`) already reviewed `0ad37a43` with `assurance_verdict: APPROVED`. This record copies `assurance_verdict` as filed; if the INSP-018 delta does not return APPROVED, this record's `verdict` returns to NEEDS CHANGES.
+- **X-14 (PDR record INSP-059 reviewer).** INSP-059 still reads `assurance_verdict: NEEDS CHANGES`, copied before INSP-073 was filed; its paired record now reads APPROVED on the same blob. The copy is that record's reviewer's to make.
+
+**Validity of this re-issue.** The record names 07 `0ad37a43`. If the CR-013 author changes 07 before the merge (CR-013 section 6.1 IR-F2 names 07 section 22 rows "Assurance routing of 05 and TS-002" and "Tool constants", which go stale when CR-014 merges), this record needs a further delta before the merge.
+
+**Tool runs (2026-09-29, CR-013 branch worktree at `eff05e0` with this edit, `.venv/bin/python`).** `tools/validate_docs.py` before this section: this record fails the drift rule on `3ae7d73b`; after it: this record PASS. The remaining failure on the branch is INSP-017 and INSP-018 (X-11, X-13); see CR-013 section 9 for the trial merge with `main`.
+
+**Answers at the delta.** CK-REQ-G1 Yes and CK-REQ-G2 Yes (finding-17, 18, 20 and 22 Verified). CK-REQ-G6 No (finding-15, lien). CK-REQ-G7 No (the section 8.1 table remainder of finding-14, carried by INSP-059 finding-1). Every No rests on Minor liens only. Readiness R1 to R4 Met for this product, R5 N/A; `readiness_met: true`.
+
+```
+CR-013 DELTA (2026-09-29, branch cr/CR-013 at 41c588c, record on eff05e0): VERDICT: APPROVED (with lien finding-15), subject to X-11 and X-13
+DELTA: 41c588c (07 A.9, 18 hunks) closes finding-14, 16, 17, 18, 20 and 22; no criteria, SWE-134 item, component-set or CS rule change
+FINDINGS: none new; open Major 0; O-16 and O-17 for the 07 author; product findings of the same blob are INSP-059 finding-1 to 3 and INSP-073 finding-1
+PRODUCT: 07@0ad37a43, CR-001@0f4cca4c, CR-005@9b0129ef, measurements.json@5e2d1755, schema@c30b7f3e, valid.json@3938cd57, invalid.json@15231171 (equal to 41c588c, 7/7)
+PAIRING: INSP-018 assurance_verdict APPROVED as filed on bfe05f43; its deltas on 3ae7d73b and 0ad37a43 by a separate SA invocation (X-11, X-13)
+MEASUREMENTS (delta): turns=16; minutes=30; cumulative turns=184, minutes=305
 ```
