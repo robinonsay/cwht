@@ -13,17 +13,28 @@
 # commit 02e7b52 on main); the four product blobs on the branch are unchanged (branch head still 5cd87cf).
 # Iteration 3 (2026-09-27): drift delta (rule C1). The CR-010 file moved ebce01d6 -> ccd77640 (commit 92b4fa4,
 # section 6.3 impact review round 2 appended, one hunk); the four branch blobs are unchanged (5cd87cf).
+# Re-pin delta (2026-09-29, lead SE rulings (2) and (3) of 2026-09-29; section "Re-pin delta" at the end). 07 is named at
+# 0ad37a43, the combined CR-010 plus CR-013 text on cr/CR-013-process-04-07-semp-srr-liens, and the CR-010 file is dropped
+# from product_files. The iteration stays 3: a re-pin delta is not a new review iteration (INSP-003 and INSP-025 convention).
 id: INSP-037
 checklist: peer-review-checklist-classification
 checklist_revision: A
 checklist_file: docs/reviews/PDR/checklists/classification-03-software-classification-and-rmm.md
 product: docs/process/03-software-classification-and-rmm.md
-# product_commit: the CR-010 branch head (the four product files); the CR file blob is on main HEAD
-product_commit: "5cd87cff741653c1f3746029d66c7d42c5a0b1d2"
-product_files: ["docs/process/03-software-classification-and-rmm.md@1e03b873b404deeaa86ba2393806cda74996187d", "docs/process/07-software-engineering-plan.md@3ae7d73b01810e47fd10251d798e0a047aaa72dd", "docs/process/rmm.json@a907a087f1302e275ea56bdb7bba89638777a319", "docs/process/rmm.md@17ea4733a4d41b54424619f8682db815b05d4ebf", "docs/cm/cr/CR-010-apply-srr-decisions-9-and-40.md@ccd77640999fc318372f0b1d98cd852e8bacf065"]
-# input_files: the hazard source of record at main HEAD (0.5.0-pha, commit bfea9c7) and the SRR memo at main HEAD
-input_files: ["docs/safety/hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0", "docs/reviews/SRR/decision-memo.md@110102bf003f1c4c28cc9365c9af7dee39e79abd"]
-product_size: 4 files changed (03 fifth revision, 07 revision A.8, rmm.json 5 implementation fields, rmm.md render; 72 insertions, 71 deletions) plus the CR-010 file (226 lines, 14 impact fields)
+# product_commit: at iterations 1 to 3 the CR-010 branch head 5cd87cf. Re-pin: the CR-013 prototype commit 41c588c, the
+# first commit that holds all four named blobs (07 0ad37a43; 03, rmm.json and rmm.md as at 5cd87cf). The CR-013 branch head
+# 1a486e4 holds the same four, and so does a trial merge of CR-010 then CR-013 into main (section "Re-pin delta")
+product_commit: "41c588cddc9a97cec536482dc2bd164e2bf81ea3"
+# product_files at the re-pin: 07 was 3ae7d73b (lead SE ruling (3): name 0ad37a43, so the verdict can be set in the CR-013
+# merge commit). The entry "docs/cm/cr/CR-010-apply-srr-decisions-9-and-40.md@ccd77640999fc318372f0b1d98cd852e8bacf065" is
+# dropped (lead SE ruling (2), INSP-060 precedent): the CR file is a record on main that each lifecycle step appends to, so a
+# pinned blob cannot equal HEAD after the merge. The delta read ccd77640 to 27604ce9: sections 1 to 4 and 6, which this record
+# reviewed, are unchanged; section 5 changes only in its Done column. The reviewed CR text stays identified in the body
+product_files: ["docs/process/03-software-classification-and-rmm.md@1e03b873b404deeaa86ba2393806cda74996187d", "docs/process/07-software-engineering-plan.md@0ad37a43a9d365408b78488f6c2b02933af56837", "docs/process/rmm.json@a907a087f1302e275ea56bdb7bba89638777a319", "docs/process/rmm.md@17ea4733a4d41b54424619f8682db815b05d4ebf"]
+# input_files: the hazard source of record at main HEAD (0.5.0-pha, commit bfea9c7) and the SRR memo at main HEAD; at the
+# re-pin also the CR-010 file as read (main 6ff9e35) and the CR-010 07 blob that the combined blob replaces
+input_files: ["docs/safety/hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0", "docs/reviews/SRR/decision-memo.md@110102bf003f1c4c28cc9365c9af7dee39e79abd", "docs/cm/cr/CR-010-apply-srr-decisions-9-and-40.md@27604ce92a6c7cf086c4027cfb699e3b598ddf98", "docs/process/07-software-engineering-plan.md@3ae7d73b01810e47fd10251d798e0a047aaa72dd"]
+product_size: 4 files changed (03 fifth revision, 07 revision A.8, rmm.json 5 implementation fields, rmm.md render; 72 insertions, 71 deletions) plus the CR-010 file (226 lines, 14 impact fields; read, not pinned, from the re-pin). 07 named at the combined blob 0ad37a43 (revision A.9, CR-013 hunks reviewed by INSP-059 and INSP-073)
 sprint: PDR-prep
 author_agent: "author:WP-PDR-17 wave 0 (Claude as software lead, 03 and 07 author; CR-010 originator)"
 reviewer_agent: "reviewer:WP-PDR-17-classification (independent, authored no part of WP-PDR-17 or CR-010)"
@@ -36,24 +47,28 @@ assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:WP-PDR-17-classification (paired record INSP-050, classification-03-software-classification-and-rmm-software-assurance.md)"
 paired_record: INSP-050
 iteration: 3
-# readiness_met: false. R1 still fails at the committed state 5cd87cf: tools/validate_docs.py exits 1 (45 passed,
-# 5 failed), every failure being the record drift the change set itself causes. At iteration 2 the CR states this
-# truthfully and confines it to the CR branch (finding-1 Verified). R1 becomes true at the CR-010 section 5 step 6
-# branch head, after the five SRR delta re-issues; readiness_met is set true then, before verdict APPROVED.
-readiness_met: false
+# readiness_met: true at the re-pin. At iterations 1 to 3 it was false: R1 failed at 5cd87cf (validate_docs 45 passed,
+# 5 failed, the record drift the change set causes) and was to become true at the CR-010 section 5 step 6 branch head,
+# after the five SRR delta re-issues. That condition is now met. R1: tools/validate_docs.py exits 0 at the CR-010 head
+# 7963f78 (50 passed of 50) and at the CR-013 head 1a486e4 (50 of 50). R2: tools/render_rmm.py --check exits 0 at both
+# heads. R3: Yes with finding-3, unchanged (03 is unchanged). Evidence in section "Re-pin delta"
+readiness_met: true
 reviewer_verdict: APPROVED
 # assurance_verdict: as the paired record INSP-050 states it (iteration 1, fefcf55)
 assurance_verdict: APPROVED
 # verdict: held at NEEDS CHANGES while the reviewed blobs are on the CR branch only (lead SE convention; the
-# INSP-031 and INSP-033 hold); set APPROVED at the CR-010 merge with these blobs unchanged. The SA pair
-# condition of iteration 2 is met (INSP-050 assurance_verdict APPROVED).
+# INSP-031 and INSP-033 hold). The SA pair condition of iteration 2 is met (INSP-050 assurance_verdict APPROVED).
+# Re-pin: the software lead sets APPROVED in the CR-013 merge commit, not the CR-010 one (lead SE ruling (3)), when the
+# four named blobs equal git rev-parse HEAD:<path>. main holds 07 3ae7d73b between the two merge commits
 verdict: NEEDS CHANGES
 findings_major: 1
 findings_minor: 6
 findings_open: 0
 findings_fixed: 0
-findings_verified: 1
-findings_deferred: 0
+# re-pin: finding-7 Verified on CR-010 27604ce9 (was 1). findings_deferred counts the five Minor liens finding-2 to
+# finding-6, which iterations 2 and 3 did not count (was 0; CR-008 re-pin practice)
+findings_verified: 2
+findings_deferred: 5
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -61,8 +76,9 @@ deferred_rids: []
 # items_no: R1 (finding-1); CL-4 (the section 4.2 table differs from hazards.json 0.5.0-pha, carried by X13
 # to the PDR re-run by design); CL-8 (finding-3)
 items_no: [R1, CL-4, CL-8]
-effort_turns: 84
-effort_minutes: 120
+# effort: iterations 1 to 3 84 turns, 120 minutes; the re-pin delta adds 16 turns, 30 minutes
+effort_turns: 100
+effort_minutes: 150
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -283,4 +299,76 @@ PRODUCT: CR-010 ccd77640 (main 3d320a3; 92b4fa4 appended section 6.3); branch cr
 FINDINGS: no new finding; V1 corrected to Partly (concur INSP-050 finding-2, IR2-F4); concur IR2-F1 to IR2-F5 at Minor
 ITEMS N/A: none
 MEASUREMENTS: hunks read=1/1; claims checked=7; new findings=0; iteration 3 turns=12, minutes=20; cumulative turns=84, minutes=120
+```
+
+## Re-pin delta (2026-09-29, lead SE rulings (2) and (3); reviewer, new invocation)
+
+**Why.** The lead SE ruled on 2026-09-29 (recorded in CR-010 section 9 and CR-013 section 9) that (3) this record and INSP-050 name 07 at `0ad37a43`, the combined CR-010 plus CR-013 text, with their record verdicts set in the CR-013 merge commit (CR-010 and CR-013 merge back to back, so `main` holds 07 `3ae7d73b` only between the two merge commits), and (2) each re-pin drops the CR file from `product_files` when the CR sections the record reviewed are unchanged, with the reason, and otherwise makes a delta. This record named the CR file at `ccd77640`; the file is now `27604ce9` at `main` `6ff9e35` (commits `a17af87`, `7e6f17f`, `c8b7bd2`, `6ff9e35`). This delta re-pins the record. It re-reviews no product text of CR-010. The iteration number stays 3, because a re-pin delta is not a new review iteration (INSP-003 and INSP-025 convention, `cr-008-test-sys.md`).
+
+**Independence (rule C4) and search first (rule C3).** A new invocation of this record's reviewer role for WP-PDR-55. It authored no part of CR-010 (any revision, section 6 review or section 7 to 12 record text), CR-013, their branch commits, the SRR record deltas `e54ce91`, `7963f78`, `b6cc8f8` and `1a486e4`, INSP-050, INSP-059, INSP-073 or iterations 1 to 3 of this record, and it edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`. The rustos repository was not read.
+
+### CR-010 file: `ccd77640` to `27604ce9`
+
+Script over both blobs, split at the `##` headings: sections 1 (with 1.1 to 1.3), 2, 3, 4 (the fourteen impact fields) and 6 (with 6.1 to 6.3) are byte-identical. Section 5 changes only in its last ("Done") column: every step text and the "Verification of the implementation" paragraph are identical. The other changes are front matter state (`status` Verified, `disposition` Approved, `disposition_date` 2026-09-28), the status sentence of the lead paragraph, and sections 7 to 12. Section 8 keeps the "Correction (revision 2; INSP-037 finding-1)" paragraph verbatim. The text this record reviewed (sections 1 to 6, and the section 8 correction checked at iteration 2) is therefore unchanged. The CR file is dropped from `product_files` and identified here as reviewed at `ebce01d6` (iterations 1 and 2) and `ccd77640` (iteration 3).
+
+The Done cells and new record text were read for claims on this record's lens:
+
+| # | Claim | Check | Result |
+|---|---|---|---|
+| 1 | Step 4: no rebase; the four blobs stay those INSP-037 and INSP-050 froze | `git rev-parse 7963f78:<path>` gives 03 `1e03b873`, 07 `3ae7d73b`, `rmm.json` `a907a087`, `rmm.md` `17ea4733`; `git log ab2af2d..main` on the four paths is empty at `main` `9fda694` | Holds |
+| 2 | Step 5: the five SRR records re-issued on the branch; `git diff --stat 5cd87cf 7963f78` shows records only | 5 files changed, all under `docs/reviews/SRR/checklists/`; no product file | Holds |
+| 3 | Step 6 and section 9 Tool runs: `validate_docs.py` 50 of 50 at `7963f78` | Detached scratch worktree at `7963f78` (removed after use): `validate_docs: 50 passed, 0 failed, 50 checked`; `render_rmm.py --check` exit 0 (100 rows; FC 75, T 17, NA 8; In place 40) | Holds |
+| 4 | Step 6: INSP-037 and INSP-050 verdicts are set in the CR-013 merge commit (ruling (3)); section 9 lists the re-pins as a merge blocker | Read in the step 6 Done cell and the section 9 ruling paragraph | Holds. This is the fix finding-7 asked for (below) |
+| 5 | Section 8 `5cd87cf` trailer cell cites deviations entries 8 (`c9f611d`) and 9 (`48f596a`) | Both commits exist with those subjects; `docs/cm/deviations.md` entries name `5cd87cf` (CR-010) | Holds |
+
+### 07: `3ae7d73b` to `0ad37a43`
+
+The combined blob is on `cr/CR-013-process-04-07-semp-srr-liens` from `41c588c` and is unchanged at its head `1a486e4`. Its CR-013 hunks (`git diff 3ae7d73b 0ad37a43`, 17 hunks) are reviewed by INSP-059 and INSP-073, not here. For this record's lens the check is whether they change the CR-010 text it assessed:
+
+- Of the 27 lines CR-010 adds to 07 (`git diff ab2af2d 5cd87cf`), 24 are present verbatim in `0ad37a43`. The other 3 are changed by CR-013: section 14.2 row i (its L1 list adds REQ-SYS-181, INSP-010 finding-17), and the section 22 rows "Menu override command path ruling" and "Frequency-control determination" (their Remaining text now names charter edit CE-2 and the SEMP section 7.1 fix). None of the three moves a component into or out of the safety-critical or mission-critical set, changes a criteria cell, or changes a SWE-134 allocation, so CL-5, CL-7, CL-8 and CL-9 stand.
+- No CR-013 hunk lies in section 3.1, section 14.1 (lines 579 to 608) or section 19. Section 14.1 and the rest of section 14.2 are as at `3ae7d73b`.
+- The two "when REQ-SYS-182 is adopted" lines (section 14.2 row a, line 615; `SW-TXSEQ` module row, line 633) are unchanged in `0ad37a43`, so the V1 "Partly" answer of iteration 3 and INSP-050 finding-2 still apply.
+- 03, `rmm.json` and `rmm.md` are unchanged at `41c588c`, `1a486e4` and on the trial merge.
+
+### Readiness at the re-pin
+
+Iterations 2 and 3 set `readiness_met` to become true at the CR-010 step 6 branch head, after the five SRR delta re-issues. That condition is now met:
+
+| # | Criterion | Answer | Evidence |
+|---|---|---|---|
+| R1 | `tools/validate_docs.py` exits 0 | Yes | `7963f78` (CR-010 head): 50 passed of 50. `1a486e4` (CR-013 head, which contains `7963f78`): 50 of 50. Trial `git merge --no-ff 7963f78` then `1a486e4` into `main` `9fda694` (detached scratch worktree, removed after use): 117 passed of 117 |
+| R2 | `tools/render_rmm.py --check` exits 0 | Yes | Exit 0 at `7963f78` and at `1a486e4`. On `main` `9fda694` and on the trial merge it exits 1 on one message, `rmm.json` SWE-204 status, which `main` carries by itself (CR-010 section 9 row "RMM fields"; `docs/lessons-learned.md`); no CR-010 row is involved |
+| R3 | The `hazards.json` version is stated and every difference is an open 03 section 6.5 item | Yes, with finding-3 | 03 blob unchanged (`1e03b873`) |
+
+`readiness_met` is set true. `traceability.py --report-only` on the trial merge: 245 requirements, 173 test cases, 0 violations, 2 warnings (REQ-SYS-125, REQ-SYS-148, as on `main`); report files restored.
+
+### Checks run on this record
+
+- `tools/validate_docs.py` on `main` with this record in the working tree: this record PASS; the drift of the branch-only blobs is printed as notes.
+- Scratch copy on the trial merge (CR-010 then CR-013 into `main` `9fda694`), this record as committed: PASS, no drift note.
+- Same scratch copy with `verdict: APPROVED`: PASS, no drift note, 117 passed of 117. The scratch copy was discarded.
+
+### Findings (re-pin delta; state of every finding of this record)
+
+| Finding | Severity | State | Note |
+|---|---|---|---|
+| finding-1 | Major | Verified | Iteration 2; the CR sections it rests on are unchanged at `27604ce9` |
+| finding-2 | Minor | Lien: fix before CDR | 03 unchanged; owner and due as in the iteration 2 table |
+| finding-3 | Minor | Lien: fix before CDR | 03 and the 07 section 14.1 lead unchanged in `0ad37a43` |
+| finding-4 | Minor | Lien: fix before CDR | 03 section 4.3 and 07 section 14.1 unchanged; 07 row h unchanged |
+| finding-5 | Minor | Lien: fix before CDR | `rmm.json` unchanged |
+| finding-6 | Minor | Lien: fix before CDR | 03 unchanged |
+| finding-7 | Minor | Verified | CR-010 `27604ce9` section 5 step 6 Done cell now names that the INSP-037 and INSP-050 verdicts are set in the CR-013 merge commit, and section 9 lists the re-pins before that as a merge blocker. `readiness_met` is true at this re-pin, so the rest of the expected fix is moot |
+
+Open Major: 0. New findings: 0. Concurred, not raised here: INSP-050 finding-2 (the two 07 conditionals, unchanged).
+
+### Record verdict
+
+**Reviewer verdict: APPROVED** (liens finding-2 to finding-6). `readiness_met` is true. The record `verdict` stays **NEEDS CHANGES**, held because the four named blobs exist only on the CR branches. Under lead SE ruling (3), the software lead sets `verdict: APPROVED` in the CR-013 merge commit, which follows the CR-010 merge commit, when every `product_files` blob equals `git rev-parse HEAD:<path>`. A later change to any of the four blobs, or to CR-010 sections 1 to 6, needs a delta of this record first. INSP-050 still names 07 `3ae7d73b` and the CR file at `ebce01d6`; its re-pin is a software assurance invocation's work, outside this record.
+
+```
+RE-PIN DELTA (2026-09-29): reviewer APPROVED (liens finding-2 to finding-6); record verdict NEEDS CHANGES (held: set in the CR-013 merge commit, lead SE ruling (3)); readiness_met true
+PRODUCTS: 03 1e03b873, 07 0ad37a43 (was 3ae7d73b), rmm.json a907a087, rmm.md 17ea4733; CR-010 file dropped (sections 1 to 6 unchanged ccd77640 to 27604ce9)
+FINDINGS: finding-7 Verified; no new finding; open Major 0
+MEASUREMENTS: CR sections compared=12; claims checked=5; CR-010 07 lines checked=27 (24 verbatim, 3 changed by CR-013, none a classification change); tool runs=6; turns=16; minutes=30; cumulative turns=100, minutes=150
 ```
