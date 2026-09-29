@@ -2,7 +2,7 @@
 
 Interface (TS-012 section 8.1 layout): CLK1 on the main board, 50 ohm coax of 5, 10, 15 cm (VF 0.66, est.) to the drive LPF on the RF board. Lumped load on the CLK1 pin: tap 5 pF + stub 2 pF = 7 pF (estimates) against the Si5351 Table 7 maximum of 15 pF: **PASS**. All corners at 25 C; the drive moves by at most 0.1 dB over -10 to +45 C (estimate, see the analysis record).
 
-Verdict, module input window 10 to 30 mW: **FAIL** at all 810 corners (587 in the window, 28 above 30 mW, 195 below 10 mW); on the TS-012 criterion corners only (source 25 and 50 ohm, gain 22.5 and 25.0 dB, 144 to 148 MHz, nominal Si5351 edge and VDDO, all P1dB sets, all coax lengths): **FAIL** (81 of 108).
+Verdict, module input window 10 to 30 mW, taken over all 810 corners: **FAIL** (587 corners inside the window, 28 above 30 mW, 195 below 10 mW). Taken over the TS-012 criterion corners only (source 25 and 50 ohm, gain 22.5 and 25.0 dB, 144 to 148 MHz, nominal Si5351 edge and VDDO, all P1dB sets, all coax lengths): **FAIL** (81 of 108 inside).
 Overdrive margin, fixed pad (highest corner against 30 mW): -0.73 dB; -0.83 dB with the 0.1 dB temperature allowance.
 
 Verdict, 3f at the GVA-84+ input at least 25 dB below the fundamental: **PASS** (worst -30.9 dBc).

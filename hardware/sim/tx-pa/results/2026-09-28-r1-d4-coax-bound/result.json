@@ -47,8 +47,9 @@
         "exit": 0,
         "log_first_line": "LTspice 26.0.2 for MacOS",
         "wrapper_provenance": [
-          "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
-          "ltspice-batch: result: PASS deck=coax_a5.cir sha256=564ecf0ab0dda83db7e666d27ebf5c0c0e47b622e7d80aad3c6addb72090f3e1 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=16s outputs=[coax_a5.log coax_a5.op.raw coax_a5.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-r1-d4-coax-bound"
+          "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 3000 s",
+          "ltspice-batch: note: a Wine session of the bottle was running before this run (PIDs 44942 44950 44952 44954 44960 44962 44979 44985 ); not started by this run, so it is left running",
+          "ltspice-batch: result: PASS deck=coax_a5.cir sha256=564ecf0ab0dda83db7e666d27ebf5c0c0e47b622e7d80aad3c6addb72090f3e1 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=18s outputs=[coax_a5.log coax_a5.op.raw coax_a5.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-r1-d4-coax-bound"
         ]
       },
       "n_steps": 435,
@@ -116,8 +117,9 @@
         "exit": 0,
         "log_first_line": "LTspice 26.0.2 for MacOS",
         "wrapper_provenance": [
-          "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
-          "ltspice-batch: result: PASS deck=coax_a4.cir sha256=87961cecb6f6e64e7f1bc1e0cb0875f12f9784671143b0ebc085d6187574005c version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=16s outputs=[coax_a4.log coax_a4.op.raw coax_a4.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-r1-d4-coax-bound"
+          "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 3000 s",
+          "ltspice-batch: note: a Wine session of the bottle was running before this run (PIDs 44942 44950 44952 44954 44960 44962 44979 44985 ); not started by this run, so it is left running",
+          "ltspice-batch: result: PASS deck=coax_a4.cir sha256=87961cecb6f6e64e7f1bc1e0cb0875f12f9784671143b0ebc085d6187574005c version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=14s outputs=[coax_a4.log coax_a4.op.raw coax_a4.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-r1-d4-coax-bound"
         ]
       },
       "n_steps": 435,
@@ -185,9 +187,9 @@
         "exit": 0,
         "log_first_line": "LTspice 26.0.2 for MacOS",
         "wrapper_provenance": [
-          "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 3600 s",
-          "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
-          "ltspice-batch: result: PASS deck=tstep_a5.cir sha256=85832f6ab1fd011da9792fd2fb1d4a51a232c7a621d015cd5196cfe287ec9ccb version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=4s outputs=[tstep_a5.log tstep_a5.op.raw tstep_a5.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-r1-d4-coax-bound"
+          "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 3000 s",
+          "ltspice-batch: note: a Wine session of the bottle was running before this run (PIDs 44942 44950 44952 44954 44960 44962 44979 44985 ); not started by this run, so it is left running",
+          "ltspice-batch: result: PASS deck=tstep_a5.cir sha256=85832f6ab1fd011da9792fd2fb1d4a51a232c7a621d015cd5196cfe287ec9ccb version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=2s outputs=[tstep_a5.log tstep_a5.op.raw tstep_a5.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-r1-d4-coax-bound"
         ]
       },
       "n": 15,
@@ -202,14 +204,37 @@
         "exit": 0,
         "log_first_line": "LTspice 26.0.2 for MacOS",
         "wrapper_provenance": [
-          "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
-          "ltspice-batch: result: PASS deck=tstep_a4.cir sha256=b12afa63a12b060e3ceb28b7d67a90472b8da3344102dad639f7193bd49f40c5 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=4s outputs=[tstep_a4.log tstep_a4.op.raw tstep_a4.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-r1-d4-coax-bound"
+          "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 3000 s",
+          "ltspice-batch: note: a Wine session of the bottle was running before this run (PIDs 44942 44950 44952 44954 44960 44962 44979 44985 ); not started by this run, so it is left running",
+          "ltspice-batch: result: PASS deck=tstep_a4.cir sha256=b12afa63a12b060e3ceb28b7d67a90472b8da3344102dad639f7193bd49f40c5 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=3s outputs=[tstep_a4.log tstep_a4.op.raw tstep_a4.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-28-r1-d4-coax-bound"
         ]
       },
       "n": 15,
       "max_diff_pin_db": 0.0005286492616214389,
       "max_diff_h3_db": 0.013311678797172988,
       "pass": true
+    }
+  },
+  "verdicts": {
+    "check: A5 10 ps step against 20 ps within 0.02 dB (power) and 0.5 dB (3f)": {
+      "pass": true,
+      "kind": "check",
+      "detail": "0.0004 dB, 0.013 dB"
+    },
+    "check: A4 10 ps step against 20 ps within 0.02 dB (power) and 0.5 dB (3f)": {
+      "pass": true,
+      "kind": "check",
+      "detail": "0.0005 dB, 0.013 dB"
+    },
+    "A5 module input at most 30 mW at any coax length (fixed pad)": {
+      "pass": false,
+      "kind": "criterion",
+      "detail": "-2.10 dB"
+    },
+    "A4 drive at most 0.2 W at any coax length (informative)": {
+      "pass": true,
+      "kind": "criterion",
+      "detail": "+0.09 dB"
     }
   }
 }

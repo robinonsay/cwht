@@ -161,5 +161,32 @@
   "overdrive_margin_with_temp_db": 0.3583364901172992,
   "overdrive_w": 0.2,
   "corners_above_overdrive": 0,
-  "overdrive_pass": true
+  "overdrive_pass": true,
+  "verdicts": {
+    "check: one .raw step per corner": {
+      "pass": true,
+      "kind": "check",
+      "detail": ""
+    },
+    "A4 lumped CLK1 pin load at most 15 pF (Si5351 Table 7)": {
+      "pass": true,
+      "kind": "criterion",
+      "detail": ""
+    },
+    "A4 3f at the GVA-84+ input at least 25 dB below f": {
+      "pass": true,
+      "kind": "criterion",
+      "detail": "-30.9 dBc"
+    },
+    "A4 GVA-84+ input below +13 dBm": {
+      "pass": true,
+      "kind": "criterion",
+      "detail": ""
+    },
+    "A4 drive at most the 0.2 W ruggedness-test level (informative)": {
+      "pass": true,
+      "kind": "criterion",
+      "detail": "+0.46 dB"
+    }
+  }
 }

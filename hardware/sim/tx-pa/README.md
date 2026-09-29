@@ -5,16 +5,16 @@ Question: for each TS-012 finalist (A4: AFT05MS004N with a hand match, no TCXO; 
 what drive reaches the PA across tolerances and the CLK1-to-RF-board coax, what load the chain puts on the Si5351
 CLK1 pin, whether the RA07M1317M input window of 10 to 30 mW is kept (and with what margin to its 30 mW rating), and
 what power reaches the SMA from 6.4 to 8.4 V pack against REQ-SYS-012 (5 W +/-1 dB, 3.97 to 6.30 W) at 25 C and over
-REQ-SYS-114's -10 to +45 C.
+REQ-SYS-114's -10 to +45 C. Current revision of the record: 2 (2026-09-28).
 
 ## Files
 
 | File | What it is |
 |---|---|
-| `run_pa.py` | Deck writer, LTspice runner (only through `tools/ltspice-batch.sh`, ACC-LTSPICE-001), `.raw` reader (spicelib 1.6.3), checker and plotter. `run_pa.py all` reproduces every run below |
+| `run_pa.py` | Deck writer, LTspice runner (only through `tools/ltspice-batch.sh`, ACC-LTSPICE-001), `.raw` reader (spicelib 1.6.3), checker and plotter. `run_pa.py all` reproduces every current run below; exit status in the section below |
 | `digitize_ra07.py`, `digitize_aft05.py` | Graph readers for the datasheet curves (render at 400 dpi with pdftoppm, locate the grid, track the curve); they write `data/*.csv` and an overlay PNG per curve (red or blue marks on the datasheet crop) for visual closure |
 | `data/` | Digitized curves: RA07M1317M Pout versus Pin (7.2 V, VGG 3.5 V), Pout versus VDD (Pin 20 mW, VGG 3.5 V) and Pout versus VGG (7.2 V, Pin 20 mW), each at 135 and 155 MHz; AFT05MS004N Pout versus Pin at 7.5 V in the NXP 136 to 174 MHz reference circuit (Figure 13, 135 and 155 MHz). All typical data, graph reads (estimates) |
-| `decks/` | The revision 1 LTspice decks as run (copies of the ones in `results/`; `drive_a5_pinpad.cir` is d5's `drive_a5.cir`, `power_a5_sot.cir` is p3's `power_a5.cir`), plus `gva_check.cir` of d1 |
+| `decks/` | The current LTspice decks as run (copies of the ones in `results/`): the drive decks of revision 1 (`drive_a5_pinpad.cir` is d5's `drive_a5.cir`), the power decks of revision 2 (`power_a5_sot.cir` is p3's `power_a5.cir`), plus `gva_check.cir` of d1 |
 | `results/<run-id>/` | Per run: the deck, the LTspice `.log` and `.raw` (kept in git by the `.gitignore` exception), `result.json` and `result.md` (numbers and pass/fail), PNG plots with the limits drawn, and a copy of `run_pa.py` |
 
 Datasheets read (public vendor PDFs fetched 2026-09-28 through the web-fetch tool, cached outside the repository, not
@@ -31,7 +31,54 @@ and the same for `digitize_aft05.py`. To reproduce every revision 1 result: `.ve
 (d2 to s1; about 5 minutes of LTspice when no other run holds the lock; set `CWHT_LTSPICE_LOCK_WAIT` if one does).
 `run_pa.py d1` reruns the unchanged GVA-84+ model check.
 
+## Exit status and verdict check (revision 2, review finding-5)
+
+`run_pa.py` prints every verdict it records and exits **0** when every criterion is met and every check passes,
+**1** when every check passes and at least one criterion fails (the results are valid and report the failure), and
+**2** when a check fails (one `.raw` step per corner, the time-step check, the GVA-84+ model check, the PA case
+temperature against the thermal law: the results must not be used). With `--expect` it compares every verdict with the
+list in `EXPECTED` (the list of the analysis record section 8.1) and exits **3** if any differs, **0** if none does.
+`run_pa.py all` writes every verdict to `results/2026-09-28-r2-s1-summary/verdicts.json`. On 2026-09-28
+`run_pa.py all` exits 1 (checks pass; the fixed-pad drive window, REQ-SYS-012 at the 6.4 V end and the open-loop
+8 W limit fail, as the record reports) and `run_pa.py all --expect` exits 0.
+
+## Runs, revision 2 (2026-09-28, iteration 2 of the review: Major finding-9, Minor findings 3 to 8 and 10, cross items X-4 to X-6)
+
+LTspice 26.0.2 for MacOS through the wrapper; every run exit 0, no warning in any log. All values are estimates.
+What changed in the model (details in the analysis record sections 2, 3 and 3.1):
+- **One thermal state per question (finding-9).** Every low-bound temperature case is steady key-down at its ambient:
+  the PA case is solved in the deck (`V(tc)` = ambient + Rth case to ambient x (Pout (1/eta - 1) + Pin); Rth 6.11 K/W
+  for A5 and 9.6 K/W for A4 from WP-PDR-28), and the drain-feed parts and the LPF copper term sit at their own
+  key-down temperatures. The high-side open-loop case is the start of a key-down from a -10 C soak; a 25 C start of
+  key-down row (PA case 25 C, the datasheet condition) is informative. The checker recomputes the thermal law from the
+  `.raw` and requires agreement within 0.01 K (7.6e-6 K found).
+- **VGG (finding-3):** 3.08 / 3.27 / 3.46 V (the revision-4 clamp: minimum, nominal, maximum) and 3.30 V (the C3
+  lever minimum). 3.5 V is no longer used.
+- **Output loss (cross item X-5):** 0.5 / 0.84 / 1.86 dB, the TS-012 allocation and the WP-PDR-21 LPF revision 2
+  recommended build (run r13 at commit 92e3805: 0.74 dB Monte Carlo median, 1.76 dB worst case) plus the 0.1 dB relay,
+  replacing 0.4 / 0.5 / 0.6 dB and the uncertainty term that rested on the withdrawn LPF runs r6 and r7.
+- **Select-on-test pad (finding-4):** a set of 14 real E24 pads with adjacent losses at most 0.77 dB apart; the
+  step term is half that gap; the level reading is an allocation of +/-1.0 dB with its sensitivity.
+
+| Run id | Deck (SHA-256 prefix) | What it does | Result |
+|---|---|---|---|
+| `2026-09-28-r2-p1-power-a5` | `power_a5.cir` (`e01cd46d9ddb0f14`) | A5 power path, 11664 corners: feed 3 x efficiency 2 x drive 3 (d2) x frequency 3 x VGG 4 x module spread 2 x output loss 3 x 9 temperature cases | 25 C key-down, 6.4 V: nominal 4.09 W (-0.005 dB/K) and 3.94 W (-0.015 dB/K); lowest with C2 and C3, LPF median, 3.66 and 3.46 W (-0.36 and -0.60 dB): **FAIL**. Over every key-down case the C2 and C3 figure is -0.34 to -1.21 dB (LPF median) and -1.38 to -2.36 dB (LPF worst): **FAIL**. Open loop at 8.4 V: module 9.38 W (25 C key-down), 10.68 W (-10 C start, +0.53 dB): 8 W and 10 W **FAIL**. Plots `power_a5_sma.png`, `power_a5_temperature.png` |
+| `2026-09-28-r2-p2-power-a4` | `power_a4.cir` (`0cb13db4b6881b42`) | A4 power path, 13122 corners (d3 drive, n, match loss, same feed, loss and temperature cases) | 25 C key-down, 6.4 V: nominal 3.06 W, lowest 1.69 W (LPF median) and 1.31 W (LPF worst): **FAIL**; the lowest corner stays under 3.97 W up to 8.4 V in every case (worst 1.03 W). Plots `power_a4_sma.png`, `power_a4_temperature.png` |
+| `2026-09-28-r2-p3-power-a5-sot` | `power_a5.cir` (`e0557851af3c9c76`) | p1 with the drive band the select-on-test pad leaves (11.3 / 17.3 / 26.5 mW, s1) | 25 C key-down, 6.4 V: C2 and C3, LPF median, 3.81 and 3.59 W (-0.19 and -0.44 dB): **FAIL**; every key-down case -0.17 to -1.03 dB; 25 C start of key-down +0.14 dB. Plots as p1, titled with the select-on-test drive |
+| `2026-09-28-r2-s1-summary` | none (post-processing of d2 to p3) | Select-on-test pad set, band, reading sensitivity and overdrive margin; A5 closure margin with the terms not carried as corners, at the LPF median and worst case; both finalists on one page; `verdicts.json` | Select-on-test: 11.3 to 26.5 mW at a +/-1.0 dB reading, overdrive margin +0.54 dB (**PASS**, estimate); break-even reading +/-1.54 dB; with the tinySA Ultra's published +/-2 dB alone -0.46 dB (**FAIL**). Plots `pin_at_pa_vs_pack.png`, `pout_at_sma_vs_pack.png`, `a5_closure_margin.png`, `a5_overdrive_margin.png`, `a5_sot_reading_sensitivity.png` |
+
+The drive runs d2 to d5 keep their revision 1 folders below: their decks did not change. The revision 2 checker
+re-read d2, d3 and d5 from their revision 1 `.raw` (`CWHT_PA_REPLOT=1`, same deck SHA-256) and rewrote
+`result.json` (a verdict block), the d2 and d5 `result.md` (the verdict sentence, finding-7 item ii) and the script
+copy; their numbers and plots are unchanged. d4 was rerun in LTspice with the revision 2 checker (same decks; the
+`.log` and `.raw` are new files, the numbers and plot are identical).
+
+Every PNG of revision 2 was opened and inspected after rendering (visual closure, 2026-09-28).
+
 ## Runs, revision 1 (2026-09-28, review of the analysis note: Major findings 1 and 2, Minor finding 3)
+
+The drive runs d2 to d5 below are current. The power runs p1 to p3 and the summary s1 of revision 1 are superseded
+by revision 2 (finding-9: their 25 C case put the PA case at 25 C; VGG 3.5 V; output loss 0.4 to 0.6 dB).
 
 LTspice 26.0.2 for MacOS through the wrapper; every run exit 0. All values are estimates (graph-read typical
 vendor curves and estimated terms; the analysis record classes each input).
@@ -54,6 +101,7 @@ overlays in `data/`.
 ## Runs, revision 0 (superseded, kept for history)
 
 `2026-09-28-d2-drive-a5`, `-d3-drive-a4`, `-p1-power-a5`, `-p2-power-a4`, `-p3-power-a5-sot` and `-s1-summary`.
+The revision 1 power and summary folders (`2026-09-28-r1-p1` to `-r1-s1`) are also superseded, by revision 2.
 They modelled the CLK1 pin with the drive LPF's 18 pF and the 5 pF tap directly on it (23 pF, not the design:
 review finding-1) and every power curve at 25 C only (finding-2). Their folders keep their decks, logs, raws,
 results and the revision 0 script copy.
@@ -67,11 +115,13 @@ results and the revision 0 script copy.
   load is V(clk)/I(Rsrc) at the fundamental, reported as an equivalent shunt capacitance Im(Y)/(2 pi f).
 - The drive and power runs are linked by the drive corners: p1 and p2 read the minimum, nominal and maximum PA input
   of d2 and d3 from their `result.json`; p3 reads the s1 select-on-test band.
-- Temperature cases: the drain feed per temperature is computed part by part (`FEED_PARTS` in `run_pa.py`) and
-  scaled so that 25 C gives exactly 0.26 / 0.35 / 0.45 ohm; the PA factor and the output-loss copper term are
-  `TC_CASES`. Both carry their source or "est." in the script.
-- `CWHT_PA_REPLOT=1` re-reads an existing `.raw` when the deck is byte-identical (same SHA-256 as recorded), to redraw
-  plots without a new LTspice run. The committed revision 1 `.log` and `.raw` files of d2, d3, d5 and p1 to p3 come
-  from one run of `run_pa.py all`; their plots and result files were then redrawn from those raws with the final
-  script after a plot-title change (`CWHT_PA_REPLOT=1`), and d4 and s1 were rerun with it. The copy of `run_pa.py`
-  in each run folder is that final script.
+- Temperature cases (revision 2): the drain feed per case is computed part by part (`FEED_CELLS`, `FEED_PARTS` in
+  `run_pa.py`: each part at the ambient plus its key-down rise, with its temperature coefficient) and scaled so that
+  every part at 25 C gives exactly 0.26 / 0.35 / 0.45 ohm; the PA case is solved in the deck (`Btc`, `RTH_CA`); the
+  PA coefficient, the no-gain-below-25-C rule and the copper term are `TC_CASES`, `CU_TC`, `BAY_RISE_KD`. Each carries
+  its source or "est." in the script.
+- `CWHT_PA_REPLOT=1` re-reads an existing `.raw` when the deck is byte-identical (same SHA-256 as recorded in the
+  run's `result.json`), to redraw plots and results without a new LTspice run. The revision 2 power `.raw` files come
+  from one LTspice run each (p1 at 20:20, p2 at 20:34, p3 at 20:39 on 2026-09-28); the final revision 2 script then
+  re-read every run with `CWHT_PA_REPLOT=1` and `--expect`. The copy of `run_pa.py` in every current run folder
+  (d2 to d5, p1 to p3, s1) equals the committed script.

@@ -1,6 +1,6 @@
 LTspice 26.0.2 for MacOS
-Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.SeizUU/coax_a5.cir
-Start Time: Mon Sep 28 19:38:10 2026
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.O61TFV/coax_a5.cir
+Start Time: Mon Sep 28 20:31:56 2026
 Options:plotwinsize=0
 
 .step idx=0
@@ -1314,8 +1314,8 @@ Direct Newton iteration succeeded in finding operating point.
 
 .step idx=434
 Direct Newton iteration succeeded in finding operating point.
-Total elapsed time: 12.872 seconds.
+Total elapsed time: 16.474 seconds.
 
 Files loaded:
-/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.SeizUU/coax_a5.cir
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.O61TFV/coax_a5.cir
 

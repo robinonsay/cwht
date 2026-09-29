@@ -1,0 +1,268 @@
+{
+ "d2": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": ""
+  },
+  "A5 lumped CLK1 pin load at most 15 pF (Si5351 Table 7)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 3f at the GVA-84+ input at least 25 dB below f": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-30.9 dBc"
+  },
+  "A5 GVA-84+ input below +13 dBm": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 module input 10 to 30 mW at every corner (fixed pad)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "5.4 to 35.5 mW"
+  },
+  "A5 module input 10 to 30 mW at the TS-012 criterion corners (fixed pad)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  }
+ },
+ "d3": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": ""
+  },
+  "A4 lumped CLK1 pin load at most 15 pF (Si5351 Table 7)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A4 3f at the GVA-84+ input at least 25 dB below f": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-30.9 dBc"
+  },
+  "A4 GVA-84+ input below +13 dBm": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A4 drive at most the 0.2 W ruggedness-test level (informative)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "+0.46 dB"
+  }
+ },
+ "d4": {
+  "check: A5 10 ps step against 20 ps within 0.02 dB (power) and 0.5 dB (3f)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "0.0004 dB, 0.013 dB"
+  },
+  "check: A4 10 ps step against 20 ps within 0.02 dB (power) and 0.5 dB (3f)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "0.0005 dB, 0.013 dB"
+  },
+  "A5 module input at most 30 mW at any coax length (fixed pad)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "-2.10 dB"
+  },
+  "A4 drive at most 0.2 W at any coax length (informative)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "+0.09 dB"
+  }
+ },
+ "d5": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": ""
+  },
+  "A5 lumped CLK1 pin load at most 15 pF (Si5351 Table 7)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 option d5: equivalent CLK1 pin load at most 15 pF at every corner": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "11.9 pF"
+  },
+  "A5 3f at the GVA-84+ input at least 25 dB below f": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-35.4 dBc"
+  },
+  "A5 GVA-84+ input below +13 dBm": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 module input 10 to 30 mW at every corner (fixed pad)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "6.7 to 41.6 mW"
+  },
+  "A5 module input 10 to 30 mW at the TS-012 criterion corners (fixed pad)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  }
+ },
+ "p1": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": "11664 steps, 11664 corners"
+  },
+  "check: PA case temperature solved by LTspice equals the thermal law within 0.01 K": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest difference 7.63e-06 K at 6.4 V"
+  },
+  "A5 lowest corner at least 3.97 W from 6.4 to 8.4 V, 25 C key-down": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 lowest corner at least 3.97 W from 6.4 to 8.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 nominal corner at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 lowest with C2 and C3, LPF at its median, at least 3.97 W at 6.4 V, 25 C key-down": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 lowest with C2 and C3, LPF at its median, at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 lowest with C2 and C3, LPF at its worst case, at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 open loop at 8.4 V: module output at most 8 W (stability conditions), every case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 open loop at 8.4 V: module output at most 10 W (maximum rating), every case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  }
+ },
+ "p2": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": "13122 steps, 13122 corners"
+  },
+  "check: PA case temperature solved by LTspice equals the thermal law within 0.01 K": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest difference 9.54e-06 K at 6.4 V"
+  },
+  "A4 lowest corner at least 3.97 W from 6.4 to 8.4 V, 25 C key-down": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A4 lowest corner at least 3.97 W from 6.4 to 8.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A4 nominal corner at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  }
+ },
+ "p3": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": "11664 steps, 11664 corners"
+  },
+  "check: PA case temperature solved by LTspice equals the thermal law within 0.01 K": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest difference 7.63e-06 K at 6.4 V"
+  },
+  "A5 lowest corner at least 3.97 W from 6.4 to 8.4 V, 25 C key-down": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 lowest corner at least 3.97 W from 6.4 to 8.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 nominal corner at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 lowest with C2 and C3, LPF at its median, at least 3.97 W at 6.4 V, 25 C key-down": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 lowest with C2 and C3, LPF at its median, at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 lowest with C2 and C3, LPF at its worst case, at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 open loop at 8.4 V: module output at most 8 W (stability conditions), every case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 open loop at 8.4 V: module output at most 10 W (maximum rating), every case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": ""
+  }
+ },
+ "s1": {
+  "A5 select-on-test drive 10 to 30 mW in service, reading allocation +/-1.0 dB": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "11.3 to 26.5 mW, overdrive margin +0.54 dB"
+  },
+  "A5 select-on-test drive 10 to 30 mW with a tinySA Ultra reading alone (+/-2 dB published)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "overdrive margin -0.46 dB"
+  },
+  "A5 option d5 select-on-test drive 10 to 30 mW, reading allocation +/-1.0 dB": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "11.4 to 26.3 mW"
+  }
+ }
+}

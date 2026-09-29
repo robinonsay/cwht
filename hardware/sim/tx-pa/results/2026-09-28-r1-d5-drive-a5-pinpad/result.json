@@ -179,5 +179,42 @@
   "window_pass_all_corners": false,
   "window_pass_criterion_corners": false,
   "spread_db": 7.9072086856106125,
-  "window_db": 4.771212547196624
+  "window_db": 4.771212547196624,
+  "verdicts": {
+    "check: one .raw step per corner": {
+      "pass": true,
+      "kind": "check",
+      "detail": ""
+    },
+    "A5 lumped CLK1 pin load at most 15 pF (Si5351 Table 7)": {
+      "pass": true,
+      "kind": "criterion",
+      "detail": ""
+    },
+    "A5 option d5: equivalent CLK1 pin load at most 15 pF at every corner": {
+      "pass": true,
+      "kind": "criterion",
+      "detail": "11.9 pF"
+    },
+    "A5 3f at the GVA-84+ input at least 25 dB below f": {
+      "pass": true,
+      "kind": "criterion",
+      "detail": "-35.4 dBc"
+    },
+    "A5 GVA-84+ input below +13 dBm": {
+      "pass": true,
+      "kind": "criterion",
+      "detail": ""
+    },
+    "A5 module input 10 to 30 mW at every corner (fixed pad)": {
+      "pass": false,
+      "kind": "criterion",
+      "detail": "6.7 to 41.6 mW"
+    },
+    "A5 module input 10 to 30 mW at the TS-012 criterion corners (fixed pad)": {
+      "pass": false,
+      "kind": "criterion",
+      "detail": ""
+    }
+  }
 }

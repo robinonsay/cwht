@@ -1,6 +1,6 @@
 LTspice 26.0.2 for MacOS
-Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.iaUEF9/tstep_a4.cir
-Start Time: Mon Sep 28 19:38:57 2026
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.Fzyx1k/tstep_a4.cir
+Start Time: Mon Sep 28 20:33:42 2026
 Options:plotwinsize=0
 
 .step idx=0
@@ -54,8 +54,8 @@ Direct Newton iteration succeeded in finding operating point.
 
 .step idx=14
 Direct Newton iteration succeeded in finding operating point.
-Total elapsed time: 0.945 seconds.
+Total elapsed time: 0.934 seconds.
 
 Files loaded:
-/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.iaUEF9/tstep_a4.cir
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.Fzyx1k/tstep_a4.cir
 
