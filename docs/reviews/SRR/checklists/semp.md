@@ -7,8 +7,10 @@ product: docs/plan/semp.md
 # product_commit: git hash-object of the working-tree file reviewed (blob; the file is uncommitted on top of HEAD 28e49e6); iteration 1 reviewed blob e129c710a71c616377b635e9a9097112313a3350, iteration 2 verified the fixes in the blob below
 product_commit: "2f0588fab3411acfb37342c08f374172da6a52c7"
 # product_files: the committed SEMP blob reviewed at iteration 3 re-issue 2 (post-SRR-ruling delta) by the independent reviewer (git rev-parse HEAD:docs/plan/semp.md at HEAD ebe5873; version 0.4, commit 9bdf33c, the only SEMP commit since adcfe09); iteration 3 re-issue 1 reviewed blob 77fc9ea43527d838a1d92c54cdb332868c1ab450
-product_files: ["docs/plan/semp.md@ccfdecf98a6e2dc1371eb057e6aa37903b672de1"]
-product_size: 9 sections plus appendices A to F (488 lines)
+# CR-013 delta (2026-09-29): the SEMP blob of CR-013 (version 0.5, branch cr/CR-013-process-04-07-semp-srr-liens head 41c588c;
+# git rev-parse 41c588c:docs/plan/semp.md); the post-SRR-ruling delta named ccfdecf98a6e2dc1371eb057e6aa37903b672de1 (baseline/srr)
+product_files: ["docs/plan/semp.md@2076eb0acfdfc283483eb2340bcbbf985df00c72"]
+product_size: 9 sections plus appendices A to F (488 lines; version 0.5 also 488 lines)
 sprint: SRR-prep
 author_agent: "author:semp (Claude main session, lead SE; H16 AL-02-26 revision)"
 reviewer_agent: "reviewer:semp"
@@ -20,19 +22,22 @@ readiness_met: true
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 verdict: APPROVED
+# CR-013 delta (2026-09-29): finding-10 to finding-13 Verified on blob 2076eb0a (verified 9 to 13); new Minor finding-14 is a lien
+# (deferred 4 to 1: the liens are counted here, as at the post-SRR-ruling delta); verdict stays APPROVED
 findings_major: 1
-findings_minor: 12
+findings_minor: 13
 findings_open: 0
 findings_fixed: 0
-findings_verified: 9
-findings_deferred: 4
+findings_verified: 13
+findings_deferred: 1
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G1, CK-REQ-G7, S1, S2]
-effort_turns: 125
-effort_minutes: 145
+# effort: 125 turns, 145 minutes before the CR-013 delta, which adds 12 turns and 25 minutes
+effort_turns: 137
+effort_minutes: 170
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -285,4 +290,47 @@ PRODUCT: docs/plan/semp.md@ccfdecf98a6e2dc1371eb057e6aa37903b672de1 (HEAD ebe587
 DELTA: 9bdf33c applies SRR decisions 106 and 3 correctly
 FINDINGS: finding-1 to finding-9 Closed; finding-10, finding-11 Lien (unchanged); finding-12 Minor (new) Lien: fix before PDR; finding-13 Minor (new) Lien: fix before PDR
 MEASUREMENTS: commits verified=1; hunks=4; rulings checked=12 (2, 3, 4, 5, 11, 36, 37, 77, 90, 96, 98, 106); open_major=0; iteration=3 (re-issue 2; the record schema caps iteration at 3); turns=25; minutes=30
+```
+
+## CR-013 delta (iteration 3 re-issue 3, independent reviewer, 2026-09-29, branch head `41c588c`)
+
+**Scope and independence.** New invocation of the reviewer role (`reviewer:semp`, plan rule C4), acting also as the WP-PDR-55 configuration manager for the CR-013 merge. It authored no part of the SEMP, of CR-013, of WP-PDR-13, of CR-010 or of either branch commit, and it edited no product. Trigger: CR-013 (`docs/cm/cr/CR-013-process-04-07-semp-srr-liens.md`, Class II, Approved 2026-09-28) changes the SEMP from blob `ccfdecf9` (`baseline/srr`, version 0.4) to `2076eb0a` (version 0.5), so this APPROVED record fails the record drift rule wherever the new blob is at HEAD. CR-013 section 6.1 IR-F1 asks for this update: the PDR delta record INSP-064 (`docs/reviews/PDR/checklists/semp.md`) verified the same blob but does not change this record's `product_files`. The re-issue is committed on the CR branch, records only, so that the merge brings the blob and this record into `main` in one commit. Search first: `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`; `grep`, `git show` and `git diff` were used afterwards only to pin lines and blobs. Everything above this section stands as recorded.
+
+**Commits in scope.** `git log --oneline ab2af2d..41c588c -- docs/plan/semp.md` prints one commit, `41c588c` (the CR-013 prototype, `CR: CR-013`); CR-010's `5cd87cf` does not touch the SEMP, and `git log ab2af2d..main -- docs/plan/semp.md` is empty, so the merge brings `2076eb0a` unchanged. `git diff -U0 5cd87cf 41c588c -- docs/plan/semp.md`: 18 hunks, every one inside a location that CR-013 section 1.3 items 1 to 13 lists.
+
+**Delta verification of this record's liens (line numbers of blob `2076eb0a`).**
+
+| Finding | Fix at | Checked against | Result |
+|---|---|---|---|
+| finding-10 | Line 187 (section 4.3 tool status): `tools/measurements.py`, `tools/unsafe_audit.py`, `tools/complexity_gate.py` (all `3de1e2d`), `tools/sw_gate.sh` and the schemas (`1d423e5`), `tools/ltspice-batch.sh` (`41d150e`), each with its gate and TV state, dated at `main` `7bb994f` | `git ls-tree main tools/` holds all of them; TV-011 to TV-014 exist. The count "16 `test_*.py` files" is wrong (15 at `7bb994f`): INSP-064 finding-1, not repeated | Verified |
+| finding-11 | Line 336 (section 7.2 row "Documentation data"): the four gate scripts and the LTspice wrapper "all exist", with gates G2, G3, G5, G6 | Same `git ls-tree`; `tools/sw_gate.sh` runs the G5 scripts | Verified for the finding as raised; the same row's "`render_tpm.py` before PDR" is finding-14 below |
+| finding-12 | Appendix E rows OQ-SE-001 (line 460), 003 (462), 005 (464), 006 (465) carry "Closed 2026-09-26" with decisions 2, 4, 96 and 11; section 3.4 (line 100), section 9.0 (line 428), section 6.0 (line 306), section 7.4 (line 399) and F-12 (line 483) restated in the past tense with the decision numbers | `docs/reviews/SRR/decisions-for-owner.md` rows 2, 4, 11 and 96 (Recommendations "Confirm", "Approve", "Accept at SRR", "Add and re-parent"); decision memo line 220 (decision 11, "Accept at SRR and reconfirm in the CDR memo"); section 7.3.1 (line 349) cites decision 2; `tpm.json` MOP-001 and MOP-002 still carry `moe_ids` `["MOE-001"]` on `main`, as line 399 now states, with the re-pointing sent to WP-PDR-29 | Verified (all eight locations the finding named) |
+| finding-13 | Line 444 (section 9.0 customization row 11) item (ii): "a class 1 value or policy Claude proposes, where the research analysis leaves one viable option, ..." | Section 5.17 item (ii) at line 286 ("where the research analysis leaves one viable option") and ruling R-2 | Verified |
+
+**Rest of the diff.** Section 7.1 (line 324) now lists the safety-critical and mission-critical components; checked word by word against charter section 10 on `main` ("the shared safe-state manager (with the boot path, the configuration guard and fault annunciation), the menu override command path, the scheduler and runtime, and the transmit frequency-word path ... and to the mission-critical remainder of frequency control, the configuration store and non-safety fields, and the key-input and keyer-mode selection path"): same list. Section 4.3 Allocation row and F-06 name CR-011 as the implementing change, which matches CR-011 on its branch (not on `main`). F-08 names charter edit CE-1 (OD-31); F-09 cites charter `6ea6b1d`, whose section 5 has the row "Status notes between reviews" (`git show 6ea6b1d:docs/process/00-charter.md`, line 106). The Version row keeps version 0.4 word for word as the previous version. 0 em dashes in blob `2076eb0a`; no bare `TBD` added. No new Major.
+
+<a id="finding-14"></a>**finding-14 (new), Minor, Lien.** Location: section 4.3 line 187 ("`render_tpm.py` is written by Claude before PDR"), section 7.2 line 336 ("`render_tpm.py` before PDR") and Appendix F item F-15 line 486 ("`tools/scad2step.py` not yet committed"). Description: the three statements were true at `7bb994f`, the commit version 0.5 was written against, but `main` commit `86ff3b0` (2026-09-27 12:45) added `tools/render_tpm.py` and `tools/scad2step.py` (`git ls-tree main tools/render_tpm.py tools/scad2step.py`: both present). Section 4.3 and F-15 are dated and so remain true as observations; the section 7.2 row is not dated and becomes untrue of the tree at the merge. Same fact as CR-013 section 6.1 IR-F2 and INSP-064 observation O-1, recorded here because this record owns the SEMP's SRR liens. Fix: re-state the three places from the tree at the rebase or merge commit, as IR-F2 asks. Disposition: Minor after the first APPROVED verdict, so a lien under PDR work plan rule C1 (due the CDR readiness declaration) unless the author fixes it before the merge under IR-F2, in which case the SEMP blob changes and this record needs a further delta before the merge. Citation: CK-REQ-G7 (plan statements true of the tree).
+
+**Validity of this re-issue.** The record names blob `2076eb0a`. Any change to the SEMP before the merge (IR-F2 above, or the CR-003 and CR-006 Version-row hunks that CR-013 section 4 Schedule names) makes it fail the drift rule again until this role verifies the new blob.
+
+**Lien table (iteration 3 re-issue 3).**
+
+| Finding | Severity | Disposition | Owner | Due | Package carriage |
+|---|---|---|---|---|---|
+| finding-10 | Minor | Verified on `2076eb0a` | | | closed |
+| finding-11 | Minor | Verified on `2076eb0a` | | | closed |
+| finding-12 | Minor | Verified on `2076eb0a` | | | closed |
+| finding-13 | Minor | Verified on `2076eb0a` | | | closed |
+| finding-14 | Minor | Lien (plan rule C1); CR-013 IR-F2 asks the fix before the merge | SEMP author (Claude, lead SE) | CDR readiness declaration, or the CR-013 merge under IR-F2 | Routine item |
+
+**Counts.** 14 findings: 1 Major (Closed), 13 Minor (12 Closed or Verified, 1 Lien). Open Major 0.
+
+**Tool runs (2026-09-29, CR-013 worktree at `41c588c` plus this edit, `.venv/bin/python`).** `tools/validate_docs.py` before this section: this record fails the drift rule on `ccfdecf9`; after it: this record PASS (APPROVED, blob at HEAD). The remaining failures are listed in the CR-013 section 9 pre-merge check.
+
+```
+VERDICT (iteration 3 re-issue 3, CR-013 delta, independent reviewer): APPROVED (with liens)
+PRODUCT: docs/plan/semp.md@2076eb0acfdfc283483eb2340bcbbf985df00c72 (branch cr/CR-013-process-04-07-semp-srr-liens head 41c588c; SEMP version 0.5)
+DELTA: 41c588c closes finding-10, 11, 12 and 13; no new Major
+FINDINGS: finding-1 to finding-13 Closed or Verified; finding-14 Minor (new) Lien (C1; IR-F2 before the merge)
+MEASUREMENTS: commits verified=1; hunks=18; locations checked=17; open_major=0; iteration=3 (re-issue 3); turns=12; minutes=25
 ```
