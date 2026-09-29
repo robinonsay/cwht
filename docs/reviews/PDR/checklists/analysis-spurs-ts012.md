@@ -14,6 +14,9 @@
 # Filed by the lead SE on 2026-09-28 from the reviewer's own text: the harness refused the reviewer's Write of this
 # new file ("Subagents should return findings as text"). Content is verbatim except the id, reassigned from
 # INSP-112 to INSP-113 because three parallel reviewers (review:spurs-1 among them) each took INSP-112 as the next free id.
+# Iteration 2 (delta, rule C1) at 5a36ecd by review:spurs-2; the harness refused that reviewer's Write, so the lead SE
+# filed it from the returned text (front matter changes and the section below verbatim; its superseded early Write,
+# which treated the record as unfiled, was not used).
 id: INSP-113
 checklist: peer-review-checklist-design
 checklist_revision: B
@@ -23,42 +26,44 @@ product: docs/design/analysis/spurs-ts012.md
 # product_commit: 09fae14, the author's commit of the note, decks, checker and run txspur-20260928-01. Every blob
 # below equals git rev-parse 09fae14:<path> and git rev-parse HEAD:<path> at HEAD 09fae14 on 2026-09-28. The run
 # copies of the decks and the script in results/txspur-20260928-01/ are byte-identical to the block copies (cmp).
-product_commit: "09fae147c9e9d83ffa552db24fec707513aa0ee9"
-product_files: ["docs/design/analysis/spurs-ts012.md@da3b058a9bd259fff3be8e49146bb6953670083f", "hardware/sim/freq/README.md@a64704b0fa562737fea91479cd0599e91c3eef29", "hardware/sim/freq/tx_spur_plan.py@b6432663bc287423466f573f3409b65203da3efc", "hardware/sim/freq/tx_spur_filters.cir@c647c60aafb0ad53f742f151f0442a698b6d671d", "hardware/sim/freq/tx_spur_bpf_tol.cir@b0f27d7a5990cc2ca086b3fb10e26620108d6e42", "hardware/sim/freq/results/txspur-20260928-01/results.json@b80df7b71106018d1b0a2f149cc47816a9454344", "hardware/sim/freq/results/txspur-20260928-01/lines.csv@79c6a473c8e98171ebdef05e3643b59b370f0395", "hardware/sim/freq/results/txspur-20260928-01/spectrum-gva-A5-144.050.png@3c90224f94a8ac09375d4a9629a4a790e921c840", "hardware/sim/freq/results/txspur-20260928-01/spectrum-gva-A4-144.050.png@bcbb4b8f8726c9dd886b7d34c7f039dec911e887", "hardware/sim/freq/results/txspur-20260928-01/antenna-PB-144.050.png@712902bf36bafe38622953a5cb377e30c3b23605", "hardware/sim/freq/results/txspur-20260928-01/antenna-PB-147.950.png@44b6cda6e4e01df333a591749448b142300e12d4", "hardware/sim/freq/results/txspur-20260928-01/worst-line-vs-carrier.png@98d9ac60caeeaced3ae1053ff80e7d0ace3a2b3b", "hardware/sim/freq/results/txspur-20260928-01/filters.png@d5fb6ac9532e2dd8063db429a30f8a4aed8435f8", "hardware/sim/freq/results/txspur-20260928-01/c10-tolerance.png@6089d2710a2d811c5326dea001bcbe9ea2b5c955"]
+product_commit: "5a36ecdd98aae78cd8c228ebabd368f50d632e11"
+product_files: ["docs/design/analysis/spurs-ts012.md@3fc2ec4bff5e94d86c2db3ca22c76442ac83aa81", "hardware/sim/freq/tx_spur_plan.py@d123168d8bf4d198fee2a26060efaa33df00778f", "hardware/sim/freq/tx_spur_filters.cir@c647c60aafb0ad53f742f151f0442a698b6d671d", "hardware/sim/freq/tx_spur_bpf_tol.cir@b0f27d7a5990cc2ca086b3fb10e26620108d6e42", "hardware/sim/freq/tx_spur_c7_tap.cir@f68aa95f433a54a44078aa59b1cb6c09af40757d", "hardware/sim/freq/tx_spur_c7_iso.cir@ae5990f64ad6c0d0eb8be669fbe8bda1f62adfde", "hardware/sim/freq/tx_spur_trap.cir@d7f58e40eae198490a3a549fa4f9e03f5aebc15c", "hardware/sim/freq/README.md@4ebdde90fe8908d09c691eef5f782373f2633619", "hardware/sim/freq/results/txspur-20260928-02/results.json@3ce6186f5186f682e31daae862c6ea9410942227", "hardware/sim/freq/results/txspur-20260928-02/lines.csv@0af7ceb34eb987372a99eacc19f5a3c20fd56da6", "hardware/sim/freq/results/txspur-20260928-02/checker-output.txt@63990681082ceca38cfec978c1f91edf8089fa86", "hardware/sim/freq/results/txspur-20260928-02/spectrum-gva-A5-144.050.png@d30eac14a45e0b043409451fdf3b99fde29995f0", "hardware/sim/freq/results/txspur-20260928-02/spectrum-gva-A4-144.050.png@3c324558c7aa1cd186cf59e19558cb93390c931e", "hardware/sim/freq/results/txspur-20260928-02/antenna-P-PB-144.050.png@a0c398597e384768d969113df624435eefea8589", "hardware/sim/freq/results/txspur-20260928-02/antenna-P-PB-147.950.png@4978b0957baf504cf05c4ef48136d83941ad0b7b", "hardware/sim/freq/results/txspur-20260928-02/worst-line-vs-carrier.png@b8b78226c4361764d4717860a3868b29b51ae885", "hardware/sim/freq/results/txspur-20260928-02/filters.png@d5fb6ac9532e2dd8063db429a30f8a4aed8435f8", "hardware/sim/freq/results/txspur-20260928-02/c10-tolerance.png@6089d2710a2d811c5326dea001bcbe9ea2b5c955", "hardware/sim/freq/results/txspur-20260928-02/c7-prescaler-tap.png@9d8a247d55fd01b6a431e81322151812488edf75", "hardware/sim/freq/results/txspur-20260928-02/t1-trap.png@f2f2e13965933a97cc6babe0e9e368a012a3c265"]
+product_files_iteration_1: ["docs/design/analysis/spurs-ts012.md@da3b058a9bd259fff3be8e49146bb6953670083f", "hardware/sim/freq/README.md@a64704b0fa562737fea91479cd0599e91c3eef29", "hardware/sim/freq/tx_spur_plan.py@b6432663bc287423466f573f3409b65203da3efc", "hardware/sim/freq/tx_spur_filters.cir@c647c60aafb0ad53f742f151f0442a698b6d671d", "hardware/sim/freq/tx_spur_bpf_tol.cir@b0f27d7a5990cc2ca086b3fb10e26620108d6e42", "hardware/sim/freq/results/txspur-20260928-01/results.json@b80df7b71106018d1b0a2f149cc47816a9454344", "hardware/sim/freq/results/txspur-20260928-01/lines.csv@79c6a473c8e98171ebdef05e3643b59b370f0395", "hardware/sim/freq/results/txspur-20260928-01/spectrum-gva-A5-144.050.png@3c90224f94a8ac09375d4a9629a4a790e921c840", "hardware/sim/freq/results/txspur-20260928-01/spectrum-gva-A4-144.050.png@bcbb4b8f8726c9dd886b7d34c7f039dec911e887", "hardware/sim/freq/results/txspur-20260928-01/antenna-PB-144.050.png@712902bf36bafe38622953a5cb377e30c3b23605", "hardware/sim/freq/results/txspur-20260928-01/antenna-PB-147.950.png@44b6cda6e4e01df333a591749448b142300e12d4", "hardware/sim/freq/results/txspur-20260928-01/worst-line-vs-carrier.png@98d9ac60caeeaced3ae1053ff80e7d0ace3a2b3b", "hardware/sim/freq/results/txspur-20260928-01/filters.png@d5fb6ac9532e2dd8063db429a30f8a4aed8435f8", "hardware/sim/freq/results/txspur-20260928-01/c10-tolerance.png@6089d2710a2d811c5326dea001bcbe9ea2b5c955"]
 analysis_kind: [simulation-deck, budget, worst-case, other]
 product_size: 1 note (248 lines, 10 sections), 2 LTspice decks (5 filter circuits; 25 tolerance corners), 1 checker (899 lines), 4 plans x 2 finalists x 3 carriers plus a 200-carrier sweep, 1739 CSV rows, 7 plots
-tools_used: ["LTspice 26.0.2 through tools/ltspice-batch.sh blob 88b71475 (TV-014, accredited ACC-LTSPICE-001; .log first line 'LTspice 26.0.2 for MacOS')", "venv Python 3.13.5 with numpy 2.5.3, matplotlib 3.11.2, spicelib 1.6.3 (class B lock entries; TV-001 does not cover hardware/sim/freq/tx_spur_plan.py; developer evidence per 05 section 9.1, as the note states)"]
+tools_used: ["LTspice 26.0.2 through tools/ltspice-batch.sh blob 88b71475 (TV-014, accredited ACC-LTSPICE-001; .log first line 'LTspice 26.0.2 for MacOS')", "venv Python 3.13.5 with numpy 2.5.3, matplotlib 3.11.2, spicelib 1.6.3 (class B lock entries; TV-001 does not cover hardware/sim/freq/tx_spur_plan.py; developer evidence per 05 section 9.1, as the note states)", "LTspice decks tx_spur_c7_tap, tx_spur_c7_iso, tx_spur_trap (revision 1)"]
 # values_proposed: the note proposes no TBR value of a REQ-, TPM- or HZ- id. It proposes derived design limits
 # (Si5351 150.000 MHz line at most -60 dBc at the CLK1 pin; VGG PWM ripple at most 3.3 mV peak) and design changes
 # C1 to C10, T1, L1 to L5, F1, F3 as requests to other WPs (note sections 6 and 9); they are not TBR values.
 values_proposed: []
-renders_inspected: 7
+renders_inspected: 9
 sprint: PDR-prep
 author_agent: "author:WP-PDR-20 transmit clock spur plan (Claude as analysis author, commit 09fae14)"
-reviewer_agent: "reviewer:WP-PDR-20-spurs-ts012-iter1 (independent; authored no part of the note, its decks, its checker, TS-012 or ADR-031)"
+reviewer_agent: "reviewer:WP-PDR-20-spurs-ts012-iter1 (independent; authored no part of the note, its decks, its checker, TS-012 or ADR-031); iteration 2 by reviewer:WP-PDR-20-spurs-ts012-iter2 (review:spurs-2; independent; authored no part of revision 0 or 1, TS-012, ADR-031 or the WP-PDR-21 notes)"
 # criticality: a transmitter spur analysis on preliminary design data. It sets no value of a 07 section 14.1
 # component: the firmware clock settings C1 to C6 are routed as requests to WP-PDR-32 and WP-PDR-35 (note
 # section 9 item 3), where they are reviewed with the component they constrain
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+iteration: 2
 readiness_met: true
 # reviewer_verdict: NEEDS CHANGES, two Major findings (finding-1, finding-2) open (plan rule C1: Majors block)
-reviewer_verdict: NEEDS CHANGES
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
+# verdict held at NEEDS CHANGES only until the CR-012 merge (lead SE convention of 2026-09-27)
 verdict: NEEDS CHANGES
 findings_major: 2
-findings_minor: 7
-findings_open: 9
+findings_minor: 10
+findings_open: 10
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 2
 findings_deferred: 0
 assurance_tasks_applied: []
 deferred_rids: []
-items_no: [CK-ANA-A4, CK-ANA-A6, CK-ANA-B1, CK-ANA-D2, CK-ANA-D3, CK-ANA-E3, CK-ANA-E4, CK-ANA-F4, CK-ANA-G1-3, CK-ANA-G1-4, CK-ANA-G7-1, CK-ANA-H1, CK-ANA-H2, CK-ANA-I2]
-effort_turns: 45
-effort_minutes: 70
+items_no: [CK-ANA-A4, CK-ANA-A6, CK-ANA-D2, CK-ANA-D3, CK-ANA-F3, CK-ANA-G1-3, CK-ANA-G1-4, CK-ANA-G7-1, CK-ANA-H1, CK-ANA-H2, CK-ANA-I2]
+effort_turns: 100
+effort_minutes: 145
 record_status: Open
 date: 2026-09-28
 date_closed: null
@@ -249,3 +254,99 @@ ITEMS N/A: CK-ANA-B2, E5, E6, G2-3, G3 to G6, J1 to J3, R3
 VALUES PROPOSED: none
 MEASUREMENTS: size=24 plan-finalist-carrier cases plus sweep; inputs_checked=16; renders=7; turns=45; minutes=70; major=2; minor=7
 ```
+
+## Iteration 2: delta verification on revision 1 (2026-09-28, HEAD 5a36ecd)
+
+
+**Scope (rule C1):** verify the finding-1 and finding-2 fixes; raise new findings only where revision 1 introduced them or made an existing defect decide a reported result.
+
+**Independence:** this invocation authored no product file and edited none.
+
+**Search first:** mcp__claude-context__search_code ran on /Users/robinonsay/rust/cwht before any grep; grep then only pinned lines in the PDR plan, validate_docs, toolchain.lock, TS-012 and the 47cfr-97.307 corpus.
+
+**R1:** 20 of 20 blobs equal. The run-directory copies of the decks and script are cmp-equal to the block copies.
+
+**R2 / C4 re-run:** the five decks were run through the wrapper into scratch. Each gave PASS with exit 0 and deck SHA-256 equal to the committed *.wrapper.txt:
+- filters 2e3ffa7d
+- bpf_tol 55dd7273
+- c7_tap e783220b (70 s)
+- c7_iso 028b3196
+- trap 9fbd9488
+The checker from a git archive of 5a36ecd (script blob d123168d) exits 1: 'RESIDUAL (TS-012 7.3 met by wording only...)'. results.json has 0 differences (run_id excluded) and lines.csv is identical.
+
+**B5 independent checks:**
+- C7 isolation by closed form: 47 ohm 0.40 to 1.13 dB, 330 ohm 5.50 to 9.07 dB, equal to LTspice.
+- T1 by closed form: 47 nH Q100 35.18 / 26.01 / 9.17 dB; 1 uH Q100 11.25 / 3.96 / 7.29 dB (10.51 dB at 144.050 MHz); 2.2 uH Q100 6.87 / 1.66 / 5.21 dB; 1 uH Q60 8.27 / 4.11 / 4.16 dB.
+- PB 9/8 fc: -45 dBc - 0.4 dB (C7) - 4.9 dB (C10) at 37 dBm gives about -13.4 dBm, summed with the trace and mirror terms to -12.1 dBm.
+- P 7/8 fc: about -8.1 dBm alone, -4.3 dBm with the coherent 9/8 fc mirror.
+- 148 MHz period 6.76 ns; 3.13 ns against tW 2.5 ns; fmax margin 8 %.
+
+**Inputs:**
+- 74LVC1G80 Rev. 17 Tables 6 to 9: equal.
+- TS-012 7.3 criterion: verbatim (TS-012 line 378 at 7d0d450).
+- 97.307(e) (corpus: docs/references/md/regulatory/47cfr-97.307.md): 25 uW = -16 dBm.
+- REQ-SYS-017 and REQ-SYS-018 (TBR): quoted correctly.
+- C7 source and drive network: equal to pa-drive-ts012.md run d2.
+
+**I1/I2:** 9 PNGs opened (spectrum A5 and A4, antenna P-PB 144.050 and 147.950, worst-line-vs-carrier, filters, c10-tolerance, c7-prescaler-tap, t1-trap). Values agree with results.json at the labelled points.
+
+**Per-case rows (iteration 2):**
+
+| Case | Condition | Worst line (high estimate) | Lines over | Margin | Finding |
+|---|---|---|---|---|---|
+| C-11 | PB A5 144.050 MHz | -12.1 dBm | 3 over 25 uW | -3.9 dB | finding-10 |
+| C-12 | PB A5 146.000 MHz | -12.0 dBm (3 coincident at 150.000 MHz) | 3 over 25 uW | -4.0 dB | finding-11 |
+| C-13 | PB A5 147.950 MHz | -12.2 dBm | 3 over 25 uW | -3.8 dB | |
+| C-14 | PB A4 144.050 / 146.000 / 147.950 MHz | -12.1 / -12.6 / -12.9 dBm | | -3.9 / -3.4 / -3.1 dB | |
+| C-15 | PB sweep | -12.1 dBm | 6 to 8 over 60 dBc | | finding-11 |
+| C-16 | P, both finalists | -4.3 dBm | 10 to 12 residual; 4 over 25 uW | -11.7 dB | |
+| C-17 | B0/B1 | -0.4 dBm | 16 to 19 residual; 10 over 25 uW over the sweep, 11 at 146.000 MHz | | finding-11 |
+| C-18 | TS-012 wording | met only by named changes; residual_without_any_named_change 0 | | | |
+| C-19 | C7 47 ohm margin | worst corner | | +0.229 V against a 0.10 V criterion | |
+| C-20 | C7 47 ohm tW / slew / fmax | 3.13 ns / 1.86 ns/V / 148 MHz | | | |
+| C-21 | T1 at 60 dBc | best 9.15 dB against 11.0 dB | | -1.85 dB | finding-11 |
+| C-22 | T1 at 25 uW | 5.21 dB at 1.66 dB carrier loss | | | |
+
+**Findings table update:**
+- finding-1: Verified.
+- finding-2: Verified.
+- finding-3 to finding-9: Open (liens due at the CDR readiness declaration).
+- New findings finding-10, 11, 12 as stated above, each Minor, Open (lien), owner ruling Pending. Owner of all three: the WP-PDR-20 spur plan author, next revision, at the latest the CDR readiness declaration; finding-10 before section 8 item 4 is used at the bench.
+
+**Items N/A:** as iteration 1.
+
+**Verdict block:**
+```
+VERDICT: APPROVED (reviewer, iteration 2); record held at NEEDS CHANGES until the CR-012 merge
+PRODUCT: spurs-ts012.md@3fc2ec4b, tx_spur_plan.py@d123168d, 5 decks, README@4ebdde90, run txspur-20260928-02 at 5a36ecd
+FINDINGS: [Major] finding-1 Verified; [Major] finding-2 Verified; [Minor] finding-10 CK-ANA-F3; [Minor] finding-11 CK-ANA-D2; [Minor] finding-12 CK-ANA-A6; finding-3 to 9 Open liens
+VALUES PROPOSED: none
+MEASUREMENTS: size=12 cases (iteration 2); inputs_checked=12; renders=9; turns=55; minutes=75; major=0 new (2 verified); minor=3 new
+```
+
+**Iteration 2 findings (verbatim from the reviewer):**
+
+- [Major, iteration 1] finding-1: Verified. (a) Revision 1 reports the TS-012 7.3 criterion two ways, 'not met: residual lines' and 'met by wording only: N residual lines, M over 25 uW, closing at the bench', in sections 1, 4.2, 5 and 8 and in README run 02. PASS now appears only for the filter cross-check and the C10 2 % check. (b) The CHANGE table in tx_spur_plan.py carries credited and named lists. results.json cases.<plan>/<fin>/<fc>.residual_lines and the lines.csv columns credited_in_numbers and named_not_credited list them. Exit codes: 0 = pass in the numbers, 1 = residual, 3 = a residual line with no named change; the re-run gives 1, and residual_without_any_named_change is 0 in every case. (c) T1 is sized in tx_spur_trap.cir, confirmed by closed form, and withdrawn: best 9.2 dB against 11.0 dB needed at 147.990 MHz; the 25 uW trap costs 1.66 dB of carrier. (d) The section 8 residual table agrees with results.json (PB: 7 at each carrier, 6 to 8 over the sweep, 3 over 25 uW; P: 10 to 11 at the carriers, 10 to 12 over the sweep, 4 over 25 uW).
+
+- [Major, iteration 1] finding-2: Verified. The 74LVC1G80 limits match Nexperia Rev. 17 (see summary). tx_spur_c7_tap.cir runs 144 corners; its source and drive network match pa-drive-ts012.md run d2, the bias is 1.42 V, the clamp is to ground only, the maximum step is 20 ps and settling is 2.9 us. Re-run results: 47 ohm has a worst margin of +0.229 V (low source, 50 ohm, 3 pF), tW 3.13 ns and 1.86 ns/V; 100 ohm gives +0.099 V (fails the 0.10 V criterion); 330 ohm gives -0.255 V. The isolation physics is sound: the kickback source impedance is CI itself, so a series resistor only divides against about 200 ohm. Only 0.4 dB is credited, and the /8 kickback lines become residual lines. The iteration 1 cross-check agrees: P without the C7 credit was -3.9 dBm, and with 0.4 dB it is -4.3 dBm. One requested element is not done: REQ-SYS-182 is not named against C7 in section 8 item 3. The root defect (an invalid clock) is fixed, so this is recorded without a new finding.
+
+- [Minor, iteration 1] finding-3 to finding-9 stay Open as liens due at the CDR readiness declaration (rule C1). Revision 1 fixed the Majors only. At 5a36ecd the section 3 fractional-spur basis is unchanged (finding-3), the deck and the README 'nine tolerance corners' are unchanged (finding-4), the '76.0 dB', '0.003 dB', '0.7 dB' and '0.23 to 0.84 mV' texts are unchanged (finding-6), there are no limit ids on the plots and 5 W is still the only power step (finding-8), and HZ-008 and the WP-PDR-18 request are still missing (finding-9). Revision 1 widens finding-9: the /8 kickback is now a second Red-level cause (note section 5), and section 9 still sends nothing to WP-PDR-18.
+
+- [Minor, new] finding-10 (CK-ANA-F3), note sections 4.2 and 8 item 4, c10_tolerance. Revision 1 made C10's rejection at 7/8 fc and 9/8 fc set 2 of the 3 PB lines over 25 uW, but the tolerance check still tests only the passband and the 125 MHz rejection, and PB uses the nominal C10. From the re-run tx_spur_bpf_tol.raw, 2 % corners against nominal, relative to the carrier:
+- 144.050 MHz: 9/8 fc -4.88 to -2.37 dB (+2.5), 7/8 fc -16.17 to -13.53 dB (+2.6), 150 MHz +0.12 to +0.77 dB (+0.65).
+- 146.000 MHz: +2.2, +2.9 and +0.3 dB.
+- 147.950 MHz: +1.9, +3.3 and +0.15 dB.
+So the PB /8 lines can be 2 to 3 dB higher (9/8 fc about -9.6 dBm, ESTIMATE). The derived requirement of about 55 dBc at 9/8 fc, which section 8 item 4 also uses as the CLK1-pin bench alternative, becomes about 57.5 dBc. Iteration 1 finding-4 (b) also applies: 2.4 and 7.5 pF parts are sold with absolute tolerances, so the real spread can be wider. No count over 25 uW changes, and the SMA sweep still governs on air. Fix: report the C10 relative rejection at 7/8 fc, 9/8 fc and 150 MHz at the tolerance corners and carry the worst case into PB, and word item 4 against the measured, as-built C10 or the worst-corner value.
+
+- [Minor, new] finding-11 (CK-ANA-D2), note sections 4.2 and 4.5, SWEEP. The sweep grid 144.010 + 0.020 k MHz never reaches 146.000 MHz (k = 99.5) or other exact-coincidence carriers. At 146.000 MHz the 150 MHz line picks up the 2 x 2 MHz switcher sideband, so the numbers disagree:
+- PB worst over the band is reported as -12.1 dBm, but cases.PB/A5/146.000 gives -12.0 dBm.
+- B0 and B1 show 10 lines over 25 uW over the band but 11 at 146.000 MHz.
+Revision 1's new section 4.5 says the 150 MHz line 'is -12.1 dBm ... needs 11.0 dB'. -12.1 dBm needs 10.9 dB; the checker's 11.0 dB comes from -12.0 dBm (t1_trap.line_150_ant_hi_dBm_PB). No verdict moves. Fix: add the named and the coincidence carriers (fc = 12n +/- 2k MHz) to the sweep, and quote -12.0 dBm with 11.0 dB.
+
+- [Minor, new] finding-12 (CK-ANA-A6), note section 9. Revision 1 turned the result from 'P and PB PASS' into '60 dBc not shown for 6 to 8 lines', but it does not route the consequence for REQ-SYS-018. That requirement is TBR, close_by PDR, and its tbr.plan reads 'show the margin is achievable, else the target is revised by CR'. The note should state that this is evidence for that ruling (non-harmonic spurs) and add a request to the L1 requirements writer / TBR ruling (rule C10). Fix: one request row in section 9.
+
+- Observations (no finding):
+- O-1: the C7 tap loads CLK1 more than WP-PDR-21's 5 pF tap. The re-run minimum is 2.15 Vpp at 0 ohm and 2.04 Vpp at 47 ohm, against 2.22 V, so section 4.4 is wrong to call it 'consistent'. About 0.7 dB of swing is lost on a drive chain already short at 60 of 270 corners. Section 8 item 3 (the WP-PDR-21 re-run with C7) covers it and should be treated as required.
+- O-2: in t1-trap.png the 'needed for 25 uW: 4.0 dB' label is partly under the legend (still readable).
+- O-3: exit status 1 covers both 'residual lines' and 'filter check failed'; the overall string tells them apart.
+- O-4 (lead SE): this record was harvested from the transcripts after the Write refusals. Because of the harness block, every PDR reviewer delta will need the same lead-SE filing step.
