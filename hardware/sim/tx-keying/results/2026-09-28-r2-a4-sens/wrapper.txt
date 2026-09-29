@@ -1,0 +1,2 @@
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=keying_a4_sens.cir sha256=c7eb0e1fc1d789b0aeba3b82bf1142ae26ec20950e98097e9a40ab6cdefae31f version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=222s outputs=[keying_a4_sens.log keying_a4_sens.op.raw keying_a4_sens.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-keying/results/2026-09-28-r2-a4-sens

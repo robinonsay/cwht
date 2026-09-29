@@ -1,0 +1,686 @@
+{
+ "run_id": "2026-09-28-r2-a4-asis",
+ "revision": "r2",
+ "finalist": "A4 (AFT05MS004N discrete, gate-bias loop)",
+ "variant": "as written in TS-012 revision 4",
+ "deck": "keying_a4_asis.cir",
+ "limits": {
+  "bw26_hz": 350.0,
+  "side_offset_hz": 750.0,
+  "side_db": -60.0,
+  "t1090_rel_tol": 0.1,
+  "t1090_tol_ms": 0.5,
+  "shape_tol": 0.05,
+  "overshoot_db": 0.2,
+  "setpoint_db": 0.5,
+  "vgg_max": 3.5,
+  "keyup_dbm": -30.0,
+  "rfoff_dbm": -57.0
+ },
+ "steps_w": [
+  5.0
+ ],
+ "packs_v": [
+  6.4,
+  8.4
+ ],
+ "drain_v": {
+  "6.4": 6.1,
+  "8.4": 8.1
+ },
+ "corners": [
+  {
+   "vsh": 0.0,
+   "vos": 0.0
+  }
+ ],
+ "sens_cases": [],
+ "threshold_budget": {
+  "uncalibrated": {
+   "terms": [
+    {
+     "term": "VGS(th) unit spread 1.7 / 2.2 / 2.5 V",
+     "lo_v": -0.5,
+     "hi_v": 0.3,
+     "cls": "D",
+     "source": "AFT05MS004N Rev. 0 Table 5"
+    },
+    {
+     "term": "drive unit spread 46 to 180 mW about 89 mW",
+     "lo_v": -0.51,
+     "hi_v": 0.4816666666666667,
+     "cls": "DD, E",
+     "source": "pa-drive-ts012 run r1-d3; Figure 12 shift"
+    },
+    {
+     "term": "die temperature -10 to 110 C, cal. 25 C",
+     "lo_v": -0.2125,
+     "hi_v": 0.08750000000000001,
+     "cls": "E",
+     "source": "TC -1.3 to -2.5 mV/C"
+    },
+    {
+     "term": "hand read of Figure 12",
+     "lo_v": -0.05,
+     "hi_v": 0.05,
+     "cls": "E",
+     "source": "this record"
+    }
+   ],
+   "wc": [
+    -1.2725,
+    0.9191666666666667
+   ],
+   "rss": [
+    -0.7468308041316989,
+    0.576332393482943
+   ]
+  },
+  "calibrated": {
+   "terms": [
+    {
+     "term": "per-unit table residual",
+     "lo_v": -0.02,
+     "hi_v": 0.02,
+     "cls": "E",
+     "source": "this record"
+    },
+    {
+     "term": "drive in one unit: band and temperature",
+     "lo_v": -0.045,
+     "hi_v": 0.045,
+     "cls": "DD, E",
+     "source": "pa-drive r1-d3; section 3.1"
+    },
+    {
+     "term": "die temperature -10 to 110 C, cal. 25 C",
+     "lo_v": -0.2125,
+     "hi_v": 0.08750000000000001,
+     "cls": "E",
+     "source": "TC -1.3 to -2.5 mV/C"
+    }
+   ],
+   "wc": [
+    -0.27749999999999997,
+    0.1525
+   ],
+   "rss": [
+    -0.21813126781825662,
+    0.10040542814011602
+   ]
+  },
+  "compensated": {
+   "terms": [
+    {
+     "term": "per-unit table residual",
+     "lo_v": -0.02,
+     "hi_v": 0.02,
+     "cls": "E",
+     "source": "this record"
+    },
+    {
+     "term": "drive in one unit: band and temperature",
+     "lo_v": -0.045,
+     "hi_v": 0.045,
+     "cls": "DD, E",
+     "source": "pa-drive r1-d3; section 3.1"
+    },
+    {
+     "term": "die temperature after NTC compensation (residual both sides; die-to-NTC 33 K)",
+     "lo_v": -0.1137,
+     "hi_v": 0.0312,
+     "cls": "E",
+     "source": "this record; thermal-ts012 4.1 and 8 change 6"
+    }
+   ],
+   "wc": [
+    -0.1787,
+    0.0962
+   ],
+   "rss": [
+    -0.12390597241456926,
+    0.05829614052405185
+   ]
+  },
+  "stored": {
+   "terms": [
+    {
+     "term": "stored trim: ADC step and feedforward PWM step",
+     "lo_v": -0.01,
+     "hi_v": 0.01,
+     "cls": "E",
+     "source": "this record"
+    },
+    {
+     "term": "drive change since the capture: band and temperature",
+     "lo_v": -0.045,
+     "hi_v": 0.045,
+     "cls": "DD, E",
+     "source": "pa-drive r1-d2, r1-d3; section 3.1"
+    },
+    {
+     "term": "die temperature change since the capture, NTC compensated (0.6 mV/C over 87 K)",
+     "lo_v": -0.052199999999999996,
+     "hi_v": 0.052199999999999996,
+     "cls": "E",
+     "source": "this record"
+    },
+    {
+     "term": "die-to-NTC difference at the capture (0 to 33 K), gone at element 1",
+     "lo_v": 0.0,
+     "hi_v": 0.0825,
+     "cls": "E",
+     "source": "thermal-ts012 4.1 and 8 change 6"
+    }
+   ],
+   "wc": [
+    -0.10719999999999999,
+    0.1897
+   ],
+   "rss": [
+    -0.06964079264339255,
+    0.10796337341895168
+   ]
+  }
+ },
+ "leakage_dbm_modelled": -19.0,
+ "leakage_dbm_best_estimate": -23.0,
+ "subthreshold_slope_db_per_v": 100.0,
+ "pa_table_w": [
+  [
+   1.2,
+   0.05
+  ],
+  [
+   1.3,
+   0.17
+  ],
+  [
+   1.4,
+   0.4
+  ],
+  [
+   1.5,
+   0.72
+  ],
+  [
+   1.6,
+   1.05
+  ],
+  [
+   1.7,
+   1.5
+  ],
+  [
+   1.8,
+   2.0
+  ],
+  [
+   1.9,
+   2.6
+  ],
+  [
+   2.0,
+   3.2
+  ],
+  [
+   2.1,
+   3.9
+  ],
+  [
+   2.2,
+   4.6
+  ],
+  [
+   2.3,
+   5.3
+  ],
+  [
+   2.35,
+   5.6
+  ],
+  [
+   2.5,
+   6.1
+  ],
+  [
+   2.7,
+   6.35
+  ],
+  [
+   3.0,
+   6.45
+  ],
+  [
+   3.5,
+   6.5
+  ],
+  [
+   5.0,
+   6.55
+  ]
+ ],
+ "all_steps_pass": {
+  "t1090_req_tx005": false,
+  "t1090_tc_sys013": false,
+  "shape": false,
+  "overshoot": true,
+  "bw26": false,
+  "sideband": false,
+  "keyup_1uW": false,
+  "vgg": true,
+  "setpoint": false,
+  "first_t1090_req_tx005": false,
+  "first_t1090_tc_sys013": false,
+  "first_shape": false
+ },
+ "failing_runs": {
+  "t1090_req_tx005": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "t1090_tc_sys013": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "shape": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "overshoot": [],
+  "bw26": [
+   1
+  ],
+  "sideband": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "keyup_1uW": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "vgg": [],
+  "setpoint": [
+   1,
+   2,
+   3
+  ],
+  "first_t1090_req_tx005": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "first_t1090_tc_sys013": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "first_shape": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ "steps": [
+  {
+   "run": 1,
+   "tset_ms": 3.0,
+   "pack": 6.4,
+   "vd": 6.1,
+   "step_w": 5.0,
+   "vsh": 0.0,
+   "vos": 0.0,
+   "pset_w": 5.0,
+   "ptop_w": 3.221424101810553,
+   "rise_ms": 1.6369621381582267,
+   "fall_ms": 2.450278524580185,
+   "worst_element": 3,
+   "rise_ms_min": 1.6369621381582267,
+   "rise_ms_max": 1.6397959959177366,
+   "fall_ms_min": 2.450278524580185,
+   "fall_ms_max": 2.453239383989975,
+   "shape_err_rise": 0.19197740018461432,
+   "shape_err_fall": 0.1156913168275932,
+   "overshoot_db": 0.0,
+   "bw26_hz": 416.6666666668282,
+   "side_max_db": -49.803766075713476,
+   "side_max_at_hz": -755.0,
+   "off60_hz": 1435.0,
+   "vgg_max": 3.2601842880249023,
+   "ideal_bw26_hz": 291.66666666677975,
+   "ideal_side_max_db": -73.97511606935875,
+   "keyup_window_max_dbm": 14.180229187011719,
+   "keyup_loop_tail_max_dbm": 14.178366661071777,
+   "loop_tail_at_gate_dbm": 2.51779285495688,
+   "at_gate_dbm": 2.5445434612112625,
+   "gate_step_rel_db": -32.53548147263257,
+   "after_gate_max_dbm": -106.88394165039062,
+   "t1090_err_ms": 1.3630378618417733,
+   "t1090_err_pct": -45.43459539472578,
+   "first_rise_ms": 1.6387227805483695,
+   "first_fall_ms": 2.4518832979668823,
+   "first_err_pct": -45.375907315054356,
+   "first_shape_err": 0.19204589831571758,
+   "pass": {
+    "t1090_req_tx005": false,
+    "t1090_tc_sys013": false,
+    "shape": false,
+    "overshoot": true,
+    "bw26": false,
+    "sideband": false,
+    "keyup_1uW": false,
+    "vgg": true,
+    "setpoint": false,
+    "first_t1090_req_tx005": false,
+    "first_t1090_tc_sys013": false,
+    "first_shape": false
+   }
+  },
+  {
+   "run": 2,
+   "tset_ms": 5.0,
+   "pack": 6.4,
+   "vd": 6.1,
+   "step_w": 5.0,
+   "vsh": 0.0,
+   "vos": 0.0,
+   "pset_w": 5.0,
+   "ptop_w": 3.221424101810553,
+   "rise_ms": 3.045603667918839,
+   "fall_ms": 4.193291624000617,
+   "worst_element": 8,
+   "rise_ms_min": 3.045603667918839,
+   "rise_ms_max": 3.0493945382667476,
+   "fall_ms_min": 4.192878592391231,
+   "fall_ms_max": 4.195364838861515,
+   "shape_err_rise": 0.16967305145270906,
+   "shape_err_fall": 0.10253492969374822,
+   "overshoot_db": 0.0,
+   "bw26_hz": 250.00000000009692,
+   "side_max_db": -53.40474425392706,
+   "side_max_at_hz": 775.0,
+   "off60_hz": 1315.0,
+   "vgg_max": 3.2601842880249023,
+   "ideal_bw26_hz": 208.3333333334141,
+   "ideal_side_max_db": -84.47018383141908,
+   "keyup_window_max_dbm": 10.52534008026123,
+   "keyup_loop_tail_max_dbm": 10.52101993560791,
+   "loop_tail_at_gate_dbm": 0.09705880788911338,
+   "at_gate_dbm": 0.14387333362596896,
+   "gate_step_rel_db": -34.93602805055731,
+   "after_gate_max_dbm": -114.44599914550781,
+   "t1090_err_ms": 1.9543963320811608,
+   "t1090_err_pct": -39.08792664162321,
+   "first_rise_ms": 3.046372010586388,
+   "first_fall_ms": 4.19330100655739,
+   "first_err_pct": -39.072559788272244,
+   "first_shape_err": 0.16945735768173176,
+   "pass": {
+    "t1090_req_tx005": false,
+    "t1090_tc_sys013": false,
+    "shape": false,
+    "overshoot": true,
+    "bw26": true,
+    "sideband": false,
+    "keyup_1uW": false,
+    "vgg": true,
+    "setpoint": false,
+    "first_t1090_req_tx005": false,
+    "first_t1090_tc_sys013": false,
+    "first_shape": false
+   }
+  },
+  {
+   "run": 3,
+   "tset_ms": 8.0,
+   "pack": 6.4,
+   "vd": 6.1,
+   "step_w": 5.0,
+   "vsh": 0.0,
+   "vos": 0.0,
+   "pset_w": 5.0,
+   "ptop_w": 3.221424101810553,
+   "rise_ms": 5.2873040409488485,
+   "fall_ms": 6.875234058996704,
+   "worst_element": 4,
+   "rise_ms_min": 5.2873040409488485,
+   "rise_ms_max": 5.289694126556499,
+   "fall_ms_min": 6.8749835323096695,
+   "fall_ms_max": 6.877050236656467,
+   "shape_err_rise": 0.1520692492347709,
+   "shape_err_fall": 0.09330589840011949,
+   "overshoot_db": 0.0,
+   "bw26_hz": 166.6666666667313,
+   "side_max_db": -54.584833102659196,
+   "side_max_at_hz": -815.0,
+   "off60_hz": 1045.0,
+   "vgg_max": 3.2601842880249023,
+   "ideal_bw26_hz": 125.00000000004846,
+   "ideal_side_max_db": -91.79389150013607,
+   "keyup_window_max_dbm": 7.070670127868652,
+   "keyup_loop_tail_max_dbm": 7.061094284057617,
+   "loop_tail_at_gate_dbm": -2.941446601984347,
+   "at_gate_dbm": -2.8471214814470502,
+   "gate_step_rel_db": -37.92704527985056,
+   "after_gate_max_dbm": -112.40607452392578,
+   "t1090_err_ms": 2.712695959051152,
+   "t1090_err_pct": -33.908699488139405,
+   "first_rise_ms": 5.2896048308621895,
+   "first_fall_ms": 6.8745589609443405,
+   "first_err_pct": -33.87993961422263,
+   "first_shape_err": 0.15180470869880203,
+   "pass": {
+    "t1090_req_tx005": false,
+    "t1090_tc_sys013": false,
+    "shape": false,
+    "overshoot": true,
+    "bw26": true,
+    "sideband": false,
+    "keyup_1uW": false,
+    "vgg": true,
+    "setpoint": false,
+    "first_t1090_req_tx005": false,
+    "first_t1090_tc_sys013": false,
+    "first_shape": false
+   }
+  },
+  {
+   "run": 4,
+   "tset_ms": 3.0,
+   "pack": 8.4,
+   "vd": 8.1,
+   "step_w": 5.0,
+   "vsh": 0.0,
+   "vos": 0.0,
+   "pset_w": 5.0,
+   "ptop_w": 4.994208088564338,
+   "rise_ms": 2.425256240937368,
+   "fall_ms": 3.4995694724391235,
+   "worst_element": 7,
+   "rise_ms_min": 2.425256240937368,
+   "rise_ms_max": 2.4299759183955825,
+   "fall_ms_min": 3.4995694724391235,
+   "fall_ms_max": 3.50469086349553,
+   "shape_err_rise": 0.13824333081498602,
+   "shape_err_fall": 0.04717777624965669,
+   "overshoot_db": 0.0,
+   "bw26_hz": 291.66666666677975,
+   "side_max_db": -53.824518154189285,
+   "side_max_at_hz": 755.0,
+   "off60_hz": 1295.0,
+   "vgg_max": 2.37916898727417,
+   "ideal_bw26_hz": 291.66666666677975,
+   "ideal_side_max_db": -73.97511606935875,
+   "keyup_window_max_dbm": 12.547188758850098,
+   "keyup_loop_tail_max_dbm": 12.544477462768555,
+   "loop_tail_at_gate_dbm": 1.4972221329721982,
+   "at_gate_dbm": 1.5310124646218444,
+   "gate_step_rel_db": -35.45306135803767,
+   "after_gate_max_dbm": -260.1200866699219,
+   "t1090_err_ms": 0.5747437590626322,
+   "t1090_err_pct": -19.158125302087736,
+   "first_rise_ms": 2.425744404355511,
+   "first_fall_ms": 3.5029422844721907,
+   "first_err_pct": -19.14185318814962,
+   "first_shape_err": 0.13841023062414556,
+   "pass": {
+    "t1090_req_tx005": false,
+    "t1090_tc_sys013": false,
+    "shape": false,
+    "overshoot": true,
+    "bw26": true,
+    "sideband": false,
+    "keyup_1uW": false,
+    "vgg": true,
+    "setpoint": true,
+    "first_t1090_req_tx005": false,
+    "first_t1090_tc_sys013": false,
+    "first_shape": false
+   }
+  },
+  {
+   "run": 5,
+   "tset_ms": 5.0,
+   "pack": 8.4,
+   "vd": 8.1,
+   "step_w": 5.0,
+   "vsh": 0.0,
+   "vos": 0.0,
+   "pset_w": 5.0,
+   "ptop_w": 4.994208088564338,
+   "rise_ms": 4.388948203608134,
+   "fall_ms": 5.774299230646762,
+   "worst_element": 7,
+   "rise_ms_min": 4.385782971114915,
+   "rise_ms_max": 4.389305818899097,
+   "fall_ms_min": 5.772524944286511,
+   "fall_ms_max": 5.774299230646762,
+   "shape_err_rise": 0.115963953596806,
+   "shape_err_fall": 0.04242875885083264,
+   "overshoot_db": 0.0,
+   "bw26_hz": 208.3333333334141,
+   "side_max_db": -56.11555829262719,
+   "side_max_at_hz": 795.0,
+   "off60_hz": 1085.0,
+   "vgg_max": 2.37916898727417,
+   "ideal_bw26_hz": 208.3333333334141,
+   "ideal_side_max_db": -84.47018383141908,
+   "keyup_window_max_dbm": 9.714128494262695,
+   "keyup_loop_tail_max_dbm": 9.7089204788208,
+   "loop_tail_at_gate_dbm": -0.7235363248885118,
+   "at_gate_dbm": -0.6669246116853641,
+   "gate_step_rel_db": -37.651018521146426,
+   "after_gate_max_dbm": -116.55152893066406,
+   "t1090_err_ms": 0.7742992306467621,
+   "t1090_err_pct": 15.48598461293524,
+   "first_rise_ms": 4.385934107593375,
+   "first_fall_ms": 5.77338499519403,
+   "first_err_pct": 15.467699903880613,
+   "first_shape_err": 0.11544278035684796,
+   "pass": {
+    "t1090_req_tx005": false,
+    "t1090_tc_sys013": false,
+    "shape": false,
+    "overshoot": true,
+    "bw26": true,
+    "sideband": false,
+    "keyup_1uW": false,
+    "vgg": true,
+    "setpoint": true,
+    "first_t1090_req_tx005": false,
+    "first_t1090_tc_sys013": false,
+    "first_shape": false
+   }
+  },
+  {
+   "run": 6,
+   "tset_ms": 8.0,
+   "pack": 8.4,
+   "vd": 8.1,
+   "step_w": 5.0,
+   "vsh": 0.0,
+   "vos": 0.0,
+   "pset_w": 5.0,
+   "ptop_w": 4.994208088564338,
+   "rise_ms": 7.458264733236353,
+   "fall_ms": 9.1677268408778,
+   "worst_element": 6,
+   "rise_ms_min": 7.458264733236353,
+   "rise_ms_max": 7.462481138366312,
+   "fall_ms_min": 9.16427227868255,
+   "fall_ms_max": 9.1677268408778,
+   "shape_err_rise": 0.10025104498090598,
+   "shape_err_fall": 0.04109983100749126,
+   "overshoot_db": 0.0,
+   "bw26_hz": 125.00000000004846,
+   "side_max_db": -57.47985233251386,
+   "side_max_at_hz": 755.0,
+   "off60_hz": 975.0,
+   "vgg_max": 2.37916898727417,
+   "ideal_bw26_hz": 125.00000000004846,
+   "ideal_side_max_db": -91.79389150013607,
+   "keyup_window_max_dbm": 6.387806415557861,
+   "keyup_loop_tail_max_dbm": 6.376597881317139,
+   "loop_tail_at_gate_dbm": -3.5205966801736635,
+   "at_gate_dbm": -3.4127687488138423,
+   "gate_step_rel_db": -40.39701490480671,
+   "after_gate_max_dbm": -259.4562072753906,
+   "t1090_err_ms": 1.1677268408777988,
+   "t1090_err_pct": 14.596585510972485,
+   "first_rise_ms": 7.457935949335427,
+   "first_fall_ms": 9.168079631165428,
+   "first_err_pct": 14.60099538956785,
+   "first_shape_err": 0.0998504411823667,
+   "pass": {
+    "t1090_req_tx005": false,
+    "t1090_tc_sys013": false,
+    "shape": false,
+    "overshoot": true,
+    "bw26": true,
+    "sideband": false,
+    "keyup_1uW": false,
+    "vgg": true,
+    "setpoint": true,
+    "first_t1090_req_tx005": false,
+    "first_t1090_tc_sys013": false,
+    "first_shape": false
+   }
+  }
+ ],
+ "expected_state_check": {
+  "status": "AS EXPECTED",
+  "file": "hardware/sim/tx-keying/expected_states.json",
+  "unexpected_fail": {},
+  "expected_fail_now_pass": {},
+  "forbidden_fail": {}
+ }
+}

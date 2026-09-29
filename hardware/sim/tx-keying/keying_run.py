@@ -6,7 +6,15 @@ cwht, hardware/sim/tx-keying. Analysis record: docs/design/analysis/keying-ts012
 Revision 1 (review of revision 0, Major findings 1 to 3): power steps 0.5, 1, 2 and 5 W and packs 6.4, 7.4 and
 8.4 V; threshold corners from a sourced budget (THRESHOLD_BUDGET) and a threshold sweep; the A5 PA table from
 the project's digitized curves; every element checked, element 1 on its own; REQ-TX-005 (+/-10 %) asserted
-separately from TC-SYS-013 (+/-0.5 ms). Run ids are 2026-09-28-r1-*; the revision 0 run folders stay, superseded.
+separately from TC-SYS-013 (+/-0.5 ms). Run ids were 2026-09-28-r1-*; the revision 0 run folders stay, superseded.
+
+Revision 2 (review of revision 1, INSP-116 iteration 2, finding-10 to finding-14): run ids 2026-09-28-r2-*
+(the r1 folders stay, superseded). The threshold budget takes the die maximum and the die-to-NTC difference per
+finalist from thermal-ts012.md (sections 4.1 and 8 change 6) and the NTC coefficient residual on both sides
+(finding-12); the 'fix' record runs add the stored-trim corners; a new variant 'sens' sweeps VSH in 0.02 V steps
+for element 1 with the residual offset, the 6.4 and 8.4 V packs and sub-threshold slopes of 65 and 150 dB/V
+(finding-13); every stage compares its FAIL states with expected_states.json and exits 3 on a difference
+(finding-11); the 'setpoint' criterion is labelled as this analysis's model-health check (finding-11).
 
 Stages (run in order; each writes into results/<run-id>/):
   detchar           read the LTspice runs of det_char.cir (TS-012 zero-bias detector) and det_char_biased.cir
@@ -19,8 +27,18 @@ Stages (run in order; each writes into results/<run-id>/):
                     per criterion and run) and the plots (envelope, spectrum, keyup_level, corners and t1090 for
                     fix; window for the sweeps), and copy the deck and this script into the run directory
   replot FIN VAR    as deck, from the existing .raw of the run, without running LTspice (deck must be unchanged)
+                    (VAR sens, revision 2: element 1 only, 7 sensitivity cases x 31 VSH x 4 steps x 3 settings;
+                    plots sens_curves.png and sens_windows.png)
   summary           cross-run summary.png, windows.png and summary.json, the analytic PWM carrier ripple
-                    (pwm_ripple.png) and the analytic loop margin of the revision 1 loop
+                    (pwm_ripple.png), the analytic loop margin of the revision 1 loop, and (revision 2) the
+                    element-1 windows of every sensitivity case against every threshold budget (margins)
+
+Exit status (revision 2, finding-11; 08 section 3.4, CK-ANA-E4): 0 when every FAIL state of the run equals the
+expected FAIL states recorded for its run id in expected_states.json (with the reason); 3 when a criterion fails
+that is not expected, or an expected FAIL now passes (both are printed); 2 on a tool error (LTspice wrapper).
+The summary stage also exits 3 if the design rules it checks fail (feedforward PWM at 122 kHz, phase margin).
+'deck FIN VAR --accept' writes the run's FAIL states into expected_states.json; it refuses when a criterion that
+the design must pass fails (FORBIDDEN_FAIL below). The file is committed and reviewed with the results.
 
 Every LTspice run goes through tools/ltspice-batch.sh (ACC-LTSPICE-001); the GUI is never opened.
 
@@ -62,7 +80,7 @@ WRAPPER = REPO / "tools" / "ltspice-batch.sh"
 PADATA = REPO / "hardware" / "sim" / "tx-pa" / "data"
 DETRUN = RESULTS / "2026-09-28-det-char"
 DATE = "2026-09-28"
-REV = "r1"   # revision 1 of the analysis (review finding-1 to finding-3); revision 0 run folders stay, superseded
+REV = "r2"   # revision 2 of the analysis (INSP-116 finding-10 to 14); the r1 and revision 0 run folders stay, superseded
 
 # ---------------------------------------------------------------- requirement limits
 REQ = {
@@ -73,6 +91,9 @@ REQ = {
     "t1090_tol_ms": 0.5,       # TC-SYS-013: 10-to-90 % time equal to the setting within +/-0.5 ms
     "shape_tol": 0.05,         # TC-SYS-013: normalized envelope within 5 % of full scale of the ideal
     "overshoot_db": 0.2,       # TS-012 section 7.3 WP-PDR-22 criterion
+    "setpoint_db": 0.5,        # NOT a requirement: this analysis's model-health check that the loop reaches the
+                               # (pack-limited) setpoint within 0.5 dB, i.e. no windup; REQ-SYS-012 itself is
+                               # +/-1 dB of 5 W and is not assessed here (revision 2, finding-11 (c))
     "vgg_max": 3.5,            # RA07M1317M rating condition (Pout 10 W at VGG <= 3.5 V); A5 only
     "keyup_dbm": -30.0,        # REQ-TX-014: <= 1 uW with TX_KEY deasserted, PA_EN asserted, exciter driven
     "rfoff_dbm": -57.0,        # REQ-SYS-183: <= -57 dBm in every RF-ended state
@@ -167,6 +188,20 @@ VSH_SWEEP = [round(-0.30 + 0.05 * i, 2) for i in range(13)]   # -0.30 .. +0.30 V
 # VOS: residual error-amplifier offset after the firmware zero calibration (ESTIMATE: one 12-bit ADC step at
 # 3.3 V is 0.8 mV). VOS > 0 acts like VSH < 0 (the integrator runs up), so the record corners pair them.
 
+# Sensitivity cases of element 1 (revision 2, finding-13), variant 'sens': (label, pack V, VOS V, sub-threshold
+# slope below the graphs in dB/V, ESTIMATE range: the digitized A5 foot is 63 to 71 dB/V). The firmware
+# feedforward table follows the same slope in each case: the per-unit calibration of item 7 reads the curve down
+# to the biased detector's visibility floor (-35.5 dB re 5 W, about 1.4 mW), below the graphs' foot (0.11 W A5,
+# 0.05 W A4), so the firmware knows the unit's foot; the case changes how steeply the PA responds there to the
+# residual shift VSH. VOS > 0 acts like VSH < 0, so the offset window is the low edge of "+1 mV" with the high
+# edge of "-1 mV".
+SENS_CASES = [("nominal", 7.4, 0.0, 100.0), ("VOS +1 mV", 7.4, 1e-3, 100.0), ("VOS -1 mV", 7.4, -1e-3, 100.0),
+              ("pack 6.4 V", 6.4, 0.0, 100.0), ("pack 8.4 V", 8.4, 0.0, 100.0),
+              ("slope 65 dB/V", 7.4, 0.0, 65.0), ("slope 150 dB/V", 7.4, 0.0, 150.0)]
+VSH_FINE = [round(-0.30 + 0.02 * i, 2) for i in range(31)]   # -0.30 .. +0.30 V in 0.02 V
+
+
+TPER_S = 48e-3   # one dit period (element 1 only)
 _MITIG = dict(tg=1e-3, pred=True, ff=True, det="biased", ktrim=0.1, hold=False, boost=False)
 VAR = {
     "asis": dict(short="as written (TS-012 rev. 4)", name="as written in TS-012 revision 4", tg=1e-3, pred=False,
@@ -188,6 +223,12 @@ VAR = {
     "sweep1": dict(_MITIG, short="rev. 1 design, threshold sweep",
                    name="revision 1 design, threshold sweep at 7.4 V pack", ktrim=0.16, hold=True, boost=True,
                    steps=STEPS_W, packs=[7.4], corners=[(v, 0.0) for v in VSH_SWEEP], save="V(al)", tstart=0.0),
+    # revision 2 (finding-13): element 1 of the revision 1 design only (the deck stops at 48 ms), 0.02 V sweep of
+    # VSH for each sensitivity case of SENS_CASES
+    "sens": dict(_MITIG, short="rev. 1 design, element 1 sensitivity",
+                 name="revision 1 design, element 1 only, VSH sweep in 0.02 V for the offset, pack and "
+                      "sub-threshold slope cases", ktrim=0.16, hold=True, boost=True, steps=STEPS_W, packs=[7.4],
+                 corners=[], cases=SENS_CASES, save="V(al)", tstart=0.0, tstop=TPER_S, first_only=True),
 }
 BOOST = math.sqrt(5.0)   # detector tap switched up 7 dB (power x 5) at steps <= 1 W: 1 W looks like 5 W
 
@@ -202,7 +243,19 @@ DV_PER_DB = 0.5 / 3.0      # V of curve shift per dB of drive (reviewer's Figure
                            # halves); E, and applied to A5 by analogy (no A5 data)
 TC_V_PER_C = (-2.5e-3, -1.3e-3)   # LDMOS threshold temperature coefficient range (E, web sources in record)
 T_CAL, T_DIE = 25.0, (-10.0, 110.0)  # calibration bench temperature; die range: REQ-SYS-114 cold start to the
-                                     # thermal note's junction bound (thermal-ts012.md section 4.1)
+# junction bound that thermal-ts012.md section 8 change 6 sets: the REQ-SYS-118 inhibit on the PA case at about
+# 81 C (A5) or 77 C (A4) at the NTC holds the junction at 110 C with the sensor adverse and the +3 C tolerance
+# (thermal note section 4.1). With the 85 C setpoint instead, the junction reaches 113.9 C (A5) and 117.1 C (A4)
+# at the trip (same table), 0.010 and 0.018 V more on the uncalibrated and calibrated low ends (revision 2,
+# finding-12 (ii); stated in the record).
+# Per finalist (revision 2, finding-12): the highest NTC reading in service (the inhibit setpoint) and the
+# die-to-NTC-reading difference at that point, 110 C minus the setpoint (29 K A5, 33 K A4; with the 85 C setpoint
+# the thermal note gives 28.9 and 32.1 K, the same within 1 K). Class E (the thermal note's temperatures are
+# estimates).
+T_NTC_MAX = {"a5": 81.0, "a4": 77.0}
+DIE_TO_NTC_K = {f: T_DIE[1] - T_NTC_MAX[f] for f in ("a5", "a4")}
+TC_FW = -1.9e-3            # firmware compensation coefficient (design change 8)
+TC_RES = 0.6e-3            # its residual against the true coefficient, -1.3 to -2.5 mV/C (either sign)
 _temp_lo, _temp_hi = TC_V_PER_C[0] * (T_DIE[1] - T_CAL), TC_V_PER_C[0] * (T_DIE[0] - T_CAL)
 _drive_in_unit_db = 0.17 + 0.10    # 144 to 148 MHz half-span (max span 0.34 dB, pa-drive runs r1-d2 and
                                    # r1-d3) plus the 0.1 dB drive change over temperature (pa-drive 3.1)
@@ -239,32 +292,42 @@ THRESHOLD_BUDGET = {
         ],
     },
 }
-# NTC compensation (design change 8): firmware shifts the table by -1.9 mV/C x (T_NTC - T_CAL). Residual: the
-# coefficient uncertainty (+/-0.6 mV/C) over the NTC range, plus the die running up to 25 K above the NTC
-# during a 5 W key-down (thermal note: junction 110 C with the case near 90 C and the NTC 2.5 to 5 K under the
-# case) at -2.5 mV/C. ESTIMATES.
-_comp_lo = -0.6e-3 * (T_DIE[1] - 25.0 - T_CAL) - 2.5e-3 * 25.0
-_comp_hi = 0.6e-3 * (T_CAL - T_DIE[0])
+# NTC compensation (design change 8): firmware shifts the table by -1.9 mV/C x (T_NTC - T_CAL). Residual
+# (revision 2, finding-12): the coefficient residual (+/-0.6 mV/C) acts with either sign at either end of the NTC
+# range (hot: up to T_NTC_MAX - 25 C above the bench; cold: 35 K below), so both ends take the larger of the two
+# spans; plus, on the low side, the die running DIE_TO_NTC_K above the NTC reading during a key-down, at -2.5
+# mV/C. ESTIMATES.
+def _comp_term(fin):
+    span = max(T_NTC_MAX[fin] - T_CAL, T_CAL - T_DIE[0])
+    lo = -TC_RES * span + TC_V_PER_C[0] * DIE_TO_NTC_K[fin]
+    hi = TC_RES * span
+    return ("die temperature after NTC compensation (residual both sides; die-to-NTC %.0f K)" % DIE_TO_NTC_K[fin],
+            lo, hi, "E", "this record; thermal-ts012 4.1 and 8 change 6")
+
+
 for _f in ("a4", "a5"):
     THRESHOLD_BUDGET[_f]["compensated"] = [t for t in THRESHOLD_BUDGET[_f]["calibrated"]
-                                           if not t[0].startswith("die")] + [
-        ("die temperature after NTC compensation", _comp_lo, _comp_hi, "E", "this record")]
+                                           if not t[0].startswith("die")] + [_comp_term(_f)]
 
 
-# Stored trim (design change 9, firmware part): the held trim is read by the ADC at key-up, stored with the NTC
-# reading, and folded into the feedforward offset at the next power-on, so element 1 starts from it. Its
-# residual: ADC step and hold droop; the drive change since the capture (QSY across the band, temperature);
-# the die temperature change since the capture after NTC compensation (0.6 mV/C over up to 95 K of NTC
-# change); and the die-to-NTC gradient present at the capture (0 to 25 K), which is gone at the next element 1
-# (the die has cooled to the NTC), so the curve sits to the right of the stored value by up to 2.5 mV/C x 25 K.
+# Stored trim (design change 9, firmware part): the trim is read by the ADC at key-up, stored with the NTC
+# reading, and folded into the feedforward offset at the next element 1 (revision 2: at every element, the
+# per-element capture, finding-14), so element 1 starts from it. Its residual: ADC step and the feedforward PWM
+# step; the drive change since the capture (QSY across the band, temperature); the die temperature change since
+# the capture after NTC compensation (0.6 mV/C over the NTC range, -10 C to T_NTC_MAX); and the die-to-NTC
+# difference present at the capture (0 to DIE_TO_NTC_K, per finalist, revision 2), which is gone at the next
+# element 1 (the die has cooled to the NTC), so the curve sits to the right of the stored value by up to 2.5
+# mV/C x DIE_TO_NTC_K.
 for _f in ("a4", "a5"):
+    _rng = T_NTC_MAX[_f] - T_DIE[0]
     THRESHOLD_BUDGET[_f]["stored"] = [
-        ("stored trim: ADC step and hold droop", -0.01, 0.01, "E", "this record"),
+        ("stored trim: ADC step and feedforward PWM step", -0.01, 0.01, "E", "this record"),
         ("drive change since the capture: band and temperature", -_drive_in_unit_db * DV_PER_DB,
          _drive_in_unit_db * DV_PER_DB, "DD, E", "pa-drive r1-d2, r1-d3; section 3.1"),
-        ("die temperature change since the capture, NTC compensated", -0.6e-3 * 95, 0.6e-3 * 95, "E",
-         "this record"),
-        ("die-to-NTC gradient at the capture, gone at element 1", 0.0, 2.5e-3 * 25, "E", "thermal note 4.1"),
+        ("die temperature change since the capture, NTC compensated (0.6 mV/C over %.0f K)" % _rng,
+         -TC_RES * _rng, TC_RES * _rng, "E", "this record"),
+        ("die-to-NTC difference at the capture (0 to %.0f K), gone at element 1" % DIE_TO_NTC_K[_f], 0.0,
+         -TC_V_PER_C[0] * DIE_TO_NTC_K[_f], "E", "thermal-ts012 4.1 and 8 change 6"),
     ]
 
 
@@ -282,14 +345,17 @@ def budget_totals(fin):
 
 def corners_for(fin, var):
     """(VSH, VOS) corners of a variant. The record corners of 'fix' (the revision 1 design, which includes the
-    per-unit calibration and the NTC compensation) are the worst-case sums of the compensated budget, each
-    paired with the residual offset that acts the same way. The wider calibrated-only budget is covered by the
-    sweep (held elements pass over the whole +/-0.3 V)."""
+    per-unit calibration and the NTC compensation) are the worst-case sums of the compensated budget (element 1
+    after power-on without a stored trim) and, from revision 2 (finding-13), of the stored-trim budget (element 1
+    of every over), each paired with the residual offset that acts the same way. The wider calibrated-only
+    budget is covered by the sweep (held elements pass over the whole +/-0.3 V)."""
     c = VAR[var]["corners"]
     if c is not None:
         return c
-    lo, hi = budget_totals(fin)["compensated"]["wc"]
-    return [(0.0, 0.0), (round(lo, 3), 1e-3), (round(hi, 3), -1e-3)]
+    bt = budget_totals(fin)
+    lo, hi = bt["compensated"]["wc"]
+    slo, shi = bt["stored"]["wc"]
+    return [(0.0, 0.0), (round(lo, 3), 1e-3), (round(hi, 3), -1e-3), (round(slo, 3), 1e-3), (round(shi, 3), -1e-3)]
 
 
 SETTINGS_MS = [3.0, 5.0, 8.0]
@@ -430,6 +496,21 @@ def run_params(fin, var):
     A, D = det_law(v["det"])
     r = RIN / RIDLE
     rows = []
+    if v.get("cases"):
+        # variant 'sens' (revision 2): case, then VSH (0.02 V), then step, then setting
+        for ci, (label, pack, vos, sub) in enumerate(v["cases"]):
+            vd = f["vd"][pack]
+            for vsh in VSH_FINE:
+                for step in v["steps"]:
+                    for tset in SETTINGS_MS:
+                        pset = pset_for(fin, vd, step, var)
+                        aset = math.sqrt(100 * pset)
+                        dset = float(det_of([aset], A, D)[0])
+                        db = BOOST if (v.get("boost") and step <= 1.0) else 1.0
+                        rows.append(dict(tset_ms=tset, pack=pack, vd=vd, step_w=step, vsh=vsh, vos=vos, case=ci,
+                                         case_label=label, sub=sub, scale=f["scale"][vd], pset=pset, aset=aset,
+                                         dset=dset, vset=(dset + 5 * r) / (1 + r), db=db))
+        return rows
     for vsh, vos in corners_for(fin, var):
         for pack in v["packs"]:
             vd = f["vd"][pack]
@@ -464,6 +545,13 @@ def gen_deck(fin, var):
     npc = len(v["packs"]) * len(v["steps"]) * len(SETTINGS_MS)
     L.append(f"* Steps: for each corner in turn, the packs {v['packs']} V (drain {[f['vd'][p] for p in v['packs']]} V),")
     L.append(f"* within each the power steps {v['steps']} W, within each the 3, 5, 8 ms (10-90 %) settings:")
+    if v.get("cases"):
+        nv = len(VSH_FINE) * len(v["steps"]) * len(SETTINGS_MS)
+        L.append(f"* (variant sens: for each case in turn, VSH {VSH_FINE[0]:+.2f} to {VSH_FINE[-1]:+.2f} V in 0.02 V, within each")
+        L.append("* the steps and settings; the pack of the case; element 1 only)")
+        for i, (label, pack, vos, sub) in enumerate(v["cases"]):
+            L.append(f"*   runs {nv * i + 1}..{nv * i + nv}: {label}: pack {pack} V, offset {vos * 1e3:+.1f} mV, "
+                     f"PA sub-threshold slope {sub:g} dB/V")
     for i, (vsh, vos) in enumerate(corners_for(fin, var)):
         L.append(f"*   runs {npc * i + 1}..{npc * i + npc}: PA curve shifted {vsh:+.3f} V, error-amplifier offset {vos * 1e3:+.1f} mV")
     L.append("* 50 WPM continuous dits: key down 24 ms, up 24 ms; relay command at key-down of element 1,")
@@ -480,6 +568,8 @@ def gen_deck(fin, var):
     L.append(f".param ASET=table(run,{runtab('aset')})")
     L.append(f".param VSET=table(run,{runtab('vset')})")
     L.append(f".param DB=table(run,{runtab('db')})")
+    if v.get("cases"):
+        L.append(f".param SUB=table(run,{runtab('sub')})")
     L.append(f".param PLEAK={10 ** ((f['pleak_dbm'] - 30) / 10):.6g}")
     L.append(f".param LOSS={10 ** (-LOSS_DB / 10):.6f} KDIV={KDIV} KTRIM={ktrim} KFF={KFF}")
     L.append(f".step param run 1 {len(rows)} 1")
@@ -534,8 +624,19 @@ def gen_deck(fin, var):
         L.append(".model DI D(Ron=1 Roff=1e12 Vfwd=0)")
         L.append("* feedforward VGG table (second 12-bit PWM, same update and 2-pole RC as the reference): the nominal")
         L.append("* inverse PA curve at the run's drain voltage for KFF of the wanted amplitude, 0 V when the table is 0")
-        L.append(f"Bff ffraw 0 V=(env(time)>0)*max(table(10*log10(max((KFF*ASET*env(time))**2/100/LOSS/SCALE,1e-20)*1e3),"
-                 f"{spice_table(sorted((d, vg) for vg, d in tab))}),0)")
+        if v.get("cases"):
+            # revision 2 (sens): the firmware table's foot follows the run's SUB (calibrated unit, see SENS_CASES)
+            v0, p0 = f["table"][0]
+            d0 = 10 * math.log10(p0 * 1e3)
+            inv = [(round(d0 - 1.0, 4), v0)] + [(10 * math.log10(y * 1e3), x) for x, y in f["table"]]
+            L.append("* feedforward foot below the graphs at SUB dB/V (the per-unit calibration reads it down to the")
+            L.append("* detector's visibility floor)")
+            L.append(".func ffd(x) {10*log10(max((KFF*ASET*x)**2/100/LOSS/SCALE,1e-20)*1e3)}")
+            L.append(f"Bff ffraw 0 V=(env(time)>0)*max(table(max(ffd(env(time)),{d0:.6g}),{spice_table(sorted(inv))})"
+                     f"-max({d0:.6g}-ffd(env(time)),0)/SUB,0)")
+        else:
+            L.append(f"Bff ffraw 0 V=(env(time)>0)*max(table(10*log10(max((KFF*ASET*env(time))**2/100/LOSS/SCALE,1e-20)*1e3),"
+                     f"{spice_table(sorted((d, vg) for vg, d in tab))}),0)")
         L.append("R3 ffraw f1 4.7k")
         L.append("C3 f1 0 10n")
         L.append("R4 f1 ff 4.7k")
@@ -555,7 +656,16 @@ def gen_deck(fin, var):
     L.append(".model SWC SW(Ron=10 Roff=1e9 Vt=0.5 Vh=0.05)")
     L.append("* PA static transfer (dBm at the reference drain voltage) scaled for the drain voltage, curve shifted")
     L.append("* by VSH (module-to-module threshold corner)")
-    L.append(f"Bpg pg 0 V=SCALE*pow(10,(table(V(vgg)-VSH,{spice_table(tab)})-30)/10)")
+    if v.get("cases"):
+        # revision 2 (finding-13): below the first graph point V0 the PA is extended at SUB dB/V (per run); the
+        # table itself starts 1 V below V0 at the V0 value, so its first abscissa is never evaluated
+        v0, p0 = f["table"][0]
+        main = [(round(v0 - 1.0, 3), 10 * math.log10(p0 * 1e3))] + [(x, 10 * math.log10(y * 1e3)) for x, y in f["table"]]
+        L.append(f"* PA sub-threshold extension below {v0} V at SUB dB/V (65, 100 or 150; the firmware table follows it)")
+        L.append(f"Bpg pg 0 V=SCALE*pow(10,(table(max(V(vgg)-VSH,{v0}),{spice_table(main)})"
+                 f"-SUB*max({v0}-(V(vgg)-VSH),0)-30)/10)")
+    else:
+        L.append(f"Bpg pg 0 V=SCALE*pow(10,(table(V(vgg)-VSH,{spice_table(tab)})-30)/10)")
     L.append("* drive gate: CLK1 enable and GVA-84+ bias, 10 us")
     L.append("Bd dr0 0 V=onw(time,TCLK,TE+TG)")
     L.append("Rd dr0 dr 1k")
@@ -589,7 +699,7 @@ def gen_deck(fin, var):
     L.append(".model DI D(Ron=1 Roff=1e12 Vfwd=0)")
     L.append(".ends OPA")
     L.append(f".save {v['save']}")
-    L.append(f".tran 0 {NEL * TPER} {v['tstart']} 20u")
+    L.append(f".tran 0 {v.get('tstop', NEL * TPER)} {v['tstart']} 20u")
     L.append(".options reltol=1e-4")
     L.append(".end")
     name = f"keying_{fin}_{var}.cir"
@@ -703,6 +813,25 @@ def analyse(fin, var, rundir, rows):
         tset = row["tset_ms"] * 1e-3
         tr = tset / RC_1090
         dtu = 10e-6
+        if VAR[var].get("first_only"):
+            # variant 'sens' (revision 2): element 1 only (time and shape against REQ-TX-005 and TC-SYS-013)
+            tu0 = np.arange(0.0, TPER, dtu)
+            m1 = element_metrics(tu0, np.interp(tu0, t, a), 0, tset)
+            ok1 = not (math.isnan(m1["rise"]) or math.isnan(m1["fall"]))
+            d1 = [m1["rise"] - tset, m1["fall"] - tset] if ok1 else [float("nan")]
+            res = dict(run=int(s) + 1, tset_ms=row["tset_ms"], pack=row["pack"], vd=row["vd"], step_w=row["step_w"],
+                       vsh=row["vsh"], vos=row["vos"], case=row["case"], case_label=row["case_label"],
+                       sub_db_per_v=row["sub"], pset_w=row["pset"], ptop_w=m1["atop"] ** 2 / 100,
+                       first_rise_ms=m1["rise"] * 1e3, first_fall_ms=m1["fall"] * 1e3,
+                       first_err_pct=100 * max(d1, key=abs) / tset if ok1 else float("nan"),
+                       first_shape_err=max(m1["e_r"], m1["e_f"]))
+            fe = abs(res["first_err_pct"]) / 100 * tset if ok1 else float("inf")
+            res["pass"] = dict(first_t1090_req_tx005=bool(fe <= REQ["t1090_rel_tol"] * tset + 1e-12),
+                               first_t1090_tc_sys013=bool(fe <= REQ["t1090_tol_ms"] * 1e-3 + 1e-12),
+                               first_shape=bool(res["first_shape_err"] <= REQ["shape_tol"]))
+            res["_trace"] = dict(t=t, a=a, atop=m1["atop"])
+            out.append(res)
+            continue
         tu = np.arange(2 * TPER, NEL * TPER, dtu)
         au = np.interp(tu, t, a)
         # every element in the window (revision 1: the worst element is reported, element 4 is plotted)
@@ -786,7 +915,7 @@ def analyse(fin, var, rundir, rows):
             # ramp end (includes the modelled gate-off leakage PLEAK, an estimate)
             keyup_1uW=bool(p_at_gate <= REQ["keyup_dbm"]),
             vgg=bool(res["vgg_max"] <= REQ["vgg_max"]) if (fin == "a5" and vgg is not None) else True,
-            setpoint=bool(abs(10 * math.log10(res["ptop_w"] / row["pset"])) <= 0.5),
+            setpoint=bool(abs(10 * math.log10(res["ptop_w"] / row["pset"])) <= REQ["setpoint_db"]),  # model health
         )
         if first is not None:
             fe = abs(first["first_err_pct"]) / 100 * tset
@@ -989,9 +1118,10 @@ def plots_corners(fin, var, rundir, res):
             ax.set_xlabel("ms from the element's key-down", fontsize=7)
             if i == 0 and j == 0:
                 ax.legend(fontsize=5.5, loc="upper right")
-    fig.suptitle(f"{title}: record corners (compensated threshold budget, worst-case sum, residual offset acting the "
-                 f"same way). Solid: element 1 (trim from mid-rail); dashed: element 4 (held trim). Red title: "
-                 f"a corner fails REQ-TX-005 or TC-SYS-013 at element 1", fontsize=9.5)
+    fig.suptitle(f"{title}: record corners (nominal; compensated and stored-trim budgets, worst-case sums, residual "
+                 f"offset acting the same way). Solid: element 1 (trim from mid-rail); dashed: element 4 (held trim).\n"
+                 f"Red title: a corner fails REQ-TX-005 or TC-SYS-013 at element 1. Corner order in each title: "
+                 f"nominal, compensated low, compensated high, stored-trim low, stored-trim high", fontsize=9.5)
     fig.tight_layout()
     fig.savefig(rundir / "corners.png", dpi=100)
     plt.close(fig)
@@ -1019,8 +1149,7 @@ def plot_t1090(fin, var, rundir, res):
             axes[1].plot(x + 0.3, 100 * r["first_shape_err"], **kf)
     for ax in axes:
         ax.set_xticks([k * (len(cs) + 1) + (len(cs) - 1) / 2 for k in range(len(steps))])
-        ax.set_xticklabels([f"{s:g} W step\nVSH (V):\n" + " ".join(f"{c[0]:+.2f}" for c in cs) for s in steps],
-                           fontsize=6.5)
+        ax.set_xticklabels([f"{s:g} W step" for s in steps], fontsize=8)
         ax.grid(True, lw=0.3)
     axes[0].axhspan(-100 * REQ["t1090_rel_tol"], 100 * REQ["t1090_rel_tol"], color="g", alpha=0.1)
     for y in (-10, 10):
@@ -1043,8 +1172,8 @@ def plot_t1090(fin, var, rundir, res):
     h += [Line2D([], [], color="k", marker="o", ls="none", label="elements 3 to 8 (filled)"),
           Line2D([], [], color="k", marker="o", mfc="none", ls="none", label="element 1, trim from mid-rail (hollow)")]
     axes[0].legend(handles=h, fontsize=7, loc="best")
-    fig.suptitle(f"{title}: every run (steps x corners x packs x settings), VSH corner in volts under each group",
-                 fontsize=10)
+    fig.suptitle(f"{title}: every run (steps x corners x packs x settings). Corners in each step group, left to "
+                 f"right: " + ", ".join(corner_label(*c) for c in cs), fontsize=9.5)
     fig.tight_layout()
     fig.savefig(rundir / "t1090.png", dpi=105)
     plt.close(fig)
@@ -1181,7 +1310,177 @@ def plot_window(fin, var, rundir, res):
     plt.close(fig)
 
 
-def stage_deck(fin, var, rerun=True):
+def sens_windows(res):
+    """Element-1 windows of the 'sens' variant (revision 2, finding-13): per case and step, the interpolated edges
+    (window_interp) and the conservative grid edges (last passing 0.02 V point, window_of), and the worst over
+    the steps; plus the composite offset case (low edge of VOS +1 mV, high edge of VOS -1 mV)."""
+    out = {}
+    for label, *_ in SENS_CASES:
+        rr = [r for r in res if r["case_label"] == label]
+        d = {}
+        for st in STEPS_W:
+            wi = window_interp(rr, st, "first")
+            d[f"{st:g}W"] = dict(interp=wi["all"], grid=list(window_of(rr, None, st, None, "first")),
+                                 per_setting={k: v for k, v in wi.items() if k != "all"})
+        d["all"] = dict(interp=[max(d[f"{st:g}W"]["interp"][0] for st in STEPS_W),
+                                min(d[f"{st:g}W"]["interp"][1] for st in STEPS_W)],
+                        grid=[max(d[f"{st:g}W"]["grid"][0] for st in STEPS_W),
+                              min(d[f"{st:g}W"]["grid"][1] for st in STEPS_W)],
+                        worst_step_lo=min(STEPS_W, key=lambda st: -d[f"{st:g}W"]["interp"][0]),
+                        worst_step_hi=min(STEPS_W, key=lambda st: d[f"{st:g}W"]["interp"][1]))
+        out[label] = d
+    out["offset +/-1 mV"] = {"all": dict(interp=[out["VOS +1 mV"]["all"]["interp"][0], out["VOS -1 mV"]["all"]["interp"][1]],
+                                         grid=[out["VOS +1 mV"]["all"]["grid"][0], out["VOS -1 mV"]["all"]["grid"][1]])}
+    return out
+
+
+SENS_COLORS = {"nominal": "k", "VOS +1 mV": "tab:red", "VOS -1 mV": "tab:blue", "pack 6.4 V": "tab:orange",
+               "pack 8.4 V": "tab:purple", "slope 65 dB/V": "tab:green", "slope 150 dB/V": "tab:brown"}
+
+
+def plots_sens(fin, var, rundir, res, sw):
+    """sens_curves.png: element-1 time error and shape error against VSH at the 2 W step (the worst step at
+    nominal), one line per case, per setting, with the limits and the budget bands. sens_windows.png: the window
+    of every case and step (interpolated bar, grid-edge ticks) against the compensated and stored-trim budgets."""
+    title = f"{fin.upper()} {VAR[var]['short']}"
+    bt = budget_totals(fin)
+    fig, axes = plt.subplots(2, 3, figsize=(17, 9.5))
+    for j, tset in enumerate(SETTINGS_MS):
+        for label, *_ in SENS_CASES:
+            rr = sorted([r for r in res if r["case_label"] == label and r["step_w"] == 2.0 and r["tset_ms"] == tset],
+                        key=lambda r: r["vsh"])
+            x = [r["vsh"] for r in rr]
+            axes[0, j].plot(x, [r["first_err_pct"] for r in rr], "o-", ms=2.5, lw=1.0, color=SENS_COLORS[label],
+                            label=label)
+            axes[1, j].plot(x, [100 * r["first_shape_err"] for r in rr], "o-", ms=2.5, lw=1.0,
+                            color=SENS_COLORS[label], label=label)
+        for sg in (-1, 1):
+            axes[0, j].axhline(sg * 10, color="r", lw=1.4, label="REQ-TX-005 +/-10 %" if sg > 0 else None)
+            axes[0, j].axhline(sg * 100 * 0.5 / tset, color="k", lw=0.8, ls="--",
+                               label="TC-SYS-013 +/-0.5 ms" if sg > 0 else None)
+        axes[1, j].axhline(5, color="r", lw=1.4, label="TC-SYS-013 shape 5 %")
+        axes[0, j].set_ylim(-40, 40)
+        axes[1, j].set_ylim(0, 15)
+        for i in range(2):
+            ax = axes[i, j]
+            for case, col, a_ in (("compensated", "tab:green", 0.10), ("stored", "tab:cyan", 0.18)):
+                lo, hi = bt[case]["wc"]
+                ax.axvspan(lo, hi, color=col, alpha=a_, label=f"{case} budget, worst-case sum" if (i == 0) else None)
+            ax.axvline(0, color="0.4", lw=0.5)
+            ax.grid(True, lw=0.3)
+            ax.set_xlabel("VSH (V; < 0 earlier onset)", fontsize=8)
+        axes[0, j].set_title(f"2 W step, {tset:.0f} ms: element 1 10-90 time error (% of setting)", fontsize=9)
+        axes[1, j].set_title(f"2 W step, {tset:.0f} ms: element 1 shape error (% of full scale)", fontsize=9)
+    axes[0, 0].legend(fontsize=6.5, loc="upper right", ncol=2)
+    fig.suptitle(f"{title}: element 1 (trim from mid-rail) against VSH, 0.02 V steps, per sensitivity case "
+                 f"(offset, pack, PA sub-threshold slope)", fontsize=10)
+    fig.tight_layout()
+    fig.savefig(rundir / "sens_curves.png", dpi=100)
+    plt.close(fig)
+
+    fig, ax = plt.subplots(figsize=(13, 8))
+    y, yt, yl = 0, [], []
+    for st in STEPS_W + ["all"]:
+        key = f"{st:g}W" if st != "all" else "all"
+        for label, *_ in SENS_CASES:
+            w = sw[label][key]
+            lo, hi = w["interp"]
+            ax.plot([lo, hi], [y, y], color=SENS_COLORS[label], lw=3 if st == "all" else 2)
+            ax.plot(w["grid"], [y, y], "|", color="k", ms=9)
+            yt.append(y)
+            yl.append(f"{'worst over steps' if st == 'all' else f'{st:g} W'}: {label}")
+            y += 1
+        if st == "all":
+            w = sw["offset +/-1 mV"]["all"]
+            ax.plot(w["interp"], [y, y], color="tab:red", lw=3, ls="--")
+            ax.plot(w["grid"], [y, y], "|", color="k", ms=9)
+            yt.append(y)
+            yl.append("worst over steps: offset +/-1 mV (low edge of +1 mV, high edge of -1 mV)")
+            y += 1
+        y += 0.6
+    for case, col, a_ in (("compensated", "tab:green", 0.10), ("stored", "tab:cyan", 0.20)):
+        lo, hi = bt[case]["wc"]
+        ax.axvspan(lo, hi, color=col, alpha=a_, label=f"{case} budget, worst-case sum {lo:+.3f} / {hi:+.3f} V")
+        rlo, rhi = bt[case]["rss"]
+        for xv in (rlo, rhi):
+            ax.axvline(xv, color=col, lw=1.0, ls=":")
+    ax.plot([], [], color="0.3", ls=":", label="dotted: the same budgets, RSS")
+    ax.plot([], [], "|", color="k", ms=9, label="ticks: last passing 0.02 V grid point (conservative)")
+    ax.set_yticks(yt)
+    ax.set_yticklabels(yl, fontsize=6.5)
+    ax.invert_yaxis()
+    ax.set_xlim(-0.60, 0.32)
+    ax.axvline(0, color="0.5", lw=0.6)
+    ax.grid(True, axis="x", lw=0.3)
+    ax.legend(fontsize=7, loc="upper left")
+    ax.set_xlabel("VSH (V): element 1 passes REQ-TX-005 and TC-SYS-013 (time, shape) inside each bar (interpolated "
+                  "edges);\na budget passes where its band lies inside the bar", fontsize=9)
+    ax.set_title(f"{title}: element-1 windows per step and sensitivity case against the threshold budgets",
+                 fontsize=10)
+    fig.tight_layout()
+    fig.savefig(rundir / "sens_windows.png", dpi=100)
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- expected FAIL states (revision 2, finding-11)
+EXPECTED_FILE = HERE / "expected_states.json"
+# Criteria that the design under test must pass in every run of the variant; --accept refuses to record a FAIL of
+# these as expected (the revision 1 design must pass every element-3-to-8 keying criterion everywhere).
+FORBIDDEN_FAIL = {
+    "fix": ["t1090_req_tx005", "t1090_tc_sys013", "shape", "overshoot", "bw26", "sideband", "vgg", "setpoint"],
+    "sweep1": ["t1090_req_tx005", "t1090_tc_sys013", "shape", "overshoot", "bw26", "sideband", "vgg", "setpoint"],
+}
+EXPECTED_WHY = {
+    "asis": "the loop as TS-012 revision 4 writes it; expected to fail (record section 4.2)",
+    "sweep0": "revision 0 design over a VSH sweep beyond its window; failures outside the window are the result "
+              "(record section 4.3); REQ-TX-014 fails on the gate-off leakage estimate",
+    "sweep1": "revision 1 design: elements 3 to 8 must pass everywhere (FORBIDDEN_FAIL); element 1 fails outside "
+              "its window (the sweep goes beyond it); REQ-TX-014 fails on the leakage estimate",
+    "fix": "revision 1 design at the budget corners: elements 3 to 8 must pass everywhere (FORBIDDEN_FAIL); element "
+           "1 fails where the corner lies outside the finalist's window (record section 4.4.3); REQ-TX-014 fails "
+           "on the leakage estimate",
+    "sens": "element 1 over a VSH sweep beyond its window: failures outside the window are the result (record "
+            "section 4.4.3)",
+}
+
+
+def check_expected(run_id, var, fails, accept=False):
+    """Compare the run's FAIL states {criterion: [runs]} with expected_states.json. Returns (status, detail)."""
+    actual = {k: sorted(v) for k, v in fails.items() if v}
+    forb = [k for k in FORBIDDEN_FAIL.get(var, []) if k in actual]
+    try:
+        book = json.loads(EXPECTED_FILE.read_text())
+    except FileNotFoundError:
+        book = {}
+    if accept:
+        if forb:
+            return "REFUSED", dict(forbidden_fail={k: actual[k] for k in forb})
+        book[run_id] = dict(why=EXPECTED_WHY.get(var, ""), expected_fail=actual)
+        # one line per criterion (run lists can hold hundreds of runs)
+        lines = ["{"]
+        items = sorted(book.items())
+        for i, (rid, e) in enumerate(items):
+            lines.append(f' {json.dumps(rid)}: {{"why": {json.dumps(e["why"])}, "expected_fail": {{')
+            crit = list(e["expected_fail"].items())
+            for j, (kk, vv) in enumerate(crit):
+                lines.append(f'  {json.dumps(kk)}: {json.dumps(vv)}' + ("," if j < len(crit) - 1 else ""))
+            lines.append(" }}" + ("," if i < len(items) - 1 else ""))
+        lines.append("}")
+        EXPECTED_FILE.write_text("\n".join(lines) + "\n")
+        return "ACCEPTED", dict(expected_fail=actual)
+    exp = book.get(run_id, {}).get("expected_fail")
+    if exp is None:
+        return "NO EXPECTED STATES", dict(actual_fail=actual, forbidden_fail={k: actual[k] for k in forb})
+    unexp = {k: sorted(set(v) - set(exp.get(k, []))) for k, v in actual.items()}
+    unexp = {k: v for k, v in unexp.items() if v}
+    nowpass = {k: sorted(set(v) - set(actual.get(k, []))) for k, v in exp.items()}
+    nowpass = {k: v for k, v in nowpass.items() if v}
+    status = "AS EXPECTED" if not (unexp or nowpass or forb) else "DIFFERS"
+    return status, dict(unexpected_fail=unexp, expected_fail_now_pass=nowpass,
+                        forbidden_fail={k: actual[k] for k in forb})
+
+
+def stage_deck(fin, var, rerun=True, accept=False):
     """rerun=False (stage 'replot') analyses and plots the existing .raw of the run without running LTspice;
     the deck must be unchanged (it is compared with the copy in the run directory)."""
     name, rows = gen_deck(fin, var)
@@ -1194,11 +1493,17 @@ def stage_deck(fin, var, rerun=True):
         (rundir / "wrapper.txt").write_text(p.stderr[-4000:])
         print(p.stderr.strip().splitlines()[-1])
         if p.returncode != 0:
-            sys.exit(f"LTspice run failed ({p.returncode})")
+            print(f"LTspice run failed ({p.returncode})", file=sys.stderr)
+            sys.exit(2)
     elif (HERE / name).read_bytes() != (rundir / name).read_bytes():
-        sys.exit("replot refused: the generated deck differs from the deck of the run; rerun the deck")
+        print("replot refused: the generated deck differs from the deck of the run; rerun the deck", file=sys.stderr)
+        sys.exit(2)
     res = analyse(fin, var, rundir, rows)
-    if var.startswith("sweep"):
+    sw = None
+    if var == "sens":
+        sw = sens_windows(res)
+        plots_sens(fin, var, rundir, res, sw)
+    elif var.startswith("sweep"):
         plot_window(fin, var, rundir, res)
     else:
         plots(fin, var, rundir, res)
@@ -1212,6 +1517,8 @@ def stage_deck(fin, var, rerun=True):
                    limits=REQ, steps_w=VAR[var]["steps"], packs_v=VAR[var]["packs"],
                    drain_v={str(p): FIN[fin]["vd"][p] for p in VAR[var]["packs"]},
                    corners=[dict(vsh=c[0], vos=c[1]) for c in corners_for(fin, var)],
+                   sens_cases=[dict(label=c[0], pack=c[1], vos=c[2], subth_db_per_v=c[3]) for c in
+                               VAR[var].get("cases", [])],
                    threshold_budget={case: dict(terms=[dict(term=t[0], lo_v=t[1], hi_v=t[2], cls=t[3], source=t[4])
                                                        for t in terms], **{k: list(v) for k, v in
                                                                             budget_totals(fin)[case].items()})
@@ -1225,8 +1532,14 @@ def stage_deck(fin, var, rerun=True):
         summary["window_v"] = {wh: {f"{st:g}W": {f"{ts:g}ms": list(window_of(res, fin, st, ts, wh))
                                                   for ts in SETTINGS_MS} | {"all": list(window_of(res, fin, st, None, wh))}
                                     for st in VAR[var]["steps"]} for wh in ("steady", "first")}
+    if sw is not None:
+        summary["sens_windows_v"] = sw
+    status, detail = check_expected(run_id, var, fails, accept)
+    summary["expected_state_check"] = dict(status=status, file="hardware/sim/tx-keying/expected_states.json",
+                                           **detail)
     (rundir / "result.json").write_text(json.dumps(summary, indent=1))
-    keys = ["run", "tset_ms", "pack", "vd", "step_w", "vsh", "vos", "pset_w", "ptop_w", "rise_ms_min", "rise_ms_max",
+    keys = ["run", "case_label", "sub_db_per_v", "tset_ms", "pack", "vd", "step_w", "vsh", "vos", "pset_w", "ptop_w",
+            "first_rise_ms", "first_fall_ms", "first_err_pct", "first_shape_err"] if var == "sens" else ["run", "tset_ms", "pack", "vd", "step_w", "vsh", "vos", "pset_w", "ptop_w", "rise_ms_min", "rise_ms_max",
             "fall_ms_min", "fall_ms_max", "t1090_err_ms", "t1090_err_pct", "worst_element", "shape_err_rise",
             "shape_err_fall", "overshoot_db", "bw26_hz", "side_max_db", "side_max_at_hz", "off60_hz", "vgg_max",
             "keyup_window_max_dbm", "keyup_loop_tail_max_dbm", "loop_tail_at_gate_dbm", "at_gate_dbm",
@@ -1239,6 +1552,8 @@ def stage_deck(fin, var, rerun=True):
     shutil.copy(HERE / name, rundir / name)
     shutil.copy(Path(__file__), rundir / Path(__file__).name)
     for r in clean:
+        if var == "sens":
+            continue
         print(f"run {r['run']} {r['tset_ms']:g} ms {r['step_w']:g} W pack {r['pack']} VSH {r['vsh']:+.3f} "
               f"VOS {r['vos']*1e3:+.0f}m: top {r['ptop_w']:.2f} W err {r['t1090_err_pct']:+.1f}% "
               f"(rise {r['rise_ms_min']:.2f}..{r['rise_ms_max']:.2f} fall {r['fall_ms_min']:.2f}..{r['fall_ms_max']:.2f}) "
@@ -1249,6 +1564,12 @@ def stage_deck(fin, var, rerun=True):
         print(json.dumps({wh: {st: w["all"] for st, w in d.items()} for wh, d in summary["window_v"].items()}))
         print(json.dumps({wh: {st: [round(x, 3) for x in w.get("all", [])] for st, w in d.items()}
                           for wh, d in summary["window_interp_v"].items()}))
+    if sw is not None:
+        for label, d in sw.items():
+            print(f"sens {label}: interp {[round(x, 3) for x in d['all']['interp']]} grid {d['all']['grid']}")
+    print(f"expected-state check {run_id}: {status} {json.dumps(detail)[:1500]}")
+    if status in ("DIFFERS", "NO EXPECTED STATES", "REFUSED"):
+        sys.exit(3)
 
 
 def rc2_gain(f, r=4.7e3, c=10e-9):
@@ -1331,11 +1652,27 @@ def stage_summary():
             runs[(fin, var)] = json.loads(p.read_text())
     sweeps = {(fin, var): json.loads((RESULTS / f"{DATE}-{REV}-{fin}-{var}" / "result.json").read_text())
               for fin in ("a4", "a5") for var in ("sweep0", "sweep1")}
+    sens = {fin: json.loads((RESULTS / f"{DATE}-{REV}-{fin}-sens" / "result.json").read_text())
+            for fin in ("a4", "a5")}
     outdir = RESULTS / f"{DATE}-{REV}-summary"
     outdir.mkdir(exist_ok=True)
     # worst case over steps, packs and corners, per setting
-    fig, axes = plt.subplots(2, 3, figsize=(17, 9.5))
-    groups = [(k, s_) for k, s_ in runs.items()]
+    fig, axes = plt.subplots(2, 3, figsize=(19, 10))
+
+    # revision 2: the rev. 1 design runs are split by corner family, so the element-1 panels show the first
+    # element of an over (nominal and stored-trim corners) apart from the power-on case without a stored trim
+    # (compensated corners)
+    def _family(fin, st):
+        bt = budget_totals(fin)["compensated"]["wc"]
+        return "compensated" if any(abs(st["vsh"] - round(b, 3)) < 1e-9 for b in bt) else "stored"
+    groups = []
+    for (fin, var), s_ in runs.items():
+        if var == "fix":
+            for fam, lab in (("stored", "rev. 1 design:\nnominal and\nstored trim"),
+                             ("compensated", "rev. 1 design:\ncompensated\n(no stored trim)")):
+                groups.append(((fin, var, lab), dict(s_, steps=[st for st in s_["steps"] if _family(fin, st) == fam])))
+        else:
+            groups.append(((fin, var, "as written\n(TS-012 rev. 4)" if var == "asis" else VAR[var]["short"]), s_))
     metrics = (("t1090_err_pct", 100 * REQ["t1090_rel_tol"], "% of setting",
                 "10-90 % time error, elements 3 to 8, worst |value| (REQ-TX-005 10 %)", (0, 60), True),
                ("first_err_pct", 100 * REQ["t1090_rel_tol"], "% of setting",
@@ -1358,12 +1695,12 @@ def stage_summary():
     setcols = {3.0: "tab:blue", 5.0: "tab:orange", 8.0: "tab:purple"}
     worst = {}
     for ax, (key, lim, yl, t, ylim, absval) in zip(axes.flat, metrics):
-        for gi, ((fin, var), s_) in enumerate(groups):
+        for gi, ((fin, var, glab), s_) in enumerate(groups):
             for si, tset in enumerate(SETTINGS_MS):
                 vals = [val_of(st, key) for st in s_["steps"] if st["tset_ms"] == tset]
                 vals = [abs(v) if absval else v for v in vals if not math.isnan(v)]
                 val = max(vals)
-                worst[f"{fin}-{var}-{key}-{tset:g}ms"] = val
+                worst[f"{fin}-{var}-{glab.replace(chr(10), ' ')}-{key}-{tset:g}ms"] = val
                 x = gi * 4 + si
                 ok = val <= lim
                 ax.bar(x, val - ylim[0], bottom=ylim[0], color=setcols[tset], edgecolor="k" if ok else "r",
@@ -1372,66 +1709,107 @@ def stage_summary():
                         fontsize=6, color="k" if ok else "r")
         ax.axhline(lim, color="r", lw=1.2)
         ax.set_xticks([gi * 4 + 1 for gi in range(len(groups))])
-        ax.set_xticklabels([f"{fin.upper()}\n{VAR[var]['short']}" for (fin, var), _ in groups], fontsize=8)
+        ax.set_xticklabels([f"{fin.upper()}\n{glab}" for (fin, var, glab), _ in groups], fontsize=6.5)
         ax.set_ylim(*ylim)
         ax.set_ylabel(yl, fontsize=8)
         ax.set_title(t, fontsize=8.5)
         ax.grid(True, axis="y", lw=0.3)
     axes[0, 0].legend(fontsize=8, loc="upper right")
-    fig.suptitle("TS-012 keying analysis, revision 1: worst case per setting over power steps, packs and the record "
-                 "corners (as written: 5 W only, no corners; rev. 1 design: compensated-budget corners). Red outline = "
-                 "fails", fontsize=10)
+    fig.suptitle("TS-012 keying analysis, revision 2: worst case per setting over power steps, packs and the record "
+                 "corners (as written: 5 W only, no corners; rev. 1 design: compensated and stored-trim budget "
+                 "corners with the offset). Red outline = fails", fontsize=10)
     fig.tight_layout()
     fig.savefig(outdir / "summary.png", dpi=110)
     plt.close(fig)
 
-    # threshold windows against the budgets
-    fig, ax = plt.subplots(figsize=(13, 6.5))
-    y = 0
-    labels = []
+    # threshold windows against the budgets (revision 2: element 1 from the 0.02 V sensitivity runs, every case)
+    win_cases = ["nominal", "offset +/-1 mV", "pack 6.4 V", "pack 8.4 V", "slope 65 dB/V", "slope 150 dB/V"]
+    fig, ax = plt.subplots(figsize=(13, 9))
+    y, yt, yl = 0, [], []
     for fin in ("a4", "a5"):
         bt = budget_totals(fin)
         for case, col in (("calibrated", "tab:purple"), ("compensated", "tab:green"), ("stored", "tab:cyan")):
             lo, hi = bt[case]["wc"]
             rlo, rhi = bt[case]["rss"]
-            ax.plot([lo, hi], [y, y], color=col, lw=6, alpha=0.5, solid_capstyle="butt")
+            ax.plot([lo, hi], [y, y], color=col, lw=7, alpha=0.5, solid_capstyle="butt")
             ax.plot([rlo, rhi], [y, y], color=col, lw=2)
-            labels.append(f"{fin.upper()} budget, {case}: worst-case sum (thick), RSS (thin)")
+            ax.text(hi + 0.005, y, f"{lo:+.3f} / {hi:+.3f} (RSS {rlo:+.3f} / {rhi:+.3f})", fontsize=6, va="center")
+            yt.append(y)
+            yl.append(f"{fin.upper()} budget, {case}: worst-case sum (thick), RSS (thin)")
+            y += 1
+        for lab in win_cases:
+            lo, hi = sens[fin]["sens_windows_v"][lab]["all"]["interp"]
+            ax.plot([lo, hi], [y, y], color=SENS_COLORS.get(lab, "tab:red"), lw=2.5)
+            ax.plot([lo, hi], [y, y], "|", color="k", ms=10)
+            ax.text(hi + 0.005, y, f"{lo:+.3f} / {hi:+.3f}", fontsize=6, va="center")
+            yt.append(y)
+            yl.append(f"{fin.upper()} window, rev. 1 design, element 1, worst step: {lab}")
             y += 1
         for var, which, lab in (("sweep0", "steady", "rev. 0 design, every element"),
-                                ("sweep1", "first", "rev. 1 design, element 1"),
                                 ("sweep1", "steady", "rev. 1 design, elements 3 to 8")):
             w = sweeps[(fin, var)]["window_interp_v"][which]
-            for st, d in w.items():
-                lo, hi = d["all"]
-                full = (lo <= min(VSH_SWEEP) + 1e-9 and hi >= max(VSH_SWEEP) - 1e-9)
-                ax.plot([lo, hi], [y, y], color="k" if not full else "0.4", lw=2, ls="-" if not full else ":")
-                ax.plot([lo, hi], [y, y], "|", color="k", ms=10)
-                labels.append(f"{fin.upper()} window {lab}, {st}" + (" (whole sweep)" if full else ""))
-                y += 1
-        y += 0.5
-        labels.append("")
-    yt = []
-    yy = 0
-    for lab in labels:
-        if lab:
-            yt.append(yy)
-            yy += 1
-        else:
-            yy += 0.5
+            lo = max(d["all"][0] for d in w.values())
+            hi = min(d["all"][1] for d in w.values())
+            full = (lo <= min(VSH_SWEEP) + 1e-9 and hi >= max(VSH_SWEEP) - 1e-9)
+            ax.plot([lo, hi], [y, y], color="0.4" if full else "k", lw=2, ls=":" if full else "-")
+            ax.plot([lo, hi], [y, y], "|", color="k", ms=10)
+            yt.append(y)
+            yl.append(f"{fin.upper()} window {lab}, worst step" + (" (whole sweep)" if full else ""))
+            y += 1
+        y += 0.7
     ax.set_yticks(yt)
-    ax.set_yticklabels([l for l in labels if l], fontsize=6.5)
+    ax.set_yticklabels(yl, fontsize=6.5)
     ax.invert_yaxis()
     ax.axvline(0, color="0.5", lw=0.6)
-    ax.set_xlim(-0.35, 0.35)
+    ax.set_xlim(-0.35, 0.45)
     ax.set_xlabel("VSH, PA curve shift against the feedforward table (V); a budget passes where it lies inside "
                   "the window of the same finalist")
     ax.grid(True, axis="x", lw=0.3)
-    ax.set_title("Threshold windows (7.4 V pack, all three settings; interpolated edges) against the threshold "
-                 "budgets of record section 3.2", fontsize=10)
+    ax.set_title("Threshold windows (worst over steps and settings; element 1 from the 0.02 V sensitivity runs, "
+                 "interpolated edges)\nagainst the threshold budgets of record section 3.2 (revision 2)", fontsize=9.5)
     fig.tight_layout()
     fig.savefig(outdir / "windows.png", dpi=110)
     plt.close(fig)
+
+    # margins of every element-1 window case against every budget (revision 2, finding-13); > 0 inside
+    margins = {}
+    for fin in ("a4", "a5"):
+        bt = budget_totals(fin)
+        sw = sens[fin]["sens_windows_v"]
+        margins[fin] = {}
+        for lab in win_cases:
+            wlo, whi = sw[lab]["all"]["interp"]
+            glo, ghi = sw[lab]["all"]["grid"]
+            margins[fin][lab] = {"window_interp": [wlo, whi], "window_grid": [glo, ghi]}
+            for case in ("compensated", "stored"):
+                for kind in ("wc", "rss"):
+                    blo, bhi = bt[case][kind]
+                    margins[fin][lab][f"{case}_{kind}"] = dict(
+                        lo=blo - wlo, hi=whi - bhi, min=min(blo - wlo, whi - bhi),
+                        min_grid=min(blo - glo, ghi - bhi), verdict="PASS" if min(blo - wlo, whi - bhi) >= 0 else "FAIL")
+        # sub-threshold slope at which the stored-trim worst-case margin reaches zero (linear between cases)
+        pts = [(65.0, margins[fin]["slope 65 dB/V"]["stored_wc"]["min"]),
+               (100.0, margins[fin]["nominal"]["stored_wc"]["min"]),
+               (150.0, margins[fin]["slope 150 dB/V"]["stored_wc"]["min"])]
+        zero = None
+        for (s0, m0), (s1, m1) in zip(pts[:-1], pts[1:]):
+            if (m0 >= 0) != (m1 >= 0):
+                zero = s0 + m0 * (s1 - s0) / (m0 - m1)
+        margins[fin]["stored_wc_margin_vs_slope"] = dict(points=pts, zero_crossing_db_per_v=zero)
+    summ_margins = margins
+    # element 1 in the 'fix' record runs, per corner (every pack, step and setting)
+    fix_el1 = {}
+    for fin in ("a4", "a5"):
+        s_ = runs[(fin, "fix")]
+        d = {}
+        for c in s_["corners"]:
+            rr = [st for st in s_["steps"] if abs(st["vsh"] - c["vsh"]) < 1e-9 and abs(st["vos"] - c["vos"]) < 1e-12]
+            bad = [st["run"] for st in rr if not (st["pass"]["first_t1090_req_tx005"] and
+                                                   st["pass"]["first_t1090_tc_sys013"] and st["pass"]["first_shape"])]
+            d[corner_label(c["vsh"], c["vos"])] = dict(runs=len(rr), failing=len(bad), failing_runs=bad,
+                                                       worst_err_pct=max(abs(st["first_err_pct"]) for st in rr),
+                                                       worst_shape_pct=100 * max(st["first_shape_err"] for st in rr))
+        fix_el1[fin] = d
     summ = {f"{fin}-{var}": dict(failing_criteria={k: len(v) for k, v in s["failing_runs"].items() if v},
                                  steps=len(s["steps"]),
                                  bw26_hz_max=max(st["bw26_hz"] for st in s["steps"]),
@@ -1444,12 +1822,18 @@ def stage_summary():
                                  first_shape_err_max=max(st.get("first_shape_err", 0) for st in s["steps"]))
             for (fin, var), s in runs.items()}
     summ["worst_per_setting"] = worst
+    summ["element1_window_margins_v"] = summ_margins
+    summ["fix_element1_by_corner"] = fix_el1
+    summ["expected_state_checks"] = {f"{fin}-{var}": json.loads((RESULTS / f"{DATE}-{REV}-{fin}-{var}" /
+                                                                 "result.json").read_text())
+                                     .get("expected_state_check", {}).get("status")
+                                     for fin in ("a4", "a5") for var in ("asis", "sweep0", "fix", "sweep1", "sens")}
     summ["windows_interp_v"] = {f"{fin}-{var}": sweeps[(fin, var)]["window_interp_v"] for (fin, var) in sweeps}
     summ["threshold_budget_totals_v"] = {fin: budget_totals(fin) for fin in ("a4", "a5")}
     rip = pwm_ripple()
     summ["pwm_ripple"] = rip
     summ["loop_margin_mitigated"] = loop_margin()
-    fig, ax = plt.subplots(figsize=(9, 4.8))
+    fig, ax = plt.subplots(figsize=(10, 5.4))
     labs, vals, cols = [], [], []
     for r in rip:
         for path, key in (("feedforward", "ff_sideband_dbc"), ("reference", "ref_sideband_dbc")):
@@ -1458,6 +1842,10 @@ def stage_summary():
             cols.append("tab:green" if r[key] <= REQ["side_db"] else "tab:red")
     x = np.arange(len(labs))
     ax.bar(x, np.array(vals) + 120, bottom=-120, color=cols)
+    for xi, v in zip(x, vals):
+        m_ = REQ["side_db"] - v
+        ax.text(xi, v + 1.5, f"{v:.1f}\n" + (f"margin {m_:.1f} dB" if m_ >= 0 else f"over by {-m_:.1f} dB"),
+                ha="center", fontsize=6)
     ax.axhline(REQ["side_db"], color="k", lw=1.2, label="REQ-TX-006: -60 dB beyond 750 Hz")
     ax.set_xticks(x)
     ax.set_xticklabels(labs, rotation=90, fontsize=7)
@@ -1465,22 +1853,38 @@ def stage_summary():
     ax.set_ylim(-120, 0)
     ax.grid(True, axis="y", lw=0.3)
     ax.legend(fontsize=8)
-    ax.set_title("Mitigated loop: PWM carrier sidebands at duty 0.5 (analytic; green pass, red fail)", fontsize=9)
+    sl = {r["finalist"]: r["pa_slope_v_per_v"] for r in rip}
+    ax.set_title("Mitigated loop: PWM carrier sidebands at duty 0.5 (analytic; green pass, red fail; value and "
+                 "margin to -60 dB on each bar)\nsteepest PA slope at the highest drain voltage: A5 "
+                 f"{sl['a5']:.1f} V/V, A4 {sl['a4']:.1f} V/V (ratio {sl['a5'] / sl['a4']:.1f})", fontsize=9)
     fig.tight_layout()
     fig.savefig(outdir / "pwm_ripple.png", dpi=120)
     plt.close(fig)
+    # design-rule checks of this stage (revision 2, finding-11): the feedforward PWM at 122 kHz passes REQ-TX-006
+    # for both finalists, the loop phase margin is at least 45 degrees everywhere, and every deck run's FAIL
+    # states are as expected
+    rules = dict(
+        pwm_122k_feedforward_passes=all(r["ff_sideband_dbc"] <= REQ["side_db"] for r in rip if r["bits"] == 10),
+        phase_margin_ge_45=all(m["phase_margin_deg"] >= 45.0 for m in summ["loop_margin_mitigated"]),
+        every_run_as_expected=all(v == "AS EXPECTED" for v in summ["expected_state_checks"].values()),
+    )
+    summ["design_rule_checks"] = rules
     (outdir / "summary.json").write_text(json.dumps(summ, indent=1))
     shutil.copy(Path(__file__), outdir / Path(__file__).name)
-    print(json.dumps(summ, indent=1))
+    print(json.dumps({k: summ[k] for k in ("pwm_ripple", "element1_window_margins_v", "fix_element1_by_corner",
+                                           "expected_state_checks", "design_rule_checks")}, indent=1))
+    if not all(rules.values()):
+        print("summary: a design-rule check fails", file=sys.stderr)
+        sys.exit(3)
 
 
 if __name__ == "__main__":
     if sys.argv[1] == "detchar":
         stage_detchar()
     elif sys.argv[1] == "deck":
-        stage_deck(sys.argv[2], sys.argv[3])
+        stage_deck(sys.argv[2], sys.argv[3], accept="--accept" in sys.argv[4:])
     elif sys.argv[1] == "replot":
-        stage_deck(sys.argv[2], sys.argv[3], rerun=False)
+        stage_deck(sys.argv[2], sys.argv[3], rerun=False, accept="--accept" in sys.argv[4:])
     elif sys.argv[1] == "summary":
         stage_summary()
     else:

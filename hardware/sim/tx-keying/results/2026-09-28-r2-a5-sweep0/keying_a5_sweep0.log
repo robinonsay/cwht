@@ -1,0 +1,249 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.bcb1K5/keying_a5_sweep0.cir
+Start Time: Mon Sep 28 21:17:19 2026
+Options:reltol=1e-4
+
+.step run=1
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+reltol = 0.0001
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=2
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=3
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=4
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=5
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=6
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=7
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=8
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=9
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=10
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=11
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=12
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=13
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=14
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=15
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=16
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=17
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=18
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=19
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=20
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=21
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=22
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=23
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=24
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=25
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=26
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=27
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=28
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=29
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=30
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=31
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=32
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=33
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=34
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=35
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=36
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=37
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=38
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=39
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=40
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=41
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=42
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=43
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=44
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=45
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=46
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=47
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=48
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=49
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=50
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=51
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=52
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=53
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=54
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=55
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=56
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=57
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=58
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=59
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=60
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=61
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=62
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=63
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=64
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=65
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=66
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=67
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=68
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=69
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=70
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=71
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=72
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=73
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=74
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=75
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=76
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=77
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=78
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 17.237 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.bcb1K5/keying_a5_sweep0.cir
+
