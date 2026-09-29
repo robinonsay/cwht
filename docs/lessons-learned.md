@@ -33,6 +33,7 @@ Entries 1 to 10 are the ten entries SRR package section 19 proposed as `LL-propo
 | 15 | 2026-09-27 | reviews | SRR | Check every case a standard names. Reviews that sampled cases missed items (for example the SWE-134 a to l rows, App. G sub-items, the 06 section 14.4 sensitivity pair). | PDR plan section 1.4 L5; SRR records INSP-009 and INSP-017 (03 transcription findings), INSP-027 (TS-002 findings) | Every reviewer brief lists, as acceptance criteria, each case the governing clause enumerates. | PDR plan rule C7 | Applied in the PDR plan |
 | 16 | 2026-09-27 | requirements | SRR | Generate lists from the files, never copy them from a memo. The SRR memo's L-1 list names 101 L1 TBRs; the requirement file holds 109. | PDR plan section 1.4 L6; `docs/reviews/SRR/decision-memo.md` section 6 (101 listed) against `docs/requirements/sys/requirements.json` (109 `tbr` objects with `close_by: PDR`, counted again for the first CSA, `docs/process/configuration-status.md` item 13) | WP-PDR-45 generates the open-TBR table from the requirement files; WP-PDR-48 regenerates every package count from tools. | WP-PDR-45, WP-PDR-48 | Planned |
 | 17 | 2026-09-27 | cm | SRR | One writer per file per wave. Concurrent edits to shared JSON caused rework at SRR. | PDR plan section 1.4 L7; charter rule "never commit another agent's hunk" (cited in CR-006 section 5) | Each shared file has one writer per wave, and other WPs send change requests to the current writer. | PDR plan section 5.3 file-ownership table | Applied in the PDR plan |
+| 18 | 2026-09-29 | risk | PDR | Parts lifecycle is a mandatory screen for a study that selects parts. TS-012 did not weight lifecycle status as a criterion (it folded sourcing into M2, C5 and RSK-038), so its matrix could not show that the recommended A4 rests on an End-of-Life PA, the NXP AFT05MS004NT1. Lifecycle became the decisive condition only through the owner's words ("I'm leaning towards A5 if it doesn't use outdated components"), and only then was every part of a finalist screened: A5 read 39 of 39 Active, and the owner chose A5 ("A5"), not the recommendation. | TS-012 section 10 (revision 7 at `6497900`; "Lead SE reading" items 1 to 3 and "Lessons learned"); `docs/research/a5-parts-lifecycle-2026-09-29.md` (`f193784`, 39 of 39 Active); `docs/plan/status/status-2026-09-29.md` section 4 (`f35eb78`) and section 5 (`13176ee`), owner statements verbatim; INSP-110 iteration 1 (the AFT05 End-of-Life finding) | A design-to-cost or other study that selects parts screens the lifecycle status of every candidate part (Active at the maker, with its source and read date) as a mandatory criterion, or asks the owner at the study's opening whether it is one; the screen is recorded before the recommendation goes to the owner. | Next trade study that selects parts (for example the WP-PDR-27 TS-004 and TS-011 re-scores, if they select parts); the 06 section 14 trade-study rules at their next revision | Planned |
 
 ## 3. Index by area
 
@@ -42,7 +43,7 @@ Entries 1 to 10 are the ten entries SRR package section 19 proposed as `LL-propo
 | planning | 2 |
 | requirements | 16 |
 | reviews | 5, 8, 9, 10, 11, 12, 13, 15 |
-| risk | 1 |
+| risk | 1, 18 |
 | safety | 3 |
 | software | none yet |
 | tools | 6, 7 |
