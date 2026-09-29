@@ -231,7 +231,7 @@ CK-ANA-B2 (no vendor model), CK-ANA-E5, CK-ANA-E6 (no TBR or TPM value proposed)
 ## Cross items for the lead SE
 
 - **X-1 (checklist field).** As INSP-056 X-1: the field names `peer-review-checklist-design` revision B, and `checklist_analysis` records the template applied. It is switched at the delta iteration after CR-012 merges.
-- **X-2 (owner visibility).** The owner approves what he can see. The plots show the residual lines over both limits at the high estimate. The note's word PASS does not match those plots (finding-1), and the owner should not read the per-finalist verdict as "the spur plan is closed". The discrimination statement (A4 and A5 within 1 dB; no reason to change the TS-012 ranking) is supported by the re-run and is unaffected by the findings: finding-2 and finding-5 apply to both finalists alike.
+- **X-2 (owner visibility).** The owner approves what they can see. The plots show the residual lines over both limits at the high estimate. The note's word PASS does not match those plots (finding-1), and the owner should not read the per-finalist verdict as "the spur plan is closed". The discrimination statement (A4 and A5 within 1 dB; no reason to change the TS-012 ranking) is supported by the re-run and is unaffected by the findings: finding-2 and finding-5 apply to both finalists alike.
 - **X-3 (tinySA).** The note rests the residual lines on the tinySA sweep before first on-air use. The status note of 2026-09-28 records that the owner buys the tinySA later. That is consistent with the note (bench check before on-air use), but the parts order will be placed before the 150 MHz line can be measured.
 - **X-4 (id).** INSP-113 was the next free id at filing; a parallel reviewer filing at the same time must take another.
 

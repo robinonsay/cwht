@@ -347,7 +347,7 @@ V1 to V6 for Class II-only rows (rationale, note, `source_ids`, `tbr` text) re-c
 | REQ-SYS-190 | rationale | none | Pass | Ready: customer, user (SRR decision 41) | Pass | Pass | Pass | Pass | none | Pass |
 | REQ-SYS-194 | added | none | Pass | Ready: customer, guest operator (as REQ-SYS-083) | Pass | Pass | Pass | Pass | none | Pass |
 
-V2 confirmation: no statement's stakeholder trace changed; the groups and counts of INSP-003's V2 block stand, and Robin's confirmation of the fourteen amended statements and REQ-SYS-194 is his disposition of CR-008 (section 12 questions 2 to 4, OD-37).
+V2 confirmation: no statement's stakeholder trace changed; the groups and counts of INSP-003's V2 block stand, and Robin's confirmation of the fourteen amended statements and REQ-SYS-194 is the owner's disposition of CR-008 (section 12 questions 2 to 4, OD-37).
 
 | Stakeholder group (`name` and `role`) | `represented_by` | Requirements whose V2 cell names the group (count), and those marked `Fail` (ids) | Robin's confirmation |
 |---|---|---|---|
