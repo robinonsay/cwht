@@ -1,0 +1,31 @@
+* WP-PDR-23a s1: relay coil drive, DC operating points (sequencer-timing.md section 3.2)
+* Two low-side drivers on the same supply V1, each with its own coil (resistance only at DC) and 1N4148
+* freewheel diode: A = 2N3904 (TS-012 BOM row 12, LTspice standard.bjt model), base from a 3.3 V GPIO
+* (40 ohm pad resistance, estimate) through 220 ohm; B = AO3400A (BOM row 22; VDMOS fit to the datasheet
+* RDS(on), class E), gate at 3.3 V. Coil resistance stepped over both coils and their corners; driver
+* temperature stepped 25 and 70 C. Revision 1 adds branch E (option E, limiter-fed coil).
+.param Rc=50
+V1 vs 0 5
+VG g0 0 3.3
+RP g0 g 40
+RcA vs ca {Rc}
+DfA ca vs 1N4148
+QA ca bA 0 2N3904
+RbA g bA 220
+RcB vs cb {Rc}
+DfB cb vs 1N4148
+MB cb g 0 AO3400A
+* revision 1, option E: coil-supply limiter (behavioural: set point 6.3 V, dropout 0.2 V),
+* then the coil and an AO3400A on a static gate
+BL lim 0 V=min(6.3, V(vs)-0.2)
+RcE lim ce {Rc}
+DfE ce lim 1N4148
+ME ce g 0 AO3400A
+.model AO3400A VDMOS(Vto=1.0 Kp=40 Rd=8m Rs=8m Rg=2 Cgs=550p Cgdmax=150p Cgdmin=40p Cjo=120p Is=1p Rb=10m mfg=fit_E Vds=30 Ron=36m)
+.model 1N4148 D(Is=2.52n Rs=.568 N=1.752 Cjo=4p M=.4 tt=20n Iave=200m Vpk=75 mfg=OnSemi type=silicon)
+.model 2N3904 NPN(IS=1E-14 VAF=100 Bf=300 IKF=0.4 XTB=1.5 BR=4 CJC=4E-12 CJE=8E-12 RB=20 RC=0.1 RE=0.1 TR=250E-9 TF=350E-12 ITF=1 VTF=2 XTF=3 Vceo=40 Icrating=200m mfg=NXP)
+.dc V1 4.5 8.6 0.01
+.step param Rc list 39.164 45.000 50.000 55.000 55.965 60.620 66.240 68.401 130.573 150.030 166.700 183.370 186.586 202.107 220.843 228.050
+.step temp list 25 70
+.save I(RcA) I(RcB) I(RcE) V(ca) V(cb) V(ce) V(lim) V(vs) Ib(QA)
+.end

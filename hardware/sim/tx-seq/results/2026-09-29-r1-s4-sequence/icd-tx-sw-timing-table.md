@@ -1,0 +1,45 @@
+# ICD-TX-SW sequencer timing table (WP-PDR-23a, run 2026-09-29-r1-s4-sequence)
+
+Times in ms after the reference event. '-' = not applicable.
+
+| id | phase | event | signal | owner | reference | t_min_ms | t_nom_ms | t_max_ms | serves | basis | verification |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| KD-01 | key-down, first element of an over | straight-key contact first make | KEY tip at the jack | operator | - | 0 | 0 | 0 | REQ-SYS-160 reference | R | TC-SYS-102 |
+| KD-02 | key-down, first element of an over | key-down asserted (2 closed samples); SW-TXSEQ writes the T/R drive = t0 | TR_DRV | SW-KEYER, SW-TXSEQ | KD-01 | 1.000 | 2.000 | 3.000 | REQ-SW-KEYER-018, 020; REQ-SYS-160 | R (bounce 0; add the key's bounce) | TC-SW-KEYER-018 (HostUnit); TC-SYS-102 |
+| KD-03 | key-down, first element of an over | keyer test point edge, same TIMER0 service, after the T/R write | KEYER_TP | SW-KEYER | t0 | 0.000 | 0.010 | 0.020 | REQ-SYS-161 reference | A | Emulation event order; TC-SYS-102 |
+| KD-04 | key-down, first element of an over | T/R drive on: TR_DRV high, a static level (no PWM); coil fed from the switched pack rail through the coil-supply limiter (option E) | TR_DRV (GPIO level) | SW-TXSEQ | t0 | 0 | 0 | 0 | D-5; HZ-004 K12 and the PA-path gate watch TR_DRV | A | Bench logic capture |
+| KD-05 | key-down, first element of an over | prescaler supply on (transmit-only, firmware switched) | PRESC_EN | SW-TXSEQ | t0 | 0 | 0 | 0.020 | D-17, D-18 | A | Emulation event order |
+| KD-06 | key-down, first element of an over | I2C C6 writes, MSNA first: PLL A retune, CLK1 on, CLK0 and CLK2 off, PLL B parked (400 kHz) | I2C0 SDA/SCL | SW-SYNTH | t0 | 0.650 | 0.650 | 0.650 | TS-012 7.3 C6 | DD (frequency-budget.md RL-2) | Bench logic capture |
+| KD-07 | key-down, first element of an over | FC0 start, lock-gated: first LOL_A = 0 read (allocation t0 + 1.0), no later than the latest start | - | SW-SYNTH | t0 | 0.650 | 1.000 | 1.903 | REQ-SYS-182 | A (WP-PDR-20a measurement M-1 confirms relock) | WP-PDR-20a M-1; HostUnit |
+| KD-08 | key-down, first element of an over | FC0 interval 12 on GPIN0 (/8 prescaler) ends | GPIN0 | SW-SAFE (frequency verification unit) | t0 | 4.746 | 5.097 | 6.000 | REQ-SYS-182, 154 | D (4.096 ms bound) | HostUnit injected counts; dev-board known-clock check |
+| KD-09 | key-down, first element of an over | lock-status read, count compared, PA-permit decision | - | SW-SYNTH, SW-SAFE | t0 | 4.746 | 7.097 | 8.000 | REQ-SYS-182; 07 14.2 row h | A (2 ms) | HostUnit; Emulation |
+| KD-10 | key-down, first element of an over | 'T/R in TX and settled' prerequisite true (time-based) | - | SW-TXSEQ | t0 | 7.500 | 7.500 | 7.500 | 07 14.2 row h | A (7 + 0.5 ms) | HostUnit |
+| KD-11 | key-down, first element of an over | PA_EN high (safe-state manager only), at both prerequisites, never after TX_KEY | PA_EN | SW-SAFE | t0 | 7.500 | 7.500 | 8.000 | REQ-SYS-120; D-18 | A | Emulation event order; Bench logic capture |
+| KD-12 | key-down, first element of an over | T/R contacts made and bounce ended (option E, worst-case unit, H1 slope band 0.48 to 0.535 %/K) | relay pole A and B | G5V-2-H1 | t0 | 3.826 | - | 8.388 | cold switching (07 14.2 row b) | E model (s3), option E | Bench BM-2: operate and bounce at 6.15 V, coil at 85 C |
+| KD-13 | key-down, first element of an over | TX_KEY high: D-18 gate permits, VGG clamp off, GVA-84+ supply on | TX_KEY | SW-TXSEQ (keyer line) | t0 | 8.000 | 8.000 | 8.000 | D-18; keying-ts012.md | A (2 ms before the ramp) | Bench logic capture |
+| KD-14 | key-down, first element of an over | driver supply and bias settled | GVA-84+ VCC | hardware (D-18) | TX_KEY | 0.001 | - | 1.000 | keying loop start state | A (1 ms); pa-permit-gate-d18.md rev 0: powered within 1.2 us | WP-PDR-22 LTspice; Bench |
+| KD-15 | key-down, first element of an over | reference clamp released, raised-cosine ramp starts (integrator parked at 0 V until here) | ENV_REF (PWM) | SW-TXSEQ (envelope shaper) | t0 | 10.000 | 10.000 | 10.043 | REQ-SYS-160, 161; TS-012 7.3 | A (lead-in 10 ms) | TC-SYS-102 |
+| KD-16 | key-down, first element of an over | mid-ramp detector plausibility check | ADC (detector) | SW-TXSEQ, SW-SAFE | ramp start | 1.500 | 2.500 | 4.000 | REQ-SYS-156 | A (half the ramp setting) | HostUnit; WP-PDR-22 |
+| KD-17 | key-down, first element of an over | no pull-in or hold phase: TR_DRV stays high until KU-06 (revision 0: hold PWM at t0 + 25 ms, withdrawn) | TR_DRV (GPIO level) | SW-TXSEQ | t0 | - | - | - | D-5; REQ-SYS-180 (K12 sees one level) | A | Bench logic capture: TR_DRV has 2 edges per over |
+| EL-01 | each element of the over | keyer element start | KEYER_TP | SW-KEYER | - | 0 | 0 | 0 | REQ-SYS-161 reference | R | TC-SYS-102 |
+| EL-02 | each element of the over | TX_KEY high | TX_KEY | SW-TXSEQ | EL-01 | 8.000 | 8.000 | 8.000 | D-18 | A | Bench logic capture |
+| EL-03 | each element of the over | ramp start | ENV_REF | SW-TXSEQ | EL-01 | 10.000 | 10.000 | 10.043 | REQ-SYS-161 (equal lead-in) | A | TC-SYS-102 |
+| EL-04 | each element of the over | keyer element end; ramp fall starts at +L | ENV_REF | SW-TXSEQ | keyer element end | 10.000 | 10.000 | 10.043 | REQ-SYS-014 | A | TC-SYS-013 |
+| EL-05 | each element of the over | TX_KEY low after the fall | TX_KEY | SW-TXSEQ | fall end | 1.000 | 1.000 | 1.000 | REQ-TX-014; REQ-SYS-183 | A | Bench logic capture |
+| EL-06 | each element of the over | TX_KEY merge rule: stays high when the next rise is due before this fall | TX_KEY | SW-TXSEQ | - | - | - | - | no TX_KEY gap shorter than 0 ms | A | HostUnit |
+| KU-01 | end of the over | last keyer key-up; hang timer starts | KEYER_TP | SW-KEYER | - | 0 | 0 | 0 | REQ-SYS-044 | R | TC-SYS-030 |
+| KU-02 | end of the over | last TX_KEY low | TX_KEY | SW-TXSEQ | KU-01 | 14.000 | 16.000 | 19.043 | cold switching | A | Bench logic capture |
+| KU-03 | end of the over | hang expiry t_h (3 to 30 dits at the displayed speed) | - | SW-KEYER | KU-01 | 72 | - | 7200 | REQ-SYS-044, REQ-SW-KEYER-032 | R | TC-SYS-030 |
+| KU-04 | end of the over | PA_EN low (envelope idle and TX_KEY low checked first) | PA_EN | SW-SAFE | t_h | 0 | 0.010 | 0.020 | 07 14.2 row b | A | Emulation event order |
+| KU-05 | end of the over | CLK1 disabled (I2C), prescaler supply off | I2C0, PRESC_EN | SW-SYNTH, SW-TXSEQ | t_h | 0.020 | 0.100 | 0.300 | REQ-SYS-183 | A | Bench logic capture |
+| KU-06 | end of the over | T/R drive off: TR_DRV low (freewheel through the diode) | TR_DRV | SW-TXSEQ | t_h | 0.300 | 0.300 | 0.500 | 07 14.2 row b order | A | Emulation event order |
+| KU-07 | end of the over | NC contacts made, bounce ended: receive path restored (option E, worst of -10, 23, 85 C) | relay poles A and B | G5V-2-H1 | t_h | - | 11.590 | 25.859 | REQ-SYS-036 (30 ms share) | E model (s3) | Bench BM-3: pole B continuity capture, room and cold-day; TC-SYS-024 |
+| KU-08 | end of the over | receive sensitivity within 3 dB of MDS | - | receiver (WP-PDR-19) | t_h | - | - | 50.000 | REQ-SYS-036 | R | TC-SYS-024 |
+| FP-01 | fault path | inhibit, flag or latched fault detected; safe_state(): PA_EN low first | PA_EN | SW-SAFE | detection | 0 | - | 1.000 | REQ-SYS-004, 130 | A | HostUnit fault injection; Emulation |
+| FP-02 | fault path | D-18 gate clamps VGG, GVA-84+ unpowered: RF at the RF-off level | hardware (D-18) | hardware | PA_EN low | 0 | - | 0.100 | REQ-SYS-004, 183 | E | Bench |
+| FP-03 | fault path | T/R to receive after PA_EN low (cold) | TR_DRV | SW-SAFE | PA_EN low | 0 | - | 0.050 | 07 14.2 row c order | A | Emulation event order |
+| FB-13 | fallback (not adopted) | FC0 interval 13 at the changeover: check done | - | SW-SAFE | t0 | 11.193 | 11.193 | 11.193 | frequency-budget.md C-16a fallback | D, A | see criterion K9 |
+| SR-01 | stale ratio at key-down (R-FRESH-2, outcome b) | receive resumes after an over longer than A_kd (10 s); ratio refresh starts (R-FRESH-1) = t_r | - | SW-SAFE | t_h | 0 | 0.300 | 0.500 | frequency-budget.md R-FRESH-1 | A | HostUnit |
+| SR-02 | stale ratio at key-down (R-FRESH-2, outcome b) | keyer elements that start before the refresh ends: sidetone only, no T/R write, no PA_EN | KEYER_TP, sidetone | SW-KEYER, SW-TXSEQ, SW-SAFE | t_r | 0 | - | 82.800 | R-FRESH-2; REQ-SYS-120, 182; REQ-SYS-160 not met for these closures (K20-c) | DD, A | HostUnit: ratio age 10.1 s, key-down at t_r + 1 ms |
+| SR-03 | stale ratio at key-down (R-FRESH-2, outcome b) | ratio refresh complete | - | SW-SAFE | t_r | 82.800 | 82.800 | 82.800 | frequency-budget.md B-19 | DD | HostUnit |
+| SR-04 | stale ratio at key-down (R-FRESH-2, outcome b) | first keyer element start at or after SR-03: the changeover (t0) with rows KD-02 to KD-17 | TR_DRV | SW-TXSEQ | SR-03 | 0 | - | 480.000 | REQ-SYS-161 (every radiated element keeps L) | A | HostUnit; Emulation event order |
