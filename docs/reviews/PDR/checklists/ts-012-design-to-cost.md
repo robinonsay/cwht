@@ -13,53 +13,65 @@ checklist: peer-review-checklist-risk
 checklist_revision: A
 checklist_file: docs/reviews/PDR/checklists/ts-012-design-to-cost.md
 product: docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md
-# product_commit (iteration 3): d5a3058, the TS-012 revision 3 commit. The blob below equals git rev-parse
-# d5a3058:<path>, HEAD:<path> and git hash-object <path> at HEAD d5a3058 on 2026-09-27; it is on main.
-# Iteration 2 reviewed eca24fa, blob 7432bba4 (product_files_iteration_2); product_files_iteration_1 keeps
-# the 5c16930 blob reviewed at iteration 1.
-product_commit: "d5a3058bbe42a28d5b6fad43aa331fa83cdbd93a"
-product_blob: b1f03fad90ad0f7e4a118624792838d495501e56
-product_files: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@b1f03fad90ad0f7e4a118624792838d495501e56"]
+# product_commit (iteration 3 re-issue 1, the owner-authorized fourth iteration, 2026-09-28): 37d5824, the TS-012
+# revision 5 commit. The blob below equals git rev-parse 37d5824:<path>, HEAD:<path> and git hash-object <path> at
+# HEAD 37d5824 on 2026-09-28; it is on main. The same delta read revision 4 (7d0d450, blob fa41032e,
+# product_files_revision_4), whose liens answers revision 5 carries. Iteration 3 reviewed d5a3058, blob b1f03fad
+# (product_files_iteration_3); iteration 2 reviewed eca24fa, blob 7432bba4 (product_files_iteration_2);
+# product_files_iteration_1 keeps the 5c16930 blob reviewed at iteration 1.
+product_commit: "37d5824e30348728142f74dbb7ddf45939c2b60b"
+product_blob: 731ba0ebe494c1d970b3b1ba0cac4304ebbab412
+product_files: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@731ba0ebe494c1d970b3b1ba0cac4304ebbab412"]
+product_files_revision_4: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@fa41032e38fd93cd2eecf84efe74dc74a4103972"]
+product_files_iteration_3: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@b1f03fad90ad0f7e4a118624792838d495501e56"]
 product_files_iteration_2: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@7432bba479c2a4264b317e35b0c7ac48b85370ad"]
 product_files_iteration_1: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@5da2c7c58c8ea759d7bcaa92e2efcb49f16de1bd"]
-# product_size (iteration 2); iteration 1 was "5 alternatives (A0 dropped at M1; A1 to A4 scored; 5 pruned), 5 mandatory
+# product_size (iteration 3 re-issue 1: revision 5); iteration 2 was the same without row E5, section 8.14 and tables
+# R5-1 to R5-4; iteration 1 was "5 alternatives (A0 dropped at M1; A1 to A4 scored; 5 pruned), 5 mandatory
 # and 8 enhancing criteria; BOM of 33 Mouser rows, 5 other-seller rows, 5 shipping and duty lines; about 80 requirement deltas"
-product_size: "6 alternatives (A0 dropped at M1, A1 at M4; A2 to A5 ranked; 7 pruned), 5 mandatory and 8 enhancing criteria; A5 BOM of 31 Mouser rows, 4 estimated rows, 4 other-seller rows, 7 shipping, duty and tariff lines; A4 roll-up; 4 upgrades with risk per dollar; about 90 requirement deltas"
+product_size: "6 alternatives (A0 dropped at M1, A1 at M4; A2 to A5 ranked; 7 pruned), 5 mandatory and 8 enhancing criteria; A5 BOM of 31 Mouser rows, 4 estimated rows, 4 other-seller rows, 7 shipping, duty and tariff lines; A4 roll-up; 4 upgrades with risk per dollar; about 90 requirement deltas; revision 5 adds estimated row E5, 16 design items (8.14), results of 6 analysis records (tables R5-1 to R5-4) and a revision 5 risk table of 19 rows (14 carried, 8 of them re-scored, and 5 new)"
 sprint: PDR-prep
 author_agent: "author:TS-012 (Claude as trade-study author, invocation of 2026-09-27)"
-reviewer_agent: "reviewer:TS-012-iter1 (independent; authored no part of TS-012, its architecture reports or its judge reports); iteration 2 by reviewer:TS-012-iter2 (independent; authored no part of TS-012 revision 1 or 2); iteration 3 by reviewer:TS-012-iter3 (independent; authored no part of TS-012 revision 1, 2 or 3)"
+reviewer_agent: "reviewer:TS-012-iter1 (independent; authored no part of TS-012, its architecture reports or its judge reports); iteration 2 by reviewer:TS-012-iter2 (independent; authored no part of TS-012 revision 1 or 2); iteration 3 by reviewer:TS-012-iter3 (independent; authored no part of TS-012 revision 1, 2 or 3); iteration 3 re-issue 1 (the owner-authorized fourth iteration) by reviewer:TS-012-iter4 (independent; authored no part of TS-012 revisions 1 to 5, of the six analysis records it cites or of their review records)"
 # criticality: the study decides the hardware controls of REQ-SYS-055, 120, 180, 181, 182 and 092 and the
 # Morse menu override command path (safety-critical by SRR decision 9; 07 section 14.1)
 criticality: safety-critical
 assurance_required: true
 assurance_reviewer_agent: "pending (separate invocation; paired record docs/reviews/PDR/checklists/ts-012-design-to-cost-software-assurance.md)"
+# iteration: 3 is the record schema maximum. The owner authorized a fourth iteration (status note 2026-09-28 section 1
+# item 3); it is recorded as "Iteration 3 re-issue 1" (precedent INSP-009, INSP-038, INSP-075), and the body calls it
+# the fourth iteration
 iteration: 3
-# readiness_met: false at iterations 1 to 3 on R1 only (validate_docs.py exits 1: 10 records unrelated to TS-012 at
-# iterations 1 and 2, 8 at iteration 3; this record passes). R3 and R4 hold on revision 3 (iteration 3 readiness table)
+# readiness_met: false at every iteration on R1 only (validate_docs.py exits 1: 10 records unrelated to TS-012 at
+# iterations 1 and 2, 8 at iteration 3 and at re-issue 1; this record passes). R3 and R4 hold on revision 5
 readiness_met: false
-# reviewer_verdict (iteration 3): APPROVED. finding-1 to finding-3 (Major) stay Verified; finding-11, 12, 13, 15 and 16
-# Verified on revision 3; finding-14 fixed in part (LM2940 output tolerance, SNVS769J) and new Minor findings 17 and 18
-# are Open, liens due at the CDR readiness declaration (PDR work plan rule C1). Iteration 2 was APPROVED with
-# finding-11 to 16 open; iteration 1 was NEEDS CHANGES
+# reviewer_verdict (iteration 3 re-issue 1, revisions 4 and 5): APPROVED. finding-1 to finding-3 (Major) stay Verified;
+# finding-14, 17 and 18 Verified (fixed in revision 4, held in revision 5); new Minor findings 19 to 23 are Open, liens
+# (PDR work plan rule C1), with finding-19 and finding-20 recommended for the owner-facing Q1 text before B1a.
+# Iteration 3 was APPROVED with finding-14, 17, 18 open; iteration 2 APPROVED with finding-11 to 16 open; iteration 1
+# NEEDS CHANGES
 reviewer_verdict: APPROVED
 assurance_verdict: pending
 # verdict: held at NEEDS CHANGES until the software assurance pair (ts-012-design-to-cost-software-assurance.md, still not
-# filed at iteration 3; cross items X-2, X-5, X-9) returns APPROVED and readiness R1 holds (07 section 2.1.1; rule C9)
+# filed at iteration 3 re-issue 1; cross items X-2, X-5, X-9, X-12) returns APPROVED and readiness R1 holds (07 section 2.1.1; rule C9)
 verdict: NEEDS CHANGES
 findings_major: 3
-# findings (iteration 3): 3 Major and 15 Minor raised in all; open: finding-14, 17, 18; verified: finding-1 to 13, 15, 16
-findings_minor: 15
-findings_open: 3
+# findings (iteration 3 re-issue 1): 3 Major and 20 Minor raised in all; open: finding-19 to 23; verified: finding-1 to 18
+findings_minor: 20
+findings_open: 5
 findings_fixed: 0
-findings_verified: 15
+findings_verified: 18
 findings_deferred: 0
 deferred_rids: []
-# items_no: iteration 1 was [CK-RSK-B5, CK-RSK-B7, CK-RSK-B8]; at iterations 2 and 3 every B item is Yes (B5 and B8 with liens)
+# items_no: iteration 1 was [CK-RSK-B5, CK-RSK-B7, CK-RSK-B8]; at iterations 2, 3 and 3 re-issue 1 every B item is Yes
+# (with liens: B5 and B8 at iterations 2 and 3; B5, B7, B8 and B9 at re-issue 1)
 items_no: []
-# effort: iteration 1 45 turns, 75 minutes; iteration 2 40 turns, 70 minutes; iteration 3 35 turns, 60 minutes
-effort_turns: 120
-effort_minutes: 205
+# effort: iteration 1 45 turns, 75 minutes; iteration 2 40 turns, 70 minutes; iteration 3 35 turns, 60 minutes;
+# iteration 3 re-issue 1 45 turns, 85 minutes
+effort_turns: 165
+effort_minutes: 290
 record_status: Open
+# date: the record's opening date; re-issue 1 is dated 2026-09-28 in its section heading
 date: 2026-09-27
 date_closed: null
 ---
@@ -689,4 +701,242 @@ FINDINGS:
 - [Minor] CK-RSK-B5, B10 sections 1, 2, 6, 8.9, Q2, Q4: status note sections 11 and 13 answers not applied (finding-18, lien).
 ITEMS N/A: CK-RSK-A1 to CK-RSK-A11 (product is a trade study)
 MEASUREMENTS: size=6 alternatives, 13 criteria, 18 spot checks; turns=35; minutes=60; major=0 new; minor=2 new; verified=15; open=3
+```
+
+## Iteration 3 re-issue 1: the owner-authorized fourth iteration, delta on TS-012 revisions 4 and 5 (2026-09-28, HEAD `37d5824`)
+
+**Authority and scope (rule C1, rule C2).** Iteration 3 was the last iteration before escalation (X-9). The owner authorized a fourth iteration: status note `docs/plan/status/status-2026-09-28.md` section 1, item 3 ("Authorize the fourth INSP-110 iteration on TS-012 revision 4"), read by the lead SE as approved ("good to continue"). In the same answer the owner approved item 2, the discriminating analyses before the A4 and A5 choice. Revision 5 folds those analyses in, and it was committed before this iteration ran. This pass therefore reviews revision 4 (the liens and the adversarial answers) and revision 5 (the analysis results, the re-scoring, the ranking and the recommendation) in one delta, as the brief directs. The front matter keeps `iteration: 3`, the record schema maximum (precedent INSP-009, INSP-038 and INSP-075). The body calls this pass the fourth iteration. The lead SE should record in the status note that the item-3 authorization covers revision 5 (cross item X-14). Findings 1 to 13, 15 and 16 stay Verified and are not re-opened. New findings are raised only where revision 4 or 5 introduced the defect.
+
+**Products.** Revision 4: blob `fa41032e` at `7d0d450` (the commit changes only the TS file). Revision 5: blob `731ba0eb` at `37d5824`, Status Proposed, 1133 lines. `git rev-parse 37d5824:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` all give `731ba0eb`. HEAD is `37d5824` on `main`, and `git show --stat 37d5824` lists only the TS file. The cited analysis records and their review records were read at HEAD (table "Review verdicts cited" below). Checklist as before: `peer-review-checklist-risk.md` revision A, section B.
+
+**Independence (rule C4).** This invocation authored no part of TS-012 revisions 1 to 5. It did not author the six analysis records or their runs, their review records (INSP-112 to INSP-116), or iterations 1 to 3 of this record. It edited no product file and changed only this record.
+
+**Search first (charter section 11 rule 1; rule C3).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` was queried twice: "PDR work plan rule C1 review iterations verdict escalation to owner" and "TS-012 thermal analysis A5 junction band 113.6 wholly over 110 C INSP-112 reviewer verdict". After that, `grep` only pinned lines in known paths. **Deviation, recorded:** one `grep -n '^#'` heading listing of two known files (this record and TS-012) ran after the tool was loaded but before its first query. The rule requires the query first. No result of this review depends on that listing. The deviation is noted for the lessons-learned log (cross item X-15).
+
+**Owner direction applied.** Status note 2026-09-27 sections 10, 11 and 13 as before. Status note 2026-09-28 sections 1 and 2:
+- item 2 (the analyses) approved;
+- the tinySA Ultra is not yet bought and the owner will buy it later;
+- the multimeter is a Fluke 174 without a temperature input, so a stand-alone K-type thermometer is added inside the USD 300 equipment cap;
+- the resistor tolerance is not answered, and the 1 % parts are priced in the E2 allowance.
+
+Revision 5 records all four in sections 1, 2, 8.9 EX-13 and 8.14 D-16.
+
+### Verification of the iteration-3 liens and the revision-4 adversarial answers
+
+| Item | Required | Revision 4 text (held in revision 5) | Result |
+|---|---|---|---|
+| finding-14 | Size the VGG divider on 5.25 V and the resistor tolerance, or use an independent reference; carry the lower clamp into the REQ-SYS-012 check; LDO and resistor tolerance in the WP-PDR-22 deck | 0.654 divider from two 1 % E24 values (2.7 k over 5.1 k); ratio 0.6493 to 0.6584; VGG 3.08 to 3.46 V; WP-PDR-22 criteria name the LDO range, dropout, the resistor tolerance, the op-amp headroom and the module's VGG current; the 3.08 V low end is in the REQ-SYS-012 check | **Verified.** Reviewer: 5.1 / 7.8 = 0.6538. At 1 %, 5.151 / 7.824 = 0.6584 and 5.049 / 7.776 = 0.6493. 5.25 x 0.6584 = 3.457 V; 4.75 x 0.6493 = 3.084 V. The PA drive analysis revision 2 runs at this clamp range (its section 3 table). Revision 5 adds the pack-dependent clamp as design item D-9 for the open-loop case |
+| finding-17 | Count the A5 envelope-loop row in U1, or add an A4 counterpart | Revision 4 counts it in U1 (-6). Revision 5 adds the A4 counterpart from the keying analysis (6) and raises the A5 row to 9, so U1 takes -3 | **Verified.** Revision 4: U1 8 + 4 + 6 - 5 - 9 - 6 = -2; total 6 points, 47.07 / 6 = 7.85. Revision 5: see the risk arithmetic below |
+| finding-18 | Apply status note sections 11 and 13; close Q2 and Q4; state the LTspice accreditation | Q2 and Q4 closed as answered; EX-4 and EX-13 rewritten; ACC-LTSPICE-001 stated in sections 2, 3.4 and 6 item 8 | **Verified.** Q4's recommendation still names "a thermocouple (USD 9.95)" where revision 5 moved to a K-type thermometer (EX-13, D-16). That is stale wording only (O-15) |
+| R-3 (48 MHz in transmit) | Withdraw; list the transmit clocks | Withdrawn with the RP2350 clk_adc reason. The 125 MHz clk_sys, the 25 MHz reference harmonics and the /8 products are named, and a WP-PDR-20 transmit clock-plan item is added | **Verified.** Revision 5 reports the item run (`spurs-ts012.md`, INSP-113 reviewer APPROVED) and adopts clk_sys 96 MHz (D-12) |
+| R-4 (junction "bound") | Restate as an estimate | 87 to 119 C estimate; C8-A5 3 to 2 on the stated section 3.1 range rule; A4 340, A5 335 presented together | **Verified.** Reviewer re-computation of the revision 4 table: 8.54 x 2.9 = 24.8 K, so 69.8 / 86.7 / 76.5 C; 9.95 x 3.8 = 37.8 K, so 82.8 / 103.1 / 89.6 C; 9.95 x 5.4 = 53.7 K, so 98.7 / 119.0 / 105.5 C; 10.95 x 5.4 = 59.1 K, so 104.1 / 126.8 / 110.9 C. Stage-2 rise is 2.4 K/W on (P - 1.5 W) and stage-1 rise 4.5 x 1.5 = 6.75 K. Superseded in revision 5 by WP-PDR-28 |
+| X-10 | Confirm the adversarial list | Revision 4 and revision 5 (X-R5-1) both report a truncated brief | Carried to the lead SE (X-10 stands) |
+
+### Revision 5: score changes checked against the evidence and the anchors
+
+| Cell | Revision 4 to 5 | Evidence read by the reviewer | Result |
+|---|---|---|---|
+| C1-A5 | 4 to 3 | 247.80 interpolates to 5 - 2 x 47.80 / 50 = 3.09 | Reproduced |
+| C2-A2, C2-A4 | 4 to 3 | 253.90: 3 + 2 x 6.10 / 40 = 3.31; 263.69: 3 - 2 x 3.69 / 40 = 2.82 | Reproduced |
+| C5-A5 | 5 to 4 | PA drive revision 2 section 5: A5 "FAIL as designed"; 195 corners under 10 mW and 28 over 30 mW of 810 (195 + 28 = 223); nominal 4.09 W and lowest corner 3.19 W at 6.4 V and 25 C key-down; datasheet-minimum module 2.99 W. LPF revision 2: 5 W at 8.4 V is a back-off state on the -17 dBc convention. Keying revision 2: A5's first element fails the worst-case sum by 0.045 V (17 of 72) | Reproduced. The anchor judgement (between 3 and 5) is supported: A5 loses "power held", the stability-condition claim and the guarantee at the binding case, and keeps the catalog LPF, the TCXO, the validated mixer, the DPDT relay and the monitor port. Rests on two records not yet re-reviewed (X-13) |
+| C5-A3 | 5 to 4 | Same module; A3 was not analysed | Accepted as a disclosed inference. The drive-window part depends on A5's pad and coax, which A3 may not share. The low-pack power part applies |
+| C5-A4 | 2, confirmed | Nominal 3.06 W and lowest corner 1.69 W at 6.4 V (-3.71 dB); every lever still 2.5 dB short; no harmonic data; JFET half-IF representative (8 of 16 cases unconverged) | Supported. A4 already carried "power short" at revision 4, so no anchor attribute changes. Its -1 move is in section 6 |
+| C6-A4, C6-A5 | 3 to 1, 2 to 1 | Thermal section 6: the wrap guard adds about +14 mm length, +4 mm width and +10 mm height at the sink end for both. Reviewer volume from the study's method: A4 44 x 74 x 52 + 117 x 70 x 42 = 513,292 mm3, +30.9 %; A5 44 x 74 x 52 + 123 x 70 x 42 = 530,932 mm3, +35.4 %; both over the 20 % anchor | Reproduced. A4 moves 18.6 mm (142 + 6.6 + 12), not 14 mm, because revision 4's A4 had no end guard; C6 is 1 either way |
+| C8-A5 | 2 to 1 | `bands.csv` / `verdict_set.csv` V01 A5-DC: 125.9480 - 12.3628 = 113.59 C and + 19.9691 = 145.92 C, wholly over 110 C. A4-DC: 122.6192 - 14.7445 = 107.87 C and + 20.2877 = 142.91 C, which spans 110 C | Arithmetic reproduced. The study is right that the thermal record's sentence "its band spans 110 C, as A4's does" does not match the record's own V01 A5-DC numbers. The rule's basis changed, however (O-11) |
+| C8-A3 | 2 to 1 | A5 as revision 4 drew it: 142.1 - 18.6 = 123.5 C, wholly over; A3's sink is wholly inside the case | Accepted as a disclosed inference |
+| C8-A2 | 3 to 2 | A2 not analysed; Tj about 92 C (architect, unbounded) read as a range spanning 110 C by parity with the finalists' model results | Accepted as a disclosed inference. It decides the A4 and A2 order (finding-19), and the "20 to 40 K" figure is loose for A4 (O-12) |
+| C3, C4, C7 | unchanged | D-10's 74LVC1G66-class switch in SC-74A and the 2N7002 in SOT-23 are not flagged; the third BPF section is common; the select-on-test pad is a tuning step (note only); both finalists add deltas of the same anchor class | Supported |
+
+**M1 and M4 (section 4.1).** M1: A5 at 314.78 is "conditional", with guards G1 and G2 taken to 298.10. A3 at 308.16 (LCSC merged) is "fail on estimated lines", with no guard (finding-21). M4: both finalists pass. The A5 open-loop note (the 10 W rating may be exceeded from 8.1 V at a -10 C start, PA drive section 5 (g)) is carried as D-9. D-11 changes the implementation of the REQ-SYS-120 second condition without saying so (finding-23).
+
+### Roll-up re-add (revision 5)
+
+| Quantity | TS-012 | Reviewer | Result |
+|---|---|---|---|
+| E5 components (a) to (f), low / high | 5.19 / 17.63 | 1.00 + 0.20 + 1.00 + 0.40 + 0 + 2.59 + 0 = 5.19; 4.50 + 1.35 + 4.00 + 1.00 + 0.58 + 3.40 + 2.80 = 17.63 | Reproduced ((b) 0.10 + 0.10 = 0.20 low and 0.30 + 0.30 + 0.44 + 0.31 = 1.35 high; (f) 1.90 + 3 x 0.23 = 2.59 and 1.90 + 3 x 0.50 = 3.40) |
+| E5 planning, needed items (a) to (e) | 11.41; 2.60 to 11.43 | 11.41; 2.60 to 11.43 | Reproduced |
+| E5 capped | 5.96 / 13.12 / 20.27 | 5.9685 / 13.1215 / 20.2745 | Reproduced (truncated) |
+| A5 subtotal | 183.36 / 215.48 / 273.73 | 134.19 + 6.58 + 5.19 + 32.00 + 1.40 + 4.00 = 183.36; 134.19 + 13.83 + 11.41 + 45.50 + 2.55 + 8.00 = 215.48; 134.19 + 21.08 + 17.63 + 59.00 + 26.83 + 15.00 = 273.73 | Reproduced |
+| A5 capped | 210.86 / 247.80 / 314.78 | 210.864 / 247.802 / 314.7895 | Reproduced |
+| A5 after G1, G2 | 305.58; 298.10 | 314.7895 - 9.20 = 305.5895; - 7.475 = 298.1145 | 305.58 reproduced; 298.10 is the difference of truncated steps; exact 298.11 (O-16) |
+| A5 needed-only E5 | 242.74 planning; 307.65 worst | 211.085 x 1.15 = 242.748; 267.53 x 1.15 = 307.660 | Reproduced |
+| A4 subtotal and capped | 145.93 / 174.55 / 229.30; 167.81 / 200.73 / 263.69 | 140.74 + 5.19; 163.14 + 11.41; 211.67 + 17.63; x 1.15 = 167.8195 / 200.7325 / 263.695 | Reproduced |
+| A4 needed-only E5 | 195.67; 256.56 | 170.155 x 1.15 = 195.678; 223.10 x 1.15 = 256.565 | Reproduced |
+| A4 with U3; with U2 and U3 | 203.33 / 266.29; matrix 300 | 200.73 + 2.60; 263.69 + 2.60. With U2 as well: 207.48 (C1 4.70, 5) and 270.44 (C2 2.48, 2), C3 3, C5 3: 315 - 30 + 20 - 5 = 300 | Reproduced |
+| A2, A3 re-rolls | 193.16 / 253.90; 252.68 / 308.16 / 331.16 | 180.04 + 13.12; 233.63 + 20.27; 239.56 + 13.12; 287.89 + 20.27; 310.89 + 20.27 | Reproduced |
+| A5 minus A4, planning | 47.07 | 247.80 - 200.73 | Reproduced |
+| Mouser merchandise with E5 | about 96.08 to 123.02 | 90.89 + 5.19; 105.39 + 17.63 | Reproduced |
+
+### Analysis results cited against their records (read at HEAD `37d5824`)
+
+| # | TS-012 figure (section) | Record and location | Result |
+|---|---|---|---|
+| A1 | A4 122.7 C (+20.3 / -14.7 K), A5 126.0 C (+20.0 / -12.4 K); 131.0 and 142.1 C as revision 4 drew them (1, 4.2, R5-2 row 1) | `thermal-ts012.md` section 4.1 table; `bands.csv` | Matches |
+| A2 | V02 104.4 / 105.6 C OPEN; K7 107.1 / 106.5 C; case 105.7 C against 90 C | Section 5 verdict set V02, V03, V05 | Matches |
+| A3 | Inhibit on the PA case: A4 114.2 C nominal FAIL, about 77 C needed; A5 108.3 C and 111.3 C at +3 C, about 81 C needed; sink NTC A4 does not act, A5 at 5.7 min with 110.1 C | Section 4.1 inhibit table; section 6 | Matches (77.1 and 80.9 C) |
+| A4 | Surfaces 64.2 / 49.7 C as drawn, 32.3 / 29.5 C with the wrap guard; PETG 66.0 / 59.7 C; cells 58.9 / 55.2 C long session; bay air 67.1 / 61.0 C | V07, V08, V12, V17 | Matches |
+| A5 | "A5 two box failures outside their bands, A4 none"; "1.5 to 6.3 K cooler" | Section 5, band-sorted table and paragraph | Matches |
+| A6 | In-situ sink 5.6 to 7.9 K/W | Section 3 item 1 (A5 5.6 and 7.2, A4 6.5 and 7.9 K/W) | Matches |
+| A7 | A5 nominal 4.09 W, lowest corner 3.19 W; -0.17 to -1.21 dB with the feed and VGG levers; -1.13 to -2.51 dB at the LPF worst case; 2.99 W datasheet minimum | `pa-drive-ts012.md` section 4.4 table, section 5 (c), (d), (f) | Matches. The section 1 and C5-A5 wording "with every lever" departs from the record's own "every lever" (O-13) |
+| A8 | A4 nominal 3.06 W, lowest corner 1.69 W, 2.5 dB short with every lever; drive 45.8 to 180 mW; 3f -30.9 dBc | Section 4.3, 4.5, 5 | Matches |
+| A9 | Fixed pad 5.4 to 35.5 mW; select-on-test 11.3 to 26.5 mW, +0.54 dB at a +/-1.0 dB reading | Section 4.2 tables; section 5 (a) | Matches |
+| A10 | Open loop over 8 W from 7.7 V; 10.68 W at 8.4 V from -10 C | Section 5 (g) | Matches |
+| A11 | 97.307(e) A5 7.5 / 9.5 dB, A4 5.5 / 7.5 dB; A4 60 dBc -0.5 / +1.5 dB; loss 0.74 median, 1.76 worst | `lpf-ts012.md` section 5 and run r13 row | Matches. INSP-115 finding-10 (open lien) holds that the 1.76 dB bound mixes board states (board-consistent 1.34 to 1.62 dB), so the study's worst loss is conservative |
+| A12 | Image 51 dB (2 + 3); 70.2 dB by 0.2 dB (2 + 3 + 3); 80.1; 72.5 | `rx-bpf-ts012.md` sections 0 and 4 | Matches |
+| A13 | MDS A4 -141.5 / -138.7 dBm, A5 -141.2 / -138.0 dBm; half-IF 12 to 16 dB (8 of 16 unconverged) and 34 to 37 dB | Sections 4.5, 4.6 and 7 item 7 | Matches |
+| A14 | 3 lines over 25 uW in plan PB; 150.000 MHz at -12.1 dBm; A4 within 0.8 dB | `spurs-ts012.md` sections 1 and 4 | Matches |
+| A15 | A4 first-element margin 0.021 V (0.015 V with offset); A4 fails by 0.009 V without a stored trim; A5 fails by 0.045 V, 17 of 72; windows 1.6 to 1.8 x; A5 bandwidth 583 Hz | `keying-ts012.md` section 0, the 4.4.3 table, the section 4 comparison table | Matches; `windows.png` shows A4 -0.169 / +0.211 V against the stored budget -0.107 / +0.190 V and A5 -0.085 / +0.137 V against -0.110 / +0.182 V |
+| A16 | REQ-TX-014 A4 -23 to -19 dBm; A5 needs 43 dB | Sections 3 and 8 item 3 | Matches |
+
+Totals: 16 citation checks, 16 match. One is a wording departure (A7, O-13).
+
+### Review verdicts cited (table R5-1) against the review records
+
+| Record | TS-012 statement | Review record at HEAD | Result |
+|---|---|---|---|
+| Thermal (35fc7ee) | INSP-112 iteration 2 (`d1c403f`) reviewer APPROVED; 4 Major and 10 Minor Verified; finding-15 to 17 open | Front matter `iteration: 2`, `reviewer_verdict: APPROVED`, `findings_open: 3`, product commit `35fc7ee`; verdict block the same | Matches |
+| PA drive (5199c5c) | INSP-114 iteration 2 (`1b6c053`) NEEDS CHANGES, Major finding-9; revision 2 answers it; iteration 3 not run | `reviewer_verdict: NEEDS CHANGES`, product commit `9d01aaf` (revision 1); Major finding-9 Open | Matches |
+| LPF (92e3805) | INSP-115 iteration 2 (`c5ccea8`) APPROVED; Major 1 to 3 Verified; finding-6 to 11 open | `reviewer_verdict: APPROVED`, `findings_open: 6`, product commit `92e3805` | Matches |
+| Receiver BPF (a82f21b) | Iterations 1 and 2 relayed; no record on main; iteration 3 not run | No `analysis-rx-bpf-ts012.md` in `docs/reviews/PDR/checklists/` at HEAD | Matches; a process gap outside TS-012 (X-13) |
+| Spurs (5a36ecd) | INSP-113 iteration 2 (`4d02827`) APPROVED; Major 1 and 2 Verified | `reviewer_verdict: APPROVED`, product commit `5a36ecd`; Minor 3 to 12 open (the study does not list them; no effect) | Matches |
+| Keying (be86c02) | INSP-116 iteration 2 (`54c028d`) NEEDS CHANGES, Major finding-10; revision 2 answers it; iteration 3 not run | `reviewer_verdict: NEEDS CHANGES`, product commit `e9f1440` (revision 1); Major finding-10 Open | Matches |
+
+### Scoring and ranking arithmetic (revision 5)
+
+- **Matrix totals** (section 5), re-computed from the section 4.2 scores and the weights (sum 100): A1 295, A2 305, A3 285, A4 315, A5 270. Revision 4 re-computed first: A2 325, A3 320, A4 340, A5 335.
+- **Weight sensitivity** (16 runs, others rescaled to 100, A2 to A5):
+  - The revision 4 figures reproduce: A4 first in 9, A5 in 5, A2 in 2.
+  - Revision 5: A4 first in 12, A2 in 4. The four A2 runs are C3 -10 (A2 329.1, A3 295.0), C4 -10 (327.8 against A4 316.7), C5 +10 (316.9 against 300.6) and C6 +10 (315.6 against 291.1). A5 is first in none.
+  - Between the finalists, A4 leads in 16 of 16. The smallest lead is 14.4 (C5 +10: 300.6 against 286.2) and the largest 75.6 (C5 -10).
+  - At C3 -10, A4 is third (293.2), behind A3; the study names only the top two. That is correct but not complete.
+- **Low-cell moves between A4 and A5.** The moves are A4 C1, C2, C5, C8 down and A5 C1, C2, C5, C6, C8 up (A4 C6 is at the floor). None of 9 single moves and none of 36 pairs closes the 45-point gap. 46 of the 84 triples reach a tie or better. The examples in the study reproduce: A5 C1 + C2 + C5 gives a 315 tie; A5 C1 + C5 with A4 C5 gives 310 against 295.
+- **A2 single moves** reproduce: C8 +1 (320), C6 +1 (tie 315), A4 C1 -1, C5 -1 (305 against 295), A4 C8 -1 (305 against 300).
+- **Joint adverse cases** reproduce. Against A5: A4 365, A3 345, A2 335, A5 230. Against A4: A3 345, A5 340, A2 335, A4 255.
+- **Named readings (section 6 item 3)** reproduce:
+  - C8 at 2 for both: A5 285.
+  - A4's C6 back to 3: A4 335.
+  - U3: 315. U2 and U3: 300.
+  - Needed-only E5: no score change (C1-A5 3.3; C2-A4 3.2).
+- **Risk arithmetic (sections 7.1, 8.2).**
+  - Reds: A4 has eight (20, 16, 16, 15, 12, 12, 12, 10); A5 has eight (20, 16, 16, 15, 15, 12, 12, 12).
+  - U1 = 8 + 6 - 3 - 5 - 3 - 12 = -9; U2 +8; U3 0; U4 0; total -1. With A5's cost Red, -17.
+  - All reproduce.
+- **Robustness verdict.** "Robust between the finalists; not robust against A2" names the perturbations, but it is not the 06 section 14.4 verdict (finding-19).
+
+### Estimate against listed-price presentation (re-issue 1)
+
+Nothing estimated is shown as a listed price:
+- Row E5 is labelled "est." and E in section 8.3, in every roll-up line and in section 1.
+- Its parts not read on a page are marked "(E, not read)": the CLK1 coax and the 2 % grades.
+- Its per-part values reuse listed row prices (rows 5, 6, 7, 14 and 26) and the E2 per-value range. They are an estimate built from listed prices, and the study labels them that way.
+
+The Adafruit 1865 read (USD 2.50, out of stock, 2026-09-28) is not carried in any total. It was not re-read by this reviewer. The engineering figures of the analyses are labelled as estimates in section 1 ("every figure an estimate"), in 3.4, in 6 item 5 and in the R5-2 lead-in.
+
+### Findings (iteration 3 re-issue 1)
+
+| Finding | Severity | Item | Location | Description | State | Deferred to |
+|---|---|---|---|---|---|---|
+| finding-1 | Major | CK-RSK-B5, B8 | TS-012 sections 1, 4.1, 7.1, 7.2, 8.4 | Unchanged in revisions 4 and 5 | Verified (iteration 2; holds on revision 5 at 37d5824) | |
+| finding-2 | Major | CK-RSK-B5, B7 | TS-012 sections 2, 3.1 M1, 8.3 | Unchanged; sales tax line 0 | Verified (iteration 2; holds on revision 5) | |
+| finding-3 | Major | CK-RSK-B5, B8 | TS-012 sections 4.1 M4, 8.3 row 28 | Unchanged | Verified (iteration 2; holds on revision 5) | |
+| finding-4 to finding-13, finding-15, finding-16 | Minor | CK-RSK-B4 to B9 | See iterations 2 and 3 | Unchanged in revisions 4 and 5 | Verified (iterations 2 and 3) | |
+| finding-14 | Minor | CK-RSK-B5 | TS-012 sections 7.3, 8.1, 8.12 WP-PDR-22 | 0.654 divider of 1 % E24 values, VGG 3.08 to 3.46 V, tolerances in the WP-PDR-22 deck (revision 4) | Verified (iteration 3 re-issue 1, revision 5 at 37d5824) | |
+| finding-17 | Minor | CK-RSK-B8, B9 | TS-012 section 8.2 | A5 envelope-loop row counted in U1 (revision 4); A4 counterpart added from the keying analysis (revision 5) | Verified (iteration 3 re-issue 1) | |
+| finding-18 | Minor | CK-RSK-B5, B10 | TS-012 sections 1, 2, 6, 8.9, Q2, Q4 | Status note sections 11 and 13 applied (revision 4); status note 2026-09-28 applied (revision 5); Q4 wording residue is O-15 | Verified (iteration 3 re-issue 1) | |
+| <a id="finding-19"></a>finding-19 | Minor | CK-RSK-B7, B9 (06 sections 14.4 items 3 and 4, 14.5) | TS-012 sections 1 ("Robustness verdict: Robust between the finalists"), 5 rank row, 6 items 4 and 6, 8 "Why not A2", 8.13 Q1 ("The owner question stays between A4 and A5") | A2 (305) is 10 points behind A4 and passes every mandatory criterion. Four weight runs and five single Low-cell moves put A2 level with or ahead of A4 (reproduced), so under 06 section 14.4 item 3 the verdict is Not robust. Item 4 then requires either the analysis that would settle the Low cells (named, with cost and gate) or a recommendation of the closely ranked alternatives for the owner's choice. Section 14.5 requires alternatives less than 25 points apart to be presented together. The study adds a "finalist" category that 06 does not have. It gives A2 no value-of-information step and leaves A2 out of Q1. Also, A4 ranks over A2 only because of C8-A2 3 to 2, an evidence-parity inference applied in the matrix without analysing A2 (A2 C8 +1 gives A2 320 against A4 315). The parallel C6 inference, which would lower A2 further, is left to section 6 item 4. The facts are disclosed in sections 1, 6 and 8, and the A4-over-A5 basis is correct, so the owner is not misled on the A4 and A5 choice. But the presentation the process requires is missing, and A2 keeps USB in-radio charging (SI-022, CON-010), which both finalists give up (D2). **Fix:** state the 06 verdict as Not robust, naming the A2 perturbations. Name the value-of-information step for A2 (its C6 and C8 cells) with cost and gate. Either put A2 in Q1 as the closely ranked alternative, with the reasons the study does not recommend it (three flagged parts, a new-old-stock PA not available for export, an LCSC-only charger chain with HZ-002 in the box), or record the owner's concurrence that the choice set is A4 and A5. Apply the evidence-parity reading to A2's C6 and C8 alike in the matrix, or state why only C8 | Open | Lien (rule C1); recommended for the B1a presentation of Q1 (X-16) |
+| <a id="finding-20"></a>finding-20 | Minor | CK-RSK-B9 | TS-012 section 8 first bullet ("every discriminating result that moved a score moved it against A5"); 8.13 Q1 ("The analyses the owner approved moved every discriminating score against A5") | Not true as stated. C6 moved A4 by -20 and A5 by -10, and C2 moved A4 by -5 and A5 by 0, so those two changes narrowed A5's deficit by 15 points. The net statement holds (A5 -65, A4 -25), and so does the direction of each discriminating analysis (thermal heat, drive window, low-pack power, first element, cost). But Q1 is the sentence the owner decides on. **Fix:** state the net and name the common changes. For example: "net of the re-scoring A5 fell 65 points and A4 25; the common guard envelope removed A4's C6 advantage" | Open | Lien (rule C1); recommended for the B1a Q1 text (X-16) |
+| <a id="finding-21"></a>finding-21 | Minor | CK-RSK-B5, B6 | TS-012 section 4.1 mandatory table (A3 "fail on estimated lines", A5 "conditional"), section 5 rank row, section 6 item 6 | M1 is defined on the worst case before guards, and both A3 and A5 exceed USD 300 on estimated lines. The study reads them differently. A5, at 314.78 (the larger excess), is "conditional", with guards G1 and G2 taken to 298.10. A3, at 308.16 with LCSC merged, is "fail on estimated lines", with no guard applied. A3 shares A5's Mouser order and owner-hardware lines, so the same G1 and G2 give 308.16 - 9.20 - 7.48 = 291.48. Revision 4 read A3 as "conditional" at 287.89. Neither label changes the recommendation, since both are below A4. But the owner is shown A5 passing a mandatory criterion that the study fails A3 on. **Fix:** apply one reading to both, either "fail on estimated lines, scored for information" (section 3.1) or "conditional on the gate guards", and restate the A3 and A5 rows, the rank row and section 6 item 6 | Open | Lien (rule C1) |
+| <a id="finding-22"></a>finding-22 | Minor | CK-RSK-B8 (06 sections 4, 6, 7) | TS-012 section 7.1 revision 5 table, rows "A4 New: PETG, bay and surfaces (HZ-003)", "A4 New: REQ-TX-014", "A4 New: envelope loop, first element", "A5 New: REQ-TX-014" | Four new risk rows carry a short name, a score and evidence, but no four-part statement ("Given ..., there is a possibility that ..., adversely impacting ..., leading to ..."). Only the A5 drive-window row has one. These rows count in the section 7.1 aggregate ("eight Reds") and in the section 8.2 risk per dollar, and two of them are Red or HZ-linked. **Fix:** write the four-part statement, with its "would be entered as" target, for each new row | Open | Lien (rule C1); due before the risk writer enters them |
+| <a id="finding-23"></a>finding-23 | Minor | CK-RSK-B5, B8; M4 (REQ-SYS-120, HZ-004 K8) | TS-012 section 7.3 drive gating ("CLK1 enable is the second, independent condition of REQ-SYS-120"); section 8.14 D-11 ("GVA-84+ bias and CLK1 enable follow TX_KEY", adopted into the baseline of both finalists); 7.1 A4 REQ-TX-014 row (the step "retires it"); 8.13 follow-on decision 4 | D-11 makes CLK1 enable follow TX_KEY. Section 7.3 still names CLK1 enable as the second, independent condition of REQ-SYS-120 ("both a keyer key-down and a separately maintained PA permit", HZ-004 K8, "no single software fault initiates a transmission"). As written, the second condition would follow the first, and the study does not say what keeps the PA permit independent: for example, whether the gate is hardware on TX_KEY with the permit on a separate line, or whether it is a firmware write. REQ-TX-014 is tagged safety and HZ-004 (the transmitter half of REQ-SYS-120). The study proposes restating its condition by CR, but it has no safety note, and it counts the change as retiring A4's REQ-TX-014 Red at no cost. The ranking does not depend on it: the keying record's option (b), a series drive switch, is a small cost line. But M4 for both finalists rests on REQ-SYS-120 being implemented. **Fix:** state how D-11 keeps REQ-SYS-120's two conditions independent (which signal gates the drive, in hardware or firmware, and which line carries the PA permit). Route the REQ-TX-014 restatement to the HZ-004 analysis (WP-PDR-16, 17) and to the software assurance pair (X-12). If independence cannot be kept, carry option (b) as a cost line | Open | Lien (rule C1); due before the re-baseline CR carries the REQ-TX-014 restatement |
+
+No new finding is Major. On the severity rule the brief sets (Major if the owner would decide on a wrong basis), the owner's choice between A4 and A5 rests on a correct basis. Every analysis figure the study uses matches its record (16 of 16). The roll-ups, the matrix and the sensitivity reproduce. A4 stays first between the finalists under every single and paired Low-cell move, and under a reversal of either contested C8 reading (O-11). finding-19 and finding-20 concern how the choice is framed in Q1, and both are cheap to correct in the owner presentation. finding-21 concerns labels of alternatives below A4. finding-22 is format. finding-23 is a safety-traceability gap in a design item whose fallback costs little.
+
+### Observations (iteration 3 re-issue 1; not findings)
+
+- **O-11.** The section 3.1 range rule was written in revision 4 for scenario ranges (87 to 119 C, 100 to 135 C). Revision 5 applies it to the thermal record's one-at-a-time RSS bands. Both finalists are nominal FAILs in that record (V01), and the C8 split between them (A4 2, A5 1: 15 points) rests on A4's lower band edge sitting 2.1 K under 110 C and A5's 3.6 K over it. The record's revision 0 reported full-stack ranges (A5-DC 97 to 174 C, A4-DC 92 to 174 C) that both span 110 C. Every reading of the rule leaves A4 ahead by at least 30:
+  - both at 2: A4 315, A5 285;
+  - both at 1: A4 300, A5 270;
+  - A4 at 1 and A5 at 2 (both moves adverse to A4): A4 300, A5 285, a 15-point lead that 06 section 14.5 would present together.
+
+  The study states only the first. Worth one sentence in section 6 item 3.
+- **O-12.** Section 4.2 C8-A2 says the model "put both analysed PAs 20 to 40 K above their catalog-rating estimates (A4 100 to 135 C to 122.7 C ...)". 122.7 C lies inside A4's revision-4 range. It is 12 to 26 K above A4's revision-1 path values (97 to 111 C). For A5 the rise is 39 K on the catalog-rating case. A2's 92 C plus 12 to 40 K still spans 110 C, so C8-A2 = 2 holds, but the stated basis is loose.
+- **O-13.** Section 1 item 2 and the C5-A5 cell say "with every lever -0.17 to -1.21 dB". In the PA drive record, "every lever" (section 5 (e): feed 0.26 ohm, VGG 3.46 V and 0.5 dB output loss) reaches 3.97 W in all but the hottest cases. The TS figures are the C2 and C3 levers at the LPF median, as R5-2 row 5 correctly says. The conclusion ("not shown") holds, because no LPF build meets 0.5 dB.
+- **O-14.** Sections 8.5 and EX-11 still give A5 as 153 x 70 x 42 mm, a mass of 286 to 361 g and a sink of 30 to 60 g "not read". The thermal record read the sink at 57 g, and C6, 8.10 REQ-SYS-102 and 103 and Q6 carry 167 x 74 x 52 mm and 311 to 371 g. Section 8 says sections 8.1 to 8.12 are re-issued after the choice, which covers this. EX-11 is an owner exception, though, and should not be asked at the stale size. D-7's select-on-test pad needs a set of 14 E24 1 % pad values from "owned resistors". The owner has not answered on the tolerance (status note 2026-09-28 section 1), so for A5 the set may fall on the E2 allowance (A5 only; no ranking effect).
+- **O-15.** Q4's recommendation still reads "The tinySA Ultra (if not yet bought), a thermocouple (USD 9.95)". The tinySA is now known not to be bought, and the thermocouple became a K-type thermometer (EX-13, D-16). The cost basis (equipment cap) is unchanged.
+- **O-16.** 298.10 after G1 and G2 is the difference of truncated steps. The exact value is 298.1145 (298.11 truncated). Immaterial.
+
+### Readiness (iteration 3 re-issue 1)
+
+| # | Criterion | Result | Evidence |
+|---|---|---|---|
+| R1 | `validate_docs.py` exits 0 | **No** | Before this delta: `validate_docs: 107 passed, 8 failed, 115 checked`, exit 1. The 8 failures are other records: the CM plan SA, configuration status, lessons learned, SRR ADRs 001 to 025, process 02, TV-001 to 010, TS-001 and TS-002, and the TS-002 SA. None involves TS-012. This record passes (Commands) |
+| R2 | Section A | N/A | Trade study |
+| R3 | Sections 1 to 9 filled; section 10 empty | Yes | Section 10 decision fields empty; revisit conditions updated for revision 5 |
+| R4 | Decision need and gate | Yes | Header "Decide by": B1a 2026-09-29, no later than B1b 2026-10-01 |
+
+### B. Trade study items re-answered (iteration 3 re-issue 1)
+
+| Id | Answer | Evidence |
+|---|---|---|
+| CK-RSK-B1 to B4 | Yes | As at iteration 3; no alternative added or pruned; criteria and weights unchanged since revision 2 |
+| CK-RSK-B5 | Yes (liens) | 16 of 16 analysis citations match their records. The review verdicts are cited correctly (6 of 6). Three records are under re-review and disclosed as such (X-13). Liens: finding-21 (M1 reading), finding-23 (REQ-SYS-120 under D-11) |
+| CK-RSK-B6 | Yes | Totals, interpolations, C6 volumes, E5 and every roll-up reproduce |
+| CK-RSK-B7 | Yes (lien) | 16 weight runs, every single, paired and triple move, the joint cases and the named readings reproduce. The verdict wording and the value of information for A2 are finding-19 |
+| CK-RSK-B8 | Yes (liens) | Revision 5 lists 14 existing rows (8 re-scored) and adds 5, with the analysis that sets each. Four new rows lack the four-part statement (finding-22); D-11's safety link is finding-23 |
+| CK-RSK-B9 | Yes (liens) | A4 has the highest total among all scored alternatives (315) and is recommended; the A4-over-A5 case follows from the evidence. Liens: A2 presentation (finding-19), Q1 wording (finding-20) |
+| CK-RSK-B10 | Yes | Section 9 carries tables R5-1 and R5-4, the author's revision 5 dissent (the C8-A5 reading against the thermal record's) and the revision 4 dispositions; section 10 is empty |
+
+### Cross items (iteration 3 re-issue 1, returned to Claude)
+
+- **X-12.** The software assurance pair (X-2, X-5, X-9) is still not filed. `docs/reviews/PDR/checklists/` has no `ts-012-design-to-cost-software-assurance.md` at HEAD `37d5824`. The record verdict still waits for it. finding-23 (REQ-SYS-120 and the REQ-TX-014 restatement) is in its scope.
+- **X-13.** Three records that revision 5 scores on are under re-review. PA drive (INSP-114 iteration 3) and keying (INSP-116 iteration 3) feed C5-A5. The receiver BPF record feeds E5 (a) and the MDS rows, and its review has no record on main. The review of the receiver record should be filed as a record (charter section 5: the filled checklist is the single record). Section 10's revisit conditions name the risk. The most adverse pending pair for A4 is C5-A5 back to 5 and C8-A5 read as 2, which gives A4 315 and A5 305: 10 points apart, which 06 section 14.5 would present together.
+- **X-14.** The owner's item 3 authorized the fourth iteration "on TS-012 revision 4". This pass reviewed revisions 4 and 5 together. The lead SE should record that reading in the status note. Revision 6 (sections 8.1 to 8.12 re-issued for the chosen alternative, and any fix of finding-19 to 23) changes the blob and needs a further delta. Rule C1 escalates that to the owner again.
+- **X-15.** Search-order deviation of this invocation (one heading listing of two known files before the first `search_code` query; see "Search first" above), for the lessons-learned log, alongside the author deviation of X-10.
+- **X-16.** For the B1a presentation of Q1: present A2 as the closely ranked alternative, or ask the owner to confirm the A4 and A5 choice set (finding-19). Use the net wording of finding-20. Neither needs a TS revision before the owner is asked; both can be applied in revision 6.
+
+### Commands (iteration 3 re-issue 1)
+
+```
+git rev-parse HEAD                                                                    # 37d5824e30348728142f74dbb7ddf45939c2b60b
+git rev-parse 7d0d450:<TS-012 path> 37d5824:<TS-012 path> HEAD:<TS-012 path>         # fa41032e..., 731ba0eb..., 731ba0eb...
+git hash-object docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md       # 731ba0ebe494c1d970b3b1ba0cac4304ebbab412
+git show --stat 7d0d450; git show --stat 37d5824                                     # each changes only the TS file
+git log --oneline -- <review records of INSP-112 to INSP-116>                          # d1c403f, 1b6c053, c5ccea8, 4d02827, 54c028d
+/Users/robinonsay/rust/cwht/.venv/bin/python /Users/robinonsay/rust/cwht/tools/validate_docs.py   # before the delta: 107 passed, 8 failed, 115 checked (exit 1)
+  after the delta: see the record commit; this record PASS, the same 8 records fail
+python3 (scratchpad sens.py): matrix totals for revisions 4 and 5; 16 weight runs each; all 1-, 2- and 3-move combinations between A4 and A5;
+  A2 single moves; joint adverse cases; E5, A4, A5, A2, A3 roll-ups; interpolation; C6 volumes; risk points
+python3 re-reads of docs/design/analysis/{thermal,pa-drive,lpf,rx-bpf,spurs,keying}-ts012.md and bands.csv, verdict_set.csv (V01)
+docs/requirements/sys/requirements.json REQ-SYS-120; docs/requirements/tx/requirements.json REQ-TX-014 (tags safety, HZ-004)
+Plots opened and checked: thermal margins_vs_band.png; tx-pa r2-s1-summary pout_at_sma_vs_pack.png; tx-pa r1-d2 drive_a5_corners.png;
+  tx-keying r2-summary windows.png. Every plot path TS-012 names resolves to a file at HEAD (script check, relative names resolved by hand)
+```
+
+### Measurements (iteration 3 re-issue 1)
+
+size = 6 alternatives, 13 criteria, 10 re-scored cells, 16 analysis citations, 6 review verdicts, 19 risk rows; turns = 45; minutes = 85; major = 0 new (3 Verified); minor = 5 new (finding-19 to 23), 3 Verified this pass (finding-14, 17, 18).
+
+### Record verdict and verdict format (iteration 3 re-issue 1)
+
+`reviewer_verdict: APPROVED`. The three Major findings stay Verified, and no Major is open. finding-14, 17 and 18 are Verified on revision 5. The new Minor findings 19 to 23 are liens (rule C1), with the TS-012 author as owner. finding-19 and finding-20 are recommended for the owner-facing Q1 before B1a (X-16), and finding-23 is due before the re-baseline CR carries the REQ-TX-014 restatement.
+
+The record `verdict` stays NEEDS CHANGES, for two reasons:
+- the software assurance pair is still not filed (07 section 2.1.1; `assurance_verdict: pending`; X-12);
+- readiness R1 fails on records unrelated to TS-012.
+
+When the pair returns APPROVED and R1 holds, the lead SE sets `verdict: APPROVED`, provided `git rev-parse HEAD:<path>` still equals `731ba0eb`. A changed blob needs a further delta, which rule C1 escalates to the owner (X-14).
+
+```
+VERDICT: APPROVED (reviewer); record verdict held for the software assurance pair and readiness R1
+PRODUCT: docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@731ba0eb (revision 5, 37d5824), delta from @fa41032e (revision 4, 7d0d450)
+FINDINGS:
+- [Major] finding-1, finding-2, finding-3: Verified (hold on revision 5).
+- [Minor] finding-14, finding-17, finding-18: Verified (fixed in revision 4, held in revision 5).
+- [Minor] CK-RSK-B7, B9 sections 1, 6, 8, Q1: A2 is 10 points behind A4 and takes the top in 4 weight runs and 5 single moves; 06 14.4 and 14.5 need "Not robust" and A2 presented or analysed; A4 over A2 rests on the inferred C8-A2 change (finding-19).
+- [Minor] CK-RSK-B9 section 8, Q1: "every discriminating score moved against A5" is not true for C6 and C2; state the net (finding-20).
+- [Minor] CK-RSK-B5, B6 section 4.1: A5 (314.78) "conditional" with guards, A3 (308.16) "fail" without; one M1 reading for both (finding-21).
+- [Minor] CK-RSK-B8 section 7.1: four new risk rows lack the four-part statement (finding-22).
+- [Minor] CK-RSK-B5, B8, M4 sections 7.3, 8.14 D-11: drive gating on TX_KEY makes the REQ-SYS-120 second condition (CLK1 enable) follow the first; independence not stated; REQ-TX-014 (safety, HZ-004) restated without a safety note (finding-23).
+ITEMS N/A: CK-RSK-A1 to CK-RSK-A11 (product is a trade study)
+MEASUREMENTS: size=6 alternatives, 13 criteria, 16 citation checks, 6 verdict checks; turns=45; minutes=85; major=0 new; minor=5 new; verified=18; open=5
 ```
