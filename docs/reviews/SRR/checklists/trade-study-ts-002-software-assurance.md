@@ -18,14 +18,21 @@ product: docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md
 # Post-SRR-ruling delta (2026-09-26, package item R16): review baseline HEAD ff0a610 after delta verification of
 # 2362183 (TS-002 Status row, SRR decision 107) and of the charter edit 6ea6b1d (SRR decisions 7, 10 (a), 10 (b));
 # iteration 1 baseline adcfe09 with TS-002 blob 574cee3d. See "Post-SRR-ruling delta".
-product_commit: "ff0a6105eef743564af60acaae47d9ffdc7e4ded"
-product_blob: "6c385dfc77c61619d31756418c479c5beca7b527"
+# Delta iteration 2 (2026-09-29, lien L-6 verification; section "Delta iteration 2"): product_commit is the WP-PDR-14
+# errata commit 443b2a3, the only commit that touches TS-002 after 2362183; post-SRR-ruling value
+# "ff0a6105eef743564af60acaae47d9ffdc7e4ded"
+product_commit: "443b2a384e515de5257517ebce58c37bec23a4a3"
+# delta iteration 2: product_blob 6c385dfc (post-SRR-ruling delta) replaced by 6b18cee8
+product_blob: "6b18cee831a67dc9550e6082c595023d77bcd704"
 # post-SRR-ruling delta: TS-002 blob 574cee3d (iteration 1) replaced by 6c385dfc (2362183); equal to git rev-parse
 # HEAD:<path> and git hash-object at ff0a610
-product_files: ["docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@6c385dfc77c61619d31756418c479c5beca7b527"]
+# delta iteration 2: 6c385dfc replaced by 6b18cee8 (443b2a3); equal to git rev-parse HEAD:<path> and git hash-object
+# at main c9f611d
+product_files: ["docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@6b18cee831a67dc9550e6082c595023d77bcd704"]
 # inputs read (not reviewed), committed blobs at adcfe09
-input_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/process/00-charter.md@131608b78e178432e34f8eb9fc385dae07020c6d", "docs/process/06-risk-and-decision-analysis.md@7a92d21f24a1733d70ae083576e708274bfd1a6d", "docs/research/rustos-toolchain-proof.md@74e5363ffbc71d3ec2a09698a1ef3ecbeb95d6f5", "docs/vv/reports/TC-SW-TOOL-001-r2.md@de5c9403578703099d71fe31f28a730d7a61f2dc", "firmware/unsafe-audit.md@b232d77a76b2cddc854d03984edee09092047667", "docs/process/00-charter.md@41575d218c2228825704ce0b080a967c890fe43f (post-SRR-ruling delta, 6ea6b1d)", "docs/process/07-software-engineering-plan.md@37d472b501578504b7fa23422c4f74193647e458 (post-SRR-ruling delta)", "docs/decisions/adr/ADR-027-firmware-runtime-rustos-a0.md@3352ae6084f9d59899343b781f7fc4e4723932f5 (post-SRR-ruling delta)", "docs/reviews/SRR/decisions-for-owner.md@a8931d91253462b687aefd2de715e1adaf0fee45 (post-SRR-ruling delta)", "docs/process/03-software-classification-and-rmm.md@ed270f443e2ab648480017df8ad3d0221400cf4c (post-SRR-ruling delta, section 6.5 item g)", "docs/process/06-risk-and-decision-analysis.md (post-SRR-ruling delta, sections 14.5, 14.6, HEAD)"]
-product_size: 1 trade study, 11 sections and appendix A, 361 lines; 4 mandatory and 7 enhancing criteria, 4 scored alternatives
+input_files: ["docs/process/07-software-engineering-plan.md@d0f8baf614b49e9c99d8fe2169093d02626ac50d", "docs/process/00-charter.md@131608b78e178432e34f8eb9fc385dae07020c6d", "docs/process/06-risk-and-decision-analysis.md@7a92d21f24a1733d70ae083576e708274bfd1a6d", "docs/research/rustos-toolchain-proof.md@74e5363ffbc71d3ec2a09698a1ef3ecbeb95d6f5", "docs/vv/reports/TC-SW-TOOL-001-r2.md@de5c9403578703099d71fe31f28a730d7a61f2dc", "firmware/unsafe-audit.md@b232d77a76b2cddc854d03984edee09092047667", "docs/process/00-charter.md@41575d218c2228825704ce0b080a967c890fe43f (post-SRR-ruling delta, 6ea6b1d)", "docs/process/07-software-engineering-plan.md@37d472b501578504b7fa23422c4f74193647e458 (post-SRR-ruling delta)", "docs/decisions/adr/ADR-027-firmware-runtime-rustos-a0.md@3352ae6084f9d59899343b781f7fc4e4723932f5 (post-SRR-ruling delta)", "docs/reviews/SRR/decisions-for-owner.md@a8931d91253462b687aefd2de715e1adaf0fee45 (post-SRR-ruling delta)", "docs/process/03-software-classification-and-rmm.md@ed270f443e2ab648480017df8ad3d0221400cf4c (post-SRR-ruling delta, section 6.5 item g)", "docs/process/06-risk-and-decision-analysis.md (post-SRR-ruling delta, sections 14.5, 14.6, HEAD)", "docs/process/07-software-engineering-plan.md@bfe05f4327e79fa15c24d2cf8c14249804f946a8 (delta iteration 2)", "docs/decisions/adr/ADR-027-firmware-runtime-rustos-a0.md@a319c789f620f6fda26eeb392796fe2f4ba6c63e (delta iteration 2, at 443b2a3)", "docs/reviews/SRR/minutes.md@5a5f4ed611f3aeb86d47a610a65ee6d4e9384518 (delta iteration 2)", "docs/reviews/SRR/decision-memo.md@110102bf003f1c4c28cc9365c9af7dee39e79abd (delta iteration 2)", "docs/reviews/SRR/decisions-for-owner.md@e1c499851c862b99b664c674e2970dde61005040 (delta iteration 2)", "docs/vv/reports/TC-SW-TOOL-001-r6.md@8d12b38333b4ae863dc8689eed39658dcc276e68 (delta iteration 2)", "docs/risk/register.json@6685aa0eadc9e8bd806f1920e20d2209e8ae130e (delta iteration 2)", "docs/reviews/PDR/checklists/trade-studies-ts-001-ts-002.md@7798e6ce8d1ec3c4e95513726f73d993e74668d8 (delta iteration 2, INSP-054, read after this reviewer's own checks)"]
+# product_size: iteration 1 value "1 trade study, 11 sections and appendix A, 361 lines; ..."; delta iteration 2 at 6b18cee8
+product_size: 1 trade study, 11 sections, appendix A and an appended errata section of 6 entries, 376 lines; 4 mandatory and 7 enhancing criteria, 4 scored alternatives
 sprint: SRR-prep
 author_agent: "author:trades (Claude trade study author invocation, 2026-09-25, named as Recommender in the TS-002 header)"
 reviewer_agent: "reviewer:INSP-027"
@@ -35,7 +42,9 @@ assurance_required: true
 # author (author:trades) and from the file reviewer of the paired record INSP-013 (reviewer:trades)
 assurance_reviewer_agent: "reviewer:INSP-027 (software assurance function; paired file review INSP-013 by reviewer:trades)"
 paired_record: INSP-013
-iteration: 1
+# iteration 2: the lien L-6 delta on the WP-PDR-14 errata (443b2a3), section "Delta iteration 2" at the end; the
+# file-review delta of the same blob is INSP-054 (docs/reviews/PDR/checklists/trade-studies-ts-001-ts-002.md)
+iteration: 2
 # readiness_met: R1 (no figures in TS-002), R2 and R3 (no REQ-SW design allocation in a trade study) are N/A;
 # R4 holds through the author's revision 1 change log and the INSP-013 closure of findings F-08 to F-10
 readiness_met: true
@@ -44,22 +53,27 @@ assurance_verdict: APPROVED
 # verdict: APPROVED (with liens) under the convergence rule of 2026-09-26: 0 Major, 5 Minor, every Minor a lien
 # post-SRR-ruling delta: APPROVED (with liens finding-1 to finding-6); 2362183 and 6ea6b1d apply their rulings
 # correctly; new Minor finding-6 (TS-002 still reads "pending" in section 1 and the header after Status Decided) is a lien
+# delta iteration 2: APPROVED; finding-1 to finding-6 Verified on 6b18cee8; no new finding
 verdict: APPROVED
 findings_major: 0
 findings_minor: 6
 findings_open: 0
 findings_fixed: 0
-findings_verified: 0
-findings_deferred: 6
+# findings_verified and findings_deferred: iteration 1 and the post-SRR-ruling delta had 0 and 6 (six liens);
+# delta iteration 2 verifies all six, so no lien remains
+findings_verified: 6
+findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 6
 assurance_tasks_applied: [swe-033 7.1 task 1, swe-033 7.1 task 2, swe-033 7.1 task 3, swe-027 7.1 task 1, swe-211 7.1]
 # deferred_rids: the five liens are carried by the package as Routine items (convergence rule), not as RIDs
 deferred_rids: []
-items_no: [CK-DES-A7, CK-DES-B2, CK-DES-H1, SA-033-2, SA-033-3, SA-211-1]
-# effort: iteration 1 (32 turns, 45 min), post-SRR-ruling delta (package item R16) (12, 25)
-effort_turns: 44
-effort_minutes: 70
+# items_no: iteration 1 and post-SRR-ruling value [CK-DES-A7, CK-DES-B2, CK-DES-H1, SA-033-2, SA-033-3, SA-211-1];
+# delta iteration 2 answers each of them Yes on 6b18cee8
+items_no: []
+# effort: iteration 1 (32 turns, 45 min), post-SRR-ruling delta (package item R16) (12, 25), delta iteration 2 (20, 35)
+effort_turns: 64
+effort_minutes: 105
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -287,4 +301,66 @@ NEW: finding-6 (Minor, TS-002 section 1 and header still read pending after Stat
 PRODUCT: docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@6c385dfc77c61619d31756418c479c5beca7b527 (equal to HEAD, 1/1)
 PAIRING: INSP-013 reviewer_verdict APPROVED, verdict APPROVED on the same blob
 MEASUREMENTS (delta): turns=12; minutes=25; cumulative turns=44, minutes=70; major=0; minor=6; lien=6
+```
+
+## Delta iteration 2 (2026-09-29, lien L-6 verification on the WP-PDR-14 errata; software assurance reviewer, new invocation)
+
+**Scope.** The re-issue delta of this record on TS-002 blob `6b18cee8`, committed at `443b2a3` ("docs(decisions): WP-PDR-14 TS-001 and TS-002 errata for the INSP-013 and INSP-027 liens"). It verifies each lien of this record (finding-1 to finding-6, carried by the SRR decision memo as lien L-6, RFA-SRR-006, due at the PDR readiness declaration) and every changed hunk since the pinned blob `6c385dfc`, and names the new blob in `product_files`. `git log 6c385dfc..HEAD` on the TS-002 path lists one commit, `443b2a3`; `git diff --stat 6c385dfc 6b18cee8` gives 25 insertions and 10 deletions. `git rev-parse HEAD:<path>` and `git hash-object <path>` both give `6b18cee8` at `main` `c9f611d`. This is a delta (not a re-pin): the reviewed content changed. It is the "INSP-027 delta" that INSP-054 (the PDR file-review delta of the same errata, `docs/reviews/PDR/checklists/trade-studies-ts-001-ts-002.md`) names as its software assurance pair.
+
+**Independence (PDR work plan rule C4).** A new invocation of the software assurance reviewer role (07 section 2.1.1). It authored no part of TS-002, its errata, ADR-027, INSP-013, INSP-054 or the earlier sections of this record, and edited no product file. INSP-054 was read only after the checks below.
+
+**Search first (rule C3).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: the INSP-027 delta and TS-002 errata; the INSP-060 re-pin precedent). `grep -n`, `sed -n`, `git show`, `git diff` and read-only Python were used afterwards only to pin lines at `443b2a3`.
+
+**Hunks examined (`git diff 2362183 443b2a3 -- <TS-002>`).** Header rows "Independent reviewer" (line 10), "Resulting ADR" (line 14) and "Dates" (line 15); the section 1 line "Owner's decision"; the section 10 body (decision, decided by, rationale, records, revisit conditions, lessons 1 to 4); the appended section "Errata after the decision (append only)" with entries 1 to 6. Sections 2 to 9, Appendix A, the section 5 matrix and the change log are byte-identical to `6c385dfc` (no hunk there). The fix route agrees with the post-SRR-ruling delta above: after decision 107 the study is a Record (05 Table 4-1 row 12; 06 section 14.6), so the decision record is filled under 06 section 14.5 and each analysis correction is an appended erratum that names its place, not an edit of sections 2 to 9. Cross item X-1 of the post-SRR-ruling delta (liens into ADR-027) is superseded by that route, and X-2 is done by this commit.
+
+### Findings of the delta
+
+| Finding | Severity | State | Evidence at `6b18cee8` (sources read at `443b2a3`) |
+|---|---|---|---|
+| finding-1 | Minor | Verified | Erratum 1 names the four places (section 3.1 C1, section 4 C1 row A0, section 6 item 4, section 7 Task 2 bullet), states the SWE-027 item e and SWE-211 obligation of the reused rustos `api` and `pico2` code from 07 section 17.1 (register rows `api` and `pico2`, line 729: V&V to developed-code level) and 07 section 9.9 (line 422), and charter section 12 row SWE-211 ("custom-code level"), and reads the Task 2 evidence as citing 07 sections 17.1 and 9.9. Sensitivity recomputed: A0 C1 = 4 at weight 20 gives 400 - 20 = 380 against A1 265, lead 115. Not rescoring is correct for a decided study (06 section 14.6); the obligation is now stated. SA-033-2 and SA-211-1: Yes |
+| finding-2 | Minor | Verified | Erratum 2 (a) to (d). TV-001 to TV-013 exist in `docs/cm/tool-validation/`; TC-SW-TOOL-001 runs 1 to 6 are filed. Run 6 (`TC-SW-TOOL-001-r6.md`, 2026-09-27, `credit: false`) ends `sw_gate: PASS (G0 to G6)` at rustos `2ec64c0` (CR-004 pin, `docs/cm/cr/CR-004-rustos-pin-2ec64c0.md`), with `PASS G5 cargo deny (bans, licenses, sources)` and `PASS G5 unsafe audit`: 37 sites, 0 without SAFETY, 37 unsigned (r6 line 161). The r2 facts (37 sites, 36 without comment, G5 license FAIL, SRR entrance row 20) are those of iteration 1. The C4 count is corrected to 37 sites with the score 4 unchanged; the M3 pass is unchanged. RSK-013 lists TS-002 in `related.trade_study_ids` (`docs/risk/register.json`), the risk the section 7 row pointed to ("or a step of RSK-013"). SA-033-3: Yes. See O-1 |
+| finding-3 | Minor | Verified | Header row "Independent reviewer" names INSP-027 as the software assurance record paired with INSP-013 and routed by 07 section 2.1.1 row "Software plans" (07 line 117, Yes in every column), with the verdicts of both records as recorded; erratum 3 corrects the section 7 paragraph and the section 9 dissent sentence ("No software assurance review has run") by an appended entry that quotes both. CK-DES-H1 (this part): Yes |
+| finding-4 | Minor | Verified | Erratum 4 adds HZ-008 through the two 07 section 14.1 rows (`SW-SYNTH` frequency-word path, line 598; frequency verification unit, line 599) and counts A0 C3 as 13 required work packages (WP-SW-01 to 12 plus WP-SW-14; WP-SW-13 optional). WP-SW-14 is conditional on decision 40 (07 line 787); decision 40 is in key decision K2 (`decisions-for-owner.md` line 400) with the recommendation "Adopt with the 10 kHz window and 100 ms", ruled as recommended. A0 C3 stays 1 (anchor 1: 11 or more). CK-DES-A7 and CK-DES-B2: Yes. See O-2 |
+| finding-5 | Minor | Verified | Erratum 5 states the rounding the study used (half down, toward the recommended alternative) and both other cases. Recomputed with C3 weight 20: interpolation of "about 3" between 6 (score 3) and 2 (score 5) is 4.5; A1 265 + 10 = 275 and + 20 = 285; A2 and A3 220 + 10 = 230 and + 20 = 240; A0 400 leads by at least 115. Lesson 3 of section 10 sets the rule for later studies. SA-EVD-1: Yes. See O-3 |
+| finding-6 | Minor | Verified | Section 1 "Owner's decision: A0, decided 2026-09-26 at SRR (SRR decision 107, key decision K9) ... recorded by ADR-027 and `docs/reviews/SRR/decision-memo.md`"; "Resulting ADR: ADR-027"; "Dates: ... decided 2026-09-26 at SRR". Section 10 matches its sources: decision 107 in K9 (`decisions-for-owner.md` line 113, cell "Approve A0 with the four revisit triggers of TS-002 section 8."); the two owner statements are verbatim in `docs/reviews/SRR/minutes.md` lines 21 and 47 (sections "Rulings" and "Disposition"); decision memo section 8.0 row 107 (line 240); ADR-027 Status Accepted, section 6 quotes the ruling (line 88), section 7 repeats the four triggers (line 100) in the words of section 10. The Status row, header, section 1, section 10 and ADR-027 now agree. CK-DES-H1 and SA-033-1: Yes |
+
+New findings: none. No hunk changes a criterion, weight, score, total, rank, robustness verdict, recommendation, alternative, risk row or trigger.
+
+### Observations (no finding)
+
+- **O-1.** Erratum 2 says the materialized hygiene risk "is carried by RSK-013, which names TS-002; no separate risk was entered". RSK-013's statement is the driver work-package risk and its history mentions the rustos hygiene package only as a numbering note, so "carried" means the register link rather than a mitigation step. No open risk is left out: the hygiene event was closed by CR-004 and run 6 (G5 PASS), so no register entry is needed.
+- **O-2.** Erratum 4 calls the two HZ-008 rows "Proposed", which is what 07 section 14.1 still reads at `443b2a3` and at `HEAD` (`bfe05f43`). SRR decision 9 concurred with frequency control safety-critical ("Concur, with frequency control safety-critical", `decisions-for-owner.md` line 38), so the word Proposed is due to come out of 07. That is a 07 transcription item (cross item X-5), not a TS-002 defect: the erratum accurately cites the plan as committed, and the class does not change any score.
+- **O-3.** Entries 1 and 5 are one-at-a-time sensitivities, as 06 section 14.4 requires. Applied together in the worst direction, A0 380 against A1 285 leads by 95 points; A0 stays first (INSP-054 records the same combined check).
+
+### Assurance task answers at the delta
+
+SA-033-1 Yes; SA-033-2 Yes (finding-1); SA-033-3 Yes (finding-2); SA-027-1 Yes (as the post-SRR-ruling delta); SA-211-1 Yes (finding-1); SA-EVD-1 Yes (finding-2, finding-5). CK-DES-A7 Yes, CK-DES-B2 Yes (finding-4); CK-DES-H1 Yes (finding-3, finding-6). Readiness R1 to R4 as iteration 1 (`readiness_met: true`): the author's return is the `443b2a3` commit message, which maps each change to its finding and states the sensitivity values.
+
+### Pairing and concurrence (07 section 10.2)
+
+INSP-013 (`paired_record` of this record) still names TS-002 `6c385dfc` and TS-001 `2a0c40a8`; its file-review delta on the errata is INSP-054, a PDR record (filed under PDR as the INSP-044 precedent allows), `reviewer_verdict: APPROVED`, no finding, on the same TS-002 blob `6b18cee8`. Read after the checks above, INSP-054 agrees with this delta on every lien, on the arithmetic and on the combined case. This record concurs; no INSP-054 finding is re-opened, and this delta raises none.
+
+### Completion criteria (SWE-088; 07 section 10.2)
+
+Met: readiness met; every applicable item answered; zero open findings (finding-1 to finding-6 Verified); the named blob equals `HEAD`; the file-review delta of the same blob (INSP-054) is reviewer APPROVED. `assurance_verdict: APPROVED`, `verdict: APPROVED`. `record_status` stays Open until the software lead closes the record (07 section 10.2); nothing in this record blocks the closure.
+
+### Cross items (outside this record's scope, returned to Claude)
+
+- **X-4.** INSP-054 reads `assurance_reviewer_agent: "pending: ... trade-studies-ts-001-ts-002-software-assurance.md"` and `assurance_verdict: pending`. This delta is the TS-002 assurance review of blob `6b18cee8` that the INSP-054 comment names ("the INSP-027 delta"); the INSP-054 reviewer may point its assurance fields at this record (INSP-027, delta iteration 2, APPROVED) instead of a new file, and then set its record verdict.
+- **X-5.** 07 author: remove "Proposed" from the two HZ-008 rows of 07 section 14.1 (and the SWE-134 module rows at lines 642 and 644) to transcribe SRR decisions 9 and 40, if a CR in progress (CR-010) does not already do so; and, as post-SRR-ruling cross item X-3 still asks, cite decision 110 in the 07 section 17.1 rustos row in place of `OQ-SW-001` (still "due PDR" at `bfe05f43`).
+- **X-6.** INSP-013 (`docs/reviews/SRR/checklists/trade-studies-ts-001-ts-002.md`) fails `tools/validate_docs.py` at `main` `c9f611d` on record drift for both studies (TS-001 at `HEAD` is `152c2b90`, later than the `c53414d9` INSP-054 reviewed). Its re-issue belongs to the file-review role.
+
+### Tool runs (2026-09-29, `.venv/bin/python`)
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (before this update, `main` `c9f611d`) | 1 | 110 passed, 7 failed; this record failed on drift (`6c385dfc` against `HEAD` `6b18cee8`) |
+| `tools/validate_docs.py` (after this update; working tree of `main` with other agents' uncommitted record edits) | 1 | 115 passed, 2 failed; this record PASS; the failures are INSP-047 (`cm-plan-05-software-assurance.md`, CR-007 drift, re-issued separately) and `docs/reviews/SRR/checklists/adrs-001-to-025.md` |
+
+```
+DELTA ITERATION 2 (2026-09-29, TS-002 errata 443b2a3): VERDICT: APPROVED
+FINDINGS: finding-1 to finding-6 Minor, Verified; new findings 0; open Major 0
+PRODUCT: docs/decisions/trade-studies/TS-002-firmware-runtime-make-buy.md@6b18cee831a67dc9550e6082c595023d77bcd704 (equal to HEAD, 1/1)
+PAIRING: INSP-054 (file-review delta of the same blob) reviewer APPROVED, no finding; concur
+MEASUREMENTS (delta): turns=20; minutes=35; cumulative turns=64, minutes=105; liens verified=6; major=0; minor=0 new
 ```
