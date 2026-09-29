@@ -2,14 +2,38 @@
 
 | Field | Value |
 |---|---|
-| Product | Analysis note (08 section 3.4), WP-PDR-19 BPF image and half-IF items of TS-012 revision 4 section 7.3, PDR draft revision 3, 2026-09-28 |
-| Author | Claude, analysis author (TS-012 discriminating analyses; owner approval of 2026-09-28: "you should go ahead and run the simulations and analysis", `docs/plan/status/status-2026-09-28.md` section 1) |
-| Status | Draft, revision 3: fixes finding-6 (Major) of the independent review of revision 2 (iteration 2): the re-alignment residual limit is re-derived at the design-input corner (run r12, section 4.2). Revision 2 fixed the five findings of iteration 1 (three Major, two Minor; section 9). Not approved. Every value below is a proposal until an independent review approves this record (plan rule C10) |
-| Serves | TS-012 choice between A4 and A5 (section 7.1 receiver risks, section 7.3 receiver checks); REQ-SYS-033 (image and IF rejection, 70 dB TBR) and REQ-SYS-022 (MDS at most -140 dBm TBR, TPM-005) pre-build evidence; TC-SYS-017 and TC-SYS-021 method |
-| Model, checkers, plots | `hardware/sim/rx-frontend/` (`bpf_design.py`, `make_decks.py`, `run_sims.py`, `check_bpf.py`, `check_halfif.py`, `cascade.py`, and from revision 2 `bpf_nodal.py`, `tolerance.py`, `worst_case.py`, `validate_nodal.py`; `README.md`); results `hardware/sim/rx-frontend/results/2026-09-28-r01` to `r12` |
-| Evidence status | Developer evidence. LTspice 26.0.2 only through `tools/ltspice-batch.sh` blob `88b71475` (ACC-LTSPICE-001; each run's wrapper result line PASS except the JFET cases listed in section 4.5); venv Python 3.13, numpy 2.5.3, scipy 1.18.1, matplotlib 3.11.2, spicelib 1.6.3 (class B entries without a TV record of their own). The numpy nodal solver of revision 2 is a search tool checked against LTspice (run r07); every value it finds that a verdict rests on is re-simulated in LTspice |
+| Product | Analysis note (08 section 3.4), WP-PDR-19 BPF image and half-IF items of TS-012 revision 4 section 7.3, PDR draft revision 4, 2026-09-29 |
+| Author | Claude, analysis author (TS-012 discriminating analyses; owner approval of 2026-09-28: "you should go ahead and run the simulations and analysis", `docs/plan/status/status-2026-09-28.md` section 1). Revision 4 on the owner's authorization of the fourth INSP-117 iteration, in which the note adopts 2 + 3 + 4 and analyses REQ-SYS-114 (`docs/plan/status/status-2026-09-29.md` section 2: "Yes both recs sound good") |
+| Status | Draft, revision 4: fixes finding-7 (Major) of the independent review of revision 3 (iteration 3, `e647ab1`): REQ-SYS-114 temperature is analysed (run r13, section 4.2), and the note adopts 2 + 3 + 4 at IF 8 MHz as the design filter, because 2 + 3 + 3 does not hold REQ-SYS-033 over -10 C to +45 C. Only finding-7 is fixed (rule C1); the Minor findings stay as liens (section 9). Revision 3 fixed finding-6 of iteration 2 (record id finding-11) and revision 2 the five findings of iteration 1. Not approved. Every value below is a proposal until an independent review approves this record (plan rule C10) |
+| Serves | TS-012 choice between A4 and A5 (section 7.1 receiver risks, section 7.3 receiver checks); REQ-SYS-033 (image and IF rejection, 70 dB TBR) over REQ-SYS-114 (-10 C to +45 C ambient, TBR) and REQ-SYS-022 (MDS at most -140 dBm TBR, TPM-005) pre-build evidence; TC-SYS-017 and TC-SYS-021 method |
+| Model, checkers, plots | `hardware/sim/rx-frontend/` (`bpf_design.py`, `make_decks.py`, `run_sims.py`, `check_bpf.py`, `check_halfif.py`, `cascade.py`, and from revision 2 `bpf_nodal.py`, `tolerance.py`, `worst_case.py`, `validate_nodal.py`; `README.md`); results `hardware/sim/rx-frontend/results/2026-09-28-r01` to `r12` and `2026-09-29-r13-bpf-temperature` |
+| Evidence status | Developer evidence. LTspice 26.0.2 only through `tools/ltspice-batch.sh` blob `88b71475` (ACC-LTSPICE-001; each run's wrapper result line PASS except the JFET cases listed in section 4.5; r13's three decks PASS); venv Python 3.13, numpy 2.5.3, scipy 1.18.1, matplotlib 3.11.2, spicelib 1.6.3 (class B entries without a TV record of their own). The numpy nodal solver of revision 2 is a search tool checked against LTspice (run r07); every value it finds that a verdict rests on is re-simulated in LTspice |
 
-## 0. Summary of revision 3
+## 0. Summary of revision 4
+
+- **Design filter (revision 4): 2 + 3 + 4 resonators at IF 8 MHz**: BPF1 of two, BPF2 of three, and a BPF3 of four resonators between the second J310 and the ring. It is adopted on the owner's authorization of 2026-09-29 (review finding-7, rule C1 escalation). Revisions 1 to 3 proposed 2 + 3 + 3; that proposal is withdrawn because it does not hold REQ-SYS-033 over REQ-SYS-114.
+- **REQ-SYS-033 over REQ-SYS-114 (new, run r13): 2 + 3 + 4 PASS. The worst case is 75.37 dB, a margin of 5.37 dB**, at the +/-0.3 % residual estimate. It is found at the design-input corner of section 5, after an alignment at 20 to 30 C, with:
+  - the board from -10 C to +70 C (the +45 C ambient plus the main-bay air rise of the thermal note);
+  - every C0G part anywhere in 0 +/- 30 ppm/K (KEMET), plus a stray allowance;
+  - every coil anywhere in +5 to +70 ppm/K (Coilcraft);
+  - coil Q falling to 92.2 at the hot end.
+
+  The worst case is the hot end at 148.0 MHz tuning. The residual limit over temperature is **+/-0.64 %** (exact frequency map). The alignment acceptance is **+/-0.62 %** (about +/-0.9 MHz), after a +/-0.02 % reading allowance. With both temperature-coefficient classes doubled, the hot case still gives 70.99 dB.
+- The other configurations over the same range, at the +/-0.3 % estimate:
+  - 2 + 3 + 3 at IF 8 MHz: 67.00 dB hot and 69.46 dB cold, **FAIL**. No residual holds 70 dB at the hot end. This confirms finding-7.
+  - 2 + 3 + 2 at IF 10 MHz: 70.16 dB, a margin of 0.16 dB, with a residual limit of +/-0.32 %.
+- Revision 3's results stay as recorded, at the alignment temperature: 2 + 3 + 3 passes the corner by 0.2 dB with a residual limit of +/-0.32 %, and mode A (the TS-012 20 % capacitors) fails for some builds (0.32 % of 20,000 builds, a 49.1 dB corner).
+- The conditions of section 5 apply to 2 + 3 + 4: mode B parts, re-alignment, every internal port within VSWR 1.2 (the bare MMBFJ310 ports fail), at most 0.03 pF per section, and (new) the alignment temperature and the coefficient classes. Whole-chain antenna-to-mixer isolation needed for 2 + 3 + 4 over temperature: about 89 dB (section 4.4).
+- **REQ-SYS-022 (MDS) is not shown with margin, and the design filter makes the corner worse.** The r11 cascade gives, for A5 with 2 + 3 + 4:
+  - nominal -140.7 dBm;
+  - TC-SYS-017 filter corner -134.9 dBm (**TPM-005 Red**; 2 + 3 + 3 was -138.0 dBm, Yellow);
+  - stack -129.4 dBm.
+
+  The front-end redesign that the MDS needed anyway (section 4.6 finding 6, section 7 item 5) now has to recover this too. A lower-loss four-resonator BPF3 is one of its levers. Section 8 is the status for the TPM owner.
+- Neither result separates A4 from A5: the filters are the same, and the MDS difference sits inside the estimate spread. The half-IF result still favours A5 (section 4.5).
+- Cost: the four-resonator BPF3 has nine 0805 C0G parts and four coils from owned wire (2 + 3 + 3: seven and three). That reaches the top of TS-012 row E5 (a) (section 5).
+
+Revision 3 summary, kept for the review trail:
 
 - **REQ-SYS-033 (image), 2 + 3 + 3 at IF 8 MHz: met at the worst-case corner by 0.2 dB only, and only under the conditions of section 5**: mode B capacitor tolerances in every section, every resonator re-aligned after assembly to a residual of **at most +/-0.32 %** in frequency, every internal port (both J310 inputs and drains, the ring port) within VSWR 1.2 of 50 ohm, and at most 0.03 pF of stray capacitance across each section. The 0.2 dB leaves no room for the whole-chain antenna-to-mixer leak: it would need about 117 dB of isolation, which is not credible on a hand-built board (section 4.4). The verdicts use a residual of +/-0.3 %, which is an estimate; the corner falls 0.87 dB per 0.1 % of residual there, so the 0.2 dB margin is only 0.02 % of residual headroom (run r12). Revision 2 stated a residual limit of +/-0.75 %; that held only with 50 ohm ports and no stray, and it is withdrawn: at the design-input corner +/-0.75 % gives 65.96 dB (FAIL). A four-resonator BPF3 (2 + 3 + 4) gives 10.1 dB of margin at the same corner and tolerates a residual up to +/-0.97 %. IF 10 MHz with 2 + 3 + 2 gives 2.5 dB and tolerates up to +/-0.68 %. Mode A (the TS-012 20 % capacitors) fails for some builds: 0.32 % of 20,000 builds fall below 70 dB and the worst-case corner is 49.1 dB. Revision 1 reported mode A as a pass on a 200-run sample minimum; that verdict is withdrawn.
 - The raw MMBFJ310 ports (input 56 to 125 ohm, drain undefined) do not meet that port condition: with datasheet values the mode B corner falls to 68.0 dB (FAIL). Matching networks at the J310 ports are a design input (section 4.3).
@@ -40,12 +64,19 @@ The adversarial check summarized in the brief found criterion 1 physically unatt
 | TC-SYS-017 | Acceptance: worst-case MDS **over all tolerance corners** at most -140 dBm (REQ-SYS-022) and -142 dBm (REQ-SYS-023) | `docs/test_cases/sys/test_cases.json` TC-SYS-017 | Draft |
 | TPM-005 `rx-mds` | Planned -140 dBm; PDR margin policy: cascade gives -142 dBm or better; Yellow: worse than the policy but no more than 3 dB worse than -140 dBm; Red: more than 3 dB worse than -140 dBm; owner of all measures: Claude (lead SE), Robin decides red items | `docs/plan/tpm.json` TPM-005 and `conventions` | Baselined at SRR |
 | REQ-SYS-023 | -142 dBm (Goal) | requirements | Goal |
+| REQ-SYS-114 (new in revision 4) | "The transceiver shall meet its requirements at ambient temperatures from -10 C to +45 C (TBR)." It conditions REQ-SYS-033 and REQ-SYS-022 | `docs/requirements/sys/requirements.md` REQ-SYS-114 | TBR, close by PDR |
+| Board temperature (revision 4) | -10 C (cold soak, no self-heating credited) to +70 C. The thermal note's row V18 (main-bay air, long session at the duty limit, 45 C ambient) is 55.3 to 63.5 C with bands up to +4.8 K, so at most 67.4 C (A4-R4); +70 C covers it | `docs/design/analysis/thermal-ts012.md` revision 1, run `2026-09-28-ts012-r2` (WP-PDR-28, under review) | Estimate |
+| Alignment temperature (revision 4) | 20 to 30 C | proposed build condition (section 5 condition 6) | Proposed |
+| C0G temperature coefficient (revision 4) | "Capacitance Change with Reference to +25C and 0 VDC Applied (TCC)" +/-30 ppm/C, operating range -55 to +125 C; the sheet covers 0.5 pF upward and states no exception for small values; B tolerance (+/-0.10 pF) is offered | KEMET C1003_C0G datasheet dated 2/20/2025, `https://content.kemet.com/datasheets/kem_c1003_c0g_smd.pdf`, read 2026-09-29 | Datasheet |
+| Coil temperature coefficient (revision 4) | "Temperature Coefficient of Inductance (TCL) +5 to +70 ppm/C" (Midi Spring air-core 1812SMS series) | Coilcraft Document 184-1, revised 12/02/21 (the URL of the coil Q row), read 2026-09-29 | Datasheet. Applied to the hand-wound air coil as an estimate: copper expansion alone gives about +17 ppm/K, inside the class |
+| Stray and port capacitance drift (revision 4) | +/-10 ppm/K on each resonator node (about 1 pF of the 21 pF node at up to +/-200 ppm/K), added to the C0G class: node coefficient -40 to +40 ppm/K | estimate | Estimate |
+| Coil Q against temperature (revision 4) | Skin-effect resistance rises as the square root of the copper resistivity (0.00393 per K): Q = 100 / sqrt(1 + 0.00393 (T - 25 C)) above 25 C, 92.2 at +70 C; not raised below 25 C (conservative) | copper resistivity coefficient, standard value; the catalog minimum Q 100 taken at 25 C | Estimate |
 | Frequency plan | IF 8.000 MHz, LO 136 to 140 MHz low side (image 128 to 132 MHz, half-IF 140 to 144 MHz) | TS-012 rev 4 section 7.3 | Proposed |
 | Receiver chain | G5V-2, 1N5711 clamps, BPF1 (2), MMBFJ310 grounded gate, BPF2 (3), MMBFJ310 grounded gate, mixer (A5 diode ring of four 1N5711W on two BN-43-202 trifilar transformers; A4 J310 mixer), diplexer, 2N3904 post-mixer amplifier, 6-pole 500 Hz ladder at 8 MHz, two 2N3904 IF stages, J310 product detector | TS-012 rev 4 sections 7.3 and 8.1 | Proposed |
 | Catalog coil Q | Coilcraft 1812SMS-56N: 56 nH, Q typ 125, min 100 at 150 MHz; -82N: typ 120, min 100 | Coilcraft Document 184-1, revised 12/02/21, `https://www.coilcraft.com/getmedia/c6fe1f83-b176-469d-a071-e2edb068fef2/midi.pdf`, read 2026-09-28 | Datasheet |
 | Hand-wound coil Q | 100 to 200 swept; about 3 turns of 24 AWG on a 5.5 mm mean diameter for 56 nH (Wheeler formula, estimate) | estimate | Estimate |
 | Capacitor Q | 500 at 146 MHz (small C0G parts) | estimate | Estimate |
-| Residual tuning after alignment | +/-0.3 % in frequency per resonator (L x [0.994, 1.006]) | estimate | Estimate; sensitivity and the limit that holds 70 dB in section 4.2 (r08, r12) |
+| Residual tuning after alignment | +/-0.3 % in frequency per resonator (L x [0.994, 1.006] in r08 to r12; exact frequency map in r13) | estimate | Estimate; sensitivity and the limit that holds 70 dB in section 4.2 (r08, r12; over temperature r13) |
 | MMBFJ310 | Gpg 16 dB typ at 100 MHz (VDS 10 V, ID 10 mA); NF 3.0 dB typ at 450 MHz; gfs 8 to 18 mS (1 kHz); Re(yig) 12 mS typ (common gate, 100 MHz, VDS 10 V, ID 10 mA); Csg 4.1 typ, 5.0 max pF and Cdg 2.0 typ, 2.5 max pF (VDS 0, VGS -10 V); gog 150 umho typ | onsemi (Fairchild) MMBFJ309/MMBFJ310 datasheet Rev. 1.5, `https://www.onsemi.com/pdf/datasheet/mmbfj310-d.pdf`, read 2026-09-28 | Datasheet |
 | J310 port model | Grounded-gate input: 1/gfs = 56 to 125 ohm (83 ohm from Re(yig) typical) in parallel with up to 5 pF; drain port impedance to the next filter: undefined in TS-012, taken as 50 to 200 ohm with up to 2.5 pF | derived from the datasheet row above; drain range an estimate | Derived / estimate |
 | J310 SPICE model | Linear Systems model in the LTspice 26.0.2 `standard.jft` | LTspice library | Vendor model |
@@ -69,7 +100,22 @@ The adversarial check summarized in the brief found criterion 1 physically unatt
    - Monte Carlo: 200 LTspice runs (r01, r03, seed 20260928; kept), 20,000 runs of the numpy nodal solver per configuration and case (r08, seed 20260936), and 1,000 LTspice runs of 2 + 3 + 3 (r08, seed 20261036).
    - Worst-case corner: for each section and each tuned frequency, the minimum of that section's rejection over every vertex of its tolerance box (32 to 512 vertices). The sections are independent, so the chain corner is the sum of the section minima. A bounded L-BFGS-B search from the worst vertex and six random interior points found nothing below the vertex. Every corner is then re-simulated in LTspice, as a deck carrying the corner values, and must agree with the numpy value to 0.01 dB.
    - **Residual limit (new in revision 3, review iteration 2 finding 6; run r12).** The residual is swept from +/-0.05 % to +/-1.5 % at three corners: 50 ohm ports (as r08), every internal port within VSWR 1.2 (as r09), and the design-input corner (VSWR 1.2 ports plus 0.03 pF per section with the worst-phase bound, as r10). The corner cannot rise with the residual, because a larger residual box contains the smaller one; the grid confirms it is monotone. The residual limit is the largest residual at which the corner still meets 70 dB, found by bisection to 0.0001 % and stated rounded down to 0.01 %. The slope at the +/-0.3 % estimate is the central difference over +/-0.25 and +/-0.35 %. LTspice re-simulates the design-input corner at the limit, at +/-0.3 % and at +/-0.75 %.
-   - **Acceptance (fixed before the runs).** REQ-SYS-033 is accepted by analysis when the worst-case corner passes at every tuned frequency (TC-SYS-021 step 4). A Monte Carlo is a build-yield estimate, never the acceptance. When a yield is claimed, it needs zero runs below 70 dB in N runs, which bounds the failing fraction at 1 - 0.05^(1/N) with 95 % confidence (N = 2,996 for 0.1 %; 1.5 % for the 200-run samples of revision 1). With k failures, the Clopper-Pearson 95 % interval is reported.
+   - **Temperature (new in revision 4, review iteration 3 finding-7; run r13).** The alignment is done at room temperature, 20 to 30 C. After it, each resonator's frequency moves by (1 + aL dT)^-1/2 (1 + aC dT)^-1/2 - 1, where dT is the board temperature less the alignment temperature, and:
+     - aL (coil) is anywhere in +5 to +70 ppm/K;
+     - aC (node capacitance) is anywhere in -40 to +40 ppm/K;
+     - both vary independently per resonator, because each part may sit anywhere in its class.
+
+     That drift range [d_lo, d_hi] is added to the residual box on the exact frequency map. Each resonator's frequency multiplier is drawn from [(1 - r)(1 + d_lo), (1 + r)(1 + d_hi)] and its L from the inverse square. This is a superset of the reviewer's common-mode shift, and it also answers finding-16 for the new run. Two further terms:
+     - The capacitor drift that alignment cannot undo, the change of coupling and external Q, widens the mode B coupling and end capacitor box by 40 ppm/K x max |dT|. The node detuning of that drift is already in d.
+     - Coil Q falls above 25 C with the skin-effect resistance.
+
+     Cases:
+     - cold: board -10 C, alignment at 30 C, dT -40 K;
+     - hot: board +70 C, alignment at 20 C, dT +50 K;
+     - room: at the alignment temperature, no drift.
+
+     The boxes are nested in |dT| and the coil Q falls monotonically with temperature, so the cold and hot cases bound every board temperature between them. A sweep of the board temperature from -10 to +70 C checks this. At each case the design-input corner is searched as in r12, over the vertices, the VSWR 1.2 port circles and the 16 leak phases. The residual limit is bisected to 0.0002 % per case. The limit over temperature is the smaller of the cold and hot limits, stated rounded down to 0.01 %. A doubled-coefficient case (node -80 to +80 ppm/K, coil +10 to +140 ppm/K) is reported as a sensitivity. LTspice re-simulates the room, cold and hot corners at the estimate, and for 2 + 3 + 4 also at its stated limit, at SGN +1 and -1.
+   - **Acceptance (fixed before the runs).** REQ-SYS-033 is accepted by analysis when the worst-case corner passes at every tuned frequency (TC-SYS-021 step 4); from revision 4, in the cold and the hot case of REQ-SYS-114 (TC-SYS-021 step 4 corners "every toleranced input"). A Monte Carlo is a build-yield estimate, never the acceptance. When a yield is claimed, it needs zero runs below 70 dB in N runs, which bounds the failing fraction at 1 - 0.05^(1/N) with 95 % confidence (N = 2,996 for 0.1 %; 1.5 % for the 200-run samples of revision 1). With k failures, the Clopper-Pearson 95 % interval is reported.
 7. **Numpy nodal solver (`bpf_nodal.py`, new).** It parses the netlist lines that the decks carry and solves the node equations. Run r07 compares it with LTspice on all 1,224 filter steps of r01 to r04 (1,189,624 points), with acceptance fixed at 0.01 dB.
 8. **Ports (new, finding 2).** Each port is a shunt R and C: the J310 input (56, 83 or 125 ohm, 0 or 5 pF), the J310 drain port (50, 100 or 200 ohm, 0 or 2.5 pF), and VSWR circles (8 phases) around 50 ohm for every internal port. The BPF1 antenna port stays 50 ohm, which is the REQ-SYS-033 reference.
 9. **Leakage.** A stray capacitance from each section's input to its output, driven by an ideal copy of the input voltage times exp(j phi).
@@ -203,7 +249,8 @@ Element values of the sections (56 nH resonators). The shunt values absorb the t
 | Section | End series C | Shunt C | Coupling C |
 |---|---|---|---|
 | BPF1 (2 resonators) | 4.87 pF (4.7 pF, C tolerance) | 15.4, 15.4 pF | 1.20 pF (B tolerance) |
-| BPF2 and BPF3 (3 resonators each) | 4.38 pF (4.3 pF, C tolerance) | 16.2, 19.6, 16.2 pF | 0.80, 0.80 pF (B tolerance) |
+| BPF2 (3 resonators; and BPF3 of 2 + 3 + 3, withdrawn) | 4.38 pF (4.3 pF, C tolerance) | 16.2, 19.6, 16.2 pF | 0.80, 0.80 pF (B tolerance) |
+| **BPF3 of the design, 2 + 3 + 4 (4 resonators; revision 4)** | 4.22 pF (4.3 pF, C tolerance) | 16.4, 19.9, 19.9, 16.4 pF | 0.73, 0.57, 0.73 pF (B tolerance) |
 
 Findings:
 
@@ -212,6 +259,77 @@ Findings:
 3. **Mode B tolerances are a condition of BPF3 (and of BPF1 and BPF2).** Mode B also needs re-alignment after assembly. Without it, the mode B corner is 67.2 dB (FAIL). With re-alignment to +/-0.3 %, it is 75.6 dB at 50 ohm ports. Re-alignment is always done, because hand-wound coils need it, but it must be written into the build procedure as a condition of this result. **Its residual must be at most +/-0.32 % for 2 + 3 + 3** (+/-0.68 % for 2 + 3 + 2 at IF 10, +/-0.97 % for 2 + 3 + 4), the limits at the design-input corner of section 5 (r12). Revision 2 stated +/-0.75 % (71.3 dB); that value is the 50 ohm port corner without stray, and it is withdrawn. At the design-input corner +/-0.75 % gives 65.96 dB for 2 + 3 + 3 and 69.53 dB for 2 + 3 + 2 at IF 10, both FAIL; 2 + 3 + 4 holds 73.64 dB.
 4. **The residual assumption drives the 2 + 3 + 3 verdict** (revision 2 said it did not, which is withdrawn). For 2 + 3 + 3 the slope is about 0.9 dB per 0.1 % at all three corners (+/-0.1 % to +/-0.5 % moves the design-input corner by 3.5 dB). That is small against the 5.6 dB margin at 50 ohm ports, but at the design-input corner the margin is 0.19 dB, so the verdict holds only if the achieved residual is no more than 0.02 % worse than the +/-0.3 % estimate. The estimate is not backed by a measurement. For 2 + 3 + 4 and 2 + 3 + 2 at IF 10 the estimate has 0.67 % and 0.38 % of headroom.
 5. The 200-run samples of revision 1 (r01, r03) stay as recorded. Their verdict line now reads as a sample statement with its binomial bound (`check_bpf.py` revision 2).
+6. Findings 3 and 4 give the limits at the alignment temperature. Over REQ-SYS-114 the limits are smaller (section 4.2.1), and they are the ones the build acceptance uses (section 7 item 3).
+
+#### 4.2.1 Over temperature: REQ-SYS-114 (revision 4, review iteration 3 finding-7)
+
+Run `2026-09-29-r13-bpf-temperature`, method of section 3 item 6. The design-input corner is that of section 5: mode B, aligned at 50 ohm, every internal port within VSWR 1.2, 0.03 pF per section, worst phase, coil Q 100 at 25 C.
+
+Drift of each resonator after the alignment (from the section 2 rows):
+
+| Case | Board | dT from the alignment (20 to 30 C) | Resonator frequency drift d | Capacitor box widening | Coil Q |
+|---|---|---|---|---|---|
+| room | at the alignment temperature | 0 | 0 | 0 | 100 |
+| cold | -10 C | -30 to -40 K | -0.070 % to +0.221 % | +/-0.16 % | 100 |
+| hot | +70 C | +40 to +50 K | **-0.274 %** to +0.088 % | +/-0.20 % | 92.2 |
+
+Worst-case corner at the worst tuned frequency (148.0 MHz in every case), dB:
+
+| Configuration | Case | +/-0.1 % | +/-0.2 % | **+/-0.3 % (estimate)** | +/-0.5 % | +/-0.75 % | +/-1 % |
+|---|---|---|---|---|---|---|---|
+| **2 + 3 + 4, IF 8 (design)** | room | 82.40 | 81.27 | 80.04 | 77.33 | 73.50 | 69.30 |
+| | cold | 81.53 | 80.32 | 79.03 | 76.20 | 72.26 | 67.98 |
+| | **hot** | 78.16 | 76.80 | **75.37** | 72.30 | 68.15 | 63.67 |
+| 2 + 3 + 2, IF 10 | room | 73.65 | 73.07 | 72.47 | 71.21 | 69.47 | 67.52 |
+| | cold | 73.15 | 72.56 | 71.95 | 70.65 | 68.87 | 66.69 |
+| | hot | 71.47 | 70.83 | 70.16 | 68.75 | 66.75 | 64.04 |
+| 2 + 3 + 3, IF 8 (withdrawn) | room | 71.87 | 71.04 | 70.18 | 68.36 | 65.87 | 63.07 |
+| | cold | 71.19 | 70.34 | **69.46** | 67.59 | 65.02 | 62.14 |
+| | hot | 68.87 | 67.95 | **67.00** | 64.96 | 62.15 | 58.98 |
+
+Residual limit that holds 70 dB (bisection to 0.0002 %; exact frequency map):
+
+| Configuration | Room | Cold | Hot | **Limit over temperature (stated)** | Alignment acceptance (limit less the +/-0.02 % reading allowance) |
+|---|---|---|---|---|---|
+| **2 + 3 + 4, IF 8 (design)** | +/-0.9596 % (stated +/-0.95 %) | +/-0.8842 % | +/-0.6407 % | **+/-0.64 %** (about +/-0.93 MHz) | **+/-0.62 %** (about +/-0.90 MHz) |
+| 2 + 3 + 2, IF 10 | +/-0.6768 % (+/-0.67 %) | +/-0.5938 % | +/-0.3238 % | +/-0.32 % | +/-0.30 % |
+| 2 + 3 + 3, IF 8 | +/-0.3205 % (+/-0.32 %) | +/-0.2389 % | none: the corner fails even at +/-0.0002 % | none | none |
+
+The room column reproduces the reviewer's exact-map check of iteration 3 (finding-16) to 0.001 dB:
+- 70.006 dB for 2 + 3 + 3 at +/-0.32 %;
+- 69.823 dB for 2 + 3 + 4 at +/-0.97 %;
+- 69.977 dB for 2 + 3 + 2 at +/-0.68 %.
+
+So the 2 + 3 + 4 limit at the alignment temperature is +/-0.95 %, as the reviewer found, and r12's +/-0.97 % was 0.01 % on the unsafe side.
+
+Design-input corner against the board temperature at the +/-0.3 % estimate (dB); the minimum sits at an end in every row, as the nesting argument says:
+
+| Configuration | -10 C | 0 C | 10 C | 20 C | 25 C | 30 C | 40 C | 45 C | 50 C | 60 C | 70 C |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| **2 + 3 + 4, IF 8 (design)** | 79.03 | 79.29 | 79.54 | 79.80 | 79.68 | 79.21 | 78.27 | 77.80 | 77.32 | 76.35 | **75.37** |
+| 2 + 3 + 2, IF 10 | 71.95 | 72.08 | 72.21 | 72.34 | 72.29 | 72.06 | 71.60 | 71.36 | 71.12 | 70.65 | 70.16 |
+| 2 + 3 + 3, IF 8 | 69.46 | 69.64 | 69.82 | 70.00 | 69.93 | 69.61 | 68.97 | 68.65 | 68.32 | 67.66 | 67.00 |
+
+Sensitivity (2 + 3 + 4 at the estimate, both coefficient classes doubled: node -80 to +80 ppm/K, coil +10 to +140 ppm/K): 77.98 dB cold and **70.99 dB hot**, still a pass.
+
+LTspice re-simulates 22 corner cases (room, cold and hot at the estimate for each configuration; cold and hot at the stated limit for 2 + 3 + 4; SGN +1 and -1). All agree with numpy, with a largest difference of 3.6e-4 dB (limit 0.01 dB). As in r10 and r12, a real SGN checks the model, not the worst-phase bound. For 2 + 3 + 4 hot at the estimate, the image-phase case gives 75.52 dB against the 75.37 dB bound; at the stated limit it gives 70.23 dB against 70.01 dB. `worst_case.py check r13` exits 0.
+
+![Corner against the residual per temperature case, 70 dB line](../../../hardware/sim/rx-frontend/results/2026-09-29-r13-bpf-temperature/temperature_residual.png)
+
+![Corner against the board temperature at the residual estimate, 70 dB line](../../../hardware/sim/rx-frontend/results/2026-09-29-r13-bpf-temperature/temperature_sweep.png)
+
+Findings (revision 4):
+
+1. **The reviewer's finding-7 is confirmed, and it is stronger with the whole temperature model.** 2 + 3 + 3 falls below 70 dB at both ends of REQ-SYS-114 after a room-temperature alignment:
+   - 69.46 dB cold and 67.00 dB hot at the +/-0.3 % estimate;
+   - at the hot end, no alignment residual holds 70 dB.
+
+   The reviewer's common-mode shift of -0.03 to -0.05 % gave 69.93 to 69.75 dB. The whole model adds more to that shift: the coil coefficient, a hot bay 25 K above the ambient, per-resonator drift, coupling drift and the coil Q loss. **The 2 + 3 + 3 result of revisions 1 to 3 is not shown over REQ-SYS-114 and is withdrawn as the proposal.** A sixth condition cannot restore it, because the drift alone uses up the margin.
+2. **2 + 3 + 4 at IF 8 MHz meets REQ-SYS-033 over REQ-SYS-114, with a worst case of 75.37 dB (margin 5.37 dB) at the +/-0.3 % estimate**, on a board at +70 C. The worst case is the hot end, because the downward drift (to -0.27 %) adds to the worst vertex, which already moves every resonator down.
+   - The cold end costs 1.0 dB.
+   - With both coefficient classes doubled the hot case keeps 0.99 dB.
+3. **The alignment acceptance becomes +/-0.62 % for 2 + 3 + 4**: the limit over temperature, +/-0.64 %, less a +/-0.02 % reading allowance for a 50 kHz NanoVNA step. This replaces r12's +/-0.97 %, which was at the alignment temperature and on the first-order map. The +/-0.3 % estimate has 0.32 % of headroom against it. The build procedure must also align at 20 to 30 C (section 5 condition 6).
+4. 2 + 3 + 2 at IF 10 MHz passes, but by 0.16 dB at the hot end, and its limit over temperature (+/-0.32 %) leaves 0.02 % over the unmeasured estimate. That is the fragility revision 3 found in 2 + 3 + 3 (section 5 gives the choice).
 
 ### 4.3 Port impedances of the J310 stages (new, finding 2)
 
@@ -284,6 +402,10 @@ Findings:
    - Revision 1 sized it with the leak alone at the limit: isolation from the antenna port to the mixer RF port at 124 to 132 MHz of 70 dB plus the front-end gain. From r11 that is 84 dB for 2 + 3 + 3, 82 dB for 2 + 3 + 4, 87 dB for 2 + 3 + 2 at IF 10 and 88 dB for 2 + 3.
    - At the corner, the leak adds to the filtered image path in the worst phase. It may then take only what is left of the margin. To keep 70 dB, the leak must be below the filtered image response by 32.7 dB for 2 + 3 + 3 (0.2 dB margin) and by 9.5 dB for 2 + 3 + 2 at IF 10 (2.5 dB margin). For 2 + 3 + 4 (10.1 dB margin) it may be up to 6.8 dB above that response.
    - **Isolation needed at the design-input corner (derived; the front-end gains are estimates): about 117 dB for 2 + 3 + 3, 98 dB for 2 + 3 + 2 at IF 10 and 85 dB for 2 + 3 + 4.** 117 dB is not a credible target for a hand-built single board (engineering judgement), so 2 + 3 + 3 has no allowance left for the whole-chain leak.
+   - **Over REQ-SYS-114 (revision 4, r13 margins at the +/-0.3 % estimate), same method:**
+     - 2 + 3 + 4 (5.37 dB margin): the leak must stay at least 1.4 dB below the filtered image response, which needs **about 89 dB** of isolation;
+     - 2 + 3 + 2 at IF 10 (0.16 dB): about 122 dB, not credible;
+     - 2 + 3 + 3 fails without any leak.
    - Layout requirement, as in revision 1: BPF1, BPF2 and BPF3 sit in a line, each in its own fenced cell, and the antenna, relay and BPF1 zone is kept away from the ring and LO zone.
    - This path cannot be simulated here, and the NanoVNA cannot verify it at the chain level.
 
@@ -325,12 +447,12 @@ Run `2026-09-28-r11-cascade-tpm005`, which supersedes r06. Stage values and thei
 | Configuration | MDS nominal / J310 port / TC-SYS-017 corner / stack (dBm) | REQ-SYS-022 | TPM-005 (Green at -142 or better, Red worse than -137) |
 |---|---|---|---|
 | A5 as TS-012 (2+3, IF 8) | -141.2 / -140.5 / -139.0 / -136.5 | PASS / PASS / **FAIL** / FAIL | Yellow / Yellow / Yellow / **Red** |
-| **A5 + BPF3 (2+3+3, IF 8)** | **-141.2 / -140.6 / -138.0 / -133.7** | PASS / PASS / **FAIL** / FAIL | **Yellow / Yellow / Yellow / Red** |
-| A5 + BPF3 of 4 (2+3+4, IF 8) | -140.7 / -140.0 / -134.9 / -129.4 | PASS / PASS / **FAIL** / FAIL | Yellow / Yellow / **Red** / Red |
+| A5 + BPF3 (2+3+3, IF 8; withdrawn in revision 4) | -141.2 / -140.6 / -138.0 / -133.7 | PASS / PASS / **FAIL** / FAIL | Yellow / Yellow / Yellow / Red |
+| **A5 + BPF3 of 4 (2+3+4, IF 8; design from revision 4)** | **-140.7 / -140.0 / -134.9 / -129.4** | PASS / PASS / **FAIL** / FAIL | **Yellow / Yellow / Red / Red** |
 | A5, IF 10 MHz, 2+3+2 | -141.5 / -140.8 / -139.1 / -135.8 | PASS / PASS / **FAIL** / FAIL | Yellow / Yellow / Yellow / Red |
 | A4 as TS-012 (2+3, JFET mixer) | -141.3 / -140.7 / -139.2 / -136.9 | PASS / PASS / **FAIL** / FAIL | Yellow / Yellow / Yellow / Red |
 | A4 + BPF3 (2+3+3, JFET mixer) | -141.5 / -140.9 / -138.7 / -135.0 | PASS / PASS / **FAIL** / FAIL | Yellow / Yellow / Yellow / Red |
-| A4 + BPF3 of 4 (2+3+4, JFET mixer) | -141.1 / -140.5 / -136.3 / -131.1 | PASS / PASS / **FAIL** / FAIL | Yellow / Yellow / Red / Red |
+| **A4 + BPF3 of 4 (2+3+4, JFET mixer; design from revision 4)** | **-141.1 / -140.5 / -136.3 / -131.1** | PASS / PASS / **FAIL** / FAIL | **Yellow / Yellow / Red / Red** |
 
 Section losses used. Nominal, Q 120: 1.70, 3.76, 3.76 dB (four-resonator BPF3: 6.19 dB). J310 port case: BPF1 2.33 dB. TC-SYS-017 corner: 2.83, 6.72, 6.72 dB (four-resonator BPF3: 11.95 dB; two-resonator BPF3: 3.11 dB).
 
@@ -348,7 +470,7 @@ Findings:
 2. **TPM-005 is Yellow and moves toward Red.** The CBE is the nominal cascade, -141.2 dBm, which misses the PDR margin policy of -142 dBm (Yellow). The TC-SYS-017 corner is also Yellow. The stacked corner (-133.7 dBm) is more than 3 dB worse than -140 dBm (Red). Section 8 gives the status report.
 3. The J310 input impedance alone (finding 2) costs 0.6 dB nominally: -141.2 becomes -140.6 dBm with BPF1 into 125 ohm. The VSWR 1.2 design input bounds this cost at the corner.
 4. BPF3 still costs no noise figure nominally (5.84 to 5.81 dB for A5). At the corner it costs 1.0 dB (-139.0 to -138.0 dBm), because its 6.7 dB corner loss sits ahead of the lossy ring.
-5. **The four-resonator BPF3 buys image margin with MDS.** As synthesized here (6 MHz ripple bandwidth, coil Q 100), its corner loss is 11.95 dB, which puts the corner MDS at -134.9 dBm (Red). A wider four-resonator BPF3 would lose less and reject less. It is not synthesized or simulated here.
+5. **The four-resonator BPF3 buys image margin with MDS.** As synthesized here (6 MHz ripple bandwidth, coil Q 100), its corner loss is 11.95 dB, which puts the corner MDS at -134.9 dBm (Red). A wider four-resonator BPF3 would lose less and reject less. It is not synthesized or simulated here. **Revision 4 adopts 2 + 3 + 4 (section 5), so this penalty is now the design's. The r11 cascade is not re-run: its 2 + 3 + 4 rows above are the design's MDS at 25 C. The MDS over REQ-SYS-114 is not analysed here: the hot coil Q lowers the loss corner further, and the device terms move toward the stack. The front-end redesign (item 6) has to recover both.**
 6. Levers for the MDS, none costed or simulated here:
    - a first stage with more gain and lower NF than a grounded-gate J310 (the Anglian design uses a MMIC LNA of about 22 dB gain and 0.8 dB NF behind its noise-matching filter; `docs/research/2m-cw-transceiver-reference-designs.md` F6; price not read);
    - BPF1 designed wider (8 MHz: about 1.5 dB loss, pre-check), with the image margin moved to the later sections;
@@ -362,36 +484,60 @@ The front-end filters, and so the image result, are the same for A4 and A5. **Th
 | Item | A4 (J310 mixer) | A5 (diode ring) |
 |---|---|---|
 | Image, filters as in TS-012 rev 4 (2 + 3) | **FAIL**: 51 dB nominal (Q 100), 45 dB at the best corner | **FAIL**: same |
+| **Image, 2 + 3 + 4 at IF 8 MHz (design, revision 4), under the six conditions below, over REQ-SYS-114** | **PASS, worst case 75.37 dB (margin 5.37 dB)** at the design-input corner, board +70 C, +/-0.3 % residual estimate (cold -10 C: 79.03 dB; alignment temperature: 80.04 dB). Residual limit over temperature +/-0.64 %, alignment acceptance +/-0.62 %. Doubled coefficient classes: 70.99 dB. Whole-chain isolation needed about 89 dB (r13; sections 4.2.1 and 4.4) | same |
+| Image, 2 + 3 + 3 at IF 8 MHz, same conditions, over REQ-SYS-114 | **FAIL, withdrawn as the proposal**: 69.46 dB cold and 67.00 dB hot at the estimate; no residual holds 70 dB hot (r13). At the alignment temperature it passes by 0.18 dB (revision 3: "PASS by 0.2 dB", residual limit +/-0.32 %) | same |
+| Image, 2 + 3 + 2 at IF 10 MHz, same conditions, over REQ-SYS-114 | PASS by 0.16 dB (70.16 dB hot); residual limit over temperature +/-0.32 %; isolation needed about 122 dB, not credible (r13) | same |
 | Image, 2 + 3 + 3 at IF 8 MHz, TS-012 20 % capacitors (mode A) | **FAIL for some builds**: 0.32 % of builds below 70 dB, corner 49.1 dB without re-alignment | same |
-| Image, 2 + 3 + 3 at IF 8 MHz, under the five conditions below | **PASS by 0.2 dB** at the design-input corner (70.2 dB) with the +/-0.3 % residual estimate; the residual limit is +/-0.32 % (0.87 dB per 0.1 %), so the pass rests on an unmeasured estimate; no allowance left for the whole-chain leak (section 4.4) | same |
-| Image, 2 + 3 + 3 with bare J310 ports | **FAIL**: 68.0 dB mode B corner (61.3 dB aligned in circuit) | same |
-| Image, 2 + 3 + 4 at IF 8 MHz, same conditions | PASS, 80.1 dB (10.1 dB margin; residual limit +/-0.97 %; whole-chain isolation needed about 85 dB) | same |
-| Image, 2 + 3 + 2 at IF 10 MHz, same conditions | PASS, 72.5 dB (2.5 dB margin; residual limit +/-0.68 %; isolation needed about 98 dB) | same |
+| Image, 2 + 3 + 3 with bare J310 ports | **FAIL**: 68.0 dB mode B corner (61.3 dB aligned in circuit); 2 + 3 + 4 with bare ports is not simulated, and condition 3 applies to it | same |
 | TS-012 criterion (90 dB with 3 dB or less passband loss) | unattainable (section 4.1) | same |
 | Half-IF at -70 dBm (TS-012 criterion) | **PASS** with 12 to 16 dB margin; representative circuit, partial convergence, Low confidence | **PASS** with 34 to 37 dB margin; Medium confidence (model balance and floor limits) |
-| REQ-SYS-022 MDS (TC-SYS-017 corner) | **not shown**: nominal -141.5 dBm, corner -138.7 dBm (2 + 3 + 3) | **not shown**: nominal -141.2 dBm, corner -138.0 dBm (2 + 3 + 3) |
-| TPM-005 | Yellow (CBE -141.5 dBm), Red at the stack | Yellow (CBE -141.2 dBm), Red at the stack |
+| REQ-SYS-022 MDS (TC-SYS-017 corner), design 2 + 3 + 4, 25 C | **not shown**: nominal -141.1 dBm, filter corner -136.3 dBm, stack -131.1 dBm (r11) | **not shown**: nominal -140.7 dBm, filter corner -134.9 dBm, stack -129.4 dBm (r11) |
+| TPM-005 | Yellow (CBE -141.1 dBm), **Red** at the filter corner and the stack | Yellow (CBE -140.7 dBm), **Red** at the filter corner and the stack |
 
-**Conditions for the image result of 2 + 3 + 3 (and of the alternatives).** These are proposed design inputs; each is a condition of the verdict above.
+**Conditions for the image result of 2 + 3 + 4 (and of the alternatives).** These are proposed design inputs; each is a condition of the verdict above.
 
-1. Mode B capacitor tolerances in every section: coupling capacitors C0G, B tolerance (+/-0.1 pF), with at most +/-0.05 pF of board stray; end capacitors C0G, C tolerance (+/-0.25 pF). **This is a condition of BPF3**, and equally of BPF1 and BPF2. The TS-012 20 % condition fails.
-2. Every resonator re-aligned after the capacitors are fitted, section by section between 50 ohm ports on the NanoVNA, to a residual of **at most +/-0.32 %** in frequency per resonator for 2 + 3 + 3 (about +/-0.47 MHz at 146 MHz); +/-0.68 % (about +/-1.0 MHz) for 2 + 3 + 2 at IF 10; +/-0.97 % (about +/-1.4 MHz) for 2 + 3 + 4 (r12, design-input corner, together with conditions 1, 3 and 4). The verdicts above use +/-0.3 %, an estimate. Revision 2's +/-0.75 % is withdrawn: at the design-input corner it gives 65.96 dB for 2 + 3 + 3 (FAIL).
-3. Every internal port within VSWR 1.2 of 50 ohm over 144 to 148 MHz: both J310 source inputs, both J310 drain outputs and the ring RF port. This is a design input to the J310 stages, which need matching networks (section 4.3).
+1. Mode B capacitor tolerances in every section:
+   - coupling capacitors C0G, B tolerance (+/-0.1 pF), with at most +/-0.05 pF of board stray;
+   - end capacitors C0G, C tolerance (+/-0.25 pF).
+
+   **This is a condition of BPF3**, and equally of BPF1 and BPF2. The TS-012 20 % condition fails. Every capacitor is C0G (0 +/- 30 ppm/K, the class r13 uses).
+2. Every resonator re-aligned after the capacitors are fitted, section by section between 50 ohm ports on the NanoVNA. **For 2 + 3 + 4: an acceptance of +/-0.62 %** in frequency per resonator (about +/-0.90 MHz at 146 MHz), which is:
+   - the limit over REQ-SYS-114 of +/-0.64 % (r13, exact frequency map, together with conditions 1, 3, 4 and 6);
+   - less a +/-0.02 % reading allowance (50 kHz sweep step).
+
+   The limit at the alignment temperature alone is +/-0.95 % (r13 room; r12's +/-0.97 % was on the first-order map and is superseded). For the alternatives over temperature: +/-0.32 % for 2 + 3 + 2 at IF 10 (acceptance +/-0.30 %); none for 2 + 3 + 3. The verdicts above use +/-0.3 %, an estimate; revision 2's +/-0.75 % stays withdrawn.
+3. Every internal port within VSWR 1.2 of 50 ohm over 144 to 148 MHz and over the board temperature range: both J310 source inputs, both J310 drain outputs and the ring RF port. This is a design input to the J310 stages, which need matching networks (section 4.3).
 4. At most 0.03 pF of input-to-output stray capacitance per section (layout).
-5. Whole-chain antenna-to-mixer isolation at 124 to 132 MHz as section 4.4 derives. For 2 + 3 + 3 this is about 117 dB, which is not credible (engineering judgement). For 2 + 3 + 4 it is about 85 dB.
+5. Whole-chain antenna-to-mixer isolation at 124 to 132 MHz as section 4.4 derives. For 2 + 3 + 4 over REQ-SYS-114 this is about 89 dB (85 dB at the alignment temperature). For 2 + 3 + 3 no isolation is enough over temperature.
+6. **(New in revision 4, finding-7.)** Alignment at a room temperature of 20 to 30 C. Every coil within +5 to +70 ppm/K: the Coilcraft 1812SMS class, and an estimate for the hand-wound coil. Board stray within +/-10 ppm/K on each node (estimate). These hold for a board from -10 C to +70 C, which covers REQ-SYS-114 with the main-bay air rise of the thermal note. If the thermal note's review moves the main-bay air above 70 C at the 45 C corner, r13 is re-run with the new bound.
 
-**Recommendation (revised).**
+**Recommendation (revision 4).**
 
-- **Image.** 2 + 3 + 3 at IF 8 MHz is not a robust basis for REQ-SYS-033: 0.2 dB at the corner, and no room for the board leak. The configurations with a margin are:
-  - a four-resonator BPF3 (10 dB at the corner, but a corner MDS penalty as synthesized);
-  - IF 10 MHz with 2 + 3 + 2 (2.5 dB, which re-opens the IF and ladder design).
+- **Image: 2 + 3 + 4 at IF 8 MHz is the design.** It is adopted on the owner's authorization of 2026-09-29 and on the r13 evidence. The alternatives:
+  - 2 + 3 + 3 fails over REQ-SYS-114 and is withdrawn.
+  - 2 + 3 + 2 at IF 10 MHz passes over temperature.
 
-  The residual limit adds to this: 2 + 3 + 3 needs every resonator within +/-0.32 %, only 0.02 % beyond the unmeasured estimate, where 2 + 3 + 4 and 2 + 3 + 2 at IF 10 leave 0.67 % and 0.38 % of headroom.
+  2 + 3 + 4 is chosen over 2 + 3 + 2 at IF 10 for four reasons:
+  1. **Margin.** Over temperature 2 + 3 + 4 keeps 5.37 dB, and 70.99 dB with doubled coefficients. 2 + 3 + 2 at IF 10 keeps 0.16 dB: a further 0.03 % of hot drift, or a residual 0.02 % over the estimate, fails it.
+  2. **Alignment.** The limit over temperature is +/-0.64 % against +/-0.32 %. The unmeasured +/-0.3 % estimate has 0.32 % of headroom with 2 + 3 + 4 and 0.02 % with 2 + 3 + 2. That near-zero headroom is the same fragility that retired 2 + 3 + 3.
+  3. **Board leak.** 2 + 3 + 4 needs about 89 dB of whole-chain isolation over temperature. 2 + 3 + 2 at IF 10 needs about 122 dB, which is not credible on a hand-built board.
+  4. **Frequency plan.** IF 10 MHz re-opens work that is done at 8 MHz:
+     - the 8.000 MHz crystal ladder and its matching;
+     - the LO range and the half-IF result (r05);
+     - the Si5351 spur plan (WP-PDR-20).
 
-  The choice belongs with the receiver front-end redesign that the MDS needs anyway (next item). The author proposes to carry it into WP-PDR-19 rather than fix it in TS-012 revision 5. Cost of any of these filter changes is about USD 1 before contingency (three or four coils from the owned wire and seven to nine 0805 C0G parts), inside the TS-012 E2 allowance. B-tolerance pricing was not read.
-- **MDS.** No configuration shows REQ-SYS-022 at the TC-SYS-017 corner, and none meets the TPM-005 PDR margin policy. The front end needs a change before PDR: a lower-NF, higher-gain first stage, a lower-loss BPF1, or higher coil Q (section 4.6 finding 6). This is a receiver-design item of WP-PDR-19. It does not separate A4 from A5.
+     2 + 3 + 4 keeps all of them.
+
+  Against it, the four-resonator BPF3 as synthesized costs MDS. At the TC-SYS-017 filter corner A5 is at -134.9 dBm, against -139.1 dBm for 2 + 3 + 2 at IF 10, which is TPM-005 Red (section 8). REQ-SYS-022 was not shown at the corner in any configuration, so the front-end redesign was needed anyway. It now also has to recover the BPF3 loss, for example with a lower-loss or wider four-resonator BPF3, or with gain ahead of BPF3. Any such change re-runs r13 and r11 for the new BPF3. The redesign may not trade the image margin away below 70 dB at the r13 corner.
+- **Cost against TS-012 row E5 (a).** Row E5 (a) reads "third receiver BPF section and J310 port matching, seven to nine 0805 C0G in B or C tolerance, coils from owned wire, 1.00 to 4.50".
+  - The four-resonator BPF3 alone has nine C0G parts: two end (4.3 pF), four shunt (about 16 and 20 pF, trimmed by the coil tuning) and three coupling (about 0.75 and 0.56 pF). It also has four coils from the owned 24 AWG wire. 2 + 3 + 3's BPF3 had seven parts and three coils.
+  - So BPF3 alone reaches the top of E5 (a): nine parts at row E2's USD 0.23 to 0.50 per value is USD 2.07 to 4.50 before contingency, and the coils cost nothing.
+  - The J310 port matching networks (condition 3) are not designed. Their parts are outside the nine and would add about USD 0.23 to 0.50 each above E5 (a)'s top.
+  - B-tolerance pricing was not read (section 7 item 2).
+  - The TS-012 author carries the count into revision 6. The change is common to A4 and A5.
+- **MDS.** No configuration shows REQ-SYS-022 at the TC-SYS-017 corner, and none meets the TPM-005 PDR margin policy; with the design filter the filter corner is Red. The front end needs a change before PDR: a lower-NF, higher-gain first stage, a lower-loss BPF1 or BPF3, or higher coil Q (section 4.6 findings 5 and 6). This is a receiver-design item of WP-PDR-19. It does not separate A4 from A5.
 - **TS-012 section 7.3 criterion**, proposed replacement:
-  - image rejection at least 70 dB at the worst-case corner of the stated tolerance box, at every tuned frequency (100 kHz spacing), with the ports and stray limits stated;
+  - image rejection at least 70 dB at the worst-case corner of the stated tolerance box, at every tuned frequency (100 kHz spacing), over REQ-SYS-114 after the stated alignment, with the ports and stray limits stated;
   - a Monte Carlo reported only as a yield (N and a 95 % bound);
   - BPF1 worst in-band loss judged in the REQ-SYS-022 cascade at the TC-SYS-017 corner, not by a fixed 3 dB figure.
 - If the owner declines every filter change and keeps 2 + 3 at IF 8 MHz, REQ-SYS-033 would need a relaxation to about 45 dB (TBR). The author does not recommend it: the image band is the aeronautical AM band.
@@ -399,7 +545,14 @@ The front-end filters, and so the image result, are the same for A4 and A5. **Th
 ## 6. Limitations
 
 - The sections are assumed isolated by the J310 stages (reverse isolation complete). No J310 amplifier was simulated: its gain and NF are estimates from the datasheet at other conditions. Its port impedances are modelled as a shunt R and C from datasheet values (section 4.3). Its tuned-drain selectivity, which would add image rejection, is not credited.
-- The alignment model (section 3 item 5) assumes a Dishal-type node alignment at 50 ohm with a +/-0.3 % residual. The owner's actual NanoVNA procedure is not yet written, and the residual it achieves is not measured; section 7 item 3 asks for both. The residual limits of r12 (+/-0.32, 0.68 and 0.97 %) hold only together with the other design-input conditions; any relaxation of the ports or the stray lowers them.
+- The alignment model (section 3 item 5) assumes a Dishal-type node alignment at 50 ohm with a +/-0.3 % residual. The owner's actual NanoVNA procedure is not yet written, and the residual it achieves is not measured; section 7 item 3 asks for both. The residual limits hold only together with the other design-input conditions; any relaxation of the ports or the stray lowers them. From revision 4 the build acceptance uses the r13 limits over temperature (+/-0.64 % for 2 + 3 + 4); r12's limits are at the alignment temperature and on the first-order L map (finding-16, a lien for r12).
+- Temperature (revision 4, r13):
+  - The coil coefficient is the Coilcraft 1812SMS catalog class applied to a hand-wound air coil (estimate). A coil wound on a form, or glued, may differ; the doubled-class case (70.99 dB) bounds a factor of two.
+  - The +/-10 ppm/K stray allowance and the +70 C board bound are estimates. The board bound rests on the thermal note, which is under review.
+  - The J310 port admittances and the ring port are assumed to stay within VSWR 1.2 over temperature (condition 3); the J310 stages are not simulated.
+  - The capacitor Q (500) and the 5 nH vias are held constant.
+  - The drift is a steady state: a temperature gradient across the board is covered only because every resonator drifts independently inside the same box.
+  - The MDS is not re-analysed over temperature.
 - The worst-case corner assumes independent tolerances with every vertex reachable, which includes all coils detuned the same way. A procedure that measures the passband centre would bound that case. It is kept as the corner because TC-SYS-021 asks for it.
 - No PCB layout, radiation or ground-return model, beyond 5 nH per resonator and the per-section stray capacitance. The whole-chain leak (section 4.4) is a stated requirement, not an analysis.
 - Coil Q is modelled as a series resistance fixed at its 146 MHz value. Hand-wound coil Q is an estimate (swept 100 to 200); the catalog 1812SMS minimum is 100. The residual tuning error is an estimate.
@@ -416,9 +569,14 @@ The front-end filters, and so the image result, are the same for A4 and A5. **Th
 
 ## 7. What closes before the order
 
-1. Owner decision on the front-end filter set: 2 + 3 + 3 with its five conditions, 2 + 3 + 4, or IF 10 MHz 2 + 3 + 2. The author proposes to decide it together with the MDS redesign in WP-PDR-19 (item 5). The decision is entered in TS-012 revision 5 with the replacement criterion of section 5.
-2. At the ordering gate: price and stock of 0.8 pF and 1.2 pF C0G 0805 parts in B tolerance (+/-0.1 pF), and of 4.3 and 4.7 pF parts in C tolerance. If B tolerance is not stocked at a listed price, re-run `worst_case.py` r08 to r10 with C tolerance on the coupling capacitors.
-3. A written alignment procedure in the build notes: each section between 50 ohm on the NanoVNA after its capacitors are fitted, every resonator tuned, and the per-section S21 at 130 MHz and the passband centre recorded. This is the condition behind the aligned model. Its acceptance: every resonator node within the residual limit of the chosen configuration (+/-0.32 %, about +/-0.47 MHz, for 2 + 3 + 3; +/-0.68 % for 2 + 3 + 2 at IF 10; +/-0.97 % for 2 + 3 + 4), with a sweep step and a reading uncertainty small against that limit (for 2 + 3 + 3, a 50 kHz step or finer: engineering judgement). A first-build measurement of the achieved residual replaces the +/-0.3 % estimate.
+1. Front-end filter set: **2 + 3 + 4 at IF 8 MHz** is the design from revision 4. The owner authorized the iteration that adopts it (status note 2026-09-29 section 2), and 2 + 3 + 3 is withdrawn (section 4.2.1). The TS-012 author carries it into TS-012 revision 6 (decision D-15, row E5 (a) count, the section 1 item 4 and section 8.10 wording that still quote 2 + 3 + 3 "by 0.2 dB"), with the replacement criterion of section 5. It becomes final with the owner's TS-012 decision. The MDS redesign (item 5) must keep it at 70 dB or more at the r13 corner.
+2. At the ordering gate: price and stock of 0.8 pF and 1.2 pF C0G 0805 parts, and for the four-resonator BPF3 0.56 and 0.75 pF parts, in B tolerance (+/-0.1 pF); and of 4.3 and 4.7 pF parts in C tolerance. Every part must be C0G (0 +/- 30 ppm/K). If B tolerance is not stocked at a listed price, re-run `worst_case.py` r08 to r10 and r13 with C tolerance on the coupling capacitors.
+3. A written alignment procedure in the build notes: each section between 50 ohm on the NanoVNA after its capacitors are fitted, every resonator tuned, and the per-section S21 at 130 MHz and the passband centre recorded. This is the condition behind the aligned model. Revision 4 acceptance, for 2 + 3 + 4:
+   - the alignment done at a room temperature of 20 to 30 C, recorded;
+   - every resonator node within **+/-0.62 %** of 146.0 MHz (about +/-0.90 MHz);
+   - a 50 kHz sweep step or finer.
+
+   The acceptance is the limit over REQ-SYS-114 of +/-0.64 % (r13) less the +/-0.02 % that a 50 kHz step reads to. It replaces revision 3's values: +/-0.32 % for 2 + 3 + 3, and +/-0.97 % for 2 + 3 + 4 at the alignment temperature on the first-order map. A first-build measurement of the achieved residual replaces the +/-0.3 % estimate. The +/-0.02 % allowance covers the reading step only: the NanoVNA's own frequency accuracy is not read here and is part of the procedure's uncertainty statement (finding-15 stays a lien for that statement).
 4. Design inputs to the J310 stages and the layout (WP-PDR-19 and the layout work package):
    - every internal port within VSWR 1.2 of 50 ohm;
    - at most 0.03 pF of stray per section;
@@ -427,11 +585,11 @@ The front-end filters, and so the image result, are the same for A4 and A5. **Th
 5. A front-end redesign for REQ-SYS-022 at the TC-SYS-017 corner (section 4.6 finding 6), analysed with this block's cascade before PDR. The TPM-005 status and the proposed risk are in section 8.
 6. Coil winding data for 56 nH from 24 AWG (about 3 turns, 5.5 mm mean diameter, spread to tune; Wheeler estimate), in the build notes. Alternative: Coilcraft 1812SMS-56N, which is not tunable, so it needs trimmer capacitors to meet condition 2.
 7. If A4 is chosen: a real A4 mixer schematic and a converging half-IF run. The present JFET result is representative and conservative.
-8. Independent review of revision 3 of this record and of `hardware/sim/rx-frontend/` (plan rule C10).
+8. Independent review of revision 4 of this record and of `hardware/sim/rx-frontend/` (plan rule C10; INSP-117 iteration 4).
 
 After assembly (supporting, not closing):
 
-- NanoVNA S21 of each section at 130 MHz: expected at least 19.5, 39.4 and 39.4 dB below 146 MHz at coil Q 100 (nominal).
+- NanoVNA S21 of each section at 130 MHz: expected at least 19.5, 39.4 and 59.0 dB below 146 MHz at coil Q 100 (nominal; the third value is the four-resonator BPF3, numpy nodal solver, revision 4).
 - A relative image check with the tinySA generator when the owner buys it (status note 2026-09-28: bought later).
 
 ## 8. Status for the TPM-005 owner and the risk writer (finding 3)
@@ -443,11 +601,11 @@ This section is the analysis author's report. The author does not edit `docs/pla
 | TPM | TPM-005 `rx-mds` (MOP-006; REQ-SYS-022, REQ-SYS-023) |
 | Phase policy | PDR: cascade gives -142 dBm or better |
 | Previous status | No history entry (`history: []`); revision 1 of this note reported REQ-SYS-022 as a nominal PASS without naming TPM-005 |
-| New status | **Yellow** on the CBE; **Red** at the stacked corner |
-| CBE | -141.2 dBm (A5, 2 + 3 + 3, nominal cascade; A4 -141.5 dBm). TC-SYS-017 corner -138.0 dBm (Yellow). Stacked corner -133.7 dBm (Red). Evidence: `hardware/sim/rx-frontend/results/2026-09-28-r11-cascade-tpm005/` |
-| Cause | Three things together: the loss of a hand-built BPF1 ahead of a low-gain grounded-gate J310 (about 12 dB gain, estimate); a lossy passive mixer; and, at the corner, mode B capacitor and VSWR 1.2 port tolerances at coil Q 100 |
+| New status | **Yellow** on the CBE; **Red** at the TC-SYS-017 filter corner and at the stacked corner (revision 4: the design filter 2 + 3 + 4 moves the filter corner from Yellow to Red; revision 3 reported Yellow there for 2 + 3 + 3) |
+| CBE | Revision 4, design 2 + 3 + 4: -140.7 dBm (A5, nominal cascade; A4 -141.1 dBm). TC-SYS-017 filter corner -134.9 dBm (A5; A4 -136.3 dBm), Red. Stacked corner -129.4 dBm (A5; A4 -131.1 dBm), Red. All at 25 C; the MDS over REQ-SYS-114 is not analysed. Revision 3 (2 + 3 + 3, withdrawn): -141.2, -138.0 and -133.7 dBm. Evidence: `hardware/sim/rx-frontend/results/2026-09-28-r11-cascade-tpm005/` (rows "A5 + BPF3 of 4" and "A4 + BPF3 of 4") |
+| Cause | Three things together: the loss of a hand-built BPF1 ahead of a low-gain grounded-gate J310 (about 12 dB gain, estimate); a lossy passive mixer; and, at the corner, mode B capacitor and VSWR 1.2 port tolerances at coil Q 100. From revision 4 also the four-resonator BPF3 ahead of the ring (11.95 dB corner loss as synthesized), which the image requirement over temperature needs |
 | Requirement | REQ-SYS-022 not shown at the TC-SYS-017 corner in any configuration; REQ-SYS-023 (Goal) not met |
-| Proposed response | Front-end redesign in WP-PDR-19 (section 4.6 finding 6), re-run of `cascade.py`, and a TPM-005 history entry at the PDR package |
+| Proposed response | Front-end redesign in WP-PDR-19 (section 4.6 findings 5 and 6), including a lower-loss four-resonator BPF3 or gain ahead of it, kept at 70 dB or more at the r13 image corner; re-run of `cascade.py` and `worst_case.py` r13, and a TPM-005 history entry at the PDR package |
 | Risk | By `conventions.reporting_interval`, a Yellow change needs a status note within one working session, and a Red TPM opens a risk. The author proposes a new risk to the risk writer: "Receiver MDS not met at the tolerance corner (REQ-SYS-022, TPM-005)". Likelihood 4 (the analysis fails the corner); consequence performance margin 4 (a KDR not met). Mitigation: the section 4.6 levers. Trigger: the redesigned cascade still worse than -140 dBm at the TC-SYS-017 corner at PDR. The risk writer sets the final scores |
 
 ## 9. Revision history and review disposition
@@ -457,6 +615,7 @@ This section is the analysis author's report. The author does not edit `docs/pla
 | 1 | 2026-09-28 | First issue (commit 7200be7), runs r01 to r06 |
 | 2 | 2026-09-28 | Fixes the independent review of revision 1, iteration 1, findings 1 to 5 (below); runs r07 to r11; sections 0, 2, 3, 4.2 to 4.6, 5 to 8 revised; section 4.3 new; the half-IF and cascade sections renumbered 4.5 and 4.6 |
 | 3 | 2026-09-28 | Fixes the independent review of revision 2, iteration 2, finding-6 (Major): residual limit re-derived at the design-input corner (run r12); sections 0, 2, 3 item 6, 4.2 (table, plots, findings 3 and 4), 4.4 finding 2, 5 (table, condition 2, recommendation), 6 and 7 item 3 revised; README updated |
+| 4 | 2026-09-29 | Fixes the independent review of revision 3, iteration 3, finding-7 (Major; REQ-SYS-114). Adds run r13 (`2026-09-29-r13-bpf-temperature`) and adopts 2 + 3 + 4 at IF 8 MHz as the design filter; 2 + 3 + 3 is withdrawn. Revised: the header, sections 0, 2 (seven rows), 3 item 6, 4.2 (finding 6 and the element table), the new 4.2.1, 4.4 finding 3, 4.6 (table and finding 5), 5 (table, conditions 1 to 3 and 5, new condition 6, recommendation and cost), 6, 7 items 1 to 3 and 8 and the after-assembly check, 8 and 9. Code: `tolerance.py` gains the exact frequency map, the drift shift and the capacitor widening (defaults unchanged, so r08 to r12 reproduce); `worst_case.py` gains r13 and passes the coil Q and section options through `chain_corner`; `run_sims.py` lists r13; the README is updated. Owner authorization: `docs/plan/status/status-2026-09-29.md` section 2 |
 
 | Finding | Class | Disposition |
 |---|---|---|
@@ -466,3 +625,8 @@ This section is the analysis author's report. The author does not edit `docs/pla
 | finding-4 (checkers exit 0 on FAIL; REQ constant without id) | Minor | Fixed. `check_bpf.py` exits 1 on any REQ-SYS-033 FAIL; `cascade.py` exits 1 on a REQ-SYS-022 FAIL at the corner; `worst_case.py check` exits 1 when the proposed filter fails; `validate_nodal.py` exits 1 when not accepted. Each constant carries its requirement or TPM id |
 | finding-6 (iteration 2: the +/-0.75 % re-alignment limit does not hold at the design-input corner; the 0.2 dB margin sits inside the residual estimate's uncertainty) | Major | Fixed in revision 3. Run r12 sweeps the residual at the 50 ohm, VSWR 1.2 and design-input corners and bisects the limit that holds 70 dB: +/-0.32 % for 2 + 3 + 3 (0.3222 %), +/-0.68 % for 2 + 3 + 2 at IF 10, +/-0.97 % for 2 + 3 + 4. The reviewer's values are reproduced (70.19, 70.02, 68.40 and 65.96 dB at +/-0.3, 0.32, 0.5 and 0.75 %; 69.53 dB for 2 + 3 + 2 and 73.64 dB for 2 + 3 + 4 at +/-0.75 %). The slope at the estimate is 0.87 dB per 0.1 %. Stated in sections 0, 4.2, 5 (condition 2) and 7 item 3 and in the README; LTspice agrees on 18 cases |
 | finding-5 (leakage tolerance at nominal only) | Minor | Fixed. Worst-phase bound at the mode B and design-input corners (r10, section 4.4). 0.1 pF per section confirmed failing (69.9 dB). Proposed limit 0.03 pF per section; the whole-chain isolation re-derived at the corner |
+| finding-7 (record id; iteration 1, re-classified Major at iteration 3: REQ-SYS-114 not analysed, and the 2 + 3 + 3 image pass does not hold over -10 C to +45 C with C0G drift inside its class) | Major | Fixed in revision 4 (run r13). (a) REQ-SYS-114 and every temperature input are stated in section 2 with sources: C0G class from KEMET C1003_C0G, coil TCL from Coilcraft Document 184-1, board temperature from the thermal note. (b) The drift after a 20 to 30 C alignment is carried in the residual box per resonator, with the coupling-drift widening and the hot coil Q (section 3 item 6). (c) 2 + 3 + 3 is reported as not shown over REQ-SYS-114 and withdrawn: 69.46 dB cold and 67.00 dB hot at the estimate, no residual holding 70 dB hot; the reviewer's 69.93 to 69.75 dB is confirmed and exceeded. (d) 2 + 3 + 4 at IF 8 MHz is adopted: worst case 75.37 dB (margin 5.37 dB) hot at the +/-0.3 % estimate, limit over temperature +/-0.64 %, acceptance +/-0.62 % with a +/-0.02 % reading allowance; section 5 gives why over 2 + 3 + 2 at IF 10 (70.16 dB, limit +/-0.32 %). (e) Carried into sections 0, 5, 7 items 1 and 3, and to the TS-012 author (section 7 item 1) |
+
+Liens (rule C1: revision 4 fixes only finding-7). This table uses the record ids of INSP-117 from revision 4; its row "finding-6 (iteration 2)" is record id finding-11. The open Minor findings stay open: finding-6, finding-8 to finding-10 and finding-12 to finding-16. Two of them are touched by the finding-7 fix without being answered:
+- finding-16: r13 draws the exact frequency map, and its room column reproduces the reviewer's values. r12's stated limits and the `tolerance.py` default remain first-order.
+- finding-15: the 2 + 3 + 4 acceptance carries a +/-0.02 % reading allowance, but the uncertainty statement of the alignment procedure is not written.
