@@ -1,7 +1,8 @@
 # cwht PDR Work Plan
 
-**Author:** Claude, lead SE planner. **Date:** 2026-09-27. **Revision:** 2 (revision 1 committed at `51600e8`; section 11 lists the changes). **Configuration read:** `main` at `39a6b13` (CR-003 revision 3 at `d9a215a`, awaiting the reviewer's re-check of its §6.3; CR-006 revision 2 at `39a6b13`, awaiting its round 2 re-check), functional baseline `baseline/srr` on `779f93f`.
+**Author:** Claude, lead SE planner. **Date:** 2026-09-29. **Revision:** 3 (revision 2 committed at `ab2af2d` and approved by the owner on 2026-09-27, status note 2026-09-27 §4; revision 1 at `51600e8`; section 11 lists the changes). **Configuration read:** `main` at `6497900` (TS-012 revision 7: the owner's decision **A5**, status note 2026-09-29 §5), functional baseline `baseline/srr` on `779f93f`.
 **Status:** Plan (Informational working product of the PDR phase). It is not a baselined item. It becomes an input to `docs/reviews/PDR/package.md` §1 (agenda) and §12 (milestones) and is updated by the lead SE when a wave closes.
+**Revision 3 in one paragraph.** On 2026-09-29 the owner chose TS-012 finalist A5 as the hand-built design: the Mitsubishi RA07M1317M module PA with the Epson TG2520SMN TCXO, the diode-ring mixer, the revision 6 design items D-1 to D-18, two JLCPCB 2-layer bare boards soldered by the owner, the printed PETG case with the Boyd sink as an end wall, a Morse-code audio menu instead of a display, and cells charged outside the radio. Revision 2 was written for the PCBWay turnkey design. Revision 3 re-plans the PDR for A5: section 3.0 gives the state of every work package (done, changed for A5, new, dropped) and governs where the revision 2 text of a work package differs; sections 4, 5.2, 5.3, 6.0 and 8 are re-issued; the schedule is now paced against the weekly usage limit (new rule C12, section 8). **Proposed PDR: about Sat 2026-10-10 (range Fri 10-09 to Tue 10-13)**, with three owner decision sessions, one bench session and the review session.
 **Governing process:** `docs/process/00-charter.md` §4 and §11; `docs/process/01-lifecycle-and-reviews.md` §3, §5, §9 to §13; `docs/plan/semp.md` §3.4 (compressed-schedule lien policy); NPR 7123.1D App. G Tables G-5 and G-6; NPR 7150.2D as customized in `docs/process/07-software-engineering-plan.md`.
 
 Paths are relative to `/Users/robinonsay/rust/cwht`. "Sources" below are the four PDR reader reports of 2026-09-27 (gate, carried items, TBR closure map, design and software maps), which read HEAD `72e1863`; this plan re-read the commits after them (`cc83c8c`, `9373729`, `34668e3`, `e8f21c9`, `d9a215a`, and for revision 2 also `39a6b13`) and updates the reader findings where those commits changed the facts (section 1.3).
@@ -35,6 +36,10 @@ This plan defines every piece of work needed to hold the Preliminary Design Revi
 | Plans | `docs/plan/semp.md`, `schedule.md`, `cost-estimate.md`, `technology-assessment.md`, `tpm.json` | Schedule, liens policy, TPMs |
 | Design state | `docs/design/concept.md`, `docs/design/allocation.json`, `docs/decisions/`, `docs/icd/`, `docs/safety/`, `docs/risk/register.json`, `docs/requirements/`, `firmware/`, `tools/` | Starting point of every product |
 | Reference corpus | `docs/references/md/` (SE HB, NPR 7123.1D, NPR 7150.2D, SWEHB) | Standards cited by the gate |
+| **Revision 3:** TS-012 revision 7 | `docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md` §1, §8.1 to §8.14 (A5 architecture, BOM, ordering gate, envelope, flagged parts, Morse menu, descopes, exceptions, requirement deltas, price-check list, plan changes, owner questions, design items D-1 to D-18), §10 (decision, conditions, open thermal items, revisit conditions) | The A5 design basis of every changed WP |
+| **Revision 3:** status notes of 2026-09-27 §6 to §13, 2026-09-28, 2026-09-29 | `docs/plan/status/status-2026-09-27.md`, `status-2026-09-28.md`, `status-2026-09-29.md` | Owner cost, construction, UI, equipment and process inputs; CR-007 to CR-016 approvals; CR-007 confirmation (option B); raw-file rule (option A); INSP-117 and TS-012 revision 6 authorizations; the A5 decision; CR-017 approval; "pace work, pause at the limit" (2026-09-27 §11) |
+| **Revision 3:** deviations log and A5 lifecycle check | `docs/cm/deviations.md` entries 5 and 6; `docs/research/a5-parts-lifecycle-2026-09-29.md` (`f193784`) | Open deviations that close with CR-007 and CR-017; the owner's "no outdated components" condition (39 of 39 parts Active) |
+| **Revision 3:** phase CRs | `docs/cm/cr/CR-007` to `CR-017` (all Dispositioned, Approved, `merge_sha: null`); `CR-003`, `CR-006` (Submitted, held for revision since status note 2026-09-27 §6) | Merge train (WP-PDR-56) and the A5 CR set (WP-PDR-01, 53) |
 
 ### 1.3 Facts changed since the reader reports (read at `39a6b13`)
 
@@ -48,6 +53,15 @@ This plan defines every piece of work needed to hold the Preliminary Design Revi
    - One board first, then one enclosure option at a time: option C printed first, CNC only if C is not acceptable.
    - Coating: an internet search for spray-on metallic coatings for printed parts (WP-PDR-27).
    - EMI measurement: a spectrum analyzer with a near-field probe (the "magic wand"), a method the owner has used before on professional equipment (status note §3 row 8; WP-PDR-43).
+5. **Revision 3: facts since revision 2 (read at `6497900`).**
+   - **Cost and construction (status note 2026-09-27 §6, §8, §10, §11).** First complete radio: USD 200 target, USD 300 absolute maximum worst case with 15 % contingency, sales tax and filament excluded. JLCPCB bare boards soldered by the owner at a home bench (iron, heat gun, solder, flux); through-hole preferred, hand-solderable surface-mount accepted, no BGA or reflow-only parts. Listed prices only: "if I have to go ask a website for a quote for a part, that's a bad sign". Size negotiable. No display: a Morse-code audio menu. New test equipment under its own USD 300 cap. The owner declined the lighter process: "I don't want to use a lighter process for the rest of PDR"; Claude paces the work and pauses when the weekly limit is near (§11).
+   - **Owned equipment (status notes 2026-09-27 §5, §11; 2026-09-28 §1, §2).** NanoVNA with calibration loads, Fluke 174 multimeter (no temperature input), 50 ohm BNC dummy load, Baofeng BF-F8HP (the TC-SYS-025 source). Not owned: a K-type thermocouple thermometer (to buy, equipment cap), the tinySA Ultra (the owner buys it later). CR-006 Q5 (a matched second 2 m CW station) is open with the owner's radio club.
+   - **Design decision (status note 2026-09-29 §4, §5; TS-012 revision 7 §10).** Owner statements, verbatim: "I'm leaning towards A5 if it doesn't use outdated components" and, after the lifecycle check, "A5". TS-012 had recommended A4 with the TCXO and the ring (300 against A5's 270). A5 carries the ordering gate of TS-012 §8.4 (order only if the recomputed worst case is at most USD 300; revision 6 stacked worst case USD 316.51, 299.83 after guards G1 and G2), the §8.10 requirement deltas for a re-baseline CR, the design items D-1 to D-18, and open thermal items: long-session cells 58.9 C against 55 C, the duty-limited PETG face 60.1 C against 60 C, the module case about 106 C against Mitsubishi's 90 C guidance, the relay ambient 67.1 C against 65 C. It also carries the open D-18 lien (INSP-118 finding-9, INSP-110 finding-24: the PA_EN gate's supply and level interface), due with the WP-PDR-22 key-up rerun before the re-baseline CR carries the REQ-TX-014 restatement.
+   - **Analyses already run for A5 (TS-012 §7.3, table R5-1; revision 7 §10).** Thermal (`thermal-ts012.md`, INSP-112), PA drive (`pa-drive-ts012.md`, INSP-114), LPF (`lpf-ts012.md`, INSP-115), transmit clock spurs (`spurs-ts012.md`, INSP-113), keying (`keying-ts012.md`, INSP-116), receiver BPF (`rx-bpf-ts012.md` revision 4, INSP-117 iteration 3 re-issue 1, reviewer APPROVED, `123f048`: 2 + 3 + 4 at IF 8 MHz, 75.37 dB worst case over REQ-SYS-114). The reviewer verdicts are APPROVED; the record verdicts are held at NEEDS CHANGES for Minor liens (rule C1).
+   - **CR states.** CR-007 to CR-016 were approved on 2026-09-28 (status note §1); CR-007 was confirmed under option B (§4), and its revision 3 delta impact reviews concur (CR-007 §6.6, §6.7), so its section 5 step 3 branch may open; deviations entry 5 closes when it does. CR-017 (simulation output retention) was approved on 2026-09-29 (§6); deviations entry 6 closes at its merge. None of CR-007 to CR-017 is merged yet: each merge waits for its section 9 check and its step 9 record re-issues. CR-003 and CR-006 stay Submitted and are revised for A5 (TS-012 §8.12).
+   - **Tool validation.** TV-014 is accredited (ACC-LTSPICE-001, status note 2026-09-27 §13). TV-015 to TV-019 are reviewed (INSP-088 APPROVED); TV-020 to TV-023 and TV-013 are validated with their reviews run (INSP-040 and INSP-048, reviewer APPROVED; INSP-041 and INSP-049); their accreditation (OD-24b) waits for the owner. TV-024 (Python static analysis and coverage) is a draft: its package download is owner action A-1 of TV-024 §9 (asked at S1), and no known-answer run exists yet. TV-002 re-validation follows the CR-011 merge.
+   - **FW-B1.** WP-SW-11, 01, 09, 02 and 03 are reviewed (INSP-095 to INSP-106 iteration 2, reviewer and assurance APPROVED, record verdicts held for Minor liens), with ADR-051 to ADR-055. The rustos pull requests wait for the owner's merge (OD-23).
+6. **Revision 3: raw simulation files.** From 2026-09-29 a `.raw` file over 5 MB is never committed; it stays in its results folder on the owner's Mac with a committed `raw.sha256` manifest (status note 2026-09-29 §1, §3; CR-017). Every simulation WP below follows that rule.
 
 ### 1.4 SRR lessons applied in this plan
 
@@ -121,6 +135,8 @@ Source for this section: the gate reader report, which cites 01 §3.1 to §3.5, 
 | E-24 | Manufacturability (G-6 s17) | Soft |
 | E-25 | All L1 TBRs closed (charter §7) | Hard |
 
+**Revision 3 note on the hand build.** Four rows of 01 §5.3 name the turnkey basis: row 14 (KiCad DRC "set to PCBWay capabilities"), row 18 (parts approach "DigiKey catalog", producibility "PCBWay assembly constraints"), row 21 (single-source parts) and row 24 (manufacturability "PCBWay fabrication and assembly capability check, enclosure machinability"); 01 §5.4 row 7 names "DigiKey-only sourcing". For A5 they read JLCPCB standard 2-layer capability, catalog distributors and maker shops with listed prices (Mouser primary, RF Parts for the module), and hand assembly at the owner's bench. The wording change goes into the re-baseline CR (WP-PDR-53); until it merges, E-14, E-18, E-21 and E-24 are judged on that reading, AT RISK (CR-018).
+
 Also required: 06 re-approval and the risk items G-5 6.3/6.4, G-6 6.5 (06 Table 10-1). Customized or NA: 01 §3.5 and §5.7 items (spectrum, LCC/JCL, ILSP, project protection, human rating, system security plan substituted by the 07 §16 cyber assessment, SCRM substituted by DigiKey-only sourcing, PRA/FMEA substituted by the hazard analysis and SPF list; technology development plan, disposal plan).
 
 ### 2.4 Success criteria
@@ -141,6 +157,67 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 
 ## 3. Work packages
 
+### 3.0 Work package status at revision 3 (governs)
+
+Read at `6497900`. **State:** *Done* = products delivered and reviewed (reviewer verdict APPROVED, Minor liens held under rule C1); what is left is a merge, an accreditation or an owner closure named in the row. *Changed* = the WP stays, and its A5 content is the "Revision 3" column; where the revision 2 text of the WP in sections 3.2 to 3.10 differs, this table governs. *New* = section 3.11. *Dropped* = removed, with the reason. **Inv. left** is the remaining agent invocations, reviews included (section 3.1 unit); it is the basis of the token estimate of section 8. **Wave** is the section 5.2 wave. Every AT RISK flag of revision 2 that named CR-003 or CR-006 now reads **AT RISK (A5 CRs)**: CR-003 revision 4, CR-006 revision 3 and the re-baseline CR-018 (provisional number), until their disposition at S1 and the rule C8 re-check.
+
+| WP | State | Revision 3 (A5) | Inv. left | Wave |
+|---|---|---|---|---|
+| 01 | Changed | The revision 2 re-checks are superseded: both CRs have been held for revision since status note 2026-09-27 §6. Now: **CR-003 revision 4** (TS-012 §8.12 items a to f: sink end wall with fins outside behind a printed finger guard, no PETG touching it, vented PA bay and double-wall bulkhead with the cells at the far end; no coating in build 1, REQ-SYS-177 deferred; the PCBWay CNC fallback and port block outside the USD 300 maximum, so the fallback is a second printed iteration or an owner cost decision; legend and jack markings in relief; the PC-class filament condition re-run for the A5 heat; REQ-SYS-104, 106 per §8.10) and **CR-006 revision 3** (items a to e: five bare boards of each of two JLCPCB designs, one unit assembled by the owner; REQ-SYS-147, NGO-028, MOE-007 to the USD 200 target and USD 300 maximum; NGO-027 to JLCPCB bare boards hand-assembled; Q2, Q3, Q8 moot; TC-SYS-025 and MOE-001, 002 unchanged). Each gets its section 6 impact reviews (CM lens, and software assurance where the CR-007 revision 3 dispatch rule routes it) with one fix round budgeted, then the disposition brief for S1 | 8 | W-A |
+| 02 | Changed | Implements CR-003 revision 4, CR-006 revision 3 and CR-018 after their disposition (OD-40), in the writer order of section 5.3, after the CR-008, CR-009, CR-015 and CR-016 merges. Adds to the revision 2 file list: superseded-by notes on ADR-007, ADR-008, ADR-025; the new SI entries; the ICD rows of CR-018; the `concept.md` note that A5 replaces the concept blocks; the 01 §5.3 and §5.4 rows of the section 2 note. Record deltas INSP-001, 002, 003, 025 and the CR §9 verifications | 10 | W-B |
+| 03 | Done | Templates on the CR-012 branch (INSP-031, 032, 033, 046). Merge in WP-PDR-55 | 0 | - |
+| 04 | Changed, part dropped | **Dropped:** the PCBWay email and instant quotes (OD-04), the Inrad, KVG and Guerrilla RF requests (OD-34), the st.com downloads (OD-18), the PowerFLAT and display FPC questions (TS-012 §8.12: "No quote is requested from anyone"). **Now:** `docs/reviews/PDR/owner-actions.md` re-issued with the TS-012 §8.11 price-check list (browser reads, no checkout), the ordering-gate reads of §8.4 (OD-42), and the equipment list inside the USD 300 equipment cap (K-type thermocouple thermometer with bead probe, SMA-to-BNC adapter, a pad rated for the BF-F8HP, the near-field probe, the tinySA Ultra when the owner buys it) | 1 | W-A |
+| 05 | Done | CSA (INSP-034) and lessons learned (INSP-035) APPROVED; CR-007 approved and confirmed (OD-36 done). CR-007 implementation moves to WP-PDR-55; CSA regeneration to WP-PDR-48; the TS-012 lifecycle lesson to WP-PDR-54 | 0 | - |
+| 06 | Done, merge left | CR-011 approved (INSP-042, 070; TV-002 records INSP-043, 051). Left: the merge (WP-PDR-55), the TV-002 run on the merged tool and ACC-TRACE-002 (OD-24b at S2) | 1 | W-C |
+| 07 | Done | TV-014 accredited; TV-015 to TV-019 reviewed (INSP-088 APPROVED). Accreditation of TV-015 to TV-019 at S1 (OD-24b) | 0 | - |
+| 08 | Done, one item left | TV-020 to TV-023 and TV-013 reviewed; accreditation at S1. TV-024 first known-answer run after the owner permits its download (S1) | 1 | W-C |
+| 09 | Done | CR-014 approved (INSP-100, 101). Merge in WP-PDR-55 | 0 | - |
+| 10 | Done | CR-009 approved. Merge in WP-PDR-55. The ConOps display content is replaced by the Morse menu through CR-018 (WP-PDR-02, 53) | 0 | - |
+| 11 | Done | CR-008 approved (INSP-044, 045). Merge in WP-PDR-55, before WP-PDR-02 | 0 | - |
+| 12 | Done | CR-015 (INSP-060) and CR-016 (INSP-061) approved; they are PCR-2 and PCR-3. Merge in WP-PDR-55 | 0 | - |
+| 13 | Done | CR-013 approved (INSP-058, 059, 064, 073). Merge in WP-PDR-55 | 0 | - |
+| 14 | Done | Errata committed; INSP-053 and INSP-066, INSP-054 and INSP-062 | 0 | - |
+| 15 | Changed, continues | Errata and burndown APPROVED (INSP-052). Left: the final log moves and owner closures after the merges (OD-11 at S3) | 2 | W-E |
+| 16 | Changed | A5 content (TS-012 §8.10 L0 paragraph, §8.12 row "WP-PDR-16, 17"): HZ-002 re-scoped to the COTS charger and the handbook; HZ-003 with the sink outside the end wall, the wrap-around guard and the module case against the 90 C guidance; HZ-007 new heating cause (the sink's inner face, vented bay, cells at the far end, the cell 60 C trip; RSK-007); HZ-015 heat gun; HZ-004 K8 names PA_EN and the hardware NAND (D-18) with the REQ-TX-014 note; HZ-008 K7 on route R3 (D-17); the Morse-menu command paths. 16a in W-B, 16b in W-C; OD-05 at S2 | 9 | W-B, W-C |
+| 17 | Changed | Decision 9/40 change set done (CR-010). Re-run for A5: Morse menu and decoder paths (the menu override path is safety-critical, SRR decision 9), the FC0 counter and SW-SAFE frequency check (D-17), the PA_EN writer (safe-state manager, D-18), display and encoder drivers removed. OD-35 at S2 | 4 | W-C |
+| 18 | Changed | Track pass done (INSP-036 APPROVED). Final pass: TS-012 and the A5 ADR in `trade_study_ids` and `adr_ids`; the TS-012 §7.1 A5 risk scores (drive window, PETG and bay, cell heating, cost above USD 300); RSK-004 retired; RSK-038 lifecycle at the gate; RSK-052 cost | 2 | W-C |
+| 19 | Changed | TS-001 is superseded by TS-012 (ladder re-admitted, Inrad and 24-bit ADC dropped, diode ring); TS-001 §10 records it (OD-10). Left: the REQ-SYS-022 MDS front-end redesign (A5 must recover about 5.1 dB at the TC-SYS-017 corner, TPM-005 Red there), `rx-cascade.md` final on 2 + 3 + 4, the INSP-110 finding-26 figures, G1 values | 5 | W-C |
+| 20 | Changed | TS-007 closes on the Adafruit Si5351A with the TG2520SMN on XA (OD-10). Left: `clock_plan.py` at clk_sys 96 MHz and the ADR-031 revision (D-12); the route R3 budget (D-17: FC0 on GPIN0 and GPIN1, the buffer powered in receive only and its 150.000 MHz line, the TCXO ratio's age over a long over); the Si5351A PLL relock time read; the prescaler tap valid-clock run at 1.66 Vpp; INSP-055, 056, 074, 111 deltas; G2 values | 5 | W-C |
+| 21 | Changed, part dropped | TS-003 closes on the RA07M1317M with a GVA-84+ driver (OD-10). **Dropped:** the PD54008L-E behavioural model and STEVAL fit, OD-07 (GRF5604), OD-18, the early-buy list. Left: the D-7 select-on-test pad and the 17 mW reading characterization; the drive-chain rerun with C7, C10 and the D-13 drive bandpass; p1 to p3 with the chosen LPF build (D-14) and the read feed resistance; G4 values | 5 | W-A |
+| 22 | Changed | TS-006: the closed VGG loop with D-9 (pack-dependent clamp) and D-10 items 1 to 10; reruns with circuit values, the late-contact and open-loop faults and a simulated power-on; **the key-up case with the D-18 gate and the fix of the D-18 lien** (gate supply rail, level interface to the 5 V P-FET, unpowered state), which CR-018 needs before it carries the REQ-TX-014 restatement; SA pair; G3 values | 5 | W-A |
+| 23 | Changed | TS-008 closes on the Omron G5V-2 with an RX-grounding pole (exception EX-14). Left: NanoVNA isolation plan; key-down and key-up sequence with pass criteria (ramp start at least 10 ms after the relay command, lead-in at most 12 ms, key-to-RF at most 15 ms); D-5 relay hold; the ICD-TX-SW timing table; G6 values | 4 | W-C |
+| 24 | Changed, part dropped | Charging outside the radio (XTAR MC1; descopes D2, D14). TS-009 closes by the A5 ADR; TS-005 narrows to firmware loading and the VBUS inhibit. **Dropped:** in-radio charger analyses, OD-12. Left: S-8252AAO pack protection (REQ-SYS-083 to 085 windows), DMP3099L switch and drain-feed budget (at most 0.35 ohm), MF-R300, LM2940 rails; G9 values for the rows CR-018 keeps | 4 | W-C |
+| 25 | Changed, display dropped | **Dropped:** the display trade and LS013B7DH03 (descope D1). Left: audio on the 5 V MCP6002 buffer, headphone ceiling k about 0.06 (TBR) with single-fault `.step` cases, the Morse-menu tone path under the same ceiling, the audio policy ADR; G8 values | 3 | W-C |
+| 26 | Changed | Two LM393 monostables and trips (10 s cutoff, 150 to 180 s backstop, 95 C sink trip, cell 60 C trip): RC timing over tolerance and temperature; G7 values | 3 | W-C |
+| 27 | Changed, part dropped | TS-011 re-scored for the printed PETG case with the Boyd 530002B02500G sink wholly outside the end wall (D-1), the FR4 end wall (D-2), the wrap-around guard checked with the test finger (D-3), the slots (D-4), the vented PA bay and bulkhead, no coating in build 1, the PC-class filament condition for the A5 heat; the shielding estimate reduced to fences and ground pour (REQ-SYS-177 deferred). TS-004 becomes 2-layer 1.6 mm JLCPCB, two designs within 100 x 100 mm. **Dropped:** the PCBWay print and engraving routes (OD-38 settled on route (a)), PCBWay quotes, the CNC package | 6 | W-C |
+| 28 | Changed | **A5 thermal closure (the open thermal items of TS-012 §10 condition 3):** long-session cells 58.9 C against 55 C; PETG face at the duty limit 60.1 C against 60 C; module case about 106 C against the 90 C guidance; relay ambient 67.1 C against 65 C (with D-5); the REQ-SYS-118 NTC on the flange contact face at about 81 C and the firmware duty limit (D-6); the REQ-SYS-112 duty-limited corner values for CR-018; the bench plan for the in-situ sink (at most 5.6 K/W) and NTC-offset measurement before first on-air use. Pass: every item inside its limit with a no-cost or gate-affordable change. Else the item goes to the owner at S1 (if it changes CR-018) or S2, never as an L1 lien (TS-012 §10 revisit (d)) | 5 | W-A |
+| 29 | Changed | Budgets and TPMs on A5: mass about 311 to 371 g, envelope about 167 x 74 x 52 mm, power with the module, battery life on P28A cells, TPM-014 on the USD 200 target and USD 300 maximum, TPM-005 MDS | 5 | W-C |
+| 30 | Changed | RF exposure for the module and the owner's 2 m antenna (REQ-SYS-172 delta), printed case only | 3 | W-C |
+| 31 | Changed | Architecture from TS-012 §8.1 (A5 block diagram, two boards, PA bay), allocation on the CR-018 set, design compliance matrix, data package index. Drafted from W-A; completed in W-B after S1 and WP-PDR-02 | 6 | W-A, W-B |
+| 32 | Changed | Software architecture for A5: Morse menu and decoder, pot scan, FC0 counter and the SW-SAFE check (D-17), PA_EN written only by the safe-state manager (D-18), TX sequencing with the relay; display and encoder drivers removed; ADRs on OD-13 to OD-16 (S1) | 7 | W-A, W-B |
+| 33 | Changed, part dropped | Keyer host study done (INSP-071, 075). The UI design (INSP-072) is redone as the Morse-menu design of TS-012 §8.7 (menu tree, R/N confirmation, 20 s time-out, status read-out, the ALT-hold key-mode path of REQ-SYS-163, host usability run). **Dropped:** display layout renders | 3 | W-C |
+| 34 | Changed | L2 hardware files for A5: `rx` (ring, ladder, 2 + 3 + 4), `tx` (module, GVA-84+, LPF, PA_EN gate), `pwr` (S-8252 pack, no charger), `ctl` (two buttons, two pots, LED, key network), `me` (PETG case, sink end wall, guard, bulkhead, relief legend); the regulatory citation table | 15 | W-C |
+| 35 | Changed | SW L2 for A5: SW-DISPLAY removed; the Morse-menu module named by WP-PDR-32; decoder; FC0 counter and PA_EN rules in SW-SAFE (threshold 5.0 kHz, plausibility +/-67.5 ppm, PA_EN only after the counted agreement) | 25 | W-C |
+| 36 | Changed | ICD-CTL-SW pin map with GPIN0, GPIN1, PA_EN, two buttons, two pots, LED; a new internal ICD for the RF board to the main board (CLK1 coax of D-8, supplies, the PA_EN gate); ICD-CTL-USB without charging; ICD-PWR-CELL with 1043P holders and the external charger; ICD-TX-ANT SMA material. 36a in W-B, 36b in W-C | 12 | W-B, W-C |
+| 37 | Changed | Preliminary schematic for hand build on the two JLCPCB 2-layer designs; floorplan (cells at the antenna end, Pico 2 and LM2940 at the sink end, micro-USB on a side wall); DRC rule file at JLCPCB standard capability; hand-assembly file naming the flagged TG2520SMN and the surface-mount list (exception EX-1, EX-7); alignment provisions (BPF coil squeeze, drive pad selection) | 8 | W-C |
+| 38 | Changed, part dropped | **BOM with the ordering gate:** the TS-012 §8.3 rows with price, stock, lifecycle and source-date columns; the §8.4 roll-up recomputed from the owner's reads (OD-42); guards G1 to G4 and add-backs AB-A, AB-B; single-seller lines (RF Parts module) to the register; manufacturability for hand soldering. **Dropped:** early-buy ADR-050 and OD-20 (the ordering gate replaces them), the PowerFLAT DFM and PCBWay turnkey checks | 3 | W-C |
+| 39 | Changed, part dropped | Enclosure model of the printed PETG case with the Boyd sink end wall, wrap-around guard, vented PA bay, bulkhead, relief legend and jack markings; front-panel render with two buttons, two pots, the LED light pipe and the jacks (no display). **Dropped:** the CNC model | 3 | W-C |
+| 40 | Changed | The HSI evaluation becomes a Morse-menu demonstration on the Pico 2 development board with paddle, straight key and two buttons; bounce capture; keyer HIL; the owner's verdict. Owner bench session Mon 10-05 (about 1.5 h) | 3 | W-C |
+| 41 | Changed, continues | Five drivers reviewed. Left: owner merges and PCR-4 (S1), the DML-3 notes for WP-SW-08, 10, 12, the CS-24 tags, the prototype image with the Morse menu for WP-PDR-40 | 6 | W-C |
+| 42 | Unchanged | Not started (OD-25 permission at S1, decision at S2) | 3 | W-C |
+| 43 | Changed | V&V plan for A5: equipment list inside the equipment cap; NanoVNA alignment procedures; no transmission on the air before the tinySA sweep; the in-situ sink and NTC-offset measurements; the ordering-gate reads as a procedure; the select-on-test pad reading; the build-order rule of CR-006 revision 3 | 7 | W-C, W-D |
+| 44 | Changed | Integration plan for owner hand assembly: staged bring-up on the two boards (PWR, CTL, RX, then TX with the module into the dummy load), alignment steps, PETG case fit, a reprint as the fallback iteration | 3 | W-C |
+| 45 | Changed | The TBR sheet is generated from the files after WP-PDR-02 (CR-018 retires, rewords and adds TBRs; lesson L6); one ruling batch at S2; re-ruling at S3 | 4 | W-C |
+| 46 | Changed | `cost-estimate.md` rewritten on TS-012 §8.4; `schedule.md` on the revision 3 dates (OD-01); technology assessment (module heritage, hand build); SEMP EMI approach without coating, parts approach (catalog distributors with listed prices, RF Parts), producibility for hand build | 6 | W-C |
+| 47 | Unchanged in scope | Software status includes the A5 volatility since `baseline/srr` | 8 | W-C, W-D |
+| 48 to 52 | Unchanged in scope | Readiness, package, deck, review, baseline | 15 | W-E, W-F |
+| 53 | **New** | Re-baseline CR (section 3.11) | 11 | W-A |
+| 54 | **New** | A5 ADR, TS-012 re-issue, records of the decision (section 3.11) | 4 | W-A |
+| 55 | **New** | Merge train CR-007 to CR-017 and CR-017 implementation (section 3.11) | 20 | W-A, W-B |
+| **Total** | | | **263** | |
+
+**Done since revision 2 and not in the rows above** (for the record of what the phase has spent): the TS-012 design-to-cost study (revisions 1 to 7, with the owner's decision), its six discriminating analyses and their reviews INSP-112 to INSP-117 with the TS-012 reviews INSP-110 and INSP-118 (owner approval, status note 2026-09-28 §1 item 2); CR-007 to CR-016 drafted, impact-reviewed and dispositioned (status note 2026-09-28 §1, §4); CR-017 drafted, impact-reviewed and dispositioned (status note 2026-09-29 §6); the A5 parts lifecycle check (`f193784`).
+
 ### 3.1 Conventions
 
 - **Estimate unit.** "inv." is one agent invocation of about 1 to 2 agent-hours of focused work (author or reviewer). Estimates include the expected review iterations (usually 2) but not owner time. Owner time is stated separately where needed.
@@ -152,7 +229,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 
 ### 3.2 Group A: change control, templates, owner inputs, CM foundation (wave 0)
 
-#### WP-PDR-01 Verification re-checks of CR-003 revision 3 and CR-006 revision 2
+#### WP-PDR-01 Verification re-checks of CR-003 revision 3 and CR-006 revision 2 (revision 3: changed, now CR-003 revision 4 and CR-006 revision 3 for A5; section 3.0)
 
 - **Objective:** give the owner a reviewed basis for both dispositions (lesson L4). The first impact reviews are already done: CR-003 at `4347c68` and its revision 2 re-check at `e8f21c9`; CR-006 round 1 at `34668e3` (section 1.3). What remains is the verification re-check of each latest revision.
 - **Inputs:**
@@ -170,7 +247,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 - **Closes / enables:** enables OD-02 and OD-03 (section 6); prerequisite of WP-PDR-02.
 - **Estimate:** 2 inv. (one re-check per CR). If either re-check finds a Major, add 2 inv. per affected CR (one revision and one delta re-check), about half a day each.
 
-#### WP-PDR-02 Implement CR-003 and CR-006 after disposition
+#### WP-PDR-02 Implement CR-003 and CR-006 after disposition (revision 3: changed, adds CR-018; section 3.0)
 
 - **Objective:** put the dispositioned functional-baseline changes on `main` before the PDR products freeze.
 - **Inputs:** dispositioned CRs (CR-003 at revision 3 or later, CR-006 at revision 2 or later); CR-003 §5 steps 0 to 9; CR-006 §5 steps 1 to 9.
@@ -198,7 +275,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 - **Estimate:** 6 inv.
 - **Flag:** this WP is the CR work itself; the downstream products are AT RISK until it starts.
 
-#### WP-PDR-03 Missing checklist templates
+#### WP-PDR-03 Missing checklist templates (revision 3: done; section 3.0)
 
 - **Objective:** remove the 08 §3.5 block ("a review that needs a checklist that does not yet exist is not held").
 - **Inputs:** 08 §3.5; 07 §15 row 5.17 item 13; SRR decision 117; existing templates in `docs/templates/`.
@@ -209,7 +286,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 - **Closes:** P-44, P-45 (gate reader); software reader R-12; design reader item 106 (TV template).
 - **Estimate:** 6 inv.
 
-#### WP-PDR-04 Owner action pack, vendor requests before the PCBWay closure, equipment list
+#### WP-PDR-04 Owner action pack, vendor requests before the PCBWay closure, equipment list (revision 3: changed; PCBWay and vendor requests dropped; section 3.0)
 
 - **Objective:** get every owner-hands input moving on day one, because the PCBWay closure (2026-10-01 to 10-04) and vendor weekends set hard dates.
 - **Inputs:** SRR package §2.2 (OA-4 to OA-6); `docs/research/pcbway-export-and-vendor-questions.md` Part 3; `docs/research/pcbway-fabrication-and-assembly.md` F16, F17, F20, A-PCB-01 to A-PCB-09; `docs/research/pa-turnkey-candidates-followup.md` ACTION 14, 16, 17; TS-001 §6 item 5; CR-006 §12 Q2, Q5, Q6, Q8; CR-003 §5 step 19.
@@ -219,7 +296,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 - **Closes (enables):** C-207, C-208, C-209, C-210 (owner performs), C-062 (owner corpus rows), C-061 equipment confirmation, C-091 and C-092 prompts.
 - **Estimate:** 2 inv. Owner time about 1 h to send.
 
-#### WP-PDR-05 PDR workspace and CM foundation
+#### WP-PDR-05 PDR workspace and CM foundation (revision 3: done; CR-007 implementation in WP-PDR-55; section 3.0)
 
 - **Objective:** create the PDR record space and the CM items that must exist before any baseline admission (05 §4.4, §6; SRR memo A-8).
 - **Inputs:** 05 §4.4, §6, §13, Table 4-1, Table 4-2; SRR baseline record line 546; INSP-006 and INSP-030 lien tables; SRR package §19.
@@ -236,7 +313,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 
 ### 3.3 Group B: tools and tool validation (waves 0 and 1)
 
-#### WP-PDR-06 `tools/traceability.py` PDR rules and TV-002 re-validation
+#### WP-PDR-06 `tools/traceability.py` PDR rules and TV-002 re-validation (revision 3: done, merge and TV-002 run left; section 3.0)
 
 - **Objective:** a traceability tool that can run `--gate PDR` with every PDR rule, so the readiness declaration is not blocked (04 §7.4: "the gate's readiness declaration is blocked until its unit test passes").
 - **Inputs:** 02 §8.1, §8.5 (T-04, T-12 to T-22); 03 §8; 04 §7.4 rows 7.3.4, 7.3.6, 7.3.11, 7.3.12; SEMP App. F F-06; RFA-SRR-007 (L-7) ADR back-reference; SRR memo §9 condition 5; `docs/cm/tool-validation/TV-002-traceability.md`.
@@ -246,7 +323,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 - **Closes:** C-026 (tool part), C-068 (04 rows due before SRR, tool part), C-069 (Inspection route), C-111 (SEMP F-06), C-126, C-183, C-184; P-16 (tool part), P-25; gate reader H item 64; software reader P-12, T-10.
 - **Estimate:** 7 inv.
 
-#### WP-PDR-07 New tools with TV records
+#### WP-PDR-07 New tools with TV records (revision 3: done, accreditation at S1; section 3.0)
 
 - **Objective:** write and validate the tools the PDR evidence and CM depend on (05 §13 PDR row; SEMP F-15).
 - **Inputs:** 05 §4.5, §6, §9, §13; `tools/toolchain.lock.md` §1.2, §1.4 finding 4; the reference-cwht toolchain facts (LTspice under Wine batch, kicad-cli PCBWay flags, FreeCAD command).
@@ -256,7 +333,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 - **Closes:** C-112 (SEMP F-15), C-187 (these tools); P-31 (these tools); gate reader H item 65.
 - **Estimate:** 14 inv. (LTspice wrapper and TV first, within wave 0).
 
-#### WP-PDR-08 Rust toolchain, host harness and Python analysis tool validation
+#### WP-PDR-08 Rust toolchain, host harness and Python analysis tool validation (revision 3: done, TV-024 run left; section 3.0)
 
 - **Objective:** credit-bearing status for the software evidence cited at PDR (SWE-136; 07 §17.3; 03 §6.5 X9, X10).
 - **Inputs:** `tools/toolchain.lock.md` §1; 07 §8, §9, §17.3; `docs/cm/tool-validation/TV-013-measurements.md` §8, §9.
@@ -266,7 +343,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 - **Closes:** C-079, C-080, C-187 (Rust and measurements part); P-21; software reader T-01 to T-04, T-06, T-11, T-12; SWE-061, SWE-135, SWE-136 rows.
 - **Estimate:** 8 inv.
 
-#### WP-PDR-09 Existing tool liens and lock refresh
+#### WP-PDR-09 Existing tool liens and lock refresh (revision 3: done as CR-014, merge in WP-PDR-55; section 3.0)
 
 - **Objective:** close the SRR tool liens (INSP-015 re-issue 4, INSP-016, RID-SRR-004, RID-SRR-014, L-7 items).
 - **Inputs:** `docs/reviews/SRR/checklists/tool-validation-tv-001-to-tv-010.md` lines 700 to 726; `fw-b0-toolchain-proof.md` close-out delta 2; RFA-SRR-007.
@@ -280,7 +357,7 @@ Package `docs/reviews/PDR/package.md`; readiness declaration; deck `docs/reviews
 
 Rule for this group: the product author fixes; the SRR record's reviewer role (a new invocation of the same record, 01 §10.3) verifies in a delta iteration of the SRR record, and the log secretary (WP-PDR-15) moves each RID or RFA through Answered and Verified. The owner closes Verified items (OD-11).
 
-#### WP-PDR-10 L0, ConOps and concept liens
+#### WP-PDR-10 L0, ConOps and concept liens (revision 3: done as CR-009, merge in WP-PDR-55; section 3.0)
 
 - **Objective:** close INSP-001 and INSP-002 liens and keep the ConOps consistent with the design (E-13).
 - **Inputs:** `docs/reviews/SRR/checklists/expectations.md`, `conops-and-concept.md`.
@@ -291,7 +368,7 @@ Rule for this group: the product author fixes; the SRR record's reviewer role (a
 - **Estimate:** 3 inv.
 - **Flag:** ConOps OPS-012 and enclosure text AT RISK (CR-003, CR-006).
 
-#### WP-PDR-11 L1 requirement and system test case liens
+#### WP-PDR-11 L1 requirement and system test case liens (revision 3: done as CR-008, merge in WP-PDR-55; section 3.0)
 
 - **Objective:** close INSP-003 and INSP-025 liens before the L1 file is edited by the CRs and the TBR closure.
 - **Inputs:** `docs/reviews/SRR/checklists/requirements-sys.md` (post-SRR-ruling delta), `test-cases-sys.md` lines 185 to 287; RFA-SRR-007.
@@ -301,7 +378,7 @@ Rule for this group: the product author fixes; the SRR record's reviewer role (a
 - **Closes:** C-019 to C-025, C-038 to C-047; RID-SRR-003 content (log move in WP-PDR-15); TBR finding 7 (REQ-SYS-054 wording).
 - **Estimate:** 5 inv.
 
-#### WP-PDR-12 Process document liens: 01, 02, 08, compliance matrix
+#### WP-PDR-12 Process document liens: 01, 02, 08, compliance matrix (revision 3: done as CR-015 and CR-016, merge in WP-PDR-55; section 3.0)
 
 - **Objective:** close INSP-019, INSP-020, INSP-022, INSP-024 liens and the post-review updates of 01 §9.
 - **Inputs:** `docs/reviews/SRR/checklists/process-01-lifecycle-and-reviews.md`, `process-02-requirements-and-traceability.md`, `process-08-agent-briefing.md`, `compliance-matrix.md`.
@@ -311,7 +388,7 @@ Rule for this group: the product author fixes; the SRR record's reviewer role (a
 - **Closes:** C-114 to C-139; P-17; post-review updates (gate reader F item 52); S6 tailoring table input.
 - **Estimate:** 6 inv.
 
-#### WP-PDR-13 Process document liens: 04, 07, SEMP, charter cross items
+#### WP-PDR-13 Process document liens: 04, 07, SEMP, charter cross items (revision 3: done as CR-013, merge in WP-PDR-55; section 3.0)
 
 - **Objective:** close INSP-021, INSP-010, INSP-018, INSP-005 liens and the 04/07 text changes due PDR.
 - **Inputs:** `docs/reviews/SRR/checklists/process-04-verification-and-validation.md`, `software-plan-07.md`, `software-plan-07-software-assurance.md`, `semp.md`.
@@ -321,7 +398,7 @@ Rule for this group: the product author fixes; the SRR record's reviewer role (a
 - **Closes:** C-066, C-067, C-068 (text part), C-100 to C-110, C-113 (prepared; owner edits); software reader R-07, T-15, G-12, G-13.
 - **Estimate:** 7 inv.
 
-#### WP-PDR-14 ADR and trade-study errata (TS-001, TS-002)
+#### WP-PDR-14 ADR and trade-study errata (TS-001, TS-002) (revision 3: done; section 3.0)
 
 - **Objective:** close INSP-011, INSP-013 and INSP-027 liens.
 - **Inputs:** `docs/reviews/SRR/checklists/adrs-001-to-025.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`.
@@ -331,7 +408,7 @@ Rule for this group: the product author fixes; the SRR record's reviewer role (a
 - **Closes:** C-144, C-146 to C-157, C-159 to C-165; RID-SRR-005 content.
 - **Estimate:** 4 inv.
 
-#### WP-PDR-15 SRR log administration and SRR review-artifact errata
+#### WP-PDR-15 SRR log administration and SRR review-artifact errata (revision 3: continues; section 3.0)
 
 - **Objective:** move all 22 SRR log items to Closed (S2) and correct the SRR artifacts as errata.
 - **Inputs:** `docs/reviews/SRR/rfa-rid-log.json`; 01 §10.3; outputs of WP-PDR-09 to 14, 16 to 18, 29, 30.
@@ -343,7 +420,7 @@ Rule for this group: the product author fixes; the SRR record's reviewer role (a
 
 ### 3.5 Group D: safety, classification, risk
 
-#### WP-PDR-16 Hazard analysis PDR re-issue (0.6.0-pha), in two stages
+#### WP-PDR-16 Hazard analysis PDR re-issue (0.6.0-pha), in two stages (revision 3: changed for A5; section 3.0)
 
 - **Objective:** hazard analysis at PDR maturity (E-10, E-11): controls allocated to L2, SPF list, SWE-134 provisions, the PETG re-assessment, open questions due PDR closed.
 - **Why two stages.** The L2 files carry the control requirements (WP-PDR-34, 35), and the hazard re-issue must cite them with exact unions. The L2 authors in turn need to know which controls to write. Revision 1 of this plan drew only one direction of that loop. It is now split:
@@ -360,7 +437,7 @@ Rule for this group: the product author fixes; the SRR record's reviewer role (a
 - **Estimate:** 9 inv. (16a 2; 16b 5 including the safety and SA reviews; reconciliation 2, of which the L2 fix passes are counted here).
 - **Flag:** **AT RISK (CR-003)** for HZ-001, 002, 003, 006, 007, 009, 013 content.
 
-#### WP-PDR-17 Safety-critical determination re-run, classification concurrence, RMM update
+#### WP-PDR-17 Safety-critical determination re-run, classification concurrence, RMM update (revision 3: change set done as CR-010; re-run changed for A5; section 3.0)
 
 - **Objective:** apply SRR decisions 9 and 40 everywhere and re-run 03 with the architecture known (SWE-205, SWE-020, SWE-176).
 - **Inputs:** 03 §4.1 step 5, §4.2, §4.3, §5, §6.4, §6.5; 07 §14.1, §15, §22; `docs/process/rmm.json`; INSP-009 and INSP-017 liens.
@@ -370,7 +447,7 @@ Rule for this group: the product author fixes; the SRR record's reviewer role (a
 - **Closes:** C-056 (03/07 text), C-057 (03 transcription), C-070 to C-078; P-18, P-19, P-20; RID-SRR-012, RID-SRR-013; software reader P-01, G-04, G-05, G-07 (with WP-PDR-32).
 - **Estimate:** 6 inv.
 
-#### WP-PDR-18 Risk register PDR Track pass
+#### WP-PDR-18 Risk register PDR Track pass (revision 3: Track pass done; final pass changed for A5; section 3.0)
 
 - **Objective:** a register that passes `render_risk.py --check --gate PDR` (S7; SC-6; 06 Table 10-1).
 - **Inputs:** `docs/risk/register.json` (65 risks, all "Proposed"); INSP-007 lien table; 06 §10, §11, §16; CR-003 §4 Risk row and CR-006 §1.7 candidates.
@@ -402,7 +479,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - trade studies TS-001, TS-003 to TS-011, and the SA pairs of WP-PDR-20, 22, 23, 24 and 25;
 - the `analysis-*` records of WP-PDR-19 to 30 and 33.
 
-#### WP-PDR-19 TS-001 closure and receiver analyses (G1)
+#### WP-PDR-19 TS-001 closure and receiver analyses (G1) (revision 3: changed; TS-001 superseded by TS-012, MDS redesign left; section 3.0)
 
 - **Objective:** decide selectivity A or B, confirm P1 and the fallback order, close the G1 TBRs.
 - **Inputs:** `docs/decisions/trade-studies/TS-001-receiver-and-pa-concept.md` §6, §8, §10; `docs/research/sim/cw-selectivity/`; Inrad and KVG replies (WP-PDR-04); `docs/research/cw-selectivity-options.md`.
@@ -413,7 +490,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** G1 (13 TBRs); C-166; design reader items 2, 18, 32, 54, 55; software reader AD-11.
 - **Estimate:** 5 inv.
 
-#### WP-PDR-20 Synthesizer and reference trade, frequency budget, clock plan (G2)
+#### WP-PDR-20 Synthesizer and reference trade, frequency budget, clock plan (G2) (revision 3: changed for A5; section 3.0)
 
 - **Objective:** choose Si5351A or LMX2571 and the TCXO; close the frequency and spur TBRs.
 - **Inputs:** ADR-013, ADR-023, SRR decisions 25, 40, 56; `docs/design/concept.md` §7.4, §11.2; RSK-002, RSK-040, RSK-046.
@@ -424,7 +501,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** G2 (9 TBRs); design reader items 6, 7, 19, 33, 39, 61; software reader AD-12.
 - **Estimate:** 5 inv.
 
-#### WP-PDR-21 TS-003 PA line-up, behavioural PA model, harmonic LPF (G4)
+#### WP-PDR-21 TS-003 PA line-up, behavioural PA model, harmonic LPF (G4) (revision 3: changed; PD54008L-E model dropped, RA07M1317M; section 3.0)
 
 - **Objective:** fix device, driver, match and LPF, and the early-buy scope; close the spurious and PA TBRs.
 - **Inputs:** `docs/research/pa-turnkey-candidates-followup.md` ("What must happen at PDR" items 1 to 7); st.com downloads (OD-18); ADR-012, ADR-022; decisions 58, 60, 91.
@@ -435,7 +512,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 6 inv.
 - **Critical path:** yes (section 4.2).
 
-#### WP-PDR-22 TS-006 ALC, keying envelope and hardware cutoff node (G3)
+#### WP-PDR-22 TS-006 ALC, keying envelope and hardware cutoff node (G3) (revision 3: changed, D-18 lien fix first; section 3.0)
 
 - **Objective:** fix the ALC topology and cutoff node; close the envelope and power-step TBRs.
 - **Inputs:** decision 59; HZ-004 decisions_pending R-KN5; HZ-011; the PA model of WP-PDR-21.
@@ -446,7 +523,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 5 inv.
 - **Critical path:** yes.
 
-#### WP-PDR-23 T/R element trade and sequencer timing (G6)
+#### WP-PDR-23 T/R element trade and sequencer timing (G6) (revision 3: changed, G5V-2; section 3.0)
 
 - **Objective:** pick the relay part and receiver protection; publish the sequencer timing table.
 - **Inputs:** decision 61; ADR-026; `docs/research/tr-switch-candidates.md` (relay fallback paragraph as basis, design reader item 104); RSK-048.
@@ -456,7 +533,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** G6 (10 TBRs); design reader items 8, 26, 46, 53; E-23 timing part.
 - **Estimate:** 4 inv.
 
-#### WP-PDR-24 Power tree: battery and charger trade, TS-005 USB input, power rails (G9)
+#### WP-PDR-24 Power tree: battery and charger trade, TS-005 USB input, power rails (G9) (revision 3: changed; in-radio charging dropped; section 3.0)
 
 - **Objective:** confirm the power parts and thresholds; close the G9 TBRs.
 - **Inputs:** decisions 70 to 76, 102; HZ-002, HZ-007, HZ-011; `docs/research/power-tree-and-charging.md`.
@@ -466,7 +543,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** G9 (19 TBRs); C-158 (power-tree and charging ADRs); design reader items 9, 12, 24, 25, 59; software reader AD-17, AD-19.
 - **Estimate:** 5 inv.
 
-#### WP-PDR-25 Audio chain and display trade, audio ceiling analysis (G8)
+#### WP-PDR-25 Audio chain and display trade, audio ceiling analysis (G8) (revision 3: changed; display trade dropped; section 3.0)
 
 - **Objective:** confirm TPA6132A2 and LS013B7DH03; close the audio hearing-safety TBRs.
 - **Inputs:** decisions 64, 66, 67, 68, 77; HZ-005; RSK-039, RSK-040; `docs/research/audio-output-and-hearing-safety.md`, `display-and-ui-parts.md`.
@@ -476,7 +553,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** G8 (9 TBRs); C-158 (audio policy ADR); design reader items 13, 27, 44, 45, 60; software reader AD-10 input.
 - **Estimate:** 5 inv.
 
-#### WP-PDR-26 Hardware timers and key-clamp simulations (G7)
+#### WP-PDR-26 Hardware timers and key-clamp simulations (G7) (revision 3: changed, LM393 timers; section 3.0)
 
 - **Objective:** confirm the independent timing layers over tolerance, temperature and DC bias.
 - **Inputs:** decisions 36, 38, 39, 49; REQ-SYS-055, 180, 181; HZ-003 K9, HZ-004.
@@ -486,7 +563,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** G7 (3 TBRs); design reader items 56, 57, 58.
 - **Estimate:** 3 inv.
 
-#### WP-PDR-27 Enclosure trade study and TS-004 board thickness (G11)
+#### WP-PDR-27 Enclosure trade study and TS-004 board thickness (G11) (revision 3: changed; PETG case with the Boyd sink end wall, JLCPCB 2-layer; PCBWay routes and CNC dropped; section 3.0)
 
 - **Objective:** design option C as the build candidate with the CNC fallback on the same outline; fix the board outline, thickness and panelization.
 - **Inputs:** CR-003 §5 steps 10, 11, 13, 17 and §12; CR-006; status note §3 rows 1 to 8; `docs/research/enclosure-cnc-and-openscad-pipeline.md`; PCBWay instant quotes (WP-PDR-04); ADR-008.
@@ -505,7 +582,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 6 inv.
 - **Flag:** **AT RISK (CR-003, CR-006)**. **Critical path:** yes (the outline gates layout after PDR, `schedule.md` lever 2).
 
-#### WP-PDR-28 Thermal budget per enclosure option (G5)
+#### WP-PDR-28 Thermal budget per enclosure option (G5) (revision 3: changed, A5 thermal closure of the open items; section 3.0)
 
 - **Objective:** one stated thermal case per option; close the PA and surface temperature TBRs.
 - **Inputs:** TS-003 RthJC; via array 7.6 versus 4.7 K/W (CR-003 §4); gap pad; heatsink datasheet; PETG heat-deflection temperature; REQ-SYS-112, 113 (48 C every reachable surface), 118, 155, 181; RSK-006, RSK-026; HZ-003 K1, K7.
@@ -517,7 +594,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 3 inv.
 - **Flag:** **AT RISK (CR-003)**. **Critical path:** yes.
 
-#### WP-PDR-29 Budgets and TPMs
+#### WP-PDR-29 Budgets and TPMs (revision 3: changed for A5; section 3.0)
 
 - **Objective:** the budget set of E-9 and the TPM products SE-40 and SE-43.
 - **Inputs:** outputs of WP-PDR-19 to 28, 32; `docs/plan/tpm.json`; RFA-SRR-002; RID-SRR-001, 002, 008; decision 98; SEMP App. F F-14.
@@ -529,7 +606,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 5 inv.
 - **Flag:** mass, envelope and TPM-014 lines **AT RISK (CR-003, CR-006)**.
 
-#### WP-PDR-30 RF exposure evaluation, first issue (G10)
+#### WP-PDR-30 RF exposure evaluation, first issue (G10) (revision 3: changed for A5; section 3.0)
 
 - **Objective:** the CR-controlled RF exposure evaluation (05 Table 4-1 row 48; 47 CFR 97.13, 1.1307).
 - **Inputs:** `docs/research/rf-exposure-evaluation.md`; RID-SRR-009, 010; decisions 18, 23, 32, 35, 36; REQ-TX-015 ceiling (WP-PDR-22); antenna datasheet; OD-17 (OPS-B basis record).
@@ -542,7 +619,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 
 ### 3.7 Group F: architecture, requirements, interfaces, preliminary design (wave 2)
 
-#### WP-PDR-31 System architecture and allocation
+#### WP-PDR-31 System architecture and allocation (revision 3: changed, A5 block diagram; section 3.0)
 
 - **Objective:** SE-41 and SE-42 ready to baseline (E-1, E-2, E-15, E-23; SC-14).
 - **Inputs:** `docs/design/concept.md`; `docs/design/allocation.json` (0.3.0-srr); trade ADRs of WP-PDR-19 to 27; memo §8.4 ordered ADRs.
@@ -554,7 +631,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 6 inv.
 - **Critical path:** yes.
 
-#### WP-PDR-32 Software architecture and firmware ADRs
+#### WP-PDR-32 Software architecture and firmware ADRs (revision 3: changed, Morse menu, FC0, PA_EN; section 3.0)
 
 - **Objective:** SWE-057 and the PDR ADRs 07 names (P-40); settle the software architecture decisions AD-01 to AD-19.
 - **Inputs:** 07 §4, §5, §9.4, §14, §16, §19; ADR-011, ADR-019, ADR-027; decisions 9, 21, 40, 48, 52, 70, 93, 95; software reader §1.
@@ -565,7 +642,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 7 inv.
 - **Critical path:** yes for the software volume (WP-PDR-35 waits on the module set).
 
-#### WP-PDR-33 Keyer host studies and UI design analyses (G13, G14 design part)
+#### WP-PDR-33 Keyer host studies and UI design analyses (G13, G14 design part) (revision 3: changed; Morse-menu design, display renders dropped; section 3.0)
 
 - **Objective:** close the host-only keyer TBRs and the display and UI TBRs that need no hardware.
 - **Inputs:** decisions 21, 37, 41, 43 to 47, 50, 77; LS013B7DH03 datasheet; REQ-SYS-052 to 054, 131, 184, 188, 189.
@@ -576,7 +653,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** G13 (9 TBRs); G14 except REQ-SW-KEYER-009 and 039 (10 TBRs); TBR finding 7 check.
 - **Estimate:** 4 inv.
 
-#### WP-PDR-34 L2 hardware specifications and test cases (rx, tx, pwr, ctl, me)
+#### WP-PDR-34 L2 hardware specifications and test cases (rx, tx, pwr, ctl, me) (revision 3: changed for A5; section 3.0)
 
 - **Objective:** L2 specifications ready to baseline (E-2; SE-42; P-12, P-13).
 - **Inputs:** `docs/design/allocation.json` modules (RX 33, TX 62, PWR 43, CTL 64, ME 35 L1 ids); trade ADRs; hazard controls; `docs/requirements/tx/requirements.json` (16 Draft); INSP-004 liens.
@@ -588,7 +665,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 15 inv. (13 as in revision 1, plus 1 for the citation table and 1 for the 16b and 36b reconciliation passes).
 - **Flag:** `me` file and enclosure rows **AT RISK (CR-003)**.
 
-#### WP-PDR-35 L2 software specifications and test cases
+#### WP-PDR-35 L2 software specifications and test cases (revision 3: changed for A5; section 3.0)
 
 - **Objective:** baselined SRS (SWE-050, SWE-184) and the SW L2 set.
 - **Inputs:** firmware architecture ADR (WP-PDR-32); 07 §4 items 1, 3, 7, §14.2; `docs/requirements/sw/sw-keyer/requirements.json` (39 Draft, 11 TBR); INSP-004 and INSP-026 liens.
@@ -599,7 +676,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 27 inv. (largest document volume: 24 as in revision 1, plus 1 reconciliation pass after 16b and 36b, plus 2 SA delta reviews if OD-35 changes a module's criticality).
 - **Critical path:** near-critical (volume).
 
-#### WP-PDR-36 ICD set
+#### WP-PDR-36 ICD set (revision 3: changed for A5; section 3.0)
 
 - **Objective:** every ICD written, paired, reviewed and ready to baseline (E-8; TPM-020 at 100 %; P-14).
 - **Stages (breaks the revision 1 cycle with WP-PDR-35).** The SW L2 files need the ICD-CTL-SW pin map, and ICD pairing needs the L2 files.
@@ -615,7 +692,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 12 inv. (36a 3 including the early pin-map review; 36b 9).
 - **Flag:** `ICD-TX-ME`, `ICD-CTL-ME`, ICD-TX-ANT bond rows **AT RISK (CR-003)**.
 
-#### WP-PDR-37 Preliminary schematic, floorplan and DRC rule file
+#### WP-PDR-37 Preliminary schematic, floorplan and DRC rule file (revision 3: changed, hand build on two JLCPCB boards; section 3.0)
 
 - **Objective:** SE-45 preliminary design (E-5, E-14 hardware part).
 - **Inputs:** architecture, trade ADRs, simulations, board outline (WP-PDR-27), `docs/research/pcbway-fabrication-and-assembly.md` A-PCB-03.
@@ -627,7 +704,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 7 inv.
 - **Flag:** outline-dependent parts **AT RISK (CR-003)**. Completeness beyond "preliminary" is a SE-45 lien to CDR (section 7).
 
-#### WP-PDR-38 Preliminary BOM, procurement status, early-buy ADR, manufacturability
+#### WP-PDR-38 Preliminary BOM, procurement status, early-buy ADR, manufacturability (revision 3: changed, BOM with the ordering gate; early-buy ADR dropped; section 3.0)
 
 - **Objective:** E-21, E-24; the early-buy decision of decision 91.
 - **Inputs:** trade ADRs; dated stock checks (WP-PDR-04); RSK-005, RSK-038, RSK-053; CR-006 quantities.
@@ -638,7 +715,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 3 inv.
 - **Flag:** quantities **AT RISK (CR-006)**.
 
-#### WP-PDR-39 Enclosure concept model and front-panel render
+#### WP-PDR-39 Enclosure concept model and front-panel render (revision 3: changed, printed PETG case with the Boyd sink; CNC model dropped; section 3.0)
 
 - **Objective:** ME at DML-4 (technology assessment §2) and the HSI front-panel render (E-20).
 - **Inputs:** TS-011 geometry; display, encoder, jack, button footprints and 3D models.
@@ -649,7 +726,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 3 inv.
 - **Flag:** **AT RISK (CR-003)**.
 
-#### WP-PDR-40 HSI products: mockup evaluation, bounce capture, keyer HIL, owner verdict (G12, G14 HIL part)
+#### WP-PDR-40 HSI products: mockup evaluation, bounce capture, keyer HIL, owner verdict (G12, G14 HIL part) (revision 3: changed, Morse-menu demonstration; section 3.0)
 
 - **Objective:** E-20 and SC-18; the FW-B1 HSI exit; the debounce TBRs.
 - **Inputs:** SEMP §7.3.1; `docs/research/keyer-verification-and-key-input-network.md` A-KN5 (line 333) and D-VER-2 (line 175); FM-4; OA-6; the keyer prototype image (WP-PDR-41).
@@ -661,7 +738,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 
 ### 3.8 Group G: firmware and software products (waves 1 and 2)
 
-#### WP-PDR-41 FW-B1 minimal driver set (rustos work packages)
+#### WP-PDR-41 FW-B1 minimal driver set (rustos work packages) (revision 3: five drivers reviewed, continues; section 3.0)
 
 - **Objective:** the RSK-013 minimal keyer set before PDR; the rest as PDR liens to CDR.
 - **Inputs:** 07 §3.1, §3.2, §3.5, §19; ADR-019, ADR-027; rustos at `2ec64c0` (read by `git show` only); `docs/plan/schedule.md` FM-3, FM-4.
@@ -679,7 +756,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** C-181 (L-016-6, due FW-B1); P-38 (partial; remainder in section 7); the technology-assessment FW-B1 PDR point for WP-SW-08, 10 and 12; SWE-052 row 4 PDR preparation (CS-24 tags); software reader P-04, P-08, P-09, P-10, RW-01 to RW-09 (cwht side), R-19, R-25.
 - **Estimate:** 24 inv. (20 as in revision 1, plus 3 for the DML-3 notes and ICD pages with their review, plus 1 for tagging and the tag check), plus owner review and merge of five pull requests and the WP-SW-08 ICD extraction.
 
-#### WP-PDR-42 Emulator characterization and emulator ADR (FM-2)
+#### WP-PDR-42 Emulator characterization and emulator ADR (FM-2) (revision 3: unchanged, not started; section 3.0)
 
 - **Objective:** P-27 and P-39: accept an emulator or record the RSK-003 fallback.
 - **Inputs:** ADR-011 §3; 07 §9.4; `docs/research/emulator-accreditation-and-timer-irq.md` F13; FM-2.
@@ -689,7 +766,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** P-27, P-39; C-187 (emulator part); software reader AD-06, P-06, T-05.
 - **Estimate:** 3 inv.
 
-#### WP-PDR-47 Software status, measurements, cybersecurity, CR follow-ons, FW-B0 test liens
+#### WP-PDR-47 Software status, measurements, cybersecurity, CR follow-ons, FW-B0 test liens (revision 3: unchanged in scope; section 3.0)
 
 (Listed with the software products; its number sits after the plans of group H.)
 
@@ -703,7 +780,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 
 ### 3.9 Group H: plans (wave 2)
 
-#### WP-PDR-43 V&V plan, coverage plan, instruments
+#### WP-PDR-43 V&V plan, coverage plan, instruments (revision 3: changed for A5; section 3.0)
 
 - **Objective:** SE-68 baselined (E-7, E-12); SWE-065 a, SWE-034; instrument decisions.
 - **Inputs:** 04 §1, §6, §12, §14, §16, §18 (A10, A11); SE HB App. I outline; 07 §9, §18; CR-003 step 19; CR-006 §12 Q5 to Q7; OQ-VV-002, 003; RID-SRR-011.
@@ -714,7 +791,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 7 inv.
 - **Flag:** equipment list, one-unit ordering rule **AT RISK (CR-003, CR-006)**.
 
-#### WP-PDR-44 Integration plan
+#### WP-PDR-44 Integration plan (revision 3: changed, owner hand assembly; section 3.0)
 
 - **Objective:** SE-67 baselined (E-6).
 - **Inputs:** SEMP §3.3, §5.6; SE HB App. H; CR-006 (one board); design-for-debug provisions (WP-PDR-37).
@@ -725,7 +802,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 3 inv.
 - **Flag:** **AT RISK (CR-006)**.
 
-#### WP-PDR-45 TBR closure consolidation (lien L-1)
+#### WP-PDR-45 TBR closure consolidation (lien L-1) (revision 3: changed, one batch at S2; section 3.0)
 
 - **Objective:** zero open L1 TBRs at the readiness declaration (E-25, S5); a single owner decision sheet.
 - **Inputs:** the TBR closure map; proposed values from WP-PDR-16, 19 to 30, 33, 40; 02 §8 rules 3 to 5, §9.
@@ -738,7 +815,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 4 inv. (two batches, plus one re-ruling delta). Owner time 1 to 2 h over two sessions.
 - **Critical path:** yes.
 
-#### WP-PDR-46 Plan updates: SEMP, technology assessment, cost, schedule, 06 and 07 re-approval inputs
+#### WP-PDR-46 Plan updates: SEMP, technology assessment, cost, schedule, 06 and 07 re-approval inputs (revision 3: changed for A5; section 3.0)
 
 - **Objective:** Soft rows E-16 to E-19 and the SRR plan liens.
 - **Inputs:** INSP-014, INSP-023, INSP-005 liens; CR-003 §5 steps 14, 15; CR-006 step 7; OD-01 (new dates).
@@ -749,7 +826,7 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Estimate:** 6 inv.
 - **Flag:** cost and schedule enclosure and quantity lines **AT RISK (CR-003, CR-006)**.
 
-### 3.10 Group I: readiness, review, baseline (waves 3 to 5)
+### 3.10 Group I: readiness, review, baseline (waves 3 to 5; revision 3: waves W-D to W-F, sessions S3 and the review, unchanged in scope; section 3.0)
 
 #### WP-PDR-48 Freeze, traceability report, readiness declaration
 
@@ -797,9 +874,41 @@ The same holds for every analysis record that carries a proposed TBR value. It m
 - **Closes:** C-092; P-28, P-32; A-4 (baseline set); gate reader G item 60.
 - **Estimate:** 3 inv.
 
-### 3.11 Estimate total
+### 3.11 Group J: A5 change control and merges (revision 3, new)
 
-About 330 agent invocations (roughly 430 to 550 agent-hours), of which about 100 are independent review or SA invocations. Revision 1 estimated 306. The increase comes from:
+#### WP-PDR-53 Re-baseline CR for the TS-012 section 8.10 deltas (CR-018, provisional number)
+
+- **Objective:** put the A5 requirement set under change control in one Class I CR, with its impact reviews before the owner's disposition (lesson L4, rule C6), so that the architecture, the L2 files and the TBR sheet are written on a known L1 and L0 basis.
+- **Inputs:** TS-012 revision 7 §8.10 (every row not marked A4), §8.8 descopes, §8.9 exceptions EX-1 to EX-14, §8.13 follow-on decisions 1 to 6 and Q5, Q6, §8.14 D-1 to D-18, §10 conditions; the analysis records of §1 (thermal, PA drive, LPF, spurs, keying, receiver BPF revision 4); status notes 2026-09-27 §6, §8, §10, §11 (the owner inputs, appended as new SI ids); the section 2 note on 01 §5.3 and §5.4; the WP-PDR-22 key-up rerun (for the REQ-TX-014 restatement) and the WP-PDR-28 thermal closure (for the REQ-SYS-112 corner and the REQ-SYS-118 setpoint).
+- **Outputs:** `docs/cm/cr/CR-018-a5-rebaseline.md` (the file name is fixed when it is created) with exact before and after text for: the L1 rows of §8.10 (user interface, frequency and receiver, transmitter and safety, power and charging, mechanical, build, sourcing and cost), including the KDR rows REQ-SYS-012, 112, 137, 140, 147; the L0 rows CON-010, CON-015, NGO-027, NGO-028, MOE-007 and the new SI entries; the ICD rows (ICD-CTL-USB, ICD-PWR-CELL, ICD-TX-ANT); the hazard links of HZ-002, 003, 007, 015 (text in WP-PDR-16b); the test cases each changed requirement cites; the ConOps and HSI display content replaced by the Morse menu; 01 §5.3 rows 14, 18, 21, 24 and §5.4 row 7. Section 12 questions carry the TS-012 follow-on decisions 1 to 6 and Q5, Q6 with recommendations. It is drafted against `main` with CR-008, CR-009, CR-015 and CR-016 merged, or against their branch heads where the merge has not happened yet, and is rebased at implementation. Its order with CR-003 revision 4 and CR-006 revision 3 is stated in each CR's section 5 (CR-003 owns the enclosure lines, CR-006 the quantities and the unit-cost basis, CR-018 the rest).
+- **Author:** Claude as CR author (L1 and L0 authors). **Reviewer:** section 6 impact reviews by separate invocations: CM lens; software assurance (the CR changes REQ-SW-KEYER rows, the frequency check and the PA permit); safety reviewer for the hazard links. One fix round and one delta re-check are budgeted.
+- **Depends on:** WP-PDR-22 key-up rerun and WP-PDR-28 thermal closure for their rows (the rest is drafted in parallel). **Disposition:** OD-40 at S1.
+- **Closes:** TS-012 §10 condition 2; TS-012 §8.12 last row ("the re-baseline CR at B2"); the 01 hand-build wording.
+- **Estimate:** 11 inv. (author 3; three reviews; one fix round and delta re-check 5).
+- **Critical path:** yes.
+
+#### WP-PDR-54 A5 ADR, TS-012 re-issue and records of the decision
+
+- **Objective:** produce the records TS-012 §10 lists as "to follow", other than the CRs.
+- **Outputs:** the A5 ADR (next free number, ADR-056 or later; the decision memo between reviews, stating that the approval was given in chat and transcribed; 06 §14.2); TS-012 revision 8 re-issuing sections 8.1 to 8.12 for A5 with the INSP-110 finding-26 receiver figures (75.37 dB, +/-0.62 %) and the A4-only readings removed; TS-001, TS-004, TS-007 and TS-011 status rows "superseded by TS-012 (ADR-0NN)" where TS-012 decided their choice, with their remaining analyses carried in WP-PDR-19, 20, 27; the `docs/lessons-learned.md` entry of TS-012 §10 (parts lifecycle as a mandatory screen); the risk register entries go to the WP-PDR-18 writer.
+- **Author:** trade-study author, technical data manager. **Reviewer:** INSP-110 delta on the TS-012 re-issue (with its INSP-118 pair where the re-issued text touches the frequency check or the PA permit); independent reviewer for the ADR with SA (it constrains safety-critical components).
+- **Depends on:** none. **Closes:** TS-012 §10 "Records produced"; 06 §14.2 (one ADR per study); INSP-110 finding-26 lien.
+- **Estimate:** 4 inv.
+
+#### WP-PDR-55 Merge train CR-007 to CR-017, CR-017 implementation
+
+- **Objective:** put the ten approved SRR-lien CRs and CR-017 on `main` before the products that depend on them freeze, and close deviations entries 5 and 6.
+- **Inputs:** CR-007 to CR-017 sections 5 (steps), 8 and 9; the CR branches (`cr/CR-008` to `cr/CR-017`); CR-007 revision 3 with its section 6.6 and 6.7 delta reviews (the owner's option B condition is met, so the section 5 step 3 branch opens now); `docs/cm/deviations.md` entries 5 and 6.
+- **Outputs:** per CR: the remaining implementation steps (CR-007 step 3 with SA-F3 to SA-F7, DR-F1 to DR-F3 and SA3-F1 to SA3-F3 fixed; CR-017 steps 3 to 11, including the pre-commit hook and the `raw.sha256` manifests); the step 9 record re-issues (the SRR record deltas the CR names); the section 8 implementation record and the section 9 independent verification; the merge, in CR number order unless a CR's section 5 sets another order, with the conflicts resolved on the branch and the gates re-run; CSA regenerated by `tools/csa.py` after each batch; deviations entry 5 closed when the CR-007 branch opens under revision 3, entry 6 at the CR-017 merge. The owner approves each merge (05 §3) in two batches: the CRs that WP-PDR-02 waits on (CR-008, 009, 010, 013, 015, 016) at S1, the others (CR-007, 011, 012, 014, 017) at S2.
+- **Author:** CM with the product authors of each CR. **Reviewer:** each CR's section 9 verifier (a separate invocation); the SRR record owners for the step 9 deltas; SA where the CR-007 dispatch rule routes it.
+- **Depends on:** none for the first batch; the second batch after S1. **Closes:** deviations entries 5 and 6; OD-43; the file-order preconditions of WP-PDR-02 (section 5.3).
+- **Estimate:** 20 inv. (about 2 per CR: the section 9 check with the record re-issue, and the merge with its gate run; CR-007 and CR-017 carry more implementation).
+
+### 3.12 Estimate total
+
+**Revision 3.** About **263 agent invocations remain** (section 3.0), reviews included: 58 in change control, tools and carry-over (WP-PDR-01, 02, 04, 06, 08, 15, 53 to 55), 15 in safety, classification and risk, 53 in the A5 analyses and trade closures, 85 in the allocated products, 17 in firmware and software status, 20 in the plans, 15 in readiness, review and baseline. The largest are WP-PDR-35 (25), WP-PDR-55 (20), WP-PDR-34 (15) and WP-PDR-36 (12). Section 8 turns this count into token cost and dates. Owner time: about 5 to 7 hours in three decision sessions, one bench session and the owner's browser price reads, plus the review session (section 6.0).
+
+**Revision 2 text (kept for the record).** About 330 agent invocations (roughly 430 to 550 agent-hours), of which about 100 are independent review or SA invocations. Revision 1 estimated 306. The increase comes from:
 - the staged hazard and ICD work with its reconciliation passes (WP-PDR-16, 34, 35, 36);
 - the FW-B1 DML-3 notes and CS-24 tags (WP-PDR-41);
 - the E-12 citation table (WP-PDR-34);
@@ -816,155 +925,119 @@ The largest items are WP-PDR-35 (27), WP-PDR-41 (24), WP-PDR-34 (15) and WP-PDR-
 
 ### 4.1 Graph
 
-Revision 1 drew one direction of two loops: WP-PDR-16 with WP-PDR-34 and 35, and WP-PDR-35 with WP-PDR-36. Revision 2 splits each loop into stages and budgets one reconciliation pass:
-- 16a (control allocation) → 34, 35 → 16b (re-issue);
-- 36a (ICD-CTL-SW pin map) → 34, 35, 37 → 36b (pairing).
-
-The 27 and 28 pair and the 20 and 22 pair are staged in the same way (28a → 27 → 28b; the TS-007 decision at B1a, then the frequency-budget value after 22). Owner sessions B0 to B4 are the barriers of section 5.2. Every trade and analysis review sits before the owner session that uses it (rules C9 and C10).
+**Revision 3.** The trade decisions that revision 2 put at B1a and B1b are taken: TS-012 fixed the architecture and the critical parts (owner decision A5). What now sits in front of the architecture is change control: the A5 CR set (CR-003 revision 4, CR-006 revision 3, CR-018) with its impact reviews and the owner's disposition at S1, and the merges of CR-008, 009, 010, 013, 015 and 016, whose files WP-PDR-02 edits next (section 5.3). The staged loops of revision 2 stay (rule C11): 16a → 34, 35 → 16b; 36a → 34, 35, 37 → 36b. The owner sessions S1, S2, S3 and the review session are the barriers of section 5.2. Every analysis record that carries a value reaches APPROVED before the session that rules it (rule C10). The week boundary of the usage limit (Sun 10-04 03:00 CDT) falls between waves W-B and W-C (rule C12).
 
 ```mermaid
 graph LR
-  WP01[01 CR re-checks] --> B0[B0 owner Mon 09-28]
-  WP03[03 Templates] --> WP07[07 Tools, TV-014 first]
-  WP03 --> WP08[08 Rust and harness TVs]
-  WP03 --> WP06[06 traceability.py PDR rules]
-  WP07 --> B0
-  WP04[04 Owner pack and vendor requests] --> B0
-  WP05[05 CSA, lessons, CR-007] --> B1a
-  B0 --> WP02[02 CR implementation]
-  B0 --> WP21[21 TS-003 PA model and LPF]
-  B0 --> WP20[20 TS-007 synth and clock]
-  B0 --> WP23[23 TS-008 T/R and timing]
-  B0 --> WP24[24 TS-009, TS-005 power]
-  B0 --> WP25[25 TS-010 audio and display]
-  B0 --> WP26[26 HW timers]
-  B0 --> WP28a[28a thermal first cut]
-  B0 --> WP33[33 Keyer host and UI]
-  WP28a --> WP27[27 TS-011 enclosure, TS-004]
-  WP20 --> RV1[Reviews and SA of TS-005, 007 to 010]
-  WP23 --> RV1
-  WP24 --> RV1
-  WP25 --> RV1
-  RV1 --> B1a[B1a owner Tue 09-29]
-  WP21 --> WP22[22 TS-006 ALC]
-  WP21 --> WP19[19 TS-001 RX]
-  WP20 --> WP19
-  WP21 --> WP28b[28b thermal final]
-  WP27 --> WP28b
-  WP22 --> RV2[Reviews and SA of TS-001, 003, 004, 006, 011, thermal]
-  WP19 --> RV2
-  WP27 --> RV2
-  WP28b --> RV2
-  RV2 --> B1b[B1b owner Thu 10-01 AM]
-  B1a --> WP31[31 System architecture]
-  B1a --> WP32[32 SW architecture and ADRs]
-  B1b --> WP31
-  B1b --> WP32
+  WP22[22 keying rerun, D-18 lien fix] --> WP53[53 CR-018 re-baseline]
+  WP28[28 A5 thermal closure] --> WP53
+  WP21[21 drive pad, LPF build] --> WP53
+  WP01[01 CR-003 r4, CR-006 r3] --> RVC[Impact reviews CM, SA, safety; one fix round]
+  WP53 --> RVC
+  WP54[54 A5 ADR, TS-012 re-issue] --> S1
+  RVC --> S1[S1 owner Thu 10-01 PM]
+  WP55a[55 merge train batch 1: CR-008, 009, 010, 013, 015, 016] --> S1
+  WP04[04 price-check list, equipment list] --> S1
+  S1 --> WP02[02 implement CR-003, 006, 018]
+  WP55a --> WP02
+  WP31d[31, 32 drafted on TS-012 8.1] --> WP31[31 architecture, allocation]
   WP02 --> WP31
-  WP17a[17 decision 9/40 change set] --> WP32
+  S1 --> WP32[32 SW architecture, ADRs]
+  WP31d --> WP32
   WP31 --> WP16a[16a control allocation]
   WP32 --> WP16a
-  WP31 --> WP36a[36a ICD-CTL-SW pin map, ICD-SW-HOST]
+  WP31 --> WP36a[36a ICD-CTL-SW pin map]
   WP32 --> WP36a
-  WP23 --> WP36a
-  WP16a --> WP34[34 L2 hardware]
-  WP16a --> WP35[35 L2 software]
-  WP36a --> WP34
-  WP36a --> WP35
-  WP36a --> WP37[37 Schematic and floorplan]
-  WP31 --> WP34
-  WP32 --> WP35
+  WP36a --> WK[Week boundary Sun 10-04 03:00]
+  WP16a --> WK
+  WK --> WP34[34 L2 hardware]
+  WK --> WP35[35 L2 software]
+  WK --> AN[19, 20, 23 to 27, 30, 33 analyses to APPROVED]
   WP34 --> WP36b[36b ICD set and pairing]
   WP35 --> WP36b
   WP34 --> WP16b[16b hazard re-issue]
   WP35 --> WP16b
-  WP28b --> WP16b
   WP16b -. one reconciliation pass .-> WP34
   WP16b -. one reconciliation pass .-> WP35
   WP36b -. one reconciliation pass .-> WP35
-  WP16b --> WP17r[17 re-run, concurrence, SA]
-  WP32 --> WP17r
-  AN[Analysis records APPROVED: 19 to 30, 33] --> WP45a[45 TBR batch 1]
-  WP45a --> B2[B2 owner Fri 10-02]
-  WP37 --> WP29[29 Budgets and TPMs]
-  WP28b --> WP29
-  WP36b --> WP29
-  WP08 --> WP41[41 FW-B1 drivers, tags, DML-3 notes]
-  WP41 --> WP40[40 HSI bench session Sat 10-03]
-  WP27 --> WP39[39 Enclosure model]
-  WP39 --> WP40
-  WP16b --> B3[B3 owner Sun 10-04 AM]
-  WP17r --> B3
-  WP29 --> B3
-  WP40 --> B3
-  B2 --> B3
-  B3 --> F1[Freeze F1]
+  WP16b --> WP17[17 re-run, concurrence, SA]
+  WP36a --> WP37[37 schematic, floorplan]
+  WP37 --> WP29[29 budgets and TPMs]
+  WP37 --> WP38[38 BOM with ordering gate]
+  OR[Owner price reads OD-42] --> WP38
+  WP27x[27 TS-011, TS-004 re-score] --> WP39[39 enclosure model]
+  WP41[41 merges, prototype image] --> WP40[40 bench session Mon 10-05]
+  AN --> WP45[45 TBR sheet]
+  WP16b --> WP45
+  WP45 --> S2[S2 owner Tue 10-06 AM]
+  WP17 --> S2
+  WP29 --> S2
+  WP40 --> S2
+  WP55b[55 merge train batch 2: CR-007, 011, 012, 014, 017] --> S2
+  S2 --> F1[Freeze F1]
   WP36b --> F1
-  WP31 --> WP44[44 Integration plan]
-  WP34 --> WP43[43 V&V plan]
-  WP35 --> WP43
-  WP44 --> WP43
-  WP43 --> F1
-  WP18[18 Risk register] --> F1
-  F1 --> W3[Wave 3 reviews, re-ruling if a Major changes a value]
-  WP06 --> WP48
+  WP43[43 V&V plan] --> F1
+  WP44[44 integration plan] --> F1
+  WP18[18 risk register final] --> F1
+  F1 --> W3[W-D wave 3 reviews, re-ruling if a Major changes a value]
+  W3 --> WP48[48 traceability, readiness]
   WP15[15 SRR log closure] --> WP48
-  W3 --> WP48[48 Traceability and readiness]
-  WP48 --> WP49[49 Package]
+  WP48 --> WP49[49 package]
   WP49 --> F2[Freeze F2]
-  F2 --> WP50[50 Deck]
-  WP50 --> B4[B4 readiness Tue 10-06]
-  B4 --> WP51[51 PDR session Thu 10-08]
-  WP51 --> WP52[52 Baseline and signed tag]
+  F2 --> WP50[50 deck]
+  WP50 --> S3[S3 owner readiness Thu 10-08 PM]
+  S3 --> RES[Reserve Fri 10-09]
+  RES --> WP51[51 PDR session Sat 10-10]
+  WP51 --> WP52[52 baseline and signed tag]
 ```
 
-Group C (WP-PDR-09 to 14), and WP-PDR-38, 42, 46 and 47, run beside this graph and join at WP-PDR-15 and WP-PDR-48. The CRs raised in the phase (section 6.2) join at the session that dispositions them.
+WP-PDR-06, 08, 42, 46 and 47 run beside this graph and join at WP-PDR-48. The phase CRs of section 6.2 join at the session that dispositions them.
 
 ### 4.2 Critical path with durations
 
-Assumptions:
-- Claude's workflows run about 12 hours a day, 7 days a week, with up to 10 agents in parallel.
-- One invocation takes 1 to 2 hours.
-- A review round (freeze, review, fix, delta) takes about half a day for a mid-sized product.
-- The owner answers a ready decision sheet within the next half-day slot.
+Assumptions (revision 3):
+- Claude's workflows run about 12 hours a day, 7 days a week, with up to 10 agents in parallel, **inside the weekly usage budget of section 8** (rule C12). The budget, not the lanes, limits the first week.
+- One invocation takes 1 to 2 hours. A review round (freeze, review, fix, delta) takes about half a day for a mid-sized product. A CR impact-review round, with its fix and delta re-check, takes about a day (CR-007 to CR-017 took about that each).
+- The owner answers a ready decision sheet within the session slot named.
 
 Durations are wall-clock and use half-day (AM, PM) slots.
 
 | # | Serial step | WPs | Duration | Start | Finish |
 |---|---|---|---|---|---|
-| 1 | Templates APPROVED; LTspice wrapper and TV-014 reviewed; CR-003 revision 3 and CR-006 revision 2 re-checked. Owner at B0: TV-014 accredited, st.com downloads, CR dispositions | 03, 07, 01; B0 | 1.0 d | Mon 09-28 AM | Mon 09-28 PM |
-| 2 | Behavioural PA model fitted and LPF simulated; TS-003 drafted | 21 | 1.0 d | Tue 09-29 AM | Tue 09-29 PM |
-| 3 | ALC and envelope (TS-006); thermal 28b; TS-011 and TS-004 finalized; TS-001 finalized | 22, 28b, 27, 19 | 0.5 d | Wed 09-30 AM | Wed 09-30 AM |
-| 4 | Section B reviews and SA pairs of TS-001, 003, 004, 006, 011 and the thermal record, 2 iterations | reviews (rule C9) | 0.75 d | Wed 09-30 PM | Thu 10-01 AM |
-| 5 | Owner decisions B1b | OD-06, 07, 10, 13 to 16, 38 | 0.25 d | Thu 10-01 AM | Thu 10-01 AM |
-| 6 | Architecture and firmware ADRs completed (drafted from Wed on the B1a decisions); 36a pin map and its first review; 16a control allocation | 31, 32, 36a, 16a | 0.5 d | Thu 10-01 PM | Thu 10-01 PM |
-| 7 | L2 hardware and software files with test-author cases (architecture review iteration 1 in parallel) | 34, 35 | 1.0 d | Fri 10-02 AM | Fri 10-02 PM |
-| 8 | ICD pairing (36b) and hazard re-issue (16b), then one reconciliation pass and the 17 re-run with concurrence and SA | 36b, 16b, 17 | 1.0 d | Sat 10-03 AM | Sat 10-03 PM |
-| 9 | Owner session B3; at-risk re-check (rule C8); freeze F1 | B3, F1 | 0.5 d | Sun 10-04 AM | Sun 10-04 AM |
-| 10 | Wave 3 iteration 1: about 75 review and SA invocations at 10 in parallel | wave 3 | 1.0 d | Sun 10-04 PM | Mon 10-05 AM |
-| 11 | Iterations 2 and 3 (deltas on Majors only); re-ruling sheet if a value changed | wave 3, 45 | 0.5 d | Mon 10-05 PM | Mon 10-05 PM |
-| 12 | Traceability, readiness checks and package | 48, 49 | 0.5 d | Tue 10-06 AM | Tue 10-06 AM |
-| 13 | Freeze F2; deck and deck record; owner readiness confirmation (B4) | 50; B4 | 0.5 d | Tue 10-06 PM | Tue 10-06 PM |
-| | **Reserve** (contingency) | none | 1.0 d | Wed 10-07 | Wed 10-07 |
-| 14 | PDR session; decision memo | 51 | 0.5 d | Thu 10-08 | Thu 10-08 |
-| 15 | Baseline record, signed tag, post-tag CSA | 52 | 0.5 to 1.0 d | Thu 10-08 PM | Fri 10-09 |
+| 1 | CR-003 revision 4, CR-006 revision 3 and CR-018 drafted; the keying rerun with the D-18 fix and the A5 thermal closure give CR-018 its REQ-TX-014, REQ-SYS-112 and REQ-SYS-118 rows | 01, 53, 22, 28 | 1.0 d | Tue 09-29 PM | Wed 09-30 AM |
+| 2 | Impact reviews (CM lens, SA, safety) round 1; author fixes; delta re-check | 01, 53 | 1.0 d | Wed 09-30 PM | Thu 10-01 AM |
+| 3 | Owner session S1: CR dispositions, merge batch 1, firmware architecture inputs, accreditations, permissions | S1 | 0.25 d | Thu 10-01 PM | Thu 10-01 PM |
+| 4 | Implement the A5 CRs on `main` after merge batch 1; record deltas and CR section 9 checks | 02, 55 | 1.0 d | Fri 10-02 AM | Fri 10-02 PM |
+| 5 | Architecture and firmware ADRs completed (drafted from Tue on TS-012 §8.1) with architecture review iteration 1 and SA; 36a pin map and its early review; 16a control allocation | 31, 32, 36a, 16a | 1.0 d | Sat 10-03 AM | Sat 10-03 PM |
+| | Week boundary: the usage limit resets Sun 10-04 03:00 CDT (rule C12; outside the working hours) | none | 0 d | Sun 10-04 | Sun 10-04 |
+| 6 | L2 hardware and software files with test-author cases; the remaining analyses reviewed to APPROVED (rule C10) | 34, 35; 19, 20, 23 to 27, 30, 33 | 1.0 d | Sun 10-04 AM | Sun 10-04 PM |
+| 7 | ICD pairing (36b) and hazard re-issue (16b), one reconciliation pass, the 17 re-run with concurrence and SA; TBR sheet; owner bench session (Mon PM) | 36b, 16b, 17, 45, 40 | 1.0 d | Mon 10-05 AM | Mon 10-05 PM |
+| 8 | Owner session S2; at-risk re-check (rule C8); freeze F1 | S2, F1 | 0.5 d | Tue 10-06 AM | Tue 10-06 AM |
+| 9 | Wave 3 iteration 1: about 50 review and SA invocations at 10 in parallel | W-D | 1.0 d | Tue 10-06 PM | Wed 10-07 AM |
+| 10 | Iterations 2 and 3 (deltas on Majors only); re-ruling sheet if a value changed | W-D, 45 | 0.5 d | Wed 10-07 PM | Wed 10-07 PM |
+| 11 | Traceability, readiness checks and package; freeze F2; deck and deck record | 48, 49, 50 | 1.0 d | Thu 10-08 AM | Thu 10-08 PM |
+| 12 | Owner session S3: readiness confirmation | S3 | 0.25 d | Thu 10-08 PM | Thu 10-08 PM |
+| | **Reserve** (contingency) | none | 1.0 d | Fri 10-09 | Fri 10-09 |
+| 13 | PDR session; decision memo | 51 | 0.5 d | Sat 10-10 | Sat 10-10 |
+| 14 | Baseline record, signed tag, post-tag CSA | 52 | 0.5 to 1.0 d | Sat 10-10 PM | Sun 10-11 |
 
-The serial chain is **9.0 working days** from Mon 09-28 AM to the readiness confirmation on Tue 10-06 PM. One reserve day follows, then the session on Thu 10-08.
+The serial chain is **9.5 working days** from Tue 09-29 PM to the readiness confirmation on Thu 10-08 PM. One reserve day follows, then the session on Sat 10-10.
 
-The chain runs through the PA model because three decisions wait on it: TS-003, TS-006 and the thermal budget. The enclosure outline (TS-011) and the architecture wait on those decisions, and the L2 files, ICDs and hazard re-issue wait on the architecture.
+The chain runs through change control: the architecture, the L2 files, the ICDs and the hazard re-issue are written on the A5 requirement set, and that set exists only after the three CRs are reviewed and dispositioned (lesson L4). The analyses that give CR-018 its KDR rows (keying for REQ-TX-014, thermal for REQ-SYS-112 and 118, PA drive for REQ-SYS-012 and 144) are on the chain for that reason; the other analyses are not.
 
 **Near-critical chains and their slack** (slack is to the step on the critical chain that consumes their output):
 
 | Chain | Steps | Slack | Consumed if |
 |---|---|---|---|
-| Software volume | 17 change set (Mon) → 32 drafted on B1a (Wed to Thu) → 35 (Fri) → 36b and 16b (Sat) | 0 d (it is on the critical chain from step 6) | the architecture review raises a Major that changes the module set |
-| CR dispositions | 01 re-checks (Mon AM) → B0 → 02 CR implementation (Tue to Wed) → 31 (Thu) | about 1 d | a re-check raises a Major (about 1 d: revision and delta re-check), or the disposition slips past Tue 09-29 |
-| TBR values batch 1 | analyses (Tue to Wed) → analysis records APPROVED (by Thu) → 45 → B2 (Fri PM) | about 0.5 d | an analysis record needs a third iteration |
-| FW-B1 and HSI | 08 TVs (Mon to Tue) → 41 drivers (Mon to Wed) → owner merges and PCR-4 dispositions (by Thu) → prototype (Fri) → bench session (Sat) → verdict at B3 | 0 d to B3; 2 d to B4 | the owner merges slip past Thu 10-01. The debounce and HIL values then take the section 7 routes, and the verdict moves to B4 |
-| Tools for readiness | 06 traceability rules, 07 csa.py, render_tpm.py, TV records → readiness checks (Tue 10-06) | about 2 d | a TV record needs a third iteration |
-| SRR carry-over | Group C fixes (Tue to Sat) → record deltas → 15 log moves → owner closures at B4 | about 1.5 d | a record delta finds a Major |
+| A5 CR set | 01, 53 drafts (Tue to Wed AM) → impact reviews and one fix round (Wed PM to Thu AM) → S1 (Thu PM) | 0 d (on the chain) | a round 2 re-check still finds a Major (every earlier CR round 1 did; one fix round is budgeted), or CR-018 cannot carry REQ-TX-014 because the D-18 fix is not shown: S1 moves half a day to Fri 10-02 AM and the reserve day is used |
+| Merge batch 1 | CR-008, 009, 010, 013, 015, 016 section 9 checks and record re-issues (Tue to Thu) → owner merge approval at S1 → 02 (Fri) | about 0.5 d | a section 9 check or a record re-issue finds a Major |
+| Software volume | 32 drafted (Wed to Fri) → completed Sat → 35 (Sun) → 36b and 16b (Mon) | 0 d (on the chain from step 5) | the architecture review raises a Major that changes the module set |
+| TBR values | analyses 19, 20, 23 to 27, 30, 33 (Sun) → records APPROVED (Mon) → 45 → S2 (Tue AM) | about 0.5 d | an analysis record needs a third iteration; the value then goes to S3 as a re-ruling, before the readiness declaration |
+| FW-B1 and HSI | owner merges and PCR-4 at S1 (Thu) → prototype image with the Morse menu (Fri to Sun) → bench session (Mon PM) → verdict at S2 | about 0.5 d to S2; 2.5 d to S3 | the owner merges slip past S1. The debounce and HIL values then take the section 7 routes and the verdict moves to S3 |
+| Tools for readiness | CR-011 merge (batch 2), TV-002 run, `csa.py`, `render_tpm.py` → readiness checks (Thu 10-08) | about 2 d | a TV record needs a third iteration |
+| Budget, week 1 | 87 invocations planned against about 98 that fit under 90 % (section 8.3) | about 11 invocations (about 4 % of the weekly limit) | the per-invocation cost runs more than about 1.1 times the planning rate: work pauses Sat 10-03 until the reset at Sun 10-04 03:00 (rule C12) |
 
-The reserve day of Wed 10-07 is the only float on the critical chain. A loss of more than one day moves the session day for day (section 8.3).
+The reserve day of Fri 10-09 is the only float on the critical chain. A loss of more than one day moves the session day for day (section 8.4).
 
 ---
 
@@ -979,12 +1052,28 @@ The reserve day of Wed 10-07 is the only float on the critical chain. A loss of 
 - **C5 Visual closure.** Every figure, render and slide is rendered to PNG and inspected before a product is called done (charter §11 rule 3).
 - **C6 Reviews before dispositions.** Any CR raised in the phase gets its §6 impact review before the owner is asked (lesson L4). The register of section 6.2 names each CR's review slot and disposition session.
 - **C7 Every case named (lesson L5).** Reviewer briefs list each case the governing clause enumerates as acceptance criteria.
-- **C8 At-risk re-check.** Before F1, every AT RISK product is diffed against the CR disposition; if the CR changed, the product iterates before freeze. A product that depends on a CR of section 6.2 freezes at F1 only after that CR's disposition, or on the current baseline text with the CR carried as a post-PDR change where the register allows it.
+- **C8 At-risk re-check.** Before F1, every AT RISK product (revision 3: AT RISK (A5 CRs)) is diffed against the CR disposition; if the CR changed, the product iterates before freeze. A product that depends on a CR of section 6.2 freezes at F1 only after that CR's disposition, or on the current baseline text with the CR carried as a post-PDR change where the register allows it.
 - **C9 Trade review before trade decision.** 06 §14.2 and §16 require the independent section B review, and the SA pair where 07 §2.1.1 applies, before a trade study goes to the owner. A study enters an owner decision sheet (B1a or B1b) only when its F0-frozen record and SA pair are APPROVED with every Major fixed.
 - **C10 Analysis review before value ruling.** A proposed TBR value goes to the owner (B2 or B3) only when the analysis record that carries it is APPROVED. If a later Major changes a ruled value, the re-ruling step of WP-PDR-45 puts it back to the owner at the next session (B3, or B4 at the latest).
 - **C11 Staged loops.** Where two products need each other (16 with 34 and 35; 35 with 36; 27 with 28), the first stage is drafted, the dependents are written on it, and the second stage reconciles. One reconciliation pass is budgeted in the WP estimates. A second pass is escalated to the owner at the next session.
+- **C12 Usage pacing (revision 3; status note 2026-09-27 §11, "Claude paces the work ... pauses when the weekly limit is near").** The weekly all-models usage limit is the binding resource. (a) Before each wave starts, and at each wave barrier, the lead SE reads the usage meter and compares it with the section 8.3 plan for that point. (b) No new invocation starts once the meter reaches **90 %**; the last 10 % is the weekly reserve, kept for the owner's own use and for finishing an invocation already running. (c) When the 90 % line is reached, the work **pauses** until the weekly reset. Nothing is dropped, merged or shortened to fit the budget: no review is skipped, no iteration is cut, no independent reviewer is replaced by the author, and the WP estimates of section 3.0 stay. (d) Inside a week, the critical chain of section 4.2 runs first; the WPs marked off the chain wait. (e) A pause or a meter reading more than 5 points above the plan is recorded in the next dated status note with the re-planned dates, and the owner is told in plain terms before the next session. (f) The owner's own use of the same limit counts; if the owner needs capacity, he says so and the work pauses.
+- **C13 Pre-disposition drafting (revision 3).** Products drafted before the S1 disposition of the A5 CR set are AT RISK (A5 CRs) and follow rule C8. Nothing is merged on the at-risk text.
 
 ### 5.2 Waves
+
+**Revision 3 waves (govern).** Inv. and token figures are from section 8.3; the meter column is the planned reading of the weekly usage meter at the end of the wave (rule C12).
+
+| Wave | Window | WPs run in parallel | Inv. | Meter after | Barrier at the end (owner session) |
+|---|---|---|---|---|---|
+| W-A A5 change control | Tue 09-29 PM to Thu 10-01 AM | 01 and 53 (drafts, impact reviews, one fix round); 22 (keying rerun, D-18 fix), 28 (A5 thermal closure), 21 (drive pad, LPF build); 54 (ADR, TS-012 re-issue, INSP-110 delta); 04 (price-check list, equipment list); 55 batch 1 (CR-008, 009, 010, 013, 015, 016: section 9 checks, record re-issues; CR-007 step 3 branch opened); 31 and 32 drafted on TS-012 §8.1 (counted in W-B) | 49 | 72 % | **S1 (Thu 10-01 PM)**, section 6.0 |
+| W-B Architecture | Thu 10-01 PM to Sat 10-03 | 02 (implement the A5 CRs after merge batch 1); 31, 32 completed with architecture review iteration 1 and SA; 36a with its early review; 16a; 55 batch 2 prepared (CR-007, 011, 012, 014, 017, CR-017 steps 3 to 11) | 38 | 86 % | Week boundary: reset Sun 10-04 03:00 CDT. If the meter reaches 90 % first, W-B pauses until the reset (C12) |
+| W-C Allocated products | Sun 10-04 to Mon 10-05 | 34 and 35 with test authors; 36b; 16b; one reconciliation pass (C11); 17 re-run with concurrence and SA; the analyses 19, 20, 23 to 27, 30, 33 with their records to APPROVED (C10); 29, 37, 38 (after OD-42), 39; 41 (DML-3 notes, prototype image); 40 bench session (Mon PM); 42; 43 and 44 drafted; 45 TBR sheet; 46; 47; 06 TV-002 run; 08 TV-024 run; 18 final pass | 105 | 39 % (new week) | **S2 (Tue 10-06 AM)**, section 6.0. Then the rule C8 re-check and **freeze F1** |
+| W-D Independent reviews | Tue 10-06 PM to Wed 10-07 | Reviews of every entrance product not yet reviewed: L2 files and test cases, ICDs, hazard analysis, V&V and integration plans, budgets and TPMs, schematic and visuals, BOM, enclosure model, HSI, plans; SRR record delta verifications; WP-PDR-45 re-ruling delta if a Major changed a value | 50 | 57 % | Every record APPROVED with Majors fixed; Minors liened (C1) |
+| W-E Readiness and package | Thu 10-08 | 15 (log moves), 48, then 49; **freeze F2**; 50 | 12 | 61 % | **S3 (Thu 10-08 PM)**, section 6.0 |
+| Reserve | Fri 10-09 | Contingency only | 0 | - | None |
+| W-F Review and baseline | Sat 10-10 (review), Sat 10-10 to Sun 10-11 (baseline) | 51, then 52 | 9 | 65 % | OD-30 at the session; signed `baseline/pdr` pushed and verified |
+
+**Revision 2 waves (superseded, kept for the record of what wave 0 and wave 1a planned).**
 
 | Wave | Window | WPs run in parallel | Barrier at the end (owner session) |
 |---|---|---|---|
@@ -998,27 +1087,39 @@ The reserve day of Wed 10-07 is the only float on the critical chain. A loss of 
 | Reserve | Wed 10-07 | Contingency only | None |
 | 5 Review and baseline | Thu 10-08 (review), Thu 10-08 to Fri 10-09 (baseline) | WP-PDR-51, then 52 | OD-30, OD-20 at the session; signed `baseline/pdr` pushed and verified |
 
-The trade-study and analysis reviews that revision 1 placed in wave 3 now run in waves 1a, 1b and 2a (rules C9 and C10). Wave 3 keeps the reviews of the allocated-baseline products, about 75 invocations instead of about 90. The deck never states its own review status; the package §2 deck block is written after the deck record (lesson L3).
+(Revision 2 note.) The trade-study and analysis reviews that revision 1 placed in wave 3 now run in waves 1a, 1b and 2a (rules C9 and C10). Wave 3 keeps the reviews of the allocated-baseline products, about 75 invocations instead of about 90. The deck never states its own review status; the package §2 deck block is written after the deck record (lesson L3).
 
 ### 5.3 File ownership (one writer per file per wave, lesson L7)
 
+Revision 3 writer orders. "Merge" means the CR branch merged by WP-PDR-55; a CR's product change is written on its branch, so on `main` the writer is the merge.
+
 | File | Writer order | Others |
 |---|---|---|
-| `docs/requirements/sys/requirements.json` | WP-PDR-11 (wave 1) → WP-PDR-02 (CR branches after B1) → WP-PDR-45 (TBR values after B2) | Other WPs send change requests to the current writer |
-| `docs/requirements/l0-stakeholder/expectations.json` | WP-PDR-10 (wave 1) → WP-PDR-02 → WP-PDR-45 (mirrors) | |
-| `docs/test_cases/sys/test_cases.json` | WP-PDR-11 → WP-PDR-02 → WP-PDR-45 (re-check) | |
-| `docs/safety/hazards.json` | WP-PDR-02 (CR-003 step 6 links) → WP-PDR-16b (sole writer thereafter; 16a writes only `docs/design/analysis/hazard-control-allocation.md`) | L2 authors send wording requests to 16b; 16b sends control requests to the L2 writer (one reconciliation pass, rule C11) |
-| `docs/icd/ICD-CTL-SW.md`, `ICD-SW-HOST.md`, `ICD-TX-SW.md` | WP-PDR-36a (sections 1 to 3, pin map, timing table) → WP-PDR-36b (section 4 lists, pairing) | WP-PDR-34, 35, 37 read the 36a pin map; changes go through 36b and back through the reconciliation pass |
+| `docs/requirements/sys/requirements.json`, `.md` | CR-008 merge → CR-016 merge (schema) → WP-PDR-02 (CR-003 revision 4, CR-006 revision 3, CR-018, in that order) → WP-PDR-45 (TBR values after S2) | Other WPs send change requests to the current writer; CR-018 is drafted on the CR-008 text |
+| `docs/requirements/l0-stakeholder/expectations.json`, `stakeholder-inputs.md` | CR-009 merge → WP-PDR-02 (the A5 CRs, new SI ids) → WP-PDR-45 (mirrors) | |
+| `docs/test_cases/sys/test_cases.json`, `.md` | CR-008 merge → CR-016 merge → WP-PDR-02 → WP-PDR-45 (re-check) | |
+| `docs/conops/conops.md` | CR-009 merge → WP-PDR-02 (Morse menu, CR-018) | |
+| `docs/safety/hazards.json` | WP-PDR-02 (CR-003 and CR-018 links) → WP-PDR-16b (sole writer thereafter; 16a writes only `docs/design/analysis/hazard-control-allocation.md`) | L2 authors send wording requests to 16b; 16b sends control requests to the L2 writer (one reconciliation pass, rule C11) |
+| `docs/icd/ICD-CTL-USB.md`, `ICD-PWR-CELL.md`, `ICD-TX-ANT.md` | WP-PDR-02 (CR-018 rows) → WP-PDR-36b | |
+| `docs/icd/ICD-CTL-SW.md`, `ICD-SW-HOST.md`, `ICD-TX-SW.md`, the new RF-board ICD | WP-PDR-36a (sections 1 to 3, pin map, timing table) → WP-PDR-36b (section 4 lists, pairing) | WP-PDR-34, 35, 37 read the 36a pin map; changes go through 36b and back through the reconciliation pass |
 | `docs/requirements/{rx,tx,pwr,ctl,me}/`, `docs/requirements/sw/**` | WP-PDR-34 / 35 (one author per file) → reconciliation pass after 16b and 36b → WP-PDR-45 (TBR values) | |
-| `docs/risk/register.json` | WP-PDR-18 only (Track pass wave 0, final pass wave 2) | Trade WPs submit risk entries |
+| `docs/risk/register.json` | WP-PDR-18 only (final pass in W-C) | WP-PDR-54 and the analysis WPs submit risk entries |
 | `docs/plan/tpm.json` | WP-PDR-29 only | |
-| `docs/design/allocation.json` | WP-PDR-02 (CR-003 step 5) → WP-PDR-31 | |
+| `docs/design/allocation.json` | WP-PDR-02 (CR-003 step 5, CR-018 rows) → WP-PDR-31 | |
 | `docs/design/architecture.md` | WP-PDR-31 (system sections) and WP-PDR-32 (software section), separate commits per section | |
-| `docs/process/07-software-engineering-plan.md` | WP-PDR-17 (wave 0 change set) → WP-PDR-13 (liens, wave 1) → WP-PDR-47 (§22 items) | |
-| `docs/process/03-software-classification-and-rmm.md`, `rmm.json` | WP-PDR-17 only | WP-PDR-02 CR-003/006 RMM rows go through WP-PDR-17's writer slot |
+| `docs/decisions/trade-studies/TS-012-*.md`, `TS-001`, `TS-004`, `TS-007`, `TS-011` status rows | WP-PDR-54 (re-issue and superseded rows) → WP-PDR-19, 20, 27 (their remaining analyses, TS-007 and TS-011 bodies) | |
+| `docs/process/05-configuration-and-data-management.md` | CR-007 merge → CR-017 merge | |
+| `docs/process/07-software-engineering-plan.md` | CR-010 merge → CR-013 merge → CR-007 merge (07 §2.1.1 dispatch and hold points) → WP-PDR-47 (§22 items) | |
+| `docs/process/01-lifecycle-and-reviews.md`, `02-requirements-and-traceability.md`, `08-agent-briefing.md` | CR-015 merge (and CR-012 merge for 08 §3.1, §3.5) → WP-PDR-02 (CR-018 rows of 01) | |
+| `docs/process/03-software-classification-and-rmm.md`, `rmm.json` | CR-010 merge → WP-PDR-17 | The A5 CRs' RMM rows go through WP-PDR-17's writer slot |
 | `docs/plan/schedule.md`, `cost-estimate.md` | WP-PDR-02 (CR hunks) → WP-PDR-46 | |
-| `tools/traceability.py` | WP-PDR-06 only | |
-| `tools/validate_docs.py` | WP-PDR-09 only | |
+| `docs/reviews/PDR/owner-actions.md` | WP-PDR-04 → WP-PDR-38 (gate figure) | |
+| `hardware/bom/` | WP-PDR-38 only | |
+| `tools/traceability.py` | CR-011 merge only | |
+| `tools/validate_docs.py`, `review_trend.py`, `complexity_gate.py`, `measurements.py`, `sw_gate.sh` | CR-014 merge only | |
+| `.gitignore`, `.githooks/` or the local hook | CR-017 merge only | |
+| `docs/process/configuration-status.md` | `tools/csa.py` run by WP-PDR-55 after each merge batch, then WP-PDR-48 | |
+| `docs/cm/deviations.md` | WP-PDR-55 (closures of entries 5 and 6, appended) | |
 
 ---
 
@@ -1026,7 +1127,64 @@ The trade-study and analysis reviews that revision 1 placed in wave 3 now run in
 
 The recommendations are the lead SE's. Needed-by dates follow the schedule of section 8 and the owner sessions B0 to B4 of section 5.2. If the owner keeps PDR at about 09-29, the dates before 09-29 still apply, but the later ones cannot be met (section 8). The owner inputs of 2026-09-27 are recorded in section 1.3 item 4 and are not asked again.
 
+### 6.0 Owner sessions at revision 3 (govern)
+
+Revision 2 had six decision sessions (B0, B1a, B1b, B2, B3, B4) and a bench session. B0 was held on 2026-09-27 and 09-28 through the status-note exchanges; B1a to B4 are replaced. Revision 3 needs **three decision sessions (S1, S2, S3), one bench session and the review session**, each with a decision sheet in `docs/reviews/PDR/owner-actions.md` that gives every item in plain terms with a recommendation, so the owner can answer "approve" or name the items to change. The one question asked outside a session is OD-01 (this plan and its dates), asked in the message that presents this revision.
+
+| Session | When (owner time) | What it decides | Why it cannot be later |
+|---|---|---|---|
+| (Plan) | When this revision is presented, one line | **OD-01:** accept revision 3 and the dates of section 8.4 (PDR about Sat 10-10, range Fri 10-09 to Tue 10-13) | The waves start on it; nothing else waits for it |
+| **S1 A5 baseline** | Thu 10-01 PM, about 60 min | **OD-40:** disposition CR-003 revision 4, CR-006 revision 3 and CR-018, with their section 12 questions, which carry the TS-012 follow-on decisions 1 to 6 (REQ-SYS-112 duty-limited corner and the REQ-SYS-118 setpoint; REQ-SYS-012 as a firm delta or a bench check with the delta as fallback; the LPF values and the 0.5 dB loss goal with REQ-TX-009 to 011; the REQ-TX-014 restatement; the 2 + 3 + 4 receiver and the MDS redesign route; the select-on-test pad), Q5 (the flagged TCXO, the surface-mount list, modules as through-hole), Q6 (the wrap-around guard envelope) and exceptions EX-1 to EX-14; any WP-PDR-28 thermal item that changes CR-018. **OD-43 batch 1:** merges of CR-008, 009, 010, 013, 015, 016. **OD-23:** the five rustos driver merges and the WP-SW-08 ICD page, with **PCR-4** (after its section 6 review). **OD-24b:** accreditation of TV-015 to TV-023 and TV-013. **OD-13 to OD-16:** secure boot, rustos pinning, host channel (and PCR-7 if the CR route), Kani and the register-access trait. **OD-10 (revised):** close TS-001, TS-004, TS-007 and TS-011 as superseded by TS-012 and the A5 ADR. **Permissions and facts:** OD-21, OD-25, TV-024 action A-1, OD-39 (KDB and SAR downloads, SPLAT! optional), OD-19, OD-22 (name the key and paddle), OD-32 (hand-assembly bench, heat gun added), OD-17, OD-24a | The architecture, the L2 files and the ICDs are written on the dispositioned requirement set from Fri 10-02; the software architecture needs OD-13 to OD-16; 16a needs OD-32; the prototype image for the bench session needs the merges |
+| (Owner action, no session) | Between S1 and Mon 10-05, about 45 min at the owner's browser | **OD-42:** the TS-012 §8.11 price-check reads (Mouser rows and cart, RF Parts cart, JLCPCB quote with duty, 18650BatteryStore cart, Boyd drawing, owner stock), no checkout; reply in chat | WP-PDR-38 recomputes the ordering-gate figure for the PDR BOM before S2 |
+| **Bench** | Mon 10-05 PM, about 1.5 h | Morse-menu demonstration on the Pico 2 development board with paddle, straight key and two buttons; bounce capture; keyer HIL. Prepares the OD-22 verdict | Its values and the HSI verdict are ruled at S2, before F1 |
+| **S2 Values and safety** | Tue 10-06 AM, about 1.5 h | **OD-09:** every TBR value in one batch (L1, L2, TPM, hazard-control, MOE-010), Extend only for L2 bench items, each on an APPROVED record (C10). **OD-35:** SMA TA concurrence in the re-run safety-critical determination. **OD-05:** HZ-002, HZ-003 and HZ-007 residual risk for A5 (PETG without flame rating, the COTS charger, the sink inside the case wall). **OD-08:** TPM definitions. **OD-22:** HSI verdict. **OD-25:** emulator decision (PCR-5 if the fallback). **OD-31:** charter edits. **OD-37:** PCR-5 to PCR-9 dispositions. **OD-43 batch 2:** merges of CR-007, 011, 012, 014, 017. **OD-24b:** TV-002 (ACC-TRACE-002) and TV-024. **OD-26:** the remaining instrument answers (the club station of CR-006 Q5). The recomputed ordering-gate figure is reported for information; nothing is ordered at PDR | F1 freezes the files that carry these values before the wave 3 reviews (C10, C2) |
+| **S3 Readiness** | Thu 10-08 PM, about 30 min | **OD-29:** readiness and Soft-row liens. **OD-11:** SRR log closures. **OD-27:** CR-001, 002, 004, 005 closures. **OD-28:** signing key and the bypass report. **OD-09 re-ruling** of any value a wave 3 Major changed | It follows the wave 3 reviews it confirms |
+| **PDR review** | Sat 10-10, 2 to 4 h | **OD-30** (unchanged, less OD-20: the early buy is replaced by the ordering gate, run after CDR) | - |
+
+**Why not fewer.** S1 has to come before the architecture and the L2 files, or five days of products would be written on undispositioned requirements, the at-risk exposure that revision 2 already limited. S2 has to come before F1, because the values it rules go into the files that wave 3 reviews (C10). S3 has to follow wave 3. Folding S1 into S2 or S2 into S3 would therefore either break a rule or re-open reviewed files, which costs more review invocations than the session saves.
+
+**Status of the revision 2 decisions (govern).**
+
+| Id | Revision 3 state | Session |
+|---|---|---|
+| OD-01 | Re-asked for the revision 3 dates | Plan |
+| OD-02, OD-03 | Replaced by OD-40 (both CRs held for A5 revision since status note 2026-09-27 §6) | S1 |
+| OD-04 | **Dropped:** no quote is requested from anyone (TS-012 §8.12); OD-42 replaces it | - |
+| OD-05 | Open, re-scoped for A5 | S2 |
+| OD-06 | Replaced by OD-10 (revised): TS-012 fixed the receiver | S1 |
+| OD-07 | **Dropped:** the A5 PA is the RA07M1317M module | - |
+| OD-08 | Open | S2 |
+| OD-09 | Open: one batch, re-ruling at S3 | S2, S3 |
+| OD-10 | Revised: close TS-001, TS-004, TS-007, TS-011 as superseded by TS-012 and the A5 ADR | S1 |
+| OD-11 | Open | S3 |
+| OD-12 | **Dropped:** no in-radio charging; the 500 mA default of REQ-SYS-090 stands | - |
+| OD-13 to OD-16 | Open | S1 |
+| OD-17 | Open if not yet given | S1 |
+| OD-18 | **Dropped:** no PD54008L-E model | - |
+| OD-19 | Open | S1 |
+| OD-20 | **Replaced** by the ordering gate (OD-42 reads at PDR; the order after CDR, only if the recomputed worst case is at most USD 300; the spare module AB-A decided at the gate) | - |
+| OD-21 | Open | S1 |
+| OD-22 | Open: naming at S1, verdict at S2 | S1, S2 |
+| OD-23 | Open | S1 |
+| OD-24 | (a) open at S1; (b) TV-014 done, TV-015 to TV-023 and TV-013 at S1, TV-002 and TV-024 at S2 | S1, S2 |
+| OD-25 | Permission at S1, decision at S2 | S1, S2 |
+| OD-26 | Mostly answered (status notes 2026-09-27 §5, §11; 2026-09-28 §1, §2): the rest at S2 | S2 |
+| OD-27, OD-28, OD-29 | Open | S3 |
+| OD-30 | Open, less OD-20 | PDR |
+| OD-31 | Open | S2 |
+| OD-32 | Open, with the heat gun added (TS-012 §8.12 WP-PDR-16 row) | S1 |
+| OD-33 | **Done** (status note 2026-09-27 §4) | - |
+| OD-34 | **Dropped** (no vendor quotes) | - |
+| OD-35 | Open | S2 |
+| OD-36 | **Done** (CR-007 approved and confirmed, status note 2026-09-28 §1, §4) | - |
+| OD-37 | Open for PCR-4 (S1) and PCR-5 to PCR-9 (S2); PCR-1 to PCR-3 done | S1, S2 |
+| OD-38 | **Done:** route (a), recorded in CR-018 (REQ-SYS-124) | - |
+| OD-39 | KDB and SAR downloads and SPLAT! at S1; PCM1808 **dropped**; stock checks replaced by OD-42 | S1 |
+| OD-40 to OD-43 | New, rows below | S1, S2 |
+
 ### 6.1 Decisions and actions
+
+Revision 3 adds OD-40 to OD-43 at the end of the table. The needed-by dates of the revision 2 rows are replaced by the session column of section 6.0.
 
 | Id | Decision or action | Recommendation | Needed by | Source | WP |
 |---|---|---|---|---|---|
@@ -1069,6 +1227,10 @@ The recommendations are the lead SE's. Needed-by dates follow the schedule of se
 | OD-37 | **Disposition each CR raised in the phase** (register 6.2), each after its §6 impact review | As the register recommends for each | The session the register names for each CR | 05 §5.2, §5.3; rule C6 | 05, 12, 17, 32, 33, 41, 42, analysis WPs |
 | OD-38 | **Who makes the option C case and forms its legend and jack markings:** (a) you print it on the H2C in PETG, with the markings in relief as part of the surface; (b) a PCBWay 3D-print service part; (c) (a) or (b) plus PCBWay laser engraving. The CNC fallback is engraved in the PCBWay CNC job | (a) for option C. It is the cheapest route, which is what you asked for; CON-026 as revised by CR-003 already names the H2C for the case; the TC-SYS-114 coupon rub can be done at home before the build; and it has no PCBWay-closure dependency. PCBWay engraving applies to the CNC fallback, which is how "PCBWay would have to do it" reads for a metal part. The route sets the REQ-SYS-124 and 191 verification (TC-SYS-086, TC-SYS-114), the cost line (WP-PDR-46) and the release package under CR-003 §5 step 8 (05 line 154 `ME-ENC` and §8.2, generalized by CR-003 F10). Ask for a PCBWay print price only if you want (b) or (c) compared | Preliminary at B0 Mon 09-28 (whether to add a print quote to the PCBWay email); final at B1b Thu 10-01 with TS-011 | Status note §2 ("PCBWay would have to do it"); CR-003 §1.1 REQ-SYS-124, §1.2 REQ-SYS-191, CON-026, F10 | 27, 04, 46 |
 | OD-39 | Other owner-hands actions the design reader lists: install SPLAT! for the site link budget (decision 82); download KDB 447498, KDB 643646 and the VHF SAR reports (decision 35, RFX-A2); the 47 CFR 2.106 browser check; buy a PCM1808 breakout only if TS-001 keeps candidate B (decision 102); provide dated DigiKey and Mouser stock checks for the critical parts where the distributor pages need your login | SPLAT!: optional; the link budget falls back to the Egli model (antenna-and-erp F9 to F11). KDB and SAR downloads: permit them, since the RF exposure evaluation cites them. PCM1808: only if B. Stock checks: run the list that WP-PDR-04 drafts | Downloads and SPLAT! at B0 Mon 09-28; stock checks by B1a Tue 09-29; PCM1808 at B1b if B | Design reader owner-decision list; decisions 35, 82, 99, 101, 102 | 04, 19, 29, 30, 38 |
+| OD-40 | **(Revision 3.) Disposition the A5 CR set:** CR-003 revision 4 (enclosure), CR-006 revision 3 (build sequence) and CR-018 (the TS-012 §8.10 re-baseline), each after its section 6 impact reviews, answering their section 12 questions (TS-012 follow-on decisions 1 to 6, Q5, Q6, exceptions EX-1 to EX-14) | Approve each as Class I with the answers the CRs recommend, once their impact reviews show no open Major. Q5 and Q6: approve (TS-012 §8.13). REQ-SYS-012 (firm delta to 5 W +1/-1.5 dB at the 6.4 V end, or a bench check on the built unit with that delta as fallback; TS-012 §10 condition 2): CR-018 states the recommendation from the PA drive analysis C4 and C8 | S1 Thu 10-01 PM | TS-012 §8.10, §8.12, §8.13, §10; status note 2026-09-29 §5 "Next" | 01, 53, 02 |
+| OD-41 | (Reserved: the A5 ADR needs no owner approval of its own. The decision was given in chat and transcribed, and the ADR records it as the decision memo between reviews; TS-012 §10) | - | - | 06 §14.5; charter §2 | 54 |
+| OD-42 | **(Revision 3.) Ordering-gate reads:** the TS-012 §8.11 items 1 to 9 in a browser, with no checkout and no account created by Claude | Do them between S1 and Mon 10-05 and reply in chat; the gate figure is recomputed for the PDR BOM and again before the order after CDR | Mon 10-05 | TS-012 §8.4, §8.11 | 04, 38 |
+| OD-43 | **(Revision 3.) Approve the merges** of CR-007 to CR-017 after each CR's section 9 check (05 §3: the owner approves every merge) | Batch 1 (CR-008, 009, 010, 013, 015, 016) at S1; batch 2 (CR-007, 011, 012, 014, 017) at S2 | S1, S2 | 05 §3, §5.2; CR sections 8 to 10 | 55 |
 
 ### 6.2 Register of CRs raised in the PDR phase
 
@@ -1088,6 +1250,23 @@ The register holds the planned CRs ("PCR-n"); a CR number is taken when the file
 | PCR-10 | L-016-6 lock-pin CR after the owner's `cfg_attr` commit | I | WP-PDR-41 | With the merge | OD-37; FW-B1 (a CDR lien if later) | G5 Miri `-p pico2` | CDR lien (section 7) |
 
 CR-001, 002, 004 and 005 are already dispositioned; their closure is OD-27.
+
+**Revision 3 state of the register, and the A5 CRs.**
+
+| PCR or CR | State at `6497900` | Revision 3 slot |
+|---|---|---|
+| PCR-1 (CR-007) | Approved 2026-09-28, confirmed under option B; revision 3 delta reviews concur (CR-007 §6.6, §6.7) | Implementation and merge in WP-PDR-55, batch 2 (S2) |
+| PCR-2 (CR-015) | Approved 2026-09-28 | Merge batch 1 (S1) |
+| PCR-3 (CR-016) | Approved 2026-09-28 | Merge batch 1 (S1); it precedes the A5 CRs on the requirement and test-case files |
+| PCR-4 | rustos pin-move CR not yet raised; the five driver reviews are done | §6 review in W-A; OD-37 at S1 with the merges (OD-23) |
+| PCR-5 to PCR-8 | As revision 2 | §6 reviews in W-C; OD-37 at S2 |
+| PCR-9 | As revision 2, with the A5 triggers: any value the A5 analyses cannot hold that is not already in CR-018 | Within half a day of the trigger; OD-37 at S2 (S3 at the latest for a wave 3 trigger) |
+| PCR-10 | As revision 2 | FW-B1 (a CDR lien if later) |
+| CR-008 to CR-014 | Approved 2026-09-28 (the SRR lien CRs of WP-PDR-06, 09, 10, 11, 12, 13, 17 and the templates of WP-PDR-03) | Merge batches 1 and 2 (WP-PDR-55) |
+| CR-017 | Approved 2026-09-29 | Steps 3 to 11 and merge in WP-PDR-55, batch 2 (S2); closes deviations entry 6 |
+| CR-003 revision 4 | Submitted, held since 2026-09-27 | WP-PDR-01; impact reviews W-A; OD-40 at S1 |
+| CR-006 revision 3 | Submitted, held since 2026-09-27 | WP-PDR-01; impact reviews W-A; OD-40 at S1 |
+| CR-018 (provisional) | To be created | WP-PDR-53; impact reviews W-A; OD-40 at S1. If a Major is still open after the budgeted fix round, S1 moves to Fri 10-02 AM and uses the reserve day; the A5 products stay at risk until then (C13) |
 
 ---
 
@@ -1120,13 +1299,107 @@ Nothing in 01 §12.2's never-lien list is routed here: every L1 TBR closes, ever
 | New PDR Minor findings (C1) | Convergence rule | Liens due at the CDR readiness declaration | Charter §4 item 3 |
 | Q-01 to Q-16 of the software reader (post-PDR firmware) | Scheduled after PDR | CDR and FW-B2 per 07 §3.1 | 07 §3.1, §19 |
 
+**Revision 3 changes to this section.** Three revision 2 rows change for A5: "Behavioural PA model correlation to hardware" now reads the RA07M1317M drive and output analyses (`pa-drive-ts012.md`), correlated at the first bench power series before TRR; "REQ-SYS-147 cost confirmation" now closes as the USD 200 target and USD 300 maximum of CR-018, confirmed at the ordering gate after CDR (OD-42 reads at PDR); "REQ-SYS-177 shielding and REQ-SYS-109 bond" drops the shielding part, because REQ-SYS-177 (a Goal) is deferred by CR-018 (no coating in build 1). Rows added:
+
+| Item | Why it cannot close | Proposed route | Justification |
+|---|---|---|---|
+| In-situ sink thermal resistance (at most 5.6 K/W for A5) and the NTC offset between the flange and its sensor | Needs the built unit and the thermocouple thermometer | Values close at PDR by analysis (WP-PDR-28); the measurement is a verification step before first on-air use, in the V&V plan; a result over 5.6 K/W lowers the allowed duty by the TS-012 §10 revisit rule | TS-012 §10 condition 3; thermal note §9.1 |
+| Spur lines over 25 uW at the high estimate (150.000 MHz, the /8 kickback), the module's back-off harmonic ratio | Close only at the tinySA sweep, and the owner buys the tinySA later | Analysis at PDR (`spurs-ts012.md`, `lpf-ts012.md`); the sweep is a verification before any transmission on the air (V&V plan rule); a line that stays over 25 uW raises PCR-9 | TS-012 §1 item 5, §8 conditions; 47 CFR 97.307(e) |
+| The select-on-test drive pad value (D-7) | Chosen at build with the unit's own coax | The method and its reading (17 mW within +/-1.0 dB) are specified at PDR in REQ-SYS-144 as revised by CR-018; the value is a build record | TS-012 §8.13 follow-on decision 6 |
+| The ordering gate itself | The order follows CDR | PDR shows the recomputed gate figure from the owner's reads (OD-42); the gate is re-run before the order; a worst case over USD 300 after G1 to G4 goes to the owner (TS-012 §10 condition 1) | TS-012 §8.4 |
+| Any A5 open thermal item that WP-PDR-28 cannot bring inside its limit | L1 requirement or KDR involved | Never a lien: a CR-018 amendment or a PCR-9 value CR ruled by the owner at S1 or S2, or a waiver recorded in the PDR memo | 01 §12.2; TS-012 §10 revisit (d) |
+
 Soft entrance rows (E-15 to E-19, E-21, E-24, S10) that are not met at readiness become owner-raised Routine RFAs with `lien: true` (01 §3.1). The plan aims to meet them all.
 
 ---
 
 ## 8. Schedule assessment
 
-### 8.1 Verdict on PDR about Tue 2026-09-29
+Sections 8.1 to 8.5 are the revision 3 assessment and govern. Section 8.6 keeps the revision 2 assessment for the record.
+
+### 8.1 Verdict on the estimate given to the owner (about Thu 10-08, range 10-07 to 10-12)
+
+**Not held; about two days later.** The estimate given on 2026-09-28 assumed the revision 2 chain restarted after the TS-012 choice. Two things move it:
+1. **Change control now sits in front of the architecture.** The A5 choice changes about 80 L1 requirements, five L0 items, three ICDs and four hazards (TS-012 §8.10). Those changes need a re-baseline CR and revisions of CR-003 and CR-006, each impact-reviewed before the owner's disposition (lesson L4; rule C6), and six approved CRs must merge first because they edit the same files (section 5.3). That is about 2.5 days from today to S1, and the architecture, the L2 files, the ICDs and the hazard re-issue all wait on it.
+2. **The first week's budget is nearly spent.** The weekly limit is 54 % used at 2026-09-29 about 10:30 CDT and resets 2026-10-04 03:00 CDT. With the 10 % reserve kept, 36 % of a week is left for 4.7 days (section 8.2), about 87 invocations of work, not the 150 or more the revision 2 lanes could run. The plan therefore runs only the critical chain this week and holds the rest for the new week.
+
+The wall-clock chain alone (section 4.2) gives readiness on Thu 10-08 PM and the session on Sat 10-10 with one reserve day, and the budget plan of section 8.3 fits under that chain in both weeks. So the dates below are set by the serial chain, with the budget as the main risk to them.
+
+### 8.2 Usage budget model
+
+**Stated plainly.** The weekly all-models usage limit is shared by every session and model on the owner's account, including this work. It was **54 % used on 2026-09-29 at about 10:30 CDT** and **resets on 2026-10-04 at 03:00 CDT**. The plan keeps a **10 % weekly reserve**: no new invocation starts after the meter reads 90 % (rule C12).
+
+**Rates from the phase so far:**
+- About **1.36 million tokens is about 1 % of the weekly limit**, so the whole week is about 136 million tokens.
+- PDR wave 1a used about **20 million subagent tokens**; the TS-012 discriminator run (six analyses, their review iterations, TS-012 revisions 5 and 6 and their reviews) about **12 million**; the work of 2026-09-29 so far (CR-017 with four impact reviews, TS-012 revisions 6 and 7, the receiver note revision 4, INSP-110, 117, 118 iterations, the lifecycle check) about **5 million**. Counting the invocations in the second and third runs (about 30 and about 15) gives about 0.3 to 0.4 million subagent tokens per invocation; wave 1a (about 20 WPs started) gives about 1 million per WP, consistent with 2 to 3 invocations each.
+- **Planning rate: 0.4 million subagent tokens per invocation, times 1.25 for the orchestrating session** (reading results, commits, owner messages) = **0.5 million tokens, about 0.37 % of the weekly limit, per invocation.**
+- **Check against the meter.** The three measured runs total 37 million subagent tokens, about 27 % of the limit; the meter reads 54 %. The other 27 % is work not measured in those runs (wave 0 and the CR-007 to CR-016 drafting and reviews since the week began on 2026-09-27 03:00) plus the orchestrating sessions. The 1.25 factor is therefore an assumption, not a measurement. Rule C12 (a) corrects it at every barrier, and section 8.5 shows the dates at factors of 1.5 and 2.0.
+
+**Budget per week (planning rate):**
+
+| Week | Window | Usable (to 90 %) | Tokens | Invocations that fit | Planned |
+|---|---|---|---|---|---|
+| 1 | Tue 09-29 10:30 to Sun 10-04 03:00 CDT (4.7 days) | 90 - 54 = 36 % | about 49 M | about 98 | 87 (W-A, W-B): meter planned at 86 % |
+| 2 | Sun 10-04 03:00 to Sun 10-11 03:00 CDT | 90 % | about 122 M | about 245 | 176 (W-C to W-F): meter planned at 65 % |
+| 3 | from Sun 10-11 03:00 CDT | 90 % | about 122 M | about 245 | 0 for PDR (post-PDR CDR work starts) |
+
+### 8.3 Token cost per wave
+
+Invocations come from section 3.0 (263 in all); tokens use the planning rate of section 8.2.
+
+| Wave | Window | Inv. | Subagent tokens | With orchestration | Share of the weekly limit | Meter after |
+|---|---|---|---|---|---|---|
+| W-A A5 change control | Tue 09-29 PM to Thu 10-01 AM | 49 | 19.6 M | 24.5 M | 18.0 % | 72 % (week 1) |
+| S1 | Thu 10-01 PM | - | - | in W-A, W-B | - | - |
+| W-B Architecture | Thu 10-01 PM to Sat 10-03 | 38 | 15.2 M | 19.0 M | 14.0 % | 86 % (week 1) |
+| Reset | Sun 10-04 03:00 CDT | - | - | - | - | 0 % |
+| W-C Allocated products | Sun 10-04 to Mon 10-05 | 105 | 42.0 M | 52.5 M | 38.6 % | 39 % (week 2) |
+| S2, F1 | Tue 10-06 AM | - | - | - | - | - |
+| W-D Independent reviews | Tue 10-06 PM to Wed 10-07 | 50 | 20.0 M | 25.0 M | 18.4 % | 57 % |
+| W-E Readiness and package; S3 | Thu 10-08 | 12 | 4.8 M | 6.0 M | 4.4 % | 61 % |
+| Reserve day | Fri 10-09 | 0 | - | - | - | 61 % |
+| W-F Review and baseline | Sat 10-10 to Sun 10-11 | 9 | 3.6 M | 4.5 M | 3.3 % | 65 % |
+| **Total** | | **263** | **105.2 M** | **131.5 M** | **96.7 % of one week, over two weeks** | |
+
+**Week 1 is the tight one.** Its planned 87 invocations leave about 11 (about 4 % of the limit) before the 90 % line. To keep that margin, week 1 runs only the critical chain: the A5 CR set and the analyses that give CR-018 its KDR rows (WP-PDR-01, 21, 22, 28, 53), the ADR and TS-012 re-issue (54), the price-check list (04), merge batch 1 and the CR-017 implementation (55), the implementation of the A5 CRs (02), and the architecture with 36a and 16a (31, 32, 36, 16). Everything else, including the analyses WP-PDR-19, 20 and 23 to 27, waits for the reset. Week 2 has about 25 % of the limit to spare.
+
+### 8.4 Proposed dates
+
+| Event | Revision 2 (approved 2026-09-27) | Estimate given 2026-09-28 | **Revision 3 (proposed)** | Basis |
+|---|---|---|---|---|
+| A5 CR set dispositioned | none | none | **S1 Thu 10-01 PM** | Section 4.2 steps 1 to 3 |
+| TBR value rulings | B2 Fri 10-02; B3 Sun 10-04 | - | S2 Tue 10-06 AM; re-ruling by S3 Thu 10-08 | Rule C10 |
+| Freeze F1 | Sun 10-04 | - | Tue 10-06 | Section 4.2 step 8 |
+| PDR readiness declaration | Tue 10-06 | about 10-06 | **Thu 2026-10-08** | Section 4.2 step 12 |
+| Reserve | Wed 10-07 | - | **Fri 10-09** | One day of float |
+| PDR session | Thu 10-08 | about 10-08 (range 10-07 to 10-12) | **Sat 2026-10-10 (range Fri 10-09 to Tue 10-13)** | Wave W-F; range from section 8.5 |
+| `baseline/pdr` | Thu 10-08 to Fri 10-09 | - | Sat 10-10 to Sun 10-11 | WP-PDR-52 |
+| CDR, ordering gate and order, boards, TRR | CDR about 10-14 to 10-15; boards about 10-30 to 11-03; TRR about 11-05 to 11-10 | - | Re-planned in `docs/plan/schedule.md` by WP-PDR-46 for the hand build (JLCPCB bare boards, one Mouser order, RF Parts, owner assembly), on the PDR date; indicative CDR about 10-16 to 10-20 | The PCBWay closure of 10-01 to 10-04 no longer applies. The JLCPCB and carrier schedules around the order date are read at the ordering gate |
+
+**Range.** The early end, Fri 10-09, holds if nothing uses the reserve day and the owner is available that day. The late end, Tue 10-13, is the budget case of section 8.5 at a 2.0 factor, where both weeks run out before their work is done. A slipped owner session moves the chain day for day after the reserve is used.
+
+**Conditions for the proposed date:** OD-01 accepted; S1 on Thu 10-01 PM with the A5 CR set free of open Majors; the owner's price reads (OD-42) by Mon 10-05; the bench session on Mon 10-05; S2 on Tue 10-06 AM; S3 on Thu 10-08 PM; the meter within about 4 points of the plan at each barrier.
+
+### 8.5 If a week's budget runs out
+
+**The work pauses; the rigor does not change** (rule C12; status note 2026-09-27 §11: "I don't want to use a lighter process for the rest of PDR"). Concretely:
+- At 90 % the lead SE starts no new invocation, lets the running ones finish, commits what is done, and records the pause and the re-planned dates in the next dated status note. The owner is told in plain terms: what paused, what is done, the new dates.
+- The work resumes after the reset at the point it stopped, in the section 4.2 order. No review, iteration, SA pair or reconciliation pass is dropped, and no author reviews his own product.
+- Dates move by the time lost, day for day, once the reserve day is used.
+
+**Sensitivity to the per-invocation cost** (the one assumption the meter check corrects):
+
+| Factor on subagent tokens | Share per invocation | Week 1: invocations that fit | Week 1 effect | Week 2: share needed | Week 2 effect | PDR session |
+|---|---|---|---|---|---|---|
+| 1.25 (plan) | 0.37 % | about 98 against 87 | none | 65 % | none | **Sat 10-10** |
+| 1.5 | 0.44 % | about 82 against 87 | pause Sat 10-03 PM for a few hours to the reset; about half a day, absorbed by the reserve day | 78 % | none | Sat 10-10 (reserve used) |
+| 2.0 | 0.59 % | about 61 against 87 | pause from about Sat 10-03 AM; about 1 to 1.5 days slip into week 2 | about 104 % plus the slipped work | pause about Fri 10-09 until the reset Sun 10-11 03:00 | **about Tue 10-13** |
+
+If the meter shows a factor above 2.0 at the W-A barrier (Thu 10-01), the lead SE re-plans at once and tells the owner before S1, rather than at the pause.
+
+### 8.6 Revision 2 assessment (superseded, kept for the record)
+
+#### 8.6.1 Verdict on PDR about Tue 2026-09-29
 
 **Not achievable.** The state at `39a6b13` (Sun 09-27):
 
@@ -1147,16 +1420,16 @@ Soft entrance rows (E-15 to E-19, E-21, E-24, S10) that are not met at readiness
    - Two loops need staged reconciliation (rule C11).
    - Six owner sessions gate the chain.
 
-### 8.2 Effort and duration
+#### 8.6.2 Effort and duration
 
-The estimate of section 3.11 is about 330 agent invocations. Spread across 10 parallel agents over 9 working days, that is about 37 invocations a day, well within the lanes. So capacity is not what sets the date: the serial chain of section 4.2 does.
+The estimate of section 3.11 (revision 2 numbering; now the revision 2 paragraph of section 3.12) is about 330 agent invocations. Spread across 10 parallel agents over 9 working days, that is about 37 invocations a day, well within the lanes. So capacity is not what sets the date: the serial chain of section 4.2 does.
 
 That chain is 9.0 working days: from the start of wave 0 (Mon 09-28 AM) to the owner's readiness confirmation (Tue 10-06 PM). One reserve day (Wed 10-07) sits before the session. The largest blocks on the chain are:
 - the PA model and the decisions that wait on it: 3.5 days, Mon to Thu AM (steps 1 to 5);
 - the allocated products and their reconciliation: 2.5 days, Thu PM to Sat;
 - wave 3 reviews with iterations: 1.5 days, Sun PM to Mon.
 
-### 8.3 Proposed dates
+#### 8.6.3 Proposed dates (revision 2)
 
 | Event | Approved (`schedule.md`) | Revision 1 of this plan | **Revision 2 (proposed)** | Basis |
 |---|---|---|---|---|
@@ -1214,6 +1487,17 @@ The reserve day absorbs one slipped session. If a second session slips a day, th
 | PR-14 | A staged loop (16a, 34 and 35, 16b; 36a, 35, 36b; 28a, 27, 28b) needs a second reconciliation pass | Medium / half a day to a day on the critical chain | One pass budgeted (rule C11); 16a and 36a reviewed early so the dependents build on APPROVED inputs; a second pass is escalated at B3 and uses the reserve day |
 | PR-15 | A phase CR (section 6.2) is not dispositioned by its session, so its dependent products cannot freeze at F1 on a known basis | Medium / F1 slips for those products, or they freeze at risk | Each PCR has its review slot and session in the register, and an "if late" route; PCR-1 (CR-007) has no fallback and is scheduled first (B1a) |
 | PR-16 | A wave 3 Major changes a value the owner has already ruled | Medium / re-ruling and file changes after F1 | Re-ruling step of WP-PDR-45 at B3 or B4; analysis records reviewed before B2 (rule C10) make this rare |
+
+**Revision 3 changes.** PR-1 now counts three decision sessions, one bench session and the owner's price reads (section 6.0). PR-2 (PA model fit) is retired: the A5 module needs no fitted model; its open items are the drive pad and the low-pack power (WP-PDR-21). PR-3 now reads the A5 CR set (CR-003 revision 4, CR-006 revision 3, CR-018). PR-4 (Inrad quote) and PR-13 (PCBWay answers) are retired: no quotes are requested. PR-12 and PR-16 name S3 in place of B4, and S2 in place of B2 and B3. Added:
+
+| # | Risk | Likelihood / consequence | Response |
+|---|---|---|---|
+| PR-17 | The weekly usage budget runs out before a week's planned work is done, because the per-invocation cost is above the planning rate (section 8.2) | Medium in week 1 (11 invocations of margin), low in week 2 / pause to the reset; up to about three days on the PDR date at a 2.0 factor | Rule C12: meter read at every barrier, critical chain first, pause at 90 %, never a cut in rigor; re-plan told to the owner before the next session (section 8.5) |
+| PR-18 | CR-018 is large (about 80 L1 rows, L0, ICD and hazard links, 01 rows) and its impact reviews find Majors that one fix round does not close | Medium / S1 moves half a day to a day, the reserve day is used | Draft on the merged CR-008 text; reviewers get the TS-012 §8.10 rows and every analysis record as acceptance criteria (rule C7); one fix round budgeted; the architecture drafts on TS-012 §8.1 meanwhile (C13) |
+| PR-19 | An A5 open thermal item (cells, PETG face, module case, relay ambient) cannot be closed by a no-cost or gate-affordable change | Medium / a KDR delta (REQ-SYS-112) or a value CR for the owner, possibly a re-opened study (TS-012 §10 revisit (d)) | WP-PDR-28 runs in week 1, before CR-018 is final; an item that stays open goes to the owner at S1 inside CR-018, or at S2 as PCR-9; never a lien |
+| PR-20 | The ordering-gate worst case exceeds USD 300 after guards G1 to G4 at the owner's reads, or an A5 part is not Active at the gate | Medium / the order waits for an owner decision; G6 (revert to A4) conflicts with the owner's condition | OD-42 reads before S2 so the PDR BOM shows the verified figure; the owner decides between not ordering and a change that re-opens TS-012 (TS-012 §10 conditions 1 and revisit (b), (c)); this does not hold the PDR, only the order |
+| PR-21 | The D-18 PA_EN gate lien (supply rail, level interface, unpowered state) is not closed by the key-up rerun, so CR-018 cannot carry the REQ-TX-014 restatement | Low to medium / CR-018 leaves REQ-TX-014 as baselined with a PCR-9 follow-on | WP-PDR-22 takes the fix first in W-A; the SA pair checks it; REQ-SYS-120 is unaffected (the clamp FET holds the bias at 0 V on its own) |
+| PR-22 | The merges of CR-007 to CR-017 conflict with each other or with the A5 CRs on the shared files | Medium / rework on the branches, a day on the CR chain | Writer order of section 5.3; merge batch 1 before WP-PDR-02; gates re-run on each merge; CSA regenerated after each batch |
 
 ---
 
@@ -1492,6 +1776,49 @@ The reserve day absorbs one slipped session. If a second session slips a day, th
 
 No carried item, TBR, gate criterion or reader owner decision in the four reader reports is left without a WP or an OD.
 
+### 10.6 Revision 3: TS-012 items to WPs and sessions
+
+The TBR groups of section 10.2 are the revision 2 map. CR-018 retires some of their requirements (for example REQ-SYS-061, 070, 088, 089, 165, 167, 185), rewords others and adds TBRs (for example REQ-SYS-012 at the 6.4 V end, REQ-SYS-102, 103, 106). WP-PDR-45 regenerates the table from the files after WP-PDR-02 (lesson L6); the counts of section 10.2 are not re-used.
+
+| TS-012 item | WP | Session |
+|---|---|---|
+| §8.12 row WP-PDR-04, OD-04, OD-34 (quotes cancelled, price-check list) | 04 | OD-42 (owner action) |
+| §8.12 row WP-PDR-19 | 19 | S2 (values) |
+| §8.12 row WP-PDR-20 | 20 | S2 |
+| §8.12 row WP-PDR-21 | 21 | S1 (CR-018 rows), S2 |
+| §8.12 row WP-PDR-22 | 22 | S1 (REQ-TX-014 in CR-018), S2 |
+| §8.12 row WP-PDR-23 | 23 | S2 |
+| §8.12 row WP-PDR-24 | 24 | S2 |
+| §8.12 row WP-PDR-25 | 25 | S2 |
+| §8.12 row WP-PDR-26 | 26 | S2 |
+| §8.12 row WP-PDR-27 | 27 | S1 (OD-10), S2 |
+| §8.12 row WP-PDR-28 | 28 | S1 (CR-018 rows), S2 |
+| §8.12 row WP-PDR-16, 17 | 16, 17 | S2 (OD-05, OD-35) |
+| §8.12 row WP-PDR-33, 40 | 33, 40 | Bench, S2 (OD-22) |
+| §8.12 row WP-PDR-35, 41 | 35, 41 | S1 (OD-23), S2 |
+| §8.12 row WP-PDR-37, 38, 39 | 37, 38, 39 | S2 (gate figure for information) |
+| §8.12 row WP-PDR-46 | 46 | Plan (OD-01), S3 |
+| §8.12 row "New owner decision" (TS-012 at B1a; the re-baseline CR at B2) | TS-012 decided 2026-09-29; 53 | S1 (OD-40) |
+| §8.12 CR-003 items a to f | 01 | S1 (OD-40) |
+| §8.12 CR-006 items a to e | 01 | S1 (OD-40) |
+| §8.10 every A5 row, L0 paragraph | 53, then 02 | S1 (OD-40) |
+| §8.13 Q5, Q6, follow-on decisions 1 to 6 | 53 (as CR-018 questions) | S1 (OD-40) |
+| §8.13 Q7 (spare module) | 38 | At the ordering gate, after CDR |
+| §8.14 D-1 to D-5 | 27, 28, 39 | S2 |
+| §8.14 D-6 | 28, 26 | S1 (REQ-SYS-118 setpoint in CR-018) |
+| §8.14 D-7, D-8, D-13, D-14 | 21 | S1, S2 |
+| §8.14 D-9 to D-11, D-18 | 22 | S1 |
+| §8.14 D-12, D-17 | 20, 32, 35 | S2 |
+| §8.14 D-15 | 19 | S2 |
+| §8.14 D-16 | 04, 43 | S2 (OD-26) |
+| §10 condition 1 (ordering gate) | 38 | OD-42; the gate after CDR |
+| §10 condition 2 (requirement deltas) | 53 | S1 |
+| §10 condition 3 (open thermal items) | 28 | S1 or S2 |
+| §10 condition 4 (open owner questions) | 53 | S1 |
+| §10 "Records produced" (ADR, re-issue, risk entries, CR revisions, re-baseline CR, this plan) | 54, 18, 01, 53; this revision | - |
+| §10 lessons learned (lifecycle screen) | 54 | - |
+| Deviations entries 5 and 6 | 55 | S1, S2 (merges) |
+
 ---
 
 ## 11. Revision history
@@ -1500,6 +1827,23 @@ No carried item, TBR, gate criterion or reader owner decision in the four reader
 |---|---|---|---|---|
 | 1 | 2026-09-27 | `9373729` | First issue: 52 work packages, waves, owner decisions, proposed PDR about Sat 10-03 | Lead SE planner, from the four PDR reader reports |
 | 2 | 2026-09-27 | `39a6b13` | Twelve findings of the completeness critic resolved, as listed below | Completeness critic of revision 1 |
+| 3 | 2026-09-29 | `6497900` | Re-plan for the owner's A5 decision and pacing against the weekly usage limit, as listed below. PDR about Sat 10-10 (range Fri 10-09 to Tue 10-13); three decision sessions, one bench session and the review session | Lead SE planner; owner decision A5 (status note 2026-09-29 §5); TS-012 revision 7 §8.12, §10 |
+
+Changes in revision 3, with the reason for each:
+
+1. **Design basis.** Revision 2 planned the PCBWay turnkey design. The owner chose A5, a hand-built design on JLCPCB bare boards (status note 2026-09-29 §5; TS-012 revision 7). Section 1.3 item 5 records the facts since revision 2, and section 1.2 adds the sources.
+2. **Work package status (section 3.0, new, governs).** Every WP is marked done, changed for A5, new or dropped, with its remaining invocations. Done: the TS-012 study and its six discriminating analyses with their reviews (INSP-110, 112 to 118); TV-014 accredited and TV-015 to TV-023 reviewed; CR-007 to CR-016 dispositioned and CR-017 dispositioned; the templates, CSA, lessons, errata, tool liens and the five FW-B1 drivers reviewed. Changed: architecture and block diagram (31), L2 files (34, 35), ICDs (36), preliminary schematic for hand build (37), BOM with the ordering gate (38), enclosure model of the printed PETG case with the Boyd sink (27, 39), hazard analysis (16), V&V and integration plans (43, 44), TBR closure (45), the open thermal items (28), CR-003 and CR-006 revisions (01) and their implementation (02). New: the re-baseline CR (53), the A5 ADR and TS-012 re-issue (54), the merge train CR-007 to CR-017 with the CR-017 implementation (55). Dropped: the PCBWay email and quotes, the vendor quote requests, the st.com downloads, the PD54008L-E model, the GRF5604 route, the early-buy ADR, the display trade and renders (the LCD), the CNC package and the PCBWay print routes.
+3. **Hand-build reading of 01.** Section 2 notes that 01 §5.3 rows 14, 18, 21, 24 and §5.4 row 7 name PCBWay and DigiKey, and routes their wording to CR-018.
+4. **Critical path and graph (section 4).** Change control now precedes the architecture; the chain is 9.5 working days from Tue 09-29 PM to readiness on Thu 10-08 PM, with the reserve on Fri 10-09.
+5. **Rules.** C12 (usage pacing: meter check at every barrier, stop at 90 %, pause and never cut rigor, tell the owner) and C13 (pre-disposition drafting at risk) are added; C8 reads the A5 CRs.
+6. **Waves (section 5.2) and file ownership (section 5.3)** are re-issued: waves W-A to W-F around the weekly reset; writer orders now run through the CR merges.
+7. **Owner sessions (section 6.0, new).** Six sessions become three (S1 A5 baseline, S2 values and safety, S3 readiness) plus the bench session and the review. Every revision 2 decision has a state; OD-40, 42 and 43 are added (OD-41 reserved); OD-02, 03, 04, 06, 07, 12, 18, 20, 34 are replaced or dropped; OD-33, 36, 38 are done. The PCR register gains the state of every CR.
+8. **Section 7** changes three rows and adds five for A5 (in-situ sink, tinySA-dependent spurs, drive pad value, ordering gate, open thermal items never liened).
+9. **Schedule (section 8, re-issued).** The usage budget is stated plainly (54 % used on 2026-09-29 about 10:30 CDT, reset 2026-10-04 03:00 CDT, 10 % reserve), with the rates of the phase so far and a token cost per wave. The estimate given on 2026-09-28 (about 10-08) moves about two days because change control and the first week's budget both sit on the chain. What happens when a week runs out: a pause, never a cut in rigor, with a sensitivity table.
+10. **Risks.** PR-2, PR-4 and PR-13 retired; PR-17 to PR-22 added (budget, CR-018 size, thermal items, ordering gate, D-18 lien, merge conflicts).
+11. **Traceability.** Section 10.6 maps every TS-012 §8.12 row, §8.13 question, §8.14 design item and §10 condition to a WP and a session.
+
+The revision 2 texts of the WPs (sections 3.2 to 3.10), of the waves (section 5.2) and of the schedule (section 8.6) are kept for the record; where they differ from sections 3.0, 4, 5.2 (revision 3 table), 6.0 and 8.1 to 8.5, those sections govern.
 
 Findings resolved in revision 2:
 
