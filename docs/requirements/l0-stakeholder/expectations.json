@@ -11,7 +11,7 @@
     {
       "name": "Robin (operator)",
       "role": "user",
-      "interests": "Operates his unit as his own station with a straight key or paddles and headphones.",
+      "interests": "Operates her unit as her own station with a straight key or paddles and headphones.",
       "represented_by": "Robin, per docs/process/02-requirements-and-traceability.md section 3.0, confirmed or changed in docs/reviews/SRR/decision-memo.md",
       "source_ids": ["SI-005", "SI-014", "SI-018"]
     },
