@@ -23,14 +23,22 @@ product: docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md
 # revision 6 commit (it changes only the TS file). The blob below equals git rev-parse 3b93de1:<path>,
 # HEAD:<path> and git hash-object <path> at HEAD 123f048 on 2026-09-29; it is on main. Re-issue 1 reviewed
 # revision 5 at 37d5824, blob 731ba0eb (product_files_revision_5).
-product_commit: "3b93de11d52c17fa17e7a304656a2e8ff635efce"
-product_blob: 0c9fcb9649d3fbf7a1eae3de43d10f05abe1632b
-product_files: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@0c9fcb9649d3fbf7a1eae3de43d10f05abe1632b"]
+# Iteration 3 re-issue 3 (WP-PDR-54, under the owner's OD-01 approval, status note 2026-09-29 section 8; 2026-09-29):
+# bb5dee7, the TS-012 revision 8 commit (it changes only the TS file). The blob below equals git rev-parse
+# bb5dee7:<path>, HEAD:<path> and git hash-object <path> at HEAD c12872d on 2026-09-29; it is on main. Re-issue 2
+# reviewed revision 6 at 3b93de1, blob 0c9fcb96 (product_files_revision_6); revision 7 (6497900) and the editorial
+# commits 5819220 and 5f84770 were read in this delta.
+product_commit: "bb5dee7467c550c7c26fb5d334811b2f0b09e92b"
+product_blob: b93333867dbe21ed6243a8f85df1f7ff16d23c00
+product_files: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@b93333867dbe21ed6243a8f85df1f7ff16d23c00"]
+product_files_revision_6: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@0c9fcb9649d3fbf7a1eae3de43d10f05abe1632b"]
 product_files_revision_5: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@731ba0ebe494c1d970b3b1ba0cac4304ebbab412"]
 product_files_revision_4: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@fa41032e38fd93cd2eecf84efe74dc74a4103972"]
 product_files_iteration_3: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@b1f03fad90ad0f7e4a118624792838d495501e56"]
 product_files_iteration_2: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@7432bba479c2a4264b317e35b0c7ac48b85370ad"]
 product_files_iteration_1: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@5da2c7c58c8ea759d7bcaa92e2efcb49f16de1bd"]
+# product_size (iteration 3 re-issue 3: revision 8, 1268 lines) is the re-issue 2 figure with section 10 filled
+# (revision 7) and sections 8.1 to 8.12 re-issued for A5 (the A4 roll-ups and A4 delta values removed from them).
 # product_size (iteration 3 re-issue 2: revision 6, 1248 lines) is the re-issue 1 figure plus: the TCXO required in A4
 # (D-17), design items D-17 and D-18, E5 item (g), the A4 + U3 matrix column, sensitivity R6-1 to R6-6, a revision 6
 # risk table of 4 rows, table R6-1 and the REQ-SYS-182, 154, 181, 120 and REQ-TX-014 rows restated.
@@ -40,7 +48,7 @@ product_files_iteration_1: ["docs/decisions/trade-studies/TS-012-design-to-cost-
 product_size: "6 alternatives (A0 dropped at M1, A1 at M4; A2 to A5 ranked; 7 pruned), 5 mandatory and 8 enhancing criteria; A5 BOM of 31 Mouser rows, 4 estimated rows, 4 other-seller rows, 7 shipping, duty and tariff lines; A4 roll-up; 4 upgrades with risk per dollar; about 90 requirement deltas; revision 5 adds estimated row E5, 16 design items (8.14), results of 6 analysis records (tables R5-1 to R5-4) and a revision 5 risk table of 19 rows (14 carried, 8 of them re-scored, and 5 new)"
 sprint: PDR-prep
 author_agent: "author:TS-012 (Claude as trade-study author, invocation of 2026-09-27)"
-reviewer_agent: "reviewer:TS-012-iter1 (independent; authored no part of TS-012, its architecture reports or its judge reports); iteration 2 by reviewer:TS-012-iter2 (independent; authored no part of TS-012 revision 1 or 2); iteration 3 by reviewer:TS-012-iter3 (independent; authored no part of TS-012 revision 1, 2 or 3); iteration 3 re-issue 1 (the owner-authorized fourth iteration) by reviewer:TS-012-iter4 (independent; authored no part of TS-012 revisions 1 to 5, of the six analysis records it cites or of their review records); iteration 3 re-issue 2 (owner-authorized, status note 2026-09-29 section 2) by reviewer:TS-012-iter5 (independent; authored no part of TS-012 revisions 1 to 6, of the analysis records it cites, of frequency-budget.md, or of INSP-117, INSP-118 or iterations 1 to 3 re-issue 1 of this record)"
+reviewer_agent: "reviewer:TS-012-iter1 (independent; authored no part of TS-012, its architecture reports or its judge reports); iteration 2 by reviewer:TS-012-iter2 (independent; authored no part of TS-012 revision 1 or 2); iteration 3 by reviewer:TS-012-iter3 (independent; authored no part of TS-012 revision 1, 2 or 3); iteration 3 re-issue 1 (the owner-authorized fourth iteration) by reviewer:TS-012-iter4 (independent; authored no part of TS-012 revisions 1 to 5, of the six analysis records it cites or of their review records); iteration 3 re-issue 2 (owner-authorized, status note 2026-09-29 section 2) by reviewer:TS-012-iter5 (independent; authored no part of TS-012 revisions 1 to 6, of the analysis records it cites, of frequency-budget.md, or of INSP-117, INSP-118 or iterations 1 to 3 re-issue 1 of this record); iteration 3 re-issue 3 (WP-PDR-54, under the owner's OD-01 approval, status note 2026-09-29 section 8) by reviewer:TS-012-iter6 (independent; authored no part of TS-012 revisions 1 to 8, of the analysis records it cites, of a5-parts-lifecycle-2026-09-29.md, or of INSP-112 to INSP-118 or earlier iterations of this record)"
 # criticality: the study decides the hardware controls of REQ-SYS-055, 120, 180, 181, 182 and 092 and the
 # Morse menu override command path (safety-critical by SRR decision 9; 07 section 14.1)
 criticality: safety-critical
@@ -51,11 +59,14 @@ paired_record: INSP-118
 # iteration: 3 is the record schema maximum. The owner authorized a fourth iteration (status note 2026-09-28 section 1
 # item 3); it is recorded as "Iteration 3 re-issue 1" (precedent INSP-009, INSP-038, INSP-075), and the body calls it
 # the fourth iteration. The owner authorized a further iteration on revision 6 (status note 2026-09-29 section 2),
-# recorded as "Iteration 3 re-issue 2" (the fifth pass)
+# recorded as "Iteration 3 re-issue 2" (the fifth pass). The INSP-110 delta on revision 8 that WP-PDR-54 names, run
+# under the owner's OD-01 approval of the plan (status note 2026-09-29 section 8), is "Iteration 3 re-issue 3" (the sixth pass)
 iteration: 3
 # readiness_met: false at every iteration on R1 only (validate_docs.py exits 1: 10 records unrelated to TS-012 at
-# iterations 1 and 2, 8 at iteration 3 and at re-issues 1 and 2; this record passes). R3 and R4 hold on revision 6
+# iterations 1 and 2, 8 at iteration 3 and at re-issues 1 and 2, 7 at re-issue 3; this record passes). R3 and R4 hold on revision 8
 readiness_met: false
+# reviewer_verdict (iteration 3 re-issue 3, revision 8): APPROVED. finding-1 to 3 (Major) stay Verified; finding-26
+# Verified; finding-21, 22, 24 and 25 stay Open liens; new Minor finding-27 is an Open lien (rule C1). No Major open.
 # reviewer_verdict (iteration 3 re-issue 2, revision 6): APPROVED. finding-1 to 3 (Major) stay Verified; finding-19, 20
 # and 23 Verified; finding-21 and 22 stay Open liens; new Minor findings 24 to 26 are Open liens (rule C1). No Major open.
 # reviewer_verdict (iteration 3 re-issue 1, revisions 4 and 5): APPROVED. finding-1 to finding-3 (Major) stay Verified;
@@ -64,31 +75,33 @@ readiness_met: false
 # Iteration 3 was APPROVED with finding-14, 17, 18 open; iteration 2 APPROVED with finding-11 to 16 open; iteration 1
 # NEEDS CHANGES
 reviewer_verdict: APPROVED
-# assurance_verdict: copied from the paired record INSP-118 (01 section 13; INSP-118 X-1): APPROVED at its iteration 2 on
-# revision 6, blob 0c9fcb96 (dd39a64, committed while this delta ran; its iteration 1 at f06690b was NEEDS CHANGES, 3 Major).
-# It was "pending" at re-issue 1, before the pair was filed
-assurance_verdict: APPROVED
-# verdict: held at NEEDS CHANGES only for readiness R1 (validate_docs.py exits 1 on 8 records unrelated to TS-012;
-# 07 section 2.1.1; rule C9). Reviewer and assurance verdicts are APPROVED on the same blob 0c9fcb96 (INSP-118 X-7)
+# assurance_verdict (iteration 3 re-issue 3): pending. The paired INSP-118 delta on revision 8 (blob b9333386) that
+# WP-PDR-54 names has not run; its iteration 2 APPROVED was given on revision 6, blob 0c9fcb96 (dd39a64), and is not
+# copied to the new blob (INSP-118 X-1, X-7; cross item X-21). It was "pending" at re-issue 1 and APPROVED at re-issue 2
+assurance_verdict: pending
+# verdict: held at NEEDS CHANGES for readiness R1 (validate_docs.py exits 1 on 7 records unrelated to TS-012;
+# 07 section 2.1.1; rule C9) and for the pending assurance pair on blob b9333386. The reviewer verdict is APPROVED on it
 verdict: NEEDS CHANGES
 findings_major: 3
-# findings (iteration 3 re-issue 2): 3 Major and 23 Minor raised in all; open: finding-21, 22, 24, 25, 26;
-# verified: finding-1 to 20 and finding-23. Re-issue 1: 20 Minor, open 19 to 23, verified 1 to 18
-findings_minor: 23
+# findings (iteration 3 re-issue 3): 3 Major and 24 Minor raised in all; open: finding-21, 22, 24, 25, 27;
+# verified: finding-1 to 20, finding-23 and finding-26. Re-issue 2: 23 Minor, open 21, 22, 24, 25, 26, verified 21.
+# Re-issue 1: 20 Minor, open 19 to 23, verified 1 to 18
+findings_minor: 24
 findings_open: 5
 findings_fixed: 0
-findings_verified: 21
+findings_verified: 22
 findings_deferred: 0
 deferred_rids: []
-# items_no: iteration 1 was [CK-RSK-B5, CK-RSK-B7, CK-RSK-B8]; at iterations 2, 3 and 3 re-issues 1 and 2 every B item is Yes
-# (with liens: B5 and B8 at iterations 2 and 3; B5, B7, B8 and B9 at re-issue 1; B5 and B8 at re-issue 2)
+# items_no: iteration 1 was [CK-RSK-B5, CK-RSK-B7, CK-RSK-B8]; at iterations 2, 3 and 3 re-issues 1 to 3 every B item is Yes
+# (with liens: B5 and B8 at iterations 2 and 3; B5, B7, B8 and B9 at re-issue 1; B5 and B8 at re-issue 2; B5, B6 and B8
+# at re-issue 3)
 items_no: []
 # effort: iteration 1 45 turns, 75 minutes; iteration 2 40 turns, 70 minutes; iteration 3 35 turns, 60 minutes;
-# iteration 3 re-issue 1 45 turns, 85 minutes; iteration 3 re-issue 2 40 turns, 80 minutes
-effort_turns: 205
-effort_minutes: 370
+# iteration 3 re-issue 1 45 turns, 85 minutes; iteration 3 re-issue 2 40 turns, 80 minutes; re-issue 3 35 turns, 60 minutes
+effort_turns: 240
+effort_minutes: 430
 record_status: Open
-# date: the record's opening date; re-issue 1 is dated 2026-09-28 and re-issue 2 2026-09-29 in their section headings
+# date: the record's opening date; re-issue 1 is dated 2026-09-28 and re-issues 2 and 3 2026-09-29 in their section headings
 date: 2026-09-27
 date_closed: null
 ---
@@ -1182,4 +1195,187 @@ FINDINGS:
 - [Minor] CK-RSK-B5, B10 sections 1, 7.1, R5-2, R5-3, 8.10, D-15, R5-1: receiver figures superseded by note revision 4 and INSP-117 APPROVED (75.37 dB over temperature, acceptance +/-0.62 %, not 79.4 dB and +/-0.97 %); revisit condition triggered, no score effect (finding-26).
 ITEMS N/A: CK-RSK-A1 to CK-RSK-A11 (product is a trade study)
 MEASUREMENTS: size=1 revision, 13 criteria, 7 verdict checks, 13 roll-up checks, 32 weight runs; turns=40; minutes=80; major=0 new; minor=3 new; verified=21; open=5
+```
+
+## Iteration 3 re-issue 3: delta on TS-012 revision 8 (2026-09-29, HEAD `c12872d`)
+
+**Authority and scope (rule C1, rule C2).** PDR work plan revision 6, WP-PDR-54, names this review: "INSP-110 delta on the TS-012 re-issue (with its INSP-118 pair where the re-issued text touches the frequency check or the PA permit)". The owner approved starting the plan's work (OD-01) in status note `docs/plan/status/status-2026-09-29.md` section 8, verbatim "Start things as soon as they're able to be started". The front matter keeps `iteration: 3`, the schema maximum. This pass is recorded as "Iteration 3 re-issue 3" (the sixth pass). It is a delta on revision 8 against revision 7 (`6497900`). It verifies:
+- the re-issue of sections 8.1 to 8.12 for A5, against the section 8.14 design items and the analysis records they come from;
+- the INSP-110 finding-26 fix at every location the finding named;
+- the author's claim that no criterion, weight, score or roll-up total changed;
+- how revision 8 carries the open liens finding-24 and finding-25;
+- the commits between the re-issue 2 blob (`0c9fcb96`) and revision 8.
+
+New findings are raised only where revision 8 introduced the defect. Findings 1 to 25 are not re-opened.
+
+**Product.** Revision 8 is blob `b9333386` at `bb5dee7`, Status Decided, 1268 lines. `git rev-parse bb5dee7:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` all give `b9333386` at HEAD `c12872d`. `git show --stat bb5dee7` lists only the TS file (171 insertions, 169 deletions against `5f84770`). The one later commit when this delta started, `c12872d` (plan revision 7), does not touch TS-012. Nor do the two commits made while it ran, `114b68f` (CR-003 revision 4 and CR-006 revision 3) and `7593cea` (frequency budget revision 2): `git rev-parse HEAD:<path>` still gives `b9333386` at HEAD `7593cea`. `7593cea` bears on two TS-012 rows (O-26). The commits between the re-issue 2 blob and revision 8 were read too:
+- `6497900` (revision 7) changes the header fields, the section 1 owner's-decision bullet, section 10 and the change log (31 insertions, 13 deletions). No text in sections 2 to 9 changes.
+- `5819220` and `5f84770` are editorial. The word diff of `6497900..5f84770` holds 9 pronoun replacements and nothing else.
+
+The checklist is as before: `peer-review-checklist-risk.md` revision A, section B.
+
+**Independence (rule C4).** This invocation (reviewer:TS-012-iter6) authored no part of TS-012 revisions 1 to 8. It did not author the analysis records, `a5-parts-lifecycle-2026-09-29.md`, INSP-112 to INSP-118, or earlier iterations of this record. It edited no product file and changed only this record.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran first ("TS-012 design-to-cost INSP-110 iteration 3 re-issue finding-26"). A second search ran before the ADC-count check ("Pico 2 ADC inputs GP26 GP27 GP28 VSYS sense ADC3 channel count"). After that, `grep`, `sed` and `awk` only read known paths. No deviation.
+
+**Author's claims checked.**
+
+| Claim (author summary) | Reviewer check | Result |
+|---|---|---|
+| The commit touches only the TS file, with `Refs: TS-012`, and `check_commit_msg` passes in both hook and audit mode | `--range bb5dee7^..bb5dee7`: "PASS bb5dee7: rows 12; Refs: TS-012". Message-file mode on the extracted message: PASS. `git show --stat`: one file | Verified |
+| TS blob `b9333386` | As above | Verified |
+| No criterion, weight, score or roll-up total changed | Sections 3 to 6 of revisions 7 and 8 differ in one line only, R6-6 (the finding-26 note), so the section 5 matrix is identical. Every number in the section 8.4 A5 table is unchanged. The numbers that leave section 8.4 are the A4 roll-ups and the revision-history figures. The numbers that enter are 0.26 and 0.58 (the J310 note) | Verified |
+| INSP-110 delta and INSP-118 pair not yet run | INSP-118 front matter at HEAD still names blob `0c9fcb96`, iteration 2. This record named `0c9fcb96` until this delta | Verified |
+| "I opened the r13 plot and it matches" | The reviewer opened `hardware/sim/rx-frontend/results/2026-09-29-r13-bpf-temperature/temperature_residual.png`. The 2 + 3 + 4 hot curve reads about 75.4 dB at +/-0.3 %, and the "limit over temperature +/-0.64 %" marker sits on the 70 dB line. Both match `result.md` (75.37 dB; hot limit +/-0.6407 %) | Verified |
+
+### Verification of the re-issued sections 8.1 to 8.12 (A5)
+
+| Section | Revision 8 content | Reviewer check against the source | Result |
+|---|---|---|---|
+| 8 scope bullet | The recommendation bullets stay as presented. Sections 8.1 to 8.12 describe A5. A4 is named only in the 8.2 comparison and guard G6 | The only A4 mentions left in 8.1 to 8.12 are: the scope bullet; the 8.2 table and its paragraph; 8.4 (the pointer to the A4 roll-ups, and G6); EX-3 (G6 excluded); the 8.10 lead-in; and the REQ-SYS-181 note that the tab-copper point does not apply | Verified |
+| 8.1 diagram | The section 8.14 items, three NTCs, route R3 and the PA_EN NAND | Each value was checked against its 8.14 row: D-5 (PWM coil hold); D-7 (pad 13.48 to 22.04 dB, shown as 13.5 to 22.0); D-8 (5 to 15 cm coax); D-9 (VGG 3.30 to 3.50 V at 6.4 V); D-10 (122 kHz feedforward PWM, trim integrator, predistorted reference, biased detector with reference diode); D-12 (96 MHz, 47 ohm, 12 k / 9.1 k, 470 ohm, PLL B parked, CLK0 and CLK2 off); D-13; D-14 (2 % parts); D-15 (BPF3 of 4, VSWR 1.2 ports, fenced cells); D-17 (GPIN0 and GPIN1); D-18. The 122 kHz rule matches `keying-ts012.md` section 4.6, and the pad set matches `pa-drive-ts012.md` section 4.2 and C1 | Verified |
+| 8.1 notes 1 to 3 | NTCs; the finding-24 and finding-25 liens | Note 1: 81 C at the flange and the 79.4 C duty-limit alternative match `thermal-ts012.md` section 4.1 and section 8 change 6. The channel temperature of 120 to 123 C at the sink trip was verified at re-issue 2 (INSP-118 finding-2). Notes 2 and 3 restate finding-24 and finding-25 as raised, with the same fixes and due events | Verified |
+| 8.1 note 4 | Analog inputs against the Pico 2's ADC | The count (seven signals plus the D-10 channel) is correct. The source is "as the author recalls; not re-read", and the note says "Not a cost change" | finding-27 (new) |
+| 8.1 boards (D-1 to D-4) | Sink outside the end wall, FR4 end wall, wrap-around guard, slots | Matches `thermal-ts012.md` section 3 facts 1 and 2 (17.02 mm channel, 1.57 mm web, tongue at most 6.5 mm, M2.6 screws with nuts) and section 8 changes 1 to 4 (5 mm from the inner fin tips; 10 mm, 3 mm and a 2 mm grille; 5 cm2 and 2 cm2 slots, none on top) | Verified |
+| 8.2 | Common changes kept; the revision 6 A4-to-A5 table governs; the revision 4 and 5 tables are removed, with a pointer to `6497900` | Total 36.88 + 2.60 + 3.44 = 42.92. Net -15, and -31 with the cost Red, as reproduced at re-issue 2. The removed tables had been superseded since revision 6 and stay in git at `6497900` | Verified |
+| 8.3 | Row notes; row E5 | E5 (a) is checked against `rx-bpf-ts012.md` section 5 (BPF3 of 2 + 3 + 4). There are two ends at 4.3 pF (C tolerance), four shunt capacitors at 16.4, 19.9, 19.9 and 16.4 pF, and three couplings at 0.73, 0.57 and 0.73 pF (B tolerance): nine parts. At USD 0.23 to 0.50 per value (the E2 range) that is 2.07 to 4.50, against the 1.00 to 4.50 carried. The low end is under by 1.07 and the midpoint by 0.535, both before contingency. The study discloses this and does not re-roll. The worst case, which is the USD 300 test, is unaffected. The lifecycle line cites `f193784` ("39 of 39 entries Active"; 2N3904BU ordering note), and the reviewer read both | Verified (O-24) |
+| 8.4 | A5 only; the J310 note; G6 excluded | All A5 totals are unchanged. 0.23 x 1.15 = 0.2645 and 0.50 x 1.15 = 0.575, so 0.26 to 0.58 capped, and one value exceeds the USD 0.17 margin. The G6 exclusion follows section 10 condition 1, and the new last-rung wording follows revisit condition (c). The gate reads the lifecycle flag, and a failure triggers revisit condition (b) | Verified (O-25) |
+| 8.5 | About 167 x 74 x 52 mm at the sink end (174 mm with the SMA); mass 311 to 371 g | Envelope: 41.9 + 2 x 5 = 51.9 mm and 63.5 + 2 x 5 = 73.5 mm; 167 and 174 mm as `thermal-ts012.md` section 8 change 3 states them. Mass re-added: low 92 + 12 + 23 + 62 + 52 + 55 + 3 + 8 + 4 = 311 g, high 96 + 16 + 23 + 77 + 62 + 70 + 5 + 16 + 6 = 371 g. The sink is 57 g (52 to 62) per `thermal-ts012.md` section 3 | Verified (O-22) |
+| 8.6 to 8.9 | Updated for A5 | TG2520SMN is the only flagged part. The 8.8 note records the REQ-SYS-112 and REQ-SYS-012 deltas without a new D-number. EX-10: 248.83 is 48.83 over the target, and 316.51 is 16.51 over the maximum, 299.83 after G1 and G2. EX-11 matches 8.5. EX-13 matches D-16 | Verified |
+| 8.10 REQ-SYS-008, 009, 010, 182, 154 | A4 content removed; route R3 values as in revision 6 | The R3 values are unchanged from the re-issue 2 check (4 518, 2 518, 482, 2 482, 9 518 Hz, 46 ms). The finding-25 lien is named. The 16.1 and 27.7 kHz widening is tied to the TCXO becoming unavailable | Verified |
+| 8.10 REQ-SYS-022, 023 | -140.7 dBm nominal, -134.9 dBm at the corner, -129.4 dBm stacked | `rx-bpf-ts012.md` section 8 table, A5 with BPF3 of 4: -140.7 / -140.0 / -134.9 / -129.4 dBm, Yellow / Yellow / Red / Red. 140 - 134.9 = 5.1 dB to recover | Verified |
+| 8.10 REQ-SYS-032, 033 | 75.37 dB; +/-0.62 %; +/-0.64 % | r13 `result.md`: at +/-0.3 %, hot 75.37, cold 79.03 and room 80.04 dB. Hot limit +/-0.6407 %, stated as +/-0.64 %; acceptance +/-0.62 %. The doubled-coefficient sensitivity gives 70.99 dB hot. The note's section 5 conditions give about 89 dB isolation, about +/-0.90 MHz, mode B tolerances and coils at +5 to +70 ppm/K. The half-IF margin is 34 to 37 dB | Verified |
+| 8.10 REQ-SYS-012 | +1/-1.5 dB at the 6.4 V end | `pa-drive-ts012.md` section 5, p1 at 6.4 V: nominal 4.09 W, lowest 3.19 W (25 C key-down, -0.005 dB/K, LPF median); with C2 and C3 the worst is -1.36 dB at the LPF median and -2.51 dB at the LPF worst case (the note's section 5 lever table and its TS-012 summary). The current value was read in `requirements.json` | Verified (O-23) |
+| 8.10 REQ-SYS-013 | Closed on the module's 20:1 ruggedness | The current text, read in `requirements.json`, matches the cell. The ruggedness figure matches `pa-device-candidates.md` F8 ("load VSWR 20:1 all phases at 9.2 V and 7 W without degradation"). The reading is carried unchanged from section 7.3, which re-issue 1 and re-issue 2 reviewed | Verified |
+| 8.10 REQ-SYS-017, 018, REQ-TX-009 to 011 | 43, 35, 40 dB | `lpf-ts012.md` section 7 item 4 (A5: 43, 35, 40 dB). The current values, read in `tx/requirements.json`, are 40, 35 and 40 dB | Verified |
+| 8.10 REQ-SYS-014, 015, REQ-TX-005, REQ-TX-014 | Keying loop; REQ-TX-014 restatement | The current texts were read and match the cells, including REQ-TX-014 "... while TX_KEY is deasserted with PA_EN asserted and the exciter driven". The restatement and the HZ-004 note are unchanged from revision 6. Key-up about -61 dBm is A5's -60.6 dBm, and the finding-24 lien is named | Verified |
+| 8.10 REQ-SYS-055, 120, 180, 092, 181 | A4 gate-bias and tab-copper content removed; REQ-SYS-181 wording kept | The row says the clamp alone holds REQ-SYS-120, which is finding-24's statement. The REQ-SYS-181 text read matches the cell | Verified |
+| 8.10 REQ-SYS-112, 118, 113 | 126.0 C as written; duty-limited corner; about 81 C | `hardware/sim/thermal/results/2026-09-28-ts012-r2/bands.csv`, A5-DC `tj_ss`: 125.948, +19.969 / -12.363, which gives 113.6 to 145.9 C. `tj_pk50`: 104.387 C. `thermal-ts012.md` gives 106.1 C at 25 C, the case at 105.7 C, cells at 58.9 C and PETG at 60.1 C (verdict table V01, V02, V05, V10, V17). REQ-SYS-113: 32.3 C with the wrap guard, 64.2 C with the end-face guard (V07) | Verified |
+| 8.10 REQ-SYS-102, 103, 144, 109, 139 | 375 g (TBR); the 8.5 envelope; +/-0.62 % alignment | 375 g is a proposal above the 371 g high estimate, with the final value from WP-PDR-29, so it is not a ruled value (rule C10 applies when it is put to the owner). REQ-SYS-144 carries D-15's +/-0.62 % and D-7 | Verified |
+| 8.11 | Numbering kept (OD-42); items 1, 2, 7 | The item 2 B-tolerance values (0.56, 0.75, 0.8, 1.2 pF) and C-tolerance values (4.3, 4.7 pF) are the standard values nearest the note's section 5 table. Item 7 matches D-1 | Verified |
+| 8.12 | Rows for A5; CR-003 (a) and (e) | CR-003 (e): 66.0 C at the guard, 60.1 C at the bulkhead, and the FR4 end wall at 74.9 C against 105 C, per `thermal-ts012.md` V08, V10 and V11. Plan section 10.6 exists. The WP-PDR-22 row carries the finding-24 key-up case. The WP-PDR-36 row carries the analog-input shortfall (finding-27) | Verified |
+
+### Verification of the finding-26 fix at each location it named
+
+| finding-26 location | Revision 8 | Result |
+|---|---|---|
+| Section 1 item 4 and the pre-order checks line | "Revision 8 (INSP-110 finding-26): superseded by ..." with 75.37 dB, +/-0.62 % and +/-0.64 %; all six records reviewer APPROVED | Verified |
+| Section 6 R6-6 | Marked in place | Verified |
+| Section 7.1 revision 6 row "Receiver MDS and image" | Marked in place; likelihood stays at 4 on the MDS | Verified |
+| Table R5-2 row 10; table R5-3 WP-PDR-19 row | Marked in place; image over REQ-SYS-114 closed as an analysis, MDS not | Verified |
+| Section 8.10 REQ-SYS-032, 033 | Carried (table above) | Verified |
+| Section 8.14 D-15 | Acceptance +/-0.62 %, limit +/-0.64 %, 75.37 dB, 89 dB, nine C0G parts; revision 6's +/-0.97 % named as replaced | Verified |
+| Section 9 table R5-1 receiver row | "Revision 8 (INSP-110 finding-26): ... reviewer APPROVED (`123f048`), finding-7 Verified" | Verified |
+| Revisit condition triggered, no score effect | Section 10 revisit (a) (revision 7). Section 10 "Records produced" marks the re-issue as produced | Verified |
+
+Every remaining instance of "79.4 dB", "+/-0.97 %" and "in progress" in revision 8 (lines 30, 41, 332, 421, 453, 469, 1051, 1066, 1213) sits inside revision 6 text marked superseded in place or in a sentence that names the replacement. The one other instance, line 902, is the 8.10 row that withdraws them. X-R6-5 (line 1110), the revision 6 revisit condition, is recorded as triggered in section 10. **finding-26 is Verified.**
+
+### Liens carried
+
+| Finding | Revision 8 | Result |
+|---|---|---|
+| finding-21, finding-22 | Unchanged (sections 4.1 and 7.1 are not in the re-issue) | Open (lien, rule C1) |
+| finding-24 | Named as an open lien in the 8.1 note 2, row E5 (g), the 8.10 REQ-TX-014 and REQ-SYS-120 rows, and the WP-PDR-22 row of 8.12. D-18 in 8.14 is unchanged (as presented). The fix is not yet made | Open (lien; due with the WP-PDR-22 key-up rerun, before the re-baseline CR) |
+| finding-25 | Named as an open lien in the 8.1 note 3, row E5 (g), the 8.10 REQ-SYS-182 row, the 8.11 item 1 read and the WP-PDR-20 row. D-17 in 8.14 still says "self-biased 74LVC1G17-class buffer" (as presented). The fix is not yet made | Open (lien; due with the WP-PDR-20 clock-plan item) |
+
+### Findings (iteration 3 re-issue 3)
+
+| Finding | Severity | Item | Location | Description | State | Deferred to |
+|---|---|---|---|---|---|---|
+| finding-1 to finding-3 | Major | CK-RSK-B5, B7, B8 | See iteration 2 | Unchanged in revision 8 | Verified (iteration 2; held on revision 8 at `bb5dee7`) | |
+| finding-4 to finding-20, finding-23 | Minor | CK-RSK-B4 to B10 | See iterations 2 and 3 and re-issues 1 and 2 | Unchanged in revision 8 | Verified | |
+| finding-21 | Minor | CK-RSK-B5, B6 | TS-012 section 4.1 | Unchanged | Open | Lien (rule C1) |
+| finding-22 | Minor | CK-RSK-B8 | TS-012 section 7.1 | Unchanged | Open | Lien (rule C1) |
+| finding-24 | Minor | CK-RSK-B5, B8 | TS-012 D-18; 8.1 note 2; E5 (g) | Carried as an open lien, not yet fixed | Open | Lien (rule C1); WP-PDR-22 key-up rerun, before the re-baseline CR |
+| finding-25 | Minor | CK-RSK-B5 | TS-012 D-17; 8.1 note 3; E5 (g) | Carried as an open lien, not yet fixed | Open | Lien (rule C1); WP-PDR-20 clock-plan item |
+| finding-26 | Minor | CK-RSK-B5, B10 | TS-012 sections 1, 6, 7.1, 7.3, 8.10, 8.14 D-15, 9 R5-1 | The rx-bpf revision 4 figures are carried into 8.3, 8.10, 8.11, 8.12 and D-15. The revision 6 figures are marked superseded in place. The revisit condition is recorded as triggered | Verified (iteration 3 re-issue 3, revision 8) | |
+| <a id="finding-27"></a>finding-27 | Minor | CK-RSK-B5, B6 | TS-012 section 8.1 note 4; section 8.12 row WP-PDR-36; section 8.4 (the "not in these figures" sentence); row E5 | **The re-issued A5 architecture states the ADC shortfall without its source, and it calls the fix "not a cost change" although the fix is a BOM line.** The note says the count comes from memory ("as the author recalls; not re-read"). The fact is already recorded in the repository from the datasheets: `docs/research/power-tree-and-charging.md` F14 gives four external channels on GPIO26 to GPIO29, with GPIO29 (ADC3) used on the Pico 2 for VSYS/3, so three are free. INSP-118 finding-4 cites the same fact. The diagram and D-10 need eight analog signals. At least five of them cannot move to a comparator or a shared line without a change the study has not made: the ALC detector (REQ-SYS-156), the flange NTC or the sink NTC of the duty limit (REQ-SYS-118), two pots and the cell voltage. So a multiplexer or an I2C ADC is needed. Section 8.4 of the same revision treats one uncounted USD 0.26 part as material to the USD 0.17 margin left after G1 and G2, but the analog-input part is not in that list or in row E5. No score or ranking moves: every alternative had the same inputs, and the decision is taken. The ordering gate recomputes before anything is ordered. **Fix:** cite the source in note 4. State the count (three free external channels against eight signals). Name the multiplexer or ADC as an estimated item in row E5, or in the 8.4 sentence beside the J310 matching parts, so the gate recomputation includes it. The safety provisions of the channel-select path stay with INSP-118 finding-4 | Open | Lien (rule C1); due at the next TS-012 revision or the WP-PDR-38 preliminary BOM, whichever is first, and before the WP-PDR-36a pin map freezes |
+
+No new finding is Major. The owner's decision was taken on revision 6 and is recorded in section 10. Revision 8 re-issues the detail of the chosen design with no change of criterion, weight, score or total. On the brief's rule (Major if the owner would decide on a wrong basis), no decision still ahead rests on a wrong figure. The follow-on decisions 1 to 6 and Q5 to Q7 carry the correct A5 figures, and the ordering gate recomputes every cost figure. finding-27 is a cents-to-dollar BOM line with a disclosed design gap.
+
+### Observations (iteration 3 re-issue 3; not findings)
+
+- **O-21.** The header "Decide by" field still reads the pre-decision gate ("proposed B1a (Tue 2026-09-29), no later than B1b"). The Status and Dates fields say Decided. The field is outside the re-issue scope. Worth "decided 2026-09-29 (section 10)" at the next revision.
+- **O-22.** The section 8.5 length terms add to 166.0 mm (12 + 25.4 + 5 + 1.6 + 13 + 5 + 100 + 2 + 2). The quoted 167 mm is the thermal note's figure, built on the rounded revision 4 base (153 + 7 + 6.6 = 166.6). The difference is immaterial; WP-PDR-29 and WP-PDR-39 set the value.
+- **O-23.** The REQ-SYS-012 row's "lowest corner 3.19 W (25 C ...)" is the PA drive note's headline case (-0.005 dB/K). The note's section 5 table has lower values at the LPF median: 3.04 W (25 C, -0.015 dB/K) and 3.06 W (+45 C). The delta rests on the C2 and C3 figures, and the row quotes their worst correctly (-1.36 dB). No effect.
+- **O-24.** The section 8.3 line "every part below was read Active" covers the named parts. Four items are not named yet, so their lifecycle cannot have been read: the finding-24 level interface, the finding-25 squaring stage, the J310 matching parts and the finding-27 analog-input part. Section 8.6 says as much for the logic ("to be confirmed when named"). The gate's lifecycle read (8.11 item 1) covers them once they are named.
+- **O-25 (reviewer estimate, not a study figure).** Condition 3 of the receiver note puts matching networks at five internal ports: the two J310 inputs, the two drains and the ring port. At about two elements each, that is about ten values at USD 0.23 to 0.50: about 2.65 to 5.75 capped. With a multiplexer (finding-27, about USD 0.5 to 1, not read), the recomputed worst case after G1 and G2 may exceed USD 300 by more than G3 and G4 together return (5.74). That would be revisit condition (c). The study already says G3 and G4 are the likely next steps, so no change is requested. The gate recomputation settles it.
+- **O-26 (after the product commit).** `7593cea`, committed while this delta ran, is `frequency-budget.md` revision 2 (WP-PDR-20a, frozen at F0, not yet reviewed). Its commit message reports two things:
+  - The ratio-freshness allocation of 1 ppm is exceeded (6.12 ppm of XOSC drift over the longest over). The interval-12 check keeps its 482 Hz margin. The interval-13 margin during the over becomes 1 668 Hz, not the 2 482 Hz of the TS-012 section 8.10 REQ-SYS-182 row.
+  - The 1 ms Si5351A relock allocation is not confirmed by the data sheet.
+
+  Both are TS-012 section 10 revisit conditions of revision 6. They are not defects of revision 8, which predates the note, and under rule C10 the figures await the note's review. When that record is APPROVED, the next TS-012 revision takes the new interval-13 margin in the 8.10 REQ-SYS-182 row and the result in the 8.12 WP-PDR-20 row, and records the revisit condition in section 10. No score moves: A5 is decided, and REQ-SYS-182 still holds on the note's figures.
+
+### Readiness (iteration 3 re-issue 3)
+
+| # | Criterion | Result | Evidence |
+|---|---|---|---|
+| R1 | `validate_docs.py` exits 0 | **No** | Before this delta: `validate_docs: 110 passed, 7 failed, 117 checked`, exit 1. The run is on the working tree, which holds other agents' uncommitted edits. The 7 failures are all unrelated to TS-012: cm-plan-05 SA, configuration-status, lessons-learned, SRR adrs-001-to-025, TV-001 to 010, TS-001 and TS-002, and the TS-002 SA. The process-02 record of re-issue 2's list now passes. This record passes. Its drift note (reviewed blob `0c9fcb96` against HEAD `b9333386`) is removed by this delta |
+| R1 (figures) | Figures rendered | N/A | Revision 8 adds no plot. The reviewer opened the r13 plot it cites (above) |
+| R2 | Section A | N/A | Trade study |
+| R3 | Sections 1 to 9 filled; section 10 | Yes | Decided study. Section 10 was filled by revision 7 and names revision 8 as produced |
+| R4 | Decision need and gate | Yes | Decided 2026-09-29 (status note sections 4 and 5). The re-issue is a record of the decision (WP-PDR-54) |
+
+### B. Trade study items re-answered (iteration 3 re-issue 3)
+
+| Id | Answer | Evidence |
+|---|---|---|
+| CK-RSK-B1 to B4 | Yes | No alternative, criterion or weight changed |
+| CK-RSK-B5 | Yes (liens) | Every re-issued figure traces to its analysis record and was checked there. Liens: finding-21, 24, 25, 27 |
+| CK-RSK-B6 | Yes (lien) | Roll-ups unchanged. The new cost notes (E5 (a) nine parts, J310 0.26 to 0.58) reproduce. finding-27 names a missing estimated line |
+| CK-RSK-B7 | Yes | Sensitivity unchanged (sections 3 to 6 identical but for the R6-6 note) |
+| CK-RSK-B8 | Yes (liens) | Revision 8 changes no risk score. finding-22 and finding-24 stay |
+| CK-RSK-B9 | Yes | The owner's decision is recorded (section 10). The recommendation bullets are kept as presented. The A5 sections follow the decision and state what A5 gives up (8.8 note, 8.10 deltas) |
+| CK-RSK-B10 | Yes | finding-26 Verified. Section 10 "Records produced" updated |
+
+### Cross items (iteration 3 re-issue 3, returned to Claude)
+
+- **X-18, X-19:** closed. The rx-bpf revision 4 figures are in the study (finding-26 Verified).
+- **X-20 (for the INSP-118 delta on revision 8).** The header names the assurance scope: 8.1, 8.7, 8.10 REQ-SYS-182, 154, 120 and REQ-TX-014. Two more items bear on it:
+  - finding-27 is the same analog-input shortfall as INSP-118 finding-4, which is still Open. Only its count and cost part is in the INSP-110 lens. The channel-identity check and the safety channels on direct ADC pins stay with INSP-118.
+  - X-17 (HZ-004 K8, a single `GPIO_OUT` write raising TX_KEY and PA_EN together) is still unanswered. Revision 8 section 8.7 adds "the menu never writes PA_EN", which does not address a single register write.
+- **X-21 (lead SE).** `assurance_verdict` is set to `pending`, because INSP-118 has not run on blob `b9333386`. Copy its verdict here when it files (INSP-118 X-1), and set the record `verdict` only when R1 holds and both verdicts are APPROVED on the same blob.
+- **X-22 (lead SE; WP-PDR-20a review and the next TS-012 revision).** O-26: route the frequency-budget revision 2 results (interval-13 margin, ratio freshness, relock) to the TS-012 author once their review is APPROVED. The INSP-118 pair on revision 8 may want the same figures for REQ-SYS-182 and 154.
+
+### Commands (iteration 3 re-issue 3)
+
+```
+git rev-parse bb5dee7:<TS-012 path>; git rev-parse HEAD:<path>; git hash-object <path>   # b9333386... all three
+git log --oneline -12 -- <TS-012 path>; git show --stat bb5dee7                            # TS file only, 171+/169-
+git diff -U0 3b93de1 6497900 -- <path>                                                    # revision 7: header, section 1, section 10
+git diff --word-diff 6497900 5f84770 -- <path>                                            # 9 pronoun replacements only
+git diff -U0 5f84770 bb5dee7 -- <path>                                                    # the revision 8 delta, read hunk by hunk
+awk sections 3 to 6 and 8.4 of both revisions | diff; number sets compared                 # only R6-6 differs; A5 totals unchanged
+python tools/check_commit_msg.py --range bb5dee7^..bb5dee7                                  # PASS, rows 12, Refs: TS-012
+python tools/check_commit_msg.py <extracted message file>                                   # PASS
+python tools/validate_docs.py                                                               # before: 110 passed, 7 failed, 117 (exit 1)
+python (json): requirements.json REQ-SYS-012, 013, 033, 102, 103, 112, 144, 181; tx REQ-TX-005, 009 to 011, 014
+hardware/sim/rx-frontend/results/2026-09-29-r13-bpf-temperature/result.md and temperature_residual.png (opened)
+hardware/sim/thermal/results/2026-09-28-ts012-r2/bands.csv (A5-DC tj_ss, tj_pk50)
+docs/design/analysis/rx-bpf-ts012.md sections 0, 5, 8; thermal-ts012.md sections 3, 4, 5, 8; pa-drive-ts012.md sections 4.2, 5, 6;
+  keying-ts012.md sections 4.6, 5.2; lpf-ts012.md section 7; docs/research/pa-device-candidates.md F8;
+  docs/research/power-tree-and-charging.md F14; docs/research/a5-parts-lifecycle-2026-09-29.md
+No web read, no simulation run; nothing logged into, no form
+```
+
+### Measurements (iteration 3 re-issue 3)
+
+size = 1 trade study revision (1268 lines; 171 insertions, 169 deletions) plus the revision 7 and editorial deltas, 12 re-issued subsections, 21 section 8.10 row groups checked against their sources, 8 finding-26 locations, 5 author claims; turns = 35; minutes = 60; major = 0 new; minor = 1 new (finding-27), 1 Verified this pass (finding-26).
+
+### Record verdict and verdict format (iteration 3 re-issue 3)
+
+`reviewer_verdict: APPROVED`. No Major finding is open. Sections 8.1 to 8.12 are re-issued for A5 correctly against the section 8.14 items and their analysis records, and no criterion, weight, score or roll-up total changed. finding-26 is Verified. The new Minor finding-27 is a lien (rule C1), with the TS-012 author as owner. finding-21, 22, 24 and 25 stay liens.
+
+**Assurance pair.** INSP-118 has not run on revision 8, so `assurance_verdict` is `pending`, not the iteration 2 APPROVED given on blob `0c9fcb96`. The record `verdict` stays NEEDS CHANGES for two reasons: readiness R1 fails on records unrelated to TS-012, and the assurance pair is pending. When both clear and `git rev-parse HEAD:<path>` still equals `b9333386`, the lead SE sets `verdict: APPROVED`. A changed blob needs a further delta.
+
+```
+VERDICT: APPROVED (reviewer); assurance pending (INSP-118 not yet run on b9333386); record verdict held for readiness R1 and the pair
+PRODUCT: docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@b9333386 (revision 8, bb5dee7), delta from @0c9fcb96 (revision 6) through revision 7 (6497900) and editorial 5819220, 5f84770
+FINDINGS:
+- [Major] finding-1, finding-2, finding-3: Verified (held on revision 8).
+- [Minor] finding-26: Verified on revision 8 (rx-bpf revision 4 figures carried; revision 6 figures marked superseded in place; revisit recorded).
+- [Minor] finding-21, 22, 24, 25: Open liens (24 and 25 carried as named liens in 8.1 notes 2 and 3, not yet fixed).
+- [Minor] CK-RSK-B5, B6 section 8.1 note 4, 8.4, E5: ADC shortfall stated from memory and called "not a cost change"; 3 free Pico 2 ADC channels (power-tree-and-charging.md F14) against 8 signals need a multiplexer or ADC, not listed with the uncounted J310 parts; cite, count, list it (finding-27).
+ITEMS N/A: CK-RSK-A1 to CK-RSK-A11 (product is a trade study)
+MEASUREMENTS: size=1 revision, 12 subsections, 21 delta row groups, 8 fix locations; turns=35; minutes=60; major=0 new; minor=1 new; verified=22; open=5
 ```
