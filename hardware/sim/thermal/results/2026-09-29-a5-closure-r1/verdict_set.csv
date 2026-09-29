@@ -1,0 +1,52 @@
+id,tag,criterion,basis,layout,value,limit,margin,band_up,band_dn,verdict,drivers
+C01,tj_pk,"Junction peak at the duty, 13 s key-downs, 45 C",REQ-SYS-112 delta (proposed corner),A5-DC/DL,109.8198,110.0000,0.1802,0.8210,0.0883,OPEN,p_lm2940 [DD] 0.2 K; vent_area_dc [E] 0.2 K; a_guard_end [DD] 0.2 K
+C01,tj_pk,"Junction peak at the duty, 13 s key-downs, 45 C",REQ-SYS-112 delta (proposed corner),A5-DC/CAP,95.8288,110.0000,14.1712,10.2326,9.4039,PASS,k_orient [E] 9.1 K; a5_idd [DD] 6.8 K; r_feed [E] 3.7 K
+C01,tj_pk,"Junction peak at the duty, 13 s key-downs, 45 C",REQ-SYS-112 delta (proposed corner),A5-CL,100.0291,110.0000,9.9709,11.5714,9.7456,OPEN,k_orient [E] 10.4 K; a5_idd [DD] 6.6 K; r_feed [E] 3.6 K
+C02,case_d,"Module case at the duty, steady",RA07M1317M p.8 long-term guidance,A5-DC/DL,87.3661,90.0000,2.6339,6.0676,3.0984,OPEN,a5_idd [DD] 4.6 K; r_feed [E] 2.6 K; a5_rjc2 [D] 2.3 K
+C02,case_d,"Module case at the duty, steady",RA07M1317M p.8 long-term guidance,A5-DC/CAP,72.0249,90.0000,17.9751,9.4227,5.6312,PASS,k_orient [E] 9.0 K; a5_idd [DD] 3.1 K; r_feed [E] 1.7 K
+C02,case_d,"Module case at the duty, steady",RA07M1317M p.8 long-term guidance,A5-CL,76.2253,90.0000,13.7747,10.8602,6.2900,PASS,k_orient [E] 10.4 K; a5_idd [DD] 2.9 K; p_lm2940 [DD] 1.7 K
+C03,petg_d,Hottest PETG face at the duty,TS-012 7.3 (c),A5-DC/DL,60.0871,60.0000,-0.0871,6.3179,3.1224,FAIL,vent_area_dc [E] 3.2 K; r_feed [E] 3.1 K; relay_hold [E] 2.4 K
+C03,petg_d,Hottest PETG face at the duty,TS-012 7.3 (c),A5-DC/CAP,56.5892,60.0000,3.4108,4.0818,1.7241,OPEN,relay_hold [E] 2.5 K; vent_area_dc [E] 2.2 K; cd_vent [E] 1.5 K
+C03,petg_d,Hottest PETG face at the duty,TS-012 7.3 (c),A5-CL,55.0191,60.0000,4.9809,4.0227,2.1111,PASS,relay_hold [E] 1.6 K; vent_area_dc [E] 1.6 K; k_orient [E] 1.5 K
+C04,bay_d,PA-bay air (relay ambient) at the duty,G5V-2 ambient rating,A5-DC/DL,61.4275,65.0000,3.5725,7.4319,3.4683,OPEN,vent_area_dc [E] 4.7 K; relay_hold [E] 2.9 K; cd_vent [E] 2.9 K
+C04,bay_d,PA-bay air (relay ambient) at the duty,G5V-2 ambient rating,A5-DC/CAP,57.2847,65.0000,7.7153,5.1496,1.6572,PASS,vent_area_dc [E] 3.3 K; relay_hold [E] 3.2 K; cd_vent [E] 2.0 K
+C04,bay_d,PA-bay air (relay ambient) at the duty,G5V-2 ambient rating,A5-CL,56.5635,65.0000,8.4365,4.8730,1.6173,PASS,relay_hold [E] 3.1 K; vent_area_dc [E] 3.0 K; cd_vent [E] 1.8 K
+C05,cell_d,"Cells, long session at the duty, steady","TS-012 7.3 (a), extended",A5-DC/DL,58.9120,55.0000,-3.9120,6.5521,3.8593,FAIL,r_feed [E] 4.4 K; k_orient [E] 2.5 K; r_cellpath [E] 2.4 K
+C05,cell_d,"Cells, long session at the duty, steady","TS-012 7.3 (a), extended",A5-DC/CAP,55.4627,55.0000,-0.4627,3.4934,2.3558,FAIL,r_feed [E] 1.7 K; g_cell_wall [E] 1.5 K; p_lm2940 [DD] 1.4 K
+C05,cell_d,"Cells, long session at the duty, steady","TS-012 7.3 (a), extended",A5-CL,51.9554,55.0000,3.0446,2.8644,1.3992,PASS,r_feed [E] 1.7 K; r_cellpath [E] 1.4 K; g_cell_wall [E] 1.1 K
+C06,main_d,"Main-bay air, long session at the duty","TS-012 7.3 (a), extended",A5-DC/DL,57.8120,55.0000,-2.8120,6.0738,3.3096,FAIL,r_feed [E] 4.8 K; a_mw [E] 2.1 K; p_lm2940 [DD] 1.7 K
+C06,main_d,"Main-bay air, long session at the duty","TS-012 7.3 (a), extended",A5-DC/CAP,55.4206,55.0000,-0.4206,3.5248,2.5535,FAIL,r_feed [E] 2.1 K; p_lm2940 [DD] 1.8 K; a_mw [E] 1.8 K
+C06,main_d,"Main-bay air, long session at the duty","TS-012 7.3 (a), extended",A5-CL,50.9692,55.0000,4.0308,2.7452,1.1723,PASS,r_feed [E] 2.2 K; a_mw [E] 1.1 K; p_pico [E] 0.6 K
+C07,fr4_d,FR4 end wall at the duty,design limit (E),A5-DC/DL,66.3712,105.0000,38.6288,6.0991,3.6391,PASS,vent_area_dc [E] 2.9 K; a5_idd [DD] 2.7 K; k_orient [E] 2.3 K
+C07,fr4_d,FR4 end wall at the duty,design limit (E),A5-DC/CAP,59.7328,105.0000,45.2672,4.2520,2.2035,PASS,k_orient [E] 2.3 K; vent_area_dc [E] 2.1 K; relay_hold [E] 2.0 K
+C07,fr4_d,FR4 end wall at the duty,design limit (E),A5-CL,60.4948,105.0000,44.5052,4.5476,2.4888,PASS,k_orient [E] 2.6 K; relay_hold [E] 2.2 K; vent_area_dc [E] 1.9 K
+C08,cell30,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC/DL,50.6750,55.0000,4.3250,1.9223,1.2198,PASS,r_cellpath [E] 1.1 K; r_feed [E] 1.1 K; p_lm2940 [DD] 0.6 K
+C08,cell30,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC/CAP,50.6750,55.0000,4.3250,1.9223,1.2198,PASS,r_cellpath [E] 1.1 K; r_feed [E] 1.1 K; p_lm2940 [DD] 0.6 K
+C08,cell30,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A5-CL,49.1123,55.0000,5.8877,1.7064,0.7708,PASS,r_cellpath [E] 1.1 K; r_feed [E] 1.1 K; a5_idd [DD] 0.5 K
+C09,main30,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC/DL,54.9195,55.0000,0.0805,3.4945,2.2759,OPEN,r_feed [E] 2.6 K; p_lm2940 [DD] 1.6 K; a_mw [E] 1.4 K
+C09,main30,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC/CAP,54.9195,55.0000,0.0805,3.4945,2.2759,OPEN,r_feed [E] 2.6 K; p_lm2940 [DD] 1.6 K; a_mw [E] 1.4 K
+C09,main30,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A5-CL,50.9789,55.0000,4.0211,3.0405,1.1506,PASS,r_feed [E] 2.7 K; a_mw [E] 0.8 K; p_pico [E] 0.6 K
+C10,tj_300,Junction after 5 min continuous from a 45 C soak,HZ-003 K7,A5-DC/DL,107.0576,110.0000,2.9424,6.4423,10.8302,OPEN,a5_idd [DD] 8.6 K; r_feed [E] 4.7 K; k_orient [E] 4.2 K
+C10,tj_300,Junction after 5 min continuous from a 45 C soak,HZ-003 K7,A5-DC/CAP,107.0576,110.0000,2.9424,6.4423,10.8302,OPEN,a5_idd [DD] 8.6 K; r_feed [E] 4.7 K; k_orient [E] 4.2 K
+C10,tj_300,Junction after 5 min continuous from a 45 C soak,HZ-003 K7,A5-CL,108.7201,110.0000,1.2799,6.5463,10.7770,OPEN,a5_idd [DD] 8.4 K; r_feed [E] 4.6 K; k_orient [E] 4.3 K
+C11,tj_180,Junction after 180 s continuous from a 45 C soak,HZ-003 K10,A5-DC/DL,95.8368,110.0000,14.1632,4.9410,9.1394,PASS,a5_idd [DD] 7.3 K; r_feed [E] 4.0 K; r_spread_x [E] 2.7 K
+C11,tj_180,Junction after 180 s continuous from a 45 C soak,HZ-003 K10,A5-DC/CAP,95.8368,110.0000,14.1632,4.9410,9.1394,PASS,a5_idd [DD] 7.3 K; r_feed [E] 4.0 K; r_spread_x [E] 2.7 K
+C11,tj_180,Junction after 180 s continuous from a 45 C soak,HZ-003 K10,A5-CL,96.9138,110.0000,13.0862,4.9803,9.0742,PASS,a5_idd [DD] 7.2 K; r_feed [E] 4.0 K; r_spread_x [E] 2.7 K
+C12,surf5,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A5-DC/DL,32.2864,48.0000,15.7136,2.4407,2.8107,PASS,r_frac [E] 1.3 K; guard_solid [E] 1.1 K; v_g [E] 1.1 K
+C12,surf5,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A5-DC/CAP,32.2864,48.0000,15.7136,2.4407,2.8107,PASS,r_frac [E] 1.3 K; guard_solid [E] 1.1 K; v_g [E] 1.1 K
+C12,surf5,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A5-CL,32.6410,48.0000,15.3590,2.5631,2.9293,PASS,r_frac [E] 1.3 K; guard_solid [E] 1.1 K; v_g [E] 1.1 K
+C13,inh:tj_max:nominal,"Junction, inhibit at the proposed setpoint, key held: nominal","REQ-SYS-118, HZ-003 K2",A5-CL,105.6463,110.0000,4.3537,0.0000,0.0000,PASS,explicit closed-loop case
+C14,inh:tj_max:+3 C tolerance,"Junction, inhibit at the proposed setpoint, key held: +3 C tolerance","REQ-SYS-118, HZ-003 K2",A5-CL,108.6034,110.0000,1.3966,0.0000,0.0000,PASS,explicit closed-loop case
+C15,"inh:tj_max:+3 C, sensor offset and lag adverse","Junction, inhibit at the proposed setpoint, key held: +3 C, sensor adverse","REQ-SYS-118, HZ-003 K2",A5-CL,109.9301,110.0000,0.0699,0.0000,0.0000,PASS,explicit closed-loop case
+C16,"inh:tj_max:+3 C, sensor, Rth and dissipation adverse","Junction, inhibit at the proposed setpoint, key held: +3 C, all adverse","REQ-SYS-118, HZ-003 K2",A5-CL,117.0222,110.0000,-7.0222,0.0000,0.0000,FAIL,explicit closed-loop case
+C17,inh:case_max:nominal,"Module case, inhibit at the proposed setpoint, key held: nominal","REQ-SYS-118, HZ-003 K2",A5-CL,85.4530,90.0000,4.5470,0.0000,0.0000,PASS,explicit closed-loop case
+C18,inh:case_max:+3 C tolerance,"Module case, inhibit at the proposed setpoint, key held: +3 C tolerance","REQ-SYS-118, HZ-003 K2",A5-CL,88.3927,90.0000,1.6073,0.0000,0.0000,PASS,explicit closed-loop case
+C19,"inh:case_max:+3 C, sensor offset and lag adverse","Module case, inhibit at the proposed setpoint, key held: +3 C, sensor adverse","REQ-SYS-118, HZ-003 K2",A5-CL,89.7177,90.0000,0.2823,0.0000,0.0000,PASS,explicit closed-loop case
+C20,"inh:case_max:+3 C, sensor, Rth and dissipation adverse","Module case, inhibit at the proposed setpoint, key held: +3 C, all adverse","REQ-SYS-118, HZ-003 K2",A5-CL,91.3521,90.0000,-1.3521,0.0000,0.0000,FAIL,explicit closed-loop case
+C21,inh:sink,"Sink, inhibit at the proposed setpoint, key held: +3 C, sensor adverse",REQ-SYS-181 92 C lower edge,A5-CL,84.9634,92.0000,7.0366,0.0000,0.0000,PASS,explicit closed-loop case
+C22,bs:tj_max:nominal,"Channel, only the REQ-SYS-181 cut-off acting at 98 C, key held: nominal",RA07M1317M p.8 rating,A5-CL,123.3816,175.0000,51.6184,0.0000,0.0000,PASS,explicit closed-loop case
+C23,bs:tj_max:Rth and dissipation adverse,"Channel, only the REQ-SYS-181 cut-off acting at 98 C, key held: Rth and dissipation adverse",RA07M1317M p.8 rating,A5-CL,132.5511,175.0000,42.4489,0.0000,0.0000,PASS,explicit closed-loop case
+C24,bs:case_max:nominal,"Module case, only the REQ-SYS-181 cut-off acting at 98 C, key held: nominal",RA07M1317M p.2 Tcase(OP),A5-CL,103.1408,110.0000,6.8592,0.0000,0.0000,PASS,explicit closed-loop case
+C25,bs:case_max:Rth and dissipation adverse,"Module case, only the REQ-SYS-181 cut-off acting at 98 C, key held: Rth and dissipation adverse",RA07M1317M p.2 Tcase(OP),A5-CL,106.8398,110.0000,3.1602,0.0000,0.0000,PASS,explicit closed-loop case
+C26,bs:lm_max:nominal,"LM2940 junction, only the REQ-SYS-181 cut-off acting at 98 C, key held: nominal",TI SNVS769J p.4,A5-CL,99.4118,125.0000,25.5882,0.0000,0.0000,PASS,explicit closed-loop case
+C27,bs:lm_max:Rth and dissipation adverse,"LM2940 junction, only the REQ-SYS-181 cut-off acting at 98 C, key held: Rth and dissipation adverse",TI SNVS769J p.4,A5-CL,99.9388,125.0000,25.0612,0.0000,0.0000,PASS,explicit closed-loop case

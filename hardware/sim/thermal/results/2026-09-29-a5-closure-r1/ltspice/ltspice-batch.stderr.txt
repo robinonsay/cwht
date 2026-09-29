@@ -1,0 +1,2 @@
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=thermal_a5cl.net sha256=d8c423849c9840942cc2de321b3063909250f1a69adb08c8c498b36ad2823e59 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=4s outputs=[thermal_a5cl.db thermal_a5cl.log thermal_a5cl.op.raw thermal_a5cl.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/thermal/results/2026-09-29-a5-closure-r1/ltspice

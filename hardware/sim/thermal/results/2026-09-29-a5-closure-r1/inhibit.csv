@@ -1,0 +1,5 @@
+layout,case,tol,overrides,setpoint_case,setpoint_largest,x_prop,tj_max,case_max,sink_max,bay_max,n_offs,p_pa,lm_max
+A5-CL,nominal,0.0000,,88.3000,True,83.9000,105.6463,85.4530,80.8140,58.3221,55,9.9390,81.9145
+A5-CL,+3 C tolerance,3.0000,,85.3000,True,83.9000,108.6034,88.3927,83.7335,59.2233,55,9.9390,84.8406
+A5-CL,"+3 C, sensor offset and lag adverse",3.0000,ntc_frac_cf=0.4;tau_ntc_cf=10,83.9000,True,83.9000,109.9301,89.7177,84.9634,59.5504,31,9.9390,86.0719
+A5-CL,"+3 C, sensor, Rth and dissipation adverse",3.0000,ntc_frac_cf=0.4;tau_ntc_cf=10;a5_rjc2=2.64;a5_bond=7.5e-05;a5_p1=1.2;r_feed=0,76.5000,True,83.9000,117.0222,91.3521,83.6119,57.9907,50,10.9480,84.7156

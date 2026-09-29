@@ -1,0 +1,3 @@
+layout,case,tj_max,case_max,sink_max,lm_max,n_offs
+A5-CL,nominal,123.3816,103.1408,98.2390,99.4118,39
+A5-CL,Rth and dissipation adverse,132.5511,106.8398,98.7892,99.9388,43
