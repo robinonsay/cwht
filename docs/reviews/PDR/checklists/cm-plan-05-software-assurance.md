@@ -16,45 +16,65 @@ checklist_revision: C
 checklist_software_assurance: "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/cm-plan-05-software-assurance.md
 product: docs/cm/cr/CR-007-cm-plan-pdr-rows.md
-product_commit: "9032a02a37e5bcf5f7f766bf2458af5f82fa5680"
-product_files: ["docs/cm/cr/CR-007-cm-plan-pdr-rows.md@92b200ad5bc9e8cc41f602ddc504e2ae04b2154c", "docs/reviews/PDR/package.md@967117cff3521ad00c59ba33a81de3e6381850e9", "docs/reviews/PDR/rfa-rid-log.json@7b2860b209db8582356bb38e0e168cc28d2107ed", "docs/reviews/PDR/checklists/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/reviews/PDR/figures/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/reviews/PDR/slides/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/process/configuration-status.md@07909eb643e44f5e57dff38c3a30de1a4099df4f", "docs/lessons-learned.md@ec30a264fdef25ff291ddad5b1ebebbed8f9dee9"]
+# delta iteration 2 (2026-09-29): product_commit is 7668322, the last commit of the CR file on main (revision 4,
+# status Implemented); iteration 1 value "9032a02a37e5bcf5f7f766bf2458af5f82fa5680"
+product_commit: "7668322aaae2df9892ea5102ec4a5bea857708ce"
+# delta iteration 2: the CR file entry 92b200ad (revision 1) is replaced by abec03c5 (revision 4), equal to
+# git rev-parse HEAD:<path> and git hash-object at main dd7b976; every hunk of git diff 92b200ad abec03c5 is verified
+# (section "Delta iteration 2"). The entry "docs/lessons-learned.md@ec30a264fdef25ff291ddad5b1ebebbed8f9dee9" is dropped
+# (re-pin, precedent INSP-060 in fd12ced and INSP-034 in 23e2388): the file is an append-only log outside the assurance
+# scope (iteration 1 Product paragraph: an input to the INSP-039 workspace note), and its only change since, entry 18 at
+# 391f0e5 with its tag-index row, bears on nothing this record reviewed. The other six blobs equal HEAD.
+product_files: ["docs/cm/cr/CR-007-cm-plan-pdr-rows.md@abec03c5d593d0dff16428fe1f447419865fae10", "docs/reviews/PDR/package.md@967117cff3521ad00c59ba33a81de3e6381850e9", "docs/reviews/PDR/rfa-rid-log.json@7b2860b209db8582356bb38e0e168cc28d2107ed", "docs/reviews/PDR/checklists/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/reviews/PDR/figures/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/reviews/PDR/slides/.gitkeep@e69de29bb2d1d6434b8b29ae775ad8c2e48c5391", "docs/process/configuration-status.md@07909eb643e44f5e57dff38c3a30de1a4099df4f"]
 # inputs read (not reviewed), blobs at HEAD d566e01: 05 (equal to baseline/srr), rmm.json, the VDD template,
 # 07, allocation schema, TV-012, the SRR pair INSP-030
-input_files: ["docs/process/05-configuration-and-data-management.md@f8de2081f7542ed0bbe47897d8b63e845b8c3114", "docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7", "docs/templates/version-description.md@030e8865c656ea0924ecd0196e7e1c6076bede3d", "docs/process/07-software-engineering-plan.md@bfe05f4327e79fa15c24d2cf8c14249804f946a8", "docs/reviews/PDR/checklists/cm-plan-05.md@886bf23b8cab446bb48329479b6b0878bdbf0a6e"]
+input_files: ["docs/process/05-configuration-and-data-management.md@f8de2081f7542ed0bbe47897d8b63e845b8c3114", "docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7", "docs/templates/version-description.md@030e8865c656ea0924ecd0196e7e1c6076bede3d", "docs/process/07-software-engineering-plan.md@bfe05f4327e79fa15c24d2cf8c14249804f946a8", "docs/reviews/PDR/checklists/cm-plan-05.md@886bf23b8cab446bb48329479b6b0878bdbf0a6e", "docs/process/07-software-engineering-plan.md@e11abe3096ba85231ee94496e8b94cd59cc36a2a (delta iteration 2, branch cr/CR-007-cm-plan-pdr-rows at f68e47a, section 2.1.1 read for finding-2 and finding-3)", "docs/plan/status/status-2026-09-28.md@b95bd8df6b50bb6a631da07380a404b91e2df6c7 (delta iteration 2, section 4, the owner's option B condition)", "docs/cm/cr/CR-007-cm-plan-pdr-rows.md@ee11ec70e70a9f8eea2611a9c2f0b59e62415369 (delta iteration 2, revision 3 as at 65331c6, for the revision 4 word diff)"]
 paired_record: INSP-039
 product_type: plans
 criticality: neither
-product_size: 1 CR, change items C1 to C16 against 05 (16 sections, Table 4-1 55 rows, Table 4-2), rmm.json 3 rows, 2 templates
+# product_size: iteration 1 value "1 CR, change items C1 to C16 against 05 ..."; delta iteration 2 on revision 4
+product_size: 1 CR at revision 4 (507 lines), change items C1 to C16 against 05 (16 sections, Table 4-1 55 rows, Table 4-2), rmm.json 3 rows, 2 templates, and C17 (a) to (g) against 07; delta 92b200ad..abec03c5, 304 insertions and 43 deletions
 sprint: PDR-prep
 author_agent: "author:WP-PDR-05 (Claude, CM function)"
 reviewer_agent: "sa-reviewer:WP-PDR-05-cm-plan-05"
 assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:WP-PDR-05-cm-plan-05 (software assurance function; paired file review INSP-039 by reviewer:WP-PDR-05 (independent reviewer, CM lens))"
-iteration: 1
+# iteration 2: the delta on CR-007 revision 4 (abec03c5), section "Delta iteration 2" at the end
+iteration: 2
 readiness_met: true
 # reviewer_verdict and assurance_verdict: APPROVED; 0 Major, 3 Minor (rule C1: Minor findings ride with the
 # first APPROVED verdict and become liens if not fixed in the CR revision before OD-36)
+# delta iteration 2: APPROVED on abec03c5; finding-1 to finding-3 not fixed by revisions 2 to 4, now liens due the CDR
+# readiness declaration (rule C1); new Minor finding-4 and finding-5, liens; 0 Major
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
 # verdict: APPROVED. Both reviews of the product are APPROVED (INSP-039 reviewer_verdict APPROVED; this record),
 # readiness met, no Major open, and every product blob is on main (the lead SE branch-only convention does not
 # apply: only the checklist template is branch-only). INSP-039 still reads assurance_verdict NEEDS CHANGES and
 # no paired_record; its reviewer updates it to name INSP-047 (07 section 10.2 Record row; cross item X-1)
-verdict: APPROVED
+# delta iteration 2: verdict held at NEEDS CHANGES (iteration 1 value APPROVED). The paired file review INSP-039 is
+# reviewer APPROVED on CR blob 22c4455f (revision 2) only, and revisions 3 and 4 have no file review yet; 07 section
+# 10.2 sets neither record to APPROVED until both reviews are APPROVED, so this record waits for the INSP-039 delta on
+# abec03c5 (cross item X-4), as INSP-039 iteration 2 waits for this one. The software lead then sets verdict: APPROVED
+# on both records if that delta is APPROVED and the blobs agree.
+verdict: NEEDS CHANGES
 findings_major: 0
-findings_minor: 3
-findings_open: 3
+findings_minor: 5
+findings_open: 5
 findings_fixed: 0
 findings_verified: 0
 findings_deferred: 0
 assurance_findings_major: 0
-assurance_findings_minor: 3
+assurance_findings_minor: 5
 assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-013 7.1 task 1", "swe-024 7.1 task 1", "swe-024 7.1 task 2", "swe-024 7.1 task 3", "swe-039 7.1 task 7", "swe-039 7.1 task 8", "swe-121 7.1 task 1", "swe-125 7.1 task 1", "swe-139 7.1 task 1", "swe-087 7.1 task 3", "swe-090 7.1 task 1", "swe-079 7.1 task 1", "swe-080 7.1 task 1", "swe-080 7.1 task 2", "swe-080 7.1 task 3", "swe-081 7.1 task 1", "swe-081 7.1 task 2", "swe-082 7.1 task 1", "swe-082 7.1 task 2", "swe-083 7.1 task 1", "swe-084 7.1 task 1", "swe-085 7.1 task 1", "swe-085 7.1 task 2", "swe-187 7.1 task 1", "swe-187 7.1 task 2", "swe-063 7.1 task 1", "swe-063 7.1 task 2", "swe-136 7.1 task 1", "swe-200 7.1 task 1"]
 swe134_items_checked: []
 deferred_rids: []
-items_no: [SA-A1, SA-E1, "swe-063 7.1 task 1", "swe-081 7.1 task 2"]
-effort_turns: 34
-effort_minutes: 55
+# items_no: delta iteration 2 adds "swe-080 7.1 task 2" (finding-4, finding-5); iteration 1 value
+# [SA-A1, SA-E1, "swe-063 7.1 task 1", "swe-081 7.1 task 2"]
+items_no: [SA-A1, SA-E1, "swe-063 7.1 task 1", "swe-081 7.1 task 2", "swe-080 7.1 task 2"]
+# effort: iteration 1 (34 turns, 55 min), delta iteration 2 (28, 45)
+effort_turns: 62
+effort_minutes: 100
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -224,4 +244,87 @@ TASKS APPLIED: swe-134 task 5, swe-022 task 1, swe-013 task 1, swe-024 tasks 1 t
 TASKS N/A (relief): swe-013 task 2 (07 section 15), swe-125 task 2 (rmm.json SWE-022 T), swe-154 task 1, swe-156 task 1, swe-159 tasks 1 and 2 (07 section 16)
 SWE-134 ITEMS CHECKED: none (criticality neither)
 MEASUREMENTS: size=16 change items; tasks=36; tasks_no=2; turns=34; minutes=55; major=0; minor=3
+```
+
+## Delta iteration 2 (2026-09-29, CR-007 revision 4 at `7668322`; software assurance reviewer, new invocation)
+
+**Scope.** On `main` at `c9f611d`, `tools/validate_docs.py` failed this record on record drift: it pinned `docs/cm/cr/CR-007-cm-plan-pdr-rows.md` at `92b200ad` (revision 1), and the file is now `abec03c5` (`git rev-parse HEAD:<path>` and `git hash-object <path>`, last commit `7668322`, revision 4, status Implemented on branch `cr/CR-007-cm-plan-pdr-rows`), and it pinned `docs/lessons-learned.md` at `ec30a264` (now `d250e8fb`, entry 18 at `391f0e5`). The CR is this record's product and its sections 1 to 5 changed in revisions 2, 3 and 4, so this is a delta, not a re-pin: it verifies every hunk of `git diff 92b200ad abec03c5` (304 insertions, 43 deletions) under the assurance lens, states the current state of finding-1 to finding-3, and names the new blob. The lessons-learned entry is dropped from `product_files` with its reason in the front matter (INSP-060 and INSP-034 precedent). The five other blobs equal `HEAD`. This delta reviews the CR file on `main`. The implemented blobs on the branch (05 `987fed52`, 07 `e11abe30`, `rmm.json` `76117854`, `rmm.md` `0ba6a670`, `docs/templates/change-request.md` `ce226b64`, `docs/templates/adr.md` `5c5e6d4b`, all at `f68e47a`) are the CR-007 section 5 step 7 delta of this record, which is a separate task (cross item X-5); they were read here only where a finding needed them.
+
+**Independence (rule C4).** A new invocation of the software assurance reviewer role (07 §2.1.1). It authored no part of CR-007 (any revision, section 6.8 or the branch commits), WP-PDR-05, INSP-039, the section 6 impact reviews or iteration 1 of this record, and edited no product file. **Search first (rule C3).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: the INSP-060 re-pin precedent; INSP-027 and TS-002 delta practice). `git diff`, `git show`, `grep -n`, `sed -n` and `awk` were used afterwards only to extract sections and pin lines.
+
+**Method.** Sections 1 to 5 of the three versions were extracted: revision 1 (`92b200ad`), revision 3 as reviewed in sections 6.6 and 6.7 (`ee11ec70`, at `65331c6`) and revision 4 (`abec03c5`). `git diff --no-index -U0` of 1 against 4 lists the hunks; `--word-diff` of 3 against 4 isolates the revision 4 changes, which were compared one by one with the section 8 table "Differences of the committed text". Sections 6.1 to 6.8, 7 and 8 were read in full. Sections 6 to 12 are review and lifecycle records appended to the CR; they are read for the state of the findings and are not a product change.
+
+### Hunks verified (92b200ad to abec03c5)
+
+| Hunk | Change | Assurance check | Result |
+|---|---|---|---|
+| Front matter | `status` Implemented; `disposition` Approved, 2026-09-28; 07 added to `affected_paths`; INSP-010, INSP-018 to `affected_ids`; CR-010, CR-013 to `related` | Disposition matches section 7 (Decision Approved, 2026-09-28, two history rows); 07 is the C17 target; the template's `affected_ids` list names requirement, test, ICD, hazard and similar ids, so the omission of INSP-009 and INSP-017 there is not a defect | Pass |
+| Status line and revision 2, 3, 4 paragraphs (lines 27 to 33) | Bookkeeping; revision 4 names the branch from `908d21a` and commits `cc4c138`, `66ac317`, `60645f8`, `f68e47a` | The four commits exist on the branch in that order (`git log` in the CR worktree). The approval basis claimed for the revision 4 changes is finding-4 | finding-4 |
+| C1 | Date and revision number filled (2026-09-29, revision 4) | Placeholder only | Pass |
+| C7 | Revision 2 and 3 text: the assurance role names 07 §2.1.1 as the single dispatch rule, its CR tasks and hold points | 07 §2.1.1 stays the single rule and C7 cites it (IR-F1 fix, verified in section 6.3; SA-F2, section 6.7). No revision 4 change | Pass |
+| C9 | Assessed row routes by the 07 §2.1.1 triggers by number; the CM function (§3) records the routing; Verified row: the paired assurance delta is the confirmation; closure without implementation | Numbering agrees with C17 (b) rows 1 and 2 (triggers (1) to (4)); the precedence sentence stays; the DR-F1, DR-F2, DR-F3, SA-F3 and SA3-F1 to SA3-F3 wording is as section 6.8 states | Pass |
+| C11 (d) | First word of the PCA-05 cell in lower case | Sentence case only; the flavour-suffix rejection is unchanged | Pass |
+| C12 | The confirmation includes the advisory database commit and date (SA-F4) | Agrees with C17 (b) row 3 | Pass |
+| C13 | TV-013 row at run 3 (18 tests); §13 note with tool blobs and the ACC-COMPLEXITY-001 extension | Blobs `cc3aaa2a`, `ddf10798`, `abe25acb` equal `git rev-parse 908d21a:<path>` for `tools/unsafe_audit.py`, `tools/complexity_gate.py`, `tools/measurements.py` (SA-F5) | Pass |
+| C15 (a) | Template summary of the triggers and the section 9 sentence | Agrees with C9 and C17 (b); names no actor (DR-F1 response) | Pass |
+| C16 | SWE-063 and SWE-085 read "Planned for CDR, before the gate:" | `tools/render_rmm.py` `GATE_MARKER_RE` (line 83) matches only "Planned for <gate>", so the revision 3 wording "Planned before CDR:" fails the check, as section 8 says; the meaning is unchanged | Pass |
+| C17 (a) to (g) | New change item against 07 (revision 2), rewritten for SA-F1 and SA-F2 (revision 3) and for SA-F3, SA-F4, DR-F1 to DR-F3 and SA3-F1 to SA3-F3 (revision 4) | 07 §2.1.1 at `f68e47a` carries the three CR, release and configuration-check rows and the hold-point paragraph; the §16.2 rows cited as basis exist (07 lines 697 to 702: "Firmware image integrity" with RSK-015, "Keying and control inputs", "Debug access", "Diagnostic interface" with RSK-061 and CS-33, "Build and supply chain"); the §23 row is A.10 (line 891). No product row for ICDs, the hazard analysis or `allocation.json` is added (finding-2, finding-3) | Pass |
+| Revision 4 note (line 156) | Section 1 equals the committed text at `f68e47a`, with six blobs | The six blobs equal `git rev-parse f68e47a:<path>` (six of six). The revision 3 to 4 word diff has hunks only at the items the section 8 table lists, plus the section 4 and 5 rows that revision 4 says change this record only | Pass |
+| Section 4 rows and classification rationale | Safety, Interfaces, Cybersecurity (SA-F6), Verification (SA-F7), Schedule, Documentation | Cybersecurity names the two 07 §16.2 rows and the control C11 adds, with cross items to the 07 writer and the risk owner; Verification adds the INSP-009 and INSP-017 deltas and the template listing; the rationale keeps Class II on stated grounds | Pass |
+| Section 5 steps and verification paragraph | Steps 3 to 6 done with SHAs; step 5a "(a) to (g)" (DR-F4); step 7 adds the SA-F7 records | Steps 1 and 2 were not brought up to date | finding-5 |
+
+### Effect of revisions 2 to 4 on finding-1 to finding-3
+
+- **finding-1 (VDD flavour identity) is not fixed.** C15 still changes only the CR and ADR templates, `affected_paths` does not name `docs/templates/version-description.md`, and the §2 flavour row of the template is unchanged on the branch (`f68e47a` line 46: files, hash and Cargo feature, no embedded version string). Section 6.8 routes a related VDD field (the advisory database commit and date, SA-F4) to the VDD template owner "with INSP-047 finding-1", outside this CR.
+- **finding-2 (second dispatch rule in Part B rows 10 and 15) is not fixed.** Rows 10 and 15 (lines 81 and 85) still require assurance pairs for the software-side ICDs and for the hazard analysis, and the 07 §2.1.1 table at `f68e47a` still has no product row for either: C17 (b) trigger (3) routes CRs that change such an ICD, not the ICD's own review. Section 6.8 (SA3-F2 response, line 383) leaves row 10 unchanged on purpose, citing this finding as open; that is consistent with the fix options of iteration 1.
+- **finding-3 (the row 25 map admitted without assurance review) is not fixed.** Part B row 11 for `docs/design/allocation.json` (line 83) is unchanged. C17 (b) row 1 now routes a CR that changes a row 25 map path, which strengthens the use of the map but not the review of the map itself.
+
+All three stay Open. Under PDR work plan rule C1 they are now liens due at the CDR readiness declaration, as iteration 1 and CR section 6.8 state.
+
+### New findings of the delta
+
+| Finding | Origin | Severity | Item | Location | Description | State | Disposition |
+|---|---|---|---|---|---|---|---|
+| <a id="finding-4"></a>finding-4 | assurance | Minor | swe-080 7.1 task 2 (item b) | CR-007 revision 4 paragraph (line 33); section 7 Conditions (line 397); section 8 table of differences | The revision 4 paragraph says section 1 changes by the fixes "that the owner's option B condition assigns to step 3 (section 7 Conditions)" and lists SA-F3 to SA-F5, DR-F1 to DR-F3 and SA3-F1 to SA3-F3. The owner's condition (section 7 Conditions; `status-2026-09-28.md` section 4) assigns only "SA-F3 to SA-F7" to step 3; DR-F1 to DR-F4 and SA3-F1 to SA3-F3 were raised afterwards, in sections 6.6 and 6.7, and assigned to step 3 by those reviewers as corrections inside the approved scope. The committed 05 and 07 text therefore differs from the revision 3 text the owner approved by seven reviewer-assigned fixes, one of which (SA3-F2) widens triggers (2) and (3) to more CRs, and the CR states an owner assignment that the owner did not make. No unapproved text is baselined, because the merge approval (step 8) is still ahead and section 8 lists every difference with its finding | Open | Lien: fix before CDR (rule C1). Fix (CM function, CR-007 author): state that DR-F1 to DR-F4 and SA3-F1 to SA3-F3 were assigned to step 3 by the section 6.6 and 6.7 reviewers, and put the section 8 table of differences, SA3-F2's widening named, in the owner's merge approval request at step 8, with the owner's answer recorded in section 10 |
+| <a id="finding-5"></a>finding-5 | assurance | Minor | swe-080 7.1 task 2 (item a) | CR-007 section 5 steps 1 and 2 (lines 197 and 198) | Revision 4 fills the Done cells of steps 3 to 6, but step 1 still reads "Pending: the delta impact review of revision 3 ... step 3 waits for it" and steps 1 and 2 have empty Done cells. The plan table therefore shows step 3 done while its own precondition reads pending, although the delta impact reviews were recorded on 2026-09-28 (sections 6.6 at `8527083` and 6.7 at `65331c6`) before the branch was cut from `908d21a`, and the disposition was recorded at `a17af87` with its confirmation at `584f361`. An auditor reading the table cannot see from it that the hold was kept | Open | Lien: fix before CDR (rule C1). Fix (CM function): at the next CR-007 lifecycle update, mark step 1 done with the five review commits (`ca228b9`, `3a52115`, `6830dcc`, `8527083`, `65331c6`) and step 2 done (`a17af87`, `584f361`) |
+
+### Findings (delta iteration 2; current state of every finding of this record)
+
+| Finding | Origin | Severity | Item | Location | State | Disposition | Deferred to |
+|---|---|---|---|---|---|---|---|
+| finding-1 | assurance | Minor | swe-063 7.1 task 1, swe-081 7.1 task 1, SA-E1 | C11, C15; VDD template §1 and §2 | Open | Lien: fix before CDR (rule C1); not fixed by revisions 2 to 4 | CDR readiness declaration |
+| finding-2 | assurance | Minor | SA-A1, CK-REQ-G1, swe-134 7.1 task 5 | C6 (e) Part B rows 10 and 15 (lines 81, 85); 07 §2.1.1 | Open | Lien: fix before CDR (rule C1); not fixed; kept open on purpose by CR section 6.8 | CDR readiness declaration |
+| finding-3 | assurance | Minor | swe-081 7.1 task 2 | C6 (e) Part B row 11 `allocation.json` (line 83) | Open | Lien: fix before CDR (rule C1); not fixed | CDR readiness declaration |
+| finding-4 | assurance | Minor | swe-080 7.1 task 2 | Revision 4 paragraph; section 7 Conditions; section 8 | Open | Lien: fix before CDR (rule C1); new in delta iteration 2 | CDR readiness declaration |
+| finding-5 | assurance | Minor | swe-080 7.1 task 2 | Section 5 steps 1 and 2 | Open | Lien: fix before CDR (rule C1); new in delta iteration 2 | CDR readiness declaration |
+
+Lien count: 5. Open Major: 0.
+
+### Task answers at the delta
+
+As iteration 1, with these changes: swe-080 7.1 task 2 No (finding-4, finding-5); swe-080 7.1 task 1 Yes (the section 4 fields of revision 4 are correct: no `HZ-NNN`, 07 §14.1 component, ICD text, 07 §16 mitigation text or `RSK-NNN` score changes; SA-F6 names the two 07 §16.2 rows the C11 control strengthens); swe-082 7.1 task 1 Yes (C17 puts the reviewer's CR, release and configuration-check tasks in 07 §2.1, §2.1.1 and §15); swe-081 7.1 task 2 No (finding-3); swe-063 7.1 task 1 No (finding-1); SA-A1 No (finding-2). Readiness R1 to R4: R1 holds for the CR blob and the five other blobs at `HEAD`; the pairing part of R1 does not (INSP-039 names `22c4455f`), which is why the record verdict is held.
+
+### Record verdict, delta iteration 2
+
+`assurance_verdict: APPROVED` and `reviewer_verdict: APPROVED` on `abec03c5`: no Major finding; the five Minor findings are liens under rule C1. `verdict` is held at NEEDS CHANGES: the paired file review INSP-039 is APPROVED only on `22c4455f` (revision 2), and 07 §10.2 sets neither record to APPROVED until both reviews are APPROVED. When INSP-039 files its delta on `abec03c5` APPROVED, the software lead sets `verdict: APPROVED` on both records. `record_status` stays Open.
+
+### Cross items (returned to Claude)
+
+- **X-4.** INSP-039 (`cm-plan-05.md`) delta on CR-007 `abec03c5` (revisions 3 and 4) by its file-review role; its fields `paired_record: INSP-047` and `assurance_reviewer_agent` (iteration 1 cross item X-1) are still unset.
+- **X-5.** CR-007 section 5 step 7: the delta of this record on the implemented blobs at `f68e47a` (05, 07, `rmm.json`, `rmm.md` and the two templates in `product_files`, as SA-F7 asks), after or with the INSP-039 step 7 delta. finding-1 to finding-5 are re-read there.
+- **X-6.** Iteration 1 cross item X-3 stands: CR-012 is not merged (`docs/templates/peer-review-checklist-software-assurance.md` is not on `main`), so the `checklist` field is unchanged.
+
+### Tool runs (2026-09-29, `.venv/bin/python`)
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (before this update, `main` `c9f611d`) | 1 | 110 passed, 7 failed; this record failed on drift (CR-007 `92b200ad` against `abec03c5`; lessons learned `ec30a264` against `d250e8fb`) |
+| `git rev-parse f68e47a:<path>` for the six revision 4 note blobs; `908d21a:<path>` for the three C13 tools | 0 | Six of six and three of three as stated |
+| `tools/validate_docs.py` (after this update) | 1 | 116 passed, 1 failed (`docs/reviews/SRR/checklists/adrs-001-to-025.md`, another record); this record PASS with no drift note (every named blob equals `HEAD`) |
+
+```
+DELTA ITERATION 2 (2026-09-29, CR-007 revision 4 at 7668322): ASSURANCE VERDICT: APPROVED; RECORD VERDICT: NEEDS CHANGES (held for the INSP-039 delta on abec03c5)
+PRODUCT: docs/cm/cr/CR-007-cm-plan-pdr-rows.md@abec03c5 (equal to HEAD) and five other blobs; docs/lessons-learned.md dropped (re-pin)
+FINDINGS: finding-1 to finding-3 Minor, Open, not fixed by revisions 2 to 4 (finding-2 kept open on purpose by CR section 6.8); new finding-4 and finding-5 Minor, Open; all five liens due the CDR readiness declaration; open Major 0
+MEASUREMENTS (delta): turns=28; minutes=45; cumulative turns=62, minutes=100; major=0; minor=2 new; lien=5
 ```
