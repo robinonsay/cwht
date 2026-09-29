@@ -7,14 +7,20 @@
 # requirements (the INSP-003 delta) is docs/reviews/PDR/checklists/cr-008-requirements-sys.md (INSP-044).
 # The product is the TC-SYS part of CR-008 (Submitted, proposed Class I), prototyped on branch
 # cr/CR-008-srr-liens-l1-and-tc-sys at c629198 and frozen there (plan rule C2).
+# CR file re-pin delta (2026-09-29, main 0680af9; WP-PDR-55): delta under plan rule C1 on the drift of the CR file,
+# 3b9266ff (4dab5dc) to aa65e826 (cccbfda, a244b05, 6485bd3, a17af87, 9c40ef9, 726cd44); the CR sections this record
+# used changed (section 4 Interfaces row, section 5, front matter), so a delta, not a removal. Iteration stays 1: a re-pin
+# delta is not a new review iteration (INSP-003 convention).
 id: INSP-045
 checklist: peer-review-checklist-test
 checklist_revision: B
 checklist_file: docs/reviews/PDR/checklists/cr-008-test-sys.md
 product: docs/test_cases/sys/test_cases.json
 # product_commit: the branch head that holds the frozen blobs (base ab2af2d on main); the CR file is on main at 4dab5dc
+# re-pin delta: product_commit stays c629198 (the four frozen blobs, equal at the branch head e26ce46); the CR file is on main at 726cd44
 product_commit: "c6291980c83e6e1e55b66ceff2e0b89222669b97"
-product_files: ["docs/requirements/sys/requirements.json@a73449377e8d055f5d247130b8850bf3f5a151d9", "docs/requirements/sys/requirements.md@4e110b16027fbe446e846a8c5f9d2dc5c2899af6", "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065", "docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316", "docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@3b9266ff0d9d29e7d1b70febd1fe7cfbd86ab3dd"]
+# product_files at iteration 1: the four as below and docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@3b9266ff0d9d29e7d1b70febd1fe7cfbd86ab3dd
+product_files: ["docs/requirements/sys/requirements.json@a73449377e8d055f5d247130b8850bf3f5a151d9", "docs/requirements/sys/requirements.md@4e110b16027fbe446e846a8c5f9d2dc5c2899af6", "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065", "docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316", "docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@aa65e8261da4193707b561dba6e8a841451cf88f"]
 product_size: 114 cases (Bench 77, Simulation 23, Inspection 14; Test 71, Analysis 23, Inspection 14, Demonstration 6), all Draft; 65 added or changed (1 added, 28 with content changes, 36 photograph only)
 sprint: PDR-prep
 author_agent: "test-author:WP-PDR-11 (same invocation as the L1 requirements author; CR-008 section 4 independence note)"
@@ -32,22 +38,25 @@ assurance_verdict: not-required
 # verdict: held at NEEDS CHANGES on the completion criterion "validate_docs.py passes on the record" only.
 # The reviewed blobs are on the CR branch, not in main HEAD; tools/validate_docs.py fails an APPROVED
 # record whose product_files are not in HEAD (record drift rule). The software lead sets APPROVED when
-# CR-008 merges with these blobs unchanged (section "Record verdict"; precedent INSP-031).
+# CR-008 merges with these blobs unchanged (section "Record verdict"; precedent INSP-031). The re-pin delta keeps the hold.
 verdict: NEEDS CHANGES
+# re-pin delta counts: finding-1 to finding-3 Open to Lien (rule C1: CR-008 dispositioned Approved on 2026-09-28 without a
+# revision; due at the CDR readiness declaration), counted in findings_deferred; no new finding. Was open 3, deferred 0
 findings_major: 0
 findings_minor: 3
-findings_open: 3
+findings_open: 0
 findings_fixed: 0
 findings_verified: 0
-findings_deferred: 0
+findings_deferred: 3
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 decision_tables_checked: 0
 deferred_rids: []
 items_no: [CK-TEST-A6]
-effort_turns: 40
-effort_minutes: 80
+# effort: iteration 1 (40 turns, 80 min) plus the re-pin delta (12 turns, 25 min)
+effort_turns: 52
+effort_minutes: 105
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -246,4 +255,46 @@ FINDINGS:
 - [Minor] finding-3 CK-TEST-A6 TC-SYS-034: REQ-SYS-043 bounds paddle closures only; name REQ-SYS-160 and state openings have no L1 bound.
 ITEMS N/A: sections B to G, CK-TEST-I1, R2, R3
 MEASUREMENTS: size=114 cases (65 added or changed); items_checked=A1-A9, H1-H5, I1-I3, R1-R5; items_no=1; major=0; minor=3; fixed=0; deferred=0; iteration=1; turns=40; minutes=80
+```
+
+## Re-pin delta on the CR file (2026-09-29, main `0680af9`; WP-PDR-55)
+
+**Scope (plan rule C1, record drift rule).** The record named the CR file at `3b9266ff` (`4dab5dc`). `main` changed it six times after that: `cccbfda` (section 6.1), `a244b05` (revision 2), `6485bd3` (section 6.3), `a17af87` (disposition), `9c40ef9` (section 9 check, step 7 Done cell) and `726cd44` (section 8, step 3 and 5 Done cells). The result is `aa65e826`, the blob at `main` `0680af9`. This record used the CR's section 1.6, its section 4 Verification row and independence note, and the section 5 checks named in the acceptance criteria. Sections 4 and 5 changed, so this is a delta, and the CR file is re-pinned at `aa65e826`. The four frozen blobs have not changed: `git rev-parse e26ce46:<path>` (the branch head) equals `c629198:<path>` for `requirements.json` `a7344937`, `requirements.md` `4e110b16`, `test_cases.json` `117c08de` and `test_cases.md` `00e4454f`. The branch commits after `c629198` (`ebeb069`, `a36a828`, `e26ce46`) touch none of them.
+
+**Independence (rule C4).** This invocation authored no part of CR-008, of its sections 6 to 9, of steps 3 and 5, of this record's iteration 1, or of the INSP-025 delta at `ebeb069`. It wrote the INSP-003 and INSP-008 updates at `e26ce46` and the INSP-044 re-pin delta (`f31d830`, `39257a8`), all of them records, not this product. It edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran first (query: CR-008 SRR liens, REQ-SYS-194, INSP-003 and INSP-008 delta). After it, `git diff -U0 3b9266ff aa65e826` and `sed -n` only pinned lines.
+
+### Hunks read (`git diff -U0 3b9266ff aa65e826`: 19 hunks, 157 insertions, 22 deletions; case lens)
+
+| Hunk (new lines) | Section | Change | Effect on this record |
+|---|---|---|---|
+| 4; 11 to 14; 17 and 18 | Front matter | `status` Dispositioned; `affected_cis` adds row 10; `affected_paths` adds the three ICDs and `render_icd_figures.py`; `affected_ids` adds the three ICD ids; `related` adds WP-PDR-36 and 40; `disposition` Approved 2026-09-28 | No TC id added or removed. `affected_ids` still names 29 of the 65 changed cases, which is R1-F2 of CR section 6.1. That is a CR-document item the owner accepted as a lien. This record's CK-TEST-I3 answer rests on the section 4 Verification row, not on `affected_ids` |
+| 141 | 4 | Interfaces row rewritten (revision 2): ICD-CTL-PHONES asymmetric plug detect (question 2a), ICD-PWR-CELL and ICD-CTL-KEY wording, step 9 routing | TC-SYS-056 (REQ-SYS-077) passes if the amplifier enable is low "allowing at most 20 ms after each removal edge" (`117c08de`). That criterion stands under 2a, which the owner chose (section 12 answers). ICD-CTL-PHONES line 228 (TC-SYS-056 row) stays true (section 6.3). Under 2a no case changes. The section 4 Verification row, the independence note and section 1.6 are unchanged, so the CK-TEST-I3 and A1 to A9 evidence stands |
+| 162, 164; 166 and 167 | 5 | Done cells of steps 3, 5 and 7; new step 9 (ICD alignment, off the branch) | Only status cells and a downstream ICD step. No case step, and none of the section 5 checks this record ran (57 photos, TC-SYS-060 points, TC-SYS-064 points, TC-SYS-111 constant current, "no other line changed"), is altered |
+| 184 to 255 | 6.1 to 6.3 (new) | Impact reviews rounds 1 and 2 and the author response | The round 1 case counts equal this record's: 64 modified, of which 36 change only artifacts and 57 gain a photo, and TC-SYS-116 added. Its SWE-071 list (TC-SYS-013, 030, 031, 038, 050, 056, 061, 064, 065, 102, 111, 112) equals the CK-TEST-I3 list. R1-F1 to R1-F5 and R2-F1 to R2-F3 name no case defect. R2-F3 (a), the 10 ms removal TBR with no bench source, concerns the ICD TBR table, and TC-SYS-056 checks the 20 ms end result, not the debounce. Concur, not counted here |
+| 258 to 275 | 7 | Disposition Approved, Class I, 2026-09-28, the section 6 Minors accepted as liens | The CR was dispositioned without a revision, so under rule C1 finding-1 to finding-3 of this record become liens due at the CDR readiness declaration, as the iteration 1 counts said they would |
+| 279 to 293 | 8 | Implementation record and commit rows (`ebeb069`, `a36a828`) | Checked against the branch. No case file is in either commit |
+| 305 to 347 | 9 | Configuration manager pre-merge check and update | CM record. Its note that this record names the CR at `3b9266ff` is what this delta clears |
+| 352 | 10 | "Owner merge approval" filled with the 2026-09-28 reading | Recorded as INSP-044 finding-2 (Minor, Open, fix before the merge). Not counted again here |
+| 363 to 367 | 11 | History rows (round 1, revision 2, round 2, disposition, 2026-09-29 check) | Status record only |
+| 372 to 374; 377 and 378 | 12 | Question 2 split into 2a and 2b (revision 2); answers recorded with the disposition (Q2: 2a) | Under 2b, TC-SYS-056 would have changed on the branch. Under 2a it does not, so no further case delta is needed |
+
+### Findings at the re-pin delta
+
+| Finding | Severity | State | Basis |
+|---|---|---|---|
+| finding-1 | Minor | Lien (rule C1; due at the CDR readiness declaration) | Was Open. CR-008 was dispositioned without a revision; TC-SYS-036 at `117c08de` is unchanged |
+| finding-2 | Minor | Lien (rule C1; due at the CDR readiness declaration) | Was Open; TC-SYS-111 at `117c08de` is unchanged |
+| finding-3 | Minor | Lien (rule C1; due at the CDR readiness declaration) | Was Open; TC-SYS-034 at `117c08de` is unchanged |
+
+No new finding. Open Major 0 and open Minor 0.
+
+### Record verdict at the re-pin delta
+
+`reviewer_verdict: APPROVED`, readiness met (R1 to R5 as at iteration 1, on the unchanged blobs). `product_files` names the CR at `aa65e826` and the four branch blobs at `c629198`. `verdict` stays NEEDS CHANGES under the lead SE convention until the merge commit sets it. The merge and its CM record will change the CR file again (`merge_sha`, sections 8 to 10). At that point, re-pin after a delta of those hunks, or take the CR file out of `product_files`, as the INSP-044 re-pin delta notes.
+
+```
+VERDICT (re-pin delta, 2026-09-29): APPROVED (record verdict held at NEEDS CHANGES until CR-008 merges; drift rule)
+FINDINGS: finding-1, finding-2, finding-3 [Minor] Lien (rule C1, due CDR readiness declaration); no new finding
+PRODUCTS: CR-008@aa65e826 (was 3b9266ff); requirements.json@a7344937, requirements.md@4e110b16, test_cases.json@117c08de, test_cases.md@00e4454f (c629198, equal at the branch head e26ce46)
+MEASUREMENTS (re-pin delta): hunks=19; files_changed=1; product blobs re-identified=4 of 4 unchanged; turns=12; minutes=25; major=0; minor_new=0
 ```
