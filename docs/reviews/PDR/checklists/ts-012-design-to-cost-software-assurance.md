@@ -23,20 +23,26 @@ checklist_revision: A
 assurance_checklist: "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4 (revision A, branch cr/CR-012-pdr-checklist-templates at 7784672)"
 checklist_file: docs/reviews/PDR/checklists/ts-012-design-to-cost-software-assurance.md
 product: docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md
-# product_commit and product_files (iteration 2, rule C2 re-freeze): TS-012 revision 6, committed on its own at
-# 3b93de1 (the only commit after 37d5824 that touches the file). The blob equals git rev-parse 3b93de1:<path>,
-# git rev-parse HEAD:<path> and git hash-object <path> at HEAD 123f048 (checked 2026-09-29); it is on main.
-# Iteration 1 reviewed revision 5 at 37d5824, blob 731ba0eb (product_files_iteration_1), the product_files entry of
-# INSP-110 iteration 3 re-issue 1. INSP-110 iteration 3 re-issue 2 (17b6865) names the same revision 6 blob 0c9fcb96
-product_commit: "3b93de11d52c17fa17e7a304656a2e8ff635efce"
-product_blob: 0c9fcb9649d3fbf7a1eae3de43d10f05abe1632b
-product_files: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@0c9fcb9649d3fbf7a1eae3de43d10f05abe1632b"]
+# product_commit and product_files (iteration 3, rule C2 re-freeze): TS-012 revision 8, committed on its own at
+# bb5dee7. Commits touching the file since the iteration 2 pin (3b93de1, blob 0c9fcb96): 6497900 (revision 7),
+# 5819220 and 5f84770 (editorial, owner pronouns), bb5dee7 (revision 8); every hunk of git diff 3b93de1 bb5dee7
+# was verified (iteration 3 section). The blob equals git rev-parse bb5dee7:<path>, git rev-parse HEAD:<path> and
+# git hash-object <path> at HEAD 556bbcf (checked 2026-09-29); git log bb5dee7..HEAD -- <path> is empty. INSP-110
+# iteration 3 re-issue 3 (8d5bc0a) names the same blob b9333386. Iteration 2 reviewed revision 6 at 3b93de1, blob
+# 0c9fcb96 (product_files_iteration_2); iteration 1 reviewed revision 5 at 37d5824, blob 731ba0eb
+product_commit: "bb5dee7467c550c7c26fb5d334811b2f0b09e92b"
+product_blob: b93333867dbe21ed6243a8f85df1f7ff16d23c00
+product_files: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@b93333867dbe21ed6243a8f85df1f7ff16d23c00"]
+product_files_iteration_2: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@0c9fcb9649d3fbf7a1eae3de43d10f05abe1632b"]
+product_commit_iteration_2: "3b93de11d52c17fa17e7a304656a2e8ff635efce"
 product_files_iteration_1: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@731ba0ebe494c1d970b3b1ba0cac4304ebbab412"]
 product_commit_iteration_1: "37d5824e30348728142f74dbb7ddf45939c2b60b"
 # inputs read (not reviewed), blobs at HEAD 79795e4
 input_files: ["docs/reviews/PDR/checklists/ts-012-design-to-cost.md@4cbe7505 (INSP-110)", "docs/design/analysis/thermal-ts012.md@81592c34 (sections 4.1, 8, 9)", "hardware/sim/thermal/results/2026-09-28-ts012-r2/summary.csv@33b9ee3a", "hardware/sim/thermal/results/2026-09-28-ts012-r2/inhibit.csv@0e3210da", "hardware/sim/thermal/results/2026-09-28-ts012-r2/trips.csv@168adde3", "docs/design/analysis/keying-ts012.md@5121cc90 (sections 3, 4.5, 8)", "docs/design/analysis/pa-drive-ts012.md@02852058 (section 5)", "docs/design/analysis/frequency-budget.md@79d47fbb (sections 3.3, 4, 5)", "docs/process/07-software-engineering-plan.md@bfe05f43 (sections 2.1.1, 14.1, 14.2, 15)", "docs/safety/hazards.json@81cacde4 (HZ-003, HZ-004)", "docs/requirements/sys/requirements.json@f128235e (REQ-SYS-055, 063, 112, 118, 120, 155, 156, 163, 181, 182, 183)", "docs/requirements/tx/requirements.json@8b9d81e8 (REQ-TX-014)", "docs/plan/pdr-work-plan.md@bf0c9b66 (rule C1, WP-PDR-36a)", "docs/references/md/swehb/ (swe-022, 027, 033, 039, 057, 070, 080, 081, 086, 087, 089, 134, 136, 205 section 7.1)", "docs/research/rustos-toolchain-proof.md F14 and docs/research/power-tree-and-charging.md F14 (Pico 2 ADC pins)", "git log -1 --format=%B for 5c16930, eca24fa, d5a3058, 7d0d450, 37d5824 (trailers)"]
 # inputs read at iteration 2 (not reviewed), blobs at HEAD 123f048
 input_files_iteration_2: ["hardware/sim/freq/freq_budget.py (functions healthy_disagreement, undetected_bound, min_154_limit, fc0_accuracy_ceiling, tx_detection_time, changeover_time; re-run in the scratchpad)", "docs/design/analysis/frequency-budget.md@79d47fbb (sections 3.3, 5)", "hardware/sim/thermal/results/2026-09-28-ts012-r2/inhibit.csv@0e3210da (A4-DC rows)", "hardware/sim/thermal/results/2026-09-28-ts012-r2/summary.csv@33b9ee3a (A4-DC row)", "NXP (Freescale) AFT05MS004N datasheet Rev. 0, 7/2014, the PDF of SHA-256 84cd9fae494c628310d79f8e7381af8c39769d65fdb79acdaad17466df6dd036 that TS-012 cites (local scratchpad copy; pages 2 and 4 read with pdftotext)", "docs/design/analysis/keying-ts012.md (section 4.5 line 393, the 2 ms backwave before each element)", "docs/reviews/PDR/checklists/ts-012-design-to-cost.md (INSP-110 front matter: paired_record and assurance_verdict still pending)", "git log -1 --format=%B 3b93de1 and tools/check_commit_msg.py on it"]
+# inputs read at iteration 3 (not reviewed), blobs at HEAD 556bbcf
+input_files_iteration_3: ["docs/reviews/PDR/checklists/ts-012-design-to-cost.md@eda9a782 (INSP-110 iteration 3 re-issue 3 at 8d5bc0a: finding-24, finding-25, finding-27, X-17, X-20, X-21)", "docs/design/concept.md@6f026f92 (lines 226 and 230: TX_KEY pull-down, GPIO via SIO, no PIO)", "docs/safety/hazards.json@81cacde4 (HZ-004 K8)", "docs/process/07-software-engineering-plan.md@bfe05f43 (section 14.2 row i)", "docs/research/power-tree-and-charging.md@cb24224a (F14, four external ADC channels, GPIO29 VSYS/3 on the Pico 2)", "docs/design/analysis/thermal-ts012.md@81592c34 (section 4.1 duty limit S, section 8 change 6)", "hardware/sim/thermal/results/2026-09-28-ts012-r2/inhibit.csv@0e3210da (A5-DC setpoints)", "docs/plan/pdr-work-plan.md@fd521750 (rule C1)", "docs/decisions/adr/ADR-056-a5-hand-built-design.md (header, review pending)", "git show --stat 078f2f7 (message only; docs/design/analysis/pa-permit-gate-d18.md@b8361270 not reviewed)", "tools/check_commit_msg.py on 6497900, 5819220, 5f84770, bb5dee7"]
 paired_record: INSP-110
 product_type: trade-study-or-adr
 # criticality: safety-critical. TS-012 decides the hardware of the REQ-SYS-118 thermal inhibit and the
@@ -45,48 +51,53 @@ product_type: trade-study-or-adr
 # the REQ-SYS-182 prescaler and counter (frequency verification unit, HZ-008), and the Morse menu override
 # command path (07 section 14.1, Proposed). INSP-110 sets the same criticality with the same basis
 criticality: safety-critical
-product_size: "iteration 2: 1 trade study (1248 lines, revision 6; 373 changed lines against revision 5, 18 design items); delta on 3 Major findings (REQ-SYS-182 and 154, REQ-SYS-181, REQ-SYS-120 with D-11, D-17, D-18 and REQ-TX-014) and the changed text. Iteration 1: 1 trade study (1133 lines, revision 5; 6 alternatives, 2 finalists, 13 criteria, about 90 requirement deltas, 16 design items); assurance lens on 9 safety controls or functions (REQ-SYS-118, 120, 155, 156, 181, 182, REQ-TX-014, the keying loop tables, the Morse menu override path) and the RP2350 pin and ADC budget"
+product_size: "iteration 3: 1 trade study (1268 lines, revision 8; 374 changed lines against revision 6: revision 7 section 10 and header, two pronoun edits, revision 8 re-issue of sections 8.1 to 8.12 for A5); delta on every changed hunk under the assurance lens, the A5-only section 8.10 safety rows (13 row groups), 6 Minor liens and INSP-110 cross items X-17 and X-20. Iteration 2: 1 trade study (1248 lines, revision 6; 373 changed lines against revision 5, 18 design items); delta on 3 Major findings (REQ-SYS-182 and 154, REQ-SYS-181, REQ-SYS-120 with D-11, D-17, D-18 and REQ-TX-014) and the changed text. Iteration 1: 1 trade study (1133 lines, revision 5; 6 alternatives, 2 finalists, 13 criteria, about 90 requirement deltas, 16 design items); assurance lens on 9 safety controls or functions (REQ-SYS-118, 120, 155, 156, 181, 182, REQ-TX-014, the keying loop tables, the Morse menu override path) and the RP2350 pin and ADC budget"
 sprint: PDR-prep
 author_agent: "author:TS-012 (Claude as trade-study author, invocation of 2026-09-27)"
 reviewer_agent: "sa-reviewer:TS-012-design-to-cost"
 assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:TS-012-design-to-cost (software assurance function; paired file review INSP-110 by reviewer:TS-012-iter1 to reviewer:TS-012-iter4)"
-iteration: 2
-# readiness_met: R1 to R4 hold at iteration 2 (R1: revision 6 committed and frozen at 3b93de1; its equality with the
-# paired record's product_files holds since INSP-110 iteration 3 re-issue 2 (17b6865, blob 0c9fcb96). R3:
-# validate_docs.py 109 passed, 8 failed, the 8 records unrelated to TS-012; traceability.py 0 violations).
-# Iteration 1: R1 to R4 held on revision 5
+iteration: 3
+# readiness_met: R1 to R4 hold at iteration 3 (R1: revision 8 committed and frozen at bb5dee7, blob b9333386, equal
+# to INSP-110 iteration 3 re-issue 3 (8d5bc0a) product_files. R3: validate_docs.py 112 passed, 5 failed at HEAD
+# 23e2388, the 5 records unrelated to TS-012, this record PASS; traceability.py 0 violations). Iteration 2: R1 to R4 held on
+# revision 6; iteration 1 on revision 5
 readiness_met: true
-# reviewer_verdict and assurance_verdict: APPROVED at iteration 2 (rule C1): finding-1 to finding-3 (Major) Verified on
-# revision 6; finding-4 to finding-8 (Minor) and the new finding-9 (Minor) are liens, owner the TS-012 author with
-# the work packages named in each, due at the CDR readiness declaration. Iteration 1: NEEDS CHANGES (3 Major open)
+# reviewer_verdict and assurance_verdict: APPROVED at iteration 3 (rule C1): no Major finding is open; finding-1 to 3
+# stay Verified and their A5 content is carried by revision 8; finding-4 to 9 stay liens (finding-7's A4 part is moot
+# since the decision); finding-10 (HZ-004 K8 single register write, INSP-110 X-17) and finding-11 (duty-limit option
+# on the REQ-SYS-181 sink NTC) are new Minor liens. Iteration 2: APPROVED; iteration 1: NEEDS CHANGES (3 Major open)
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
 # verdict: set by Claude as software lead (07 section 10.2). Held at NEEDS CHANGES although both reviews are APPROVED:
-# (a) CR-012 is not merged (7784672 is not an ancestor of main on 2026-09-29; the template blob 5b135285 is unchanged
-# on the branch), lead SE convention of 2026-09-27; (b) INSP-110 (17b6865) carries paired_record INSP-118 but still
-# copies assurance_verdict NEEDS CHANGES from iteration 1; it takes APPROVED from this iteration (cross item X-1)
+# (a) CR-012 is not merged (7784672 is not an ancestor of main on 2026-09-29 at 556bbcf; the template blob 5b135285
+# is unchanged on the branch), lead SE convention of 2026-09-27; (b) INSP-110 at 8d5bc0a names blob b9333386 but
+# holds assurance_verdict pending until this iteration files (its X-21); it copies APPROVED from here (cross item X-13)
 verdict: NEEDS CHANGES
 findings_major: 3
-# findings (iteration 2): 3 Major and 6 Minor raised in all (finding-9 new at iteration 2); verified: finding-1 to 3;
-# open as liens (rule C1): finding-4 to 9. Iteration 1: 3 Major and 5 Minor, all open
-findings_minor: 6
-findings_open: 6
+# findings (iteration 3): 3 Major and 8 Minor raised in all (finding-9 new at iteration 2, finding-10 and 11 new at
+# iteration 3); verified: finding-1 to 3; open as liens (rule C1): finding-4 to 11. Iteration 2: 3 Major, 6 Minor;
+# iteration 1: 3 Major and 5 Minor, all open
+findings_minor: 8
+findings_open: 8
 findings_fixed: 0
 findings_verified: 3
 findings_deferred: 0
 assurance_findings_major: 3
-assurance_findings_minor: 6
+assurance_findings_minor: 8
 assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-033 7.1 task 1", "swe-033 7.1 task 2", "swe-033 7.1 task 3", "swe-039 7.1 task 4", "swe-057 7.1 task 2", "swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-205 7.1 task 3", "swe-080 7.1 task 1", "swe-080 7.1 task 2", "swe-081 7.1 task 2", "swe-086 7.1 task 1", "swe-087 7.1 task 2", "swe-089 7.1 task 1"]
 swe134_items_checked: [a, b, c, d, e, f, g, h, i, j, k, l]
 deferred_rids: []
-# items_no (iteration 2): items still No on a lien (finding-4 to 9); swe-039 t4, swe-057 t2, SA-C-h, SA-C-i and SA-D6
-# become Yes with finding-1 to 3 Verified; SA-C-a becomes No on the new finding-9
-items_no: ["swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-080 7.1 task 1", "swe-080 7.1 task 2", SA-C-a, SA-C-d, SA-C-f, SA-C-g, SA-C-j, SA-E3]
+# items_no (iteration 3): items still No on a lien (finding-4 to 11); SA-C-i becomes No again on the new finding-10
+# (single register write) and finding-11 (one sensor for the duty-limit option and the REQ-SYS-181 backstop)
+items_no: ["swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-080 7.1 task 1", "swe-080 7.1 task 2", SA-C-a, SA-C-d, SA-C-f, SA-C-g, SA-C-i, SA-C-j, SA-E3]
+# items_no at iteration 2: swe-039 t4, swe-057 t2, SA-C-h, SA-C-i and SA-D6 became Yes with finding-1 to 3 Verified;
+# SA-C-a became No on finding-9
+items_no_iteration_2: ["swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-080 7.1 task 1", "swe-080 7.1 task 2", SA-C-a, SA-C-d, SA-C-f, SA-C-g, SA-C-j, SA-E3]
 items_no_iteration_1: ["swe-039 7.1 task 4", "swe-057 7.1 task 2", "swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-080 7.1 task 1", "swe-080 7.1 task 2", SA-C-d, SA-C-f, SA-C-g, SA-C-h, SA-C-i, SA-C-j, SA-D6, SA-E3]
-# effort: iteration 1 48 turns, 95 minutes; iteration 2 32 turns, 70 minutes
-effort_turns: 80
-effort_minutes: 165
+# effort: iteration 1 48 turns, 95 minutes; iteration 2 32 turns, 70 minutes; iteration 3 34 turns, 65 minutes
+effort_turns: 114
+effort_minutes: 230
 record_status: Open
 date: 2026-09-28
 date_closed: null
@@ -428,4 +439,163 @@ FINDINGS:
 TASKS APPLIED: as iteration 1 (17); No at iteration 2: swe-134 t4, t6, swe-080 t1, t2 (liens)
 SWE-134 ITEMS CHECKED: a, b, c, d, e, f, g, h, i, j, k, l
 MEASUREMENTS: iteration 2 turns=32; minutes=70; major=3 (verified 3); minor=6 (liens 6)
+```
+
+## Iteration 3: delta on TS-012 revisions 7 and 8 (2026-09-29, HEAD `556bbcf`)
+
+**Scope (rule C1).** Iteration 3 is a delta and the third iteration of this record. No Major finding was open after iteration 2, so there is no Major fix to verify. This pass checks every hunk that changed since the iteration 2 pin (revision 6, blob `0c9fcb96` at `3b93de1`) under the same assurance lens: the safety controls that TS-012 sections 8.1 to 8.12 set for the chosen design A5 (the PA_EN gate D-18, the thermal inhibit and cut-off, keying, the frequency check), and whether the new A5-only rows of section 8.10 still carry each of them. It also gives the status of the liens finding-4 to finding-9 and answers two cross items that INSP-110 iteration 3 re-issue 3 routed here: X-20 (finding-27, the analog input shortfall) and X-17 (HZ-004 K8 and a single GPIO register write). New findings are Minor and become liens (rule C1). No escalation to the owner is needed: no Major is open at the third iteration.
+
+**Product.** `docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md` revision 8, blob `b9333386`, committed on its own at `bb5dee7` (1268 lines). The blob equals `git rev-parse bb5dee7:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` at HEAD `556bbcf`, and `git log bb5dee7..HEAD -- <path>` is empty. Four commits touch the file after the pin: `6497900` (revision 7, the owner's decision A5), `5819220` and `5f84770` (editorial, owner pronouns), and `bb5dee7` (revision 8, sections 8.1 to 8.12 re-issued for A5). `git diff --stat 3b93de1 bb5dee7`: 197 insertions, 177 deletions. Paired record INSP-110 iteration 3 re-issue 3 (`8d5bc0a`, reviewer APPROVED) names the same blob. Checklist as before: `peer-review-checklist-software-assurance.md` revision A, blob `5b135285`, still only on `cr/CR-012-pdr-checklist-templates` (`7784672`, not an ancestor of `main`).
+
+**Independence (rule C4).** This invocation authored no part of TS-012 (any revision), of ADR-056, of the analysis records, of `pa-permit-gate-d18.md`, or of INSP-110. It edited no product file. It changed only this record.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: INSP-118, TS-012, software assurance delta, PA_EN, D-18, thermal inhibit). `git diff`, `grep` and `sed` then only pinned lines in known files. The rustos repository was not read. LTspice was not run. Nothing was downloaded.
+
+### Hunk verification (every hunk since `0c9fcb96`)
+
+| Commit | Hunks and sections | Assurance check | Result |
+|---|---|---|---|
+| `6497900` (revision 7) | Header Status, Resulting ADR, Dates; section 1 owner's decision; section 10 (decision, decided by, what was put to the owner, rationale, lead SE reading, conditions 1 to 4, design items for A5, records produced, revisit conditions (a) to (d), lessons learned); change log row 7 | Section 10's D-17 and D-18 match section 8.14 and the revision 6 section 7.3 text that iteration 2 verified. D-18's "open lien" paragraph names finding-9 and INSP-110 finding-24 as one fix, with the right safety reading: the clamp FET alone holds REQ-SYS-120, and only the REQ-TX-014 key-up level rests on the driver being unpowered. D-6 for A5 (flange NTC for REQ-SYS-118, sink NTC for REQ-SYS-181) matches finding-2 part (1) for A5. Guard G6 (back to the AFT05) is excluded by the owner's condition; this removes no control. No score changed | Verified |
+| `5819220`, `5f84770` (editorial) | Nine pronoun substitutions (`git diff --word-diff`: "He", "His", "his", "he", "him" replaced) | No technical content | Verified |
+| `bb5dee7` (revision 8), outside sections 8.1 to 8.12 | Header Status, Independent reviewer, Dates; section 1 item 4 and pre-order checks; section 6 R6-6; section 7.1 receiver row; section 7.3 R5-2 row 10 and R5-3 WP-PDR-19 row; section 8 scope bullet; section 8.14 preface and D-15; section 9 R5-1 WP-PDR-19 row; section 10 D-15 note and records produced; section 11 read list; change log row 8 | Receiver figures (INSP-110 finding-26) and review state only. None changes a safety control. The header states that this pair covers 8.1, 8.7 and the 8.10 rows REQ-SYS-182, 154, 120 and REQ-TX-014; this record covers those and every other safety row of 8.10 | Verified |
+| `bb5dee7`, section 8.1 | Block diagram re-issued; notes 1 to 4; boards and PA bay paragraph | Diagram: TX_KEY and PA_EN with 4.7 k pull-downs into the 3-input NAND with Q (D-18); FC0 on GPIN0 (prescaler, transmit) and GPIN1 (TCXO stage, receive) (D-17); prescaler supply switched by firmware so the check runs before PA_EN; clamps wired-OR and on at reset; LM393 #1 95 C trip on the sink NTC. All as verified at iteration 2. Note 2 restates finding-9 parts (a) and (b); part (c), the interval-13 fallback powering the driver 0.5 ms before the ramp, is not restated but is still in the lien and in the WP-PDR-22 row (observation only). Note 3 (TCXO squaring stage, INSP-110 finding-25): a stage that does not count reads as DIED, so no RF; that is the safe direction for HZ-008 and costs availability only. Note 1: see finding-11. Note 4: see finding-4 status | Verified, except finding-11 (new) and finding-4 (lien) |
+| `bb5dee7`, sections 8.2 to 8.6, 8.8, 8.9, 8.11 | Common changes, A5 upgrade table, BOM rows, row E5, roll-up and guards, envelope and mass, surface-mount list, descopes, exceptions, price-check list | Row E5 (g) now names the level interface of finding-9 and the squaring stage of finding-25. Section 8.6 says the D-17 and D-18 logic is not yet named ("to be confirmed when named"). The descope note names the REQ-SYS-112 delta "enforced by the REQ-SYS-118 inhibit". No safety control is added or removed. Cost and envelope figures are INSP-110's lens | Verified |
+| `bb5dee7`, section 8.7 | Morse menu: "never writes PA_EN (only the safe-state manager does, D-18)"; firmware scope list; HZ-004 note | The menu sentence is correct but does not answer X-17 (see finding-10). The firmware scope now lists the D-10 items: feedforward VGG table, stored trim, per-over zero calibration, per-unit feedforward calibration, NTC compensation. They are still not classed as guarded safety-relevant fields (finding-7). The HZ-004 note "RF needs both TX_KEY and PA_EN through the hardware gate" is true at the gate; finding-10 is about the write path | Verified, except finding-10 (new) and finding-7 (lien) |
+| `bb5dee7`, section 8.10 | Every row restated for A5 only; rows split | See the table below | See below |
+| `bb5dee7`, section 8.12 | Work plan rows for A5; CR-003 and CR-006 | WP-PDR-16, 17: HZ-003 K9 on the sink (120 to 123 C at the trip against 175 C), HZ-004 K8 with PA_EN and the NAND, the REQ-TX-014 note, HZ-008 K7 on route R3. WP-PDR-22: the key-up case with the D-18 gate and its level-interface fix. WP-PDR-35, 41: threshold 5.0 kHz, ratio refresh, DIED as disagreement, lock status before PA_EN, PA_EN only after the counted agreement. WP-PDR-36: pin map with GPIN0, GPIN1, PA_EN and the analog shortfall. None of them carries finding-4's channel-identity provision or finding-7's guarded fields (liens) | Verified, liens noted |
+
+### The A5-only rows of section 8.10 against the controls
+
+A script comparison of the row keys of section 8.10 at `3b93de1` and at `bb5dee7` shows that no row was dropped. Four rows were split: REQ-SYS-013 from 017 and 018; REQ-TX-005 added to 014 and 015; REQ-TX-014 on its own row; REQ-SYS-181 on its own row, merged with the revision 6 "REQ-SYS-181 (revision 6)" row.
+
+| Row | Control | What revision 8 says for A5 | Result |
+|---|---|---|---|
+| REQ-SYS-182, 154 | Frequency check before PA_EN (HZ-008 K7) | Route R3 kept; threshold 5.0 kHz; interval 12 before PA_EN, 13 during transmission; 4 518 / 2 518 Hz healthy disagreement; fault ended in 46 ms; the squaring stage lien, with a failure to count read as DIED; the no-TCXO widening only as a revisit condition | Carried (the figures are the ones iteration 2 re-ran) |
+| REQ-SYS-160, 161 | Key-down sequence | 13 ms against 15 ms; the check ends at t0 + 7 ms, before PA_EN | Carried |
+| REQ-SYS-055, 120, 180, 092 | Cutoff, two conditions, backstop, USB inhibit (HZ-004 K5, K8, K12) | PA_EN written only by the safe-state manager from its separately maintained flag; NAND with TX_KEY and Q unpowers the GVA-84+ and clamps the VGG; "the clamp alone holds REQ-SYS-120"; CLK1 enable is not a condition | Carried; finding-10 on the write path |
+| REQ-TX-014 | Key-up level (transmitter half of REQ-SYS-120) | Restatement and HZ-004 note unchanged from revision 6; about -61 dBm rests on the unpowered driver; finding-9 lien named, due before the re-baseline CR carries the restatement | Carried with the finding-9 lien |
+| REQ-SYS-181 | Firmware-independent cut-off (HZ-003 K9) | Sink NTC on LM393 #1, routed apart from the ADC path; acts with the module channel at about 120 to 123 C against 175 C; the A4 tab-copper wording removed | Carried (finding-2 part (1) for A5) |
+| REQ-SYS-112 with REQ-SYS-118 | Thermal inhibit (HZ-003 K2) | About 81 C at the flange NTC, or a firmware duty limit that refuses a new key-down above 79.4 C "on a sink NTC", final value after the bench offset measurement | Carried; finding-5 lien (the all-adverse setpoint, 71.7 C for A5-DC in `inhibit.csv`, is not stated, and the duty-limit form still changes REQ-SYS-118's "cease RF within 100 ms"); finding-11 new |
+| REQ-SYS-156 | Forward-power plausibility | Bound on the open-loop case at the D-9 pack-dependent clamp; mid-ramp check on a late relay contact | Carried |
+| REQ-SYS-183 | RF-off level | Key-up sequence and the D-18 gate | Carried (depends on finding-9) |
+| REQ-SYS-014, 015, REQ-TX-005 | Keying envelope | Closed VGG loop with D-9 and D-10; first element passes only at RSS | Carried (mission-critical units; finding-7 on their stored data) |
+| REQ-SYS-163 | Menu override command path | Unchanged: the ALT-hold key-mode path uses the buttons only | Carried; finding-6 lien (no confirmation) |
+| REQ-SYS-144 | Stored calibration | The per-unit feedforward calibration is stored calibration | Carried; ties to finding-7 (guarded fields) |
+| REQ-SYS-013 (new row) | Load ruggedness | Kept on the module's VSWR 20:1 rating, with no SWR fold-back | No firmware control added or removed |
+| REQ-SYS-083, 084, 085 | Pack protection | Unchanged | Carried |
+
+### Cross item X-20: the analog input shortfall (finding-4 status)
+
+INSP-110 finding-27 takes the count and cost part. The safety part stays here. Revision 8 section 8.1 note 4 now says the pin map needs a multiplexer, a shared channel or a changed allocation, and the WP-PDR-36 row carries the shortfall. The facts: `power-tree-and-charging.md` F14 gives four external ADC channels (GPIO26 to 29), and the Pico 2 uses GPIO29 for VSYS/3, so three are free. The re-issued diagram and D-10 need eight analog signals.
+
+Three of the eight are inputs of safety-critical units: the flange NTC (REQ-SYS-118, SW-SAFE thermal unit), the ALC detector (REQ-SYS-156) and the cell voltage (the low-voltage transmit prerequisite). There are exactly three free direct channels. So the provision finding-4 asked for is possible without a design change: put those three on GPIO26 to 28. Put the two pots, the AGC envelope, the cell NTC (which also has the LM393 #2 hardware trip) and the D-10 trim channel behind the multiplexer, and read a known reference channel on each multiplexer scan. If the duty-limit option of D-6 is chosen, its NTC takes the flange NTC's direct pin. Revision 8 states none of this, and neither does the WP-PDR-36 row. **finding-4 stays Open (lien).** It is due with INSP-110 finding-27, before the WP-PDR-36a pin map freezes. The request to WP-PDR-36a and WP-PDR-35 is: the three safety readings on direct pins, the reference-channel identity check, and the scan time against the 20 Hz thermistor rate and the per-element trim capture.
+
+### Cross item X-17: one GPIO register write and HZ-004 K8 (finding-10)
+
+07 section 14.2 row i says RF needs "a keyer key-down AND the separately maintained PA-permit flag", so that "a single GPIO write or a single corrupted flag cannot produce RF". HZ-004 K8 carries the same two conditions. Revision 8 draws TX_KEY and PA_EN as two RP2350 GPIO outputs. The concept design rules are "GPIO via SIO" and no PIO except an optional I2S program (`docs/design/concept.md` line 230). So both pins are bits of the same SIO output register. On the RP2350, as on the RP2040, one store to `GPIO_OUT`, `GPIO_OUT_SET` or `GPIO_OUT_XOR` changes every bit it names (datasheet SIO chapter, recalled by the reviewer and not re-read; Low). One wrong store therefore raises both lines, and the NAND then releases the clamp and powers the driver. The flag behind PA_EN is stored with its complement, but that protects the flag, not the pin.
+
+Other conditions do stand between that write and RF in most states: CLK1 must be running (an I2C setting, off in receive), the envelope reference and feedforward PWM must be above 0, and the relay must be in transmit. The 7.5 to 13 s monostable also bounds any key-down. So the hazard stays controlled, and this is Minor. But the study does not make that argument, and the menu sentence that revision 8 adds ("never writes PA_EN") does not address a single register write. See finding-10.
+
+### Cross item: the WP-PDR-22 D-18 fix run (`078f2f7`, not reviewed)
+
+WP-PDR-22 committed a PA-permit gate fix and an A5 key-up rerun at `078f2f7`, with a new analysis record `docs/design/analysis/pa-permit-gate-d18.md` revision 0 (blob `b8361270`). The commit message says it closes the D-18 lien as analysis. It replaces the NAND with a 3.3 V AND and two open-collector stages to the 5 V bus, and reports 52 key-up corners passing. No review record of it exists at HEAD (`git grep pa-permit-gate-d18 -- docs/reviews` is empty). As the brief directs, finding-9 is **not** verified on it here. finding-9 closes when that record is reviewer and assurance APPROVED and a TS-012 or ADR-056 revision adopts the fix. The fix also changes the gate type that TS-012 D-18 and section 8.1 name ("3-input NAND", "74LVC1G10-class"). Its stated cost (USD +0.63 to 0.91 in row E5 (g)) is larger than A5's USD 0.17 margin after guards G1 and G2, which is INSP-110's lens. Cross item X-12.
+
+### Status of the liens (finding-4 to finding-9)
+
+- **finding-4** (analog inputs, channel identity): Open, lien. Count and shortfall now stated (note 4, WP-PDR-36 row). The safety provisions are still absent; the X-20 section above gives the allocation.
+- **finding-5** (thermal inhibit setpoint, duty-limit form): Open, lien. For A5 the 8.10 row gives "about 81 C" but not the all-adverse value (71.7 C, `inhibit.csv` A5-DC). The duty-limit form still refuses a new key-down rather than ending RF within 100 ms, with no REQ-SYS-118 wording for it. The A4 part is moot since the decision.
+- **finding-6** (ALT-hold without confirmation; decoder in the override path): Open, lien. Section 8.7 is unchanged on both points.
+- **finding-7** (stored keying data as guarded fields; A4 open loop): Open, lien, for the guarded-field part. Section 8.7 now lists the feedforward table, stored trim and calibrations, and REQ-SYS-144 names the stored calibration, but none of them is in the configuration guard's field list. The A4 open-loop part is moot since the decision. For A5 the open-loop case is bounded by the D-9 clamp and REQ-SYS-156, and WP-PDR-22 carries its rerun.
+- **finding-8** (commit trailers): product part done. `6497900`, `5819220`, `5f84770` and `bb5dee7` each pass `check_commit_msg.py` with `Refs:`. The lead SE part is still open: none of the five iteration 1 hashes, nor `dd39a64` (X-11), is in `docs/cm` outside the CR-012 and CR-015 listings (X-9).
+- **finding-9** (D-18 gate level interface, unpowered state, fallback timing): Open, lien. It is carried in 8.1 note 2, row E5 (g), the 8.10 REQ-TX-014 and REQ-SYS-120 rows and the WP-PDR-22 row. The fix run exists but is not reviewed (X-12).
+
+### New findings (iteration 3)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-10"></a>finding-10 | assurance (INSP-110 X-17; the D-18 design dates from revision 6 and is restated for A5 in revision 8 sections 8.1, 8.7 and 8.10) | Minor | SA-C-i, `swe-134 7.1 task 6` | TS-012 section 8.1 diagram ("TX_KEY, PA_EN (both 4.7 k pull-down)"); section 8.7 ("never writes PA_EN" and the HZ-004 note); section 8.10 rows REQ-SYS-055, 120, 180, 092 and REQ-TX-014 (HZ-004 note: "a single stuck or corrupted line ... produces no RF"); section 8.14 D-18 | **The two conditions of REQ-SYS-120 are independent at the gate but not on the write path, so the claim that a single GPIO write cannot produce RF is not shown.** TX_KEY and PA_EN are both SIO outputs (concept design rule "GPIO via SIO"). One store to the SIO output register can raise both (see the X-17 section). The study's HZ-004 note covers a stuck line and a corrupted flag, not one wrong register store. Other conditions (CLK1 on over I2C, PWM reference above 0, relay in transmit, the 7.5 to 13 s monostable) mean the hazard stays controlled. But they are not stated as part of the K8 argument, and in an over after SW-SAFE has cleared PA_EN, CLK1 and the relay may still be in their transmit state. **Fix (either one, no cost or cents):** (a) drive PA_EN from a different mechanism than the SIO register that holds TX_KEY, for example a permit that toggles on a PWM slice into a small hardware detector (a charge pump or retriggerable monostable) in the D-18 gate, so that a static write cannot hold the permit; or (b) state in the HZ-004 note and in HZ-004 K8 which further conditions a single SIO store cannot set (CLK1 by I2C, the PWM reference, the relay), and give WP-PDR-35 a rule that TX_KEY and PA_EN are never written by the same store. Route to WP-PDR-16b (K8 wording), WP-PDR-35 and 36a (pin and write rule) and the `pa-permit-gate-d18.md` review (option (a) changes that gate) | Open (lien, rule C1; owner the TS-012 author with WP-PDR-16b, 35, 36a and 22; due at the CDR readiness declaration, and before the re-baseline CR carries the REQ-TX-014 HZ-004 note) | Pending | |
+| <a id="finding-11"></a>finding-11 | assurance (introduced by revision 8: section 8.1 note 1 and the section 8.10 REQ-SYS-112 row put the duty-limit option into the A5 design on "a sink NTC") | Minor | SA-C-i, `swe-134 7.1 task 6`, `swe-080 7.1 task 1` | TS-012 section 8.1 note 1; section 8.10 row REQ-SYS-112 (REQ-SYS-118 text); section 8.3 row 26 ("Cell NTC; sink NTC for the REQ-SYS-181 backstop"); section 8.14 D-6 | **The duty-limit option reads "a sink NTC", and the only sink NTC in the A5 BOM is the REQ-SYS-181 backstop's.** Row 26 buys two NTCs: the cell NTC and the sink NTC of the backstop. The flange NTC of the preferred form is row E5 (e). If the duty-limit form were built on the backstop's thermistor, one sensor reading cold would defeat both the REQ-SYS-118 firmware control (HZ-003 K2) and the firmware-independent cut-off (K9). That is the thermistor-failure branch that 07 section 14.2 row i says is bounded only by REQ-SYS-181. Tying the ADC to the backstop node would also break "routed apart from the ADC path" in the same note. The preferred form (flange NTC) keeps them on separate sensors, so the design as recommended is sound. Hence Minor. **Fix:** in note 1, the 8.10 row and D-6, state that the duty-limit form uses its own sink NTC (a third 103AT-2, USD 0.58, row 26 price), separate from the REQ-SYS-181 thermistor and its comparator; give the REQ-SYS-118 wording that form needs (finding-5); and send the separate-sensor rule to WP-PDR-28 and WP-PDR-16b (HZ-003 K2 and K9) | Open (lien, rule C1; owner the TS-012 author with WP-PDR-28 and WP-PDR-16b; due at the CDR readiness declaration, and before the D-6 form is chosen) | Pending | |
+
+No other defect was found under the lens in the revision 7, editorial and revision 8 hunks listed above.
+
+### Findings (iteration 3; current state of every finding of this record)
+
+| Finding | Severity | State at iteration 3 | Evidence |
+|---|---|---|---|
+| finding-1 | Major | **Verified** (iteration 2); A5 content carried in 8.1, 8.10 REQ-SYS-182, 154, 160, 161 and D-17 | Tables above |
+| finding-2 | Major | **Verified** (iteration 2); A5 content carried in 8.1 note 1 and the REQ-SYS-181 row | Tables above |
+| finding-3 | Major | **Verified** (iteration 2); A5 content carried in 8.1, 8.7 and the REQ-SYS-120 and REQ-TX-014 rows | Tables above; write path is finding-10 |
+| finding-4 | Minor | Open, lien | X-20 section |
+| finding-5 | Minor | Open, lien (A4 part moot) | Status list |
+| finding-6 | Minor | Open, lien | Status list |
+| finding-7 | Minor | Open, lien (guarded fields; A4 open-loop part moot) | Status list |
+| finding-8 | Minor | Open, lien (lead SE part) | Status list |
+| finding-9 | Minor | Open, lien; fix run `078f2f7` not reviewed | X-12 |
+| finding-10 | Minor | Open, lien (new) | Table above |
+| finding-11 | Minor | Open, lien (new) | Table above |
+
+Liens (rule C1): finding-4 to finding-11, owner the TS-012 author with the work packages named in each (finding-8: the lead SE), due at the CDR readiness declaration unless an earlier event is named, each closed by a delta of this record on its fix or by an owner deferral.
+
+### Task table and checklist items changed at iteration 3
+
+| Id | Iteration 2 | Iteration 3 | Evidence |
+|---|---|---|---|
+| SA-C-i | Yes | No | finding-10 (one register store raises both conditions); finding-11 (one sensor for K2's duty-limit option and K9) |
+| swe-134 7.1 task 6 | No | No | finding-5 remains; finding-10 and finding-11 added |
+| swe-080 7.1 task 1 | No | No | findings 5, 7 and 9 remain; finding-11 added |
+| swe-134 7.1 task 4 | No | No | finding-4; the A5 allocation is possible (X-20 section) but not stated |
+| SA-D1 | Yes | Yes | Common-cause faults: finding-11 added to the one-sensor case; the preferred D-6 form keeps K2 and K9 apart |
+
+Other rows and items keep their iteration 2 answers.
+
+### Readiness (iteration 3)
+
+| # | Result | Evidence |
+|---|---|---|
+| R1 | Yes | Revision 8 committed and frozen at `bb5dee7`, blob `b9333386`, equal at HEAD `556bbcf` and in the working tree; INSP-110 iteration 3 re-issue 3 (`8d5bc0a`) names the same blob in `product_files` and `product_blob` |
+| R2 | Yes | Unchanged: `trade-study-or-adr`, safety-critical |
+| R3 | Yes | `validate_docs.py`: 111 passed, 6 failed before the edit (HEAD `556bbcf`); 112 passed, 5 failed after it (HEAD `23e2388`, where another agent's INSP-034 re-pin made `configuration-status.md` pass), with this record PASS both times. The 5 are `cm-plan-05-software-assurance.md`, `lessons-learned.md` (PDR) and `adrs-001-to-025.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md` (SRR), none related to TS-012. TS-012, INSP-110 and this record are unchanged between the two HEADs. Before the edit this record passed with a drift note (pinned `0c9fcb96` against HEAD `b9333386`), which the re-pin removes. `traceability.py --report-only --output <scratchpad>`: "245 requirements, 173 test cases, 0 violation(s), 2 warning(s)" (REQ-SYS-125 and 148); `docs/vv` unchanged |
+| R4 | Yes | Unchanged: separate invocation from the author, from the INSP-110 reviewers and from the author of `pa-permit-gate-d18.md` |
+
+### Cross items (iteration 3, returned to Claude as lead SE)
+
+- **X-12 (WP-PDR-22 and the lead SE).** `078f2f7` (D-18 fix run and `pa-permit-gate-d18.md` revision 0) has no review record. Assign its reviewer and assurance pair. finding-9 of this record and INSP-110 finding-24 are verified on the fix only after that review is APPROVED and a TS-012 or ADR-056 revision adopts the gate it describes. That review should also weigh finding-10 option (a), because a toggling permit changes the same gate.
+- **X-13 (INSP-110 reviewer; its X-21).** INSP-110 at `8d5bc0a` holds `assurance_verdict: pending`. It copies `assurance_verdict: APPROVED` from this iteration on blob `b9333386`. This record's `verdict` stays NEEDS CHANGES until CR-012 merges with template blob `5b135285` unchanged.
+- **X-14 (ADR-056 review, WP-PDR-54).** ADR-056 (`66f6123`, Proposed) records the A5 design with D-6, D-17 and D-18. Its independent review and assurance pair (not yet assigned) should carry this record's open liens finding-4 to finding-11, because the ADR, not TS-012, is the record that later work cites.
+- **X-15 (requests to writers).** finding-10: WP-PDR-16b (HZ-004 K8 wording), WP-PDR-35 and 36a (the write rule or a different permit mechanism). finding-11: WP-PDR-28 (separate NTC for the duty-limit form) and WP-PDR-16b (HZ-003 K2 and K9). finding-4: WP-PDR-36a and 35 (the three safety readings on direct ADC pins, the reference-channel check), together with INSP-110 finding-27.
+- **X-9, X-10:** still open (finding-8's lead SE part; the AFT05MS004N datasheet in the reference corpus index, now of use only for the A4 record trail).
+
+### Commands (iteration 3)
+
+- `git rev-parse HEAD:<path>` and `git hash-object <path>` for TS-012: `b9333386` each; `git log --oneline bb5dee7..HEAD -- <path>`: empty; `git log --oneline -6 -- <path>`: `bb5dee7`, `5f84770`, `5819220`, `6497900`, `3b93de1`, `37d5824`.
+- `git diff 3b93de1 6497900`, `git diff 6497900 5f84770` (with `--word-diff=plain`, nine pronoun substitutions) and `git diff 5f84770 bb5dee7` on TS-012 to scratchpad files, read hunk by hunk.
+- Section 8.10 row keys extracted at `3b93de1` and `bb5dee7` with `awk` and compared with `diff`: no row dropped, four split.
+- `grep` on `hazards.json` (HZ-004 K8), `07-software-engineering-plan.md` ("single GPIO write", section 14.2 row i), `concept.md` (lines 226 and 230), `power-tree-and-charging.md` F14, `thermal-ts012.md` (duty limit S = 79.4 C), `inhibit.csv` (A5-DC setpoints 86.7, 83.7, 80.9 C), ADR-056 header.
+- `git show --stat 078f2f7` (message and file list only); `git grep -l pa-permit-gate-d18 -- docs/reviews`: empty.
+- `.venv/bin/python tools/check_commit_msg.py --range <c>^..<c>` for `6497900`, `5819220`, `5f84770`, `bb5dee7`: PASS each.
+- `git merge-base --is-ancestor 7784672 main`: false; `git rev-parse cr/CR-012-pdr-checklist-templates:docs/templates/peer-review-checklist-software-assurance.md`: `5b135285`.
+- `.venv/bin/python tools/traceability.py --report-only --output <scratchpad>/trace-insp118-it3.md`: 0 violations. `.venv/bin/python tools/validate_docs.py`: 111 passed, 6 failed before the edit; 112 passed, 5 failed after it (an unrelated record fixed by another agent in between); this record PASS.
+
+### Visual closure (iteration 3)
+
+No figure that this lens relies on changed between revisions 6 and 8. The thermal run `2026-09-28-ts012-r2` and the frequency-budget note are unchanged, and the iteration 1 figures still apply. The receiver figure that revision 8 cites (`temperature_residual.png`) is outside this lens and is INSP-110's and INSP-117's. The `078f2f7` plots were not opened, because that run is not reviewed here.
+
+### Measurements (iteration 3)
+
+Delta scope: 4 commits, 374 changed lines, 11 hunk groups checked; 13 section 8.10 row groups checked against their controls; 6 liens re-statused; 2 cross items answered (X-17, X-20); 1 unreviewed fix run recorded (X-12). Findings: 3 Major stay Verified; 6 Minor liens carried (2 with their A4 part moot); 2 new Minor (finding-10, finding-11). Checklist rows re-answered: 5 (1 to No, 4 unchanged with new evidence). Effort for iteration 3: 34 turns, about 65 minutes (cumulative 114 turns, 230 minutes).
+
+### Verdict (iteration 3)
+
+```
+ASSURANCE VERDICT: APPROVED (iteration 3; record verdict held, see front matter)
+PRODUCT: docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@b9333386 at bb5dee7 (revision 8); PAIRED RECORD: INSP-110
+PRODUCT TYPE: trade-study-or-adr; CRITICALITY: safety-critical
+FINDINGS:
+- [Major] finding-1 to finding-3: stay Verified; their A5 content is carried by the re-issued 8.1, 8.7, 8.10 and D-17, D-18.
+- [Minor] finding-4 to finding-9: liens. finding-4: 3 free ADC channels against 8 signals; the 3 safety readings fit the 3 direct pins, not yet stated. finding-9: fix run 078f2f7 not reviewed, not verified here.
+- [Minor, new] finding-10: TX_KEY and PA_EN are bits of one SIO register; one store can raise both; the K8 "single GPIO write" claim is not shown (INSP-110 X-17).
+- [Minor, new] finding-11: the duty-limit option reads "a sink NTC", and the only sink NTC is the REQ-SYS-181 backstop's; a shared sensor would defeat K2 and K9 together.
+TASKS APPLIED: as iteration 1 (17); No at iteration 3: swe-134 t4, t6, swe-080 t1, t2 (liens)
+SWE-134 ITEMS CHECKED: a, b, c, d, e, f, g, h, i, j, k, l
+MEASUREMENTS: iteration 3 turns=34; minutes=65; major=3 (verified 3); minor=8 (liens 8)
 ```
