@@ -9,6 +9,10 @@
 # only on branch cr/CR-013-process-04-07-semp-srr-liens (lead SE convention of 2026-09-27, INSP-031 practice).
 # Scope: the CR-013 hunks (git diff 5cd87cf 41c588c). The CR-010 hunks (git diff ab2af2d 5cd87cf) are reviewed by
 # INSP-037 and INSP-050 and are not re-reviewed here.
+# Re-pin delta (2026-09-29, lead SE ruling (2); section "Re-pin delta" at the end): no CR file is in product_files (the
+# CR-013 file is an input_files entry, which the record drift rule does not read), so nothing is dropped; the 07 blob is
+# unchanged at the CR-013 head 1a486e4. The pair fields now name INSP-073. Iteration stays 1: a re-pin delta is not a new
+# review iteration (INSP-003 convention).
 id: INSP-059
 checklist: peer-review-checklist-requirements
 checklist_revision: C
@@ -24,36 +28,44 @@ author_agent: "author:WP-PDR-13 (Claude, software lead as 07 author; CR-013 orig
 reviewer_agent: "reviewer:software-plan (new invocation for WP-PDR-13; authored no part of WP-PDR-13, CR-013 or CR-010)"
 criticality: safety-critical
 # assurance_required: true. 07 is the 07 section 2.1.1 "Software plans" Yes product and tools/validate_docs.py
-# ASSURANCE_WHOLE_PRODUCTS names it. The assurance reviewer is a separate invocation (rule C4); not yet assigned
-# (SA pair needed: the PDR delta of INSP-018, filed as software-plan-07-software-assurance.md, verifying INSP-018
-# finding-8, finding-9 and finding-11 on this blob).
+# ASSURANCE_WHOLE_PRODUCTS names it. The assurance reviewer is a separate invocation (rule C4). At iteration 1 it was
+# not yet assigned. Re-pin: the paired record INSP-073 (docs/reviews/PDR/checklists/software-plan-07-software-assurance.md,
+# filed at 9403999, the PDR delta of INSP-018) is copied here as filed: paired_record, assurance_reviewer_agent and
+# assurance_verdict (07 section 10.2 Record row; 01 section 13 paired_record)
 assurance_required: true
-assurance_reviewer_agent: "not yet assigned (SA pair needed; paired record to be filed as docs/reviews/PDR/checklists/software-plan-07-software-assurance.md)"
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-13-software-plan (paired record INSP-073, software-plan-07-software-assurance.md)"
+paired_record: INSP-073
 iteration: 1
-# readiness_met: false. R1 fails at 41c588c (validate_docs 43 passed, 7 failed, all record drift that CR-013 states);
-# true at the CR-013 section 5 step 5 head after the SRR record deltas
-readiness_met: false
+# readiness_met: true at the re-pin (was false). R1 failed at 41c588c (validate_docs 43 passed, 7 failed, all record drift
+# that CR-013 states) and was to become true after the SRR record deltas. Those are on the branch (CR-013 step 4b, head
+# 1a486e4), where validate_docs gives 50 passed of 50; R2 to R5 unchanged (Yes)
+readiness_met: true
 # reviewer_verdict: APPROVED. Every INSP-010 lien in scope is Verified or, for finding-15, correctly recorded as open;
 # no Major; three new Minor findings are liens due the CDR readiness declaration (plan rule C1)
 reviewer_verdict: APPROVED
-# assurance_verdict: the paired assurance record is not yet filed (SA pair needed)
-assurance_verdict: NEEDS CHANGES
+# assurance_verdict: as the paired record INSP-073 states it (iteration 1, 9403999: assurance_verdict APPROVED, 0 Major,
+# 1 Minor lien). At iteration 1 it was NEEDS CHANGES because the pair was not filed
+assurance_verdict: APPROVED
 # verdict: held at NEEDS CHANGES (a) until the paired assurance record is APPROVED (07 section 10.2) and (b) while the
-# reviewed blob is on the CR branch only; set APPROVED at or right after the CR-013 merge with blob 0ad37a43 unchanged
+# reviewed blob is on the CR branch only; set APPROVED at or right after the CR-013 merge with blob 0ad37a43 unchanged.
+# Re-pin: hold (a) is met (INSP-073 assurance_verdict APPROVED); hold (b) remains
 verdict: NEEDS CHANGES
 findings_major: 0
 findings_minor: 3
-findings_open: 3
+# re-pin: counts reconciled with the finding tables. The Lien table is the last row of each finding, and it reads
+# "Lien" (plan rule C1), so the three Minor findings are counted as deferred, not open (was open 3, deferred 0)
+findings_open: 0
 findings_fixed: 0
 findings_verified: 0
-findings_deferred: 0
+findings_deferred: 3
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [R1, CK-REQ-G2, CK-REQ-G7]
-effort_turns: 22
-effort_minutes: 35
+# effort: iteration 1 22 turns, 35 minutes; the re-pin delta adds 6 turns, 12 minutes
+effort_turns: 28
+effort_minutes: 47
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -153,4 +165,43 @@ VERIFIED: INSP-010 finding-14, 16, 17, 18, 20, 22; finding-15 open row correct (
 SA PAIR NEEDED: docs/reviews/PDR/checklists/software-plan-07-software-assurance.md (INSP-018 finding-8, 9, 11)
 ITEMS N/A: CK-REQ-A1 to A7, sections B to F; CK-REQ-G5
 MEASUREMENTS: size=23 sections, 14 change items; items checked=R1 to R5, A8, G1 to G8 plus 11 delta rows; items no=R1, G2, G7; major=0; minor=3; verified liens=6 (INSP-010); turns=22; minutes=35; iteration=1
+```
+
+## Re-pin delta (2026-09-29, lead SE ruling (2); reviewer, new invocation)
+
+**Why.** Lead SE ruling (2) of 2026-09-29: every record re-pin drops a CR file from `product_files` when the CR sections it reviewed are unchanged, and otherwise makes a delta. This record is one of the CR-013 records whose verdicts are set in the CR-013 merge commit (lead SE ruling (3)). Its front matter also carried `findings_open: 3`, `readiness_met: false` and an unassigned assurance pair, which no longer matched its own tables, its readiness condition and the filed pair. This delta re-pins and reconciles the record. It re-reviews no product text and changes no finding.
+
+**Independence (rule C4) and search first (rule C3).** A new invocation of this record's reviewer role for WP-PDR-55. It authored no part of WP-PDR-13, CR-013 or CR-010 (any section), the branch commits, INSP-073 or iteration 1 of this record, and edited no product file. It is not a software assurance invocation: it copies INSP-073's verdict as filed and rules on nothing in that record. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`. The rustos repository was not read.
+
+**Product blob.** `docs/process/07-software-engineering-plan.md` is `0ad37a43` at `41c588c`, at the CR-013 head `1a486e4` (`git log 41c588c..1a486e4` on the path is empty) and on a trial `git merge --no-ff` of CR-010 (`7963f78`) then CR-013 (`1a486e4`) into `main` `9fda694` (detached scratch worktree, removed after use). `main` has not changed the path since `ab2af2d`. INSP-037 now names the same blob (its re-pin delta, lead SE ruling (3)).
+
+**CR file.** `product_files` names no CR file. The CR-013 file (read at `560fe69a`, now `fef1f9d9` on `main`) is an `input_files` entry, which the record drift rule does not read, so later CR-013 record-text edits cannot make this record drift. Nothing is dropped.
+
+**Assurance pair.** INSP-073 (`docs/reviews/PDR/checklists/software-plan-07-software-assurance.md`, commit `9403999`) is filed with `paired_record: INSP-059`, `assurance_reviewer_agent` "sa-reviewer:WP-PDR-13-software-plan", `assurance_verdict: APPROVED`, `product_files` equal to this record's (07 `0ad37a43`), 0 Major and 1 Minor finding (a lien due the CDR readiness declaration). This record now carries `paired_record: INSP-073`, that assurance reviewer and `assurance_verdict: APPROVED`, copied as filed. Hold (a) of iteration 1 is met.
+
+**Readiness.** Iteration 1 set R1 to become Yes after the SRR record deltas. They are on the branch (CR-013 section 5 step 4b: INSP-021 and INSP-005 at `8d9efdf`, INSP-010 at `b6cc8f8`, INSP-018 at `1a486e4`, the CR-010 records by the merges `eff05e0` and `3aab75b`). At `1a486e4`: `tools/validate_docs.py` 50 passed of 50 (R1 Yes); `tools/traceability.py --report-only` 245 requirements, 173 test cases, 0 violations, 2 warnings (R2 Yes, unchanged). R3 to R5 are unchanged. `readiness_met` is set true.
+
+**Counts.** The Lien table is the last row of each finding and reads "Lien" (plan rule C1). The three Minor findings are therefore liens, counted in `findings_deferred` (3), and `findings_open` is 0.
+
+**Checks run on this record.** `tools/validate_docs.py` on `main` with this record in the working tree: PASS (drift of the branch-only blob printed as a note). A scratch copy on the trial merge: PASS with no drift note, and PASS again with `verdict: APPROVED` (117 passed of 117). The scratch copy was discarded.
+
+### Findings (re-pin delta; current state of every finding of this record)
+
+| Finding | Severity | State | Note |
+|---|---|---|---|
+| finding-1 | Minor | Lien: fix before the CDR readiness declaration (plan rule C1) | Unchanged at `0ad37a43` |
+| finding-2 | Minor | Lien: fix before the CDR readiness declaration | Unchanged at `0ad37a43`; INSP-073 concurs (INSP-018 finding-8 remainder) |
+| finding-3 | Minor | Lien: fix before the CDR readiness declaration | Unchanged at `0ad37a43` |
+
+Open Major: 0. New findings: 0.
+
+### Record verdict
+
+**Reviewer verdict: APPROVED** (liens finding-1 to finding-3). `assurance_verdict` APPROVED, copied from INSP-073. `readiness_met` is true. The record `verdict` stays **NEEDS CHANGES** while blob `0ad37a43` exists only on the CR branch (hold (b)). The software lead sets `verdict: APPROVED` in the CR-013 merge commit (or the commit right after it) when `git rev-parse HEAD:docs/process/07-software-engineering-plan.md` is `0ad37a43`. A changed blob needs a delta of this record and INSP-073 first.
+
+```
+RE-PIN DELTA (2026-09-29): reviewer APPROVED (liens finding-1 to finding-3); assurance APPROVED (INSP-073, as filed); record verdict NEEDS CHANGES (held for the CR-013 merge); readiness_met true
+PRODUCT: 07 0ad37a43, unchanged (41c588c, 1a486e4, trial merge); no CR file pinned
+COUNTS: findings_open 3 -> 0, findings_deferred 0 -> 3 (liens); no new finding; open Major 0
+MEASUREMENTS: tool runs=4; turns=6; minutes=12; cumulative turns=28, minutes=47
 ```
