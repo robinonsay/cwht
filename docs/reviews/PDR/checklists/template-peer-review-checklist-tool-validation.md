@@ -12,9 +12,15 @@ checklist: peer-review-checklist-requirements
 checklist_revision: C
 checklist_file: docs/reviews/PDR/checklists/template-peer-review-checklist-tool-validation.md
 product: docs/templates/peer-review-checklist-tool-validation.md
-# product_commit: iteration 2 delta at the branch head 7784672 (iteration 1: ac9b7a5)
-product_commit: "778467249fe42d59706e3c4beb7bcb893d7b2671"
-product_files: ["docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900", "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4", "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921", "docs/process/08-agent-briefing.md@56c540113110b0d8916219d3cb531d6a76587713", "docs/cm/cr/CR-012-pdr-checklist-templates.md@91c8c6261a4b2bd9b3d789676c1188b54f022ddd"]
+# product_commit: iteration 2 delta at the branch head 7784672 (iteration 1: ac9b7a5). Iteration 3 (delta, 2026-09-29,
+# CR-012 pre-merge check 2): the CR-015 branch head 7efd900 (base 7784672), which holds the combined 08 blob and the
+# three template blobs unchanged
+product_commit: "7efd900b4011a7959f99bef00cba3a0b732cf8b1"
+# product_files iteration 3: 08 56c54011 replaced by 374fd777 (git rev-parse 7efd900:<path>, the blob main holds after
+# the CR-015 merge). The CR file entry "docs/cm/cr/CR-012-pdr-checklist-templates.md@91c8c6261a4b2bd9b3d789676c1188b54f022ddd"
+# is dropped (CR-012 IR-F5; INSP-060 precedent at fd12ced): the CR file is a record on main appended at each lifecycle
+# step, so a pinned blob never equals HEAD after the merge (section "Iteration 3"). The three template blobs are unchanged.
+product_files: ["docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900", "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4", "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921", "docs/process/08-agent-briefing.md@374fd777b1f05e408c133ed1f222b6cb90865114"]
 product_size: 1 template (257 lines, sections R, A to H, per-record and per-purpose tables)
 sprint: PDR-prep
 author_agent: "author:WP-PDR-03 (Claude as checklist owner)"
@@ -24,15 +30,19 @@ reviewer_agent: "reviewer:WP-PDR-03-templates"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 2
+# iteration 3: delta for the CR-012 and CR-015 merge batch (CR-012 section 9 pre-merge check 2, record delta 3)
+iteration: 3
 readiness_met: true
-# reviewer_verdict: APPROVED at iteration 2 (finding-1 and finding-2 Verified; finding-3 Minor lien, rule C1)
+# reviewer_verdict: APPROVED at iteration 2 (finding-1 and finding-2 Verified; finding-3 Minor lien, rule C1); unchanged at
+# iteration 3 (no new finding in this record; INSP-031 finding-3 covers this template's completion criteria)
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
 # verdict: held at NEEDS CHANGES on the completion criterion "validate_docs.py passes on the record" only.
 # The reviewed blobs are on the CR branch, not in main HEAD; tools/validate_docs.py fails an APPROVED record
 # whose product_files are not in HEAD (record drift rule; same hold as INSP-031). The software lead sets
 # APPROVED when CR-012 merges with these blobs unchanged (section "Iteration 2", "Record verdict")
+# Iteration 3: the 08 blob is now the CR-015 one, so the verdict is set in the CR-015 merge commit (or the commit right
+# after it), once git rev-parse HEAD:<path> equals all four product_files blobs
 verdict: NEEDS CHANGES
 findings_major: 2
 findings_minor: 1
@@ -49,9 +59,9 @@ deferred_rids: []
 # items_no: empty at iteration 2 (CK-REQ-G1 and CK-REQ-G7 were No on finding-1 and finding-2, now Verified;
 # CK-REQ-G8 was "Yes, with finding-3")
 items_no: []
-# effort: iteration 1 (16 turns, 30 min) plus iteration 2 delta (14 turns, 20 min)
-effort_turns: 30
-effort_minutes: 50
+# effort: iteration 1 (16 turns, 30 min) plus iteration 2 delta (14 turns, 20 min) plus iteration 3 delta (6 turns, 15 min)
+effort_turns: 36
+effort_minutes: 65
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -156,4 +166,39 @@ PRODUCT: cr/CR-012-pdr-checklist-templates at 7784672; peer-review-checklist-too
 FINDINGS: finding-1, finding-2 Major Verified; finding-3 Minor lien due CDR; no Major open
 ITEMS N/A: CK-REQ-G5
 MEASUREMENTS: blobs re-checked 5; probe records 2 (positive, negative control); new findings 0; iteration 2 14 turns, 20 minutes; cumulative 30 turns, 50 minutes
+```
+
+## Iteration 3: delta on the combined 08 blob and re-pin of the CR file (2026-09-29, `main` `1864ab2`, branch heads `7784672` and `7efd900`)
+
+**Why.** CR-012 pre-merge check 2 (CR-012 section 9, commit `1864ab2`) found that this record pins 08 at `56c54011`, which CR-015 replaces with `374fd777`, and the CR-012 file at `91c8c626`, which later steps have changed (now `5aa567d2`), so its verdict could not be set at the merges. The configuration manager asked this record's reviewer role for a delta (record delta 3).
+
+**Scope (rule C1).** A delta. The tool validation template blob `7be809d4` is unchanged (`git rev-parse 7efd900:docs/templates/peer-review-checklist-tool-validation.md`), and so are the other two templates. Only the 08 blob and the CR file pin change.
+
+**Independence (rule C4) and search first.** A new invocation of this record's reviewer role (`reviewer:WP-PDR-03-templates`). It authored no part of CR-012, CR-015, their branches or their earlier record deltas, and edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`.
+
+**08 hunks.** The six CR-015 hunks of `git diff 7784672 7efd900 -- docs/process/08-agent-briefing.md` are read in INSP-031 iteration 3 (the record that carries the checks shared by the three WP-PDR-03 records). None of them changes CR-012 text: the 11 lines CR-012 adds are present unchanged in `374fd777`, including the section 3.1 row "tool validation records (TV-NNN)" (line 86) and the section 3.5 row `peer-review-checklist-tool-validation.md` (line 160), and none of the 9 lines CR-012 removes comes back. For this template in particular: hunk 4 (08 section 3.2, lines 112 and 113) asks reviewers to name every reviewed file as `path@blob` and to hold the record verdict for branch-only blobs, which agrees with the template's Record paragraph (line 115) and R1 (line 141); hunk 5 (section 3.5 "Review record" paragraph) points the slug to 01 section 13, which at `53a9983c` lists `tool-validation-tv-nnn-<tool>`, the form the template names. Hunk 4 also brings the Minor-lien rule of 01 section 12.3 item 2, which this template's completion criterion (line 244) does not match; that is INSP-031 finding-3 (Minor, a lien due the CDR readiness declaration), not raised again here.
+
+**CR file (dropped from `product_files`).** This record reviewed the CR file at `91c8c626`. INSP-031 iteration 2 read `91c8c626` to `f689b05c` and INSP-031 iteration 3 read `f689b05c` to `5aa567d2`: sections 1, 2, 3 and 5 of CR-012 (the change description and the plan this record checked) are unchanged since `f689b05c`, and the later changes are front matter state, a section 4.1 listing paragraph and sections 6.2 to 11. The CR file is dropped from `product_files` and identified here as reviewed at `91c8c626`, with the later hunks read in INSP-031.
+
+### Findings (iteration 3; current state of every finding of this record)
+
+| Finding | Severity | State | Disposition |
+|---|---|---|---|
+| finding-1 | Major | Verified | Closed at iteration 2 on blob `7be809d4`; the blob is unchanged |
+| finding-2 | Major | Verified | Closed at iteration 2 on blob `7be809d4`; the blob is unchanged |
+| finding-3 | Minor | Lien: fix before CDR | Unchanged at `7be809d4` (TV-G3-3 still cites "07 section 9.4 item 3"). Owner: Claude as checklist owner; due the CDR readiness declaration |
+
+Open Major: 0. New findings in this record: 0 (INSP-031 finding-3 covers the completion criterion of this template).
+
+`tools/validate_docs.py` on `main` at `1864ab2` with this delta in the working tree: PASS on this record (drift of the branch-only blobs printed as notes). Verdict trial on a scratch trial merge of CR-012 then CR-015 into `main` at `39257a8`, with the iteration 3 deltas of INSP-031 to INSP-033 committed and `verdict: APPROVED` set: this record PASS with no drift note; 117 passed, 0 failed (details in INSP-031 iteration 3, "Checks run").
+
+### Record verdict (iteration 3)
+
+Reviewer verdict: APPROVED, with lien finding-3. Record `verdict` held at NEEDS CHANGES under the lead SE convention of 2026-09-27 until CR-012 and CR-015 have both merged; the software lead sets `verdict: APPROVED` in the CR-015 merge commit or the commit right after it. A later merge that re-blobs 08 (CR-017, batch 2) needs a further delta first.
+
+```
+DELTA ITERATION 3 (2026-09-29): VERDICT: APPROVED (reviewer); record verdict held until the CR-015 merge
+PRODUCTS: templates 7be809d4, 5b135285, 0386cc6e (unchanged); 08 56c54011 -> 374fd777 (CR-015 head 7efd900); CR-012 file dropped (reviewed at 91c8c626)
+FINDINGS: finding-1, finding-2 Major Verified; finding-3 Minor lien due CDR; new findings 0; open Major 0
+MEASUREMENTS: hunks=6 (read in INSP-031 iteration 3); turns=6; minutes=15; cumulative turns=36, minutes=65
 ```
