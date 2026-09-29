@@ -1,6 +1,6 @@
 # cwht PDR Work Plan
 
-**Author:** Claude, lead SE planner. **Date:** 2026-09-29. **Revision:** 4 (revision 3 committed at `67d00f3`; revision 2 committed at `ab2af2d` and approved by the owner on 2026-09-27, status note 2026-09-27 §4; revision 1 at `51600e8`; section 11 lists the changes). **Configuration read:** `main` at `2cf4402` (revision 3 read `6497900`, TS-012 revision 7: the owner's decision **A5**, status note 2026-09-29 §5), functional baseline `baseline/srr` on `779f93f`.
+**Author:** Claude, lead SE planner. **Date:** 2026-09-29. **Revision:** 5 (revision 4 committed at `0c1c449`, with editorial changes to `5f84770`; revision 3 committed at `67d00f3`; revision 2 committed at `ab2af2d` and approved by the owner on 2026-09-27, status note 2026-09-27 §4; revision 1 at `51600e8`; section 11 lists the changes). **Configuration read:** `main` at `5f84770` (revision 4 read `2cf4402`; revision 3 read `6497900`, TS-012 revision 7: the owner's decision **A5**, status note 2026-09-29 §5), functional baseline `baseline/srr` on `779f93f`.
 **Status:** Plan (Informational working product of the PDR phase). It is not a baselined item. It becomes an input to `docs/reviews/PDR/package.md` §1 (agenda) and §12 (milestones) and is updated by the lead SE when a wave closes.
 **Revision 3 in one paragraph.** On 2026-09-29 the owner chose TS-012 finalist A5 as the hand-built design: the Mitsubishi RA07M1317M module PA with the Epson TG2520SMN TCXO, the diode-ring mixer, the revision 6 design items D-1 to D-18, two JLCPCB 2-layer bare boards soldered by the owner, the printed PETG case with the Boyd sink as an end wall, a Morse-code audio menu instead of a display, and cells charged outside the radio. Revision 2 was written for the PCBWay turnkey design. Revision 3 re-plans the PDR for A5: section 3.0 gives the state of every work package (done, changed for A5, new, dropped) and governs where the revision 2 text of a work package differs; sections 4, 5.2, 5.3, 6.0 and 8 are re-issued; the schedule is now paced against the weekly usage limit (new rule C12, section 8). Revision 3 proposed PDR about Sat 10-10 (range Fri 10-09 to Tue 10-13); revision 4 replaces that date.
 **Revision 4 in one paragraph.** The independent review of revision 3 raised three Major findings. Revision 4 fixes them and only them; the Minor findings are held under rule C1.
@@ -10,7 +10,12 @@
   - TS-003, 006, 008, 009 and 010 are not written, because TS-012 and the A5 ADR decide them;
   - TS-004 and TS-011 are re-scored and TS-005 is written as a remnant, each reviewed under rule C9 and decided at S2;
   - SWR fold-back is closed at S1 on the module's 20:1 load ruggedness.
-- **MAJOR-3, dates.** Section 4.2 re-costs the chain from a Wed 09-30 start with durations that can be met. It is 14.0 working days to the readiness confirmation on Tue 10-13, followed by a two-day reserve. **Proposed PDR: about Fri 2026-10-16 (range Wed 10-14 to Tue 10-20).** There are still three owner decision sessions (S1 Sat 10-03, S2 Fri 10-09, S3 Tue 10-13), one bench session (Tue 10-06) and the review session.
+- **MAJOR-3, dates.** Section 4.2 re-costs the chain from a Wed 09-30 start with durations that can be met. It is 14.0 working days to the readiness confirmation on Tue 10-13, followed by a two-day reserve. Revision 4 proposed PDR about Fri 2026-10-16 (range Wed 10-14 to Tue 10-20), with S1 Sat 10-03, the bench session Tue 10-06, S2 Fri 10-09 and S3 Tue 10-13; revision 5 replaces those dates.
+**Revision 5 in one paragraph.** The independent delta review of revision 4 found MAJOR-2 closed and MAJOR-1 and MAJOR-3 partly closed, and raised three new Major findings. Revision 5 fixes them and only them; the Minor findings, MINOR-9 included, are held under rule C1.
+- **NEW-MAJOR-A, 36a and 16a reviewed before the architecture was APPROVED.** 36a and 16a are still drafted beside the architecture review, on the F0 texts of 31 and 32, and section 4.1 now states that drafting waiver. They are frozen and reviewed only against the APPROVED 31 and 32 blobs, in the new step 6 (Tue 10-06). The L2 files and the schematic start Wed 10-07 AM. This adds 1.0 day.
+- **NEW-MAJOR-B, step 7 costed below the plan's own assumptions.** The chain 56 → 16b with the rule C11 pass → 17 → 45 and the S2 sheet is now costed on the section 4.2 assumptions, in sub-steps 8a to 8e: 4.0 days (Thu 10-08 PM to Mon 10-12 AM) instead of 1.5. This adds 2.5 days.
+- **NEW-MAJOR-C, PCR-7 in two sessions.** S1 decides only the OD-15 route. If the route is the CR, PCR-7 is drafted after S1, impact-reviewed, and dispositioned at S2 under OD-37, and in no other session.
+- **Dates.** The chain is 17.5 working days, from Wed 09-30 AM to the readiness confirmation on Sat 10-17 AM, followed by the two-day reserve. **Proposed PDR: about Mon 2026-10-19 (range Sun 10-18 to Wed 10-21).** The sessions are S1 Sat 10-03 AM and the bench session Tue 10-06 PM (both unchanged), S2 Mon 10-12 PM, S3 Sat 10-17 AM and the review session Mon 10-19 PM. The estimate stays at 278 invocations.
 **Governing process:** `docs/process/00-charter.md` §4 and §11; `docs/process/01-lifecycle-and-reviews.md` §3, §5, §9 to §13; `docs/plan/semp.md` §3.4 (compressed-schedule lien policy); NPR 7123.1D App. G Tables G-5 and G-6; NPR 7150.2D as customized in `docs/process/07-software-engineering-plan.md`.
 
 Paths are relative to `/Users/robinonsay/rust/cwht`. "Sources" below are the four PDR reader reports of 2026-09-27 (gate, carried items, TBR closure map, design and software maps), which read HEAD `72e1863`; this plan re-read the commits after them (`cc83c8c`, `9373729`, `34668e3`, `e8f21c9`, `d9a215a`, and for revision 2 also `39a6b13`) and updates the reader findings where those commits changed the facts (section 1.3).
@@ -186,7 +191,7 @@ Read at `6497900`. **State:** *Done* = products delivered and reviewed (reviewer
 | 13 | Done | CR-013 approved (INSP-058, 059, 064, 073). Merge in WP-PDR-55 | 0 | - |
 | 14 | Done | Errata committed; INSP-053 and INSP-066, INSP-054 and INSP-062 | 0 | - |
 | 15 | Changed, continues | Errata and burndown APPROVED (INSP-052). Left: the final log moves and owner closures after the merges (OD-11 at S3) | 2 | W-E |
-| 16 | Changed | A5 content (TS-012 §8.10 L0 paragraph, §8.12 row "WP-PDR-16, 17"): HZ-002 re-scoped to the COTS charger and the handbook; HZ-003 with the sink outside the end wall, the wrap-around guard and the module case against the 90 C guidance; HZ-007 new heating cause (the sink's inner face, vented bay, cells at the far end, the cell 60 C trip; RSK-007); HZ-015 heat gun; HZ-004 K8 names PA_EN and the hardware NAND (D-18) with the REQ-TX-014 note; HZ-008 K7 on route R3 (D-17); the Morse-menu command paths. 16a in W-B, 16b in W-C; OD-05 at S2 | 9 | W-B, W-C |
+| 16 | Changed | A5 content (TS-012 §8.10 L0 paragraph, §8.12 row "WP-PDR-16, 17"): HZ-002 re-scoped to the COTS charger and the handbook; HZ-003 with the sink outside the end wall, the wrap-around guard and the module case against the 90 C guidance; HZ-007 new heating cause (the sink's inner face, vented bay, cells at the far end, the cell 60 C trip; RSK-007); HZ-015 heat gun; HZ-004 K8 names PA_EN and the hardware NAND (D-18) with the REQ-TX-014 note; HZ-008 K7 on route R3 (D-17); the Morse-menu command paths. 16a in W-B, 16b in W-C; OD-05 at S2. **Revision 5 (NEW-MAJOR-A, NEW-MAJOR-B):** 16a is drafted beside the architecture review on the F0 texts of 31 and 32, and frozen and reviewed only after 31 and 32 are APPROVED (Mon 10-05 PM); it is APPROVED Tue 10-06 PM (section 4.2 step 6). 16b is authored in step 8b, completed in the rule C11 pass (8c) and APPROVED Sun 10-11 PM (8d) | 9 | W-B, W-C |
 | 17 | Changed | Decision 9/40 change set done (CR-010). Re-run for A5: Morse menu and decoder paths (the menu override path is safety-critical, SRR decision 9), the FC0 counter and SW-SAFE frequency check (D-17), the PA_EN writer (safe-state manager, D-18), display and encoder drivers removed. OD-35 at S2 | 4 | W-C |
 | 18 | Changed | Track pass done (INSP-036 APPROVED). Final pass: TS-012 and the A5 ADR in `trade_study_ids` and `adr_ids`; the TS-012 §7.1 A5 risk scores (drive window, PETG and bay, cell heating, cost above USD 300); RSK-004 retired; RSK-038 lifecycle at the gate; RSK-052 cost | 2 | W-C |
 | 19 | Changed | TS-001 is superseded by TS-012 (ladder re-admitted, Inrad and 24-bit ADC dropped, diode ring); TS-001 §10 records it (OD-10 part 1 at S1, section 3.0a). Left: the REQ-SYS-022 MDS front-end redesign (A5 must recover about 5.1 dB at the TC-SYS-017 corner, TPM-005 Red there), `rx-cascade.md` final on 2 + 3 + 4, the INSP-110 finding-26 figures, G1 values. **Revision 4 (MAJOR-3):** the MDS redesign is a design task with LTspice iterations, not a re-run. It is budgeted with a second design iteration and given 3.0 days (Sun 10-04 to Tue 10-06: author 1.5 d, iteration 1 0.5 d, fix and delta 1.0 d). WP-PDR-31, 32 and 37 take it under the waiver of section 4.1 | 7 | W-C |
@@ -206,7 +211,7 @@ Read at `6497900`. **State:** *Done* = products delivered and reviewed (reviewer
 | 33 | Changed, part dropped | Keyer host study done (INSP-071, 075). The UI design (INSP-072) is redone as the Morse-menu design of TS-012 §8.7 (menu tree, R/N confirmation, 20 s time-out, status read-out, the ALT-hold key-mode path of REQ-SYS-163, host usability run). **Dropped:** display layout renders | 3 | W-C |
 | 34 | Changed | L2 hardware files for A5: `rx` (ring, ladder, 2 + 3 + 4), `tx` (module, GVA-84+, LPF, PA_EN gate), `pwr` (S-8252 pack, no charger), `ctl` (two buttons, two pots, LED, key network), `me` (PETG case, sink end wall, guard, bulkhead, relief legend); the regulatory citation table | 15 | W-C |
 | 35 | Changed | SW L2 for A5: SW-DISPLAY removed; the Morse-menu module named by WP-PDR-32; decoder; FC0 counter and PA_EN rules in SW-SAFE (threshold 5.0 kHz, plausibility +/-67.5 ppm, PA_EN only after the counted agreement) | 25 | W-C |
-| 36 | Changed | ICD-CTL-SW pin map with GPIN0, GPIN1, PA_EN, two buttons, two pots, LED; a new internal ICD for the RF board to the main board (CLK1 coax of D-8, supplies, the PA_EN gate); ICD-CTL-USB without charging; ICD-PWR-CELL with 1043P holders and the external charger; ICD-TX-ANT SMA material. 36a in W-B, 36b in W-C. **Revision 4 (MAJOR-1):** 36a writes the GPIN0, GPIN1 and PA_EN pin map from the APPROVED 20a record and the ICD-TX-SW sequencer timing table from the APPROVED 23a record, with no waiver. 36b runs after WP-PDR-56 has reconciled the analyses of W-C | 12 | W-B, W-C |
+| 36 | Changed | ICD-CTL-SW pin map with GPIN0, GPIN1, PA_EN, two buttons, two pots, LED; a new internal ICD for the RF board to the main board (CLK1 coax of D-8, supplies, the PA_EN gate); ICD-CTL-USB without charging; ICD-PWR-CELL with 1043P holders and the external charger; ICD-TX-ANT SMA material. 36a in W-B, 36b in W-C. **Revision 4 (MAJOR-1):** 36a writes the GPIN0, GPIN1 and PA_EN pin map from the APPROVED 20a record and the ICD-TX-SW sequencer timing table from the APPROVED 23a record, with no waiver. 36b runs after WP-PDR-56 has reconciled the analyses of W-C. **Revision 5 (NEW-MAJOR-A):** 36a is drafted on the F0 texts of 31 and 32 under the drafting waiver of section 4.1, and frozen for its early review only on the APPROVED 31 and 32 blobs; it is APPROVED Tue 10-06 PM (section 4.2 step 6) | 12 | W-B, W-C |
 | 37 | Changed | Preliminary schematic for hand build on the two JLCPCB 2-layer designs; floorplan (cells at the antenna end, Pico 2 and LM2940 at the sink end, micro-USB on a side wall); DRC rule file at JLCPCB standard capability; hand-assembly file naming the flagged TG2520SMN and the surface-mount list (exception EX-1, EX-7); alignment provisions (BPF coil squeeze, drive pad selection). **Revision 4 (MAJOR-1):** 37 starts after 36a, after the APPROVED 27 outline (AT RISK on TS-004 until S2) and after the APPROVED records of 21, 22 and 28a. The blocks of 19, 20b, 23b, 24, 25 and 26 are drawn from their F0-frozen analyses under the waiver of section 4.1 and reconciled by WP-PDR-56 | 8 | W-C |
 | 38 | Changed, part dropped | **BOM with the ordering gate:** the TS-012 §8.3 rows with price, stock, lifecycle and source-date columns; the §8.4 roll-up recomputed from the owner's reads (OD-42); guards G1 to G4 and add-backs AB-A, AB-B; single-seller lines (RF Parts module) to the register; manufacturability for hand soldering. **Dropped:** early-buy ADR-050 and OD-20 (the ordering gate replaces them), the PowerFLAT DFM and PCBWay turnkey checks | 3 | W-C |
 | 39 | Changed, part dropped | Enclosure model of the printed PETG case with the Boyd sink end wall, wrap-around guard, vented PA bay, bulkhead, relief legend and jack markings; front-panel render with two buttons, two pots, the LED light pipe and the jacks (no display). **Dropped:** the CNC model | 3 | W-C |
@@ -948,10 +953,10 @@ The same holds for every analysis record that carries a proposed TBR value. It m
   - delta reviews of each changed product: the architecture delta with SA and the `icd-ctl-sw.md` delta with SA in this stage; the L2 and schematic deltas inside W-D iteration 1.
 - **Rule:** a change to the pin map or the sequencer timing re-opens 36a, 34, 35 and 37 once, inside this stage, and this estimate carries that pass. A second change is escalated to the owner at S2 (rule C11).
 - **Author:** lead SE (table); product writers (changes). **Reviewer:** independent reviewer; SA for the 32, 36a, SW-SAFE and SW-TXSEQ deltas. **Record:** `docs/reviews/PDR/checklists/design-reconciliation-pdr.md` and its `-software-assurance.md` pair.
-- **Depends on:** the analyses above APPROVED; 31, 32 and 36a APPROVED; 34, 35 and 37 drafted. It runs in step 7 of section 4.2, with 36b and 16b.
+- **Depends on:** the analyses above APPROVED; 31, 32 and 36a APPROVED; 34, 35 and 37 drafted. It runs in step 8 of section 4.2 (revision 5): the table and the writers' changes in 8a, the delta reviews in 8b beside the 16b and 36b authoring, and 16b freezes in 8c only after this stage's record is APPROVED.
 - **Closes:** the section 4.1 waiver; the revision 3 review MAJOR-1 "no reconciliation pass" item.
 - **Estimate:** 6 inv. (table 1; delta reviews with SA pairs 3; product writers' changes 2).
-- **Critical path:** yes (step 7).
+- **Critical path:** yes (steps 8a and 8b; revision 5).
 
 ### 3.12 Estimate total
 
@@ -998,10 +1003,13 @@ It also restores the rule C11 loop between 27 and 28, which revision 3 dropped w
 |---|---|---|---|
 | WP-PDR-31 system architecture (WP text: "trade ADRs of WP-PDR-19 to 27", timing from 23) | A5 ADR (54) and TS-012 §8.1; 23a (timing section); S1 and WP-PDR-02 | 19, 20b, 23b, 24, 25, 26, 27, 28b, 30 | The A5 ADR and TS-012 §8.1 fix the blocks and the interfaces between them. These analyses set values and part-level details inside the blocks. A change to a block or an interface is a WP-PDR-56 finding |
 | WP-PDR-32 software architecture (WP text: depends on 20, 24, 19) | 20a (route R3, FC0 intervals, relock time, ratio freshness, clk_sys and ADR-031); 23a (sequence); S1 (OD-13 to OD-16) | 19 (receiver scope); 24 (power tree) | The receiver's software interfaces are fixed by D-15 and TS-012 §8.1 (AGC and volume by PWM, no receiver bus). A5 has no charger bus. The one open software-visible input, the VBUS inhibit, is decided with TS-005 at S2, and 32 carries it AT RISK (TS-005) under rule C8 |
-| WP-PDR-36a pin map and timing table (WP text: timing table from 23) | 20a (GPIN0, GPIN1 and the R3 budget); 23a (timing table); 31, 32 | None for the pin map or the timing table | - |
+| WP-PDR-36a pin map and timing table (WP text: timing table from 23) | 20a (GPIN0, GPIN1 and the R3 budget); 23a (timing table); 31 and 32 APPROVED before 36a is frozen and reviewed (revision 5) | Drafting only (revision 5, NEW-MAJOR-A): 36a is drafted on the F0 texts of 31 and 32 while they are under review (section 4.2 step 5). No waiver for the pin map or the timing table content | The draft is never frozen, reviewed or used by another product on the F0 texts. Before its F0 freeze (step 6) the author diffs the APPROVED 31 and 32 blobs against the texts it was drafted on and carries every change; the reviewer brief names the APPROVED blobs and checks that diff (rule C2) |
+| WP-PDR-16a control allocation (WP text: "runs after the architecture (WP-PDR-31, 32)") | 31 and 32 APPROVED before 16a is frozen and reviewed (revision 5); 02 (CR-003 step 6 links); 28a; OD-32 (S1) | Drafting only, as for 36a (revision 5, NEW-MAJOR-A) | As for 36a. 16a is APPROVED before 34 and 35 start (step 7) |
 | WP-PDR-34, 35 L2 files | 31, 32, 36a, 16a | The values of 19 to 30 and 33, which reach the files through WP-PDR-45 after S2 | L2 statements carry `tbr` values. WP-PDR-56 checks for statement changes |
 | WP-PDR-37 schematic (WP text: depends on 19 to 27) | 36a; the 27 outline APPROVED (AT RISK on TS-004 until S2); 21, 22, 28a APPROVED | 19 (MDS front end), 20b, 23b, 24, 25, 26 | Each block is drawn from its F0-frozen analysis. WP-PDR-56 compares it with the APPROVED record |
-| WP-PDR-29, 38 | The analyses APPROVED (both run in step 7) | None | - |
+| WP-PDR-29, 38 | The analyses APPROVED (both run in step 8; revision 5) | None | - |
+| WP-PDR-16b, 36b (revision 5, NEW-MAJOR-B) | 34 and 35 committed; the WP-PDR-56 changes committed (authoring, step 8b); the WP-PDR-56 record APPROVED before 16b completes in the rule C11 pass and freezes (step 8c) | None | - |
+| WP-PDR-17 re-run (revision 5, NEW-MAJOR-B) | 16b committed and frozen (authoring, step 8d); the 16b record APPROVED before the 17 fix and delta closes (step 8e), so that any 16b review change reaches 17 | None | - |
 
 A WP-PDR-56 finding that changes the pin map or the timing table re-opens 36a, 34, 35 and 37 once, inside WP-PDR-56, whose estimate carries that pass. A second change is escalated to the owner at S2 (rule C11).
 
@@ -1063,7 +1071,7 @@ graph LR
   WP41[41 merges, prototype image] --> WP40[40 bench session Tue 10-06 PM]
   R56 --> WP45[45 TBR sheet]
   WP16b --> WP45
-  WP45 --> S2[S2 owner Fri 10-09 AM]
+  WP45 --> S2[S2 owner Mon 10-12 PM]
   WP27 --> S2
   AN --> S2
   WP17 --> S2
@@ -1081,13 +1089,13 @@ graph LR
   WP48 --> WP49[49 package]
   WP49 --> F2[Freeze F2]
   F2 --> WP50[50 deck]
-  WP50 --> S3[S3 owner readiness Tue 10-13 PM]
-  S3 --> RES[Reserve Wed 10-14, Thu 10-15]
-  RES --> WP51[51 PDR session Fri 10-16]
+  WP50 --> S3[S3 owner readiness Sat 10-17 AM]
+  S3 --> RES[Reserve Sat 10-17 PM to Mon 10-19 AM]
+  RES --> WP51[51 PDR session Mon 10-19 PM]
   WP51 --> WP52[52 baseline and signed tag]
 ```
 
-The arrows `WP27 --> S2` and `AN --> S2` carry the TS-011, TS-004 and TS-005 decisions (OD-10 part 2) as well as the values. The revision 3 graph is kept at `67d00f3`.
+The arrows `WP27 --> S2` and `AN --> S2` carry the TS-011, TS-004 and TS-005 decisions (OD-10 part 2) as well as the values. **Revision 5:** the arrows from 31 and 32 to 16a and 36a mean the APPROVED 31 and 32; the drafts start earlier under the drafting waiver of the table above. `R56 --> WP16b` and `R56 --> WP36b` mean the committed WP-PDR-56 changes for authoring and the APPROVED WP-PDR-56 record before 16b freezes. `WP16b --> WP17` means the committed 16b. The revision 3 graph is kept at `67d00f3`, the revision 4 graph at `5f84770`.
 
 WP-PDR-06, 08, 42, 46 and 47 run beside this graph and join at WP-PDR-48. The phase CRs of section 6.2 join at the session that dispositions them.
 
@@ -1109,47 +1117,56 @@ Assumptions (revision 4):
 - **Package.** The package and the deck with its record take 1.5 d.
 - **Owner.** The owner answers a ready decision sheet within the session slot named. S1 falls on a Saturday; revision 2 held B3 on a Sunday.
 
-Durations are wall-clock and use half-day (AM, PM) slots.
+**Revision 5 (governs; NEW-MAJOR-A and NEW-MAJOR-B of the revision 4 review).** The revision 4 assumptions above stand. Two revision 4 steps did not meet them:
+- **(d) 36a and 16a were reviewed to APPROVED against an architecture still under review.** Revision 4 step 5 ran the architecture review iteration 1 with its fix and delta, the 36a early review to APPROVED and 16a, all in the same 1.5 days. Revision 5 keeps the drafting of 36a and 16a beside the architecture review (the drafting waiver of section 4.1), and freezes and reviews them only against the APPROVED 31 and 32 blobs, in the new step 6 (Tue 10-06). The L2 files and the schematic move to Wed 10-07 AM.
+- **(e) Step 7 held a serial chain in 1.5 days.** On the analysis-record assumption (an authoring slot, then about 1.0 d from F0 to APPROVED), the chain 56 → 16b with the rule C11 pass → 17 → 45 and the S2 sheet needs 4.0 days, even with the parallel parts overlapped as far as the section 4.1 table allows. Revision 5 lays it out as step 8, sub-steps 8a to 8e.
+
+Durations are wall-clock and use half-day (AM, PM) slots. The revision 4 table is kept at `5f84770`.
 
 | # | Serial step | WPs | Duration | Start | Finish |
 |---|---|---|---|---|---|
 | 1 | CR-003 revision 4, CR-006 revision 3 and CR-018 drafted, with the 21, 22 and 28a rows pending. The value-bearing analyses are authored, frozen at F0 and reviewed through one fix round to APPROVED (C10): 21 (drive pad, LPF build), 22 (D-18 fix, key-up rerun, SA pair) and 28a (thermal closure). CR impact reviews round 1 run on the drafts (Thu). Beside the chain: 20a and 23a to APPROVED with their SA pairs (by Fri PM); 54 with its ADR record; 55 batch 1 | 01, 53, 21, 22, 28a | 2.0 d | Wed 09-30 AM | Thu 10-01 PM |
 | 2 | The 21, 22 and 28a rows entered in CR-018 (an open thermal item goes in as a CR-018 question, TS-012 §10 revisit (d)); author fix round of the three CRs; delta re-check covering the fixes and the new rows | 01, 53 | 1.0 d | Fri 10-02 AM | Fri 10-02 PM |
-| 3 | Owner session S1: CR dispositions, OD-10 part 1, merge batch 1, firmware architecture inputs, accreditations, permissions | S1 | 0.5 d | Sat 10-03 AM | Sat 10-03 AM |
-| 4 | Implement the A5 CRs on `main` after merge batch 1, with record deltas and CR section 9 checks. 32 completed on OD-13 to OD-16 and 20a, 23a. 36a drafted on the APPROVED 20a and 23a. The week boundary (Sun 10-04 03:00 CDT) falls in this step, outside working hours | 02, 55, 32, 36a | 1.0 d | Sat 10-03 PM | Sun 10-04 AM |
-| 5 | 31 completed on 02. Architecture review iteration 1 with SA (31 and 32), then the fix and delta. 36a early review with SA to APPROVED. 16a | 31, 32, 36a, 16a | 1.5 d | Sun 10-04 PM | Mon 10-05 PM |
-| 6 | L2 hardware and software files with test-author cases. 37 on 36a and the APPROVED 27 outline. Owner bench session Tue PM | 34, 35, 37, 40 | 1.5 d | Tue 10-06 AM | Wed 10-07 AM |
-| | *Beside steps 4 to 6 (week 2 budget, from Sun 10-04 AM):* the analyses to APPROVED (C10). WP-PDR-19 is the longest: the MDS redesign takes 3.0 d, Sun AM to Tue PM (author 1.5 d, iteration 1 0.5 d, fix and delta 1.0 d). 20b, 23b, 24 with TS-005 (section B and SA), 25, 26, 30 and 33 run Sun AM to Mon PM (2.0 d). 27 (TS-011 and TS-004 re-score, section B) runs Sun AM to Mon PM, then 28b Tue AM to Tue PM | 19, 20b, 23b, 24, 25, 26, 27, 28b, 30, 33 | (3.0 d) | Sun 10-04 AM | Tue 10-06 PM |
-| 7 | Reconciliation stage (56) on the APPROVED analyses, with ICD pairing (36b), hazard re-issue (16b) and the one rule C11 pass. The 17 re-run with concurrence and SA. 29 and 38 on the APPROVED analyses (38 after OD-42). TBR sheet (45) | 56, 36b, 16b, 17, 29, 38, 45 | 1.5 d | Wed 10-07 PM | Thu 10-08 PM |
-| 8 | Owner session S2 (Fri AM); at-risk re-check (rule C8, including the TS-011, TS-004 and TS-005 decisions); freeze F1 (Fri PM) | S2, F1 | 1.0 d | Fri 10-09 AM | Fri 10-09 PM |
-| 9 | Wave 3 iteration 1: about 50 review and SA invocations at 10 in parallel | W-D | 1.0 d | Sat 10-10 AM | Sat 10-10 PM |
-| 10 | Iterations 2 and 3 (deltas on Majors only); re-ruling sheet if a value changed. The week boundary (Sun 10-11 03:00 CDT) falls before this step | W-D, 45 | 1.0 d | Sun 10-11 AM | Sun 10-11 PM |
-| 11 | Traceability, readiness checks and package; freeze F2; deck and deck record with its iterations | 48, 49, 50 | 1.5 d | Mon 10-12 AM | Tue 10-13 AM |
-| 12 | Owner session S3: readiness confirmation | S3 | 0.5 d | Tue 10-13 PM | Tue 10-13 PM |
-| | **Reserve** (contingency) | none | 2.0 d | Wed 10-14 | Thu 10-15 |
-| 13 | PDR session; decision memo | 51 | 0.5 d | Fri 10-16 | Fri 10-16 |
-| 14 | Baseline record, signed tag, post-tag CSA | 52 | 0.5 to 1.0 d | Fri 10-16 PM | Sat 10-17 |
+| 3 | Owner session S1: CR dispositions, OD-10 part 1, merge batch 1, firmware architecture inputs (OD-15 as the route only), accreditations, permissions | S1 | 0.5 d | Sat 10-03 AM | Sat 10-03 AM |
+| 4 | Implement the A5 CRs on `main` after merge batch 1, with record deltas and CR section 9 checks. 32 completed on OD-13 to OD-16 and the APPROVED 20a and 23a, and frozen at F0 for the architecture review. The week boundary (Sun 10-04 03:00 CDT) falls in this step, outside working hours | 02, 55, 32 | 1.0 d | Sat 10-03 PM | Sun 10-04 AM |
+| 5 | 31 completed on 02 and frozen at F0. Architecture review iteration 1 with SA (31 and 32, Mon AM), then the fix and delta (Mon PM): 31 and 32 APPROVED Mon PM. Beside the review and off the chain: 36a (pin map on the APPROVED 20a, timing table on the APPROVED 23a) and 16a drafted on the F0 texts of 31 and 32 under the drafting waiver of section 4.1. Neither is frozen or reviewed in this step (revision 5) | 31, 32 | 1.5 d | Sun 10-04 PM | Mon 10-05 PM |
+| 6 | **New in revision 5 (NEW-MAJOR-A).** 36a and 16a brought to the APPROVED 31 and 32: each author diffs the APPROVED blobs against the F0 texts it drafted on, carries every change, and freezes at F0 (Tue AM). 36a early review with SA (`icd-ctl-sw.md` and its pair) and the 16a safety review, iteration 1 (Tue AM), then the fix and delta (Tue PM): both APPROVED Tue PM. Owner bench session Tue PM, beside the chain | 36a, 16a | 1.0 d | Tue 10-06 AM | Tue 10-06 PM |
+| 7 | L2 hardware and software files with test-author cases, on the APPROVED 31, 32, 36a and 16a. 37 on 36a, the APPROVED 27 outline and the APPROVED records of 21, 22 and 28a | 34, 35, 37 | 1.5 d | Wed 10-07 AM | Thu 10-08 AM |
+| | *Beside steps 4 to 7 (week 2 budget, from Sun 10-04 AM):* the analyses to APPROVED (C10). WP-PDR-19 is the longest: the MDS redesign takes 3.0 d, Sun AM to Tue PM (author 1.5 d, iteration 1 0.5 d, fix and delta 1.0 d). 20b, 23b, 24 with TS-005 (section B and SA), 25, 26, 30 and 33 run Sun AM to Mon PM (2.0 d). 27 (TS-011 and TS-004 re-score, section B) runs Sun AM to Mon PM, then 28b Tue AM to Tue PM | 19, 20b, 23b, 24, 25, 26, 27, 28b, 30, 33 | (3.0 d) | Sun 10-04 AM | Tue 10-06 PM |
+| 8a | **Step 8, reconciliation chain (revision 5, NEW-MAJOR-B; revision 4 step 7).** Reconciliation table (56) on the APPROVED analyses (Thu PM, lead SE); the writers' changes to 31, 32 and 36a and to the drafted 34, 35 and 37, committed (Fri AM) | 56 | 1.0 d | Thu 10-08 PM | Fri 10-09 AM |
+| 8b | 16b authored on the committed L2 files and the 56 changes (hazards.json 0.6.0-pha, 1.0 d authoring slot); 36b authored (remaining ICDs, section 4 lists, side-A pairing). Beside them: the 56 delta reviews (the architecture delta with SA, the `icd-ctl-sw.md` delta with SA, the reconciliation record), iteration 1 (Fri PM), fix and delta (Sat AM): 56 APPROVED Sat AM. Also beside: 29, 38 (after OD-42) and the 18 final pass | 16b, 36b, 56 | 1.0 d | Fri 10-09 PM | Sat 10-10 AM |
+| 8c | The one rule C11 pass, after the 56 record is APPROVED: one fix pass on 34 and 35 for what 16b, 36b and any 56 review change found; 16b completes with the written `control_req_ids` and is committed and frozen at F0 | 16b, 34, 35 | 0.5 d | Sat 10-10 PM | Sat 10-10 PM |
+| 8d | 16b safety review and SA, iteration 1 (Sun AM), fix and delta (Sun PM): APPROVED Sun PM. Beside it: the 17 re-run authored on the committed 16b (Sun AM), then the independent concurrence and SA, iteration 1 (Sun PM). The week boundary (Sun 10-11 03:00 CDT) falls before this step | 16b, 17 | 1.0 d | Sun 10-11 AM | Sun 10-11 PM |
+| 8e | 17 fix and delta, carrying any 16b review change: APPROVED (the OD-35 input). TBR sheet (45) generated from the files after 16b is APPROVED; the S2 decision sheet assembled, and issued when 17 is APPROVED | 17, 45 | 0.5 d | Mon 10-12 AM | Mon 10-12 AM |
+| 9 | Owner session S2 (Mon PM); at-risk re-check (rule C8, including the TS-011, TS-004 and TS-005 decisions and PCR-7 if raised); freeze F1 (Tue AM) | S2, F1 | 1.0 d | Mon 10-12 PM | Tue 10-13 AM |
+| 10 | Wave 3 iteration 1: about 50 review and SA invocations at 10 in parallel | W-D | 1.0 d | Tue 10-13 PM | Wed 10-14 AM |
+| 11 | Iterations 2 and 3 (deltas on Majors only); re-ruling sheet if a value changed | W-D, 45 | 1.0 d | Wed 10-14 PM | Thu 10-15 AM |
+| 12 | Traceability, readiness checks and package; freeze F2; deck and deck record with its iterations | 48, 49, 50 | 1.5 d | Thu 10-15 PM | Fri 10-16 PM |
+| 13 | Owner session S3: readiness confirmation | S3 | 0.5 d | Sat 10-17 AM | Sat 10-17 AM |
+| | **Reserve** (contingency). The week boundary (Sun 10-18 03:00 CDT) falls inside it | none | 2.0 d | Sat 10-17 PM | Mon 10-19 AM |
+| 14 | PDR session; decision memo | 51 | 0.5 d | Mon 10-19 PM | Mon 10-19 PM |
+| 15 | Baseline record, signed tag, post-tag CSA | 52 | 0.5 to 1.0 d | Tue 10-20 AM | Tue 10-20 PM |
 
-The serial chain is **14.0 working days** from Wed 09-30 AM to the readiness confirmation on Tue 10-13 PM. Two reserve days follow, then the session on Fri 10-16.
+The serial chain is **17.5 working days** from Wed 09-30 AM to the readiness confirmation on Sat 10-17 AM (revision 4: 14.0 days to Tue 10-13 PM). Step 6 adds 1.0 day and step 8 adds 2.5 days (4.0 days against 1.5). Two reserve days follow, then the session on Mon 10-19 PM.
 
-The chain runs through change control, and through the value-bearing analyses that CR-018 needs (keying for REQ-TX-014, thermal for REQ-SYS-112 and 118, PA drive for REQ-SYS-012 and 144), each APPROVED before S1 (C10). The architecture, the L2 files, the ICDs and the hazard re-issue are written on the dispositioned A5 requirement set. The week-1 analyses 20a and 23a are not on the chain: they have about 0.5 d of slack to step 4. The W-C analyses are not on the chain up to step 7.
+The chain runs through change control, and through the value-bearing analyses that CR-018 needs (keying for REQ-TX-014, thermal for REQ-SYS-112 and 118, PA drive for REQ-SYS-012 and 144), each APPROVED before S1 (C10). The architecture, the L2 files, the ICDs and the hazard re-issue are written on the dispositioned A5 requirement set. The week-1 analyses 20a and 23a are not on the chain: they have about 0.5 d of slack to step 4. The W-C analyses are not on the chain up to step 8. In step 8 the chain runs through the consumers of the analyses in series; its sub-steps overlap only where a product is authored on a committed input and frozen after that input is APPROVED (the revision 5 rows of the section 4.1 table).
 
 **Near-critical chains and their slack** (slack is to the step on the critical chain that consumes their output):
 
 | Chain | Steps | Slack | Consumed if |
 |---|---|---|---|
 | A5 CR set with the value-bearing analyses | 01, 53 drafts and 21, 22, 28a to APPROVED (Wed to Thu) → CR fix round with the analysis rows and delta (Fri) → S1 (Sat AM) | 0 d (on the chain) | The delta re-check still finds a Major, or 22 or 28a needs a third iteration. S1 then moves to Sun 10-04 AM and half a reserve day is used. A thermal item that no design lever closes does not add time: it goes to S1 as a CR-018 question |
-| Week-1 analyses for the architecture | 20a, 23a authored Wed to Thu, reviewed with SA Thu PM to Fri → APPROVED Fri PM → 32 completion and 36a draft (Sat PM) | about 0.5 d | A third iteration. 36a then drafts on the F0 text, AT RISK, and its early review in step 5 waits for the APPROVED record |
+| Week-1 analyses for the architecture | 20a, 23a authored Wed to Thu, reviewed with SA Thu PM to Fri → APPROVED Fri PM → 32 completion (Sat PM) and the 36a draft (from Sun PM) | about 0.5 d | A third iteration. 32 and 36a then draft on the F0 text, AT RISK, and neither freezes for review (steps 4 to 6) until the record is APPROVED |
 | Merge batch 1 | CR-008, 009, 010, 013, 015, 016 section 9 checks and record re-issues (Wed to Fri) → owner merge approval at S1 → 02 (Sat PM) | about 1 d | A section 9 check or a record re-issue finds a Major |
-| Software volume | 32 completed (Sat PM to Sun AM) → review (Sun PM to Mon) → 35 (Tue to Wed AM) → 56, 36b and 16b (Wed PM to Thu) | 0 d (on the chain from step 4) | The architecture review raises a Major that changes the module set |
-| Analyses and TBR values | 19 (Sun to Tue, 3.0 d); 20b, 23b, 24 with TS-005, 25, 26, 30, 33 (Sun to Mon) → 56 (Wed PM) → 45 → S2 (Fri AM) | about 0.5 d for WP-PDR-19; about 1.5 d for the others | WP-PDR-19 needs a third design iteration past Wed AM. Its values then go to S3 as a re-ruling, with a PCR-9 if REQ-SYS-022 cannot be shown (a TS-012 revisit condition that the owner rules) |
-| TS-011, TS-004 and 28b | 27 re-score (Sun) → section B review to APPROVED (Mon) → 28b (Tue) → 56 (Wed PM) → S2 decision (Fri AM) | about 0.5 d | A second review iteration of the re-score. 37 and 39 then wait on the outline, AT RISK |
-| FW-B1 and HSI | owner merges and PCR-4 at S1 (Sat) → prototype image with the Morse menu (Sat PM to Tue AM) → bench session (Tue 10-06 PM) → verdict at S2 (Fri) | about 2 d to S2 | The owner merges slip past S1. The debounce and HIL values then take the section 7 routes, and the verdict moves to S3 |
-| Tools for readiness | CR-011 merge (batch 2 at S2) → TV-002 run → `csa.py`, `render_tpm.py` → readiness checks (Mon 10-12) | about 1.5 d | A TV record needs a third iteration |
+| Software volume | 32 completed (Sat PM to Sun AM) → architecture review to APPROVED (Mon PM) → 36a and 16a to APPROVED (Tue) → 35 (Wed to Thu AM) → 56, 36b, 16b and the C11 pass (Thu PM to Sat) → 16b review and 17 (Sun to Mon AM) | 0 d (on the chain from step 4) | The architecture review raises a Major that changes the module set, or the 36a diff against the APPROVED architecture changes the pin map |
+| Analyses and TBR values | 19 (Sun to Tue, 3.0 d); 20b, 23b, 24 with TS-005, 25, 26, 30, 33 (Sun to Mon) → 56 (Thu 10-08 PM) → 45 (Mon 10-12 AM) → S2 (Mon PM) | about 1.5 d for WP-PDR-19; about 2.5 d for the others | WP-PDR-19 needs a design iteration that runs past Thu 10-08 AM. Its values then go to S3 as a re-ruling, with a PCR-9 if REQ-SYS-022 cannot be shown (a TS-012 revisit condition that the owner rules) |
+| TS-011, TS-004 and 28b | 27 re-score (Sun) → section B review to APPROVED (Mon) → 37 (Wed 10-07 AM) and 28b (Tue) → 56 (Thu PM) → S2 decision (Mon 10-12 PM) | about 1 d to 37; about 1.5 d for 28b to 56 | More than one extra review iteration of the re-score. 37 and 39 then wait on the outline, AT RISK |
+| FW-B1 and HSI | owner merges and PCR-4 at S1 (Sat) → prototype image with the Morse menu (Sat PM to Tue AM) → bench session (Tue 10-06 PM) → values in the TBR sheet (Mon 10-12 AM) → verdict at S2 (Mon PM) | about 5 d to the TBR sheet | The owner merges slip past S1. The debounce and HIL values then take the section 7 routes, and the verdict moves to S3 |
+| Tools for readiness | CR-011 merge (batch 2 at S2, Mon 10-12 PM) → TV-002 run → `csa.py`, `render_tpm.py` → readiness checks (Thu 10-15 PM) | about 1.5 d | A TV record needs a third iteration |
 | Budget, week 1 | About 75 invocations planned against about 89 that fit under 90 % (section 8.3) | about 14 invocations (about 5 % of the weekly limit) | The per-invocation cost runs more than about 1.2 times the planning rate, which is a factor of about 1.5 in the section 8.5 table. Work then pauses on Sat 10-03 until the reset at Sun 10-04 03:00 (rule C12) |
-| Budget, week 2 | About 172 invocations against about 245 | about 73 invocations | The per-invocation cost runs more than about 1.4 times the planning rate, which is a factor of about 1.8 in the section 8.5 table |
+| Budget, week 2 | About 120 invocations against about 245 (revision 5: W-D moves to week 3) | about 125 invocations | The per-invocation cost runs more than about 2.0 times the planning rate, which is a factor of about 2.5 in the section 8.5 table |
 
-The two reserve days (Wed 10-14, Thu 10-15) are the float on the critical chain. A loss of more than two days moves the session day for day (section 8.4). The revision 3 table is kept at `67d00f3`.
+The two reserve days (Sat 10-17 PM to Mon 10-19 AM) are the float on the critical chain. A loss of more than two days moves the session day for day (section 8.4). The revision 3 table is kept at `67d00f3`, the revision 4 table at `5f84770`.
 
 ---
 
@@ -1173,17 +1190,17 @@ The two reserve days (Wed 10-14, Thu 10-15) are the float on the critical chain.
 
 ### 5.2 Waves
 
-**Revision 4 waves (govern).** Inv. and token figures are from section 8.3. The meter column is the planned reading of the weekly usage meter at the end of the wave (rule C12). The revision 3 table is kept at `67d00f3`.
+**Revision 5 waves (govern).** Inv. and token figures are from section 8.3. The meter column is the planned reading of the weekly usage meter at the end of the wave (rule C12). The revision 3 table is kept at `67d00f3`, the revision 4 table at `5f84770`.
 
 | Wave | Window | WPs run in parallel | Inv. | Meter after | Barrier at the end (owner session) |
 |---|---|---|---|---|---|
 | W-A A5 change control | Wed 09-30 AM to Fri 10-02 PM | 01 and 53 (drafts, impact reviews, one fix round, delta re-check); 21, 22 and 28a to APPROVED before the CR fix round (C10); **20a and 23a to APPROVED with their SA pairs (revision 4)**; 54 (ADR record APPROVED, TS-012 re-issue, INSP-110 delta); 04 (price-check list, equipment list); 55 batch 1 (CR-008, 009, 010, 013, 015, 016: section 9 checks, record re-issues; CR-007 step 3 branch opened); 31 and 32 drafted on TS-012 §8.1 (counted in W-B) | 55 | 77 % | **S1 (Sat 10-03 AM)**, section 6.0 |
-| W-B Architecture | Sat 10-03 PM to Mon 10-05 PM | 02 (implement the A5 CRs after merge batch 1); 32 completed on 20a, 23a and OD-13 to OD-16; 31 completed; architecture review iteration 1 and SA; 36a with its early review; 16a; 55 batch 2 prepared (CR-007, 011, 012, 014, 017, CR-017 steps 3 to 11) | 38 | 85 % at the reset (about 20 inv. before Sun 10-04 03:00); 7 % of week 2 after | The week boundary falls inside the wave, Sun 10-04 03:00 CDT. If the meter reaches 90 % first, the pre-reset part pauses until the reset (C12). Barrier: architecture and 36a APPROVED |
-| W-C Analyses and allocated products | Sun 10-04 AM to Thu 10-08 PM | From Sun AM: the analyses 19 (MDS redesign, 3.0 d), 20b, 23b, 24 with TS-005, 25, 26, 27 (TS-011, TS-004 re-score), 28b, 30, 33, with their records to APPROVED (C9, C10). From Tue: 34 and 35 with test authors; 37; 39; 41 (DML-3 notes, prototype image); 40 bench session (Tue PM); 42; 43 and 44 drafted; 46; 47; 06 TV-002 run; 08 TV-024 run. From Wed PM: **56 reconciliation stage (revision 4)**; 36b; 16b; one reconciliation pass (C11); 17 re-run with concurrence and SA; 29; 38 (after OD-42); 45 TBR sheet; 18 final pass | 114 | 49 % (week 2) | **S2 (Fri 10-09 AM)**, section 6.0. Then the rule C8 re-check and **freeze F1** (Fri PM) |
-| W-D Independent reviews | Sat 10-10 to Sun 10-11 | Reviews of every entrance product not yet reviewed: L2 files and test cases, ICDs, hazard analysis, V&V and integration plans, budgets and TPMs, schematic and visuals, BOM, enclosure model, HSI, plans; SRR record delta verifications; WP-PDR-45 re-ruling delta if a Major changed a value | 50 | 64 % of week 2 at the reset (iteration 1, about 40 inv.); 4 % of week 3 after | Every record APPROVED with Majors fixed; Minors liened (C1). The week boundary Sun 10-11 03:00 CDT falls between iterations 1 and 2 |
-| W-E Readiness and package | Mon 10-12 to Tue 10-13 | 15 (log moves), 48, then 49; **freeze F2**; 50 with the deck record | 12 | 8 % (week 3) | **S3 (Tue 10-13 PM)**, section 6.0 |
-| Reserve | Wed 10-14 to Thu 10-15 | Contingency only | 0 | - | None |
-| W-F Review and baseline | Fri 10-16 (review), Fri 10-16 to Sat 10-17 (baseline) | 51, then 52 | 9 | 11 % (week 3) | OD-30 at the session; signed `baseline/pdr` pushed and verified |
+| W-B Architecture | Sat 10-03 PM to Tue 10-06 PM | 02 (implement the A5 CRs after merge batch 1); 32 completed on 20a, 23a and OD-13 to OD-16; 31 completed; architecture review iteration 1 and SA to APPROVED (Mon PM); 36a and 16a drafted beside that review, then frozen on the APPROVED 31 and 32 and reviewed to APPROVED (Tue; revision 5); 55 batch 2 prepared (CR-007, 011, 012, 014, 017, CR-017 steps 3 to 11); PCR-7 drafted if OD-15 took the CR route at S1 | 38 | 85 % at the reset (about 20 inv. before Sun 10-04 03:00); 7 % of week 2 after | The week boundary falls inside the wave, Sun 10-04 03:00 CDT. If the meter reaches 90 % first, the pre-reset part pauses until the reset (C12). Barrier: 31 and 32 APPROVED (Mon PM), then 36a and 16a APPROVED (Tue PM) |
+| W-C Analyses and allocated products | Sun 10-04 AM to Mon 10-12 AM | From Sun AM: the analyses 19 (MDS redesign, 3.0 d), 20b, 23b, 24 with TS-005, 25, 26, 27 (TS-011, TS-004 re-score), 28b, 30, 33, with their records to APPROVED (C9, C10). From Tue: 39; 41 (DML-3 notes, prototype image); 40 bench session (Tue PM); 42; 43 and 44 drafted; 46; 47; 06 TV-002 run; 08 TV-024 run; the PCR-7 section 6 review if it was raised. From Wed AM (revision 5): 34 and 35 with test authors; 37. From Thu PM (step 8): **56 reconciliation stage**; 16b and 36b; the one reconciliation pass (C11); the 16b review; 17 re-run with concurrence and SA; 29; 38 (after OD-42); 45 TBR sheet; 18 final pass | 114 | 44 % at the reset Sun 10-11 03:00 (week 2, about 102 inv.); 4 % of week 3 after (about 12 inv.) | **S2 (Mon 10-12 PM)**, section 6.0. Then the rule C8 re-check and **freeze F1** (Tue 10-13 AM) |
+| W-D Independent reviews | Tue 10-13 PM to Thu 10-15 AM | Reviews of every entrance product not yet reviewed: L2 files and test cases, ICDs, hazard analysis, V&V and integration plans, budgets and TPMs, schematic and visuals, BOM, enclosure model, HSI, plans; SRR record delta verifications; WP-PDR-45 re-ruling delta if a Major changed a value | 50 | 23 % (week 3) | Every record APPROVED with Majors fixed; Minors liened (C1) |
+| W-E Readiness and package | Thu 10-15 PM to Sat 10-17 AM | 15 (log moves), 48, then 49; **freeze F2**; 50 with the deck record | 12 | 27 % (week 3) | **S3 (Sat 10-17 AM)**, section 6.0 |
+| Reserve | Sat 10-17 PM to Mon 10-19 AM | Contingency only. The week boundary Sun 10-18 03:00 CDT falls inside it | 0 | 0 % after the reset | None |
+| W-F Review and baseline | Mon 10-19 PM (review), Tue 10-20 (baseline) | 51, then 52 | 9 | 3 % (week 4) | OD-30 at the session; signed `baseline/pdr` pushed and verified |
 
 **Revision 2 waves (superseded, kept for the record of what wave 0 and wave 1a planned).**
 
@@ -1248,13 +1265,13 @@ Revision 2 had six decision sessions (B0, B1a, B1b, B2, B3, B4) and a bench sess
 
 | Session | When (owner time) | What it decides | Why it cannot be later |
 |---|---|---|---|
-| (Plan) | When this revision is presented, one line | **OD-01:** accept revision 4 and the dates of section 8.4 (PDR about Fri 10-16, range Wed 10-14 to Tue 10-20) | The waves start on it (W-A from Wed 09-30 AM); nothing else waits for it |
-| **S1 A5 baseline** | Sat 10-03 AM, about 60 min (revision 3: Thu 10-01 PM) | **OD-40:** disposition CR-003 revision 4, CR-006 revision 3 and CR-018, with their section 12 questions, which carry the TS-012 follow-on decisions 1 to 6 (REQ-SYS-112 duty-limited corner and the REQ-SYS-118 setpoint; REQ-SYS-012 as a firm delta or a bench check with the delta as fallback; the LPF values and the 0.5 dB loss goal with REQ-TX-009 to 011; the REQ-TX-014 restatement; the 2 + 3 + 4 receiver and the MDS redesign route; the select-on-test pad), Q5 (the flagged TCXO, the surface-mount list, modules as through-hole), Q6 (the wrap-around guard envelope) and exceptions EX-1 to EX-14; any WP-PDR-28a thermal item that changes CR-018, each on the APPROVED records of 21, 22 and 28a (C10). **OD-43 batch 1:** merges of CR-008, 009, 010, 013, 015, 016. **OD-23:** the five rustos driver merges and the WP-SW-08 ICD page, with **PCR-4** (after its section 6 review). **OD-24b:** accreditation of TV-015 to TV-023 and TV-013. **OD-13 to OD-16:** secure boot, rustos pinning, host channel (and PCR-7 if the CR route), Kani and the register-access trait. **OD-10 part 1 (revision 4, section 3.0a):** on the APPROVED A5 ADR record, confirm TS-001 and TS-007 as superseded by TS-012; confirm that TS-003, 006, 008, 009 and 010 are not written because TS-012 and the A5 ADR decide them; close SWR fold-back on the module's 20:1 load ruggedness (TS-012 §7.3, REQ-SYS-013; no fold-back). TS-004 and TS-011 are not closed here (OD-10 part 2 at S2). **Permissions and facts:** OD-21, OD-25, TV-024 action A-1, OD-39 (KDB and SAR downloads, SPLAT! optional), OD-19, OD-22 (name the key and paddle), OD-32 (hand-assembly bench, heat gun added), OD-17, OD-24a | The architecture, the L2 files and the ICDs are written on the dispositioned requirement set from Sat 10-03 PM; the software architecture needs OD-13 to OD-16; 16a needs OD-32; the prototype image for the bench session needs the merges |
+| (Plan) | When this revision is presented, one line | **OD-01:** accept revision 5 and the dates of section 8.4 (PDR about Mon 10-19, range Sun 10-18 to Wed 10-21) | The waves start on it (W-A from Wed 09-30 AM); nothing else waits for it |
+| **S1 A5 baseline** | Sat 10-03 AM, about 60 min (revision 3: Thu 10-01 PM) | **OD-40:** disposition CR-003 revision 4, CR-006 revision 3 and CR-018, with their section 12 questions, which carry the TS-012 follow-on decisions 1 to 6 (REQ-SYS-112 duty-limited corner and the REQ-SYS-118 setpoint; REQ-SYS-012 as a firm delta or a bench check with the delta as fallback; the LPF values and the 0.5 dB loss goal with REQ-TX-009 to 011; the REQ-TX-014 restatement; the 2 + 3 + 4 receiver and the MDS redesign route; the select-on-test pad), Q5 (the flagged TCXO, the surface-mount list, modules as through-hole), Q6 (the wrap-around guard envelope) and exceptions EX-1 to EX-14; any WP-PDR-28a thermal item that changes CR-018, each on the APPROVED records of 21, 22 and 28a (C10). **OD-43 batch 1:** merges of CR-008, 009, 010, 013, 015, 016. **OD-23:** the five rustos driver merges and the WP-SW-08 ICD page, with **PCR-4** (after its section 6 review). **OD-24b:** accreditation of TV-015 to TV-023 and TV-013. **OD-13 to OD-16:** secure boot, rustos pinning, host channel, Kani and the register-access trait. OD-15 decides the host-channel route only; if it takes the CR route, PCR-7 is drafted after S1 and dispositioned at S2 (revision 5, NEW-MAJOR-C). **OD-10 part 1 (revision 4, section 3.0a):** on the APPROVED A5 ADR record, confirm TS-001 and TS-007 as superseded by TS-012; confirm that TS-003, 006, 008, 009 and 010 are not written because TS-012 and the A5 ADR decide them; close SWR fold-back on the module's 20:1 load ruggedness (TS-012 §7.3, REQ-SYS-013; no fold-back). TS-004 and TS-011 are not closed here (OD-10 part 2 at S2). **Permissions and facts:** OD-21, OD-25, TV-024 action A-1, OD-39 (KDB and SAR downloads, SPLAT! optional), OD-19, OD-22 (name the key and paddle), OD-32 (hand-assembly bench, heat gun added), OD-17, OD-24a | The architecture, the L2 files and the ICDs are written on the dispositioned requirement set from Sat 10-03 PM; the software architecture needs OD-13 to OD-16; 16a needs OD-32; the prototype image for the bench session needs the merges |
 | (Owner action, no session) | Between S1 and Wed 10-07, about 45 min at the owner's browser | **OD-42:** the TS-012 §8.11 price-check reads (Mouser rows and cart, RF Parts cart, JLCPCB quote with duty, 18650BatteryStore cart, Boyd drawing, owner stock), no checkout; reply in chat | WP-PDR-38 recomputes the ordering-gate figure for the PDR BOM before S2 |
 | **Bench** | Tue 10-06 PM, about 1.5 h (revision 3: Mon 10-05 PM) | Morse-menu demonstration on the Pico 2 development board with paddle, straight key and two buttons; bounce capture; keyer HIL. Prepares the OD-22 verdict | Its values and the HSI verdict are ruled at S2, before F1 |
-| **S2 Values and safety** | Fri 10-09 AM, about 1.5 h (revision 3: Tue 10-06 AM) | **OD-10 part 2 (revision 4, section 3.0a):** TS-011 and TS-004 as re-scored and TS-005 (remnant), each on its APPROVED section B record (and the SA pair for TS-005) (C9). **OD-09:** every TBR value in one batch (L1, L2, TPM, hazard-control, MOE-010), Extend only for L2 bench items, each on an APPROVED record (C10). **OD-35:** SMA TA concurrence in the re-run safety-critical determination. **OD-05:** HZ-002, HZ-003 and HZ-007 residual risk for A5 (PETG without flame rating, the COTS charger, the sink inside the case wall). **OD-08:** TPM definitions. **OD-22:** HSI verdict. **OD-25:** emulator decision (PCR-5 if the fallback). **OD-31:** charter edits. **OD-37:** PCR-5 to PCR-9 dispositions. **OD-43 batch 2:** merges of CR-007, 011, 012, 014, 017. **OD-24b:** TV-002 (ACC-TRACE-002) and TV-024. **OD-26:** the remaining instrument answers (the club station of CR-006 Q5). The recomputed ordering-gate figure is reported for information; nothing is ordered at PDR | F1 freezes the files that carry these values before the wave 3 reviews (C10, C2) |
-| **S3 Readiness** | Tue 10-13 PM, about 30 min (revision 3: Thu 10-08 PM) | **OD-29:** readiness and Soft-row liens. **OD-11:** SRR log closures. **OD-27:** CR-001, 002, 004, 005 closures. **OD-28:** signing key and the bypass report. **OD-09 re-ruling** of any value a wave 3 Major changed | It follows the wave 3 reviews it confirms |
-| **PDR review** | Fri 10-16, 2 to 4 h (revision 3: Sat 10-10) | **OD-30** (unchanged, less OD-20: the early buy is replaced by the ordering gate, run after CDR) | - |
+| **S2 Values and safety** | Mon 10-12 PM, about 1.5 h (revision 4: Fri 10-09 AM; revision 3: Tue 10-06 AM) | **OD-10 part 2 (revision 4, section 3.0a):** TS-011 and TS-004 as re-scored and TS-005 (remnant), each on its APPROVED section B record (and the SA pair for TS-005) (C9). **OD-09:** every TBR value in one batch (L1, L2, TPM, hazard-control, MOE-010), Extend only for L2 bench items, each on an APPROVED record (C10). **OD-35:** SMA TA concurrence in the re-run safety-critical determination. **OD-05:** HZ-002, HZ-003 and HZ-007 residual risk for A5 (PETG without flame rating, the COTS charger, the sink inside the case wall). **OD-08:** TPM definitions. **OD-22:** HSI verdict. **OD-25:** emulator decision (PCR-5 if the fallback). **OD-31:** charter edits. **OD-37:** PCR-5 to PCR-9 dispositions (PCR-7 only if OD-15 took the CR route at S1; S2 is its one session, revision 5). **OD-43 batch 2:** merges of CR-007, 011, 012, 014, 017. **OD-24b:** TV-002 (ACC-TRACE-002) and TV-024. **OD-26:** the remaining instrument answers (the club station of CR-006 Q5). The recomputed ordering-gate figure is reported for information; nothing is ordered at PDR | F1 freezes the files that carry these values before the wave 3 reviews (C10, C2) |
+| **S3 Readiness** | Sat 10-17 AM, about 30 min (revision 4: Tue 10-13 PM; revision 3: Thu 10-08 PM) | **OD-29:** readiness and Soft-row liens. **OD-11:** SRR log closures. **OD-27:** CR-001, 002, 004, 005 closures. **OD-28:** signing key and the bypass report. **OD-09 re-ruling** of any value a wave 3 Major changed | It follows the wave 3 reviews it confirms |
+| **PDR review** | Mon 10-19 PM, 2 to 4 h (revision 4: Fri 10-16; revision 3: Sat 10-10) | **OD-30** (unchanged, less OD-20: the early buy is replaced by the ordering gate, run after CDR) | - |
 
 **Why not fewer.** S1 has to come before the architecture and the L2 files, or five days of products would be written on undispositioned requirements, the at-risk exposure that revision 2 already limited. S2 has to come before F1, because the values it rules go into the files that wave 3 reviews (C10). S3 has to follow wave 3. Folding S1 into S2 or S2 into S3 would therefore either break a rule or re-open reviewed files, which costs more review invocations than the session saves.
 
@@ -1262,7 +1279,7 @@ Revision 2 had six decision sessions (B0, B1a, B1b, B2, B3, B4) and a bench sess
 
 | Id | Revision 3 state | Session |
 |---|---|---|
-| OD-01 | Re-asked for the revision 4 dates | Plan |
+| OD-01 | Re-asked for the revision 5 dates | Plan |
 | OD-02, OD-03 | Replaced by OD-40 (both CRs held for A5 revision since status note 2026-09-27 §6) | S1 |
 | OD-04 | **Dropped:** no quote is requested from anyone (TS-012 §8.12); OD-42 replaces it | - |
 | OD-05 | Open, re-scoped for A5 | S2 |
@@ -1273,7 +1290,7 @@ Revision 2 had six decision sessions (B0, B1a, B1b, B2, B3, B4) and a bench sess
 | OD-10 | Revised (revision 4, section 3.0a). Part 1: TS-001 and TS-007 superseded, TS-003, 006, 008, 009 and 010 not written, SWR fold-back closed on ruggedness, all on the APPROVED A5 ADR record. Part 2: TS-011 and TS-004 re-scored and TS-005 remnant, on APPROVED section B records (C9) | S1 (part 1), S2 (part 2) |
 | OD-11 | Open | S3 |
 | OD-12 | **Dropped:** no in-radio charging; the 500 mA default of REQ-SYS-090 stands | - |
-| OD-13 to OD-16 | Open | S1 |
+| OD-13 to OD-16 | Open. OD-15 is the route only; the PCR-7 disposition is under OD-37 at S2 (revision 5) | S1 |
 | OD-17 | Open if not yet given | S1 |
 | OD-18 | **Dropped:** no PD54008L-E model | - |
 | OD-19 | Open | S1 |
@@ -1292,7 +1309,7 @@ Revision 2 had six decision sessions (B0, B1a, B1b, B2, B3, B4) and a bench sess
 | OD-34 | **Dropped** (no vendor quotes) | - |
 | OD-35 | Open | S2 |
 | OD-36 | **Done** (CR-007 approved and confirmed, status note 2026-09-28 §1, §4) | - |
-| OD-37 | Open for PCR-4 (S1) and PCR-5 to PCR-9 (S2); PCR-1 to PCR-3 done | S1, S2 |
+| OD-37 | Open for PCR-4 (S1) and PCR-5 to PCR-9 (S2; PCR-7 at S2 only, revision 5); PCR-1 to PCR-3 done | S1, S2 |
 | OD-38 | **Done:** route (a), recorded in CR-018 (REQ-SYS-124) | - |
 | OD-39 | KDB and SAR downloads and SPLAT! at S1; PCM1808 **dropped**; stock checks replaced by OD-42 | S1 |
 | OD-40 to OD-43 | New, rows below | S1, S2 |
@@ -1317,7 +1334,7 @@ Revision 3 adds OD-40 to OD-43 at the end of the table. The needed-by dates of t
 | OD-12 | Measure the Pico 2 VBUS path at 0.5, 1.0 and 1.5 A (optional) | Optional; the 500 mA default stands if unmeasured | B1a Tue 09-29 | Decisions 71, 102 | 24 |
 | OD-13 | Secure boot on or off | Off (irreversible) | B1b Thu 10-01 | Decision 95; HZ-014 K7 | 32 |
 | OD-14 | rustos pinning method | Path dependency plus recorded commit (current practice) | B1b Thu 10-01 | 05 §14 OQ-CM-005 | 32 |
-| OD-15 | Host channel: USB CDC (WP-SW-13) into Rev A, or a CR changing REQ-SYS-143 to the UART pads only (PCR-7) | Take the CR to the UART pads for Rev A and USB CDC at Rev B, unless you want the USB banner now | Route at B1b Thu 10-01; PCR-7 disposition at B2 Fri 10-02 | REQ-SYS-143; ICD-CTL-USB §3.2.6; 07 §19 | 32 |
+| OD-15 | Host channel: USB CDC (WP-SW-13) into Rev A, or a CR changing REQ-SYS-143 to the UART pads only (PCR-7) | Take the CR to the UART pads for Rev A and USB CDC at Rev B, unless you want the USB banner now | Route at S1 Sat 10-03; PCR-7 disposition at S2 Mon 10-12 PM (revision 5; section 6.0 governs) | REQ-SYS-143; ICD-CTL-USB §3.2.6; 07 §19 | 32 |
 | OD-16 | Kani adoption; register-access trait for `pico2` | Kani: adopt for the SW-KEYER and SW-TXSEQ invariants as non-credit evidence. Trait: adopt only for drivers of safety-critical components | B1b Thu 10-01 | 07 §8.1; decision 93 | 32 |
 | OD-17 | Dated record of the OPS-B controlled-environment basis | Give it in chat; it is transcribed into the status note | B1a Tue 09-29 | RID-SRR-010; decision 18 | 30 |
 | OD-18 | st.com downloads (STEVAL-TDR003V1 files, DS6782, ADS model) | Download and place in `docs/research/vendor/` | Mon 09-28 morning (the PA model starts Tue) | pa-turnkey ACTION 14 | 21 |
@@ -1359,7 +1376,7 @@ The register holds the planned CRs ("PCR-n"); a CR number is taken when the file
 | PCR-4 | rustos pin-move CRs, one per merge or per batch consumed (CR-004 precedent) | I | WP-PDR-41 | Same day as each merge | OD-37; same day as each merge, by Thu 10-01 | Keyer prototype image; bench session Sat 10-03; lock at F1 | The prototype stays on the old pin; the HSI verdict and bench values take the section 7 routes |
 | PCR-5 | Emulation cases re-typed Bench (only on the RSK-003 fallback) | I (test cases) | WP-PDR-42 | Sat 10-03 | OD-37; B3 Sun 10-04 | V&V plan and SW test cases at F1 | Those products freeze with the cases marked "at risk (PCR-5)"; the disposition comes at B4 |
 | PCR-6 | SWE-022 and SWE-023 re-disposition (only if OD-21 obtains the documents) | Proposed with the CR (RMM tailoring rows) | WP-PDR-17 | Sat 10-03 | OD-37; B3 Sun 10-04 | `rmm.json` at F1 | Carried to the PDR session as a tailoring approval (OD-30); otherwise an RSK-009 item |
-| PCR-7 | REQ-SYS-143 to the UART pads for Rev A (only if OD-15 takes the CR route) | I (L1, TC-SYS-095, ICD-CTL-USB) | WP-PDR-32 | Fri 10-02 AM | OD-37; B2 Fri 10-02 | SW-DIAG L2, ICD-CTL-USB, ICD-SW-HOST at F1 | Those products freeze on REQ-SYS-143 as baselined, and WP-SW-13 enters the CDR lien list |
+| PCR-7 | REQ-SYS-143 to the UART pads for Rev A (only if OD-15 takes the CR route) | I (L1, TC-SYS-095, ICD-CTL-USB) | WP-PDR-32 | After S1, in W-B or W-C (revision 5) | OD-37; S2 Mon 10-12 PM, its one session (revision 5) | SW-DIAG L2, ICD-CTL-USB, ICD-SW-HOST at F1, AT RISK (PCR-7) under rule C8 until S2 | Those products freeze on REQ-SYS-143 as baselined, and WP-SW-13 enters the CDR lien list |
 | PCR-8 | REQ-SYS-184 squeeze limit as "the longer of 2 s and 16 dits" (only if the WP-PDR-33 host study confirms the `tbr.plan` CR branch) | I | WP-PDR-33 | Wed 09-30 | OD-37; B2 Fri 10-02, with the value | SW-KEYER and SW-SAFE files; HZ-004 | Blocks the L1 TBR (never a lien); escalated at B3 |
 | PCR-9 | Value-change CRs that a `tbr.plan` names as "else a CR": REQ-SYS-008, 009 guard with ADR-023; REQ-SYS-054, 180, 181, 182; REQ-SYS-024 if the Inrad tolerance requires it; REQ-SYS-112 if GRF5604 is revived; CON-015 filament if the PETG margin fails (CR-003 Q1 note); REQ-SYS-115 storage (OD-33). Each is raised only if its analysis triggers it | I | The analysis WP | Within half a day of the trigger | OD-37; B2 for analysis values, B3 for the thermal and hazard values | The requirement and its dependents at F1 | An L1 value cannot be liened. The owner rules the CR, or the original value, at B3 |
 | PCR-10 | L-016-6 lock-pin CR after the owner's `cfg_attr` commit | I | WP-PDR-41 | With the merge | OD-37; FW-B1 (a CDR lien if later) | G5 Miri `-p pico2` | CDR lien (section 7) |
@@ -1374,7 +1391,7 @@ CR-001, 002, 004 and 005 are already dispositioned; their closure is OD-27.
 | PCR-2 (CR-015) | Approved 2026-09-28 | Merge batch 1 (S1) |
 | PCR-3 (CR-016) | Approved 2026-09-28 | Merge batch 1 (S1); it precedes the A5 CRs on the requirement and test-case files |
 | PCR-4 | rustos pin-move CR not yet raised; the five driver reviews are done | §6 review in W-A; OD-37 at S1 with the merges (OD-23) |
-| PCR-5 to PCR-8 | As revision 2 | §6 reviews in W-C; OD-37 at S2 |
+| PCR-5 to PCR-8 | As revision 2. PCR-7 is raised only if OD-15 takes the CR route at S1 (revision 5) | §6 reviews in W-C (PCR-7 in W-B or W-C); OD-37 at S2, the one session for each |
 | PCR-9 | As revision 2, with the A5 triggers: any value the A5 analyses cannot hold that is not already in CR-018 | Within half a day of the trigger; OD-37 at S2 (S3 at the latest for a wave 3 trigger) |
 | PCR-10 | As revision 2 | FW-B1 (a CDR lien if later) |
 | CR-008 to CR-014 | Approved 2026-09-28 (the SRR lien CRs of WP-PDR-06, 09, 10, 11, 12, 13, 17 and the templates of WP-PDR-03) | Merge batches 1 and 2 (WP-PDR-55) |
@@ -1434,7 +1451,13 @@ Sections 8.1 to 8.5 are the revision 4 assessment and govern. Section 8.6 keeps 
 
 ### 8.1 Verdict on the dates
 
-**Revision 4: the revision 3 proposal (Sat 10-10, range Fri 10-09 to Tue 10-13) was not realistic. Revision 4 proposes about Fri 10-16, six days later (MAJOR-3 of the revision 3 review).** Three things move the date:
+**Revision 5: the revision 4 proposal (Fri 10-16, range Wed 10-14 to Tue 10-20) rested on two steps costed below the plan's own rules. Revision 5 proposes about Mon 10-19, three days later (NEW-MAJOR-A and NEW-MAJOR-B of the revision 4 review).** Two things move the date:
+1. **36a and 16a wait for the APPROVED architecture (+1.0 d).** Revision 4 reviewed the pin map and the control allocation to APPROVED in the same 1.5 days as the architecture review they depend on. Revision 5 freezes and reviews them only after 31 and 32 are APPROVED on Mon 10-05 PM (new step 6, Tue 10-06).
+2. **The reconciliation chain is costed on the section 4.2 assumptions (+2.5 d).** Step 8 (revision 4 step 7) is a serial chain: the 56 table and changes (1.0 d); 16b and 36b authored beside the 56 delta reviews (1.0 d); the rule C11 pass that completes 16b (0.5 d); the 16b review beside the 17 authoring and review (1.0 d); the 17 fix with the TBR sheet and the S2 sheet (0.5 d). That is 4.0 days instead of 1.5.
+
+The reserve stays at two days. The budget is easier: the later dates move W-D into week 3, so week 2 is planned at 44 % instead of 64 %, and the factor-2.0 case no longer pauses week 2 (section 8.5).
+
+**Revision 4 verdict (kept for the record): the revision 3 proposal (Sat 10-10, range Fri 10-09 to Tue 10-13) was not realistic. Revision 4 proposes about Fri 10-16, six days later (MAJOR-3 of the revision 3 review).** Three things move the date:
 1. **The chain was costed at best case.** Revision 3 started step 1 on Tue PM, before OD-01 could be accepted. It gave one day to three CR drafts, the D-18 fix with its key-up rerun and SA check, and four over-limit thermal items, with the value-bearing records still to be reviewed to APPROVED before S1 (C10). It then gave one day to nine analyses, including the MDS front-end redesign. Section 4.2 now starts on Wed 09-30 and gives each step a duration it can meet: 14.0 working days to readiness instead of 9.5.
 2. **The dependency fix adds work to the chain.** 20a and 23a run in week 1 before the architecture uses them. The reconciliation stage (WP-PDR-56) runs after the analyses and before 36b and 16b. Both are needed so that the architecture, the pin map and the timing table are not written on results that arrive later (MAJOR-1).
 3. **The reserve is two days, not one.** Revision 3's single day was the only float on a chain with no slack.
@@ -1458,47 +1481,48 @@ Sections 8.1 to 8.5 are the revision 4 assessment and govern. Section 8.6 keeps 
 | Week | Window | Usable (to 90 %) | Tokens | Invocations that fit | Planned |
 |---|---|---|---|---|---|
 | 1 | Wed 09-30 AM to Sun 10-04 03:00 CDT | 90 - 57 = 33 % | about 45 M | about 89 | about 75 (W-A 55, W-B before the reset about 20): meter planned at 85 % |
-| 2 | Sun 10-04 03:00 to Sun 10-11 03:00 CDT | 90 % | about 122 M | about 245 | about 172 (W-B after the reset about 18, W-C 114, W-D iteration 1 about 40): meter planned at 64 % |
-| 3 | Sun 10-11 03:00 to Sun 10-18 03:00 CDT | 90 % | about 122 M | about 245 | about 31 (W-D iterations 2 and 3 about 10, W-E 12, W-F 9): meter planned at 11 %; the rest is post-PDR CDR work |
+| 2 | Sun 10-04 03:00 to Sun 10-11 03:00 CDT | 90 % | about 122 M | about 245 | about 120 (W-B after the reset about 18, W-C before the reset about 102): meter planned at 44 % (revision 4: 172 and 64 %) |
+| 3 | Sun 10-11 03:00 to Sun 10-18 03:00 CDT | 90 % | about 122 M | about 245 | about 74 (the W-C tail about 12: the 16b review, 17 and 45; W-D 50; W-E 12): meter planned at 27 % |
+| 4 | Sun 10-18 03:00 to Sun 10-25 03:00 CDT | 90 % | about 122 M | about 245 | about 9 (W-F): meter planned at 3 %; the rest is post-PDR CDR work |
 
 ### 8.3 Token cost per wave
 
-Invocations come from section 3.0 (278 in all); tokens use the planning rate of section 8.2.
+Invocations come from section 3.0 (278 in all); tokens use the planning rate of section 8.2. Revision 5 changes no invocation count; it moves the wave windows (section 5.2). The revision 4 table is kept at `5f84770`.
 
 | Wave | Window | Inv. | Subagent tokens | With orchestration | Share of the weekly limit | Meter after |
 |---|---|---|---|---|---|---|
 | W-A A5 change control | Wed 09-30 AM to Fri 10-02 PM | 55 | 22.0 M | 27.5 M | 20.2 % | 77 % (week 1) |
 | S1 | Sat 10-03 AM | - | - | in W-A, W-B | - | - |
-| W-B Architecture | Sat 10-03 PM to Mon 10-05 PM | 38 | 15.2 M | 19.0 M | 14.0 % | 85 % at the reset (week 1, about 20 inv.); 7 % (week 2, about 18 inv.) |
+| W-B Architecture | Sat 10-03 PM to Tue 10-06 PM | 38 | 15.2 M | 19.0 M | 14.0 % | 85 % at the reset (week 1, about 20 inv.); 7 % (week 2, about 18 inv.) |
 | Reset | Sun 10-04 03:00 CDT | - | - | - | - | 0 % |
-| W-C Analyses and allocated products | Sun 10-04 AM to Thu 10-08 PM | 114 | 45.6 M | 57.0 M | 41.9 % | 49 % (week 2) |
-| S2, F1 | Fri 10-09 | - | - | - | - | - |
-| W-D Independent reviews | Sat 10-10 to Sun 10-11 | 50 | 20.0 M | 25.0 M | 18.4 % | 64 % at the reset (week 2, iteration 1 about 40 inv.); 4 % (week 3) |
+| W-C Analyses and allocated products | Sun 10-04 AM to Mon 10-12 AM | 114 | 45.6 M | 57.0 M | 41.9 % | 44 % at the reset (week 2, about 102 inv.); 4 % (week 3, about 12 inv.) |
 | Reset | Sun 10-11 03:00 CDT | - | - | - | - | 0 % |
-| W-E Readiness and package; S3 | Mon 10-12 to Tue 10-13 | 12 | 4.8 M | 6.0 M | 4.4 % | 8 % (week 3) |
-| Reserve days | Wed 10-14, Thu 10-15 | 0 | - | - | - | 8 % |
-| W-F Review and baseline | Fri 10-16 to Sat 10-17 | 9 | 3.6 M | 4.5 M | 3.3 % | 11 % (week 3) |
-| **Total** | | **278** | **111.2 M** | **139.0 M** | **102.2 % of one week, over three weeks** | |
+| S2, F1 | Mon 10-12 PM to Tue 10-13 AM | - | - | - | - | - |
+| W-D Independent reviews | Tue 10-13 PM to Thu 10-15 AM | 50 | 20.0 M | 25.0 M | 18.4 % | 23 % (week 3) |
+| W-E Readiness and package; S3 | Thu 10-15 PM to Sat 10-17 AM | 12 | 4.8 M | 6.0 M | 4.4 % | 27 % (week 3) |
+| Reserve days | Sat 10-17 PM to Mon 10-19 AM | 0 | - | - | - | 27 %, then 0 % at the reset Sun 10-18 03:00 CDT |
+| W-F Review and baseline | Mon 10-19 PM to Tue 10-20 | 9 | 3.6 M | 4.5 M | 3.3 % | 3 % (week 4) |
+| **Total** | | **278** | **111.2 M** | **139.0 M** | **102.2 % of one week, over four weeks** | |
 
 **Week 1 is still the tight one**, with about 14 invocations (about 5 % of the limit) before the 90 % line. Week 1 runs the critical chain: the A5 CR set and the analyses that give CR-018 its KDR rows (WP-PDR-01, 21, 22, 28a, 53), the ADR and TS-012 re-issue (54), the price-check list (04), merge batch 1 and the CR-017 implementation (55), and the start of 02 and 32. It also runs the two analyses the architecture needs, 20a and 23a (MAJOR-1). Everything else, including WP-PDR-19, 20b, 23b and 24 to 27, waits for the reset.
 
 ### 8.4 Proposed dates
 
-| Event | Revision 2 (approved 2026-09-27) | Revision 3 (not realistic; revision 3 review MAJOR-3) | **Revision 4 (proposed)** | Basis |
-|---|---|---|---|---|
-| A5 CR set dispositioned | none | S1 Thu 10-01 PM | **S1 Sat 10-03 AM** | Section 4.2 steps 1 to 3 |
-| Trade decisions left (TS-011, TS-004, TS-005) | B1b Thu 10-01 | S1 (closed before the re-score) | **S2 Fri 10-09 AM**, on APPROVED section B records | Section 3.0a; rule C9 |
-| TBR value rulings | B2 Fri 10-02; B3 Sun 10-04 | S2 Tue 10-06 AM | S2 Fri 10-09 AM; re-ruling by S3 Tue 10-13 | Rule C10 |
-| Freeze F1 | Sun 10-04 | Tue 10-06 | Fri 10-09 | Section 4.2 step 8 |
-| PDR readiness declaration | Tue 10-06 | Thu 10-08 | **Tue 2026-10-13** | Section 4.2 step 12 |
-| Reserve | Wed 10-07 | Fri 10-09 | **Wed 10-14 and Thu 10-15** | Two days of float |
-| PDR session | Thu 10-08 | Sat 10-10 (range 10-09 to 10-13) | **Fri 2026-10-16 (range Wed 10-14 to Tue 10-20)** | Wave W-F; range below and section 8.5 |
-| `baseline/pdr` | Thu 10-08 to Fri 10-09 | Sat 10-10 to Sun 10-11 | Fri 10-16 to Sat 10-17 | WP-PDR-52 |
-| CDR, ordering gate and order, boards, TRR | CDR about 10-14 to 10-15; boards about 10-30 to 11-03; TRR about 11-05 to 11-10 | indicative CDR about 10-16 to 10-20 | Re-planned in `docs/plan/schedule.md` by WP-PDR-46 for the hand build (JLCPCB bare boards, one Mouser order, RF Parts, owner assembly) on the PDR date; indicative CDR about 10-22 to 10-26 | The PCBWay closure of 10-01 to 10-04 no longer applies. The JLCPCB and carrier schedules around the order date are read at the ordering gate |
+| Event | Revision 2 (approved 2026-09-27) | Revision 3 (not realistic; revision 3 review MAJOR-3) | Revision 4 (costed below its assumptions; revision 4 review NEW-MAJOR-A, B) | **Revision 5 (proposed)** | Basis |
+|---|---|---|---|---|---|
+| A5 CR set dispositioned | none | S1 Thu 10-01 PM | S1 Sat 10-03 AM | **S1 Sat 10-03 AM** | Section 4.2 steps 1 to 3 |
+| Trade decisions left (TS-011, TS-004, TS-005) | B1b Thu 10-01 | S1 (closed before the re-score) | S2 Fri 10-09 AM | **S2 Mon 10-12 PM**, on APPROVED section B records | Section 3.0a; rule C9 |
+| TBR value rulings | B2 Fri 10-02; B3 Sun 10-04 | S2 Tue 10-06 AM | S2 Fri 10-09 AM; re-ruling by S3 Tue 10-13 | S2 Mon 10-12 PM; re-ruling by S3 Sat 10-17 | Rule C10 |
+| Freeze F1 | Sun 10-04 | Tue 10-06 | Fri 10-09 | Tue 10-13 AM | Section 4.2 step 9 |
+| PDR readiness declaration | Tue 10-06 | Thu 10-08 | Tue 10-13 | **Sat 2026-10-17 AM** | Section 4.2 step 13 |
+| Reserve | Wed 10-07 | Fri 10-09 | Wed 10-14 and Thu 10-15 | **Sat 10-17 PM to Mon 10-19 AM** | Two days of float |
+| PDR session | Thu 10-08 | Sat 10-10 (range 10-09 to 10-13) | Fri 10-16 (range 10-14 to 10-20) | **Mon 2026-10-19 PM (range Sun 10-18 to Wed 10-21)** | Wave W-F; range below and section 8.5 |
+| `baseline/pdr` | Thu 10-08 to Fri 10-09 | Sat 10-10 to Sun 10-11 | Fri 10-16 to Sat 10-17 | Tue 10-20 | WP-PDR-52 |
+| CDR, ordering gate and order, boards, TRR | CDR about 10-14 to 10-15; boards about 10-30 to 11-03; TRR about 11-05 to 11-10 | indicative CDR about 10-16 to 10-20 | indicative CDR about 10-22 to 10-26 | Re-planned in `docs/plan/schedule.md` by WP-PDR-46 for the hand build (JLCPCB bare boards, one Mouser order, RF Parts, owner assembly) on the PDR date; indicative CDR about 10-25 to 10-29 | The PCBWay closure of 10-01 to 10-04 no longer applies. The JLCPCB and carrier schedules around the order date are read at the ordering gate |
 
-**Range.**
-- **Early end, Wed 10-14.** This holds if nothing uses the reserve and the owner can hold the session the day after S3.
-- **Late end, Tue 10-20.** This stacks three things: the factor-2.0 budget case of section 8.5 (about 2.5 days), one more CR fix round before S1 (about 1 day), and one slipped owner session (about 1 day). Together that is about 4.5 days. The reserve absorbs 2, which leaves about 2.5 days after Fri 10-16.
+**Range (revision 5).**
+- **Early end, Sun 10-18.** This holds if nothing uses the reserve and the owner can hold the session the day after S3.
+- **Late end, Wed 10-21.** This stacks three things: the factor-2.0 budget case of section 8.5 (about 1 day, now that week 2 no longer pauses), one more CR fix round before S1 (about 1 day), and one slipped owner session (about 1 day). Together that is about 3 days. The reserve absorbs 2, which leaves about 1 day after Mon 10-19, so Tue 10-20; Wed 10-21 carries about 1 day of margin.
 
 A slipped owner session moves the chain day for day once the reserve is used.
 
@@ -1507,10 +1531,12 @@ A slipped owner session moves the chain day for day once the reserve is used.
 - the meter within about 3 points of 57 % at the start of W-A, and within about 4 points of the plan at each barrier;
 - 21, 22 and 28a APPROVED by Thu 10-01 PM, and 20a and 23a by Fri 10-02 PM;
 - S1 on Sat 10-03 AM with the A5 CR set free of open Majors;
+- 31 and 32 APPROVED by Mon 10-05 PM, and 36a and 16a by Tue 10-06 PM;
 - the WP-PDR-19 MDS redesign APPROVED by Tue 10-06 PM;
 - the owner's price reads (OD-42) by Wed 10-07;
 - the bench session on Tue 10-06 PM;
-- S2 on Fri 10-09 AM and S3 on Tue 10-13 PM.
+- 16b APPROVED by Sun 10-11 PM and 17 by Mon 10-12 AM;
+- S2 on Mon 10-12 PM and S3 on Sat 10-17 AM.
 
 ### 8.5 If a week's budget runs out
 
@@ -1523,9 +1549,11 @@ A slipped owner session moves the chain day for day once the reserve is used.
 
 | Factor on subagent tokens | Share per invocation | Week 1: invocations that fit | Week 1 effect | Week 2: share needed | Week 2 effect | PDR session |
 |---|---|---|---|---|---|---|
-| 1.25 (plan) | 0.37 % | about 89 against 75 | none | 64 % | none | **Fri 10-16** |
-| 1.5 | 0.44 % | about 75 against 75 | at the line; a pause of a few hours before the reset, Sat night | 76 % | none | Fri 10-16 |
-| 2.0 | 0.59 % | about 56 against 75 | pause from about Sat 10-03 AM to the reset; about 19 invocations (about 0.5 to 1 day) slip into week 2 | about 113 % with the slipped work | pause at 90 % about Fri 10-09 PM, with W-D iteration 1 not run, until the reset Sun 10-11 03:00; about 1.5 days | about Sat 10-17 to Sun 10-18, after the reserve absorbs 2 of about 2.5 days; a session on the next day the owner names |
+| 1.25 (plan) | 0.37 % | about 89 against 75 | none | 44 % | none | **Mon 10-19** |
+| 1.5 | 0.44 % | about 75 against 75 | at the line; a pause of a few hours before the reset, Sat night | 53 % | none | Mon 10-19 |
+| 2.0 | 0.59 % | about 56 against 75 | pause from about Sat 10-03 AM to the reset; about 19 invocations (about 0.5 to 1 day) slip into week 2 | about 82 % with the slipped work | none: below the 90 % line (week 3 about 44 %, week 4 about 5 %) | Mon 10-19; the reserve absorbs the day, and a second delay then moves the session (range in section 8.4) |
+
+Revision 5 re-derives this table on the section 8.2 weeks; the revision 4 table is kept at `5f84770`.
 
 If the meter shows a factor above 2.0 at the W-A barrier (Fri 10-02), the lead SE re-plans at once and tells the owner before S1, rather than at the pause.
 
@@ -1624,7 +1652,7 @@ The reserve day absorbs one slipped session. If a second session slips a day, th
 
 | # | Risk | Likelihood / consequence | Response |
 |---|---|---|---|
-| PR-17 | The weekly usage budget runs out before a week's planned work is done, because the per-invocation cost is above the planning rate (section 8.2) | Medium in week 1 (revision 4: about 14 invocations of margin), low in week 2 / pause to the reset; about 2.5 days at a 2.0 factor, of which the two reserve days absorb 2 (revision 4, section 8.5) | Rule C12: meter read at every barrier, critical chain first, pause at 90 %, never a cut in rigor; re-plan told to the owner before the next session (section 8.5) |
+| PR-17 | The weekly usage budget runs out before a week's planned work is done, because the per-invocation cost is above the planning rate (section 8.2) | Medium in week 1 (revision 4: about 14 invocations of margin), low in week 2 / pause to the reset; about 1 day at a 2.0 factor, which the two reserve days absorb (revision 5, section 8.5) | Rule C12: meter read at every barrier, critical chain first, pause at 90 %, never a cut in rigor; re-plan told to the owner before the next session (section 8.5) |
 | PR-18 | CR-018 is large (about 80 L1 rows, L0, ICD and hazard links, 01 rows) and its impact reviews find Majors that one fix round does not close | Medium / S1 moves half a day to a day, the reserve day is used | Draft on the merged CR-008 text; reviewers get the TS-012 §8.10 rows and every analysis record as acceptance criteria (rule C7); one fix round budgeted; the architecture drafts on TS-012 §8.1 meanwhile (C13) |
 | PR-19 | An A5 open thermal item (cells, PETG face, module case, relay ambient) cannot be closed by a no-cost or gate-affordable change | Medium / a KDR delta (REQ-SYS-112) or a value CR for the owner, possibly a re-opened study (TS-012 §10 revisit (d)) | WP-PDR-28 runs in week 1, before CR-018 is final; an item that stays open goes to the owner at S1 inside CR-018, or at S2 as PCR-9; never a lien |
 | PR-20 | The ordering-gate worst case exceeds USD 300 after guards G1 to G4 at the owner's reads, or an A5 part is not Active at the gate | Medium / the order waits for an owner decision; G6 (revert to A4) conflicts with the owner's condition | OD-42 reads before S2 so the PDR BOM shows the verified figure; the owner decides between not ordering and a change that re-opens TS-012 (TS-012 §10 conditions 1 and revisit (b), (c)); this does not hold the PDR, only the order |
@@ -1964,6 +1992,23 @@ The TBR groups of section 10.2 are the revision 2 map. CR-018 retires some of th
 | 2 | 2026-09-27 | `39a6b13` | Twelve findings of the completeness critic resolved, as listed below | Completeness critic of revision 1 |
 | 3 | 2026-09-29 | `6497900` | Re-plan for the owner's A5 decision and pacing against the weekly usage limit, as listed below. PDR about Sat 10-10 (range Fri 10-09 to Tue 10-13); three decision sessions, one bench session and the review session | Lead SE planner; owner decision A5 (status note 2026-09-29 §5); TS-012 revision 7 §8.12, §10 |
 | 4 | 2026-09-29 | `2cf4402` | The three Major findings of the independent review of revision 3 fixed, as listed below: dependencies (20a and 23a in week 1, waiver table, reconciliation stage WP-PDR-56, loop 28a → 27 → 28b); trade-study dispositions and sessions (section 3.0a, OD-10 in two parts, SWR fold-back closed on ruggedness); the chain re-costed. PDR about Fri 10-16 (range Wed 10-14 to Tue 10-20); S1 Sat 10-03, bench Tue 10-06, S2 Fri 10-09, S3 Tue 10-13; 278 invocations | Lead SE planner; plan review of revision 3 (MAJOR-1 to MAJOR-3; Minor findings held under rule C1) |
+| 5 | 2026-09-29 | `5f84770` | The three new Major findings of the delta review of revision 4 fixed, as listed below: 36a and 16a frozen and reviewed only on the APPROVED architecture (drafting waiver stated, new step 6); the reconciliation chain costed on the plan's own assumptions (step 8, 4.0 days); PCR-7 in one session (S2). PDR about Mon 10-19 (range Sun 10-18 to Wed 10-21); S1 Sat 10-03, bench Tue 10-06, S2 Mon 10-12, S3 Sat 10-17; 278 invocations | Lead SE planner; delta review of revision 4 (NEW-MAJOR-A to NEW-MAJOR-C; MINOR-9 and the other Minor findings held under rule C1) |
+
+Changes in revision 5, with the finding each resolves (only the Major findings of the delta review of revision 4 are fixed; the Minor findings, MINOR-9 included, are held under rule C1):
+
+1. **NEW-MAJOR-A, 36a and 16a reviewed against an architecture still under review.**
+   - **Waiver stated (section 4.1).** The 36a row now needs 31 and 32 APPROVED before 36a is frozen and reviewed, and names the one waiver: drafting on the F0 texts of 31 and 32. A 16a row is added with the same terms. Before its F0 freeze, each author diffs the APPROVED blobs against the texts drafted on; the reviewer checks that diff.
+   - **Sequence (section 4.2).** Step 5 no longer holds the 36a review or 16a. The new step 6 (Tue 10-06) freezes and reviews both to APPROVED. The L2 files and the schematic (step 7) start Wed 10-07 AM. This adds 1.0 day.
+   - **Other sections.** Section 3.0 rows 16 and 36, the graph note of section 4.1, the near-critical table and wave W-B of section 5.2 follow.
+2. **NEW-MAJOR-B, the reconciliation step costed below the plan's assumptions.**
+   - **Step 8 (section 4.2; revision 4 step 7).** It is laid out as sub-steps 8a to 8e on the analysis-record assumption: the 56 table and changes; 16b and 36b authoring beside the 56 delta reviews; the rule C11 pass that completes 16b after the 56 record is APPROVED; the 16b review beside the 17 authoring and review; the 17 fix with the TBR sheet and the S2 sheet. It takes 4.0 days (Thu 10-08 PM to Mon 10-12 AM) instead of 1.5. This adds 2.5 days.
+   - **Dependencies (section 4.1).** Rows for 16b, 36b and 17 state what each needs committed to be authored and what must be APPROVED before it freezes or closes.
+   - **Other sections.** WP-PDR-56 (step reference), the near-critical table, sections 5.2 and 8 (budget per week, token cost per wave, dates, range, conditions, sensitivity) and PR-17 follow. The later dates move W-D into week 3, so week 2 is planned at 44 %, and the factor-2.0 case costs about 1 day instead of about 2.5.
+3. **NEW-MAJOR-C, PCR-7 in two sessions.** S1 decides the OD-15 route only. PCR-7, if raised, is reviewed in W-B or W-C and dispositioned at S2 under OD-37, its one session. Section 6.0 (the S1 and S2 rows, the OD-13 to OD-16 and OD-37 rows), the section 6.1 OD-15 row and the section 6.2 PCR-7 rows are updated. The products that wait on it are AT RISK (PCR-7) under rule C8 until S2.
+4. **Dates.** The chain is 17.5 working days to readiness on Sat 10-17 AM, with two reserve days. PDR about Mon 10-19 (range Sun 10-18 to Wed 10-21). S1 and the bench session keep their dates; S2 moves to Mon 10-12 PM, S3 to Sat 10-17 AM, the review to Mon 10-19 PM.
+5. **Estimate.** Unchanged at 278 invocations.
+
+The revision 4 texts of sections 4.2 (step table), 5.2 (wave table) and 8.3 to 8.5 are replaced. They are kept at `5f84770`.
 
 Changes in revision 4, with the finding each resolves (only the Major findings of the revision 3 review are fixed; the Minor findings are held under rule C1):
 
