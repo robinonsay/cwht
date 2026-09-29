@@ -9,7 +9,7 @@ Block of the WP-PDR-20 analyses (synthesizer, reference, frequency budget, clock
 | `clock_plan.py` | Harmonic map of every clock against the 2 m receive band, the CW segment, the IF, the image and the LO band (ADR-031 rules). Standard library; `--plot` renders the figure | `docs/design/analysis/clock-plan.md`, ADR-031 |
 | `freq_budget.py` | Frequency error budget and counter timebase (REQ-SYS-182, REQ-TX-013) | `docs/design/analysis/frequency-budget.md` |
 | `ts007_matrix.py` | TS-007 synthesizer and reference trade matrix | TS-007 |
-| `r3_a5.py` | Route R3 for A5 (WP-PDR-20a): Si5351A relock budget from the data sheet and AN619, XOSC/TCXO ratio freshness over the longest over (imports the WP-PDR-28a thermal model unchanged), the A5 R3 budget with the drift term split by check, the receive-only squaring-stage lines. numpy, matplotlib; `--run-id` writes `results/<run-id>/` | `docs/design/analysis/frequency-budget.md` section 3.4 (revision 2) |
+| `r3_a5.py` | Route R3 for A5 (WP-PDR-20a): Si5351A relock budget from the data sheet and AN619 on 2^n x 1 us FC0 counts, XOSC/TCXO ratio freshness over the longest over with the TCXO's own terms from the TG2520SMN brief sheet (imports the WP-PDR-28a thermal model unchanged), the A5 R3 budget with the drift term split by check, what the key-down count verifies and the A5 band-edge guard with the settle residual at the ramp, the receive-only squaring-stage lines. numpy, matplotlib; `--run-id` writes `results/<run-id>/` | `docs/design/analysis/frequency-budget.md` section 3.4 and the A5 rows of section 3.1 (revision 3) |
 | `tx_spur_plan.py` | TS-012 transmit clock spur plan: every clock line from 118 to 175 MHz while transmitting, at the GVA-84+ input and at the antenna, for plans B0, B1, P and PB and for finalists A4 and A5 | `docs/design/analysis/spurs-ts012.md` |
 | `tx_spur_filters.cir` | LTspice AC deck: drive low-pass with the 18 dB pad, option C10 drive bandpass, harmonic 7-pole low-pass (ideal and inductor Q 60) | as above |
 | `tx_spur_bpf_tol.cir` | LTspice AC deck: tolerance corners (every L and every C at 0.95, 1, 1.05) of the option C10 drive bandpass | as above |
@@ -21,7 +21,34 @@ LTspice runs only through `tools/ltspice-batch.sh` (ACC-LTSPICE-001, blob `88b71
 
 ## Runs
 
-### `results/r3a5-20260929-01/` (2026-09-29): WP-PDR-20a, route R3 for A5 (`frequency-budget.md` revision 2, section 3.4)
+### `results/r3a5-20260929-02/` (2026-09-29): WP-PDR-20a revision 3, the Major findings of INSP-056 (11, 12) and INSP-111 (7) (`frequency-budget.md` revision 3; governs)
+
+Reproduce from the repository root:
+
+```
+.venv/bin/python hardware/sim/freq/r3_a5.py --run-id r3a5-20260929-02
+```
+
+No LTspice deck in this run. The checker exits **0**: 38 PASS, 0 FAIL, 14 INFO lines. Its console output is `checker-output.txt`.
+
+| Output | Content |
+|---|---|
+| `results.json` | As the revision 2 run, plus: `relock` proposed L_max, the fallback gap and the FC0 times; `settle` (the linear-tail bound on a count, the slewing detection time, S_RAMP, the M-1(c) resolution, the A5 guard); `freshness` TCXO terms, both allocations, the M-2(a) limits; the TG2520SMN source with its PDF SHA-256 |
+| `relock-sequence.png` | Key-down timelines on the 2^n x 1 us counts (proposed 1.9 ms deadline; ramp at 12 ms; TS-012 fallback); sourced Si5351A timing values against the settle budget (log) |
+| `ratio-freshness.png` | MAIN-node change over the 190 s window; ratio drift bound (XOSC plus TCXO) against the ratio age with the 2.5 and 8.0 ppm allocations and the ceilings |
+| `xosc-slope.png` | As revision 2 |
+| `r3-budget-and-buffer.png` | d and T + d per check; 25 MHz harmonics against the receive windows |
+| `settle-and-guard.png` | Linear-tail bound on the interval-12 count against T; the A5 upper-edge guard with the settle residual and the M-1(c) resolution |
+| `r3_a5.py` | Copy of the script as run |
+
+Summary:
+- **Relock.** On 2^n x 1 us counts L max is 1.904 ms with the TS-012 ramp (proposed deadline 1.9 ms), 3.904 ms with the ramp at 12 ms, and -0.192 ms at interval 13; the TS-012 fallback keeps 0.308 ms from PA_EN to its ramp.
+- **What the count verifies.** A linear PLL tail shifts an interval-12 count by at most 2 891 Hz, inside T, so the frequency at the ramp rests on the 5 Hz settle residual allocation, closed by M-1(c). The A5 guard margin is 70.0 Hz and the REQ-TX-006 limit 820.0 Hz.
+- **Freshness.** With the TCXO terms (1.0 ppm band, 0.4 ppm step) the drift over the longest over is 7.52 ppm. The budget closes with A_kd = 10 s and 2.5 ppm at the key-down check (margin 260.0 Hz) and 8.0 ppm at interval 13 (margin 1 446.0 Hz).
+
+Every PNG of this run was opened and inspected after rendering (visual closure, 2026-09-29).
+
+### `results/r3a5-20260929-01/` (2026-09-29): WP-PDR-20a, route R3 for A5 (`frequency-budget.md` revision 2, section 3.4; superseded by `r3a5-20260929-02`)
 
 Reproduce from the repository root:
 
