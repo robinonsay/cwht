@@ -1,0 +1,42 @@
+* probe_rf.cir: the select-on-test level reading, RF part (cwht WP-PDR-21 revision 3, run_a5_r3.py k1)
+* A 146 MHz source behind 50 ohm (the 3 dB pad and GVA-84+ output, 50 ohm) into the 50 ohm load that replaces
+* the RA07M1317M; fundamental amplitude at the load a1 = sqrt(2 x 50 x P) without the probe; one harmonic of relative
+* amplitude hr at phase ph (0: its peak on the fundamental's peak); polarity pol (the probe diode reversed is the source negated). The probe: 1 pF
+* tip and housing at the load node (est.), a series diode, then the 10 nF hold capacitor's path (0.1 ohm, 1 nH, est.)
+* to the hold voltage Vh, held as an ideal DC source (10 nF is 0.11 ohm at 146 MHz and its voltage does not
+* move within the window). The checker finds, for each case, the Vh at which the average diode current equals the
+* meter's DC current Vh / 10 Mohm (the periodic steady state of the real probe), from a grid of Vh
+* below the load peak a1 (step d); average over the last 4 of 30 carrier periods.
+* 9360 steps, idx = d grid fastest, then polarity, harmonic case, power, diode set.
+.param idx=0
+.step param idx 0 9359 1
+.param idd=floor(idx/1)-39*floor(idx/39)
+.param ipol=floor(idx/39)-2*floor(idx/78)
+.param ih=floor(idx/78)-5*floor(idx/390)
+.param ip=floor(idx/390)-3*floor(idx/1170)
+.param iset=floor(idx/1170)-8*floor(idx/9360)
+.param dd=table(idd,0,0.02,1,0.03,2,0.04,3,0.05,4,0.06,5,0.07,6,0.08,7,0.09,8,0.1,9,0.11,10,0.12,11,0.13,12,0.14,13,0.15,14,0.16,15,0.17,16,0.18,17,0.19,18,0.2,19,0.21,20,0.22,21,0.23,22,0.24,23,0.25,24,0.26,25,0.27,26,0.28,27,0.29,28,0.3,29,0.31,30,0.32,31,0.33,32,0.34,33,0.35,34,0.36,35,0.37,36,0.38,37,0.39,38,0.4)
+.param pol=table(ipol,0,1,1,-1)
+.param hn=table(ih,0,2,1,2,2,2,3,3,4,3)
+.param hr=table(ih,0,1e-10,1,0.0316228,2,0.0316228,3,0.0316228,4,0.0316228)
+.param ph=table(ih,0,0,1,0,2,180,3,0,4,180)
+.param pw=table(ip,0,0.01,1,0.0173,2,0.03)
+.param dis=table(iset,0,3e-08,1,3e-09,2,3e-07,3,3e-08,4,3e-08,5,3e-08,6,3e-08,7,3e-08)
+.param dn=table(iset,0,1.08,1,1.08,2,1.08,3,1,4,1.15,5,1.08,6,1.08,7,1.08)
+.param drs=table(iset,0,30,1,30,2,30,3,30,4,30,5,10,6,50,7,30)
+.param dcj=table(iset,0,1.6e-12,1,1.6e-12,2,1.6e-12,3,1.6e-12,4,1.6e-12,5,1.6e-12,6,1.6e-12,7,2.2e-12)
+.param a1=sqrt(2*50*pw)
+.param vh=a1-dd
+B1 src 0 V=pol*2*a1*(cos(2*pi*146000000*time)+hr*cos(hn*2*pi*146000000*time+ph*pi/180))
+Rs src load 50
+Rl load 0 50
+Clead load 0 1p
+D1 load hold DPROBE
+Rh hold hx 0.1
+Lh hx hy 1n
+Vh hy 0 {vh}
+.model DPROBE D(Is={dis} N={dn} Rs={drs} Cjo={dcj} Vj=0.65 M=0.5 Eg=0.69 Xti=2 BV=75 Ibv=1e-5)
+.options method=gear
+.tran 0 205.4795n 178.0822n 25p
+.save I(D1)
+.end

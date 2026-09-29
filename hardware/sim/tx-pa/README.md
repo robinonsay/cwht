@@ -5,12 +5,13 @@ Question: for each TS-012 finalist (A4: AFT05MS004N with a hand match, no TCXO; 
 what drive reaches the PA across tolerances and the CLK1-to-RF-board coax, what load the chain puts on the Si5351
 CLK1 pin, whether the RA07M1317M input window of 10 to 30 mW is kept (and with what margin to its 30 mW rating), and
 what power reaches the SMA from 6.4 to 8.4 V pack against REQ-SYS-012 (5 W +/-1 dB, 3.97 to 6.30 W) at 25 C and over
-REQ-SYS-114's -10 to +45 C. Current revision of the record: 2 (2026-09-28).
+REQ-SYS-114's -10 to +45 C. Current revision of the record: 3 (2026-09-29; A5 only, after the owner's decision A5).
 
 ## Files
 
 | File | What it is |
 |---|---|
+| `run_a5_r3.py` | Revision 3 (A5 only): runs d6, d7, k1, s2, p4, p5, s3 (below). Imports the helpers, inputs and GVA-84+ model of `run_pa.py`; LTspice only through `tools/ltspice-batch.sh`; writes `raw.sha256` for every `.raw` over 5,000,000 bytes (CR-017). `run_a5_r3.py all --expect` reproduces and checks every revision 3 verdict |
 | `run_pa.py` | Deck writer, LTspice runner (only through `tools/ltspice-batch.sh`, ACC-LTSPICE-001), `.raw` reader (spicelib 1.6.3), checker and plotter. `run_pa.py all` reproduces every current run below; exit status in the section below |
 | `digitize_ra07.py`, `digitize_aft05.py` | Graph readers for the datasheet curves (render at 400 dpi with pdftoppm, locate the grid, track the curve); they write `data/*.csv` and an overlay PNG per curve (red or blue marks on the datasheet crop) for visual closure |
 | `data/` | Digitized curves: RA07M1317M Pout versus Pin (7.2 V, VGG 3.5 V), Pout versus VDD (Pin 20 mW, VGG 3.5 V) and Pout versus VGG (7.2 V, Pin 20 mW), each at 135 and 155 MHz; AFT05MS004N Pout versus Pin at 7.5 V in the NXP 136 to 174 MHz reference circuit (Figure 13, 135 and 155 MHz). All typical data, graph reads (estimates) |
@@ -25,6 +26,11 @@ committed; SHA-256 of the files read):
 - Skyworks Si5351A/B/C-B Rev. 1.3: https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si5351-B.pdf (`f3bc5285fccafa3f...`): Table 7 (load capacitance at most 15 pF; edge, duty at TA -40 to 85 C) and section 7.6 Figure 16 (50 ohm trace) read again for revision 1
 - Molicel INR-18650-P28A data sheet (INR18650P28A-V1-80093): https://www.molicel.com/wp-content/uploads/INR18650P28A-V1-80093.pdf (`05db826b40db2106...`): DC IR 20 mohm; discharge-temperature curves (graph read)
 - Adafruit product page 2045 (Si5351A breakout), read 2026-09-28: https://www.adafruit.com/product/2045 (outputs on a header or "an optional SMA connector")
+- Revision 3, read 2026-09-29 through the web-fetch tool (cached outside the repository, not committed):
+  - Diodes Inc. DMP3099L, DS36081 Rev. 5-2, May 2025: https://www.diodes.com/assets/Datasheets/DMP3099L.pdf (`06f3030318ba16b2...`): RDS(on) maxima, Figs. 3 and 5
+  - Alpha and Omega AO3400A Rev 3.1, July 2023: https://www.aosmd.com/res/datasheets/AO3400A.pdf (`9c60d0b6c1ddc760...`): RDS(on) maxima, Figs. 3 and 4
+  - Bourns MF-R series REV. AR 09/26: https://www.bourns.com/docs/Product-Datasheets/mfr.pdf (`d22f0f06c8909784...`): MF-R300 Rmin, Rmax, R1max, thermal derating table
+  - Coilcraft Document 184-1, Midi Spring 1812SMS: https://www.coilcraft.com/getmedia/c6fe1f83-b176-469d-a071-e2edb068fef2/midi.pdf (`e8ce1b27f9bea463...`): values, tolerance codes, Q, SRF, TCL
 
 To reproduce the digitized data: `.venv/bin/python hardware/sim/tx-pa/digitize_ra07.py <ra07m1317m.pdf> hardware/sim/tx-pa/data`
 and the same for `digitize_aft05.py`. To reproduce every revision 1 result: `.venv/bin/python hardware/sim/tx-pa/run_pa.py all`
@@ -41,6 +47,27 @@ list in `EXPECTED` (the list of the analysis record section 8.1) and exits **3**
 `run_pa.py all` writes every verdict to `results/2026-09-28-r2-s1-summary/verdicts.json`. On 2026-09-28
 `run_pa.py all` exits 1 (checks pass; the fixed-pad drive window, REQ-SYS-012 at the 6.4 V end and the open-loop
 8 W limit fail, as the record reports) and `run_pa.py all --expect` exits 0.
+
+## Runs, revision 3 (2026-09-29, A5 only: WP-PDR-21 in wave W-A of the PDR work plan revision 6)
+
+LTspice 26.0.2 for MacOS through the wrapper; every run exit 0. All values are estimates. `run_a5_r3.py all` exits 1
+(every check passes; criteria fail as the record section R3.10 lists) and `run_a5_r3.py all --expect` exits 0. The
+final outputs were written by `CWHT_PA_REPLOT=1 run_a5_r3.py all --expect`, which re-read each `.raw` of an
+unchanged deck; the copies of `run_a5_r3.py` and `run_pa.py` in every revision 3 folder equal the committed scripts.
+Every `.raw` over 5,000,000 bytes stays in its folder on the owner's Mac and is named in the folder's `raw.sha256`
+(CR-017); `shasum -a 256 -c raw.sha256` in the folder checks it.
+
+| Run id | Deck (SHA-256 prefix) | What it does | Result |
+|---|---|---|---|
+| `2026-09-29-r3-d6-drive-a5-bpf` | `drive_a5_bpf.cir` (`b527e31c4c91cb8b`) | A5 drive chain with the D-13 drive bandpass (1812SMS-47NG, Q 100 and 135; 16 pF at 2 %, 7.5 and 2.4 pF at +/-0.1 pF; five tolerance cases) and the fixed 18 dB pad; 8100 corners; 250 ns transient | Fixed pad **FAIL**: 5.5 to 39.1 mW, nominal 12.5 mW. Pin load -0.5 to 11.0 pF (inside 15 pF). 3f -33.8 dBc. CLK1 swing 1.33 to 3.40 Vpp. Plot `drive_a5_bpf_corners.png`; `.raw` kept (230.9 MB) |
+| `2026-09-29-r3-d7-coax-bound-bpf` | `coax_a5_bpf.cir` (`2856d8655a59446f`), `tstep_a5_bpf.cir` (`d9b25ae0f2bc4fd6`) | Bandpass chain over every coax length (0.5 to 70 cm, extreme part corners, Q 100 and 135); 15 corners at 10 ps and 400 ns against d6 | 6.0 to 38.7 mW at any length; pad need 13.90 to 21.92 dB. Numerical check 0.0028 dB: **PASS**. Plot `coax_length_bound_bpf.png`; `coax_a5_bpf.raw` kept (24.8 MB) |
+| `2026-09-29-r3-k1-probe-17mw` | `probe_rf.cir` (`0fead6babdbc07b1`), `probe_dc.cir` (`a1b94e911c3a6528`) | The select-on-test level reading: diode probe periodic steady state (9360 steps: 8 diode sets, 10 / 17.3 / 30 mW, harmonic cases, both polarities, hold-voltage grid) and the DC forward drop at 20, 25, 30 C | Reading bound +/-0.64 dB (method M2) against the +/-1.0 dB allocation: **PASS**; revision 2's DC-drop-only reading reads 0.42 to 0.73 dB low. Plot `probe_reading_error.png`; `probe_rf.raw` kept (123.6 MB) |
+| `2026-09-29-r3-s2-sot-pad` | none (post-processing of d6, d7, k1) | Select-on-test pad set and in-service band on the bandpass chain | 14 pads, 13.48 to 22.04 dB; 11.0 to 27.3 mW, overdrive margin +0.41 dB: **PASS**; tinySA alone -0.95 dB: **FAIL**. Plot `sot_band.png` |
+| `2026-09-29-r3-p4-power-a5-design` | `power_a5_design.cir` (`b137d0a486641f14`) | A5 power path with the adopted design: s2 drive band, D-9 clamp (VGG 3.30 to 3.50 V at 6.4 V; top tracking the 8 W open-loop ceiling), D-14 LPF, read feed; 15552 corners | 6.4 V, 25 C key-down: nominal 4.26 W, lowest (typ., LPF median) 3.49 W; worst key-down case 3.44 and 2.90 W. 8.4 V: open loop 7.90 W; lowest (typ., LPF MC 99 %) 2.07 W. Plots `power_a5_design_sma.png`, `power_a5_design_temperature.png`; `.raw` kept (20.4 MB) |
+| `2026-09-29-r3-p5-power-a5-clamp-b` | `power_a5_design.cir` (`2d03e7ba368175f4`) | p4 with clamp scenario B (10 W ceiling, 0.03 V window; VGG 3.47 to 3.50 V at 6.4 V) | 6.4 V worst key-down case: nominal 3.48 W, lowest (typ., LPF MC 99 %) 2.82 W; 8.4 V: 4.42 W; open loop at most 9.94 W. Plots `power_a5_clampb_sma.png`, `power_a5_clampb_temperature.png`; `.raw` kept (20.4 MB) |
+| `2026-09-29-r3-s3-req012-basis` | none (post-processing of p4 and p5; the clamp trade by the Python replica of the module model, checked against p4) | The REQ-SYS-012 basis for CR-018; the D-9 clamp trade at 8.4 V; `verdicts.json` of every revision 3 run | Scenario B: 5 W +1/-2.7 dB at 6.4 V, -1 dB from 7.8 V; D-9 as specified: no -1 dB reach at any pack voltage. Plot `req012_basis.png` |
+
+Every revision 3 PNG was opened and inspected after rendering (visual closure, 2026-09-29).
 
 ## Runs, revision 2 (2026-09-28, iteration 2 of the review: Major finding-9, Minor findings 3 to 8 and 10, cross items X-4 to X-6)
 

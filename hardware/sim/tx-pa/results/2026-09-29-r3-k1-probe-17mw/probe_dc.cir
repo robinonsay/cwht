@@ -1,0 +1,16 @@
+* probe_dc.cir: the select-on-test level reading, DC forward-drop part (cwht WP-PDR-21 revision 3, run_a5_r3.py k1)
+* A current source through the probe diode (series resistance included) from 1 nA to 10 uA; V(a) is the forward drop.
+* Steps: diode set (iset), temperature.
+.param iset=0
+.step param iset 0 7 1
+.step temp list 20 25 30
+.param dis=table(iset,0,3e-08,1,3e-09,2,3e-07,3,3e-08,4,3e-08,5,3e-08,6,3e-08,7,3e-08)
+.param dn=table(iset,0,1.08,1,1.08,2,1.08,3,1,4,1.15,5,1.08,6,1.08,7,1.08)
+.param drs=table(iset,0,30,1,30,2,30,3,30,4,30,5,10,6,50,7,30)
+.param dcj=table(iset,0,1.6e-12,1,1.6e-12,2,1.6e-12,3,1.6e-12,4,1.6e-12,5,1.6e-12,6,1.6e-12,7,2.2e-12)
+I1 0 a 1n
+D1 a 0 DPROBE
+.model DPROBE D(Is={dis} N={dn} Rs={drs} Cjo={dcj} Vj=0.65 M=0.5 Eg=0.69 Xti=2 BV=75 Ibv=1e-5)
+.dc dec I1 1n 10u 400
+.save V(a)
+.end

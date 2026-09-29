@@ -1,0 +1,576 @@
+{
+ "run": "2026-09-29-r3-s3-req012-basis",
+ "revision": 3,
+ "power_runs": [
+  "2026-09-29-r3-p4-power-a5-design",
+  "2026-09-29-r3-p5-power-a5-clamp-b"
+ ],
+ "unmodelled_db": [
+  -0.15000000000000002,
+  0.07
+ ],
+ "basis": "low_typ_lpf99_w",
+ "d10_setpoint_6v4_w": 4.0,
+ "vpack": [
+  6.4,
+  6.45,
+  6.5,
+  6.550000000000001,
+  6.6000000000000005,
+  6.65,
+  6.7,
+  6.75,
+  6.800000000000001,
+  6.8500000000000005,
+  6.9,
+  6.95,
+  7.0,
+  7.050000000000001,
+  7.1000000000000005,
+  7.15,
+  7.2,
+  7.25,
+  7.300000000000001,
+  7.3500000000000005,
+  7.4,
+  7.45,
+  7.5,
+  7.550000000000001,
+  7.6000000000000005,
+  7.65,
+  7.7,
+  7.75,
+  7.800000000000001,
+  7.8500000000000005,
+  7.9,
+  7.95,
+  8.0,
+  8.05,
+  8.100000000000001,
+  8.15,
+  8.200000000000001,
+  8.25,
+  8.3,
+  8.350000000000001,
+  8.4
+ ],
+ "d9": {
+  "rows": [
+   {
+    "key": "nominal_w",
+    "label": "nominal corner",
+    "worst_w": 3.442180633544922,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -0.6217558298536732,
+    "margin_with_terms_db": [
+     -0.7717558298536732,
+     -0.5517558298536731
+    ],
+    "dev_from_5w_db": -1.621363474980426,
+    "dev_from_5w_with_terms_db": -1.7713634749804261,
+    "delivered_with_d10_w": 3.442180633544922,
+    "worst_8v4_w": 3.497932195663452,
+    "pack_v_reaches_3v97_worst": 6.9
+   },
+   {
+    "key": "low_typ_lpfmed_w",
+    "label": "lowest, typical module, LPF at most its Monte Carlo median",
+    "worst_w": 2.896327495574951,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -1.3716157267129785,
+    "margin_with_terms_db": [
+     -1.5216157267129784,
+     -1.3016157267129784
+    ],
+    "dev_from_5w_db": -2.371223371839731,
+    "dev_from_5w_with_terms_db": -2.521223371839731,
+    "delivered_with_d10_w": 2.896327495574951,
+    "worst_8v4_w": 2.1706173419952393,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "low_typ_lpf99_w",
+    "label": "lowest, typical module, LPF at most its Monte Carlo 99th percentile",
+    "worst_w": 2.7572519779205322,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -1.5853278288698647,
+    "margin_with_terms_db": [
+     -1.7353278288698646,
+     -1.5153278288698646
+    ],
+    "dev_from_5w_db": -2.5849354739966173,
+    "dev_from_5w_with_terms_db": -2.734935473996617,
+    "delivered_with_d10_w": 2.7572519779205322,
+    "worst_8v4_w": 2.0663888454437256,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "low_typ_lpfworst_w",
+    "label": "lowest, typical module, LPF at its searched worst case",
+    "worst_w": 2.223914384841919,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -2.5189117584606806,
+    "margin_with_terms_db": [
+     -2.6689117584606805,
+     -2.4489117584606808
+    ],
+    "dev_from_5w_db": -3.5185194035874328,
+    "dev_from_5w_with_terms_db": -3.6685194035874327,
+    "delivered_with_d10_w": 2.223914384841919,
+    "worst_8v4_w": 1.6666855812072754,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "low_min_lpfmed_w",
+    "label": "lowest, datasheet-minimum module, LPF median",
+    "worst_w": 2.3785367012023926,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -2.2269938278228283,
+    "margin_with_terms_db": [
+     -2.376993827822828,
+     -2.1569938278228284
+    ],
+    "dev_from_5w_db": -3.2266014729495804,
+    "dev_from_5w_with_terms_db": -3.3766014729495804,
+    "delivered_with_d10_w": 2.3785367012023926,
+    "worst_8v4_w": 1.713660478591919,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "low_min_lpf99_w",
+    "label": "lowest, datasheet-minimum module, LPF MC 99th percentile",
+    "worst_w": 2.264324426651001,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -2.440705882390139,
+    "margin_with_terms_db": [
+     -2.590705882390139,
+     -2.3707058823901392
+    ],
+    "dev_from_5w_db": -3.4403135275168912,
+    "dev_from_5w_with_terms_db": -3.590313527516891,
+    "delivered_with_d10_w": 2.264324426651001,
+    "worst_8v4_w": 1.6313742399215698,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "low_min_lpfworst_w",
+    "label": "lowest, datasheet-minimum module, LPF worst case",
+    "worst_w": 1.8263342380523682,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -3.3742897896992035,
+    "margin_with_terms_db": [
+     -3.5242897896992034,
+     -3.3042897896992036
+    ],
+    "dev_from_5w_db": -4.373897434825956,
+    "dev_from_5w_with_terms_db": -4.523897434825956,
+    "delivered_with_d10_w": 1.8263342380523682,
+    "worst_8v4_w": 1.315816044807434,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "lever_pfet_typ_lpfworst_w",
+    "label": "lever: P-FET pair at most 0.06 ohm, typical module, LPF worst",
+    "worst_w": 2.4221036434173584,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -2.1481651687048475,
+    "margin_with_terms_db": [
+     -2.2981651687048474,
+     -2.0781651687048477
+    ],
+    "dev_from_5w_db": -3.1477728138315997,
+    "dev_from_5w_with_terms_db": -3.2977728138315996,
+    "delivered_with_d10_w": 2.4221036434173584,
+    "worst_8v4_w": 1.7334442138671875,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "lever_both_typ_w",
+    "label": "levers: P-FET pair and the r14 LPF, typical module",
+    "worst_w": 2.771292209625244,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -1.5632691889963595,
+    "margin_with_terms_db": [
+     -1.7132691889963594,
+     -1.4932691889963594
+    ],
+    "dev_from_5w_db": -2.562876834123112,
+    "dev_from_5w_with_terms_db": -2.712876834123112,
+    "delivered_with_d10_w": 2.771292209625244,
+    "worst_8v4_w": 1.9833505153656006,
+    "pack_v_reaches_3v97_worst": null
+   }
+  ],
+  "proposal": {
+   "x_db": 2.8,
+   "low_end_w": 2.624037301248863,
+   "v_full_band": null,
+   "envelope_w": [
+    2.7572519779205322,
+    2.798102378845215,
+    2.839061975479126,
+    2.8839526176452637,
+    2.927819013595581,
+    2.971766948699951,
+    3.0157976150512695,
+    3.0599095821380615,
+    3.1041009426116943,
+    3.145482301712036,
+    3.188128709793091,
+    3.2308437824249268,
+    3.2736241817474365,
+    3.3164687156677246,
+    3.3656132221221924,
+    3.371971845626831,
+    3.3602240085601807,
+    3.334907054901123,
+    3.2820262908935547,
+    3.2290427684783936,
+    3.136545419692993,
+    3.0782995223999023,
+    3.003610849380493,
+    2.9460067749023438,
+    2.869558095932007,
+    2.8195927143096924,
+    2.75887393951416,
+    2.7222909927368164,
+    2.6842737197875977,
+    2.649693489074707,
+    2.606154680252075,
+    2.5484490394592285,
+    2.4889914989471436,
+    2.427290201187134,
+    2.3661680221557617,
+    2.316661834716797,
+    2.268690586090088,
+    2.225761651992798,
+    2.1809468269348145,
+    2.121638774871826,
+    2.0663888454437256
+   ]
+  },
+  "vgg_top_8v4": 2.858843587779548,
+  "module_high_8v4_w": 7.904676914215088
+ },
+ "clamp_b": {
+  "rows": [
+   {
+    "key": "nominal_w",
+    "label": "nominal corner",
+    "worst_w": 3.4848949909210205,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -0.5681954363053227,
+    "margin_with_terms_db": [
+     -0.7181954363053227,
+     -0.49819543630532265
+    ],
+    "dev_from_5w_db": -1.5678030814320756,
+    "dev_from_5w_with_terms_db": -1.7178030814320757,
+    "delivered_with_d10_w": 3.4848949909210205,
+    "worst_8v4_w": 5.352066993713379,
+    "pack_v_reaches_3v97_worst": 6.9
+   },
+   {
+    "key": "low_typ_lpfmed_w",
+    "label": "lowest, typical module, LPF at most its Monte Carlo median",
+    "worst_w": 2.9611976146698,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -1.2754184894978626,
+    "margin_with_terms_db": [
+     -1.4254184894978628,
+     -1.2054184894978626
+    ],
+    "dev_from_5w_db": -2.2750261346246154,
+    "dev_from_5w_with_terms_db": -2.4250261346246154,
+    "delivered_with_d10_w": 2.9611976146698,
+    "worst_8v4_w": 4.645358562469482,
+    "pack_v_reaches_3v97_worst": 7.45
+   },
+   {
+    "key": "low_typ_lpf99_w",
+    "label": "lowest, typical module, LPF at most its Monte Carlo 99th percentile",
+    "worst_w": 2.819007158279419,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -1.4891306115028526,
+    "margin_with_terms_db": [
+     -1.6391306115028526,
+     -1.4191306115028526
+    ],
+    "dev_from_5w_db": -2.4887382566296044,
+    "dev_from_5w_with_terms_db": -2.6387382566296043,
+    "delivered_with_d10_w": 2.819007158279419,
+    "worst_8v4_w": 4.422298431396484,
+    "pack_v_reaches_3v97_worst": 7.65
+   },
+   {
+    "key": "low_typ_lpfworst_w",
+    "label": "lowest, typical module, LPF at its searched worst case",
+    "worst_w": 2.27372407913208,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -2.422714787596413,
+    "margin_with_terms_db": [
+     -2.572714787596413,
+     -2.352714787596413
+    ],
+    "dev_from_5w_db": -3.4223224327231656,
+    "dev_from_5w_with_terms_db": -3.5723224327231655,
+    "delivered_with_d10_w": 2.27372407913208,
+    "worst_8v4_w": 3.5668892860412598,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "low_min_lpfmed_w",
+    "label": "lowest, datasheet-minimum module, LPF median",
+    "worst_w": 2.434842824935913,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -2.125383081396974,
+    "margin_with_terms_db": [
+     -2.2753830813969738,
+     -2.055383081396974
+    ],
+    "dev_from_5w_db": -3.124990726523726,
+    "dev_from_5w_with_terms_db": -3.274990726523726,
+    "delivered_with_d10_w": 2.434842824935913,
+    "worst_8v4_w": 3.7818872928619385,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "low_min_lpf99_w",
+    "label": "lowest, datasheet-minimum module, LPF MC 99th percentile",
+    "worst_w": 2.3179268836975098,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -2.339095072930593,
+    "margin_with_terms_db": [
+     -2.489095072930593,
+     -2.269095072930593
+    ],
+    "dev_from_5w_db": -3.338702718057345,
+    "dev_from_5w_with_terms_db": -3.488702718057345,
+    "delivered_with_d10_w": 2.3179268836975098,
+    "worst_8v4_w": 3.6002891063690186,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "low_min_lpfworst_w",
+    "label": "lowest, datasheet-minimum module, LPF worst case",
+    "worst_w": 1.8695682287216187,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -3.272679207387694,
+    "margin_with_terms_db": [
+     -3.4226792073876937,
+     -3.202679207387694
+    ],
+    "dev_from_5w_db": -4.272286852514446,
+    "dev_from_5w_with_terms_db": -4.422286852514446,
+    "delivered_with_d10_w": 1.8695682287216187,
+    "worst_8v4_w": 2.9038820266723633,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "lever_pfet_typ_lpfworst_w",
+    "label": "lever: P-FET pair at most 0.06 ohm, typical module, LPF worst",
+    "worst_w": 2.4806649684906006,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -2.0444112616013004,
+    "margin_with_terms_db": [
+     -2.1944112616013003,
+     -1.9744112616013003
+    ],
+    "dev_from_5w_db": -3.0440189067280525,
+    "dev_from_5w_with_terms_db": -3.1940189067280524,
+    "delivered_with_d10_w": 2.4806649684906006,
+    "worst_8v4_w": 3.8377325534820557,
+    "pack_v_reaches_3v97_worst": null
+   },
+   {
+    "key": "lever_both_typ_w",
+    "label": "levers: P-FET pair and the r14 LPF, typical module",
+    "worst_w": 2.8382961750030518,
+    "worst_case": "+45 C, case 100 C bound, -0.015 dB/K",
+    "margin_db": -1.4595152789210175,
+    "margin_with_terms_db": [
+     -1.6095152789210174,
+     -1.3895152789210174
+    ],
+    "dev_from_5w_db": -2.4591229240477706,
+    "dev_from_5w_with_terms_db": -2.6091229240477705,
+    "delivered_with_d10_w": 2.8382961750030518,
+    "worst_8v4_w": 4.3910088539123535,
+    "pack_v_reaches_3v97_worst": 7.65
+   }
+  ],
+  "proposal": {
+   "x_db": 2.7,
+   "low_end_w": 2.6851589818512633,
+   "v_full_band": 7.8,
+   "envelope_w": [
+    2.819007158279419,
+    2.8609046936035156,
+    2.9029181003570557,
+    2.9450066089630127,
+    2.992490768432617,
+    3.037551164627075,
+    3.0826940536499023,
+    3.127922773361206,
+    3.1732358932495117,
+    3.2165908813476562,
+    3.2603442668914795,
+    3.304169178009033,
+    3.3480629920959473,
+    3.3920249938964844,
+    3.436053991317749,
+    3.4890429973602295,
+    3.538780450820923,
+    3.58860445022583,
+    3.6385202407836914,
+    3.6885263919830322,
+    3.738621234893799,
+    3.7887556552886963,
+    3.8389978408813477,
+    3.88932466506958,
+    3.939734935760498,
+    3.990227222442627,
+    4.039616107940674,
+    4.08923864364624,
+    4.138934135437012,
+    4.188702583312988,
+    4.238541126251221,
+    4.288450241088867,
+    4.34067964553833,
+    4.360821723937988,
+    4.3911638259887695,
+    4.395201683044434,
+    4.398385524749756,
+    4.410068988800049,
+    4.424835681915283,
+    4.427457332611084,
+    4.422298431396484
+   ],
+   "limit_line_w": [
+    2.6851589818512633,
+    2.7229610737837735,
+    2.761295349532635,
+    2.8001693012656084,
+    2.8395905266263703,
+    2.8795667302194277,
+    2.9201057251159246,
+    2.961215434380653,
+    3.002903892620563,
+    3.0451792475550663,
+    3.088049761608459,
+    3.1315238135247463,
+    3.1756099000052163,
+    3.2203166373690584,
+    3.2656527632373624,
+    3.311627138240827,
+    3.3582487477515106,
+    3.4055267036389543,
+    3.45347024605104,
+    3.502088745219905,
+    3.551391703293299,
+    3.601388756191704,
+    3.6520896754916126,
+    3.703504370335313,
+    3.7556428893675617,
+    3.808515422699524,
+    3.8621323039003568,
+    3.916504012016835,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075,
+    3.9716411736214075
+   ],
+   "limit_under_envelope_with_terms": true
+  },
+  "vgg_top_8v4": 3.1200430454785715,
+  "module_high_8v4_w": 9.904796600341797
+ },
+ "clamp_trade": {
+  "rows": [
+   {
+    "top_v": 2.86,
+    "high_module_w": 7.913049630518187,
+    "low_lpf99_w_window_0.20": 2.075530749652571,
+    "low_lpf99_w_window_0.03": 3.4721759799901304
+   },
+   {
+    "top_v": 2.95,
+    "high_module_w": 8.832207815198506,
+    "low_lpf99_w_window_0.20": 2.93738576721965,
+    "low_lpf99_w_window_0.03": 3.9106088865873154
+   },
+   {
+    "top_v": 3.0,
+    "high_module_w": 9.270983086606835,
+    "low_lpf99_w_window_0.20": 3.2919225947412345,
+    "low_lpf99_w_window_0.03": 4.107822706550204
+   },
+   {
+    "top_v": 3.05,
+    "high_module_w": 9.570728124761198,
+    "low_lpf99_w_window_0.20": 3.58937393557483,
+    "low_lpf99_w_window_0.03": 4.26958856148118
+   },
+   {
+    "top_v": 3.1,
+    "high_module_w": 9.817092854441562,
+    "low_lpf99_w_window_0.20": 3.829431704466247,
+    "low_lpf99_w_window_0.03": 4.380595524678458
+   },
+   {
+    "top_v": 3.2,
+    "high_module_w": 10.139449272456455,
+    "low_lpf99_w_window_0.20": 4.2219524483073085,
+    "low_lpf99_w_window_0.03": 4.542832223240256
+   },
+   {
+    "top_v": 3.3,
+    "high_module_w": 10.390333778182914,
+    "low_lpf99_w_window_0.20": 4.440408381703357,
+    "low_lpf99_w_window_0.03": 4.644093689619227
+   }
+  ],
+  "replica_check": {
+   "high_w": 7.9,
+   "deck_high_w": 7.904676914215088,
+   "low_w": 3.632398165559081,
+   "deck_low_w": 3.6343777179718018
+  }
+ },
+ "verdicts": {
+  "check: the proposed REQ-SYS-012 limit line lies under the basis with the unmodelled terms (clamp scenario B)": {
+   "pass": true,
+   "kind": "check",
+   "detail": ""
+  },
+  "check: the Python replica equals the p4 deck at 8.4 V within 0.5 % (highest module, lowest at the window top)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "7.900 against 7.905 W; 3.632 against 3.634 W"
+  },
+  "A5 REQ-SYS-012 as baselined (5 W -1 dB at 6.4 V) on the basis (typical module, LPF MC 99th percentile, every key-down case, unmodelled terms), D-9 clamp": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "-1.74 dB"
+  },
+  "A5 REQ-SYS-012 lower bound at 8.4 V on the basis, D-9 clamp as specified (8 W open-loop ceiling)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "2.07 W"
+  },
+  "A5 REQ-SYS-012 lower bound at 8.4 V on the basis, clamp scenario B (10 W ceiling, 0.03 V window)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "4.42 W"
+  }
+ }
+}

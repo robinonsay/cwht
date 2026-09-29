@@ -1,0 +1,211 @@
+{
+ "d6": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": "8100 steps"
+  },
+  "A5 lumped CLK1 pin load at most 15 pF (Si5351 Table 7)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 equivalent CLK1 pin load at most 15 pF at every corner (bandpass chain)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-0.5 to 11.0 pF"
+  },
+  "A5 3f at the GVA-84+ input at least 25 dB below f": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-33.8 dBc"
+  },
+  "A5 GVA-84+ input below +13 dBm": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-6.2 dBm"
+  },
+  "A5 module input 10 to 30 mW at every corner (fixed 18 dB pad, bandpass chain)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "5.5 to 39.1 mW; 1356 under 10 mW, 565 over 30 mW of 8100"
+  }
+ },
+ "d7": {
+  "check: 10 ps step and 400 ns settling against 20 ps and 250 ns within 0.02 dB (power) and 0.5 dB (3f)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "0.0028 dB, 0.040 dB"
+  },
+  "A5 module input at most 30 mW at any coax length (fixed pad, bandpass chain)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "38.7 mW"
+  }
+ },
+ "k1": {
+  "check: one .raw step per RF case": {
+   "pass": true,
+   "kind": "check",
+   "detail": "9360 steps"
+  },
+  "check: one DC sweep per diode set and temperature": {
+   "pass": true,
+   "kind": "check",
+   "detail": ""
+  },
+  "check: one bracketed equilibrium per RF case": {
+   "pass": true,
+   "kind": "check",
+   "detail": "0 unbracketed of 240; 4 by the log-linear law of the two grid points below the root"
+  },
+  "A5 select-on-test reading (method M2, both polarities) within the +/-1.0 dB allocation (worst-case sum)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "+/-0.64 dB"
+  },
+  "Revision 2 reading (forward drop at DC only, M0) within +/-1.0 dB at 25 C with no harmonic": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-0.73 to -0.42 dB"
+  }
+ },
+ "s2": {
+  "A5 select-on-test drive 10 to 30 mW in service with the k1 reading bound (bandpass chain)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "11.0 to 27.3 mW, overdrive margin +0.41 dB, reading +/-0.64 dB"
+  },
+  "A5 select-on-test drive 10 to 30 mW at the +/-1.0 dB reading allocation (bandpass chain)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "10.1 to 29.6 mW"
+  },
+  "A5 select-on-test drive 10 to 30 mW with a tinySA Ultra reading alone (+/-2 dB published)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "overdrive margin -0.95 dB"
+  }
+ },
+ "p4": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": "15552 steps"
+  },
+  "check: PA case temperature equals the thermal law within 0.01 K at every pack voltage": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest difference 7.63e-06 K"
+  },
+  "check: VGG 3.30 to 3.50 V at 6.4 V": {
+   "pass": true,
+   "kind": "check",
+   "detail": "3.300 to 3.500 V"
+  },
+  "A5 open loop at 8.4 V: module output at most 8 W in every case (clamp)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "7.90 W"
+  },
+  "A5 open loop from 6.4 to 8.4 V: module output at most 8 W at every pack voltage and case (clamp)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "7.92 W"
+  },
+  "A5 nominal corner at least 3.97 W at 6.4 V in every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "3.44 W"
+  },
+  "A5 lowest corner (typical module, LPF at most its median) at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "2.90 W"
+  },
+  "A5 lowest corner (typical module, LPF worst case) at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "2.22 W"
+  },
+  "A5 lowest corner (typical module, LPF worst case) at least 3.97 W at 8.4 V with the clamp, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "1.67 W"
+  }
+ },
+ "p5": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": "15552 steps"
+  },
+  "check: PA case temperature equals the thermal law within 0.01 K at every pack voltage": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest difference 1.53e-05 K"
+  },
+  "check: VGG 3.47 to 3.50 V at 6.4 V": {
+   "pass": true,
+   "kind": "check",
+   "detail": "3.470 to 3.500 V"
+  },
+  "A5 open loop at 8.4 V: module output at most 10 W in every case (clamp)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "9.90 W"
+  },
+  "A5 open loop from 6.4 to 8.4 V: module output at most 10 W at every pack voltage and case (clamp)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "9.94 W"
+  },
+  "A5 nominal corner at least 3.97 W at 6.4 V in every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "3.48 W"
+  },
+  "A5 lowest corner (typical module, LPF at most its median) at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "2.96 W"
+  },
+  "A5 lowest corner (typical module, LPF worst case) at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "2.27 W"
+  },
+  "A5 lowest corner (typical module, LPF worst case) at least 3.97 W at 8.4 V with the clamp, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "3.57 W"
+  }
+ },
+ "s3": {
+  "check: the proposed REQ-SYS-012 limit line lies under the basis with the unmodelled terms (clamp scenario B)": {
+   "pass": true,
+   "kind": "check",
+   "detail": ""
+  },
+  "check: the Python replica equals the p4 deck at 8.4 V within 0.5 % (highest module, lowest at the window top)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "7.900 against 7.905 W; 3.632 against 3.634 W"
+  },
+  "A5 REQ-SYS-012 as baselined (5 W -1 dB at 6.4 V) on the basis (typical module, LPF MC 99th percentile, every key-down case, unmodelled terms), D-9 clamp": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "-1.74 dB"
+  },
+  "A5 REQ-SYS-012 lower bound at 8.4 V on the basis, D-9 clamp as specified (8 W open-loop ceiling)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "2.07 W"
+  },
+  "A5 REQ-SYS-012 lower bound at 8.4 V on the basis, clamp scenario B (10 W ceiling, 0.03 V window)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "4.42 W"
+  }
+ }
+}

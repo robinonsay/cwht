@@ -1,0 +1,107 @@
+{
+ "run": "2026-09-29-r3-d7-coax-bound-bpf",
+ "revision": 3,
+ "ltspice": {
+  "deck": "coax_a5_bpf.cir",
+  "deck_sha256": "2856d8655a59446f5ed6123f5bdf8e840aef1700008f6efbd6bec6f70f3e35d5",
+  "exit": 0,
+  "log_first_line": "LTspice 26.0.2 for MacOS",
+  "wrapper_provenance": [
+   "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 7200 s",
+   "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
+   "ltspice-batch: result: PASS deck=coax_a5_bpf.cir sha256=2856d8655a59446f5ed6123f5bdf8e840aef1700008f6efbd6bec6f70f3e35d5 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=71s outputs=[coax_a5_bpf.log coax_a5_bpf.op.raw coax_a5_bpf.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-29-r3-d7-coax-bound-bpf"
+  ]
+ },
+ "n_steps": 870,
+ "max_mw_any_length": 38.74657968096328,
+ "min_mw_any_length": 6.008162964763919,
+ "corner_max": {
+  "set": "max, 25 ohm",
+  "rsrc": 25.0,
+  "gain": 25.3,
+  "p1db": "high",
+  "freq": 146000000.0,
+  "src": "high",
+  "vddo": 3.4,
+  "tr": 5e-10,
+  "duty": 0.5,
+  "coax_m": 0.3,
+  "bpf": "nom",
+  "qbpf": 135.0,
+  "pin_pa_w": 0.03874657968096328,
+  "pin_pa_dbm": 15.8823337158441,
+  "gva_in_dbm": -6.245564360779569,
+  "h3_dbc_gva_in": -34.4897869145646,
+  "gva_out_dbm": 18.876976914785367,
+  "gva_in_peak_v": 0.15432599186897278,
+  "clk_vpp": 2.763066291809082,
+  "pin_load_cp_pf": 6.348922262789952,
+  "pin_load_rp_ohm": 46.336619879926005,
+  "pin_load_absz_ohm": 44.73616633309746
+ },
+ "corner_min": {
+  "set": "min, 50 ohm",
+  "rsrc": 50.0,
+  "gain": 22.5,
+  "p1db": "min",
+  "freq": 148000000.0,
+  "src": "low",
+  "vddo": 3.2,
+  "tr": 1.5e-09,
+  "duty": 0.45,
+  "coax_m": 0.275,
+  "bpf": "nom",
+  "qbpf": 100.0,
+  "pin_pa_w": 0.006008162964763919,
+  "pin_pa_dbm": 7.787417039125339,
+  "gva_in_dbm": -11.714008614508678,
+  "h3_dbc_gva_in": -57.00615007052082,
+  "gva_out_dbm": 10.782060238066604,
+  "gva_in_peak_v": 0.0822112113237381,
+  "clk_vpp": 1.6332623958587646,
+  "pin_load_cp_pf": 8.641025586426995,
+  "pin_load_rp_ohm": 50.833136106470484,
+  "pin_load_absz_ohm": 47.05878632855836
+ },
+ "pin_load_cp_pf_any_length": [
+  4.948115095702307,
+  9.049203476219828
+ ],
+ "h3_dbc_worst_any_length": -33.655884126273804,
+ "pad_needed_any_length_db": [
+  13.896254328810315,
+  21.917886220610484
+ ],
+ "freq_span_within_unit_any_length_db": 0.3068899885363354,
+ "timestep_check": {
+  "ltspice": {
+   "deck": "tstep_a5_bpf.cir",
+   "deck_sha256": "d9b25ae0f2bc4fd623489126f6591dbb8168599f8b09bb10fb3b22e8c018d34c",
+   "exit": 0,
+   "log_first_line": "LTspice 26.0.2 for MacOS",
+   "wrapper_provenance": [
+    "ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 7200 s",
+    "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
+    "ltspice-batch: result: PASS deck=tstep_a5_bpf.cir sha256=d9b25ae0f2bc4fd623489126f6591dbb8168599f8b09bb10fb3b22e8c018d34c version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=6s outputs=[tstep_a5_bpf.log tstep_a5_bpf.op.raw tstep_a5_bpf.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-29-r3-d7-coax-bound-bpf"
+   ]
+  },
+  "n": 15,
+  "max_diff_pin_db": 0.0027507393357950605,
+  "max_diff_h3_db": 0.0398591356711151
+ },
+ "verdicts": {
+  "check: 10 ps step and 400 ns settling against 20 ps and 250 ns within 0.02 dB (power) and 0.5 dB (3f)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "0.0028 dB, 0.040 dB"
+  },
+  "A5 module input at most 30 mW at any coax length (fixed pad, bandpass chain)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "38.7 mW"
+  }
+ },
+ "kept_raw": [
+  "coax_a5_bpf.raw"
+ ]
+}

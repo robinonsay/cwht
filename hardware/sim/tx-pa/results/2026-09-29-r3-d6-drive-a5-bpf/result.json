@@ -1,0 +1,225 @@
+{
+ "run": "2026-09-29-r3-d6-drive-a5-bpf",
+ "revision": 3,
+ "ltspice": {
+  "deck": "drive_a5_bpf.cir",
+  "deck_sha256": "b527e31c4c91cb8b437a938db682fb8fab34e3ed0b261dd644d6b00731c24fad",
+  "exit": 0,
+  "log_first_line": "LTspice 26.0.2 for MacOS",
+  "wrapper_provenance": [
+   "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
+   "ltspice-batch: result: PASS deck=drive_a5_bpf.cir sha256=b527e31c4c91cb8b437a938db682fb8fab34e3ed0b261dd644d6b00731c24fad version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=1036s outputs=[drive_a5_bpf.log drive_a5_bpf.op.raw drive_a5_bpf.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa/results/2026-09-29-r3-d6-drive-a5-bpf"
+  ]
+ },
+ "n_corners": 8100,
+ "bpf": {
+  "L_nH": 47.0,
+  "Cser_pF": 7.5,
+  "Cres_pF": 16.0,
+  "Ccpl_pF": 2.4,
+  "Q": [
+   100.0,
+   135.0
+  ],
+  "cases": [
+   "nom",
+   "low",
+   "high",
+   "low, coupling high",
+   "high, coupling low"
+  ]
+ },
+ "pad_in_db": 18.41601353605434,
+ "pin_pa_mw": {
+  "min": 5.461410074609026,
+  "nominal": 12.466184676104744,
+  "max": 39.08902065389709
+ },
+ "pin_pa_dbm": {
+  "min": 7.37304787129494,
+  "nominal": 10.95733556313332,
+  "max": 15.920547896459482
+ },
+ "criterion_corners_mw": [
+  7.777311166530355,
+  30.330847710363155
+ ],
+ "corners_in_window": 6179,
+ "corners_below_10mw": 1356,
+ "corners_above_30mw": 565,
+ "spread_db": 8.547500025164542,
+ "overdrive_margin_db": -1.1493353492628593,
+ "h3_dbc_worst": -33.84363814036697,
+ "gva_in_dbm_max": -6.203535382052101,
+ "gva_out_dbm_max": 18.915191095400747,
+ "clk_vpp": [
+  1.3313705921173096,
+  3.3965744972229004
+ ],
+ "pin_load_cp_pf": [
+  -0.4619311627762241,
+  11.033817643567785
+ ],
+ "pin_load_absz_ohm": [
+  34.410151136851965,
+  76.03165276204399
+ ],
+ "nominal_corner": {
+  "rsrc": 50.0,
+  "gain": 24.1,
+  "p1db": "typ",
+  "freq": 146000000.0,
+  "src": "nom",
+  "vddo": 3.3,
+  "tr": 1e-09,
+  "duty": 0.5,
+  "coax_m": 0.1,
+  "bpf": "nom",
+  "qbpf": 100.0,
+  "pin_pa_w": 0.012466184676104743,
+  "pin_pa_dbm": 10.95733556313332,
+  "gva_in_dbm": -10.132938485188038,
+  "h3_dbc_gva_in": -41.510687568600694,
+  "gva_out_dbm": 13.951978762074585,
+  "gva_in_peak_v": 0.09827975183725357,
+  "clk_vpp": 1.9878017902374268,
+  "pin_load_cp_pf": 8.864670901846008,
+  "pin_load_rp_ohm": 50.08289304209479,
+  "pin_load_absz_ohm": 46.383575854004185
+ },
+ "corner_min": {
+  "rsrc": 50.0,
+  "gain": 22.5,
+  "p1db": "min",
+  "freq": 148000000.0,
+  "src": "low",
+  "vddo": 3.2,
+  "tr": 1.5e-09,
+  "duty": 0.45,
+  "coax_m": 0.15,
+  "bpf": "high, coupling low",
+  "qbpf": 100.0,
+  "pin_pa_w": 0.005461410074609026,
+  "pin_pa_dbm": 7.37304787129494,
+  "gva_in_dbm": -12.129275451522865,
+  "h3_dbc_gva_in": -56.41108217703004,
+  "gva_out_dbm": 10.367691070236205,
+  "gva_in_peak_v": 0.07878334075212479,
+  "clk_vpp": 2.013077735900879,
+  "pin_load_cp_pf": 6.647354195750686,
+  "pin_load_rp_ohm": 81.19047692234287,
+  "pin_load_absz_ohm": 72.56446751046501
+ },
+ "corner_max": {
+  "rsrc": 25.0,
+  "gain": 25.3,
+  "p1db": "high",
+  "freq": 144000000.0,
+  "src": "high",
+  "vddo": 3.4,
+  "tr": 5e-10,
+  "duty": 0.5,
+  "coax_m": 0.05,
+  "bpf": "low",
+  "qbpf": 135.0,
+  "pin_pa_w": 0.039089020653897084,
+  "pin_pa_dbm": 15.920547896459482,
+  "gva_in_dbm": -6.203536083197112,
+  "h3_dbc_gva_in": -37.55505822600446,
+  "gva_out_dbm": 18.915191095400747,
+  "gva_in_peak_v": 0.15437760949134827,
+  "clk_vpp": 2.7546029090881348,
+  "pin_load_cp_pf": 6.669706279809784,
+  "pin_load_rp_ohm": 35.35371296095427,
+  "pin_load_absz_ohm": 34.575590050113945
+ },
+ "lpf_chain_d2_nominal_mw": 11.414737300034622,
+ "nominal_vs_lpf_chain_db": 0.38267635270974587,
+ "per_case": {
+  "nom, Q 100": {
+   "min_mw": 6.052977456731032,
+   "max_mw": 36.280575865959946,
+   "nominal_part_corner_mw": 12.466184676104744
+  },
+  "low, Q 100": {
+   "min_mw": 5.718760468202814,
+   "max_mw": 36.677110238545836,
+   "nominal_part_corner_mw": 12.35036007434846
+  },
+  "high, Q 100": {
+   "min_mw": 5.598155714518781,
+   "max_mw": 36.163091718433485,
+   "nominal_part_corner_mw": 12.520324157400296
+  },
+  "low, coupling high, Q 100": {
+   "min_mw": 5.977736954006136,
+   "max_mw": 36.85807128513575,
+   "nominal_part_corner_mw": 12.271702830359933
+  },
+  "high, coupling low, Q 100": {
+   "min_mw": 5.461410074609026,
+   "max_mw": 35.392798043976335,
+   "nominal_part_corner_mw": 12.422263879279692
+  },
+  "nom, Q 135": {
+   "min_mw": 6.4089782953004315,
+   "max_mw": 38.121823690905444,
+   "nominal_part_corner_mw": 13.166980225801025
+  },
+  "low, Q 135": {
+   "min_mw": 6.148306021161413,
+   "max_mw": 39.08902065389709,
+   "nominal_part_corner_mw": 13.130882724924538
+  },
+  "high, Q 135": {
+   "min_mw": 5.952153101640894,
+   "max_mw": 38.096704108205884,
+   "nominal_part_corner_mw": 13.269630055671486
+  },
+  "low, coupling high, Q 135": {
+   "min_mw": 6.291667871491574,
+   "max_mw": 38.63129886844307,
+   "nominal_part_corner_mw": 12.96275397027597
+  },
+  "high, coupling low, Q 135": {
+   "min_mw": 5.81689762328261,
+   "max_mw": 37.41913782562914,
+   "nominal_part_corner_mw": 13.199964893493073
+  }
+ },
+ "verdicts": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": "8100 steps"
+  },
+  "A5 lumped CLK1 pin load at most 15 pF (Si5351 Table 7)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": ""
+  },
+  "A5 equivalent CLK1 pin load at most 15 pF at every corner (bandpass chain)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-0.5 to 11.0 pF"
+  },
+  "A5 3f at the GVA-84+ input at least 25 dB below f": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-33.8 dBc"
+  },
+  "A5 GVA-84+ input below +13 dBm": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "-6.2 dBm"
+  },
+  "A5 module input 10 to 30 mW at every corner (fixed 18 dB pad, bandpass chain)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "5.5 to 39.1 mW; 1356 under 10 mW, 565 over 30 mW of 8100"
+  }
+ },
+ "kept_raw": [
+  "drive_a5_bpf.raw"
+ ]
+}

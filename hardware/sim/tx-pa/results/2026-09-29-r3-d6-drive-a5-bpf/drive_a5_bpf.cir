@@ -1,0 +1,64 @@
+* drive_a5_bpf.cir: A5 Si5351A CLK1 -> coax -> D-13 drive bandpass -> 18 dB pad -> GVA-84+ -> 3 dB pad -> RA07M1317M input (50 ohm)
+* cwht WP-PDR-21 revision 3 (A5), hardware/sim/tx-pa/run_a5_r3.py (record docs/design/analysis/pa-drive-ts012.md)
+* 8100 steps flattened into one .step (idx): source case fastest, then frequency, GVA-84+ P1dB set, GVA-84+ gain, Si5351 output resistance, coax length, bandpass tolerance case, coil Q.
+* Source, CLK1 pin load, coax, pads and GVA-84+ model as revisions 1 and 2 (run_pa.py); the drive LPF of TS-012
+* revision 4 is replaced by the D-13 bandpass (TS-012 revision 7 section 8.14).
+.param idx=0
+.step param idx 0 8099 1
+.param isrc=floor(idx/1)-3*floor(idx/3)
+.param ifr=floor(idx/3)-3*floor(idx/9)
+.param ip1=floor(idx/9)-3*floor(idx/27)
+.param ig=floor(idx/27)-5*floor(idx/135)
+.param irs=floor(idx/135)-2*floor(idx/270)
+.param icx=floor(idx/270)-3*floor(idx/810)
+.param ib=floor(idx/810)-5*floor(idx/4050)
+.param iq=floor(idx/4050)-2*floor(idx/8100)
+.param vddo=table(isrc,0,3.2,1,3.3,2,3.4)
+.param tr=table(isrc,0,2.5e-09,1,1.66667e-09,2,8.33333e-10)
+.param duty=table(isrc,0,0.45,1,0.5,2,0.5)
+.param freq=table(ifr,0,1.44e+08,1,1.46e+08,2,1.48e+08)
+.param vsat=table(ip1,0,2.9921,1,3.3572,2,3.7669)
+.param gdb=table(ig,0,22.5,1,22.9,2,24.1,3,25,4,25.3)
+.param rsrc=table(irs,0,25,1,50)
+.param clen=table(icx,0,0.05,1,0.1,2,0.15)
+.param kl=table(ib,0,1,1,0.98,2,1.02,3,0.98,4,1.02)
+.param kc=table(ib,0,1,1,0.98,2,1.02,3,0.98,4,1.02)
+.param dcs=table(ib,0,0,1,-0.1,2,0.1,3,-0.1,4,0.1)
+.param dcc=table(ib,0,0,1,-0.1,2,0.1,3,0.1,4,-0.1)
+.param qbpf=table(iq,0,100,1,135)
+.param T=1/freq
+.param ton=duty*T-tr
+.param G=pow(10,gdb/20)
+.param p=2.7046
+V1 vs 0 PULSE({-duty*vddo} {(1-duty)*vddo} 0 {tr} {tr} {ton} {T})
+Rsrc vs clk {rsrc}
+* lumped load on the CLK1 pin (main board): prescaler tap 5 pF and stub 2 pF (est.)
+Ctap clk 0 5p
+Cstub clk 0 2p
+* D-8: 50 ohm coax through the bulkhead (lossless; velocity factor 0.66, length clen in metres)
+T1 clk 0 lpfin 0 Td={clen/(0.66*299792458)} Z0=50
+* D-13 drive bandpass (spurs C10) on the RF board: 1812SMS-47NG (Q {qbpf} at 150 MHz, SRF 2.1 GHz min), C0G
+Cs1 lpfin b1 {(7.5+dcs)*1p} Rser=0.1 Lser=0.5n
+L1 b1 0 {47.0n*kl} Rser={2*pi*146000000*47.0n*kl/qbpf} Cpar=0.122p
+Cr1 b1 0 {16.0p*kc} Rser=0.1 Lser=1n
+Cc b1 b2 {(2.4+dcc)*1p} Rser=0.1 Lser=0.5n
+L2 b2 0 {47.0n*kl} Rser={2*pi*146000000*47.0n*kl/qbpf} Cpar=0.122p
+Cr2 b2 0 {16.0p*kc} Rser=0.1 Lser=1n
+Cs2 b2 lpf {(7.5+dcs)*1p} Rser=0.1 Lser=0.5n
+* 18 dB input pad (E24 1 %)
+Rp1 lpf 0 62.0
+Rp2 lpf gin 200.0
+Rp3 gin 0 62.0
+* GVA-84+ behavioural: 50 ohm input, Rapp limiter, 50 ohm output
+Rgin gin 0 50
+Bg gs 0 V=2*{G}*V(gin)/pow(1+pow(abs({G}*V(gin))/{vsat},2*{p}),1/(2*{p}))
+Rgo gs gout 50
+* 3 dB output pad (E24 1 %) and the RA07M1317M input (datasheet ZG = ZL = 50 ohm)
+Rq1 gout 0 300.0
+Rq2 gout pa_in 18.0
+Rq3 pa_in 0 300.0
+Rpa pa_in 0 50
+.tran 0 250n 228n 20p
+.options plotwinsize=0
+.save V(clk) V(gin) V(pa_in) I(Rsrc)
+.end
