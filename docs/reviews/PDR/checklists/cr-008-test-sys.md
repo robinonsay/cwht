@@ -11,6 +11,10 @@
 # 3b9266ff (4dab5dc) to aa65e826 (cccbfda, a244b05, 6485bd3, a17af87, 9c40ef9, 726cd44); the CR sections this record
 # used changed (section 4 Interfaces row, section 5, front matter), so a delta, not a removal. Iteration stays 1: a re-pin
 # delta is not a new review iteration (INSP-003 convention).
+# Status re-pin delta (2026-09-29, main 9fda694; WP-PDR-55; lead SE rulings 1 and 2): delta on the two CR-008 section 5
+# step 10 requirement blobs at c1955b3 (REQ-SYS-194 Draft to Active; the case blobs unchanged) and on the CR file aa65e826
+# to c1a52ab6 (b630269, 1fe68cb). A CR section this record used changed (section 5: step 10 and the frozen-products
+# paragraph), so a delta was done first; after it, the CR file is dropped from product_files (ruling 2, INSP-060 precedent).
 id: INSP-045
 checklist: peer-review-checklist-test
 checklist_revision: B
@@ -18,9 +22,17 @@ checklist_file: docs/reviews/PDR/checklists/cr-008-test-sys.md
 product: docs/test_cases/sys/test_cases.json
 # product_commit: the branch head that holds the frozen blobs (base ab2af2d on main); the CR file is on main at 4dab5dc
 # re-pin delta: product_commit stays c629198 (the four frozen blobs, equal at the branch head e26ce46); the CR file is on main at 726cd44
-product_commit: "c6291980c83e6e1e55b66ceff2e0b89222669b97"
+# status re-pin delta: product_commit is c1955b3, the branch commit of step 10 (the two new requirement blobs; the two case
+# blobs equal c629198; equal at the branch head 92727f1); was c629198. The CR file is on main at 1fe68cb (blob c1a52ab6)
+product_commit: "c1955b34695949bae86b02d5728a3c7f28f50b55"
 # product_files at iteration 1: the four as below and docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@3b9266ff0d9d29e7d1b70febd1fe7cfbd86ab3dd
-product_files: ["docs/requirements/sys/requirements.json@a73449377e8d055f5d247130b8850bf3f5a151d9", "docs/requirements/sys/requirements.md@4e110b16027fbe446e846a8c5f9d2dc5c2899af6", "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065", "docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316", "docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@aa65e8261da4193707b561dba6e8a841451cf88f"]
+# product_files at the re-pin delta: requirements.json@a73449377e8d055f5d247130b8850bf3f5a151d9, requirements.md@4e110b16027fbe446e846a8c5f9d2dc5c2899af6,
+# the two case blobs as below, and docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md@aa65e8261da4193707b561dba6e8a841451cf88f
+# status re-pin delta: the two requirement blobs are the step 10 blobs (git rev-parse c1955b3:<path>); the CR file entry is
+# dropped (lead SE ruling 2). The CR is a record on main whose section 5 Done cells, sections 8 to 11 and front matter
+# (status, merge_sha) change again at the merge, so a pinned CR blob cannot equal HEAD when the merge commit sets the verdict.
+# The CR text this record used stays identified in the body: blob c1a52ab6 (section "Status re-pin delta")
+product_files: ["docs/requirements/sys/requirements.json@c68584cf62895a6b0a6d4a5d45e19fd190dd1af1", "docs/requirements/sys/requirements.md@47c2beaacc2037d08011b56b36efde90c4f334f0", "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065", "docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316"]
 product_size: 114 cases (Bench 77, Simulation 23, Inspection 14; Test 71, Analysis 23, Inspection 14, Demonstration 6), all Draft; 65 added or changed (1 added, 28 with content changes, 36 photograph only)
 sprint: PDR-prep
 author_agent: "test-author:WP-PDR-11 (same invocation as the L1 requirements author; CR-008 section 4 independence note)"
@@ -39,6 +51,7 @@ assurance_verdict: not-required
 # The reviewed blobs are on the CR branch, not in main HEAD; tools/validate_docs.py fails an APPROVED
 # record whose product_files are not in HEAD (record drift rule). The software lead sets APPROVED when
 # CR-008 merges with these blobs unchanged (section "Record verdict"; precedent INSP-031). The re-pin delta keeps the hold.
+# The status re-pin delta keeps it too: the two step 10 requirement blobs exist only on the branch.
 verdict: NEEDS CHANGES
 # re-pin delta counts: finding-1 to finding-3 Open to Lien (rule C1: CR-008 dispositioned Approved on 2026-09-28 without a
 # revision; due at the CDR readiness declaration), counted in findings_deferred; no new finding. Was open 3, deferred 0
@@ -54,9 +67,9 @@ assurance_tasks_applied: []
 decision_tables_checked: 0
 deferred_rids: []
 items_no: [CK-TEST-A6]
-# effort: iteration 1 (40 turns, 80 min) plus the re-pin delta (12 turns, 25 min)
-effort_turns: 52
-effort_minutes: 105
+# effort: iteration 1 (40 turns, 80 min) plus the re-pin delta (12 turns, 25 min) plus the status re-pin delta (10 turns, 20 min)
+effort_turns: 62
+effort_minutes: 125
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -297,4 +310,57 @@ VERDICT (re-pin delta, 2026-09-29): APPROVED (record verdict held at NEEDS CHANG
 FINDINGS: finding-1, finding-2, finding-3 [Minor] Lien (rule C1, due CDR readiness declaration); no new finding
 PRODUCTS: CR-008@aa65e826 (was 3b9266ff); requirements.json@a7344937, requirements.md@4e110b16, test_cases.json@117c08de, test_cases.md@00e4454f (c629198, equal at the branch head e26ce46)
 MEASUREMENTS (re-pin delta): hunks=19; files_changed=1; product blobs re-identified=4 of 4 unchanged; turns=12; minutes=25; major=0; minor_new=0
+```
+
+## Status re-pin delta (2026-09-29, main `9fda694`; WP-PDR-55; CR-008 section 5 step 10 at `c1955b3`)
+
+**Scope (plan rule C1, record drift rule, lead SE rulings 1 and 2 of 2026-09-29).** Two things changed after the re-pin delta. (1) On the branch, step 10 (`c1955b3`, lead SE ruling 1) sets REQ-SYS-194 from `Draft` to `Active`. This record checks the cases against the requirement text and names the requirement blobs in `product_files`: `requirements.json` `a7344937` becomes `c68584cf62895a6b0a6d4a5d45e19fd190dd1af1`, and `requirements.md` `4e110b16` becomes `47c2beaacc2037d08011b56b36efde90c4f334f0`. The case blobs `test_cases.json` (`117c08de`) and `test_cases.md` (`00e4454f`) are unchanged at `c1955b3` and at the branch head `92727f1` (the INSP-003 status delta, a record only). (2) On `main`, the CR file changed from `aa65e826` to `c1a52ab6e06f9123b0b78afad74d69bd01674254` in `b630269` and `1fe68cb`; `main` is now at `9fda694`, with the CR file still `c1a52ab6`. This record used section 1.6, the section 4 Verification row and independence note, and the section 5 checks of the acceptance criteria. Section 5 changed (step 10 and the frozen-products paragraph), so under ruling 2 a delta is due before the CR file can be dropped. It is done below.
+
+**Independence (rule C4).** This invocation authored no part of CR-008 (including `b630269` and `1fe68cb`), no branch commit that changes a product (`c629198`, `a36a828`, `c1955b3`), no earlier part of this record, and none of the INSP-003, INSP-025 and INSP-008 updates at `ebeb069` and `e26ce46`. It wrote the INSP-003 status delta (`92727f1`, branch) and the INSP-044 status re-pin delta (`2b0d963`, `main`), both records, not this product. It edited no product file. **Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries as in the INSP-044 status re-pin delta). After it, only read-only Python over `git show`, `git diff` of the named commits and the tools in a scratch worktree of the branch were used.
+
+### Delta on the case lens
+
+| Check | Result |
+|---|---|
+| Case blobs | `git diff e26ce46 c1955b3` lists only `requirements.json` and `requirements.md`. `git rev-parse c1955b3:<path>` gives `117c08de` and `00e4454f`, the blobs this record reviewed. 114 cases, all `Draft` |
+| Requirement change seen from the cases | The only field that changes is the `status` of REQ-SYS-194. Its statement, method, note and `tbr` are unchanged, so no acceptance criterion, setup, step or instrument of TC-SYS-116 or of any other case needs to change. No case field quotes a requirement's status: the only `Draft` and `Active` words in the case text are each case's own "a change ... returns this case to Draft" note |
+| TC-SYS-116 status | Stays `Draft`, correctly. 02 section 8.4 moves a case to `Active` only on the independent procedure-checklist review, not on the CR, and step 10 says so. T-09 (a closing case for every `Active` requirement) is met with the case at `Draft` |
+| R5 (requirements under test `Active`) | Now Yes without the exception: every requirement the cases cite is `Active`, REQ-SYS-194 included. At iteration 1 it was the one `Draft` requirement, which the brief covered by naming CR-008 |
+| Tools on the branch | `tools/traceability.py` at `c1955b3`: 246 requirements, 174 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and 148). `tools/validate_docs.py` at `92727f1`: 50 passed, 0 failed; `docs/test_cases/sys/test_cases.json` passes its schema |
+
+### Hunks read (`git diff -U0 aa65e826 c1a52ab6`: 14 hunks, 38 insertions, 16 deletions; case lens)
+
+| Hunk (new lines) | Section | Change | Effect on this record |
+|---|---|---|---|
+| 4 | Front matter | `status` Dispositioned to Implemented | No TC id or path changes. The state question is cross item X-8 of INSP-044 |
+| 166, 168, 171 | 5 | Step 7 Done cell; new step 10; frozen-products paragraph gains the two step 10 blobs and "The two test case blobs are unchanged" | Checked above: the case blobs are unchanged, and step 10's TC-SYS-116 reading matches 02 section 8.4. The section 5 "Verification of the implementation" paragraph (the checks this record ran) is unchanged |
+| 177, 179 | 6 | Lead text points to rounds 6.1 to 6.3 | Agrees with the rounds read at the re-pin delta |
+| 276, 278, 283, 289, 292 to 295 | 8 | Implementation state, `e26ce46` and `c1955b3` rows, `c629198` correction of record | No case file is in `e26ce46` or `c1955b3`. The `c629198` row now lists its `check_commit_msg.py` failures, which do not affect the case content this record froze |
+| 303 to 323 | 9 | Independent verification table and IV-F1 to IV-F3 | Its TC-SYS row (64 modified cases, 36 artifact-only, 57 photos, TC-SYS-060, 064 and 111 checks, 114 cases and the counts) agrees with this record's case table and case checks |
+| 372 | 10 | "Owner merge approval" set to pending the owner's S1 approval | INSP-044 finding-2, Verified in that record. Not counted here |
+| 388 and 389 | 11 | History rows | Status record only |
+
+Sections 1 to 4 (section 1.6 and the section 4 Verification row and independence note included), 6.1 to 6.3, 7 and 12 are byte-identical between `aa65e826` and `c1a52ab6`.
+
+**Why the CR file is dropped from `product_files` after this delta (ruling 2).** Every CR section this record used has now been read at `c1a52ab6`. What is still to come in the CR file is record text: section 5 Done cells, sections 8 to 11, and the front matter `status` and `merge_sha` at the merge. A pinned CR blob would drift at the merge commit, which is the commit that sets this record's verdict. So the entry is removed and the text used stays named here (`c1a52ab6`), as INSP-060 did. The condition for the merge: `git diff c1a52ab6 <merge HEAD> -- docs/cm/cr/CR-008-srr-liens-l1-and-tc-sys.md` changes nothing in sections 1 to 4, 6 and 7, and nothing in section 5 except Done cells. Otherwise a further delta of this record is due before the verdict is set.
+
+### Findings at the status re-pin delta
+
+| Finding | Severity | State | Basis |
+|---|---|---|---|
+| finding-1 | Minor | Lien (rule C1; due at the CDR readiness declaration; unchanged) | TC-SYS-036 at `117c08de` is unchanged |
+| finding-2 | Minor | Lien (rule C1; due at the CDR readiness declaration; unchanged) | TC-SYS-111 at `117c08de` and the REQ-SYS-185 note at `c68584cf` are unchanged |
+| finding-3 | Minor | Lien (rule C1; due at the CDR readiness declaration; unchanged) | TC-SYS-034 at `117c08de` is unchanged |
+
+No new finding. Open Major 0 and open Minor 0.
+
+### Record verdict at the status re-pin delta
+
+`reviewer_verdict: APPROVED`, readiness met (R1 to R4 as at iteration 1 on the unchanged case blobs; R5 now Yes with every cited requirement `Active`). `product_files` names the two step 10 requirement blobs and the two unchanged case blobs, all at `c1955b3`, with the CR file dropped as explained above. `verdict` stays NEEDS CHANGES under the lead SE convention, because the two requirement blobs exist only on the unmerged branch. The software lead sets APPROVED in the CR-008 merge commit, once `git rev-parse HEAD:<path>` equals each `product_files` blob and the CR-file condition above holds.
+
+```
+VERDICT (status re-pin delta, 2026-09-29): APPROVED (record verdict held at NEEDS CHANGES until CR-008 merges; drift rule)
+FINDINGS: finding-1, finding-2, finding-3 [Minor] Lien (rule C1, due CDR readiness declaration); no new finding
+PRODUCTS: requirements.json@c68584cf, requirements.md@47c2beaa (c1955b3; were a7344937, 4e110b16); test_cases.json@117c08de, test_cases.md@00e4454f (unchanged); CR-008 read at c1a52ab6 and dropped from product_files (lead SE ruling 2)
+MEASUREMENTS (status re-pin delta): hunks=2 files on the branch plus 14 in the CR file; case blobs re-identified=2 of 2 unchanged; turns=10; minutes=20; major=0; minor_new=0
 ```
