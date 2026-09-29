@@ -190,26 +190,27 @@ The study went to the owner as revision 6, with its Dissent section and the revi
 
 ## 7. Related
 
-- **Supersedes:** none at filing.
+- **Supersedes:** none at filing. Proposed for the S1 disposition: ADR-006, ADR-007 and ADR-012 (lead SE ruling 1 below).
 - **Superseded by:** none.
 - **Trade study:** TS-012. It supersedes TS-001 and TS-007 (item 2).
 - **Review where presented:**
   - Item 1: decided between reviews in chat, 2026-09-29.
   - Items 2 to 4: PDR session S1 (OD-10 part 1).
   - The whole record: PDR.
-- **Accepted ADRs that A5 contradicts, for the lead SE's route at S1** (README rule 2 allows only "Superseded by ADR-MMM"; the Status lines change after the S1 disposition, by WP-PDR-02):
-  - **Wholly contradicted, proposed "Superseded by ADR-056" on the S1 disposition:**
+- **Accepted ADRs that A5 contradicts, and their route** (lead SE rulings of 2026-09-29 on the route this section asked for). README rule 2 allows only "Superseded by ADR-MMM" and has no partial supersession. Every Status line below changes only after the owner's S1 disposition, by WP-PDR-02:
+  - **Ruling 1. Wholly contradicted: proposed "Superseded by ADR-056" at the owner's S1 disposition, with no new ADR:**
     - ADR-006: rotary encoders and LCD; replaced by the Morse menu, D1 and D5.
     - ADR-007: PCBWay turnkey; replaced by owner hand assembly (TS-012 section 2, "Prior related decisions").
     - ADR-012: PA stocked at DigiKey, Mouser or a PCBWay distributor; the module is from RF Parts (EX-3).
-  - **Superseded by records of their own:**
+  - **Ruling 2. Contradicted in part only: one new ADR per old ADR, which supersedes it in full on the S1 disposition.** This follows the ADR-026 precedent (ADR-026 restated ADR-010 and superseded it in full). Each new ADR restates every unchanged part of the old ADR verbatim or near-verbatim and states the A5 change with its TS-012 or ADR-056 source. Each is Proposed for the owner's confirmation at S1 (OD-10 part 1, with items 2 to 4 of this ADR), with the owner as decision authority and its section 6 holding the proposed memo wording (README rule 4). Each is reviewed in the same independent review as this ADR. The lead SE files them before any other ADR is created:
+    - ADR-057 restates ADR-002. Item (4), the stainless SMA, becomes the gold-plated brass-class SMA (D8). Item (3), the 70 cm LO enhancing criterion, is also dropped: TS-012 scored no such criterion, and A5 gives up 70 cm (D15; the Si5351A output ends at 200 MHz). ADR-002's revisit condition asks for this to be recorded by a superseding ADR. Item (3) was added by the technical data manager when drafting ADR-057 and is for the lead SE's confirmation.
+    - ADR-058 restates ADR-004. The charge path from VBUS is removed: A5 has no in-radio charging, and USB loads firmware only (D2).
+    - ADR-059 restates ADR-005. In-radio charging, charge balancing and the secondary over-voltage protector are removed (D2, D14), and the pack parts are those of TS-012 section 8.3.
+  - **Ruling 3. Superseded by the ADRs their own CRs create (no action here):**
     - ADR-008 by the enclosure ADR of CR-003 (CR-003 section 5 step 11).
     - ADR-025 by ADR-028 of CR-006.
-  - **Contradicted in part only, route open:**
-    - ADR-002 item (4), the stainless SMA; A5 uses gold-plated brass (D8).
-    - ADR-004, the charge path from VBUS; A5 has no in-radio charging (D2).
-    - ADR-005, in-radio charge balancing and the secondary over-voltage protector; removed by D14.
   - **Not contradicted, and they stay:** ADR-013 and ADR-023. TS-012 is the synthesizer trade ADR-013 called for, and the TG2520SMN (+/-0.5 ppm) meets ADR-023.
+- **Related ADRs:** ADR-057, ADR-058 and ADR-059 (ruling 2); ADR-004 and ADR-027 (the controller and runtime, section 2 item 1); ADR-031 (below).
 - **Other records:**
   - TS-007's reviews INSP-055 and INSP-074 end with the study superseded (lead SE disposition).
   - ADR-031 (clock plan) is revised by WP-PDR-20a for D-12.
@@ -228,3 +229,4 @@ The study went to the owner as revision 6, with its Dissent section and the revi
 ## 8. Change log
 
 - 2026-09-29: created by the technical data manager, WP-PDR-54 part 1 (`docs/plan/pdr-work-plan.md` revision 6). It records the owner's A5 decision of 2026-09-29 as the decision memo between reviews, and the OD-10 part 1 items for S1 (plan section 3.0a). The number is the next free one, max(existing) + 1 (README rule 1; TS-012 "Resulting ADR" row). Author: Claude (technical data manager invocation).
+- 2026-09-29: section 7 states the lead SE rulings of 2026-09-29 on the contradicted ADRs. Ruling 1: ADR-006, ADR-007 and ADR-012 are proposed as "Superseded by ADR-056" at the S1 disposition, with no new ADR. Ruling 2: ADR-002, ADR-004 and ADR-005 are restated in full by ADR-057, ADR-058 and ADR-059, each superseding its old ADR in full on the S1 disposition (the ADR-026 precedent). Ruling 3: ADR-008 and ADR-025 are superseded by the ADRs of CR-003 and CR-006. The "Supersedes" line names the ruling 1 ADRs, and a "Related ADRs" line names ADR-057 to ADR-059. ADR-002 item (3), the 70 cm LO enhancing criterion, is added to the ADR-002 entry because A5 also contradicts it (TS-012 descope D15), for the lead SE's confirmation. No decision content of sections 2 to 6 changes. Author: Claude (technical data manager invocation, WP-PDR-54 part 1 follow-on).
