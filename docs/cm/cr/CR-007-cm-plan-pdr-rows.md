@@ -299,7 +299,7 @@ Reviewer concurrence (software assurance): **concur with comments.** Concur with
 | Decision | Approved |
 | Class confirmed | II (proposed II; concurred by the CM-lens impact review, rounds 1 and 2, section 6.3) |
 | Date | 2026-09-28 |
-| Conditions | None stated by the owner. Implementation follows section 5 steps 3 to 9 |
+| Conditions | None stated by the owner at the 2026-09-28 approval (section 1 of the status note). At the confirmation after the software assurance impact review (section 6.4), the owner chose option B (status-2026-09-28.md section 4): revision 3 of this CR fixes SA-F1 (the assurance dispatch rule also covers security and supply-chain CRs and hardware CRs that change an interface with a software side) and SA-F2 (the hold points the assurance review sets on disposition, merge and release approval, and where a non-concurrence goes), with a delta impact review of that revision, before the section 5 step 3 branch is opened. SA-F3 to SA-F7 are fixed at implementation (step 3). Implementation then follows section 5 steps 3 to 9 |
 | Rationale | 05 section 4.4 requires the allocated-baseline admission rows by a Class II CR against 05 before the PDR readiness declaration, and the twelve SRR liens against 05 are due at that declaration. Section 6.3: IR-F1 (Major) Verified, 0 Major open, IR-F2 to IR-F8 Minor and open. Departure recorded at the disposition: the software assurance reviewer's impact review of revision 2, which section 6 (lead paragraph and section 6.2 item 2) required before OD-36 under PDR work plan rule C6, had not been performed when the owner approved. The configuration manager routes it to the lead SE: that review is performed before the section 5 step 3 branch is opened, and if it finds an impact that changes the owner's basis, the CR returns to Submitted for re-disposition (the lesson 14 practice; the lead SE decides whether it is a `docs/cm/deviations.md` entry, since 05 section 5.2 itself does not require the review for this class) |
 | Waiver scope (if Approved (waiver)) | n/a |
 | Re-look trigger and re-look-by review (if Deferred) | |
@@ -310,6 +310,7 @@ Disposition history (append only):
 | Date | Decision | New target | Source |
 |---|---|---|---|
 | 2026-09-28 | Approved | none | owner, `status-2026-09-28.md` section 1 (`e288add`), transcribed by Claude (configuration manager) |
+| 2026-09-28 | Approved, confirmed after the software assurance impact review, with the revision 3 condition (option B) | none | owner, `status-2026-09-28.md` section 4, transcribed by Claude (lead SE); deviations entry 5 |
 
 ## 8. Implementation record
 
