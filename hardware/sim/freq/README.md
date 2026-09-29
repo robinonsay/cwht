@@ -9,6 +9,7 @@ Block of the WP-PDR-20 analyses (synthesizer, reference, frequency budget, clock
 | `clock_plan.py` | Harmonic map of every clock against the 2 m receive band, the CW segment, the IF, the image and the LO band (ADR-031 rules). Standard library; `--plot` renders the figure | `docs/design/analysis/clock-plan.md`, ADR-031 |
 | `freq_budget.py` | Frequency error budget and counter timebase (REQ-SYS-182, REQ-TX-013) | `docs/design/analysis/frequency-budget.md` |
 | `ts007_matrix.py` | TS-007 synthesizer and reference trade matrix | TS-007 |
+| `r3_a5.py` | Route R3 for A5 (WP-PDR-20a): Si5351A relock budget from the data sheet and AN619, XOSC/TCXO ratio freshness over the longest over (imports the WP-PDR-28a thermal model unchanged), the A5 R3 budget with the drift term split by check, the receive-only squaring-stage lines. numpy, matplotlib; `--run-id` writes `results/<run-id>/` | `docs/design/analysis/frequency-budget.md` section 3.4 (revision 2) |
 | `tx_spur_plan.py` | TS-012 transmit clock spur plan: every clock line from 118 to 175 MHz while transmitting, at the GVA-84+ input and at the antenna, for plans B0, B1, P and PB and for finalists A4 and A5 | `docs/design/analysis/spurs-ts012.md` |
 | `tx_spur_filters.cir` | LTspice AC deck: drive low-pass with the 18 dB pad, option C10 drive bandpass, harmonic 7-pole low-pass (ideal and inductor Q 60) | as above |
 | `tx_spur_bpf_tol.cir` | LTspice AC deck: tolerance corners (every L and every C at 0.95, 1, 1.05) of the option C10 drive bandpass | as above |
@@ -19,6 +20,32 @@ Block of the WP-PDR-20 analyses (synthesizer, reference, frequency budget, clock
 LTspice runs only through `tools/ltspice-batch.sh` (ACC-LTSPICE-001, blob `88b71475`); the GUI is never opened. `.raw` files are parsed with spicelib from the project venv.
 
 ## Runs
+
+### `results/r3a5-20260929-01/` (2026-09-29): WP-PDR-20a, route R3 for A5 (`frequency-budget.md` revision 2, section 3.4)
+
+Reproduce from the repository root:
+
+```
+.venv/bin/python hardware/sim/freq/r3_a5.py --run-id r3a5-20260929-01
+```
+
+No LTspice deck in this run. The checker exits **0**: 23 PASS, 0 FAIL, 10 INFO lines. Its console output is `checker-output.txt`.
+
+| Output | Content |
+|---|---|
+| `results.json` | Every case line; `relock` (C6 write times at 400, 256 and 100 kHz, L max per sequence, the sourced TFREQ and TRDY values); `freshness` (slope bound, A_kd, window, main-bay change per layout and ambient with the tornado, drift over the over, the interval-12 and interval-13 ceilings and the allocation); `budget` (d, margin and undetected bound per check); `buffer_lines`; the sources with their PDF SHA-256 |
+| `relock-sequence.png` | Key-down timelines per sequence variant; sourced Si5351A timing values against the settle budget (log) |
+| `ratio-freshness.png` | MAIN-node change over the 190 s window; drift bound against the ratio age with the allocations and ceilings |
+| `xosc-slope.png` | Admissible AT-cut curves in the Table 596 band; slope envelope over -10 to +65 C |
+| `r3-budget-and-buffer.png` | d and T + d per check; 25 MHz harmonics against the receive windows |
+| `r3_a5.py` | Copy of the script as run |
+
+Summary:
+- **Relock.** Neither the data sheet nor AN619 gives a relock time, so the 1 ms allocation is not confirmed. The writes take 0.650 ms at 400 kHz. L max is 2.0 ms with the TS-012 ramp and 4.0 ms with the ramp at 12 ms; interval 13 at the changeover leaves 0 ms. The design response is the lock-gated start, closed by measurement M-1.
+- **Freshness.** The drift over the longest over is 6.12 ppm, over the 1 ppm allocation. The budget closes with A_kd = 10 s at the key-down check and 6.5 ppm at interval 13. The margins are 482.0 Hz (interval 12) and 1 668.0 Hz (interval 13).
+- **Squaring stage.** No 25 MHz harmonic falls in a receive window; the 150 MHz transmit line is unchanged with the stage off.
+
+Every PNG of this run was opened and inspected after rendering (visual closure, 2026-09-29).
 
 ### `results/txspur-20260928-02/` (2026-09-28): revision 1 of the spur plan (fixes review finding-1 and finding-2 of revision 0)
 

@@ -3,14 +3,14 @@
 | Field | Value |
 |---|---|
 | Product | `docs/design/analysis/frequency-budget.md` (analysis note, `analysis_kind`: budget, timing, worst-case) |
-| Work package | WP-PDR-20 (`docs/plan/pdr-work-plan.md` section 3.6), wave 1a |
-| Author | Claude, RF designer (TX) author invocation, 2026-09-27 |
-| Checker | `hardware/sim/freq/freq_budget.py` (one command, section 7) |
-| Figure | `docs/reviews/PDR/figures/frequency-budget.png` (rendered and inspected, section 7) |
-| Review record | `docs/reviews/PDR/checklists/analysis-frequency-budget-and-clock-plan.md` (one record for this note and `clock-plan.md`, plan section 3.6), with `docs/templates/peer-review-checklist-analysis.md` (on `cr/CR-012-pdr-checklist-templates`, not yet on `main`) |
-| Evidence status | **Developer evidence** (05 section 9.1). The checker is a class B script without a TV record. Under CK-ANA-C2 no value here closes a requirement or goes to the owner as a TBR value until a TV record covers the checker or the owner rules on developer evidence (section 6, item 1) |
+| Work package | WP-PDR-20 (`docs/plan/pdr-work-plan.md` section 3.6), wave 1a; **revision 2: WP-PDR-20a** (plan revisions 6 and 7, section 3.0 row 20: the route R3 budget of D-17, the Si5351A relock time against its 1 ms allocation, the TCXO ratio freshness over a long over against its 1 ppm allocation), wave W-A |
+| Author | Claude, RF designer (TX) author invocation, 2026-09-27 (revisions 0 and 1); Claude, WP-PDR-20a analysis author invocation, 2026-09-29 (revision 2) |
+| Checker | `hardware/sim/freq/freq_budget.py` (sections 3.1 to 3.3, unchanged in revision 2) and `hardware/sim/freq/r3_a5.py` (section 3.4, new in revision 2, run `r3a5-20260929-01`); one command each, section 7 |
+| Figure | `docs/reviews/PDR/figures/frequency-budget.png` (sections 3.1 to 3.3); `hardware/sim/freq/results/r3a5-20260929-01/relock-sequence.png`, `ratio-freshness.png`, `xosc-slope.png`, `r3-budget-and-buffer.png` (section 3.4). All rendered and inspected (section 7) |
+| Review record | `docs/reviews/PDR/checklists/analysis-frequency-budget-and-clock-plan.md` (INSP-056; one record for this note and `clock-plan.md`, plan section 3.6), with `docs/templates/peer-review-checklist-analysis.md` (on `cr/CR-012-pdr-checklist-templates`, not yet on `main`). Revision 2 is reviewed as the WP-PDR-20a delta of INSP-056 with its software assurance pair (plan row 20: "the INSP-056 and INSP-111 deltas with the SA pair"); the lead SE assigns the iterations |
+| Evidence status | **Developer evidence** (05 section 9.1). Both checkers are class B scripts without a TV record; `r3_a5.py` also imports the WP-PDR-28a thermal model (`hardware/sim/thermal/thermal_model.py`, unchanged). Under CK-ANA-C2 no value here closes a requirement or goes to the owner as a TBR value until a TV record covers the checkers or the owner rules on developer evidence (section 6, item 1) |
 | Staging | The guard values depend on REQ-TX-006 (750 Hz, TBR), which WP-PDR-22 confirms. The TS-007 part choice is decided at B1a. These values are finalized after WP-PDR-22 and ruled at B2 (plan WP-PDR-20 "Depends on"; rule C10) |
-| AT RISK | No. Nothing here depends on CR-003 or CR-006 |
+| AT RISK | Revisions 0 and 1: no. **Revision 2: AT RISK (A5 CRs)** (plan rules C8 and C13): section 3.4 uses REQ-SYS-160, 161 and 180 as they stand before the S1 disposition of CR-003 revision 4, CR-006 revision 3 and CR-018; it is re-checked against the disposition before F1 |
 
 ## 1. Question and scope
 
@@ -20,6 +20,12 @@ This note answers four questions:
 2. Which reference budget makes REQ-SYS-010 (+/-2.5 ppm for one year after calibration) and the band-edge guard hold even if the firmware calibration constant is wrong? What two-unit offset remains for RSK-002?
 3. Can the independent frequency verification of REQ-SYS-182 and REQ-SYS-154 (HZ-008 K7) hold its 10 kHz window and 100 ms limit on the RP2350 crystal timebase? What prescaler ratio and sample does REQ-TX-013 need? How are both REQ-SYS-154 triggers ("unlocked" and "off its set frequency by over 10 kHz") detected at both moments ("on key-down" and "during transmission"), and how fast?
 4. Which TBR values does this analysis propose, and which of them trigger the "else a CR" branch of their `tbr.plan`?
+5. **(Revision 2, WP-PDR-20a.)** For A5, the design the owner chose (TS-012 revision 7 section 10; D-17), does route R3 still hold at the changeover and over a whole over? Three parts:
+   - the Si5351A PLL A relock after the changeover writes, read from a source, against the 1 ms allocation of the TS-012 section 7.3 key-down sequence;
+   - the age of the XOSC/TCXO ratio at each check, with the squaring stage off in transmission, against the 1 ppm XOSC drift allocation;
+   - the receive-only TCXO squaring stage and the 150.000 MHz line.
+
+   Both of the first two are TS-012 section 10 revisit conditions of revision 6. Section 3.4 answers them.
 
 Identifiers served:
 - Requirements: REQ-SYS-008, REQ-SYS-009, REQ-SYS-010, REQ-SYS-154, REQ-SYS-182, REQ-TX-002, REQ-TX-013.
@@ -27,8 +33,11 @@ Identifiers served:
 - TPM-006 (`frequency-stability`); RSK-002 step S1; RSK-046 step S2.
 - HZ-008 controls K4 and K7 (`docs/safety/hazards.json` 0.5.0-pha); SRR decisions 25 and 40.
 - TS-007 criteria M3 and R-M3.
+- Revision 2: TS-012 decision A5 and design items D-12 (C6), D-17 and D-18; TS-012 section 10 revisit conditions on the relock time and the ratio freshness; REQ-SYS-160, REQ-SYS-180; INSP-110 finding-25 (the squaring stage, as it bears on the refresh time).
 
 The receiver phase-noise and reciprocal-mixing arithmetic is in TS-007 section 4 (criterion C1). The clock harmonics are in `docs/design/analysis/clock-plan.md`.
+
+**Revision 2 and TS-007.** Sections 3.1 to 3.3 were written for the TS-007 alternatives: A1, a Si5351A with the carrier on its own PLL, and A2, the recommended LMX2571. TS-012 supersedes TS-007. A5 is neither alternative: the Si5351A of A1 is used, but its PLL A carries the receive LO and is retuned to the carrier at every changeover, as A2's synthesizer was. Section 3.4 governs for A5 wherever it differs from sections 3.3 and 4. The clk_sys 96 MHz re-run of `clock-plan.md` and the ADR-031 revision (also WP-PDR-20a) are not in this note.
 
 ## 2. Inputs
 
@@ -63,6 +72,20 @@ The receiver phase-noise and reciprocal-mixing arithmetic is in TS-007 section 4
 | FC0 sources and status | GPIN0, GPIN1 selectable; DONE, PASS, FAST, SLOW, DIED, FAIL status | RP2350 datasheet Tables 583, 584 | Datasheet |
 | RP2350 crystal (XOSC) | 12.000 MHz; +/-30 ppm tolerance, +/-30 ppm stability, +/-5 ppm first-year aging | RP2350 datasheet section 8.2.1.1, Table 596 (ABM8-272-T3) | Datasheet |
 | TCXO frequency | 25.000 MHz | TS-007 section 8 (R-M4); `clock-plan.md` section 4 | Proposal |
+| **Revision 2 inputs (section 3.4)** | | | |
+| Si5351A timing | TRDY power-up time, "From VDD = VDDmin to valid output clock, CL = 5 pF, fCLKn > 1 MHz": typ 2 ms, max 10 ms. TFREQ output frequency transition time, "fCLKn > 1 MHz": max 10 us. TOE output enable time: max 10 us. **No PLL lock or relock time is given** | Skyworks Si5351A/B/C-B data sheet Rev. 1.3 (August 27, 2021), Table 5 "AC Characteristics", page 9. Read 2026-09-29 through the web-fetch tool from the Skyworks site (PDF SHA-256 `f3bc5285...a4851101f`); text taken with pdftotext in the session scratchpad; no file added to the repository | Datasheet |
+| Si5351A status and reset | Register 0 bit 5 LOL_A, "PLL A Loss Of Lock Status ... 0: PLL A is operating normally. 1: PLL A is unlocked" (page 13). Register 177 PLLA_RST "Writing a 1 to this bit will reset PLLA. This is a self clearing bit". Data sheet Figure 10 applies the PLLA and PLLB soft reset (reg 177 = 0xAC) after a configuration write. I2C Standard-Mode 100 kbps or Fast-Mode 400 kbps, burst writes with auto address increment (data sheet section 5) | Skyworks AN619 Rev. 0.8 (September 23, 2021), Registers 0 and 177. Read as above (PDF SHA-256 `0135b3a3...4783f36b`) | Application note |
+| C6 changeover writes | MSNA (reg 26 to 33, 8 bytes), CLK0 to CLK2 control (reg 16 to 18), output enable (reg 3), MSNB (reg 34 to 41, 8 bytes); optional PLL reset (reg 177) | `spurs-ts012.md` option C6; TS-012 D-12; register numbers from AN619 | Design (TS-012) |
+| I2C SCL with the ADR-031 counts at clk_sys 96 MHz | about 256 kHz | `spurs-ts012.md` section 6, "I2C" (counts to be re-derived by WP-PDR-32) | Analysis |
+| Key-down sequence | t0 = changeover command, after 1 ms sampling and the 2 ms make filter; 1 ms for writes and settle (allocation); FC0 interval 12 from t0 + 1 ms; 2 ms software; PA_EN at t0 + 7 ms; TX_KEY at t0 + 8 ms; ramp at t0 + 10 ms. The GVA-84+ is powered and its bias clamp released when TX_KEY, PA_EN and Q are all true (D-18) | TS-012 section 7.3 revision 6, D-18 | Design (TS-012) |
+| Contact-to-RF latency | RF rise within 15 ms of each straight-key closure | REQ-SYS-160 (TBR) | TBR |
+| Longest over with RF | RF ends 150 s to 180 s into continuous transmit and is held off until receive resumes | REQ-SYS-180 (TBR) | TBR |
+| XOSC crystal curve | AT-cut cubic about its inflection: third-order coefficient 0.8e-4 to 1.3e-4 ppm/K^3, inflection 20 to 35 C, first-order term free inside the Table 596 band | Standard AT-cut crystal model (Bechmann's coefficients as summarized in the crystal literature); not in the corpus, not read in this invocation | **Estimate, Low** |
+| Crystal temperature in service | -10 to +65 C | REQ-SYS-010 span; thermal note main-bay long-session value 57.8 C plus its band and the local rise | Estimate |
+| Main-bay (Pico 2) temperature transients | the MAIN node of the thermal model, layouts A5-DC and A5-R4, ambients -10, 25, 45 C, with its 86 ranged inputs | `hardware/sim/thermal/thermal_model.py` (WP-PDR-28a, `thermal-ts012.md`), imported unchanged | Model (developer evidence) |
+| Pico 2 local step at the changeover | 0.03 W change of the board's own dissipation, 47 K/W board to air, time constant 30 s (rate) | **Estimates, Low** (board area and a convective coefficient near 10 W/m2K) | Estimate |
+| XOSC pushing at the changeover | 0.2 ppm | **Allocation** (3.3 V rail step); confirmed by measurement M-2 | Allocation |
+| Squaring-stage settle after power-up | 50 ms | **Allocation**: a requirement on the stage that answers INSP-110 finding-25 | Allocation |
 
 ## 3. Method and results
 
@@ -211,6 +234,156 @@ A fault that starts inside an interval may not trip that interval, because the c
 - R3 departs from one phrase of the HZ-008 K7 text, "uses the RP2350 crystal timebase rather than the synthesizer reference". The gate stays on the XOSC, but the scale factor uses the TCXO, bounded by the 67.5 ppm plausibility test.
 - **Recommendation:** R3, with FC0 on two GPIN pins, interval 12 before PA_EN and interval 13 during transmit, and a measured threshold of 5.0 kHz. The K7 wording change goes to the hazards writer (section 5). If the owner prefers the K7 text as written, route R1 is taken, with REQ-SYS-182 at 12 kHz or more and REQ-SYS-154 at 23.7 kHz or more by CR.
 
+### 3.4 Route R3 for A5: Si5351A relock, ratio freshness and the receive-only squaring stage (revision 2, WP-PDR-20a)
+
+**The A5 arrangement** (TS-012 D-12, D-17, D-18; the key-down sequence of TS-012 section 7.3, revision 6):
+- The Adafruit Si5351A runs from the TG2520SMN on XA.
+- In receive, PLL A drives CLK0, the LO, and PLL B drives CLK2, the 8 MHz BFO.
+- At the changeover command t0, the C6 writes retune PLL A to the carrier multiplier, power up CLK1, power down CLK0 and CLK2, and park PLL B on the PLL A multiplier.
+- The /8 prescaler drives GPIN0.
+- The TCXO drives GPIN1 through a squaring stage that is powered only in receive.
+- FC0 counts interval 12 before PA_EN and interval 13 during transmission, against the measured threshold T = 5.0 kHz.
+
+Checker `hardware/sim/freq/r3_a5.py`, run `r3a5-20260929-01`: 23 PASS, 0 FAIL, 10 INFO. The case ids below are its output lines.
+
+#### 3.4.1 Si5351A PLL relock at the changeover (TS-012 section 10, revisit condition 1)
+
+**What the sources say.** The Skyworks data sheet (Rev. 1.3) and AN619 (Rev. 0.8) were read for a lock, settle or acquisition time (RL-0, RL-1). **Neither gives a PLL lock time or a relock time after a feedback-divider (MSNA) change.** Three timing values exist, and none of them decides:
+
+| Sourced value | What it covers | Bearing on the relock |
+|---|---|---|
+| TFREQ, output frequency transition time, at most 10 us (fCLKn > 1 MHz) | a frequency change at an output | Table 5 does not say whether it covers a PLL feedback change or only a MultiSynth change. If it covers the MSNA retune, the relock fits the allocation with 0.34 ms to spare (RL-7a) |
+| TRDY, power-up time, typ 2 ms, max 10 ms | power-up to a valid output: NVM copy, system initialization and PLL acquisition from power-up | A superset of a relock, so it is an upper bound only on that reading. At 10 ms it exceeds every settle time the sequence allows (RL-7b) |
+| TOE, output enable time, at most 10 us | CLK1 enable | Negligible |
+
+AN619 gives the lock status, register 0 bit 5 LOL_A, readable over I2C. It gives the PLL reset in register 177. The data sheet's Figure 10 procedure applies the reset after a configuration write; whether the changeover writes need it is not stated.
+
+**Time the sequence allows.**
+- The C6 writes are four I2C bursts of 28 data bytes. At 400 kHz Fast-Mode they take **0.650 ms**, or 0.723 ms with the reg 177 reset (RL-2). That leaves **0.35 ms** of the 1 ms allocation for the PLL to settle.
+- At 100 kHz Standard-Mode the same writes take 2.6 ms (RL-2s).
+- At the SCL of about 256 kHz that the ADR-031 counts give at clk_sys 96 MHz (`spurs-ts012.md` section 6), they take 1.016 ms, over the allocation before any settle time (RL-2b).
+- One LOL_A read takes 0.098 ms, inside the 2 ms software allocation (RL-3).
+
+Let L be the time from t0 to the start of the FC0 count, writes included. PA_EN must be set no later than 2 ms before the ramp. That is TX_KEY at t0 + 8 ms against the ramp at t0 + 10 ms, the drive power-up time the TS-012 sequence keeps.
+
+| Case | Sequence | Largest L | Largest settle after the 0.65 ms writes |
+|---|---|---|---|
+| RL-4 | Interval 12, ramp kept at t0 + 10 ms (the TS-012 sequence with PA_EN at TX_KEY) | **2.0 ms** | 1.35 ms |
+| RL-5 | Interval 12, ramp moved to t0 + 12 ms, the limit of both REQ-SYS-161 (12 ms) and REQ-SYS-160 (15 ms less the 3 ms before t0) | 4.0 ms, which is the TS-012 revisit threshold of 1 + 3 ms | 3.35 ms |
+| RL-6 | Interval 13 at the changeover (the TS-012 fallback), ramp at t0 + 12 ms | **0 ms** | none |
+
+**Reading.**
+- The 1 ms allocation is **not confirmed by a source**. The relock time is not specified.
+- The revisit condition is therefore neither triggered nor excluded by the read. The source bounds a relock at 0.01 ms if TFREQ applies, and at 10 ms only through TRDY.
+- The TS-012 fallback rule for a triggered condition (the check moves to interval 13 and the ramp to 11.5 ms) is no remedy for a slow relock. Interval 13 at the changeover leaves no time for any relock with the 2 ms drive power-up before the ramp (RL-6). TS-012's fallback keeps only 0.5 ms between PA_EN at t0 + 11 ms and the ramp at t0 + 11.5 ms, which WP-PDR-23a has to accept or reject. The fallback still serves its other trigger, an FC0 known-clock check above 560 Hz, if 23a accepts the 0.5 ms.
+
+**Why the relock time is an availability question, not a safety one.** The key-down check is self-validating. A count taken while PLL A is still settling includes the old LO frequency, 8 MHz away. At interval 12, a transient of more than about 2.5 us inside the 4 ms count moves the mean by more than T (8 MHz x 2.5 us / 4 ms = 5 kHz), so PA_EN stays low. That is a late or lost first element, not RF at an unchecked frequency.
+
+A transient that averages inside T while the loop ends at a wrong frequency is caught by the interval-13 checks during transmission, within the 46 ms of C-15. That is inside the 100 ms "or end it" branch of REQ-SYS-182. This is the argument the INSP-118 record makes for the allocation (`ts-012-design-to-cost-software-assurance.md`, item (3)); it holds for any relock time.
+
+**Design response (proposal; requests in section 5).**
+1. **Lock-gated start.** SW-SYNTH issues the C6 writes at t0, with MSNA first. It then polls LOL_A until the bit reads 0, and starts FC0 interval 12 on GPIN0 at the first 0 read, and no later than t0 + L_max. Here L_max = 2.0 ms, so the TS-012 ramp at t0 + 10 ms is kept.
+   - If LOL_A is still 1 at L_max, or the count disagrees, PA_EN is not set for that element.
+   - LOL_A is not credited as proof of settling. AN619 describes it as a reference or lock-range fault indication, so the FC0 count stays the credited means.
+   - The lead-in stays constant (REQ-SYS-161), because the ramp time does not depend on when the count starts.
+2. **I2C at Fast-Mode.** Derived constraint: SCL of at least 263 kHz, so that the 260 SCL clocks of the C6 writes and a TFREQ-scale settle fit the 1 ms allocation (RL-2b); 400 kHz is recommended. The WP-PDR-32 re-derivation of the I2C counts at 96 MHz must meet it.
+3. **No reg 177 reset at the changeover**, unless measurement M-1 shows that the retune needs it. A reset restarts acquisition, and the data sheet gives no time for it.
+4. **Measurement M-1** (dev board: a Pico 2 and the Adafruit Si5351A with a 25 MHz reference; 07 WP-SW-14, beside the FC0 known-clock check):
+   - Set CLK1 to VCO/48 (about 17 to 18.5 MHz, inside the GPIN limit).
+   - Issue the C6 writes from an LO setting to a carrier setting at 144.010, 146.000 and 147.990 MHz.
+   - Time the settle two ways. First, poll LOL_A with timestamps. Second, start an interval-12 count at a delay D after the last write, stepping D from 0 to 3.4 ms in 0.05 ms steps over repeated changeovers. The smallest D whose counts all agree within T/8 at the counted input bounds the settle, because any transient longer than about 2.5 us inside a count fails it (see above).
+   - Short intervals (8 or 9) are too coarse for this: 8 kHz at the input at interval 8.
+   - Take 20 changeovers at each frequency.
+   - Pass: settle at most 0.35 ms, which keeps the 1 ms allocation at 400 kHz. If it is at most 1.35 ms, the sequence stands with L_max = 2.0 ms. If it is at most 3.35 ms, the ramp moves toward t0 + 12 ms, a WP-PDR-23a timing-table change inside REQ-SYS-161 and REQ-SYS-160 with no requirement delta. Above that, a design change is needed: for example, retune at the first key sample instead of at t0, which gains up to the 3 ms of sampling and make filter and needs a receive-restore path for a rejected closure.
+
+**Finding 3.4.1.**
+- Revisit condition 1 is **open, not triggered by the source read**. The source does not specify the relock time.
+- WP-PDR-32 and WP-PDR-36a can be written now: the lock-gated structure, the pins and the timing table do not depend on the measured value, which only sets L_max and, in the worst branch, the ramp time.
+- No requirement or CR-018 row changes.
+- The TS-012 fallback rule does not cover this trigger (RL-6). That is a request to WP-PDR-54 (the TS-012 record) and to WP-PDR-23a.
+
+#### 3.4.2 XOSC/TCXO ratio freshness (TS-012 section 10, revisit condition 2)
+
+**Where the ratio's age matters.**
+- The squaring stage is off from t0 until receive resumes, so every check during an over uses the last ratio taken before the over.
+- The ratio's age at a check is its age at t0, plus the time into the over. RF can run at most 180 s into an over (REQ-SYS-180), so no check with RF comes later than that.
+- The first element's check is at interval 12, whose drift ceiling is 4.26 ppm at zero margin (FR-5). The checks during the over are at interval 13, whose ceiling is 17.77 ppm (FR-6). The ceiling is the largest drift for which T = 5.0 kHz still meets d < T and T + d <= 10 kHz.
+- Revision 1 put one 1 ppm allocation on both.
+
+**Drift bound.** The drift is the XOSC slope times the crystal's temperature change, plus pushing.
+
+| Term | Value | Basis |
+|---|---|---|
+| Largest XOSC slope in service | **0.924 ppm/K** (FR-1) | 15 392 AT-cut curves admitted inside the +/-30 ppm Table 596 band over -40 to +85 C. Largest slope over -10 to +65 C: at 25 C, first-order term -0.924 ppm/K, third-order 1.3e-4 ppm/K^3 (`xosc-slope.png`). Estimate, Low |
+| Main-bay (Pico 2) change over the window W = A_kd + 180 s = 190 s | nominal **2.589 K** (A5-R4 at -10 C, continuous transmit from the receive steady state), RSS band +2.404 K, total **4.993 K** (FR-3) | Thermal model MAIN node, both A5 layouts, three ambients, heating and cooling (`ratio-freshness.png` left). The band is dominated by the feed resistance: r_feed 0.26 to 0.45 ohm adds 2.245 K, and c_main 40 to 90 J/K adds 0.812 K |
+| Pico 2 local step | 1.41 K (0.03 W x 47 K/W, taken in full with no time-constant credit) | Estimate, Low |
+| Pushing | 0.2 ppm | Allocation (M-2) |
+| **Drift over the longest over** | 0.924 x (4.993 + 1.41) + 0.2 = **6.116 ppm** (FR-4) | |
+
+**Reading.**
+- **Revisit condition 2 is triggered as worded.** The ratio cannot be kept within 1 ppm over the longest over: the bound is 6.12 ppm, and at the bounding rates the drift reaches 1 ppm after about 10 s (A_kd below).
+- The bound also exceeds the interval-12 ceiling of 4.26 ppm (FR-5). So an aged ratio must never serve an interval-12 check.
+- It is well inside the interval-13 ceiling of 17.77 ppm.
+- The budget therefore closes, **with no requirement change**, by splitting the drift term by check:
+
+| Check | Ratio age | Drift allocation | Healthy d | Margin to T | Largest undetected true error | 12 kHz injection |
+|---|---|---|---|---|---|---|
+| B-*.iv12: key-down, before PA_EN | at most **A_kd = 10 s** | 1 ppm (unchanged) | 4 518.0 Hz | 482.0 Hz | 9 518.0 Hz (margin 482.0 Hz) | trips, margin 2 482.0 Hz |
+| B-*.iv13: during the over | at most A_kd + 180 s | **6.5 ppm** (proposed: the 6.116 ppm bound rounded up to 0.5 ppm) | 3 332.0 Hz | 1 668.0 Hz | 8 332.0 Hz (margin 1 668.0 Hz) | trips, margin 3 668.0 Hz |
+
+**A_kd.** A_kd is the largest ratio age at the key-down check for which the drift stays within 1 ppm. The largest rate of change is 0.035 K/s in the main bay (0.017 K/s nominal plus its band, over any window) plus 0.047 K/s from the local step (1.41 K over a 30 s time constant). With the 0.2 ppm pushing, the limit is 10.57 s, and **A_kd = 10 s** is proposed (FR-2: 0.957 ppm).
+
+In receive the ratio is never older than 1.082 s: the 1 s refresh plus the 50 ms stage settle and the 32 ms interval-15 count (FR-2r). So A_kd binds only on a key-down that follows an over by less than one refresh.
+
+**Two rules the split needs** (requests to WP-PDR-23a, 32 and 35, section 5):
+- **R-FRESH-1: refresh at once on return to receive.** When receive resumes after an over, the squaring stage is powered and one ratio refresh is started at once.
+- **R-FRESH-2: no interval-12 check on a ratio older than A_kd.** If the ratio is older than 10 s at t0, because the operator keyed again before the refresh of R-FRESH-1 completed, PA_EN is not set on the aged ratio. One refresh (at most 82 ms) completes first.
+  - Whether the changeover waits for it (that element is then late, outside REQ-SYS-160) or the element is not radiated is for 23a and 32 to fix. Both outcomes are on the safe side.
+  - The case needs a key-down within about 82 ms of the hang expiring, after an over longer than 10 s.
+
+**FC0 is a single counter.** A refresh in progress at t0 must be abandoned so that the interval-12 count can start at t0 + L. R-FRESH-2 then decides whether the older ratio may be used. WP-PDR-32 confirms from the RP2350 data sheet that writing FC0_SRC stops a count in progress. This invocation did not read the RP2350 data sheet.
+
+**Measurement M-2** (the assembled unit on the bench, 07 WP-SW-14 and the WP-PDR-43 bench plan):
+- Log the ratio in receive, averaging 16 interval-15 counts for a resolution near 0.6 ppm. The averaging holds if the count quantization dithers; if it does not, build a longer software gate from successive counts.
+- Transmit into the dummy load at 5 W, at the highest duty the keyer limits allow, until REQ-SYS-180 ends RF (150 to 180 s).
+- Log the ratio at once on return to receive.
+- Pass: the change is at most 6.5 ppm, and the step across one changeover without RF (pushing) is at most 0.2 ppm.
+
+**Finding 3.4.2.**
+- Revisit condition 2 **triggers as worded**: 6.12 ppm over the longest over, against 1 ppm.
+- The route R3 budget still closes for REQ-SYS-154 and REQ-SYS-182 **as written, with T = 5.0 kHz and intervals 12 and 13 unchanged**. It needs the ratio-age rule at the key-down check (A_kd = 10 s, with R-FRESH-1 and R-FRESH-2) and a 6.5 ppm drift allocation for the checks during the over.
+- No CR-018 row changes. Under the plan's rule for this condition (plan section 10.6, the "§10 revisit conditions of revision 6" row: "a trigger goes to the owner at S1 if it changes CR-018, else at S2"), the trigger goes to the owner at S2.
+- The TS-012 fallback (interval 13 at the changeover) is not needed for this trigger.
+
+#### 3.4.3 Receive-only squaring stage and the 150.000 MHz line
+
+- **In transmission.** The stage's supply is off from t0 until receive resumes, so the stage adds nothing to the 150.000 MHz line (25 MHz x 6). The `spurs-ts012.md` figure stands: plan PB high estimate -12.1 dBm at the SMA, 3.9 dB over 25 uW, a residual line closing at the bench (BL-2).
+  - The unpowered stage's input must neither load nor rectify the TCXO, which also drives XA. That needs a partial-power-down input, or an isolating series element sized with the stage: a part constraint for WP-PDR-37 and 38.
+- **In receive.** Harmonics 1 to 8 of the squared 25 MHz, with the 2.5 ppm TCXO tolerance, fall in none of the receive windows: 144.010 to 147.999 MHz, the 8 MHz IF, the LO and image bands for either injection side (BL-1, `r3-budget-and-buffer.png` right). The nearest is 150.000 MHz, 2.0 MHz above the receive range. The stage adds level, not new frequencies, to the 25 MHz lines `clock-plan.md` already carries.
+- **Refresh time.** The 50 ms settle allocation plus the 32 ms interval-15 count is 82 ms per refresh, 8.2 % of receive if the stage is power-cycled each second (B-19). It can also stay on through receive, which only helps.
+- **The stage itself is not designed here.** TS-012 revision 8 section 8.1 note 3 records INSP-110 finding-25: a 74LVC1G17 Schmitt buffer cannot be self-biased, and a stage that toggles at the TCXO's 0.8 V peak-to-peak minimum is still to be named. The 50 ms settle allocation is a requirement on that stage. Its valid-clock run is requested of WP-PDR-20b, beside the prescaler-tap run at 1.66 Vpp. Until it runs, a stage that does not toggle reads as FC0 DIED, so RF is withheld: safe, but at a cost in availability.
+
+#### 3.4.4 The unlocked trigger on A5, and I2C during transmission
+
+For A5 the device lock-detect indication of U-1 and U-2 is the Si5351A **LOL_A bit** (AN619 register 0 bit 5), read over I2C. This closes, for A5, the research gap of section 3.3: the lock-detect form was a TS-007 value-of-information item 4 question for the LMX2571, and the "else a CR" branch for a part without a lock-detect indication no longer applies.
+- **U-1 (key-down) is unchanged.** The read after the writes and before PA_EN is inside the 2 ms software allocation (RL-3). The A5 changeover time is 1 + 4 + 2 = 7.0 ms with the allocation, and at most 2.0 + 4 + 2 = 8.0 ms with L_max. Both are inside the 12 ms lead-in.
+- **U-2 (during transmission) conflicts with D-12 (C6: "I2C only in the lead-in").** U-2 samples the indication at least every 10 ms during transmission, and on the 10-MSOP Si5351A that is an I2C read, since only the Si5351C has an INTR pin (data sheet section 4.6). TS-012 and the spur plan admit no I2C traffic in transmission. The options, for WP-PDR-32 and 35 with the spur plan's owner:
+  - (a) Admit one register-0 read (4 bytes, 0.098 ms at 400 kHz) per 10 ms service period, and add its SCL line set to the transmit spur inventory.
+  - (b) Read LOL_A only in key-up gaps and at each element's key-down. Then an unlock that stays inside T during a long element is caught only by the counter once it drifts past T.
+
+  This note does not choose. With (b), the REQ-SYS-154 "unlocked during transmission" case rests on the counter alone, and the U-2 row of section 3.3 must be restated. Whether that needs a REQ-SYS-154 wording CR is a question for the requirement owner (the owner, on the WP-PDR-35 proposal).
+
+**Finding 3.4.** Route R3 holds for A5 with REQ-SYS-154 and REQ-SYS-182 as written and the section 3.3 threshold, intervals and times unchanged, on these conditions:
+- the lock-gated changeover (L_max 2.0 ms, Fast-Mode I2C of at least 263 kHz);
+- the ratio-age rule at the key-down check (A_kd 10 s, R-FRESH-1 and R-FRESH-2);
+- the interval-13 drift allocation of 6.5 ppm.
+
+The two TS-012 revisit conditions stand as follows:
+- **Relock: open**, not triggered by the source read; closure by M-1.
+- **Freshness: triggered as worded**, and closed in the budget without a requirement change; confirmation by M-2.
+
+Two items are open for other writers: the U-2 I2C conflict, and the squaring stage of INSP-110 finding-25.
+
 ## 4. Proposed TBR values (rule C10: to the owner only after this note's record is APPROVED and a TV record or owner ruling covers the checker)
 
 | Requirement | Proposed value | Margin that supports it | `tbr.plan` step executed | "Else a CR" branch triggered? |
@@ -222,6 +395,12 @@ A fault that starts inside an interval may not trip that interval, because the c
 | REQ-SYS-154 | 10 kHz true-error limit, unchanged, with route R3 and the measured threshold T = 5.0 kHz (an SW-SAFE L2 value, distinct from this limit). Unlocked trigger: device lock-detect indication read before PA_EN and at least every 10 ms during transmission, with the counter as the second means | Off-frequency: 482 Hz (changeover) and 2 482 Hz (transmit) on both sides of T (C-12, C-16). Unlocked: 30.0 ms to RF off, 70 ms inside 100 ms (U-2). TC-SYS-101 12 kHz injection trips with 2 482 Hz to spare (C-18); the case is unchanged | "TS (synthesizer and lock detect) fixes the counting tolerance": the counting tolerance is T = 5.0 kHz; the lock-detect means is as stated | No with R3, provided the LMX2571 exposes a lock-detect indication (TS-007 value-of-information item 4); if it does not, a CR restates the unlocked trigger. Yes with R1 (at least 23.7 kHz) |
 | REQ-SYS-182 | 10 kHz and 100 ms, unchanged, with route R3 | measured threshold 5.0 kHz is within the 10 kHz window (C-12w); healthy margin 482 Hz; 54 ms | "the PDR prescaler, counter and timebase design confirms them against the counter gate time, resolution and crystal tolerance, else they change by CR" | No with R3. Yes with R1 (window at least 12 kHz; 100 ms holds) |
 | REQ-TX-013 | Fixed ratio 8; sample 18.000 15 to 18.499 85 MHz, 3.3 V, below 20 MHz; within 1 kHz (exact division) | 1.5 MHz under the 20 MHz ceiling | "fixes the division ratio, the counting input and the sample accuracy" (counting input: an RP2350 GPIN pin to FC0) | No |
+
+**Revision 2 (A5, section 3.4).** No proposed value in this table changes:
+- **REQ-SYS-154 and REQ-SYS-182** keep 10 kHz, 100 ms and T = 5.0 kHz on route R3, with the section 3.4 conditions: the lock-gated changeover, the ratio-age rule at the key-down check (A_kd = 10 s) and the 6.5 ppm interval-13 drift allocation.
+- **Changed margins.** The margins at interval 13 fall from 2 482.0 Hz to 1 668.0 Hz, because the drift allocation there rises from 1 to 6.5 ppm. The interval-12 margins are unchanged at 482.0 Hz.
+- **REQ-SYS-154, "else a CR" column.** For A5 the lock-detect indication exists (Si5351A LOL_A), so the LMX2571 branch no longer applies. It is replaced by the open U-2 question of section 3.4.4: if lock status is not read during transmission, the unlocked trigger during transmission rests on the counter, and the requirement owner decides whether the REQ-SYS-154 wording needs a CR.
+- **Revisit conditions.** The TS-012 conditions give no value change: the relock condition is open (M-1), and the freshness condition triggered and closed in the budget (M-2 confirms). Under rule C10 these values still go to the owner only on this note's APPROVED record.
 
 TPM-006: planned value +/-2.5 ppm, per the ADR-023 ceiling. Current best estimate 0.834 / 0.984 / 1.234 ppm (calibrated, by class), `credit: false`, evidence this note. The value is sent to the TPM writer (WP-PDR-29). This note does not edit `docs/plan/tpm.json`.
 
@@ -237,6 +416,20 @@ TPM-006: planned value +/-2.5 ppm, per the ADR-023 ceiling. Current best estimat
 | WP-PDR-29 (`docs/design/budgets.md`, `docs/plan/tpm.json`) | Frequency budget section and TPM-006 current best estimate as in section 4 |
 | WP-PDR-18 (`docs/risk/register.json`) | RSK-002: step S1 evidence is this note. It stays at likelihood 3 or above unless the 0.1 ppm class or yearly re-calibration is adopted. RSK-046: step S2 evidence is this note. The software-fault member now has an analysis (section 3.3); re-score at the Track pass |
 
+**Revision 2 requests (section 3.4; A5). This note edits none of these files.**
+
+| To | Request |
+|---|---|
+| WP-PDR-23a (key-down and key-up sequence, ICD-TX-SW timing table) | Write the changeover as lock-gated: C6 writes at t0 with MSNA first, LOL_A polled, FC0 interval 12 started at the first LOL_A = 0 or at t0 + L_max = 2.0 ms, PA_EN only on agreement, and the ramp fixed at t0 + 10 ms so that the lead-in stays constant. Carry the M-1 branches: settle at most 1.35 ms, sequence unchanged; at most 3.35 ms, ramp toward t0 + 12 ms. Accept or reject the TS-012 fallback's 0.5 ms from PA_EN to the ramp: with the 2 ms drive power-up of the nominal sequence, interval 13 at the changeover leaves no relock time (RL-6). Fix the R-FRESH-2 outcome for a key-down on a ratio older than A_kd = 10 s: late element or element not radiated |
+| WP-PDR-32 (software architecture) | The lock-gated changeover and the L_max deadline. I2C SCL of at least 263 kHz in the count re-derivation at clk_sys 96 MHz (400 kHz recommended; 256 kHz fails, RL-2b). No reg 177 reset at the changeover unless M-1 needs one. FC0 as a single counter: confirm from the RP2350 data sheet that writing FC0_SRC stops a count in progress, so that a receive refresh can be abandoned at t0. R-FRESH-1 and R-FRESH-2. Resolve the U-2 I2C conflict of section 3.4.4, option (a) or (b), with the spur plan's owner |
+| WP-PDR-35 (`docs/requirements/sw/**`) | SW-SAFE: the ratio age at an interval-12 check is at most 10 s, else no PA_EN on that ratio; refresh at once on return to receive; checks during an over at interval 13 only; the 6.5 ppm drift allocation is the design basis for T at interval 13 (T itself unchanged at 5.0 kHz). SW-SYNTH: LOL_A (Si5351A register 0 bit 5) is the lock-detect indication, read after the C6 writes and before PA_EN; the read during transmission follows the WP-PDR-32 resolution of U-2. HostUnit cases: an injected ratio age of 9.9 and 10.1 s at key-down; a LOL_A that stays 1 until after L_max; a refresh abandoned at t0 |
+| WP-PDR-36a (`ICD-CTL-SW` pin map) | No change from revision 1: GPIN0 carrier/8, GPIN1 TCXO from the squaring stage (GPIO 20 and 22, or 12 and 14). Add one GPIO for the squaring-stage supply switch (on in receive, off from t0), unless WP-PDR-37 derives it from an existing receive-only rail. No lock-detect pin: the 10-MSOP Si5351A has none |
+| WP-PDR-20b | The squaring stage that answers INSP-110 finding-25, with its valid-clock run at the TCXO's 0.8 V peak-to-peak minimum and the Si5351A XA input in parallel. Its settle after power-up must be at most 50 ms. Its unpowered input must neither load nor rectify the TCXO |
+| WP-PDR-37 and 38 (schematic, BOM) | The squaring stage part with a partial-power-down input (or an isolating element) and a switched supply. The Si5351A I2C bus on its own RP2350 instance (TS-007 SA finding-3) with pull-ups sized for Fast-Mode |
+| WP-PDR-43 (V&V plan), 07 WP-SW-14 (dev-board checks) | M-1: Si5351A relock time after the C6 writes (section 3.4.1, pass criteria there). M-2: XOSC/TCXO ratio change over a 180 s transmission and across a changeover without RF (section 3.4.2; pass at most 6.5 ppm and 0.2 ppm). Both beside the FC0 known-clock check (560 Hz at interval 12) |
+| WP-PDR-54 (TS-012 record, sole writer) | TS-012 section 10, revision 6 revisit conditions: relock **open**, not triggered by the source read (Si5351A data sheet Rev. 1.3 and AN619 Rev. 0.8 give no relock time), closing by M-1; freshness **triggered as worded** (6.12 ppm over the longest over), closed in the budget without a requirement change (A_kd 10 s at interval 12, 6.5 ppm at interval 13); the stated consequence "the check moves to interval 13 and the lead-in to 11.5 ms" does not remedy a slow relock (RL-6). For the owner at S2 (plan section 10.6 row) |
+| WP-PDR-16b (`docs/safety/hazards.json`) | HZ-008 K7, in addition to the revision 1 wording: the ratio used at the key-down check is at most 10 s old. HZ-008 C8: the lock-detect indication on A5 is Si5351A LOL_A |
+
 ## 6. Uncertainty and limitations
 
 1. **Tool status.** The checker has no TV record. Its arithmetic has three known-answer self-checks (KA-1 to KA-3) and can be recomputed by hand from the tables above. Before the section 4 values go to the owner, a TV record must cover `hardware/sim/freq/*.py`, or the owner must rule to accept developer evidence. The lead SE decides which route (return, open_questions).
@@ -245,7 +438,11 @@ TPM-006: planned value +/-2.5 ppm, per the ADR-023 ceiling. Current best estimat
 4. **FC0 accuracy semantics.** Table 541 gives "accuracy" per interval without saying whether it is a bound or a typical value. This note treats it as a +/- bound at the counted input. The dev-board check of 07 WP-SW-14 is to confirm it with a known clock, against the 560 Hz ceiling at interval 12 that the 5.0 kHz threshold needs (C-16a).
 5. **XOSC bound.** 65 ppm is the Table 596 sum over -40 to +85 C. Over -10 to +45 C the true value is smaller, so R1's result is conservative.
 6. **LMX2571 retune time.** "FastLock < 1.5 ms" (F20) is a datasheet feature statement. Its conditions for a 12 MHz jump (RX LO to TX carrier with a 9 to 10.7 MHz IF) are not in the corpus. C-14.A2 has 4.5 ms of margin for it.
-7. **Lock-detect form.** The LMX2571 lock-detect indication and its latency are not in the corpus (TS-007 value-of-information item 4, as INSP-055 finding-4 asks it to be extended). U-1 and U-2 assume the indication is valid within the 10 ms sample period.
+7. **Lock-detect form.** The LMX2571 lock-detect indication and its latency are not in the corpus (TS-007 value-of-information item 4, as INSP-055 finding-4 asks it to be extended). U-1 and U-2 assume the indication is valid within the 10 ms sample period. **Revision 2:** for A5 the indication is the Si5351A LOL_A bit (AN619). Its latency after a real loss of lock is not specified; AN619 ties it to a reference outside the lock range or an invalid reference.
+8. **(Revision 2) The relock time is unspecified.** Section 3.4.1 rests on the absence of a value in the data sheet and AN619, and on the self-validating check. The 0.650 ms write time assumes 9 SCL clocks per byte plus one per START and STOP at exactly 400 kHz. A slower SCL or clock stretching lengthens it in proportion.
+9. **(Revision 2) The XOSC slope is a model.** The AT-cut cubic, its third-order coefficient and its inflection are literature values, not a datasheet read (Low). The slope bound comes from the Table 596 band, which bounds the first-order term. A crystal outside that band, or a different cut, re-opens section 3.4.2.
+10. **(Revision 2) The crystal temperature is the thermal model's MAIN node.** That node lumps the main-bay air, the main board and the Pico 2 (c_main 40 to 90 J/K). The crystal's own lag behind the node is not credited. The local Pico 2 step (0.03 W, 47 K/W) is an estimate taken in full, and the band is a one-at-a-time RSS, as in the thermal note. M-2 measures the result directly.
+11. **(Revision 2) Continuous transmit bounds the heating.** The heating case keys the transmitter for the whole 190 s window, which REQ-SYS-055 and the keyer never allow (13 s key-downs at most), so it bounds any keying pattern from above. The cooling case starts from the continuous steady state, which is not reachable in service either.
 
 ## 7. Reproduction and visual closure
 
@@ -259,9 +456,32 @@ Expected: 35 PASS, 0 FAIL, 4 INFO lines, exit status 0 (revision 1, run 2026-09-
 
 The author opened and inspected it after two layout corrections (overlapping labels). Revision 1 re-rendered it and moved the two limit labels into the legend after one inspection showed them over the bars.
 
+**Revision 2 (section 3.4):**
+
+```
+cd /Users/robinonsay/rust/cwht && .venv/bin/python hardware/sim/freq/r3_a5.py --run-id r3a5-20260929-01
+```
+
+Expected: 23 PASS, 0 FAIL, 10 INFO lines, exit status 0 (run 2026-09-29, about 5 s). The run directory `hardware/sim/freq/results/r3a5-20260929-01/` holds `checker-output.txt`, `results.json` (every case, the relock and freshness summaries, the thermal cases and tornado, the buffer lines), a copy of the script and four figures:
+- `relock-sequence.png`: the key-down timelines (TS-012, latest with the ramp kept, latest with the ramp at 12 ms, the interval-13 fallback) and the sourced timing values against the settle budget on a log scale;
+- `ratio-freshness.png`: the MAIN-node change over the over (both A5 layouts, three ambients, heating and cooling) and the drift bound against the ratio age, with the 1 ppm and 6.5 ppm allocations and the two ceilings;
+- `xosc-slope.png`: the admissible AT-cut curves in the Table 596 band and the slope envelope in service;
+- `r3-budget-and-buffer.png`: d and T + d per check against T and 10 kHz, and the 25 MHz harmonics against the receive windows.
+
+`freq_budget.py` is unchanged and still gives 35 PASS, 0 FAIL. The author opened each revision 2 figure after rendering and re-rendered two of them after one inspection: labels over the title in `r3-budget-and-buffer.png`, and the 12 ms label over the title in `relock-sequence.png`.
+
 ## 8. Per-case index
 
 C-1 to C-7 band edges; C-8 to C-10 reference identities; C-11 sample; C-12w threshold within the REQ-SYS-182 window; C-12 no false trip per interval (R3); C-13 R1 per interval (informational, with the limits R1 needs); C-14 changeover time per alternative; C-15 transmit detection time; C-16 REQ-SYS-154 true-error limit per interval (R3); C-16a FC0 accuracy ceiling (informational); C-17 plausibility bound (informational); C-18 TC-SYS-101 12 kHz injection per interval; U-1 unlocked at key-down per alternative; U-2 unlocked during transmission. The REQ-SYS-154 cases are: off-frequency at key-down C-12.iv12, C-16.iv12, C-18.iv12; off-frequency during transmission C-12.iv13, C-16.iv13, C-18.iv13, C-15; unlocked at key-down U-1; unlocked during transmission U-2. Checker output lines carry the same ids.
+
+Revision 2 (`r3_a5.py`):
+- KA-R1 to KA-R3 known answers.
+- RL-0 to RL-8 relock: sources; writes at 400 kHz, 256 kHz and 100 kHz; the LOL_A read; L max per sequence; the TFREQ and TRDY readings; the verdict.
+- FR-1 to FR-6 freshness: slope bound; A_kd; the receive age; the window; the drift over the over; the interval-12 and interval-13 ceilings.
+- B-11, B-12.iv12 and iv13, B-15, B-16.iv12 and iv13, B-18.iv12 and iv13, B-19: the A5 budget and the refresh time.
+- BL-1 and BL-2: the squaring-stage lines in receive and in transmission.
+
+For A5 the REQ-SYS-154 cases are: off-frequency at key-down B-12.iv12, B-16.iv12, B-18.iv12 with FR-2; off-frequency during transmission B-12.iv13, B-16.iv13, B-18.iv13, B-15 with FR-6; unlocked at key-down U-1 (section 3.4.4, RL-3); unlocked during transmission U-2, open on the I2C conflict of section 3.4.4.
 
 ## Change history
 
@@ -269,3 +489,4 @@ C-1 to C-7 band edges; C-8 to C-10 reference identities; C-11 sample; C-12w thre
 |---|---|---|---|
 | 0 | 2026-09-27 | Initial issue, frozen for its first review (freeze F0, rule C2) | WP-PDR-20 wave 1a |
 | 1 | 2026-09-27 | Section 3.3: measured threshold T = 5.0 kHz distinct from the REQ-SYS-154 true-error limit, with the no-false-trip and no-missed-trip conditions, the FC0 accuracy ceiling and the effect on TC-SYS-101 (cases C-12w, C-16, C-16a, C-18); unlocked-synthesizer cases at key-down and during transmission with the lock-detect means and time budget (U-1, U-2). Sections 1, 2, 4, 5, 6, 7, 8 and the figure follow. Minor findings 5 to 7 are not addressed in this revision (rule C1) | INSP-056 finding-1 and finding-2 (Major) |
+| 2 | 2026-09-29 | WP-PDR-20a, for A5 (TS-012 revision 7 decision; D-12, D-17, D-18). New section 3.4 with the checker `r3_a5.py` (run `r3a5-20260929-01`). Si5351A relock read from the data sheet Rev. 1.3 and AN619 Rev. 0.8: no relock time specified; the lock-gated changeover with L_max 2.0 ms; Fast-Mode I2C constraint; M-1. Ratio freshness: 6.12 ppm over the longest over, triggering the TS-012 condition as worded; the budget closes with A_kd = 10 s at the key-down check and 6.5 ppm at interval 13; R-FRESH-1, R-FRESH-2; M-2. Squaring stage and the 150 MHz line; LOL_A as the A5 lock-detect indication; the U-2 I2C conflict. Header, sections 1, 2, 4 to 8 follow. Sections 3.1 to 3.3, `freq_budget.py` and `frequency-budget.png` unchanged. INSP-056 Minor findings 5 to 7 and 9 not addressed (rule C1) | WP-PDR-20a (plan revisions 6 and 7, section 3.0 row 20); TS-012 section 10 revisit conditions of revision 6 |
