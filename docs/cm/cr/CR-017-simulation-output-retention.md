@@ -1,0 +1,222 @@
+---
+id: CR-017
+title: State the retention rule for LTspice simulation outputs in the CM plan
+status: Submitted
+class: II
+originator: Claude (configuration manager)
+date_opened: 2026-09-29
+phase: B
+configuration_at_origination: baseline/srr (tag on 779f93f); HEAD f9e6dd1 on main, 45 commits ahead of the remote-tracking ref origin/main 3a5f5ec; 05 blob f8de2081, 08 blob 01a36bac, 04 blob 0b197bba (each equal to its baseline/srr blob); .gitignore blob a5f803f6
+baseline_affected: baseline/srr
+affected_cis: [2, 42]
+affected_paths: [docs/process/05-configuration-and-data-management.md, docs/process/08-agent-briefing.md, docs/process/04-verification-and-validation.md, .gitignore]
+affected_ids: []
+related: [CR-003, CR-007, CR-012, CR-013, CR-015, TV-014, INSP-006, INSP-022, INSP-030, INSP-039, INSP-047, INSP-058, INSP-112]
+target_release: none
+branch: cr/CR-017-simulation-output-retention
+disposition: null
+disposition_date: null
+relook_trigger: null
+relook_by: null
+merge_sha: null
+date_closed: null
+---
+
+# CR-017: State the retention rule for LTspice simulation outputs in the CM plan
+
+Template: `docs/templates/change-request.md`. Process: `docs/process/05-configuration-and-data-management.md` (called 05 below) §5.1 to §5.3. File location: this file, committed on `main` with `Refs: CR-017`; the product changes go on the branch `cr/CR-017-simulation-output-retention` after disposition (no prototype branch exists). Source: `docs/cm/deviations.md` entry 6 (closure plan: "A Class II CR against 05 §10.1 (and the retention line of §10) states the rule the owner chose") and the owner's option A (`docs/plan/status/status-2026-09-29.md` section 1, owner statement verbatim: "Lets go with A"). Status: **Submitted**, revision 1 (2026-09-29). The section 6 impact review (independent reviewer, CM lens, and software assurance reviewer, separate invocations) comes before the owner's disposition (PDR work plan rule C6).
+
+Facts at origination (author checks at `f9e6dd1`, 2026-09-29):
+
+| Fact | Value | How observed |
+|---|---|---|
+| `.raw` files tracked at HEAD (every name ending in `.raw`, 102 of them `.op.raw`) | 231 files, 1,146,555,610 bytes, largest 94,640,410 bytes (`hardware/sim/tx-keying/results/2026-09-28-r2-a5-sens/keying_a5_sens.raw`) | `git ls-tree -r -l HEAD` |
+| of which over 5,000,000 bytes | 47 files, 1,052,272,370 bytes (tx-keying 17, tx-lpf 13, tx-pa 12, rx-frontend 4, freq 1); smallest 5,045,576 bytes | same |
+| of which 5,000,000 bytes or less | 184 files, 94,283,240 bytes (128 up to 100 kB, 31 from 100 kB to 1 MB, 25 from 1 to 5 MB); largest 4,621,660 bytes | same |
+| `.raw` blobs in all history | 241 blobs, 1,172,404,182 bytes, 49 over 5,000,000 bytes (the 2026-09-28 count of the status note, 238 files and 1.17 GB, was taken over the unpushed commits) | `git rev-list --objects --all` with `git cat-file --batch-check` |
+| `.log` files tracked at HEAD | 105 files, 3,303,898 bytes, largest 202,424 bytes | `git ls-tree -r -l HEAD` |
+| Where they are | only under `hardware/sim/*/results/` (228 `.raw`) and `docs/cm/tool-validation/evidence/ltspice-known-answers-2026-09-27/` (3 `.raw`, 181,762 bytes); none under `docs/vv/` and none elsewhere | same |
+| Review records citing them | No record lists a `.raw` blob in `product_files`. INSP-112 (`docs/reviews/PDR/checklists/analysis-thermal-ts012.md`) lists two `.log` blobs as evidence: `hardware/sim/thermal/results/2026-09-28-ts012-r1/ltspice/thermal_a5dc.log@0d5e77ee` and `.../2026-09-28-ts012-r2/ltspice/thermal_a5dc.log@0f7119b4` | `grep` of `docs/reviews/*/checklists/*.md` for `.raw@` and `.log@` |
+| `.raw` header | All 231 tracked `.raw` files begin with a `Title:` line naming the wrapper's temporary deck path (for example `/private/var/folders/.../T/cwht-lts.4uLadN/rc-lowpass.net`) and a `Date:` line with the run time | UTF-16LE header decoded with the venv Python |
+| Local hook | `.git/hooks/pre-commit`, 728 bytes, SHA-256 `b18dee734b3ab70e11a120698befbf81ee81fa13c1e5936420863fecc8569510`, rejects any staged (added, copied, modified or renamed) `.raw` over 5,000,000 bytes, anywhere in the tree; `core.hooksPath` unset; one worktree | `shasum -a 256`, `git config`, `git worktree list` |
+| Manifest format check | A `raw.sha256` holding `# a.raw 1000 bytes` followed by the `shasum -a 256 a.raw` line passes `shasum -a 256 -c raw.sha256` and `-c --strict` (exit 0) with `/opt/homebrew/bin/shasum` 6.04 (first on `PATH`) and `/usr/bin/shasum` 6.02 | scratch directory outside the repository |
+
+## 1. Description of the change
+
+Line numbers are at `f9e6dd1`; the implementation anchors on the quoted text, because CR-007 (C5 adds two Table 4-1 rows) and CR-003 move later lines of 05.
+
+**C1. 05 §10.1 table, row "Derived data" (line 492).** Before:
+
+"| Derived data | rendered figures, traceability report, CSA, `.stl`, `target/`, LTspice `.raw`/`.log` outside `docs/vv/`, KiCad backups | repo (figures, reports, CSA) or gitignored (the rest) | regenerated by tools; never hand-edited | regenerate from source at each review |"
+
+After:
+
+"| Derived data | rendered figures, traceability report, CSA, simulation outputs (LTspice `.log` files and every file whose name ends in `.raw`, `.op.raw` included), `.stl`, `target/`, KiCad backups | repo (figures, reports, CSA; the simulation outputs of a run folder as the paragraph below this table states, with the `raw.sha256` manifest of any `.raw` file over 5 MB) or not in git (a `.raw` file over 5 MB, kept in its run folder on the owner's Mac; LTspice outputs outside `docs/vv/` and the run folders; `.stl`, `target/`, KiCad backups) | regenerated by tools; never hand-edited | regenerate from source at each review |"
+
+The other rows of the table and the "Who may change" and "Controlled by" cells are unchanged.
+
+**C2. 05 §10.1, new paragraph after the table** (after the row "Session and search data", before the heading "### 10.2 Naming, format and exchange conventions"). Before: none. After:
+
+"**Simulation outputs (CR-017).** A run folder is `hardware/sim/<area>/results/<run-id>/` or a folder under `docs/cm/tool-validation/evidence/`. A run commits its folder with the deck, the plots, `result.json` or `result.md`, the wrapper provenance, every LTspice `.log` file and every `.raw` file of 5 MB (5,000,000 bytes) or less. A `.raw` file over 5,000,000 bytes is not committed: it stays in its run folder on the owner's Mac, and the run commits `raw.sha256` in the same folder with one entry per such file, a comment line `# <file name> <size in bytes> bytes` followed by the line that `shasum -a 256 <file name>` writes, so that `shasum -a 256 -c raw.sha256` run in the folder checks every entry (exit 0). The manifest identifies the kept file. It does not show a re-run identical, because LTspice writes the run's temporary deck path (`Title:`) and the run time (`Date:`) into the `.raw` header; a re-run of the same deck is shown equivalent by an equal deck SHA-256 and equal `result.json` or `result.md` numbers and checker verdict. A committed run folder is never rewritten (a re-run is a new run id), so the `.raw` files over 5 MB committed before 2026-09-29 (47 at `f9e6dd1`, from commit `57eacc9` of 2026-09-27; `docs/cm/deviations.md` entry 6) stay in the history and at their paths. Until a versioned check exists, a local pre-commit hook (`.git/hooks/pre-commit`, not versioned) rejects a staged `.raw` file over 5,000,000 bytes outside `docs/vv/`, and no commit is made with `--no-verify`. Under `docs/vv/` the rule of `docs/process/04-verification-and-validation.md` §15 applies instead (a `.raw` only when a report cites it, 10 MB or smaller, in the report's artifact directory with its SHA-256). The `.gitignore` negations for the run folders and for `docs/vv/` admit `.log` and `.raw` files; the size limit is kept by the hook and the manifest, not by `.gitignore`."
+
+**C3. 05 §10.4, bullet "Retention" (line 521).** Before:
+
+"- Retention: indefinite for baselines, releases, records and CRs, and for the committed derived data of §10.1 (rendered figures, traceability reports and their data files, the CSA), which the git history keeps with the review that cited it (rows 18 and 33); the gitignored derived data (`.stl` files, `target/`, LTspice `.raw` and `.log` files outside `docs/vv/`, KiCad backups) is not retained beyond the review that used it and is regenerated from its source when needed; the reference corpus is retained with the repository. NPR 1441.1 retention schedules (cited by NPR 7123.1D §3.2.15.2 e and SE HB §6.6) are Not applicable as an institution; the intent is met by indefinite retention."
+
+After:
+
+"- Retention: indefinite for baselines, releases, records and CRs, and for the committed derived data of §10.1 (rendered figures, traceability reports and their data files, the CSA, and the simulation outputs committed with their run folders: LTspice `.log` files, `.raw` files of 5 MB or less and each `raw.sha256` manifest), which the git history keeps with the review that cited it (rows 18 and 33); a `.raw` file over 5 MB named in a manifest is kept in its run folder on the owner's Mac, outside the remote backup and the §8.4 archive, is never deleted by Claude, and is regenerated from its committed deck through `tools/ltspice-batch.sh` if it is lost, while its manifest entry stays in git; the gitignored derived data (`.stl` files, `target/`, LTspice outputs outside `docs/vv/` and the run folders of §10.1, KiCad backups) is not retained beyond the review that used it and is regenerated from its source when needed; the reference corpus is retained with the repository. NPR 1441.1 retention schedules (cited by NPR 7123.1D §3.2.15.2 e and SE HB §6.6) are Not applicable as an institution; the intent is met by indefinite retention."
+
+**C4. 05 status line (line 3).** Append one revision sentence to the status line as CR-007 C1 leaves it: "Revision <n> (<date>, CR-017) states the retention of simulation outputs in §10.1 (Derived data row and the paragraph "Simulation outputs") and §10.4 (Retention)." `<n>` is the next revision number at the implementation; CR-007 and CR-003 also change 05, and whichever CR is implemented later rebases on the others and numbers its revision.
+
+**C5. 08 §3.4 Analyst role block (inside the code fence, after the bullet "- Deliver: ..." at line 130).** Before: none. After, a new bullet:
+
+"- Simulation outputs (05 section 10.1, CR-017): commit each run folder hardware/sim/<area>/results/<run-id>/ with its deck, plots, result.json or result.md, wrapper provenance, the LTspice .log files and every .raw file of 5,000,000 bytes or less. Never commit a .raw file over 5,000,000 bytes: leave it in the run folder and commit raw.sha256 there, one entry per such file (a line '# <file> <bytes> bytes', then the line that 'shasum -a 256 <file>' writes), and check it with 'shasum -a 256 -c raw.sha256' in that folder (exit 0). Never rewrite a committed run folder (a re-run is a new run id), never remove a committed .raw, and never commit with --no-verify; if the local pre-commit hook rejects a staged .raw, unstage that file (git restore --staged) and add its manifest entry. The same rule applies to tool-validation evidence under docs/cm/tool-validation/evidence/ and to a reviewer who commits a re-run; under docs/vv/ the rule of 04 section 15 applies."
+
+No other line of 08 changes.
+
+**C6. 04 §15, bullet "Naming" (line 546), second sentence.** Before: "`.gitignore` ignores `*.log` and `*.raw` elsewhere but un-ignores them under `docs/vv/` (lines `!docs/vv/**/*.log` and `!docs/vv/**/*.raw`), so no evidence file is dropped by git." After: "`.gitignore` ignores `*.log` and `*.raw` elsewhere, except in the simulation run folders of `docs/process/05-configuration-and-data-management.md` §10.1, whose own size rule applies there, and un-ignores them under `docs/vv/` (lines `!docs/vv/**/*.log` and `!docs/vv/**/*.raw`), so no evidence file is dropped by git." The rest of the bullet (the 10 MB rule for a cited `.raw` under `docs/vv/`) is unchanged. This sentence became inaccurate at `57eacc9`; it is corrected here so that 04 and 05 describe the same `.gitignore`.
+
+**C7. `.gitignore` (Table 4-1 row 42, class Log), comment line above the four negations of `57eacc9`.** Before: "# tool validation evidence and simulation results the owner reviews (owner request 2026-09-27: every LTspice result viewable)". After: "# tool validation evidence and simulation results the owner reviews (owner request 2026-09-27; 05 section 10.1, CR-017): .log and .raw are committed, except a .raw over 5 MB (5,000,000 bytes), which stays in its run folder and is named in the folder's raw.sha256; the size limit is kept by the local pre-commit hook, not by this file". The negation lines `!docs/cm/tool-validation/evidence/**/*.log`, `!docs/cm/tool-validation/evidence/**/*.raw`, `!hardware/sim/**/results/**/*.log` and `!hardware/sim/**/results/**/*.raw`, the `docs/vv/` negations and every other line are unchanged. Row 42 is Log class, so this comment needs no CR by itself; it is carried here so that the rule and the file that states its mechanism merge together.
+
+**H1. Local hook, outside the repository (not a CI; recorded for traceability).** `.git/hooks/pre-commit` gains the pathspec exclusion `':(exclude)docs/vv/**'`, so that the 04 §15 rule (10 MB for a cited `.raw`) governs `docs/vv/`, and its header comment gives the manifest recipe of C2 (comment line with the size, then the `shasum -a 256` line). The SHA-256 of the changed hook is recorded in section 8. Whether the hook becomes a versioned check is a follow-up, not part of this CR (section 12 Q6).
+
+## 2. Reason
+
+- 05 §10.1 lists "LTspice `.raw`/`.log` outside `docs/vv/`" as gitignored derived data, and §10.4 says they are "not retained beyond the review that used it". Commit `57eacc9` (2026-09-27, TV-014 evidence for the owner's OD-24b review) added `.gitignore` negations that track `.raw` and `.log` files under `docs/cm/tool-validation/evidence/` and `hardware/sim/**/results/`, without a CR against 05 (`docs/cm/deviations.md` entry 6). The negations answered the owner's request of 2026-09-27 (`docs/plan/status/status-2026-09-27.md` section 12, owner statement verbatim: "I can't mark it as approved if I can't see the results."), which set the convention that each LTspice run folder holds its plots, result, `.log` and `.raw`.
+- By `f9e6dd1` the tree holds 231 `.raw` files of 1,146,555,610 bytes, 47 of them over 5,000,000 bytes (1,052,272,370 bytes, 92 percent). The owner chose option A (`status-2026-09-29.md` section 1): push as is; from now on a `.raw` over 5 MB is not committed, stays in its results folder on the owner's Mac, and the run commits a `raw.sha256` manifest naming each such file with its size; a local pre-commit hook rejects a staged `.raw` over 5 MB. That note routes the rule to 05 by a Class II CR with its impact reviews before the disposition.
+- The rule is stated nowhere an agent reads it: 08 §3.4 names no retention rule, and the block READMEs say the `.raw` files are "kept in git by the `.gitignore` exception" (`hardware/sim/tx-pa/README.md` line 18, `tx-lpf/README.md` lines 17 and 18). The next analysis run with a large `.raw` would stage it and be stopped by the hook with no documented instruction.
+- 04 §15 (line 546) still says `.gitignore` ignores `*.log` and `*.raw` everywhere outside `docs/vv/`, which is inaccurate since `57eacc9` (C6).
+- Workaround while the CR is open: the local hook installed on 2026-09-29 (SHA-256 `b18dee73...9510`) rejects any staged `.raw` over 5 MB, and the lead SE instructs each analysis agent with the status note rule. Deviation entry 6 stays Open until this CR is implemented.
+
+## 3. Alternatives considered
+
+| Alternative | Why rejected or deferred |
+|---|---|
+| Do nothing | 05 §10.1 and §10.4 keep contradicting the tracked tree (231 `.raw` and 105 `.log` files that 05 calls gitignored), deviation entry 6 stays open into `baseline/pdr`, and agents have no written rule when the hook stops a commit. |
+| Rewrite the unpushed commits to drop the `.raw` files (option B) | Not chosen by the owner (status-2026-09-29 section 1): it changes every commit id that records and documents cite. |
+| Git LFS (option C) | Not chosen by the owner: it also rewrites history and exceeds the free quota (about USD 5 a month). |
+| Commit every `.raw` whatever its size | The 47 files over 5 MB are 92 percent of the `.raw` bytes; two sensitivity runs alone are 188 MB; the repository is public and permanent. |
+| Commit no `.raw` at all | Contradicts the owner's 2026-09-27 request to see the results; the 184 files of 5 MB or less cost 94 MB and let a reviewer re-read a waveform without an LTspice run. |
+| Put the size limit in `.gitignore` | `.gitignore` matches names, not sizes; the limit needs the hook (now) or a versioned check (Q6). |
+| Use the 10 MB limit of 04 §15 for the run folders too | Adds 10 files and 78,959,984 bytes at `f9e6dd1`; the owner chose 5 MB (Q2). |
+| Make the hook a versioned check in this CR (for example a `tools/` script run by `tools/validate_docs.py` or the gate) | It changes Table 4-1 row 28 tooling, needs a TV run (TV-003 if it is added to `tools/validate_docs.py`) and a software assurance review (CR-007 revision 3 trigger (a), release and gate tooling); the single-machine hook holds the rule meanwhile. Deferred to a follow-up CR (Q6). |
+| Update the block READMEs in this CR, and add the rule to the wrapper README `tools/README.md` | The block README blobs are `product_files` of open analysis records (INSP-113 to INSP-116), and `tools/README.md` is in the `product_files` of eight tool records; editing them now drifts those records mid-iteration. `tools/README.md` states no retention rule, so nothing in it is wrong, and 08 §3.4 is where every analysis agent reads the rule. Block READMEs deferred to each block's next analysis revision (Q7). |
+
+## 4. Impact assessment (CM plan §5.3)
+
+| Field | Assessment (numbers, IDs, paths) |
+|---|---|
+| Performance margins | None: no MOP, TPM or budget is defined or changed by a data-retention rule. |
+| Safety | None: no `HZ-NNN` changes; no component of the 07 §14.1 tables changes; no analysis result changes (the rule decides where an LTspice output is stored, not what it contains). Hazard analysis re-issue: no. RF exposure evaluation (row 48): no. |
+| Risk | None added, closed or re-scored: no `RSK-NNN` in `docs/risk/register.json` concerns evidence storage. Considered and not raised: loss of a `.raw` over 5 MB that exists only on the owner's Mac (no remote copy, not in the §8.4 archive); the consequence is a re-run of a committed deck through the accredited wrapper (TV-014 checks the LTspice bundle build `26.0.2.1` and the `LTspice.exe` SHA-256 before every run), and no record cites such a file. The impact reviewers may propose a risk if they judge otherwise. |
+| Software classification and tailoring | None: no classification record, `rmm.json` or compliance-matrix row changes. The 05 §11 mapping of SWE-196 to §10.4 is unchanged. |
+| Interfaces | None: no ICD is affected; no external-interface change. |
+| Operations and ConOps | None: no `OPS-NNN` scenario, operator procedure, operations handbook or maintenance instruction changes. The owner still views every result on his Mac: a `.raw` over 5 MB stays in its run folder there. |
+| Cybersecurity | None: neither the USB firmware-load path nor the key-input command path changes (07 §16); no build, supply-chain, toolchain or release tooling changes (the hook is outside the repository and the versioned check is deferred, Q6). |
+| Verification | No `TC-NNN` is invalidated, added or modified. No record's evidence changes: no record lists a `.raw` blob; the two `.log` blobs INSP-112 lists stay committed; the 47 committed `.raw` files over 5 MB stay at their paths. Records to re-run as deltas: on the changed 05 blob, the PDR 05 records by the CM-lens reviewer and the software assurance reviewer (`docs/reviews/PDR/checklists/cm-plan-05.md`, INSP-039, and `cm-plan-05-software-assurance.md`, INSP-047), in the delta iteration that CR-007 section 5 step 7 schedules, or in a further iteration if CR-017 merges after it; on the changed 08 blob, the 08 file review (INSP-022, `docs/reviews/SRR/checklists/process-08-agent-briefing.md`, or its PDR iteration with the CR-012 and CR-015 changes); on the changed 04 blob, the PDR 04 record INSP-058 (`docs/reviews/PDR/checklists/process-04-verification-and-validation.md`, iteration 1, NEEDS CHANGES) at its next iteration. Not re-run: INSP-112 to INSP-117 (no product file changes), INSP-038 (TV-014; wrapper and record unchanged); no checklist changes, so no L1 review is invalidated under row 53. `.gitignore` is in no record's `product_files`. The manifest check uses `shasum` (lock row, class B, TV pending), so a manifest check is developer evidence until that TV passes; observation for the lock owner: the lock row says `6.04` (macOS), while `/usr/bin/shasum` is 6.02 and `shasum` on `PATH` resolves to `/opt/homebrew/bin/shasum` 6.04. |
+| Cost | None: no BOM, vendor or service change; no Git LFS quota (option C avoided). |
+| Schedule | Section 6 review Tue 2026-09-29 or Wed 2026-09-30; disposition at the next owner exchange; implementation, the delta records and the merge before freeze F1, Sun 2026-10-04, so that 05 in `baseline/pdr` states the rule and deviation entry 6 closes before PDR. Overlaps: 05, CR-007 (Dispositioned; C1 changes the status line that C4 appends to; its other items change lines 58 to 432, §13 and §14.1, none of lines 486 to 521) and CR-003 (Submitted; 05 lines 13 and 154, §8.2 steps, row 23 Notes); 08, CR-012 (hunks at lines 84, 89 to 91, 152 to 161) and CR-015 (lines 3, 21 to 33, 82 to 91, 110, 152 to 171), none of lines 127 to 133; 04, CR-013 (hunks at lines 3 to 600, none at 546). Whichever CR is implemented later rebases on the others; for 05 and 08 the later CR numbers the revision. |
+| Requirements and traceability | None: no requirement or test case is added, modified or retired; volatility contribution 0 (SWE-200). |
+| Regulatory | None: no 47 CFR clause is affected. |
+| Documentation | Changed by this CR: `docs/process/05-configuration-and-data-management.md` (row 2; C1 to C4), `docs/process/08-agent-briefing.md` (row 2; C5), `docs/process/04-verification-and-validation.md` (row 2; C6), `.gitignore` (row 42, Log; C7); the local hook (H1, outside the repository). At closure, on `main`: a closure line for entry 6 appended to `docs/cm/deviations.md` (row 43, Record) and `docs/process/configuration-status.md` regenerated (row 35). Consequential, not in this CR (Q7): the retention statements of `hardware/sim/freq/README.md` line 3, `tx-keying/README.md` line 21, `tx-lpf/README.md` lines 15, 17 and 18 and `tx-pa/README.md` line 18 (row 24, CR-controlled from CDR), each updated by its block's analysis author at the next revision. Unchanged: `tools/README.md` (it states no retention rule), TV-014 and `docs/cm/tool-validation/evidence/ltspice-known-answers-2026-09-27/README.md` (Records, row 30), `docs/vv/README.md` (row 54; its 10 MB rule for `docs/vv/` stands). No VDD or release package exists. |
+| Released units | None: no unit exists. |
+
+Classification rationale: Class II proposed. The change corrects the CM plan, the agent briefing and one V&V process sentence to state the retention rule the owner chose for derived simulation outputs, without impact to form, fit, function, interchangeability, interfaces, safety, verification evidence or operator procedures (05 §2 Class II; SE HB §6.5.1.2.3 minor change). Verification evidence is not affected because no review record cites a `.raw` blob, every committed `.raw` and `.log` stays where it is, and every result a record cites (plots, `result.json`, `result.md`, decks, `.log` files) remains committed; the impact reviewers are asked to test this claim, since an evidence impact would make the CR Class I. The section 6 review is performed although 05 §5.2 as baselined would mark it "Not required" for a Class II CR with no requirement, ICD, hazard or test impact, because PDR work plan rule C6 reviews every phase CR before disposition, and because 05 is a 07 §2.1.1 "Yes" product (row "Software plans": "the software CM plan `docs/process/05-configuration-and-data-management.md`", Yes in all three columns), which routes the CR to the software assurance reviewer under CR-007 revision 3 C9 and C17 as the owner approved them (CR-007 is not yet merged; the approved text is applied). 08 and 04 fall under the 07 §2.1.1 row "Other process documents" (No in every column); they do not add a route.
+
+## 5. Implementation plan
+
+| Step | Artifact and path | Responsible | Done (SHA) |
+|---|---|---|---|
+| 1 | Section 6 impact review: independent reviewer (CM lens) and software assurance reviewer, separate invocations that authored none of this CR | Reviewer agents | |
+| 2 | Owner disposition in section 7, with the section 12 answers | Robin; Claude transcribes | |
+| 3 | Branch `cr/CR-017-simulation-output-retention` from `main`: 05 edits C1 to C4 in one commit with `CR: CR-017`, rebased on CR-007 (and CR-003) if either is merged first | Claude (configuration manager) | |
+| 4 | 08 edit C5 in its own commit with `CR: CR-017`, rebased on CR-012 and CR-015 if merged first | Claude (08 writer of PDR work plan section 5.3) | |
+| 5 | 04 edit C6 in its own commit with `CR: CR-017`, rebased on CR-013 if merged first | Claude (04 writer of PDR work plan section 5.3) | |
+| 6 | `.gitignore` comment C7 in its own commit with `CR: CR-017` | Claude (configuration manager) | |
+| 7 | Local hook H1; its new SHA-256 in section 8. Seeded checks in a scratch clone outside the repository with the changed hook installed: a staged `.raw` of 5,000,000 bytes is accepted, one of 5,000,001 bytes is rejected (exit 1, file named), the same 5,000,001-byte file under `docs/vv/` is accepted; `shasum -a 256 -c raw.sha256` exits 0 on a folder in the C2 format and non-zero after one byte of the `.raw` is changed | Claude (configuration manager) | |
+| 8 | `tools/validate_docs.py` (no new failure against `main`), `python -m unittest discover -s tools/tests` (no new failure), `tools/traceability.py --report-only` (0 violations; report files restored) | Claude | |
+| 9 | Section 9 verification of the implementation by the independent reviewer and the software assurance reviewer, as the delta records of section 4 Verification (05: INSP-039 and INSP-047 successors; 08: INSP-022 iteration; 04: INSP-058 iteration) | Reviewer agents | |
+| 10 | Owner merge approval; `git merge --no-ff` (`merge(CR-017): State the retention rule for LTspice simulation outputs in the CM plan`) before freeze F1 (Sun 2026-10-04); merge SHA in section 10 | Robin; Claude | |
+| 11 | On `main` after the merge: closure line for `docs/cm/deviations.md` entry 6 (Closures table, citing the merge SHA); CSA regenerated (`docs/process/configuration-status.md`) | Claude (configuration manager) | |
+
+Verification of the implementation (what the independent reviewer checks): every before and after string of section 1 against the committed files at the merge; 05 differs from blob `f8de2081` (apart from the hunks of CR-007 and CR-003 where either merged first) only in C1 to C4; 08 differs from blob `01a36bac` (apart from CR-012 and CR-015) only by the C5 bullet; 04 differs from blob `0b197bba` (apart from CR-013) only in the C6 sentence; `.gitignore` differs from blob `a5f803f6` only in the C7 comment line; the four negation lines and the two `docs/vv/` negations are present; the step 7 seeded hook and manifest results are recorded with their commands and exit codes; the step 8 tool results show no new failure. The software assurance reviewer also checks that no committed `.raw` or `.log` blob cited by any record was removed or changed, and that 05, 08 and 04 state one rule (same threshold, same manifest format, same run folders, `docs/vv/` governed by 04 §15).
+
+## 6. Independent review of the impact assessment
+
+Required for Class I, and for Class II when requirements, ICDs, hazards or test cases are affected; otherwise write "Not required: Class II, no requirement/ICD/hazard/test impact".
+
+Routing (author's statement for the reviewers; see the classification rationale): required here by PDR work plan rule C6, and the software assurance reviewer is dispatched because the CR changes 05, a product that 07 §2.1.1 row "Software plans" marks Yes (CR-007 revision 3 C9 and C17, approved, not yet merged). Triggers checked and not met: no path of the Table 4-1 row 25 map; no `rustos` pin, toolchain lock, venv pin, `firmware/Cargo.lock`, firmware dependency or build setting; no release or gate tooling (the hook is outside the repository; the versioned check is deferred, Q6); Cybersecurity "None"; no ICD. Reviewers: an independent reviewer (CM lens) and a software assurance reviewer, each a separate invocation that authored none of this CR.
+
+| Item | Reviewer (agent invocation) | Date | Finding | Resolution |
+|---|---|---|---|---|
+| | | | | |
+
+Reviewer concurrence: <Concur | Concur with comments | Object>.
+
+## 7. CCB disposition (owner)
+
+| Field | Value |
+|---|---|
+| Decision | <Approved, Approved with conditions, Approved (waiver), Rejected or Deferred> |
+| Class confirmed | <I or II> |
+| Date | YYYY-MM-DD |
+| Conditions | <conditions that must be met before merge, or None> |
+| Rationale | |
+| Waiver scope (if Approved (waiver)) | <requirement or target waived, module, releases affected, end condition> |
+| Re-look trigger and re-look-by review (if Deferred) | |
+| Source | <chat transcription by Claude on YYYY-MM-DD, or edited directly by owner> |
+
+Disposition history (append only; a CR targeted at a release is left out of it only by an owner re-disposition recorded here before the release's source commit, CM plan §5.1 and §8.1 step 1):
+
+| Date | Decision | New target | Source |
+|---|---|---|---|
+| | | | |
+
+## 8. Implementation record
+
+| Commit | Files | Trailer check (`CR: CR-017` present) |
+|---|---|---|
+| | | |
+
+Traceability report after implementation: <path or link>; renders regenerated: none expected (no rendered file depends on 05, 08, 04 or `.gitignore`).
+
+Local hook after H1: SHA-256 <to be recorded at step 7>.
+
+## 9. Verification of implementation
+
+| Impact item | Planned closure (from §4/§5) | Evidence (report path, TC id, analysis file) | Result |
+|---|---|---|---|
+| | | | |
+
+Independent verifier (agent invocation): <name>, date, result <Pass | Fail>.
+
+## 10. Closure
+
+| Field | Value |
+|---|---|
+| Owner merge approval | <date, source; n/a for Rejected> |
+| Merge commit | <SHA> (`merge(CR-017): State the retention rule for LTspice simulation outputs in the CM plan`), or n/a (Rejected; waiver without artifact change) |
+| Waiver entered in CSA item 12 and affected VDDs | n/a (not a waiver) |
+| CSA regenerated | <date> |
+| Date closed | YYYY-MM-DD |
+
+## 11. History
+
+| Date | State | By | Commit on main | Note |
+|---|---|---|---|---|
+| 2026-09-29 | Submitted | Claude (configuration manager, CR author) | this file's first commit (`Refs: CR-017`) | Created from `docs/cm/deviations.md` entry 6 and the owner's option A (`status-2026-09-29.md` section 1); impact assessment complete; section 6 review (CM lens and software assurance) pending before the disposition |
+
+## 12. Questions for the owner (answer with the disposition)
+
+Already decided by option A and not asked again: `main` is pushed as it is, and the `.raw` files committed before 2026-09-29 (241 blobs, 1,172,404,182 bytes in history) stay in the history.
+
+| # | Question | Recommendation |
+|---|---|---|
+| Q1 | Approve CR-017 as Class II? | Approve. It writes into 05, 08 and 04 the rule you chose on 2026-09-29, closes deviation entry 6, and changes no requirement, design, test case or cited evidence. |
+| Q2 | Threshold: 5 MB, meaning 5,000,000 bytes, for `.raw` files in the simulation run folders (the 10 MB rule of 04 §15 stays for test reports under `docs/vv/`)? | Confirm 5,000,000 bytes. At `f9e6dd1` it keeps 184 of 231 files (80 percent) in git for 94 MB and leaves out 47 files of 1.05 GB; no file lies close to the line (largest kept 4.6 MB, smallest left out 5.0 MB). 10 MB would add 10 files and 79 MB. |
+| Q3 | The 47 `.raw` files over 5 MB already committed: keep them tracked at their paths (not `git rm --cached`)? | Keep. Removing them from the tree saves nothing, because the history keeps them, and it would rewrite run folders that analysis records cite. |
+| Q4 | Re-run identity: the whole-file SHA-256 in `raw.sha256` cannot show a re-run identical, because LTspice writes the temporary deck path and the run time into every `.raw` header (all 231 files). Accept "same deck SHA-256, same `result.json` or `result.md` numbers and verdict" as the test of an identical re-run, with the manifest proving only that the kept file is unchanged? | Accept. A digest of the waveform data without the header would need a new script and its validation; it belongs with the versioned check of Q6 if you want it. |
+| Q5 | Keep `.raw` files over 5 MB only on your Mac, outside the GitHub backup and the SAR archive, never deleted by Claude, regenerated from the deck if lost? | Confirm. No record cites such a file; every result a record cites stays in git. If a credit-bearing test report under `docs/vv/` ever needs a large waveform, 04 §15 already has it export the cited traces to `.csv`. |
+| Q6 | Make the hook a versioned check later (for example a `tools/` script run by `tools/validate_docs.py` or the gate, with its TV record), by a separate Class II CR before the CDR readiness declaration, rather than in this CR? | Yes, a follow-up CR. The local hook covers the one machine that commits; a versioned check changes accredited tooling, needs a TV run and a software assurance review, and would also catch `--no-verify` commits and other clones. |
+| Q7 | Update the block READMEs that say the `.raw` files are "kept in git" (freq, tx-keying, tx-lpf, tx-pa) at each block's next analysis revision, rather than in this CR? | Yes. Editing them now would drift the four analysis records under review (INSP-113 to INSP-116); 08 carries the rule for every agent meanwhile. |
