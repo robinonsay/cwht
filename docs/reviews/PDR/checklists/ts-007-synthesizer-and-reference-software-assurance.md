@@ -26,11 +26,20 @@ product: docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md
 # product_commit and product_files: equal to INSP-055 iteration 1 (readiness R1; rule C2). Each blob equals
 # git rev-parse 9ac2c42:<path>, git rev-parse HEAD:<path> and git hash-object <path> at HEAD 8fea433
 # (checked 2026-09-27): the products are not branch-only
-product_commit: "9ac2c42d1ff7b82e3734506aba14dec8eadc3923"
-product_blob: 72c47383cbaec09b6d1cc8d9ac8f7912b61c72fb
-product_files: ["docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md@72c47383cbaec09b6d1cc8d9ac8f7912b61c72fb", "hardware/sim/freq/ts007_matrix.py@64c8aad44c9c9da777e6be544cb9553478236481", "docs/reviews/PDR/figures/ts-007-sensitivity.png@e0fb0048a8d6c9ba98016ddb892df33677d5b013"]
+# Delta iteration 2 (2026-09-29, supersession): product_commit, product_blob and the TS-007 entry of product_files
+# name cfc9111 and blob 3d1e4e59 (the Status row only, 06 section 14.6), equal to INSP-055 delta iteration 2 (081efb9).
+# Each blob equals git rev-parse HEAD:<path> and git hash-object <path> at HEAD 081efb9; the checker and the figure are
+# unchanged since 9ac2c42 (git log 9ac2c42..HEAD over the three files lists cfc9111 only). The iteration 1 values are
+# kept in product_commit_iteration_1 and product_files_iteration_1
+product_commit: "cfc9111d6cc0ede052f254bececf09d89d0699f3"
+product_blob: 3d1e4e59f1109199a378e31da99289f01f3f7e21
+product_files: ["docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md@3d1e4e59f1109199a378e31da99289f01f3f7e21", "hardware/sim/freq/ts007_matrix.py@64c8aad44c9c9da777e6be544cb9553478236481", "docs/reviews/PDR/figures/ts-007-sensitivity.png@e0fb0048a8d6c9ba98016ddb892df33677d5b013"]
+product_commit_iteration_1: "9ac2c42d1ff7b82e3734506aba14dec8eadc3923"
+product_files_iteration_1: ["docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md@72c47383cbaec09b6d1cc8d9ac8f7912b61c72fb", "hardware/sim/freq/ts007_matrix.py@64c8aad44c9c9da777e6be544cb9553478236481", "docs/reviews/PDR/figures/ts-007-sensitivity.png@e0fb0048a8d6c9ba98016ddb892df33677d5b013"]
 # inputs read (not reviewed)
 input_files: ["docs/reviews/PDR/checklists/ts-007-synthesizer-and-reference.md (INSP-055, committed 8fea433)", "docs/reviews/PDR/checklists/analysis-frequency-budget-and-clock-plan.md (INSP-056, committed 8fea433)", "docs/design/analysis/frequency-budget.md@1a7be266d1a309391aea99b51dd4a2a82e892d4c", "docs/process/07-software-engineering-plan.md", "docs/safety/hazards.json", "docs/process/05-configuration-and-data-management.md", "docs/risk/register.json", "docs/research/power-tree-and-charging.md", "docs/research/rustos-toolchain-proof.md", "docs/plan/pdr-work-plan.md", "docs/references/md/swehb/ (swe-022, 027, 033, 039, 057, 070, 134, 136, 205 section 7.1; 8-10 section 6)"]
+# inputs read at delta iteration 2 (not reviewed), at HEAD 081efb9
+input_files_iteration_2: ["docs/reviews/PDR/checklists/ts-007-synthesizer-and-reference.md (INSP-055 delta iteration 2, 081efb9)", "docs/decisions/adr/ADR-056-a5-hand-built-design.md (sections 2 item 2, 4.3, 7 'Other records')", "docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@b93333867dbe21ed6243a8f85df1f7ff16d23c00 (sections 7.3, 8.1, 8.12)", "docs/reviews/PDR/checklists/ts-012-design-to-cost-software-assurance.md (INSP-118 iteration 3, 75b8304)", "docs/design/analysis/frequency-budget.md (revision 4, d030ce2: section 1 note on TS-007, section 5 requests)", "docs/design/analysis/sequencer-timing.md (revision 0, 95adefc: key-up and fault-path order)", "docs/safety/hazards.json (HZ-008 swe134_items and cause C7 at HEAD)", "docs/process/07-software-engineering-plan.md (sections 10.2, 14.1 drivers row, 19 rows WP-SW-05, 11, 14 at HEAD)", "docs/plan/pdr-work-plan.md revision 7 (section 3.0a, WP-PDR-20 row, rules C1, C2, C9)", "tools/check_commit_msg.py on cfc9111 and 9ac2c42"]
 paired_record: INSP-055
 product_type: trade-study-or-adr
 # criticality: safety-critical. TS-007 header row "Decision class trigger" names the SW-SYNTH transmit
@@ -45,7 +54,8 @@ author_agent: "author:WP-PDR-20 wave 1a (Claude as RF designer TX)"
 reviewer_agent: "sa-reviewer:WP-PDR-20-ts-007"
 assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:WP-PDR-20-ts-007 (software assurance function; paired file review INSP-055 by reviewer:WP-PDR-20-ts-007-iter1)"
-iteration: 1
+# iteration: 2 is a delta (rule C1): the supersession of TS-007 by TS-012, no new full review
+iteration: 2
 readiness_met: true
 # reviewer_verdict and assurance_verdict: APPROVED at iteration 1 (rule C1): zero Major findings; four Minor
 # findings of this record, which ride with APPROVED and are fixed with the INSP-055 Minor fixes or become liens
@@ -56,11 +66,17 @@ assurance_verdict: APPROVED
 # main, but the checklist applied exists only on cr/CR-012-pdr-checklist-templates (lead SE convention of
 # 2026-09-27), and INSP-055 does not yet name this record (paired_record, assurance_reviewer_agent,
 # assurance_verdict; each reviewer updates only its own record, cross item X-1). The software lead sets
-# APPROVED on both records when INSP-055 carries the pairing and CR-012 merges with the template blob unchanged
+# APPROVED on both records when INSP-055 carries the pairing and CR-012 merges with the template blob unchanged.
+# Delta iteration 2: hold (b) is resolved (INSP-055 names this record at 081efb9: paired_record, assurance_reviewer_agent,
+# assurance_verdict APPROVED); hold (a) stands (7784672 is not an ancestor of main at 081efb9). The reviewer does not set
+# the record verdict (cross item X-4 of the delta)
 verdict: NEEDS CHANGES
 findings_major: 0
 findings_minor: 4
-findings_open: 4
+# findings_open: delta iteration 2 closes all four by supersession, none fixed or verified in TS-007: finding-3 moot;
+# finding-1 and finding-2 carried to TS-012 in part, with a residual transferred to INSP-118 (cross item X-2);
+# finding-4 product part verified at cfc9111, lead SE part transferred to the INSP-118 finding-8 list (cross item X-3)
+findings_open: 0
 findings_fixed: 0
 findings_verified: 0
 findings_deferred: 0
@@ -70,14 +86,21 @@ assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-033 7
 swe134_items_checked: [a, b, c, e, f, g, h, i, j, k, l]
 deferred_rids: []
 items_no: ["swe-033 7.1 task 2", "swe-134 7.1 task 4", "swe-134 7.1 task 6", "swe-205 7.1 task 1", "swe-205 7.1 task 3", "swe-057 7.1 task 2", SA-C-e, SA-C-g, SA-D1, SA-D2, SA-E3]
-effort_turns: 38
-effort_minutes: 60
-record_status: Open
+# effort: cumulative (iteration 1: 38 turns, 60 minutes; delta iteration 2: 32 turns, 50 minutes)
+effort_turns: 70
+effort_minutes: 110
+# record_status: Closed by supersession at delta iteration 2 (06 section 14.6; ADR-056 section 7 "Other records", lead
+# SE disposition; plan section 3.0a row TS-007 "Superseded outright"), as INSP-055 at 081efb9. 07 section 10.2 names no
+# supersession route (cross item X-1). Reopens if the owner does not confirm the TS-007 row at PDR session S1 (OD-10
+# part 1). Iteration 1 value: Open
+record_status: Closed
 date: 2026-09-27
-date_closed: null
+date_closed: 2026-09-29
 ---
 
 # Peer review record INSP-074: software assurance pair of INSP-055, TS-007 synthesizer and frequency reference (WP-PDR-20)
+
+**Delta iteration 2 (2026-09-29, supersession; HEAD `081efb9`, product commit `cfc9111`): record CLOSED by supersession.** TS-012 supersedes TS-007 (ADR-056). The only product change since iteration 1 is `cfc9111`, which edits the TS-007 Status line only, as 06 section 14.6 allows, and keeps the prior status verbatim. No new finding. The four Minor findings close without a fix in TS-007: finding-3 is moot; finding-1 and finding-2 are carried to TS-012 in part, and their residual (the HZ-008 and 07 rows for the A5 changeover retune, the I2C driver and the FC0 counter) is transferred to INSP-118; finding-4's product part is verified at `cfc9111`, and its lead SE part joins the INSP-118 finding-8 commit list. See the section "Delta iteration 2" at the end. Everything between here and that section is the iteration 1 text.
 
 **Product.** `docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md` blob `72c47383` at freeze commit `9ac2c42` (freeze F0, rule C2), with the checker `hardware/sim/freq/ts007_matrix.py` (`64c8aad4`) and the figure `docs/reviews/PDR/figures/ts-007-sensitivity.png` (`e0fb0048`): the three `product_files` of INSP-055, each equal at `9ac2c42`, at `HEAD` (`8fea433`) and in the working tree. **Paired record:** INSP-055 (`ts-007-synthesizer-and-reference.md`), reviewer verdict APPROVED at iteration 1 with five Minor findings, record verdict held for this pair.
 
@@ -224,3 +247,92 @@ No Major finding. Every Yes and No below carries evidence. None of the four find
 ## Measurements (SWE-089)
 
 Tasks in the table: 21 (18 applied, 3 N/A). Tasks answered No: 6. Checklist items answered No: 5 (SA-C-e, SA-C-g, SA-D1, SA-D2, SA-E3). SWE-134 items checked: 11 (d N/A). Findings: 0 Major, 4 Minor, all Open. Iteration 1. Renders inspected: 1. Effort: 38 turns, about 60 minutes.
+
+## Delta iteration 2 (2026-09-29, supersession; HEAD `081efb9`, product commit `cfc9111`)
+
+**Scope (rule C1).** A delta, not a new full review. It checks the one product change since iteration 1 under the assurance lens, names the new TS-007 blob, and disposes of the four Minor findings of iteration 1 now that TS-012 supersedes TS-007 (ADR-056 section 2 item 2; plan revision 7 section 3.0a row TS-007 "Superseded outright"; ADR-056 section 7 "Other records": "TS-007's reviews INSP-055 and INSP-074 end with the study superseded (lead SE disposition)"). The task table and checklist sections R and A to F above are the iteration 1 answers on blob `72c47383` and are not re-answered: TS-007 goes to no owner decision sheet (rule C9), so no assurance answer on its recommendation is needed any more.
+
+**Independence (rule C4).** Written by a new invocation of the software assurance reviewer role. It authored nothing in TS-007, TS-012 or ADR-056, and no iteration of INSP-055, INSP-110, INSP-118, INSP-056 or INSP-111. It edited no product file and no record other than this one. Earlier sections of this record are kept as written; the front matter keeps each iteration 1 value in a comment or an `_iteration_1` field.
+
+**Search first (rule C3).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: "INSP-074 TS-007 synthesizer and reference software assurance supersession"; "peer review record closed by supersession finding moot transferred to another record state"). `grep`, `git log`, `git show` and `sed` were used afterwards only to pin lines, commits and blobs. The rustos repository was not read.
+
+### Product state
+
+`git log --oneline 9ac2c42..HEAD` over the three `product_files` lists `cfc9111` only ("TS-001 and TS-007 status rows superseded by TS-012 (ADR-056)"). TS-007 `72c47383` becomes `3d1e4e59`. `ts007_matrix.py` (`64c8aad4`) and `ts-007-sensitivity.png` (`e0fb0048`) are unchanged. At HEAD `081efb9`, `git rev-parse HEAD:<path>` equals `git hash-object <path>` for all three. These are the same three blobs that INSP-055 names at its delta iteration 2 (`081efb9`).
+
+### Verification of `cfc9111` (TS-007, one hunk)
+
+| # | Check | Evidence | Result |
+|---|---|---|---|
+| V1 | The Status line is the only edit (06 section 14.6: "the only edit to the old file is its Status line") | `git show cfc9111 -- <TS-007>`: one hunk `@@ -6 +6 @@`; `git diff --numstat 72c4738 3d1e4e5`: `1 1`; `diff <(git show 72c4738 \| sed 6d) <(git show 3d1e4e5 \| sed 6d)`: no output | Yes |
+| V2 | The prior status is kept verbatim | The new row ends "Previous status, kept as written: In review", and the iteration 1 row was "In review" | Yes |
+| V3 | No safety-relevant content of TS-007 changed: the section 3.3 SWE-219 and SWE-220 citations, the section 7 safety line, the M8 cells, section 8 impacts | Follows from V1: no other line changed | Yes |
+| V4 | The row's claims agree with the records they cite | TS-012 section 10 (A5, the owner's decision of 2026-09-29) and section 8.3 BOM rows 9 and 29 (Adafruit 2045 Si5351A, TG2520SMN); D-17 route R3 (TS-012 line 478: FC0 on GPIN0 and GPIN1, timed by the XOSC, "independent of the synthesizer and its driver"); TS-012 line 110 prunes the LMX2571 as reflow-only; ADR-056 section 2 item 2 (line 59) names the same replacement; plan section 3.0a and the WP-PDR-20 row (20a, 20b) carry the analyses the row lists | Yes |
+| V5 | The row does not overstate the state or the safety basis | It says ADR-056 records the decision and that the owner's S1 confirmation (OD-10 part 1) is pending; ADR-056 line 6 reads Proposed, with items 2 to 4 for S1. It does not claim that any HZ-008 control is changed or verified | Yes |
+| V6 | Change route (05 section 4.5; iteration 1 finding-4 product part) | `tools/check_commit_msg.py --range cfc9111^..cfc9111`: "PASS cfc9111: rows 12; Refs: TS-012, TS-001, TS-007, WP-PDR-54", exit 0 | Yes |
+
+Result: the edit is the one 06 section 14.6 allows. No new finding.
+
+### Where the A5 design leaves each assurance question
+
+A5 is neither TS-007 alternative. `frequency-budget.md` revision 4 (`d030ce2`, line 41) states: "the Si5351A of A1 is used, but its PLL A carries the receive LO and is retuned to the carrier at every changeover, as A2's synthesizer was". TS-012 section 7.3 (line 491) gives the same sequence: at t0, "PLL A is retuned to the carrier with CLK1 enabled (the I2C writes ...)". Its section 8.1 diagram (lines 577 to 599) shows the Si5351A as the only I2C device, cells charged outside the radio, an analog audio chain and no display. So the A2-specific parts of findings 1 to 3 are moot, but the per-changeover retune of finding-1 and the I2C word path of finding-2 apply to the chosen design.
+
+A finding is **moot** when its subject is not in the chosen design and nothing of it remains to be carried. It is **carried** when the same question applies to A5 and a record that stands (TS-012 or an analysis it cites) already holds it. A **residual** is the part that applies to A5 but that no standing record holds yet. The residual is transferred to INSP-118, the software assurance record of the study that now decides the synthesizer (cross item X-2).
+
+### Findings (delta iteration 2)
+
+| Finding | Severity | State | Where it goes |
+|---|---|---|---|
+| finding-1 | Minor | Closed (carried to TS-012 in part; residual transferred to INSP-118) | **Moot:** the LMX2571 single-VCO cells of TS-007 (A2 is not taken, TS-012 line 110). **Carried:** the transmit-direction order "TX word, lock, count agreement, then `PA_EN`" is in TS-012 section 7.3 (line 491: "SW-SYNTH reads the lock status and SW-SAFE compares the count ... and only then does SW-SAFE set PA_EN") and section 8.12 row WP-PDR-35, 41 (line 999: "PA_EN set only after the counted agreement"), with the lock-gated changeover requested of WP-PDR-23a by `frequency-budget.md` section 5 (revision 2 requests). The return order, `PA_EN` low before the receive word, is in `sequencer-timing.md` revision 0 (`95adefc`, lines 193 and 196, rows KU-04 and FP-01: `PA_EN` low first, then CLK1 off and T/R to receive), which has its own review. **Residual, not held by TS-012 or INSP-118:** HZ-008 cause C7 still names only "a wrong divider or register computation, a corrupted frequency word, a calibration value out of range", and HZ-008 `swe134_items` at HEAD are `[a, b, f, g, h, i, k, l]`, without item e, although A5 retunes the safety-critical word path at every changeover. TS-012 section 8.12 row WP-PDR-16, 17 (line 997) asks only for the K7 wording on route R3. The 07 section 14.2 `SW-SYNTH` word-path row has no item e. TC-SYS-110 has no key-down case with PLL A left at the receive LO |
+| finding-2 | Minor | Closed (carried to TS-012 in part; residual transferred to INSP-118) | **Moot:** part (a) for A2 (the WP-SW-06 SPI driver), and the correction of TS-007 section 2 (TS-007 is not edited). **Carried:** the driver-set change is in TS-012 section 8.12 row WP-PDR-35, 41 ("display and encoder drivers removed; decoder, menu, FC0 counter, TX sequencing added"). The counter as FC0 is in TS-012 line 478 and `frequency-budget.md` section 5 row WP-PDR-32 ("FC0 with two GPIN inputs, not a PIO or TIMER capture"). ADR-056 section 4.3 (line 147) sends the safety-critical determination to the WP-PDR-17 re-run (OD-35 at S2). **Residual, not held by TS-012 or INSP-118:** for A5 the word path runs on I2C (`sequencer-timing.md` row KD-06, "I2C0", SW-SYNTH), so WP-SW-05 joins the safety-critical drivers. No record asks the 07 writer to say so. 07 at HEAD (`106bc3a`) line 601 still lists the counter as "PIO or TIMER capture" and no I2C driver. Line 787 (WP-SW-14) still reads "PIO state machine or TIMER capture ... not from the synthesizer reference", which route R3 departs from (the FC0 is in the CLOCKS block, WP-SW-11) |
+| finding-3 | Minor | Closed (moot by supersession) | **Moot:** the shared buses it named are not in A5. The display (SPI with the LMX2571) is removed (TS-012 line 999). The BQ25887 and TPA6130A2 that shared the A1 I2C bus are gone: cells are charged outside the radio, the audio chain is analog, and the section 8.1 diagram shows the Si5351A as the only I2C device. The LMX2571 read-back question goes with the part. **What stays is held by standing records:** the dedicated bus instance is requested of WP-PDR-37 and 38 by `frequency-budget.md` section 5 ("The Si5351A I2C bus on its own RP2350 instance (TS-007 SA finding-3)"), under the INSP-056 and INSP-111 reviews. Register read-back after every write is 07 section 14.2 row g itself, which WP-PDR-35 writes from 07. The budget read the Si5351A lock status in AN619 (register 0 bit 5 LOL_A, readable over I2C, `frequency-budget.md` line 284) |
+| finding-4 | Minor | Closed (product part Verified at `cfc9111`; lead SE part transferred to the INSP-118 finding-8 list) | **Product part verified:** the TS-007 revision commit carries `Refs:` (V6). **Lead SE part:** supersession does not change the fact that `9ac2c42` has no `Refs:` trailer (`check_commit_msg.py --range 9ac2c42^..9ac2c42`: "FAIL REFS_MISSING ... touches rows 12, 13, 24, 33, 49", exit 1). It is not yet listed: `git grep 9ac2c42 -- docs/cm docs/plan` is empty. It joins the commits of INSP-118 finding-8 and cross item X-9 (the five TS-012 hashes and `dd39a64`) and INSP-111's `802347b` and `4153acf` in one CSA change-log listing of RID candidates (cross item X-3) |
+
+Counts at this delta: 4 Minor, 0 Major; open 0; fixed 0; verified 0 (finding-4 product part only); deferred 0; closed by supersession 4 (moot 1; carried in part with a residual transferred 2; product part verified with the lead SE part transferred 1). No new finding.
+
+### Readiness (delta iteration 2)
+
+| # | Criterion | Result | Evidence |
+|---|---|---|---|
+| R1 | Product committed; `product_files` equal to the paired record's | Yes | The three blobs above, equal to HEAD and to INSP-055 at `081efb9` |
+| R2 | Product type and criticality | Yes | Unchanged from iteration 1 |
+| R3 | `validate_docs.py` on the record; `traceability.py` clean for the ids the product touches | Yes | See Commands. `cfc9111` touches no requirement, test case or hazard id |
+| R4 | Paired file review filed under its own invocation | Yes | INSP-055 delta iteration 2 (`081efb9`) |
+
+### Request from the frequency budget (TS-007 R-M3)
+
+`frequency-budget.md` revision 4 section 5 asks WP-PDR-20b to record in this delta the TS-007 R-M3 result for RB2, the TG2520SMN on XA. Recorded as the budget states it (section 3.5, RB-0; not re-derived here, because INSP-056 and INSP-111 review that section): **not met**, 2.7 ppm (fo-TC band referred to +25 C) or 3.2 ppm (band read as a 1.0 ppm window), against 1.5 ppm. TS-007 is not revised, so the result changes no TS-007 cell. It matters to assurance because option (c) of `frequency-budget.md` section 3.5 would make part of HZ-008 K4 a `SW-SYNTH` software control (items g and k). That decision is the owner's, on the lead SE's sheet. The records that hold it are the frequency budget, INSP-111 and ADR-056 (D-17). It is not an INSP-074 matter.
+
+### Cross items (outside this record's scope)
+
+- **X-1 (lead SE; 07 writer).** 07 section 10.2 (Action tracking row) allows `record_status: Closed` "only when every finding is Verified or Deferred". It has no route for a record whose product is superseded. This record and INSP-055 (`081efb9`) close on the lead SE disposition of ADR-056 section 7, with finding states "Closed (moot ...)" and "Closed (carried ...)" that 07 section 10.2 does not define. Add the supersession route and its finding states to 07 section 10.2, and to the 01 section 13 field list if needed, through the WP-PDR-12 or WP-PDR-17 change route. Until then this closure rests on ADR-056 section 7.
+- **X-2 (lead SE, to the INSP-118 reviewer or the ADR-056 software assurance pair).** Take the finding-1 and finding-2 residuals as Minor liens at the next delta. INSP-118 cross item X-14 already names the ADR-056 pair as the record that carries open liens. The requests to route, for A5:
+  - **To WP-PDR-16b.** HZ-008 cause C7 names the per-changeover PLL A retune: a transmit word not written or stale at key-down (carrier left at the receive LO), and a receive word written before `PA_EN` falls. Add item e to HZ-008 `swe134_items`.
+  - **To the 07 writer** (WP-PDR-17, then 13, then 47, plan section 5.3; or a CR once 07 is under change control). Item e in the section 14.2 `SW-SYNTH` word-path row. In section 14.1, the drivers row names I2C (WP-SW-05, the Si5351A bus) and the FC0 counter in the CLOCKS block in place of "PIO or TIMER capture". Section 19 rows WP-SW-05, WP-SW-11 and WP-SW-14 are updated to match, and WP-SW-14 drops "not from the synthesizer reference" for route R3.
+  - **To the test author.** A TC-SYS-110 key-down injection with PLL A left at the receive LO.
+- **X-3 (lead SE).** List `9ac2c42` in the CSA change log as a RID candidate for the PDR, with the INSP-118 finding-8 and X-9 commits and INSP-111's `802347b` and `4153acf`.
+- **X-4 (software lead).** Record verdict. Hold (b) of iteration 1 is resolved: INSP-055 names this record at `081efb9`. Hold (a) stands: `git merge-base --is-ancestor 7784672 main` is false at `081efb9`. The `verdict` is left at NEEDS CHANGES for the software lead. Because TS-007 goes to no decision sheet, the held verdict blocks nothing.
+- **X-5.** If the owner does not confirm the TS-007 row at S1 (OD-10 part 1), this record reopens, and the four findings return to Open on blob `3d1e4e59`. This is the same condition as INSP-055 cross item X-3.
+
+### Commands (delta iteration 2)
+
+- `git log --oneline 9ac2c42..HEAD -- <three product files>`: `cfc9111` only.
+- `git show cfc9111 -- docs/decisions/trade-studies/TS-007-synthesizer-and-reference.md`: one hunk, line 6. `git diff --numstat 72c4738 3d1e4e5`: `1 1`. The line-6-deleted diff: no output.
+- `git rev-parse HEAD:<path>` and `git hash-object <path>` at `081efb9`: `3d1e4e59`, `64c8aad4`, `e0fb0048`.
+- `.venv/bin/python tools/check_commit_msg.py --range cfc9111^..cfc9111`: PASS, exit 0. `--range 9ac2c42^..9ac2c42`: FAIL REFS_MISSING, exit 1.
+- `git merge-base --is-ancestor 7784672 main`: false. `git grep 9ac2c42 -- docs/cm docs/plan`: no match.
+- HZ-008 `swe134_items` read from `docs/safety/hazards.json` at HEAD: `[a, b, f, g, h, i, k, l]`.
+- `.venv/bin/python tools/validate_docs.py`: this record PASS with no drift note (overall result in the return). `.venv/bin/python tools/traceability.py`: 0 violations; `docs/vv/traceability-report.md` and `traceability.json` restored with `git restore`.
+
+### Measurements (delta iteration 2, SWE-089)
+
+Commits verified: 1 (1 hunk). Checks: 6 (V1 to V6), all Yes. Findings dispositioned: 4 (moot 1, carried in part with residual 2, product part verified with the lead SE part transferred 1). New findings: 0. Renders: 0 (no figure changed). Effort: 32 turns, about 50 minutes (cumulative 70 turns, 110 minutes).
+
+### Verdict (delta iteration 2)
+
+```
+DELTA ITERATION 2 (2026-09-29, supersession; HEAD 081efb9, product commit cfc9111): ASSURANCE VERDICT: APPROVED (unchanged); record CLOSED by supersession
+PRODUCT: TS-007@3d1e4e59 (Status row only, 06 section 14.6: verified; prior status "In review" kept verbatim); ts007_matrix.py@64c8aad4 and ts-007-sensitivity.png@e0fb0048 unchanged
+FINDINGS: finding-3 Closed (moot); finding-1, finding-2 Closed (carried to TS-012 in part; residual transferred to INSP-118, X-2); finding-4 Closed (product part Verified at cfc9111; lead SE part to the CSA listing, X-3); open Major 0; new 0
+MEASUREMENTS: checks=6; turns=32; minutes=50; cumulative turns=70, minutes=110
+```
