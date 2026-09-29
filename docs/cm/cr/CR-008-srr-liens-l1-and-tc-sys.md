@@ -159,9 +159,9 @@ Independence note (charter §2): WP-PDR-11 assigns the L1 author and the TC-SYS 
 |---|---|---|---|
 | 1 | Section 1.1 to 1.5 in `docs/requirements/sys/requirements.json`; `requirements.md` rendered by `tools/traceability.py --render` | Claude (L1 requirements author, WP-PDR-11) | Prototyped on the branch at `c629198` |
 | 2 | Section 1.6 in `docs/test_cases/sys/test_cases.json`; `test_cases.md` regenerated | Claude (TC-SYS test author, WP-PDR-11) | Prototyped on the branch at `c629198` |
-| 3 | `docs/safety/hazards.json`: REQ-SYS-194 in HZ-002 K2 `control_req_ids` and in HZ-002 `requirement_ids` (T-08) | Writer of `hazards.json` per plan §5.3 (WP-PDR-02, then WP-PDR-16b), on this branch before the merge | |
+| 3 | `docs/safety/hazards.json`: REQ-SYS-194 in HZ-002 K2 `control_req_ids` and in HZ-002 `requirement_ids` (T-08) | Writer of `hazards.json` per plan §5.3 (WP-PDR-02, then WP-PDR-16b), on this branch before the merge | `a36a828` on the branch (2026-09-29) |
 | 4 | `docs/safety/hazard-analysis.md` §8.1 items 3 and 7: REQ-SYS-194 as the Analysis exception for HZ-002 K2 over temperature (RSK-007) | Safety analyst (WP-PDR-16) | |
-| 5 | `docs/design/allocation.json`: REQ-SYS-194 allocated as REQ-SYS-083 is (PWR) | Writer of `allocation.json` (WP-PDR-02, then WP-PDR-31) | |
+| 5 | `docs/design/allocation.json`: REQ-SYS-194 allocated as REQ-SYS-083 is (PWR) | Writer of `allocation.json` (WP-PDR-02, then WP-PDR-31) | `a36a828` on the branch (2026-09-29) |
 | 6 | `docs/risk/register.json` RSK-007: cite REQ-SYS-194 | Risk manager (WP-PDR-18, Log class) | |
 | 7 | Delta iterations of INSP-003 and INSP-025 verify each lien on the frozen blobs below | Independent reviewers (new invocations of `reviewer:requirements-sys` and `reviewer:INSP-025`) | `ebeb069` on the branch (2026-09-29, section "CR-008 delta" of each record; records only). INSP-003 needs a further delta on `allocation.json` after step 5, and INSP-008 needs one on `hazards.json` after step 3 (section 9, 2026-09-29 check) |
 | 9 | ICD alignment of the section 4 Interfaces row: `docs/icd/ICD-CTL-PHONES.md` lines 140, 143 and 215 and `docs/icd/figures/render_icd_figures.py` line 404 with its render (the resolution the owner picks in question 2), `docs/icd/ICD-PWR-CELL.md` lines 50, 139, 142, 143, 146, 210, 217, 234 and 235, `docs/icd/ICD-CTL-KEY.md` lines 161 and 261; not on this branch (the ICDs are CR-controlled from PDR) | ICD writer (WP-PDR-36a timing rows, WP-PDR-36b the rest), before the ICD baseline at PDR; checked by the ICD reviewer (`peer-review-checklist-design.md` section I) | |
@@ -279,7 +279,10 @@ Disposition history (append only):
 Partly implemented on the branch (state 2026-09-29, WP-PDR-55 merge batch 1).
 - Steps 1 and 2 are the approved prototype at `c629198`, whose frozen blobs are unchanged.
 - Step 7 is done at `ebeb069` (the INSP-003 and INSP-025 re-issues, records only).
-- Steps 3 (`hazards.json`) and 5 (`allocation.json`) are not on the branch. Section 5 assigns them to the writer of those files (plan section 5.3), not to the configuration manager. The invocation that ran this check did not write them, because it also re-issued INSP-003, whose product includes `allocation.json` (plan rule C4). Their inputs are all APPROVED, so they can start now.
+- Steps 3 and 5 are done at `a36a828` (2026-09-29), written by the writer of `hazards.json` and `allocation.json` (plan section 5.3) in an invocation that reviewed none of INSP-003, INSP-008 or INSP-025 and ran no pre-merge check of this CR. New blobs: `docs/safety/hazards.json@416b3e1914d5a29f576473b34e570fabdd37d763` (was `81cacde4`) and `docs/design/allocation.json@028facf77f71fd6ab05f9e1015489f733c383735` (was `442de2fd`).
+  - Step 3, two hunks: REQ-SYS-194 appended to HZ-002 K2 `control_req_ids` (after REQ-SYS-083) and to HZ-002 `requirement_ids` (after REQ-SYS-186). No other field changes, and the `version` and `updated` fields are unchanged.
+  - Step 5, seven hunks: an `allocations[]` record for REQ-SYS-194 with the REQ-SYS-083 allocation (primary and only module PWR, element B18, function F7, no children, `sw_modules` empty) and a note naming this CR; REQ-SYS-194 appended to the derived lists that carry REQ-SYS-083 (PWR `primary_for` and `requirement_ids`, B18 and F7 `requirement_ids`); `summary` counts 190, 188, 186 become 191, 189, 187 (ids, non-retired, allocated).
+  - Tool runs on the branch at `a36a828`: `tools/traceability.py --report-only --render` gives 246 requirements, 174 test cases, 0 violations and 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and 148, the confirmed leaf gaps). `HAZARD_INVERSE` and `SYS_UNALLOCATED` on REQ-SYS-194 are cleared. No rendered file changed. `tools/validate_docs.py` gives 48 passed, 2 failed, 50 checked. The two failures are the expected record drift of INSP-008 (`docs/reviews/SRR/checklists/hazard-analysis.md`, names `hazards.json@81cacde4`) and INSP-003 (`requirements-sys.md`, names `allocation.json@442de2fd`); the section 9 deltas clear them. `git merge-tree --write-tree` with `main` at `9dc9d63`: no conflict.
 - Steps 4 and 6 follow the merge (WP-PDR-16, WP-PDR-18), and step 9 is off the branch (the ICD writer, WP-PDR-36b).
 - Step 8 is held (section 9).
 
@@ -287,6 +290,7 @@ Partly implemented on the branch (state 2026-09-29, WP-PDR-55 merge batch 1).
 |---|---|---|
 | `c629198` (prototype, branch `cr/CR-008-srr-liens-l1-and-tc-sys`) | `requirements.json`, `requirements.md`, `test_cases.json`, `test_cases.md` | Present |
 | `ebeb069` (branch, step 7 record re-issues) | `docs/reviews/SRR/checklists/requirements-sys.md` (INSP-003), `docs/reviews/SRR/checklists/test-cases-sys.md` (INSP-025) | Not required (records only; `Refs: CR-008, INSP-003, INSP-025, INSP-044, INSP-045, WP-PDR-55`; `tools/check_commit_msg.py --range c629198..ebeb069` PASS) |
+| `a36a828` (branch, steps 3 and 5) | `docs/safety/hazards.json`, `docs/design/allocation.json` | Present (`Refs: CR-008, REQ-SYS-194, HZ-002`, `CR: CR-008`; `tools/check_commit_msg.py --range ebeb069..a36a828` PASS, rows 11 and 15) |
 
 Traceability report after implementation: to be regenerated at merge; renders regenerated: `docs/requirements/sys/requirements.md`, `docs/test_cases/sys/test_cases.md`.
 
