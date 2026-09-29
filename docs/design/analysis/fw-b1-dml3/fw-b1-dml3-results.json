@@ -1,0 +1,281 @@
+{
+ "inputs": {
+  "SECTOR": 4096,
+  "PAGE": 256,
+  "FLASH_BYTES": 4194304,
+  "XIP_BASE": 268435456,
+  "ABS_BLOCK_TARGET": 285212416,
+  "DEVINFO_CS0_DEFAULT": 16777216,
+  "T_SE_MAX": 0.4,
+  "T_PP_MAX": 0.003,
+  "T_READBACK": 0.001,
+  "T_API_OVERHEAD": 0.001,
+  "ENDURANCE": 100000,
+  "LIFE_YEARS": 10,
+  "T_WD": 1.0,
+  "WD_RATIO_MIN": 2.0,
+  "REQ_SYS_131_S": 2.0,
+  "BOOT_OTHER_S": 0.03,
+  "A8_BOOT_S": 0.1,
+  "F_SYS": [
+   96000000.0,
+   150000000.0
+  ],
+  "CRC_CYCLES_PER_BYTE": 12,
+  "TPM010_YELLOW": 0.25,
+  "TPM010_RED": 0.5,
+  "BAUD": 115200,
+  "CAPTURE_SPS": 1000000.0,
+  "UART_FIFO": 32,
+  "TICK_S": 0.001,
+  "T_PASS": 0.001,
+  "W_BOUND_PROG": 0.01,
+  "W_BOUND_ERASE": 0.45,
+  "WINDOW_SPACING_S": 1.0,
+  "T_PA_SAMPLE": 0.05,
+  "REQ_SYS_155_S": 0.1,
+  "REQ_SYS_155_PROPOSED_S": 0.5,
+  "T_BATT_PD": 1.0,
+  "PAGES_PER_SECTOR": 16,
+  "CFG_SECTORS": 2,
+  "LOG_SECTORS": 8,
+  "CFG_COMMITS_PER_DAY": 20,
+  "LOG_PAGES_PER_DAY": 100,
+  "LINE_MAX": 120,
+  "POLY": 79764919,
+  "POLY_R": 3988292384,
+  "FULL": 4374732215
+ },
+ "golden_vectors": [
+  {
+   "id": "V1",
+   "length": 0,
+   "hex_prefix": "",
+   "crc32": "0x00000000"
+  },
+  {
+   "id": "V2",
+   "length": 9,
+   "hex_prefix": "313233343536373839",
+   "crc32": "0xCBF43926"
+  },
+  {
+   "id": "V3",
+   "length": 1,
+   "hex_prefix": "00",
+   "crc32": "0xD202EF8D"
+  },
+  {
+   "id": "V4",
+   "length": 1,
+   "hex_prefix": "ff",
+   "crc32": "0xFF000000"
+  },
+  {
+   "id": "V5",
+   "length": 32,
+   "hex_prefix": "00000000000000000000000000000000",
+   "crc32": "0x190A55AD"
+  },
+  {
+   "id": "V6",
+   "length": 32,
+   "hex_prefix": "ffffffffffffffffffffffffffffffff",
+   "crc32": "0xFF6CAB0B"
+  },
+  {
+   "id": "V7",
+   "length": 256,
+   "hex_prefix": "000102030405060708090a0b0c0d0e0f",
+   "crc32": "0x29058C73"
+  },
+  {
+   "id": "V8",
+   "length": 43,
+   "hex_prefix": "54686520717569636b2062726f776e20",
+   "crc32": "0x414FA339"
+  },
+  {
+   "id": "V9",
+   "length": 252,
+   "hex_prefix": "ffffffffffffffffffffffffffffffff",
+   "crc32": "0xA7340E2F"
+  },
+  {
+   "id": "V10",
+   "length": 252,
+   "hex_prefix": "00000000000000000000000000000000",
+   "crc32": "0xA66359F1"
+  },
+  {
+   "id": "V11",
+   "length": 4096,
+   "hex_prefix": "ffffffffffffffffffffffffffffffff",
+   "crc32": "0xF154670A"
+  }
+ ],
+ "residue": "0x2144DF1C",
+ "poly_terms": 15,
+ "poly_primitive": true,
+ "poly_divisible_by_x_plus_1": false,
+ "hd": {
+  "256": {
+   "record_bytes": 256,
+   "codeword_bits": 2048,
+   "pairs_tested": 2096128,
+   "weight1_all_detected": true,
+   "weight2_all_detected": true,
+   "weight3_all_detected": true,
+   "weight4_all_detected": true,
+   "hamming_distance_at_least": 5
+  },
+  "512": {
+   "record_bytes": 512,
+   "codeword_bits": 4096,
+   "pairs_tested": 8386560,
+   "weight1_all_detected": true,
+   "weight2_all_detected": true,
+   "weight3_all_detected": true,
+   "weight4_all_detected": false,
+   "hamming_distance_at_least": 4
+  }
+ },
+ "crc_budget": {
+  "96MHz": {
+   "ram_copy_256B_us": 32.0,
+   "cpu_share_at_100ms": 0.00031999999999999997
+  },
+  "150MHz": {
+   "ram_copy_256B_us": 20.48,
+   "cpu_share_at_100ms": 0.0002048
+  }
+ },
+ "xip_cycles_per_byte": {
+  "EBh_div3": 13.5,
+  "EBh_div2": 9.0,
+  "03h_div12": 144.0
+ },
+ "image_check_s": {
+  "96MHz_64KiB_EBh_div3": 0.017408,
+  "96MHz_64KiB_03h_div12": 0.106496,
+  "96MHz_256KiB_EBh_div3": 0.069632,
+  "96MHz_256KiB_03h_div12": 0.425984,
+  "96MHz_yellow_1MiB_EBh_div3": 0.278528,
+  "96MHz_yellow_1MiB_03h_div12": 1.703936,
+  "96MHz_red_2MiB_EBh_div3": 0.557056,
+  "96MHz_red_2MiB_03h_div12": 3.407872,
+  "150MHz_64KiB_EBh_div3": 0.01114112,
+  "150MHz_64KiB_03h_div12": 0.06815744,
+  "150MHz_256KiB_EBh_div3": 0.04456448,
+  "150MHz_256KiB_03h_div12": 0.27262976,
+  "150MHz_yellow_1MiB_EBh_div3": 0.17825792,
+  "150MHz_yellow_1MiB_03h_div12": 1.09051904,
+  "150MHz_red_2MiB_EBh_div3": 0.35651584,
+  "150MHz_red_2MiB_03h_div12": 2.18103808
+ },
+ "image_max_for_A8_bytes": 263529.4117647059,
+ "flash": {
+  "program_window_s": 0.004,
+  "erase_window_s": 0.401,
+  "keyer_study_bound_s": 0.40700000000000003,
+  "bound_program_s": 0.01,
+  "bound_erase_s": 0.45,
+  "longest_without_kick_design_s": 0.403,
+  "longest_without_kick_at_bound_s": 0.452,
+  "ratio_T_wd_design": 2.4813895781637716,
+  "ratio_T_wd_at_bound": 2.2123893805309733,
+  "erase_bound_max_for_ratio_2_s": 0.498,
+  "erase_max_tolerated_s": 0.449,
+  "hang_to_selftest_design_s": 1.1,
+  "hang_to_selftest_if_driver_feeds_s": 2.1,
+  "req_sys_155_latency": {
+   "program_window_s": 0.051000000000000004,
+   "erase_window_design_s": 0.404,
+   "erase_window_at_bound_s": 0.453
+  },
+  "battery_supervision_period_max_s": 0.547,
+  "layout": {
+   "A": "0x3FD000",
+   "B": "0x3FE000",
+   "reserved_E10": "0x3FF000",
+   "log0": "0x3F5000",
+   "log1": "0x3F6000",
+   "log2": "0x3F7000",
+   "log3": "0x3F8000",
+   "log4": "0x3F9000",
+   "log5": "0x3FA000",
+   "log6": "0x3FB000",
+   "log7": "0x3FC000"
+  },
+  "app_flash_end": "0x3F5000",
+  "e10_alias_offset": "0x3FFF00",
+  "e10_alias_sector": "0x3FF000",
+  "wear": {
+   "cfg_erases_per_sector_life": 2281.25,
+   "cfg_commits_per_day_at_endurance": 876.7123287671233,
+   "log_erases_per_sector_life": 2851.5625,
+   "erase_windows_per_day": 7.5
+  },
+  "boot_scan_32_pages_s": 0.002176,
+  "option_C_hang_to_selftest_s": {
+   "one_sector": 1.988056,
+   "two_sectors": 2.389056
+  }
+ },
+ "uart": {
+  "96MHz": {
+   "IBRD": 52,
+   "FBRD": 5,
+   "baud": 115211.52115211521,
+   "error": 0.00010001000100001711
+  },
+  "150MHz": {
+   "IBRD": 81,
+   "FBRD": 24,
+   "baud": 115207.3732718894,
+   "error": 6.400409626228232e-05
+  },
+  "capture": {
+   "samples_per_bit": 8.680555555555555,
+   "baud_mismatch_tolerance": 0.04050526315789474
+  },
+  "load_Bps": {
+   "STAT_1Hz": 120,
+   "KEY_edges_50WPM": 1666.6666666666665,
+   "MODE_EVT_10_per_s": 800
+  },
+  "capacity_Bps": 11520.0,
+  "utilisation": 0.22453703703703703,
+  "fifo_gap_s": 0.002777777777777778,
+  "ring_bytes": 1024,
+  "golden_lines": [
+   {
+    "line": "$BOOT,0,81234,fw=0.1.0,img=1A2B3C4D,st=PASS*C5EFA6E4",
+    "bytes": 54,
+    "crc32": "C5EFA6E4"
+   },
+   {
+    "line": "$MODE,1,1500000,from=SELFTEST,to=RECEIVE,tr=T08,cause=PASS,pa=0*7EFF33FF",
+    "bytes": 74,
+    "crc32": "7EFF33FF"
+   },
+   {
+    "line": "$STAT,2,2000000,mode=RECEIVE,flags=00,c1=3912,c2=3905,tpa=251,drop=0*9D525546",
+    "bytes": 79,
+    "crc32": "9D525546"
+   },
+   {
+    "line": "$EVT,3,2100417,ev=TXKEY,v=1*B473D807",
+    "bytes": 38,
+    "crc32": "B473D807"
+   },
+   {
+    "line": "$STAT,65535,18446744073709551615,mode=FAULTSAFE,flags=0F,c1=4200,c2=4200,tpa=-200,drop=65535*12F4B686",
+    "bytes": 103,
+    "crc32": "12F4B686"
+   }
+  ]
+ },
+ "assertions": 83,
+ "failed": []
+}
