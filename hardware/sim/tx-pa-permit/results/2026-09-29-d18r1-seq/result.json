@@ -1,0 +1,958 @@
+{
+  "run_id": "2026-09-29-d18r1-seq",
+  "deck": "d18_seq.cir",
+  "script": "d18_run.py",
+  "model": {
+    "dmp3099l": {
+      "cls": "D",
+      "src": "Diodes DMP3099L DS36081 Rev. 5-2 (May 2025), page 2 and Figure 7",
+      "vgs_th_min": -1.0,
+      "vgs_th_max": -2.1,
+      "rds_on_4v5": 0.099,
+      "idss_na": 800,
+      "ciss_pf": 563,
+      "crss_pf": 41,
+      "rg": 10.3,
+      "idm_a": 11.0,
+      "vgs_th_hot_min": -0.73,
+      "vgs_th_hot_note": "DD/E: Figure 7 (typical, -250 uA) falls from about 1.76 V at 25 C to 1.57 V at 100 C and 1.35 V at 150 C, about -2.6 mV/K; applied to the -1.0 V minimum: -0.81 V at 100 C, -0.73 V at 125 C"
+    },
+    "2n3904": {
+      "cls": "D",
+      "src": "onsemi 2N3903/D Rev. 9 (Aug 2021): hFE min 40 at 0.1 mA, 70 at 1 mA; VCE(sat) 0.2 V max and VBE(sat) 0.65 to 0.85 V at 10 mA / 1 mA; ICEX 50 nA max at 30 V; ts 200 ns. SPICE model: the widely published Fairchild/onsemi 2N3904 model, BF stepped",
+      "hfe_min_0ma1": 40,
+      "hfe_min_1ma": 70,
+      "vce_sat": 0.2,
+      "vbe_sat_max": 0.85,
+      "icex_na": 50,
+      "beta_cases": [
+        70,
+        416
+      ]
+    },
+    "2n7002": {
+      "cls": "D",
+      "src": "Nexperia 2N7002 Rev. 7 (8 Sep 2011) Table 6",
+      "vgs_th": [
+        1.0,
+        2.0,
+        2.5
+      ],
+      "vgs_th_cold_max": 2.75,
+      "vgs_th_hot_min": 0.6,
+      "rds_on_4v5_max": 5.3,
+      "idss_150c_ua": 10
+    },
+    "74lvc1g11": {
+      "cls": "D",
+      "src": "Nexperia 74LVC1G11 Rev. 13.1 (15 Aug 2023) Tables 6 to 8",
+      "vih": 2.0,
+      "vil": 0.8,
+      "voh_100ua": "VCC-0.1",
+      "vi_max": 5.5,
+      "ioff_ua": 2,
+      "tpd_max_ns": 4.9,
+      "note": "inputs 5 V tolerant at any VCC (VI 0 to 5.5 V); IOFF partial power-down"
+    },
+    "rp2350": {
+      "cls": "D",
+      "src": "RP2350 datasheet Table 1436 as quoted in docs/research/keyer-verification-and-key-input-network.md: VOH min 2.62 V, VOL max 0.5 V; erratum E9 pad leakage about 120 uA (typical, A2 stepping)",
+      "voh_min": 2.62,
+      "vol_max": 0.5,
+      "e9_ua": 120
+    },
+    "lm393": {
+      "cls": "D",
+      "src": "TI LM393 SLCS005AH (Apr 2025): VOL 400 mV max at 4 mA (25 C), 700 mV full range; IOH 0.1 nA typ at 5 V",
+      "vol_max_4ma": 0.7
+    },
+    "gva84": {
+      "cls": "D",
+      "src": "Mini-Circuits GVA-84+ Rev. F: fixed +5 V operation, device 4.8/5.0/5.2 V, 85/108/130 mA, 0.058 mA/mV, gain 22.9/24.1/25.3 dB at 0.1 GHz, input max +13 dBm, Darlington (transient protected)",
+      "i_typ": 0.108,
+      "di_dv": 0.058,
+      "v_cut": 3.14,
+      "v_cut_note": "E: I(V) = 0.058 A/V x (V - 3.14 V), the datasheet slope at 5 V extrapolated to zero current (3.14 V, about two InGaP base-emitter drops plus the internal resistors); soft-plus below"
+    },
+    "1n5711w": {
+      "cls": "D",
+      "src": "Diodes 1N5711W DS11015 Rev. 15-2 (Aug 2022), Electrical Characteristics: VF 0.41 V max at 1 mA, 1.00 V max at 15 mA; IR 200 nA max at 50 V; V(BR)R 70 V min; IFM 15 mA; CT 2.0 pF max. BOM row 14 part",
+      "vf_1ma": 0.41,
+      "vf_15ma": 1.0,
+      "ir_na_50v": 200,
+      "ifm_ma": 15,
+      "fit": "DD: SPICE diode through both VF maxima (Is 1.07 nA, N 1.05, Rs 36.9 ohm), a maximum-VF model; hot reverse leakage x 64 at about +60 K (E), 12.8 uA, taken analytically"
+    },
+    "cutoff_sinks": {
+      "cls": "E",
+      "src": "TS-012 section 8.1: the REQ-SYS-055 monostable, the REQ-SYS-180 backstop, the REQ-SYS-181 95 C trip and the cell 60 C trip are LM393 open-collector outputs (VOL 0.7 V max full range at 4 mA, IOH-LKG 20 nA); the REQ-SYS-092 VBUS inhibit is an open-collector or open-drain pull whose part the TS-005 remnant sets, modelled here as a 2N7002-class open drain (5.3 ohm, IDSS 10 uA hot)"
+    },
+    "lm2940_bus": {
+      "cls": "E",
+      "src": "LM2940-5 as a 5.0 V source, 4.75 to 5.25 V (TI SNVS769J 6.5 as TS-012 quotes it); 50 mohm and 5 uH for the regulator's loop response, 22 uF output capacitor (E)"
+    },
+    "f3": {
+      "cls": "E",
+      "src": "spurs-ts012.md F3: GVA-84+ supply through a ferrite bead and 22 uF; here placed upstream of the P-FET (bead 0.2 ohm + 1 uH, 22 uF, 10 mohm ESR)"
+    }
+  },
+  "criteria": {
+    "t_on_ms": {
+      "limit": 0.25,
+      "sense": "<=",
+      "text": "driver supply within 50 mV of its source after the later of PA_EN and TX_KEY (budget: 2 ms nominal lead, 0.5 ms in the interval-13 fallback; limit half of the fallback lead)"
+    },
+    "clamp_release_ms": {
+      "limit": 0.25,
+      "sense": "<=",
+      "text": "clamp gate at most 0.3 V after the later of PA_EN and TX_KEY (before the ramp)"
+    },
+    "vgs_on_v": {
+      "limit": -4.0,
+      "sense": "<=",
+      "text": "P-FET VGS while permitted (RDS(on) is specified at -4.5 V; -4.0 V keeps it at least 1.9 V beyond the -2.1 V threshold)"
+    },
+    "drop_mv": {
+      "limit": 30.0,
+      "sense": "<=",
+      "text": "P-FET drop at the GVA-84+ current while permitted"
+    },
+    "inrush_a": {
+      "limit": 11.0,
+      "sense": "<=",
+      "text": "P-FET peak current at turn-on (DMP3099L IDM 11 A, pulse <= 10 us)"
+    },
+    "bus_dip_mv": {
+      "limit": 100.0,
+      "sense": "<=",
+      "text": "5 V bus dip at driver turn-on (Q, error amplifier and monostables on the bus)"
+    },
+    "vgs_off_v": {
+      "limit": -0.3,
+      "sense": ">=",
+      "text": "P-FET VGS in the key-up window (at most 0.3 V, against the lowest threshold magnitude 0.73 V, hot estimate)"
+    },
+    "vtx5_keyup_mv": {
+      "limit": 50.0,
+      "sense": "<=",
+      "text": "driver supply in the key-up window (GVA-84+ draws no current below about 3.1 V)"
+    },
+    "t_off_ms": {
+      "limit": 1.0,
+      "sense": "<=",
+      "text": "driver supply below 0.1 V after TX_KEY falls"
+    },
+    "clamp_gate_keyup_v": {
+      "limit": 4.0,
+      "sense": ">=",
+      "text": "clamp gate in the key-up window (RDS(on) specified at 4.5 V; threshold at most 2.75 V)"
+    },
+    "vgg_keyup_mv": {
+      "limit": 50.0,
+      "sense": "<=",
+      "text": "VGG in the key-up window, error amplifier wound to the rail in half the cases (module dead zone to about 2.3 V)"
+    },
+    "pre_permit_off": {
+      "limit": 0.05,
+      "sense": "<=",
+      "text": "driver supply (V) while only one of PA_EN and TX_KEY is high (7 to 8 ms; 8 to 11 ms in the fallback): a single line does not power the driver"
+    },
+    "keyup_dbm_L1": {
+      "limit": -30.0,
+      "sense": "<=",
+      "text": "REQ-TX-014 level in the key-up window, estimates (GVA-84+ unpowered 19.6 dB, module VGG-off 30 dB)"
+    },
+    "keyup_dbm_L2": {
+      "limit": -30.0,
+      "sense": "<=",
+      "text": "REQ-TX-014 level in the key-up window, GVA-84+ passive bound (0 dB), module 30 dB"
+    },
+    "keyup_dbm_L3": {
+      "limit": -30.0,
+      "sense": "<=",
+      "text": "REQ-TX-014 level in the key-up window, estimate, module at the datasheet 'up to 60 dB'"
+    },
+    "keyup_dbm_L4": {
+      "limit": -30.0,
+      "sense": "<=",
+      "text": "REQ-TX-014 level in the key-up window, drive bound (smallest pad, highest pre-pad level), GVA-84+ 0 dB, module 30 dB"
+    }
+  },
+  "isolation_cases": {
+    "L1": {
+      "name": "estimates (GVA-84+ unpowered 19.6 dB, module VGG-off 30 dB)",
+      "pin": -5.267541260631923,
+      "iso_g": 19.569295820427158,
+      "iso_m": 30.0
+    },
+    "L2": {
+      "name": "GVA-84+ passive bound (0 dB), module 30 dB",
+      "pin": -5.267541260631923,
+      "iso_g": 0.0,
+      "iso_m": 30.0
+    },
+    "L3": {
+      "name": "estimate, module at the datasheet 'up to 60 dB'",
+      "pin": -5.267541260631923,
+      "iso_g": 19.569295820427158,
+      "iso_m": 60.0
+    },
+    "L4": {
+      "name": "drive bound (smallest pad, highest pre-pad level), GVA-84+ 0 dB, module 30 dB",
+      "pin": -0.4936373073770639,
+      "iso_g": 0.0,
+      "iso_m": 30.0
+    }
+  },
+  "all_cases_pass": {
+    "off_when_not_permitted": true,
+    "on_when_permitted": true
+  },
+  "failing_cases": {
+    "off_when_not_permitted": [],
+    "on_when_permitted": []
+  },
+  "cases": [
+    {
+      "case": 1,
+      "tag": "S1",
+      "desc": "5 V bus first (1 ms), 3V3 at 6 ms (1 ms soft start), GPIOs high impedance with the pull-downs and E9 leakage until 12 ms, then driven; permit 20 to 30 ms",
+      "permit": [
+        [
+          0.02,
+          0.03
+        ]
+      ],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 0.035579390823841095,
+        "vgg_off_max_v": 0.008966558612883091,
+        "vgg_ramp_max_v": 1.0476782321929932,
+        "vtx5_on_min_margin_v": -0.007640361785888672,
+        "clamp_gate_on_max_v": 0.04352521523833275,
+        "vtx5_end_v": 1.9878990897836957e-08,
+        "vgg_end_v": 0.007805704139173031,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -1.074991984317819e-06,
+        "q_end_v": 4.999974727630615
+      },
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      }
+    },
+    {
+      "case": 2,
+      "tag": "S2",
+      "desc": "3V3 first (USB), GPIOs driven low from 3 ms, 5 V bus at 8 ms; permit 20 to 30 ms",
+      "permit": [
+        [
+          0.02,
+          0.03
+        ]
+      ],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 0.03517788648605347,
+        "vgg_off_max_v": 0.00850706733763218,
+        "vgg_ramp_max_v": 1.0678422451019287,
+        "vtx5_on_min_margin_v": -0.007640838623046875,
+        "clamp_gate_on_max_v": 0.04353189840912819,
+        "vtx5_end_v": 1.1554347700837297e-08,
+        "vgg_end_v": 0.0078057097271084785,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -1.0749908740947944e-06,
+        "q_end_v": 4.999974727630615
+      },
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      }
+    },
+    {
+      "case": 3,
+      "tag": "S3",
+      "desc": "3V3 brown-out while permitted: 3V3 falls 3.3 to 0 V from 20 to 21 ms; the GPIO highs follow it",
+      "permit": [
+        [
+          0.005,
+          0.021
+        ]
+      ],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 0.007747485768049955,
+        "vgg_off_max_v": 0.007805711589753628,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007640838623046875,
+        "clamp_gate_on_max_v": 0.043531861156225204,
+        "vtx5_end_v": 8.028437150642276e-07,
+        "vgg_end_v": 0.007805707398802042,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -1.074994870897683e-06,
+        "q_end_v": 4.999974727630615
+      },
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      }
+    },
+    {
+      "case": 4,
+      "tag": "S4",
+      "desc": "5 V bus collapse while permitted: bus falls to 0 from 20 to 21 ms (Q follows through its pull-up)",
+      "permit": [
+        [
+          0.005,
+          0.021
+        ]
+      ],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 0.004280637484043837,
+        "vgg_off_max_v": 0.007805709261447191,
+        "vgg_ramp_max_v": 6.666576837233151e-07,
+        "vtx5_on_min_margin_v": -0.007640838623046875,
+        "clamp_gate_on_max_v": 0.043531861156225204,
+        "vtx5_end_v": 6.72942994731085e-12,
+        "vgg_end_v": 1.2479100064410886e-07,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -2.2962993743362407e-11,
+        "q_end_v": 7.066983584991249e-07
+      },
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      }
+    },
+    {
+      "case": 5,
+      "tag": "L1",
+      "desc": "monostable expires (Q low) at 20 ms with TX_KEY and PA_EN high",
+      "permit": [
+        [
+          0.005,
+          0.02
+        ]
+      ],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 0.035168491303920746,
+        "vgg_off_max_v": 0.007808892522007227,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007640838623046875,
+        "clamp_gate_on_max_v": 0.043531861156225204,
+        "vtx5_end_v": 2.3140037441748973e-08,
+        "vgg_end_v": 0.007802755106240511,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -0.00044614338889914507,
+        "q_end_v": 0.03853864595293999
+      },
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      }
+    },
+    {
+      "case": 6,
+      "tag": "L2",
+      "desc": "SW-SAFE clears PA_EN at 20 ms with TX_KEY stuck high",
+      "permit": [
+        [
+          0.005,
+          0.02
+        ]
+      ],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 0.03551493585109711,
+        "vgg_off_max_v": 0.007805710192769766,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007640838623046875,
+        "clamp_gate_on_max_v": 0.043531861156225204,
+        "vtx5_end_v": 2.041110214179298e-08,
+        "vgg_end_v": 0.007805710192769766,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -1.074990985117097e-06,
+        "q_end_v": 4.999974727630615
+      },
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      }
+    },
+    {
+      "case": 7,
+      "tag": "L3",
+      "desc": "TX_KEY stuck high, PA_EN never set (a single stuck line)",
+      "permit": [],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 2.4200003778673818e-08,
+        "vgg_off_max_v": 0.007805709261447191,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": null,
+        "clamp_gate_on_max_v": null,
+        "vtx5_end_v": 2.4200003778673818e-08,
+        "vgg_end_v": 0.007805709261447191,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -1.074992206362424e-06,
+        "q_end_v": 4.999974727630615
+      },
+      "passed": {
+        "off_when_not_permitted": true
+      }
+    },
+    {
+      "case": 8,
+      "tag": "L4",
+      "desc": "PA_EN stuck high (or a corrupted permit flag), TX_KEY never set",
+      "permit": [],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 2.4200003778673818e-08,
+        "vgg_off_max_v": 0.007805709261447191,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": null,
+        "clamp_gate_on_max_v": null,
+        "vtx5_end_v": 2.4200003778673818e-08,
+        "vgg_end_v": 0.007805709261447191,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -1.074992206362424e-06,
+        "q_end_v": 4.999974727630615
+      },
+      "passed": {
+        "off_when_not_permitted": true
+      }
+    },
+    {
+      "case": 9,
+      "tag": "F1",
+      "desc": "U1 output open (lifted pin or missing part) with all three inputs high",
+      "permit": [],
+      "expect": {},
+      "faults": {
+        "RUOPEN": "1e12"
+      },
+      "metrics": {
+        "vtx5_off_max_v": 2.4200270232199728e-08,
+        "vgg_off_max_v": 0.007805709261447191,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": null,
+        "clamp_gate_on_max_v": null,
+        "vtx5_end_v": 2.41999984496033e-08,
+        "vgg_end_v": 0.007805709261447191,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -1.074992206362424e-06,
+        "q_end_v": 4.999974727630615
+      },
+      "passed": {
+        "off_when_not_permitted": true
+      }
+    },
+    {
+      "case": 10,
+      "tag": "F2",
+      "desc": "branch P pull-up (10 k gate to source) open: permit 5 to 20 ms, then TX_KEY falls",
+      "permit": [
+        [
+          0.005,
+          0.02
+        ]
+      ],
+      "expect": {
+        "driver_after_permit": "on (P-FET gate holds its charge)",
+        "clamp": "on"
+      },
+      "faults": {
+        "RPU1V": "1e12"
+      },
+      "metrics": {
+        "vtx5_off_max_v": 4.966525077819824,
+        "vgg_off_max_v": 0.007807585876435041,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007083892822265625,
+        "clamp_gate_on_max_v": 0.04378948733210564,
+        "vtx5_end_v": 4.966525077819824,
+        "vgg_end_v": 0.0078071411699056625,
+        "level_end_dbm_L1": -14.667541260631921,
+        "level_off_max_dbm_L1": -14.667541260631921,
+        "level_end_dbm_L2": -14.667541260631921,
+        "level_off_max_dbm_L2": -14.667541260631921,
+        "level_end_dbm_L3": -44.66754126063192,
+        "level_off_max_dbm_L3": -44.66754126063192,
+        "level_end_dbm_L4": -9.893637307377062,
+        "level_off_max_dbm_L4": -9.893637307377062,
+        "d1_current_end_ma": -1.0750094148193057e-06,
+        "q_end_v": 4.9946088790893555,
+        "state": {
+          "driver_after_permit": "on (P-FET gate holds its charge)",
+          "clamp": "on"
+        }
+      },
+      "passed": {
+        "as_expected": true
+      }
+    },
+    {
+      "case": 11,
+      "tag": "F3",
+      "desc": "Q2 collector-emitter short (1 ohm): no permit at any time",
+      "permit": [],
+      "expect": {
+        "driver": "on",
+        "clamp": "on"
+      },
+      "faults": {
+        "RQ2SH": "1"
+      },
+      "metrics": {
+        "vtx5_off_max_v": 4.96589994430542,
+        "vgg_off_max_v": 0.0078071472235023975,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": null,
+        "clamp_gate_on_max_v": null,
+        "vtx5_end_v": 4.96589994430542,
+        "vgg_end_v": 0.0078071472235023975,
+        "level_end_dbm_L1": -14.667541260631921,
+        "level_off_max_dbm_L1": -14.667541260631921,
+        "level_end_dbm_L2": -14.667541260631921,
+        "level_off_max_dbm_L2": -14.667541260631921,
+        "level_end_dbm_L3": -44.66754126063192,
+        "level_off_max_dbm_L3": -44.66754126063192,
+        "level_end_dbm_L4": -9.893637307377062,
+        "level_off_max_dbm_L4": -9.893637307377062,
+        "d1_current_end_ma": -1.0749867662696033e-06,
+        "q_end_v": 4.9945878982543945,
+        "state": {
+          "driver": "on",
+          "clamp": "on"
+        }
+      },
+      "passed": {
+        "as_expected": true
+      }
+    },
+    {
+      "case": 12,
+      "tag": "F4",
+      "desc": "branch C pull-up (10 k to the 5 V bus) open: no permit at any time",
+      "permit": [],
+      "expect": {
+        "driver": "off",
+        "clamp": "off"
+      },
+      "faults": {
+        "RPU2V": "1e12"
+      },
+      "metrics": {
+        "vtx5_off_max_v": 2.4200003778673818e-08,
+        "vgg_off_max_v": 3.2692322731018066,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": null,
+        "clamp_gate_on_max_v": null,
+        "vtx5_end_v": 2.4200003778673818e-08,
+        "vgg_end_v": 3.2692322731018066,
+        "level_end_dbm_L1": -4.392283840059676,
+        "level_off_max_dbm_L1": -4.392283840059676,
+        "level_end_dbm_L2": 15.177011980367482,
+        "level_off_max_dbm_L2": 15.177011980367482,
+        "level_end_dbm_L3": -4.392301334310549,
+        "level_off_max_dbm_L3": -4.392301334310549,
+        "level_end_dbm_L4": 15.177047036247876,
+        "level_off_max_dbm_L4": 15.177047036247876,
+        "d1_current_end_ma": -1.0717308152052851e-06,
+        "q_end_v": 4.999974727630615,
+        "state": {
+          "driver": "off",
+          "clamp": "off"
+        }
+      },
+      "passed": {
+        "as_expected": true
+      }
+    },
+    {
+      "case": 13,
+      "tag": "F5",
+      "desc": "Q3 collector-emitter short (1 ohm): no permit at any time",
+      "permit": [],
+      "expect": {
+        "driver": "off",
+        "clamp": "off"
+      },
+      "faults": {
+        "RQ3SH": "1"
+      },
+      "metrics": {
+        "vtx5_off_max_v": 2.4199891868192935e-08,
+        "vgg_off_max_v": 3.2692155838012695,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": null,
+        "clamp_gate_on_max_v": null,
+        "vtx5_end_v": 2.4199886539122417e-08,
+        "vgg_end_v": 3.2692155838012695,
+        "level_end_dbm_L1": -4.392294507642059,
+        "level_off_max_dbm_L1": -4.392294507642059,
+        "level_end_dbm_L2": 15.1770013127851,
+        "level_off_max_dbm_L2": 15.1770013127851,
+        "level_end_dbm_L3": -4.3923120019359025,
+        "level_off_max_dbm_L3": -4.3923120019359025,
+        "level_end_dbm_L4": 15.177036368751601,
+        "level_off_max_dbm_L4": 15.177036368751601,
+        "d1_current_end_ma": -1.0717305931606802e-06,
+        "q_end_v": 4.9999494552612305,
+        "state": {
+          "driver": "off",
+          "clamp": "off"
+        }
+      },
+      "passed": {
+        "as_expected": true
+      }
+    },
+    {
+      "case": 14,
+      "tag": "C1",
+      "desc": "REQ-SYS-180 backstop (LM393 #1, at its 0.7 V VOL maximum) pulls the Q node at 20 ms with TX_KEY and PA_EN high and the monostable retriggered (its own output high); stands for the REQ-SYS-181 95 C trip and the cell 60 C trip, the same LM393 output on the same node",
+      "permit": [
+        [
+          0.005,
+          0.02
+        ]
+      ],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 0.03488102927803993,
+        "vgg_off_max_v": 0.007808562833815813,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007640838623046875,
+        "clamp_gate_on_max_v": 0.043531861156225204,
+        "vtx5_end_v": 1.4092616851257844e-08,
+        "vgg_end_v": 0.00780852185562253,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": 0.0019232027170801302,
+        "q_end_v": 0.7009122371673584
+      },
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      }
+    },
+    {
+      "case": 15,
+      "tag": "C2",
+      "desc": "REQ-SYS-092 VBUS inhibit held from power-up: USB first (3V3 at 1 ms), inhibit on from 1 ms, a fault build drives TX_KEY and PA_EN high from 3 ms, cells in (5 V bus) at 8 ms; never permitted",
+      "permit": [],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 0.005896843504160643,
+        "vgg_off_max_v": 0.008709761314094067,
+        "vgg_ramp_max_v": 0.3994751572608948,
+        "vtx5_on_min_margin_v": null,
+        "clamp_gate_on_max_v": null,
+        "vtx5_end_v": 2.502613583033053e-08,
+        "vgg_end_v": 0.0078057111240923405,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": 3.8511954736364373e-07,
+        "q_end_v": 0.002648798283189535
+      },
+      "passed": {
+        "off_when_not_permitted": true
+      }
+    },
+    {
+      "case": 16,
+      "tag": "C3",
+      "desc": "REQ-SYS-092 VBUS inhibit arrives at 20 ms (USB plugged in during an over), TX_KEY and PA_EN high",
+      "permit": [
+        [
+          0.005,
+          0.02
+        ]
+      ],
+      "expect": {},
+      "faults": {},
+      "metrics": {
+        "vtx5_off_max_v": 0.035976868122816086,
+        "vgg_off_max_v": 0.007808785419911146,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007640838623046875,
+        "clamp_gate_on_max_v": 0.043531861156225204,
+        "vtx5_end_v": 3.44748229963443e-08,
+        "vgg_end_v": 0.007802847772836685,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -0.0013604396826849552,
+        "q_end_v": 0.0008493232307955623
+      },
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      }
+    },
+    {
+      "case": 17,
+      "tag": "C4",
+      "desc": "D1 open (single fault) and the backstop pulls Q at 20 ms: U1 still acts",
+      "permit": [
+        [
+          0.005,
+          0.02
+        ]
+      ],
+      "expect": {},
+      "faults": {
+        "RD1SER": "1e12"
+      },
+      "metrics": {
+        "vtx5_off_max_v": 0.036418382078409195,
+        "vgg_off_max_v": 0.007805713918060064,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007640361785888672,
+        "clamp_gate_on_max_v": 0.04353023320436478,
+        "vtx5_end_v": 2.92340445184891e-08,
+        "vgg_end_v": 0.007805707398802042,
+        "level_end_dbm_L1": -58.33683708105908,
+        "level_off_max_dbm_L1": -58.33683708105908,
+        "level_end_dbm_L2": -38.76754126063192,
+        "level_off_max_dbm_L2": -38.76754126063192,
+        "level_end_dbm_L3": -88.33683708105909,
+        "level_off_max_dbm_L3": -88.33683708105909,
+        "level_end_dbm_L4": -33.993637307377064,
+        "level_off_max_dbm_L4": -33.993637307377064,
+        "d1_current_end_ma": -6.926066165903466e-10,
+        "q_end_v": 0.7004299759864807
+      },
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      }
+    },
+    {
+      "case": 18,
+      "tag": "A1",
+      "desc": "as TS-012 section 8.1 draws it: the backstop pull on the VGG node (not on Q), D1 absent, at 20 ms with TX_KEY, PA_EN and Q high (the finding's case)",
+      "permit": [
+        [
+          0.005,
+          0.02
+        ]
+      ],
+      "expect": {
+        "driver": "on",
+        "vgg": "under the dead zone"
+      },
+      "faults": {
+        "RD1SER": "1e12"
+      },
+      "metrics": {
+        "vtx5_off_max_v": 4.965826988220215,
+        "vgg_off_max_v": 0.7014551758766174,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007640361785888672,
+        "clamp_gate_on_max_v": 0.04353023320436478,
+        "vtx5_end_v": 4.965826988220215,
+        "vgg_end_v": 0.7014520764350891,
+        "level_end_dbm_L1": -14.667541260630937,
+        "level_off_max_dbm_L1": -14.667541260630937,
+        "level_end_dbm_L2": -14.667541260630937,
+        "level_off_max_dbm_L2": -14.667541260630937,
+        "level_end_dbm_L3": -44.66754125964878,
+        "level_off_max_dbm_L3": -44.66754125964871,
+        "level_end_dbm_L4": -9.893637307376736,
+        "level_off_max_dbm_L4": -9.893637307376736,
+        "d1_current_end_ma": -4.293014728429245e-09,
+        "q_end_v": 4.994573593139648,
+        "state": {
+          "driver": "on",
+          "vgg": "under the dead zone"
+        }
+      },
+      "passed": {
+        "as_expected": true
+      }
+    },
+    {
+      "case": 19,
+      "tag": "F6",
+      "desc": "U1 output shorted to 3V3 (stuck high) and the backstop pulls Q at 20 ms",
+      "permit": [
+        [
+          0.005,
+          0.02
+        ]
+      ],
+      "expect": {
+        "driver": "on",
+        "vgg": "under the dead zone"
+      },
+      "faults": {
+        "RU1STK": "1"
+      },
+      "metrics": {
+        "vtx5_off_max_v": 4.965826511383057,
+        "vgg_off_max_v": 3.2656936645507812,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007637500762939453,
+        "clamp_gate_on_max_v": 0.04345576837658882,
+        "vtx5_end_v": 4.9658050537109375,
+        "vgg_end_v": 1.1227177381515503,
+        "level_end_dbm_L1": -14.66754124458939,
+        "level_off_max_dbm_L1": 39.27474956170223,
+        "level_end_dbm_L2": -14.66754124458939,
+        "level_off_max_dbm_L2": 39.27474956170223,
+        "level_end_dbm_L3": -44.66752521813053,
+        "level_off_max_dbm_L3": 39.27473205833549,
+        "level_end_dbm_L4": -9.893637302032866,
+        "level_off_max_dbm_L4": 39.27478463584936,
+        "d1_current_end_ma": 1.2126762885600328,
+        "q_end_v": 0.7013415098190308,
+        "state": {
+          "driver": "on",
+          "vgg": "under the dead zone"
+        }
+      },
+      "passed": {
+        "as_expected": true
+      }
+    },
+    {
+      "case": 20,
+      "tag": "F7",
+      "desc": "U1 output shorted to 3V3 (stuck high) and the monostable expires at 20 ms (the 10 s cutoff)",
+      "permit": [
+        [
+          0.005,
+          0.02
+        ]
+      ],
+      "expect": {
+        "driver": "on",
+        "vgg": "under the dead zone"
+      },
+      "faults": {
+        "RU1STK": "1"
+      },
+      "metrics": {
+        "vtx5_off_max_v": 4.965826511383057,
+        "vgg_off_max_v": 3.2656936645507812,
+        "vgg_ramp_max_v": 0.0,
+        "vtx5_on_min_margin_v": -0.007637500762939453,
+        "clamp_gate_on_max_v": 0.04345576837658882,
+        "vtx5_end_v": 4.965802192687988,
+        "vgg_end_v": 0.6360088586807251,
+        "level_end_dbm_L1": -14.667541260631705,
+        "level_off_max_dbm_L1": 39.27474956170223,
+        "level_end_dbm_L2": -14.667541260631705,
+        "level_off_max_dbm_L2": 39.27474956170223,
+        "level_end_dbm_L3": -44.667541260414055,
+        "level_off_max_dbm_L3": 39.27473205833549,
+        "level_end_dbm_L4": -9.893637307376991,
+        "level_off_max_dbm_L4": 39.27478463584936,
+        "d1_current_end_ma": 1.4894820051267743,
+        "q_end_v": 0.19504688680171967,
+        "state": {
+          "driver": "on",
+          "vgg": "under the dead zone"
+        }
+      },
+      "passed": {
+        "as_expected": true
+      }
+    }
+  ]
+}

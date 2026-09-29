@@ -1,0 +1,723 @@
+{
+  "run_id": "2026-09-29-d18r1-summary",
+  "keyup_all_pass": {
+    "t_on_ms": true,
+    "clamp_release_ms": true,
+    "vgs_on_v": true,
+    "drop_mv": true,
+    "inrush_a": true,
+    "bus_dip_mv": true,
+    "vgs_off_v": true,
+    "vtx5_keyup_mv": true,
+    "t_off_ms": true,
+    "clamp_gate_keyup_v": true,
+    "vgg_keyup_mv": true,
+    "pre_permit_off": true,
+    "keyup_dbm_L1": true,
+    "keyup_dbm_L2": true,
+    "keyup_dbm_L3": true,
+    "keyup_dbm_L4": true
+  },
+  "keyup_failing": {
+    "t_on_ms": [],
+    "clamp_release_ms": [],
+    "vgs_on_v": [],
+    "drop_mv": [],
+    "inrush_a": [],
+    "bus_dip_mv": [],
+    "vgs_off_v": [],
+    "vtx5_keyup_mv": [],
+    "t_off_ms": [],
+    "clamp_gate_keyup_v": [],
+    "vgg_keyup_mv": [],
+    "pre_permit_off": [],
+    "keyup_dbm_L1": [],
+    "keyup_dbm_L2": [],
+    "keyup_dbm_L3": [],
+    "keyup_dbm_L4": []
+  },
+  "asis_expected_defect": {
+    "driver_not_off_in_some_cases": true,
+    "req_tx_014_fails_in_some_cases": true
+  },
+  "asis_n_driver_powered": 25,
+  "asis_n_req_tx_014_fail": 21,
+  "asis_cases": 36,
+  "seq": [
+    {
+      "tag": "S1",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "S2",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "S3",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "S4",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "L1",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "L2",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "L3",
+      "passed": {
+        "off_when_not_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "L4",
+      "passed": {
+        "off_when_not_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "F1",
+      "passed": {
+        "off_when_not_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "F2",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver_after_permit": "on (P-FET gate holds its charge)",
+        "clamp": "on"
+      }
+    },
+    {
+      "tag": "F3",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver": "on",
+        "clamp": "on"
+      }
+    },
+    {
+      "tag": "F4",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver": "off",
+        "clamp": "off"
+      }
+    },
+    {
+      "tag": "F5",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver": "off",
+        "clamp": "off"
+      }
+    },
+    {
+      "tag": "C1",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "C2",
+      "passed": {
+        "off_when_not_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "C3",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "C4",
+      "passed": {
+        "off_when_not_permitted": true,
+        "on_when_permitted": true
+      },
+      "state": null
+    },
+    {
+      "tag": "A1",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver": "on",
+        "vgg": "under the dead zone"
+      }
+    },
+    {
+      "tag": "F6",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver": "on",
+        "vgg": "under the dead zone"
+      }
+    },
+    {
+      "tag": "F7",
+      "passed": {
+        "as_expected": true
+      },
+      "state": {
+        "driver": "on",
+        "vgg": "under the dead zone"
+      }
+    }
+  ],
+  "levels": {
+    "L1": {
+      "name": "estimates (GVA-84+ unpowered 19.6 dB, module VGG-off 30 dB)",
+      "pin_dbm": -5.267541260631923,
+      "iso_gva_db": 19.569295820427158,
+      "iso_mod_db": 30.0,
+      "steady_analytic_dbm": -58.33683708105908,
+      "worst_sim_dbm": -58.33683708105908
+    },
+    "L2": {
+      "name": "GVA-84+ passive bound (0 dB), module 30 dB",
+      "pin_dbm": -5.267541260631923,
+      "iso_gva_db": 0.0,
+      "iso_mod_db": 30.0,
+      "steady_analytic_dbm": -38.76754126063192,
+      "worst_sim_dbm": -38.76754126063192
+    },
+    "L3": {
+      "name": "estimate, module at the datasheet 'up to 60 dB'",
+      "pin_dbm": -5.267541260631923,
+      "iso_gva_db": 19.569295820427158,
+      "iso_mod_db": 60.0,
+      "steady_analytic_dbm": -88.33683708105909,
+      "worst_sim_dbm": -88.33683708105909
+    },
+    "L4": {
+      "name": "drive bound (smallest pad, highest pre-pad level), GVA-84+ 0 dB, module 30 dB",
+      "pin_dbm": -0.4936373073770639,
+      "iso_gva_db": 0.0,
+      "iso_mod_db": 30.0,
+      "steady_analytic_dbm": -33.993637307377064,
+      "worst_sim_dbm": -33.993637307377064
+    }
+  },
+  "derived": {
+    "p_gva_in_sot_dbm": -5.267541260631923,
+    "p_gva_in_bound_dbm": -0.4936373073770639,
+    "rf_est_ohm": 851.6226953450209,
+    "iso_gva_est_db": 19.569295820427158,
+    "breakeven_iso_sum_db": {
+      "sot": 21.232458739368077,
+      "bound": 26.006362692622936
+    }
+  },
+  "req_sys_183_margin_db": {
+    "L1": 1.3368370810590804,
+    "L2": -18.232458739368077,
+    "L3": 31.336837081059087,
+    "L4": -23.006362692622936
+  },
+  "req_sys_183_off_states": {
+    "limit_dbm": -57.0,
+    "state_text": {
+      "lead": "lead-in before either line (t0 + 1 ms, CLK1 on, to the first of PA_EN and TX_KEY)",
+      "one": "one line only (PA_EN only 7 to 8 ms; TX_KEY only 8 to 11 ms in the interval-13 fallback)",
+      "keyup": "TX_KEY low, PA_EN high: between elements and through the hang time (REQ-TX-014 state)",
+      "end": "PA_EN cleared at the end of the over, CLK1 still on, relay not yet released"
+    },
+    "expected": {
+      "L1": "PASS",
+      "L2": "FAIL",
+      "L3": "PASS",
+      "L4": "FAIL"
+    },
+    "states": {
+      "lead": {
+        "L1": {
+          "worst_dbm": -58.33683708105908,
+          "margin_db": 1.3368370810590804,
+          "verdict": "PASS",
+          "n_cases": 52
+        },
+        "L2": {
+          "worst_dbm": -38.76754126063192,
+          "margin_db": -18.232458739368077,
+          "verdict": "FAIL",
+          "n_cases": 52
+        },
+        "L3": {
+          "worst_dbm": -88.33683708105909,
+          "margin_db": 31.336837081059087,
+          "verdict": "PASS",
+          "n_cases": 52
+        },
+        "L4": {
+          "worst_dbm": -33.993637307377064,
+          "margin_db": -23.006362692622936,
+          "verdict": "FAIL",
+          "n_cases": 52
+        }
+      },
+      "one": {
+        "L1": {
+          "worst_dbm": -58.33683708105908,
+          "margin_db": 1.3368370810590804,
+          "verdict": "PASS",
+          "n_cases": 52
+        },
+        "L2": {
+          "worst_dbm": -38.76754126063192,
+          "margin_db": -18.232458739368077,
+          "verdict": "FAIL",
+          "n_cases": 52
+        },
+        "L3": {
+          "worst_dbm": -88.33683708105909,
+          "margin_db": 31.336837081059087,
+          "verdict": "PASS",
+          "n_cases": 52
+        },
+        "L4": {
+          "worst_dbm": -33.993637307377064,
+          "margin_db": -23.006362692622936,
+          "verdict": "FAIL",
+          "n_cases": 52
+        }
+      },
+      "keyup": {
+        "L1": {
+          "worst_dbm": -58.33683708105908,
+          "margin_db": 1.3368370810590804,
+          "verdict": "PASS",
+          "n_cases": 52
+        },
+        "L2": {
+          "worst_dbm": -38.76754126063192,
+          "margin_db": -18.232458739368077,
+          "verdict": "FAIL",
+          "n_cases": 52
+        },
+        "L3": {
+          "worst_dbm": -88.33683708105909,
+          "margin_db": 31.336837081059087,
+          "verdict": "PASS",
+          "n_cases": 52
+        },
+        "L4": {
+          "worst_dbm": -33.993637307377064,
+          "margin_db": -23.006362692622936,
+          "verdict": "FAIL",
+          "n_cases": 52
+        }
+      },
+      "end": {
+        "L1": {
+          "worst_dbm": -58.33683708105908,
+          "margin_db": 1.3368370810590804,
+          "verdict": "PASS",
+          "n_cases": 52
+        },
+        "L2": {
+          "worst_dbm": -38.76754126063192,
+          "margin_db": -18.232458739368077,
+          "verdict": "FAIL",
+          "n_cases": 52
+        },
+        "L3": {
+          "worst_dbm": -88.33683708105909,
+          "margin_db": 31.336837081059087,
+          "verdict": "PASS",
+          "n_cases": 52
+        },
+        "L4": {
+          "worst_dbm": -33.993637307377064,
+          "margin_db": -23.006362692622936,
+          "verdict": "FAIL",
+          "n_cases": 52
+        }
+      }
+    },
+    "as_expected": true
+  },
+  "seq_cutoff_levels": {
+    "S1": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "S2": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "S3": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "S4": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "L1": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "L2": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "L3": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "L4": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "F1": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "F2": {
+      "L1": -14.667541260631921,
+      "L2": -14.667541260631921,
+      "L3": -44.66754126063192,
+      "L4": -9.893637307377062
+    },
+    "F3": {
+      "L1": -14.667541260631921,
+      "L2": -14.667541260631921,
+      "L3": -44.66754126063192,
+      "L4": -9.893637307377062
+    },
+    "F4": {
+      "L1": -4.392283840059676,
+      "L2": 15.177011980367482,
+      "L3": -4.392301334310549,
+      "L4": 15.177047036247876
+    },
+    "F5": {
+      "L1": -4.392294507642059,
+      "L2": 15.1770013127851,
+      "L3": -4.3923120019359025,
+      "L4": 15.177036368751601
+    },
+    "C1": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "C2": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "C3": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "C4": {
+      "L1": -58.33683708105908,
+      "L2": -38.76754126063192,
+      "L3": -88.33683708105909,
+      "L4": -33.993637307377064
+    },
+    "A1": {
+      "L1": -14.667541260630937,
+      "L2": -14.667541260630937,
+      "L3": -44.66754125964878,
+      "L4": -9.893637307376736
+    },
+    "F6": {
+      "L1": -14.66754124458939,
+      "L2": -14.66754124458939,
+      "L3": -44.66752521813053,
+      "L4": -9.893637302032866
+    },
+    "F7": {
+      "L1": -14.667541260631705,
+      "L2": -14.667541260631705,
+      "L3": -44.667541260414055,
+      "L4": -9.893637307376991
+    }
+  },
+  "asis_run": "2026-09-29-d18-asis",
+  "keyup_max_abs_delta_vs_rev0": {
+    "t_on_ms": 1.1101492865608908e-05,
+    "clamp_release_ms": 1.1113459805200954e-07,
+    "vgs_on_v": 1.621246337890625e-05,
+    "drop_mv": 0.00095367431640625,
+    "inrush_a": 0.04853343963623047,
+    "bus_dip_mv": 0.202178955078125,
+    "vgs_off_v": 4.76837158203125e-07,
+    "vtx5_keyup_mv": 0.031114817829802632,
+    "t_off_ms": 0.003324670599998192,
+    "clamp_gate_keyup_v": 0.00018072128295898438,
+    "vgg_keyup_mv": 1.2273583233080032e-05,
+    "pre_permit_off": 0.0,
+    "keyup_dbm_L1": 0.0,
+    "keyup_dbm_L2": 0.0,
+    "keyup_dbm_L3": 0.0,
+    "keyup_dbm_L4": 0.0,
+    "vgg_top_v": 1.6689300537109375e-06
+  },
+  "static_checks": [
+    {
+      "check": "GPIO high at U1 input (RP2350 VOH min)",
+      "value": 2.62,
+      "limit": 2.0,
+      "sense": ">=",
+      "margin": 0.6200000000000001,
+      "passed": true,
+      "basis": "RP2350 Table 1436 VOH 2.62 V; 74LVC1G11 VIH 2.0 V"
+    },
+    {
+      "check": "GPIO driven low at U1 input (RP2350 VOL max)",
+      "value": 0.5,
+      "limit": 0.8,
+      "sense": "<=",
+      "margin": 0.30000000000000004,
+      "passed": true,
+      "basis": "VOL 0.5 V; VIL 0.8 V"
+    },
+    {
+      "check": "GPIO high impedance (reset, boot): 4.7 k pull-down x E9 leakage 120 uA",
+      "value": 0.5640000000000001,
+      "limit": 0.8,
+      "sense": "<=",
+      "margin": 0.236,
+      "passed": true,
+      "basis": "RP2350-E9 about 120 uA (typical, A2 stepping); break-even leakage 170 uA"
+    },
+    {
+      "check": "Q high at U1 input: 5 V bus min less 10 k x (LM393 IOH 20 nA + U1 II 1 uA)",
+      "value": 4.7398,
+      "limit": 2.0,
+      "sense": ">=",
+      "margin": 2.7398,
+      "passed": true,
+      "basis": "LM2940 4.75 V; LM393 IOH-LKG 20 nA max at 5 V; 74LVC1G11 II +/-1 uA"
+    },
+    {
+      "check": "Q high at U1 input does not exceed VI max (5 V bus max)",
+      "value": 5.25,
+      "limit": 5.5,
+      "sense": "<=",
+      "margin": 0.25,
+      "passed": true,
+      "basis": "74LVC1G11 VI 0 to 5.5 V at any VCC (5 V tolerant input, IOFF at VCC 0)"
+    },
+    {
+      "check": "Q low at U1 input (LM393 VOL max, full range, at 4 mA; here 0.53 mA)",
+      "value": 0.7,
+      "limit": 0.8,
+      "sense": "<=",
+      "margin": 0.10000000000000009,
+      "passed": true,
+      "basis": "TI SLCS005AH"
+    },
+    {
+      "check": "2N3904 base current, U1 high at its guaranteed minimum",
+      "value": 0.00013649999999999998,
+      "limit": 0.0001,
+      "sense": ">=",
+      "margin": 3.649999999999998e-05,
+      "passed": true,
+      "basis": "(2.3 - 0.85) / 10 k - 0.85 / 100 k"
+    },
+    {
+      "check": "Forced beta, branch P (collector current / base current)",
+      "value": 3.496503496503497,
+      "limit": 40.0,
+      "sense": "<=",
+      "margin": 36.5034965034965,
+      "passed": true,
+      "basis": "2N3904 hFE min 40 at 0.1 mA, 70 at 1 mA (onsemi 2N3903/D Rev. 9)"
+    },
+    {
+      "check": "Forced beta, branch C",
+      "value": 3.8461538461538463,
+      "limit": 40.0,
+      "sense": "<=",
+      "margin": 36.15384615384615,
+      "passed": true,
+      "basis": "as above"
+    },
+    {
+      "check": "P-FET VGS permitted, 5 V bus 4.75 V less the bead drop (magnitude)",
+      "value": 4.1090909090909085,
+      "limit": 4.0,
+      "sense": ">=",
+      "margin": 0.10909090909090846,
+      "passed": true,
+      "basis": "10 k / 1 k divider from the 2N3904 VCE(sat) 0.2 V; DMP3099L RDS(on) 99 mohm specified at -4.5 V"
+    },
+    {
+      "check": "P-FET VGS not permitted: 10 k x 2N3904 collector leakage (ICEX 50 nA max at 25 C, x 100 hot, E)",
+      "value": 0.05,
+      "limit": 0.73,
+      "sense": "<=",
+      "margin": 0.6799999999999999,
+      "passed": true,
+      "basis": "DMP3099L |VGS(th)| min 1.0 V at 25 C, 0.73 V at 125 C (Figure 7 slope, DD/E)"
+    },
+    {
+      "check": "Driver node not permitted: 2.2 k bleed x DMP3099L IDSS (800 nA at 25 C x 64 for +60 K, E)",
+      "value": 0.11263999999999999,
+      "limit": 3.14,
+      "sense": "<=",
+      "margin": 3.0273600000000003,
+      "passed": true,
+      "basis": "GVA-84+ conducts above about 3.1 V (E)"
+    },
+    {
+      "check": "Clamp gate not permitted: 5 V bus min less 10 k x (2N3904 5 uA hot + 2N7002 IGSS 0.1 uA)",
+      "value": 4.699,
+      "limit": 4.5,
+      "sense": ">=",
+      "margin": 0.19899999999999984,
+      "passed": true,
+      "basis": "2N7002 RDS(on) 5.3 ohm max specified at 4.5 V"
+    },
+    {
+      "check": "Clamp gate permitted: 2N3904 VCE(sat) max against the 2N7002 VGS(th) min at 150 C",
+      "value": 0.2,
+      "limit": 0.6,
+      "sense": "<=",
+      "margin": 0.39999999999999997,
+      "passed": true,
+      "basis": "Nexperia 2N7002 VGS(th) 0.6 V min at 150 C"
+    },
+    {
+      "check": "VGG clamped, error amplifier at 5.25 V, 2N7002 RDS(on) at 150 C (scaled from the 10 V ratio)",
+      "value": 0.01899629309120029,
+      "limit": 0.05,
+      "sense": "<=",
+      "margin": 0.03100370690879971,
+      "passed": true,
+      "basis": "module dead zone to about 2.3 V"
+    },
+    {
+      "check": "Rev 1: Q high with every cutoff off: 4.75 V less 10 k x (4 LM393 x 20 nA + VBUS open drain 10 uA hot + U1 1 uA + D1 12.8 uA hot)",
+      "value": 4.5112,
+      "limit": 2.0,
+      "sense": ">=",
+      "margin": 2.5111999999999997,
+      "passed": true,
+      "basis": "LM393 IOH-LKG 20 nA; 2N7002 IDSS 10 uA at 150 C; 1N5711W IR 200 nA at 50 V x 64 (E)"
+    },
+    {
+      "check": "Rev 1: Q low, one LM393 cutoff on (VOL max full range at 4 mA)",
+      "value": 0.7,
+      "limit": 0.8,
+      "sense": "<=",
+      "margin": 0.10000000000000009,
+      "passed": true,
+      "basis": "TI SLCS005AH; load 0.53 mA from the pull-up, D1 not conducting while U1 clamps VGG"
+    },
+    {
+      "check": "Rev 1: LM393 sink current with U1 stuck high (pull-up + D1) within the 4 mA VOL test point",
+      "value": 0.0018301834124166408,
+      "limit": 0.004,
+      "sense": "<=",
+      "margin": 0.0021698165875833593,
+      "passed": true,
+      "basis": "VOL 0.7 V max is specified at 4 mA"
+    },
+    {
+      "check": "Rev 1: VGG through D1 with U1 stuck high, amplifier at 5.25 V (VOL 0.7 V + VF max model)",
+      "value": 1.128541591156776,
+      "limit": 2.0,
+      "sense": "<=",
+      "margin": 0.871458408843224,
+      "passed": true,
+      "basis": "module dead zone to about 2.3 V; 1N5711W VF 0.41 V at 1 mA, 1.00 V at 15 mA (maximum-VF fit)"
+    },
+    {
+      "check": "Rev 1: Q low, VBUS inhibit on (open drain 5.3 ohm x (pull-up + D1 current))",
+      "value": 0.009699972085808195,
+      "limit": 0.8,
+      "sense": "<=",
+      "margin": 0.7903000279141918,
+      "passed": true,
+      "basis": "2N7002-class open drain (E, part set by the TS-005 remnant)"
+    },
+    {
+      "check": "Rev 1: VGG raised by D1 hot leakage while clamped (12.8 uA x 9.8 ohm)",
+      "value": 0.000125504,
+      "limit": 0.05,
+      "sense": "<=",
+      "margin": 0.049874496000000004,
+      "passed": true,
+      "basis": "key-up VGG criterion 50 mV"
+    }
+  ]
+}

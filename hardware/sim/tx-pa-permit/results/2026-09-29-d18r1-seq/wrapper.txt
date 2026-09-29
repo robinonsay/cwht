@@ -1,0 +1,2 @@
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=d18_seq.cir sha256=047bd05d328f1aad1736a905069ac82ebb4deb4e3e31ac013a580d56460ee8d1 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=5s outputs=[d18_seq.log d18_seq.op.raw d18_seq.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-pa-permit/results/2026-09-29-d18r1-seq
