@@ -26,39 +26,55 @@
 # finding-1 to finding-10 as in iteration 1; iteration 2's finding-6, 7, 8, 9 are finding-11, 12, 13, 14; iteration 3
 # raises finding-15 and finding-16 and re-classifies finding-7 Major (mapping table in the iteration 3 section; the
 # earlier sections stay as filed).
+# Iteration 3 re-issue 1 (the owner-authorized fourth iteration, status note 2026-09-29 section 2, "Yes both recs sound
+# good"): a delta on note revision 4 at 63122e7 (fix of the escalated Major finding-7), written into this record with
+# the Edit tool by reviewer:WP-PDR-19-analysis-rx-bpf-iter4. The schema caps iteration at 3, so it is recorded as
+# "Iteration 3 re-issue 1" (precedent INSP-009, INSP-038, INSP-075, INSP-110); the body calls it the fourth iteration.
+# It verifies finding-7 and raises finding-17 (Minor).
 id: INSP-117
 checklist: peer-review-checklist-design
 checklist_revision: B
 checklist_analysis: "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/analysis-rx-bpf-ts012.md
 product: docs/design/analysis/rx-bpf-ts012.md
-# product_commit (iteration 3): a82f21b, note revision 3 with run r12 (the delta of rule C1). The blobs below are the
-# files a82f21b changed or added that the delta reviews, plus the unchanged library scripts r12 executes. Each equals
-# git rev-parse a82f21b:<path>, git rev-parse HEAD:<path> at HEAD 79795e4 and git hash-object <path> (19 of 19;
-# git log a82f21b..HEAD touches neither the note nor hardware/sim/rx-frontend). The iteration 2 blobs of the r07 to
-# r11 files (d2d89e9) are unchanged at a82f21b and are not repeated; LTspice .log and .raw are not listed (the
-# reviewer's re-run regenerated them). Iteration 2 listed 59 blobs at d2d89e9 (record at 79795e4).
-product_commit: "a82f21b09c6493369631f13c61d8eabbfe52b4b3"
-product_files: ["docs/design/analysis/rx-bpf-ts012.md@056d558087c8b02f0e1d3230c67ad9d2f0de93ed", "hardware/sim/rx-frontend/README.md@3fe9b26d30a92b43d6dbac0f533639bf29441fe0", "hardware/sim/rx-frontend/run_sims.py@da44cc64740590e54f9614a3ebf9b167d6d2d2da", "hardware/sim/rx-frontend/worst_case.py@29bd02fd4129b5ba508c20907ee024a58aa38663", "hardware/sim/rx-frontend/tolerance.py@e77b19ed1bfbd297186520ccf878e03b6fcbfd16", "hardware/sim/rx-frontend/bpf_nodal.py@f2fbc6c3cba656efd15c6e499351909d23e2b57d", "hardware/sim/rx-frontend/bpf_design.py@bb3e7e566f8146a5d53a295f5788f8ceac7297cb", "hardware/sim/rx-frontend/make_decks.py@f673891014d483a2ccf4c94111b6b909748671e2", "hardware/sim/rx-frontend/decks/bpf_2p3p3_if8_resid.net@67bc720f9c0ca0cd3a44359237852c85028ab82a", "hardware/sim/rx-frontend/decks/bpf_2p3p3_if8_resid_cases.json@1f0729e624f087dffcfd81d4711fd8b02cf0f748", "hardware/sim/rx-frontend/decks/bpf_2p3p4_if8_resid.net@795f98ecb4595681deccf34d35528aec1df21a48", "hardware/sim/rx-frontend/decks/bpf_2p3p4_if8_resid_cases.json@017ea722af7a19fe3db653a4adb12b2fb734720e", "hardware/sim/rx-frontend/decks/bpf_2p3p2_if10_resid.net@9b2c06f9186a796a699a9783f60761ebff7ba78f", "hardware/sim/rx-frontend/decks/bpf_2p3p2_if10_resid_cases.json@7820ff4d78ed8f466882491e6d17e548fe0a23a0", "hardware/sim/rx-frontend/results/2026-09-28-r12-bpf-residual-design-input/prepare.json@943866f0dbfc744e87ce248b2e6fbe4eb19d3e09", "hardware/sim/rx-frontend/results/2026-09-28-r12-bpf-residual-design-input/result.json@fee553df4fe05a655cf366e533d06459ac276d92", "hardware/sim/rx-frontend/results/2026-09-28-r12-bpf-residual-design-input/result.md@00439f62a7c933829a843cc94819f5d7d3e971a9", "hardware/sim/rx-frontend/results/2026-09-28-r12-bpf-residual-design-input/residual_design_input.png@255c9e6b5e125cf4a77eaf43a3db084f5bb38b9a", "hardware/sim/rx-frontend/results/2026-09-28-r12-bpf-residual-design-input/residual_2p3p3_zoom.png@fce6275c0b4eb240dab07c2391edb46a3476cc34"]
+# product_commit (iteration 3 re-issue 1): 63122e7, note revision 4 with run r13 (the delta of rule C1 on the
+# escalated finding-7). The blobs below are the files 63122e7 changed or added that the delta reviews, plus the
+# unchanged library scripts r13 executes. Each equals git rev-parse 63122e7:<path>, git rev-parse HEAD:<path> at HEAD
+# 63122e7 and git hash-object <path> (19 of 19). The r13 scripts/ copies are byte-identical to the frozen scripts;
+# LTspice .log and .raw are not listed (the reviewer's re-run regenerated them; every r13 .raw is under 5 MB, so no
+# raw.sha256 manifest is due). Iteration 3 listed 19 blobs at a82f21b (note 056d5580, worst_case.py 29bd02fd,
+# tolerance.py e77b19ed, README 3fe9b26d, run_sims.py da44cc64, the r12 decks and results); iteration 2 listed 59 at
+# d2d89e9 (record at 79795e4).
+product_commit: "63122e70b241c1999abf4eafc91e469b2ca982c9"
+product_files: ["docs/design/analysis/rx-bpf-ts012.md@11bb983640aa82034c4d31af0915d64c56245353", "hardware/sim/rx-frontend/README.md@f0951ca036c38f2fe12a57f3a23b26a665703ba3", "hardware/sim/rx-frontend/run_sims.py@923aeb147e759b91b075a19106b85b2f832d62b3", "hardware/sim/rx-frontend/worst_case.py@42dd5c11649db1b69b0445786e00061db3799e6b", "hardware/sim/rx-frontend/tolerance.py@64babc73cc15700c42f12dabf43fd5abe7f8b7ae", "hardware/sim/rx-frontend/bpf_nodal.py@f2fbc6c3cba656efd15c6e499351909d23e2b57d", "hardware/sim/rx-frontend/bpf_design.py@bb3e7e566f8146a5d53a295f5788f8ceac7297cb", "hardware/sim/rx-frontend/make_decks.py@f673891014d483a2ccf4c94111b6b909748671e2", "hardware/sim/rx-frontend/decks/bpf_2p3p4_if8_temp.net@4885fee8dce5aee3ed123331ad1b26574fb30d94", "hardware/sim/rx-frontend/decks/bpf_2p3p4_if8_temp_cases.json@2fe40353134402bd7199ba90d33935e00201640a", "hardware/sim/rx-frontend/decks/bpf_2p3p2_if10_temp.net@67d05f25b10e40ce6483d118faaba13abea6f87c", "hardware/sim/rx-frontend/decks/bpf_2p3p2_if10_temp_cases.json@5224758e5d92795cb7187c18376de1d1e03b703b", "hardware/sim/rx-frontend/decks/bpf_2p3p3_if8_temp.net@1866af62822cf9acfc371d6710ddd0197fb17420", "hardware/sim/rx-frontend/decks/bpf_2p3p3_if8_temp_cases.json@2ca4a123c85f69f6516c52a50bde3cad24ecc000", "hardware/sim/rx-frontend/results/2026-09-29-r13-bpf-temperature/prepare.json@2563a8e6ea612afd6ddddc73a6b1c8f65e55eb94", "hardware/sim/rx-frontend/results/2026-09-29-r13-bpf-temperature/result.json@0fd22a5d1c1ae98dc99fbe97be3bb332b3290f13", "hardware/sim/rx-frontend/results/2026-09-29-r13-bpf-temperature/result.md@ee226013035ee0213de4b654259ef491a9f0701e", "hardware/sim/rx-frontend/results/2026-09-29-r13-bpf-temperature/temperature_residual.png@2af3ecde27558b3b0ba086b3ed03879f9acb9566", "hardware/sim/rx-frontend/results/2026-09-29-r13-bpf-temperature/temperature_sweep.png@91e22b28a1eeff8a7a7f85ff06da34b239e9cd44"]
 analysis_kind: [simulation-deck, cascade, worst-case]
-product_size: "iteration 3: 1 note (468 lines, revision 3; 45 lines added, 16 removed); 2 scripts changed (worst_case.py +230 lines for r12, run_sims.py +2); README (9 lines); 3 new LTspice decks of 6 cases each (18 cases); 1 run r12 (45 grid points and 9 bisections); 2 new plots, both cited by the note"
+# product_size: iteration 3 was "1 note (468 lines, revision 3; 45 added, 16 removed); worst_case.py +230, run_sims.py
+# +2; README 9 lines; 3 decks of 6 cases (18); run r12 (45 grid points, 9 bisections); 2 new plots"
+product_size: "iteration 3 re-issue 1: 1 note (632 lines, revision 4; 210 lines added, 46 removed); 3 scripts changed (worst_case.py +300 -8 for r13, tolerance.py +17 -5, run_sims.py +2); README (+11 -5); 3 new LTspice decks (22 cases); 1 run r13 (99 grid points, 9 bisections, a 33-point board temperature sweep, 3 exact-map room cross-checks, 2 doubled-coefficient cases); 2 new plots, both cited by the note"
 tools_used: ["LTspice 26.0.2 for MacOS through tools/ltspice-batch.sh blob 88b71475 (TV-014, Accredited, ACC-LTSPICE-001)", "venv Python 3.13.5 (TV-001 accredits the interpreter); numpy 2.5.3, scipy 1.18.1, spicelib 1.6.3, matplotlib 3.11.2 (class B entries of tools/toolchain.lock.md section 2 without a TV record); no TV record covers hardware/sim/rx-frontend/*.py, including the numpy nodal solver: developer evidence per 05 section 9.1, as the note says"]
 # values_proposed: the note proposes no TBR value (REQ-SYS-033 70 dB and REQ-SYS-022 -140 dBm are kept; the 45 dB
 # relaxation is named and not recommended). It reports a TPM-005 current best estimate to the TPM owner (section 8)
 # and proposes design inputs (tolerance mode B, re-alignment residual, port VSWR 1.2, 0.03 pF stray) and a TS-012
 # criterion replacement, which are not requirement values.
-values_proposed: ["TPM-005: CBE -141.2 dBm (A5, 2 + 3 + 3, nominal cascade; A4 -141.5 dBm), Yellow (supported; estimates)"]
-# renders_inspected: iteration 3 opened the 2 new r12 plots the note cites (the committed files) and compared the
-# reviewer's regenerated copies pixel for pixel (equal); iteration 2 opened 16
+# values_proposed at iteration 3 re-issue 1: revision 4 moves the TPM-005 report to the design filter 2 + 3 + 4
+# (iteration 3: CBE -141.2 dBm for A5 with 2 + 3 + 3, A4 -141.5 dBm, Yellow). It also proposes the 2 + 3 + 4
+# alignment acceptance +/-0.62 % and a 20 to 30 C alignment temperature as build conditions (design inputs, not
+# requirement values)
+values_proposed: ["TPM-005: CBE -140.7 dBm (A5, 2 + 3 + 4, nominal cascade at 25 C; A4 -141.1 dBm), Yellow; Red at the TC-SYS-017 filter corner (-134.9 / -136.3 dBm) and at the stack (supported; estimates)"]
+# renders_inspected: iteration 3 re-issue 1 opened the 2 new r13 plots the note cites (the committed files) and
+# compared the reviewer's regenerated copies pixel for pixel (equal); iteration 3 opened 2 (r12), iteration 2 16
 renders_inspected: 2
 sprint: PDR-prep
-author_agent: "author:WP-PDR-19 rx-frontend (Claude as analysis author, TS-012 discriminating analyses; revision 1 at 7200be7, revision 2 at d2d89e9, revision 3 at a82f21b)"
-reviewer_agent: "reviewer:WP-PDR-19-analysis-rx-bpf-iter1 (independent; findings returned as text, record filed by the lead SE at 30681fc); iteration 2 by reviewer:WP-PDR-19-analysis-rx-bpf-iter2 (independent; authored no part of the note, its revisions, the decks, the scripts, the results or TS-012); iteration 3 by reviewer:WP-PDR-19-analysis-rx-bpf-iter3 (independent; authored no part of the note, its revisions or fixes, the decks, the scripts, the results or TS-012)"
+author_agent: "author:WP-PDR-19 rx-frontend (Claude as analysis author, TS-012 discriminating analyses; revision 1 at 7200be7, revision 2 at d2d89e9, revision 3 at a82f21b, revision 4 at 63122e7)"
+reviewer_agent: "reviewer:WP-PDR-19-analysis-rx-bpf-iter1 (independent; findings returned as text, record filed by the lead SE at 30681fc); iteration 2 by reviewer:WP-PDR-19-analysis-rx-bpf-iter2 (independent; authored no part of the note, its revisions, the decks, the scripts, the results or TS-012); iteration 3 by reviewer:WP-PDR-19-analysis-rx-bpf-iter3 (independent; authored no part of the note, its revisions or fixes, the decks, the scripts, the results or TS-012); iteration 3 re-issue 1 (the owner-authorized fourth iteration) by reviewer:WP-PDR-19-analysis-rx-bpf-iter4 (independent; authored no part of the note, its revisions or fixes, the decks, the scripts, the results or TS-012, and took no part in iterations 1 to 3)"
 # criticality: a hardware-only receiver analysis; it sets no value of a 07 section 14.1 component
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
+# iteration: 3 is the record schema maximum; the owner-authorized fourth iteration is "Iteration 3 re-issue 1"
 iteration: 3
+# readiness_met (iteration 3 re-issue 1): R1 frozen (19 of 19 blobs equal at 63122e7, HEAD and the working tree), R2
+# reproduced from a git archive export, R5 and R6 hold (reviewer re-run section)
 readiness_met: true
 # reviewer_verdict (iteration 3): NEEDS CHANGES. finding-11 (iteration 2's finding-6) is Verified at a82f21b, but
 # finding-7 (iteration 1, REQ-SYS-114 temperature not analysed; Minor then, never relayed to the author) is
@@ -66,29 +82,37 @@ readiness_met: true
 # +/-30 ppm/K class moves every resonator 0.03 to 0.05 % down at one end of -10 to +45 C, so the reported 2 + 3 + 3
 # image pass is not shown over REQ-SYS-114 (69.93 to 69.75 dB at the +/-0.3 % estimate). Rule C1: this was the last
 # iteration, so the open Major escalates to the owner. finding-15 and finding-16 are new Minors.
-reviewer_verdict: NEEDS CHANGES
+# reviewer_verdict (iteration 3 re-issue 1, note revision 4 at 63122e7): APPROVED. finding-7 (Major) is Verified: r13
+# carries the drift over REQ-SYS-114 per resonator from datasheet classes the reviewer re-read (KEMET C1003_C0G,
+# Coilcraft 184-1) and the thermal note's V18 bound; 2 + 3 + 3 is withdrawn as not shown; the design 2 + 3 + 4 holds
+# 75.37 dB (+5.37 dB) hot at the estimate, reproduced exactly from a clean export. No Major is open. New finding-17
+# (Minor): the +70 C bound is main-bay air, not the resonator part temperature, and the +/-0.62 % acceptance holds
+# only to about +73 C. The Minors stay liens (rule C1)
+reviewer_verdict: APPROVED
 assurance_verdict: not-required
-# verdict (rule C1, iteration 3): NEEDS CHANGES on the open Major finding-7 (escalated to the owner), and in any case
-# held while the applied analysis template is only on cr/CR-012 (lead SE convention of 2026-09-27, INSP-083). Counts
-# are record-wide on the reconciled numbering (16 findings: finding-1 to 10 of iteration 1, finding-11 to 14 of
-# iteration 2, finding-15 and 16 of iteration 3; finding-7 counted Major after its re-classification). Verified:
-# finding-1 to 5 and finding-11. Open: finding-7 (Major); finding-6, 8 to 10, 12 to 16 (Minor).
+# verdict (iteration 3 re-issue 1): held at NEEDS CHANGES only because the applied analysis template is still only on
+# cr/CR-012 (not on main at 63122e7; lead SE convention of 2026-09-27, INSP-083, as INSP-114 and INSP-116). Iteration 3
+# was NEEDS CHANGES on the open Major finding-7. Counts are record-wide on the reconciled numbering (17 findings:
+# finding-1 to 10 of iteration 1, finding-11 to 14 of iteration 2, finding-15 and 16 of iteration 3, finding-17 of
+# re-issue 1). Verified: finding-1 to 5, finding-7 and finding-11. Open (all Minor, liens): finding-6, 8 to 10, 12 to 17
 verdict: NEEDS CHANGES
 findings_major: 5
-findings_minor: 11
+findings_minor: 12
 findings_open: 10
 findings_fixed: 0
-findings_verified: 6
+findings_verified: 7
 findings_deferred: 0
 assurance_tasks_applied: []
 deferred_rids: []
-# items_no (iteration 3): the items that stay No on the open findings (finding-6: A2, A3, B2; finding-7: A1, A5,
-# E3, F1, G7-2; finding-8 and 12: F3; finding-8, 14 and 16: D3; finding-9 and 14: D2; finding-9 and 13: I2;
-# finding-10 and 16: G7-1; finding-15: G7-2)
-items_no: [CK-ANA-A1, CK-ANA-A2, CK-ANA-A3, CK-ANA-A5, CK-ANA-B2, CK-ANA-D2, CK-ANA-D3, CK-ANA-E3, CK-ANA-F1, CK-ANA-F3, CK-ANA-G7-1, CK-ANA-G7-2, CK-ANA-I2]
-# effort: iteration 3 only (iteration 2: 80 turns, 120 minutes; iteration 1 effort was not recorded)
-effort_turns: 45
-effort_minutes: 95
+# items_no (iteration 3 re-issue 1): the items that stay No on the open findings (finding-6: A2, A3, B2; finding-8 and
+# 17: A5; finding-8 and 12: F3; finding-8, 14 and 16: D3; finding-9 and 14: D2; finding-9 and 13: I2; finding-10 and
+# 16: G7-1; finding-15 and 17: G7-2). A1, E3 and F1 return to Yes with finding-7 Verified. Iteration 3 was
+# [A1, A2, A3, A5, B2, D2, D3, E3, F1, F3, G7-1, G7-2, I2]
+items_no: [CK-ANA-A2, CK-ANA-A3, CK-ANA-A5, CK-ANA-B2, CK-ANA-D2, CK-ANA-D3, CK-ANA-F3, CK-ANA-G7-1, CK-ANA-G7-2, CK-ANA-I2]
+# effort: iteration 3 re-issue 1 only (iteration 3: 45 turns, 95 minutes; iteration 2: 80 turns, 120 minutes;
+# iteration 1 effort was not recorded)
+effort_turns: 40
+effort_minutes: 60
 record_status: Open
 date: 2026-09-28
 date_closed: null
@@ -650,4 +674,156 @@ With finding-7 open, the 2 + 3 + 3 image result does not go to the owner as a pa
 - Freeze and blobs: shell loop over `git rev-parse a82f21b:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` (19 files, all equal); `cmp` of the r12 `scripts/` copies against the frozen scripts.
 - Re-run: `git archive a82f21b hardware/sim/rx-frontend tools docs/design/analysis/rx-bpf-ts012.md | tar -x -C <scratchpad>/iter3`; committed r12 folder and r12 decks moved to `author/`; `.venv/bin/python hardware/sim/rx-frontend/worst_case.py prepare r12`; `CWHT_LTSPICE_LOCK_WAIT=5400 .venv/bin/python hardware/sim/rx-frontend/run_sims.py 2026-09-28-r12-bpf-residual-design-input`; `worst_case.py check r12`; JSON (to 1e-9), Markdown (byte) and PNG (pixel array) comparisons in Python.
 - Independent checks: `<scratchpad>/iter3/rev/exact_map.py` (worst-vertex direction, exact frequency box at the stated limits); `<scratchpad>/iter3/rev/temp_shift.py` (common-mode temperature drift added to the design-input corner); slope by hand (above). C0G class read with the web-fetch tool from https://en.wikipedia.org/wiki/Ceramic_capacitor (the KEMET C0G datasheet URL returned a redirect to a 404).
+- Record check: `.venv/bin/python tools/validate_docs.py` on the repository after the edit.
+
+## Iteration 3 re-issue 1: the owner-authorized fourth iteration, delta on note revision 4 (`63122e7`), verification of finding-7 (2026-09-29, HEAD `63122e7`)
+
+**Authority and scope (rule C1).** Iteration 3 escalated the open Major finding-7 to the owner. Owner statement, verbatim (`docs/plan/status/status-2026-09-29.md` section 2): "Yes both recs sound good", recorded there as "INSP-117 iteration 4 is authorized; the note's revision 4 adopts 2+3+4 and analyses REQ-SYS-114". The schema caps `iteration` at 3, so this fourth iteration is recorded as "Iteration 3 re-issue 1" (precedent INSP-009, INSP-038, INSP-075, INSP-110). It is a delta on the finding-7 fix only: it re-runs the new run r13 from a clean export, checks every temperature input against its source, checks the 2 + 3 + 4, 2 + 3 + 2 and 2 + 3 + 3 margins over -10 C to +45 C ambient (board -10 C to +70 C), opens both new plots, and raises new findings only where revision 4 introduced them (one: finding-17). The Minor findings stay liens (rule C1; the author fixed none, as note section 9 says). Product: the 19 blobs of `product_files` at `63122e7` (the author's commit, 42 files; note 210 lines added and 46 removed, `worst_case.py` +300 -8, `tolerance.py` +17 -5, `run_sims.py` +2, README +11 -5, three decks with case files, run r13). HEAD is `63122e7`, so nothing after it touches the product.
+
+**Independence (rule C4).** This invocation authored no part of the note, its revisions or fixes, the decks, the scripts, the results or TS-012, and took no part in iterations 1 to 3. It edited no product file and changed only this record.
+
+**Search first (charter section 11 rule 1).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (queries "receiver BPF temperature model r13 bpf temperature 2+3+4 IF 8 MHz tempco" and "thermal model main bay PA bay which parts are in each bay receiver front end relay BPF placement") ran before every manual search; `grep` then only pinned lines in known files (this record, the note, `worst_case.py`, `tolerance.py`, the README, the thermal note, TS-012, `tools/validate_docs.py`, the INSP-110 record for the re-issue precedent). The rustos tree was not read.
+
+### Reviewer re-run (CK-ANA-C4) and independent checks (CK-ANA-B5)
+
+**Freeze (readiness R1).** Shell loop over `git rev-parse 63122e7:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>`: 19 of 19 equal. The eleven `results/2026-09-29-r13-bpf-temperature/scripts/` copies are byte-identical (`cmp`) to the frozen block scripts.
+
+**Reproduction (readiness R2).** `git archive 63122e7 hardware/sim/rx-frontend tools docs/design/analysis/rx-bpf-ts012.md` into the scratchpad (`iter4/`), with the committed r13 folder and the six r13 deck and case files moved to `author/` before the run. From the export root with the repo venv: `worst_case.py prepare r13` exit 0 (18 min 21 s on 14 cores); `CWHT_LTSPICE_LOCK_WAIT=5400 run_sims.py 2026-09-29-r13-bpf-temperature` through `tools/ltspice-batch.sh` blob `88b71475` (equal to the frozen blob): three wrapper lines "result: PASS ... version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0", `run_sims.py` exit 0, every `.log` first line "LTspice 26.0.2 for MacOS" with no error or warning string; `worst_case.py check r13` exit 0, as the README states. Against the committed outputs: the six deck and case files byte-identical; `prepare.json` and `result.json` equal as parsed JSON with a largest numeric difference of 0.0; `result.md` byte-identical; both PNG pixel arrays equal. LTspice against numpy: 22 cases, largest difference 3.604e-4 dB (limit 0.01 dB), as the note says. Every regenerated `.raw` is under 5 MB (largest 53,342 bytes), so the raw-file rule needs no manifest.
+
+**Note against the checker.** Every value revision 4 adds equals `result.md` at the note's rounding: sections 0, 4.2.1 (drift table, the 27-cell residual table, the limit table with +/-0.9596, 0.8842, 0.6407 %; 0.6768, 0.5938, 0.3238 %; 0.3205, 0.2389 % and "none"; the 33-cell board sweep), 5 (table rows and conditions 2 and 6), 7 item 3, 8 and 9, and the README r13 row. The MHz conversions are right (0.64 % and 0.62 % of 146 MHz: 0.93 and 0.91 MHz, stated "about +/-0.90"). The isolation re-derivation of section 4.4 is right: with 5.37 dB of margin the worst-phase leak may be 1.35 dB below the filtered image response (20 log(1 + 10^(-x/20)) = 5.37 dB), so 75.37 + 1.35 + 12 dB of front-end gain (r11: 82 - 70) gives 88.7 dB, "about 89 dB"; 2 + 3 + 2 at 0.16 dB needs x = 34.6 dB, 70.16 + 34.6 + 17 = 121.8 dB, "about 122 dB".
+
+**Independent checks (reviewer scripts in the scratchpad `iter4/rev/`, not product).**
+- **Drift box from first principles** (`drift_check.py`). f = 1 / (2 pi sqrt(L C)), so after an alignment at T_a each resonator moves by ((1 + aL dT)(1 + aC dT))^-1/2 - 1. With aL in +5 to +70 ppm/K, aC in -40 to +40 ppm/K and T_a in 20 to 30 C: board -10 C gives -0.0699 % to +0.2205 % (first order -0.5 (aL + aC) dT: -0.070 to +0.220 %); board +70 C gives -0.2742 % to +0.0876 % (first order -0.275 to +0.0875 %); doubled classes -0.1396 to +0.4420 % and -0.5469 to +0.1756 %. Hot coil Q: skin resistance goes as the square root of the resistivity, so Q = 100 / sqrt(1 + 0.00393 x 45) = 92.18. Box widening 40 ppm/K x 50 K = 0.20 % hot and x 40 K = 0.16 % cold. All equal the r13 state table.
+- **Box semantics** (`drift_check.py`, frozen `tolerance.Section`, BPF3 of four, hot, +/-0.3 %). Every coil bound is L x [((1 + r)(1 + d_hi))^-2, ((1 - r)(1 + d_lo))^-2] = [0.992287, 1.011567], as the exact map requires; every coupling and end capacitor bound is the mode B bound times (1 -/+ 0.002). The alignment (`ns_for`, "at50") re-tunes each coil to the drawn capacitors, so the capacitor drift enters the node frequency once, through d, and the coupling and external-Q change through the widening, as note section 3 item 6 states. Per-resonator drift inside the box is a superset of iteration 3's common-mode shift (every coil at its high-L bound is one vertex).
+- **Four-resonator BPF3 synthesis by hand.** Chebyshev 0.1 dB, n = 4: g = 1.1088, 1.3061, 1.7703, 0.8180; FBW 6 / 145.99 = 0.0411; k12 = 0.0411 / sqrt(1.1088 x 1.3061) = 0.0342 and k23 = 0.0270; node C 21.22 pF, so coupling 0.725 and 0.574 pF (synthesis 0.7248, 0.5736 pF); Qe = 26.98, Rp = 1386 ohm, end series C = 4.218 pF (synthesis 4.2185 pF); shunt 21.22 - 0.725 - 4.066 = 16.43 pF and 21.22 - 0.725 - 0.574 = 19.92 pF (synthesis 16.433 and 19.926 pF). The note's element table row agrees.
+- **Regression of r12 under the revised `tolerance.py`** (`hot_sens.py`, defaults, first-order map): the 2 + 3 + 3 design-input corner is 70.193 dB at +/-0.3 % and 70.019 dB at +/-0.32 %, the r12 values, so "defaults unchanged, so r08 to r12 reproduce" holds for the case checked.
+- **Hot end beyond +70 C and the acceptance** (`hot_sens.py`, frozen `_r13_value`, 2 + 3 + 4). At the +/-0.62 % acceptance: 70.345 dB at +70 C, 70.023 dB at +73 C, 69.808 dB at +75 C, 69.270 dB at +80 C, and 74.362 dB at -10 C. At the +/-0.3 % estimate: 74.372 dB at +80 C, 73.368 dB at +90 C. Worst tuning 148.0 MHz in every case. Basis of finding-17.
+- **After-assembly check value.** The frozen solver gives the nominal per-section rejection at 130 MHz relative to 146 MHz, coil Q 100, 50 ohm: 19.47, 39.36 and 58.95 dB for two, three and four resonators (note section 7: "19.5, 39.4 and 59.0 dB"; O-8).
+
+### Temperature inputs checked against their sources (CK-ANA-A4; every input revision 4 adds)
+
+| Note row (section 2) | Source read by the reviewer | Agreement |
+|---|---|---|
+| REQ-SYS-114 text, -10 C to +45 C (TBR) | `docs/requirements/sys/requirements.md` REQ-SYS-114, statement "The transceiver shall meet its requirements at ambient temperatures from -10 C to +45 C (TBR)." | Yes, quoted exactly |
+| C0G: TCC +/-30 ppm/C, -55 to +125 C, from 0.5 pF, B tolerance offered, no small-value exception | KEMET "Surface Mount Multilayer Ceramic Chip Capacitors (SMD MLCCs) C0G Dielectric, 10 - 250 VDC (Commercial Grade)", footer "C1003_C0G 2/20/2025", `https://content.kemet.com/datasheets/kem_c1003_c0g_smd.pdf`, read 2026-09-29 (SHA-256 prefix `02d17991`, `pdftotext -layout`): Electrical Parameters table "Capacitance Change with Reference to +25C and 0 VDC Applied (TCC)" +/-30 ppm/C; operating range -55 to +125 C; "Capacitance offerings ranging from 0.5 pF up to 0.47 uF"; tolerance code B = +/-0.10 pF; 0805 listed; no footnote narrowing the TCC for small values | Yes |
+| Coil TCL +5 to +70 ppm/C | Coilcraft Document 184-1 "Revised 12/02/21" (the URL of the coil Q row), read 2026-09-29 (SHA-256 prefix `e8ce1b27`): "Temperature Coefficient of Inductance (TCL) +5 to +70 ppm/C"; ambient -40 to +125 C; 1812SMS-56N Q typ 125, min 100 at 150 MHz | Yes. Applying the class to a hand-wound air coil is labelled an estimate; copper expansion alone (about +17 ppm/K, which scales an air coil's linear dimensions and so its L) lies inside it |
+| Board -10 C to +70 C; V18 55.3 to 63.5 C with bands up to +4.8 K, at most 67.4 C (A4-R4) | `docs/design/analysis/thermal-ts012.md` revision 1, verdict table row V18: A5-R4 60.2 +4.6, A5-DC 57.8 +4.8, A4-R4 63.5 +3.9, A4-DC 55.3 +3.5 C; so the largest value plus band is 67.4 C (A4-R4). The receiver is on the main board (TS-012 sections 8.1 and 8.5: the RF board carries the transmit chain and the main board the receiver blocks), whose air is the MAIN node | Yes for the air temperature. The bound is air, not the part temperature on the main board, which carries the LM2940 and feed-part dissipation (finding-17). The thermal note is still under review (INSP-112), as the note says |
+| Stray and port capacitance drift +/-10 ppm/K on the node (about 1 pF at up to +/-200 ppm/K) | estimate: 1 pF x 200 ppm/K / 21.2 pF = 9.4 ppm/K | Yes (estimate, labelled) |
+| Coil Q falling with temperature, 92.2 at +70 C; not raised below 25 C | copper resistivity coefficient 0.00393 per K (standard value); skin resistance proportional to sqrt(rho) | Yes; holding Q at 100 below 25 C is conservative |
+| Alignment at 20 to 30 C | proposed build condition (section 5 condition 6) | Yes (a condition, not an input) |
+
+### Verification of finding-7 (Major), case by case (rule C7)
+
+| Finding | What the fix had to do (iteration 3 "Fix") | Check at `63122e7` | Result |
+|---|---|---|---|
+| finding-7 | State REQ-SYS-114 and the temperature assumption | Section 2 adds the REQ-SYS-114 row (quoted exactly) and six temperature rows, each with a source read on 2026-09-29 or labelled estimate; section 6 lists the temperature limitations (coil class applied to a hand-wound coil, stray allowance, board bound under review, J310 ports assumed within VSWR 1.2 over temperature, capacitor Q and vias held, steady state, MDS not re-analysed); section 5 condition 3 now holds "over the board temperature range" and condition 6 is new | Yes |
+| finding-7 | Carry the drift over -10 C to +45 C in the residual budget, with the C0G class limits and a coil coefficient | r13 draws each resonator's frequency multiplier in [(1 - r)(1 + d_lo), (1 + r)(1 + d_hi)] on the exact map, with the C0G class plus a stray allowance, the Coilcraft class, a 20 to 30 C alignment, the coupling and end capacitor widening and the hot coil Q; board -10 C (soak) to +70 C (+45 C ambient plus the V18 main-bay rise). This is a superset of the reviewer's common-mode shift (iteration 3: -0.03 to -0.05 %); the hot drift reaches -0.274 %. Reproduced exactly; drift, Q and box bounds re-derived by hand; the board sweep confirms the cold and hot cases bound every temperature between | Yes |
+| finding-7 | Report 2 + 3 + 3 as not shown over REQ-SYS-114 unless the acceptance can be set below the limit less the drift and the reading uncertainty | 2 + 3 + 3 is reported FAIL and withdrawn in sections 0, 4.2.1 finding 1, 5, 7 item 1 and the README: 69.46 dB cold, 67.00 dB hot at the +/-0.3 % estimate, and no residual holds 70 dB hot (the bisection ends at 0.0 %). Iteration 3's 69.93 to 69.75 dB is confirmed and exceeded | Yes |
+| finding-7 | Carry the change into sections 0, 5, 7 items 1 and 3 and to the TS-012 author | The design becomes 2 + 3 + 4 at IF 8 MHz on the owner's authorization: worst case 75.37 dB (+5.37 dB) hot at the estimate, limit over temperature +/-0.64 % (hot +/-0.6407 %, rounded down), acceptance +/-0.62 % after a +/-0.02 % reading allowance, doubled classes 70.99 dB; sections 0, 4.2 finding 6, 4.2.1, 4.4 finding 3, 4.6 finding 5, 5, 6, 7 items 1 to 3 and 8, 8 and 9 revised. Section 7 item 1 hands the change to the TS-012 author (D-15, row E5 (a), section 1 item 4, section 8.10). TS-012 revision 6 (`3b93de1`, committed before this note revision) already adopts 2 + 3 + 4 but quotes r12 and iteration 3 figures (cross item X-R4-1) | Yes |
+| finding-7 | (margins asked by this delta) 2 + 3 + 4, 2 + 3 + 2 and 2 + 3 + 3 over -10 to +45 C | See the per-case rows below; all reproduced from the clean export; the margins' sensitivity to the coefficient classes (doubled: 70.99 dB) and to the board bound (finding-17) checked | Yes |
+
+**Result: finding-7 Verified.** The adopted design's pass rests on a stated corner that the reviewer reproduced, with 5.37 dB of margin at the estimate, 0.99 dB with both coefficient classes doubled, and a residual acceptance with a guard band. What stays open is Minor: the hot bound is air, not part temperature, and the acceptance's temperature headroom is about 3 K (finding-17).
+
+### New finding (iteration 3 re-issue 1)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-17"></a>finding-17 | reviewer | Minor | CK-ANA-A5, G7-2, F1 | note section 2 row "Board temperature (revision 4)", section 5 conditions 2 and 6, section 6 temperature bullet 2, section 7 item 3; `worst_case.py` `T_BOARD` | Revision 4 sets the hot bound at +70 C, the main-bay air of thermal row V18 (A4-R4 63.5 + 3.9 = 67.4 C) rounded up by 2.6 K, and applies it to every resonator part. The resonators sit on the main board, which carries the main-bay heat sources of the thermal note (the LM2940, 0.9 W, at the sink end of the main bay; the feed parts, 1.0 W; the Pico 2 and op-amps, 0.2 W). The thermal model has one MAIN air node and no board node, and no layout places the BPF cells, so a BPF part can run above the air. The note labels the bound an estimate and names a re-run if the thermal review moves the air above 70 C, but not the assumption that the BPF parts are at the air temperature. The verdict at the estimate does not depend on it (reviewer, frozen model at +/-0.3 %: 74.37 dB at +80 C, 73.37 dB at +90 C). The alignment acceptance does: at +/-0.62 % the design-input corner is 70.35 dB at +70 C, 70.02 dB at +73 C, 69.81 dB at +75 C and 69.27 dB at +80 C, so the acceptance keeps about 3 K over the bound. Fix: state the assumption (BPF part temperature equal to the main-bay air) and make it a layout condition (the BPF cells away from the LM2940, the feed parts and the sink end), or add a board-over-air allowance to the hot bound and re-derive the limit and the acceptance from it; send the item to the layout and thermal work packages | Open | Pending | |
+
+### Status of every finding at iteration 3 re-issue 1 (record-wide numbering)
+
+| Finding | Raised | Severity | Item | Subject | State | Evidence at `63122e7` |
+|---|---|---|---|---|---|---|
+| finding-1 | iteration 1 | Major | CK-ANA-E3, G7-1, B6, D2 | Mode A reported as a pass on a 200-run minimum | Verified | Verified at iteration 2; unchanged by revision 4 |
+| finding-2 | iteration 1 | Major | CK-ANA-G1-3, B1, A5, A6 | 50 ohm ports at the J310 stages not stated | Verified | Verified at iteration 2; condition 3 now also holds over temperature |
+| finding-3 | iteration 1 | Major | CK-ANA-E3, E2, A1 | REQ-SYS-022 "nominal PASS"; TPM-005 not named | Verified | Verified at iteration 2; section 8 updated for 2 + 3 + 4 (TPM-005 Red at the filter corner) |
+| finding-4 | iteration 1 | Minor | CK-ANA-E4, D4 | Checkers exit 0 on FAIL; constants without ids | Verified | `worst_case.py check r13` exits 1 when the design fails (`design_ok and ok_all`) |
+| finding-5 | iteration 1 | Minor | CK-ANA-F3 | Leakage tolerance at nominal only | Verified | Unchanged |
+| finding-6 | iteration 1 | Minor | CK-ANA-A2, A3, B2, E5, H2, H3 | Traceability | Open (lien) | (i) to (iv) unchanged (TS-012 revision 4 still cited without `7d0d450`; F7 confidence tag; 1N5711 model identity; `tbr.plan` step); the new temperature rows are traced |
+| finding-7 | iteration 1 (Major from iteration 3) | Major | CK-ANA-F1, A5, G7-2, E3 | REQ-SYS-114 not analysed; 2 + 3 + 3 not shown over -10 C to +45 C | Verified | Verification above (run r13, 2 + 3 + 3 withdrawn, 2 + 3 + 4 adopted at 75.37 dB) |
+| finding-8 | iteration 1 | Minor | CK-ANA-F3, A5, D3 | Highest J310 gain not analysed; 84.48 dB rounded down | Open (lien) | Unchanged; the r13 isolation figures (89 and 122 dB) use the same 12 dB per J310 |
+| finding-9 | iteration 1 | Minor | CK-ANA-D2, I2, B1 | Loss figure, NF plot, typed plot band | Open (lien) | Unchanged |
+| finding-10 | iteration 1 | Minor | CK-ANA-G7-1, G1-3 | Mode B box centred on synthesized end capacitors; symmetric stray | Open (lien) | Unchanged; revision 4 adds one more instance (O-7) |
+| finding-11 | iteration 2 (label finding-6) | Major | CK-ANA-E3, D2, F4, B6 | Residual limit at the design-input corner | Verified | Verified at iteration 3; revision 4 supersedes the 2 + 3 + 4 limit with the r13 values |
+| finding-12 | iteration 2 (label finding-7) | Minor | CK-ANA-F3, E2 | Filter-only corner called the TC-SYS-017 corner | Open (lien) | Unchanged in sections 4.6, 5 and 8 |
+| finding-13 | iteration 2 (label finding-8) | Minor | CK-ANA-I2 | r09 and r11 plot defects | Open (lien) | Unchanged |
+| finding-14 | iteration 2 (label finding-9) | Minor | CK-ANA-D2, D3 | README r04 row; N = 2,996; r08 JSON provenance; 200-of-1,000 comparison | Open (lien) | Unchanged |
+| finding-15 | iteration 3 | Minor | CK-ANA-G7-2, A6 | No guard band in the residual acceptance | Open (lien) | Answered in substance for the design: the 2 + 3 + 4 acceptance is the limit less a +/-0.02 % reading allowance (reviewer: 70.35 dB at +/-0.62 % hot). The author keeps it open for the NanoVNA frequency-accuracy statement of the procedure |
+| finding-16 | iteration 3 | Minor | CK-ANA-D3, G7-1 | First-order residual map; alternatives' limits 0.01 % high | Open (lien) | Answered in substance for r13 (exact map; room limits +/-0.95 % and +/-0.67 %, the reviewer's values reproduced to 0.001 dB); r12's stated limits (quoted in section 4.2 findings 3 and 4) and the `tolerance.py` default stay first-order, as note section 9 says |
+| finding-17 | iteration 3 re-issue 1 | Minor | CK-ANA-A5, G7-2, F1 | Hot bound is main-bay air, not part temperature; acceptance holds to about +73 C | Open | New finding above |
+
+### Observations (no finding)
+
+- **O-7.** The four-resonator BPF3 end capacitor is synthesized at 4.22 pF and specified as a 4.3 pF C-tolerance part (4.05 to 4.55 pF), while the mode B box is centred on 4.22 pF (3.97 to 4.47 pF): one more instance of finding-10's pattern, which iteration 1 found benign (the specified part is nearer the nominal response). No new finding.
+- **O-8.** The after-assembly value "59.0 dB" for the four-resonator BPF3 at 130 MHz is not in any committed result file; the reviewer reproduces 58.95 dB with the frozen solver. As an expected nominal ("at least") it is 0.05 dB optimistic by rounding, the same pattern as the 19.47 and 39.36 dB values it sits beside. Supporting check only.
+- **O-9.** The 20 C point of the board sweep (79.80 dB) is below the room case (80.04 dB), because a board at 20 C with an alignment anywhere in 20 to 30 C still drifts; the note's "room" case means the board at its own alignment temperature, which the plot's shaded band shows.
+- **O-10.** TS-012's revisit condition X-R6-5 ("INSP-117 iteration 4 ... changes an image or MDS figure") is triggered: the over-temperature image figure TS-012 revision 6 quotes changes (cross item X-R4-1). The change is common to A4 and A5.
+
+### Cross items (returned to Claude as lead SE)
+
+- **X-R4-1 (TS-012 author).** TS-012 revision 6 (`3b93de1`) section 8.14 D-15 reads "residual limit +/-0.97 %" and the section 7.1 risk row "Receiver MDS and image" reads "image about 79.4 dB over temperature" (iteration 3's common-mode estimate). Note revision 4 gives the limit over REQ-SYS-114 as +/-0.64 % with an alignment acceptance of +/-0.62 % at 20 to 30 C, the room limit as +/-0.95 % (exact map), and the image worst case as 75.37 dB hot at the estimate. The ranking does not move (the filter is common to A4 and A5, inside row E5 (a)), but the owner-facing figures should be the note's.
+- **X-R4-2 (layout and thermal work packages).** finding-17: where the BPF cells sit on the main board relative to the LM2940 and the feed parts, and a board-over-air allowance for the resonator parts.
+
+### Per-case results (iteration 3 re-issue 1; the REQ-SYS-114 cases revision 4 adds)
+
+| Case | Condition | Governing id and limit | Result (checker output) | Margin with sign | Uncertainty | Reviewer re-check | Finding ids |
+|---|---|---|---|---|---|---|---|
+| C-20a | Image, 2 + 3 + 4 at IF 8 (design), design-input corner, +/-0.3 % estimate, board -10 C / +70 C | REQ-SYS-033 over REQ-SYS-114; TC-SYS-021 step 4 | 79.03 / 75.37 dB: PASS | +9.03 / +5.37 dB | coefficient classes (doubled: 77.98 / 70.99 dB), board bound, residual estimate | re-run identical; drift by hand; +80 C 74.37 dB, +90 C 73.37 dB | none |
+| C-20b | Same, at the stated limit over temperature +/-0.64 % | as C-20a | 74.05 / 70.01 dB: PASS | +4.05 / +0.01 dB | as C-20a | re-run identical; LTspice image-phase case 70.231 dB against the 70.01 dB bound | none |
+| C-20c | Same, at the alignment acceptance +/-0.62 % | as C-20a | not tabulated in the note (derived from C-20b) | reviewer +4.36 / +0.35 dB | board bound | reviewer 74.36 / 70.35 dB; 70.02 dB at +73 C, 69.81 dB at +75 C, 69.27 dB at +80 C | finding-17 |
+| C-20d | Image, 2 + 3 + 2 at IF 10, at the estimate, -10 C / +70 C | as C-20a | 71.95 / 70.16 dB: PASS | +1.95 / +0.16 dB | as C-20a | re-run identical | none |
+| C-20e | Image, 2 + 3 + 3 at IF 8, at the estimate, -10 C / +70 C | as C-20a | 69.46 / 67.00 dB: FAIL; no residual holds hot | -0.54 / -3.00 dB | as C-20a | re-run identical; confirms and exceeds iteration 3's 69.93 to 69.75 dB | none (finding-7 Verified) |
+| C-20f | Board sweep -10 to +70 C at the estimate, all three configurations | nesting (acceptance (c)) | minimum at an end in every row | n/a | none | re-run identical | none |
+| C-6r | 2 + 3 + 4 at the alignment temperature, exact map: limit | REQ-SYS-033 corner | +/-0.9596 % (stated +/-0.95 %); 69.823 dB at +/-0.97 % | n/a | as C-20a | reviewer's iteration 3 exact-map values reproduced to 0.001 dB (all three configurations) | finding-16 (lien, r12 values) |
+
+Every other case of the iteration 2 and 3 per-case tables is unchanged at `63122e7` (runs r01 to r12 are not touched by revision 4; the r11 cascade rows for 2 + 3 + 4 existed at iteration 2).
+
+### Checklist answers (iteration 3 re-issue 1, delta)
+
+**A.** A1 Yes: REQ-SYS-114 is named and quoted (section 2), with REQ-SYS-033, TC-SYS-021 and TPM-005. A2 No: finding-6 (i). A3 No: finding-6 (ii), (iii); every new temperature row has a source or "estimate". A4 Yes: KEMET, Coilcraft, the thermal note and REQ-SYS-114 re-read (table above). A5 No: finding-8 (highest gain) and finding-17 (BPF parts assumed at the main-bay air); the other temperature assumptions and their directions are stated. A6 Yes: conditions 3 and 6 and the acceptance go to the J310 stages, the layout and the build notes; the TS-012 handoff is stated (cross item X-R4-1).
+
+**B.** B1 Yes: the nesting argument is stated and the board sweep checks it. B2 No: finding-6 (iii) (the 1N5711 model; not used by r13). B3 Yes: 22 LTspice cases. B4 Yes: 11-point residual grid, bisection to 0.0002 %, 11-point board sweep. B5 Yes: drift, Q, box bounds and BPF3 synthesis by hand; r12 regression; hot-end sensitivity. B6 Yes: the design margin is set against doubled coefficient classes and the residual limit.
+
+**C.** C1 to C5 Yes: re-run above; the wrapper's lock, time-out and version checks passed; blob `88b71475` equal.
+
+**D.** D1 Yes. D2 No: finding-9 (i), finding-14 (a) and (d); every revision 4 value equals the checker. D3 No: finding-8, finding-14 (b), finding-16 (r12 limits still quoted in section 4.2); the r13 limits are rounded down. D4 Yes: `REQ_SYS_033_DB`; the new constants carry their sources (`T_BOARD`, `A_C`, `A_L`, `CU_TC`, `READ_UNC`).
+
+**E.** E1 Yes. E2 Yes, with finding-12. E3 Yes: 2 + 3 + 4 passes with 5.37 dB against stated uncertainties (0.99 dB left with doubled classes); 2 + 3 + 2's 0.16 dB is reported as fragile, not as a robust pass; 2 + 3 + 3 is reported FAIL. E4 Yes: `check r13` exits 1 when the design fails. E5 N/A (no TBR value proposed). E6 Yes: section 8 moves the TPM-005 filter corner to Red for 2 + 3 + 4 and states the MDS is not re-analysed over temperature. E7 Yes.
+
+**F.** F1 Yes: the REQ-SYS-114 cases have rows (cold, hot, sweep); the board bound's meaning is finding-17 (Minor). F2 N/A. F3 No: finding-8, finding-12. F4 Yes: the residual sensitivity per temperature case is tabulated and plotted.
+
+**G1.** G1-1 to G1-4 Yes (one `.ac` per deck; the checker reads the `.raw` through spicelib). **G5.** Unchanged, Yes. **G7.** G7-1 No: finding-10, finding-16 (r12). G7-2 No: finding-15 (the procedure's frequency-accuracy statement), finding-17.
+
+**H.** H1 N/A. H2 Yes: section 8 updates the TPM-005 report and the proposed risk. H3 Yes: section 9 records revision 4 and its code changes.
+
+**I.** I1 Yes: both new plots opened (the committed files), regenerated copies pixel-equal. I2 Yes for r13 (axes and units labelled, the 70 dB line carries REQ-SYS-033 (TBR), the +/-0.3 % estimate marked, the limits as diamonds with their values, the alignment band and the above-ambient band shaded and labelled, plotted values equal `result.md`); No record-wide on finding-13.
+
+## Verdict (iteration 3 re-issue 1, returned by the reviewer)
+
+```
+VERDICT: APPROVED (reviewer); record verdict held at NEEDS CHANGES only because the applied analysis template is still only on cr/CR-012
+PRODUCT: docs/design/analysis/rx-bpf-ts012.md@11bb9836, hardware/sim/rx-frontend/ worst_case.py, tolerance.py, run_sims.py, README, r13 decks and results as in product_files, at 63122e7
+VERIFIED: finding-7 (Major; REQ-SYS-114). Earlier: finding-1, 2, 3, 11 (Major), finding-4, 5 (Minor)
+OPEN MAJOR: none
+OPEN MINOR (liens, rule C1):
+- finding-6, 8, 9, 10 (iteration 1), finding-12, 13, 14 (iteration 2), finding-15, 16 (iteration 3; both answered in substance for the design, kept open by the author)
+- [new] finding-17: the +70 C hot bound is the main-bay air, not the BPF part temperature on the main board; the +/-0.62 % acceptance holds to about +73 C (70.02 dB), the verdict at the estimate to beyond +90 C
+ITEMS N/A: CK-ANA-E5, F2, H1, G2 to G4, G6 (analysis_kind simulation-deck, cascade, worst-case), J1 to J3 (criticality neither)
+VALUES PROPOSED: TPM-005: CBE -140.7 dBm (A5, 2 + 3 + 4), -141.1 dBm (A4), Yellow; Red at the TC-SYS-017 filter corner and the stack (estimates)
+MEASUREMENTS: size=3 new decks (22 cases), 1 run (r13), 256 note lines changed; inputs_checked=REQ-SYS-114, KEMET C1003_C0G, Coilcraft 184-1, thermal V18, copper resistivity, stray estimate; renders=2; turns=40; minutes=60; major=0 new (1 Verified); minor=1 new; record-wide 5 Major, 12 Minor, 7 Verified, 10 open (0 Major, 10 Minor)
+```
+
+### What the review supports (rule C10)
+
+With finding-7 Verified and no Major open, the review supports: the TS-012 revision 4 filter (2 + 3) fails REQ-SYS-033 at IF 8 MHz; the TS-012 20 % capacitor condition fails for some builds; 2 + 3 + 3 does not hold REQ-SYS-033 over REQ-SYS-114 after a room-temperature alignment (69.46 dB cold, 67.00 dB hot at the estimate) and is rightly withdrawn; **2 + 3 + 4 at IF 8 MHz meets REQ-SYS-033 at the design-input corner over REQ-SYS-114, worst case 75.37 dB (+5.37 dB) at +70 C board and 148.0 MHz tuning with the +/-0.3 % residual estimate, under the six conditions of note section 5**, with a residual limit over temperature of +/-0.64 % and an acceptance of +/-0.62 % that holds for a BPF part temperature up to about +73 C (finding-17); 2 + 3 + 2 at IF 10 passes by only 0.16 dB; REQ-SYS-022 is not shown at the corner in any configuration and the design filter moves the TPM-005 filter corner to Red, which the front-end redesign must recover; neither result separates A4 from A5. Every figure rests on developer evidence (numpy solver checked against LTspice) and on labelled estimates (residual, coil class for the hand-wound coil, stray, board bound).
+
+**Effect on the TS-012 finalists.** None on the ranking. The filter, its extra C0G parts (nine, the top of row E5 (a)) and its MDS penalty are common to A4 and A5, and TS-012 revision 6 already adopts 2 + 3 + 4 (D-15). Only the quoted figures need the note's values (cross item X-R4-1).
+
+## Commands (iteration 3 re-issue 1)
+
+- Search: `mcp__claude-context__search_code` path `/Users/robinonsay/rust/cwht`, the two queries named above.
+- Freeze: shell loop over `git rev-parse 63122e7:<path>`, `git rev-parse HEAD:<path>` and `git hash-object <path>` (19 files, all equal); `cmp` of the r13 `scripts/` copies against the frozen scripts.
+- Re-run: `git archive 63122e7 hardware/sim/rx-frontend tools docs/design/analysis/rx-bpf-ts012.md | tar -x -C <scratchpad>/iter4`; committed r13 folder and r13 decks moved to `author/`; `.venv/bin/python hardware/sim/rx-frontend/worst_case.py prepare r13`; `CWHT_LTSPICE_LOCK_WAIT=5400 .venv/bin/python hardware/sim/rx-frontend/run_sims.py 2026-09-29-r13-bpf-temperature`; `worst_case.py check r13`; deck `cmp`, JSON (parsed, numeric difference), Markdown (byte) and PNG (pixel array) comparisons in Python.
+- Independent checks: `<scratchpad>/iter4/rev/drift_check.py` (drift box, coil Q, widening, `Section` bounds, BPF3 synthesis values); `<scratchpad>/iter4/rev/hot_sens.py` (frozen `_r13_value` at +/-0.62 % from -10 to +80 C and at the estimate to +90 C; r12 regression with the default map); `<scratchpad>/iter4/rev/s21_130.py` (after-assembly values); Chebyshev n = 4 synthesis and isolation arithmetic by hand.
+- Sources: the KEMET C1003_C0G and Coilcraft Document 184-1 PDFs read with the web-fetch tool at the URLs the note cites, then `pdftotext -layout` on the fetched copies (SHA-256 prefixes above).
 - Record check: `.venv/bin/python tools/validate_docs.py` on the repository after the edit.
