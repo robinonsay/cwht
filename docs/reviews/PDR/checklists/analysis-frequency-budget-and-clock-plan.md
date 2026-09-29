@@ -23,25 +23,33 @@
 # blobs are unchanged since 4153acf and are listed for the record drift rule only; the WP-PDR-20a clock-plan work
 # (clock_plan.py at clk_sys 96 MHz, the ADR-031 revision) is not in 7593cea and is not reviewed here. CR-012 is
 # still not merged at HEAD f6ac3f0 (git merge-base --is-ancestor fails), so X-1 stands.
+# Iteration 3 re-issue 2 (WP-PDR-20a iteration 2, 2026-09-29): the delta (rule C1) that verifies the two Major fixes
+# of re-issue 1 (finding-11, finding-12) in frequency-budget.md revision 3 at its re-freeze F0 commit 9dc9d63, with
+# r3_a5.py e4140a3d and run r3a5-20260929-02. Written with the Edit tool by reviewer:WP-PDR-20a-analysis-iter2.
+# CR-012 is still not merged at HEAD 23e2388, so X-1 stands.
 id: INSP-056
 checklist: peer-review-checklist-design
 checklist_revision: A
 checklist_file: docs/reviews/PDR/checklists/analysis-frequency-budget-and-clock-plan.md
 product: docs/design/analysis/frequency-budget.md
-# product_commit (iteration 3 re-issue 1): 7593cea, frequency-budget.md revision 2 (WP-PDR-20a, freeze F0). Each
-# blob below equals git rev-parse 7593cea:<path>, git rev-parse HEAD:<path> at HEAD f6ac3f0 and git hash-object
-# <path> (17 of 17). thermal_model.py is imported unchanged by r3_a5.py (the INSP-112 blob). Iteration 3 listed 7
-# blobs at 4153acf (frequency-budget.md 79d47fbb).
-product_commit: "7593cea717e17fe2e542cb1cebb1d36c1fc948f6"
-product_files: ["docs/design/analysis/frequency-budget.md@14229c9dfd943bc463eadab399f2bdbe8ac7f9cd", "hardware/sim/freq/r3_a5.py@eebcd167109046a0aff3cd0a238ef35470a6b155", "hardware/sim/freq/README.md@450bbd8cec8e6500d8817a70719652a4edc97853", "hardware/sim/freq/results/r3a5-20260929-01/results.json@53c58eaa1a66f7ff01adad52756d79efc5eb40f9", "hardware/sim/freq/results/r3a5-20260929-01/checker-output.txt@c73f1e60fb9d0ead825cdafbccbe5ec527795c12", "hardware/sim/freq/results/r3a5-20260929-01/r3_a5.py@eebcd167109046a0aff3cd0a238ef35470a6b155", "hardware/sim/freq/results/r3a5-20260929-01/relock-sequence.png@f9dac5c884981c38907165854f0c9ac66908e999", "hardware/sim/freq/results/r3a5-20260929-01/ratio-freshness.png@0a86c27e2cd71fd579e8055718d318f6b0122d8a", "hardware/sim/freq/results/r3a5-20260929-01/xosc-slope.png@ff5d30b3ec314514aa737f349f097a02a68ff86d", "hardware/sim/freq/results/r3a5-20260929-01/r3-budget-and-buffer.png@c0493e761f1e2571570515f88057f64184233750", "hardware/sim/thermal/thermal_model.py@54573514ad75cbae6edee930996f5fa5a745eed6", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "docs/reviews/PDR/figures/frequency-budget.png@d77a0b3afac520643fdda042d188612b9123848e", "docs/design/analysis/clock-plan.md@07b5309613279d906bfdd3549618bb39ae8c7d81", "hardware/sim/freq/clock_plan.py@7e321b3d3355d8e94b464110292c3909483d3832", "docs/reviews/PDR/figures/clock-plan-harmonics.png@0a4d221c1c1690aa28331d0c429e65278feacb07", "docs/decisions/adr/ADR-031-clock-plan.md@58ceb119651feeadfc79a4c3d61ecfa916fa52d4"]
+# product_commit (iteration 3 re-issue 2): 9dc9d63, frequency-budget.md revision 3 (WP-PDR-20a re-freeze F0). Each
+# blob below equals git rev-parse 9dc9d63:<path>, git rev-parse HEAD:<path> at HEAD 23e2388 and git hash-object
+# <path> (25 of 25). The r3a5-20260929-01 run files are kept (the revision 2 record, unchanged). Re-issue 1 listed 17
+# blobs at 7593cea (frequency-budget.md 14229c9d, r3_a5.py eebcd167, README.md 450bbd8c).
+product_commit: "9dc9d63c046a6f41aa73152694e3e48bab058c42"
+product_files: ["docs/design/analysis/frequency-budget.md@def3f708fb9858a89e1425ac19aafe04c03de807", "hardware/sim/freq/r3_a5.py@e4140a3d7629c1254afed81851db8941c1584216", "hardware/sim/freq/README.md@39ae3a3befcec38d1cf11a7c8866ce113a90e327", "hardware/sim/freq/results/r3a5-20260929-02/results.json@920eddb5dafe4a2084cfac21321e03cf438133bf", "hardware/sim/freq/results/r3a5-20260929-02/checker-output.txt@76181155d52b0a3378d7941f087cd9cd67b48bc5", "hardware/sim/freq/results/r3a5-20260929-02/r3_a5.py@e4140a3d7629c1254afed81851db8941c1584216", "hardware/sim/freq/results/r3a5-20260929-02/relock-sequence.png@54cad129f28db5d9e20087fd24c04ceca7ff2fd8", "hardware/sim/freq/results/r3a5-20260929-02/ratio-freshness.png@a88ebc4bb931267b5b8ca664fbaf7bdae0e91262", "hardware/sim/freq/results/r3a5-20260929-02/xosc-slope.png@ff5d30b3ec314514aa737f349f097a02a68ff86d", "hardware/sim/freq/results/r3a5-20260929-02/r3-budget-and-buffer.png@01d10aac5b202c75204baaec0f5a6072747df24a", "hardware/sim/freq/results/r3a5-20260929-02/settle-and-guard.png@a141b33ed44a481a3ef23dd326fc536dbe75866e", "hardware/sim/freq/results/r3a5-20260929-01/results.json@53c58eaa1a66f7ff01adad52756d79efc5eb40f9", "hardware/sim/freq/results/r3a5-20260929-01/checker-output.txt@c73f1e60fb9d0ead825cdafbccbe5ec527795c12", "hardware/sim/freq/results/r3a5-20260929-01/r3_a5.py@eebcd167109046a0aff3cd0a238ef35470a6b155", "hardware/sim/freq/results/r3a5-20260929-01/relock-sequence.png@f9dac5c884981c38907165854f0c9ac66908e999", "hardware/sim/freq/results/r3a5-20260929-01/ratio-freshness.png@0a86c27e2cd71fd579e8055718d318f6b0122d8a", "hardware/sim/freq/results/r3a5-20260929-01/xosc-slope.png@ff5d30b3ec314514aa737f349f097a02a68ff86d", "hardware/sim/freq/results/r3a5-20260929-01/r3-budget-and-buffer.png@c0493e761f1e2571570515f88057f64184233750", "hardware/sim/thermal/thermal_model.py@54573514ad75cbae6edee930996f5fa5a745eed6", "hardware/sim/freq/freq_budget.py@d82269e6e9a7b2312d85c227d29de55236cdacc5", "docs/reviews/PDR/figures/frequency-budget.png@d77a0b3afac520643fdda042d188612b9123848e", "docs/design/analysis/clock-plan.md@07b5309613279d906bfdd3549618bb39ae8c7d81", "hardware/sim/freq/clock_plan.py@7e321b3d3355d8e94b464110292c3909483d3832", "docs/reviews/PDR/figures/clock-plan-harmonics.png@0a4d221c1c1690aa28331d0c429e65278feacb07", "docs/decisions/adr/ADR-031-clock-plan.md@58ceb119651feeadfc79a4c3d61ecfa916fa52d4"]
 analysis_kind: [budget, timing, worst-case, other]
-product_size: 2 notes and 1 ADR; 39 checker cases (35 PASS, 4 INFO) and 30 clock rows (5 named residual sources, 1 seeded case) in 6 IF plans; revision 2 adds 33 r3_a5.py cases (23 PASS, 10 INFO); 3 checkers; 6 plots
+product_size: 2 notes and 1 ADR; 39 checker cases (35 PASS, 4 INFO) and 30 clock rows (5 named residual sources, 1 seeded case) in 6 IF plans; revision 2 adds 33 r3_a5.py cases (23 PASS, 10 INFO); revision 3: 52 r3_a5.py cases (38 PASS, 14 INFO); 3 checkers; 7 plots
 tools_used: ["venv Python 3.13.5 (TV-001 accredits the interpreter; no TV record covers hardware/sim/freq/*.py, developer evidence per 05 section 9.1)", "numpy 2.5.3 and matplotlib 3.11.2 in the venv (r3_a5.py; no TV record, developer evidence)", "hardware/sim/thermal/thermal_model.py@54573514 (INSP-112 reviewed model, no TV record, developer evidence)"]
-values_proposed: ["REQ-SYS-008: 144.0012 to 147.9988 MHz", "REQ-SYS-009: 144.0012 to 147.9988 MHz", "REQ-TX-002: 144.0012 to 147.9988 MHz", "REQ-SYS-010: +/-2.5 ppm, -10 to +45 C, one year after calibration", "REQ-SYS-154: 10 kHz true-error limit, measured SW-SAFE threshold 5.0 kHz (route R3), lock-detect primary for the unlocked trigger; A5 (revision 2): Si5351A LOL_A, lock-gated changeover, ratio age at most 10 s at interval 12, 6.5 ppm drift allocation at interval 13", "REQ-SYS-182: 10 kHz and 100 ms (route R3; A5 conditions as REQ-SYS-154)", "REQ-TX-013: fixed ratio 8, sample below 20 MHz, within 1 kHz", "REQ-SYS-034: 144.010 to 147.999 MHz, 3 dB above MDS", "TPM-006: cbe 0.834 / 0.984 / 1.234 ppm by class, credit false"]
-renders_inspected: 5
+values_proposed: ["REQ-SYS-008: 144.0012 to 147.9988 MHz", "REQ-SYS-009: 144.0012 to 147.9988 MHz", "REQ-TX-002: 144.0012 to 147.9988 MHz", "REQ-SYS-010: +/-2.5 ppm, -10 to +45 C, one year after calibration", "REQ-SYS-154: 10 kHz true-error limit, measured SW-SAFE threshold 5.0 kHz (route R3), lock-detect primary for the unlocked trigger; A5 (revision 3): Si5351A LOL_A, lock-gated changeover with L_max 1.9 ms, ratio age at most 10 s at interval 12 with a 2.5 ppm drift allocation, 8.0 ppm drift allocation at interval 13, TCXO load and supply conditions on the squaring stage, FC0 known-clock acceptance 532.5 Hz (interval 12) and 430.7 Hz (interval 13)", "REQ-SYS-182: 10 kHz and 100 ms (route R3; A5 conditions as REQ-SYS-154; transmit detection 46.4 ms)", "REQ-TX-013: fixed ratio 8, sample below 20 MHz, within 1 kHz", "REQ-SYS-034: 144.010 to 147.999 MHz, 3 dB above MDS", "TPM-006: cbe 0.834 / 0.984 / 1.234 ppm by class, credit false"]
+# renders_inspected (iteration 3 re-issue 2): the five run r3a5-20260929-02 PNGs and frequency-budget.png, the six
+# renders frequency-budget.md revision 3 cites
+renders_inspected: 6
 sprint: PDR-prep
 author_agent: "author:WP-PDR-20 wave 1a (Claude as RF designer TX); revision 2 by author:WP-PDR-20a analysis"
-reviewer_agent: "reviewer:WP-PDR-20a-analysis-iter1 (independent; authored no part of WP-PDR-20 or WP-PDR-20a; iterations 1 to 3 by reviewer:WP-PDR-20-analysis-iter1, -iter2 and -iter3)"
+reviewer_agent: "reviewer:WP-PDR-20a-analysis-iter2 (independent; authored no part of WP-PDR-20 or WP-PDR-20a; iteration 3 re-issue 1 by reviewer:WP-PDR-20a-analysis-iter1; iterations 1 to 3 by reviewer:WP-PDR-20-analysis-iter1, -iter2 and -iter3)"
+# paired_record (iteration 3 re-issue 2): the software assurance pair, as INSP-111 names INSP-056 (INSP-111 X-1)
+paired_record: INSP-111
 # criticality: the frequency budget sets the window, times and calibration bound of the SW-SAFE frequency
 # verification unit and the SW-SYNTH frequency-word path (07 section 14.1, safety-critical by SRR decision 9);
 # section J answered here
@@ -56,29 +64,35 @@ criticality: safety-critical
 # returned APPROVED on the 4153acf blobs (d77fcc2). Plan row 20 asks for the INSP-111 delta on WP-PDR-20a; that
 # delta has not run on 7593cea, and the lead SE dispatches it (rule C4)
 assurance_required: true
-assurance_reviewer_agent: "sa-reviewer:WP-PDR-20-insp-056-adr-031 (INSP-111, APPROVED at 4153acf); WP-PDR-20a delta on 7593cea pending, to be dispatched by the lead SE"
+# assurance_reviewer_agent (iteration 3 re-issue 2): INSP-111 iteration 2 (the WP-PDR-20a SA delta on 7593cea,
+# commit 572ee21) returned NEEDS CHANGES with one Major (INSP-111 finding-7); its delta on the 9dc9d63 fix has not
+# been filed at HEAD 23e2388
+assurance_reviewer_agent: "sa-reviewer:WP-PDR-20a-insp-111-delta (INSP-111 iteration 2, NEEDS CHANGES at 7593cea; delta on 9dc9d63 pending); iteration 1 by sa-reviewer:WP-PDR-20-insp-056-adr-031 (APPROVED at 4153acf)"
 iteration: 3
 readiness_met: true
-# reviewer_verdict (iteration 3 re-issue 1, WP-PDR-20a iteration 1): NEEDS CHANGES; two new Major findings on
-# section 3.4 (finding-11, TCXO term missing from the ratio drift; finding-12, FC0 interval times rounded down
-# set the L_max deadline), five new Minor findings (13 to 17). Findings 5, 6, 7, 9 and 10 stay Open as liens
-reviewer_verdict: NEEDS CHANGES
-# assurance_verdict: the INSP-111 delta for revision 2 has not run
-assurance_verdict: pending
-# verdict: NEEDS CHANGES (open Major findings 11 and 12; SA delta pending; X-1)
+# reviewer_verdict (iteration 3 re-issue 2, WP-PDR-20a iteration 2): APPROVED. finding-11 and finding-12 Verified at
+# 9dc9d63; finding-15 (Minor) Verified with them; one new Minor finding (18). Minor findings 5, 6, 7, 9, 10, 13, 14,
+# 16, 17 and 18 are liens due at the CDR readiness declaration (rule C1). Re-issue 1: NEEDS CHANGES
+reviewer_verdict: APPROVED
+reviewer_verdict_iteration_3_reissue_1: NEEDS CHANGES
+# assurance_verdict: the latest filed INSP-111 verdict (iteration 2, NEEDS CHANGES); its delta is pending
+assurance_verdict: NEEDS CHANGES
+# verdict: held at NEEDS CHANGES by the SA pair (INSP-111 not APPROVED) and X-1 (CR-012 not merged), not by a
+# finding of this record
 verdict: NEEDS CHANGES
 findings_major: 7
-findings_minor: 10
-findings_open: 12
+findings_minor: 11
+findings_open: 10
 findings_fixed: 0
-findings_verified: 5
+findings_verified: 8
 findings_deferred: 0
 assurance_tasks_applied: [swe-070 7.1 task 1, swe-134 7.1 task 1, swe-134 7.1 task 6]
 deferred_rids: []
-# items_no (iteration 3 re-issue 1, revision 2 content): findings 11 to 17, plus the earlier liens
-items_no: [CK-ANA-A4, CK-ANA-A5, CK-ANA-B1, CK-ANA-D2, CK-ANA-D3, CK-ANA-E5, CK-ANA-F2, CK-ANA-F4, CK-ANA-G2-1, CK-ANA-H2, CK-ANA-J2]
-effort_turns: 45
-effort_minutes: 90
+# items_no (iteration 3 re-issue 2): Minor only (findings 5, 6, 7, 9, 10, 13, 14, 16, 17, 18)
+items_no: [CK-ANA-A4, CK-ANA-A5, CK-ANA-D2, CK-ANA-D3, CK-ANA-F2, CK-ANA-F4, CK-ANA-H2, CK-ANA-J2]
+# effort (iteration 3 re-issue 2): this delta only
+effort_turns: 35
+effort_minutes: 60
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -785,3 +799,149 @@ Written by the WP-PDR-20a author invocation (not a reviewer). It records the fix
 **Cross-reference.** INSP-111 finding-7 (Major, SA pair) is fixed in the same revision: section 3.4.1 and RL-8 restated (the count bounds its own mean; ST-1 linear-tail bound 2 890.7 Hz; ST-2 slewing 2.56 us), M-1 part (c) time-resolved with a pass criterion at the ramp (ST-3), and the 5 Hz settle residual carried in section 3.1 for A5 (G-1 to G-7: upper-edge margin 70.0 Hz, REQ-TX-006 limit 820.0 Hz). Its response is in the INSP-111 record.
 
 **Observation for the lead SE (not a fix; rule C1).** The same brief sheet gives +/-1.5 ppm frequency tolerance after reflow and +/-0.5 ppm first-year aging at 25 MHz. With the band and the two coefficients that sums to 2.7 ppm uncalibrated, against the 1.5 ppm allocation of section 3.2 (TS-007 R-M3, case C-8). The note records it as section 6 item 15 and does not re-examine section 3.2.
+
+## Iteration 3 re-issue 2: WP-PDR-20a iteration 2, delta on finding-11 and finding-12 (Major) at 9dc9d63 (2026-09-29)
+
+**Scope (rule C1).** A delta that verifies the two Major fixes of re-issue 1 only. The author re-froze the products at `9dc9d63` (freeze F0, rule C2): `frequency-budget.md` revision 3 `def3f708`, `r3_a5.py` `e4140a3d`, `README.md` `39ae3a3b`, and the new run `r3a5-20260929-02` (`results.json` `920eddb5`, `checker-output.txt` `76181155`, the script copy `e4140a3d`, five PNGs). Every `product_files` blob equals `git rev-parse 9dc9d63:<path>`, `git rev-parse HEAD:<path>` at `HEAD` `23e2388` and `git hash-object <path>` (25 of 25). `9dc9d63` is on `main`; the two commits after it (`a13a00e`, the author responses, and `23e2388`, INSP-034) touch no product file. Re-checked before commit at `HEAD` `abe5706`: `git diff --stat 9dc9d63 HEAD` over every product path is empty. `freq_budget.py`, `frequency-budget.png`, `thermal_model.py` and the clock-plan files are unchanged. The change was read as `git diff 7593cea 9dc9d63` on the note, the checker and the README. The same revision also carries the INSP-111 finding-7 fix (section 3.4.1 restated, the ST and G cases, M-1(c), the A5 rows of section 3.1). That fix is verified by the INSP-111 delta, not here; this delta read it only for its effect on the values this record carries (cross item X-11). The Minor findings stay liens and were not re-checked, except finding-15, whose fix is contained in the finding-11 fix (below). The re-issue 1 checklist answers stand except where this section changes them.
+
+**Independence (rule C4).** This invocation authored no part of WP-PDR-20 or WP-PDR-20a (TS-007, TS-012, either note, ADR-031, any checker, figure or run, either author response) and wrote no earlier iteration of this record, of INSP-111 or of INSP-118. It edited no product file.
+
+**Search first (charter section 11 rule 1; plan rule C3).** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran first (query: the WP-PDR-20a frequency budget review record and author response). Only `git log`, `git show`, `git diff`, `git rev-parse` and `sed -n` or `grep -n` on known files followed. `/Users/robinonsay/rust/rustos` was not read, in either the working tree or its objects; the FC0 facts are those of the iteration 1 record (Tables 541 and 582).
+
+**Sources re-read (CK-ANA-A4).** Both PDFs were fetched with the web-fetch tool, which saved them outside the repository, and converted with `pdftotext -layout` in the scratchpad; nothing was added to the repository.
+- Seiko Epson "TCXO / VC-TCXO TG2016SMN / TG2520SMN" brief sheet: SHA-256 `df16ac04cdec1db7eedcb21ef19c0a87f17dcf061fe55e1aafa053037d846612`, equal to the checker's `SOURCES["TCXO"]`. "Specifications (characteristics)": fo-TC "C: +/-0.5 x 10-6 Max. / -40 C to +85 C", "Standard stability version"; fo-Load "+/-0.1 x 10-6 Max.", "10 kOhm // 10 pF +/- 10 %"; fo-VCC "+/-0.1 x 10-6 Max.", "VCC +/- 5 %"; output load 10 kOhm and 10 pF with a 0.01 uF DC cut; f_tol +/-1.5 ppm after reflow at +25 C; f_age +/-0.5 ppm first year at 24 to 40 MHz; the note "Please contact us for requirements not listed". No slope, curve or dF/dT row anywhere in the text. Every value the note and the checker take agrees, and so do the section 6 item 15 values.
+- Skyworks Si5351A/B/C-B data sheet Rev. 1.3: SHA-256 `f3bc5285...a4851101f`, equal to the checker's. Read for the TCXO load condition only: section 4.1.1 "The total internal XTAL load capacitance (CL) can be selected to be 0, 6, 8, or 10 pF" (Table 8 note 1, "register 183 bits 7:6"); section 6.6 "The Si5351 can be driven with a clock signal through the XA input pin", drawn with VIN = 1 Vpp through 0.1 uF and XB floating. No XA input capacitance or resistance is given for a driven XA (finding-18).
+
+**Acceptance criteria for the delta (rule C7).** These are the cases the two fix clauses of re-issue 1 list:
+- finding-11: the TCXO temperature term from a sourced slope, or the class band if none is given; a load and supply step allocation between the stage-on refresh and the stage-off check, present at every check; A_kd, or the interval-12 allocation inside its 4.26 ppm ceiling, re-derived; the interval-13 allocation and its margins re-derived; M-2 restated as limits that equal the budget; the WP-PDR-35 values restated. Both checks (interval 12 at key-down, interval 13 during the over), with REQ-SYS-154 (T + d <= 10 kHz), REQ-SYS-182 (d < T) and the TC-SYS-101 12 kHz injection at each.
+- finding-12: FC0 times 2^n x 1 us (or 0.98 us with its tolerance) in `r3_a5.py` with the comment corrected; L_max, RL-5, RL-6, the M-1 branches, the U-1 times and the WP-PDR-23a request re-derived; the figure re-rendered. Every place in section 3.4, 4 and 5 that uses an FC0 time.
+
+### Verification of the Major findings
+
+**finding-11 (the TCXO's own change missing from the ratio drift): Verified.**
+
+| Element of the fix | Result | Evidence |
+|---|---|---|
+| TCXO temperature term | Yes | `TCXO_TEMP_PPM = 2 x 0.5 = 1.0 ppm`, the fo-TC band peak to peak, at every ratio age, interval 12 included (FR-T; note section 3.4.2 drift list and table; section 6 item 12). The brief sheet gives no slope (re-read above), so the band is the only sourced bound. It holds whether the band is referred to +25 C or to its midpoint: in both readings two temperatures differ by at most 1.0 ppm |
+| Load and supply step | Yes | `TCXO_STEP_PPM = 2 x 0.1 + 2 x 0.1 = 0.4 ppm` (FR-T). If each state is inside the rated load and supply range, each is within 0.1 ppm of the nominal-condition frequency per cause, so the step is at most twice each coefficient: correct. It is labelled an allocation, applied at every check, conditioned on the load and supply ranges in both stage states and both breakout clock states (section 3.4.3 revision 3 condition; requests to WP-PDR-20b, 37 and 38), with "a stage that pulls the load outside ... re-opens section 3.4.2" (section 6 item 13). The condition has an unnamed input (finding-18, Minor) |
+| Ratio-error model | Yes | Section 3.4.2 now states the estimate error [f_TCXO(now) / f_TCXO(refresh)] x [f_XOSC(refresh) / f_XOSC(now)] - 1, the re-issue 1 form. The checker adds the TCXO terms to the XOSC terms as absolute values, which bounds the product to first order |
+| Interval 12 re-derived | Yes | Allocation 2.5 ppm = the 2.357 ppm bound at A_kd 10 s rounded up to 0.5 ppm, inside the 4.256 ppm ceiling (FR-2). Reviewer: 0.924 x 0.08193 K/s x 10 s + 0.2 = 0.957 ppm, + 1.4 = 2.357 ppm; A_kd limit (2.5 - 1.4 - 0.2) / (0.924 x 0.08193) = 11.89 s, printed floored as 11.8 s; d12 = 8 x 500 + 147.9988 x (2.5 + 2.5) = 4 740.0 Hz; margins 260.0 Hz to T, 260.0 Hz to 10 kHz (T + d = 9 740.0 Hz), 2 260.0 Hz for the injection (12 000 - 4 740 - 5 000). All equal B-12, B-16 and B-18.iv12 and `results.json` |
+| Interval 13 re-derived | Yes | Bound 6.116 + 1.4 = 7.516 ppm, allocation 8.0 ppm, inside 17.77 ppm (FR-4, FR-6). Reviewer: d13 = 8 x 250 + 147.9988 x (2.5 + 8.0) = 3 554.0 Hz; margins 1 446.0, 1 446.0 and 3 446.0 Hz. All equal B-12, B-16 and B-18.iv13 |
+| FC0 accuracy ceilings | Yes | B-16a: (5 000 - 740.0) / 8 = 532.5 Hz at interval 12 and (5 000 - 1 554.0) / 8 = 430.7 Hz at interval 13 (reviewer), against Table 541 500 and 250 Hz. They replace the C-16a values for A5 as the WP-SW-14 known-clock acceptance limits (section 3.4.2, section 5 rows WP-PDR-32 and 43, section 6 item 4, the section 3.4.1 fallback text). The interval-12 limit is now 32.5 Hz above the Table 541 value; the note states it beside item 4 (the semantics of the Table 541 accuracy), which is where its sensitivity belongs |
+| M-2 limits equal the budget | Yes | FR-7: M-2(a) ratio change at most 8.0 - 0.2 - 0.4 = 7.4 ppm over the over and 2.5 - 0.6 = 1.9 ppm in the first 10 s after it; M-2(b) TCXO step at most 0.4 ppm and pushing at most 0.2 ppm, measured on the carrier. The split is right: the ratio is counted in receive with the stage on, so it sees the XOSC thermal drift and the TCXO temperature change, and not the pushing or the step. Reviewer: the budget's ratio-change bounds are 5.916 + 1.0 = 6.916 ppm (inside 7.4) and 0.757 + 1.0 = 1.757 ppm (inside 1.9), so a unit that meets the analysis passes, and a unit that passes both parts is inside both allocations |
+| Requests restated | Yes | WP-PDR-35: allocations 2.5 and 8.0 ppm with the TCXO terms, L_max 1.9 ms. WP-PDR-43: M-2(a) and (b) with their limits. WP-PDR-20b, 37 and 38: the load and supply conditions. WP-PDR-54: the freshness trigger at 7.52 ppm, 1.4 ppm of it TCXO |
+| Figure | Yes | `ratio-freshness.png` (visual closure below) |
+
+The re-issue 1 statement that "both checks still close inside their ceilings" is confirmed at the new values. No requirement value changes.
+
+**finding-12 (FC0 interval times rounded down): Verified.**
+
+| Element of the fix | Result | Evidence |
+|---|---|---|
+| Time basis in the checker | Yes | `T_FC0 = {iv: 2**iv x 1 us}`, with the comment now quoting Table 582 ("0.98us * 2**interval, but let's call it 1us") and calling 1 us the upper value of the tick, which is longer and so conservative for time. KA-R3 asserts 4.096, 8.192 and 32.768 ms. No use of the rounded `fb.FC0[iv][0]` times remains in `r3_a5.py` (`grep -n "fb.FC0\|tx_detection_time"`: only the accuracy column `fb.FC0[iv][1]` is used, in B-16a and the ratio quantization). `freq_budget.py` keeps its rounded times for sections 3.1 to 3.3 (finding-5, a lien), stated in section 2 and in the checker comment |
+| L_max | Yes | RL-4 1.904 ms; RL-4d proposes 1.9 ms (rounded down to 0.1 ms) with PA_EN at t0 + 7.996 ms, 0.004 ms before TX_KEY, and asserts it. A 2.0 ms deadline would put PA_EN at t0 + 8.096 ms, after TX_KEY, as re-issue 1 found. The 4 us margin is at the conservative 1 us tick; at 0.98 us the count is 82 us shorter |
+| RL-5, RL-6, RL-6f | Yes | 3.904 ms, 0.096 ms below the TS-012 threshold of 1 + 3 ms, reported as a request to WP-PDR-54 (the threshold is looser than any sequence inside REQ-SYS-161 allows); RL-6 -0.192 ms; the fallback as written keeps 0.308 ms (1 + 8.192 + 2 = 11.192 ms against the 11.5 ms ramp). Reviewer: all four by hand |
+| M-1 branches | Yes | 1.9 - 0.65 = 1.25 ms and 3.9 - 0.65 = 3.25 ms of settle, on the proposed (floored) deadlines, in section 3.4.1 (b) and in the WP-PDR-23a request. Taking the floored 3.9 ms rather than 3.904 ms is the conservative side |
+| U-1, FR-2r, B-19, B-15 | Yes | U-1 7.096 and 7.996 ms; FR-2r 1.083 s (1 + 0.050 + 0.032768); B-19 82.8 ms; B-15 2 x 8.192 + 10 + 20 = 46.4 ms. R-FRESH-2 and the refresh text follow (82.8 ms, 83 ms) |
+| Requests | Yes | WP-PDR-23a (interval 12 at 4.096 ms, L_max 1.9 ms, the 0.308 ms fallback), WP-PDR-32 (1.9 ms), WP-PDR-35 (1.9 ms after t0), WP-PDR-54 (RL-5, RL-6f, section 7.3's sequence on the 4.096 ms count) |
+| Figure | Yes | `relock-sequence.png` re-rendered on the 4.096 and 8.192 ms bars (visual closure below) |
+
+The note's section 2 row "Key-down sequence" still quotes TS-012 section 7.3 as written ("PA_EN at t0 + 7 ms"). It is a faithful quote of the design input, the checker draws that row at 7.096 ms, and the WP-PDR-54 request carries the correction to TS-012. No finding.
+
+### Reviewer re-runs
+
+| Command | Exit | Result |
+|---|---|---|
+| `git archive 9dc9d63 hardware/sim/freq hardware/sim/thermal docs/reviews/PDR/figures/frequency-budget.png` into the scratchpad; `.venv/bin/python hardware/sim/freq/r3_a5.py --run-id rev-check` (4.3 s) | 0 | "RESULT: 38 pass, 0 fail, 14 info", as section 7 states; `diff` of `checker-output.txt` against the frozen one: no difference; `results.json` equal to the frozen one after removing `run_id` |
+| `git hash-object` of the five regenerated PNGs | 0 | `54cad129`, `a88ebc4b`, `ff5d30b3`, `01d10aac`, `a141b33e`: byte-identical to the frozen figures |
+| `cmp results/r3a5-20260929-02/r3_a5.py hardware/sim/freq/r3_a5.py` (export) | 0 | the run copy is the checker as frozen (both `e4140a3d`) |
+| `.venv/bin/python hardware/sim/freq/freq_budget.py` (same export) | 0 | "RESULT: 35 pass, 0 fail", unchanged |
+| Reviewer script over `results.json` (`freshness`, `budget`, `relock`) and the hand values above | 0 | every value above agrees to the printed digit |
+
+### Visual closure (iteration 3 re-issue 2)
+
+Six renders opened with the Read tool.
+- `relock-sequence.png`: the four timelines on the 4.096 ms (green) and 8.192 ms bars. The TS-012 row sets PA_EN at about 7.1 ms; the proposed-deadline row (L_max = 1.9 ms) at 7.996 ms, just before TX_KEY, with the ramp at 10 ms; the 12 ms row (L = 3.9 ms) at about 10 ms; the fallback row in red at 11.192 ms, 0.308 ms before its 11.5 ms ramp, as its label says. The "REQ-SYS-161 12 ms" label now sits clear of the axis (a re-issue 1 cosmetic point). The lower log panel reads 0.01, 0.35, 1.25, 3.25, 2 and 10 ms, as RL-2, RL-7a and RL-7b.
+- `ratio-freshness.png`: the right panel draws the ratio drift bound (solid) from 1.6 ppm at age 0 (0.2 ppm pushing and 1.4 ppm TCXO), with the revision 2 XOSC-only bound dotted beneath it; it crosses the 2.5 ppm interval-12 allocation just right of the A_kd = 10 s marker (label "limit 11.8 s") and levels at 7.52 ppm, marked at W = 190 s, under the 8.0 ppm allocation. The 4.26 and 17.77 ppm ceilings are in the legend. The left panel is unchanged. It agrees with FR-2 to FR-6.
+- `r3-budget-and-buffer.png`: bars 4 740 and 9 740 Hz at interval 12 (drift 2.5 ppm) and 3 554 and 8 554 Hz at interval 13 (drift 8.0 ppm), against T = 5 kHz and the 10 kHz limit; the right panel is unchanged. It agrees with B-12 and B-16.
+- `settle-and-guard.png` (new; the INSP-111 finding-7 figure): 2 891 Hz against T = 5 000 Hz, and the A5 upper-edge stack 370.0 + 5 + 5 + 750 Hz with a 70.0 Hz margin to 148.000 MHz. It agrees with ST-1 and G-2.
+- `xosc-slope.png`: same blob `ff5d30b3` as re-issue 1; unchanged content.
+- `frequency-budget.png` (unchanged blob `d77a0b3a`): the sections 3.1 to 3.3 figure; section 3.4 governs for A5, as re-issue 1 recorded.
+
+### New finding at iteration 3 re-issue 2
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| <a id="finding-18"></a>finding-18 | reviewer (re-issue 2, while checking the finding-11 step condition) | Minor | CK-ANA-A5 | `frequency-budget.md` section 2 row "TCXO step between the stage-on refresh and the stage-off check", section 3.4.3 revision 3 condition, section 5 rows WP-PDR-20b, 32 and 35, section 6 item 13 | See the note after this table | Open | Pending | CDR readiness declaration (lien, rule C1) |
+
+**finding-18 (the load condition has an unnamed input).**
+- **Defect.** The 0.4 ppm step holds only while the TCXO's total load, "the XA input, the stage input and its bias network", stays inside 10 kOhm // 10 pF +/-10 % in both stage states. The XA part of that load is not fixed anywhere. The Si5351A's internal load capacitance on XA and XB is a register setting, "0, 6, 8, or 10 pF" (data sheet section 4.1.1; Table 8 note 1, register 183 bits 7:6), and the data sheet gives no input capacitance or resistance for a clock-driven XA (section 6.6 shows only VIN = 1 Vpp through 0.1 uF). At the 10 pF setting the internal load alone is the nominal 10 pF, so the stage input, its bias network and the traces would have only the +10 % (1 pF) left in both states. The setting is a SW-SYNTH configuration constant, and no request names it, so WP-PDR-20b cannot show the condition from the note.
+- **Why Minor.** No number, margin or pass changes. The condition is stated with its re-open branch (section 6 item 13), and M-2(b) measures the step directly on the carrier with a 0.4 ppm pass limit, so a wrong load cannot pass unmeasured.
+- **Fix (lien).** Name register 183 XTAL_CL as an input of the condition, and state the XA input load as "not in the source" for a driven XA. Add the setting, or the rule that it is chosen to meet the condition, to the WP-PDR-20b run (both stage states at that setting) and to the WP-PDR-32 and WP-PDR-35 requests as a SW-SYNTH constant.
+
+### Findings (iteration 3 re-issue 2 state)
+
+| Finding | Origin | Severity | Item | Location | Description | State | Owner ruling | Deferred to |
+|---|---|---|---|---|---|---|---|---|
+| finding-1 to finding-4, finding-8 | reviewer | Major | as iterations 1 to 3 | as iterations 1 to 3 | Verified at iterations 2 and 3; sections 3.1 to 3.3 and the clock plan are unchanged at `9dc9d63` | Verified | Pending | |
+| finding-5 | reviewer | Minor | CK-ANA-D3 | as iteration 1 | Lien; `freq_budget.py` keeps the rounded times for sections 3.1 to 3.3, stated in the note; the section 3.4 part was finding-12 | Open | Pending | CDR readiness declaration |
+| finding-6, finding-7, finding-9, finding-10 | reviewer | Minor | as iterations 1 to 3 | as iterations 1 to 3 | Liens, not addressed (rule C1) | Open | Pending | CDR readiness declaration |
+| finding-11 | reviewer | Major | CK-ANA-B1, G2-1, E5, J2 | `frequency-budget.md` sections 2, 3.4.2, 3.4.3, 4, 5, 6 items 12 and 13; `r3_a5.py` FR-T, FR-2, FR-4, FR-6, FR-7, B-16a; `ratio-freshness.png` | TCXO band 1.0 ppm and 0.4 ppm load and supply step added from the TG2520SMN brief sheet (re-read, SHA-256 equal); allocations 2.5 and 8.0 ppm inside their ceilings; margins 260.0 and 1 446.0 Hz; M-2(a) and (b) limits equal the budget; confirmed by re-run and hand check | Verified | Pending | |
+| finding-12 | reviewer | Major | CK-ANA-D3, A4, E5 | `r3_a5.py` `T_FC0`, KA-R3, RL-4d; `frequency-budget.md` sections 3.4.1 to 3.4.4, 4, 5; `relock-sequence.png` | FC0 times 2^n x 1 us; L_max 1.9 ms with PA_EN at t0 + 7.996 ms; RL-5 3.904 ms, RL-6 -0.192 ms, fallback 0.308 ms, M-1 branches 1.25 and 3.25 ms, U-1 7.096 and 7.996 ms, B-15 46.4 ms; confirmed by re-run and hand check | Verified | Pending | |
+| finding-13 | reviewer | Minor | CK-ANA-A4, D2 | section 3.4.1; section 6 item 8 | Lien, not addressed | Open | Pending | CDR readiness declaration |
+| finding-14 | reviewer | Minor | CK-ANA-F2, A3 | section 3.4.4 option (b) | Lien, not addressed | Open | Pending | CDR readiness declaration |
+| finding-15 | reviewer | Minor | CK-ANA-F4, D2 | section 3.4.2 B-16a; section 5 rows WP-PDR-32 and 43; section 6 item 4 | Fixed within the finding-11 fix: the interval-13 ceiling (now 430.7 Hz with the 8.0 ppm allocation) is stated and used as the A5 known-clock acceptance limit, and section 3.3 C-16a is limited to A1 and A2; re-computed | Verified | Pending | |
+| finding-16 | reviewer | Minor | CK-ANA-A5 | section 2; section 3.4.2; section 6 item 10 | Lien. M-2(a) now logs the first 10 s after an over with a 1.9 ppm limit, which measures A_kd as the fix asked; the board-coupled heating assumption is still not stated or bounded | Open | Pending | CDR readiness declaration |
+| finding-17 | reviewer | Minor | CK-ANA-H2 | section 5 | Lien, not addressed | Open | Pending | CDR readiness declaration |
+| finding-18 | reviewer | Minor | CK-ANA-A5 | section 3.4.3 condition; section 5 rows WP-PDR-20b, 32, 35; section 6 item 13 | Si5351A register 183 XTAL_CL (0, 6, 8 or 10 pF on XA) not named as an input of the TCXO load condition; lien | Open | Pending | CDR readiness declaration |
+
+### Checklist items changed at this iteration
+
+| Id | Iteration 3 re-issue 2 answer | Evidence |
+|---|---|---|
+| CK-ANA-A4 | No (Minor) | TG2520SMN rows re-read and equal; FC0 time basis corrected (finding-12 Verified). The SCL basis of finding-13 remains |
+| CK-ANA-A5 | No (Minor) | The TCXO load condition has an unnamed register input (finding-18); findings 6, 10 and 16 stand |
+| CK-ANA-B1 | Yes | The ratio-drift model carries both factors (finding-11 Verified) |
+| CK-ANA-B5 | Yes | Independent hand checks of FR-2, FR-4, FR-6, FR-7, B-12, B-16, B-16a, B-18, RL-4 to RL-6f, U-1, B-15, B-19 (above) |
+| CK-ANA-C4 | Yes | Re-run on the `9dc9d63` export: same exit, identical output and `results.json`, byte-identical PNGs |
+| CK-ANA-D2 | No (Minor) | Note and checker agree for every revision 3 value; findings 9 and 13 stand (finding-15 Verified) |
+| CK-ANA-D3 | No (Minor) | `r3_a5.py` uses 2^n x 1 us (finding-12 Verified); the `freq_budget.py` rounded times of sections 3.1 to 3.3 remain the finding-5 lien |
+| CK-ANA-E5 | Yes | The A5 conditions (A_kd 10 s with 2.5 ppm, 8.0 ppm, L_max 1.9 ms, the TCXO load and supply conditions) are supported as written; no requirement value changes, and the "else a CR" column stands |
+| CK-ANA-F4 | No (Minor) | The interval-13 FC0 ceiling is stated (finding-15 Verified); the finding-6 lien stands |
+| CK-ANA-G2-1 | Yes | The TCXO temperature and step lines are in the drift table with source and state (Datasheet, Allocation) |
+| CK-ANA-G7-2 | Yes | TCXO band, load and supply terms allocated from the brief sheet |
+| CK-ANA-I1, I2 | Yes | Six renders opened (visual closure above); values agree with the checker |
+| CK-ANA-J2 | No (Minor) | The SW-SAFE and SW-SYNTH values (A_kd, both allocations, L_max 1.9 ms, the acceptance limits) now rest on verified fixes; the finding-7 lien (R3 TCXO-fault bound) stands |
+
+### Cross items (not findings)
+
+- **X-1.** Unchanged: CR-012 is not merged at `HEAD` `23e2388` (`git merge-base --is-ancestor` fails). The `checklist` field keeps the design checklist; the item set applied is analysis template blob `0386cc6e` (`git rev-parse cr/CR-012-pdr-checklist-templates:docs/templates/peer-review-checklist-analysis.md`).
+- **X-6 (software assurance pair).** This record now names its pair (`paired_record: INSP-111`). INSP-111 iteration 2 (`572ee21`) returned NEEDS CHANGES on revision 2 with one Major (INSP-111 finding-7); the author's fix is in the same `9dc9d63`, and the INSP-111 delta on it has not been filed at `HEAD` `23e2388`. `assurance_verdict` therefore records NEEDS CHANGES. This reviewer did not apply the SA lens.
+- **X-8 (iteration count).** This section is iteration 2 of the WP-PDR-20a cycle (the first delta). The schema caps `iteration` at 3, so the field stays 3 and the heading reads "Iteration 3 re-issue 2". It closes the cycle within its three iterations.
+- **X-11 (the INSP-111 finding-7 content).** Revision 3 also adds the settle residual S_RAMP = 5 Hz to the A5 band-edge guard (section 3.1, G-1 to G-7): the upper-edge margin falls from 75.0 to 70.0 Hz and the REQ-TX-006 limit for A5 from 825.0 to 820.0 Hz, requested of WP-PDR-22. This record's REQ-SYS-008, 009 and REQ-TX-002 support is read accordingly: the reviewer checked 1 200 - 370.0 - 5 - 5 - 750 = 70.0 Hz and 1 200 - 370.0 - 10 = 820.0 Hz, and KA-R4 reproduces C-2 at S_RAMP = 0. Whether the 5 Hz allocation, the ST-1 tail bound and M-1(c) close INSP-111 finding-7 is for the INSP-111 delta.
+- **X-12 (TS-012 revisit conditions, for WP-PDR-54).** The readings of re-issue 1 X-9 stand at the new numbers: relock open, not triggered by the source read; freshness triggered as worded (7.52 ppm, 1.4 ppm of it TCXO, so no ratio age meets 1 ppm). New for WP-PDR-54: the TS-012 relock threshold is 0.096 ms looser than any sequence inside REQ-SYS-161 allows (RL-5).
+- **X-13 (the TG2520SMN tolerance observation).** The author's observation (section 6 item 15: 2.7 ppm uncalibrated against the 1.5 ppm allocation of section 3.2) was checked against the brief sheet and the values are right. It bears on section 3.2 and case C-8, which this delta does not review. The lead SE decides whether it re-opens the section 3.2 review.
+
+### Verdict (iteration 3 re-issue 2)
+
+```
+VERDICT: NEEDS CHANGES (record verdict held by the SA pair and X-1; reviewer verdict APPROVED)
+PRODUCT: docs/design/analysis/frequency-budget.md@def3f708, hardware/sim/freq/r3_a5.py@e4140a3d, hardware/sim/freq/README.md@39ae3a3b, hardware/sim/freq/results/r3a5-20260929-02/{results.json@920eddb5, checker-output.txt@76181155, r3_a5.py@e4140a3d, relock-sequence.png@54cad129, ratio-freshness.png@a88ebc4b, xosc-slope.png@ff5d30b3, r3-budget-and-buffer.png@01d10aac, settle-and-guard.png@a141b33e}, hardware/sim/thermal/thermal_model.py@54573514 (imported), hardware/sim/freq/freq_budget.py@d82269e6 and docs/reviews/PDR/figures/frequency-budget.png@d77a0b3a (unchanged) at 9dc9d63
+FINDINGS:
+- [Major] finding-11 Verified: TCXO band 1.0 ppm (no slope in the TG2520SMN brief sheet) and 0.4 ppm load and supply step added; interval 12: 2.5 ppm allocation, A_kd 10 s (limit 11.8 s), margin 260.0 Hz; interval 13: 7.516 ppm bound, 8.0 ppm allocation, margin 1 446.0 Hz; ceilings 4.26 and 17.77 ppm; acceptance limits 532.5 and 430.7 Hz; M-2(a) 7.4 and 1.9 ppm, M-2(b) 0.4 and 0.2 ppm, equal to the budget.
+- [Major] finding-12 Verified: FC0 times 2^n x 1 us; L_max 1.9 ms (PA_EN at t0 + 7.996 ms); RL-5 3.904 ms; RL-6 -0.192 ms; fallback 0.308 ms; M-1 branches 1.25 and 3.25 ms; B-15 46.4 ms.
+- [Major] finding-1 to finding-4 and finding-8 Verified at iterations 2 and 3; products unchanged.
+- [Minor] finding-15 Verified with the finding-11 fix (interval-13 ceiling 430.7 Hz stated and used).
+- [Minor] finding-18 (new): Si5351A register 183 XTAL_CL (0 to 10 pF on XA) not named as an input of the TCXO load condition; lien.
+- [Minor] finding-5, 6, 7, 9, 10, 13, 14, 16, 17: liens due at the CDR readiness declaration (rule C1).
+ITEMS N/A: R3; CK-ANA-B2, C5, E6, G2-3; G1, G3, G4, G5.
+VALUES PROPOSED: REQ-SYS-154 and REQ-SYS-182 for A5, 10 kHz, 100 ms, T = 5.0 kHz on route R3 with L_max 1.9 ms, A_kd 10 s at 2.5 ppm, 8.0 ppm at interval 13, the TCXO load and supply conditions and the acceptance limits 532.5 and 430.7 Hz (supported); REQ-SYS-008, 009, REQ-TX-002 for A5 with the 820.0 Hz REQ-TX-006 limit (read, X-11); REQ-SYS-154 unlocked during transmission on A5 (open on the WP-PDR-32 U-2 choice, finding-14 lien). Other values as iteration 3.
+SA PAIR: INSP-111 iteration 2 NEEDS CHANGES (finding-7 Major); its delta on 9dc9d63 not yet filed.
+MEASUREMENTS: size=52 r3_a5.py cases (38 PASS, 14 INFO), 5 run plots; inputs_checked=9; renders=6; turns=35; minutes=60; major=2 verified, 0 open; minor=1 new (lien), 1 verified
+```
+
+The reviewer verdict is APPROVED: no Major finding is open, the re-run and the independent checks agree, and every render was opened. The record verdict stays NEEDS CHANGES for two reasons that are not findings of this record: INSP-111 has not returned APPROVED on revision 3 (07 sections 2.1.1 and 10.2), and the analysis template has not reached `main` through CR-012 (X-1). When both are met, the lead SE sets the record verdict to APPROVED in that commit, without another product iteration. Under rule C10, no revision 3 value goes to the owner before then.
+
+## Measurements (SWE-089), iteration 3 re-issue 2
+
+Items re-checked 14 (A4, A5, B1, B5, C4, D2, D3, E5, F4, G2-1, G7-2, I1, I2, J2); items answered No 8 (A4, A5, D2, D3, F2, F4, H2, J2, all Minor); findings 2 Major Verified, 1 Minor Verified (finding-15), 1 new Minor (finding-18, lien), 9 Minor liens carried; fixed 0; deferred 0; inputs checked against sources 9 (brief sheet 7: fo-TC, fo-Load, fo-VCC, output load, f_tol, f_age, the absence of a slope; Si5351A data sheet 2: section 4.1.1 and section 6.6); renders inspected 6; effort about 35 turns and 60 minutes.
