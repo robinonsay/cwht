@@ -16,19 +16,26 @@
 # cr/CR-013-process-04-07-semp-srr-liens at 41c588c (parent 5cd87cf, the CR-010 change set); the CR file is
 # on main. Lead SE convention (2026-09-27, INSP-031 practice): reviewer_verdict and assurance_verdict are set
 # here; the record verdict stays held until the CR-013 merge brings the blob to main.
+# Iteration 2 (2026-09-29, re-pin delta; lead SE ruling (2) of 2026-09-29): the 07 blob is unchanged at the
+# CR-013 branch head 1a486e4; no CR file is in product_files, so none is dropped; findings_open is reconciled
+# with the finding tables (section "Iteration 2").
 id: INSP-073
 checklist: peer-review-checklist-requirements
 checklist_revision: C
 checklist_software_assurance: "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4 (revision A, CR-012 branch head 7784672)"
 checklist_file: docs/reviews/PDR/checklists/software-plan-07-software-assurance.md
 product: docs/process/07-software-engineering-plan.md
-# product_commit: the CR-013 branch head, as in INSP-059 (frozen, rule C2)
+# product_commit: the CR-013 branch head, as in INSP-059 (frozen, rule C2). Iteration 2: kept; the branch head is now
+# 1a486e4, whose later commits are record commits that leave the 07 blob unchanged
 product_commit: "41c588cddc9a97cec536482dc2bd164e2bf81ea3"
+# product_files: the 07 blob only, unchanged at iteration 2. The CR-013 file was never a product_files entry (it is in
+# input_files, which the record drift rule does not read), so lead SE ruling (2) has no CR entry to drop
 product_files: ["docs/process/07-software-engineering-plan.md@0ad37a43a9d365408b78488f6c2b02933af56837"]
 # input_files: read, not reviewed. The CR file now on main (revision with the section 6.1 review
 # 10b94d9), the CR-010 base blob, the baseline blob, the SRR assurance record whose liens this delta verifies,
 # the paired record, and the sources the liens are checked against (blobs equal git rev-parse HEAD:<path> at main 1a240f8)
-input_files: ["docs/cm/cr/CR-013-process-04-07-semp-srr-liens.md@21b8a3db861a88334f285b78acb520d02cb29e23", "docs/process/07-software-engineering-plan.md@3ae7d73b01810e47fd10251d798e0a047aaa72dd", "docs/process/07-software-engineering-plan.md@bfe05f4327e79fa15c24d2cf8c14249804f946a8", "docs/reviews/SRR/checklists/software-plan-07-software-assurance.md@9076d5a2d59a827d869057f00b40c8644274de02", "docs/reviews/PDR/checklists/software-plan-07.md@ccea98d61590a7240444328a0c8af604c4f8add8", "docs/safety/hazard-analysis.md@52c8ce16856499afc1b701e1ddb103788fcb1af9", "tools/sw_gate.sh@29a37127312e242bce2aa8f41602e3bcd4360f2f", "tools/toolchain.lock.md@4e978efc474adaf34337affe75addc51d5ab3d59"]
+# Iteration 2 adds the CR-013 file as read at main 2b0d963 (fef1f9d9)
+input_files: ["docs/cm/cr/CR-013-process-04-07-semp-srr-liens.md@21b8a3db861a88334f285b78acb520d02cb29e23", "docs/cm/cr/CR-013-process-04-07-semp-srr-liens.md@fef1f9d9892e825025e713db5e4b855ca52e5d77", "docs/process/07-software-engineering-plan.md@3ae7d73b01810e47fd10251d798e0a047aaa72dd", "docs/process/07-software-engineering-plan.md@bfe05f4327e79fa15c24d2cf8c14249804f946a8", "docs/reviews/SRR/checklists/software-plan-07-software-assurance.md@9076d5a2d59a827d869057f00b40c8644274de02", "docs/reviews/PDR/checklists/software-plan-07.md@ccea98d61590a7240444328a0c8af604c4f8add8", "docs/safety/hazard-analysis.md@52c8ce16856499afc1b701e1ddb103788fcb1af9", "tools/sw_gate.sh@29a37127312e242bce2aa8f41602e3bcd4360f2f", "tools/toolchain.lock.md@4e978efc474adaf34337affe75addc51d5ab3d59"]
 paired_record: INSP-059
 product_type: plans
 # criticality: safety-critical, as INSP-059 and INSP-018. 07 is the 07 section 2.1.1 "Software plans" product
@@ -40,7 +47,8 @@ author_agent: "author:WP-PDR-13 (Claude, software lead as 07 author; CR-013 orig
 reviewer_agent: "sa-reviewer:WP-PDR-13-software-plan"
 assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:WP-PDR-13-software-plan (software assurance function; paired file review INSP-059 by reviewer:software-plan)"
-iteration: 1
+# iteration 2: re-pin delta and count reconciliation (section "Iteration 2")
+iteration: 2
 # readiness_met: true. R3 is answered on the product's files (07 has no validator failure); the 7 failures at
 # 41c588c are SRR record drift that CR-013 section 4 discloses (INSP-059 R1 answers its own checklist's R1 No)
 readiness_met: true
@@ -53,10 +61,14 @@ assurance_verdict: APPROVED
 # convention) and while the paired INSP-059 record verdict is held. The software lead sets APPROVED in the
 # CR-013 merge commit, or the commit right after it, when blob 0ad37a43 reaches main unchanged and INSP-059
 # is APPROVED. If CR-013 step 4 or 5 (rebase, lien fixes) changes the blob, both records first get a delta.
+# Iteration 2: unchanged; set in the CR-013 merge commit (lead SE ruling (3)), after INSP-059 is paired and APPROVED
 verdict: NEEDS CHANGES
 findings_major: 0
 findings_minor: 1
-findings_open: 1
+# findings_open: 1 at iteration 1, which contradicted the iteration 1 lien table (finding-1 "Lien (plan rule C1)", the
+# later row and so the current state). Iteration 2: 0, because finding-1 is a lien and a lien is not Open (the
+# INSP-037, INSP-032 and INSP-015 practice); the iteration 2 finding table shows it
+findings_open: 0
 findings_fixed: 0
 findings_verified: 0
 findings_deferred: 0
@@ -66,8 +78,9 @@ assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-013 7
 swe134_items_checked: [a, b, c, d, e, f, g, h, i, j, k, l]
 deferred_rids: []
 items_no: ["swe-136 7.1 task 1"]
-effort_turns: 42
-effort_minutes: 65
+# effort: iteration 1 42 turns, 65 minutes; iteration 2 adds 12 turns, 20 minutes
+effort_turns: 54
+effort_minutes: 85
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -261,4 +274,44 @@ TASKS APPLIED: swe-134 tasks 1, 5, 6; swe-022 task 1; swe-013 tasks 1, 2; swe-02
 TASKS N/A (relief): swe-121 task 2 and swe-125 task 2 (rmm.json SWE-022 T); swe-159 tasks 1 and 2 (07 section 16.4)
 SWE-134 ITEMS CHECKED: a to l (c, i, k, l on the changed text; others unchanged by diff)
 MEASUREMENTS: size=1010 lines, 14 change items; tasks=31; tasks_no=1; turns=42; minutes=65; major=0; minor=1
+```
+
+## Iteration 2: re-pin delta and count reconciliation (2026-09-29, `main` `2b0d963`, branch head `1a486e4`)
+
+**Why.** Before the CR-013 merge commit sets this record's verdict (lead SE ruling (3) of 2026-09-29), two things were checked. (a) The pins, under lead SE ruling (2): a record re-pin drops a CR file from `product_files` when the CR sections it reviewed are unchanged, with the reason. (b) The counts: the front matter read `findings_open: 1`, while the finding tables read 0 open. The iteration 1 findings table lists finding-1 as Open, and the lien table after it lists finding-1 as "Lien (plan rule C1)". Under the record state rule of `tools/validate_docs.py`, the later row is the current state, so the tables show 0 open Minor findings. With `verdict: APPROVED` the record would have failed ("findings_open is 1 and the latest iteration's finding tables show 0 open Minor finding(s)").
+
+**Scope (rule C1).** A delta. The product is unchanged, so no item is re-answered. This delta confirms the pin, states the current state of finding-1 and reconciles the counts. Checklist as at iteration 1.
+
+**Independence (rule C4) and search first.** A new invocation of this record's software assurance reviewer role (07 section 2.1.1), `sa-reviewer:WP-PDR-13-software-plan`. It authored no part of CR-010, CR-012 or CR-013, of their branch commits or record deltas, or of INSP-059, and it edited no product file. It read no rustos object. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep` (queries: "INSP-050 CR-010 software assurance record product_files findings_open"; "INSP-060 drops CR file from product_files reason record-text edits drift"; "findings_open counts liens Minor findings ride with APPROVED lesson L1 findings_open 0"). `git` and `grep -n` were used afterwards only to pin lines and blobs.
+
+### Pin (lead SE ruling (2))
+
+- **07 blob unchanged.** `git rev-parse 41c588c:docs/process/07-software-engineering-plan.md` and `git rev-parse 1a486e4:<same>` both give `0ad37a43`, and `git log --oneline 41c588c..1a486e4 -- <07>` is empty. The commits after `41c588c` on the branch are record commits (`8d9efdf`, `b6cc8f8`, `1a486e4`) and the merges `eff05e0` and `3aab75b` of the CR-010 record commits `e54ce91` and `7963f78`. `product_files` stays as at iteration 1. `product_commit` stays `41c588c`, the commit INSP-059 names.
+- **No CR file to drop.** This record never pinned a CR file in `product_files`. The CR-013 file is in `input_files` (read, not reviewed), and the record drift rule reads only `product_files` and `product_blob`. Later record-text edits of CR-013 therefore cannot make this record drift. The current CR-013 blob (`fef1f9d9`, `main` `2b0d963`) is added to `input_files` as read. Its changes since `21b8a3db` are in the front matter, the lead paragraph and sections 4 to 11. Section 1, whose change items this record used as a basis, is unchanged.
+- **Licence row.** The swe-027 row of iteration 1 checked the 07 section 17.1 licence condition with `git show` of committed rustos objects. Under lead SE ruling (4), the CR-013 section 9 licence verifier later verified that row against rustos `2ec64c0` and `c54d35a` (`9fda694`, "Verified"). This delta did not repeat the check.
+
+### Findings (iteration 2; current state of every finding of this record)
+
+| Finding | Severity | State | Disposition |
+|---|---|---|---|
+| finding-1 | Minor | Lien: fix before CDR | Not fixed at the CR-013 rebase (step 5): 07 `0ad37a43` section 8.3 (line 344) still leaves `tools/release.sh`, `tools/image_trailer.py` and `shasum` out of the restated CDR list. INSP-018 was already APPROVED, so it is a lien (plan rule C1). Owner: the 07 author (Claude, software lead); due the CDR readiness declaration |
+
+Open Major: 0. Open Minor: 0 (finding-1 is a lien). New findings in this delta: 0. Counts after reconciliation: `findings_minor` 1, `findings_open` 0, `findings_fixed` 0, `findings_verified` 0, `findings_deferred` 0 (a lien is not a Deferred RID; `deferred_rids` stays empty), `assurance_findings_minor` 1.
+
+### Checks run
+
+- `git rev-parse` of the 07 path at `41c588c` and `1a486e4`; `git log 41c588c..1a486e4 -- <07>` empty; `grep -n image_trailer` over the extracted blob (lines 28 and 573 name it; line 344 does not).
+- `tools/validate_docs.py` on `main` with this delta in the working tree: this record PASS (drift of the branch-only blob printed as a note, as expected for a held verdict).
+- Verdict trial: a detached scratch worktree of `main` at `e3491d3` (no record or product path of this delta changed between `e3491d3` and `2b0d963`), trial `git merge --no-ff 7963f78` (CR-010), then `git merge --no-ff 1a486e4` (CR-013). `git rev-parse HEAD:<07>` there gives `0ad37a43`. With this record copied in at `verdict: APPROVED`, this record PASSES with no drift note, and `validate_docs.py` gives 117 passed, 0 failed. Negative control: the iteration 1 text at `verdict: APPROVED` FAILS on the record state rule alone ("findings_open is 1 and the latest iteration's finding tables show 0 open Minor finding(s)"). The worktree was removed and no ref was kept.
+
+### Record verdict (iteration 2)
+
+**`reviewer_verdict: APPROVED`, `assurance_verdict: APPROVED`**, unchanged, with lien finding-1 (Minor, due the CDR readiness declaration). The record `verdict` stays **NEEDS CHANGES** under the lead SE convention, because 07 `0ad37a43` reaches `main` only with the CR-013 merge. The software lead sets `verdict: APPROVED` in the CR-013 merge commit (lead SE ruling (3)), with the blob unchanged and INSP-059 APPROVED. INSP-059 must also carry `paired_record: INSP-073`, this reviewer and `assurance_verdict: APPROVED` (cross item X-1, still open at `2b0d963`: INSP-059 reads "not yet assigned" and `assurance_verdict: NEEDS CHANGES`). Its reviewer makes that update.
+
+```
+DELTA ITERATION 2 (2026-09-29): ASSURANCE VERDICT: APPROVED (unchanged); record verdict held until the CR-013 merge commit (lead SE ruling 3)
+PRODUCT: docs/process/07-software-engineering-plan.md@0ad37a43 (41c588c; unchanged at 1a486e4); no CR file in product_files (CR-013 is an input only)
+COUNTS: findings_open 1 -> 0 (finding-1 is a lien in the tables); minor 1; open Major 0
+FINDINGS: finding-1 Minor lien due CDR (not fixed at the CR-013 rebase); new findings 0
+MEASUREMENTS: blobs re-identified=1; iteration 2 turns=12, minutes=20; cumulative turns=54, minutes=85
 ```
