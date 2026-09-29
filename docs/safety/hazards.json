@@ -456,7 +456,8 @@
           "independent_of_firmware": true,
           "text": "Independent 2S protection IC (ABLIC S-8252 class) with a dual N-channel FET in the pack negative lead opens the charge path at 4.25 V +/-0.02 V per cell and on charge over-current (-0.100 V sense), with internal delay timers and quiescent current below 10 uA (D-PWR-03).",
           "control_req_ids": [
-            "REQ-SYS-083"
+            "REQ-SYS-083",
+            "REQ-SYS-194"
           ],
           "status": "Proposed"
         },
@@ -570,7 +571,8 @@
         "REQ-SYS-130",
         "REQ-SYS-167",
         "REQ-SYS-185",
-        "REQ-SYS-186"
+        "REQ-SYS-186",
+        "REQ-SYS-194"
       ],
       "residual_risk": {
         "severity": "Catastrophic",

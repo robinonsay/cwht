@@ -229,7 +229,8 @@
         "REQ-SYS-149",
         "REQ-SYS-166",
         "REQ-SYS-185",
-        "REQ-SYS-186"
+        "REQ-SYS-186",
+        "REQ-SYS-194"
       ],
       "requirement_ids": [
         "REQ-SYS-003",
@@ -274,7 +275,8 @@
         "REQ-SYS-177",
         "REQ-SYS-178",
         "REQ-SYS-185",
-        "REQ-SYS-186"
+        "REQ-SYS-186",
+        "REQ-SYS-194"
       ]
     },
     {
@@ -1386,7 +1388,8 @@
         "REQ-SYS-149",
         "REQ-SYS-166",
         "REQ-SYS-185",
-        "REQ-SYS-186"
+        "REQ-SYS-186",
+        "REQ-SYS-194"
       ],
       "code": []
     },
@@ -1840,7 +1843,8 @@
         "REQ-SYS-166",
         "REQ-SYS-167",
         "REQ-SYS-185",
-        "REQ-SYS-186"
+        "REQ-SYS-186",
+        "REQ-SYS-194"
       ]
     },
     {
@@ -5684,6 +5688,23 @@
       ],
       "child_ids": [],
       "note": "Added by SRR decision 41 (owner ruling 2026-09-26; OQ-SAF-016, HZ-004 K13, HZ-005 K9): SW-CFG keeps the mode out of the configuration store; SW-SAFE clears it at every reset."
+    },
+    {
+      "requirement_id": "REQ-SYS-194",
+      "title": "Independent cell over-voltage threshold over the charging temperature range",
+      "primary_module": "PWR",
+      "modules": [
+        "PWR"
+      ],
+      "sw_modules": [],
+      "element_ids": [
+        "B18"
+      ],
+      "function_ids": [
+        "F7"
+      ],
+      "child_ids": [],
+      "note": "Added by CR-008 (split from REQ-SYS-083 for INSP-025 finding-5 and cross item X1; HZ-002 K2): the 4.25 V protector of B18 (S-8252 class) over 0 C to 45 C, allocated as REQ-SYS-083 is."
     }
   ],
   "gaps": [
@@ -5711,9 +5732,9 @@
     }
   ],
   "summary": {
-    "sys_requirements": 190,
-    "non_retired": 188,
-    "allocated": 186,
+    "sys_requirements": 191,
+    "non_retired": 189,
+    "allocated": 187,
     "gaps": 2,
     "retired_excluded": 2,
     "with_child_ids": 32,
