@@ -27,7 +27,7 @@ product: docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md
 # 3b93de1 (the only commit after 37d5824 that touches the file). The blob equals git rev-parse 3b93de1:<path>,
 # git rev-parse HEAD:<path> and git hash-object <path> at HEAD 123f048 (checked 2026-09-29); it is on main.
 # Iteration 1 reviewed revision 5 at 37d5824, blob 731ba0eb (product_files_iteration_1), the product_files entry of
-# INSP-110 iteration 3 re-issue 1. INSP-110 has not yet filed its delta on revision 6 (cross item X-7)
+# INSP-110 iteration 3 re-issue 1. INSP-110 iteration 3 re-issue 2 (17b6865) names the same revision 6 blob 0c9fcb96
 product_commit: "3b93de11d52c17fa17e7a304656a2e8ff635efce"
 product_blob: 0c9fcb9649d3fbf7a1eae3de43d10f05abe1632b
 product_files: ["docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md@0c9fcb9649d3fbf7a1eae3de43d10f05abe1632b"]
@@ -53,7 +53,7 @@ assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:TS-012-design-to-cost (software assurance function; paired file review INSP-110 by reviewer:TS-012-iter1 to reviewer:TS-012-iter4)"
 iteration: 2
 # readiness_met: R1 to R4 hold at iteration 2 (R1: revision 6 committed and frozen at 3b93de1; its equality with the
-# paired record's product_files follows when INSP-110 files its delta on revision 6, cross item X-7. R3:
+# paired record's product_files holds since INSP-110 iteration 3 re-issue 2 (17b6865, blob 0c9fcb96). R3:
 # validate_docs.py 109 passed, 8 failed, the 8 records unrelated to TS-012; traceability.py 0 violations).
 # Iteration 1: R1 to R4 held on revision 5
 readiness_met: true
@@ -64,8 +64,8 @@ reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
 # verdict: set by Claude as software lead (07 section 10.2). Held at NEEDS CHANGES although both reviews are APPROVED:
 # (a) CR-012 is not merged (7784672 is not an ancestor of main on 2026-09-29; the template blob 5b135285 is unchanged
-# on the branch), lead SE convention of 2026-09-27; (b) INSP-110 does not yet carry this pairing (paired_record,
-# assurance_verdict pending; cross item X-1) nor a delta on revision 6 (cross item X-7)
+# on the branch), lead SE convention of 2026-09-27; (b) INSP-110 (17b6865) carries paired_record INSP-118 but still
+# copies assurance_verdict NEEDS CHANGES from iteration 1; it takes APPROVED from this iteration (cross item X-1)
 verdict: NEEDS CHANGES
 findings_major: 3
 # findings (iteration 2): 3 Major and 6 Minor raised in all (finding-9 new at iteration 2); verified: finding-1 to 3;
@@ -376,7 +376,7 @@ Other rows and items keep their iteration 1 answers.
 
 | # | Result | Evidence |
 |---|---|---|
-| R1 | Yes (pairing pending) | Revision 6 committed and frozen at `3b93de1`, blob `0c9fcb96`, equal at HEAD and in the working tree. INSP-110 has not yet filed its delta on revision 6, so its `product_files` still name `731ba0eb`. The equality is a condition of the record verdict (cross item X-7) |
+| R1 | Yes | Revision 6 committed and frozen at `3b93de1`, blob `0c9fcb96`, equal at HEAD and in the working tree. INSP-110 iteration 3 re-issue 2, committed at `17b6865` while this delta was being filed, names the same blob in `product_files` and `product_blob` |
 | R2 | Yes | Unchanged: `trade-study-or-adr`, safety-critical |
 | R3 | Yes | `validate_docs.py`: 109 passed, 8 failed, before and after this edit. The 8 are `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md` (PDR) and `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md` (SRR), none related to TS-012. `traceability.py --report-only --output <scratchpad>`: exit 0, "245 requirements, 173 test cases, 0 violation(s), 2 warning(s)" (REQ-SYS-125 and 148) |
 | R4 | Yes | Unchanged: separate invocation from the author and the INSP-110 reviewers |
@@ -387,8 +387,9 @@ Revision 6 lands where iteration 1 said it would. The recommended A4 with the TC
 
 ### Cross items (iteration 2, returned to Claude as lead SE)
 
-- **X-1 (still open).** INSP-110 still reads `assurance_reviewer_agent: "pending (...)"` and `assurance_verdict: pending`, and it has no `paired_record`. Its next delta sets `paired_record: INSP-118`, names this reviewer and copies `assurance_verdict: APPROVED` (iteration 2).
-- **X-7.** INSP-110's delta on revision 6 (iteration 3 re-issue 2, authorized in the same status note) should name blob `0c9fcb96`, so that readiness R1's equality holds for the pair. After that and the CR-012 merge with template blob `5b135285` unchanged, the software lead can set this record's `verdict` to APPROVED.
+- **X-1 (in part).** INSP-110 at `17b6865` now carries `paired_record: INSP-118` and names this reviewer in `assurance_reviewer_agent`. It still reads `assurance_verdict: NEEDS CHANGES`, the iteration 1 value; it takes `APPROVED` from this iteration 2 (`dd39a64` and the follow-up commit).
+- **X-7 (closed).** INSP-110's delta on revision 6 (iteration 3 re-issue 2, `17b6865`) names blob `0c9fcb96`, so readiness R1's equality holds for the pair. Once X-1 is complete and CR-012 merges with template blob `5b135285` unchanged, the software lead can set this record's `verdict` to APPROVED.
+- **X-11.** This delta's first commit `dd39a64` uses the subject type `review`, which is not a 05 section 4.5 type: `check_commit_msg.py --range dd39a64^..dd39a64` reports `SUBJECT` (its `Refs:` trailer passes). Another agent's commit (`17b6865`) already sits on top of it, so history is not rewritten. The follow-up commit that records this uses `docs`. The lead SE lists `dd39a64` with the finding-8 commits (X-9); `123f048` and `17b6865` use the same type.
 - **X-8.** finding-9's requests go to WP-PDR-22 and WP-PDR-16b together with the D-18 requests of section 8.12.
 - **X-9.** finding-8's lead SE part: list `5c16930`, `eca24fa`, `d5a3058`, `7d0d450` and `37d5824` in the configuration status change log as PDR RID candidates.
 - **X-10.** TS-012 cites the AFT05MS004N datasheet by hash only, from a web-fetch cache. The copy this review read sits in a session scratchpad. Record the source URL and the hash in the reference corpus index (`docs/references/`), so that a later review can re-read the same file without the scratchpad.
