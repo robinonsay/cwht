@@ -12,7 +12,10 @@ product: docs/process/05-configuration-and-data-management.md
 # (iteration 1: 4e3f8913366c60e79a9ace6a1b4f36f24adc3479; iteration 2 reviewed an uncommitted working tree)
 # post-SRR-ruling delta (2026-09-26, package item R16): the last commit touching the products, 0834da2 (05, SRR decision 10 (c));
 # review baseline HEAD 5122a6b; earlier value 0ab3d6e3fad8e22d336a458ec08d0e9220bdfbc5
-product_commit: "0834da26b463e4779799a1b20bf55be73d977d6c"
+# CR-010 delta (2026-09-29, iteration 3 re-issue 3, CR-010 section 5 step 5): 5cd87cf, the CR-010 change set on branch
+# cr/CR-010-apply-srr-decisions-9-and-40, the last commit touching the products on that branch (rmm.json only; 05 untouched);
+# earlier value 0834da26b463e4779799a1b20bf55be73d977d6c (post-SRR-ruling delta)
+product_commit: "5cd87cff741653c1f3746029d66c7d42c5a0b1d2"
 # product_blob: git rev-parse HEAD:docs/process/05-configuration-and-data-management.md at adcfe09.
 # Iteration 1: 8e7a1c842bbe16278c7be015bf291782b25df988; iteration 2: 40d45f4fd6e5109a1f1825f23797ccb0f62d97bd (never committed)
 # post-SRR-ruling delta: git rev-parse HEAD:<path> at 5122a6b (0834da2); earlier value 63ed566240ffc7f055b65f93f579a6bb1498e9f1
@@ -23,7 +26,9 @@ product_blob: "f8de2081f7542ed0bbe47897d8b63e845b8c3114"
 # and git hash-object at HEAD 1af795c; git log adcfe09..HEAD on both paths is empty
 # post-SRR-ruling delta 2026-09-26: both blobs equal git rev-parse HEAD:<path> and git hash-object at 5122a6b (delta commits 9bdf33c,
 # 7d735e5, 0834da2 verified in section "Post-SRR-ruling delta"); earlier blobs 05 63ed5662, rmm.json 30fcde24
-product_files: ["docs/process/05-configuration-and-data-management.md@f8de2081f7542ed0bbe47897d8b63e845b8c3114", "docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7"]
+# CR-010 delta 2026-09-29: rmm.json e326ddd1 replaced by a907a087 (5cd87cf; five implementation fields, verified in section
+# "CR-010 delta"); 05 f8de2081 unchanged; both equal git rev-parse 5cd87cf:<path>, and 05 also equals main 908d21a
+product_files: ["docs/process/05-configuration-and-data-management.md@f8de2081f7542ed0bbe47897d8b63e845b8c3114", "docs/process/rmm.json@a907a087f1302e275ea56bdb7bba89638777a319"]
 product_size: 16 sections, 672 lines (revision 3 plus the 2026-09-26 edits of Table 4-1 row 13 and AL-15), Table 4-1 with 55 rows, Tables 4-2 and 6-1
 sprint: SRR-prep
 author_agent: author:cm-plan (Claude lead SE, CM function; revision 2 of 2026-09-25)
@@ -46,6 +51,8 @@ readiness_met: true
 # verdict: APPROVED (with liens finding-10, finding-11) at the re-issue: reviewer APPROVED, assurance APPROVED, readiness met,
 # no Major finding open, named blobs equal HEAD (07 section 10.2; SWE-088). Post-SRR-ruling delta: APPROVED (with liens finding-10,
 # finding-11, finding-12); assurance_verdict is INSP-030 as filed on blob 63ed5662, its delta re-issue is observation O-8
+# CR-010 delta: APPROVED (with liens finding-10, finding-11, finding-12); no new finding; INSP-030 names only 05 (not rmm.json),
+# so the CR-010 change does not reach it; assurance_verdict copied as filed on main 908d21a
 reviewer_verdict: APPROVED
 assurance_verdict: APPROVED
 verdict: APPROVED
@@ -63,11 +70,13 @@ deferred_rids: []
 # items_no: post-SRR-ruling delta: CK-REQ-G1 also finding-12 (Lien); iteration 3 answers: CK-REQ-G1 (finding-10, Lien) and CK-REQ-G2 (finding-11, Lien); every other item Yes
 items_no: [CK-REQ-G1, CK-REQ-G2]
 # effort: iteration 1 (45 turns, 40 min), iteration 2 (12 turns, 15 min), iteration 3 (28 turns, 35 min),
-# re-issue (package item R8, shared with INSP-010 and INSP-018) 8 turns, 15 min; post-SRR-ruling delta 12 turns, 25 min
-effort_turns: 105
-effort_minutes: 130
+# re-issue (package item R8, shared with INSP-010 and INSP-018) 8 turns, 15 min; post-SRR-ruling delta 12 turns, 25 min;
+# CR-010 delta (shared with INSP-009 and INSP-010) 6 turns, 15 min
+effort_turns: 111
+effort_minutes: 145
 record_status: Open
 date: 2026-09-25
+date_updated: 2026-09-29
 date_closed: null
 ---
 
@@ -433,4 +442,55 @@ PRODUCT: 05@f8de2081f7542ed0bbe47897d8b63e845b8c3114, rmm.json@e326ddd1b7296d7d7
 DELTA: 0834da2 applies SRR decision 10 (c) correctly (Table 4-1 row 3 Mixed; section 5.1 Log row); 9bdf33c and 7d735e5 leave SWE-082 and SWE-085 unchanged; ae8abd2 predates iteration 3
 FINDINGS: open Major 0; new finding-12 Minor (section 5.1 row 2 unbounded), Lien: fix before PDR
 PAIRING: INSP-030 assurance_verdict APPROVED as filed on 63ed5662; delta re-issue needed (O-8)
+```
+
+## CR-010 delta (iteration 3 re-issue 3, independent reviewer, 2026-09-29; CR-010 section 5 step 5)
+
+**Scope and independence.** Written by a new invocation in the `reviewer:cm-plan` role, dispatched as the configuration manager of WP-PDR-55 merge batch 1 for CR-010 section 5 step 5 (plan rule C4). It authored no part of 05, `rmm.json`, CR-010 or its change set `5cd87cf`, and it edited no product file. Earlier sections are left as written. Only the front matter fields and their comments changed, and this section was appended. Trigger: CR-010 (Class II, Approved by the owner 2026-09-28, `a17af87`) replaces `rmm.json` `e326ddd1` with `a907a087`. `rmm.json` is a product file of this record because finding-7 is verified in it. CR-010 section 5 step 5 asks this reviewer to confirm that the delta is the five `implementation` fields and does not touch this review's conclusions, and to commit the record on the CR branch before the merge (owner's disposition conditions, CR-010 section 7).
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: CR-010 pre-merge checks and SRR record re-issue; the `validate_docs.py` record drift rule). `git diff`, `git show`, `grep` and read-only Python were used afterwards only to pin lines.
+
+**Product state.** 05 `f8de2081f7542ed0bbe47897d8b63e845b8c3114` is unchanged. It equals `git rev-parse <rev>:<path>` at `5cd87cf` and at `main` `908d21a`, so `product_blob` stays. `rmm.json` `a907a087f1302e275ea56bdb7bba89638777a319` equals `git rev-parse 5cd87cf:docs/process/rmm.json`. `git log ab2af2d..5cd87cf` lists one commit, `5cd87cf`, with trailers `CR: CR-010` and `Refs: SRR decision 9, SRR decision 40, INSP-009 finding-10`.
+
+**Delta verification.**
+
+| Check | Method | Result |
+|---|---|---|
+| Only the five `implementation` fields change | Python field walk of `rmm.json` at `ab2af2d` (`e326ddd1`) against `5cd87cf`: `meta` equal; 100 rows, same `swe` ids in the same order; the changed fields are exactly the `implementation` of SWE-023, SWE-134, SWE-205, SWE-219 and SWE-220 | Correct |
+| finding-7 closure stands | Rows SWE-082 and SWE-085 compared field by field | Unchanged; the finding-7 closure stands |
+| The vehicle is the one 05 requires | 05 Table 4-1 row 3 (Mixed) at `f8de2081`: after SRR, only a row's `status` move and its implementation-path update are Log class. Every other `rmm.json` field is CR class. CR-010 rewrites `implementation` text beyond a path update | A Class II CR is the required vehicle, and CR-010 is that CR (Approved 2026-09-28). The commit carries `CR: CR-010`, re-renders `rmm.md` in the same change (`render_rmm.py --check` exit 0 in the branch worktree), and changes no `status`, so the row 3 conditions hold |
+| Effect on 05's statements | 05 names SWE-219 and SWE-220 as tailoring and waiver targets (lines 40, 235, 303, 332) and SWE-134 as provisions (lines 381, 550) | CR-010 widens the SWE-219 and SWE-220 scope text to the three components the owner determined in SRR decision 9. No 05 statement depends on the old text, and no CM procedure, waiver rule or CSA item changes |
+
+No change conflicts with 05, and none introduces a Major defect. This review's conclusions are unchanged.
+
+**Findings at this delta (supersede the earlier tables; record state rule of `tools/validate_docs.py`).**
+
+| Finding | Severity | State | Closes on |
+|---|---|---|---|
+| finding-1, finding-2 | Major | Closed (iteration 3) | |
+| finding-3 to finding-9 | Minor | Closed (iteration 3); finding-7 re-checked at `5cd87cf` | |
+| finding-10 | Minor | Lien: fix before PDR | L-1 |
+| finding-11 | Minor | Lien: fix before PDR | L-2 |
+| finding-12 | Minor | Lien: fix before PDR | L-3 |
+
+No Major finding is open, and no new finding is raised. Answers are unchanged from the post-SRR-ruling delta: CK-REQ-G1 No (finding-10, finding-12; liens), CK-REQ-G2 No (finding-11; lien). Readiness R1, R3 and R4 are Met; R2 and R5 are N/A.
+
+**Pairing.** INSP-030 (`docs/reviews/SRR/checklists/cm-plan-05-software-assurance.md`) names 05 `f8de2081` and the charter, not `rmm.json`. The CR-010 change therefore does not reach it, and its `assurance_verdict` APPROVED as filed on `main` `908d21a` is copied here.
+
+**Observation (not a finding).**
+- **O-10 (lead SE).** The other SRR records that name a pre-change CR-010 blob are INSP-009 and INSP-010 (delta-issued in this step on the same branch) and INSP-017 and INSP-018. The last two are software assurance records, and their deltas need a separate invocation (07 sections 2.1.1 and 10.2; plan rule C4). Until those two deltas are on the branch, CR-010 section 5 step 6 cannot pass.
+
+**Tool runs (2026-09-29, branch worktree at `5cd87cf` with the three record edits of this step, `.venv/bin/python`).**
+- `tools/validate_docs.py`: exit 1, 48 passed, 2 failed of 50 (INSP-017 and INSP-018, O-10). This record PASS.
+- `tools/traceability.py --report-only --output <scratchpad>/cr010-tr.md`: exit 0; 245 requirements, 173 test cases, 0 violations, 2 warnings.
+- `tools/render_rmm.py --check`: exit 0; 100 rows, FC 75, T 17, NA 8, In place 40.
+- `python -m unittest discover -s tools/tests`: 424 run, 1 failure (`test_repository_exit_zero`, on the two failures above), 3 skipped.
+- The trial merge with `main` is recorded in CR-010 section 9 (configuration manager pre-merge check of 2026-09-29).
+
+```
+CR-010 DELTA (2026-09-29, branch cr/CR-010 at 5cd87cf, iteration 3 re-issue 3): VERDICT: APPROVED (with liens finding-10, finding-11, finding-12)
+PRODUCT: 05@f8de2081f7542ed0bbe47897d8b63e845b8c3114 (unchanged), rmm.json@a907a087f1302e275ea56bdb7bba89638777a319 (equal to 5cd87cf, 2/2)
+DELTA: 5cd87cf changes only the implementation fields of SWE-023, 134, 205, 219, 220 under CR-010 (Class II, 05 Table 4-1 row 3 CR part); SWE-082 and SWE-085 unchanged, finding-7 closure stands
+FINDINGS: none new; open Major 0
+PAIRING: INSP-030 does not name rmm.json; assurance_verdict APPROVED as filed, copied
 ```
