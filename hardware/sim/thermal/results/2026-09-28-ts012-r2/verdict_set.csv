@@ -1,0 +1,83 @@
+id,criterion,basis,layout,value,limit,margin,band_up,band_dn,verdict,drivers
+V01,"Junction, continuous key-down, steady, 45 C",REQ-SYS-112 (TBR),A5-R4,142.0888,110.0000,-32.0888,28.0912,18.6171,FAIL,k_orient [E] 24.4 K; a5_idd [DD] 12.5 K; vent_area [E] 10.2 K
+V01,"Junction, continuous key-down, steady, 45 C",REQ-SYS-112 (TBR),A5-DC,125.9480,110.0000,-15.9480,19.9691,12.3628,FAIL,k_orient [E] 19.3 K; a5_idd [DD] 8.5 K; r_feed [E] 4.5 K
+V01,"Junction, continuous key-down, steady, 45 C",REQ-SYS-112 (TBR),A4-R4,130.9394,110.0000,-20.9394,19.6614,14.5531,FAIL,a4_isat [DD] 15.4 K; k_orient [E] 10.0 K; a4_r_pad [E] 3.7 K
+V01,"Junction, continuous key-down, steady, 45 C",REQ-SYS-112 (TBR),A4-DC,122.6192,110.0000,-12.6192,20.2877,14.7445,FAIL,a4_isat [DD] 15.0 K; k_orient [E] 12.0 K; r_feed [E] 4.4 K
+V02,"Junction peak, 50 % duty in 13 s key-downs, 45 C",REQ-SYS-112 delta option,A5-R4,114.5725,110.0000,-4.5725,12.7070,11.1352,FAIL,k_orient [E] 10.4 K; a5_idd [DD] 8.0 K; vent_area [E] 4.6 K
+V02,"Junction peak, 50 % duty in 13 s key-downs, 45 C",REQ-SYS-112 delta option,A5-DC,104.3873,110.0000,5.6127,12.3543,10.8678,OPEN,k_orient [E] 11.2 K; a5_idd [DD] 7.6 K; r_feed [E] 4.2 K
+V02,"Junction peak, 50 % duty in 13 s key-downs, 45 C",REQ-SYS-112 delta option,A4-R4,111.8624,110.0000,-1.8624,16.7229,11.9625,FAIL,a4_isat [DD] 13.4 K; k_orient [E] 8.0 K; a4_r_pad [E] 3.4 K
+V02,"Junction peak, 50 % duty in 13 s key-downs, 45 C",REQ-SYS-112 delta option,A4-DC,105.5318,110.0000,4.4682,16.2376,11.9884,OPEN,a4_isat [DD] 12.9 K; k_orient [E] 8.1 K; r_feed [E] 3.7 K
+V03,Junction after 5 min continuous from a 45 C soak,HZ-003 K7 design case,A5-R4,109.1779,110.0000,0.8221,6.1089,10.9388,OPEN,a5_idd [DD] 8.7 K; r_feed [E] 4.8 K; k_orient [E] 3.5 K
+V03,Junction after 5 min continuous from a 45 C soak,HZ-003 K7 design case,A5-DC,107.0576,110.0000,2.9424,6.4423,10.8302,OPEN,a5_idd [DD] 8.6 K; r_feed [E] 4.7 K; k_orient [E] 4.2 K
+V03,Junction after 5 min continuous from a 45 C soak,HZ-003 K7 design case,A4-R4,107.5455,110.0000,2.4545,15.2380,11.8930,OPEN,a4_isat [DD] 13.9 K; r_feed [E] 3.7 K; a4_r_pad [E] 3.7 K
+V03,Junction after 5 min continuous from a 45 C soak,HZ-003 K7 design case,A4-DC,106.4475,110.0000,3.5525,15.1917,11.9020,OPEN,a4_isat [DD] 13.8 K; r_feed [E] 3.9 K; a4_r_pad [E] 3.7 K
+V04,Junction after 180 s continuous from a 45 C soak,HZ-003 K10 backstop bound,A5-R4,96.6209,110.0000,13.3791,4.8843,9.1716,PASS,a5_idd [DD] 7.3 K; r_feed [E] 4.0 K; r_spread_x [E] 2.7 K
+V04,Junction after 180 s continuous from a 45 C soak,HZ-003 K10 backstop bound,A5-DC,95.8368,110.0000,14.1632,4.9410,9.1394,PASS,a5_idd [DD] 7.3 K; r_feed [E] 4.0 K; r_spread_x [E] 2.7 K
+V04,Junction after 180 s continuous from a 45 C soak,HZ-003 K10 backstop bound,A4-R4,99.5925,110.0000,10.4075,13.6981,10.5687,OPEN,a4_isat [DD] 12.4 K; a4_r_pad [E] 3.7 K; r_feed [E] 3.4 K
+V04,Junction after 180 s continuous from a 45 C soak,HZ-003 K10 backstop bound,A4-DC,99.1277,110.0000,10.8723,13.6722,10.5792,OPEN,a4_isat [DD] 12.4 K; a4_r_pad [E] 3.7 K; r_feed [E] 3.5 K
+V05,"Module case, continuous, steady",RA07M1317M datasheet p.8,A5-R4,121.8353,90.0000,-31.8353,28.0088,15.8981,FAIL,k_orient [E] 24.4 K; vent_area [E] 10.2 K; a5_idd [DD] 9.3 K
+V05,"Module case, continuous, steady",RA07M1317M datasheet p.8,A5-DC,105.6945,90.0000,-15.6945,19.8531,9.5577,FAIL,k_orient [E] 19.3 K; a5_idd [DD] 5.3 K; r_spread_x [E] 2.9 K
+V06,Module case at the duty limit,RA07M1317M datasheet p.8,A5-R4,84.4444,90.0000,5.5556,11.0950,6.9109,OPEN,k_orient [E] 9.5 K; vent_area [E] 4.2 K; a5_idd [DD] 4.0 K
+V06,Module case at the duty limit,RA07M1317M datasheet p.8,A5-DC,87.2107,90.0000,2.7893,12.7483,8.4360,OPEN,k_orient [E] 12.1 K; a5_idd [DD] 4.6 K; r_feed [E] 2.5 K
+V07,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A5-R4,64.1822,48.0000,-16.1822,4.4162,6.4217,FAIL,a5_idd [DD] 4.9 K; k_orient [E] 3.5 K; r_feed [E] 2.7 K
+V07,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A5-DC,32.2864,48.0000,15.7136,2.4407,2.8107,PASS,r_frac [E] 1.3 K; guard_solid [E] 1.1 K; v_g [E] 1.1 K
+V07,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A4-R4,49.6562,48.0000,-1.6562,5.7641,4.9157,FAIL,a4_isat [DD] 5.0 K; k_orient [E] 2.3 K; a4_gva_on_sink [E] 2.0 K
+V07,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A4-DC,29.4110,48.0000,18.5890,1.7963,1.7605,PASS,a4_isat [DD] 1.0 K; r_frac [E] 0.8 K; guard_solid [E] 0.7 K
+V08,"Hottest PETG face, continuous, steady",TS-012 7.3 (c),A5-R4,92.2799,60.0000,-32.2799,17.4097,8.0340,FAIL,vent_area [E] 15.7 K; k_orient [E] 4.6 K; a5_idd [DD] 4.5 K
+V08,"Hottest PETG face, continuous, steady",TS-012 7.3 (c),A5-DC,65.9812,60.0000,-5.9812,7.7188,3.7987,FAIL,vent_area_dc [E] 3.6 K; k_orient [E] 3.0 K; r_frac [E] 2.6 K
+V08,"Hottest PETG face, continuous, steady",TS-012 7.3 (c),A4-R4,68.3442,60.0000,-8.3442,5.3017,4.7595,FAIL,a4_isat [DD] 3.1 K; h_out_c [E] 2.1 K; rad_f_ef [E] 1.9 K
+V08,"Hottest PETG face, continuous, steady",TS-012 7.3 (c),A4-DC,59.6076,60.0000,0.3924,5.6513,1.9712,OPEN,vent_area_dc [E] 3.1 K; relay_hold [E] 2.4 K; cd_vent [E] 2.0 K
+V09,"Hottest PETG face, 50 % duty, steady",TS-012 7.3 (c),A5-R4,74.6275,60.0000,-14.6275,9.6184,4.4255,FAIL,vent_area [E] 8.7 K; a5_idd [DD] 2.3 K; k_orient [E] 2.1 K
+V09,"Hottest PETG face, 50 % duty, steady",TS-012 7.3 (c),A5-DC,58.7059,60.0000,1.2941,4.6671,1.9189,OPEN,vent_area_dc [E] 2.8 K; relay_hold [E] 2.4 K; cd_vent [E] 1.9 K
+V09,"Hottest PETG face, 50 % duty, steady",TS-012 7.3 (c),A4-R4,59.5907,60.0000,0.4093,3.4161,3.0108,OPEN,a4_isat [DD] 1.8 K; k_orient [E] 1.5 K; h_out_c [E] 1.4 K
+V09,"Hottest PETG face, 50 % duty, steady",TS-012 7.3 (c),A4-DC,55.6098,60.0000,4.3902,3.8804,1.6600,PASS,relay_hold [E] 2.6 K; vent_area_dc [E] 2.0 K; cd_vent [E] 1.3 K
+V10,Hottest PETG face at the duty limit,TS-012 7.3 (c),A5-R4,70.6646,60.0000,-10.6646,8.3660,3.8332,FAIL,vent_area [E] 7.6 K; a5_idd [DD] 2.0 K; k_orient [E] 1.9 K
+V10,Hottest PETG face at the duty limit,TS-012 7.3 (c),A5-DC,60.0510,60.0000,-0.0510,5.1338,2.0554,FAIL,vent_area_dc [E] 3.2 K; relay_hold [E] 2.4 K; cd_vent [E] 2.1 K
+V10,Hottest PETG face at the duty limit,TS-012 7.3 (c),A4-R4,58.6487,60.0000,1.3513,3.1640,2.8104,OPEN,a4_isat [DD] 1.7 K; k_orient [E] 1.4 K; h_out_c [E] 1.4 K
+V10,Hottest PETG face at the duty limit,TS-012 7.3 (c),A4-DC,56.4499,60.0000,3.5501,4.0864,1.7266,OPEN,relay_hold [E] 2.5 K; vent_area_dc [E] 2.2 K; cd_vent [E] 1.5 K
+V11,"FR4 end wall, continuous, steady",design limit (E),A5-DC,74.8219,105.0000,30.1781,7.7874,4.2114,PASS,k_orient [E] 4.7 K; vent_area_dc [E] 4.1 K; cd_vent [E] 2.5 K
+V11,"FR4 end wall, continuous, steady",design limit (E),A4-DC,66.8868,105.0000,38.1132,6.2285,3.8341,PASS,k_orient [E] 3.0 K; vent_area_dc [E] 2.8 K; a4_isat [DD] 2.4 K
+V12,"PA-bay air, continuous, steady",G5V-2 ambient rating,A5-R4,88.8258,65.0000,-23.8258,26.8035,7.5779,FAIL,vent_area [E] 25.7 K; cd_vent [E] 5.4 K; k_orient [E] 3.5 K
+V12,"PA-bay air, continuous, steady",G5V-2 ambient rating,A5-DC,67.0532,65.0000,-2.0532,8.5831,2.8987,FAIL,vent_area_dc [E] 6.7 K; cd_vent [E] 4.0 K; relay_hold [E] 2.6 K
+V12,"PA-bay air, continuous, steady",G5V-2 ambient rating,A4-R4,73.3321,65.0000,-8.3321,6.1086,5.1145,FAIL,a_mw [E] 4.2 K; a4_isat [DD] 2.9 K; r_feed [E] 2.1 K
+V12,"PA-bay air, continuous, steady",G5V-2 ambient rating,A4-DC,60.9506,65.0000,4.0494,6.3376,2.1705,OPEN,vent_area_dc [E] 4.5 K; relay_hold [E] 2.9 K; cd_vent [E] 2.8 K
+V13,PA-bay air at the duty limit,G5V-2 ambient rating,A5-R4,69.8364,65.0000,-4.8364,13.0522,3.8396,FAIL,vent_area [E] 12.5 K; cd_vent [E] 2.8 K; k_orient [E] 1.6 K
+V13,PA-bay air at the duty limit,G5V-2 ambient rating,A5-DC,61.3851,65.0000,3.6149,6.4365,2.1709,OPEN,vent_area_dc [E] 4.7 K; relay_hold [E] 2.9 K; cd_vent [E] 2.9 K
+V13,PA-bay air at the duty limit,G5V-2 ambient rating,A4-R4,63.4999,65.0000,1.5001,3.8729,3.4961,OPEN,a_mw [E] 2.9 K; p_lm2940 [DD] 1.6 K; a4_isat [DD] 1.5 K
+V13,PA-bay air at the duty limit,G5V-2 ambient rating,A4-DC,57.1735,65.0000,7.8265,5.1521,1.6769,PASS,vent_area_dc [E] 3.2 K; relay_hold [E] 3.2 K; cd_vent [E] 2.0 K
+V14,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A5-R4,51.8312,55.0000,3.1688,2.0804,1.5061,PASS,r_cellpath [E] 1.1 K; r_feed [E] 1.1 K; g_cell_main [E] 0.9 K
+V14,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC,50.6876,55.0000,4.3124,1.9223,1.2198,PASS,r_cellpath [E] 1.1 K; r_feed [E] 1.1 K; p_lm2940 [DD] 0.6 K
+V14,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A4-R4,52.4574,55.0000,2.5426,1.9960,1.7267,PASS,g_cell_main [E] 1.3 K; a4_isat [DD] 0.8 K; a_mw [E] 0.7 K
+V14,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A4-DC,49.1638,55.0000,5.8362,1.3858,1.0302,PASS,p_lm2940 [DD] 0.7 K; r_cellpath [E] 0.6 K; r_feed [E] 0.6 K
+V15,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A5-R4,58.5944,55.0000,-3.5944,3.8910,2.8889,FAIL,r_feed [E] 2.7 K; a_mw [E] 2.0 K; p_lm2940 [DD] 1.7 K
+V15,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC,54.9591,55.0000,0.0409,3.4945,2.2759,OPEN,r_feed [E] 2.6 K; p_lm2940 [DD] 1.6 K; a_mw [E] 1.4 K
+V15,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A4-R4,61.7619,55.0000,-6.7619,3.1407,2.9905,FAIL,a_mw [E] 2.1 K; p_lm2940 [DD] 1.5 K; a4_isat [DD] 1.4 K
+V15,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A4-DC,53.1651,55.0000,1.8349,2.6007,2.0920,OPEN,p_lm2940 [DD] 1.7 K; r_feed [E] 1.5 K; relay_hold [E] 1.3 K
+V16,"Cells, long session at 50 % duty, steady","TS-012 7.3 (a), extended",A5-R4,61.3257,55.0000,-6.3257,5.1868,3.4490,FAIL,a_mw [E] 2.6 K; r_feed [E] 2.4 K; g_cell_wall [E] 2.3 K
+V16,"Cells, long session at 50 % duty, steady","TS-012 7.3 (a), extended",A5-DC,57.5206,55.0000,-2.5206,4.3669,2.6733,FAIL,r_feed [E] 2.3 K; r_cellpath [E] 2.0 K; g_cell_wall [E] 1.8 K
+V16,"Cells, long session at 50 % duty, steady","TS-012 7.3 (a), extended",A4-R4,62.4115,55.0000,-7.4115,4.2236,3.4045,FAIL,a_mw [E] 2.5 K; g_cell_wall [E] 2.0 K; a4_isat [DD] 1.8 K
+V16,"Cells, long session at 50 % duty, steady","TS-012 7.3 (a), extended",A4-DC,54.4088,55.0000,0.5912,3.1749,2.2133,OPEN,p_lm2940 [DD] 1.5 K; a_mw [E] 1.3 K; r_feed [E] 1.3 K
+V17,"Cells, long session at the duty limit, steady","TS-012 7.3 (a), extended",A5-R4,59.5500,55.0000,-4.5500,4.4813,3.1470,FAIL,a_mw [E] 2.3 K; g_cell_wall [E] 2.0 K; r_feed [E] 1.9 K
+V17,"Cells, long session at the duty limit, steady","TS-012 7.3 (a), extended",A5-DC,58.8751,55.0000,-3.8751,4.9679,2.9035,FAIL,r_feed [E] 2.7 K; r_cellpath [E] 2.4 K; g_cell_wall [E] 2.1 K
+V17,"Cells, long session at the duty limit, steady","TS-012 7.3 (a), extended",A4-R4,61.4715,55.0000,-6.4715,3.9663,3.2427,FAIL,a_mw [E] 2.3 K; g_cell_wall [E] 1.9 K; a4_isat [DD] 1.6 K
+V17,"Cells, long session at the duty limit, steady","TS-012 7.3 (a), extended",A4-DC,55.1711,55.0000,-0.1711,3.5029,2.3137,FAIL,r_feed [E] 1.6 K; p_lm2940 [DD] 1.4 K; g_cell_wall [E] 1.4 K
+V18,"Main-bay air, long session at the duty limit","TS-012 7.3 (a), extended",A5-R4,60.1992,55.0000,-5.1992,4.5908,3.3983,FAIL,a_mw [E] 2.9 K; r_feed [E] 2.5 K; p_lm2940 [DD] 2.0 K
+V18,"Main-bay air, long session at the duty limit","TS-012 7.3 (a), extended",A5-DC,57.7868,55.0000,-2.7868,4.7350,2.8366,FAIL,r_feed [E] 3.4 K; a_mw [E] 2.1 K; p_lm2940 [DD] 1.8 K
+V18,"Main-bay air, long session at the duty limit","TS-012 7.3 (a), extended",A4-R4,63.4999,55.0000,-8.4999,3.8729,3.4961,FAIL,a_mw [E] 2.9 K; p_lm2940 [DD] 1.6 K; a4_isat [DD] 1.5 K
+V18,"Main-bay air, long session at the duty limit","TS-012 7.3 (a), extended",A4-DC,55.2340,55.0000,-0.2340,3.4814,2.5335,FAIL,r_feed [E] 2.0 K; p_lm2940 [DD] 1.8 K; a_mw [E] 1.7 K
+V19,"Junction bound by the 85 C inhibit on the PA-case NTC, nominal","REQ-SYS-118, HZ-003 K2 and C4",A5-R4,108.5136,110.0000,1.4864,0.0000,0.0000,PASS,explicit case (closed-loop run)
+V19,"Junction bound by the 85 C inhibit on the PA-case NTC, nominal","REQ-SYS-118, HZ-003 K2 and C4",A5-DC,108.2983,110.0000,1.7017,0.0000,0.0000,PASS,explicit case (closed-loop run)
+V19,"Junction bound by the 85 C inhibit on the PA-case NTC, nominal","REQ-SYS-118, HZ-003 K2 and C4",A4-R4,114.7966,110.0000,-4.7966,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V19,"Junction bound by the 85 C inhibit on the PA-case NTC, nominal","REQ-SYS-118, HZ-003 K2 and C4",A4-DC,114.1331,110.0000,-4.1331,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V20,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C tolerance","REQ-SYS-118, HZ-003 K2 and C4",A5-R4,111.4576,110.0000,-1.4576,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V20,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C tolerance","REQ-SYS-118, HZ-003 K2 and C4",A5-DC,111.2237,110.0000,-1.2237,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V20,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C tolerance","REQ-SYS-118, HZ-003 K2 and C4",A4-R4,117.4894,110.0000,-7.4894,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V20,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C tolerance","REQ-SYS-118, HZ-003 K2 and C4",A4-DC,116.9575,110.0000,-6.9575,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V21,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C, sensor offset and lag adverse","REQ-SYS-118, HZ-003 K2 and C4",A5-R4,114.3328,110.0000,-4.3328,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V21,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C, sensor offset and lag adverse","REQ-SYS-118, HZ-003 K2 and C4",A5-DC,113.8902,110.0000,-3.8902,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V21,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C, sensor offset and lag adverse","REQ-SYS-118, HZ-003 K2 and C4",A4-R4,117.7503,110.0000,-7.7503,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V21,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C, sensor offset and lag adverse","REQ-SYS-118, HZ-003 K2 and C4",A4-DC,117.0904,110.0000,-7.0904,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V22,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C, sensor, Rth and dissipation adverse","REQ-SYS-118, HZ-003 K2 and C4",A5-R4,123.1518,110.0000,-13.1518,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V22,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C, sensor, Rth and dissipation adverse","REQ-SYS-118, HZ-003 K2 and C4",A5-DC,122.7485,110.0000,-12.7485,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V22,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C, sensor, Rth and dissipation adverse","REQ-SYS-118, HZ-003 K2 and C4",A4-R4,133.4960,110.0000,-23.4960,0.0000,0.0000,FAIL,explicit case (closed-loop run)
+V22,"Junction bound by the 85 C inhibit on the PA-case NTC, +3 C, sensor, Rth and dissipation adverse","REQ-SYS-118, HZ-003 K2 and C4",A4-DC,132.3553,110.0000,-22.3553,0.0000,0.0000,FAIL,explicit case (closed-loop run)

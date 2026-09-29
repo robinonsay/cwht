@@ -1,0 +1,123 @@
+name,value,low,high,unit,class,source,in_tornado
+t_amb_112,45.0,45.0,45.0,C,R,REQ-SYS-112 continuous key-down at 45 C ambient,no (fixed)
+t_amb_113,25.0,25.0,25.0,C,R,REQ-SYS-113 5 min continuous key-down at 25 C,no (fixed)
+tj_limit,110.0,110.0,110.0,C,R,REQ-SYS-112 (TBR),no (fixed)
+surf_limit,48.0,48.0,48.0,C,R,REQ-SYS-113 every accessible surface (TBR),no (fixed)
+case_guid,90.0,90.0,90.0,C,D,RA07M1317M datasheet Jun 2019 p.8: Tcase below 90 C,no (fixed)
+petg_crit,60.0,60.0,60.0,C,R,TS-012 7.3 pass (c): every PETG surface <= 60 C,no (fixed)
+petg_hdt,69.0,69.0,69.0,C,E,PETG HDT 0.45 MPa typical (TS-011 M8); filament TDS not read,no (fixed)
+cell_crit_a,55.0,55.0,55.0,C,R,"TS-012 7.3 pass (a): cell and main-bay air <= 55 C at 50 % duty, 30 min",no (fixed)
+cell_limit,60.0,60.0,60.0,C,D,cell discharge limit and LM393 cell trip (TS-012 7.3),no (fixed)
+relay_amb,65.0,65.0,65.0,C,D,"Omron G5V-2 standard coil, ambient operating -25 to 65 C (datasheet)",no (fixed)
+trip_fw,85.0,85.0,85.0,C,R,REQ-SYS-118 firmware inhibit 85 C +/-3 (sink NTC),no (fixed)
+trip_hw,95.0,95.0,95.0,C,R,REQ-SYS-181 hardware trip 95 C +/-3 (sink NTC),no (fixed)
+v_pack,8.4,8.4,8.4,V,R,"full 2S pack, TS-012 7.3 corner",no (fixed)
+p_rf_dev,5.6,5.6,5.6,W,DD,5 W at the SMA + 0.5 dB LPF and relay loss (TS-012 7.3),no (fixed)
+r_feed,0.26,0.26,0.45,ohm,E,TS-012 7.3 feed budget 0.26 to 0.45 ohm (minimum = hottest PA),yes
+r_cellpath,0.06,0.05,0.1,ohm,E,cells 0.04 + holder contacts 0.02 of the feed budget (TS-012 7.3),yes
+i_bus,0.3,0.25,0.4,A,E,"5 V bus in TX: relay 0.1, GVA-84+ 0.1, Pico and rest 0.1",yes
+a5_idd,1.97,1.79,1.97,A,DD,"RA07M1317M: 1.85 A at 6 W (45 % min), x(5.6/6)^0.5, +10 % (TS-012 7.3)",yes
+a5_p1,1.5,1.2,1.8,W,DD,"stage-1 share, datasheet thermal table (1.4 W at 6.5 W out)",yes
+a5_rjc2,2.4,2.16,2.64,K/W,D,RA07M1317M Rth(ch-case) stage 2 (table value; +/-10 % band E),yes
+a5_rjc1,4.5,4.05,4.95,K/W,D,RA07M1317M Rth(ch-case) stage 1,yes
+a5_bond,5e-05,2.5e-05,7.5e-05,m,E,compound bond line (TS-012 7.3: 25 to 75 um),yes
+a5_area,0.000142,0.000142,0.000142,m2,DD,flange contact 19.2 x 7.4 mm (outline drawing),no (fixed)
+k_tim,0.7,0.6,0.8,W/mK,E,Wakefield 120 compound (TS-012 7.3 value; datasheet not re-read),yes
+r_spread_x,0.0,0.0,0.3,K/W,E,web spreading beyond the catalog TO-220 reference,yes
+a4_isat,1.387,1.261,1.558,A,DD,AFT05: 6.1 W/(0.618 x 7.5 V) x (5.6/6.1)^0.5 = 1.26 A; +10 % 1.39; 50 % hand match 1.56,yes
+a4_rjc,4.4,3.96,4.84,K/W,D,AFT05MS004N RthJC 4.4 C/W (Table 2; +/-10 % band E),yes
+a4_r_pad,0.8,0.5,1.5,K/W,E,tab-to-via-field spreading in the top copper,yes
+a4_r_via,1.1,0.9,1.6,K/W,DD,"solder-filled 1 x 3 mm slot + 30 x 0.4 mm vias, 0.8 mm board (computed)",yes
+a4_r_bs,0.6,0.4,1.0,K/W,E,"board tongue to web through compound, 50 to 100 um",yes
+a4_gva_on_sink,0.5,0.0,0.5,W,E,"GVA-84+ on the A4 PA board, heat to the sink",yes
+sink_mass,57.0,52.0,62.0,g,DD,"profile area 330 to 340 mm2 (drawing, pixel count) x 63.5 mm x 2.70 g/cm3",yes
+k_cat,1.0,0.93,1.07,-,DD,"catalog natural-convection curve, graph read +/-7 %",yes
+k_orient,1.35,1.1,2.0,-,E,extrusion axis horizontal; Boyd: other orientations 'can DOUBLE' R,yes
+r_frac,0.35,0.25,0.45,-,E,radiative share of the catalog conductance (black anodize),yes
+eta_encl,0.6,0.4,0.8,-,E,"inner half in the closed PA bay (O1), convective derate",yes
+eta_wall,0.6,0.45,0.75,-,E,"inner half facing the end wall at 5 mm (O3), convective derate",yes
+eta_guard3,0.75,0.6,0.85,-,E,outer half behind a slotted guard 3 mm from the fin tips,yes
+phi3,0.5,0.35,0.65,-,E,"plume temperature fraction at the guard, 3 mm",yes
+eta_guard_dc,0.85,0.75,0.92,-,E,"outer half behind the design-change guard (end face 10 mm, wraps 3 mm)",yes
+phi_dc,0.35,0.25,0.5,-,E,plume temperature fraction at the design-change guard,yes
+shield_rad,0.25,0.15,0.4,-,E,share of the inner-half radiation reaching the end wall behind a HASL spare-board shield,yes
+main_vent_area,0.0002,0.0,0.0003,m2,E,"main-bay slots, bottom and lower sides, and upper sides (each)",yes
+k_petg,0.2,0.18,0.25,W/mK,E,"PETG (TS-011 value, Low)",yes
+t_wall,0.002,0.002,0.002,m,R,case wall 2 mm (TS-012 8.5),no (fixed)
+h_out_c,4.0,3.0,6.0,W/m2K,E,"outer natural convection (radiation added, eps 0.9)",yes
+h_in_c,2.5,1.5,4.0,W/m2K,E,"inner convection (radiation added, eps_eff 0.8)",yes
+g_leads,0.015,0.008,0.03,W/K,E,"DC, drive and coax leads through the bulkhead",yes
+g_cell_main,0.03,0.02,0.045,W/K,E,"cells to main-bay air (73 cm2, confined)",yes
+g_cell_wall,0.02,0.01,0.03,W/K,E,cells to the bottom wall (holders about 1 mm off it),yes
+vent_area,0.00036,0.0,0.0005,m2,E,"rev 4 PA-bay chimney slots, each of top and bottom (0 = blocked)",yes
+vent_area_dc,0.0005,0.00025,0.0006,m2,E,"design-change PA-bay slots, each of top and bottom (55 % of 9.1 cm2)",yes
+relay_hold,0.4,0.3,1.0,-,E,design change: G5V-2 coil held by PWM at about 63 % voltage after pull-in (power 0.4x),yes
+k_fr4,0.3,0.25,0.35,W/mK,E,FR4 through-plane (TS-011 value),yes
+fr4_limit,105.0,105.0,105.0,C,E,"FR4 spare-board wall, continuous (below the laminate Tg of about 130 to 140 C)",no (fixed)
+p_lm2940,0.9,0.6,1.0,W,DD,(8.4 - 0.5 - 5) V x 0.3 A (TS-012: 0.6 to 0.9 W),yes
+p_pico,0.2,0.15,0.3,W,E,"Pico 2, op-amps, Si5351 module",yes
+p_relay,0.5,0.5,0.5,W,D,"G5V-2 5 V coil 100 mA (Omron datasheet, TS-012)",no (fixed)
+p_gva,0.5,0.5,0.5,W,DD,"GVA-84+ 5 V, about 100 mA",no (fixed)
+c_cell,92.0,85.0,100.0,J/K,E,two 18650 about 46 g each x 1.0 J/gK,yes
+a_guard_end,0.00294,0.00265,0.00323,m2,DD,guard end face over the 41.9 x 63.5 mm sink end (drawing) with its clearance; +/-10 % band E,yes
+a_guard_side,0.00569,0.00512,0.00626,m2,DD,"guard top, bottom and profile-end faces around the 25.4 mm deep fins (drawing); +/-10 % band E",yes
+guard_solid,0.5,0.4,0.65,-,E,solid fraction of the slotted grille (finger-safe slots),yes
+v_g,0.45,0.3,0.6,-,E,share of the outer-half radiation the grille intercepts (0.5 solid x 0.9 view),yes
+h_gc,5.0,3.0,8.0,W/m2K,E,plume-side convection on the grille bars,yes
+a_ef,0.0028,0.00252,0.00308,m2,DD,O1 bay walls near the sink: 224 mm perimeter x 12.7 mm; +/-10 % band E,yes
+a_ew,0.00294,0.00265,0.00323,m2,DD,"O3 end wall facing the inner channel, sink end face size; +/-10 % band E",yes
+t_ew_fr4,0.0016,0.0008,0.0016,m,E,"spare JLCPCB board as end wall: main board 1.6 mm (TS-012 8.5), 0.8 mm if a PA or RF board is used",yes
+a_bw_gross,0.00291,0.00262,0.0032,m2,DD,PA-bay walls 2 x (70 + 42) mm x 13 mm (TS-012 8.5 stack); +/-10 % band E,yes
+bw_solid,0.8,0.7,0.9,-,E,solid share of the PA-bay walls after the chimney slots,yes
+a_bh,0.0025,0.00225,0.00275,m2,DD,"bulkhead wall area, case cross-section less the board slots; +/-10 % band E",yes
+t_bh,0.0012,0.001,0.0014,m,E,each wall of the TS-012 rev 4 double-wall bulkhead,yes
+gap_bh,0.003,0.002,0.004,m,E,air gap between the two bulkhead walls,yes
+a_mw,0.0262,0.02096,0.03144,m2,E,main-case wall area from the TS-012 8.5 envelope (no CAD yet); +/-20 %,yes
+eps_out,0.9,0.85,0.95,-,E,PETG outer-surface emissivity,yes
+eps_in,0.8,0.7,0.9,-,E,effective inner emissivity (PETG to boards and walls),yes
+eps_bh,0.82,0.75,0.9,-,E,effective emissivity across the bulkhead air gap (two PETG faces),yes
+k_air,0.028,0.027,0.029,W/mK,D,"air at 50 C, 0.028 W/m K (standard property tables)",yes
+gap_face,0.002,0.0015,0.003,m,E,O1 air gap between the sink profile ends and the nearest bay wall,yes
+h_rad_gap,7.0,5.0,8.0,W/m2K,E,linearised radiation across that gap (anodize to PETG),yes
+a_gap_face,0.0004,0.0002,0.0006,m2,E,facing metal area across that gap,yes
+rad_f_ef,0.3,0.2,0.45,-,E,O1 inner-half radiation share to the bay walls near the sink,yes
+rad_f_bh,0.4,0.25,0.5,-,E,O1 inner-half radiation share to the bulkhead (rest to the PA-bay walls),yes
+o3_rad_amb,0.3,0.2,0.4,-,E,O3 inner-half radiation share leaving through the gap to ambient,yes
+o3_rad_guard,0.2,0.1,0.3,-,E,O3 inner-half radiation share to the guard (rest to the end wall),yes
+h_gapc,3.0,1.5,5.0,W/m2K,E,O3 end-wall gap air exchange coefficient,yes
+gap_share,0.5,0.3,0.7,-,E,share of the end-wall area that the gap air exchange reaches,yes
+g_case_air,0.003,0.001,0.006,W/K,E,PA case or module body to the air or wall beside it,yes
+cd_vent,0.6,0.4,0.7,-,E,discharge coefficient of the printed slots,yes
+h_stack_bay,0.035,0.025,0.045,m,E,PA-bay stack height between bottom and top slots,yes
+h_stack_main,0.03,0.02,0.04,m,E,main-bay stack height between bottom and upper side slots,yes
+rho_air,1.1,1.07,1.13,kg/m3,D,air at 45 to 60 C (standard property tables),yes
+cp_air,1007.0,1005.0,1009.0,J/kgK,D,air (standard property tables),yes
+cp_al,896.0,880.0,910.0,J/kgK,D,aluminium 6063 specific heat,yes
+rho_petg,1270.0,1230.0,1290.0,kg/m3,E,PETG density (filament datasheet not read),yes
+cp_petg,1200.0,1100.0,1300.0,J/kgK,E,PETG specific heat,yes
+rho_fr4,1850.0,1800.0,1900.0,kg/m3,E,FR4 density,yes
+cp_fr4,1100.0,1000.0,1200.0,J/kgK,E,FR4 specific heat,yes
+c_bay,25.0,15.0,40.0,J/K,E,"PA-bay air, RF board, relay and LPF parts",yes
+c_main,60.0,40.0,90.0,J/K,E,"main-bay air, main board, Pico 2 and parts",yes
+c_case_a5,3.0,2.0,4.5,J/K,E,RA07M1317M flange and body,yes
+c_j2,0.2,0.1,0.4,J/K,E,RA07M1317M stage-2 die and its substrate share,yes
+c_j1,0.1,0.05,0.2,J/K,E,RA07M1317M stage-1 die and its substrate share,yes
+c_j_a4,0.05,0.02,0.1,J/K,E,AFT05MS004N die and SOT-89 body,yes
+c_case_a4,1.0,0.6,1.6,J/K,E,"AFT05 tab, top-copper pad and board tongue",yes
+ntc_frac_a5,0.5,0.0,1.0,-,E,A5 NTC under a flange screw on the ear outside the 19.2 mm contact face: reading = case - f x (case - sink); the screw ties the ear to the sink,inhibit cases
+ntc_frac_a4,1.0,0.5,1.0,-,E,A4 NTC on the top copper 2 mm from the tab (TS-011 rule 14): reading = tab - f x (heat flow x a4_r_pad),inhibit cases
+tau_ntc_a5,8.0,4.0,15.0,s,E,"A5 NTC time constant, lug or bead under the screw",inhibit cases
+tau_ntc_a4,3.0,1.0,6.0,s,E,"A4 NTC time constant, 0603 NTC on the pad copper",inhibit cases
+t_resp,0.15,0.15,0.15,s,R,REQ-SYS-118 100 ms response plus one 20 Hz sample (HZ-003 K2),no (fixed)
+trip_tol,3.0,3.0,3.0,C,R,REQ-SYS-118 and REQ-SYS-181 +/-3 C tolerance,no (fixed)
+inh_hyst,5.0,3.0,10.0,C,E,REQ-SYS-118 recovery hysteresis (value not yet set),inhibit cases
+boyd_curve_2W,8.7,7.699999999999999,9.7,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat
+boyd_curve_3W,13.5,12.5,14.5,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat
+boyd_curve_4W,17.4,16.4,18.4,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat
+boyd_curve_5W,21.6,20.6,22.6,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat
+boyd_curve_7W,28.6,27.6,29.6,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat
+boyd_curve_11W,41.2,40.2,42.2,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat
+boyd_curve_13W,46.3,45.3,47.3,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat
+boyd_curve_15W,51.2,50.2,52.2,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat
+boyd_curve_17W,55.3,54.3,56.3,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat
+boyd_curve_19.8W,59.0,58.0,60.0,K,DD,"Boyd catalog p.56, 5300 dashed curve, graph read (swept as k_cat)",via k_cat

@@ -1,0 +1,17 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.2QJWR5/thermal_a5dc.net
+Start Time: Mon Sep 28 19:00:00 2026
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 0.106 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.2QJWR5/thermal_a5dc.net
+
+tj2_end: V(j2) =125.94355011 at 7200
+sink_end: V(sink) =100.737686157 at 7200
+cell_end: V(cell) =63.1229095459 at 7200

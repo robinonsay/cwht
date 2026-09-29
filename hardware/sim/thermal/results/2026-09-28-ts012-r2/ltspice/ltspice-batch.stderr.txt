@@ -1,0 +1,3 @@
+ltspice-batch: another LTspice run holds /var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-ltspice.lock; waiting up to 600 s
+ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left
+ltspice-batch: result: PASS deck=thermal_a5dc.net sha256=bf655e99ea6a92c407ebf328bc27139c2d8effb758a9715edd368f7170e18e36 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=3s outputs=[thermal_a5dc.db thermal_a5dc.log thermal_a5dc.op.raw thermal_a5dc.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/thermal/results/2026-09-28-ts012-r2/ltspice
