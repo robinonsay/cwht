@@ -9,9 +9,8 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Item | Count |
 |---|---|
 | Requirements | 191 |
-| Status Active | 188 |
+| Status Active | 189 |
 | Status Closed | 2 |
-| Status Draft | 1 |
 | Method Analysis | 39 |
 | Method Demonstration | 8 |
 | Method Inspection | 25 |
@@ -216,7 +215,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | REQ-SYS-188 | Bench test mode timeout | Test | Active (TBR) | - |
 | REQ-SYS-189 | Bench full-scale test tone limit | Test | Active (TBR) | - |
 | REQ-SYS-190 | Bench test mode not retained over reset | Test | Active | - |
-| REQ-SYS-194 | Independent cell over-voltage threshold over the charging temperature range | Analysis | Draft (TBR) | - |
+| REQ-SYS-194 | Independent cell over-voltage threshold over the charging temperature range | Analysis | Active (TBR) | - |
 
 ## 3. Requirements
 
@@ -3757,7 +3756,7 @@ L1 system requirements (charter section 7; 02 section 2). The verification matri
 | Rationale | Why: NGO-022 and HZ-002 K2: the REQ-SYS-083 protector stays in its band over the whole charging window of REQ-SYS-082, and the bench has no temperature chamber (CON-016), so the span is shown by Analysis of the selected S-8252 variant: its threshold accuracy at 25 C plus its drift from 0 C to 45 C inside 4.25-4.30 V (docs/research/power-tree-and-charging.md F11; SRR decision 72, owner ruling 2026-09-26). Split from REQ-SYS-083 so that each requirement has one closing method (04 section 3; INSP-025 finding-5 and cross item X1). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 7 (Analysis accepted per RSK-007). TBR: band pending the PDR protector variant selection. |
 | Verification method | Analysis |
 | Verification note | Analysis accepted per RSK-007 (HZ-002; 04 section 3 and rule 7.3.6): no temperature chamber is on the bench (CON-016). Closing: Simulation, a datasheet computation of the selected protector's threshold accuracy at 25 C plus its drift over 0 C to 45 C, stacked with the sense-path resistor tolerances, inside 4.25 V to 4.30 V. Supporting: the room-temperature Bench trip of TC-SYS-061. Closing case: TC-SYS-116. |
-| Status | Draft |
+| Status | Active |
 | Priority | Baseline |
 | Parent | - |
 | Children | - |
