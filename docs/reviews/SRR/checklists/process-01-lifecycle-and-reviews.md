@@ -10,10 +10,14 @@ checklist_file: docs/reviews/SRR/checklists/process-01-lifecycle-and-reviews.md
 product: docs/process/01-lifecycle-and-reviews.md
 # product_commit: last commit touching 01 at the review baseline HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
 # (the four templates were last touched at 4e3f8913366c60e79a9ace6a1b4f36f24adc3479); the working tree equals HEAD for all five files
-product_commit: "b301df2f96aa979b602c0c4cde9c7f85da979843"
+# iteration 2 (2026-09-29, CR-015 lien delta): product_commit is the CR-015 branch head 7efd900 (cr/CR-015-process-liens-01-02-08,
+# base 7784672, the CR-012 head); iteration 1 value "b301df2f96aa979b602c0c4cde9c7f85da979843"
+product_commit: "7efd900b4011a7959f99bef00cba3a0b732cf8b1"
 # product_files: git rev-parse HEAD:<path> at adcfe09 (record drift rule, package section 2.3, R13); the example log is
 # reviewed with its schema (08 section 3.5 row "review-package.md, decision-memo.md, rfa-rid-log.schema.json, rfa-rid-log.example.json")
-product_files: ["docs/process/01-lifecycle-and-reviews.md@eabbbd57953c84164e848f36dc327542ac015c00", "docs/templates/review-package.md@4ed480e2438fc6d81a673519dc537f09c3d43fbb", "docs/templates/decision-memo.md@1d3ce437a3fb1ae053068b8e363fe90780064c5a", "docs/templates/rfa-rid-log.schema.json@38898b0c260c3292fbc65c59d632790ad4e650f7", "docs/templates/rfa-rid-log.example.json@0e913114286a3099875f4c9fd67f2b0ce5ef67cd"]
+# iteration 2: 01 blob eabbbd57 replaced by 53a9983c and decision-memo.md blob 1d3ce437 by dd20b87d (git rev-parse 7efd900:<path>);
+# the other three blobs are unchanged on the branch and on main at 908d21a
+product_files: ["docs/process/01-lifecycle-and-reviews.md@53a9983ced97332aaea645e43090243211da6466", "docs/templates/review-package.md@4ed480e2438fc6d81a673519dc537f09c3d43fbb", "docs/templates/decision-memo.md@dd20b87dc093198f5896d9bfa9ef625068055d22", "docs/templates/rfa-rid-log.schema.json@38898b0c260c3292fbc65c59d632790ad4e650f7", "docs/templates/rfa-rid-log.example.json@0e913114286a3099875f4c9fd67f2b0ce5ef67cd"]
 product_size: 01 in 15 sections, 955 lines; review-package.md 21 sections, 305 lines; decision-memo.md 13 sections, 159 lines; rfa-rid-log.schema.json 305 lines; example log 5 items
 sprint: SRR-prep
 author_agent: "author:process (Claude main session, lead SE; 01 revision of b301df2, templates of 4e3f891)"
@@ -23,29 +27,36 @@ criticality: neither
 # is No in every column, and tools/validate_docs.py ASSURANCE_WHOLE_PRODUCTS does not list 01
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+# iteration 2: the CR-015 lien delta (CR-015 section 5 step 3; RFA-SRR-006 lien L-6), section "Delta iteration 2" at the end
+iteration: 2
 # readiness_met: true at the re-issue of 2026-09-26 (package item R8): R3 met by the author self-check filed at ca22e37 and confirmed by the reviewer; see Re-issue
 readiness_met: true
 # reviewer_verdict: no Major finding; every Minor finding is "Lien: fix before PDR" (convergence rule of 2026-09-26)
 # verdict: APPROVED (with liens finding-1 to finding-5, fix before PDR) at the re-issue of 2026-09-26 without a further product review;
 # iteration 1 held it at NEEDS CHANGES only on readiness R3, which the author self-check now meets
+# iteration 2: reviewer_verdict APPROVED (finding-1 to finding-5 Verified on the CR-015 blobs; one new Minor, finding-6, a lien
+# due the CDR readiness declaration under PDR work plan rule C1). verdict held at NEEDS CHANGES under the lead SE convention of
+# 2026-09-27 (CR-015 section 5 step 3; 01 section 13 as CR-015 states it): the 01 and decision-memo.md blobs named above exist
+# only on cr/CR-015-process-liens-01-02-08. The software lead sets verdict: APPROVED in the CR-015 merge commit or the commit
+# right after it, once git rev-parse HEAD:<path> equals every product_files blob; a merge that re-blobs a file needs a delta first.
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: APPROVED
+verdict: NEEDS CHANGES
 findings_major: 0
-findings_minor: 5
-findings_open: 0
+findings_minor: 6
+findings_open: 1
 findings_fixed: 0
-findings_verified: 0
-# findings_deferred: the 5 liens (fix before PDR)
-findings_deferred: 5
+# findings_verified: finding-1 to finding-5 (iteration 2); findings_deferred: none since iteration 2 (the 5 liens were fixed by CR-015)
+findings_verified: 5
+findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G1, CK-REQ-G2]
-effort_turns: 51
-effort_minutes: 65
+# effort: iteration 1 and re-issue 51 turns, 65 minutes; iteration 2 adds 12 turns, 25 minutes
+effort_turns: 63
+effort_minutes: 90
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -258,3 +269,48 @@ MEASUREMENTS: re-issue items=R1 to R5 + blobs; no=0; new findings=0; turns=6; mi
 ```
 
 `record_status` stays Open: the liens are neither Verified nor Deferred by an owner decision, and the software lead closes the record (07 section 10.2, action tracking).
+
+## Delta iteration 2 (2026-09-29, CR-015 lien verification; reviewer, new invocation)
+
+**Scope.** CR-015 section 5 step 3: the delta of this record against the frozen CR-015 blobs, verifying every lien finding of this record (RFA-SRR-006, lien L-6) and naming the new blobs in `product_files`. Product: `cr/CR-015-process-liens-01-02-08` at `7efd900` (base `7784672`, the CR-012 head), files `docs/process/01-lifecycle-and-reviews.md@53a9983c` and `docs/templates/decision-memo.md@dd20b87d`; the other three `product_files` blobs are unchanged (`git rev-parse` equal at `baseline/srr`, `7efd900` and `main` `908d21a`). The first delta of these liens is INSP-060 (`docs/reviews/PDR/checklists/cr-015-process-01-02-08.md`, iteration 1, `b133a4b`), which did not change this record's `product_files`; this section is the re-issue CR-015 step 3 names and cross-references INSP-060 (its cross item X-3).
+
+**Independence (rule C4) and search first (rule C3).** Written by a new invocation of this record's reviewer role, acting for WP-PDR-55 (configuration manager of merge batch 1). It authored no part of CR-015, its branch, INSP-060 or this record's earlier iterations, and edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep` (query: "CR-015 pre-merge checks section 9 implementation steps SRR record re-issue"; then "validate_docs record drift rule product_files blob mismatch"). **Method.** `git diff --word-diff 7784672 7efd900` on both files, read in full at every changed section; claims re-checked against the repository at the commits the text cites; tool runs in detached scratch worktrees of `7efd900` and `main` `908d21a`, removed afterwards.
+
+### Findings of the delta
+
+| Finding | Severity | State | Evidence on the frozen blobs (`7efd900`) |
+|---|---|---|---|
+| finding-1 | Minor | Verified | 01 section 15 item 2 reads "Resolved at charter commit `4e3f891` (verified 2026-09-27 in the charter blob of `baseline/srr`)" and quotes the three charter texts; the section 15 preamble is re-dated 2026-09-27 at `7bb994f` and states no action is open; the section 3.5 row "Decommissioning and disposal plans" ends "(charter section 12)" without the parenthesis on section 15 item 2 |
+| finding-2 | Minor | Verified | Section 13 row "Peer review record" names `product_files` (list of `path@blob`) and `product_blob` as optional fields and states the record drift rule (APPROVED fails on an absent or differing blob; any other verdict prints a note) and the record state rule; both match `check_record_drift` and the module header of `tools/validate_docs.py` on `main` |
+| finding-3 | Minor | Verified | Section 14 now makes the matrix row the authority and names SE-32 to SE-34 and SE-57 (`implementation_ref`) and SE-47, SE-48, SE-51 to SE-56 (justification). Script over `se-compliance-matrix.json` at `7efd900`: `implementation_ref` names 01 in SE-12, 22, 32, 33, 34, 57; justification cites 01 in SE-34, 47, 48, 51 to 57. SE-12 and SE-22 are not rows of the section 14 table, so the sentence is true for the rows it maps |
+| finding-4 | Minor | Verified | (a) Section 4.6 rows SWE-087 a and b name the filed records `requirements-sys.md` (INSP-003), `requirements-tx-and-sw-keyer.md` (INSP-004), `requirements-sw-keyer-software-assurance.md` (INSP-026), `software-plan-07.md` (INSP-010), `software-plan-07-software-assurance.md` (INSP-018). (b) Section 13 gives the slug forms as filed at SRR and PDR as an open list, with the path fixed at creation (05 Table 4-1 row 33). (c) Section 2.1 row "Independent peer review or inspection" points to all `peer-review-checklist-*.md` templates and the single table of 08 section 3.5 |
+| finding-5 | Minor | Verified | `decision-memo.md` section 7.1 has the line "Same risk accepted as official spokesperson for bystanders and household members (03 section 4.4; ...)", and the classification line names both concurrences (peer review and software assurance records) with `<REVIEW>` paths |
+| finding-6 | Minor | Open | New in iteration 2 (CR-015 section 6.1 IR-F5, found at entry and carried at the disposition). New section 16.3 "Planned dates" gives the PDR work plan revision 2 targets (readiness Tue 2026-10-06, PDR about Thu 2026-10-08, `baseline/pdr` about Fri 2026-10-09). The owner accepted revision 6 (`a02d84b`) on 2026-09-29 (status note 2026-09-29 section 8), whose dates are PDR about Mon 2026-10-19 (range Sun 10-18 to Wed 10-21). The text calls them planning targets under the event-based rule of section 1 item 2, so no gate rule is wrong, but the review plan (SE-32) would enter `main` with a superseded schedule. Fix: section 16.3 cites the current plan revision and its dates, or points to `docs/plan/pdr-work-plan.md` section 8.4 for them instead of copying them |
+
+Observations O-1 to O-3 and cross items X-1, X-3 and X-4 of this record are closed in the same blobs (01 section 3.5 SwRR row, section 12.3, the header "Baselined at SRR ... revision PDR-1 proposed by CR-015", the slug forms of section 13, section 15 item 2, the memo template lines), as INSP-060 recorded and this delta re-read. INSP-060 finding-1 (the due event of a record lien in 01 section 12.3 items 1 to 3 is stated twice) is a lien of INSP-060 on the same 01 blob and is not repeated here.
+
+### Lien table of the delta
+
+| Finding | Severity | Disposition | Owner | Due | Package carriage |
+|---|---|---|---|---|---|
+| finding-6 | Minor | Open. Lien: fix before CDR (PDR work plan rule C1: a Minor finding after the first APPROVED verdict) | 01 author (Claude, lead SE), by a CR against 01 or a revision of CR-015 before its merge | CDR readiness declaration | PDR package section 15 lien table |
+
+Lien count: 1. Open Major: 0.
+
+### Tool runs (2026-09-29)
+
+- Scope: `git diff --stat 7784672 7efd900` 8 files, 136 insertions, 84 deletions; `git diff --stat 7784672 7efd900 -- <this record's five product files>` touches 01 and `decision-memo.md` only.
+- Worktree of `7efd900`: `tools/validate_docs.py` 45 passed, 6 failed, all by the record drift rule (this record, INSP-020, INSP-022, INSP-024 against their `baseline/srr` blobs, and `risk-register-06.md`, `tool-validation-tv-001-to-tv-010.md`); `tools/traceability.py --report-only` exit 0, 0 violations, 2 warnings (reports restored); `tools/render_compliance.py --check` exit 0.
+- Worktree of `main` `908d21a`: `tools/validate_docs.py` 109 passed, 8 failed (drift of other records; this record passes at iteration 1); `python -m unittest discover -s tools/tests` 596 tests, 1 failure (`test_repository_exit_zero`, the same drift), 17 skipped.
+- This record at iteration 2 on `main`: see the commit that files it; with `verdict` held the drift against `main` is a note, and on the trial merge of CR-015 with `verdict: APPROVED` it passes (CR-015 section 9).
+
+### Delta verdict
+
+```
+DELTA ITERATION 2 (2026-09-29, CR-015 blobs at 7efd900): VERDICT: APPROVED (reviewer); record verdict held until the CR-015 merge
+FINDINGS: finding-1 to finding-5 Minor, Verified; finding-6 Minor, Open (lien due the CDR readiness declaration); open Major 0
+PRODUCTS: 01@53a9983c, review-package.md@4ed480e2, decision-memo.md@dd20b87d, rfa-rid-log.schema.json@38898b0c, rfa-rid-log.example.json@0e913114
+MEASUREMENTS: liens verified=5; new findings=1 (Minor); turns=12; minutes=25; cumulative turns=63, minutes=90
+```
+
+`record_status` stays Open (finding-6 is an open lien).

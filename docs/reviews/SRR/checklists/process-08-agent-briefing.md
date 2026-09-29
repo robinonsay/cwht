@@ -10,9 +10,13 @@ checklist_file: docs/reviews/SRR/checklists/process-08-agent-briefing.md
 product: docs/process/08-agent-briefing.md
 # product_commit: last commit touching 08 at the review baseline HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
 # (README.md was last touched at 4e3f8913366c60e79a9ace6a1b4f36f24adc3479); the working tree equals HEAD for both files
-product_commit: "b301df2f96aa979b602c0c4cde9c7f85da979843"
+# iteration 2 (2026-09-29, CR-015 lien delta): product_commit is the CR-015 branch head 7efd900 (cr/CR-015-process-liens-01-02-08,
+# base 7784672, the CR-012 head, which carries the CR-012 change to 08 sections 3.1 and 3.5); iteration 1 value "b301df2f96aa979b602c0c4cde9c7f85da979843"
+product_commit: "7efd900b4011a7959f99bef00cba3a0b732cf8b1"
 # product_files: git rev-parse HEAD:<path> at adcfe09 (record drift rule, package section 2.3, R13)
-product_files: ["docs/process/08-agent-briefing.md@01a36bac8d5f133dadd5b384f92f95f225371663", "docs/process/README.md@3664073bc2563f604fb7b1c639a2689a20fb0e6a"]
+# iteration 2: 08 blob 01a36bac replaced by 374fd777, README blob 3664073b by dc4fdf17, and the requirements checklist template
+# added at revision D, blob 7fd57b3f (finding-5 asks for its change; CR-015 section 1.7); all git rev-parse 7efd900:<path>
+product_files: ["docs/process/08-agent-briefing.md@374fd777b1f05e408c133ed1f222b6cb90865114", "docs/process/README.md@dc4fdf1708d3c661393706d8768e77d4cc65ca14", "docs/templates/peer-review-checklist-requirements.md@7fd57b3f73beeeb8bab0079eee7e6d313781bd3c"]
 product_size: 08 in 7 sections, 201 lines; README.md 55 lines (index of 10 files, 3 companion data rows, 11 related-plan rows)
 sprint: SRR-prep
 author_agent: "author:process (Claude main session, lead SE; 08 revision of b301df2 and README of 4e3f891)"
@@ -21,29 +25,36 @@ criticality: neither
 # assurance_required: false; 07 section 2.1.1 row "Other process documents (docs/process/0N-*.md except 03, 05 and this plan)" is No in every column
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+# iteration 2: the CR-015 lien delta (CR-015 section 5 step 3; RFA-SRR-006 lien L-6), section "Delta iteration 2" at the end
+iteration: 2
 # readiness_met: true at the re-issue of 2026-09-26 (package item R8): R3 met by the author self-check filed at ca22e37 and confirmed by the reviewer; see Re-issue
 readiness_met: true
 # reviewer_verdict: no Major finding; every Minor finding is "Lien: fix before PDR" (convergence rule of 2026-09-26)
 # verdict: APPROVED (with liens finding-1 to finding-6, fix before PDR) at the re-issue of 2026-09-26 without a further product review;
 # iteration 1 held it at NEEDS CHANGES only on readiness R3, which the author self-check now meets
+# iteration 2: reviewer_verdict APPROVED (finding-1 to finding-6 Verified on the CR-015 blobs; one new Minor, finding-7, a lien
+# due the CDR readiness declaration under PDR work plan rule C1). verdict held at NEEDS CHANGES under the lead SE convention of
+# 2026-09-27 (CR-015 section 5 step 3): the three blobs above exist only on cr/CR-015-process-liens-01-02-08 (and 08 also depends
+# on the CR-012 commits the branch is based on). The software lead sets verdict: APPROVED in the CR-015 merge commit or the commit
+# right after it, once git rev-parse HEAD:<path> equals every product_files blob; a merge that re-blobs 08 (CR-017) needs a delta first.
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: APPROVED
+verdict: NEEDS CHANGES
 findings_major: 0
-findings_minor: 6
-findings_open: 0
+findings_minor: 7
+findings_open: 1
 findings_fixed: 0
-findings_verified: 0
-# findings_deferred: the 6 liens (fix before PDR)
-findings_deferred: 6
+# findings_verified: finding-1 to finding-6 (iteration 2); findings_deferred: none since iteration 2
+findings_verified: 6
+findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G1, CK-REQ-G4, CK-REQ-G7]
-effort_turns: 36
-effort_minutes: 50
+# effort: iteration 1 and re-issue 36 turns, 50 minutes; iteration 2 adds 10 turns, 20 minutes
+effort_turns: 46
+effort_minutes: 70
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -256,3 +267,49 @@ MEASUREMENTS: re-issue items=R1 to R5 + blobs; no=0; new findings=0; turns=6; mi
 ```
 
 `record_status` stays Open: the liens are neither Verified nor Deferred by an owner decision, and the software lead closes the record (07 section 10.2, action tracking).
+
+## Delta iteration 2 (2026-09-29, CR-015 lien verification; reviewer, new invocation)
+
+**Scope.** CR-015 section 5 step 3: the delta of this record against the frozen CR-015 blobs, verifying every lien finding of this record (RFA-SRR-006, lien L-6) and naming the new blobs in `product_files`. Products on `cr/CR-015-process-liens-01-02-08` at `7efd900`: `docs/process/08-agent-briefing.md@374fd777` (on the CR-012 base `56c54011` at `7784672`, which fixes finding-2 in sections 3.1 and 3.5), `docs/process/README.md@dc4fdf17` and `docs/templates/peer-review-checklist-requirements.md@7fd57b3f` (revision D, the completion-criteria change finding-5 asks for). The first delta of these liens is INSP-060 (`docs/reviews/PDR/checklists/cr-015-process-01-02-08.md`, iteration 1, `b133a4b`), which did not change this record's `product_files`; this section is the re-issue CR-015 step 3 names and cross-references INSP-060 (its cross item X-3).
+
+**Independence (rule C4) and search first (rule C3).** Written by a new invocation of this record's reviewer role, acting for WP-PDR-55 (configuration manager of merge batch 1). It authored no part of CR-015, CR-012, their branches, INSP-060 or this record's earlier sections, and edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`. **Method.** `git diff --word-diff 7784672 7efd900` on the three files and `git diff 573f9f5 7784672 -- 08` for the CR-012 part, read in full at every changed section; claims re-checked at the commits the text cites; tool runs in detached scratch worktrees, removed afterwards.
+
+### Findings of the delta
+
+| Finding | Severity | State | Evidence on the frozen blobs (`7efd900`) |
+|---|---|---|---|
+| finding-1 | Minor | Verified | 08 header: approved at SRR (decision 1; `baseline/srr`, blob `01a36bac`), changed by CR-012 and CR-015, "Aligned to: charter commit `6ea6b1d` (2026-09-26, the charter of `baseline/srr`)"; the section 1 repo map lists `traceability.json` in `docs/vv/` and in the per-review files; the README 00 and README rows cite `6ea6b1d` |
+| finding-2 | Minor | Verified | Sections 3.1 and 3.5 (CR-012 base) no longer treat the safety, visual-product and risk checklists as due; the section 1 template list names all eleven checklists and says every checklist exists; the README templates row names all eleven |
+| finding-3 | Minor | Verified | The section 1 tools line is stated at `main` `7bb994f` and names `measurements.py`, `sw_gate.sh`, `unsafe_audit.py`, `complexity_gate.py`, `ltspice-batch.sh`, `emu_run.sh`, `requirements.txt` and the test modules; the README tools row is restated at `7bb994f`. One clause of the LTspice entry went stale after `7bb994f`: finding-7 |
+| finding-4 | Minor | Verified | Section 3.1 has the row "trade studies (TS-NNN)" with `peer-review-checklist-risk.md` section B and the record `ts-nnn-<slug>`; architecture, allocation and ADRs keep design A, B and H. The 07 side (cross item X-3, 07 section 10.1 row b) is routed to the 07 writer (INSP-060 X-1) |
+| finding-5 | Minor | Verified | Section 3.2 states the record lien with owner and due event under 01 section 12.3, and the requirements checklist revision D completion criteria admit "recorded in the record's lien table as a lien with the owner of the fix and its due gate"; the wording of the due event is INSP-060 finding-1 (a lien of INSP-060, not repeated here) |
+| finding-6 | Minor | Verified | README "Tailoring markers" paragraph makes the RMM the authority; SWE-023 (03 row), SWE-157 and SWE-159 (07 row) carry "(tailored)" |
+| finding-7 | Minor | Open | New in iteration 2 (CR-015 section 6.1 IR-F4, found at entry and carried at the disposition). The 08 section 1 tools line reads "`ltspice-batch.sh` (ADR-018 wrapper; TV-014 not accredited, so LTspice runs wait for the owner's accreditation)". The owner accredited ACC-LTSPICE-001 (OD-24b) for wrapper blob `88b71475` at `bb09ad2` (status note 2026-09-27 section 13; TV-014 section 9). At the merge the clause is false, and an agent briefed from 08 would hold LTspice runs that are allowed. The README tools row says only "(ADR-018 wrapper)" and is correct. Fix: "`ltspice-batch.sh` (ADR-018 wrapper; accredited ACC-LTSPICE-001 for blob `88b71475`, TV-014)" or a pointer to `docs/cm/tool-validation/README.md` for accreditation states |
+
+Cross items X-1, X-3 and X-4 are closed or routed as INSP-060 recorded (slug pointer to 01 section 13 in 08 section 3.5 and the README; X-3 to the 07 writer; X-4 by the checklist revision D criteria).
+
+### Lien table of the delta
+
+| Finding | Severity | Disposition | Owner | Due | Package carriage |
+|---|---|---|---|---|---|
+| finding-7 | Minor | Open. Lien: fix before CDR (PDR work plan rule C1: a Minor finding after the first APPROVED verdict) | 08 author (Claude, lead SE), by a CR against 08 (CR-017 also changes 08) or a revision of CR-015 before its merge | CDR readiness declaration | PDR package section 15 lien table |
+
+Lien count: 1. Open Major: 0.
+
+**Merges that re-blob 08 after this delta.** `cr/CR-017-simulation-output-retention` (batch 2) changes 08; `git merge-tree --write-tree 7efd900 cr/CR-017-simulation-output-retention` is clean. After that merge this record needs a further delta naming the merged 08 blob. CR-015 carries the two CR-012 commits (`ac9b7a5`, `7784672`) because the branch is based on the CR-012 head; this record's 08 blob holds only if CR-012 merges with or before CR-015 unchanged (CR-015 section 12 Q4).
+
+### Tool runs (2026-09-29)
+
+- Worktree of `7efd900`: `tools/validate_docs.py` 45 passed, 6 failed, all by the record drift rule (this record, INSP-019, INSP-020, INSP-024 against their `baseline/srr` blobs, and `risk-register-06.md`, `tool-validation-tv-001-to-tv-010.md`); the checklist template at revision D raises no failure; `tools/traceability.py --report-only` exit 0, 0 violations, 2 warnings (reports restored).
+- This record at iteration 2 on `main`: with `verdict` held the drift against `main` is a note; on the trial merge of CR-015 with `verdict: APPROVED` it passes (CR-015 section 9).
+
+### Delta verdict
+
+```
+DELTA ITERATION 2 (2026-09-29, CR-015 blobs at 7efd900): VERDICT: APPROVED (reviewer); record verdict held until the CR-015 merge
+FINDINGS: finding-1 to finding-6 Minor, Verified; finding-7 Minor, Open (lien due the CDR readiness declaration); open Major 0
+PRODUCTS: 08@374fd777, docs/process/README.md@dc4fdf17, docs/templates/peer-review-checklist-requirements.md@7fd57b3f
+MEASUREMENTS: liens verified=6; new findings=1 (Minor); turns=10; minutes=20; cumulative turns=46, minutes=70
+```
+
+`record_status` stays Open (finding-7 is an open lien).

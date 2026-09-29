@@ -5,9 +5,12 @@ checklist_revision: C
 checklist_file: docs/reviews/SRR/checklists/compliance-matrix.md
 product: docs/process/se-compliance-matrix.json
 # product_commit: last commit that touched the product (b301df2, 2026-09-26); review baseline HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
-product_commit: "b301df2"
+# iteration 2 (2026-09-29, CR-015 lien delta): product_commit is the CR-015 branch head 7efd900 (cr/CR-015-process-liens-01-02-08,
+# base 7784672, the CR-012 head); iteration 1 value "b301df2"
+product_commit: "7efd900b4011a7959f99bef00cba3a0b732cf8b1"
 # product_files: git rev-parse HEAD:<path> at HEAD adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1 (the JSON source and its generated render; the working tree equals HEAD for both)
-product_files: ["docs/process/se-compliance-matrix.json@790d256214e07beb736f2f414a8eaf384ecf2440", "docs/process/se-compliance-matrix.md@09426930b27e3b51182ab28086c6c73000f274d9"]
+# iteration 2: JSON blob 790d2562 replaced by e0766032 and render blob 09426930 by c7fd562e (git rev-parse 7efd900:<path>)
+product_files: ["docs/process/se-compliance-matrix.json@e0766032be5fe890739ab0d83a31d1148bab76cd", "docs/process/se-compliance-matrix.md@c7fd562e9366178963f35982f97861705f8fce4a"]
 product_size: 62 Table H-1 rows (FC 49, T 4, NA 9), header block, comply codes, field notes, approval block; render 115 lines
 sprint: SRR-prep
 author_agent: "author:compliance (Claude main session, lead SE; commits 4e3f891 and b301df2)"
@@ -15,27 +18,34 @@ reviewer_agent: "reviewer:INSP-024"
 criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
-iteration: 1
+# iteration 2: the CR-015 lien delta (CR-015 section 5 step 3; RFA-SRR-006 lien L-6), section "Delta iteration 2" at the end
+iteration: 2
 # readiness_met: true at the re-issue of 2026-09-26 (package item R8): R3 met by the author self-check filed at ca22e37 and confirmed by the reviewer; see Re-issue
 readiness_met: true
 # verdict: APPROVED (with liens finding-1 to finding-7, fix before PDR) at the re-issue of 2026-09-26 without a further product review;
 # iteration 1 held it at NEEDS CHANGES only on readiness R3, which the author self-check now meets
+# iteration 2: reviewer_verdict APPROVED (finding-1 to finding-7 Verified on the CR-015 blobs; no new finding). verdict held at
+# NEEDS CHANGES under the lead SE convention of 2026-09-27 (CR-015 section 5 step 3): both blobs above exist only on
+# cr/CR-015-process-liens-01-02-08. The software lead sets verdict: APPROVED in the CR-015 merge commit or the commit right after
+# it, once git rev-parse HEAD:<path> equals both product_files blobs; a merge that re-blobs the matrix needs a delta first.
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: APPROVED
+verdict: NEEDS CHANGES
 findings_major: 0
 findings_minor: 7
 findings_open: 0
 findings_fixed: 0
-findings_verified: 0
-findings_deferred: 7
+# findings_verified: finding-1 to finding-7 (iteration 2); findings_deferred: none since iteration 2
+findings_verified: 7
+findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [CK-REQ-G1, CK-REQ-G3, CK-REQ-G6, CK-REQ-A8]
-effort_turns: 51
-effort_minutes: 50
+# effort: iteration 1 and re-issue 51 turns, 50 minutes; iteration 2 adds 8 turns, 15 minutes
+effort_turns: 59
+effort_minutes: 65
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -236,3 +246,45 @@ MEASUREMENTS: re-issue items=R1 to R5 + blobs; no=0; new findings=0; turns=6; mi
 ```
 
 `record_status` stays Open: the liens are neither Verified nor Deferred by an owner decision, and the software lead closes the record (07 section 10.2, action tracking).
+
+## Delta iteration 2 (2026-09-29, CR-015 lien verification; reviewer, new invocation)
+
+**Scope.** CR-015 section 5 step 3: the delta of this record against the frozen CR-015 blobs, verifying every lien finding of this record (RFA-SRR-006, lien L-6) and naming the new blobs in `product_files`. Products on `cr/CR-015-process-liens-01-02-08` at `7efd900`: `docs/process/se-compliance-matrix.json@e0766032` and its render `docs/process/se-compliance-matrix.md@c7fd562e`. The first delta of these liens is INSP-060 (`docs/reviews/PDR/checklists/cr-015-process-01-02-08.md`, iteration 1, `b133a4b`), which did not change this record's `product_files`; this section is the re-issue CR-015 step 3 names and cross-references INSP-060 (its cross item X-3).
+
+**Independence (rule C4) and search first (rule C3).** Written by a new invocation of this record's reviewer role, acting for WP-PDR-55 (configuration manager of merge batch 1). It authored no part of CR-015, its branch, INSP-060 or this record's earlier sections, and edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`. **Method.** Field-by-field diff of the JSON by script (`git show 7784672:` against `7efd900:`, every top-level key and every field of the 62 rows keyed by `se_id`); `tools/render_compliance.py --check` in a detached worktree of `7efd900`, removed afterwards.
+
+**Field diff.** Top level: `status`, `revision_date`, `field_notes` (the `revision_date` note) and `approval` change. Rows: only SE-11 (`justification`, `implementation_ref`), SE-34 (`justification`), SE-35 (`justification`, `implementation_ref`), SE-57 (`justification`, `implementation_ref`), SE-62 and SE-63 (`justification`). No `comply`, `requirement_statement` or `rationale` value changes; 62 rows before and after.
+
+### Findings of the delta
+
+| Finding | Severity | State | Evidence on the frozen blobs (`7efd900`) |
+|---|---|---|---|
+| finding-1 | Minor | Verified | SE-62 and SE-63 run from SRR through SAR under the `margin_policy` of TPM-001 and TPM-002, quoted per phase (SRR ">= 20 %", PDR ">= 15 %", CDR ">= 10 %", SAR measured for TPM-001) |
+| finding-2 | Minor | Verified | SE-11 names the make element (the owner hand-solders through-hole and exposed-pad parts, kit model SI-031), Accepted ADR-007 and the controlled hand-assembly list `cwht-MB-rev<X>-hand-assembly.csv` |
+| finding-3 | Minor | Verified | SE-34 names the App. G tables of 01 sections 4.3, 5.3, 6.3, 7.3 and 8.3 (G-3 and G-4, G-5 and G-6, G-7, G-10 with G-9 items 3.1, 3.2, 8, G-11 with G-12 items) |
+| finding-4 | Minor | Verified | SE-57 summarizes the five between-gate reviews of 01 section 2.1, and `implementation_ref` adds 01 section 2.1 |
+| finding-5 | Minor | Verified | `approval`: `submitted_by` Robin Onsay as Program/Project Manager with Claude as preparer; `approved_by` Robin Onsay as Engineering Technical Authority and Decision Authority, 2026-09-26; `approval_memo` the SRR memo section 7 with SE-24 to SE-31, SE-44, SE-51, SE-52, SE-55, SE-56 |
+| finding-6 | Minor | Verified | `revision_date` 2026-09-27 and `field_notes.revision_date` "set in every change that alters content, and the render follows it" |
+| finding-7 | Minor | Verified | SE-35 names the `stakeholders` array (ten entries), 02 section 3.0 and T-21 in the justification, and 02 section 3.0 in `implementation_ref` |
+
+Cross item X-3 (01 section 15 item 2) is verified in INSP-019 iteration 2 (finding-1); X-2 (charter section 3 App. G table list) is routed to the charter edit list CE-3 (OD-31), outside CR-015.
+
+**Observation (not a finding).** SE-11 still describes the PCBWay turnkey and CNC-enclosure route of `baseline/srr`. The owner's choice of design A5 on 2026-09-29 (TS-012 revision 7 section 10: two JLCPCB bare boards soldered by the owner, printed PETG case) changes it, but the A5 re-baseline CR (CR-018, WP-PDR-53) is not yet dispositioned, so SE-11 matches the current baseline. The row goes to the CR-018 change list.
+
+Lien count: 0. Open Major: 0.
+
+### Tool runs (2026-09-29)
+
+- Worktree of `7efd900`: `tools/render_compliance.py --check` exit 0, "validation PASSED and rendered file is current"; `tools/validate_docs.py` 45 passed, 6 failed, all by the record drift rule (this record, INSP-019, INSP-020, INSP-022 against their `baseline/srr` blobs, and `risk-register-06.md`, `tool-validation-tv-001-to-tv-010.md`); the matrix JSON passes its schema.
+- This record at iteration 2 on `main`: with `verdict` held the drift against `main` is a note; on the trial merge of CR-015 with `verdict: APPROVED` it passes (CR-015 section 9).
+
+### Delta verdict
+
+```
+DELTA ITERATION 2 (2026-09-29, CR-015 blobs at 7efd900): VERDICT: APPROVED (reviewer); record verdict held until the CR-015 merge
+FINDINGS: finding-1 to finding-7 Minor, Verified; new findings 0; open Major 0
+PRODUCTS: docs/process/se-compliance-matrix.json@e0766032, docs/process/se-compliance-matrix.md@c7fd562e
+MEASUREMENTS: liens verified=7; new findings=0; turns=8; minutes=15; cumulative turns=59, minutes=65
+```
+
+`record_status` stays Open until the merge; with every finding Verified the software lead may close it once the record verdict is set APPROVED on `main` (07 section 10.2).
