@@ -1,7 +1,7 @@
 ---
 id: CR-017
 title: State the retention rule for LTspice simulation outputs in the CM plan
-status: Assessed
+status: Dispositioned
 class: II
 originator: Claude (configuration manager)
 date_opened: 2026-09-29
@@ -14,8 +14,8 @@ affected_ids: []
 related: [CR-003, CR-007, CR-012, CR-013, CR-015, TV-014, INSP-006, INSP-021, INSP-022, INSP-030, INSP-039, INSP-047, INSP-058, INSP-112]
 target_release: none
 branch: cr/CR-017-simulation-output-retention
-disposition: null
-disposition_date: null
+disposition: Approved
+disposition_date: 2026-09-29
 relook_trigger: null
 relook_by: null
 merge_sha: null
@@ -288,20 +288,20 @@ Reviewer concurrence (CM lens): concur with comments. Class II is concurred. CM-
 
 | Field | Value |
 |---|---|
-| Decision | <Approved, Approved with conditions, Approved (waiver), Rejected or Deferred> |
-| Class confirmed | <I or II> |
-| Date | YYYY-MM-DD |
-| Conditions | <conditions that must be met before merge, or None> |
-| Rationale | |
-| Waiver scope (if Approved (waiver)) | <requirement or target waived, module, releases affected, end condition> |
-| Re-look trigger and re-look-by review (if Deferred) | |
-| Source | <chat transcription by Claude on YYYY-MM-DD, or edited directly by owner> |
+| Decision | Approved |
+| Class confirmed | II (proposed II; concurred by the software assurance round 2, section 6.4, and the CM-lens round 2, section 6.5) |
+| Date | 2026-09-29 |
+| Conditions | None stated by the owner. Implementation follows section 5 steps 3 to 11; the section 12 answers are recorded below |
+| Rationale | Writes into 05, 08 and 04 the retention rule of the owner's option A (status-2026-09-29.md section 1) and closes `docs/cm/deviations.md` entry 6. Both impact reviews concur with no Major open; the Minor findings are carried to implementation |
+| Waiver scope (if Approved (waiver)) | n/a |
+| Re-look trigger and re-look-by review (if Deferred) | n/a |
+| Source | Chat transcription by Claude (lead SE) on 2026-09-29. The presenter sent the eight section 12 points in plain language, each with a recommendation of yes, and asked for "approve" to accept all eight. Owner statement, verbatim: "I approve" (`docs/plan/status/status-2026-09-29.md` section 6) |
 
 Disposition history (append only; a CR targeted at a release is left out of it only by an owner re-disposition recorded here before the release's source commit, CM plan §5.1 and §8.1 step 1):
 
 | Date | Decision | New target | Source |
 |---|---|---|---|
-| | | | |
+| 2026-09-29 | Approved | none | owner, `status-2026-09-29.md` section 6, transcribed by Claude (lead SE) |
 
 ## 8. Implementation record
 
@@ -342,6 +342,7 @@ Independent verifier (agent invocation): <name>, date, result <Pass | Fail>.
 | 2026-09-29 | Submitted | Software assurance reviewer agent (new invocation, author of no part of this CR) | the commit that records this row (`Refs: CR-017`) | Section 6.4: software assurance impact review round 2 (delta) of revision 2 (`e802c6f`). SA-F1 is closed: a lost kept file is re-run only as a new run id (C3, C5). SA-F2 is closed: check 1 of "Simulation output checks" was run as written (exit 0, 0 rows; 49 without `^f9e6dd1`; a bad range exits 128) and caught a merged upper-case `.RAW` in a seeded repository. Two new Minor findings are carried to the implementation. SA-F7: check 1 misses an older large blob copied or renamed to a new path, and a blob first listed under `docs/vv/`; a `HEAD` tree check is added. SA-F8: check 3 cannot exit 0 after a loss handled by the SA-F1 rule, and no step or template carries it. No evidence loses retention, and 04 §15 is preserved. The reviewer concurs, with comments, with the disposition from the software assurance lens |
 | 2026-09-29 | Submitted | Independent reviewer agent (CM lens; new invocation, author of no part of this CR) | the commit that records this row (`Refs: CR-017`) | Section 6.5: CM-lens impact review round 2 of revision 2 (`e802c6f`, read again at `e71de45`). CM-F1 and CM-F2 are closed. The narrowed run-folder rule is prospective and defines a rewrite. The 2026-09-28 in-place fixes (tx-lpf `r1-nominal`, rx-frontend `r01` to `r04`, tx-pa `r1-d2` to `r1-d5`) need no correction, and only the `r1-d4-coax-bound` large-`.raw` re-run would have been barred. The Verification row matches a `named_blobs` parse of every record exactly. Before quotes, facts numbers, hunk clearance and check 1 were reproduced. Class II concurred. Concur with comments; 0 Major open; 3 new Minor findings: CM-F8 (manifest location for nested kept files), CM-F9 (check 3 population) and CM-F10 (two leftover texts). The §5.2 Assessed criterion is met with section 6.4 |
 | 2026-09-29 | Assessed | Claude (lead SE, configuration manager role) | the commit that records this row (`Refs: CR-017`) | Both section 6 round 2 impact reviews of revision 2 concur with comments, 0 Major open (software assurance 6.4 at `e71de45`, CM lens 6.5 at `6cb6f38`); 05 section 5.2 Assessed criterion met. Minor findings CM-F3 to CM-F10 and the open SA Minors are carried to implementation. Ready for the owner's disposition with the section 12 questions. |
+| 2026-09-29 | Dispositioned | Claude (lead SE, transcribing the owner) | the commit that records this row (`Refs: CR-017`) | Owner approval "I approve" of all eight section 12 points as recommended (status-2026-09-29.md section 6); Class II confirmed; implementation (section 5 steps 3 to 11) next. |
 
 ## 12. Questions for the owner (answer with the disposition)
 
@@ -357,3 +358,5 @@ Already decided by option A and not asked again: `main` is pushed as it is, and 
 | Q6 | Make the hook a versioned check later (for example a `tools/` script run by `tools/validate_docs.py` or the gate, with its TV record), by a separate Class II CR before the CDR readiness declaration, rather than in this CR? | Yes, a follow-up CR. The local hook covers the one machine that commits; a versioned check changes accredited tooling, needs a TV run and a software assurance review, and would also catch `--no-verify` commits and other clones. |
 | Q7 | Update the block READMEs that say the `.raw` files are "kept in git" (freq, tx-keying, tx-lpf, tx-pa) at each block's next analysis revision, rather than in this CR? | Yes. Editing them now would drift the four analysis records under review (INSP-113 to INSP-116); 08 carries the rule for every agent meanwhile. |
 | Q8 | Run folders (revision 2, CM-F1; not part of option A as you stated it): from the implementation of this CR, a committed `raw.sha256` line is never changed or removed, a kept `.raw` over 5 MB is never replaced, moved or deleted, and a run folder holding a kept file or a committed `.raw` over 5 MB is re-run only as a new run id; other in-place fixes to a committed run folder stay allowed, as on 2026-09-28 (9 folders, 3 commits), and those earlier fixes are not corrected. Accept? | Accept. It is the least rule that keeps each manifest entry true for the file it names, and it leaves the analysts' fix workflow as it is. A wider "never rewrite a run folder" rule would have needed new run ids for each of the three fix commits of 2026-09-28. |
+
+Answers recorded with the disposition (2026-09-29; the owner approved all eight points as recommended, "I approve"): Q1 approved, Class II. Q2 threshold 5,000,000 bytes. Q3 the 47 large `.raw` files stay tracked at their paths. Q4 a re-run is identical when the deck SHA-256 and the result numbers and verdict match; the manifest proves only that a kept file is unchanged. Q5 large `.raw` files stay only on the owner's Mac, never deleted by Claude, and a lost one is re-run as a new run id. Q6 the versioned check is a separate Class II CR before the CDR readiness declaration. Q7 the four block READMEs are updated at each block's next analysis revision. Q8 accepted: from implementation, a committed `raw.sha256` line and a kept `.raw` over 5 MB never change, and such a run folder is re-run only as a new run id.
