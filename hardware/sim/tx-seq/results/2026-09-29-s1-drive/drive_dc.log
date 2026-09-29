@@ -1,0 +1,45 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.U2C6HJ/drive_dc.cir
+Start Time: Tue Sep 29 16:06:21 2026
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 25
+method = trap
+.step rc=39.164 temp=25°
+.step rc=45 temp=25°
+.step rc=50 temp=25°
+.step rc=55 temp=25°
+.step rc=55.965 temp=25°
+.step rc=60.62 temp=25°
+.step rc=66.24 temp=25°
+.step rc=68.401 temp=25°
+.step rc=130.573 temp=25°
+.step rc=150.03 temp=25°
+.step rc=166.7 temp=25°
+.step rc=183.37 temp=25°
+.step rc=186.586 temp=25°
+.step rc=202.107 temp=25°
+.step rc=220.843 temp=25°
+.step rc=228.05 temp=25°
+.step rc=39.164 temp=70°
+.step rc=45 temp=70°
+.step rc=50 temp=70°
+.step rc=55 temp=70°
+.step rc=55.965 temp=70°
+.step rc=60.62 temp=70°
+.step rc=66.24 temp=70°
+.step rc=68.401 temp=70°
+.step rc=130.573 temp=70°
+.step rc=150.03 temp=70°
+.step rc=166.7 temp=70°
+.step rc=183.37 temp=70°
+.step rc=186.586 temp=70°
+.step rc=202.107 temp=70°
+.step rc=220.843 temp=70°
+.step rc=228.05 temp=70°
+Total elapsed time: 0.332 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.U2C6HJ/drive_dc.cir
+

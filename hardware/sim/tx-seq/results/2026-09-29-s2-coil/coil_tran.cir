@@ -1,0 +1,24 @@
+* WP-PDR-23a s2: relay coil transient (sequencer-timing.md section 3.2): pull-in at 100 % from 1 ms to
+* 26 ms (t_pi 25 ms), hold PWM at 25 kHz from 26 ms to 66 ms, drive off at 66 ms, decay through the
+* 1N4148 freewheel diode. The coil is its resistance in series with a fixed inductance (the open-gap value for
+* the rise cases, the closed-gap value for the hold cases; armature motion is in s3). AO3400A low-side driver.
+.param case=1
+.param Vs=table(case,1,4.75,2,4.75,3,6.35,4,6.35,5,8.4,6,8.4)
+.param Rc=table(case,1,68.4013,2,68.4013,3,228.05,4,228.05,5,130.573,6,130.573)
+.param Lc=table(case,1,0.066,2,0.198,3,0.220044,4,0.660132,5,0.180036,6,0.540108)
+.param Dh=table(case,1,0,2,0.63,3,0,4,0.917431,5,0,6,0.666667)
+V1 vs 0 {Vs}
+Rc vs n1 {Rc}
+L1 n1 c {Lc} Rser=0
+D1 c vs 1N4148
+M1 c g1 0 AO3400A
+M2 c g2 0 AO3400A
+VP g1 0 PWL(0 0 1m 0 1.0001m 3.3 26m 3.3 26.0001m 0)
+VH g2 0 PULSE(0 {3.3*(Dh>0)} 26m 50n 50n {max(Dh*4e-05-100n,10n)} 4e-05 999)
+.model AO3400A VDMOS(Vto=1.0 Kp=40 Rd=8m Rs=8m Rg=2 Cgs=550p Cgdmax=150p Cgdmin=40p Cjo=120p Is=1p Rb=10m mfg=fit_E Vds=30 Ron=36m)
+.model 1N4148 D(Is=2.52n Rs=.568 N=1.752 Cjo=4p M=.4 tt=20n Iave=200m Vpk=75 mfg=OnSemi type=silicon)
+.model 2N3904 NPN(IS=1E-14 VAF=100 Bf=300 IKF=0.4 XTB=1.5 BR=4 CJC=4E-12 CJE=8E-12 RB=20 RC=0.1 RE=0.1 TR=250E-9 TF=350E-12 ITF=1 VTF=2 XTF=3 Vceo=40 Icrating=200m mfg=NXP)
+.tran 0 90m 0 8u
+.step param case 1 6 1
+.save I(L1)
+.end
