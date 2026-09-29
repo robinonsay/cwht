@@ -11,27 +11,40 @@
 # tools/validate_docs.py fails a record whose `checklist` names a template absent from main (line 865),
 # and the lead SE convention of 2026-09-27 does not change the validator. The field `assurance_checklist`
 # names the template actually applied.
+# Iteration 2 (2026-09-29, re-pin delta; CR-012 section 9 pre-merge check 2 and lead SE ruling (2) of 2026-09-29):
+# 08 re-pinned from 56c54011 (CR-012) to 374fd777 (CR-015 head 7efd900, the blob main holds after both merges);
+# the CR-012 file is dropped from product_files after a delta on the CR-012 sections this record reviewed
+# (sections 4, 8 and 9); the four blobs now equal INSP-032 iteration 3 (section "Iteration 2").
 id: INSP-046
 checklist: peer-review-checklist-requirements
 checklist_revision: C
 assurance_checklist: "docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4 (revision A, branch cr/CR-012-pdr-checklist-templates at 7784672)"
 checklist_file: docs/reviews/PDR/checklists/template-peer-review-checklist-software-assurance-software-assurance.md
 product: docs/templates/peer-review-checklist-software-assurance.md
-# product_commit and product_files: equal to INSP-032 iteration 2 (readiness R1; rule C2)
-product_commit: "778467249fe42d59706e3c4beb7bcb893d7b2671"
-product_files: ["docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4", "docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900", "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921", "docs/process/08-agent-briefing.md@56c540113110b0d8916219d3cb531d6a76587713", "docs/cm/cr/CR-012-pdr-checklist-templates.md@91c8c6261a4b2bd9b3d789676c1188b54f022ddd"]
-# inputs read (not reviewed)
-input_files: ["docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7", "docs/reviews/PDR/checklists/template-peer-review-checklist-software-assurance.md@9ab5c857c85fed2936393fa21648728b8b3bba0c"]
+# product_commit and product_files: equal to INSP-032 iteration 2 (readiness R1; rule C2). Iteration 2: equal to
+# INSP-032 iteration 3: product_commit the CR-015 branch head 7efd900 (base 7784672), which holds the three template
+# blobs unchanged and the combined 08 blob
+product_commit: "7efd900b4011a7959f99bef00cba3a0b732cf8b1"
+# product_files iteration 2: 08 56c54011 replaced by 374fd777 (git rev-parse 7efd900:<path>). The entry
+# "docs/cm/cr/CR-012-pdr-checklist-templates.md@91c8c6261a4b2bd9b3d789676c1188b54f022ddd" is dropped (lead SE ruling (2);
+# INSP-060 and INSP-032 precedent): the CR-012 sections this record reviewed changed, so the delta reads them first
+# (91c8c626 to 37ca884b, section "Iteration 2"); the CR file is a record on main appended at each lifecycle step, so a
+# pin would drift at the merge. A later change to CR-012 sections 1 to 5 needs a delta of this record
+product_files: ["docs/templates/peer-review-checklist-software-assurance.md@5b13528504868b2add0f0b1e329c63aa2b54cdf4", "docs/templates/peer-review-checklist-tool-validation.md@7be809d4ceb9a202473eb19da3627fe0cd427900", "docs/templates/peer-review-checklist-analysis.md@0386cc6e78da65578b1cce8b2f793cd3db224921", "docs/process/08-agent-briefing.md@374fd777b1f05e408c133ed1f222b6cb90865114"]
+# inputs read (not reviewed). Iteration 2 adds, read at main 1404c67: the CR-012 file (37ca884b), INSP-032 iteration 3
+# (a9b0bcd8), 08 at 56c54011 (the delta base) and docs/cm/deviations.md (entries 8 and 9)
+input_files: ["docs/process/rmm.json@e326ddd1b7296d7d7fe172be6f33535cee3192d7", "docs/reviews/PDR/checklists/template-peer-review-checklist-software-assurance.md@9ab5c857c85fed2936393fa21648728b8b3bba0c", "docs/cm/cr/CR-012-pdr-checklist-templates.md@37ca884bb859b193c1c637426dae83bcd7983d68", "docs/reviews/PDR/checklists/template-peer-review-checklist-software-assurance.md@a9b0bcd892a41f9633c36b37eee5654ba678dd69", "docs/process/08-agent-briefing.md@56c540113110b0d8916219d3cb531d6a76587713", "docs/cm/deviations.md@917c8863c639be31fabe50481aaff3fec63518aa"]
 paired_record: INSP-032
 product_type: plans
 criticality: neither
-product_size: 1 template (229 lines; readiness R1 to R4, sections A to F, section B task table of 8 product-type rows plus "Every product type"); 4 further blobs carried unchanged from INSP-032
+product_size: 1 template (229 lines; readiness R1 to R4, sections A to F, section B task table of 8 product-type rows plus "Every product type"); 4 further blobs carried unchanged from INSP-032. Iteration 2 delta: 08 56c54011 to 374fd777 (6 CR-015 hunks, 14 insertions, 13 deletions); CR-012 file 91c8c626 to 37ca884b (sections 4, 8 and 9 read)
 sprint: PDR-prep
 author_agent: "author:WP-PDR-03 (Claude as checklist owner)"
 reviewer_agent: "sa-reviewer:WP-PDR-03-templates"
 assurance_required: true
 assurance_reviewer_agent: "sa-reviewer:WP-PDR-03-templates (software assurance function; paired file review INSP-032 by reviewer:WP-PDR-03-templates)"
-iteration: 1
+# iteration 2: re-pin delta on 08 374fd777 and the CR-012 file (section "Iteration 2")
+iteration: 2
 readiness_met: true
 # reviewer_verdict and assurance_verdict: APPROVED at iteration 1 (no Major; four Minor findings are liens due the CDR
 # readiness declaration, PDR work plan rule C1)
@@ -41,21 +54,28 @@ assurance_verdict: APPROVED
 # exist only on the unmerged branch cr/CR-012-pdr-checklist-templates, so tools/validate_docs.py would fail an
 # APPROVED record (record drift rule). The software lead sets APPROVED in the CR-012 merge commit, or the commit right
 # after it, when the blobs reach main unchanged and INSP-032 is APPROVED (07 section 10.2)
+# Iteration 2: the 08 blob is the CR-015 one, so the software lead sets APPROVED on this record and INSP-032 in the
+# CR-015 merge commit (or the commit right after it), with CR-012 merged first and the four blobs unchanged
 verdict: NEEDS CHANGES
 findings_major: 0
 findings_minor: 4
-findings_open: 4
+# findings_open: 4 at iteration 1. Iteration 2: 0. finding-4 is Verified (CR-012 section 8 correction of record);
+# finding-1 to finding-3 are liens due the CDR readiness declaration (a lien is not Open; the INSP-032 practice)
+findings_open: 0
 findings_fixed: 0
-findings_verified: 0
+findings_verified: 1
 findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 4
 assurance_tasks_applied: ["swe-134 7.1 task 5", "swe-022 7.1 task 1", "swe-013 7.1 task 1", "swe-013 7.1 task 2", "swe-024 7.1 task 1", "swe-024 7.1 task 2", "swe-024 7.1 task 3", "swe-039 7.1 task 7", "swe-039 7.1 task 8", "swe-121 7.1 task 1", "swe-125 7.1 task 1", "swe-139 7.1 task 1", "swe-087 7.1 task 3", "swe-090 7.1 task 1", "swe-023 7.1 task 1", "swe-088 7.1 task 1", "swe-088 7.1 task 2", "swe-089 7.1 task 1"]
 swe134_items_checked: []
 deferred_rids: []
-items_no: [SA-E3, "swe-023 7.1 task 1", "swe-024 7.1 task 3"]
-effort_turns: 30
-effort_minutes: 50
+# items_no: iteration 2 drops SA-E3 (answer now Yes: the CR-012 record states the unparsed trailers and deviations
+# entries 8 and 9 carry them for the owner's S1 decision); swe-023 task 1 and swe-024 task 3 stay No (liens)
+items_no: ["swe-023 7.1 task 1", "swe-024 7.1 task 3"]
+# effort: iteration 1 30 turns, 50 minutes; iteration 2 adds 20 turns, 35 minutes
+effort_turns: 50
+effort_minutes: 85
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -189,4 +209,78 @@ TASKS APPLIED: swe-134 7.1 task 5, swe-022 7.1 task 1, swe-013 7.1 tasks 1 and 2
 TASKS N/A (relief): swe-121 7.1 task 2 and swe-125 7.1 task 2 (rmm.json SWE-022 T); swe-154, swe-156, swe-159 (07 section 16); plans sub-lists for 07, 03, 05, V&V plan, TS-002 (07 section 2.1.1)
 SWE-134 ITEMS CHECKED: none (criticality neither)
 MEASUREMENTS: size=1 template, 229 lines; tasks=18 applied, 6 N/A rows; tasks_no=2; turns=30; minutes=50; major=0; minor=4
+```
+
+## Iteration 2: re-pin delta on the combined 08 blob and the CR-012 file (2026-09-29, `main` `1404c67`, branch heads `7784672` and `7efd900`)
+
+**Why.** CR-012 section 9 (pre-merge check 2 and the independent verification, pre-merge part) found that this record is the only CR-012 step 3 record that fails the verdict trial. It pins 08 at `56c54011`, which CR-015 replaces with `374fd777`. It also pins the CR-012 file at `91c8c626`, which later lifecycle steps changed (now `37ca884b`). The paired file review INSP-032 was re-pinned at its iteration 3 (`0142ad4`) and now names four blobs that differ from this record's five. That breaks R1 and SA-A3 of the pair. Lead SE ruling (2) of 2026-09-29 governs the CR file: the re-pin drops it when the CR sections this record reviewed are unchanged, and otherwise the reviewer makes a delta.
+
+**Scope (rule C1).** A delta. The three template blobs are unchanged: `git rev-parse 7efd900:<path>` gives `5b135285`, `7be809d4` and `0386cc6e`, equal to `7784672`, and `git log 573f9f5..1404c67` on the four product paths is empty. The product of this record, the software assurance template, is therefore not re-reviewed. The delta reads two things under the assurance lens: (a) the six CR-015 hunks of 08 (`git diff 56c54011 374fd777`); and (b) the hunks of `git diff 91c8c626 37ca884b` in the CR-012 sections this record reviewed (section 4, section 8 and section 9, and the section 5 step that governs this record). It states the current state of finding-1 to finding-4. Checklist as at iteration 1.
+
+**Independence (rule C4) and search first.** This is a new invocation of this record's software assurance reviewer role (07 section 2.1.1), `sa-reviewer:WP-PDR-03-templates`. It authored no part of CR-010, CR-012, CR-013 or CR-015 or their branch commits. It authored none of their record deltas (INSP-031 to INSP-033 iterations 1 to 3, INSP-022, INSP-060) and no part of CR-012 section 9. It edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`, with three queries: "INSP-050 CR-010 software assurance record product_files findings_open"; "INSP-060 drops CR file from product_files reason record-text edits drift"; "findings_open counts liens Minor findings ride with APPROVED lesson L1 findings_open 0". After that, `git`, `grep -n` and `tools/check_commit_msg.py` were used only to pin lines, blobs and trailers.
+
+### The six CR-015 hunks of 08 (`56c54011` to `374fd777`, 14 insertions, 13 deletions), read under the assurance lens
+
+| Hunk | 08 location at `374fd777` | Bears on the software assurance template? | Result |
+|---|---|---|---|
+| 1 | Header, line 3 | No. It names the CRs that change 08 and the SRR baseline blob | No effect |
+| 2 | Section 1 repository map (lines 21 to 33) | Yes, in part. The `docs/templates/` line now lists `peer-review-checklist-software-assurance.md` with the other checklists, and it says "every checklist exists" | Agrees with the section 3.5 row that CR-012 sets to "Exists" (line 155). No effect on a finding |
+| 3 | Section 3.1, lines 82 and 83 | Yes. Trade studies get their own row, with "the SA pair where 07 section 2.1.1 says Yes" | Agrees with the template's `trade-study-or-adr` row, which plans the pair where the decision constrains a 07 section 14.1 component. It widens no dispatch the template relies on |
+| 4 | Section 3.2 reviewer block, lines 112 and 113 | Yes. A Minor finding rides with APPROVED as a record lien (01 section 12.3). Blobs are named as `path@blob`. The verdict is held while a record reviews blobs on a branch only | The held-verdict and `path@blob` rules agree with the template's completion criteria and R1. The lien rule does not match the template's Minor-finding clause (line 214). That mismatch is INSP-031 finding-3 (Minor, lien). This record concurs and does not raise it again |
+| 5 | Section 3.5 "Review record" paragraph, line 162 | No. The slug follows 01 section 13 | The record form of this template (`<product-slug>-software-assurance.md`) is the 01 section 13 paired form. No effect |
+| 6 | Section 4 assignment block, line 174 | No. The REVIEW RECORD line asks for frozen blobs and the branch name | Agrees with template R1. No effect |
+
+The 11 lines CR-012 adds to 08 are present unchanged at `374fd777`, including the section 3.5 row for this template (line 155). None of the 9 lines CR-012 removes comes back. This agrees with INSP-031 iteration 3 and CR-012 section 9 and was re-checked here against `git show 7efd900:docs/process/08-agent-briefing.md`. No new finding.
+
+### The CR-012 file (`91c8c626` to `37ca884b`; dropped from `product_files`)
+
+At iteration 1 this record read CR-012 where it bears on the software assurance template: section 4 (the impact fields, above all Documentation and Safety), section 8 (the implementation record) and section 9 (verification). `git diff 91c8c626 37ca884b` (188 insertions, 22 deletions) changes the following:
+
+| CR-012 location | Change | Effect on this record |
+|---|---|---|
+| Front matter; lead paragraph | `status`, `disposition` (Approved 2026-09-28), `disposition_date` | None |
+| Section 4, rows Safety, Software classification and tailoring, Documentation | Unchanged | finding-3 unchanged. The Documentation row still names the 07 section 15 follow-on "for their writers", with no work package and no due event |
+| Section 4, rows Verification and Schedule; section 4.1 (new) | The records already made against revision A are listed with the rule for each disposition. This record is listed with its `checklist` field `peer-review-checklist-requirements` and `assurance_checklist`, record verdict held | Correct for this record. Revision A is approved unchanged, so this record stands on the blob that merges |
+| Section 5, step 5 text and step 8 (new) | After the merge, every section 4.1 record is re-issued with `checklist: peer-review-checklist-software-assurance` revision A and the merged blob, including this record by its assurance reviewer | This is the switch that iteration 1's front matter notes ("the delta after CR-012 merges switches the field"). It is not done here, because the template is not yet on `main`. It is done at step 8 |
+| Section 8 | The trailer cells of `ac9b7a5` and `7784672` now state that the `CR:` and `Refs:` lines are in the message body only, and that `tools/check_commit_msg.py` fails both commits (`ac9b7a5`: REFS_MISSING and CR_TRAILER_MISSING; `7784672`: REFS_MISSING). The cells cite `docs/cm/deviations.md` entry 8 (`c9f611d`) and entry 9 (`48f596a`). The lead SE accepts this correction of record, the branch is not rewritten, and the owner decides entries 8 and 9 at S1 | finding-4 Verified (below). `tools/check_commit_msg.py --range 573f9f5..7784672` run here reproduces the same three failures |
+| Section 9 | Pre-merge check 2 and the independent verification, pre-merge part. Row 3 ("Filled templates validate") is Verified on the trial CR-012 merge, with a filled copy of the software assurance template for 07 (product type plans) at NEEDS CHANGES and at APPROVED. INSP-046 is named as the only failing record in the verdict trial | Row 3 is assurance evidence that the template yields a valid record once merged. The failing-record item is closed by this delta |
+| Sections 6.1, 6.2, 7, 10 and 11 | Impact reviews, disposition, closure and history | Not reviewed by this record |
+
+Sections 1, 2 and 3 of CR-012 are unchanged. After this delta, the CR-012 sections this record reviewed have been read up to `37ca884b`. Their later changes will be record text of the CM steps: section 8 step state, the section 9 post-merge part and sections 10 and 11. The CR file is therefore dropped from `product_files`, as it is from INSP-032, and is identified here as reviewed at `91c8c626`, with the delta read up to `37ca884b`. A later change to CR-012 sections 1 to 5 needs a delta of this record.
+
+### SA-E3 re-answered
+
+| Id | Answer | Evidence |
+|---|---|---|
+| SA-E3 | Yes | CR route: this CR file is on `main` with `Refs: CR-012`, and nothing merges before the disposition and the section 9 checks. `7784672` and `ac9b7a5` still fail the commit-message checker. They are not rewritten, because the step 3 reviews froze them (plan rule C2). The nonconformance is now recorded truthfully in CR-012 section 8 and carried by `docs/cm/deviations.md` entries 8 and 9 for the owner's S1 decision (lead SE ruling (7) of 2026-09-29). That meets the configuration assurance aim of the item, which is that no departure from 05 section 4.5 goes unrecorded. The owner's decision on entries 8 and 9 does not hold this record |
+
+### Findings (iteration 2; current state of every finding of this record)
+
+| Finding | Severity | State | Disposition |
+|---|---|---|---|
+| finding-1 | Minor | Lien: fix before CDR | Template blob `5b135285` is unchanged: the `design` and `code` rows still do not carry `swe-023` task 1, and PAT-006 and PAT-007 are not named. Owner: Claude as checklist owner. Due: the CDR readiness declaration (plan rule C1) |
+| finding-2 | Minor | Lien: fix before CDR | Unchanged. The `plans` row of `5b135285` and 07 section 2.1.1 (at `main` and at CR-013 `0ad37a43`) do not name the software assurance checklist itself. Owner: Claude as checklist owner, with the 07 author. Due: the CDR readiness declaration |
+| finding-3 | Minor | Lien: fix before CDR | Unchanged. The 07 section 15 lead paragraph still says "the four checklists of section 10", and row "5.17 item 13" still reads "Partial at SRR" (lines 658 and 672 at `0ad37a43`; the same at `main`). The CR-012 section 4 Documentation row and section 5 name no work package or due event for this follow-on. Owner: the next 07 writer of plan section 5.3. Due: the CDR readiness declaration |
+| finding-4 | Minor | Verified | Fixed in the record text. CR-012 section 8 no longer says "yes": it states that the trailers are not parsed, gives the checker's failure codes and cites deviations entries 8 and 9. The deviations register now does the job that the fix asked the CSA to do: it lists both commits for the PDR independent reviewer and the owner's S1 decision. Re-checked with `tools/check_commit_msg.py --range 573f9f5..7784672` (FAIL, the three codes) |
+
+Open Major: 0. Open Minor: 0 (finding-1 to finding-3 are liens; finding-4 is Verified). New findings in this delta: 0. INSP-031 finding-3 is concurred with and not raised again.
+
+### Checks run
+
+- Blobs: `git rev-parse 7efd900:<path>` and `git rev-parse <trial merge>:<path>` both equal the four `product_files` entries. They are character for character the INSP-032 iteration 3 list (R1, SA-A3), and `product_commit` equals INSP-032's `7efd900`. `git merge-base --is-ancestor 7784672 7efd900` is true.
+- 08: `git diff --word-diff -U0 56c54011 374fd777` (6 hunks). The CR-012 lines of 08 were checked against `git show 7efd900:docs/process/08-agent-briefing.md`.
+- CR-012 file: `git diff --stat` and `git diff --word-diff 91c8c626 37ca884b` in sections 4, 5, 8 and 9. `tools/check_commit_msg.py --range 573f9f5..7784672` gave 3 FAIL lines, the same as section 8.
+- `tools/validate_docs.py` on `main` with this delta in the working tree: this record PASSES. Drift of the branch-only blobs is printed as notes, as expected for a held verdict.
+- Verdict trial: a detached scratch worktree of `main` at `1404c67`, then a trial `git merge --no-ff 7784672` (CR-012) followed by `git merge --no-ff 7efd900` (CR-015). There, `git rev-parse HEAD:<path>` gives the four `product_files` blobs. With this record copied in at `verdict: APPROVED`, this record PASSES with no drift note, and `validate_docs.py` reports 117 passed, 0 failed. With INSP-032 also at `verdict: APPROVED`, both PASS and the result is still 117 passed, 0 failed. Negative control: the iteration 1 text at `verdict: APPROVED` FAILS on its two old pins (08 `56c54011` differs from `374fd777`; CR-012 `91c8c626` differs from `37ca884b`). The worktree was removed and no ref was kept.
+
+### Record verdict (iteration 2)
+
+**`reviewer_verdict: APPROVED`, `assurance_verdict: APPROVED`**, unchanged. The liens are finding-1 to finding-3 (Minor, due the CDR readiness declaration), and finding-4 is Verified. The record `verdict` stays **NEEDS CHANGES** under the lead SE convention: 08 `374fd777` and the three template blobs reach `main` only when both CR-012 and CR-015 have merged. The software lead sets `verdict: APPROVED` on this record and on INSP-032 in the CR-015 merge commit, or in the commit right after it. If CR-017 (batch 2) later re-blobs 08, both records need a further delta first. After the CR-012 merge, section 5 step 8 re-issues this record's `checklist` field.
+
+```
+DELTA ITERATION 2 (2026-09-29): ASSURANCE VERDICT: APPROVED (unchanged); record verdict held until the CR-015 merge commit (CR-012 merged first)
+PRODUCTS: templates 5b135285, 7be809d4, 0386cc6e (unchanged); 08 56c54011 -> 374fd777 (CR-015 head 7efd900); CR-012 file dropped (reviewed at 91c8c626; sections 4, 5, 8, 9 read to 37ca884b); equal to INSP-032 iteration 3
+CHECKS: 6 CR-015 hunks of 08 read under the SA lens; 11 CR-012 lines of 08 present, 9 removed lines not restored; SA-E3 re-answered Yes
+FINDINGS: finding-4 Verified (CR-012 section 8 correction; deviations entries 8 and 9); finding-1 to finding-3 Minor liens due CDR; new findings 0; open Major 0
+MEASUREMENTS: hunks=6 (08) plus 4 sections (CR file); items re-answered=1; iteration 2 turns=20, minutes=35; cumulative turns=50, minutes=85
 ```
