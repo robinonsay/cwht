@@ -7,6 +7,9 @@
 # PDR delta iteration of INSP-005 (docs/reviews/SRR/checklists/semp.md) on the CR-013 prototype. Product frozen at
 # branch commit 41c588c (rule C2); the SEMP blob exists only on branch cr/CR-013-process-04-07-semp-srr-liens (lead
 # SE convention of 2026-09-27, INSP-031 practice).
+# Re-pin delta (2026-09-29, lead SE ruling (2); section "Re-pin delta" at the end): no CR file is in product_files (the
+# CR-013 file is an input_files entry, which the record drift rule does not read), so nothing is dropped; the SEMP blob is
+# unchanged at the CR-013 head 1a486e4. Iteration stays 1: a re-pin delta is not a new review iteration (INSP-003 convention).
 id: INSP-064
 checklist: peer-review-checklist-requirements
 checklist_revision: C
@@ -26,8 +29,10 @@ criticality: neither
 assurance_required: false
 assurance_reviewer_agent: none
 iteration: 1
-# readiness_met: false. R1 fails at 41c588c (validate_docs 43 passed, 7 failed, all record drift CR-013 states)
-readiness_met: false
+# readiness_met: true at the re-pin (was false). R1 failed at 41c588c (validate_docs 43 passed, 7 failed, all record drift
+# CR-013 states) and was to clear at the step that re-issues the SRR records. Those are on the branch (CR-013 step 4b, head
+# 1a486e4), where validate_docs gives 50 passed of 50; R2 to R5 unchanged (Yes)
+readiness_met: true
 # reviewer_verdict: APPROVED. INSP-005 finding-10 to finding-13 Verified; no Major; one new Minor finding is a lien due the
 # CDR readiness declaration (plan rule C1)
 reviewer_verdict: APPROVED
@@ -37,17 +42,20 @@ assurance_verdict: not-required
 verdict: NEEDS CHANGES
 findings_major: 0
 findings_minor: 1
-findings_open: 1
+# re-pin: counts reconciled with the finding tables. The Lien table is the last row of finding-1 and reads "Lien"
+# (plan rule C1), so the Minor finding is counted as deferred, not open (was open 1, deferred 0)
+findings_open: 0
 findings_fixed: 0
 findings_verified: 0
-findings_deferred: 0
+findings_deferred: 1
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 deferred_rids: []
 items_no: [R1, CK-REQ-G7]
-effort_turns: 14
-effort_minutes: 25
+# effort: iteration 1 14 turns, 25 minutes; the re-pin delta adds 4 turns, 10 minutes
+effort_turns: 18
+effort_minutes: 35
 record_status: Open
 date: 2026-09-27
 date_closed: null
@@ -145,4 +153,39 @@ FINDINGS:
 VERIFIED: INSP-005 finding-10, finding-11, finding-12 (all eight locations, plus s7.3.1), finding-13; s7.1 list = charter s10 and 07 s14.1.
 ITEMS N/A: CK-REQ-A1 to A7, sections B to F; CK-REQ-G5
 MEASUREMENTS: size=9 sections plus App. A to F, 13 change items; items checked=R1 to R5, A8, G1 to G8 plus 17 delta rows; items no=R1, G7; major=0; minor=1; verified liens=4 (INSP-005); turns=14; minutes=25; iteration=1
+```
+
+## Re-pin delta (2026-09-29, lead SE ruling (2); reviewer, new invocation)
+
+**Why.** Lead SE ruling (2) of 2026-09-29: every record re-pin drops a CR file from `product_files` when the CR sections it reviewed are unchanged, and otherwise makes a delta. This record is one of the CR-013 records whose verdicts are set in the CR-013 merge commit. Its front matter also carried `findings_open: 1` and `readiness_met: false`, which no longer matched its own tables and readiness condition. This delta re-pins and reconciles the record. It re-reviews no product text and changes no finding.
+
+**Independence (rule C4) and search first (rule C3).** A new invocation of this record's reviewer role for WP-PDR-55. It authored no part of WP-PDR-13, CR-013 (any section), the branch commits or iteration 1 of this record, and edited no product file. `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any `grep`.
+
+**Product blob.** `docs/plan/semp.md` is `2076eb0a` at `41c588c`, at the CR-013 head `1a486e4` (`git log 41c588c..1a486e4` on the path is empty) and on a trial `git merge --no-ff` of CR-010 (`7963f78`) then CR-013 (`1a486e4`) into `main` `9fda694` (detached scratch worktree, removed after use). `main` has not changed the path since `ab2af2d`, so the CR-003 and CR-006 Version-row hunks that the Completion section names have not reached `main`. If either merges before CR-013, this record needs a delta first.
+
+**CR file.** `product_files` names no CR file. The CR-013 file (read at `560fe69a`, now `fef1f9d9` on `main`) is an `input_files` entry, which the record drift rule does not read, so later CR-013 record-text edits cannot make this record drift. Nothing is dropped.
+
+**Readiness.** Iteration 1 set R1 to clear at the step that re-issues the SRR records. They are on the branch (CR-013 section 5 step 4b: INSP-021 and INSP-005 at `8d9efdf`, INSP-010 at `b6cc8f8`, INSP-018 at `1a486e4`, the CR-010 records by the merges `eff05e0` and `3aab75b`). At `1a486e4`: `tools/validate_docs.py` 50 passed of 50 (R1 Yes); `tools/traceability.py --report-only` 0 violations, 2 warnings (R2 Yes, unchanged). R3 to R5 are unchanged. `readiness_met` is set true.
+
+**Counts.** The Lien table is the last row of finding-1 and reads "Lien" (plan rule C1). The Minor finding is therefore a lien, counted in `findings_deferred` (1), and `findings_open` is 0.
+
+**Checks run on this record.** `tools/validate_docs.py` on `main` with this record in the working tree: PASS (drift of the branch-only blob printed as a note). A scratch copy on the trial merge: PASS with no drift note, and PASS again with `verdict: APPROVED` (117 passed of 117). The scratch copy was discarded.
+
+### Findings (re-pin delta; current state of every finding of this record)
+
+| Finding | Severity | State | Note |
+|---|---|---|---|
+| finding-1 | Minor | Lien: fix before the CDR readiness declaration (plan rule C1) | Unchanged at `2076eb0a` |
+
+Open Major: 0. New findings: 0.
+
+### Record verdict
+
+**Reviewer verdict: APPROVED** (lien finding-1). `readiness_met` is true. The record `verdict` stays **NEEDS CHANGES** while blob `2076eb0a` exists only on the CR branch. The software lead sets `verdict: APPROVED` in the CR-013 merge commit (or the commit right after it) when `git rev-parse HEAD:docs/plan/semp.md` is `2076eb0a`. A changed blob needs a delta first.
+
+```
+RE-PIN DELTA (2026-09-29): reviewer APPROVED (lien finding-1); record verdict NEEDS CHANGES (held for the CR-013 merge); readiness_met true
+PRODUCT: SEMP 2076eb0a, unchanged (41c588c, 1a486e4, trial merge); no CR file pinned
+COUNTS: findings_open 1 -> 0, findings_deferred 0 -> 1 (lien); no new finding; open Major 0
+MEASUREMENTS: tool runs=4; turns=4; minutes=10; cumulative turns=18, minutes=35
 ```
