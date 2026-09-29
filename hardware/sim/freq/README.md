@@ -9,7 +9,7 @@ Block of the WP-PDR-20 analyses (synthesizer, reference, frequency budget, clock
 | `clock_plan.py` | Harmonic map of every clock against the 2 m receive band, the CW segment, the IF, the image and the LO band (ADR-031 rules). Standard library; `--plot` renders the figure | `docs/design/analysis/clock-plan.md`, ADR-031 |
 | `freq_budget.py` | Frequency error budget and counter timebase (REQ-SYS-182, REQ-TX-013) | `docs/design/analysis/frequency-budget.md` |
 | `ts007_matrix.py` | TS-007 synthesizer and reference trade matrix | TS-007 |
-| `r3_a5.py` | Route R3 for A5 (WP-PDR-20a): Si5351A relock budget from the data sheet and AN619 on 2^n x 1 us FC0 counts, XOSC/TCXO ratio freshness over the longest over with the TCXO's own terms from the TG2520SMN brief sheet (imports the WP-PDR-28a thermal model unchanged), the A5 R3 budget with the drift term split by check, what the key-down count verifies and the A5 band-edge guard with the settle residual at the ramp, the receive-only squaring-stage lines. numpy, matplotlib; `--run-id` writes `results/<run-id>/` | `docs/design/analysis/frequency-budget.md` section 3.4 and the A5 rows of section 3.1 (revision 3) |
+| `r3_a5.py` | Route R3 for A5 (WP-PDR-20a): Si5351A relock budget from the data sheet and AN619 on 2^n x 1 us FC0 counts, XOSC/TCXO ratio freshness over the longest over with the TCXO's own terms from the TG2520SMN brief sheet (imports the WP-PDR-28a thermal model unchanged), the A5 R3 budget with the drift term split by check, what the key-down count verifies and the A5 band-edge guard with the settle residual at the ramp, the receive-only squaring-stage lines; the A5 reference budget with the TG2520SMN and the three options for the calibration bound (revision 4). numpy, matplotlib; `--run-id` writes `results/<run-id>/` | `docs/design/analysis/frequency-budget.md` sections 3.4 and 3.5 and the A5 rows of section 3.1 (revision 4) |
 | `tx_spur_plan.py` | TS-012 transmit clock spur plan: every clock line from 118 to 175 MHz while transmitting, at the GVA-84+ input and at the antenna, for plans B0, B1, P and PB and for finalists A4 and A5 | `docs/design/analysis/spurs-ts012.md` |
 | `tx_spur_filters.cir` | LTspice AC deck: drive low-pass with the 18 dB pad, option C10 drive bandpass, harmonic 7-pole low-pass (ideal and inductor Q 60) | as above |
 | `tx_spur_bpf_tol.cir` | LTspice AC deck: tolerance corners (every L and every C at 0.95, 1, 1.05) of the option C10 drive bandpass | as above |
@@ -21,7 +21,30 @@ LTspice runs only through `tools/ltspice-batch.sh` (ACC-LTSPICE-001, blob `88b71
 
 ## Runs
 
-### `results/r3a5-20260929-02/` (2026-09-29): WP-PDR-20a revision 3, the Major findings of INSP-056 (11, 12) and INSP-111 (7) (`frequency-budget.md` revision 3; governs)
+### `results/r3a5-20260929-03/` (2026-09-29): WP-PDR-20a revision 4, the Major finding-13 of INSP-111 (`frequency-budget.md` revision 4; governs)
+
+Reproduce from the repository root:
+
+```
+.venv/bin/python hardware/sim/freq/r3_a5.py --run-id r3a5-20260929-03
+```
+
+No LTspice deck in this run. The checker exits **0**: 43 PASS, 0 FAIL, 24 INFO lines. Its console output is `checker-output.txt`. Every revision 3 case line is unchanged, and the five revision 3 figures are byte-identical to those of `r3a5-20260929-02`.
+
+| Output | Content |
+|---|---|
+| `results.json` | As revision 3, plus `reference_a5`: TG2520SMN uncalibrated totals on both fo-TC readings, the correct-calibration residual, each case's reference error and -60 dB edge margin, the option (b) guards, the option (c) delta, the two-unit offsets and the C-10 re-read |
+| `reference-budget-a5.png` | Reference error per case against R-M3 (1.5 ppm), REQ-SYS-010 (2.5 ppm) and the A5 guard limit (2.972 ppm); margin of the -60 dB point inside the band per case |
+| `relock-sequence.png`, `ratio-freshness.png`, `xosc-slope.png`, `r3-budget-and-buffer.png`, `settle-and-guard.png` | As revision 3 (same bytes) |
+| `r3_a5.py` | Copy of the script as run |
+
+Summary:
+- **A5 reference.** The TG2520SMN totals 2.7 ppm (fo-TC band referred to +25 C) or 3.2 ppm (band as a 1.0 ppm window, governs) before calibration, against the 1.5 ppm R-M3 test. After a correct calibration it is 2.034 ppm, inside REQ-SYS-010, with a range of at least +/-1.5 ppm.
+- **Wrong calibration value.** Within +/-0.9 ppm it puts the -60 dB point 92.8 to 166.8 Hz beyond 148.000 MHz; no fixed range protects the guard. Options for the owner: a TCXO that meets R-M3; a 1.4 or 1.5 kHz guard; a software check within 0.97 ppm of the stored factory offset.
+
+`reference-budget-a5.png` was opened and inspected after each render; the other five PNGs are byte-identical to the revision 3 figures inspected then (visual closure, 2026-09-29).
+
+### `results/r3a5-20260929-02/` (2026-09-29): WP-PDR-20a revision 3, the Major findings of INSP-056 (11, 12) and INSP-111 (7) (`frequency-budget.md` revision 3; superseded by `r3a5-20260929-03`)
 
 Reproduce from the repository root:
 

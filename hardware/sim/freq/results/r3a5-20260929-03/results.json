@@ -1,0 +1,954 @@
+{
+ "relock": {
+  "t_writes_ms": 0.65,
+  "t_writes_reset_ms": 0.7225,
+  "t_writes_std_ms": 2.6,
+  "t_lol_read_ms": 0.0975,
+  "t_writes_256k_ms": 1.015625,
+  "scl_min_kHz": 262.6262626262626,
+  "L_max_iv12_ramp10_ms": 1.904,
+  "L_max_iv12_ramp12_ms": 3.904,
+  "L_max_iv13_ramp12_ms": -0.192,
+  "L_max_proposed_ms": 1.9,
+  "L_max_proposed_ramp12_ms": 3.9,
+  "pa_en_proposed_ms": 7.996,
+  "fallback_pa_en_ms": 11.192,
+  "fallback_gap_ms": 0.308,
+  "t_fc0_ms": {
+   "12": 4.096,
+   "13": 8.192,
+   "15": 32.768
+  },
+  "settle_left_in_alloc_ms": 0.35,
+  "settle_max_ramp10_ms": 1.25,
+  "settle_max_ramp12_ms": 3.25,
+  "tfreq_ms": 0.01,
+  "trdy_max_ms": 10.0,
+  "trdy_typ_ms": 2.0,
+  "verdict": "1 ms allocation not confirmed by a source; lock-gated start; the count bounds its own mean only; settle residual at the ramp closed by M-1(c)"
+ },
+ "settle": {
+  "tail_count_shift_iv12_Hz": 2890.6015625,
+  "slew_detect_us": 2.56,
+  "s_ramp_Hz": 5.0,
+  "m1c_resolution_Hz": 0.6283214207543629,
+  "m1c_res_max_Hz": 1.6666666666666667,
+  "guard_a5": {
+   "sb60_lo_Hz": 79.997,
+   "sb60_hi_Hz": 70.003,
+   "bw26_lo_Hz": 654.997,
+   "bw26_hi_Hz": 645.003,
+   "max_offset_Hz": 820.003,
+   "max_ppm": 2.9729970783546893,
+   "c2_hi_Hz": 75.003,
+   "terms_hi_Hz": {
+    "reference": 369.997,
+    "word": 5.0,
+    "settle": 5.0,
+    "sideband": 750.0
+   }
+  }
+ },
+ "freshness": {
+  "s_max_ppm_per_K": 0.923999999999999,
+  "s_arg": {
+   "a1": -0.923999999999999,
+   "a3": 0.00013,
+   "ti": 25.0,
+   "t_at": 25.0
+  },
+  "n_admissible": 15392,
+  "rate_bay_K_s": 0.034929913874948176,
+  "rate_local_K_s": 0.047,
+  "A_kd_s": 10,
+  "A_kd_limit_s": 11.888526765848395,
+  "drift_kd_ppm": 2.3570324042045203,
+  "window_s": 190.0,
+  "drift_kd_xosc_ppm": 0.9570324042045204,
+  "drift_over_xosc_ppm": 6.115895805943667,
+  "tcxo_temp_ppm": 1.0,
+  "tcxo_step_ppm": 0.4,
+  "drift_alloc_iv12_ppm": 2.5,
+  "m2a_limit_over_ppm": 7.4,
+  "m2a_limit_kd_ppm": 1.9,
+  "t_age_rx_s": 1.082768,
+  "dT_bay_nominal_K": 2.5884851700592346,
+  "dT_bay_band_K": 2.403999468407944,
+  "dT_bay_worst_case": [
+   "A5-R4",
+   -10.0
+  ],
+  "dT_local_K": 1.41,
+  "drift_over_ppm": 7.515895805943668,
+  "drift_ceiling_iv12_ppm": 4.256811541715203,
+  "drift_ceiling_iv13_ppm": 17.770434625145608,
+  "drift_alloc_iv13_ppm": 8.0,
+  "tornado_top": [
+   {
+    "param": "r_feed",
+    "low": 0.26,
+    "high": 0.45,
+    "dT_low": 2.5884851700592346,
+    "dT_high": 4.833194792482429,
+    "rate_low": 0.01682847741303939,
+    "rate_high": 0.03280348070804351,
+    "up_dT": 2.244709622423194,
+    "up_rate": 0.01597500329500412
+   },
+   {
+    "param": "c_main",
+    "low": 40.0,
+    "high": 90.0,
+    "dT_low": 3.4004726774122,
+    "dT_high": 1.8945511907642147,
+    "rate_low": 0.02519757634602149,
+    "rate_high": 0.011232399670767723,
+    "up_dT": 0.8119875073529652,
+    "up_rate": 0.0083690989329821
+   },
+   {
+    "param": "i_bus",
+    "low": 0.25,
+    "high": 0.4,
+    "dT_low": 2.4954052225684675,
+    "dT_high": 2.7744540988092825,
+    "rate_low": 0.016174112772178173,
+    "rate_high": 0.018137195300451436,
+    "up_dT": 0.1859689287500479,
+    "up_rate": 0.0013087178874120475
+   },
+   {
+    "param": "r_cellpath",
+    "low": 0.05,
+    "high": 0.1,
+    "dT_low": 2.702883731681026,
+    "dT_high": 2.1307472400886756,
+    "rate_low": 0.017668996144972526,
+    "rate_high": 0.013466402224220131,
+    "up_dT": 0.1143985616217913,
+    "up_rate": 0.0008405187319331375
+   },
+   {
+    "param": "g_leads",
+    "low": 0.008,
+    "high": 0.03,
+    "dT_low": 2.534998830176593,
+    "dT_high": 2.695489364073734,
+    "rate_low": 0.016825280941423548,
+    "rate_high": 0.01683529671088868,
+    "up_dT": 0.10700419401449945,
+    "up_rate": 6.8192978492920275e-06
+   },
+   {
+    "param": "a_mw",
+    "low": 0.02096,
+    "high": 0.03144,
+    "dT_low": 2.6862550452994283,
+    "dT_high": 2.4962413678622974,
+    "rate_low": 0.01683677826820773,
+    "rate_high": 0.01682019779691303,
+    "up_dT": 0.09776987524019365,
+    "up_rate": 8.30085516834167e-06
+   },
+   {
+    "param": "h_in_c",
+    "low": 1.5,
+    "high": 4.0,
+    "dT_low": 2.6608730572579398,
+    "dT_high": 2.4905252829266074,
+    "rate_low": 0.01683591863702638,
+    "rate_high": 0.01681740611227467,
+    "up_dT": 0.07238788719870515,
+    "up_rate": 7.44122398699254e-06
+   },
+   {
+    "param": "c_bay",
+    "low": 15.0,
+    "high": 40.0,
+    "dT_low": 2.6566621265705246,
+    "dT_high": 2.5358434521262563,
+    "rate_low": 0.0168357292525243,
+    "rate_high": 0.016824377693033687,
+    "up_dT": 0.06817695651128997,
+    "up_rate": 7.251839484911926e-06
+   }
+  ],
+  "cases": {
+   "A5-DC -10 C": {
+    "rise": 2.469761922553433,
+    "fall": 2.403806657648807,
+    "rate": 0.016825413678023482
+   },
+   "A5-DC 25 C": {
+    "rise": 2.3742596642760887,
+    "fall": 2.313962464849908,
+    "rate": 0.016814432551939262
+   },
+   "A5-DC 45 C": {
+    "rise": 2.3147265907880907,
+    "fall": 2.258322653981068,
+    "rate": 0.016806957027391434
+   },
+   "A5-R4 -10 C": {
+    "rise": 2.5884851700592346,
+    "fall": 2.5438287700998927,
+    "rate": 0.01682847741303939
+   },
+   "A5-R4 25 C": {
+    "rise": 2.4851022883260967,
+    "fall": 2.448161111555322,
+    "rate": 0.016817051558462026
+   },
+   "A5-R4 45 C": {
+    "rise": 2.422158769178381,
+    "fall": 2.3907983915377145,
+    "rate": 0.016809354256501763
+   }
+  },
+  "verdict": "1 ppm over the longest over not met; budget closes with A_kd on the key-down check and the interval-13 allocation"
+ },
+ "budget": {
+  "iv12": {
+   "healthy_Hz": 4739.994,
+   "margin_T_Hz": 260.006,
+   "undetected_Hz": 9739.994,
+   "drift_ppm": 2.5
+  },
+  "iv13": {
+   "healthy_Hz": 3553.9874,
+   "margin_T_Hz": 1446.0126,
+   "undetected_Hz": 8553.9874,
+   "drift_ppm": 8.0
+  }
+ },
+ "buffer_lines": [
+  {
+   "n": 1,
+   "f_MHz": 25.0,
+   "window": "receive range 144.010-147.999 MHz",
+   "clear_kHz": 119009.9625
+  },
+  {
+   "n": 1,
+   "f_MHz": 25.0,
+   "window": "IF 8 MHz +/-5 kHz",
+   "clear_kHz": 16994.9625
+  },
+  {
+   "n": 1,
+   "f_MHz": 25.0,
+   "window": "low-side LO 136.010-139.999 MHz",
+   "clear_kHz": 111009.9625
+  },
+  {
+   "n": 1,
+   "f_MHz": 25.0,
+   "window": "high-side LO 152.010-155.999 MHz",
+   "clear_kHz": 127009.9625
+  },
+  {
+   "n": 1,
+   "f_MHz": 25.0,
+   "window": "low-side image 128.010-131.999 MHz",
+   "clear_kHz": 103009.9625
+  },
+  {
+   "n": 1,
+   "f_MHz": 25.0,
+   "window": "high-side image 160.010-163.999 MHz",
+   "clear_kHz": 135009.9625
+  },
+  {
+   "n": 2,
+   "f_MHz": 50.0,
+   "window": "receive range 144.010-147.999 MHz",
+   "clear_kHz": 94009.925
+  },
+  {
+   "n": 2,
+   "f_MHz": 50.0,
+   "window": "IF 8 MHz +/-5 kHz",
+   "clear_kHz": 41994.925
+  },
+  {
+   "n": 2,
+   "f_MHz": 50.0,
+   "window": "low-side LO 136.010-139.999 MHz",
+   "clear_kHz": 86009.925
+  },
+  {
+   "n": 2,
+   "f_MHz": 50.0,
+   "window": "high-side LO 152.010-155.999 MHz",
+   "clear_kHz": 102009.925
+  },
+  {
+   "n": 2,
+   "f_MHz": 50.0,
+   "window": "low-side image 128.010-131.999 MHz",
+   "clear_kHz": 78009.925
+  },
+  {
+   "n": 2,
+   "f_MHz": 50.0,
+   "window": "high-side image 160.010-163.999 MHz",
+   "clear_kHz": 110009.925
+  },
+  {
+   "n": 3,
+   "f_MHz": 75.0,
+   "window": "receive range 144.010-147.999 MHz",
+   "clear_kHz": 69009.8875
+  },
+  {
+   "n": 3,
+   "f_MHz": 75.0,
+   "window": "IF 8 MHz +/-5 kHz",
+   "clear_kHz": 66994.8875
+  },
+  {
+   "n": 3,
+   "f_MHz": 75.0,
+   "window": "low-side LO 136.010-139.999 MHz",
+   "clear_kHz": 61009.8875
+  },
+  {
+   "n": 3,
+   "f_MHz": 75.0,
+   "window": "high-side LO 152.010-155.999 MHz",
+   "clear_kHz": 77009.8875
+  },
+  {
+   "n": 3,
+   "f_MHz": 75.0,
+   "window": "low-side image 128.010-131.999 MHz",
+   "clear_kHz": 53009.8875
+  },
+  {
+   "n": 3,
+   "f_MHz": 75.0,
+   "window": "high-side image 160.010-163.999 MHz",
+   "clear_kHz": 85009.8875
+  },
+  {
+   "n": 4,
+   "f_MHz": 100.0,
+   "window": "receive range 144.010-147.999 MHz",
+   "clear_kHz": 44009.85
+  },
+  {
+   "n": 4,
+   "f_MHz": 100.0,
+   "window": "IF 8 MHz +/-5 kHz",
+   "clear_kHz": 91994.85
+  },
+  {
+   "n": 4,
+   "f_MHz": 100.0,
+   "window": "low-side LO 136.010-139.999 MHz",
+   "clear_kHz": 36009.85
+  },
+  {
+   "n": 4,
+   "f_MHz": 100.0,
+   "window": "high-side LO 152.010-155.999 MHz",
+   "clear_kHz": 52009.85
+  },
+  {
+   "n": 4,
+   "f_MHz": 100.0,
+   "window": "low-side image 128.010-131.999 MHz",
+   "clear_kHz": 28009.85
+  },
+  {
+   "n": 4,
+   "f_MHz": 100.0,
+   "window": "high-side image 160.010-163.999 MHz",
+   "clear_kHz": 60009.85
+  },
+  {
+   "n": 5,
+   "f_MHz": 125.0,
+   "window": "receive range 144.010-147.999 MHz",
+   "clear_kHz": 19009.8125
+  },
+  {
+   "n": 5,
+   "f_MHz": 125.0,
+   "window": "IF 8 MHz +/-5 kHz",
+   "clear_kHz": 116994.8125
+  },
+  {
+   "n": 5,
+   "f_MHz": 125.0,
+   "window": "low-side LO 136.010-139.999 MHz",
+   "clear_kHz": 11009.8125
+  },
+  {
+   "n": 5,
+   "f_MHz": 125.0,
+   "window": "high-side LO 152.010-155.999 MHz",
+   "clear_kHz": 27009.8125
+  },
+  {
+   "n": 5,
+   "f_MHz": 125.0,
+   "window": "low-side image 128.010-131.999 MHz",
+   "clear_kHz": 3009.8125
+  },
+  {
+   "n": 5,
+   "f_MHz": 125.0,
+   "window": "high-side image 160.010-163.999 MHz",
+   "clear_kHz": 35009.8125
+  },
+  {
+   "n": 6,
+   "f_MHz": 150.0,
+   "window": "receive range 144.010-147.999 MHz",
+   "clear_kHz": 2000.775
+  },
+  {
+   "n": 6,
+   "f_MHz": 150.0,
+   "window": "IF 8 MHz +/-5 kHz",
+   "clear_kHz": 141994.775
+  },
+  {
+   "n": 6,
+   "f_MHz": 150.0,
+   "window": "low-side LO 136.010-139.999 MHz",
+   "clear_kHz": 10000.775
+  },
+  {
+   "n": 6,
+   "f_MHz": 150.0,
+   "window": "high-side LO 152.010-155.999 MHz",
+   "clear_kHz": 2009.775
+  },
+  {
+   "n": 6,
+   "f_MHz": 150.0,
+   "window": "low-side image 128.010-131.999 MHz",
+   "clear_kHz": 18000.775
+  },
+  {
+   "n": 6,
+   "f_MHz": 150.0,
+   "window": "high-side image 160.010-163.999 MHz",
+   "clear_kHz": 10009.775
+  },
+  {
+   "n": 7,
+   "f_MHz": 175.0,
+   "window": "receive range 144.010-147.999 MHz",
+   "clear_kHz": 27000.7375
+  },
+  {
+   "n": 7,
+   "f_MHz": 175.0,
+   "window": "IF 8 MHz +/-5 kHz",
+   "clear_kHz": 166994.7375
+  },
+  {
+   "n": 7,
+   "f_MHz": 175.0,
+   "window": "low-side LO 136.010-139.999 MHz",
+   "clear_kHz": 35000.7375
+  },
+  {
+   "n": 7,
+   "f_MHz": 175.0,
+   "window": "high-side LO 152.010-155.999 MHz",
+   "clear_kHz": 19000.7375
+  },
+  {
+   "n": 7,
+   "f_MHz": 175.0,
+   "window": "low-side image 128.010-131.999 MHz",
+   "clear_kHz": 43000.7375
+  },
+  {
+   "n": 7,
+   "f_MHz": 175.0,
+   "window": "high-side image 160.010-163.999 MHz",
+   "clear_kHz": 11000.7375
+  },
+  {
+   "n": 8,
+   "f_MHz": 200.0,
+   "window": "receive range 144.010-147.999 MHz",
+   "clear_kHz": 52000.7
+  },
+  {
+   "n": 8,
+   "f_MHz": 200.0,
+   "window": "IF 8 MHz +/-5 kHz",
+   "clear_kHz": 191994.7
+  },
+  {
+   "n": 8,
+   "f_MHz": 200.0,
+   "window": "low-side LO 136.010-139.999 MHz",
+   "clear_kHz": 60000.7
+  },
+  {
+   "n": 8,
+   "f_MHz": 200.0,
+   "window": "high-side LO 152.010-155.999 MHz",
+   "clear_kHz": 44000.7
+  },
+  {
+   "n": 8,
+   "f_MHz": 200.0,
+   "window": "low-side image 128.010-131.999 MHz",
+   "clear_kHz": 68000.7
+  },
+  {
+   "n": 8,
+   "f_MHz": 200.0,
+   "window": "high-side image 160.010-163.999 MHz",
+   "clear_kHz": 36000.7
+  }
+ ],
+ "reference_a5": {
+  "uncal_ppm": {
+   "ref25": 2.7,
+   "pp": 3.2
+  },
+  "cal_residual_ppm": 2.0,
+  "reading_governs": "pp",
+  "g6_ppm": 2.9729970783546893,
+  "r_m3_ppm": 1.5,
+  "cases": {
+   "uncal_ref25": {
+    "label": "no calibration (ref25)",
+    "ref_ppm": 2.7,
+    "margin_Hz": 40.40324
+   },
+   "uncal_pp": {
+    "label": "no calibration (pp)",
+    "ref_ppm": 3.2,
+    "margin_Hz": -33.59616
+   },
+   "wrong09_ref25": {
+    "label": "constant wrong within +/-0.9 ppm (ref25)",
+    "ref_ppm": 3.6,
+    "margin_Hz": -92.79568
+   },
+   "wrong15_ref25": {
+    "label": "constant wrong within +/-1.5 ppm (ref25)",
+    "ref_ppm": 4.2,
+    "margin_Hz": -181.59496
+   },
+   "wrong09_pp": {
+    "label": "constant wrong within +/-0.9 ppm (pp)",
+    "ref_ppm": 4.1,
+    "margin_Hz": -166.79508
+   },
+   "wrong15_pp": {
+    "label": "constant wrong within +/-1.5 ppm (pp)",
+    "ref_ppm": 4.7,
+    "margin_Hz": -255.59436
+   },
+   "cal_correct": {
+    "label": "correct calibration (range >= 1.5 ppm)",
+    "ref_ppm": 2.0,
+    "margin_Hz": 144.0024
+   },
+   "cal_clamp09": {
+    "label": "unit at +1.5 ppm, range clamped at +/-0.9 ppm",
+    "ref_ppm": 2.6,
+    "margin_Hz": 55.20312
+   },
+   "opt_a_rm3": {
+    "label": "option (a): R-M3 part, constant wrong within +/-0.9 ppm",
+    "ref_ppm": 2.4,
+    "margin_Hz": 84.80288
+   },
+   "opt_c_delta": {
+    "label": "option (c): constant within +/-0.9 ppm of the stored factory offset",
+    "ref_ppm": 2.9,
+    "margin_Hz": 10.80348
+   }
+  },
+  "guard_needed_Hz": {
+   "ref25": 1381.5941973043714,
+   "pp": 1455.593158712154
+  },
+  "guard_cr_Hz": {
+   "ref25": 1400.0,
+   "pp": 1500.0
+  },
+  "delta_max_ppm": 0.9729970783546894,
+  "delta_prop_ppm": 0.9,
+  "two_unit_Hz": {
+   "0.0": 448.0,
+   "0.5": 594.0
+  },
+  "c10_band_change": [
+   {
+    "cls": 0.1,
+    "cal_ppm": 0.933784057708576,
+    "two_unit_0_Hz": 126.8,
+    "two_unit_1y_Hz": 272.8
+   },
+   {
+    "cls": 0.25,
+    "cal_ppm": 1.233784057708576,
+    "two_unit_0_Hz": 214.4,
+    "two_unit_1y_Hz": 360.4
+   },
+   {
+    "cls": 0.5,
+    "cal_ppm": 1.733784057708576,
+    "two_unit_0_Hz": 360.4,
+    "two_unit_1y_Hz": 506.4
+   }
+  ]
+ },
+ "checks": [
+  {
+   "case": "KA-R1",
+   "result": "PASS",
+   "text": "8-byte write burst at 400 kHz = 92 SCL clocks = 230 us"
+  },
+  {
+   "case": "KA-R2",
+   "result": "PASS",
+   "text": "R3 interval 12 with the revision 1 drift of 1 ppm reproduces frequency-budget C-12.iv12: 4518.0 Hz"
+  },
+  {
+   "case": "KA-R3",
+   "result": "PASS",
+   "text": "FC0 interval times 2^n x 1 us: interval 12 = 4.096 ms, 13 = 8.192 ms, 15 = 32.768 ms (RP2350 Table 582)"
+  },
+  {
+   "case": "KA-R4",
+   "result": "PASS",
+   "text": "A5 guard with no settle residual reproduces frequency-budget C-2: upper margin 75.0 Hz"
+  },
+  {
+   "case": "RL-0",
+   "result": "INFO",
+   "text": "Sources: Skyworks Si5351A/B/C-B data sheet, Rev. 1.3, August 27, 2021, https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si5351-B.pdf (PDF SHA-256 f3bc5285fccafa3fcd06e9a7fa6abb67fb43e8c23f6147b14caecc9a4851101f); Skyworks AN619 'Manually Generating an Si5351 Register Map for 10-MSOP and 20-QFN Devices', Rev. 0.8, September 23, 2021, https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/application-notes/AN619.pdf (PDF SHA-256 0135b3a37195189e38cbd58ca504460814c691eeb1fdbe275806cfcd4783f36b)"
+  },
+  {
+   "case": "RL-1",
+   "result": "INFO",
+   "text": "DS Table 5 and AN619: no PLL lock or relock time is specified for a feedback-divider change. Sourced timing values: TFREQ output frequency transition <= 10 us (fCLKn > 1 MHz; applicability to an MSNA change not stated); TRDY power-up to valid output typ 2 ms, max 10 ms (includes PLL acquisition from power-up); TOE <= 10 us. Lock status: AN619 register 0 bit 5 LOL_A"
+  },
+  {
+   "case": "RL-2",
+   "result": "PASS",
+   "text": "C6 changeover writes at 400 kHz Fast-Mode = 0.65 ms (with the reg 177 PLL reset 0.723 ms) inside the 1 ms writes-and-settle allocation; settle time left 0.35 ms (0.277 ms with the reset)"
+  },
+  {
+   "case": "RL-2s",
+   "result": "PASS",
+   "text": "at 100 kHz Standard-Mode the same writes take 2.6 ms, over the allocation: the Si5351A bus must run Fast-Mode (derived constraint)"
+  },
+  {
+   "case": "RL-2b",
+   "result": "INFO",
+   "text": "at the SCL of about 256 kHz that the ADR-031 counts give at clk_sys 96 MHz the writes take 1.016 ms, over the 1 ms allocation; the smallest SCL that leaves TFREQ inside it is 263 kHz (260 SCL clocks): derived constraint for the WP-PDR-32 count re-derivation (400 kHz Fast-Mode recommended)"
+  },
+  {
+   "case": "RL-3",
+   "result": "INFO",
+   "text": "lock-status read (register 0) at 400 kHz = 0.098 ms, inside the 2 ms software allocation T_SW"
+  },
+  {
+   "case": "RL-4",
+   "result": "PASS",
+   "text": "largest writes-plus-settle time L with interval 12 (4.096 ms) and the TS-012 ramp at t0 + 10 ms (PA_EN no later than TX_KEY at t0 + 8 ms) = 1.904 ms >= 1 ms allocation (slack 0.904 ms)"
+  },
+  {
+   "case": "RL-4d",
+   "result": "PASS",
+   "text": "proposed deadline L_max = 1.9 ms (RL-4 rounded down to 0.1 ms): PA_EN at t0 + 7.996 ms <= TX_KEY at t0 + 8 ms (margin 0.004 ms); a 2.0 ms deadline would set PA_EN at t0 + 8.096 ms, after TX_KEY"
+  },
+  {
+   "case": "RL-5",
+   "result": "PASS",
+   "text": "with the ramp moved to its limit t0 + 12 ms (REQ-SYS-161 12 ms, REQ-SYS-160 15 - 3 ms): L max = 3.904 ms, 0.096 ms below the TS-012 revisit threshold of 1 + 3 ms: a relock inside the threshold as worded can still miss every sequence inside REQ-SYS-161 (request to WP-PDR-54)"
+  },
+  {
+   "case": "RL-6",
+   "result": "PASS",
+   "text": "interval 13 (8.192 ms) at the changeover with the 2 ms drive power-up before a 12 ms ramp leaves L max = -0.192 ms: the TS-012 fallback cannot absorb any relock time (finding for WP-PDR-23a)"
+  },
+  {
+   "case": "RL-6f",
+   "result": "INFO",
+   "text": "TS-012 fallback as written (1 ms allocation, interval 13, ramp at t0 + 11.5 ms): PA_EN at t0 + 11.192 ms, 0.308 ms before the ramp, against the 2 ms drive power-up of the nominal sequence"
+  },
+  {
+   "case": "RL-7a",
+   "result": "PASS",
+   "text": "if TFREQ bounds the MSNA retune: settle 0.010 ms <= 0.35 ms left in the 1 ms allocation after the writes"
+  },
+  {
+   "case": "RL-7b",
+   "result": "INFO",
+   "text": "if only TRDY bounds it: 10 ms > 3.25 ms, the largest settle time any sequence inside REQ-SYS-161 allows (and > 1.25 ms with the TS-012 ramp): the TS-012 revisit condition would trigger. The source neither confirms nor excludes it"
+  },
+  {
+   "case": "RL-8",
+   "result": "INFO",
+   "text": "verdict: the 1 ms allocation is NOT CONFIRMED by a source (the relock time is not specified). The key-down count bounds the mean frequency over its own interval only. It catches the slewing part of a slow relock (ST-2), so that part costs availability (a late or lost first element, PA_EN low). It does not catch a linear PLL tail (ST-1), and it does not verify the frequency at the ramp: that needs a bound on the settle, the named settle residual S_RAMP of the A5 band-edge guard (G-2), closed by the time-resolved measurement M-1(c). Design response: lock-gated start of the interval-12 count with a deadline of t0 + 1.9 ms (TS-012 ramp kept); closure of both parts by M-1"
+  },
+  {
+   "case": "ST-1",
+   "result": "PASS",
+   "text": "a linear PLL tail (phase error inside one 40 ns reference period) shifts an interval-12 count by at most 2 x 40 ns x 147.9988 MHz / 4.096 ms = 2890.7 Hz < T 5000 Hz: such a tail can pass the key-down count, so the count does not bound the frequency at the ramp (reported: the count is not credited for it)"
+  },
+  {
+   "case": "ST-2",
+   "result": "INFO",
+   "text": "slewing part: a full-error transient (old LO, 8 MHz away) longer than 2.56 us inside the interval-12 count moves its mean by more than T, so PA_EN stays low: availability, not an unchecked carrier"
+  },
+  {
+   "case": "ST-3",
+   "result": "PASS",
+   "text": "M-1(c) time-resolved CLK1 frequency: D flip-flop beat of CLK1 (18.25 MHz, VCO/48) against a steady reference 1000 Hz away, beat edges timestamped by an RP2350 PIO; resolution per 1 ms window 0.629 Hz carrier referred <= S_RAMP/3 = 1.667 Hz"
+  },
+  {
+   "case": "G-1",
+   "result": "PASS",
+   "text": "A5 lower edge -60 dB point, word 5 Hz + settle residual 5 Hz: margin 79.9 Hz"
+  },
+  {
+   "case": "G-2",
+   "result": "PASS",
+   "text": "A5 upper edge -60 dB point, word 5 Hz + settle residual 5 Hz: margin 70.0 Hz (C-2 was 75.0 Hz)"
+  },
+  {
+   "case": "G-3",
+   "result": "PASS",
+   "text": "A5 lower edge 26 dB half-bandwidth: margin 654.9 Hz"
+  },
+  {
+   "case": "G-4",
+   "result": "PASS",
+   "text": "A5 upper edge 26 dB half-bandwidth: margin 645.0 Hz"
+  },
+  {
+   "case": "G-5",
+   "result": "PASS",
+   "text": "A5: largest REQ-TX-006 offset the 1.2 kHz guard supports = 820.0 Hz (C-5 was 825.0 Hz): the WP-PDR-22 limit for A5"
+  },
+  {
+   "case": "G-6",
+   "result": "PASS",
+   "text": "A5: largest reference error the guard supports at 750 Hz = 2.972 ppm"
+  },
+  {
+   "case": "G-7.1",
+   "result": "PASS",
+   "text": "A5, F7 offset 614 Hz: min edge margin 206.0 Hz"
+  },
+  {
+   "case": "G-7.2",
+   "result": "PASS",
+   "text": "A5, F7 offset 735 Hz: min edge margin 85.0 Hz"
+  },
+  {
+   "case": "G-7.3",
+   "result": "PASS",
+   "text": "A5, F7 offset 750 Hz: min edge margin 70.0 Hz"
+  },
+  {
+   "case": "KA-R5",
+   "result": "PASS",
+   "text": "identity 2 with the section 3.2 allocations reproduces C-8 (2.434 ppm), and the A5 guard function at 2.5 ppm reproduces G-2 (70.0 Hz)"
+  },
+  {
+   "case": "KA-R6",
+   "result": "PASS",
+   "text": "the needed-guard function at 2.5 ppm gives 1130.0 Hz, at which the governing A5 edge margin is exactly 0 (the 1.2 kHz guard exceeds it by about the G-2 margin)"
+  },
+  {
+   "case": "RB-0",
+   "result": "INFO",
+   "text": "TG2520SMN terms (brief sheet, as FR-T): tolerance after reflow at +25 C 1.5 ppm; fo-TC band +/-0.5 ppm over -40 to +85 C with no stated reference temperature; first-year aging at 25 MHz 0.5 ppm; fo-Load 0.1 and fo-VCC 0.1 ppm. Uncalibrated total 2.7 ppm with the band referred to +25 C, 3.2 ppm with the band read as 1.0 ppm peak to peak (governs, the section 3.4.2 reading); TS-007 R-M3 allocation 1.5 ppm: R-M3 NOT met for RB2 (TG2520SMN) on either reading"
+  },
+  {
+   "case": "RB-1.ref25",
+   "result": "INFO",
+   "text": "no calibration, or a constant of 0: reference 2.7 ppm; identity 2 at range 0 = 2.734 ppm > 2.5 ppm; A5 guard at the -60 dB point: margin 40.4 Hz (inside the band; G-6 supports 2.972 ppm)"
+  },
+  {
+   "case": "RB-1.pp",
+   "result": "INFO",
+   "text": "no calibration, or a constant of 0: reference 3.2 ppm; identity 2 at range 0 = 3.234 ppm > 2.5 ppm; A5 guard at the -60 dB point: margin -33.6 Hz (OUTSIDE the band; G-6 supports 2.972 ppm)"
+  },
+  {
+   "case": "RB-2.ref25",
+   "result": "INFO",
+   "text": "constant wrong inside its range (ref25): range +/-0.9 ppm gives 3.6 ppm of reference (identity 2 3.634 ppm > 2.5 ppm), -60 dB point 92.8 Hz beyond the band; range +/-1.5 ppm (the smallest that corrects the +25 C tolerance) gives 4.2 ppm (identity 2 4.234 ppm), 181.6 Hz beyond. Word and settle residual counted once each, through the band-edge method"
+  },
+  {
+   "case": "RB-2.pp",
+   "result": "INFO",
+   "text": "constant wrong inside its range (pp): range +/-0.9 ppm gives 4.1 ppm of reference (identity 2 4.134 ppm > 2.5 ppm), -60 dB point 166.8 Hz beyond the band; range +/-1.5 ppm (the smallest that corrects the +25 C tolerance) gives 4.7 ppm (identity 2 4.734 ppm), 255.6 Hz beyond. Word and settle residual counted once each, through the band-edge method"
+  },
+  {
+   "case": "RB-3",
+   "result": "PASS",
+   "text": "REQ-SYS-010 after a correct calibration with a range of at least +/-1.5 ppm: u_cal 0.1 + temperature change 1.0 + aging 0.5 + load and supply step 0.4 + word 0.034 = 2.034 ppm <= 2.5 ppm (margin 0.466 ppm); A5 guard margin 144.0 Hz. TPM-006 current best estimate for A5: 2.034 ppm, credit false"
+  },
+  {
+   "case": "RB-4",
+   "result": "INFO",
+   "text": "with the +/-0.9 ppm range kept, a unit at +1.5 ppm keeps 0.6 ppm uncorrected: 2.634 ppm after calibration > REQ-SYS-010 2.5 ppm (guard margin 55.2 Hz)"
+  },
+  {
+   "case": "RB-5",
+   "result": "INFO",
+   "text": "no fixed calibration range meets both REQ-SYS-010 for every unit and the guard: REQ-SYS-010 needs at least +/-1.5 ppm; the guard tolerates at most 0.272 ppm (ref25) or -0.228 ppm (pp: the guard fails even with no calibration); identity 2 fails at every range, 2.734 ppm at range 0"
+  },
+  {
+   "case": "RB-6a",
+   "result": "PASS",
+   "text": "option (a), a TCXO that meets R-M3 (1.5 ppm): identity 2 with +/-0.9 ppm = 2.434 ppm <= 2.5 ppm (C-8 stands); A5 guard with a wrong constant 84.8 Hz inside"
+  },
+  {
+   "case": "RB-6b",
+   "result": "INFO",
+   "text": "option (b), a guard CR on REQ-SYS-008, 009 and REQ-TX-002 with the range at +/-1.5 ppm: needed guard 1381.6 Hz (ref25) and 1455.6 Hz (pp), so 1.4 or 1.5 kHz (carrier limits 144.0015 to 147.9985 MHz on the governing reading); REQ-SYS-010 holds (RB-3)"
+  },
+  {
+   "case": "RB-6c",
+   "result": "PASS",
+   "text": "option (c), a software integrity control: the constant is accepted only within +/-delta of the unit's measured factory offset, held with an integrity check and entered only by the verified procedure. A wrong constant inside that bound errs by at most 2.0 + delta ppm; the guard holds for delta <= 0.972 ppm (at delta = 0.9 ppm, margin 10.8 Hz). A rejected constant must not fall back to 0: that is RB-1 (outside the band on the governing reading), so it withholds transmission"
+  },
+  {
+   "case": "RB-7",
+   "result": "INFO",
+   "text": "A5 two-unit offset after calibration at 146 MHz (RSK-002 step S1; per unit u_cal + 1.0 band change + aging + 0.4 step, word per unit): 448.0 Hz at calibration, 594.0 Hz after one year, both outside the 250 Hz half-passband"
+  },
+  {
+   "case": "RB-8",
+   "result": "INFO",
+   "text": "section 3.2 C-10 and the two-unit table re-read with a class of c ppm as a 2c change (the section 3.4.2 reading): class 0.1: 0.934 ppm <= 2.5, two units 126.8 / 272.8 Hz; class 0.25: 1.234 ppm <= 2.5, two units 214.4 / 360.4 Hz; class 0.5: 1.734 ppm <= 2.5, two units 360.4 / 506.4 Hz (at calibration / after one year; TS-007 classes, not A5)"
+  },
+  {
+   "case": "FR-1",
+   "result": "PASS",
+   "text": "AT-cut curves inside the Table 596 +/-30 ppm band: 15392 admitted; largest |slope| over -10 to 65 C = 0.924 ppm/K (a1 -0.924, a3 1.30e-04, Ti 25.0 C, at 25.0 C)"
+  },
+  {
+   "case": "FR-T",
+   "result": "INFO",
+   "text": "TCXO terms (TG2520SMN brief sheet, Seiko Epson 'TCXO / VC-TCXO TG2016SMN / TG2520SMN' brief she...): temperature change since the refresh bounded by the fo-TC band +/-0.5 ppm = 1.0 ppm peak to peak (no slope is given, so the band holds for any temperature step, and for any ratio age); load and supply step between the stage-on refresh and the stage-off check 2 x 0.1 (fo-Load, 10 kOhm // 10 pF +/-10 %) + 2 x 0.1 (fo-VCC, VCC +/-5 %) = 0.4 ppm, present at every check (interval 12 included), on the condition that both states stay inside those load and supply ranges; together 1.4 ppm"
+  },
+  {
+   "case": "FR-2",
+   "result": "PASS",
+   "text": "key-down check (interval 12) on a ratio no older than A_kd = 10 s: XOSC 0.924 ppm/K x (0.035 K/s bay + 0.047 K/s local) x 10 s + 0.2 ppm pushing = 0.958 ppm, + TCXO 1.4 ppm = 2.358 ppm <= proposed interval-12 allocation 2.5 ppm (rounded up to 0.5 ppm) <= interval-12 ceiling 4.256 ppm; A_kd limit at that allocation 11.8 s (A_kd = 10 s kept)"
+  },
+  {
+   "case": "FR-2r",
+   "result": "PASS",
+   "text": "in receive the ratio is at most 1.083 s old (1 s refresh + 82.768 ms buffer settle and interval-15 count) <= A_kd"
+  },
+  {
+   "case": "FR-3",
+   "result": "INFO",
+   "text": "window W = A_kd 10 s + longest over 180 s (REQ-SYS-180) = 190 s; main-bay change nominal 2.589 K (A5-R4, -10 C) + band 2.404 K = 4.993 K; local Pico 2 step 1.41 K"
+  },
+  {
+   "case": "FR-4",
+   "result": "INFO",
+   "text": "ratio drift bound over the longest over = XOSC 0.924 x (4.993 + 1.41) K + 0.2 = 6.116 ppm, + TCXO 1.4 ppm = 7.516 ppm > the 1 ppm allocation: the TS-012 condition 'ratio fresh over a long over within 1 ppm' is NOT met as worded (revisit condition triggered)"
+  },
+  {
+   "case": "FR-5",
+   "result": "INFO",
+   "text": "the aged ratio cannot serve an interval-12 check: drift ceiling at interval 12 = 4.256 ppm < 7.516 ppm (so interval 12 is used only on a ratio no older than A_kd)"
+  },
+  {
+   "case": "FR-6",
+   "result": "PASS",
+   "text": "during the over (interval 13) the aged ratio is inside the drift ceiling 17.77 ppm; proposed allocation 8.0 ppm (bound 7.516 ppm rounded up to 0.5 ppm), margin to the ceiling 9.77 ppm"
+  },
+  {
+   "case": "FR-7",
+   "result": "INFO",
+   "text": "M-2(a) ratio-change pass limits equal to the budget: over the longest over <= 7.4 ppm (interval-13 allocation 8.0 less pushing 0.2 and TCXO step 0.4); in the first A_kd = 10 s after an over <= 1.9 ppm (interval-12 allocation 2.5 less the same). M-2(b) transmit-state step (pushing + TCXO step, seen only on the carrier): <= 0.2 ppm XOSC and <= 0.4 ppm TCXO"
+  },
+  {
+   "case": "B-12.iv12",
+   "result": "PASS",
+   "text": "key-down check before PA_EN, ratio age <= A_kd: healthy disagreement 4740.0 Hz < T 5000 Hz (margin 260.0 Hz)"
+  },
+  {
+   "case": "B-16.iv12",
+   "result": "PASS",
+   "text": "key-down check before PA_EN, ratio age <= A_kd: largest undetected true error 9740.0 Hz <= REQ-SYS-154 10 kHz (margin 260.0 Hz)"
+  },
+  {
+   "case": "B-18.iv12",
+   "result": "PASS",
+   "text": "key-down check before PA_EN, ratio age <= A_kd: TC-SYS-101 12 kHz injection measures >= 7260.0 Hz > T (margin 2260.0 Hz)"
+  },
+  {
+   "case": "B-16a.iv12",
+   "result": "PASS",
+   "text": "key-down check before PA_EN, ratio age <= A_kd: FC0 accuracy ceiling at the counted input 532.5 Hz against Table 541 500.0 Hz (the dev-board known-clock acceptance limit for A5 at interval 12)"
+  },
+  {
+   "case": "B-12.iv13",
+   "result": "PASS",
+   "text": "checks during the over, ratio from before the over: healthy disagreement 3554.0 Hz < T 5000 Hz (margin 1446.0 Hz)"
+  },
+  {
+   "case": "B-16.iv13",
+   "result": "PASS",
+   "text": "checks during the over, ratio from before the over: largest undetected true error 8554.0 Hz <= REQ-SYS-154 10 kHz (margin 1446.0 Hz)"
+  },
+  {
+   "case": "B-18.iv13",
+   "result": "PASS",
+   "text": "checks during the over, ratio from before the over: TC-SYS-101 12 kHz injection measures >= 8446.0 Hz > T (margin 3446.0 Hz)"
+  },
+  {
+   "case": "B-16a.iv13",
+   "result": "PASS",
+   "text": "checks during the over, ratio from before the over: FC0 accuracy ceiling at the counted input 430.7 Hz against Table 541 250.0 Hz (the dev-board known-clock acceptance limit for A5 at interval 13)"
+  },
+  {
+   "case": "B-15",
+   "result": "PASS",
+   "text": "fault during transmission detected and RF off in 2 x 8.192 + 10 + 20 = 46.4 ms <= 100 ms"
+  },
+  {
+   "case": "B-11",
+   "result": "PASS",
+   "text": "GPIN0 carrier/8 18.50 MHz and GPIN1 TCXO 25.000 MHz are both below the 50 MHz GPIN limit"
+  },
+  {
+   "case": "B-19",
+   "result": "PASS",
+   "text": "ratio refresh in receive: buffer settle 50 ms + interval 15 32.768 ms = 82.8 ms per refresh (buffer on 8.3 % of receive)"
+  },
+  {
+   "case": "BL-1",
+   "result": "PASS",
+   "text": "squared 25 MHz harmonics 1 to 8 (+/-2.5 ppm) fall in no receive window; nearest: n = 6 (150.000 MHz) 2001 kHz from the receive range 144.010-147.999 MHz"
+  },
+  {
+   "case": "BL-2",
+   "result": "INFO",
+   "text": "transmit: the buffer supply is off from t0 until receive resumes, so the buffer adds nothing to the 150.000 MHz line; the spurs-ts012 figure stands (plan PB high estimate -12.1 dBm at the SMA, 3.9 dB over 25 uW, a residual line closing at the bench). The unpowered buffer input must neither load nor rectify the TCXO (partial power-down input: a part constraint for WP-PDR-37 and 38)"
+  }
+ ],
+ "sources": {
+  "DS": "Skyworks Si5351A/B/C-B data sheet, Rev. 1.3, August 27, 2021, https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si5351-B.pdf (PDF SHA-256 f3bc5285fccafa3fcd06e9a7fa6abb67fb43e8c23f6147b14caecc9a4851101f)",
+  "AN619": "Skyworks AN619 'Manually Generating an Si5351 Register Map for 10-MSOP and 20-QFN Devices', Rev. 0.8, September 23, 2021, https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/application-notes/AN619.pdf (PDF SHA-256 0135b3a37195189e38cbd58ca504460814c691eeb1fdbe275806cfcd4783f36b)",
+  "TCXO": "Seiko Epson 'TCXO / VC-TCXO TG2016SMN / TG2520SMN' brief sheet (2 pages, (c) Seiko Epson Corporation 2025, PDF created 2025-06-25), https://download.epsondevice.com/td/pdf/brief/TG2520SMN_en.pdf (PDF SHA-256 df16ac04cdec1db7eedcb21ef19c0a87f17dcf061fe55e1aafa053037d846612)"
+ },
+ "run_id": "r3a5-20260929-03",
+ "exit_status": 0
+}
