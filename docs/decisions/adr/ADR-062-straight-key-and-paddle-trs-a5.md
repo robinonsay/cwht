@@ -1,0 +1,134 @@
+# ADR-062: Straight key and iambic paddle on one 3.5 mm TRS jack with a built-in keyer, restated for the A5 design (supersedes ADR-009)
+
+| Field | Value |
+|---|---|
+| ID | ADR-062 |
+| Status | Proposed. For the owner's confirmation at PDR session S1 (OD-10 part 1, with ADR-056 items 2 to 4). On the S1 disposition it becomes Accepted by a Status-line edit, and ADR-009's Status becomes "Superseded by ADR-062" (README rule 2; WP-PDR-02). It stays Proposed while its independent review runs, because README rule 2 allows no edit of an Accepted ADR and review fixes must be made in place |
+| Date proposed | 2026-09-29 |
+| Date decided | Pending (S1). The parts restated unchanged were decided on 2026-09-25 (ADR-009; owner, SI-018 and SI-034). The A5 change was decided with the owner's A5 decision of 2026-09-29 (ADR-056 section 2 item 1): A5 has no display (TS-012 descope D1), so the key-closed message becomes a Morse and LED message |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 item (c): HZ-001, HZ-004, HZ-010, HZ-014 and the `SW-KEYER` component of 07 section 14.1), as ADR-009. Owner-directed (SI-018, SI-034), recorded without a trade study for the jack and key interface under SEMP customization 11 (`docs/plan/semp.md` section 9.0 and section 5.17), item (i), as ADR-009 was (SRR decision 106). The A5 change comes from TS-012, a class 1 study (06 section 14.1 item (b), the display as a critical part), and is recorded by ADR-056, the one ADR of TS-012 (06 section 14.2; section 2 item 3, the TS-010 row). This ADR takes no new decision and is not a second ADR of TS-012: it restates ADR-009 so that ADR-009 can be superseded in full |
+| Decision authority | Robin (owner; the decision fixes a core requirement of the functional baseline, and the message change alters baseline content through CR-018) |
+| Author | Claude (technical data manager invocation, WP-PDR-54, 2026-09-29) |
+| Independent reviewer | INSP-134 with its software assurance pair INSP-135 (pending). One review record covers ADR-060 to ADR-066 (lead SE ruling of 2026-09-29 on the corrected reading of ruling 1 and on item 4 (ADR-056 section 7), ruling (d); `docs/process/07-software-engineering-plan.md` section 2.1.1 row 3, because the decision constrains `SW-KEYER` and the `SW-SAFE` fault annunciation; the INSP-130 precedent of one record for a set of ADRs). Both must be APPROVED before S1, because OD-10 part 1 rests on this record |
+| Life-cycle phase | B |
+| Baseline affected | baseline/srr (functional baseline) through CR-018, dispositioned at S1 (OD-40); baseline/pdr |
+| Change request | none for this record. The requirement changes it restates are carried by CR-018, the re-baseline CR (WP-PDR-53). CR-018 is a provisional number (PDR work plan WP-PDR-53; TS-012 section 8.12): the CR is not yet filed and has no file, and every mention of CR-018 in this record means that provisional re-baseline CR |
+
+## 1. Context
+
+ADR-009 (Accepted, 2026-09-25) fixes one 3.5 mm TRS KEY jack for the straight key and the paddle, two independent inputs, the input protection network, menu-only key-type selection, a 500 ms power-on interlock and the built-in `SW-KEYER` keyer. Its section 2 ends the interlock sentence with "otherwise the display shows a key-closed message (mono-plug and stuck-key control)". The owner's A5 decision of 2026-09-29 (ADR-056 section 2 item 1; `docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md` section 10) removes the display: "No display; Morse-only audio UI", which costs "No UI without headphones except the LED" (TS-012 section 8.8 descope D1). The owner's direction was: "I would be open to dropping the LCD screen and instead having a Morse code audio only interface" (`docs/plan/status/status-2026-09-27.md` section 6, as TS-012 section 2 quotes it). So the clause cannot be met as written (ADR-056 section 7 item 4). A5 announces faults "in Morse within 1 s through the headphones and shown by an LED blink code without them" (TS-012 section 8.7), and the key-closed message is one of those indications (ADR-056 section 4.3, HZ-004). The rest of ADR-009 survives: the TRS key jack and its input network, the interlock and the keyer (ADR-056 section 7 item 4).
+
+An Accepted ADR is not edited (README rule 2; `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13), and rule 2 has no partial supersession. The lead SE ruled on 2026-09-29 (ruling (c) of the ruling on the corrected reading of ruling 1 and on item 4, recorded in ADR-056 section 7) that ADR-009 follows ruling 2, the ADR-026 precedent, where ADR-026 restated ADR-010 and superseded it in full, and numbered this restatement ADR-062. This ADR therefore restates every unchanged part of ADR-009 verbatim or near-verbatim, states the A5 change with its source, and supersedes ADR-009 in full on the S1 disposition.
+
+ADR-009's context, restated: the owner's core requirement is that the radio support both a straight key and iambic paddles with a built-in electronic keyer (SI-018). The owner's own key and paddle use standard 3.5 mm TRS plugs, brands unknown (SI-034). The industry convention (tip = dit or hand key, ring = dah, sleeve = ground) and a documented hazard (a mono TS plug grounds the ring and causes continuous keying) fix the jack, the two independent inputs, the power-on interlock and the input protection network. The keyer is firmware, so `SW-KEYER` exists from SRR (02 section 2.2).
+
+- Driving inputs and expectations: SI-018, SI-034, SI-005, SI-019 (friends' keys may use mono plugs), SI-033 (speed range, ADR-024), SI-036 (semi break-in, ADR-010, superseded by ADR-026). For the A5 change: the owner inputs of status note 2026-09-27 sections 6 and 8 (the Morse-code audio menu), which take the next free SI ids when CR-018 appends them (TS-012 section 8.10, "L0, interfaces and hazards").
+- Requirements that constrain the decision: at ADR-009, none (ADR-009 is the source of the key-interface requirements). Now: REQ-SYS-052 (key-closed interlock at power-on and reset, 500 ms, TBR) and REQ-SYS-067 (fault cause indication within 1 s, TBR), which the key-closed message serves; REQ-SYS-163 (key-mode selection with a closed input).
+- Hazards in play (`docs/safety/hazards.json` 0.5.0-pha): HZ-004 (unintended or stuck transmission from a key input fault; K1, "the LCD shows 'KEY CLOSED: check plug'", and K3, "shows 'KEY?'", become Morse and LED messages with the interlock and the timeout unchanged, ADR-056 section 4.3), HZ-001, HZ-010 (ESD and RF pickup on the key inputs: REQ-SW-KEYER-019, REQ-SYS-047 to REQ-SYS-051) and HZ-014 (key-closed interlock re-run after every reset: REQ-SW-KEYER-022, control K6).
+- Research consulted: as ADR-009: `docs/research/keyer-and-key-interfaces.md` F1 (TRS convention; mono-plug trap documented by Elecraft and QRP Labs), F2 (key-type selection strategies), F3 (iambic A versus B), F7 (contact bounce), F11 (RP2350 input facts, E9, ESD), D2, D8, D11; `docs/research/keyer-verification-and-key-input-network.md` F2 to F5 (input network derived once: 10 kOhm pull-up, 1 kOhm series, 4.7 nF, TPD2E2U06 clamp, BAT54S at the pad), F6 (debounce 2 ms close, 5 ms open, TBR), F11 (hand-key semantics through the sequencer), F13 (stuck-key and mono-plug controls: interlock, firmware timeouts, independent hardware cutoff), F14 (reconciled numbers), D-KN8 (interlock plus menu, no automatic mode change); `docs/research/display-and-ui-parts.md` F17 to F19 (Same Sky SJ1-3535N switched TRS jack; ring switch as plug detect); `docs/research/rustos-toolchain-proof.md` F11 (no internal pull-downs), F13 (host-testable key logic). ADR-009's display findings bear only on the message medium, which A5 changes. For the A5 change: TS-012 sections 8.1, 8.3 (row 16), 8.7, 8.8 (D1, D5) and 8.10.
+- Guidance consulted: SWE-134 (keying is safety-critical, 03 section 4.3); SE HB App. C (one requirement per key type, 02 section 4.6 worked example); SE HB §6.8; 06 sections 14.1, 14.2 and 14.6; README rules 1 to 6.
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. The owner's key and paddle are wired tip = dit (SI-034). Confirmed by the plug check at the PDR HITL session (as ADR-009).
+  2. The debounce and network values (TBR) suit the owner's contacts. Confirmed by the bounce capture before the TBR closes at PDR (as ADR-009).
+  3. Menu-only key-type selection is acceptable. Confirmed in the HITL session at PDR (as ADR-009), now with the Morse-code menu and the ALT-hold path of TS-012 section 8.7.
+  4. An operator without headphones notices the LED blink code of a key-closed fault. With no display there is "No UI without headphones except the LED" (TS-012 D1). Confirmed in the same HITL session, with the blink codes that the UI design of WP-PDR-33 defines (`docs/design/analysis/ui-design.md`).
+
+## 2. Decision
+
+The radio has one KEY jack: a 3.5 mm three-conductor (TRS) panel jack (Same Sky SJ1-3535N class with tip and ring switches, proposed part; A5 buys the SJ1-3535NG, TS-012 section 8.3 row 16), wired tip = dit and hand key, ring = dah, sleeve = signal ground. Tip and ring are sensed as two independent inputs sampled at 1 kHz so a squeeze is observable. The key type is selected by menu (Straight on tip by default with "ring" and "both" options; Iambic A default; Iambic B, Ultimatic and Bug available); there is no automatic key-type detection in rev A. **(Changed for A5.)** The menu is the Morse-code audio menu of TS-012 section 8.7 (descopes D1 and D5): the key mode is a menu item, and holding ALT for 2 s steps the key mode using the buttons only, so the selection works while any key input reads closed (REQ-SYS-163, kept). Every key input carries the network 10 kOhm pull-up to 3.3 V, 1.0 kOhm series, 4.7 nF at the pad, a TPD2E2U06 clamp at the jack and a BAT54S at the pad (proposed values, TBR closing at PDR), with the RP2350 pad configured input-enabled, Schmitt on, internal pulls off (RP2350-E9). At power-on the keyer arms only after both inputs have been open for at least 500 ms. **(Changed for A5.)** Otherwise the key-closed message is announced in Morse in the headphones and shown by an LED blink code on the Pico 2 on-board LED (mono-plug and stuck-key control), in place of a message on the display, which A5 does not have (TS-012 D1 and section 8.7; REQ-SYS-067 and REQ-SW-KEYER-023, carried by CR-018). The message is generated by the `SW-SAFE` fault annunciation unit, apart from the Morse menu: it does not pass through the menu state machine, and a menu fault cannot block, delay or change it (ADR-056 section 4.3, "Fault annunciation"). The built-in keyer is the `SW-KEYER` firmware module with host-tested timing logic. Both key types produce the same A1A envelope through the same sequencer and shaper.
+
+## 3. Alternatives considered
+
+| Option | Description | Why not chosen (or why chosen) |
+|---|---|---|
+| A (chosen) | One TRS jack, tip dit and hand key, ring dah; menu-selected key type; interlock at power-on; key-closed message in Morse and on the LED | Matches the owner's plugs (SI-034) and the field convention (F1); one hole in a pocket radio; interlock removes the mono-plug hazard. The Morse and LED message is the A5 fault indication of REQ-SYS-067 (TS-012 section 8.10) |
+| A-009 | ADR-009 as decided: key-closed message on the display | Not possible: A5 has no display (TS-012 D1) |
+| A-M | Key-closed message in Morse only | Not chosen: with no headphones the operator gets no indication, and D1 leaves the LED as the only indication without headphones |
+| B | Two jacks, one per key type | Rejected (as ADR-009): second panel hole and jack for no electrical gain; hand keys still need TRS wiring |
+| C | 6.35 mm jack | Rejected (as ADR-009): pocket radio panel; the owner's plugs are 3.5 mm |
+| D | Automatic key-type detection at power-on (PicoKeyer pattern) | Deferred to rev B (as ADR-009): ambiguous with a single-lever paddle held at boot; Class A rigor argues for fewer automatic mode changes (D-KN8) |
+| E | Jack with mechanical insertion switch selecting the type | Rejected (as ADR-009): the switched jack's contacts serve as plug detect, not type detect; a TRS plug cannot signal its wiring |
+
+No trade study: SI-018 and SI-034 fixed the interface; the input network and debounce values are class 2 and carry TBRs (as ADR-009). The message medium is TS-012's (ADR-056).
+
+## 4. Consequences
+
+### 4.1 Requirements created or changed
+
+When this ADR is Accepted, each requirement that cites ADR-009 adds ADR-062 to `source_ids`, carried by CR-018 (cross item to the CR-018 author): REQ-SYS-038, REQ-SYS-039, REQ-SYS-174, REQ-SW-KEYER-001 to REQ-SW-KEYER-005, REQ-SW-KEYER-019, REQ-SW-KEYER-022, REQ-SW-KEYER-024 and REQ-SW-KEYER-038.
+
+| Requirement | Relationship | Note |
+|---|---|---|
+| REQ-SYS-038 (straight-key keying), REQ-SYS-039 (iambic paddle keying) | allocated, one per key type (02 section 4.6); both cite ADR-009; unchanged | KDR candidates (as ADR-009) |
+| REQ-SYS-174 (key jack wiring) | allocated at L1; cites ADR-009; unchanged | The CTL L2 pin-out requirement (candidate CTL-KEY-01, `interface` tag, `design_refs` ICD-CTL-KEY) is created at PDR (as ADR-009) |
+| Two independent inputs at 1 kHz, contact sensing thresholds, input network values, ESD and abuse bounds (candidates CTL-KEY-02 to CTL-KEY-05) | REQ-SYS-047 to REQ-SYS-051 at L1 (HZ-010); REQ-SW-KEYER-019 (cites ADR-009); REQ-CTL at PDR; none in TS-012 section 8.10, so unchanged | Values TBR close at PDR. HZ-010 K1 (REQ-SYS-049, 050) and K2 (REQ-SYS-047, 051). The TPD2E2U06 and BAT54S have no line in the A5 BOM (section 4.4) |
+| Modes Straight, Iambic A default, Iambic B, Ultimatic, Bug; key-type by menu; power-on interlock 500 ms; stuck-key timeouts | REQ-SW-KEYER-001 to REQ-SW-KEYER-005, REQ-SW-KEYER-019, REQ-SW-KEYER-022, REQ-SW-KEYER-024 and REQ-SW-KEYER-038 cite ADR-009 (HZ-004 on REQ-SW-KEYER-002, 019, 022 and 024); REQ-SW-KEYER-006 to REQ-SW-KEYER-012 and REQ-SW-KEYER-026; REQ-SYS-040, REQ-SYS-052, REQ-SYS-053, REQ-SYS-054, REQ-SYS-056 | Safety-critical (SWE-134). None is in TS-012 section 8.10, so each is unchanged. HZ-004 K1 (REQ-SYS-052, REQ-SW-KEYER-022), HZ-014 K6 (REQ-SYS-052, REQ-SW-KEYER-022). TS-012 section 8.7 names Straight, Iambic A and Iambic B for the key-mode item and the ALT-hold path; REQ-SYS-040 keeps all five modes, so the menu design lists all five (cross item to the UI design of WP-PDR-33 and the SW L2 of WP-PDR-35) |
+| REQ-SW-KEYER-023 (KEY inhibit report) | changed, carried by CR-018 (TS-012 section 8.10: "Report to the Morse announcement and LED interface within 20 ms") | The key-closed message clause of section 2. Does not cite ADR-009 (source MOE-012). HZ-004 K1 |
+| REQ-SYS-067 (fault cause indication) | changed, carried by CR-018 (TS-012 section 8.10: "Announce a distinct cause in Morse within 1 s (headphones) and an LED blink code (no headphones)") | Carries the key-closed message and the manual-closure "KEY?" message. HZ-004 K3 |
+| REQ-SYS-163 (key-mode selection with a closed input) | kept (TS-012 section 8.10) | The ALT-hold path uses the buttons only. HZ-004 K2 |
+| REQ-SYS-057 (controls) | changed, carried by CR-018 | The key or paddle is a menu-entry control in A5 (TS-012 section 8.10). Does not cite ADR-009; listed because of the open item below |
+| Independent hardware PA-enable cutoff, T_max 10 s, 7.5 to 13 s | REQ-SYS-055 (hardware transmit cutoff, TBR) at L1, HZ-004 control K5; kept as written (ADR-056 section 4.1) | Decided at SRR (decision 36, D-KN2) |
+
+**Open item (the key line as a menu input).** In A5 the key or paddle enters menu choices: in the menu, transmit is disarmed and "the key line goes to the decoder" (TS-012 section 8.7 step 1; REQ-SYS-057 as section 8.10 changes it). Three statements on record say the key line carries no command, and neither TS-012 section 8.10 nor ADR-056 section 4.1 lists them:
+- REQ-SW-KEYER-038 (cites ADR-009), whose rationale reads "ADR-009 keeps every key setting on the menu" and accepts "no key-line pattern as a command" (CS-30);
+- `docs/process/07-software-engineering-plan.md` section 16.2 row "Keying and control inputs": "no gesture on the key line changes configuration";
+- `docs/icd/ICD-CTL-KEY.md` section 3.2.5 (security expectations: the key line "feeds only the keyer state machine") and section 3.2.6 ("it carries no data or command path").
+
+This ADR does not decide how they are restated. It keeps section 2's "The key type is selected by menu", which A5 meets through the Morse menu. Cross items: to the CR-018 author (REQ-SW-KEYER-038), the 07 author (section 16.2 row and CS-30), the ICD-CTL-KEY author (WP-PDR-36), WP-PDR-33 and WP-PDR-35 (the menu design and the decoder units) and WP-PDR-16 and 17 (the command-injection threat and the override path, with INSP-118 finding-6, section 4.3).
+
+### 4.2 Interfaces, design and code
+
+- ICDs affected: `ICD-CTL-KEY` (pin-out, pull-up, series R, TVS, RC, jack part, position relative to the headphone jack, as ADR-009; sections 3.2.5 and 3.2.6 by the open item of section 4.1), `ICD-CTL-PHONES` (same jack family, SJ1-3535NG for both jacks in A5, TS-012 section 8.3 row 16; cross-plugging survivability).
+- Design elements created or changed: key input network; `SW-KEYER` module (`docs/requirements/sw/sw-keyer/`, `docs/test_cases/sw-keyer/`); TX sequencer and envelope shaper, which for A5 are the transmit sequencing and the closed VGG envelope loop of TS-012 section 8.7 and D-9, D-10. **(Changed for A5.)** The KEY inhibit report goes to the `SW-SAFE` fault annunciation unit, which sends the Morse cause message on the PWM tone path and the LED blink code (ADR-056 section 4.3). Whether it has its own Morse sender, or shares one verified at its own level, is fixed by WP-PDR-32 and WP-PDR-35 and checked in the WP-PDR-17 re-run (ADR-056 section 4.3). The display driver is removed (TS-012 section 8.7, "Removed: display driver and encoder drivers"), and with it the display interface of REQ-SW-KEYER-023.
+- New `SW-<SUB>` modules created by this ADR: none. `SW-KEYER` exists from SRR (02 section 2.2); ADR-009 is its origin record, and this ADR carries that record.
+- ICDs created by this ADR: none.
+
+### 4.3 Verification and safety
+
+- Verification cases to add or change (ADR-009's WP-PDR-14 reading, carried): straight and paddle behaviour TC-SW-KEYER-001 to TC-SW-KEYER-005 (HostUnit with a simulated 1 kHz sampler and clock); sampling TC-SW-KEYER-019 (Bench); interlock, key-closed and mode changes TC-SW-KEYER-022, TC-SW-KEYER-024 (HostUnit), TC-SW-KEYER-034 (Bench, including closure without a plug) and TC-SW-KEYER-040 (HostUnit); keying with the owner's straight key and paddle TC-SYS-026 (Bench); jack and key-input parts TC-SYS-058 (Inspection); the CTL L2 cases (contact thresholds and network, Analysis and Bench multimeter; mono plug inserted produces no transmission, Bench) are allocated with the CTL L2 requirements at PDR, and the owner QSO demonstration with the validation cases of the V&V plan (no id yet). **For A5:** TC-SW-KEYER-023 (KEY inhibit report) and TC-SYS-005 (fault cause indication, REQ-SYS-067) change with their requirements, carried by CR-018: each checks the Morse cause and the LED blink code in place of the display message.
+- Evidence class implications: HostUnit is primary for the keyer logic (ADR-011); Bench logic capture with a second Pico 2 (sigrok-pico, proposed) for timing; an ESD gun is not on the bench, so CTL-KEY-04 closes by Analysis and Inspection (as ADR-009). The key-closed message is checked by decoding the audio capture and reading the LED line.
+- Hazard analysis update required: yes (HZ-004 causes and controls: mono plug, stuck contact, interlock, firmware timeouts, hardware cutoff; HZ-010 controls K1 to K3; HZ-014 control K6; as ADR-009). For A5 (WP-PDR-16, 0.6.0-pha): HZ-004 K1's "the LCD shows 'KEY CLOSED: check plug'" and K3's "shows 'KEY?'" become Morse and LED messages; the interlock and the timeout are unchanged (ADR-056 section 4.3). K1 also keeps "the sidetone is off": the Morse message is the fault annunciation's own tone, not the sidetone of the closed key, and the K1 text should say so (cross item to the WP-PDR-16 hazard author). The hazards stay controlled whatever is announced, because the interlock withholds key-down on its own (INSP-131 finding-5, verified).
+- Safety-critical software scope changed: no for the keyer and PA enable, which are already in scope (as ADR-009). The fault annunciation that carries the message changes medium and stays in `SW-SAFE`, apart from the menu (ADR-056 section 4.3; the WP-PDR-17 re-run). Open liens carried from ADR-056 section 4.3 that touch this decision: INSP-118 finding-6 (the ALT-hold key-mode path without a confirmation, against 07 section 14.2 row d and REQ-SW-KEYER-024; the decoder in the override path).
+
+### 4.4 Cost, schedule, risk
+
+- BOM impact: one jack, sharing its BOM line with the headphone jack (TS-012 section 8.3 row 16: two SJ1-3535NG at USD 1.62, line USD 3.24); TVS, diodes, passives (as ADR-009). **Open item:** the A5 BOM (TS-012 section 8.3) has no line for the TPD2E2U06 or the BAT54S of the key input network, and REQ-SYS-049 and REQ-SYS-050 (HZ-010 K1) are not in section 8.10, so they stay. Cross item to WP-PDR-38 (BOM and ordering-gate figure; ADR-056 section 4.4): add both parts to the BOM and the gate worst case, with the key network of the CTL L2 file (WP-PDR-34), or propose a delta to CR-018 for the owner.
+- Gate affected: PDR (S1 disposition; network values, cutoff), CDR (footprints).
+- Risks opened, closed or re-scored: RSK-012 (keying wrong or unusable on the built radio) stays open; the HITL session at PDR exposes switchpoint and debounce defaults, and now the Morse menu key-mode path (as ADR-009, with the A5 menu).
+- TPMs affected: TPM-013 (keyer element timing accuracy and key-to-RF latency).
+
+## 5. Compliance and tailoring
+
+none
+
+## 6. Decision record
+
+The jack and the keyer are the owner's, on record before this ADR:
+
+> Owner (2026-09-25, SI-018): "Core requirement: the radio shall support both a straight key and iambic paddles (built-in electronic keyer)."
+
+> Owner (2026-09-25, SI-034, first sentence): "Owner's straight key and paddle both use standard 3.5 mm TRS (aux) plugs; brands unknown."
+
+Transcribed from chat into `stakeholder-inputs.md` (ADR-009 section 6). The display is given up by the owner's A5 decision, recorded in ADR-056 section 6 (Form 1) and TS-012 section 10; A5 includes "A Morse-code audio menu with two buttons and two potentiometers, in place of the display and encoders" (ADR-056 section 2 item 1):
+
+> Owner (2026-09-29, in chat; status note 2026-09-29 section 5, after the A5 parts lifecycle report): "A5"
+
+**Proposed memo wording for S1 (OD-10 part 1; README rule 4).** "Confirm ADR-062. It restates ADR-009, the key and paddle jack and the built-in keyer, with one change for A5. If a key or paddle reads closed when the radio is switched on, the radio still refuses to transmit; it now tells you in Morse in the headphones and by a blink code on the LED, in place of a message on the screen, because A5 has no screen. You choose the key type in the Morse menu, or by holding ALT. The jack, its wiring, the protection parts, the 500 ms check and the five keyer modes are unchanged. ADR-062 is Accepted and ADR-009 becomes Superseded by ADR-062." Owner's disposition: not yet given. It is transcribed here with its date at S1.
+
+## 7. Related
+
+- Supersedes: ADR-009, in full, on the S1 disposition (ADR-009's Status then reads "Superseded by ADR-062", set by WP-PDR-02). Until then ADR-009 stays Accepted and in force.
+- Superseded by: none.
+- Trade study: key-type detection strategy and envelope shaping method TS at PDR (`keyer-and-key-interfaces.md` A3), which may revisit alternative D (as ADR-009); TS-012 for the message medium (ADR-056).
+- Review where presented: PDR session S1 (OD-10 part 1). ADR-009 was presented at SRR.
+- Related records: ADR-056 (section 7 item 4), ADR-024, ADR-026, ADR-011; CR-018.
+- Revisit conditions:
+  - The owner's HITL session rejects menu-only key-type selection (as ADR-009), now with the Morse menu.
+  - The bounce capture (TC-KEY-BOUNCE) moves the debounce TBR (as ADR-009).
+  - A plug convention other than tip dit appears on a friend's paddle (then paddle-swap in the menu, already planned; as ADR-009).
+  - The straight-key decoder proves unreliable, so that menu entry is paddle-only (TS-012 section 8.7): the key-mode path by ALT still works.
+  - A display is added in a later build: a superseding ADR.
+
+## 8. Change log
+
+- 2026-09-29: created by the technical data manager (WP-PDR-54), on the lead SE ruling of 2026-09-29 on the corrected reading of ruling 1 and on item 4 (ADR-056 section 7), rulings (c) and (d): ADR-009 is contradicted only in its display clause, README rule 2 has no partial supersession, so this ADR restates ADR-009 in full with the A5 change and supersedes it on the S1 disposition, as ADR-026 did for ADR-010. The number is the one the ruling gives, in the order ADR-060 to ADR-066; it is max(existing) + 1 (README rule 1) when the lead SE files ADR-060 to ADR-066 in that order, before CR-003 and CR-006 create theirs (ruling (d)). ADR-009's section 8 readings are carried: the independent reviewer reading is replaced by this record's own review, the hazard stamp is 0.5.0-pha, and the verification cases are those of its WP-PDR-14 reading. Two open items found in drafting are stated, not decided: the key line as a menu input (section 4.1) and the key-input protection parts missing from the A5 BOM (section 4.4). Author: Claude (technical data manager invocation).

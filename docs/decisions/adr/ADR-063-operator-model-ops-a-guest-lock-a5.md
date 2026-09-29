@@ -1,0 +1,126 @@
+# ADR-063: Operator model OPS-A (each licensee operates the loaned unit as their own station) with a receive-only guest lock, restated for the A5 design (supersedes ADR-015)
+
+| Field | Value |
+|---|---|
+| ID | ADR-063 |
+| Status | Proposed. For the owner's confirmation at PDR session S1 (OD-10 part 1, with ADR-056 items 2 to 4). On the S1 disposition it becomes Accepted by a Status-line edit, and ADR-015's Status becomes "Superseded by ADR-063" (README rule 2; WP-PDR-02). It stays Proposed while its independent review runs, because README rule 2 allows no edit of an Accepted ADR and review fixes must be made in place |
+| Date proposed | 2026-09-29 |
+| Date decided | Pending (S1). The parts restated unchanged were decided on 2026-09-26 (ADR-015; SRR decision 17, owner ruling, with the two-step release of SRR decision 19 option a). The A5 changes were decided with the owner's A5 decision of 2026-09-29 (ADR-056 section 2 item 1): A5 has no display (TS-012 descope D1), so the lock state and the call sign are announced in Morse |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 item (c): touches HZ-006, whose controls K3 (receive-only guest lock) and K8 (operator model OPS-A) this decision carries, and the receive-only guest lock of `SW-TXSEQ` in `docs/process/07-software-engineering-plan.md` section 14.1), as ADR-015. No TS: recorded under SEMP customization 11 (`docs/plan/semp.md` section 9.0 and section 5.17), item (ii), as ADR-015 was (SRR decision 106), applied by the owner's disposition of SRR decision 17. The A5 changes come from TS-012, a class 1 study (06 section 14.1 item (b), the display as a critical part), and are recorded by ADR-056, the one ADR of TS-012 (06 section 14.2; section 2 item 3, the TS-010 row). This ADR takes no new decision and is not a second ADR of TS-012: it restates ADR-015 so that ADR-015 can be superseded in full |
+| Decision authority | Robin (owner; the decision fixes ConOps scenarios and a firmware function in the functional baseline, and the A5 changes alter baseline content through CR-018) |
+| Author | Claude (technical data manager invocation, WP-PDR-54, 2026-09-29) |
+| Independent reviewer | INSP-134 with its software assurance pair INSP-135 (pending). One review record covers ADR-060 to ADR-066 (lead SE ruling of 2026-09-29 on the corrected reading of ruling 1 and on item 4 (ADR-056 section 7), ruling (d); `docs/process/07-software-engineering-plan.md` section 2.1.1 row 3, because the decision constrains the guest lock of `SW-TXSEQ`; the INSP-130 precedent of one record for a set of ADRs). Both must be APPROVED before S1, because OD-10 part 1 rests on this record |
+| Life-cycle phase | B |
+| Baseline affected | baseline/srr (functional baseline: ConOps, L1) through CR-018, dispositioned at S1 (OD-40); baseline/pdr |
+| Change request | none for this record. The requirement changes it restates are carried by CR-018, the re-baseline CR (WP-PDR-53). CR-018 is a provisional number (PDR work plan WP-PDR-53; TS-012 section 8.12): the CR is not yet filed and has no file, and every mention of CR-018 in this record means that provisional re-baseline CR |
+
+## 1. Context
+
+ADR-015 (Accepted, 2026-09-26, SRR decision 17) fixes the operator model OPS-A as the ConOps default, keeps OPS-B as a documented alternative, and gives each unit a receive-only guest lock and a stored operator call sign. Two clauses of its section 2 need a display: "the lock state is shown on the display", and each unit "stores its operator's call sign, shows it on the display". The owner's A5 decision of 2026-09-29 (ADR-056 section 2 item 1; `docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md` section 10) removes the display: "No display; Morse-only audio UI", which costs "No UI without headphones except the LED" (TS-012 section 8.8 descope D1). So both clauses cannot be met as written (ADR-056 section 7 item 4). For A5:
+- **The call sign.** "The call sign is sent at power-on and when the headphones are plugged in" (TS-012 section 8.7), so that an operator who plugs the headphones in after switch-on still hears it. REQ-SYS-006 becomes "Announce the call sign in Morse at power-on and at headphone insertion" (TS-012 section 8.10). The call sign is entered through the Morse menu (item C, TS-012 section 8.7 step 3).
+- **The lock state.** TS-012 gives the lock its A5 set and release action ("MENU and ALT held together for 3 s, then an R on a third press of MENU, sets or releases the guest lock", section 8.7; REQ-SYS-066 kept, section 8.10) but does not say how the lock state is shown. With the display, the lock state was part of the transmit state on the status screen, which "names the reason whenever transmit is not armed (GUEST, PRACTICE, USB, LOWBATT, KEY, ...)" (`docs/conops/conops.md` section 3.3, row "Human controls and display"; Table 3.4-3, GUEST row). A5 announces the status items in Morse on request, the transmit state included (REQ-SYS-060 as TS-012 section 8.10 changes it; section 8.7). Section 2 gives the Morse reading on that basis.
+
+The rest of ADR-015 survives: OPS-A and the guest lock (ADR-056 section 7 item 4).
+
+An Accepted ADR is not edited (README rule 2; `docs/process/05-configuration-and-data-management.md` Table 4-1 row 13), and rule 2 has no partial supersession. The lead SE ruled on 2026-09-29 (ruling (c) of the ruling on the corrected reading of ruling 1 and on item 4, recorded in ADR-056 section 7) that ADR-015 follows ruling 2, the ADR-026 precedent, where ADR-026 restated ADR-010 and superseded it in full, and numbered this restatement ADR-063. This ADR therefore restates every unchanged part of ADR-015 verbatim or near-verbatim, states the A5 changes with their sources, and supersedes ADR-015 in full on the S1 disposition.
+
+ADR-015's context, restated: with licensed friends operating loaned units (ADR-014), three lawful configurations exist: OPS-A, each friend operates the unit as their own station under 97.5(c) and the 97.103(b) presumption, with their own call sign and full responsibility; OPS-B, the friend is a designated control operator of the owner's station, identifying with the owner's call sign, with a dated designation note in the owner's records and both parties equally responsible; OPS-C, an unlicensed guest as a supervised third party. The ConOps must pick a default because OPS-B is what applies by default when nobody has thought about it, and it carries a records duty. Independently, a unit handed around at a gathering can be keyed by an unlicensed person without a licensee at that unit; a licensee-settable receive-only lock removes that pathway for a few lines of firmware.
+
+- Driving inputs and expectations: SI-019, SI-030, SI-014, SI-025 (open design: the model must work for any licensee), as ADR-015; NGO-020 (each unit stores and shows its licensee's call sign and offers the guest lock). For the A5 changes: the owner inputs of status note 2026-09-27 sections 6 and 8 (the Morse-code audio menu), which take the next free SI ids when CR-018 appends them (TS-012 section 8.10, "L0, interfaces and hazards").
+- Requirements that constrain the decision: at ADR-015, none. Now: REQ-SYS-065 (guest lock transmit inhibit) and REQ-SYS-066 (guest lock set and release), created from ADR-015; REQ-SYS-060 (status content), which carries the transmit state.
+- Hazards in play (`docs/safety/hazards.json` 0.5.0-pha): HZ-006 (RF exposure of bystanders, household members and non-licensee holders: control K3 is the receive-only guest lock and K8 the operator model OPS-A; REQ-SYS-065, REQ-SYS-066 and REQ-TX-003 cite ADR-015 and carry HZ-006); HZ-008 (REQ-TX-003, RF isolation with PA enable deasserted, cites ADR-015 and carries HZ-008). Unlicensed transmission itself is a regulatory and mission harm handled as a requirement (as ADR-015). K3 names no display ("the lock state persists across power cycles; key events in the locked state produce no PA_EN"), so A5 changes no control text of K3 or K8.
+- Research consulted: as ADR-015: `docs/research/regulatory-corpus-and-operators.md` F2 (control operator rules), F4 (unlicensed person: may listen, may key only as a supervised third party, may never operate alone), F5 (OPS-A recommended default; OPS-B records duty; OPS-C bounded), REQ-candidates OPS-02, OPS-03, FW-03 (guest lock), FW-04 (per-unit call sign, auto-ID at most 20 WPM), DOC-02 (operator rules card), RISK REG-4, REG-7, DECISION-6, DECISION-7; `docs/research/part97-regulatory-basis.md` F10 (97.119(b)(1): automatic identification at most 20 WPM). For the A5 changes: TS-012 sections 8.3 (row 16, the switched phones jack), 8.7, 8.8 (D1) and 8.10.
+- Guidance consulted: 47 CFR 97.5(c), 97.103(a) and (b), 97.105(b), 97.115(b)(1), 97.119(a), (b)(1) and (e) (eCFR 2026-09-23); SE HB §6.8; 06 sections 14.1, 14.2 and 14.6; README rules 1 to 6.
+- Assumptions the decision rests on, and how and by when each is confirmed:
+  1. Every friend who operates a unit holds a current license of Technician class or higher (ADR-014) and accepts station responsibility under 47 CFR 97.5(c) and 97.103(b). Confirmed by the handbook hand-over walkthrough with a licensed friend (Demonstration) at SAR (as ADR-015).
+  2. The guest lock can be released only by a deliberate action that a guest cannot perform by accident (SWE-134 item d, two independent operator actions). Confirmed when the L2 `SW-TXSEQ` requirements are reviewed at PDR (as ADR-015). For A5 the action is the MENU and ALT hold of 3 s followed by an R (TS-012 section 8.7); its R is taken from the Morse decoder, which INSP-118 finding-6 asks to be placed in the override path (section 4.3).
+  3. No FCC or ARRL interpretation narrows third-party participation (ACTION-7 of `regulatory-corpus-and-operators.md`). Re-checked at each review; a change is a revisit condition (section 7; as ADR-015).
+  4. An operator hears the call sign and the lock state only with headphones plugged in (TS-012 D1: "No UI without headphones except the LED"). Confirmed by the handbook hand-over walkthrough of assumption 1, run with the Morse menu.
+
+## 2. Decision
+
+The ConOps default is OPS-A: each cwht unit is the amateur station of the licensee holding it; that licensee is station licensee and control operator, identifies with their own call sign, and is responsible for the unit's compliance including RF exposure. OPS-B remains a documented alternative: when a unit is operated as the owner's station with a designated control operator, a dated designation note is kept in the owner's station records and identification follows 97.119(a) and (e). Unlicensed guests follow OPS-C (ADR-014). The firmware provides a licensee-settable receive-only guest lock that inhibits the transmitter (key, keyer and any memory) until released by a deliberate action, so a unit handed to a guest cannot transmit by accident; releasing the lock is a deliberate licensee action under the operator rules card (ADR-015's section 2 clause read as its RID-SRR-005 entry of section 8 reads it, which governs wherever that clause is cited; not an A5 change). The lock removes the accidental keying pathway; it does not replace the supervising licensee of an unlicensed guest (OPS-C, ADR-014). **(Changed for A5.)** The lock is set and released by holding MENU and ALT together for 3 s, then an R on a third press of MENU (TS-012 section 8.7; REQ-SYS-066, kept), which is the two-step release of SRR decision 19 option a. **(Changed for A5.)** The lock state is announced in Morse in the headphones, in place of being shown on the display, which A5 does not have (TS-012 D1): the radio announces the new state when the lock is set or released (as TS-012 section 8.7 has the radio announce the new key mode after the ALT-hold path), and every status announcement names the guest lock as the reason transmit is not armed while it is set (the transmit state of REQ-SYS-060 as TS-012 section 8.10 changes it; ConOps Table 3.4-3). No LED code is assigned to the lock state; the LED shows transmit and blinks fault codes (TS-012 section 8.7). **(Changed for A5.)** Each unit stores its operator's call sign, sends it in Morse at every power-on and at every headphone insertion, in place of showing it on the display (TS-012 sections 8.7 and 8.10; REQ-SYS-006, carried by CR-018), and uses it for any automatic identification memory at not more than 20 WPM; an empty call sign disables automatic identification rather than sending a default. The handbook carries a one-page operator rules card.
+
+## 3. Alternatives considered
+
+| Option | Description | Why not chosen (or why chosen) |
+|---|---|---|
+| A (chosen) | OPS-A default; OPS-B documented alternative; guest lock; per-unit call sign; lock state and call sign announced in Morse | No records burden; each licensee already qualifies for the controlled-environment exposure treatment; the lock closes the main unlicensed-keying pathway (as ADR-015). The Morse announcements are the A5 medium (TS-012 D1, section 8.7) |
+| A-015 | ADR-015 as decided: lock state and call sign shown on the display | Not possible: A5 has no display (TS-012 D1) |
+| A-L | Lock state also on an LED code | Not chosen here: TS-012 section 8.7 gives the LED to transmit and fault codes only; a lock code is left to the UI design of WP-PDR-33 (`docs/design/analysis/ui-design.md`) and would come back to the owner through CR-018 |
+| B | OPS-B default (owner's station, designated control operators) | Not recommended (as ADR-015): owner's call sign on every unit, owner and friend equally responsible, records duty; 97.119(e) indicator when the friend's class exceeds General |
+| C | No guest lock; rely on operator discipline | Not recommended (as ADR-015): a unit set down at a gathering is the foreseeable REG-4 case; the lock costs a menu item and a stored flag (in A5, a held button combination and a stored flag) |
+| D | Receive-only units for friends | Rejected (as ADR-015): contradicts SI-019 (friends operate) |
+
+No trade study: the rule text and the owner's population (ADR-014) leave A and B as live options; the owner chose A at SRR (SRR decision 17). The choice is class 1 (header); the ADR without a TS stands under SEMP customization 11, item (ii) (SRR decision 106). The announcement medium is TS-012's (ADR-056).
+
+## 4. Consequences
+
+### 4.1 Requirements created or changed
+
+When this ADR is Accepted, each requirement that cites ADR-015 adds ADR-063 to `source_ids`, carried by CR-018 (cross item to the CR-018 author): REQ-SYS-006, REQ-SYS-065, REQ-SYS-066 and REQ-TX-003.
+
+| Requirement | Relationship | Note |
+|---|---|---|
+| ConOps text (OPS-A default, OPS-B records duty; candidate OPS-02) | not created as a requirement: ConOps scenario text and the handbook content of REQ-SYS-122 (HZ-006 control K8) | Inspection of ConOps and handbook (as ADR-015). The ConOps display content (section 3.3 row "Human controls and display", Table 3.4-3 GUEST row, "lock icon and "RX only" shown") is replaced by the Morse menu, carried by CR-018 (TS-012 section 8.10, "HSI and ConOps display content replaced by the Morse menu") |
+| REQ-SYS-065 (guest lock transmit inhibit) | allocated at L1, cites ADR-015; unchanged (not in TS-012 section 8.10) | HZ-006 K3. HostUnit (key events in guest mode produce no PA enable), Bench |
+| REQ-SYS-066 (guest lock set and release); candidate FW-03 | allocated at L1, cites ADR-015; kept (TS-012 section 8.10: "MENU and ALT held 3 s, then R on MENU") | HZ-006 K3. Its verification note reads the lock state "from the display" and names knob sequences; that note changes, carried by CR-018 (cross item to the CR-018 author) |
+| REQ-SYS-060 (status content) | changed, carried by CR-018 (TS-012 section 8.10: "Announce the same items in Morse on demand (long press or menu command); transmit state on the LED") | Does not cite ADR-015. The lock state of section 2 is announced as the reason in the transmit state; the CR-018 author confirms that the changed text carries the reason, as the ConOps status screen did |
+| REQ-SYS-006 (operator call sign); candidate FW-04, stored call sign and display | allocated at L1, cites ADR-015; changed, carried by CR-018 (TS-012 section 8.10: "Announce the call sign in Morse at power-on and at headphone insertion") | HostUnit, Bench. No hazard control (HZ-006 K8 is carried by the handbook, REQ-SYS-122) |
+| REQ-TX-003 (RF isolation with PA enable deasserted) | allocated at L2, cites ADR-015 and ADR-023; unchanged (not in TS-012 section 8.10); hazards HZ-006, HZ-008 | Its TBR plan names TS-003, which is not written (ADR-056 section 2 item 3); cross item to the CR-018 author for the closure route |
+| Automatic identification at most 20 WPM, and an empty call sign disables it (rest of candidate FW-04) | not created: the rev A L1 set has no automatic identification memory; REQ-SYS-068 (identification reminder) covers identification (as ADR-015) | REQ-SYS-068 changes to a Morse announcement, carried by CR-018 (TS-012 section 8.10). If a message memory is added, the 47 CFR 97.119(b)(1) limit is written with it |
+| Handbook operator rules card (candidate DOC-02) | covered by REQ-SYS-122 (operations handbook safety content) | Inspection (as ADR-015) |
+
+### 4.2 Interfaces, design and code
+
+- ICDs affected: `ICD-CTL-PHONES` (the headphone insertion that triggers the call-sign announcement is read from the switched phones jack, TS-012 section 8.3 row 16; the insertion input is fixed with the audio design, WP-PDR-25). ADR-015 named none.
+- Design elements created or changed: ConOps scenarios (licensed friend as own station; supervised guest; unit handed to a guest under lock), as ADR-015; **(changed for A5)** Morse-menu items in place of the UI menu items (guest lock by the MENU and ALT hold, call sign entry by menu item C; TS-012 section 8.7); the lock-state and call-sign announcements of the Morse sender and the status announcement (the UI design of WP-PDR-33 fixes the words sent, and the SW L2 of WP-PDR-35 specifies them); non-volatile storage of the call sign and lock flag (rustos NV work package, ADR-019), as ADR-015.
+- New `SW-<SUB>` modules created by this ADR: none.
+- ICDs created by this ADR: none.
+
+### 4.3 Verification and safety
+
+- Verification cases to add or change (ADR-015's WP-PDR-14 reading, carried): guest lock TC-SYS-047 (Bench, REQ-SYS-065 and REQ-SYS-066); call sign after power-on TC-SYS-006 (Bench, REQ-SYS-006); RF isolation with PA enable deasserted TC-TX-003 (Bench); the SW L2 guest-lock case (every transmit path, HostUnit) is allocated with the SW L2 requirements at PDR; no auto-ID case exists because rev A has no identification memory (section 4.1); the licensed-friend demonstration is allocated with the validation cases of the V&V plan (no id yet). **For A5**, carried by CR-018 with their requirements: TC-SYS-006 reads the call sign by decoding the Morse after each power-on and each headphone insertion, in place of reading the display; TC-SYS-047 reads the lock state from the Morse announcements, in place of "lock state read from the display" (its setup), and its sequences are the button and potentiometer sequences of A5; TC-SYS-043 (REQ-SYS-060) checks the lock reason in the transmit state.
+- Evidence class implications: none new (as ADR-015). The announcements are checked by decoding the audio capture.
+- Hazard analysis update required: yes (HZ-006 controls K3 and K8 carry this decision; as ADR-015). No A5 change to the K3 or K8 text: neither names a display. The WP-PDR-16 hazard author names ADR-063 in the HZ-006 sources when the owner decides at S1 (the ADR-015 cross item, carried).
+- Safety-critical software scope changed: no; the receive-only guest lock is already part of `SW-TXSEQ` in 07 section 14.1 (as ADR-015). The lock's inhibit does not depend on its announcement. The guest-lock action of A5 is part of the Morse-menu override command path, which stays safety-critical (SRR decision 9; TS-012 section 8.7). Open lien carried from ADR-056 section 4.3 that touches this decision: INSP-118 finding-6 (the guest lock takes its confirmation R from the adaptive straight-key decoder; the decoder units that emit it are to be placed in the Proposed path, with the Morse form of the 07 section 14.2 row d validation routed to WP-PDR-35 and 41 and the WP-PDR-16 and 17 determination).
+
+### 4.4 Cost, schedule, risk
+
+- Cost: none in parts (as ADR-015). The MENU and ALT buttons are the two B3F-1052 of TS-012 section 8.3 row 15, bought for the menu.
+- Gate affected: PDR (S1 disposition; SW requirements), as ADR-015's PDR entry; SRR (ConOps) is past.
+- Risks opened, closed or re-scored: proposed risk "unlicensed operation by a guest" (REG-4) is mitigated by OPS-A, the lock and the rules card; proposed risk "interpretation of third-party keying" (REG-7) is carried (as ADR-015).
+- TPMs affected: none.
+
+## 5. Compliance and tailoring
+
+none
+
+## 6. Decision record
+
+The operator model and the guest lock are the owner's, on record before this ADR (ADR-015 section 6):
+
+> Owner (2026-09-26, SRR session, `docs/reviews/SRR/minutes.md` section "Rulings"): "I concur with your recommendations for the key decisions."
+
+Recorded ruling (minutes, same section): key decision K5 of package section 13.1.1, which contains SRR decision 17, is ruled as recommended; the ruling text is the "Recommendation" cell of decision 17 in `docs/reviews/SRR/decisions-for-owner.md` Part 1: "OPS-A default, OPS-B only by a dated record; accept ADR-015."
+
+> Owner (2026-09-26, SRR disposition, `docs/reviews/SRR/minutes.md` section "Disposition"): "I approve of this and the SRR."
+
+The guest-lock release is option a of SRR decision 19 (two-step release), ruled in the same key decision K5. The display is given up by the owner's A5 decision, recorded in ADR-056 section 6 (Form 1) and TS-012 section 10; A5 includes "A Morse-code audio menu with two buttons and two potentiometers, in place of the display and encoders" (ADR-056 section 2 item 1):
+
+> Owner (2026-09-29, in chat; status note 2026-09-29 section 5, after the A5 parts lifecycle report): "A5"
+
+**Proposed memo wording for S1 (OD-10 part 1; README rule 4).** "Confirm ADR-063. It restates ADR-015, the rule that each licensed friend runs a loaned radio as their own station, and the guest lock, with two changes for A5, because A5 has no screen. The radio sends the stored call sign in Morse each time it is switched on and each time headphones are plugged in. The guest lock is set and released by holding MENU and ALT for 3 seconds and then confirming with R; the radio says in Morse when the lock goes on or off, and a status request tells you the lock is on. Without headphones there is no sign of the lock except that the radio does not transmit. ADR-063 is Accepted and ADR-015 becomes Superseded by ADR-063." Owner's disposition: not yet given. It is transcribed here with its date at S1.
+
+## 7. Related
+
+- Supersedes: ADR-015, in full, on the S1 disposition (ADR-015's Status then reads "Superseded by ADR-063", set by WP-PDR-02). Until then ADR-015 stays Accepted and in force.
+- Superseded by: none.
+- Trade study: none for the operator model (see the Decision class row); TS-012 for the announcement medium (ADR-056).
+- Review where presented: PDR session S1 (OD-10 part 1). ADR-015 was presented at SRR and decided on 2026-09-26 (SRR decision 17, key decision K5).
+- Related records: ADR-056 (section 7 item 4), ADR-014, ADR-062 (the Morse and LED fault indication); CR-018.
+- Revisit conditions: an FCC or ARRL interpretation on third-party participation (ACTION-7 of the corpus report); the owner prefers OPS-B; a unit is transferred rather than lent (then that unit is simply the new owner's station under OPS-A and the design is unchanged), as ADR-015. A display is added in a later build: a superseding ADR.
+
+## 8. Change log
+
+- 2026-09-29: created by the technical data manager (WP-PDR-54), on the lead SE ruling of 2026-09-29 on the corrected reading of ruling 1 and on item 4 (ADR-056 section 7), rulings (c) and (d): ADR-015 is contradicted only in its two display clauses, README rule 2 has no partial supersession, so this ADR restates ADR-015 in full with the A5 changes and supersedes it on the S1 disposition, as ADR-026 did for ADR-010. The number is the one the ruling gives, in the order ADR-060 to ADR-066; it is max(existing) + 1 (README rule 1) when the lead SE files ADR-060 to ADR-066 in that order, before CR-003 and CR-006 create theirs (ruling (d)). ADR-015's section 8 readings are carried: the independent reviewer reading is replaced by this record's own review, the hazard stamp is 0.5.0-pha, the verification cases are those of its WP-PDR-14 reading, and the RID-SRR-005 reading of the guest-lock clause is written into section 2. The lock-state announcement is this record's Morse reading of the display clause: TS-012 fixes the set and release action but not how the state is shown, so section 2 takes the ConOps transmit-state reason and the TS-012 status announcement, for the owner's confirmation at S1. Author: Claude (technical data manager invocation).
