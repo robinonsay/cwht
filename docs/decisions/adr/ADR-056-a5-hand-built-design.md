@@ -6,13 +6,13 @@
 | Status | Proposed. Section 2 item 1, the A5 decision, was taken by the owner in chat on 2026-09-29 (section 6, Form 1). Items 2 to 4 are for the owner's confirmation at PDR session S1 (OD-10 part 1). The record stays Proposed while its independent review and software assurance pair run, because README rule 2 allows no edit of an Accepted ADR and review fixes must be made in place. It becomes Accepted by a Status-line edit once the review record is APPROVED and section 6 holds the S1 disposition of items 2 to 4 |
 | Date proposed | 2026-09-29 (this record; TS-012 first presented A5 as a finalist in revision 2, 2026-09-27) |
 | Date decided | 2026-09-29 for item 1 (owner, in chat; `docs/plan/status/status-2026-09-29.md` sections 4 and 5). Items 2 to 4: at S1, pending |
-| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 items (a) architecture choice: receiver topology, PA topology, LO scheme, power architecture, enclosure concept; (b) critical parts: RF power device, synthesizer, TCXO, CW filter, battery charger, display; (c) choices that touch HZ-002, HZ-003, HZ-004, HZ-005, HZ-007, HZ-008 and HZ-015 and the components of `docs/process/07-software-engineering-plan.md` section 14.1; (d) the owner asked for the study; (f) changes to KDR requirements REQ-SYS-012, 112, 137, 140). Trade study: TS-012 (`docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md`). This ADR is the one ADR that TS-012 produces (06 section 14.2) |
+| Decision class | 1 (`docs/process/06-risk-and-decision-analysis.md` section 14.1 items (a) architecture choice: receiver topology, PA topology, LO scheme, power architecture, enclosure concept; (b) critical parts: RF power device, synthesizer, TCXO, CW filter, battery charger, display; (c) choices that touch HZ-002, HZ-003, HZ-004, HZ-005, HZ-007, HZ-008 and HZ-015 (the TS-012 header list), and also HZ-001, HZ-006, HZ-009 and HZ-011 (section 4.3), and the components of `docs/process/07-software-engineering-plan.md` section 14.1; (d) the owner asked for the study; (f) changes to KDR requirements REQ-SYS-012, 094, 102, 103, 112, 137 and 140; REQ-SYS-022, also KDR, is kept at risk. The TS-012 header also names REQ-SYS-010, which A5 keeps with the TCXO fitted). Trade study: TS-012 (`docs/decisions/trade-studies/TS-012-design-to-cost-hand-built.md`). This ADR is the one ADR that TS-012 produces (06 section 14.2) |
 | Decision authority | Robin (owner, Decision Authority). The choice is class 1, and through CR-018 it changes baseline content, including KDR requirements. The decision spends no money: the order waits for the ordering gate (section 2 item 1(b)) |
 | Author | Claude (technical data manager invocation, WP-PDR-54 part 1, 2026-09-29) |
-| Independent reviewer | Pending. The review is by an independent reviewer with a software assurance pair, because the decision constrains components of 07 section 14.1 (PDR work plan WP-PDR-54; 07 section 2.1.1). The lead SE assigns the record ids and paths. The record must be APPROVED before S1, because OD-10 part 1 rests on it (plan section 3.0a "Order"). The study this ADR records was reviewed as INSP-110 iteration 3 re-issue 2 (`docs/reviews/PDR/checklists/ts-012-design-to-cost.md`, `c5e4930`, reviewer APPROVED) and INSP-118 iteration 2 (`ts-012-design-to-cost-software-assurance.md`, `ff2fd8c`, assurance APPROVED). Both record verdicts are held at NEEDS CHANGES for Minor liens |
+| Independent reviewer | Pending. The review is by an independent reviewer with a software assurance pair, because the decision constrains components of 07 section 14.1 (PDR work plan WP-PDR-54; 07 section 2.1.1). The lead SE assigns the record ids and paths. The record must be APPROVED before S1, because OD-10 part 1 rests on it (plan section 3.0a "Order"). The study this ADR records was reviewed as INSP-110 iteration 3 re-issue 2 (`docs/reviews/PDR/checklists/ts-012-design-to-cost.md`, `c5e4930`, reviewer APPROVED) and INSP-118 iteration 2 (`ts-012-design-to-cost-software-assurance.md`, `ff2fd8c`, assurance APPROVED). Both record verdicts are held at NEEDS CHANGES for Minor liens. The revision this record cites, TS-012 revision 8 (`bb5dee7`, sections 8.1 to 8.12 re-issued for A5), was reviewed before this record was filed: INSP-110 iteration 3 re-issue 3 (`8d5bc0a`, reviewer APPROVED; Minor liens finding-21, 22, 24, 25 and 27 open) and INSP-118 iteration 3 (`75b8304`, assurance APPROVED; Minor liens finding-4 to finding-11 open). Section 4.3 lists the liens this decision carries |
 | Life-cycle phase | B |
 | Baseline affected | baseline/srr (functional baseline) through CR-018 and CR-003 revision 4 and CR-006 revision 3, all dispositioned at S1 (OD-40); baseline/pdr (the allocated baseline is written on this architecture) |
-| Change request | none for this record. The requirement changes it causes are carried by CR-018 (the re-baseline CR, WP-PDR-53), CR-003 revision 4 and CR-006 revision 3 |
+| Change request | none for this record. The requirement changes it causes are carried by CR-018 (the re-baseline CR, WP-PDR-53), CR-003 revision 4 and CR-006 revision 3. CR-018 is a provisional number (PDR work plan WP-PDR-53, "CR-018, provisional number"; TS-012 section 8.12): the CR is not yet filed and has no file. Every mention of CR-018 in this record means that provisional re-baseline CR |
 
 ## 1. Context
 
@@ -20,9 +20,9 @@ The SRR concept (A0: PCBWay turnkey 4-layer board, PD54008L-E PA, display and en
 
 - Driving inputs and expectations: SI-013, SI-022, SI-028, SI-031, SI-034. The owner inputs of status note 2026-09-27 sections 6, 8, 10 and 11 take the next free SI ids when CR-018 appends them. Expectations: CON-010, CON-015, CON-026, NGO-027, NGO-028, MOE-007, MOE-013 (TS-012 section 2).
 - Requirements that constrain the decision: REQ-SYS-012 and REQ-SYS-112 (KDR; A5 holds each only with the delta of section 4.1); REQ-SYS-017 and REQ-SYS-018 (25 uW and 60 dBc; ADR-022); REQ-SYS-120 (two independent conditions for RF output); REQ-SYS-182 and REQ-SYS-154 (independent frequency verification; held as written on route R3); REQ-SYS-147 (cost); REQ-SYS-013 (survival into SWR 10:1).
-- Hazards in play (`docs/safety/hazards.json` 0.5.0-pha): HZ-002, HZ-003, HZ-004, HZ-005, HZ-007, HZ-008, HZ-015.
+- Hazards in play (`docs/safety/hazards.json` 0.5.0-pha): HZ-002, HZ-003, HZ-004, HZ-005, HZ-007, HZ-008, HZ-015 (TS-012); also HZ-001 and HZ-006 (control K1 through REQ-SYS-063; HZ-006 K5 through the display), HZ-009 (the gold-plated brass-class edge-mount jack, ADR-057), HZ-011 (no in-radio charging, ADR-058 and ADR-059) and HZ-014 (control K4 through REQ-SYS-092, kept). Section 4.3 gives each control the decision changes.
 - Research consulted: the seven block research reports and the three architecture and three judge reports that TS-012 section 11 lists; `docs/research/pa-device-candidates.md` F8, F10, F16 to F20; `docs/research/a5-parts-lifecycle-2026-09-29.md` (`f193784`, 39 of 39 parts Active).
-- Analysis records the study rests on: the six pre-order analyses of TS-012 section 9 tables R5-1 and R6-1 (thermal, PA drive and output power, harmonic LPF, receiver BPF, transmit clock spurs, keying envelope); the receiver BPF note `docs/design/analysis/rx-bpf-ts012.md` revision 4 (`63122e7`; INSP-117 iteration 3 re-issue 1, reviewer APPROVED, `123f048`).
+- Analysis records the study rests on: the six pre-order analyses of TS-012 section 9 tables R5-1 and R6-1 (thermal, PA drive and output power, harmonic LPF, receiver BPF, transmit clock spurs, keying envelope); the receiver BPF note `docs/design/analysis/rx-bpf-ts012.md` revision 4 (`63122e7`; INSP-117 iteration 3 re-issue 1, reviewer APPROVED, `123f048`). The D-18 PA-permit gate record `docs/design/analysis/pa-permit-gate-d18.md` revision 1 (`c397ab1`, Draft, under its independent review and software assurance pair) is the proposed fix of the D-18 lien; this record does not rest on it (section 2 item 3, TS-006 row).
 - Guidance consulted: SE HB §6.8; 06 sections 14.1, 14.2, 14.5 and 14.6.
 - Assumptions the decision rests on, and how and by when each is confirmed:
   1. The ordering-gate worst case, recomputed from the owner's browser reads (OD-42), stays at or below USD 300 after guards G1 to G4. This is confirmed by WP-PDR-38 before S2 and again at the ordering gate after CDR. If it fails, revisit condition (c) of TS-012 section 10 applies.
@@ -32,7 +32,7 @@ The SRR concept (A0: PCBWay turnkey 4-layer board, PD54008L-E PA, display and en
 
 ## 2. Decision
 
-1. **A5 is the hand-built design of the first cwht (decided 2026-09-29).** It is TS-012 alternative A5, "hybrid H1", as recorded in TS-012 section 10 (revision 7, `6497900`):
+1. **A5 is the hand-built design of the first cwht (decided 2026-09-29).** It is TS-012 alternative A5, "hybrid H1", as recorded in TS-012 section 10 (revision 7, `6497900`), with sections 8.1 to 8.12 re-issued for A5 in revision 8 (`bb5dee7`), the revision this record cites:
    - **Transmitter.** A Mitsubishi RA07M1317M-501 module PA, bought from RF Parts and driven by a Mini-Circuits GVA-84+. A spare GVA-84+ is bought.
    - **Frequency generation.** An Adafruit 2045 Si5351A breakout with its 25 MHz crystal removed and an Epson TG2520SMN TCXO on XA.
    - **Receiver.** A single-conversion superhet:
@@ -45,31 +45,33 @@ The SRR concept (A0: PCBWay turnkey 4-layer board, PD54008L-E PA, display and en
    - **Power.** Two P28A cells in 1043P holders with S-8252AAO pack protection. The cells are charged outside the radio in an XTAR MC1. USB on the radio loads firmware only.
    - **Boards.** Two JLCPCB 2-layer 1.6 mm bare boards, soldered by the owner.
    - **Enclosure.** An owner-printed PETG case, with the Boyd 530002B02500G sink as the end wall behind a wrap-around finger guard.
-   - **Design items.** The design items D-1 to D-18 of TS-012 section 8.14 at their A5 values. D-15 is at the note revision 4 figures: 75.37 dB worst-case image rejection over REQ-SYS-114, and +/-0.62 % alignment acceptance at 20 to 30 C. D-17 is frequency verification on route R3. D-18 is the PA_EN permit, with its open lien.
+   - **Design items.** The design items D-1 to D-18 of TS-012 section 8.14 at their A5 values. D-15 is at the note revision 4 figures: 75.37 dB worst-case image rejection over REQ-SYS-114, and +/-0.62 % alignment acceptance at 20 to 30 C. D-17 is frequency verification on route R3. D-18 is the PA_EN permit, with its open lien (INSP-110 finding-24, INSP-118 finding-9): the gate type, its level interface and the node that the other hardware cutoffs act on are not fixed by this record (item 3, TS-006 row).
 
    The block diagram is TS-012 section 8.1. The controller stays the Pico 2 with Rust on rustos (ADR-004, ADR-027).
 
-   The decision carries the four conditions of TS-012 section 10:
-   - (a) The requirement deltas of section 8.10, A5 rows only, go to CR-018.
-   - (b) **Ordering gate.** Nothing is ordered until the recomputed worst case is at or below USD 300 after guards G1 to G4. Guard G6 (revert to the End-of-Life AFT05) is not available without a new owner decision.
-   - (c) The three open thermal items of assumption 3 are PDR design items.
-   - (d) Owner questions Q5, Q6 and Q7 and follow-on decisions 1 to 6 are put to the owner separately. This ADR does not decide them.
+   The decision carries the four conditions of TS-012 section 10, numbered as there:
+   - **Condition 1, ordering gate.** Nothing is ordered until the recomputed worst case is at or below USD 300 after guards G1 to G4. Guard G6 (revert to the End-of-Life AFT05) is not available without a new owner decision.
+   - **Condition 2, requirement deltas.** The requirement deltas of section 8.10, A5 rows only, go to CR-018.
+   - **Condition 3, thermal items.** The three open thermal items of assumption 3 are PDR design items.
+   - **Condition 4, owner questions.** Owner questions Q5, Q6 and Q7 and follow-on decisions 1 to 6 are put to the owner separately. This ADR does not decide them.
 2. **TS-001 and TS-007 are superseded by TS-012 (for confirmation at S1).**
    - TS-001's receiver and PA concept is replaced by TS-012 section 8.1 and D-15: the ladder is re-admitted, the Inrad #111 and the 24-bit ADC are dropped, the diode ring is used, and the PA is chosen by TS-012.
    - TS-007's synthesizer and reference are replaced by TS-012 section 8.3 and D-17: the Adafruit Si5351A with the TG2520SMN on XA, in place of the TS-007 recommendation of an LMX2571 with an Si5351A for the BFO. TS-012 section 3.2 prunes the LMX2571 as reflow-only.
    - Neither study is re-scored or decided. Its Status row reads "Superseded by TS-012 (ADR-056)" (06 section 14.6).
    - Their remaining analyses continue as value-bearing analyses under plan rule C10: WP-PDR-19 for TS-001 (MDS redesign, `rx-cascade.md`, G1 values) and WP-PDR-20 for TS-007 (route R3 budget, relock time, ratio freshness, clock plan and ADR-031 revision, G2 values).
-3. **Five planned studies are not written, because TS-012 and this ADR decide them (for confirmation at S1).** Their provisional numbers, and the provisional ADR numbers ADR-029 to ADR-050 of the PDR work plan, are not taken. Each WP's analyses stay under rule C10.
+3. **Five planned studies are not written, because TS-012 and this ADR decide them (for confirmation at S1).** Their provisional TS numbers are not taken, and neither are the provisional ADR numbers the PDR work plan gives them: ADR-032 (TS-003), ADR-033 (TS-006), ADR-034 (TS-008), ADR-035 (TS-009) and ADR-037 with its display ADR (TS-010). ADR numbers are assigned at filing as max(existing) + 1 (README rule 1), so the plan's other provisional numbers are not claimed here either. ADR-031 (clock plan) is a filed ADR and stays (section 7). Each WP's analyses stay under rule C10.
 
    | Planned study | What decides it | TS-012 section |
    |---|---|---|
    | TS-003 PA line-up | RA07M1317M-501 module with a GVA-84+ driver, select-on-test drive pad, drive bandpass, output LPF | 8.1, 8.3; D-7, D-13, D-14 |
-   | TS-006 ALC, keying envelope and cutoff node | Pack-dependent VGG clamp; keying loop items 1 to 10; PA_EN permit NAND of TX_KEY, PA_EN and the cutoff monostable driving the VGG clamp FET and the GVA-84+ supply P-FET | 8.14 D-9, D-10, D-18 |
+   | TS-006 ALC, keying envelope and cutoff node | Pack-dependent VGG clamp; keying loop items 1 to 10; a PA_EN permit gate that combines TX_KEY, PA_EN and the cutoff monostable Q in hardware, clamps the VGG node and unpowers the GVA-84+ (D-18). The gate type and the node of the other hardware cutoffs are not fixed here: TS-012 draws a 3-input NAND (74LVC1G10 class) with the REQ-SYS-180, 181, cell 60 C and REQ-SYS-092 cutoffs on the VGG node, and the D-18 record revision 1 (`c397ab1`, Draft, not yet reviewed) proposes a three-input AND (74LVC1G11) with two 2N3904 level shifters and moves those cutoffs onto the Q node. They are fixed when that record is APPROVED and a revision of TS-012 or of this record adopts it | 8.14 D-9, D-10, D-18 |
    | TS-008 T/R element | Omron G5V-2, non-RF-rated, with an RX-grounding pole; isolation measured on the NanoVNA before first transmission | 8.3; exception EX-14 |
    | TS-009 battery and charger | Charging outside the radio in an XTAR MC1; in-radio charge protection layers removed; pack parts S-8252AAO, 2 x AO3400A, MF-R300, DMP3099L | 8.8 D2, D14; 8.3 |
    | TS-010 audio and display | No display; Morse-code audio menu; audio chain NE5532 and MCP6002 on the 5 V bus with a capped attenuator | 8.8 D1; 8.7; 8.3 |
 
 4. **SWR fold-back is closed on the module's load ruggedness, with no fold-back (for confirmation at S1).** SRR decision 60 left open a choice: fit a directional coupler with SWR fold-back, or rely on device ruggedness. It is closed on ruggedness. The RA07M1317M is specified for a load VSWR of 20:1 at all phases at 9.2 V and 7 W without degradation. That covers REQ-SYS-013 (60 s of 5 W keying at 80 % duty into any load up to SWR 10:1, open and short included; TS-012 section 7.3, "Load ruggedness (REQ-SYS-013)"). A5 fits no directional coupler and no fold-back. The 1N5711 detector on the LPF output serves the ALC loop only.
+
+   The closure covers REQ-SYS-013 only. SRR decision 60 names four requirements: REQ-SYS-013, REQ-SYS-151 (every spurious emission at most 25 uW at the 5 W step into any load up to SWR 2:1, TBR), REQ-SYS-152 (at least 4.0 W, TBR, at the 5 W step into any load up to SWR 2:1) and REQ-SYS-156. The module's ruggedness rating is a survival rating. It does not show REQ-SYS-151 or REQ-SYS-152, and without fold-back they rest on the PA and LPF analyses of WP-PDR-21 (cross item, section 4.3). REQ-SYS-152 is at risk under the A5 low-pack figures: the lowest corner is 3.19 W at 6.4 V into 50 ohm (TS-012 section 8.10, row REQ-SYS-012). REQ-SYS-156 is kept as the bound on the open-loop ALC case (section 8.10).
 
 **Not decided here:**
 - TS-004 and TS-011 are re-scored within the A5 envelope by WP-PDR-27.
@@ -89,27 +91,87 @@ All three are decided at S2 (OD-10 part 2). The spare module (AB-A, Q7) is decid
 | A1 | Minimum cost as submitted | Not chosen: fails M4 |
 | A0 (do nothing) | SRR concept, PCBWay turnkey, about USD 610 per unit | Not viable: fails M1 (the USD 300 maximum) |
 
-The weighted matrix, sensitivity (robustness verdict Not robust), per-alternative risks and dissent are in TS-012 sections 5 to 7 and 9. The SWR fold-back alternative of item 4 (directional coupler and fold-back) is not chosen: the module's rated ruggedness covers REQ-SYS-013 with a margin of two in VSWR, and a coupler adds parts, loss and cost under the ceiling.
+The weighted matrix, sensitivity (robustness verdict Not robust), per-alternative risks and dissent are in TS-012 sections 5 to 7 and 9. The SWR fold-back alternative of item 4 (directional coupler and fold-back) is not chosen: the module's rated ruggedness covers REQ-SYS-013 with a margin of two in VSWR, and a coupler adds parts, loss and cost under the ceiling. Fold-back as HZ-003 K5 and HZ-009 K3 describe it acts above SWR 3:1, so it would not act at the 2:1 of REQ-SYS-151 and REQ-SYS-152 either; both stay with the WP-PDR-21 analyses (item 4).
 
 ## 4. Consequences
 
 ### 4.1 Requirements created or changed
 
-The A5 rows of TS-012 section 8.10 are carried by CR-018. Each requirement CR-018 changes cites this ADR in `source_ids` (cross item to the CR-018 author). The main rows:
+The A5 rows of TS-012 section 8.10 are carried by CR-018, with two exceptions that TS-012 section 8.12 names: CR-003 revision 4 carries the antenna and enclosure rows (its section 1.1a for REQ-SYS-104 and REQ-SYS-106; its item (f) for REQ-SYS-109, 113 and 124), and CR-006 revision 3 item (b) also carries REQ-SYS-147 (section 8.12 recommends folding both CR revisions into CR-018). Each requirement changed for A5 cites this ADR in `source_ids` (cross item to the CR-018 author). The rows below give each requirement the change that section 8.10 gives it. "Keep" rows and rows that section 8.10 does not list are shown where they carry a hazard control, so that no control is swept into a change. The hazard controls are those of `docs/safety/hazards.json` 0.5.0-pha.
+
+**Key driving requirements (KDR).**
 
 | Requirement | Relationship | Note |
 |---|---|---|
-| REQ-SYS-012 (KDR) | value changed via CR-018 | Low-pack delta: 5 W +1/-1.5 dB (TBR) at 6.4 V. Firm delta or bench check with the delta as fallback, decided by the owner (follow-on decision 2) |
-| REQ-SYS-112 (KDR), REQ-SYS-118 | changed via CR-018 | Duty-limited corner, and the REQ-SYS-118 inhibit on the flange NTC at about 81 C (D-6; follow-on decision 1) |
-| REQ-SYS-137 (KDR) | retired via CR-018 | The owner hand-assembles every part |
+| REQ-SYS-012 (KDR) | value changed via CR-018 | Low-pack delta: 5 W +1/-1.5 dB (TBR) at the 6.4 V end. Firm delta or bench check with the delta as fallback, decided by the owner (follow-on decision 2) |
+| REQ-SYS-112 (KDR), REQ-SYS-118 | changed via CR-018 | Duty-limited corner, and the REQ-SYS-118 inhibit on the flange NTC at about 81 C or a firmware duty limit (D-6; follow-on decision 1). HZ-003 K2 |
+| REQ-SYS-094 (KDR) | changed via CR-018 | Test with the fitted 2.8 Ah P28A cells, or keep 3.0 Ah as the test cell; estimate 8 to 14 h; WP-PDR-29 budgets it (ADR-059) |
+| REQ-SYS-102 (KDR), REQ-SYS-103 (KDR) | values changed via CR-018 | 375 g (TBR); about 167 x 74 x 52 mm at the sink end, body 70 x 42 mm (TBR), 174 mm with the SMA; final values from WP-PDR-29 and 39 |
+| REQ-SYS-137 (KDR) | retired via CR-018 | The owner hand-assembles every part. HZ-015 K3 (section 4.3) |
 | REQ-SYS-140 (KDR) | reworded via CR-018 | Catalog distributor or maker shop with a published price and stock; RF Parts named for the module (EX-3) |
-| REQ-TX-014 | restated via CR-018 | With its HZ-004 note, after the D-18 lien fix (follow-on decision 4) |
-| REQ-SYS-013 | allocated; implemented by this decision (item 4) | Unchanged value. Cross item: add ADR-056 to its `source_ids` in CR-018 |
-| REQ-SYS-182, REQ-SYS-154, REQ-SYS-120, REQ-SYS-181 | allocated; kept as written | Route R3 (D-17); PA permit (D-18); backstop value kept |
-| REQ-SYS-022 | kept; at risk | A5 nominal MDS -140.7 dBm; -134.9 dBm at the TC-SYS-017 corner; the WP-PDR-19 redesign follows |
-| REQ-SYS-006, 057 to 070, 096, 146, 163 to 165, 171; REQ-SW-KEYER-014, 023, 032 | changed or retired via CR-018 | The Morse-menu UI rows of TS-012 section 8.10 |
-| REQ-SYS-081 to 093, 167, 185, 186 | retired, reallocated or reworded via CR-018 | Charging outside the radio |
-| REQ-SYS-094, 101, 102, 103, 104, 106, 109, 124, 138, 139, 144, 147, 172, 177, 178; REQ-SYS-083, 084 | changed via CR-018 (109 and 124 with CR-003 revision 4) | Power, mechanical, build and cost rows of section 8.10 |
+| REQ-SYS-022 (KDR) | kept; at risk | A5 nominal MDS -140.7 dBm; -134.9 dBm at the TC-SYS-017 corner; the WP-PDR-19 redesign follows. REQ-SYS-023 (Goal) is recorded as not met |
+
+**Transmitter, frequency and receiver.**
+
+| Requirement | Relationship | Note |
+|---|---|---|
+| REQ-SYS-013 | kept; implemented by this decision (item 4) | Unchanged value. Cross item: add ADR-056 to its `source_ids` in CR-018. HZ-003 K5, HZ-009 K3 |
+| REQ-SYS-151, REQ-SYS-152 | kept; not in section 8.10; REQ-SYS-152 at risk | Not closed by item 4 (item 4 last paragraph). HZ-008 (151); HZ-003 K5 and HZ-009 K3 (152) |
+| REQ-SYS-017, REQ-SYS-018; REQ-TX-009, 010, 011 | 017 and 018 kept; REQ-TX-009 to 011 changed via CR-018 | REQ-TX-009, 010 and 011 at 43, 35 and 40 dB, stated as attenuation at the harmonic less the passband loss at the carrier; the 0.5 dB passband-loss criterion becomes a design goal, with the worst case of 1.76 dB carried as the bound (`lpf-ts012.md`). HZ-008. This contradicts ADR-022 in part (section 7) |
+| REQ-SYS-014, REQ-SYS-015, REQ-TX-005 | kept | Closed VGG envelope loop with D-9 and D-10 |
+| REQ-TX-014 | restated via CR-018 | With its HZ-004 note, after the D-18 lien fix (follow-on decision 4). The D-18 record revision 1 (`c397ab1`, not yet reviewed) also routes to the owner and CR-018 a conflict between REQ-TX-014 (1 uW) and the -57 dBm RF-off level that REQ-SYS-120 takes from REQ-SYS-183 |
+| REQ-SYS-055, 092, 120, 154, 156, 160, 161, 180, 181, 182, 183 | kept as written | Route R3 (D-17) for 182 and 154; the PA permit (D-18) for 120; the backstop value kept (181); 180 at risk from the RC timer tolerance (WP-PDR-26); the 160 and 161 TBRs close at 13 ms against 15 ms. Controls: HZ-004 K5, K8, K12; HZ-003 K9; HZ-008 K7; HZ-011 K1 and HZ-014 K4 (092) |
+| REQ-SYS-008, 009, 010, 032, 033, 141; REQ-TX-002 | kept | REQ-SYS-010 reads "of the set frequency" (TCXO fitted, D-17); REQ-SYS-033 held at a 75.37 dB worst case (D-15) |
+| REQ-SYS-029, REQ-SYS-031 | relaxed via CR-018 (TBR) | -65 dBm (TBR) or an accepted limitation; 78 dB (TBR) in place of 85 dB; both from the Si5351A close-in phase noise. REQ-SYS-031 cites SI-029 and ADR-013, which this decision contradicts in part (section 7) |
+
+**User interface (display to Morse).**
+
+| Requirement | Relationship | Note |
+|---|---|---|
+| REQ-SYS-006, 044, 057, 058, 059, 060, 062, 063, 067, 068, 069, 096, 146, 164, 171; REQ-SW-KEYER-014, 023, 032 | changed via CR-018 | The Morse-menu rows of TS-012 section 8.10. Hazard controls among them: REQ-SYS-063 (HZ-001 K1, HZ-006 K1), 067 (HZ-004), 069 and 171 (HZ-006 K5), 096 (HZ-007 K4) |
+| REQ-SYS-061, REQ-SYS-165 | retired via CR-018 | Display character size and legibility |
+| REQ-SYS-066, REQ-SYS-163 | kept (TS-012 section 8.10) | Guest lock by MENU and ALT held 3 s, then R on MENU (HZ-006 K3); the ALT-hold key-mode path uses the buttons only (HZ-004) |
+| REQ-SYS-064, REQ-SYS-065 | unchanged; not in section 8.10 | Default 1 W step (HZ-001 K1, HZ-006 K1); no RF while guest lock is set (HZ-006 K3) |
+| REQ-SYS-071 to 073, ICD-CTL-PHONES | changed via CR-018 | Capacitor-coupled MCP6002 buffer on the 5 V bus, rail-bounded attenuator k about 0.06 (TBR), confirmed in LTspice (WP-PDR-25). HZ-005 |
+| REQ-SYS-076, REQ-SYS-077 | unchanged; not in section 8.10 | HZ-005 K5 and K6: not yet shown with the MCP6002 buffer (section 4.3) |
+
+**Power and charging (charging outside the radio).**
+
+| Requirement | Relationship | Note |
+|---|---|---|
+| REQ-SYS-081, REQ-SYS-082 | reallocated via CR-018 to the external charger and the handbook | HZ-002 K1, K6 |
+| REQ-SYS-083 | reworded via CR-018 | S-8252AAO VCU: 4.225 to 4.30 V (TBR); the layer now backs up the external charger. HZ-002 K2 |
+| REQ-SYS-084 | at risk; value proposed via CR-018 | 2.415 to 2.560 V (TBR), or kept and recorded at risk until the PDR protector-variant selection. HZ-007 K1 |
+| REQ-SYS-085 | kept | Trip 2.97 to 7.0 A; key-down load about 2.0 A. HZ-007 K1, K2 |
+| REQ-SYS-086 | kept; not in section 8.10 | The DMP3099L reverse-polarity FET. HZ-007 K3, K6 |
+| REQ-SYS-087 | changed via CR-018 | Refuse to arm transmit, in place of refusing charging. HZ-002 K5, HZ-007 K3 |
+| REQ-SYS-088, 089, 091, 093, 167, 185 | retired via CR-018 | No in-radio charging. HZ-002 K1 (089), K3 (185), K4 (088), K5 (089, 167), K6 (093); HZ-011 K2 (093) |
+| REQ-SYS-070 | retired via CR-018 | The MC1 indicates (listed with the UI rows of section 8.10). HZ-011 K5 |
+| REQ-SYS-186 | reworded via CR-018 | For the one remaining in-pack layer plus the firmware monitor. HZ-002 K9, HZ-007 K3 |
+| REQ-SYS-090, REQ-SYS-100 | kept | 500 mA from USB, the Pico 2 the only load (HZ-011 K4); off current about 10 to 20 uA |
+| REQ-SYS-092, REQ-SYS-149 | kept (149 not in section 8.10) | HZ-011 K1 and K3; HZ-014 K4. REQ-SYS-149 rests on the Pico 2 VSYS feed, which TS-012 does not state (ADR-058 and ADR-059 cross item) |
+| REQ-SYS-101 | changed via CR-018 | The EG1218 drives the rail P-FET gates (owner interpretation). HZ-007 K6 |
+| REQ-SYS-097, 098, 099, 166 | unchanged; not in section 8.10 | HZ-007 K3, K4. REQ-SYS-098, 099 and 166 have no rail-off actuator in A5 as drawn (ADR-059 section 4.2; cross items to WP-PDR-24 and WP-PDR-16) |
+| REQ-SYS-130 | unchanged; not in section 8.10; made stale | Its "charging disabled" item has no object without a charger. Cross item to CR-018 (also HZ-002 K4 and K5, and 07 section 14.2 rows a, c and l) |
+
+**Mechanical, enclosure and antenna.**
+
+| Requirement | Relationship | Note |
+|---|---|---|
+| REQ-SYS-104, REQ-SYS-106 | changed via CR-003 revision 4 section 1.1a, not CR-018 | SMA female, material-neutral; 100 mating cycles (TBR). HZ-009 K2 (ADR-057) |
+| REQ-SYS-105 | value kept; rationale and verification note changed via CR-003 revision 4 | 4.0 N m, with the edge-mount jack (ADR-057). HZ-009 K1, K2 |
+| REQ-SYS-109, 113, 124 | via CR-003 revision 4 item (f) | PETG case with the sink outside the end wall; REQ-SYS-113 kept, met only with the wrap-around guard (HZ-003); legend in relief (HZ-006 K7) |
+| REQ-SYS-172 | changed via CR-018 | The owner's 2 m antenna with an SMA-male plug |
+| REQ-SYS-175 | kept | Edge-mount SMA on the far end face |
+| REQ-SYS-177 (Goal) | deferred via CR-018 (CR-003 revision 4 item (b)) | Board fences and ground pour only |
+
+**Build, sourcing and cost.**
+
+| Requirement | Relationship | Note |
+|---|---|---|
+| REQ-SYS-138, 139, 144, 178 | changed via CR-018 | The hand-solder list; 2-layer 1.6 mm JLCPCB; a one-time build alignment, then stored calibration; a named source and a dated listed price. REQ-SYS-138 is an HZ-015 K3 control |
+| REQ-SYS-145 | kept | The synthesizer and the module are band-dependent (ADR-057) |
+| REQ-SYS-147 | changed via CR-018, with CR-006 revision 3 item (b) | USD 200 target, USD 300 maximum for the first unit |
 
 No requirement is self-derived from this ADR.
 
@@ -131,20 +193,35 @@ No requirement is self-derived from this ADR.
 
 ### 4.3 Verification and safety
 
-- **Verification cases to add or change:** the rows CR-018 carries for the section 8.10 deltas; the bench checks of TS-012 section 7.3 and the design items (NanoVNA BPF alignment and relay isolation, select-on-test drive pad at about 17 mW, tinySA harmonic sweep, in-situ sink and NTC-offset measurements, thermocouple surface check). For item 4, the REQ-SYS-013 case uses the module datasheet rating (Analysis) and a bench open and short check.
-- **Scope of the item 4 closure.** The module rating covers the module. Two cases are not covered by it:
+- **Verification cases to add or change:** the rows CR-018 carries for the section 8.10 deltas; the bench checks of TS-012 section 7.3 and the design items (NanoVNA BPF alignment and relay isolation, select-on-test drive pad at about 17 mW, tinySA harmonic sweep, in-situ sink and NTC-offset measurements, thermocouple surface check). For item 4, the REQ-SYS-013 case uses the module datasheet rating (Analysis) and a bench open and short check. The REQ-SYS-151 and REQ-SYS-152 cases at SWR 2:1 are unchanged; their analysis is WP-PDR-21's (next bullet).
+- **Scope of the item 4 closure.** The module rating covers the module. Three cases are not covered by it:
   - The parts after the module carry the standing wave into 10:1: the output LPF (1206 C0G, 100 V rated in the BOM), the relay contact and the SMA. As an estimate, holding 5 W forward, that is up to about 41 V and 0.81 A peak. Cross item to WP-PDR-21: confirm the part ratings in the LPF record.
   - An ALC open-loop fault puts out at most 8 W at 8.4 V (D-9), above the 7 W rating condition. That is a second fault on top of the mismatch, bounded by REQ-SYS-156 (Fault-safe within 100 ms, TBR) and outside REQ-SYS-013's 5 W keying condition.
+  - REQ-SYS-151 and REQ-SYS-152 into SWR 2:1 (item 4). Cross item to WP-PDR-21: show the spurious level and the output power into 2:1 at the 6.4 V and 8.4 V pack ends, or propose a REQ-SYS-152 delta to CR-018 for the owner.
 - **Evidence classes:** Simulation (LTspice, accredited ACC-LTSPICE-001) for the RF and keying analyses; Bench with the NanoVNA, tinySA Ultra (when bought), multimeter and a thermocouple thermometer (D-16); HostUnit for the Morse menu, FC0 check and safe-state manager.
-- **Hazard analysis update required:** yes (WP-PDR-16, 0.6.0-pha):
-  - HZ-002 is re-scoped to the COTS charger and the handbook.
-  - HZ-003 covers the sink outside the end wall, the wrap-around guard, and the module case against the 90 C guidance.
-  - HZ-004 control K8 names PA_EN and the D-18 NAND.
-  - HZ-005: every menu tone passes through the capped sidetone path.
-  - HZ-007 gains a new heating cause (the sink's inner face and the cell 60 C trip).
-  - HZ-008 control K7 runs on route R3.
-  - HZ-015 adds the heat gun.
-- **Safety-critical software scope (SWE-134 provisions) changed:** yes. SW-SAFE gains the FC0 check with a threshold of 5.0 kHz, and the PA_EN permit is written only by the safe-state manager. The Morse-menu override path stays safety-critical (SRR decision 9). The safety-critical determination is re-run in WP-PDR-17 (OD-35 at S2).
+- **Hazard analysis update required:** yes (WP-PDR-16, 0.6.0-pha). The controls this decision changes, by hazard (cross item to the WP-PDR-16 hazard author; the ADR that carries the detail is named where there is one):
+  - **HZ-001 and HZ-006.** K1 keeps its object: REQ-SYS-063 becomes "5 W only after the Morse read-back and an R", and REQ-SYS-064 is unchanged. HZ-006 K5 (step, separation reminder and key-down time on the status display) becomes Morse announcements (REQ-SYS-069, 171). HZ-006 K7 takes the legend in relief (REQ-SYS-124).
+  - **HZ-002.** Re-scoped to the COTS charger and the handbook. K1, K3, K4, K5, K6 and K9 name in-radio charging parts or functions that A5 does not fit; K2, the S-8252-class protector, stays as the in-pack layer; K8, the handbook, takes the charging instructions (ADR-059). Its firmware role (criteria c and e: charger supervision over I2C, the dual-path compare, the report on the LCD) lapses with the charger, so `SW-PWR` loses the charging functions it served (the determination re-run below).
+  - **HZ-003.** The sink outside the end wall, the wrap-around guard, and the module case against the 90 C guidance. K2 is the REQ-SYS-118 inhibit at about 81 C on the flange NTC, and K9 the REQ-SYS-181 backstop on the sink NTC (channel about 120 to 123 C at the trip against 175 C). K5, like HZ-009 K3, names an "optional forward and reverse power detector with fold-back above SWR 3:1 (antenna DECISION-5)": item 4 closes that option with no fold-back, so both controls lose their optional clause. INSP-118 finding-11: the duty-limit form of D-6 needs its own sink NTC, separate from the K9 thermistor.
+  - **HZ-004.** K8 names PA_EN and the D-18 gate; the gate type is not fixed here (item 3). INSP-118 finding-10: the K8 argument must also cover one SIO register write that raises both TX_KEY and PA_EN.
+  - **HZ-005.** Every menu tone passes through the capped sidetone path. K5 (an amplifier enable pulled down in hardware, click and pop suppression, 80 dB of attenuation in shutdown; REQ-SYS-076) and K6 (tip-switch detection that shuts the amplifier down with no headphones, and an LCD indication; REQ-SYS-077) assume an amplifier with an enable or shutdown and a display. TS-012 section 8.1 draws the capacitor-coupled MCP6002 buffer with no enable, mute or jack-detect path; the phones jack is a switched jack (section 8.3 row 16). REQ-SYS-076 and REQ-SYS-077 are therefore not yet shown for A5. Cross item to WP-PDR-25 (audio) and WP-PDR-16.
+  - **HZ-007.** A new heating cause: the PA bay, with the cells at the far end and the cell 60 C trip (RSK-007). K1 is the S-8252AAO, K2 the MF-R300 and K6 the EG1218 on the rail P-FET gates (ADR-059). K3 and K4 are not met as drawn: the rail enable on the cell window (REQ-SYS-166), the low-cell power-down (REQ-SYS-098) and the 60 C lockout (REQ-SYS-099) have no rail-off actuator, and K4's reading "through the charger TS input" has no object. ADR-059 section 4.2 states the path that is needed and the fallback; cross items to WP-PDR-24 and WP-PDR-16.
+  - **HZ-008.** K2 names the TS-001 device (PD54008L-E) and the HF3 relay; for A5 they are the RA07M1317M module with its vendor harmonic data and the G5V-2 relay. K3 names an ALC that holds +/-0.5 dB from 6.4 to 8.4 V and every part after the PA rated for the 10 W class; for A5, REQ-SYS-012 is +1/-1.5 dB at 6.4 V, the open-loop case is at most 8 W at 8.4 V (D-9), and the parts after the module are the WP-PDR-21 cross item above. K6 names a 5 V buck synchronised by firmware; A5 has no buck (LM2940-5, D13), and the transmit clock plan is D-12. K7 runs on route R3 (D-17). Cause C8 (the synthesizer unlocked or locked to a wrong value) is re-assessed for the Si5351A, as ADR-013 section 4.3 asks at the trade study outcome (section 7).
+  - **HZ-009.** K1 and K2 name the stainless 500-cycle jack in a machined boss; A5 fits the gold-plated brass-class edge-mount jack in the printed case (ADR-057). K3 loses its fold-back clause (HZ-003 above).
+  - **HZ-011.** K2 loses its object; K1, K3 and K6 stay; K4 keeps its REQ-SYS-090 half; K5 loses its charging and LCD lines (ADR-058).
+  - **HZ-014.** K4 is unchanged (REQ-SYS-092, REQ-SYS-149).
+  - **HZ-015.** Heat-gun use is added. K3 limits hand assembly to through-hole parts and exposed-pad modules, with every fine-pitch part placed by PCBWay (REQ-SYS-137, REQ-SYS-138). A5 retires REQ-SYS-137, and the owner solders every part, including the leadless TG2520SMN by heat gun (EX-7), so K3 loses its object and is rewritten.
+- **Safety-critical software scope (SWE-134 provisions) changed:** yes.
+  - SW-SAFE gains the FC0 check with a threshold of 5.0 kHz, and the PA_EN permit is written only by the safe-state manager. The Morse-menu override path stays safety-critical (SRR decision 9).
+  - **Fault annunciation.** 07 section 14.1 places fault annunciation in SW-SAFE as a fixed fault screen whose cause messages "do not pass through menu or UI rendering". With A5 it becomes a Morse cause message within 1 s in the headphones and an LED blink code without them (TS-012 section 8.7; REQ-SYS-067), sent on the same PWM tone path as the menu's Morse sender. It stays a SW-SAFE unit and stays apart from the menu: it does not pass through the menu state machine, and a menu fault cannot block, delay or change a fault announcement. Whether it has its own Morse sender, or shares one verified at its own level, is fixed by WP-PDR-32 and WP-PDR-35 and checked in the WP-PDR-17 re-run.
+  - **07 rows made stale** (cross item to the 07 author with the WP-PDR-17 re-run): section 14.1 rows "Battery and charging supervision" (the `SW-PWR` charging functions and the HZ-011 K2 charge pause), "Thermal protection" (the 85 C inhibit, now about 81 C at the flange NTC), "Safe-state manager" (the fixed fault screen), "Menu override command path" (the encoder-push input and the `SW-DISPLAY` placement) and "Drivers" (the frequency counter is now FC0), and the "Neither" paragraph (LCD content, backlight); section 14.2 rows a, c and l (the REQ-SYS-130 list with "charging disabled"), b (the charger supervision state machine and ChargeInhibited), e and g (charge enable, charger status, the GPIO24 reading against the charger's VBUS status, encoder deltas), and the module rows `SW-PWR`, `SW-DISPLAY`, `SW-SAFE` thermal unit and `SW-SAFE` safe-state manager. REQ-SYS-130 is the CR-018 cross item of section 4.1.
+  - The safety-critical determination is re-run in WP-PDR-17 (OD-35 at S2).
+- **Open review liens that this decision carries** (none of them changes the decision; each closes in TS-012 or in the work package its record names):
+  - INSP-110 finding-24 and INSP-118 finding-9: the D-18 gate level interface, unpowered state and fallback timing (the fix is proposed in the D-18 record revision 1, `c397ab1`, not yet reviewed);
+  - INSP-110 finding-25: the TCXO squaring stage;
+  - INSP-110 finding-27 and INSP-118 finding-4: the analog input shortfall, and the three safety readings on direct ADC pins with a reference-channel check;
+  - INSP-110 finding-21 (the M1 reading of A5 as conditional) and finding-22 (four-part risk statements for the new section 7.1 rows);
+  - INSP-118 finding-5 (the REQ-SYS-118 all-adverse setpoint and the duty-limit wording), finding-6 (the ALT-hold key-mode path without a confirmation; the decoder in the override path), finding-7 (stored keying data as guarded configuration fields), finding-8 (the lead SE's commit listing), finding-10 (one SIO register write and HZ-004 K8) and finding-11 (the duty-limit form on the backstop's thermistor).
 
 ### 4.4 Cost, schedule, risk
 
@@ -184,36 +261,42 @@ What was put to the owner:
   - the three open thermal items;
   - 4.1 to 6.8 W for a typical unit, and under 3.97 W at 6.4 V for the worst-case unit.
 
-The study went to the owner as revision 6, with its Dissent section and the reviews INSP-110 iteration 3 re-issue 2 and INSP-118 iteration 2. The lead SE's reading of the owner's rationale is in TS-012 section 10: the owner applied parts lifecycle as a screen on top of the matrix, not as a re-scoring. Class 1: the same decision is recorded in TS-012 section 10 (revision 7, `6497900`).
+The study went to the owner as revision 6, with its Dissent section and the reviews INSP-110 iteration 3 re-issue 2 and INSP-118 iteration 2. The lead SE's reading of the owner's rationale is in TS-012 section 10: the owner applied parts lifecycle as a screen on top of the matrix, not as a re-scoring. Class 1: the same decision is recorded in TS-012 section 10 (revision 7, `6497900`); revision 8 (`bb5dee7`) re-issues sections 8.1 to 8.12 for A5 and changes no part of section 10's decision.
 
 **Items 2 to 4 (proposed memo wording for S1, OD-10 part 1; README rule 4).** "Confirm TS-001 and TS-007 as superseded by TS-012. Confirm that TS-003, TS-006, TS-008, TS-009 and TS-010 are not written, because TS-012 and ADR-056 decide them. Close SWR fold-back (SRR decision 60) on the RA07M1317M's 20:1 load ruggedness, with no fold-back." Owner's disposition: not yet given. It is transcribed here with its date at S1.
 
 ## 7. Related
 
-- **Supersedes:** none at filing. Proposed for the S1 disposition: ADR-006, ADR-007 and ADR-012 (lead SE ruling 1 below).
+- **Supersedes:** none at filing. Proposed for the S1 disposition: ADR-006, ADR-007 and ADR-012 (lead SE ruling 1 below), and ADR-013 if the lead SE rules the proposal of item 4 below.
 - **Superseded by:** none.
 - **Trade study:** TS-012. It supersedes TS-001 and TS-007 (item 2).
 - **Review where presented:**
   - Item 1: decided between reviews in chat, 2026-09-29.
   - Items 2 to 4: PDR session S1 (OD-10 part 1).
   - The whole record: PDR.
-- **Accepted ADRs that A5 contradicts, and their route** (lead SE rulings of 2026-09-29 on the route this section asked for). README rule 2 allows only "Superseded by ADR-MMM" and has no partial supersession. Every Status line below changes only after the owner's S1 disposition, by WP-PDR-02:
-  - **Ruling 1. Wholly contradicted: proposed "Superseded by ADR-056" at the owner's S1 disposition, with no new ADR:**
-    - ADR-006: rotary encoders and LCD; replaced by the Morse menu, D1 and D5.
+- **Accepted ADRs that A5 contradicts, and their route.** README rule 2 allows only "Superseded by ADR-MMM" and has no partial supersession. Every Status line below changes only after the owner's S1 disposition, by WP-PDR-02. Rulings 1 to 3 are the lead SE's rulings of 2026-09-29 on the route this section asked for. The corrected reading of ruling 1 and item 4 are the technical data manager's assessment in the WP-PDR-54 fix round (the independent review and its software assurance pair, INSP-130 and INSP-131), for the lead SE's ruling before S1; they are not yet ruled.
+  - **Ruling 1. Contradicted in their decision: proposed "Superseded by ADR-056" at the owner's S1 disposition, with no new ADR.** The ruling as filed read all three as wholly contradicted. That reading is wrong for ADR-006 and ADR-012: parts of each survive. Each surviving part is carried by another record or lapses with a stated reason, so a supersession in full drops no decided content without a record (for the lead SE's confirmation that ruling 1 stands on this reading):
+    - ADR-006: rotary encoders and LCD; replaced by the Morse menu, D1 and D5. Surviving parts: the two Omron B3F-1052 class buttons (A5 fits two B3F-1052, MENU and ALT; TS-012 section 8.3 row 15 and section 8.7, part of this decision); switch-to-ground inputs with external pull-ups under RP2350-E9 (the E9 input policy is carried by ADR-058 assumption 2, and by ADR-009 for the key inputs); the band control reserved but not exposed (ADR-057 point (1)). ADR-006's 1 kHz timer sampling and its printed knobs were marked proposed; they pass to the software design (WP-PDR-32) and to the knobs of the owner's potentiometers (TS-012 row E4).
     - ADR-007: PCBWay turnkey; replaced by owner hand assembly (TS-012 section 2, "Prior related decisions").
-    - ADR-012: PA stocked at DigiKey, Mouser or a PCBWay distributor; the module is from RF Parts (EX-3).
+    - ADR-012: PA stocked at DigiKey, Mouser or a PCBWay distributor; the module is from RF Parts (EX-3). Surviving parts: the exclusion of consignment-only, factory-order-only, pallet and broker stock, carried by the REQ-SYS-140 rewording (a catalog distributor or maker shop with a published price and stock); the dated stock check, carried by the ordering gate (TS-012 section 10 condition 1: the owner's browser reads, OD-42, WP-PDR-38) and the REQ-SYS-178 rewording (a named source and a dated listed price); the end-of-life rule, replaced by the owner's stricter condition that no part be other than Active at the maker (TS-012 section 10 revisit condition (b)). ADR-012's device-agnostic filter and driver clause lapses: A5 names no substitute device, and guard G6 is closed.
   - **Ruling 2. Contradicted in part only: one new ADR per old ADR, which supersedes it in full on the S1 disposition.** This follows the ADR-026 precedent (ADR-026 restated ADR-010 and superseded it in full). Each new ADR restates every unchanged part of the old ADR verbatim or near-verbatim and states the A5 change with its TS-012 or ADR-056 source. Each is Proposed for the owner's confirmation at S1 (OD-10 part 1, with items 2 to 4 of this ADR), with the owner as decision authority and its section 6 holding the proposed memo wording (README rule 4). Each is reviewed in the same independent review as this ADR. The lead SE files them before any other ADR is created:
-    - ADR-057 restates ADR-002. Item (4), the stainless SMA, becomes the gold-plated brass-class SMA (D8). Item (3), the 70 cm LO enhancing criterion, is also dropped: TS-012 scored no such criterion, and A5 gives up 70 cm (D15; the Si5351A output ends at 200 MHz). ADR-002's revisit condition asks for this to be recorded by a superseding ADR. Item (3) was added by the technical data manager when drafting ADR-057 and is for the lead SE's confirmation.
+    - ADR-057 restates ADR-002. Item (4), the stainless SMA, becomes the gold-plated brass-class SMA (D8). Item (3), the 70 cm LO enhancing criterion, is also dropped: TS-012 scored no such criterion, and A5 gives up 70 cm (D15; the Si5351A output ends at 200 MHz). ADR-002's revisit condition asks for this to be recorded by a superseding ADR. Item (3) was added by the technical data manager when drafting ADR-057; the lead SE confirmed on 2026-09-29 that it belongs in ADR-057 (WP-PDR-54 fix-round brief).
     - ADR-058 restates ADR-004. The charge path from VBUS is removed: A5 has no in-radio charging, and USB loads firmware only (D2).
     - ADR-059 restates ADR-005. In-radio charging, charge balancing and the secondary over-voltage protector are removed (D2, D14), and the pack parts are those of TS-012 section 8.3.
   - **Ruling 3. Superseded by the ADRs their own CRs create (no action here):**
     - ADR-008 by the enclosure ADR of CR-003 (CR-003 section 5 step 11).
     - ADR-025 by ADR-028 of CR-006.
-  - **Not contradicted, and they stay:** ADR-013 and ADR-023. TS-012 is the synthesizer trade ADR-013 called for, and the TG2520SMN (+/-0.5 ppm) meets ADR-023.
-- **Related ADRs:** ADR-057, ADR-058 and ADR-059 (ruling 2); ADR-004 and ADR-027 (the controller and runtime, section 2 item 1); ADR-031 (below).
+  - **Item 4. Contradicted in part, with no route yet (technical data manager's assessment, for the lead SE's ruling before S1).** The section as filed listed ADR-013 as not contradicted. That was wrong, and it disagreed with ADR-057 point (3), which says that TS-012 scored no 70 cm criterion. These clauses of Accepted ADRs are contradicted by A5, and rulings 1 to 3 do not cover them:
+    - **ADR-013 (synthesizer by a cost and performance trade, SI-029).** TS-012 chose the synthesizer, but not by ADR-013's method. It names neither SI-029 nor ADR-013, sets no cost band and does not score the ADF4351 or the MAX2871 (its criteria are C1 to C8, section 3.1). It does not apply ADR-013's mandatory "turnkey stock at CDR per ADR-012", its USD 15 per unit band for "costs are similar" (SRR decision 56), its phase-noise criterion at 10 kHz offset, or its 70 cm enhancing criterion (dropped by ADR-057 point (3)). A5 also relaxes REQ-SYS-031 (85 to 78 dB, TBR) and REQ-SYS-029 on the Si5351A's close-in phase noise, and REQ-SYS-031 cites SI-029 and ADR-013. What survives is met by the A5 choice: the synthesizer takes the TCXO reference of ADR-023 and runs from the board rails. **Proposed route:** ruling 1 (Superseded by ADR-056 at S1, no new ADR), because ADR-013 decides a method for a choice that TS-012 has now made, so nothing of it is left to restate. With it: the owner is told at S1, in plain terms, that the SI-029 rule and the USD 15 band were not applied to the synthesizer choice; CR-018 adds ADR-056 to the `source_ids` of REQ-SYS-029 and REQ-SYS-031; and ADR-013's re-assessment of HZ-008 cause C8 "at the trade study outcome" goes to WP-PDR-16 for the Si5351A (section 4.3).
+    - **ADR-022 (harmonic and spurious suppression).** Contradicted: the passband insertion loss "at most 0.5 dB at 148 MHz" (A5: a design goal, with the worst case of 1.76 dB carried as the bound; `lpf-ts012.md` section 7 item 2); the filter goals "stated as the attenuation between the PA output and the antenna port" at 40, 35 and 40 dB (A5: REQ-TX-009, 010 and 011 at 43, 35 and 40 dB, stated as attenuation at the harmonic less the passband loss at the carrier; section 7 item 4 of that note); the ALC target of "5.0 W within plus or minus 0.5 dB above 6.4 V" (A5: REQ-SYS-012 at +1/-1.5 dB at the 6.4 V end, TBR, with a low-pack setpoint limit of 4.0 W at 6.4 V, D-10); and the TBR closing "at PDR with TS-003 and TS-006" (neither is written, item 3). The 53 dB floor, the 60 dBc design target, the third band to 1.5 GHz and the measurement span survive. **Proposed route:** ruling 2, a restating ADR. The technical data manager has drafted one for the lead SE to file (not in the repository).
+    - **ADR-026 (semi break-in hang and lead-in).** Contradicted: the hang "at the displayed speed" and in "dits of the displayed WPM" (A5: the set speed; REQ-SYS-044 and REQ-SW-KEYER-032 via CR-018), and "The T/R element itself ... is chosen by the T/R element trade study at PDR" (TS-008 is not written; TS-012 chooses the G5V-2, item 3). The hang values, the lead-in, the relay clause ("may therefore be a sequenced RF relay") and the cold-switching sequence survive. **Proposed route:** ruling 2, a restating ADR, drafted after the ruling.
+    - **Display clauses of ADR-009, ADR-015, ADR-016, ADR-020 and ADR-024.** A5 has no display (D1), so each clause below cannot be met as written: ADR-009 "otherwise the display shows a key-closed message"; ADR-015 "the lock state is shown on the display" and the call sign that it "shows ... on the display"; ADR-016 "the 144.000 to 144.100 MHz CW-only segment indicated on the display"; ADR-020 "90 percent receiving with the display on" and "No backlight in rev A (ADR-006)"; ADR-024 "the current speed visible on the display while adjusting". Each ADR's decision otherwise survives: the TRS key jack and its input network; OPS-A and the guest lock; full-band coverage and the band-edge limit (ADR-016's "independently of the display" clause stays true with no display); 8 h at 1:9 (REQ-SYS-094 changes its test cell only); 5 to 50 WPM. The UI requirements that implement these clauses change by CR-018 (section 4.1). **Proposed route:** ruling 2, one restating ADR per old ADR, each giving the Morse or LED reading of its display clause. A route with fewer records would need a change to README rule 2 and 05 Table 4-1 row 13, which this record does not propose. Until the lead SE rules, each of these ADRs stays Accepted and in force, and the conflict between its display clause and A5 is an open item for S1.
+  - **Not contradicted, and it stays:** ADR-023. The TG2520SMN (+/-0.5 ppm) meets it.
+- **Related ADRs:** ADR-057, ADR-058 and ADR-059 (ruling 2); ADR-013, ADR-022, ADR-026, ADR-009, ADR-015, ADR-016, ADR-020 and ADR-024 (item 4); ADR-004 and ADR-027 (the controller and runtime, section 2 item 1); ADR-031 (below).
 - **Other records:**
   - TS-007's reviews INSP-055 and INSP-074 end with the study superseded (lead SE disposition).
   - ADR-031 (clock plan) is revised by WP-PDR-20a for D-12.
+  - The D-18 record `docs/design/analysis/pa-permit-gate-d18.md` (WP-PDR-22; item 3, TS-006 row).
 - **Revisit conditions:** those of TS-012 section 10 (revisions 5, 6 and 7), adopted with this decision. In particular:
   - the worst case is over USD 300 after G1 to G4;
   - an A5 part is found not Active at the gate;
@@ -230,3 +313,14 @@ The study went to the owner as revision 6, with its Dissent section and the revi
 
 - 2026-09-29: created by the technical data manager, WP-PDR-54 part 1 (`docs/plan/pdr-work-plan.md` revision 6). It records the owner's A5 decision of 2026-09-29 as the decision memo between reviews, and the OD-10 part 1 items for S1 (plan section 3.0a). The number is the next free one, max(existing) + 1 (README rule 1; TS-012 "Resulting ADR" row). Author: Claude (technical data manager invocation).
 - 2026-09-29: section 7 states the lead SE rulings of 2026-09-29 on the contradicted ADRs. Ruling 1: ADR-006, ADR-007 and ADR-012 are proposed as "Superseded by ADR-056" at the S1 disposition, with no new ADR. Ruling 2: ADR-002, ADR-004 and ADR-005 are restated in full by ADR-057, ADR-058 and ADR-059, each superseding its old ADR in full on the S1 disposition (the ADR-026 precedent). Ruling 3: ADR-008 and ADR-025 are superseded by the ADRs of CR-003 and CR-006. The "Supersedes" line names the ruling 1 ADRs, and a "Related ADRs" line names ADR-057 to ADR-059. ADR-002 item (3), the 70 cm LO enhancing criterion, is added to the ADR-002 entry because A5 also contradicts it (TS-012 descope D15), for the lead SE's confirmation. No decision content of sections 2 to 6 changes. Author: Claude (technical data manager invocation, WP-PDR-54 part 1 follow-on).
+- 2026-09-29: fix round on the findings of the independent review and its software assurance pair (INSP-130, INSP-131; WP-PDR-54, plan rule C1). No decision content changes: item 1 is the owner's decision as recorded, and items 2 to 4 stay proposals for S1. Changes:
+  - Section 4.1 is rewritten against TS-012 section 8.10 row by row (reviewer finding-1, Major; assurance finding-8; author items (a) and (b)). REQ-SYS-104 and REQ-SYS-106 move to CR-003 revision 4 section 1.1a, and REQ-SYS-109, 113 and 124 to its item (f). The charging row no longer reads "081 to 093 retired, reallocated or reworded": 085, 090 and 092 are kept, 084 is at risk, 086 has its own row, and the second listing of 083 and 084 is removed. The UI row no longer sweeps 064 to 066 and 163: 064 and 065 are unchanged, 066 and 163 are kept, and 044 is added. Every kept or unlisted row that carries a hazard control names the control.
+  - Section 7 (reviewer finding-2, Major; assurance finding-7; author item (d)): ADR-013 is no longer listed as not contradicted; a new item 4 gives the technical data manager's assessment of ADR-013, ADR-022, ADR-026 and the display clauses of ADR-009, 015, 016, 020 and 024, each with a proposed route for the lead SE's ruling. Ruling 1's "wholly contradicted" is corrected for ADR-006 and ADR-012, with each surviving part and where it is carried. A draft restating ADR for ADR-022 is with the lead SE, outside the repository.
+  - The lead SE's confirmation of ADR-002 item (3) in ADR-057 (2026-09-29, WP-PDR-54 fix-round brief) is recorded in section 7 in place of "for the lead SE's confirmation" (reviewer finding-3; author item (c)).
+  - TS-012 revision 8 (`bb5dee7`) and its reviews INSP-110 iteration 3 re-issue 3 (`8d5bc0a`) and INSP-118 iteration 3 (`75b8304`) are cited (header, section 2 item 1, section 6). The conditions of item 1 carry TS-012's numbers 1 to 4. Item 3 names the provisional ADR numbers that are not taken and keeps ADR-031 (reviewer finding-4).
+  - The Decision class row lists the KDR requirements REQ-SYS-094, 102 and 103 and the hazards HZ-009 and HZ-011; the Hazards line adds HZ-001, HZ-006, HZ-009, HZ-011 and HZ-014 (reviewer finding-5).
+  - Item 4 and section 4.3 state that the fold-back closure does not cover REQ-SYS-151 and REQ-SYS-152 (152 at risk), with a cross item to WP-PDR-21, and that HZ-003 K5 and HZ-009 K3 lose their fold-back option (reviewer finding-6).
+  - CR-018 is marked as a provisional number with no file (Change request row; reviewer finding-7).
+  - Item 3 no longer fixes the D-18 gate type or the node of the other hardware cutoffs, which the D-18 record revision 1 (`c397ab1`) proposes to change; section 4.3 lists the open liens of INSP-110 (finding-21, 22, 24, 25, 27) and INSP-118 (finding-4 to finding-11) that the decision carries (assurance finding-2).
+  - Section 4.3 names the 07 section 14.1 and 14.2 rows and REQ-SYS-130 that the decision makes stale (assurance finding-4), keeps the SW-SAFE fault annunciation apart from the menu's Morse sender (assurance finding-5), and adds HZ-005 K5 and K6, HZ-008 K2, K3 and K6, HZ-015 K3, the HZ-002 firmware role and the HZ-008 cause C8 re-assessment (assurance findings 6 and 7). The HZ-007 rail-off gap is stated with its cross items (assurance finding-1, whose fix is in ADR-059).
+  Author: Claude (technical data manager invocation, WP-PDR-54 fix round).
