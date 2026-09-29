@@ -1,0 +1,33 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.e1BYpd/keying_a4_asis.cir
+Start Time: Mon Sep 28 19:56:36 2026
+Options:reltol=1e-4
+
+.step run=1
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+reltol = 0.0001
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=2
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=3
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=4
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=5
+Direct Newton iteration succeeded in finding operating point.
+
+.step run=6
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 1.322 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.e1BYpd/keying_a4_asis.cir
+
