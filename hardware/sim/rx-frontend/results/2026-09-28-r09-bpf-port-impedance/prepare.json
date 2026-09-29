@@ -1,0 +1,913 @@
+{
+ "run_id": "2026-09-28-r09-bpf-port-impedance",
+ "configs": {
+  "2p3p3_if8": {
+   "label": "2 + 3 + 3, IF 8 MHz (revision 1 proposal)",
+   "j310": [
+    {
+     "load": "50 ohm",
+     "drain": "drain port 50 ohm",
+     "0-at50": 86.03745837417331,
+     "B-at50": 75.62634924319251,
+     "B-incircuit": 75.62634924319251
+    },
+    {
+     "load": "50 ohm",
+     "drain": "drain port 100 ohm",
+     "0-at50": 82.71291700546188,
+     "B-at50": 72.98038531598489,
+     "B-incircuit": 70.97345468026467
+    },
+    {
+     "load": "50 ohm",
+     "drain": "drain port 200 ohm",
+     "0-at50": 80.9069830307535,
+     "B-at50": 71.95457045457917,
+     "B-incircuit": 67.6167041300838
+    },
+    {
+     "load": "50 ohm",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 84.09886393861667,
+     "B-at50": 74.93328073062395,
+     "B-incircuit": 70.77676671167406
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 85.48209387025148,
+     "B-at50": 75.15366945726865,
+     "B-incircuit": 74.87412933943277
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 82.09324284751855,
+     "B-at50": 72.4346220528344,
+     "B-incircuit": 70.18159606209514
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 80.23165321975685,
+     "B-at50": 71.34361174214095,
+     "B-incircuit": 66.80458854556156
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 83.42127282398936,
+     "B-at50": 74.32649331941798,
+     "B-incircuit": 69.99180373573724
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 83.67306851324462,
+     "B-at50": 73.69246766839696,
+     "B-incircuit": 72.21408206987272
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 80.06246020802499,
+     "B-at50": 70.71901180868603,
+     "B-incircuit": 67.39537095343115
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 78.01476113252508,
+     "B-at50": 69.40909272945783,
+     "B-incircuit": 63.95407596793277
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 81.1945562772708,
+     "B-at50": 72.39943211036979,
+     "B-incircuit": 67.22710379099087
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 82.26385023646952,
+     "B-at50": 72.70221061046018,
+     "B-incircuit": 69.74142234439825
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 78.43839898312133,
+     "B-at50": 69.4786246880497,
+     "B-incircuit": 64.82256195012471
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 76.21847953890345,
+     "B-at50": 67.96496536277434,
+     "B-incircuit": 61.33040150613631
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 79.38622687130012,
+     "B-at50": 70.92079374706243,
+     "B-incircuit": 64.67110813459053
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 87.16932179919968,
+     "B-at50": 76.87745517473398,
+     "B-incircuit": 75.62395428828295
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 83.7845611617769,
+     "B-at50": 74.19027100721516,
+     "B-incircuit": 70.98957737985268
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 81.91732021740866,
+     "B-at50": 73.11781029355677,
+     "B-incircuit": 67.64218148617388
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 85.18245472009818,
+     "B-at50": 76.18705366676244,
+     "B-incircuit": 70.79193721642967
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "drain port 50 ohm",
+     "0-at50": 86.4457429406486,
+     "B-at50": 76.71864406712807,
+     "B-incircuit": 73.2531807553577
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "drain port 100 ohm",
+     "0-at50": 82.62580051832174,
+     "B-at50": 73.55796035621489,
+     "B-incircuit": 68.52442518900556
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "drain port 200 ohm",
+     "0-at50": 80.39410054799187,
+     "B-at50": 72.01964669461914,
+     "B-incircuit": 65.1289168769436
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 83.69097155798703,
+     "B-at50": 75.10458140327893,
+     "B-incircuit": 68.3466444204436
+    }
+   ],
+   "vswr": {
+    "1": {
+     "0-at50": 86.03745837417331,
+     "B-at50": 75.62634924319251,
+     "B-incircuit": 75.62634924319251,
+     "A-at50": 70.1238768571111
+    },
+    "1.1": {
+     "0-at50": 84.15019332302393,
+     "B-at50": 73.81727654305014,
+     "B-incircuit": 74.053699570454,
+     "A-at50": 68.15332099217663
+    },
+    "1.2": {
+     "0-at50": 82.33671646351436,
+     "B-at50": 72.07445900967609,
+     "B-incircuit": 72.571254396895,
+     "A-at50": 66.27301997894676
+    },
+    "1.35": {
+     "0-at50": 79.74962114344257,
+     "B-at50": 69.58272048064165,
+     "B-incircuit": 70.51198011549599,
+     "A-at50": 63.612112253174104
+    },
+    "1.5": {
+     "0-at50": 77.31225999201484,
+     "B-at50": 67.23139907236012,
+     "B-incircuit": 68.6409257952556,
+     "A-at50": 61.12847216786747
+    },
+    "1.75": {
+     "0-at50": 73.54929868219838,
+     "B-at50": 63.598162939996485,
+     "B-incircuit": 65.90807561133391,
+     "A-at50": 57.34108697159163
+    },
+    "2": {
+     "0-at50": 70.11360917719428,
+     "B-at50": 60.281619236737114,
+     "B-incircuit": 63.60621310146475,
+     "A-at50": 53.938319503052405
+    }
+   },
+   "bpf1_loss": {
+    "50 ohm": {
+     "Q100": 1.9636115039471806,
+     "Q120": 1.6992700380727686
+    },
+    "J310 input 56 ohm (gfs 18 mS max)": {
+     "Q100": 1.9331510977023432,
+     "Q120": 1.6750109919196063
+    },
+    "J310 input 83 ohm (Re yig 12 mS typ)": {
+     "Q100": 2.060384397026931,
+     "Q120": 1.8272022315193028
+    },
+    "J310 input 125 ohm (gfs 8 mS min)": {
+     "Q100": 2.542498146059025,
+     "Q120": 2.3293064446188216
+    },
+    "56 ohm || 5 pF (Csg max)": {
+     "Q100": 2.087045692549123,
+     "Q120": 1.8148222023201876
+    },
+    "125 ohm || 5 pF": {
+     "Q100": 2.8031984735459075,
+     "Q120": 2.5283208384266493
+    }
+   },
+   "ltspice_cases": [
+    {
+     "name": "nominal, load 50 ohm, drain port 50 ohm",
+     "predicted_db": 86.03745837417331
+    },
+    {
+     "name": "mode B corner, load 50 ohm, drain port 50 ohm",
+     "predicted_db": 75.62634924319251
+    },
+    {
+     "name": "nominal, load 50 ohm, drain port 200 ohm",
+     "predicted_db": 80.9069830307535
+    },
+    {
+     "name": "mode B corner, load 50 ohm, drain port 200 ohm",
+     "predicted_db": 71.95457045457918
+    },
+    {
+     "name": "nominal, load J310 input 83 ohm (Re yig 12 mS typ), drain port 200 ohm",
+     "predicted_db": 78.0147611325251
+    },
+    {
+     "name": "mode B corner, load J310 input 83 ohm (Re yig 12 mS typ), drain port 200 ohm",
+     "predicted_db": 69.40909272945783
+    },
+    {
+     "name": "nominal, load J310 input 125 ohm (gfs 8 mS min), drain port 50 ohm",
+     "predicted_db": 82.26385023646952
+    },
+    {
+     "name": "mode B corner, load J310 input 125 ohm (gfs 8 mS min), drain port 50 ohm",
+     "predicted_db": 72.70221061046018
+    },
+    {
+     "name": "nominal, load J310 input 125 ohm (gfs 8 mS min), drain port 200 ohm",
+     "predicted_db": 76.21847953890345
+    },
+    {
+     "name": "mode B corner, load J310 input 125 ohm (gfs 8 mS min), drain port 200 ohm",
+     "predicted_db": 67.96496536277434
+    },
+    {
+     "name": "nominal, load 125 ohm || 5 pF, drain port 200 ohm",
+     "predicted_db": 80.39410054799187
+    },
+    {
+     "name": "mode B corner, load 125 ohm || 5 pF, drain port 200 ohm",
+     "predicted_db": 72.01964669461913
+    },
+    {
+     "name": "mode B corner, every internal port on VSWR 1.2",
+     "predicted_db": 72.07445900967609
+    },
+    {
+     "name": "mode B corner, every internal port on VSWR 1.5",
+     "predicted_db": 67.23139907236012
+    }
+   ]
+  },
+  "2p3p4_if8": {
+   "label": "2 + 3 + 4, IF 8 MHz (margin lever, new here)",
+   "j310": [
+    {
+     "load": "50 ohm",
+     "drain": "drain port 50 ohm",
+     "0-at50": 103.89052021220346,
+     "B-at50": 91.40322173692948,
+     "B-incircuit": 91.40322173692948
+    },
+    {
+     "load": "50 ohm",
+     "drain": "drain port 100 ohm",
+     "0-at50": 100.38897516062349,
+     "B-at50": 88.58727715986912,
+     "B-incircuit": 86.5991487508696
+    },
+    {
+     "load": "50 ohm",
+     "drain": "drain port 200 ohm",
+     "0-at50": 98.35308751550679,
+     "B-at50": 87.34801117479988,
+     "B-incircuit": 83.06982462059038
+    },
+    {
+     "load": "50 ohm",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 101.6580988199509,
+     "B-at50": 90.48960740914917,
+     "B-incircuit": 86.39495429016205
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 103.33515570828162,
+     "B-at50": 90.93054195100562,
+     "B-incircuit": 90.65100183316974
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 99.76930100268017,
+     "B-at50": 88.04151389671863,
+     "B-incircuit": 85.80729013270006
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 97.67775770451014,
+     "B-at50": 86.73705246236165,
+     "B-incircuit": 82.25770903606815
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 100.98050770532357,
+     "B-at50": 89.88281999794319,
+     "B-incircuit": 85.60999131422523
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 101.52613035127476,
+     "B-at50": 89.46934016213393,
+     "B-incircuit": 87.99095456360969
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 97.7385183631866,
+     "B-at50": 86.32590365257026,
+     "B-incircuit": 83.02106502403606
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 95.46086561727839,
+     "B-at50": 84.80253344967852,
+     "B-incircuit": 79.40719645843936
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 98.75379115860503,
+     "B-at50": 87.955758788895,
+     "B-incircuit": 82.84529136947884
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 100.11691207449967,
+     "B-at50": 88.47908310419714,
+     "B-incircuit": 85.51829483813522
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 96.11445713828294,
+     "B-at50": 85.08551653193393,
+     "B-incircuit": 80.44825602072963
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 93.66458402365674,
+     "B-at50": 83.35840608299503,
+     "B-incircuit": 76.78352199664289
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 96.94546175263434,
+     "B-at50": 86.47712042558766,
+     "B-incircuit": 80.2892957130785
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 105.02238363722982,
+     "B-at50": 92.65432766847096,
+     "B-incircuit": 91.40082678201992
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 101.46061931693852,
+     "B-at50": 89.79716285109939,
+     "B-incircuit": 86.61527145045761
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 99.36342470216195,
+     "B-at50": 88.51125101377747,
+     "B-incircuit": 83.09530197668046
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 102.7416896014324,
+     "B-at50": 91.74338034528765,
+     "B-incircuit": 86.41012479491766
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "drain port 50 ohm",
+     "0-at50": 104.29880477867874,
+     "B-at50": 92.49551656086504,
+     "B-incircuit": 89.03005324909466
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "drain port 100 ohm",
+     "0-at50": 100.30185867348335,
+     "B-at50": 89.16485220009912,
+     "B-incircuit": 84.15011925961048
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "drain port 200 ohm",
+     "0-at50": 97.84020503274516,
+     "B-at50": 87.41308741483985,
+     "B-incircuit": 80.58203736745018
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 101.25020643932125,
+     "B-at50": 90.66090808180414,
+     "B-incircuit": 83.96483199893157
+    }
+   ],
+   "vswr": {
+    "1": {
+     "0-at50": 103.89052021220346,
+     "B-at50": 91.40322173692948,
+     "B-incircuit": 91.40322173692948,
+     "A-at50": 86.4294771595576
+    },
+    "1.1": {
+     "0-at50": 101.96883117980373,
+     "B-at50": 89.54822447903028,
+     "B-incircuit": 89.80483253233388,
+     "A-at50": 84.44311458586091
+    },
+    "1.2": {
+     "0-at50": 100.12811139378024,
+     "B-at50": 87.77076170982588,
+     "B-incircuit": 88.31173536422406,
+     "A-at50": 82.55600531987588
+    },
+    "1.35": {
+     "0-at50": 97.50938964135509,
+     "B-at50": 85.24172807493642,
+     "B-incircuit": 86.25589316137754,
+     "A-at50": 79.89577729150602
+    },
+    "1.5": {
+     "0-at50": 95.04779442570442,
+     "B-at50": 82.8648519484864,
+     "B-incircuit": 84.40292313914426,
+     "A-at50": 77.42055833104831
+    },
+    "1.75": {
+     "0-at50": 91.25432048499738,
+     "B-at50": 79.2042611470724,
+     "B-incircuit": 81.71578309155646,
+     "A-at50": 73.65474549929132
+    },
+    "2": {
+     "0-at50": 87.79533037218002,
+     "B-at50": 75.87048377046672,
+     "B-incircuit": 79.46466671303045,
+     "A-at50": 70.27526333393233
+    }
+   },
+   "bpf1_loss": {
+    "50 ohm": {
+     "Q100": 1.9636115039471806,
+     "Q120": 1.6992700380727686
+    },
+    "J310 input 56 ohm (gfs 18 mS max)": {
+     "Q100": 1.9331510977023432,
+     "Q120": 1.6750109919196063
+    },
+    "J310 input 83 ohm (Re yig 12 mS typ)": {
+     "Q100": 2.060384397026931,
+     "Q120": 1.8272022315193028
+    },
+    "J310 input 125 ohm (gfs 8 mS min)": {
+     "Q100": 2.542498146059025,
+     "Q120": 2.3293064446188216
+    },
+    "56 ohm || 5 pF (Csg max)": {
+     "Q100": 2.087045692549123,
+     "Q120": 1.8148222023201876
+    },
+    "125 ohm || 5 pF": {
+     "Q100": 2.8031984735459075,
+     "Q120": 2.5283208384266493
+    }
+   },
+   "ltspice_cases": [
+    {
+     "name": "nominal, load 50 ohm, drain port 50 ohm",
+     "predicted_db": 103.89052021220346
+    },
+    {
+     "name": "mode B corner, load 50 ohm, drain port 50 ohm",
+     "predicted_db": 91.40322173692948
+    },
+    {
+     "name": "nominal, load 50 ohm, drain port 200 ohm",
+     "predicted_db": 98.35308751550679
+    },
+    {
+     "name": "mode B corner, load 50 ohm, drain port 200 ohm",
+     "predicted_db": 87.3480111747999
+    },
+    {
+     "name": "nominal, load J310 input 83 ohm (Re yig 12 mS typ), drain port 200 ohm",
+     "predicted_db": 95.46086561727839
+    },
+    {
+     "name": "mode B corner, load J310 input 83 ohm (Re yig 12 mS typ), drain port 200 ohm",
+     "predicted_db": 84.80253344967852
+    },
+    {
+     "name": "nominal, load J310 input 125 ohm (gfs 8 mS min), drain port 50 ohm",
+     "predicted_db": 100.11691207449967
+    },
+    {
+     "name": "mode B corner, load J310 input 125 ohm (gfs 8 mS min), drain port 50 ohm",
+     "predicted_db": 88.47908310419714
+    },
+    {
+     "name": "nominal, load J310 input 125 ohm (gfs 8 mS min), drain port 200 ohm",
+     "predicted_db": 93.66458402365674
+    },
+    {
+     "name": "mode B corner, load J310 input 125 ohm (gfs 8 mS min), drain port 200 ohm",
+     "predicted_db": 83.35840608299503
+    },
+    {
+     "name": "nominal, load 125 ohm || 5 pF, drain port 200 ohm",
+     "predicted_db": 97.84020503274516
+    },
+    {
+     "name": "mode B corner, load 125 ohm || 5 pF, drain port 200 ohm",
+     "predicted_db": 87.41308741483984
+    },
+    {
+     "name": "mode B corner, every internal port on VSWR 1.2",
+     "predicted_db": 87.77076170982588
+    },
+    {
+     "name": "mode B corner, every internal port on VSWR 1.5",
+     "predicted_db": 82.8648519484864
+    }
+   ]
+  },
+  "2p3p2_if10": {
+   "label": "2 + 3 + 2, IF 10 MHz (alternative)",
+   "j310": [
+    {
+     "load": "50 ohm",
+     "drain": "drain port 50 ohm",
+     "0-at50": 86.75051259551587,
+     "B-at50": 78.85440437579825,
+     "B-incircuit": 78.85440437579825
+    },
+    {
+     "load": "50 ohm",
+     "drain": "drain port 100 ohm",
+     "0-at50": 82.81822235852364,
+     "B-at50": 75.38258967140985,
+     "B-incircuit": 73.57666152937037
+    },
+    {
+     "load": "50 ohm",
+     "drain": "drain port 200 ohm",
+     "0-at50": 80.2769379522377,
+     "B-at50": 73.44078104507537,
+     "B-incircuit": 69.64331166745498
+    },
+    {
+     "load": "50 ohm",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 83.49209509821647,
+     "B-at50": 76.50537374212259,
+     "B-incircuit": 73.37451305053175
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 86.09293553507393,
+     "B-at50": 78.2544349618258,
+     "B-incircuit": 78.02464691070747
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 82.09635003982925,
+     "B-at50": 74.70958695127865,
+     "B-incircuit": 72.70724346663044
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 79.49943560598864,
+     "B-at50": 72.70265395633622,
+     "B-incircuit": 68.75362356216985
+    },
+    {
+     "load": "J310 input 56 ohm (gfs 18 mS max)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 82.71232953198651,
+     "B-at50": 75.7581775148754,
+     "B-incircuit": 72.5119744316716
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 83.81568022213844,
+     "B-at50": 76.231476015305,
+     "B-incircuit": 74.99889983793503
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 79.59740880717237,
+     "B-at50": 72.4324490758364,
+     "B-incircuit": 69.5552465821581
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 76.81449251132439,
+     "B-at50": 70.20688793779665,
+     "B-incircuit": 65.53730371975942
+    },
+    {
+     "load": "J310 input 83 ohm (Re yig 12 mS typ)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 80.01754429959948,
+     "B-at50": 73.22912233382866,
+     "B-incircuit": 69.3814347070826
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 81.76974602293873,
+     "B-at50": 74.52811717617011,
+     "B-incircuit": 71.99903057695205
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 77.33673804006804,
+     "B-at50": 70.47926223903303,
+     "B-incircuit": 66.45517654754778
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 74.38172770467368,
+     "B-at50": 68.05025202068668,
+     "B-incircuit": 62.386361038559265
+    },
+    {
+     "load": "J310 input 125 ohm (gfs 8 mS min)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 77.57269113167295,
+     "B-at50": 71.03789454988078,
+     "B-incircuit": 66.29809482886678
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "drain port 50 ohm",
+     "0-at50": 87.61481650058371,
+     "B-at50": 79.81742974519605,
+     "B-incircuit": 78.80509427486408
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "drain port 100 ohm",
+     "0-at50": 83.62234957110309,
+     "B-at50": 76.30450435320597,
+     "B-incircuit": 73.54583803022187
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "drain port 200 ohm",
+     "0-at50": 81.01978732806123,
+     "B-at50": 74.31610283264835,
+     "B-incircuit": 69.6218085582145
+    },
+    {
+     "load": "56 ohm || 5 pF (Csg max)",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 84.30817283664467,
+     "B-at50": 77.45685617396434,
+     "B-incircuit": 73.34274763785355
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "drain port 50 ohm",
+     "0-at50": 85.99444196106599,
+     "B-at50": 78.6708329181947,
+     "B-incircuit": 76.0220849360121
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "drain port 100 ohm",
+     "0-at50": 81.56693631717178,
+     "B-at50": 74.6489415812838,
+     "B-incircuit": 70.66832430882808
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "drain port 200 ohm",
+     "0-at50": 78.60006142232979,
+     "B-at50": 72.15223340145866,
+     "B-incircuit": 66.69608434775486
+    },
+    {
+     "load": "125 ohm || 5 pF",
+     "drain": "200 ohm || 2.5 pF (Cdg max)",
+     "0-at50": 81.92011924611509,
+     "B-at50": 75.26883081987702,
+     "B-incircuit": 70.48505030319183
+    }
+   ],
+   "vswr": {
+    "1": {
+     "0-at50": 86.75051259551587,
+     "B-at50": 78.85440437579825,
+     "B-incircuit": 78.85440437579825,
+     "A-at50": 72.51553039243859
+    },
+    "1.1": {
+     "0-at50": 84.8232985003881,
+     "B-at50": 76.95710639394377,
+     "B-incircuit": 77.09444536935352,
+     "A-at50": 70.4204125341448
+    },
+    "1.2": {
+     "0-at50": 82.94748871135522,
+     "B-at50": 75.10874835934749,
+     "B-incircuit": 75.43576986061254,
+     "A-at50": 68.40064237916135
+    },
+    "1.35": {
+     "0-at50": 80.23711736455017,
+     "B-at50": 72.43562616904862,
+     "B-incircuit": 73.12838172007127,
+     "A-at50": 65.5127408911399
+    },
+    "1.5": {
+     "0-at50": 77.65300448090977,
+     "B-at50": 69.88479568372217,
+     "B-incircuit": 71.0248666077066,
+     "A-at50": 62.79003175003852
+    },
+    "1.75": {
+     "0-at50": 73.61836958522028,
+     "B-at50": 65.89860014101392,
+     "B-incircuit": 67.93357865235913,
+     "A-at50": 58.594246908946204
+    },
+    "2": {
+     "0-at50": 69.89961706200667,
+     "B-at50": 62.22152315106877,
+     "B-incircuit": 65.30664957013913,
+     "A-at50": 54.78369505190204
+    }
+   },
+   "bpf1_loss": {
+    "50 ohm": {
+     "Q100": 1.9636115039471806,
+     "Q120": 1.6992700380727686
+    },
+    "J310 input 56 ohm (gfs 18 mS max)": {
+     "Q100": 1.9331510977023432,
+     "Q120": 1.6750109919196063
+    },
+    "J310 input 83 ohm (Re yig 12 mS typ)": {
+     "Q100": 2.060384397026931,
+     "Q120": 1.8272022315193028
+    },
+    "J310 input 125 ohm (gfs 8 mS min)": {
+     "Q100": 2.542498146059025,
+     "Q120": 2.3293064446188216
+    },
+    "56 ohm || 5 pF (Csg max)": {
+     "Q100": 2.087045692549123,
+     "Q120": 1.8148222023201876
+    },
+    "125 ohm || 5 pF": {
+     "Q100": 2.8031984735459075,
+     "Q120": 2.5283208384266493
+    }
+   },
+   "ltspice_cases": [
+    {
+     "name": "nominal, load 50 ohm, drain port 50 ohm",
+     "predicted_db": 86.75051259551587
+    },
+    {
+     "name": "mode B corner, load 50 ohm, drain port 50 ohm",
+     "predicted_db": 78.85440437579825
+    },
+    {
+     "name": "nominal, load 50 ohm, drain port 200 ohm",
+     "predicted_db": 80.2769379522377
+    },
+    {
+     "name": "mode B corner, load 50 ohm, drain port 200 ohm",
+     "predicted_db": 73.44078104507537
+    },
+    {
+     "name": "nominal, load J310 input 83 ohm (Re yig 12 mS typ), drain port 200 ohm",
+     "predicted_db": 76.81449251132439
+    },
+    {
+     "name": "mode B corner, load J310 input 83 ohm (Re yig 12 mS typ), drain port 200 ohm",
+     "predicted_db": 70.20688793779664
+    },
+    {
+     "name": "nominal, load J310 input 125 ohm (gfs 8 mS min), drain port 50 ohm",
+     "predicted_db": 81.76974602293873
+    },
+    {
+     "name": "mode B corner, load J310 input 125 ohm (gfs 8 mS min), drain port 50 ohm",
+     "predicted_db": 74.52811717617011
+    },
+    {
+     "name": "nominal, load J310 input 125 ohm (gfs 8 mS min), drain port 200 ohm",
+     "predicted_db": 74.38172770467368
+    },
+    {
+     "name": "mode B corner, load J310 input 125 ohm (gfs 8 mS min), drain port 200 ohm",
+     "predicted_db": 68.0502520206867
+    },
+    {
+     "name": "nominal, load 125 ohm || 5 pF, drain port 200 ohm",
+     "predicted_db": 78.60006142232979
+    },
+    {
+     "name": "mode B corner, load 125 ohm || 5 pF, drain port 200 ohm",
+     "predicted_db": 72.15223340145866
+    },
+    {
+     "name": "mode B corner, every internal port on VSWR 1.2",
+     "predicted_db": 75.10874835934749
+    },
+    {
+     "name": "mode B corner, every internal port on VSWR 1.5",
+     "predicted_db": 69.88479568372219
+    }
+   ]
+  }
+ },
+ "decks": [
+  "bpf_2p3p3_if8_ports.net",
+  "bpf_2p3p4_if8_ports.net",
+  "bpf_2p3p2_if10_ports.net"
+ ]
+}

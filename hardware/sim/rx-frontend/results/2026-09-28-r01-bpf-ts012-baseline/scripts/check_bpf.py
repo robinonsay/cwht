@@ -10,7 +10,13 @@ forms the front-end response as the product of the section S21s, and computes fo
   - IF feed-through rejection at 8 and 10 MHz (log-sweep decks only).
 Pass/fail: REQ-SYS-033 >= 70 dB (as written, TBR). Also reported: >= 80 dB (10 dB leakage allowance proposed
 here) and >= 90 dB (TS-012 revision 4 section 7.3 criterion). Writes result.json, result.md and PNG plots into
-the run directory. Usage: check_bpf.py <run-dir>"""
+the run directory. Usage: check_bpf.py <run-dir>
+
+Revision 2 (review findings 1 and 4): a Monte Carlo verdict is a sample statement only. "No run below 70 dB in
+N runs" bounds the failing fraction at 1 - 0.05^(1/N) with 95 % confidence (1.5 % for N = 200); it is not the
+REQ-SYS-033 acceptance, which is the worst-case corner of worst_case.py (run r08). Exit status: 0 when every
+REQ-SYS-033 verdict in the run is PASS, 1 when any is FAIL (r01, r02 and r03 exit 1 by design: they show that the
+TS-012 2 + 3 filter and 2 + 3 + 2 at IF 8 MHz fail), 2 on a usage error."""
 import json, os, sys
 import numpy as np
 import matplotlib
@@ -19,9 +25,9 @@ import matplotlib.pyplot as plt
 from spicelib import RawRead
 plt.rcParams["axes.titlesize"] = 8.5
 
-REQ = 70.0
-ALLOW = 80.0
-TS012 = 90.0
+REQ = 70.0     # REQ-SYS-033: image and IF responses at least 70 dB (TBR) below the in-band response
+ALLOW = 80.0   # proposed 10 dB board-leakage allowance (analysis record revision 1; reported only)
+TS012 = 90.0   # TS-012 revision 4 section 7.3 criterion (reported only)
 TUNE = np.round(np.arange(144.0e6, 148.0e6 + 1, 50e3), 0)
 IFS = {"IF 8 MHz": 8e6, "IF 10 MHz": 10e6}
 
@@ -245,6 +251,24 @@ def ft(a):
     return "> 150 (ideal model)" if x > 150 else f"{x:.0f}"
 
 
+def mc_word(x, n):
+    if x["fraction_ge_70"] < 1.0:
+        return f"FAIL ({round((1 - x['fraction_ge_70']) * n)} of {n} runs below 70 dB)"
+    return f"no run below 70 dB (95 % upper bound on the failing fraction {100 * (1 - 0.05 ** (1 / n)):.1f} %)"
+
+
+def verdicts(out):
+    """Every REQ-SYS-033 verdict of the run: True for PASS, False for FAIL."""
+    v = []
+    for item in out["items"]:
+        if "steps" in item:
+            for st in item["steps"]:
+                v += [st["metrics"][k]["pass_req_70"] for k in IFS]
+        else:
+            v += [item["summary"][k]["fraction_ge_70"] == 1.0 for k in IFS]
+    return v
+
+
 def md_table(out):
     L = [f"# {out['run_id']}: result", "", f"Checker: check_bpf.py. Pass criterion: REQ-SYS-033 image rejection >= {REQ:.0f} dB (TBR) at every tuned frequency 144.000 to 148.000 MHz. Also reported: >= 80 dB (10 dB leakage allowance proposed in the analysis record) and >= 90 dB (TS-012 revision 4 criterion).", ""]
     for item in out["items"]:
@@ -271,7 +295,8 @@ def md_table(out):
             L.append("")
             L.append(f"Chain worst passband loss: median {s['chain_loss_worst_db']['median']:.2f} dB, 95th percentile {s['chain_loss_worst_db']['p95']:.2f} dB, maximum {s['chain_loss_worst_db']['max']:.2f} dB. BPF1: median {s['bpf1_loss_worst_db']['median']:.2f}, 95th percentile {s['bpf1_loss_worst_db']['p95']:.2f}, maximum {s['bpf1_loss_worst_db']['max']:.2f} dB. Per-section worst in-band loss, median / 95th percentile / maximum: {'; '.join(f'{a:.2f} / {b:.2f} / {c:.2f}' for a, b, c in zip(s['section_loss_worst_db_median'], s['section_loss_worst_db_p95'], s['section_loss_worst_db_max']))} dB.")
             L.append("")
-            L.append(f"Verdict (REQ-SYS-033, every run >= 70 dB at IF 8 MHz): {'PASS' if s['IF 8 MHz']['fraction_ge_70'] == 1.0 else 'FAIL'}; at IF 10 MHz: {'PASS' if s['IF 10 MHz']['fraction_ge_70'] == 1.0 else 'FAIL'}.")
+            L.append(f"Sample verdict (REQ-SYS-033, every one of the {s['n']} runs >= 70 dB): IF 8 MHz {mc_word(s['IF 8 MHz'], s['n'])}; IF 10 MHz {mc_word(s['IF 10 MHz'], s['n'])}. "
+                     f"A sample minimum is not a worst case: the REQ-SYS-033 acceptance is the worst-case corner of run r08 (revision 2 of the analysis record).")
         L.append("")
         for p in item["plots"]:
             L.append(f"![{p}]({p})")
@@ -280,6 +305,8 @@ def md_table(out):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        sys.stderr.write("usage: check_bpf.py <run-dir>\n"); sys.exit(2)
     run_dir = os.path.abspath(sys.argv[1])
     rid = os.path.basename(run_dir)
     items = []
@@ -287,5 +314,10 @@ if __name__ == "__main__":
         items.append({"q": do_q, "mc": do_mc, "leak": do_leak}[kind](run_dir, deck, title))
     out = {"run_id": rid, "checker": "check_bpf.py", "requirement": "REQ-SYS-033 >= 70 dB image rejection (TBR)", "items": items}
     json.dump(out, open(os.path.join(run_dir, "result.json"), "w"), indent=1)
-    open(os.path.join(run_dir, "result.md"), "w").write(md_table(out))
-    print(md_table(out))
+    v = verdicts(out)
+    out["any_fail"] = not all(v)
+    json.dump(out, open(os.path.join(run_dir, "result.json"), "w"), indent=1)
+    md = md_table(out) + f"\nREQ-SYS-033 verdicts in this run: {sum(v)} PASS, {len(v) - sum(v)} FAIL; checker exit status {1 if out['any_fail'] else 0}.\n"
+    open(os.path.join(run_dir, "result.md"), "w").write(md)
+    print(md)
+    sys.exit(1 if out["any_fail"] else 0)

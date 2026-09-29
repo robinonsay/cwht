@@ -563,5 +563,6 @@
     "bpf_2p3_bw6_mcB_montecarlo.png"
    ]
   }
- ]
+ ],
+ "any_fail": true
 }

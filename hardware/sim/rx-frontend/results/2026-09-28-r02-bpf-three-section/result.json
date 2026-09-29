@@ -511,5 +511,6 @@
     "bpf_2p3p3_bw6_passband.png"
    ]
   }
- ]
+ ],
+ "any_fail": true
 }

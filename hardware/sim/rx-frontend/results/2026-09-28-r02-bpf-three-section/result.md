@@ -29,3 +29,5 @@ Per-section rejection relative to 146 MHz, step qu=100 (for the section-by-secti
 
 ![bpf_2p3p3_bw6_s21_image.png](bpf_2p3p3_bw6_s21_image.png)
 ![bpf_2p3p3_bw6_passband.png](bpf_2p3p3_bw6_passband.png)
+
+REQ-SYS-033 verdicts in this run: 13 PASS, 3 FAIL; checker exit status 1.

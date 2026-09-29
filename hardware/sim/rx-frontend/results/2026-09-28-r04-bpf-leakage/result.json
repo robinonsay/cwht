@@ -484,5 +484,6 @@
     "bpf_2p3p3_bw6_leak_leakage.png"
    ]
   }
- ]
+ ],
+ "any_fail": false
 }

@@ -1,0 +1,98 @@
+{
+ "run_id": "2026-09-28-r07-nodal-validation",
+ "checker": "validate_nodal.py",
+ "acceptance_db": 0.01,
+ "accepted": true,
+ "rows": [
+  {
+   "run": "2026-09-28-r01-bpf-ts012-baseline",
+   "deck": "bpf_2p3_bw5",
+   "steps": 4,
+   "max_abs_s21_diff_db": 0.0003930237988747365,
+   "max_abs_image_rej_diff_db": 0.00029826144721312176,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r01-bpf-ts012-baseline",
+   "deck": "bpf_2p3_bw6",
+   "steps": 4,
+   "max_abs_s21_diff_db": 0.0004330166450818851,
+   "max_abs_image_rej_diff_db": 0.00028019967325576545,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r01-bpf-ts012-baseline",
+   "deck": "bpf_2p3_bw6_mcA",
+   "steps": 200,
+   "max_abs_s21_diff_db": 0.0013730586613522888,
+   "max_abs_image_rej_diff_db": 0.0011604737201196258,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r01-bpf-ts012-baseline",
+   "deck": "bpf_2p3_bw6_mcB",
+   "steps": 200,
+   "max_abs_s21_diff_db": 0.0016233540668100233,
+   "max_abs_image_rej_diff_db": 0.0012842527180083607,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r02-bpf-three-section",
+   "deck": "bpf_2p3p2_bw6",
+   "steps": 4,
+   "max_abs_s21_diff_db": 0.0004330166450818851,
+   "max_abs_image_rej_diff_db": 0.0004260407075094008,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r02-bpf-three-section",
+   "deck": "bpf_2p3p3_bw6",
+   "steps": 4,
+   "max_abs_s21_diff_db": 0.0004330166450818851,
+   "max_abs_image_rej_diff_db": 0.0004145583122294738,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r03-bpf-three-section-mc",
+   "deck": "bpf_2p3p2_bw6_mcA",
+   "steps": 200,
+   "max_abs_s21_diff_db": 0.0013730586613522888,
+   "max_abs_image_rej_diff_db": 0.0016328893098744857,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r03-bpf-three-section-mc",
+   "deck": "bpf_2p3p2_bw6_mcB",
+   "steps": 200,
+   "max_abs_s21_diff_db": 0.001623354066808247,
+   "max_abs_image_rej_diff_db": 0.0017698791039606476,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r03-bpf-three-section-mc",
+   "deck": "bpf_2p3p3_bw6_mcA",
+   "steps": 200,
+   "max_abs_s21_diff_db": 0.0015005098552212104,
+   "max_abs_image_rej_diff_db": 0.0016856497982331575,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r03-bpf-three-section-mc",
+   "deck": "bpf_2p3p3_bw6_mcB",
+   "steps": 200,
+   "max_abs_s21_diff_db": 0.001623354066808247,
+   "max_abs_image_rej_diff_db": 0.0015845991169385343,
+   "accepted": true
+  },
+  {
+   "run": "2026-09-28-r04-bpf-leakage",
+   "deck": "bpf_2p3p3_bw6_leak",
+   "steps": 8,
+   "max_abs_s21_diff_db": 0.0025466130882279003,
+   "max_abs_image_rej_diff_db": 0.0009756486785335028,
+   "accepted": true
+  }
+ ],
+ "points": 1189624,
+ "max_abs_diff_db": 0.0025466130882279003
+}

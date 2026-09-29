@@ -18,3 +18,5 @@ Checker: check_bpf.py. Pass criterion: REQ-SYS-033 image rejection >= 70 dB (TBR
 Per-section rejection relative to 146 MHz, step cst=3e-15 sgn=-1 (for the section-by-section NanoVNA check): 124 MHz: 26.7, 49.1, 49.1 dB; 128 MHz: 22.1, 42.8, 42.8 dB; 130 MHz: 19.5, 39.1, 39.1 dB; 132 MHz: 16.6, 35.0, 35.0 dB.
 
 ![bpf_2p3p3_bw6_leak_leakage.png](bpf_2p3p3_bw6_leak_leakage.png)
+
+REQ-SYS-033 verdicts in this run: 16 PASS, 0 FAIL; checker exit status 0.

@@ -1,0 +1,4014 @@
+LTspice 26.0.2 for MacOS
+Circuit: /private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.7kvkII/bpf_2p3p3_if8_mc1000_none_A.net
+Start Time: Mon Sep 28 19:57:41 2026
+Options:plotwinsize=0 numdgt=15
+
+.step run=1
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=2
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=3
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=4
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=5
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=6
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=7
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=8
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=9
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=10
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=11
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=12
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=13
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=14
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=15
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=16
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=17
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=18
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=19
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=20
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=21
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=22
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=23
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=24
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=25
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=26
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=27
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=28
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=29
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=30
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=31
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=32
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=33
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=34
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=35
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=36
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=37
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=38
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=39
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=40
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=41
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=42
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=43
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=44
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=45
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=46
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=47
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=48
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=49
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=50
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=51
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=52
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=53
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=54
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=55
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=56
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=57
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=58
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=59
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=60
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=61
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=62
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=63
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=64
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=65
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=66
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=67
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=68
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=69
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=70
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=71
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=72
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=73
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=74
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=75
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=76
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=77
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=78
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=79
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=80
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=81
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=82
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=83
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=84
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=85
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=86
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=87
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=88
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=89
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=90
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=91
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=92
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=93
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=94
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=95
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=96
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=97
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=98
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=99
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=100
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=101
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=102
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=103
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=104
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=105
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=106
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=107
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=108
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=109
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=110
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=111
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=112
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=113
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=114
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=115
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=116
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=117
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=118
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=119
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=120
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=121
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=122
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=123
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=124
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=125
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=126
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=127
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=128
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=129
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=130
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=131
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=132
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=133
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=134
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=135
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=136
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=137
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=138
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=139
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=140
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=141
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=142
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=143
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=144
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=145
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=146
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=147
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=148
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=149
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=150
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=151
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=152
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=153
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=154
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=155
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=156
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=157
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=158
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=159
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=160
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=161
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=162
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=163
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=164
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=165
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=166
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=167
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=168
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=169
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=170
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=171
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=172
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=173
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=174
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=175
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=176
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=177
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=178
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=179
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=180
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=181
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=182
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=183
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=184
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=185
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=186
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=187
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=188
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=189
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=190
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=191
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=192
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=193
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=194
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=195
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=196
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=197
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=198
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=199
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=200
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=201
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=202
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=203
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=204
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=205
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=206
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=207
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=208
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=209
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=210
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=211
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=212
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=213
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=214
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=215
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=216
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=217
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=218
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=219
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=220
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=221
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=222
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=223
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=224
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=225
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=226
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=227
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=228
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=229
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=230
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=231
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=232
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=233
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=234
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=235
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=236
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=237
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=238
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=239
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=240
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=241
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=242
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=243
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=244
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=245
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=246
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=247
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=248
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=249
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=250
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=251
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=252
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=253
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=254
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=255
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=256
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=257
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=258
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=259
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=260
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=261
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=262
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=263
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=264
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=265
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=266
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=267
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=268
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=269
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=270
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=271
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=272
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=273
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=274
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=275
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=276
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=277
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=278
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=279
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=280
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=281
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=282
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=283
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=284
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=285
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=286
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=287
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=288
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=289
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=290
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=291
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=292
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=293
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=294
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=295
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=296
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=297
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=298
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=299
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=300
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=301
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=302
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=303
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=304
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=305
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=306
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=307
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=308
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=309
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=310
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=311
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=312
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=313
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=314
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=315
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=316
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=317
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=318
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=319
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=320
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=321
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=322
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=323
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=324
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=325
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=326
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=327
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=328
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=329
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=330
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=331
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=332
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=333
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=334
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=335
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=336
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=337
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=338
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=339
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=340
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=341
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=342
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=343
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=344
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=345
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=346
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=347
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=348
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=349
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=350
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=351
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=352
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=353
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=354
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=355
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=356
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=357
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=358
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=359
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=360
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=361
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=362
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=363
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=364
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=365
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=366
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=367
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=368
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=369
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=370
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=371
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=372
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=373
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=374
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=375
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=376
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=377
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=378
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=379
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=380
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=381
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=382
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=383
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=384
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=385
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=386
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=387
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=388
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=389
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=390
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=391
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=392
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=393
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=394
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=395
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=396
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=397
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=398
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=399
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=400
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=401
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=402
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=403
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=404
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=405
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=406
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=407
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=408
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=409
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=410
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=411
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=412
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=413
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=414
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=415
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=416
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=417
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=418
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=419
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=420
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=421
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=422
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=423
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=424
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=425
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=426
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=427
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=428
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=429
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=430
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=431
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=432
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=433
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=434
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=435
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=436
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=437
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=438
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=439
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=440
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=441
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=442
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=443
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=444
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=445
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=446
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=447
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=448
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=449
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=450
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=451
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=452
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=453
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=454
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=455
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=456
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=457
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=458
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=459
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=460
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=461
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=462
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=463
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=464
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=465
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=466
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=467
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=468
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=469
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=470
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=471
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=472
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=473
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=474
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=475
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=476
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=477
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=478
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=479
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=480
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=481
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=482
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=483
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=484
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=485
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=486
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=487
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=488
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=489
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=490
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=491
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=492
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=493
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=494
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=495
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=496
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=497
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=498
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=499
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=500
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=501
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=502
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=503
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=504
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=505
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=506
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=507
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=508
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=509
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=510
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=511
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=512
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=513
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=514
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=515
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=516
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=517
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=518
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=519
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=520
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=521
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=522
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=523
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=524
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=525
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=526
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=527
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=528
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=529
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=530
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=531
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=532
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=533
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=534
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=535
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=536
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=537
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=538
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=539
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=540
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=541
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=542
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=543
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=544
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=545
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=546
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=547
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=548
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=549
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=550
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=551
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=552
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=553
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=554
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=555
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=556
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=557
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=558
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=559
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=560
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=561
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=562
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=563
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=564
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=565
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=566
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=567
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=568
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=569
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=570
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=571
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=572
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=573
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=574
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=575
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=576
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=577
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=578
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=579
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=580
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=581
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=582
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=583
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=584
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=585
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=586
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=587
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=588
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=589
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=590
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=591
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=592
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=593
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=594
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=595
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=596
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=597
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=598
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=599
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=600
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=601
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=602
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=603
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=604
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=605
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=606
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=607
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=608
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=609
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=610
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=611
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=612
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=613
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=614
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=615
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=616
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=617
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=618
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=619
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=620
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=621
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=622
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=623
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=624
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=625
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=626
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=627
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=628
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=629
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=630
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=631
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=632
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=633
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=634
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=635
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=636
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=637
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=638
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=639
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=640
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=641
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=642
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=643
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=644
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=645
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=646
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=647
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=648
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=649
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=650
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=651
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=652
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=653
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=654
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=655
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=656
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=657
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=658
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=659
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=660
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=661
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=662
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=663
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=664
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=665
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=666
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=667
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=668
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=669
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=670
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=671
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=672
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=673
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=674
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=675
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=676
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=677
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=678
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=679
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=680
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=681
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=682
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=683
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=684
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=685
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=686
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=687
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=688
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=689
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=690
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=691
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=692
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=693
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=694
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=695
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=696
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=697
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=698
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=699
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=700
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=701
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=702
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=703
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=704
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=705
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=706
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=707
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=708
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=709
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=710
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=711
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=712
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=713
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=714
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=715
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=716
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=717
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=718
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=719
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=720
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=721
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=722
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=723
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=724
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=725
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=726
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=727
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=728
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=729
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=730
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=731
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=732
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=733
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=734
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=735
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=736
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=737
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=738
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=739
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=740
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=741
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=742
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=743
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=744
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=745
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=746
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=747
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=748
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=749
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=750
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=751
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=752
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=753
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=754
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=755
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=756
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=757
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=758
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=759
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=760
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=761
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=762
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=763
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=764
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=765
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=766
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=767
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=768
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=769
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=770
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=771
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=772
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=773
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=774
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=775
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=776
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=777
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=778
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=779
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=780
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=781
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=782
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=783
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=784
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=785
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=786
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=787
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=788
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=789
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=790
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=791
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=792
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=793
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=794
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=795
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=796
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=797
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=798
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=799
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=800
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=801
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=802
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=803
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=804
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=805
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=806
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=807
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=808
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=809
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=810
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=811
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=812
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=813
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=814
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=815
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=816
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=817
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=818
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=819
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=820
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=821
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=822
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=823
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=824
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=825
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=826
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=827
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=828
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=829
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=830
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=831
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=832
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=833
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=834
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=835
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=836
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=837
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=838
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=839
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=840
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=841
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=842
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=843
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=844
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=845
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=846
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=847
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=848
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=849
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=850
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=851
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=852
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=853
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=854
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=855
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=856
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=857
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=858
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=859
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=860
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=861
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=862
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=863
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=864
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=865
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=866
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=867
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=868
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=869
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=870
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=871
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=872
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=873
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=874
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=875
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=876
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=877
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=878
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=879
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=880
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=881
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=882
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=883
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=884
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=885
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=886
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=887
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=888
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=889
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=890
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=891
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=892
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=893
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=894
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=895
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=896
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=897
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=898
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=899
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=900
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=901
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=902
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=903
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=904
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=905
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=906
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=907
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=908
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=909
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=910
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=911
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=912
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=913
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=914
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=915
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=916
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=917
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=918
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=919
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=920
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=921
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=922
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=923
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=924
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=925
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=926
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=927
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=928
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=929
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=930
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=931
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=932
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=933
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=934
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=935
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=936
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=937
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=938
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=939
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=940
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=941
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=942
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=943
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=944
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=945
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=946
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=947
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=948
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=949
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=950
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=951
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=952
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=953
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=954
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=955
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=956
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=957
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=958
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=959
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=960
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=961
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=962
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=963
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=964
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=965
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=966
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=967
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=968
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=969
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=970
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=971
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=972
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=973
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=974
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=975
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=976
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=977
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=978
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=979
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=980
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=981
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=982
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=983
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=984
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=985
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=986
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=987
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=988
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=989
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=990
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=991
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=992
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=993
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=994
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=995
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=996
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=997
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=998
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=999
+.OP point found by inspection.
+.OP point found by inspection.
+
+.step run=1000
+.OP point found by inspection.
+.OP point found by inspection.
+Total elapsed time: 14.302 seconds.
+
+Files loaded:
+/private/var/folders/7r/frnl9vtn153bhbn6cgk07_2m0000gn/T/cwht-lts.7kvkII/bpf_2p3p3_if8_mc1000_none_A.net
+

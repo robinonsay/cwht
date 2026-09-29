@@ -45,7 +45,7 @@ N = 200.
 
 Chain worst passband loss: median 8.19 dB, 95th percentile 10.73 dB, maximum 11.80 dB. BPF1: median 2.72, 95th percentile 3.92, maximum 5.85 dB. Per-section worst in-band loss, median / 95th percentile / maximum: 2.72 / 3.92 / 5.85; 5.51 / 7.82 / 9.45 dB.
 
-Verdict (REQ-SYS-033, every run >= 70 dB at IF 8 MHz): FAIL; at IF 10 MHz: FAIL.
+Sample verdict (REQ-SYS-033, every one of the 200 runs >= 70 dB): IF 8 MHz FAIL (200 of 200 runs below 70 dB); IF 10 MHz FAIL (179 of 200 runs below 70 dB). A sample minimum is not a worst case: the REQ-SYS-033 acceptance is the worst-case corner of run r08 (revision 2 of the analysis record).
 
 ![bpf_2p3_bw6_mcA_montecarlo.png](bpf_2p3_bw6_mcA_montecarlo.png)
 
@@ -64,6 +64,8 @@ N = 200.
 
 Chain worst passband loss: median 6.80 dB, 95th percentile 8.06 dB, maximum 9.43 dB. BPF1: median 2.05, 95th percentile 2.31, maximum 2.59 dB. Per-section worst in-band loss, median / 95th percentile / maximum: 2.05 / 2.31 / 2.59; 4.72 / 6.04 / 7.38 dB.
 
-Verdict (REQ-SYS-033, every run >= 70 dB at IF 8 MHz): FAIL; at IF 10 MHz: FAIL.
+Sample verdict (REQ-SYS-033, every one of the 200 runs >= 70 dB): IF 8 MHz FAIL (200 of 200 runs below 70 dB); IF 10 MHz FAIL (200 of 200 runs below 70 dB). A sample minimum is not a worst case: the REQ-SYS-033 acceptance is the worst-case corner of run r08 (revision 2 of the analysis record).
 
 ![bpf_2p3_bw6_mcB_montecarlo.png](bpf_2p3_bw6_mcB_montecarlo.png)
+
+REQ-SYS-033 verdicts in this run: 4 PASS, 16 FAIL; checker exit status 1.

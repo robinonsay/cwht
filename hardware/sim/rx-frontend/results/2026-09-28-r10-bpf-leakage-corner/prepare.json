@@ -1,0 +1,199 @@
+{
+ "run_id": "2026-09-28-r10-bpf-leakage-corner",
+ "configs": {
+  "2p3p3_if8": {
+   "label": "2 + 3 + 3, IF 8 MHz (revision 1 proposal)",
+   "sweep": {
+    "0": {
+     "nominal": 86.03745837417331,
+     "modeB-50ohm": 75.62634924319251,
+     "design-input": 72.07445900967609
+    },
+    "0.003": {
+     "nominal": 85.69814354449994,
+     "modeB-50ohm": 75.42973345661416,
+     "design-input": 71.87816323367531
+    },
+    "0.01": {
+     "nominal": 84.92848153778631,
+     "modeB-50ohm": 74.97829533551644,
+     "design-input": 71.4274722124101
+    },
+    "0.02": {
+     "nominal": 83.87871372355043,
+     "modeB-50ohm": 74.35042855678827,
+     "design-input": 70.80067371049576
+    },
+    "0.03": {
+     "nominal": 82.88204235840865,
+     "modeB-50ohm": 73.74148817838707,
+     "design-input": 70.19280277408377
+    },
+    "0.05": {
+     "nominal": 81.02779507172806,
+     "modeB-50ohm": 72.57589453327891,
+     "design-input": 69.02935150356473
+    },
+    "0.1": {
+     "nominal": 77.03018449345817,
+     "modeB-50ohm": 69.92372704697263,
+     "design-input": 66.38256025823269
+    }
+   },
+   "design_input_corner_db": 70.19280277408377,
+   "ltspice_cases": [
+    {
+     "name": "design-input corner, stray 0 pF, SGN from the tuned-frequency worst phase",
+     "predicted_db": 72.07445900967609
+    },
+    {
+     "name": "design-input corner, stray 0.03 pF, SGN from the tuned-frequency worst phase",
+     "predicted_db": 73.8692494589503
+    },
+    {
+     "name": "design-input corner, stray 0.03 pF, SGN from the image-frequency worst phase",
+     "predicted_db": 70.27854520192525
+    },
+    {
+     "name": "design-input corner, stray 0.1 pF, SGN from the tuned-frequency worst phase",
+     "predicted_db": 78.97850172403986
+    },
+    {
+     "name": "design-input corner, stray 0.1 pF, SGN from the image-frequency worst phase",
+     "predicted_db": 66.63552290608801
+    }
+   ]
+  },
+  "2p3p4_if8": {
+   "label": "2 + 3 + 4, IF 8 MHz (margin lever, new here)",
+   "sweep": {
+    "0": {
+     "nominal": 103.89052021220346,
+     "modeB-50ohm": 91.40322173692948,
+     "design-input": 87.77076170982588
+    },
+    "0.003": {
+     "nominal": 102.09715709099657,
+     "modeB-50ohm": 90.57975054209896,
+     "design-input": 86.94750221866808
+    },
+    "0.01": {
+     "nominal": 98.79124769026362,
+     "modeB-50ohm": 88.8616044702824,
+     "design-input": 85.22985046914076
+    },
+    "0.02": {
+     "nominal": 95.2775928956604,
+     "modeB-50ohm": 86.77345178855612,
+     "design-input": 82.97826899216345
+    },
+    "0.03": {
+     "nominal": 92.54605511616334,
+     "modeB-50ohm": 84.13294495770225,
+     "design-input": 80.05984264109829
+    },
+    "0.05": {
+     "nominal": 88.34404738890407,
+     "modeB-50ohm": 79.88941284474927,
+     "design-input": 75.81820495470963
+    },
+    "0.1": {
+     "nominal": 81.22551193305986,
+     "modeB-50ohm": 73.09922188683339,
+     "design-input": 69.03276965138696
+    }
+   },
+   "design_input_corner_db": 80.05984264109829,
+   "ltspice_cases": [
+    {
+     "name": "design-input corner, stray 0 pF, SGN from the tuned-frequency worst phase",
+     "predicted_db": 87.77076170982588
+    },
+    {
+     "name": "design-input corner, stray 0.03 pF, SGN from the tuned-frequency worst phase",
+     "predicted_db": 81.96580893894199
+    },
+    {
+     "name": "design-input corner, stray 0.03 pF, SGN from the image-frequency worst phase",
+     "predicted_db": 80.17045681042947
+    },
+    {
+     "name": "design-input corner, stray 0.1 pF, SGN from the tuned-frequency worst phase",
+     "predicted_db": 75.37748874095413
+    },
+    {
+     "name": "design-input corner, stray 0.1 pF, SGN from the image-frequency worst phase",
+     "predicted_db": 69.2059993319782
+    }
+   ]
+  },
+  "2p3p2_if10": {
+   "label": "2 + 3 + 2, IF 10 MHz (alternative)",
+   "sweep": {
+    "0": {
+     "nominal": 86.75051259551587,
+     "modeB-50ohm": 78.85440437579825,
+     "design-input": 75.10874835934749
+    },
+    "0.003": {
+     "nominal": 86.28224150485444,
+     "modeB-50ohm": 78.56483868887453,
+     "design-input": 74.81948096612771
+    },
+    "0.01": {
+     "nominal": 85.25772323770741,
+     "modeB-50ohm": 77.914318646268,
+     "design-input": 74.16965718322427
+    },
+    "0.02": {
+     "nominal": 83.93277909769172,
+     "modeB-50ohm": 77.03978982224177,
+     "design-input": 73.29612360060223
+    },
+    "0.03": {
+     "nominal": 82.73872340655866,
+     "modeB-50ohm": 76.2213542986645,
+     "design-input": 72.47868400510808
+    },
+    "0.05": {
+     "nominal": 80.64619533870538,
+     "modeB-50ohm": 74.72388521987705,
+     "design-input": 70.98320883725269
+    },
+    "0.1": {
+     "nominal": 76.51703566311717,
+     "modeB-50ohm": 71.5713112094424,
+     "design-input": 67.60763926255889
+    }
+   },
+   "design_input_corner_db": 72.47868400510808,
+   "ltspice_cases": [
+    {
+     "name": "design-input corner, stray 0 pF, SGN from the tuned-frequency worst phase",
+     "predicted_db": 75.10874835934749
+    },
+    {
+     "name": "design-input corner, stray 0.03 pF, SGN from the tuned-frequency worst phase",
+     "predicted_db": 77.58677867037309
+    },
+    {
+     "name": "design-input corner, stray 0.03 pF, SGN from the image-frequency worst phase",
+     "predicted_db": 72.51664415449412
+    },
+    {
+     "name": "design-input corner, stray 0.1 pF, SGN from the tuned-frequency worst phase",
+     "predicted_db": 76.72419461044126
+    },
+    {
+     "name": "design-input corner, stray 0.1 pF, SGN from the image-frequency worst phase",
+     "predicted_db": 67.71150271228439
+    }
+   ]
+  }
+ },
+ "decks": [
+  "bpf_2p3p3_if8_leak_corner.net",
+  "bpf_2p3p4_if8_leak_corner.net",
+  "bpf_2p3p2_if10_leak_corner.net"
+ ]
+}
