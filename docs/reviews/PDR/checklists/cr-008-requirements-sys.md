@@ -58,7 +58,7 @@ assurance_verdict: not-required
 # hold: the four requirement and test-case blobs are still only on the unmerged branch (lead SE convention).
 # The re-pin delta keeps the hold for the same reason. The status re-pin delta keeps it too: the two step 10 blobs exist only
 # on the branch.
-verdict: NEEDS CHANGES
+verdict: APPROVED
 # re-pin delta counts: finding-1 Open to Lien (rule C1: CR-008 dispositioned Approved on 2026-09-28 without a revision;
 # due at the CDR readiness declaration), counted in findings_deferred; finding-2 new, Minor, Open (fix before the merge,
 # record text only). Was minor 1, open 1, deferred 0

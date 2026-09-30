@@ -17,11 +17,15 @@ product: docs/test_cases/sys/test_cases.json
 # and test_cases.md@b03105bb28a81fbdbae9fbec51a374699531c697 (110 cases, citing 181 live REQ-SYS).
 # Post-SRR-ruling delta (2026-09-26, package item R16): product_commit is ebe5873, the only commit since 0f5a529 touching the
 # products (owner rulings of 2026-09-26, SRR decisions 25, 37, 38 to 41, 72, 113); product_files are git rev-parse HEAD:<path> at ebe5873
-product_commit: "ebe5873a5151c19e141958e31cf9559f78f5154c"
+# Post-SRR-ruling delta product_files: test_cases.json@a18824aaf62d5139cdc558e52174726bd5d2f673, test_cases.md@45e7ca5101b2def1a1f9f7d7ea5e2aa3e851e21a
+# CR-008 delta (2026-09-29, WP-PDR-55; CR-008 section 5 step 7, record re-issue on the CR branch): product_commit is c629198, the
+# CR-008 branch commit holding the frozen blobs; product_files are git rev-parse c629198:<path>, equal to CR-008 section 5
+product_commit: "c6291980c83e6e1e55b66ceff2e0b89222669b97"
 product_files:
-  - "docs/test_cases/sys/test_cases.json@a18824aaf62d5139cdc558e52174726bd5d2f673"
-  - "docs/test_cases/sys/test_cases.md@45e7ca5101b2def1a1f9f7d7ea5e2aa3e851e21a"
-product_size: 113 cases (Bench 77, Simulation 22, Inspection 14; Test 71, Analysis 22, Inspection 14, Demonstration 6), all Draft, citing 188 live REQ-SYS
+  - "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065"
+  - "docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316"
+# product_size at the post-SRR-ruling delta: 113 cases (Bench 77, Simulation 22, Inspection 14; Test 71, Analysis 22, Inspection 14, Demonstration 6), all Draft, citing 188 live REQ-SYS
+product_size: 114 cases (Bench 77, Simulation 23, Inspection 14; Test 71, Analysis 23, Inspection 14, Demonstration 6), all Draft, citing 189 live REQ-SYS
 sprint: SRR-prep
 # author_agent: the independent test author of the TC-SYS cases (INSP-003 author_agent; test_cases.md header)
 author_agent: "test-author:tc-sys (independent test-author invocation, TC-SYS cases)"
@@ -40,23 +44,29 @@ assurance_verdict: not-required
 # is a lien under the convergence rule of 2026-09-26 (charter section 4 item 3): APPROVED (with liens)
 # Post-SRR-ruling delta: finding-6 Verified at ebe5873; new Minor finding-10, 11, 12 are liens due PDR; no Major
 # is open: APPROVED (with liens). Iteration 2 counts were minor 8, verified 1, deferred 8.
+# CR-008 delta (2026-09-29): the ten liens (finding-2 to 5, 7 to 12) Verified on the c629198 blobs; no lien open: APPROVED.
+# Post-SRR-ruling delta counts were verified 2, deferred 10. Residuals of finding-10 and the case side of INSP-003 finding-25 and
+# finding-31 are open Minor findings of the PDR delta records (INSP-045 finding-1 to 3, INSP-044 finding-1), not counted here.
 verdict: APPROVED
 findings_major: 1
 findings_minor: 11
 findings_open: 0
 findings_fixed: 0
-findings_verified: 2
-# findings_deferred: the ten Minor liens "Lien: fix before PDR" (finding-2 to 5, 7 to 12), counted as INSP-003 and INSP-004 do
-findings_deferred: 10
+findings_verified: 12
+# findings_deferred at the post-SRR-ruling delta: the ten Minor liens "Lien: fix before PDR" (finding-2 to 5, 7 to 12); none at the CR-008 delta
+findings_deferred: 0
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
 decision_tables_checked: 0
 deferred_rids: []
-items_no: [CK-TEST-A5, CK-TEST-A6, CK-TEST-A7]
-# effort: iteration 1 and 2 were 48 turns and 90 minutes; the post-SRR-ruling delta adds 22 turns and 45 minutes
-effort_turns: 70
-effort_minutes: 135
+# items_no at the post-SRR-ruling delta: [CK-TEST-A5, CK-TEST-A6, CK-TEST-A7]; at the CR-008 delta A5 and A7 are Yes and A6 stays
+# No on the residuals INSP-045 finding-1 to 3 and INSP-044 finding-1
+items_no: [CK-TEST-A6]
+# effort: iteration 1 and 2 were 48 turns and 90 minutes; the post-SRR-ruling delta adds 22 turns and 45 minutes; the CR-008 delta
+# adds 20 turns and 40 minutes
+effort_turns: 90
+effort_minutes: 175
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -317,4 +327,65 @@ FINDINGS:
 - [Minor] finding-11 TC-SYS-111: open-path criterion by charge current, not the switching-element voltage; Lien: fix before PDR.
 - [Minor] finding-12 test_cases.md summary lists TC-SYS-049 as generator-replaced; Lien: fix before PDR.
 MEASUREMENTS: size=113 cases; changed=26; new=3; major=1; minor=11; open_major=0; verified=2; lien=10; iteration=2 (post-SRR-ruling delta); turns=70; minutes=135
+```
+
+## CR-008 delta (2026-09-29, WP-PDR-55; products at `c629198` on branch `cr/CR-008-srr-liens-l1-and-tc-sys`)
+
+**Scope and independence.** CR-008 section 5 step 7 has a new invocation of the `reviewer:INSP-025` role verify each lien on the frozen blobs, and WP-PDR-55 has the record re-issued to name them. This is a delta under plan rule C1, not a new iteration, so the front matter `iteration` stays 2. The reviewer is a separate invocation (plan rule C4; charter sections 2 and 11 rule 4). It was run as the WP-PDR-55 configuration manager and independent reviewer, and it authored no part of CR-008, of `c629198`, of INSP-044 or INSP-045, or of the TC-SYS cases. It edited no product file. It changed only the front matter and this section, and everything above is kept as history. The re-issue is committed on the CR branch and reaches `main` with the CR-008 merge (CR-008 section 9). The CR-008 section 4 independence note says that one invocation wrote both the requirement and the case changes. So every changed case was checked against the requirement text at `c629198` alone, not against the CR's description of it.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: CR-008 pre-merge checks, section 9, SRR record re-issue). Every check is a read-only Python script over `git show baseline/srr:<path>` and `git show c629198:<path>`, followed by a reading of each changed case.
+
+**Delta.** `git diff --name-only ab2af2d c629198` touches `test_cases.json` (`a18824aa` to `117c08de`) and `test_cases.md` (`45e7ca51` to `00e4454f`) among the four CR-008 files. `main` still holds the `baseline/srr` blobs (HEAD `44cda12` at this check). A field-by-field script finds 64 cases modified and TC-SYS-116 added, with none removed; 36 of the 64 change only `expected_artifacts`. No case changes `requirement_ids`, `status`, `verification_method` or `type`. The modified set equals the CR-008 section 4 Verification list exactly.
+
+### Finding states after the CR-008 delta
+
+| Finding | Severity | State | Basis |
+|---|---|---|---|
+| finding-2 | Minor | Verified (closed; was Lien) | The TC-SYS-003 Configuration puts the calibrated attenuator and the tinySA Ultra (zero span, max-hold) on the antenna port for every F1 to F4 attempt. New step 2 connects them, measures the attenuator and cable S21 on the NanoVNA to 1.5 GHz and runs the tinySA calibration-output check (04 section 6.1). The F1, F2 and F4 steps read the tinySA level. `instruments` list the tinySA through the attenuator and the NanoVNA, and the artifacts add the S21 Touchstone file and the traces. TC-SYS-008 step 5 reads the display and the tinySA level at 144.0005, 147.9995, 144.0011, 147.9989, 143.999 and 148.000 MHz |
+| finding-3 | Minor | Verified (closed; was Lien) | "corrected for the attenuator and increased by the tinySA level accuracy" now appears in the RF-off criterion of TC-SYS-003, 008, 047, 066, 082, 083, 101, 108 and 109 once each, and twice in TC-SYS-110 (both clauses), where no case had it at `baseline/srr`. Each keeps the -57 dBm level of REQ-SYS-183 |
+| finding-4 | Minor | Verified (closed; was Lien) | The TC-SYS-064 setup defines a as the cell-simulator setting uncertainty plus the multimeter accuracy. The points are 300 mV + a, 2.5 V - a, 4.3 V + a and 100 mV + a, each on the violating side, so a compliant unit is never asked to refuse inside its window (04 section 8.2). Steps, criterion and the REQ-SYS-087, 088 and 166 notes use the same points, and the 5 mA and 0.5 V levels come from the statements |
+| finding-5 | Minor | Verified (closed; was Lien) | X1 is done: REQ-SYS-083 is split into the room-temperature statement and REQ-SYS-194 (0 C to 45 C, Analysis accepted per RSK-007). TC-SYS-061 is titled "at room temperature", judges at 18 C to 28 C and cites REQ-SYS-083 only. New TC-SYS-116 (Analysis, Simulation, `automation_ref` `hardware/sim/checks/protector_threshold_temp.py`, planned) closes REQ-SYS-194 with the worst-case threshold at every temperature from 0 C to 45 C. It has a BOM and schematic diff step, the rule 7.3.6 risk sentence and two typed artifacts, and it is Draft |
+| finding-7 | Minor | Verified (closed; was Lien) | TC-SYS-073 has `automation_ref` `hardware/sim/checks/sma_mating_life.py` (planned). Its Configuration says what the checker computes, a run step is added, and the artifact `mating-life-check.log.txt` has type `log`. TC-SYS-086 was already moot (Inspection) |
+| finding-8 | Minor | Verified (closed; was Lien) | 57 cases gained a `photo` artifact: exactly the 56 of the finding plus TC-SYS-112 (symmetric difference empty). All 57 are Bench, every Bench case of the file now has one, and each entry cites 04 section 8.1. The only artifact altered is the TC-SYS-060 bracket report, whose description now covers all six guarded points |
+| finding-9 | Minor | Verified (closed; was Lien) | TC-SYS-060 guards each point inward by e: T_cold_stop = -2 C + e, T_cold_run = +2 C - e, T_warm_run = 43 C + e, T_warm_stop = 47 C - e, T_hot_on = 58 C + e and T_hot_off = 62 C - e. Arithmetic: "stopped" at a setting of -2 + e means a true temperature of at least -2 C, so the threshold is above -2 C. "Running" at +2 - e means at most +2 C, so the threshold is at or below +2 C. The 45 C and 60 C pairs work the same way. A passing unit is therefore inside every tolerance whatever the fixture error, which makes the setup sentence true, and the accepted guard band is stated |
+| finding-10 | Minor | Verified (closed; was Lien) | Word spaces of at least 10 dits (0.6 s at 20 WPM, above the 420 ms qualifying gap) in the TC-SYS-105 fixture and hand-keyed runs and in the TC-SYS-036 hand-keyed PARIS minute. Both criteria add that the capture shows keying through each run. TC-SYS-105 connects TX_KEY to a capture channel in step 1. Residual: TC-SYS-036 has no step or setup line that captures TX_KEY, so its new clause cannot be evaluated. INSP-045 finding-1 (Minor, Open in that record) carries it |
+| finding-11 | Minor | Verified (closed; was Lien) | The other cell is held at 3.70 V, so the pack stays at 7.95 to 8.10 V over the 4.25 to 4.40 V sweep, below the 8.40 V pack regulation, and current flows below the trip (step 2 confirms more than 1 mA). The firmware stops, including the REQ-SYS-087 refusal, and the 4.25 V protector are disabled or held. The open state is judged by the 1 mA level that REQ-SYS-185 now states (the INSP-003 finding-31 route), with the switching-element voltage recorded. Residual: a per-cell charger regulation or cell OVP could cut the current without the layer opening. INSP-045 finding-2 (Minor, Open in that record) carries it |
+| finding-12 | Minor | Verified (closed; was Lien) | The 2026-09-26 revision line of `test_cases.md` now lists TC-SYS-049 "(the generator kept at 0.5 W in four 110 s entries)" among the cases fitted to the limits |
+| finding-1, finding-6 | Major, Minor | Verified (unchanged) | TC-SYS-060 changes only in the finding-9 guard. The rendering check below finds 0 differences |
+
+No new finding. No finding is open, and no lien of this record remains.
+
+**Case side of the INSP-003 liens (checked here as INSP-003 finding-25 and 31 require).** No field of any case contains "test author's" (script over the 114 cases). TC-SYS-013, 030, 031, 050, 056, 064, 065, 102, 111 and 112 take their tolerances from the amended statements. TC-SYS-034, 038 and 113 apply the one-sided bounds with one capture sample period, in the direction that cannot pass a late or short unit. The residuals are INSP-044 finding-1 (TC-SYS-065 "charging stopped" level) and INSP-045 finding-3 (TC-SYS-034 latency sentence), both Minor and data-only or narrow.
+
+**Mechanical checks at `c629198` (script over the 114 cases).**
+- Every `requirement_ids` entry exists, and each case has the method of every requirement it cites (TC-SYS-010 is SUPPORT).
+- 189 of 189 live REQ-SYS are cited.
+- Credit rows: T-HW 70, A 23, I 14, D 6, SUPPORT 1. All 114 cases are Draft.
+- Methods: Test 71, Analysis 23, Inspection 14, Demonstration 6. Evidence classes: Bench 77, Simulation 23, Inspection 14. These equal the `test_cases.md` summary.
+- `test_cases.md`: 114 case sections. Every title, setup, step, criterion, instrument and artifact name of the JSON appears in its section: 0 mismatches.
+- The sections of the 49 unchanged cases are byte-equal to `baseline/srr`, and every changed case's section changed.
+- The index and coverage tables add TC-SYS-116 and REQ-SYS-194.
+
+**Cross items.** X1 closed (REQ-SYS-083 split, REQ-SYS-194). X5 closed (the REQ-SYS-184 note records the 5 WPM squeezes as data; INSP-003 finding-27). X6 closed: the notes of REQ-SYS-051, 094, 171 and 173 name the tune carriers, the keying fixture or the 0.5 W test mode in four 110 s entries. X8 routed: the REQ-SYS-054 `tbr.plan` names the word-space study at PDR. X3 stays open: no committed script renders `test_cases.md`, and CR-008 used an uncommitted one (the check above found 0 differences). New observation, no finding: the 2026-09-27 revision line says the branch is "pending disposition", which is now stale, since CR-008 was dispositioned on 2026-09-28. It is historical text of that revision, and the merge does not need it changed.
+
+### Tool runs (2026-09-29; `.venv/bin/python`; detached scratch work trees)
+
+| Tree | Command | Result |
+|---|---|---|
+| `main` at `44cda12` | `tools/validate_docs.py` | exit 1; 109 passed, 8 failed, all other records' drift already on `main` (listed in INSP-003 section "CR-008 delta") |
+| Trial merge of `c629198` into `44cda12` (no conflict) | `tools/validate_docs.py` | exit 1; 107 passed, 10 failed: the 8 above plus INSP-003 and this record, which named the `baseline/srr` blobs. `docs/test_cases/sys/test_cases.json` PASS against the schema |
+| The same trial merge | `tools/traceability.py --report-only` | 246 requirements, 174 test cases, 0 violations, 4 warnings (`SYS_UNALLOCATED` REQ-SYS-125, 148, 194; `HAZARD_INVERSE` REQ-SYS-194, awaiting CR-008 steps 3 and 5) |
+| The same trial merge | `python -m unittest discover -s tools/tests` | 596 run, 17 skipped, 1 failure (`test_repository_exit_zero`, the drift above) |
+| Branch with this re-issue, trial-merged again | `tools/validate_docs.py` | this record PASS; the result is given in CR-008 section 9 |
+
+**Answers changed at the delta.** CK-TEST-A5 Yes (finding-2 Verified). CK-TEST-A7 Yes (finding-8 Verified; every Bench case has a setup photograph). CK-TEST-A6 stays No on the residuals INSP-045 finding-1 to finding-3 and INSP-044 finding-1. R1 Yes. All other answers are unchanged. With no Major finding open and readiness met, the verdict is **APPROVED**, with no lien of this record open.
+
+```
+VERDICT: APPROVED (CR-008 delta, no lien of this record open)
+PRODUCT: docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065, docs/test_cases/sys/test_cases.md@00e4454f5c836df0eac430b9ec9f95b99630d316 (commit c629198 on cr/CR-008-srr-liens-l1-and-tc-sys)
+FINDINGS:
+- [Major] finding-1 TC-SYS-060: Verified; unchanged.
+- [Minor] finding-2, 3, 4, 5, 7, 8, 9, 10, 11, 12: Verified at the CR-008 delta (finding-6 Verified at ebe5873).
+RESIDUALS (other records, Minor, Open there): INSP-045 finding-1 (TC-SYS-036 TX_KEY capture), finding-2 (TC-SYS-111 per-cell charger), finding-3 (TC-SYS-034 latency sentence); INSP-044 finding-1 (TC-SYS-065 level)
+MEASUREMENTS: size=114 cases; changed=64; new=1; major=1; minor=11; open_major=0; verified=12; lien=0; iteration=2 (CR-008 delta); turns=90; minutes=175
 ```

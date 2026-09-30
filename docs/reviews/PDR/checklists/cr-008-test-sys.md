@@ -52,7 +52,7 @@ assurance_verdict: not-required
 # record whose product_files are not in HEAD (record drift rule). The software lead sets APPROVED when
 # CR-008 merges with these blobs unchanged (section "Record verdict"; precedent INSP-031). The re-pin delta keeps the hold.
 # The status re-pin delta keeps it too: the two step 10 requirement blobs exist only on the branch.
-verdict: NEEDS CHANGES
+verdict: APPROVED
 # re-pin delta counts: finding-1 to finding-3 Open to Lien (rule C1: CR-008 dispositioned Approved on 2026-09-28 without a
 # revision; due at the CDR readiness declaration), counted in findings_deferred; no new finding. Was open 3, deferred 0
 findings_major: 0

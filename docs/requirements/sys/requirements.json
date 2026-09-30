@@ -36,7 +36,7 @@
       "id": "REQ-SYS-002",
       "title": "Operating modes and transitions",
       "description": "The transceiver shall implement the operating modes, the flags and the allowed and forbidden transitions of docs/conops/conops.md section 3.4.",
-      "rationale": "Why: the ConOps mode set (Off, Charging, Self-test, Receive, Transmit-keyed, Tune, Bench-test, Firmware-update, Fault-safe) with the flags GUEST, PRACTICE, USB and LOWBATT (Table 3.4-3) is the behaviour the owner validates (appendix D item D1). The forbidden transitions F1 to F9 (no carrier without a passed Self-test, while USB power is present, while GUEST is set, or outside the band guard; Bench-test entered only from Receive) are safety properties. The bench test mode is REQ-SYS-179, blocked while GUEST is set or USB is present (HZ-011 K6) and bounded by REQ-SYS-020 and REQ-SYS-055. Ops: OPS-001, OPS-002, OPS-011, OPS-013, OPS-021, OPS-022. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (bounded by REQ-SYS-055 and REQ-SYS-092). Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-004 K7; HZ-011 K6.",
+      "rationale": "Why: the ConOps mode set (Off, Charging, Self-test, Receive, Transmit-keyed, Tune, Bench-test, Firmware-update, Fault-safe) with the flags GUEST, PRACTICE, USB and LOWBATT (Table 3.4-3) is the behaviour the owner validates (appendix D item D1). The forbidden transitions F1 to F9 (no carrier without a passed Self-test, while USB power is present, while GUEST is set, or outside the band guard; Bench-test entered only from Receive) are safety properties. The bench test mode is REQ-SYS-179, blocked while GUEST is set or USB is present (HZ-011 K6) and bounded by REQ-SYS-020 and REQ-SYS-055. Ops: OPS-001, OPS-002, OPS-011, OPS-013, OPS-021, OPS-022. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (bounded by REQ-SYS-055 and REQ-SYS-092).",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit state-machine test of every allowed and forbidden transition on cwht-core with injected events; Emulation scenario for event ordering only (ACC-EMU-001). The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench walk-through of every allowed and forbidden transition on the delivered unit into the dummy load, mode changes read from the UART telemetry (REQ-SYS-150) and PA_EN captured by the logic capture. Closing cases: TC-SYS-002, TC-SYS-003.",
       "status": "Active",
@@ -121,7 +121,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "Claude sizes the latency in the sequencer timing analysis (ICD-TX-SW) at PDR; Robin confirms the 20 ms or a replacement in the PDR decision memo.",
         "close_by": "PDR"
       },
@@ -131,7 +131,7 @@
       "id": "REQ-SYS-005",
       "title": "Fault-safe exit",
       "description": "The transceiver shall leave Fault-safe only through Self-test after the latched cause clears and the operator acknowledges, or by switch-off or power removal.",
-      "rationale": "Why: only the Latched class of docs/conops/conops.md Table 3.4-4 (rows 10 to 15) enters Fault-safe (T06, T09, T17); Inhibit-class causes and flags self-clear and are bounded by REQ-SYS-004, REQ-SYS-053 and REQ-SYS-054 (appendix D item D4). The exits are T24 (acknowledgment after the cause has cleared, or the switch turned on for a Fault-safe entered from Charging, both through Self-test) and T25 (switch off, USB removed with the switch off, or the T20 power-down); property F5 bars every other exit, and a controller reset re-enters Fault-safe through T09. A transient fault cannot silently re-arm the transmitter, and REQ-SYS-067 tells the operator why (MOE-012). Ops: OPS-013, OPS-014, OPS-016, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-004 K7.",
+      "rationale": "Why: only the Latched class of docs/conops/conops.md Table 3.4-4 (rows 10 to 15) enters Fault-safe (T06, T09, T17); Inhibit-class causes and flags self-clear and are bounded by REQ-SYS-004, REQ-SYS-053 and REQ-SYS-054 (appendix D item D4). The exits are T24 (acknowledgment after the cause has cleared, or the switch turned on for a Fault-safe entered from Charging, both through Self-test) and T25 (switch off, USB removed with the switch off, or the T20 power-down); property F5 bars every other exit, and a controller reset re-enters Fault-safe through T09. A transient fault cannot silently re-arm the transmitter, and REQ-SYS-067 tells the operator why (MOE-012). Ops: OPS-013, OPS-014, OPS-016, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit, each latched cause cleared with and without acknowledgment, a controller reset while latched, and each T25 event. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit with an injected latched cause (repeated watchdog reset and a cell-sense disagreement), mode read from the display and the UART telemetry (REQ-SYS-150) after clearance without and with acknowledgment and after a reset. Closing case: TC-SYS-005.",
       "status": "Active",
@@ -221,7 +221,7 @@
       "id": "REQ-SYS-008",
       "title": "Transmit frequency range with band-edge guard",
       "description": "The transceiver shall place the transmit carrier at any frequency from 144.0012 MHz to 147.9988 MHz (TBR).",
-      "rationale": "Why: SI-024, ADR-016 and CON-001 give the full US 2 m band; NGO-011 and ADR-023 keep a 1.2 kHz guard, SRR decision 25 (owner ruling 2026-09-26), option (a) with the +/-2.5 ppm reference of REQ-SYS-010): the -60 dB keying-sideband point lies up to 750 Hz (TBR) from the carrier (REQ-TX-006) and the reference errs by up to +/-370 Hz at 148 MHz, so 750 + 370 = 1120 Hz, 80 Hz inside the guard, keeps the -60 dB level inside 144.000 to 148.000 MHz (47 CFR 97.301(a), 97.307(b); docs/research/regulatory-corpus-and-operators.md F7, F8). SRR decision 26 (same ruling) keeps full-band transmit without a band-plan lock. The guard does not keep the carrier off the 12 MHz crystal and 48 MHz USB harmonics, which fall within +/-9.4 kHz of 144.000 MHz (REQ-SYS-034). Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-008; the band limit is tested on every unit). KDR: synthesizer range and band table. TBR: the TS-NNN-synthesizer-reference frequency error budget and the TS-006 sideband offset of REQ-TX-006 confirm the 1.2 kHz guard at PDR. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4.",
+      "rationale": "Why: SI-024, ADR-016 and CON-001 give the full US 2 m band, without a band-plan lock (SRR decision 26); NGO-011 and ADR-023 keep a 1.2 kHz guard (SRR decision 25, owner ruling 2026-09-26, option (a)): the -60 dB keying sidebands (up to 750 Hz (TBR) out, REQ-TX-006) plus the 370 Hz reference error of REQ-SYS-010 at 148 MHz reach 1120 Hz, 80 Hz inside the guard, so they stay inside 144.000 to 148.000 MHz (47 CFR 97.301(a), 97.307(b); docs/research/regulatory-corpus-and-operators.md F7, F8). Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (HZ-008 K4, closed by Test on every unit). KDR: synthesizer range and band table. TBR: the TS-NNN-synthesizer-reference frequency error budget and the TS-006 sideband offset confirm the guard at PDR.",
       "verification_method": "Test",
       "verification_note": "Pre-build: HostUnit frequency-plan limits; Simulation of the synthesizer register table. Post-build (closing): Bench, tinySA Ultra marker on the carrier at 144.0012 and 147.9988 MHz through the attenuator into the dummy load. Closing case: TC-SYS-008.",
       "status": "Active",
@@ -253,7 +253,7 @@
         "TPM-006"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 25 (owner ruling 2026-09-26) set the 1.2 kHz guard with the +/-2.5 ppm reference (ADR-023 option (a)); the TS-NNN-synthesizer-reference frequency error budget and the TS-006 keying-sideband offset of REQ-TX-006 at PDR confirm that 1.2 kHz covers the reference tolerance plus the -60 dB offset, else the guard is changed by CR.",
         "close_by": "PDR"
       },
@@ -263,7 +263,7 @@
       "id": "REQ-SYS-009",
       "title": "Transmit inhibit outside the guard",
       "description": "The transceiver shall inhibit transmission whenever the set carrier frequency lies outside 144.0012 MHz to 147.9988 MHz (TBR).",
-      "rationale": "Why: the ConOps forbids any transmit with a carrier outside the guard (docs/conops/conops.md section 3.4); CON-003 and 47 CFR 97.307(b) confine keyed emissions to the band. Receive stays available from 144.000 MHz, so tuning to the edge is lawful and only transmit is refused. This check runs inside the frequency-control component, so it cannot catch a corrupted frequency word that component itself writes (HZ-008 cause C7); REQ-SYS-182 adds the independent measurement (OQ-SAF-013). RF off is the REQ-SYS-183 level. Ops: OPS-020. TBR follows the guard value of the band-range requirement, 1.2 kHz by SRR decision 25 (owner ruling 2026-09-26). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-008; firmware band limit tested on every unit). TBR: value is a research or author proposal pending the decision named in the tbr plan. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4.",
+      "rationale": "Why: the ConOps forbids any transmit with a carrier outside the guard (docs/conops/conops.md section 3.4); CON-003 and 47 CFR 97.307(b) confine keyed emissions to the band. Receive stays available from 144.000 MHz, so only transmit is refused. The check runs inside the frequency-control component and cannot catch a corrupted frequency word that component writes (HZ-008 cause C7); REQ-SYS-182 adds the independent measurement (OQ-SAF-013). RF off is the REQ-SYS-183 level. Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (HZ-008 C7, with REQ-SYS-154 and REQ-SYS-182); 8.2 row 4. TBR: the limits follow the 1.2 kHz guard of REQ-SYS-008 (SRR decision 25, owner ruling 2026-09-26), which the PDR frequency error budget confirms.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit, key events at 143.999 to 144.0011 MHz and 147.9989 to 148.000 MHz produce no PA_EN. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, keyed at 144.0005 and 147.9995 MHz into the dummy load: no PA_EN on the logic capture and no carrier on the tinySA Ultra through the attenuator. Closing case: TC-SYS-008.",
       "status": "Active",
@@ -281,7 +281,8 @@
         "NGO-011",
         "OPS-020",
         "ADR-023",
-        "47CFR97.307(b)"
+        "47CFR97.307(b)",
+        "ADR-016"
       ],
       "hazard_ids": [
         "HZ-008"
@@ -289,7 +290,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "Closes with the guard value of the transmit frequency range requirement (ADR-023 with the 1.2 kHz guard of SRR decision 25 (owner ruling 2026-09-26); frequency error budget, PDR).",
         "close_by": "PDR"
       },
@@ -299,7 +300,7 @@
       "id": "REQ-SYS-010",
       "title": "Carrier frequency accuracy",
       "description": "The transceiver shall hold the carrier within +/-2.5 ppm (TBR) of the displayed frequency from -10 C to +45 C for one year after calibration.",
-      "rationale": "Why: NGO-018 and MOP-008 set +/-2.5 ppm (+/-365 Hz at 146 MHz); with the 1.2 kHz guard of REQ-SYS-008 the -60 dB sidebands, up to 750 Hz (TBR) from the carrier (REQ-TX-006), stay in band with 80 Hz to spare (docs/research/regulatory-corpus-and-operators.md F8). Two units can differ by 730 Hz, beyond the 250 Hz half-passband (RSK-002), so the listener tunes to the friend and nets on the sidetone (REQ-SYS-046). SRR decision 25 (owner ruling 2026-09-26) accepted ADR-023 option (a): the +/-2.5 ppm grade is kept and the guard widened, rather than a tighter reference that the bench cannot verify without a counter (CON-016); SRR decision 56 (same ruling) confirms the synthesizer trade parameters. Assumes: a TCXO independent of the Pico 2 crystal (concept.md section 7.4). Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 5 and 7 (Analysis accepted per RSK-011, which carries HZ-008). KDR: reference oscillator grade and synthesizer (TS-NNN-synthesizer-reference). TBR: estimated pending TS-NNN-synthesizer-reference; the operating span is the environment set of SRR decision 85. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4.",
+      "rationale": "Why: NGO-018 and MOP-008 set +/-2.5 ppm; with the 1.2 kHz guard of REQ-SYS-008 the -60 dB sidebands stay in band with 80 Hz to spare (docs/research/regulatory-corpus-and-operators.md F8). Two units can differ by 730 Hz (RSK-002), so operators net on the sidetone (REQ-SYS-046). SRR decision 25 (owner ruling 2026-09-26) accepted ADR-023 option (a): keep this grade and widen the guard, since the bench cannot verify a tighter reference without a counter (CON-016). Assumes: a TCXO independent of the Pico 2 crystal (concept.md section 7.4). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (Analysis accepted per RSK-011, which carries HZ-008). KDR: reference oscillator grade and synthesizer. TBR: pending TS-NNN-synthesizer-reference; the span is the environment set of SRR decision 85.",
       "verification_method": "Analysis",
       "verification_note": "Analysis accepted per RSK-011 (HZ-008; RSK-002 remains the netting-offset risk): pre-build Simulation budget of the reference datasheet tolerance (initial, temperature, one-year aging) and synthesizer error; no frequency counter on the bench (CON-016). Post-build (supporting): Bench, tinySA Ultra marker against an off-air reference at room temperature. Closing case: TC-SYS-009.",
       "status": "Active",
@@ -314,7 +315,8 @@
         "MOE-010",
         "ADR-023",
         "OPS-020",
-        "CON-016"
+        "CON-016",
+        "ADR-013"
       ],
       "hazard_ids": [
         "HZ-008"
@@ -325,7 +327,7 @@
         "TPM-006"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-NNN-synthesizer-reference selects the reference grade at PDR; the error budget in docs/design/budgets.md fixes the tolerance and the operating span is reconciled with TPM-006; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -353,7 +355,9 @@
         "CON-007",
         "SI-003",
         "OPS-007",
-        "47CFR97.313(a)"
+        "47CFR97.313(a)",
+        "ADR-003",
+        "ADR-014"
       ],
       "hazard_ids": [
         "HZ-001",
@@ -365,7 +369,7 @@
         "TPM-015"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 22 (owner ruling 2026-09-26) adopted the step set and tolerance (RFX-D1); the ALC loop analysis at PDR (TS-006) confirms +/-1 dB at every step.",
         "close_by": "PDR"
       },
@@ -394,7 +398,9 @@
         "MOE-002",
         "ADR-003",
         "ADR-012",
-        "OPS-004"
+        "OPS-004",
+        "ADR-005",
+        "ADR-022"
       ],
       "hazard_ids": [
         "HZ-001",
@@ -409,7 +415,7 @@
         "TPM-015"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-003 (PA device) and TS-006 (ALC topology) at PDR show the tolerance by analysis; Robin confirms +/-1 dB and the +/-0.5 dB ALC target or replacements in the PDR memo.",
         "close_by": "PDR"
       },
@@ -447,8 +453,8 @@
     {
       "id": "REQ-SYS-014",
       "title": "Keying envelope",
-      "description": "The transceiver shall shape keyed rises and falls as raised cosines with an operator-set 10-to-90 percent time of 3 to 8 ms (TBR).",
-      "rationale": "Why: NGO-018 (5 ms, configurable 3 to 8 ms) and CON-003 (no keyclicks, 47 CFR 97.307(a), (b)); default 5 ms (REQ-SYS-136); not speed-adaptive, no mid-ramp reversal (HZ-008 K4). Convention: 10-to-90 percent, so the 3 ms setting is a 5.1 ms full transition and REQ-SYS-015 (292 Hz) and the REQ-SYS-008 guard (-60 dB at 614 Hz) hold at every setting (docs/research/regulatory-corpus-and-operators.md F7); under the full-transition convention of DECISION-11 (D-KN6) the floor becomes 5 ms full. Method: Analysis per 04 section 6.2; SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (listed; Analysis accepted per RSK-011). TBR: the TS-006 transient at PDR confirms the range and the 10-to-90 percent convention, which SRR decision 28 (same ruling) adopted as written (D-KN6).",
+      "description": "The transceiver shall shape keyed edges as raised cosines within 5 percent, with operator-set 10-to-90 percent times of 3 to 8 ms +/-0.5 ms (TBR).",
+      "rationale": "Why: NGO-018 (5 ms, configurable 3 to 8 ms) and CON-003 (no keyclicks, 47 CFR 97.307(a), (b)); default 5 ms (REQ-SYS-136); not speed-adaptive, no mid-ramp reversal (HZ-008 K4; ADR-023 section 2 item (3)). The 10-to-90 percent convention (SRR decision 28, D-KN6) makes the 3 ms setting a 5.1 ms full transition, at which REQ-SYS-015 (292 Hz) and the REQ-SYS-008 guard hold (docs/research/regulatory-corpus-and-operators.md F7). A shape within 5 percent of full scale at every sample and times within +/-0.5 ms keep that spectrum (INSP-003 finding-25). Method: Analysis, the class 1 item (g) record of SRR decision 30. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (Analysis accepted per RSK-011). TBR: the TS-006 transient at PDR confirms the range and both tolerances.",
       "verification_method": "Analysis",
       "verification_note": "Analysis accepted per RSK-011: pre-build (closing) Simulation of the envelope sequence through the shaping network and PA model at 3, 5 and 8 ms with the FFT checker (docs/research/regulatory-corpus-and-operators.md ACTION-8). The firmware ramp-step timing is the REQ-SW child allocated at PDR and closed by Bench logic capture of the ramp steps (04 section 6.2). Post-build (supporting): Bench logic capture of the ramp steps at each setting. Closing case: TC-SYS-013.",
       "status": "Active",
@@ -466,7 +472,8 @@
         "CON-003",
         "OPS-004",
         "47CFR97.307(a)",
-        "ADR-023"
+        "ADR-023",
+        "ADR-003"
       ],
       "hazard_ids": [
         "HZ-008"
@@ -474,8 +481,8 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
-        "plan": "SRR decision 28 (owner ruling 2026-09-26) adopted the ramp convention and range as written (D-KN6); the TS-006 LTspice transient with the FFT checker confirms them at PDR.",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
+        "plan": "SRR decision 28 (owner ruling 2026-09-26) adopted the ramp convention and range as written (D-KN6); the TS-006 LTspice transient with the FFT checker confirms them at PDR; the same transient confirms the 5 percent shape and +/-0.5 ms time tolerances (INSP-003 finding-25).",
         "close_by": "PDR"
       },
       "priority": "Baseline"
@@ -484,7 +491,7 @@
       "id": "REQ-SYS-015",
       "title": "Occupied bandwidth",
       "description": "The transceiver shall keep its emission's 26 dB bandwidth at most 350 Hz (TBR) at every envelope setting with continuous dits at 50 WPM.",
-      "rationale": "Why: 47 CFR 97.307(a) and CON-003 limit bandwidth to that necessary; NGO-018 sets 350 Hz, which the envelope of REQ-SYS-014 meets at every setting (292 Hz at the 5.1 ms full transition of the 3 ms setting; docs/research/regulatory-corpus-and-operators.md F7) at the 50 WPM maximum (ADR-024). Method: Analysis per 04 section 6.1 and 6.2, which do not credit the tinySA Ultra for the close-in keying spectrum; a CR changes the method to Test if the tinySA TV record shows the resolution bandwidth adequate (ACTION-9). SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1; the ruling keeps the move to Test by CR open. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (listed; Analysis accepted per RSK-011). TBR: tinySA Ultra resolution bandwidth unverified (RSK-011, ACTION-9). Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K4.",
+      "rationale": "Why: 47 CFR 97.307(a) and CON-003 limit bandwidth to that necessary; NGO-018 sets 350 Hz, which the REQ-SYS-014 envelope meets at every setting (292 Hz at the 3 ms setting; docs/research/regulatory-corpus-and-operators.md F7) at the 50 WPM maximum (ADR-024). Method: Analysis, because 04 sections 6.1 and 6.2 do not credit the tinySA Ultra for the close-in keying spectrum; SRR decision 30 (owner ruling 2026-09-26) accepted it as the class 1 item (g) record and keeps a move to Test by CR open if the tinySA TV record shows an adequate resolution bandwidth (ACTION-9). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (Analysis accepted per RSK-011). TBR: tinySA Ultra resolution bandwidth unverified (RSK-011, ACTION-9).",
       "verification_method": "Analysis",
       "verification_note": "Analysis accepted per RSK-011: pre-build (closing) FFT of the simulated keyed envelope with the PA model at the 3, 5 and 8 ms settings, 26 dB bandwidth by the 97.3(a)(8) power-containment definition (ACTION-8). Post-build (supporting): Bench, tinySA Ultra max-hold at the narrowest resolution bandwidth through the attenuator into the dummy load. Closing case: TC-SYS-013.",
       "status": "Active",
@@ -502,7 +509,9 @@
         "NGO-018",
         "ADR-024",
         "47CFR97.307(a)",
-        "OPS-004"
+        "OPS-004",
+        "ADR-003",
+        "ADR-023"
       ],
       "hazard_ids": [
         "HZ-008"
@@ -512,7 +521,7 @@
         "MOP-009"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "Claude verifies the tinySA Ultra resolution bandwidth on receipt (ACTION-9) before PDR; if it resolves 350 Hz a CR proposes method Test, otherwise Analysis stands and RSK-011 records the residual.",
         "close_by": "PDR"
       },
@@ -549,7 +558,7 @@
       "id": "REQ-SYS-017",
       "title": "Spurious emission absolute limit",
       "description": "The transceiver shall keep every antenna-port spurious emission at most 25 uW at all power steps, carrier frequencies and 6.4 to 8.4 V pack voltages.",
-      "rationale": "Why: 47 CFR 97.307(e) (eCFR 2026-09-23) for a transmitter of 25 W or less between 30 and 225 MHz: at most 25 uW and at least 40 dB below the fundamental; at every step of 0.5 W or more the 25 uW figure is the tighter bound (53 dB at 5 W), so it implies the 40 dB relative limit (CON-002, NGO-017, MOE-006). Temperature is covered by REQ-SYS-114 and loads up to SWR 2:1 by REQ-SYS-151. HZ-008 names the victim services at 2f, 3f and 7f. Ops: OPS-008, OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (the harmonic filter is the accepted single point, measured on every unit); 8.2 row 10. KDR: PA line-up and harmonic filter. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1, K5.",
+      "rationale": "Why: 47 CFR 97.307(e) (eCFR 2026-09-23) for a transmitter of 25 W or less between 30 and 225 MHz: at most 25 uW and at least 40 dB below the fundamental; at every step of 0.5 W or more the 25 uW figure is the tighter bound (53 dB at 5 W), so it implies the 40 dB relative limit (CON-002, NGO-017, MOE-006). Temperature is covered by REQ-SYS-114 and loads up to SWR 2:1 by REQ-SYS-151. HZ-008 names the victim services at 2f, 3f and 7f. Ops: OPS-008, OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (the harmonic filter is the accepted single point, measured on every unit); 8.2 row 10. KDR: PA line-up and harmonic filter.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): Simulation, LTspice harmonic levels through the low-pass filter with vendor inductor models. Post-build (closing): Bench, tinySA Ultra through the calibrated attenuator into the dummy load, 9 kHz to 1.5 GHz, at 144.05, 146.00 and 147.95 MHz, each step and 6.4 and 8.4 V pack, max-hold over keyed dits, 2f, 3f and 7f reported. Closing case: TC-SYS-014.",
       "status": "Active",
@@ -568,7 +577,8 @@
         "MOE-006",
         "47CFR97.307(e)",
         "ADR-021",
-        "OPS-008"
+        "OPS-008",
+        "ADR-003"
       ],
       "hazard_ids": [
         "HZ-008"
@@ -585,7 +595,7 @@
       "id": "REQ-SYS-018",
       "title": "Spurious emission design margin",
       "description": "The transceiver shall keep every spurious emission at least 60 dB (TBR) below the mean carrier power at the 5 W step.",
-      "rationale": "Why: NGO-017 and ADR-022 (accepted by SRR decision 29, owner ruling 2026-09-26, with owner choice V-5 options a and c) set 60 dB, 7 dB above the 53 dB floor at 5 W, because the harmonics fall on military, 70 cm and aeronautical services (HZ-008) and variation erodes margin (docs/research/part97-regulatory-basis.md F2). Allocation to the transmitter at PDR: harmonic low-pass filter at least 40 dB at 288 MHz and 35 dB at 432 MHz with at most 0.5 dB insertion loss (docs/research/pa-device-candidates.md F16, F17), and at least 40 dB from 288 MHz to 1.5 GHz (TBR) so inductor self-resonance cannot let a high-order harmonic through (docs/research/pa-turnkey-candidates-followup.md implication 6). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 10. KDR: filter and PA. TBR: margin pending TS-003. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1, K2, K5.",
+      "rationale": "Why: NGO-017 and ADR-022 (SRR decision 29, owner ruling 2026-09-26, with owner choice V-5 options a and c) set 60 dB, 7 dB above the 53 dB floor at 5 W, because the harmonics fall on military, 70 cm and aeronautical services (HZ-008) and variation erodes margin (docs/research/part97-regulatory-basis.md F2). Allocation to the transmitter at PDR: harmonic low-pass filter at least 40 dB at 288 MHz and 35 dB at 432 MHz with at most 0.5 dB insertion loss (docs/research/pa-device-candidates.md F16, F17), and at least 40 dB up to 1.5 GHz (TBR) against inductor self-resonance (docs/research/pa-turnkey-candidates-followup.md implication 6). Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 10. KDR: filter and PA. TBR: margin pending TS-003.",
       "verification_method": "Test",
       "verification_note": "Pre-build: Simulation of the line-up and filter. Post-build (closing): Bench, tinySA Ultra with the calibrated attenuator at 5 W, 9 kHz to 1.5 GHz, three frequencies, max-hold across the keying envelope. Closing case: TC-SYS-014.",
       "status": "Active",
@@ -607,7 +617,8 @@
         "CON-002",
         "ADR-022",
         "47CFR97.307(e)",
-        "OPS-008"
+        "OPS-008",
+        "ADR-003"
       ],
       "hazard_ids": [
         "HZ-008"
@@ -618,7 +629,7 @@
         "TPM-007"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 29 (owner ruling 2026-09-26) accepted ADR-022; TS-003 and the filter simulation at PDR show the margin is achievable, else the target is revised by CR.",
         "close_by": "PDR"
       },
@@ -651,7 +662,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 36 (owner ruling 2026-09-26) adopted RFX-D3 option a; the RF exposure evaluation at PDR confirms the value.",
         "close_by": "PDR"
       },
@@ -661,7 +672,7 @@
       "id": "REQ-SYS-020",
       "title": "Tune carrier timeout",
       "description": "The transceiver shall end every tune carrier at most 5.5 s (TBR) after it starts.",
-      "rationale": "Why: NGO-019 bounds a tune carrier to at most 10 s; a nominal 5 s within this 5.5 s bound (HZ-001 K2) ends it at least 2 s before the 7.5 s floor of the hardware cutoff (REQ-SYS-055), which would otherwise end a legitimate tune in Fault-safe (keyer-verification-and-key-input-network.md F13 item 4). It also bounds exposure and PA heating below the RFX-12(a) 10 s case (HZ-006 K2, HZ-012 K1). Adopted by SRR decision 36 option a (owner ruling 2026-09-26; RFX-D3 with D-KN2), rather than a 10 s tune with the cutoff window moved above 11 s. Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-055 bounds a failure of this timer); 8.2 row 1. TBR: the RF exposure evaluation and the PA thermal analysis at PDR confirm the value.",
+      "rationale": "Why: NGO-019 bounds a tune carrier to at most 10 s; a nominal 5 s within this 5.5 s bound (HZ-001 K2) ends it at least 2 s before the 7.5 s floor of the hardware cutoff REQ-SYS-055, which would otherwise end a legitimate tune in Fault-safe (docs/research/keyer-verification-and-key-input-network.md F13 item 4), and bounds exposure and PA heating below the RFX-12(a) 10 s case (HZ-006 K2, HZ-012 K1). Adopted by SRR decision 36 option a (owner ruling 2026-09-26; RFX-D3 with D-KN2). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-055 bounds a failure of this timer); 8.2 row 1. TBR: the RF exposure evaluation and the PA thermal analysis at PDR confirm the value.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of TX_KEY and PA_EN during tune at 0.5 W and at a confirmed 5 W, carrier duration read against 5.5 s. Closing case: TC-SYS-015.",
       "status": "Active",
@@ -683,7 +694,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 36 (owner ruling 2026-09-26) adopted RFX-D3 with D-KN2, option a (tune limit below the cutoff window); the RF exposure evaluation and the PA thermal analysis at PDR confirm it.",
         "close_by": "PDR"
       },
@@ -743,7 +754,7 @@
         "TPM-005"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -773,7 +784,7 @@
         "MOP-006"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -802,7 +813,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -830,7 +841,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -858,7 +869,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -886,7 +897,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -914,7 +925,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -944,7 +955,7 @@
         "MOP-007"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -974,7 +985,7 @@
         "MOP-007"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -984,7 +995,7 @@
       "id": "REQ-SYS-031",
       "title": "Reciprocal mixing dynamic range",
       "description": "The transceiver shall have a reciprocal-mixing dynamic range of at least 85 dB (TBR) at 10 kHz offset in 500 Hz.",
-      "rationale": "Why: the local oscillator phase noise sets close-in rejection (85 dB for -112 dBc/Hz, 106 dB for -133 dBc/Hz; docs/research/cw-selectivity-options.md F1; docs/research/2m-cw-transceiver-reference-designs.md implication 5). SI-029 lets the synthesizer trade TS-NNN-synthesizer-reference choose; this sets its floor. MOE-010. Ops: OPS-003. TBR: value is a research or author proposal pending the decision named in the tbr plan.",
+      "rationale": "Why: the local oscillator phase noise sets close-in rejection (85 dB for -112 dBc/Hz, 106 dB for -133 dBc/Hz; docs/research/cw-selectivity-options.md F1; docs/research/2m-cw-transceiver-reference-designs.md implication 5). SI-029 lets the synthesizer trade TS-NNN-synthesizer-reference choose; this sets its floor. MOE-010. Ops: OPS-003. TBR: the 85 dB floor is a research estimate; the phase noise measured or sourced by TS-NNN-synthesizer-reference at PDR closes it.",
       "verification_method": "Analysis",
       "verification_note": "Pre-build (closing): Analysis, phase-noise budget from the selected synthesizer and reference data. Post-build (supporting): Bench, tinySA Ultra generator at 10 kHz offset with noise read at the audio output. Closing case: TC-SYS-019.",
       "status": "Active",
@@ -1003,7 +1014,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-NNN-synthesizer-reference at PDR selects the synthesizer on measured or primary-source phase noise; Robin approves the floor in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1032,7 +1043,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1060,7 +1071,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR closes the value with simulation and quotes; Robin approves the selected set in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1070,7 +1081,7 @@
       "id": "REQ-SYS-034",
       "title": "Internally generated receive spurious signals",
       "description": "The transceiver shall keep every internally generated receive response at most 3 dB (TBR) above the MDS from 144.010 MHz to 147.999 MHz (TBR).",
-      "rationale": "Why: MOE-010: birdies mask weak signals. The 12 MHz crystal 12th and 48 MHz USB clock 3rd harmonics fall near 144.000 MHz (docs/research/display-and-ui-parts.md F10); the Pico 2 crystal ABM8-272-T3 has +/-30 ppm tolerance, +/-30 ppm stability and +/-5 ppm first-year aging (RP2350 datasheet section 8.2.1.1, Table 596), so the line lies within +/-9.4 kHz of 144.000 MHz and the range excludes 144.000 to 144.010 MHz (closes ACTION-11 of docs/research/regulatory-corpus-and-operators.md). Adopted as written by SRR decision 57 (owner ruling 2026-09-26), rather than the full range with shielding, USB PLL off and a PDR harmonic analysis. The 147.999 MHz upper limit is a receive-tuning bound, not the transmit guard of SRR decision 25. The clock plan keeps other clocks off the band (HZ-008 K6). Ops: OPS-003, OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. TBR: exclusion and allowance close with the PDR clock plan.",
+      "rationale": "Why: MOE-010: birdies mask weak signals. The 12 MHz crystal 12th and 48 MHz USB clock 3rd harmonics fall near 144.000 MHz (docs/research/display-and-ui-parts.md F10); with the ABM8-272-T3 tolerance, stability and first-year aging (RP2350 datasheet section 8.2.1.1, Table 596) the line lies within +/-9.4 kHz of 144.000 MHz, so the range starts at 144.010 MHz (SRR decision 57, owner ruling 2026-09-26). The 147.999 MHz limit is a receive-tuning bound, not the transmit guard. The clock plan keeps other clocks off the band (HZ-008 K6). Ops: OPS-003, OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (HZ-008 K6, closed by Test on every unit). TBR: exclusion and allowance close with the PDR clock plan.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): Analysis, clock-harmonic table of every clock source with the crystal tolerance. Post-build (closing): Bench, birdie survey with the antenna port terminated, tuning 144.010 to 147.999 MHz and logging audio level, predicted birdies checked with the tinySA Ultra and a near-field probe (04 section 6.2 internal spurious row). Closing case: TC-SYS-022.",
       "status": "Active",
@@ -1083,7 +1094,8 @@
       "source_ids": [
         "MOE-010",
         "OPS-003",
-        "OPS-020"
+        "OPS-020",
+        "ADR-023"
       ],
       "hazard_ids": [
         "HZ-008"
@@ -1091,7 +1103,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The clock plan at PDR fixes the exclusion window and the birdie allowance; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1119,7 +1131,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 (selectivity architecture A or B) at PDR fixes the filter-centre uncertainty and so the trim range; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1148,7 +1160,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The sequencer timing table (ICD-RX-TX, ICD-TX-SW) at PDR fixes the recovery time; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1178,7 +1190,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-001 front-end design at PDR selects the limiter or the spacing rule with a coupling analysis; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1285,7 +1297,8 @@
         "NGO-013",
         "MOE-005",
         "SI-018",
-        "OPS-004"
+        "OPS-004",
+        "ADR-009"
       ],
       "hazard_ids": [],
       "design_refs": [],
@@ -1347,7 +1360,8 @@
         "NGO-013",
         "MOE-005",
         "CON-025",
-        "OPS-004"
+        "OPS-004",
+        "ADR-024"
       ],
       "hazard_ids": [],
       "design_refs": [],
@@ -1377,7 +1391,8 @@
       "source_ids": [
         "NGO-013",
         "MOE-005",
-        "OPS-004"
+        "OPS-004",
+        "ADR-024"
       ],
       "hazard_ids": [],
       "design_refs": [],
@@ -1391,8 +1406,8 @@
     {
       "id": "REQ-SYS-044",
       "title": "Semi break-in hang time",
-      "description": "The transceiver shall return to receive after an operator-set hang time of 3 to 30 dits (TBR) at the displayed speed, following the last key-up.",
-      "rationale": "Why: SI-036, CON-021 and ADR-010 fix semi break-in with an adjustable hang; NGO-014. The setting is in dits of the displayed speed in every mode, Straight included (docs/research/keyer-verification-and-key-input-network.md F11), and the 3-dit floor keeps the relay closed within a character: a fixed 50 ms floor would release it between elements below 24 WPM, the full QSK that SI-036 excludes and the per-element relay wear case (docs/research/tr-switch-candidates.md F5). Adopted by SRR decision 47 (owner ruling 2026-09-26; D-KN4), which accepts ADR-026 superseding ADR-010; it replaces the 6.1-dit and fixed 50 to 2500 ms options of ADR-010 section 2, and ConOps section 3.5.1 item 4 follows by the routed item. Default 8 dits (REQ-SYS-136). Ops: OPS-004, OPS-005. TBR: the sequencer timing table at PDR confirms the range.",
+      "description": "The transceiver shall return to receive 3 to 30 operator-set dits (TBR) after the last key-up, within the larger of +/-1 percent and +/-0.5 ms.",
+      "rationale": "Why: SI-036, CON-021 and ADR-010 fix semi break-in with an adjustable hang; NGO-014. The setting is in dits of the displayed speed (1200/WPM ms) in every mode, Straight included (docs/research/keyer-verification-and-key-input-network.md F11); the 3-dit floor keeps the relay closed within a character, where a fixed 50 ms floor would release it between elements below 24 WPM (docs/research/tr-switch-candidates.md F5). SRR decision 47 (owner ruling 2026-09-26; D-KN4) accepts ADR-026. Default 8 dits (REQ-SYS-136). The hang is timed by the keyer clock, so it takes the element timing tolerance of REQ-SYS-042 (INSP-003 finding-25). Ops: OPS-004, OPS-005. TBR: the sequencer timing table at PDR confirms the range.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of the keyer test point and the T/R drive at 5, 15 and 50 WPM with 3, 8 and 30 dit settings. Closing case: TC-SYS-030.",
       "status": "Active",
@@ -1416,7 +1431,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 47 (owner ruling 2026-09-26) adopted D-KN4 (hang in dits, 3 to 30) and accepted ADR-026; the sequencer timing table at PDR confirms the floor against relay timing.",
         "close_by": "PDR"
       },
@@ -1425,8 +1440,8 @@
     {
       "id": "REQ-SYS-045",
       "title": "Sidetone frequency",
-      "description": "The transceiver shall generate a sidetone at an operator-set frequency from 300 Hz to 1000 Hz in 10 Hz steps.",
-      "rationale": "Why: NGO-014 and SI-036 (the operator hears the sidetone while sending); docs/research/keyer-verification-and-key-input-network.md F14 and D-KN5 (adopted by SRR decision 46, owner ruling 2026-09-26). The sidetone frequency is the CW pitch of REQ-SYS-046. The sidetone is audio only and never modulates the carrier (CON-003). Ops: OPS-004, OPS-005.",
+      "description": "The transceiver shall generate a sidetone at an operator-set frequency from 300 Hz to 1000 Hz in 10 Hz steps, each within +/-5 Hz.",
+      "rationale": "Why: NGO-014 and SI-036 (the operator hears the sidetone while sending); docs/research/keyer-verification-and-key-input-network.md F14 and D-KN5 (adopted by SRR decision 46, owner ruling 2026-09-26). The sidetone frequency is the CW pitch of REQ-SYS-046. +/-5 Hz is half a 10 Hz step, so every setting stays distinct from its neighbours (INSP-003 finding-25). The sidetone is audio only and never modulates the carrier (CON-003). Ops: OPS-004, OPS-005.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit, generated tone frequency. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, logic capture of the sidetone PWM line (04 section 6.1) at 300, 600 and 1000 Hz and single 10 Hz steps. Closing case: TC-SYS-031.",
       "status": "Active",
@@ -1490,7 +1505,8 @@
       "source_ids": [
         "CON-012",
         "SI-034",
-        "OPS-005"
+        "OPS-005",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-010"
@@ -1521,7 +1537,8 @@
       "source_ids": [
         "MOE-005",
         "CON-012",
-        "OPS-005"
+        "OPS-005",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-004",
@@ -1530,7 +1547,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "Claude captures the owner's key and paddle bounce with the Pico-based logic capture before PDR; Robin approves the value in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1554,7 +1571,8 @@
       "source_ids": [
         "CON-012",
         "OPS-013",
-        "OPS-017"
+        "OPS-017",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-010"
@@ -1564,7 +1582,7 @@
       ],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 49 (owner ruling 2026-09-26) adopted D-KN7 (abuse bound); the clamp dissipation analysis at PDR confirms the duration.",
         "close_by": "PDR"
       },
@@ -1587,7 +1605,8 @@
       "source_ids": [
         "CON-016",
         "CON-012",
-        "OPS-017"
+        "OPS-017",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-010"
@@ -1603,7 +1622,7 @@
       "description": "The transceiver shall hold both key-input states unchanged while transmitting at 5 W with 1.5 m unshielded leads on the key and headphone jacks.",
       "rationale": "Why: the enclosure is small against the wavelength, so leads carry antenna current (docs/research/antenna-and-erp.md F5, ANT-06); HZ-010 K2, K4, K6 and HZ-004 K9. Ops: OPS-017. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (a false key event from RF pickup would be a single event initiating transmission).",
       "verification_method": "Test",
-      "verification_note": "Pre-build: Simulation of the input filter attenuation at 146 MHz. Post-build (closing): Bench, transmit from the test-mode PARIS generator into the dummy load and with the reference antenna, 5 minute logic capture of both key inputs. Closing case: TC-SYS-036.",
+      "verification_note": "Pre-build: Simulation of the input filter attenuation at 146 MHz. Post-build (closing): Bench, 5 W tune carriers (REQ-SYS-020) and hand keying at the 5 W step into the dummy load and with the reference antenna, 5 minute logic capture of both key inputs; the bench test mode is held at 0.5 W (REQ-SYS-187) and is not used. Closing case: TC-SYS-036.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -1614,7 +1633,8 @@
       "source_ids": [
         "OPS-017",
         "CON-012",
-        "MOE-012"
+        "MOE-012",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-004",
@@ -1646,7 +1666,8 @@
         "MOE-012",
         "OPS-013",
         "OPS-005",
-        "OPS-021"
+        "OPS-021",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-004",
@@ -1657,7 +1678,7 @@
         "MOP-014"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 50 (owner ruling 2026-09-26) ratified the 500 ms interlock (keyer report F13 item 1); the HostUnit bounce study at PDR confirms it.",
         "close_by": "PDR"
       },
@@ -1667,7 +1688,7 @@
       "id": "REQ-SYS-053",
       "title": "Straight-key timeout",
       "description": "The transceiver shall keep the transmitter unkeyed from 5 s (TBR) of any continuous manually timed key closure until that contact opens.",
-      "rationale": "Why: NGO-021 and MOE-012: a held or shorted manually timed contact (the straight key, and the dah contact in Bug mode) ends within 5 s, 2.5 s below the 7.5 s floor of the hardware cutoff so firmware acts first; the sidetone stays on so the operator hears it (HZ-004 K3, HZ-001 K3, HZ-003 K3, HZ-006 K6, HZ-012 K2; docs/research/keyer-verification-and-key-input-network.md F13, D-KN3; SRR decision 37, owner ruling 2026-09-26, adopted the 5 s manual-closure timeout including the Bug dah). Class: Inhibit (KEY), self-clearing, docs/conops/conops.md Table 3.4-4 row 2: the unit stays in Receive and re-arms when the contact is confirmed open (REQ-SYS-162), without Fault-safe (appendix D item D5). Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-055 is the dissimilar hardware layer). TBR: the HostUnit study at PDR confirms the value and fixes the configurable range.",
+      "rationale": "Why: NGO-021 and MOE-012: a held or shorted manually timed contact (the straight key, and the Bug dah contact) is unkeyed at 5 s, 2.5 s below the 7.5 s floor of the hardware cutoff, so firmware acts first; the sidetone stays on (HZ-004 K3; docs/research/keyer-verification-and-key-input-network.md F13, D-KN3; SRR decision 37, owner ruling 2026-09-26). Inhibit (KEY), self-clearing (docs/conops/conops.md Table 3.4-4 row 2): the unit stays in Receive and re-arms when the contact is confirmed open (REQ-SYS-162). 5 s is an upper bound, verified with the capture resolution applied inward (04 section 8.2). Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-055 is the dissimilar layer). TBR: the PDR HostUnit study confirms the value and fixes the configurable range.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit on the simulated clock. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, straight key held closed, and the Bug-mode dah contact held closed, into the dummy load, logic capture of the contact and PA_EN. Closing case: TC-SYS-038.",
       "status": "Active",
@@ -1683,7 +1704,8 @@
       "source_ids": [
         "NGO-021",
         "MOE-012",
-        "OPS-013"
+        "OPS-013",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-001",
@@ -1697,7 +1719,7 @@
         "MOP-014"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 37 (owner ruling 2026-09-26) adopted the 5 s timeout, the Bug-mode dah included (D-KN3); the HostUnit study at PDR confirms the value and fixes the configurable range (2 to 6 s).",
         "close_by": "PDR"
       },
@@ -1706,8 +1728,8 @@
     {
       "id": "REQ-SYS-054",
       "title": "Paddle watchdog",
-      "description": "The transceiver shall end keying until both paddles open after 128 consecutive identical elements or 30 s (TBR) without 7-dit or 500 ms (TBR) gaps.",
-      "rationale": "Why: NGO-021 and MOE-012: a stuck lever, a shorted cable or a keyer fault gives an endless element stream that the hardware cutoff REQ-SYS-055 does not see, because every TX_KEY edge restarts it (HZ-004 K4). SRR decision 37 (owner ruling 2026-09-26) adopted the HZ-004 K4 no-gap watchdog (OQ-SAF-001; D-KN3) in place of the former count of 128 elements or 10 s, because it also bounds a toggling stream: keying ends after 128 consecutive identical elements, or after 30 s in which TX_KEY has had no key-up gap of at least 7 dit times at the selected speed or 500 ms, whichever is shorter, whatever the element pattern. The watchdog runs on the TX_KEY read-back in a unit separate from the keyer engine, so a keyer fault that produces a stream does not also disable it (HZ-004 K4); the sidetone continues and an alert is shown. The squeeze of both contacts is REQ-SYS-184 (K4 item (iii), same ruling), and REQ-SYS-180 (SRR decision 38) ends in hardware a stream this watchdog misses. Class: Inhibit (KEY), self-clearing: keying resumes once both contacts read open (docs/conops/conops.md Table 3.4-4 row 3, which the ConOps author aligns to these values under SRR decision 42; appendix D D5, D18). The 13 s bound of MOE-012 holds for a continuous key-down; a toggling stream from a live firmware is bounded at 30 s here and at 2 s for a squeeze (OQ-SAF-006 item 4). Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 3. TBR: the 30 s window and the gap values; the HostUnit study at PDR confirms that no legitimate sending reaches them. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-001 K3; HZ-003 K3; HZ-004 K4; HZ-006 K6; HZ-012 K2.",
+      "description": "The transceiver shall end keying until both paddles open after 128 consecutive identical elements or 30 s (TBR) without min(7-dit, 500 ms) gaps (TBR).",
+      "rationale": "Why: NGO-021 and MOE-012: a stuck lever, shorted cable or keyer fault gives an endless element stream that the cutoff REQ-SYS-055 misses, because every TX_KEY edge restarts it. SRR decision 37 (owner ruling 2026-09-26) adopted the HZ-004 K4 no-gap watchdog (OQ-SAF-001; D-KN3), which also bounds a toggling stream: a gap counts when TX_KEY stays up for the shorter of 7 dit times and 500 ms. It reads TX_KEY back, separate from the keyer engine; keying resumes once both contacts read open. 30 s is an upper bound, verified inward (04 section 8.2). Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 3. TBR: the PDR HostUnit study confirms that no legitimate sending reaches the window or the gap.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit on the simulated clock at 5, 25 and 50 WPM: a held lever to the 128th identical element; a fault-injected alternating stream with no qualifying gap for 30 s; a stream with a qualifying gap every 25 s, which keeps keying; then release of one lever and of both. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench into the dummy load at 5, 25 and 50 WPM, each paddle lever held, then a fault-injection build sending an alternating stream with no qualifying gap, then release; logic capture of the contacts, the keyer test point, TX_KEY and PA_EN: keying ends at the 128th identical element or 30 s after the last qualifying gap and resumes only after both contacts read open. Closing case: TC-SYS-038.",
       "status": "Active",
@@ -1720,7 +1742,8 @@
       "source_ids": [
         "NGO-021",
         "MOE-012",
-        "OPS-013"
+        "OPS-013",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-001",
@@ -1734,8 +1757,8 @@
         "MOP-014"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
-        "plan": "SRR decision 37 (owner ruling 2026-09-26) adopted the no-gap watchdog with 30 s and the 7-dit or 500 ms gap (D-KN3, HZ-004 K4); the HostUnit study at PDR confirms that no legitimate sending at 5 to 50 WPM reaches them, else the values change by CR.",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
+        "plan": "SRR decision 37 (owner ruling 2026-09-26) adopted the no-gap watchdog with 30 s and the gap of the shorter of 7 dits and 500 ms (D-KN3, HZ-004 K4); the HostUnit study at PDR confirms that no legitimate sending at 5 to 50 WPM reaches them, including word spaces near 7 dits above about 17 WPM (INSP-025 cross item X8), else the values change by CR.",
         "close_by": "PDR"
       },
       "priority": "Baseline"
@@ -1744,7 +1767,7 @@
       "id": "REQ-SYS-055",
       "title": "Hardware transmit cutoff",
       "description": "The transceiver shall end antenna-port RF, independently of firmware, 7.5 s to 13 s (TBR) into any continuous key-down, 10 s nominal.",
-      "rationale": "Why: NGO-021 and MOE-012 require a bound on unintended transmission that holds when firmware is hung (HZ-004 K5; shared by HZ-001 K3, HZ-003 K3, HZ-006 K6, HZ-012 K2, HZ-014 K3). The 7.5 s floor is 2.5 s above the 5 s manual-closure timeout (REQ-SYS-053) and 2 s above the 5.5 s tune bound (REQ-SYS-020), so firmware acts first and no legitimate carrier reaches the cutoff; 13 s bounds any fault carrier (docs/research/keyer-verification-and-key-input-network.md F13, D-KN2, adopted by SRR decision 36 option a, owner ruling 2026-09-26, with the 74LVC1G123 and a capacitor chosen from its DC-bias curve, R-KN1). Every TX_KEY edge restarts this cutoff, so a toggling stream is ended in hardware by REQ-SYS-180 at 150 s to 180 s (SRR decision 38, same ruling). RF off is the REQ-SYS-183 level. Ops: OPS-013, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 2 and 4; 8.2 rows 1 and 2. KDR: hardware monostable and its cutoff node (TS-006). TBR: window pending the capacitor DC-bias analysis at PDR. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-001 K9; HZ-003 K8; HZ-004 K5; HZ-006 K9; HZ-012 K5; HZ-014 K3.",
+      "rationale": "Why: NGO-021 and MOE-012 require a bound on unintended transmission that holds when firmware is hung (HZ-004 K5). The 7.5 s floor is 2.5 s above the 5 s manual-closure timeout (REQ-SYS-053) and 2 s above the 5.5 s tune bound (REQ-SYS-020), so firmware acts first; 13 s bounds any fault carrier (docs/research/keyer-verification-and-key-input-network.md F13, D-KN2; SRR decision 36 option a, owner ruling 2026-09-26, with a capacitor chosen from its DC-bias curve, R-KN1). Every TX_KEY edge restarts it, so REQ-SYS-180 ends a toggling stream. RF off is the REQ-SYS-183 level. Ops: OPS-013, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 2 and 4; 8.2 rows 1 and 2. KDR: hardware monostable and cutoff node. TBR: window pending the capacitor DC-bias analysis at PDR.",
       "verification_method": "Test",
       "verification_note": "Pre-build: Simulation of the monostable timing over component tolerance and temperature. Post-build (closing): Bench, fault-injection firmware build holding TX_KEY high, logic capture of PA_EN and RF into the dummy load. Closing case: TC-SYS-039.",
       "status": "Active",
@@ -1758,7 +1781,8 @@
         "NGO-021",
         "MOE-012",
         "OPS-013",
-        "OPS-021"
+        "OPS-021",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-001",
@@ -1773,7 +1797,7 @@
         "MOP-014"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 36 (owner ruling 2026-09-26) adopted D-KN2 with RFX-D3, option a; the monostable timing analysis over tolerance, temperature and DC bias at PDR confirms 7.5 to 13 s.",
         "close_by": "PDR"
       },
@@ -1798,7 +1822,8 @@
       "source_ids": [
         "NGO-021",
         "OPS-013",
-        "CON-012"
+        "CON-012",
+        "ADR-009"
       ],
       "hazard_ids": [
         "HZ-004"
@@ -1852,13 +1877,14 @@
       "source_ids": [
         "NGO-015",
         "CON-023",
-        "OPS-003"
+        "OPS-003",
+        "ADR-006"
       ],
       "hazard_ids": [],
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The UI design at PDR fixes the step table after a HostUnit usability run; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1868,7 +1894,7 @@
       "id": "REQ-SYS-059",
       "title": "Volume control",
       "description": "The transceiver shall set headphone level with the volume knob in at least 32 steps (TBR) from mute to the active level cap.",
-      "rationale": "Why: SI-006 and CON-023 (volume knob); MOE-011 (comfortable level). The step count is this author's proposal; steps are ramped at 1 dB per ms or slower (HZ-005 K3). Ops: OPS-003. TBR: value is a research or author proposal pending the decision named in the tbr plan.",
+      "rationale": "Why: SI-006 and CON-023 (volume knob); MOE-011 (comfortable level). The step count is this author's proposal; steps are ramped at 1 dB per ms or slower (HZ-005 K3). Ops: OPS-003. TBR: 32 steps is an author estimate of a usable volume resolution; the PDR audio design closes it.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit, level table and ramp. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, multimeter AC RMS across a 32 ohm load at each step with the steady 700 Hz test tone. Closing case: TC-SYS-042.",
       "status": "Active",
@@ -1888,7 +1914,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The audio design at PDR fixes the step count; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1943,7 +1969,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 77 (owner ruling 2026-09-26) selected the LS013B7DH03 (D-UI-01); the PDR display layout fixes the character height; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1953,7 +1979,7 @@
       "id": "REQ-SYS-062",
       "title": "Menu depth",
       "description": "The transceiver shall reach every operator setting within two menu levels (TBR) from the status screen.",
-      "rationale": "Why: MOE-008 (a Technician friend on the air within 30 minutes from the handbook) and NGO-015 (two buttons); a shallow menu keeps the handbook short. The value is this author's proposal. Ops: OPS-006, OPS-007. TBR: value is a research or author proposal pending the decision named in the tbr plan.",
+      "rationale": "Why: MOE-008 (a Technician friend on the air within 30 minutes from the handbook) and NGO-015 (two buttons); a shallow menu keeps the handbook short. The value is this author's proposal. Ops: OPS-006, OPS-007. TBR: two levels is an author estimate of menu depth; the PDR UI design and menu tree close it.",
       "verification_method": "Demonstration",
       "verification_note": "Pre-build: HostUnit menu-tree enumeration. Post-build (closing): Bench demonstration of every setting. Closing case: TC-SYS-043.",
       "status": "Active",
@@ -1972,7 +1998,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The UI design at PDR fixes the menu tree; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -1995,7 +2021,9 @@
       ],
       "source_ids": [
         "NGO-019",
-        "OPS-007"
+        "OPS-007",
+        "ADR-003",
+        "ADR-014"
       ],
       "hazard_ids": [
         "HZ-001",
@@ -2023,7 +2051,9 @@
       "source_ids": [
         "NGO-019",
         "OPS-001",
-        "OPS-007"
+        "OPS-007",
+        "ADR-003",
+        "ADR-014"
       ],
       "hazard_ids": [
         "HZ-001",
@@ -2034,7 +2064,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 23 (owner ruling 2026-09-26) adopted RFX-D2 (1 W default with a confirmation for 5 W); the RF exposure evaluation at PDR confirms the default.",
         "close_by": "PDR"
       },
@@ -2044,7 +2074,7 @@
       "id": "REQ-SYS-065",
       "title": "Guest lock transmit inhibit",
       "description": "The transceiver shall produce no RF output from any source while guest lock is set, including after power cycles.",
-      "rationale": "Why: NGO-020 and MOE-009: a unit handed to an unlicensed guest cannot transmit by accident, and release is a deliberate licensee action governed by the operator rules card (appendix D item D9; CON-006, 47 CFR 97.7; ADR-015 accepted by SRR decision 17, owner ruling 2026-09-26; the lock of SRR decision 19 and guest keying restricted to 0.5 W and 1 W with the control operator present by SRR decision 20); HZ-006 K3 and docs/research/regulatory-corpus-and-operators.md FW-03 (key, keyer and any memory). Every source is covered: key, paddle, tune carrier and the bench test mode. The negative form is kept (WR-08) because the requirement is the prohibition itself and no positive statement covers every source. Receive and tuning stay available. RF off is the REQ-SYS-183 level. Ops: OPS-019. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 4 and 6 (the lock backs the operator rule, never replaces it).",
+      "rationale": "Why: NGO-020 and MOE-009: a unit handed to an unlicensed guest cannot transmit by accident, and release is a deliberate licensee action governed by the operator rules card (appendix D item D9; CON-006, 47 CFR 97.7; ADR-015 and SRR decisions 17, 19 and 20, owner ruling 2026-09-26); HZ-006 K3 and docs/research/regulatory-corpus-and-operators.md FW-03. Every source is covered: key, paddle, tune carrier and the bench test mode. The negative form is kept (WR-08) because the requirement is the prohibition itself and no positive statement covers every source. Receive and tuning stay available. RF off is the REQ-SYS-183 level. Ops: OPS-019. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 4 and 6 (the lock backs the operator rule, never replaces it).",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit, key, paddle, tune and test-mode events in the locked state produce no PA_EN, before and after a simulated power cycle. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, a locked unit keyed by key, paddle, tune menu and test mode into the dummy load before and after a power cycle, logic capture of PA_EN. Closing case: TC-SYS-047.",
       "status": "Active",
@@ -2128,7 +2158,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The UI response analysis at PDR fixes the latency with the display refresh rate; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -2159,7 +2189,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 21 (owner ruling 2026-09-26) kept the identification reminder in revision A; the UI design at PDR confirms the 9 min lead and its tolerance; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -2191,7 +2221,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The RF exposure evaluation at PDR (RFX-D4, RFX-A5) fixes the values; the TRR update with measured power and antenna gain confirms them.",
         "close_by": "PDR"
       },
@@ -2254,7 +2284,7 @@
         "MOP-013"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 64 (owner ruling 2026-09-26) adopted audio level policy (a) (docs/research/audio-output-and-hearing-safety.md D2); the single-failure analysis at PDR confirms the values.",
         "close_by": "PDR"
       },
@@ -2287,7 +2317,7 @@
         "MOP-013"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 64 (owner ruling 2026-09-26) adopted audio level policy (a) (docs/research/audio-output-and-hearing-safety.md D2); the single-failure analysis at PDR confirms the values.",
         "close_by": "PDR"
       },
@@ -2317,7 +2347,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 64 (owner ruling 2026-09-26) adopted audio level policy (a) (docs/research/audio-output-and-hearing-safety.md D2); the single-failure analysis at PDR confirms the values.",
         "close_by": "PDR"
       },
@@ -2351,7 +2381,7 @@
         "MOP-013"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 64 (owner ruling 2026-09-26) adopted audio level policy (a) (docs/research/audio-output-and-hearing-safety.md D2); the single-failure analysis at PDR confirms the values.",
         "close_by": "PDR"
       },
@@ -2410,7 +2440,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 64 (owner ruling 2026-09-26) adopted audio level policy (a) (docs/research/audio-output-and-hearing-safety.md D2); the single-failure analysis at PDR confirms the values.",
         "close_by": "PDR"
       },
@@ -2419,8 +2449,8 @@
     {
       "id": "REQ-SYS-077",
       "title": "Amplifier off without headphones",
-      "description": "The transceiver shall disable the headphone amplifier output while no plug is inserted in the headphone jack.",
-      "rationale": "Why: NGO-016 and HZ-005 K6: nothing plays into an open jack and insertion ramps from zero (switched jack detect, docs/research/display-and-ui-parts.md F17, adopted by SRR decision 66, owner ruling 2026-09-26). Ops: OPS-003. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 1 (the hardware ceiling bounds a failure of this shutdown).",
+      "description": "The transceiver shall disable the headphone amplifier output within 20 ms of plug removal and while no plug is inserted.",
+      "rationale": "Why: NGO-016 and HZ-005 K6: nothing plays into an open jack and insertion ramps from zero (switched jack detect, docs/research/display-and-ui-parts.md F17, adopted by SRR decision 66, owner ruling 2026-09-26). 20 ms covers the jack-detect debounce and the enable path and is far shorter than the time a hand needs to reinsert a plug (INSP-003 finding-25). Ops: OPS-003. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 1 (the hardware ceiling bounds a failure of this shutdown).",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit, detect state drives the enable. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, amplifier enable line logged by the logic capture on plug removal and insertion. Closing case: TC-SYS-056.",
       "status": "Active",
@@ -2471,7 +2501,7 @@
       ],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The audio design at PDR confirms the channel match; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -2559,7 +2589,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 70 (owner ruling 2026-09-26) selected the BQ25887 (D-PWR-01); the charger design at PDR confirms the regulation tolerance.",
         "close_by": "PDR"
       },
@@ -2591,7 +2621,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The NTC divider and placement analysis at PDR fixes the tolerance; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -2600,10 +2630,10 @@
     {
       "id": "REQ-SYS-083",
       "title": "Independent cell over-voltage protection",
-      "description": "The transceiver shall stop charging, independently of charger and firmware, at a cell threshold set within 4.25-4.30 V (TBR) from 0 C to 45 C.",
-      "rationale": "Why: NGO-022 (protection independent of the charger) and HZ-002 K2: the second layer against overcharge (docs/research/power-tree-and-charging.md F11, D-PWR-03, adopted by SRR decision 72, owner ruling 2026-09-26: S-8252 class plus BQ29209 class). The 4.25 V floor keeps 29 mV above the 4.221 V charger maximum (F5) against nuisance trips during balancing; the S-8252 variant is chosen at PDR so that its +/-20 mV at 25 C plus temperature drift stays in the band. The BQ29209-class 4.30 V layer (HZ-002 K3) is REQ-SYS-185 and the separate sense paths (HZ-002 K9) are REQ-SYS-186, both added by the same ruling (OQ-SAF-008, OQ-SAF-009). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3 (single-fault tolerant overcharge branch with the charger of REQ-SYS-081 and the firmware dual sensing of REQ-SYS-088; the 4.30 V layer of REQ-SYS-185 with the separate sense paths of REQ-SYS-186 makes the branch two-fault tolerant once both are verified). TBR: band pending the PDR protector variant selection.",
+      "description": "The transceiver shall stop charging, independently of charger and firmware, at a cell threshold within 4.25-4.30 V (TBR) at 18 C to 28 C.",
+      "rationale": "Why: NGO-022 (protection independent of the charger) and HZ-002 K2: the second layer against overcharge (docs/research/power-tree-and-charging.md F11, D-PWR-03; SRR decision 72, owner ruling 2026-09-26: S-8252 class plus BQ29209 class). The 4.25 V floor keeps 29 mV above the 4.221 V charger maximum (F5) against nuisance trips during balancing. This requirement is the room-temperature threshold that a Bench Test measures; REQ-SYS-194 holds the band from 0 C to 45 C by Analysis, so each requirement has one closing method (04 section 3; INSP-025 finding-5). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3 (with REQ-SYS-081 and REQ-SYS-088; REQ-SYS-185 and REQ-SYS-186 make the branch two-fault tolerant once verified). TBR: band pending the PDR protector variant selection.",
       "verification_method": "Test",
-      "verification_note": "Pre-build (supporting): Analysis of the protector threshold over 0 to 45 C and of the margin to the charger VREG and balancing behaviour. Post-build (closing): Bench, cell simulator raised through the band with the charger held off, protector FET state read with the multimeter at room temperature. Closing case: TC-SYS-061.",
+      "verification_note": "Pre-build (supporting): Analysis of the margin to the charger VREG and balancing behaviour. Post-build (closing): Bench, cell simulator raised through the band with the charger held off, protector FET state read with the multimeter at 18 C to 28 C. The 0 C to 45 C span is REQ-SYS-194, closed by Analysis. Closing case: TC-SYS-061.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -2622,7 +2652,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 72 (owner ruling 2026-09-26) adopted D-PWR-03 (S-8252 class plus BQ29209 class); the protector variant selection at PDR confirms the band and the margin to VREG.",
         "close_by": "PDR"
       },
@@ -2652,7 +2682,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 72 (owner ruling 2026-09-26) adopted D-PWR-03; the protector variant selection at PDR fixes the threshold.",
         "close_by": "PDR"
       },
@@ -2683,7 +2713,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the value.",
         "close_by": "PDR"
       },
@@ -2693,7 +2723,7 @@
       "id": "REQ-SYS-086",
       "title": "Reverse cell insertion",
       "description": "The transceiver shall survive either cell inserted reversed without damage and without drawing more than 10 mA (TBR) from the cells.",
-      "rationale": "Why: HZ-007 K3, K5, K6: user-replaceable cells (CON-011) get inserted backwards; polarity marks, the protector FET window and a reverse-polarity element bound the fault (docs/research/power-tree-and-charging.md F12, F13). Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: value is a research or author proposal pending the decision named in the tbr plan.",
+      "rationale": "Why: HZ-007 K3, K5, K6: user-replaceable cells (CON-011) get inserted backwards; polarity marks, the protector FET window and a reverse-polarity element bound the fault (docs/research/power-tree-and-charging.md F12, F13). Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: 10 mA is an author estimate of reverse-insertion leakage; the PDR power trade study closes it with the protection topology.",
       "verification_method": "Test",
       "verification_note": "Pre-build: Simulation of the reverse path. Post-build (closing): Bench supply current-limited to 100 mA emulating one reversed cell, current read on the multimeter, then normal operation re-checked. Closing case: TC-SYS-062.",
       "status": "Active",
@@ -2714,7 +2744,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the value.",
         "close_by": "PDR"
       },
@@ -2723,10 +2753,10 @@
     {
       "id": "REQ-SYS-087",
       "title": "Cell insertion check",
-      "description": "The transceiver shall refuse charging while its cells differ by more than 300 mV (TBR) or either reads outside 2.5 V to 4.3 V (TBR).",
-      "rationale": "Why: HZ-002 K5: mismatched or damaged cells are a charging hazard (docs/research/power-tree-and-charging.md F13, F24). The two conditions form one insertion check with one pass/fail result, so one closing case covers the statement; keeping the rails off is REQ-SYS-166. Ops: OPS-012, OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: thresholds pending the power trade study. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-002 K5; HZ-007 K3.",
+      "description": "The transceiver shall hold charge current below 5 mA while its cells differ by over 300 mV (TBR) or either reads outside 2.5-4.3 V (TBR).",
+      "rationale": "Why: HZ-002 K5: mismatched or damaged cells are a charging hazard (docs/research/power-tree-and-charging.md F13, F24). The two conditions form one insertion check with one pass/fail result, so one closing case covers the statement; keeping the rails off is REQ-SYS-166. Below 5 mA states a refused charge as a measurable current, above the charger's standby leakage (INSP-003 finding-25). Ops: OPS-012, OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: thresholds pending the power trade study.",
       "verification_method": "Test",
-      "verification_note": "Pre-build (supporting): HostUnit with injected cell readings. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, two cell simulators set 400 mV apart, then one at 2.4 V and one at 4.4 V, USB applied, charge current read on the multimeter. Closing case: TC-SYS-064.",
+      "verification_note": "Pre-build (supporting): HostUnit with injected cell readings. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, two cell simulators set apart by 300 mV plus the fixture setting accuracy, then one below 2.5 V and one above 4.3 V by that accuracy, USB applied, charge current read on the multimeter. Closing case: TC-SYS-064.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -2746,7 +2776,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the value.",
         "close_by": "PDR"
       },
@@ -2755,10 +2785,10 @@
     {
       "id": "REQ-SYS-088",
       "title": "Dual-path cell voltage check",
-      "description": "The transceiver shall stop charging when two independent measurements of a cell voltage differ by more than 100 mV (TBR).",
-      "rationale": "Why: HZ-002 K4: dissimilar redundant sensing (charger ADC and controller ADC) detects a failed sense path before it masks an overcharge (docs/research/power-tree-and-charging.md F14, F15). The fault message is REQ-SYS-067. Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: the threshold follows the calibration analysis.",
+      "description": "The transceiver shall cut charge current below 5 mA when two independent measurements of a cell voltage differ by more than 100 mV (TBR).",
+      "rationale": "Why: HZ-002 K4: dissimilar redundant sensing (charger ADC and controller ADC) detects a failed sense path before it masks an overcharge (docs/research/power-tree-and-charging.md F14, F15). The fault message is REQ-SYS-067. Below 5 mA states a stopped charge as a measurable current, the level of REQ-SYS-087 and REQ-SYS-093 (INSP-003 finding-25). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: the threshold follows the calibration analysis.",
       "verification_method": "Test",
-      "verification_note": "Pre-build (supporting): HostUnit with injected disagreement. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, a divider resistor substituted to create a 150 mV disagreement during charge, charge current read on the multimeter. Closing case: TC-SYS-064.",
+      "verification_note": "Pre-build (supporting): HostUnit with injected disagreement. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, a divider resistor substituted to create a disagreement of 100 mV plus the fixture setting accuracy during charge, charge current read on the multimeter. Closing case: TC-SYS-064.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -2776,7 +2806,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The sense-path calibration analysis at PDR fixes the threshold; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -2806,7 +2836,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the timer against the approved cell capacity.",
         "close_by": "PDR"
       },
@@ -2816,7 +2846,7 @@
       "id": "REQ-SYS-090",
       "title": "USB input current",
       "description": "The transceiver shall draw at most 500 mA from USB VBUS.",
-      "rationale": "Why: CON-010 and NGO-022: all charge current passes through the Pico 2 module's micro-USB and VBUS copper, whose rating above 500 mA is unconfirmed (HZ-011 K4; docs/research/power-tree-and-charging.md D-PWR-02). 500 mA covers the charger input and the module's 40 mA (F18), so the charger limit sits near 450 mA (L2). USB 2.0 allows 100 mA before configuration (F1) and no firmware enumerates with the switch off; SRR decision 71 (owner ruling 2026-09-26) accepts that deviation with a handbook note naming a 5 V charger or a 500 mA port, keeps 500 mA as the default and admits DCP detection only after TS-005 qualifies the VBUS path. Ops: OPS-002. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-011 Marginal; the unrated VBUS path is a listed single point).",
+      "rationale": "Why: CON-010 and NGO-022: all charge current passes through the Pico 2 module's micro-USB and VBUS copper, whose rating above 500 mA is unconfirmed (HZ-011 K4; docs/research/power-tree-and-charging.md D-PWR-02). 500 mA covers the charger input and the module's 40 mA (F18), so the charger limit sits near 450 mA (L2). No firmware enumerates with the switch off, beyond the USB 2.0 allowance of 100 mA before configuration (F1); SRR decision 71 (owner ruling 2026-09-26) accepts that deviation with a handbook note and admits DCP detection only after TS-005 qualifies the VBUS path. Ops: OPS-002. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5 (HZ-011 Marginal); 8.2 row 22.",
       "verification_method": "Test",
       "verification_note": "Pre-build: Analysis of the input current limit setting. Post-build (closing): Bench, USB power through a meter at the start of charge with discharged cells and the radio switched on. Closing case: TC-SYS-050.",
       "status": "Active",
@@ -2887,7 +2917,8 @@
         "NGO-022",
         "MOE-004",
         "OPS-002",
-        "OPS-011"
+        "OPS-011",
+        "ADR-004"
       ],
       "hazard_ids": [
         "HZ-011",
@@ -2901,8 +2932,8 @@
     {
       "id": "REQ-SYS-093",
       "title": "Charging paused while receiving",
-      "description": "The transceiver shall pause charging while the power switch is on and USB power is present.",
-      "rationale": "Why: NGO-022 (receive allowed while charging with charging paused) and HZ-002 K6, HZ-011 K2: receiver load would mask charge termination (docs/research/power-tree-and-charging.md D-PWR-07, adopted by SRR decision 75, owner ruling 2026-09-26). Ops: OPS-002. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 5 (termination is not masked by the receive load).",
+      "description": "The transceiver shall hold charge current below 5 mA while the power switch is on and USB power is present.",
+      "rationale": "Why: NGO-022 (receive allowed while charging with charging paused) and HZ-002 K6, HZ-011 K2: receiver load would mask charge termination (docs/research/power-tree-and-charging.md D-PWR-07, adopted by SRR decision 75, owner ruling 2026-09-26). Below 5 mA states a paused charge as a measurable current, the level of REQ-SYS-087 and REQ-SYS-088 (INSP-003 finding-25). Ops: OPS-002. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 5 (termination is not masked by the receive load).",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit of the charge-control state. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, charge current read on a USB current meter with the switch off and on. Closing case: TC-SYS-050.",
       "status": "Active",
@@ -2931,7 +2962,7 @@
       "description": "The transceiver shall run at least 8 h on fresh 3000 mAh cells at 1:9 transmit-to-receive, 45 percent key-down at 5 W, until transmit inhibit.",
       "rationale": "Why: SI-034 and ADR-020 (owner decision: 10 percent transmitting with 45 percent key-down, display on, audio at normal level), NGO-025, MOE-004, MOP-010; TPM-008's 50 percent is stale and routed to the TPM owner. The end point is the REQ-SYS-097 transmit inhibit. Assumes: docs/research/power-tree-and-charging.md F23 predicts 6.4 to 13.0 h to 3.0 V per cell; it is re-run to the 3.2 V inhibit at PDR, receive current is a mandatory TS-001 criterion, and a shortfall risk is routed to the risk author. Ops: OPS-004, OPS-009. KDR: receiver current (TS-001), PA efficiency (TS-003) and cell capacity.",
       "verification_method": "Test",
-      "verification_note": "Pre-build (supporting): Analysis, power budget in docs/design/budgets.md. Post-build (closing): Bench, test-mode 1:9 keying pattern at 45 percent key-down into the dummy load on the owner's cells with USB disconnected, elapsed time to transmit inhibit read from the UART telemetry (REQ-SYS-150). Closing case: TC-SYS-067.",
+      "verification_note": "Pre-build (supporting): Analysis, power budget in docs/design/budgets.md. Post-build (closing): Bench, the keying fixture sending the 1:9 pattern at 45 percent key-down at the 5 W step, every closure shorter than the REQ-SYS-053 timeout, into the dummy load on the owner's cells with USB disconnected, elapsed time to transmit inhibit read from the UART telemetry (REQ-SYS-150). Closing case: TC-SYS-067.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -2972,7 +3003,8 @@
       "source_ids": [
         "NGO-025",
         "MOE-004",
-        "OPS-009"
+        "OPS-009",
+        "ADR-020"
       ],
       "hazard_ids": [],
       "design_refs": [],
@@ -2980,7 +3012,7 @@
         "MOP-010"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 76 (owner ruling 2026-09-26) adopted the 6 h floor at 1:4; the PDR power budget shows it is achievable, else it is revised by CR.",
         "close_by": "PDR"
       },
@@ -3032,7 +3064,8 @@
       "source_ids": [
         "NGO-022",
         "MOE-004",
-        "OPS-009"
+        "OPS-009",
+        "ADR-005"
       ],
       "hazard_ids": [
         "HZ-007"
@@ -3040,7 +3073,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the value.",
         "close_by": "PDR"
       },
@@ -3062,7 +3095,8 @@
       ],
       "source_ids": [
         "NGO-022",
-        "OPS-009"
+        "OPS-009",
+        "ADR-005"
       ],
       "hazard_ids": [
         "HZ-007"
@@ -3070,7 +3104,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the value.",
         "close_by": "PDR"
       },
@@ -3100,7 +3134,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the value.",
         "close_by": "PDR"
       },
@@ -3110,7 +3144,7 @@
       "id": "REQ-SYS-100",
       "title": "Current drawn when switched off",
       "description": "The transceiver shall draw at most 50 uA (TBR) from the pack with the power switch off.",
-      "rationale": "Why: OPS-010 (storage and transport): only the protector and charger input stay alive (about 25 uA, docs/research/power-tree-and-charging.md D-PWR-08); 50 uA drains 3000 mAh in about 7 years. Ops: OPS-010. TBR: value is a research or author proposal pending the decision named in the tbr plan.",
+      "rationale": "Why: OPS-010 (storage and transport): only the protector and charger input stay alive (about 25 uA, docs/research/power-tree-and-charging.md D-PWR-08); 50 uA drains 3000 mAh in about 7 years. Ops: OPS-010. TBR: 50 uA is an author estimate of off-state drain; the PDR power trade study closes it with the switch and regulator choice.",
       "verification_method": "Test",
       "verification_note": "Pre-build: Analysis of datasheet quiescent currents. Post-build (closing): Bench, multimeter microamp range in the pack lead. Closing case: TC-SYS-070.",
       "status": "Active",
@@ -3129,7 +3163,7 @@
         "MOP-003"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the value.",
         "close_by": "PDR"
       },
@@ -3168,7 +3202,7 @@
       "id": "REQ-SYS-102",
       "title": "Unit mass",
       "description": "The transceiver shall have a mass of at most 350 g (TBR) with cells fitted and without the antenna.",
-      "rationale": "Why: SI-001 (pocket handheld), NGO-006; MOP-001 and TPM-001 carry the provisional 350 g allocation (charter section 12, SE-62). Two cells are about 96 g (ADR-005). MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-010. KDR: enclosure wall thickness and PA thermal mass. TBR: value is a research or author proposal pending the decision named in the tbr plan.",
+      "rationale": "Why: SI-001 (pocket handheld), NGO-006; MOP-001 and TPM-001 carry the provisional 350 g allocation (charter section 12, SE-62). Two cells are about 96 g (ADR-005). MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-010. KDR: enclosure wall thickness and PA thermal mass. TBR: 350 g is the TPM-001 allocation adopted by SRR decision 97; the PDR bottom-up mass estimate with the enclosure envelope closes it.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): Analysis, BOM and CAD mass roll-up in docs/design/budgets.md. Post-build (closing): Bench, kitchen or postal scale; Blocked until OQ-VV-002 confirms the owner has one (04 section 6.3). Closing case: TC-SYS-071.",
       "status": "Active",
@@ -3190,7 +3224,7 @@
         "TPM-001"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 97 (owner ruling 2026-09-26) adopted 350 g (TPM-001) as a TBR allocation; the bottom-up estimate at PDR with the enclosure envelope confirms it.",
         "close_by": "PDR"
       },
@@ -3200,7 +3234,7 @@
       "id": "REQ-SYS-103",
       "title": "External envelope",
       "description": "The transceiver shall fit within 140 mm x 70 mm x 40 mm (TBR) excluding antenna and knobs.",
-      "rationale": "Why: SI-001 and NGO-026 (sized by the two cells and the controller module; two 18650 holders are about 77 x 41 mm, the Pico 2 51 x 21 mm; docs/research/antenna-and-erp.md F5 estimates 120 to 140 mm length). The numbers are this author's proposal for the TPM-016 allocation. MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-010. KDR: enclosure CNC part and PCB outline. TBR: value is a research or author proposal pending the decision named in the tbr plan.",
+      "rationale": "Why: SI-001 and NGO-026 (sized by the two cells and the controller module; two 18650 holders are about 77 x 41 mm, the Pico 2 51 x 21 mm; docs/research/antenna-and-erp.md F5 estimates 120 to 140 mm length). The numbers are this author's proposal for the TPM-016 allocation. MOE-013 (pocket carry and a day outdoors; appendix D item D16). Ops: OPS-010. KDR: enclosure CNC part and PCB outline. TBR: the envelope is the TPM-016 allocation adopted by SRR decision 97; the PDR enclosure layout closes it.",
       "verification_method": "Inspection",
       "verification_note": "Pre-build (closing): Inspection of the enclosure CAD bounding box. Post-build (supporting): calipers on receipt, pending OQ-VV-002 (04 section 6.3). Closing case: TC-SYS-040.",
       "status": "Active",
@@ -3223,7 +3257,7 @@
         "TPM-016"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 97 (owner ruling 2026-09-26) adopted 140 x 70 x 40 mm (TPM-016) as a TBR allocation; the enclosure layout at PDR confirms it.",
         "close_by": "PDR"
       },
@@ -3284,7 +3318,7 @@
       ],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The enclosure analysis at PDR confirms the return-loss limit with the NanoVNA repeatability; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -3314,7 +3348,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The connector selection at PDR confirms the rating and the return-loss limit; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -3345,7 +3379,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The enclosure layout at PDR fixes the attachment position and resistance; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -3463,7 +3497,7 @@
       "id": "REQ-SYS-112",
       "title": "PA thermal path at continuous key-down",
       "description": "The transceiver shall hold the PA junction at or below 110 C (TBR) during continuous key-down at the 5 W step in 45 C ambient.",
-      "rationale": "Why: HZ-003 K1 and K7; continuous key-down is the steady-state bound of every duty cycle and 45 C is the top of REQ-SYS-114. The basis is the PD54008L-E PowerFLAT (docs/research/pa-turnkey-candidates-followup.md implications 1, 3 and 11) with the line-up at about 11.4 W DC for 5 W (docs/research/pa-device-candidates.md F19); the RD07MUS2B basis of pcbway-export F17 is dropped. HZ-003 K1 quotes 100 C at 25 C for 5 min; aligning it to this single limit is routed. The junction cannot be measured, so the method is Analysis. Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 5 and 7 (Analysis accepted per RSK-006). KDR: pedestal, via fill and enclosure wall. TBR: limit pending TS-003.",
+      "rationale": "Why: HZ-003 K1 and K7; continuous key-down is the steady-state bound of every duty cycle and 45 C is the top of REQ-SYS-114. The basis is the PD54008L-E PowerFLAT (docs/research/pa-turnkey-candidates-followup.md implications 1, 3 and 11) with the line-up at about 11.4 W DC for 5 W (docs/research/pa-device-candidates.md F19); the RD07MUS2B basis of pcbway-export F17 is dropped. HZ-003 K1 quotes 100 C at 25 C for 5 min; aligning it to this single limit is routed. The junction cannot be measured, so the method is Analysis. Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 4 and 7 (Analysis accepted per RSK-006). KDR: pedestal, via fill and enclosure wall. TBR: limit pending TS-003.",
       "verification_method": "Analysis",
       "verification_note": "Analysis accepted per RSK-006: pre-build (closing) thermal resistance chain analysis junction to ambient in docs/design/analysis/thermal-budget.md. Post-build (supporting): Bench, PA NTC read from the UART telemetry (REQ-SYS-150) during 5 min of 5 s key-downs at 80 percent duty into the dummy load. Closing case: TC-SYS-077.",
       "status": "Active",
@@ -3489,7 +3523,7 @@
         "MOP-003"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-003 (device RthJC) and the thermal budget at PDR fix the limit and the condition; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -3499,7 +3533,7 @@
       "id": "REQ-SYS-113",
       "title": "Hand-hold surface temperature",
       "description": "The transceiver shall keep hand-hold surfaces at most 48 C (TBR) after 5 min of continuous key-down at 5 W in 25 C ambient.",
-      "rationale": "Why: HZ-003 K1 and K7 (contact burn); RSK-006, RSK-026. Continuous key-down is the analysis case; the delivered unit cannot sustain it (REQ-SYS-055), so no cutoff bypass is needed. Method: Analysis, because no thermometer is in the bench inventory (04 section 6.2 thermal row, OQ-VV-003). 48 C has no standard in the corpus (docs/safety/hazard-analysis.md section 11 open item 7). Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 5 and 7 (Analysis accepted per RSK-006). TBR: value pending a touch-temperature basis.",
+      "rationale": "Why: HZ-003 K1 and K7 (contact burn); RSK-006, RSK-026. Continuous key-down is the analysis case; the delivered unit cannot sustain it (REQ-SYS-055), so no cutoff bypass is needed. Method: Analysis, because no thermometer is in the bench inventory (04 section 6.2 thermal row, OQ-VV-003). 48 C has no standard in the corpus (docs/safety/hazard-analysis.md section 11 open item 7). Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 4 and 7 (Analysis accepted per RSK-006). TBR: value pending a touch-temperature basis.",
       "verification_method": "Analysis",
       "verification_note": "Analysis accepted per RSK-006: pre-build (closing) thermal budget of the PA-to-enclosure path at 5 min continuous key-down. Post-build (supporting): Demonstration, 5 min of 5 s key-downs at 80 percent duty into the dummy load inside the enclosure, PA NTC read from the UART telemetry; surface read only if OQ-VV-003 yields a thermocouple. Closing case: TC-SYS-077.",
       "status": "Active",
@@ -3521,7 +3555,7 @@
         "TPM-004"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The thermal budget at PDR fixes the value; if the owner adopts IEC 62368-1 or ISO 13732-1 the value is re-based on it by CR; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -3550,7 +3584,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 85 (owner ruling 2026-09-26) adopted the environment set (TBR) of docs/conops/conops.md section 4 and Appendix C; the TPM-006 span is reconciled at PDR.",
         "close_by": "PDR"
       },
@@ -3578,7 +3612,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 85 (owner ruling 2026-09-26) adopted the environment set (TBR) of docs/conops/conops.md section 4 and Appendix C; the TPM-006 span is reconciled at PDR.",
         "close_by": "PDR"
       },
@@ -3606,7 +3640,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 85 (owner ruling 2026-09-26) adopted the environment set (TBR) of docs/conops/conops.md section 4 and Appendix C; the TPM-006 span is reconciled at PDR.",
         "close_by": "PDR"
       },
@@ -3634,7 +3668,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 85 (owner ruling 2026-09-26) adopted the environment set (TBR) of docs/conops/conops.md section 4 and Appendix C; the TPM-006 span is reconciled at PDR.",
         "close_by": "PDR"
       },
@@ -3664,7 +3698,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The PA thermal analysis at PDR fixes the threshold; the decision is recorded in an ADR and this TBR closes in the same CR.",
         "close_by": "PDR"
       },
@@ -3732,7 +3766,7 @@
       "id": "REQ-SYS-121",
       "title": "RF exposure evaluation",
       "description": "The transceiver shall have an RF exposure evaluation per 47 CFR 1.1307(b), 2.1091 and 2.1093 on record before its first on-air transmission.",
-      "rationale": "Why: 47 CFR 97.13(c)(1) requires compliance with '1.1307(b), 2.1091, and 2.1093 ... where applicable' against the 1.1310 limits (CON-004): the mobile posture is a 2.1091 case and the handheld posture within 20 cm a 2.1093 (SAR) case; operators at the occupational tier, others at the general-population tier (SI-030, ADR-014). HZ-001 K8, HZ-006. The method is OET 65 Supplement B plus SAR by analogy (RFX-D6, adopted by SRR decisions 31 and 32, owner ruling 2026-09-26: the exposure posture and SAR evidence by analogy, with no FDTD estimate in revision A). Ops: OPS-018, OPS-022. SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (Analysis accepted per RSK-016). Constraint: a licensee record kept as a requirement because the hazard controls cite it. KDR: gates the first OnAir series. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-001 K8; HZ-006 K4.",
+      "rationale": "Why: 47 CFR 97.13(c)(1) requires compliance with 1.1307(b), 2.1091 and 2.1093 against the 1.1310 limits (CON-004): the mobile posture is a 2.1091 case and the handheld posture within 20 cm a 2.1093 (SAR) case; operators at the occupational tier, others at the general-population tier (SI-030, ADR-014). The method is OET 65 Supplement B plus SAR by analogy (RFX-D6; SRR decisions 31 and 32, owner ruling 2026-09-26), and SRR decision 30 accepted Analysis as the class 1 item (g) record. Ops: OPS-018, OPS-022. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (Analysis accepted per RSK-016; HZ-001 K8, HZ-006 K4). Constraint: a licensee record kept as a requirement because the hazard controls cite it. KDR: gates the first OnAir series.",
       "verification_method": "Analysis",
       "verification_note": "Analysis accepted per RSK-016: pre-build Analysis in docs/design/analysis/rf-exposure-evaluation.md (MPE distances per step, SAR analogy), updated at TRR with Bench power per step from the tinySA Ultra. Closing case: TC-SYS-084.",
       "status": "Active",
@@ -3773,7 +3807,7 @@
       "id": "REQ-SYS-122",
       "title": "Operations handbook safety content",
       "description": "The transceiver shall ship with an operations handbook containing every safety instruction that docs/safety/hazards.json allocates to documentation or operator procedure.",
-      "rationale": "Why: CON-004 and 47 CFR 1.1310 require exposure information for the occupational tier; hazards.json allocates to the handbook the separation rules, antenna gain envelope, cell guidance, audio policy, stuck-key actions, antenna handling, battery replacement and the posture and operator-model procedures (HZ-001 K5, K6; HZ-002 K8; HZ-003 K6; HZ-004 K10, K11; HZ-005 K8; HZ-006 K4, K8; HZ-007 K7; HZ-009 K5; HZ-011 K5; HZ-012 K3; HZ-013 K5). Method: Inspection by SRR decision 113 (owner ruling 2026-09-26) through CR-002, which admits Inspection under 04 rule 7.3.6 for a documentary property (INSP-003 finding-17); SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1, as that ruling states for the move to Inspection. SRR decisions 17, 18 and 20 (same ruling) set the operator-model, exposure-tier and guest content the handbook carries. Leaf: one system-level document that every module contributes to and none owns. Ops: OPS-006, OPS-018. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 6.",
+      "rationale": "Why: CON-004 and 47 CFR 1.1310 require exposure information for the occupational tier; hazards.json allocates to the handbook the separation rules, antenna gain envelope, cell guidance, audio policy, stuck-key actions, antenna handling, battery replacement and the posture and operator-model procedures (the documentation and procedure controls of HZ-001 to HZ-007, HZ-009 and HZ-011 to HZ-013). Method: Inspection of a documentary property by SRR decision 113 through CR-002, and the class 1 item (g) record by SRR decision 30 (owner ruling 2026-09-26); SRR decisions 17, 18 and 20 set the operator-model, exposure-tier and guest content. Leaf: one system-level document that every module contributes to and none owns. Ops: OPS-006, OPS-018. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 6.",
       "verification_method": "Inspection",
       "verification_note": "Inspection accepted per CR-002 (SRR decision 113): pre-build (closing) checklist inspection by an independent reviewer of docs/ops/operations-handbook.md against every Documentation and Operator procedure control of docs/safety/hazards.json. Post-build: a printed copy with each unit. Closing case: TC-SYS-085.",
       "status": "Active",
@@ -3873,7 +3907,7 @@
       "id": "REQ-SYS-125",
       "title": "Build quantity cap",
       "description": "The transceiver shall have a production quantity of at most five complete units, none of them marketed.",
-      "rationale": "Why: CON-008 and CON-024 (SI-035, ADR-025). 47 CFR 15.23(a) (eCFR 2026-09-23) reads: 'Equipment authorization is not required for devices that are not marketed, are not constructed from a kit, and are built in quantities of five or less for personal use.' No kit of parts is sold or supplied, so the 'kit model' of SI-031 and ADR-007 names the owner's assembly split, not a 15.23(a) kit (ConOps section 1.2 assumption 5). Leaf: a programmatic cap on the build records that no L2 module can hold, so it is verified at system level only. SRR decision 30 (owner ruling 2026-09-26; docs/reviews/SRR/decision-memo.md section 8.1) accepted it as the class 1 item (g) record of 02 section 4.4 and 06 section 14.1; SRR decision 86 (same ruling) confirms five boards fabricated and three to five assembled. Ops: OPS-012.",
+      "rationale": "Why: CON-008 and CON-024 (SI-035, ADR-025). 47 CFR 15.23(a) (eCFR 2026-09-23) exempts from equipment authorization devices that are not marketed, not constructed from a kit and built in quantities of five or less for personal use. No kit of parts is sold or supplied, so the kit model of SI-031 and ADR-007 names the owner's assembly split, not a 15.23(a) kit (ConOps section 1.2 assumption 5). Leaf: a programmatic cap on the build records that no L2 module can hold, verified at system level only. SRR decision 30 (owner ruling 2026-09-26) accepted the method as the class 1 item (g) record; SRR decision 86 confirms five boards fabricated and three to five assembled. Ops: OPS-012.",
       "verification_method": "Inspection",
       "verification_note": "Pre-build (closing): Inspection of the CDR release package quantities and the unit serial register (CWHT-A-NNN). Post-build: SAR configuration audit. Closing case: TC-SYS-087.",
       "status": "Active",
@@ -3943,7 +3977,8 @@
         "SI-007",
         "SI-033",
         "ADR-019",
-        "OPS-011"
+        "OPS-011",
+        "ADR-027"
       ],
       "hazard_ids": [],
       "design_refs": [],
@@ -4010,7 +4045,7 @@
       "id": "REQ-SYS-130",
       "title": "Safe state first on reset, panic and latched fault",
       "description": "The transceiver shall first set PA off, key up, antenna to receive, audio muted and charging disabled after every reset, panic or latched fault.",
-      "rationale": "Why: HZ-004 K7 and HZ-005 K5 (SWE-134 a, c, l): the shared safe-state manager is the first action on every reset, panic and latched-fault path, and the reset reason is recorded. The full safe state follows docs/conops/conops.md Table 3.4-1 (Fault-safe row) and Table 3.4-4 rows 9 to 15; charging disabled covers the latched cell and charger causes (rows 13 to 15, HZ-002). Inhibit-class causes and flags, the key-down timeouts included, apply the transmit part only (REQ-SYS-004), so the stuck-key sidetone of rows 2 and 3 keeps sounding (appendix D item D6). After Self-test passes, audio and charging are restored as the mode allows (row 9). Ops: OPS-013, OPS-016, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 a, c and l). Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-002 K4, K5; HZ-004 K7; HZ-005 K5.",
+      "rationale": "Why: HZ-004 K7 and HZ-005 K5 (SWE-134 a, c, l): the shared safe-state manager is the first action on every reset, panic and latched-fault path, and the reset reason is recorded. The full safe state follows docs/conops/conops.md Table 3.4-1 (Fault-safe row) and Table 3.4-4 rows 9 to 15; charging disabled covers the latched cell and charger causes (rows 13 to 15; HZ-002 K4, K5). Inhibit-class causes, the key-down timeouts included, apply the transmit part only (REQ-SYS-004), so the stuck-key sidetone keeps sounding (appendix D item D6). After Self-test passes, audio and charging are restored as the mode allows (row 9). Ops: OPS-013, OPS-016, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 a, c and l).",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit of the startup, panic and latched-fault paths, checking the order of the five safe-state actions and that an Inhibit-class cause leaves the sidetone and charging unchanged; Emulation for event ordering only. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, reset, panic and a latched fault injected in two configurations, because VBUS inhibits transmit in hardware (REQ-SYS-092) and pauses charging while switched on (REQ-SYS-093): keyed with USB absent, logic capture of PA_EN, TX_KEY, the T/R drive and the amplifier enable; and Charging with the switch off and USB present, logic capture of the charger enable. Closing case: TC-SYS-082.",
       "status": "Active",
@@ -4065,7 +4100,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The software design at PDR fixes the watchdog period against the longest legitimate loop; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4089,7 +4124,8 @@
       "source_ids": [
         "NGO-005",
         "OPS-011",
-        "CON-010"
+        "CON-010",
+        "ADR-004"
       ],
       "hazard_ids": [
         "HZ-014"
@@ -4117,7 +4153,8 @@
         "CON-010",
         "SI-022",
         "OPS-011",
-        "MOE-008"
+        "MOE-008",
+        "ADR-004"
       ],
       "hazard_ids": [],
       "design_refs": [
@@ -4173,7 +4210,8 @@
       "source_ids": [
         "NGO-015",
         "OPS-006",
-        "OPS-012"
+        "OPS-012",
+        "ADR-024"
       ],
       "hazard_ids": [],
       "design_refs": [],
@@ -4199,13 +4237,15 @@
         "NGO-013",
         "NGO-014",
         "NGO-018",
-        "OPS-001"
+        "OPS-001",
+        "ADR-024",
+        "ADR-026"
       ],
       "hazard_ids": [],
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 28, 43, 45, 46 and 47 (owner ruling 2026-09-26) set the keyer defaults (concept section 14 item 11); the PDR keyer design confirms them and Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4215,7 +4255,7 @@
       "id": "REQ-SYS-137",
       "title": "Turnkey surface-mount assembly",
       "description": "The transceiver shall have every surface-mount part placed by PCBWay turnkey assembly.",
-      "rationale": "Why: SI-009, SI-031 and ADR-007: PCBWay places the surface-mount parts and the owner hand-solders the through-hole parts (REQ-SYS-138). Single-side placement (docs/research/pcbway-fabrication-and-assembly.md PCB-ASM-08) moves to L2 ME or CTL at PDR. It is HZ-015 K3 (no hidden-pad or fine-pitch hand soldering), so the method is Inspection by SRR decision 113 (owner ruling 2026-09-26) through CR-002, which admits Inspection under 04 rule 7.3.6 for a documentary property (INSP-003 finding-17); SRR decision 88 (same ruling) confirms full turnkey assembly with single-side placement as an L2 requirement at PDR. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 6 (HZ-015 is Catastrophic; the part split is the design layer beside the station and procedure controls K1, K2 and K4). Constraint: CON-014. KDR: part choices and the Pico 2 castellation reflow question (F16).",
+      "rationale": "Why: SI-009, SI-031 and ADR-007: PCBWay places the surface-mount parts and the owner hand-solders the through-hole parts (REQ-SYS-138); single-side placement (docs/research/pcbway-fabrication-and-assembly.md PCB-ASM-08) moves to L2 ME or CTL at PDR (SRR decision 88, owner ruling 2026-09-26). It is HZ-015 K3 (no hidden-pad or fine-pitch hand soldering), a documentary property verified by Inspection under CR-002 (SRR decision 113). Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 6 (HZ-015 is Catastrophic; the part split is the design layer beside the station and procedure controls K1, K2 and K4). Constraint: CON-014. KDR: part choices and the Pico 2 castellation reflow question (F16).",
       "verification_method": "Inspection",
       "verification_note": "Inspection accepted per CR-002 (SRR decision 113; HZ-015): pre-build (closing) inspection of the BOM package column and the CPL against the PCBWay assembly rules with the kicad-cli export checker: every surface-mount part is placed by PCBWay. Post-build (supporting): receipt Inspection. Closing case: TC-SYS-091.",
       "status": "Active",
@@ -4289,13 +4329,14 @@
       "source_ids": [
         "NGO-027",
         "CON-014",
-        "OPS-012"
+        "OPS-012",
+        "ADR-007"
       ],
       "hazard_ids": [],
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 87 (owner ruling 2026-09-26) set 1.0 mm if the enclosure gives four bosses, else 1.6 mm; TS-004 at PDR decides from the boss layout and the quotes; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4354,7 +4395,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The TX design at PDR fixes the tap topology and coupling flatness at the harmonics; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4485,7 +4526,8 @@
         "NGO-030",
         "SI-006",
         "CON-023",
-        "OPS-003"
+        "OPS-003",
+        "ADR-002"
       ],
       "hazard_ids": [],
       "design_refs": [],
@@ -4518,7 +4560,7 @@
         "TPM-014"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 90 (owner ruling 2026-09-26) set USD 610 per unit; the CDR quotes confirm it.",
         "close_by": "PDR"
       },
@@ -4577,7 +4619,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The power-tree design at PDR confirms the supply topology and the residual level; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4612,7 +4654,7 @@
       "id": "REQ-SYS-151",
       "title": "Spurious emissions into a mismatched load",
       "description": "The transceiver shall keep every antenna-port spurious emission at most 25 uW at the 5 W step into any load up to SWR 2:1 (TBR).",
-      "rationale": "Why: 47 CFR 97.307(e) applies whatever the antenna presents; OPS-015 and NGO-017 call for harmonics measured into a mismatch, since harmonic levels change with load SWR (docs/research/antenna-and-erp.md ANT-04: hand-detuned whips show 8 dB return loss). REQ-SYS-017 covers the 50 ohm case. Adopted by SRR decision 62 (owner ruling 2026-09-26; the 2:1 bound is ANT-04's rated-power condition). Ops: OPS-015. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 10. TBR: mismatch bound pending the PA device trade. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-008 K1.",
+      "rationale": "Why: 47 CFR 97.307(e) applies whatever the antenna presents; OPS-015 and NGO-017 call for harmonics measured into a mismatch, since harmonic levels change with load SWR (docs/research/antenna-and-erp.md ANT-04: hand-detuned whips show 8 dB return loss). REQ-SYS-017 covers the 50 ohm case. Adopted by SRR decision 62 (owner ruling 2026-09-26; the 2:1 bound is ANT-04's rated-power condition). Ops: OPS-015. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5; 8.2 row 10. TBR: mismatch bound pending the PA device trade.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): Simulation of the PA and filter into 2:1 loads at four phases. Post-build (closing): Bench, NanoVNA-characterized 2:1 fixtures at four phases ahead of the calibrated attenuator, tinySA Ultra 9 kHz to 1.5 GHz at 144.05, 146.00 and 147.95 MHz, levels corrected for the fixture loss. Closing case: TC-SYS-100.",
       "status": "Active",
@@ -4641,7 +4683,7 @@
         "TPM-007"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-003 (PA device) at PDR confirms the harmonic levels into 2:1 by simulation; Robin approves the bound in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4677,7 +4719,7 @@
         "TPM-015"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-003 (PA device and ruggedness) at PDR confirms the bound; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4687,7 +4729,7 @@
       "id": "REQ-SYS-153",
       "title": "High pack voltage transmit lockout",
       "description": "The transceiver shall refuse to start a transmission while the pack voltage exceeds 8.60 V +/-0.05 V (TBR).",
-      "rationale": "Why: HZ-008 K3 and docs/research/pa-device-candidates.md implication 11: without ALC authority 8.5 to 10 W at 8.4 V exceeds the ratings after the PA, and a charger fault or a bench supply above the charged pack raises it further; the lockout sits above the 8.44 V charger maximum (docs/research/power-tree-and-charging.md F5). Adopted by SRR decision 62 (owner ruling 2026-09-26). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. TBR: threshold pending the PA device trade.",
+      "rationale": "Why: HZ-008 K3 and docs/research/pa-device-candidates.md implication 11: without ALC authority 8.5 to 10 W at 8.4 V exceeds the ratings after the PA, and a charger fault or a bench supply above the charged pack raises it further; the lockout sits above the 8.44 V charger maximum (docs/research/power-tree-and-charging.md F5). Adopted by SRR decision 62 (owner ruling 2026-09-26). Ops: OPS-008. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 7 (HZ-008 K3, closed by Test on every unit); 8.2 row 11. TBR: threshold pending the PA device trade.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit with injected pack voltage. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench supply as the pack stepped through 8.60 V while keying into the dummy load, logic capture of PA_EN. Closing case: TC-SYS-069.",
       "status": "Active",
@@ -4708,7 +4750,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-003 (PA device) at PDR fixes the maximum drain voltage and so the threshold; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4718,7 +4760,7 @@
       "id": "REQ-SYS-154",
       "title": "Synthesizer fault response",
       "description": "The transceiver shall enter Fault-safe on key-down or during transmission when its synthesizer is unlocked or off its set frequency by over 10 kHz (TBR).",
-      "rationale": "Why: 02 section 2.4 lists synthesizer unlock as a mandatory fault response; an unlocked or mis-programmed synthesizer can put the carrier outside the band (47 CFR 97.307(b); HZ-008 K7, an independent count of the synthesizer output checked before PA_EN). REQ-SYS-009 checks only the set frequency; the 1.2 kHz guard of SRR decision 25 (owner ruling 2026-09-26) stays with REQ-SYS-008 to REQ-SYS-010, and this catches gross errors. The two detections form one check with one outcome; the independence of the frequency count from the frequency-control component and the permit before key-down are REQ-SYS-182, while this requirement is the Fault-safe response; the RF removal time is REQ-SYS-004. Adopted by SRR decisions 40 and 62 (owner ruling 2026-09-26), with frequency control safety-critical by SRR decision 9. Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 5. TBR: tolerance pending the TS-NNN-synthesizer-reference synthesizer design.",
+      "rationale": "Why: 02 section 2.4 lists synthesizer unlock as a mandatory fault response; an unlocked or mis-programmed synthesizer can put the carrier outside the band (47 CFR 97.307(b); HZ-008 K7). REQ-SYS-009 checks only the set frequency against the 1.2 kHz guard; this catches gross errors. The independence of the frequency count and the permit before key-down are REQ-SYS-182; this requirement is the Fault-safe response, and the RF removal time is REQ-SYS-004. Adopted by SRR decisions 40 and 62 (owner ruling 2026-09-26), with frequency control safety-critical by SRR decision 9. Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (HZ-008 C7); 8.2 row 4. TBR: tolerance pending the TS-NNN-synthesizer-reference synthesizer design.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit with injected lock-detect and frequency-count faults. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, fault-injection build forcing loss of lock and a synthesizer 12 kHz off its set frequency at key-down and during an over into the dummy load, logic capture of PA_EN and the tinySA Ultra showing no carrier. Closing case: TC-SYS-101.",
       "status": "Active",
@@ -4742,7 +4784,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-NNN-synthesizer-reference (synthesizer and lock detect) at PDR fixes the counting tolerance; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4772,7 +4814,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The PA thermal design at PDR fixes the sensor and its plausible range; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4804,7 +4846,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "TS-006 (ALC topology) at PDR fixes the plausible range and latency; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4866,7 +4908,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The audio design at PDR fixes the fade; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4904,7 +4946,7 @@
         "TPM-013"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 50 (owner ruling 2026-09-26) ratified the keyer set; the sequencer timing table at PDR confirms the latency.",
         "close_by": "PDR"
       },
@@ -4940,7 +4982,7 @@
         "TPM-013"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The T/R element trade at PDR fixes the relay operate and bounce times and so the lead-in; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -4949,8 +4991,8 @@
     {
       "id": "REQ-SYS-161",
       "title": "Constant lead-in over an over",
-      "description": "The transceiver shall delay every radiated element of an over by the same lead-in of at most 12 ms (TBR) after the receive-to-transmit changeover.",
-      "rationale": "Why: ADR-026, which supersedes ADR-010, sets a constant lead-in of at most 12 ms for every element of an over; the HF3-class relay needs operate plus bounce of up to 8 ms before RF (docs/research/tr-switch-candidates.md F7, TR-03). Delaying the whole over by one constant lead-in preserves the first element through the relay operate time and keeps every element and space of REQ-SYS-042, where extending only the first element would shorten the first space by 8 to 12 ms, leaving 12 to 16 ms of a 24 ms space at 50 WPM. Adopted by SRR decision 47 (owner ruling 2026-09-26; D-KN4), which accepts ADR-026; SRR decision 61 (same ruling) confirms the relay T/R element; TPM-013. Ops: OPS-004, OPS-005. TBR: value pending the T/R trade.",
+      "description": "The transceiver shall delay each radiated element of an over by one lead-in of at most 12 ms (TBR), constant within 0.5 ms.",
+      "rationale": "Why: ADR-026, which supersedes ADR-010, sets one constant lead-in of at most 12 ms for every element of an over; the HF3-class relay needs operate plus bounce of up to 8 ms before RF (docs/research/tr-switch-candidates.md F7, TR-03). The lead-in is the delay from an element at the keyer test point to its RF rise after the receive-to-transmit changeover. One lead-in for the whole over keeps every element and space of REQ-SYS-042, whose 0.5 ms floor sets how constant it must be (INSP-003 finding-25); extending only the first element would leave 12 to 16 ms of a 24 ms space at 50 WPM. SRR decisions 47 and 61 (owner ruling 2026-09-26); TPM-013. Ops: OPS-004, OPS-005. TBR: value pending the T/R trade.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit sequencer model on the simulated clock. Post-build (closing): Bench, logic capture of the keyer test point, the T/R drive and the envelope ramp steps for PARIS overs at 15 and 50 WPM, delay of each element measured. Closing case: TC-SYS-102.",
       "status": "Active",
@@ -4975,7 +5017,7 @@
         "TPM-013"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The T/R element trade at PDR fixes the lead-in; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -5009,7 +5051,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "Claude captures the owner's key and paddle bounce with the Pico-based logic capture before PDR; Robin approves the value in the PDR memo.",
         "close_by": "PDR"
       },
@@ -5069,7 +5111,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The UI design at PDR fixes the step table and crossing time after a HostUnit usability run; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -5098,7 +5140,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 77 (owner ruling 2026-09-26) selected the LS013B7DH03 with no light in build 1 (D-UI-01, D-UI-02); the PDR display design fixes the illuminance floor; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -5107,10 +5149,10 @@
     {
       "id": "REQ-SYS-166",
       "title": "Rails held off for out-of-window cells",
-      "description": "The transceiver shall keep its regulated rails off while either cell reads outside 2.5 V to 4.3 V (TBR).",
-      "rationale": "Why: HZ-007 K3: a reversed, deeply discharged or damaged cell must not be loaded; the protector FETs stay off outside the window and firmware enables the rails only after both cells read inside it (docs/research/power-tree-and-charging.md F12, F24). Split from the charging refusal of REQ-SYS-087. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: window pending the power trade study.",
+      "description": "The transceiver shall keep its regulated rails below 0.5 V (TBR) while either cell reads outside 2.5 V to 4.3 V (TBR).",
+      "rationale": "Why: HZ-007 K3: a reversed, deeply discharged or damaged cell must not be loaded; the protector FETs stay off outside the window and firmware enables the rails only after both cells read inside it (docs/research/power-tree-and-charging.md F12, F24). Below 0.5 V is the rail-off level of REQ-SYS-149 (INSP-003 finding-25). Split from the charging refusal of REQ-SYS-087. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: window pending the power trade study; the rail-off level closes with REQ-SYS-149.",
       "verification_method": "Test",
-      "verification_note": "Pre-build (supporting): HostUnit with injected cell readings. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, two supplies as the cells, one at 2.4 V and then at 4.4 V, rail voltages read with the multimeter at switch-on. Closing case: TC-SYS-064.",
+      "verification_note": "Pre-build (supporting): HostUnit with injected cell readings. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, two supplies as the cells, one below 2.5 V and then above 4.3 V by the fixture setting accuracy, rail voltages read with the multimeter at switch-on. Closing case: TC-SYS-064.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -5128,8 +5170,8 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
-        "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the window.",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
+        "plan": "SRR decisions 70 to 76 (owner ruling 2026-09-26) set the power-tree baseline (docs/research/power-tree-and-charging.md D-PWR-01 to D-PWR-08); the power trade study at PDR fixes the window; the 0.5 V rail-off level closes with REQ-SYS-149.",
         "close_by": "PDR"
       },
       "priority": "Baseline"
@@ -5137,8 +5179,8 @@
     {
       "id": "REQ-SYS-167",
       "title": "Charge current-fall supervision",
-      "description": "The transceiver shall stop charging when its constant-voltage charge current falls by less than 20 mA (TBR) over 60 min (TBR).",
-      "rationale": "Why: HZ-002 K5: a charge whose constant-voltage current does not fall indicates a shorted or damaged cell or a charger fault (docs/research/power-tree-and-charging.md F24, charge-state watchdog). Split from the timer of REQ-SYS-089; the fault message is REQ-SYS-067. The values are this author's proposal. Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: pending the charge-profile analysis.",
+      "description": "The transceiver shall stop charging when its constant-voltage charge current falls by less than 20 mA (TBR) over 60 min +/-2 min (TBR).",
+      "rationale": "Why: HZ-002 K5: a charge whose constant-voltage current does not fall indicates a shorted or damaged cell or a charger fault (docs/research/power-tree-and-charging.md F24, charge-state watchdog). Split from the timer of REQ-SYS-089; the fault message is REQ-SYS-067. The values and the +/-2 min window tolerance are this author's proposal (INSP-003 finding-25). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: pending the charge-profile analysis.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit on the simulated clock with injected charge-current profiles. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, a cell simulator loaded so that the constant-voltage current stays flat, charge current logged until the charge stops. Closing case: TC-SYS-065.",
       "status": "Active",
@@ -5158,8 +5200,8 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
-        "plan": "The charge-profile analysis with the chosen cell at PDR fixes both values; Robin approves in the PDR memo.",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
+        "plan": "The charge-profile analysis with the chosen cell at PDR fixes both values and the +/-2 min window tolerance; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
       "priority": "Baseline"
@@ -5188,7 +5230,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The enclosure design at PDR fixes the cover mechanism and the gap limits; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -5222,7 +5264,7 @@
         "MOP-013"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decisions 64 and 67 (owner ruling 2026-09-26) adopted audio level policy (a) with the cap and unlock only (docs/research/audio-output-and-hearing-safety.md D2); the audio design at PDR confirms the value.",
         "close_by": "PDR"
       },
@@ -5264,7 +5306,7 @@
       "description": "The transceiver shall display cumulative key-down time over sliding 6 min and 30 min windows at 1 s resolution.",
       "rationale": "Why: HZ-006 K5 and docs/research/rf-exposure-evaluation.md RFX-13(b): the licensee's source-based time-averaging evidence in the field (ConOps section 3.5.1 item 5, OPS-004 step 3). It is a convenience function, not safety-critical (RFX-D4, adopted by SRR decision 33, owner ruling 2026-09-26), so it is a Goal; the design should provide it. Ops: OPS-004, OPS-018. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (convenience only).",
       "verification_method": "Test",
-      "verification_note": "Pre-build (supporting): HostUnit accumulator arithmetic against synthetic keying. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, test-mode PARIS generator keyed for 7 min into the dummy load, displayed totals compared with the key-down sum from the logic capture. Closing case: TC-SYS-049.",
+      "verification_note": "Pre-build (supporting): HostUnit accumulator arithmetic against synthetic keying. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, test-mode PARIS generator at the 0.5 W step (REQ-SYS-187) in four entries of 110 s, each under the REQ-SYS-188 timeout and together longer than the 6 min window, into the dummy load, displayed totals compared with the key-down sum from the logic capture. Closing case: TC-SYS-049.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -5305,7 +5347,8 @@
       "source_ids": [
         "CON-004",
         "MOE-009",
-        "OPS-018"
+        "OPS-018",
+        "ADR-014"
       ],
       "hazard_ids": [
         "HZ-006",
@@ -5314,7 +5357,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The antenna choice at PDR and the TRR EIRP comparison (RFX-A5) confirm the bound; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -5326,7 +5369,7 @@
       "description": "The transceiver shall present only the sidetone on headphones while keying 5 W with 1.5 m unshielded leads on the key and headphone jacks.",
       "rationale": "Why: docs/research/antenna-and-erp.md ANT-06 (no audible change with 1.0 to 1.5 m unshielded leads) and OPS-017 step 2: lead currents couple RF into the audio stage; HZ-010 K4's common-mode suppression is the means. Adopted by SRR decision 69 (owner ruling 2026-09-26). Ops: OPS-017.",
       "verification_method": "Demonstration",
-      "verification_note": "Pre-build (supporting): Analysis, choke impedance of at least 500 ohm at 146 MHz. Post-build (closing): Bench demonstration, owner listens at the default cap while the test-mode PARIS generator keys 5 W into the dummy load and into the reference antenna with 1.5 m leads fitted. Closing case: TC-SYS-105.",
+      "verification_note": "Pre-build (supporting): Analysis, choke impedance of at least 500 ohm at 146 MHz. Post-build (closing): Bench demonstration, owner listens at the default cap while the keying fixture sends PARIS at 20 WPM with word spaces of at least 10 dits at the 5 W step into the dummy load and into the reference antenna with 1.5 m leads fitted; the bench test mode is held at 0.5 W (REQ-SYS-187) and is not used. Closing case: TC-SYS-105.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -5392,7 +5435,8 @@
         "NGO-006",
         "SI-008",
         "CON-015",
-        "OPS-015"
+        "OPS-015",
+        "ADR-008"
       ],
       "hazard_ids": [],
       "design_refs": [
@@ -5428,7 +5472,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The receiver design at PDR confirms the limit; Robin approves it or a replacement in the PDR memo.",
         "close_by": "PDR"
       },
@@ -5458,7 +5502,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "The enclosure and clock-plan design at PDR confirms the shielding figure; Robin approves in the PDR memo.",
         "close_by": "PDR"
       },
@@ -5482,7 +5526,8 @@
         "SI-009",
         "SI-028",
         "SI-031",
-        "OPS-012"
+        "OPS-012",
+        "ADR-012"
       ],
       "hazard_ids": [],
       "design_refs": [],
@@ -5494,7 +5539,7 @@
       "id": "REQ-SYS-179",
       "title": "Bench test mode entry",
       "description": "The transceiver shall enter its bench test mode only after a menu selection followed by a separate confirmation.",
-      "rationale": "Why: the bench test mode (PARIS generator, full-scale test tone, continuous carrier under the tune limits, watchdog demonstration; docs/conops/conops.md section 3.5.2 item 2) is the only keying source other than the key jack (REQ-SYS-007) and the only source of a full-scale tone, so entry takes two deliberate actions (HZ-004 K13, HZ-005 K9; SWE-134 d). It is a sub-mode of REQ-SYS-002 and REQ-SYS-065 blocks it under guest lock. SRR decision 41 (owner ruling 2026-09-26) adopted the rest of the HZ-004 K13 guard (OQ-SAF-016), each as a requirement of its own (WR-03): the forced 0.5 W step (REQ-SYS-187), the 120 s mode timeout (REQ-SYS-188), the 60 s full-scale tone limit of HZ-005 K9 (REQ-SYS-189) and the exit at every reset without persistence (REQ-SYS-190); SRR decision 42 (same ruling) aligns the ConOps bench-test limit to them. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 d).",
+      "rationale": "Why: the bench test mode (PARIS generator, full-scale test tone, continuous carrier under the tune limits, watchdog demonstration; docs/conops/conops.md section 3.5.2 item 2) is the only keying source other than the key jack (REQ-SYS-007) and the only source of a full-scale tone, so entry takes two deliberate actions (HZ-004 K13, HZ-005 K9; SWE-134 d). It is a sub-mode of REQ-SYS-002, and REQ-SYS-065 blocks it under guest lock. SRR decision 41 (owner ruling 2026-09-26) adopted the rest of the K13 guard (OQ-SAF-016) as separate requirements (WR-03), REQ-SYS-187 to REQ-SYS-190, and SRR decision 42 aligns the ConOps bench-test limit to them. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (SWE-134 d).",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit, every input sequence without the confirmation leaves the mode unchanged. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench, each control sequence of the procedure applied, mode read from the display and TX_KEY on the logic capture. Closing case: TC-SYS-007.",
       "status": "Active",
@@ -5525,7 +5570,7 @@
       "id": "REQ-SYS-180",
       "title": "Transmission-length hardware backstop",
       "description": "The transceiver shall end RF, independently of firmware, at 150 s to 180 s (TBR) of continuous transmit and hold it off until receive resumes.",
-      "rationale": "Why: SRR decision 38 (owner ruling 2026-09-26) adopted the backstop with the 150 s to 180 s window (OQ-SAF-003, HZ-004 K12). The cutoff REQ-SYS-055 restarts on every TX_KEY edge, so a toggling TX_KEY stream is stopped only by firmware (HZ-004 K4, K13): docs/safety/hazard-analysis.md section 8.2 row 3. Continuous transmit: the T/R drive held in transmit, with no pause longer than the hang time (REQ-SYS-044). The 150 s floor sits above the 120 s bench test-mode timeout of REQ-SYS-188 (SRR decisions 41 and 42, which replace the 60 s ConOps activation limit) and the 30 s no-gap watchdog of REQ-SYS-054 (SRR decision 37), so firmware acts first. RF off is the REQ-SYS-183 level. Ops: OPS-013, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.2 row 3; dissimilar to K4 and K13. TBR: the window, which the PDR timing Simulation confirms. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-001 K10; HZ-003 K10; HZ-004 K12; HZ-006 K10; HZ-012 K6; HZ-014 K8.",
+      "rationale": "Why: SRR decision 38 (owner ruling 2026-09-26) adopted the backstop with the 150 s to 180 s window (OQ-SAF-003, HZ-004 K12). The cutoff REQ-SYS-055 restarts on every TX_KEY edge, so a toggling stream is otherwise stopped only by firmware (HZ-004 K4, K13). Continuous transmit: the T/R drive held in transmit, with no pause longer than the hang time (REQ-SYS-044). The 150 s floor sits above the 120 s bench test-mode timeout of REQ-SYS-188 and the 30 s no-gap watchdog of REQ-SYS-054, so firmware acts first. RF off is the REQ-SYS-183 level. Ops: OPS-013, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 1 and 4; 8.2 row 3; dissimilar to K4 and K13. TBR: the window, which the PDR timing Simulation confirms.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): Simulation of the backstop monostable timing over component tolerance, temperature and capacitor DC bias. Post-build (closing): Bench, part A with a fault-injection build that holds the T/R drive in transmit and toggles TX_KEY (continuous 15 WPM dits at 6.5, 7.4 and 8.4 V, and a 50 WPM PARIS loop) with the firmware timeouts and the hang-time return disabled, part B with the release build and the operator sending for 200 s with the straight key and with the paddle; 0.5 W into the calibrated attenuator, logic capture of the T/R drive, TX_KEY, PA_EN and the RF-present indicator, tinySA Ultra max hold: RF ends 150 s to 180 s after the T/R drive enters transmit, stays at the REQ-SYS-183 level until the return to receive, and is present again in a re-arm run after it. Closing case: TC-SYS-108.",
       "status": "Active",
@@ -5554,7 +5599,7 @@
         "MOP-014"
       ],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 38 (owner ruling 2026-09-26) adopted the backstop with the 150 s to 180 s window; the timing Simulation of the monostable over tolerance, temperature and capacitor DC bias at PDR confirms it, else the window changes by CR.",
         "close_by": "PDR"
       },
@@ -5564,7 +5609,7 @@
       "id": "REQ-SYS-181",
       "title": "Hardware PA over-temperature cut-off",
       "description": "The transceiver shall end antenna-port RF within 100 ms (TBR), independently of firmware, whenever the PA heat-sink temperature exceeds 95 C +/-3 C (TBR).",
-      "rationale": "Why: SRR decision 39 (owner ruling 2026-09-26) adopted the cut-off with 95 C +/-3 C and 100 ms (OQ-SAF-012, HZ-003 K9). HZ-003 is Critical and a PA thermistor reading cold defeats the fold-back and the REQ-SYS-118 inhibit with no control independent of firmware: docs/safety/hazard-analysis.md section 8.2 row 8. The element is a second heat-sink sensor with a comparator, thermal fuse or PTC that removes the PA-path enable of REQ-SYS-055 with hysteresis. The band 92 C to 98 C lies above the 88 C upper bound of the REQ-SYS-118 inhibit, so firmware acts first; 100 ms matches the REQ-SYS-118 response. RF off is the REQ-SYS-183 level. Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.2 row 8; dissimilar to REQ-SYS-118 and REQ-SYS-155. TBR: threshold, tolerance and response time, which the PDR thermal analysis confirms.",
+      "rationale": "Why: SRR decision 39 (owner ruling 2026-09-26) adopted the cut-off with 95 C +/-3 C and 100 ms (OQ-SAF-012, HZ-003 K9). A PA thermistor reading cold defeats the fold-back and the REQ-SYS-118 inhibit of the Critical HZ-003 with no control independent of firmware. The element, a second heat-sink sensor with a comparator, thermal fuse or PTC, removes the PA-path enable of REQ-SYS-055. The band 92 C to 98 C lies above the 88 C upper bound of REQ-SYS-118, so firmware acts first; 100 ms matches the REQ-SYS-118 response. RF off is the REQ-SYS-183 level. Ops: OPS-014. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 1 and 4; 8.2 row 8. TBR: threshold, tolerance and response time, which the PDR thermal analysis confirms.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): Simulation or Analysis of the comparator threshold and hysteresis over component tolerance and the sensor curve, which also shows the sensor share of the +/-3 C. Post-build (closing): Bench, fault-injection build with the REQ-SYS-118 inhibit, the fold-back and the cut-off-seen detection disabled, the cut-off sensor replaced at its test pad by the NTC substitution fixture (25, 80 and 90 C, T_trip at the 98 C upper bound less the sensor and fixture tolerances, and 100 C), keyed at 0.5 W into the calibrated attenuator with the straight key and the paddle at 6.5, 7.4 and 8.4 V; logic capture of the fixture marker, PA_EN and the RF-present indicator, tinySA Ultra zero span: carrier present at 90 C, ended within 100 ms of the switch to T_trip or 100 C while PA_EN stays asserted, and held at the REQ-SYS-183 level at or above T_trip. Closing case: TC-SYS-109.",
       "status": "Active",
@@ -5584,7 +5629,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 39 (owner ruling 2026-09-26) adopted 95 C +/-3 C and 100 ms; the PDR thermal analysis (REQ-SYS-112, TS-003) confirms them against the device rating, else they change by CR.",
         "close_by": "PDR"
       },
@@ -5594,7 +5639,7 @@
       "id": "REQ-SYS-182",
       "title": "Independent frequency verification before and during transmit",
       "description": "The transceiver shall withhold RF, or end it within 100 ms (TBR), unless independent synthesizer measurement agrees with the set frequency within 10 kHz (TBR).",
-      "rationale": "Why: SRR decision 40 (owner ruling 2026-09-26) adopted the independent verification with the 10 kHz window and 100 ms, and SRR decision 9 (same ruling) makes frequency control safety-critical (OQ-SAF-013, HZ-008 K7). One frequency-control software fault can put 5 W on 150 to 174 MHz, which the harmonic filter passes, and REQ-SYS-009 checks inside the same component: docs/safety/hazard-analysis.md section 8.2 row 4. Independent means a prescaled sample of the synthesizer output counted by a unit separate from the synthesizer driver on the RP2350 crystal timebase; no valid measurement means no agreement. 10 kHz catches gross errors. 100 ms bounds detection plus the REQ-SYS-004 fall during transmit; REQ-SYS-154 is the Fault-safe response. RF off is the REQ-SYS-183 level. Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.2 row 4. TBR: window and time, which the PDR prescaler, counter and timebase design confirms.",
+      "rationale": "Why: SRR decision 40 (owner ruling 2026-09-26) adopted this independent verification and its values, and SRR decision 9 makes frequency control safety-critical (OQ-SAF-013, HZ-008 K7). One frequency-control software fault can put 5 W on 150 to 174 MHz, past the harmonic filter and unseen by REQ-SYS-009 in the same component. Independent means a prescaled sample of the synthesizer output counted by a unit separate from the synthesizer driver; no valid measurement means no agreement. 100 ms bounds detection plus the REQ-SYS-004 fall; REQ-SYS-154 is the Fault-safe response. RF off is the REQ-SYS-183 level. Ops: OPS-020. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 2 and 4; 8.2 row 4. TBR: window and time, confirmed by the PDR prescaler and counter design.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit of the permit logic with injected counts (agreeing, 12 kHz off, 150.000 MHz, no measurement); Inspection of the schematic and the software design for the independence of the counter, its timebase and its component from the frequency-control path. Post-build (closing): Bench, fault-injection build programming the synthesizer to 150.000 MHz or 12 kHz above or below the displayed 146.000 MHz, or stopping the measurement, applied before a key-down or Tune and 1 s into an over, keyed at 0.5 W into the calibrated attenuator with the straight key and the paddle; logic capture of the injection marker, PA_EN and the RF-present indicator, tinySA Ultra zero span at the programmed frequency: no carrier above the REQ-SYS-183 level before transmit, RF ended within 100 ms during transmit; the release build keys normally at 144.0012, 146.000 and 147.9988 MHz with both key types. Closing case: TC-SYS-110.",
       "status": "Active",
@@ -5612,7 +5657,8 @@
         "CON-003",
         "OPS-020",
         "ADR-023",
-        "47CFR97.307(b)"
+        "47CFR97.307(b)",
+        "ADR-016"
       ],
       "hazard_ids": [
         "HZ-008"
@@ -5620,7 +5666,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "SRR decision 40 (owner ruling 2026-09-26, with decision 9) adopted the independent verification with the 10 kHz window and the 100 ms time; the PDR prescaler, counter and timebase design (TS-NNN-synthesizer-reference) confirms them against the counter gate time, resolution and crystal tolerance, else they change by CR. The release-build test frequencies follow the 1.2 kHz guard of SRR decision 25 (owner ruling 2026-09-26).",
         "close_by": "PDR"
       },
@@ -5630,7 +5676,7 @@
       "id": "REQ-SYS-183",
       "title": "RF-off level at the antenna port",
       "description": "The transceiver shall hold antenna-port power at the carrier frequency at or below -57 dBm (TBR) in every state with RF ended, inhibited or off.",
-      "rationale": "Why: REQ-SYS-004 and the controls REQ-SYS-009, 055, 065, 092, 118, 119, 120, 132, 180, 181 and 182 require RF to end or stay off; this states once the level that counts as off, so every closing case applies one criterion (INSP-003 finding-1). -57 dBm equals the receive-mode antenna-port limit of REQ-SYS-176, because an unkeyed transmitter is in its receive configuration; it is 94 dB below 5 W and 84 dB below 0.5 W, so the completed REQ-SYS-004 fall reaches it at every step. Ops: OPS-013, OPS-019, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 2 (the level holds with PA_EN low whatever firmware does). TBR: the level, set with REQ-SYS-176 by the receiver design at PDR. Hazard controls implemented (docs/safety/hazards.json control_req_ids): HZ-004 K7.",
+      "rationale": "Why: REQ-SYS-004 and the controls REQ-SYS-009, 055, 065, 092, 118, 119, 120, 132, 180, 181 and 182 require RF to end or stay off; this states once the level that counts as off, so every closing case applies one criterion (INSP-003 finding-1). -57 dBm equals the receive-mode antenna-port limit of REQ-SYS-176, because an unkeyed transmitter is in its receive configuration; it is 94 dB below 5 W and 84 dB below 0.5 W, so the completed REQ-SYS-004 fall reaches it at every step. Ops: OPS-013, OPS-019, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 2 (the level holds with PA_EN low whatever firmware does). TBR: the level, set with REQ-SYS-176 by the receiver design at PDR.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): Analysis of the off-state isolation of the PA, T/R element and synthesizer at the carrier frequency. Post-build (closing): Bench, tinySA Ultra through the calibrated attenuator at the set carrier frequency in each off state that a hazard-control case produces (forbidden transitions, guard inhibit, guest lock, USB present, reset and bootloader, single condition forced, synthesizer fault, backstop, over-temperature cut-off, frequency disagreement), reading corrected by the attenuator S21 with the noise floor referred to the antenna port at least 6 dB below the level. Closing cases: TC-SYS-003, TC-SYS-008, TC-SYS-047, TC-SYS-066, TC-SYS-082, TC-SYS-083, TC-SYS-101, TC-SYS-108, TC-SYS-109, TC-SYS-110.",
       "status": "Active",
@@ -5653,7 +5699,7 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": {
-        "owner": "Robin decides at SRR on Claude's proposal; Claude produces the closing evidence",
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
         "plan": "Claude proposes the level at SRR; the receiver and T/R isolation analysis at PDR confirms it together with REQ-SYS-176, and Robin approves it or a replacement in the PDR memo; every case that cites this requirement takes the confirmed value.",
         "close_by": "PDR"
       },
@@ -5663,9 +5709,9 @@
       "id": "REQ-SYS-184",
       "title": "Paddle squeeze limit",
       "description": "The transceiver shall stop keying when both paddle contacts stay closed for more than 2 s (TBR) in Iambic A, Iambic B or Ultimatic mode.",
-      "rationale": "Why: NGO-021 and MOE-012: headphones or a shorted TRS cable plugged into the key jack after boot close both paddle contacts, which the iambic modes read as a squeeze and turn into an endless alternating dit-dah stream that the hardware cutoff REQ-SYS-055 does not see (HZ-004 causes C2, C3). SRR decision 37 (owner ruling 2026-09-26) adopted the HZ-004 K4 no-gap watchdog with this 2 s squeeze limit (K4 item (iii); OQ-SAF-002; D-KN3); REQ-SYS-054 holds items (i) and (ii). In Ultimatic mode a squeeze repeats the last-closed element, a stream of identical elements that the limit also ends. Keying resumes once either contact opens; the sidetone continues and an alert is shown, as for REQ-SYS-054. The check runs on the debounced contact states in a unit separate from the keyer engine (HZ-004 K4); its SW child is allocated at PDR. Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 3 (REQ-SYS-180 is the hardware backstop). TBR: the longest squeezed character at 5 WPM (C, 11 dit times, 2.64 s) exceeds 2 s; if normal squeezing trips it, the limit becomes the longer of 2 s and 16 dit times (OQ-SAF-002 plan). Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-004 K4; HZ-001 K3; HZ-003 K3; HZ-006 K6; HZ-012 K2.",
+      "rationale": "Why: NGO-021 and MOE-012: headphones or a shorted TRS cable plugged into the key jack after boot close both paddle contacts, which the iambic modes turn into an endless stream that REQ-SYS-055 misses (HZ-004 causes C2, C3) (Ultimatic repeats one element). SRR decision 37 (owner ruling 2026-09-26) adopted this limit as HZ-004 K4 item (iii) (OQ-SAF-002). It reads the debounced contacts, separate from the keyer engine; keying resumes once either contact opens. Ops: OPS-013. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 3. TBR: a squeezed C at 5 WPM holds both contacts 2.64 s; if normal squeezing trips 2 s in the PDR host study, the limit becomes the longer of 2 s and 16 dits by CR.",
       "verification_method": "Test",
-      "verification_note": "Pre-build (supporting): HostUnit on the simulated clock, both contacts held closed for 1.9, 2.1 and 60 s after boot in Iambic A, Iambic B and Ultimatic at 5, 25 and 50 WPM, and normal squeezed characters (C, K, Q) at 5 WPM, which do not trip. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench into the dummy load, a 32 ohm headphone plug and a shorted TRS plug inserted into the key jack after boot in each iambic and Ultimatic mode, logic capture of the contacts, TX_KEY and PA_EN: keying ends within 2 s of the contacts closing and stays ended until a contact opens. Closing case: TC-SYS-038.",
+      "verification_note": "Pre-build (supporting): HostUnit on the simulated clock, both contacts held closed for 1.9, 2.1 and 60 s after boot in Iambic A, Iambic B and Ultimatic at 5, 25 and 50 WPM, and normal squeezed characters (C, K, Q) at 5 WPM recorded as data for the TBR (a squeezed C at 5 WPM holds both contacts for 2.64 s, above the 2 s limit). The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench into the dummy load, a 32 ohm headphone plug and a shorted TRS plug inserted into the key jack after boot in each iambic and Ultimatic mode, logic capture of the contacts, TX_KEY and PA_EN: keying ends within 2 s of the contacts closing and stays ended until a contact opens. Closing case: TC-SYS-038.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -5699,10 +5745,10 @@
     {
       "id": "REQ-SYS-185",
       "title": "Further cell over-voltage layer",
-      "description": "The transceiver shall open the charge path, independently of charger, 4.25 V protector and firmware, at a cell threshold within 4.30-4.35 V (TBR).",
-      "rationale": "Why: NGO-022 and HZ-002 K3: Li-ion overcharge is the Catastrophic hazard, and a third layer independent of the charger (REQ-SYS-081), the 4.25 V protector (REQ-SYS-083) and the firmware dual sensing (REQ-SYS-088) makes the overcharge branch two-fault tolerant with the separate sense paths of REQ-SYS-186. SRR decision 72 (owner ruling 2026-09-26) adopted the S-8252 plus BQ29209 topology (D-PWR-03) and this requirement (OQ-SAF-008). 4.30 V is the HZ-002 K3 nominal (docs/research/power-tree-and-charging.md F11, BQ29209 class); the band sits at or above the 4.25-4.30 V band of REQ-SYS-083 so that this layer does not act before it, and 4.35 V bounds its threshold accuracy and drift (this author's proposal). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: the band, which the protector variant selection at PDR fixes. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-002 K3.",
+      "description": "The transceiver shall cut charge current below 1 mA, independently of charger, 4.25 V protector and firmware, at a cell threshold within 4.30-4.35 V (TBR).",
+      "rationale": "Why: NGO-022 and HZ-002 K3: Li-ion overcharge is the Catastrophic hazard, and a layer independent of the charger (REQ-SYS-081), the 4.25 V protector (REQ-SYS-083) and the firmware dual sensing (REQ-SYS-088) makes the overcharge branch two-fault tolerant with the separate sense paths of REQ-SYS-186 (SRR decision 72, owner ruling 2026-09-26; D-PWR-03; OQ-SAF-008). 4.30 V is the HZ-002 K3 nominal (docs/research/power-tree-and-charging.md F11, BQ29209 class); the band starts where the REQ-SYS-083 band ends, and 4.35 V bounds threshold accuracy and drift. Below 1 mA states an open charge path as a measurable current (INSP-003 finding-31). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: the band, which the protector variant selection at PDR fixes.",
       "verification_method": "Test",
-      "verification_note": "Pre-build (supporting): Analysis of the secondary protector threshold over 0 to 45 C against the band and the REQ-SYS-083 band. Post-build (closing): Bench, a bench supply substituting for each cell in turn, the charger held on and the 4.25 V protector disabled in a fault-injection build, the cell voltage raised from 4.25 V to 4.40 V in 5 mV steps; the charge path state read with the multimeter: it opens at a threshold within 4.30-4.35 V. Closing case: TC-SYS-111.",
+      "verification_note": "Pre-build (supporting): Analysis of the secondary protector threshold over 0 to 45 C against the band and the REQ-SYS-083 band. Post-build (closing): Bench, a bench supply substituting for each cell in turn with the other cell held at 3.70 V so that the charger, held on, stays in constant current; the 4.25 V protector and the firmware charge stops disabled in a fault-injection build; the cell voltage raised from 4.25 V to 4.40 V in 5 mV steps with the charge current read on the multimeter: it falls below 1 mA at a threshold within 4.30-4.35 V, with the voltage across the layer's switching element recorded as supporting data. Closing case: TC-SYS-111.",
       "status": "Active",
       "parent_id": null,
       "child_ids": [],
@@ -5730,8 +5776,8 @@
     {
       "id": "REQ-SYS-186",
       "title": "Separate cell-sense paths per protection layer",
-      "description": "The transceiver shall retain per-cell voltage detection in all but one protection layer after any single cell-sense connection opens or exceeds 10 kohm (TBR).",
-      "rationale": "Why: NGO-022, HZ-002 K9 and HZ-007: the charger, the 4.25 V protector, the 4.30 V layer and the firmware dividers share one MID sense net in the concept, so one open or high-resistance sense connection blinds per-cell over-voltage and under-voltage detection in every layer at once, a named single point (hazards.json HZ-002 and HZ-007 single-point failures). SRR decision 72 (owner ruling 2026-09-26) adds this constraint (OQ-SAF-009); separate sense routes from each cell terminal, one per layer with its own series resistor, are the expected means, stated as a performance so that the design chooses the routing. 10 kohm is this author's proposal for a failed but not open connection, well above the 300 ohm series resistance of HZ-007 K3. Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3. TBR: the resistance, which the PDR sense-path analysis sets from the input impedance of each layer. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-002 K9.",
+      "description": "The transceiver shall keep cell thresholds of all but one protection layer within 20 mV when one cell-sense connection opens or exceeds 10 kohm (TBR).",
+      "rationale": "Why: NGO-022, HZ-002 K9 and HZ-007: the four protection layers (REQ-SYS-081, 083, 185, 088) share one MID sense net in the concept, so one open or high-resistance sense connection blinds per-cell detection in every layer, a named single point. SRR decision 72 (owner ruling 2026-09-26) adds this constraint (OQ-SAF-009); separate sense routes per layer are the expected means. A threshold kept within 20 mV, the S-8252-class accuracy at 25 C, leaves detection intact (INSP-003 finding-31). 10 kohm is a failed but not open connection, far above the 300 ohm series resistance of HZ-007 K3. Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 3; 8.2 row 5. TBR: the resistance, set by the PDR sense-path analysis from each layer's input impedance.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): Inspection of the schematic and layout for a separate sense path per layer and cell terminal; Analysis of each layer's reading with 10 kohm in its sense path. Post-build (closing): Bench, bench supplies substituting for the cells, each layer's sense connection opened in turn and then replaced by 10 kohm at its test link; for each case one cell raised above the over-voltage band and lowered below the under-voltage threshold: every other layer acts, read on the multimeter and the UART telemetry. Closing case: TC-SYS-112.",
       "status": "Active",
@@ -5763,7 +5809,7 @@
       "id": "REQ-SYS-187",
       "title": "Bench test mode power step",
       "description": "The transceiver shall hold the transmitter at the 0.5 W step for the whole bench test mode, whatever step was set before entry.",
-      "rationale": "Why: the bench test mode generates keying without the operator's key (REQ-SYS-007), so its RF exposure and heating are bounded at the lowest step (HZ-004 K13; HZ-001 and HZ-006 exposure). SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles; SRR decision 42 (same ruling) aligns the ConOps bench-test limit, which the ConOps author changes from 60 s per keyed activation. The step tolerance is that of REQ-SYS-011. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-004 K13.",
+      "rationale": "Why: the bench test mode generates keying without the operator's key (REQ-SYS-007), so its RF exposure and heating are bounded at the lowest step (HZ-004 K13; HZ-001 and HZ-006 exposure). SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles; SRR decision 42 (same ruling) aligns the ConOps bench-test limit, which the ConOps author changes from 60 s per keyed activation. The step tolerance is that of REQ-SYS-011. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit, the power command in every test sub-mode entered from each of the four steps. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit into the calibrated attenuator and the dummy load; the bench test mode entered by the REQ-SYS-179 sequence, logic capture of TX_KEY, PA_EN and the TEST indication; with 5 W set before entry, the diode RF probe across the dummy load reads the 0.5 W step within +/-1 dB in the PARIS generator, the continuous carrier and the watchdog demonstration. Closing case: TC-SYS-113.",
       "status": "Active",
@@ -5791,7 +5837,7 @@
       "id": "REQ-SYS-188",
       "title": "Bench test mode timeout",
       "description": "The transceiver shall leave the bench test mode at most 120 s (TBR) after entering it.",
-      "rationale": "Why: a PARIS loop has 7-dit word spaces, so the no-gap watchdog REQ-SYS-054 does not see it and the cutoff REQ-SYS-055 is retriggered; the timeout and REQ-SYS-180 are its controls (HZ-004 K13, K12). SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles; SRR decision 42 (same ruling) aligns the ConOps bench-test limit, which the ConOps author changes from 60 s per keyed activation. 120 s covers the longest bench measurement a test mode supports (element timing at 5 WPM, about 60 s) and stays below the 150 s floor of REQ-SYS-180. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 3. TBR: the timeout, which the PDR test-mode design confirms against the bench procedures. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-004 K13.",
+      "rationale": "Why: a PARIS loop has 7-dit word spaces, so the no-gap watchdog REQ-SYS-054 does not see it and the cutoff REQ-SYS-055 is retriggered; this timeout and REQ-SYS-180 are its controls (HZ-004 K13, K12). SRR decisions 41 and 42 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016) and aligned the ConOps limit. 120 s covers the longest bench measurement a test mode supports and stays below the 150 s floor of REQ-SYS-180. It is an upper bound, verified with the capture resolution applied inward (04 section 8.2). Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4; 8.2 row 3. TBR: the timeout, which the PDR test-mode design confirms against the bench procedures.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit on the simulated clock, each test sub-mode left running: exit at 120 s. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit into the calibrated attenuator and the dummy load; the bench test mode entered by the REQ-SYS-179 sequence, logic capture of TX_KEY, PA_EN and the TEST indication; each keying sub-mode left running ends, and the unit leaves the mode, at most 120 s after entry. Closing case: TC-SYS-113.",
       "status": "Active",
@@ -5822,7 +5868,7 @@
       "id": "REQ-SYS-189",
       "title": "Bench full-scale test tone limit",
       "description": "The transceiver shall end the bench full-scale headphone test tone at most 60 s (TBR) after it starts.",
-      "rationale": "Why: NGO-016 and HZ-005 K9: the full-scale tone is the only source of the 100 mVrms ceiling level, so its duration is bounded as the keying test modes are. SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles; SRR decision 42 (same ruling) aligns the ConOps bench-test limit, which the ConOps author changes from 60 s per keyed activation. OQ-SAF-016 and HZ-005 K9 set 60 s for the tone, the shorter limit that decision 42 records for it. Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-071 bounds the level in hardware). TBR: the limit, which the PDR audio and test-mode design confirms. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-005 K9.",
+      "rationale": "Why: NGO-016 and HZ-005 K9: the full-scale tone is the only source of the 100 mVrms ceiling level, so its duration is bounded as the keying test modes are. SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard (OQ-SAF-016); OQ-SAF-016 and HZ-005 K9 set 60 s for the tone, the shorter limit that SRR decision 42 records for it. It is an upper bound, verified with the capture resolution applied inward (04 section 8.2). Ops: OPS-012. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4 (REQ-SYS-071 bounds the level in hardware). TBR: the limit, which the PDR audio and test-mode design confirms.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit on the simulated clock, the tone started and left running: ended at 60 s. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit, headphones off the ear and a 32 ohm load on the headphone jack, the tone started from the bench test mode, the load voltage read by the audio input of the logic capture: the tone ends at most 60 s after it starts. Closing case: TC-SYS-113.",
       "status": "Active",
@@ -5853,7 +5899,7 @@
       "id": "REQ-SYS-190",
       "title": "Bench test mode not retained over reset",
       "description": "The transceiver shall complete every reset and every power-on with the bench test mode inactive.",
-      "rationale": "Why: a test mode that survives a reset or is restored from the configuration store would start a keying stream or a full-scale tone without the two operator actions of REQ-SYS-179 (HZ-004 K13, HZ-005 K9; SWE-134 d). SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): forced 0.5 W, 120 s timeout, exit on reset, not persistent across power cycles; SRR decision 42 (same ruling) aligns the ConOps bench-test limit, which the ConOps author changes from 60 s per keyed activation. One outcome covers both parts of the ruling: exit on every reset, and no persistence across power cycles. Ops: OPS-012, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4. Hazard controls implemented (docs/safety/hazards.json control_req_ids, to be added by the hazard analysis author): HZ-004 K13; HZ-005 K9.",
+      "rationale": "Why: a test mode that survives a reset or is restored from the configuration store would start a keying stream or a full-scale tone without the two operator actions of REQ-SYS-179 (HZ-004 K13, HZ-005 K9; SWE-134 d). SRR decision 41 (owner ruling 2026-09-26) adopted the bench test-mode guard of HZ-004 K13 (OQ-SAF-016): exit on every reset and no persistence across power cycles, which this one outcome covers. Ops: OPS-012, OPS-021. Fault tolerance: docs/safety/hazard-analysis.md 8.1 item 4.",
       "verification_method": "Test",
       "verification_note": "Pre-build (supporting): HostUnit, the test mode active at a watchdog reset, a commanded reset and a power cycle with the configuration store written: inactive after each. The HostUnit case closes the REQ-SW child allocated at PDR (02 section 4.4; 04 section 5.2 row T-HW). Post-build (closing): Bench on the delivered unit into the calibrated attenuator and the dummy load; the bench test mode entered by the REQ-SYS-179 sequence, logic capture of TX_KEY, PA_EN and the TEST indication; the mode active at a reset button press, a fault-injected watchdog reset and a power-switch cycle: after each restart the display shows no TEST indication and TX_KEY stays idle for 60 s. Closing case: TC-SYS-113.",
       "status": "Active",
@@ -5876,6 +5922,37 @@
       "design_refs": [],
       "mop_ids": [],
       "tbr": null,
+      "priority": "Baseline"
+    },
+    {
+      "id": "REQ-SYS-194",
+      "title": "Independent cell over-voltage threshold over the charging temperature range",
+      "description": "The transceiver shall hold the independent cell over-voltage stop threshold within 4.25-4.30 V (TBR) from 0 C to 45 C.",
+      "rationale": "Why: NGO-022 and HZ-002 K2: the REQ-SYS-083 protector stays in its band over the whole charging window of REQ-SYS-082, and the bench has no temperature chamber (CON-016), so the span is shown by Analysis of the selected S-8252 variant: its threshold accuracy at 25 C plus its drift from 0 C to 45 C inside 4.25-4.30 V (docs/research/power-tree-and-charging.md F11; SRR decision 72, owner ruling 2026-09-26). Split from REQ-SYS-083 so that each requirement has one closing method (04 section 3; INSP-025 finding-5 and cross item X1). Ops: OPS-016. Fault tolerance: docs/safety/hazard-analysis.md 8.1 items 3 and 7 (Analysis accepted per RSK-007). TBR: band pending the PDR protector variant selection.",
+      "verification_method": "Analysis",
+      "verification_note": "Analysis accepted per RSK-007 (HZ-002; 04 section 3 and rule 7.3.6): no temperature chamber is on the bench (CON-016). Closing: Simulation, a datasheet computation of the selected protector's threshold accuracy at 25 C plus its drift over 0 C to 45 C, stacked with the sense-path resistor tolerances, inside 4.25 V to 4.30 V. Supporting: the room-temperature Bench trip of TC-SYS-061. Closing case: TC-SYS-116.",
+      "status": "Active",
+      "parent_id": null,
+      "child_ids": [],
+      "tags": [
+        "revA",
+        "safety"
+      ],
+      "source_ids": [
+        "NGO-022",
+        "OPS-016",
+        "CON-011"
+      ],
+      "hazard_ids": [
+        "HZ-002"
+      ],
+      "design_refs": [],
+      "mop_ids": [],
+      "tbr": {
+        "owner": "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence",
+        "plan": "Closes with REQ-SYS-083: SRR decision 72 (owner ruling 2026-09-26) adopted D-PWR-03 (S-8252 class plus BQ29209 class); the protector variant selection at PDR confirms the band over 0 C to 45 C.",
+        "close_by": "PDR"
+      },
       "priority": "Baseline"
     }
   ]

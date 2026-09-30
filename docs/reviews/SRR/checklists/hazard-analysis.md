@@ -16,9 +16,14 @@ product: docs/safety/hazard-analysis.md
 # product_files: git rev-parse HEAD:<path> at 860e84e, 2026-09-26 (iteration 3 delta verification: 49ec53f8, c6bf757e).
 # Post-SRR-ruling delta (2026-09-26, package item R16): product_commit is bfea9c7 (0.5.0-pha, the owner rulings applied),
 # the only commit after ade0e09 that touches docs/safety/; product_files: git rev-parse HEAD:<path> at ebe5873, 2026-09-26.
-product_commit: "bfea9c7"
-product_files: ["docs/safety/hazard-analysis.md@52c8ce16856499afc1b701e1ddb103788fcb1af9", "docs/safety/hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0"]
+# product_files at the post-SRR-ruling delta: hazard-analysis.md@52c8ce16 (as below), hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0
+# CR-008 hazards delta (2026-09-29, WP-PDR-55; CR-008 section 5 step 3, on branch cr/CR-008-srr-liens-l1-and-tc-sys): product_commit is
+# a36a828, the only commit after bfea9c7 that touches docs/safety/ on the branch; product_files: git rev-parse a36a828:<path>
+# (hazard-analysis.md unchanged; hazards.json the step 3 blob, delta-verified in section "CR-008 hazards delta"); was bfea9c7
+product_commit: "a36a828"
+product_files: ["docs/safety/hazard-analysis.md@52c8ce16856499afc1b701e1ddb103788fcb1af9", "docs/safety/hazards.json@416b3e1914d5a29f576473b34e570fabdd37d763"]
 data_file: docs/safety/hazards.json
+# data_file_version: the file's version field is still 0.5.0-pha at a36a828, although the content changed (finding-23)
 data_file_version: 0.5.0-pha
 product_size: 15 hazards, 117 controls at iteration 1 and 118 at iteration 2, 24 open questions at iteration 1 and 26 at iteration 2, 23 single point failure entries
 sprint: SRR-prep
@@ -39,22 +44,25 @@ verdict: APPROVED
 # counted in findings_deferred (convergence rule of 2026-09-26, charter section 4 item 3)
 # Post-SRR-ruling delta: finding-14 Closed (Verified) by bfea9c7 (SRR decisions 37 and 116); finding-17 to finding-21 new,
 # all Minor, Lien: fix before PDR. Totals: Closed (Verified) 14 (Major 3, Minor 11); Lien 7 (Minor: finding-15, 16, 17 to 21)
+# CR-008 hazards delta: finding-22 and finding-23 new, both Minor, Lien: fix before PDR. Totals: Closed (Verified) 14 (Major 3,
+# Minor 11); Lien 9 (Minor: finding-15 to 23). Was minor 18, deferred 7
 findings_major: 3
-findings_minor: 18
+findings_minor: 20
 findings_open: 0
 findings_fixed: 0
 findings_verified: 14
-findings_deferred: 7
+findings_deferred: 9
 assurance_tasks_applied: [swe-205 7.1 task 1, swe-205 7.1 task 2, swe-205 7.1 task 3, swe-205 7.1 task 4]
 deferred_rids: []
 # iteration 3 answers (iteration 1: R1, R2, CK-SAF-A7, C2, C4, C5, C6, D2, D3, D5, F1, F3, G1, G2, G3, G5;
 # iteration 2: R1, CK-SAF-D5, CK-SAF-G1); both remaining No items carry only Minor liens
 # post-SRR-ruling delta: CK-SAF-G1 now Yes (finding-14 closed); B6, B7, C4, D3, E3 No on Minor liens only
+# CR-008 hazards delta: no answer changes; CK-SAF-C4 stays No (finding-17, and now finding-22)
 items_no: [CK-SAF-B6, CK-SAF-B7, CK-SAF-C4, CK-SAF-D3, CK-SAF-D5, CK-SAF-E3]
 # effort: iteration 1 (46 turns, 55 min), iteration 2 (28 turns, 35 min), iteration 3 (36 turns, 45 min), iteration 3 delta verification (14 turns, 20 min),
-# post-SRR-ruling delta (42 turns, 55 min)
-effort_turns: 166
-effort_minutes: 210
+# post-SRR-ruling delta (42 turns, 55 min), CR-008 hazards delta (20 turns, 35 min)
+effort_turns: 186
+effort_minutes: 245
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -108,6 +116,8 @@ date_closed: null
 | <a id="finding-19"></a>finding-19 (F-19) | reviewer (post-SRR-ruling delta) | Minor | CK-SAF-B6 | `hazards.json` last `history` entry (2026-09-26, SRR) of HZ-002, HZ-004 and HZ-005 | Each new entry contradicts itself: HZ-002 says "K3 and K9 stay requirement pending until the requirements author writes them" and then "REQ-SYS-185 traced as K3 and REQ-SYS-186 as K9 (both now Proposed)"; HZ-004 says "K4 items (ii), (iii) and the K13 guard stay requirement pending until written" and then "REQ-SYS-184 added to K4 and REQ-SYS-187, 188, 190 to K13 (both now Proposed)"; HZ-005 says "K9 stays requirement pending" and then "REQ-SYS-189 and REQ-SYS-190 added to K9 (now Proposed)". The controls are Proposed, which is right; the earlier clause was left from the pre-`cd61450` draft. History is append-only (the older entries are unchanged, checked), so the fix is an appended entry or a dated correction note that states the controls Proposed, not a rewrite of an entry that a later review has read. | Lien | Not needed | PDR | New at the post-SRR-ruling delta: Lien: fix before PDR. |
 | <a id="finding-20"></a>finding-20 (F-20) | reviewer (post-SRR-ruling delta) | Minor | CK-SAF-B7 | analysis section 4 table, HZ-008 row, Related risks column | The row reads "RSK-001, RSK-011"; `hazards.json` HZ-008 `related_risk_ids` is RSK-001, RSK-011, RSK-046 (since 0.4.0-pha; section 12 line 413 lists all three). 0.5.0-pha edited this row for decisions 9 and 40 and left the column. Present since 0.4.0-pha and not raised at iterations 2 and 3. Every other row equals the JSON (script check of severity, likelihood, initial, residual and related risks for all 15 hazards). Fix: add RSK-046. | Lien | Not needed | PDR | New at the post-SRR-ruling delta: Lien: fix before PDR. |
 | <a id="finding-21"></a>finding-21 (F-21) | reviewer (post-SRR-ruling delta) | Minor | CK-SAF-E2, CK-SAF-E3 | analysis section 6.2 lead-in; section 8.2 note under the table; section 11.1 (line 355) | Version and alignment text not carried to 0.5.0-pha. Section 6.2 says the table "is generated from `hazards.json` 0.4.0-pha" and that 0.4.0-pha changes no component, while 0.5.0-pha rewords the HZ-008 `firmware_role.components` (the word "proposed" removed; the component set and criteria are unchanged, so the recompute of the table still gives no difference). The section 8.2 note still counts "the 23 entries of `hazards.json` 0.4.0-pha" (still 23 at 0.5.0-pha). Section 11.1 records the 07 row h band edge "144.001 to 147.999 MHz" as checked and aligned; after SRR decision 25 the analysis section 7 row h and HZ-008 K4, K7 read 144.0012 to 147.9988 MHz, while 07 (lines 605, 622, 642) and 03 (lines 123, 184, 233) still carry 144.001 to 147.999 MHz, a difference that no section 6.3 or 11.1 item and no open question carries (OQ-SAF-014 covers the decision 9 edit only). Fix: re-date the two lead-ins at 0.5.0-pha and list the band-edge difference in section 11.1 with the request to the lead SE (for example as an addition to OQ-SAF-014). | Lien | Not needed | PDR | New at the post-SRR-ruling delta: Lien: fix before PDR. |
+| <a id="finding-22"></a>finding-22 | reviewer (CR-008 hazards delta) | Minor | CK-SAF-C4 | analysis section 8.1 item 7 table (lines 243 to 260) and item 3 (line 239); `hazards.json` HZ-002 K2 at `416b3e19` | CR-008 step 3 (`a36a828`) adds REQ-SYS-194 to HZ-002 K2. REQ-SYS-194 closes by Analysis ("Analysis accepted per RSK-007", closing case TC-SYS-116), and HZ-002 is Catastrophic. It is now the one control requirement of a Critical or Catastrophic hazard that is not Test and is missing from the section 8.1 item 7 exception table. A recompute over every `control_req_ids` entry finds no other. The table says it "is the complete list", and the REQ-SYS-194 rationale points to "8.1 items 3 and 7". Section 13 says the analysis "is revised to match in the same commit". CR-008 schedules the analysis edit as step 4, after the merge (WP-PDR-16), so the approved CR sequence leaves the two files out of step between the merge and step 4. Minor: the acceptance is visible in the requirement's `verification_note`, `traceability.py` raises no `HAZARD_REQ_NOT_TESTED`, and the CR names the fix. It would be Major at the PDR readiness declaration if step 4 had not landed by then. Fix (CR-008 step 4): add the row "HZ-002 (Catastrophic), K2 protector threshold over 0 C to 45 C, REQ-SYS-194, RSK-007, no temperature chamber (CON-016)" to item 7, and name REQ-SYS-194 in item 3. With step 6, RSK-007 `related.requirement_ids` cites REQ-SYS-194 (it is empty at the branch head) | Lien | Not needed | PDR | New at the CR-008 hazards delta: Lien: fix before PDR (owner: safety analyst, CR-008 step 4). |
+| <a id="finding-23"></a>finding-23 | reviewer (CR-008 hazards delta) | Minor | R4; analysis section 13 (maintenance rule) | `hazards.json` `version` and `updated` (lines 2 and 3) at `416b3e19`; this record's `data_file_version` | Step 3 changes the content, with two id lists of HZ-002, but `version` stays "0.5.0-pha" and `updated` stays "2026-09-26". Every earlier content change moved the version: 0.4.2-pha at `1543c9f`, 0.4.3-pha at `ade0e09` (a status-only edit), and 0.5.0-pha at `bfea9c7`. After the merge, "0.5.0-pha" names two contents, `81cacde4` (the `baseline/srr` blob, baseline record row 15 "Preliminary hazard analysis 0.5.0-pha") and `416b3e19`. Readers that transcribe the file by version then cannot tell the two apart: 03 section 4.2, the classification record inputs, the PDR work plan WP-PDR-16 input "`hazards.json` (0.5.0-pha)", and this record's `data_file_version`. Minor: no hazard, control text, rating or `firmware_role` changes, and the git blob identifies the content (05 section 1). Fix: when step 4 revises the analysis, move both files to the next version (0.5.1-pha, or the 0.6.0-pha of the WP-PDR-16 re-issue if step 4 lands there) with the date and a section 13 change-log row that names CR-008 steps 3 and 4 and REQ-SYS-194. Changing it before the merge would change the blob again and need another delta | Lien | Not needed | PDR | New at the CR-008 hazards delta: Lien: fix before PDR (owner: hazard analysis author, with CR-008 step 4). |
 
 ## Per-hazard results
 
@@ -551,4 +561,72 @@ No Major finding is open. finding-14 closes. finding-15 and finding-16 stay lien
 
 ```
 POST-SRR-RULING DELTA (2026-09-26): VERDICT: APPROVED (with liens). Delta-verified bfea9c7 (0.5.0-pha, SRR owner rulings, package item R16). HEAD blobs hazard-analysis.md 52c8ce16, hazards.json 81cacde4. Closed 14 (finding-1 to finding-14; Major 3, Minor 11); Liens 7 (finding-15 to finding-21: Minor, fix before PDR); open Major 0.
+```
+
+## CR-008 hazards delta (2026-09-29, WP-PDR-55; CR-008 section 5 step 3 at `a36a828` on branch `cr/CR-008-srr-liens-l1-and-tc-sys`)
+
+**Scope and independence.** CR-008 step 3 changes `docs/safety/hazards.json`, which this record names at `81cacde4`. Without a delta, this APPROVED record would add a record-drift failure to `main` at the merge. CR-008 section 5 does not list this update; the CR-008 section 9 check of 2026-09-29 raised it as a new pre-merge item. This section is that delta. It was written by a new invocation of the `reviewer:hazards` role, run as the WP-PDR-55 independent reviewer (plan rule C4; charter section 2). That invocation authored none of the following: CR-008, its branch commits `c629198` and `a36a828`, the CR-008 section 8 record (`726cd44`), the earlier INSP-003 and INSP-025 deltas (`ebeb069`), and the hazard analysis. It edited no product file. It changed only this record's front matter, the finding-22 and finding-23 rows and this section. Plan rule C1 applies: this is a delta, and only the changed content is checked. The update is committed on the CR branch because `main` does not hold `416b3e19` (the same route as the INSP-003 update).
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search. Queries: CR-008 SRR liens, REQ-SYS-194, HZ-002, INSP-003 and INSP-008 delta; the S-8252 threshold band. After that, the checks used only read-only Python over the JSON files and `git show` or `git diff` of the named commits.
+
+**Product state.** `git log bfea9c7..a36a828 -- docs/safety/` on the branch gives one commit, `a36a828`. `hazard-analysis.md` is unchanged (`52c8ce16` on the branch, on `main` at `a4cdc4c` and at `baseline/srr`). `hazards.json` goes from `81cacde4` to `416b3e1914d5a29f576473b34e570fabdd37d763`. No commit on `main` since `ab2af2d` touches `docs/safety/` or this record, and no other `cr/` branch changes them.
+
+**Delta (structural Python diff of `hazards.json`, `ebeb069` against `a36a828`: 2 differences, which are the 2 hunks of `git diff`).**
+
+| Hunk (new lines) | Change | Check |
+|---|---|---|
+| 1 (459 to 460) | HZ-002 K2 (independent 2S protection IC, S-8252 class, `independent_of_firmware: true`) `control_req_ids`: [REQ-SYS-083] becomes [REQ-SYS-083, REQ-SYS-194] | Correct. REQ-SYS-194 is the 0 C to 45 C part of the K2 threshold, split from REQ-SYS-083 by CR-008 (INSP-025 finding-5, X1). Its `hazard_ids` is [HZ-002], its tags include `safety`, and its rationale reads "NGO-022 and HZ-002 K2" (CK-SAF-D2, D3). The control `text`, `status` (Proposed), `type` and `tbr` are unchanged |
+| 2 (574 to 575) | HZ-002 `requirement_ids`: REQ-SYS-194 appended after REQ-SYS-186 (13 ids) | Correct. The union of the HZ-002 control lists equals `requirement_ids` exactly |
+
+No other field changes: ratings, residual, `history`, `firmware_role`, `swe134_items`, `single_point_failures`, `open_questions`, `version` and `updated` are all the same. The `history` array is unchanged. That is right under section 13, because the assessment (severity, likelihood, risk, status) did not change.
+
+**Recomputed at `416b3e19`.**
+- Control union against `requirement_ids`: 15 of 15 hazards exact.
+- Forward links: every `control_req_ids` requirement lists its hazard in `hazard_ids`, 0 missing.
+- Inverse: the 13 requirements whose `hazard_ids` name HZ-002 equal HZ-002 `requirement_ids`, 0 missing. The `HAZARD_INVERSE` warning on REQ-SYS-194 is cleared.
+- Rule 7.3.6: REQ-SYS-194 has method Analysis, a note beginning "Analysis accepted per RSK-007", and the closing case TC-SYS-116 (method Analysis). RSK-007 carries HZ-002, and `traceability.py` raises no `HAZARD_REQ_NOT_TESTED`.
+- Section 8.1 item 7 table: recomputed over every `control_req_ids` entry of a Critical or Catastrophic hazard whose method is not Test. HZ-002 K2 REQ-SYS-194 is the only entry the table does not list (finding-22). The already-known Inspection entries (REQ-SYS-122, 124, 137, 138) are finding-17.
+
+**Noted, not a finding against this delta.** The K2 `text` says "4.25 V +/-0.02 V per cell", but REQ-SYS-083 and 194 bound the threshold at 4.25-4.30 V (TBR). A nominal 4.25 V part with +/-20 mV could trip below the band floor. The REQ-SYS-083 rationale already gives this to the PDR protector variant selection ("chosen at PDR so that its +/-20 mV at 25 C plus temperature drift stays in the band"), and the `tbr` objects close at PDR. The text predates CR-008, which does not change it.
+
+### Findings at the CR-008 hazards delta
+
+| Finding | Severity | State | Basis |
+|---|---|---|---|
+| finding-22 | Minor | New, Lien: fix before PDR | The section 8.1 item 7 exception table does not list HZ-002 K2 REQ-SYS-194 until CR-008 step 4 (findings table) |
+| finding-23 | Minor | New, Lien: fix before PDR | `hazards.json` `version` and `updated` do not identify the step 3 revision (findings table) |
+| finding-1 to 14 | Major and Minor | Closed (unchanged) | Step 3 reopens none of them. finding-3: the table's other rows are unchanged, and the one new gap is finding-22 |
+| finding-15 to 21 | Minor | Lien: fix before PDR (unchanged) | Step 3 does not touch them |
+
+Neither new finding blocks the CR-008 merge. Both are fixed through CR-008 step 4 or the next revision of the hazard files, and fixing them before the merge would change the blobs again.
+
+**Answers at this delta.**
+- R1 Yes: `hazards.json` passes `docs/safety/schema.json`, and this record passes on the branch.
+- R2 Yes: 0 violations, no hazard code.
+- R3 Yes: `render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` exits 0 ("register OK: 65 risks, 159 candidates, 0 warning(s), ... hazard cross-check").
+- R4 Yes: CR-008 section 8 (`726cd44` on `main`) states both hunks and the new blob. The analysis still transcribes 0.5.0-pha, which is literally the file's version; the identification gap is finding-23.
+- R5 Yes: no TBD was added.
+- CK-SAF-C4 stays No (finding-17, finding-22). CK-SAF-D1 and D2 are Yes, with 0 differences.
+- All other answers stay as they were at the post-SRR-ruling delta. `readiness_met: true`.
+
+No Major finding is open, so the verdict stays **APPROVED**, with 9 liens (finding-15 to finding-23). `record_status` stays for the lead SE.
+
+### Tool runs (2026-09-29; `.venv/bin/python`; scratch worktree of the branch)
+
+| Tree | Command | Result |
+|---|---|---|
+| Branch at `a36a828`, before this update | `tools/validate_docs.py` | exit 1; 48 passed, 2 failed: this record (`hazards.json@81cacde4` against `416b3e19`) and INSP-003 (`allocation.json@442de2fd` against `028facf7`). `docs/safety/hazards.json` PASSES its schema |
+| The same | `tools/traceability.py --report-only --output <scratchpad>` | 246 requirements, 174 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and 148). No `HAZARD_*` code. `docs/vv/traceability-report.md` and `traceability.json` were not written |
+| The same | `tools/render_risk.py --check --gate SRR --hazards docs/safety/hazards.json` | exit 0 (above) |
+| Branch with this update and the INSP-003 update | `tools/validate_docs.py` | exit 0; 50 passed, 0 failed, 50 checked |
+
+**Cross items (for the lead SE and the CR-008 step owners).**
+1. CR-008 step 4 (safety analyst, WP-PDR-16): the section 8.1 item 7 row and the item 3 mention (finding-22). Also re-date the item 7 lead-in, which is finding-16. Then give both files one new version (finding-23).
+2. CR-008 step 6 (risk manager, WP-PDR-18): RSK-007 `related.requirement_ids` is empty at the branch head. It should cite REQ-SYS-194, and REQ-SYS-083 as well if the register's rule asks for every requirement whose note names the risk.
+3. CR-008 section 5 lists no INSP-008 update. This section is it. The CR author may add a row that cites this commit, so that section 8 records it.
+
+**Measurements (CR-008 hazards delta).** Items re-checked: 2 hunks, the union, forward, inverse and table recomputes, and R1 to R5, CK-SAF-C4, D1, D2 and D3. Items answered No: 0 new (C4 already No). New findings: 2 (Minor). Findings closed: 0. Effort: 20 turns, 35 minutes, added to the front matter totals.
+
+```
+CR-008 HAZARDS DELTA (2026-09-29, hazards.json 416b3e19 at a36a828 on cr/CR-008-srr-liens-l1-and-tc-sys, WP-PDR-55): VERDICT: APPROVED (with liens). Delta-verified CR-008 step 3 (REQ-SYS-194 in HZ-002 K2 control_req_ids and HZ-002 requirement_ids; 2 hunks, no other change). Blobs hazard-analysis.md 52c8ce16 (unchanged), hazards.json 416b3e19. Closed 14 (Major 3, Minor 11); Liens 9 (finding-15 to finding-23, Minor, fix before PDR; new: finding-22 section 8.1 item 7 row for REQ-SYS-194 via CR-008 step 4, finding-23 version label); open Major 0.
 ```

@@ -14,7 +14,13 @@ product: docs/requirements/sys/requirements.json
 # re-issue 2026-09-26 (package item R8): product_commit is the last commit touching the four files, 0f5a529 (TC-SYS-060, INSP-025 finding-1)
 # post-SRR-ruling delta 2026-09-26 (package item R16): product_commit is ebe5873, the last commit touching the four files (cd61450 L1 and allocation, ebe5873 TC-SYS); was 0f5a529 at the re-issue
 # P9 status delta 2026-09-27: product_commit is 61a3cb7 (188 L1 status fields Draft to Active; allocation.json and test_cases.json unchanged since the delta)
-product_commit: "61a3cb7"
+# CR-008 delta 2026-09-29 (WP-PDR-55; CR-008 section 5 step 7, record re-issue on the CR branch): product_commit is c629198,
+# the CR-008 branch commit holding the frozen blobs (base ab2af2d); was 61a3cb7 at the P9 status delta
+# CR-008 allocation delta 2026-09-29 (WP-PDR-55; CR-008 section 5 step 5): product_commit is a36a828, the branch commit that
+# allocates REQ-SYS-194 (parent ebeb069); was c629198 at the CR-008 delta
+# CR-008 status delta 2026-09-29 (WP-PDR-55; CR-008 section 5 step 10, lead SE ruling 1): product_commit is c1955b3, the branch
+# commit that sets REQ-SYS-194 from Draft to Active (parent e26ce46); was a36a828 at the CR-008 allocation delta
+product_commit: "c1955b34695949bae86b02d5728a3c7f28f50b55"
 # product_files: blobs re-reviewed at iteration 2 (2026-09-26, working tree, uncommitted; none is in the object store); iteration 1 blobs are in the body table
 # product_files at iteration 2 (working tree): ["docs/requirements/sys/requirements.json@522890d1f1de8225ff6aebf5ac2d048e5cf21e89", "docs/requirements/sys/requirements.md@d4b1addfdacea96119b984acfec4a6495c5569ab", "docs/design/allocation.json@b80f6829bdcf73b577810f3124ca2d269ce74023", "docs/test_cases/sys/test_cases.json@201ca96f51657f25049570738e04c9f4152130dc"]
 # product_files at the iteration 3 pre-check (integrator, 400e59d): ["docs/requirements/sys/requirements.json@0da73012043cd79bb75d57c521369736141d7f1f", "docs/design/allocation.json@3526c8ee8ceecd139ece3e23ade786196a3ce22c"]
@@ -25,9 +31,21 @@ product_commit: "61a3cb7"
 # product_files at the re-issue: ["docs/requirements/sys/requirements.json@0da73012043cd79bb75d57c521369736141d7f1f", "docs/requirements/sys/requirements.md@95cdc4650ee6ff6cc42dec4ba29b38fa305c915e", "docs/design/allocation.json@3526c8ee8ceecd139ece3e23ade786196a3ce22c", "docs/test_cases/sys/test_cases.json@de113d6a82c772ab60a3e06f4908b95415f33552"]
 # product_files at the post-SRR-ruling delta (git rev-parse HEAD:<path> at ebe5873, equal at 7c7959f): the four blobs delta-verified in section "Post-SRR-ruling delta"
 # product_files at the post-SRR-ruling delta: requirements.json@52768afc4f5c3948ca4a2c93be6fd6b9de1c0d33, requirements.md@21d25ea38766d079f188555061b8372a5b0c977c, the last two as below
-product_files: ["docs/requirements/sys/requirements.json@f128235ee109cdc325e37c32000ebf9d6027454d", "docs/requirements/sys/requirements.md@553f7f48aaaea5934f73e59a64d0e0d3b9a7ba5d", "docs/design/allocation.json@442de2fd078f55fbc91a4d8cfd90750154ad07f1", "docs/test_cases/sys/test_cases.json@a18824aaf62d5139cdc558e52174726bd5d2f673"]
+# product_files at the P9 status delta: ["docs/requirements/sys/requirements.json@f128235ee109cdc325e37c32000ebf9d6027454d", "docs/requirements/sys/requirements.md@553f7f48aaaea5934f73e59a64d0e0d3b9a7ba5d", "docs/design/allocation.json@442de2fd078f55fbc91a4d8cfd90750154ad07f1", "docs/test_cases/sys/test_cases.json@a18824aaf62d5139cdc558e52174726bd5d2f673"]
+# product_files at the CR-008 delta (git rev-parse c629198:<path>, equal to the CR-008 section 5 frozen blobs; allocation.json unchanged
+# and equal on main); delta-verified in section "CR-008 delta"
+# product_files at the CR-008 delta: allocation.json@442de2fd078f55fbc91a4d8cfd90750154ad07f1, the other three as below
+# product_files at the CR-008 allocation delta (git rev-parse a36a828:<path>): allocation.json is the step 5 blob 028facf7,
+# delta-verified in section "CR-008 allocation delta"; the other three are unchanged from c629198
+# product_files at the CR-008 allocation delta: requirements.json@a73449377e8d055f5d247130b8850bf3f5a151d9, requirements.md@4e110b16027fbe446e846a8c5f9d2dc5c2899af6, the last two as below
+# product_files at the CR-008 status delta (git rev-parse c1955b3:<path>): requirements.json c68584cf and requirements.md 47c2beaa,
+# delta-verified in section "CR-008 status delta"; allocation.json and test_cases.json are unchanged from a36a828
+product_files: ["docs/requirements/sys/requirements.json@c68584cf62895a6b0a6d4a5d45e19fd190dd1af1", "docs/requirements/sys/requirements.md@47c2beaacc2037d08011b56b36efde90c4f334f0", "docs/design/allocation.json@028facf77f71fd6ab05f9e1015489f733c383735", "docs/test_cases/sys/test_cases.json@117c08dedd65171f88d5bff015d0914db97b3065"]
 # product_size: iteration 1 was 182 requirements, 178 allocation records, 110 cases; iteration 3 and the re-issue 183 requirements (181 Draft, 2 retired), 179 allocation records with 2 gaps and 2 exclusions, 110 TC-SYS cases
-product_size: 190 requirements (188 Active, 2 retired), 186 allocation records with 2 gaps and 2 exclusions, 113 TC-SYS cases
+# product_size at the P9 status delta: 190 requirements (188 Active, 2 retired), 186 allocation records with 2 gaps and 2 exclusions, 113 TC-SYS cases
+# product_size at the CR-008 delta: 191 requirements (188 Active, 1 Draft REQ-SYS-194, 2 retired), 186 allocation records with 2 gaps and 2 exclusions (REQ-SYS-194 not yet allocated, CR-008 step 5), 114 TC-SYS cases
+# product_size at the CR-008 allocation delta: 191 requirements (188 Active, 1 Draft REQ-SYS-194, 2 retired), 187 allocation records with 2 gaps and 2 exclusions, 114 TC-SYS cases
+product_size: 191 requirements (189 Active, 2 retired), 187 allocation records with 2 gaps and 2 exclusions, 114 TC-SYS cases
 sprint: SRR-prep
 author_agent: "author:requirements-sys (Claude main session in the requirements author role; allocation.json by the same author; TC-SYS cases by the independent test-author invocation)"
 reviewer_agent: "reviewer:requirements-sys"
@@ -50,12 +68,17 @@ verdict: APPROVED
 # open 1 (Major finding-6, owner ruling, decision 30); Lien "fix before PDR" 4 (Minor finding-12, 17, 25, 26), counted in findings_deferred
 # post-SRR-ruling delta counts: Closed (Verified) 23 (Major 9, Minor 14: finding-6 on decision 30, finding-17 on decision 113 and CR-002);
 # open 0; Lien "fix before PDR" 8 (Minor finding-12, 25, 26 and the new finding-27 to finding-31), counted in findings_deferred
+# CR-008 delta counts: Closed (Verified) 31 (Major 9, Minor 22: the eight liens finding-12 and finding-25 to finding-31 Verified on
+# the c629198 blobs); open 0; Lien 0. Residuals of finding-25 and finding-31 are open Minor findings of the PDR delta records
+# (INSP-044 finding-1, INSP-045 finding-2), tracked there and not counted here. Was verified 23, deferred 8
+# CR-008 allocation delta counts: Closed (Verified) 31 unchanged; new Minor finding-32 (the allocation.json header fields do not
+# identify the step 5 revision), Lien "fix before PDR", counted in findings_deferred; open 0. Was minor 22, deferred 0
 findings_major: 9
-findings_minor: 22
+findings_minor: 23
 findings_open: 0
 findings_fixed: 0
-findings_verified: 23
-findings_deferred: 8
+findings_verified: 31
+findings_deferred: 1
 assurance_findings_major: 0
 assurance_findings_minor: 0
 assurance_tasks_applied: []
@@ -64,12 +87,17 @@ deferred_rids: []
 # re-issue answers: R3 now Yes; the other four unchanged from iteration 3
 # post-SRR-ruling delta answers: CK-REQ-E1 now Yes (finding-6, 17 Verified); CK-REQ-E2 now No (finding-27); A3, A7, D4 stay No (liens)
 # items_no at the re-issue: [CK-REQ-A3, CK-REQ-A7, CK-REQ-D4, CK-REQ-E1]
-items_no: [CK-REQ-A3, CK-REQ-A7, CK-REQ-D4, CK-REQ-E2]
+# items_no at the post-SRR-ruling delta: [CK-REQ-A3, CK-REQ-A7, CK-REQ-D4, CK-REQ-E2]
+# CR-008 delta answers: CK-REQ-A3, A7 and E2 now Yes (liens Verified); CK-REQ-D4 stays No on the residual that INSP-044 finding-1
+# records (REQ-SYS-089 and 167 "stop charging" with no level)
+items_no: [CK-REQ-D4]
 # iteration1_items_no: [R1, R3, CK-REQ-A1, CK-REQ-A3, CK-REQ-A7, CK-REQ-A8, CK-REQ-B1, CK-REQ-B3, CK-REQ-B6, CK-REQ-C1, CK-REQ-C5, CK-REQ-D4, CK-REQ-E1, CK-REQ-E2, CK-REQ-E3, CK-REQ-E5, CK-REQ-F1, CK-REQ-F2, CK-REQ-F3]
 # effort: iteration 1 (62 turns, 80 min) plus iteration 2 (30 turns, 35 min) plus iteration 3 (independent re-review: 35 turns, 45 min)
 # plus the re-issue (12 turns, 20 min) plus the post-SRR-ruling delta (40 turns, 60 min)
-effort_turns: 187
-effort_minutes: 260
+# plus the CR-008 delta (30 turns, 50 min) plus the CR-008 allocation delta (22 turns, 35 min); the P9 status delta recorded no effort of its own
+# plus the CR-008 status delta (20 turns, 30 min)
+effort_turns: 259
+effort_minutes: 375
 record_status: Open
 date: 2026-09-25
 date_closed: null
@@ -91,6 +119,12 @@ date_closed: null
 **Reviewer.** `reviewer:requirements-sys`, independent of the requirements author and of the test author (charter section 2; section 11 rule 4). The reviewer did not edit any product file and did not read firmware or hardware design. Search first (charter section 11 rule 1): `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before every `grep` (queries: hazard-control Analysis exception and `HAZARD_REQ_NOT_TESTED`; regulatory Analysis in place of Test and the 06 section 14.1 item (g) trade; ConOps Test and Practice sub-modes; the no-RF threshold at the antenna port; SE-39 and the SRR minimum products); `grep -n` was used afterwards only to pin lines. The tool was available throughout. Per-requirement checks were scripted over the JSON (shall count, word count, the WR-07 word list, TBR and `tbr` pairing, source resolution against `expectations.json`, `conops.md`, `stakeholder-inputs.md`, `docs/decisions/` and the regulatory corpus, tag obligations, hazard back-links, closing-case method and credit row, `Fault tolerance:` targets in `docs/safety/hazard-analysis.md` section 8, `Analysis accepted per RSK-NNN` targets in `docs/risk/register.json`, allocation consistency) and every statement, rationale and verification note was then read in full.
 
 **Numbers verified against their sources** (not taken from the text): the raised-cosine fall of REQ-SYS-004 (10 to 90 percent in 8 ms gives a 13.55 ms transition and -40 dB amplitude at 12.69 ms); +/-2.5 ppm at 146 and 148 MHz (365 Hz, 370 Hz) with the 614 Hz sideband inside the 1 kHz guard of REQ-SYS-008; the 97.307(e) limits of REQ-SYS-017 and REQ-SYS-018 (25 uW is 53.0 dB below 5 W and 43.0 dB below 0.5 W; corpus `47cfr-97.307.md` line 25); 97.307(a) and (b) (lines 17, 19) and the 97.3(a)(8) 26 dB bandwidth definition (corpus `47cfr-97.3.md` line 31); the 2.202(g) CW row for the REQ-SYS-016 retirement (corpus `47cfr-2.202.md` line 91: 25 WPM, B = 20, K = 5, 100HA1A); the paddle-watchdog arithmetic of REQ-SYS-054 (128 dits at 15 WPM 20.5 s; 128 dahs at 5 WPM 122.9 s); the tuning arithmetic of REQ-SYS-058 and REQ-SYS-164 (4000 detents, 48 detents per second, 2.78 kHz); the charger margins of REQ-SYS-083 and REQ-SYS-153 (4.25 - 4.221 = 29 mV; 2 x 4.221 = 8.44 V); the -1 dB bound of REQ-SYS-152 (3.97 W); the monitor tap of REQ-SYS-141 (37 dBm to -3 dBm); the separation values of REQ-SYS-069 against `docs/research/rf-exposure-evaluation.md` line 94 (5 W CW 0.58 m and tune 0.91 m, times 1.122 for +1 dB, rounded up: 0.7 m and 1.1 m); the battery-life basis of REQ-SYS-094 and REQ-SYS-095 against `docs/research/power-tree-and-charging.md` F23 (9.5 h and 7.3 h expected, 6.4 h and 5.2 h high, to 3.0 V per cell); the debounce figures of REQ-SYS-043, REQ-SYS-048 and REQ-SYS-160 against `docs/research/keyer-verification-and-key-input-network.md` F6; the ICD values of `docs/icd/ICD-CTL-KEY.md`, `ICD-CTL-USB.md` and `ICD-CTL-PHONES.md` against REQ-SYS-047, 048, 049, 090 and 071 to 078.
+
+**Verdict (CR-008 status delta, 2026-09-29, WP-PDR-55, `requirements.json` at `c68584cf` and `requirements.md` at `47c2beaa` on branch `cr/CR-008-srr-liens-l1-and-tc-sys` at `c1955b3`): APPROVED, readiness met, one Minor lien (finding-32, unchanged).** CR-008 section 5 step 10 (lead SE ruling 1 of 2026-09-29) sets REQ-SYS-194 from `Draft` to `Active`. The `status` field of REQ-SYS-194 is the only change in `requirements.json`, and the three changed spots in `requirements.md` are exactly what the tool renders from it. The move is an allowed transition of 02 section 8.3 row 2: after the L1 baseline, an approved CR that adds the requirement is the trigger, and the owner approved CR-008 on 2026-09-28. TC-SYS-116 correctly stays `Draft`. No new finding. `allocation.json` and `test_cases.json` are unchanged from `a36a828`. The update is committed on the CR branch, so it reaches `main` only with the CR-008 merge. Section "CR-008 status delta" holds the checks.
+
+**Verdict (CR-008 allocation delta, 2026-09-29, WP-PDR-55, `allocation.json` at `028facf7` on branch `cr/CR-008-srr-liens-l1-and-tc-sys` at `a36a828`): APPROVED, readiness met, one Minor lien (finding-32).** CR-008 section 5 step 5 allocates REQ-SYS-194 exactly as REQ-SYS-083 is allocated (PWR, B18, F7). All six hunks of `git diff c629198 a36a828 -- docs/design/allocation.json` are verified in section "CR-008 allocation delta", the derived lists and summary counts recompute, and `SYS_UNALLOCATED` on REQ-SYS-194 is cleared. The new Minor finding-32 records that the file's `version`, `updated` and `author` fields do not identify the revision. The other three product blobs are unchanged from `c629198`. The update is committed on the CR branch, so it reaches `main` only with the CR-008 merge. It clears the merge precondition X-CR8-1 for this record.
+
+**Verdict (CR-008 delta, 2026-09-29, WP-PDR-55, blobs of branch `cr/CR-008-srr-liens-l1-and-tc-sys` at `c629198`): APPROVED, readiness met, no lien of this record open.** The eight liens "fix before PDR" (finding-12 and finding-25 to finding-31) are Verified on the CR-008 blobs in section "CR-008 delta". Two residuals are open Minor findings of the PDR delta records, not of this record: INSP-044 finding-1 (REQ-SYS-089 and 167 "stop charging" with no level, which keeps CK-REQ-D4 No) and INSP-045 finding-2 (TC-SYS-111 per-cell charger action). The re-issue is committed on the CR branch and reaches `main` only with the CR-008 merge. Merge precondition: CR-008 section 5 step 5 changes `allocation.json`, so this record needs a further delta on that file before the merge (cross item X-CR8-1).
 
 **Verdict (post-SRR-ruling delta, 2026-09-26, package item R16, blobs equal to HEAD `ebe5873`): APPROVED with liens, readiness met.** The owner approved the SRR on 2026-09-26 with every key decision ruled as recommended (`docs/reviews/SRR/minutes.md`). The two commits that changed this product after `0f5a529`, `cd61450` (L1 requirements and allocation) and `ebe5873` (TC-SYS), are delta-verified in section "Post-SRR-ruling delta": each change applies its cited ruling correctly and none introduces a Major defect. finding-6 (Major) is Verified on SRR decision 30 (owner ruling 2026-09-26; `docs/reviews/SRR/decision-memo.md` section 8.1) as applied in `cd61450`, and the lien finding-17 is Verified on SRR decision 113 (CR-002, steps 2 and 3 in `cd61450` and `ebe5873`). No Major finding is open. Five new Minor findings (finding-27 to finding-31) are liens, "fix before PDR", with finding-12, 25 and 26.
 
@@ -133,6 +167,7 @@ date_closed: null
 | <a id="finding-29"></a>finding-29 | reviewer (post-SRR-ruling delta) | Minor | R4, CK-REQ-A7 (WR-12) | REQ-SYS-180, 181, 182 `tbr`; `tbr.owner` of 104 live requirements; `TBR:` items of REQ-SYS-009, 031, 059, 062, 086, 100, 102, 103 | (i) `docs/reviews/SRR/decision-memo.md` section 8.3 lists REQ-SYS-180 (decision 38), 181 (decision 39) and 182 (decision 40) among the 14 L1 TBRs that "close with their values as written" and says "The requirements authors remove each `tbr` object". `cd61450` removed the other eleven but kept `(TBR)` and a `tbr` object on these three, moved `close_by` from SRR to PDR and wrote a PDR confirmation plan (timing Simulation, thermal analysis, counter design). The values equal the rulings (150 s to 180 s; 95 C +/-3 C and 100 ms; 10 kHz and 100 ms), so no statement is wrong, but the memo and the requirement file now disagree on whether the three TBRs are closed, and the memo's TBR count is not the file's. (ii) After the SRR, 104 of the 109 live `tbr` objects still name the owner "Robin decides at SRR on Claude's proposal"; the plans now say "SRR decision NN ... adopted" and close at PDR, so the owner field is stale. (iii) Eight rationales keep the generic "TBR: value is a research or author proposal pending the decision named in the tbr plan", although the plan now names a PDR analysis, not a pending decision. Minor: every TBR still has an owner, a plan and a `close_by` (R4 holds), and every value equals its ruling. Fix: either the memo author amends section 8.3 (section 13 amendments) to record that REQ-SYS-180 to 182 keep a PDR confirmation TBR, or the requirements author removes the three `tbr` objects as the memo says; update the owner fields to the PDR approver ("Robin approves on Claude's proposal at PDR", as REQ-SYS-184 to 189 already read) and the eight `TBR:` items | Lien: fix before PDR (post-SRR-ruling delta) | Not needed | PDR | Lien (raised at the post-SRR-ruling delta) |
 | <a id="finding-30"></a>finding-30 | reviewer (post-SRR-ruling delta) | Minor | CK-REQ-A7 (WR-10) | `rationale` of REQ-SYS-008, 009, 010, 014, 015, 017, 018, 020, 034, 044, 053, 054, 055, 065, 083, 090, 121, 122, 125, 130, 137, 154, 161, 179, 180, 181, 182, 183, 184, 185, 186, 188, 189, 190 | The finding-12 class grew. 02 section 4.3 limits `rationale` to 120 words. At the re-issue twelve live rationales exceeded it; at `ebe5873` 34 do (script over the committed blob, whitespace word count): the R16 edits added ruling citations to 22 more, and all seven new requirements exceed it (REQ-SYS-184 214, 186 158, 188 150, 185 139, 189 138, 190 131; 187 is within it at 110), REQ-SYS-054 reaches 283. Minor, as finding-12: the content is right and cites its sources. Fix: with finding-12, move procedure and history detail into the notes, the hazard file or research citations, keeping one `SRR decision NN (owner ruling 2026-09-26)` citation per rationale | Lien: fix before PDR (post-SRR-ruling delta) | Not needed | PDR | Lien (raised at the post-SRR-ruling delta) |
 | <a id="finding-31"></a>finding-31 | reviewer (post-SRR-ruling delta) | Minor | CK-REQ-D4, CK-REQ-E5 (V5) | TC-SYS-111, 112, 113 `acceptance_criteria`; REQ-SYS-185 `verification_note` | Introduced by `ebe5873` (SRR decisions 41 and 72). (i) The finding-25 class in the three new cases: TC-SYS-111 "The 1 mA open-path level is the test author's", TC-SYS-112 "The 20 mV agreement band is the test author's", TC-SYS-113 "The 0.1 s allowance is the test author's", each "because the requirement states none"; REQ-SYS-185, 186, 188 and 189 are hazard controls (HZ-002, HZ-004, HZ-005). (ii) TC-SYS-111 judges the layer open by the charge current (at most 1 mA) and closed by its absence of opening, but it raises the simulated cell from 4.25 V to 4.40 V while the charger, "held on", regulates at about 4.2 V per cell (REQ-SYS-081), so the charge current may already be near zero below the trip; the current alone may then not distinguish an open path from a charger in regulation. Step 3 also reads the voltage across the layer's switching element, which can decide it, but the acceptance criterion does not use it. The REQ-SYS-185 note ("the charger held on ... the charge path state read with the multimeter") shares the ambiguity. Minor: the pass/fail values are narrow and visible, and the switching-element reading exists in the procedure. Fix: state the open-path level in REQ-SYS-185 (or its L2 child at PDR) and take the case criterion from it; judge the path state by the switching-element voltage or gate state, or source the charge current from a bench supply that is not the regulating charger; state the TC-SYS-112 and 113 allowances in the requirements or their PDR children | Lien: fix before PDR (post-SRR-ruling delta) | Not needed | PDR | Lien (raised at the post-SRR-ruling delta) |
+| <a id="finding-32"></a>finding-32 | reviewer (CR-008 allocation delta) | Minor | V6; 02 section 2.3 (allocation record) | `docs/design/allocation.json` `version`, `updated` and `author` (lines 3 to 7) at `028facf7` | CR-008 step 5 (`a36a828`) changes the file's content, with a new `allocations[]` record, four derived lists and three summary counts. The header still reads `version` "0.3.0-srr", `updated` "2026-09-26", and the `author` revision history ends at the SRR rulings. Every earlier content change moved these fields: `1d423e5` gave 0.2.0-srr and `cd61450` gave 0.3.0-srr. After the merge, the label "0.3.0-srr" names two different contents, `442de2fd` at `baseline/srr` and `028facf7`. PDR work plan WP-PDR-31 takes "`allocation.json` (0.3.0-srr)" as its input. Minor: the content is correct, and the git blob identifies it (05 section 1: outside a baseline, a document's version is its last commit). Fix: at the next revision of the file, give a version after 0.3.0-srr, the date, and an `author` history entry that names CR-008 step 5 and REQ-SYS-194. Changing it before the merge would change the blob again and need another delta, so the fix waits for that revision | Lien: fix before PDR (CR-008 allocation delta) | Not needed | PDR | Lien (raised at the CR-008 allocation delta; owner: writer of `allocation.json`, WP-PDR-31) |
 
 ## Readiness criteria
 
@@ -805,4 +840,178 @@ FINDINGS: open Major 0; Closed 23; Lien 8 (finding-12, 25, 26, 27, 28, 29, 30, 3
 READINESS: R1 Yes, R2 Yes, R3 Yes, R4 Yes, R5 N/A; readiness_met true
 PRODUCTS: requirements.json@f128235e, requirements.md@553f7f48 (61a3cb7); allocation.json@442de2fd; test_cases.json@a18824aa (unchanged)
 CHANGE: status only, 188 Draft to Active, 2 retired unchanged; no other field changed
+```
+
+## CR-008 delta (2026-09-29, WP-PDR-55; products at `c629198` on branch `cr/CR-008-srr-liens-l1-and-tc-sys`)
+
+**Scope and independence.** CR-008 section 5 step 7 has a new invocation of the `reviewer:requirements-sys` role verify each lien of this record on the frozen CR-008 blobs, and WP-PDR-55 has the record re-issued to name them. Plan rule C1 applies: this is a delta, and only the changed content and the liens are checked. The reviewer is a separate invocation (plan rule C4; charter section 2). It was run as the WP-PDR-55 configuration manager and independent reviewer, and it authored no part of CR-008, of its branch commit `c629198`, of the INSP-044 or INSP-045 records or of the CR's section 6 reviews. It edited no product file. It changed only this record's front matter, the verdict paragraph above and this section. CR-008 was Approved by the owner on 2026-09-28 (CR-008 section 7). The re-issue is committed on the CR branch, not on `main`, because `main` does not hold the blobs it names (CR-008 section 9; the same route as CR-010 step 5).
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: CR-008 pre-merge checks, section 9, SRR record re-issue, `a17af87` findings). Every check below is a read-only Python script over `git show <rev>:<path>` of `baseline/srr` and `c629198`, or a reading of the named text. The tools ran on detached scratch work trees of `main` and of a trial merge, never on the shared tree.
+
+**Product state.** `git diff --name-only ab2af2d c629198` lists the four files of CR-008 section 5, and `git rev-parse c629198:<path>` equals the frozen blobs the CR names: `requirements.json` `a7344937`, `requirements.md` `4e110b16`, `test_cases.json` `117c08de`, `test_cases.md` `00e4454f`. On `main` (HEAD `44cda12` at this check) the L1 and TC-SYS files still equal `baseline/srr` (`f128235e`, `553f7f48`, `a18824aa`). `allocation.json` is `442de2fd` on the branch, on `main` and at `baseline/srr`, so it is unchanged from the P9 status delta. No other `cr/` branch changes any of the four product files or this record.
+
+### Delta of the L1 requirements (`baseline/srr` to `c629198`, field by field)
+
+| Check | Result |
+|---|---|
+| Entries and order | 190 to 191 entries. REQ-SYS-194 is appended with status Draft. None is removed, the order of the 190 is unchanged, and no entry changes its key set |
+| Fields changed | `description` 14, `rationale` 55, `verification_note` 10, `source_ids` 40, `tbr.owner` 104, `tbr.plan` 4 (REQ-SYS-014, 054, 166, 167); 144 entries changed. `title`, `verification_method`, `status`, `parent_id`, `child_ids`, `tags`, `hazard_ids`, `design_refs`, `mop_ids`, `priority` and `tbr.close_by` are unchanged on every existing entry. These are the counts of CR-008 sections 1 and 4 |
+| Statements (CR-008 section 1.1) | The 14 changed `description` ids equal the section 1.1 rows. Each "before" equals `baseline/srr` and each "after" equals `c629198`, character for character. Every live statement begins "The transceiver shall", has one `shall` and at most 25 words (the longest has 25) |
+| REQ-SYS-194 | The statement is one outcome and gives the 0 C to 45 C span of the former REQ-SYS-083 with the same 4.25-4.30 V (TBR) band. Method Analysis, and the note begins "Analysis accepted per RSK-007" (04 section 3 and rule 7.3.6). `hazard_ids` HZ-002; `source_ids` and `tags` equal those of REQ-SYS-083; its `tbr` closes with REQ-SYS-083 at PDR. The closing case is TC-SYS-116, which cites it with method Analysis |
+| Tool runs | `tools/traceability.py --report-only` on the trial merge gives 0 violations and 4 warnings: `SYS_UNALLOCATED` REQ-SYS-125 and 148 (the confirmed leaf gaps of finding-20), and `HAZARD_INVERSE` and `SYS_UNALLOCATED` on REQ-SYS-194. The last two wait for CR-008 steps 3 and 5. `--render` leaves `requirements.md` unchanged, so the rendering equals the JSON |
+
+### Findings at the CR-008 delta
+
+| Finding | Severity | State | Basis |
+|---|---|---|---|
+| finding-12 | Minor | Verified (closed; was Lien) | Script over the 189 live entries: every rationale has at most 120 words (the longest has 120). The 34 that exceeded the limit at `baseline/srr` are all among the 55 rewritten. Every rationale begins `Why:` or `Self-derived:`, and the labels are in 02 section 4.3 order with none repeated. Every `tbr` object has a `TBR:` item (REQ-SYS-176, 177 included), and no rationale contains `shall`. REQ-SYS-130 reads "The transceiver shall first set PA off ... after every reset, panic or latched fault". The notes of REQ-SYS-011 and 012 call TC-SYS-010 support only (credit row SUPPORT). The REQ-SYS-143 note names HostUnit in its pre-build evidence. No label present at `baseline/srr` is lost in a rewritten rationale |
+| finding-25 | Minor | Verified (closed; was Lien) | Each value that the ten cases took as "the test author's" is now in its statement: REQ-SYS-014 (5 percent shape, +/-0.5 ms, under the TBR and in `tbr.plan`), 044 (the REQ-SYS-042 tolerance), 045 (+/-5 Hz), 077 (20 ms), 087, 088 and 093 (below 5 mA), 161 (constant within 0.5 ms), 166 (below 0.5 V, TBR with REQ-SYS-149) and 167 (+/-2 min, under the TBR). The one-sided bounds of REQ-SYS-048, 053, 054 and 162 keep their statements, and the cases apply the 04 section 8.2 rule inward. No TC-SYS field contains "test author's" (script over the 114 cases). Residual, not this finding's wording: TC-SYS-065 takes its "charging stopped" level (below 5 mA) from REQ-SYS-087, 088 and 093, because REQ-SYS-089 and 167 still say "stop charging". INSP-044 finding-1 (Minor, Open in that record) carries it |
+| finding-26 | Minor | Verified (closed; was Lien) | Read against `docs/safety/hazard-analysis.md` section 8.1 (unchanged from `baseline/srr` to `main`) and `hazards.json`. REQ-SYS-009 and 154 cite item 4 (HZ-008 C7, which item 4 names with REQ-SYS-182) and section 8.2 row 4. REQ-SYS-112 and 113 cite items 4 and 7: item 4 covers HZ-003 through K9, and the item 7 table lists both against RSK-006. REQ-SYS-008 cites item 7 (HZ-008 K4 lists it), REQ-SYS-034 item 7 (HZ-008 K6), and REQ-SYS-153 item 7 (HZ-008 K3) with row 11. REQ-SYS-010 cites item 7 alone (table row HZ-008 K4, RSK-011). Item 5 is still cited only by REQ-SYS-017, 018 and 151 (the harmonic-filter exception) and by requirements of Marginal hazards (011, 013, 047, 049, 050, 070, 079, 090, 093, 105, 106, 107, 110, 111, 152, 168) |
+| finding-27 | Minor | Verified (closed; was Lien) | The REQ-SYS-184 note reads "normal squeezed characters (C, K, Q) at 5 WPM recorded as data for the TBR (a squeezed C at 5 WPM holds both contacts for 2.64 s, above the 2 s limit)". At 5 WPM a dit is 240 ms, and 11 dits give 2.64 s |
+| finding-28 | Minor | Verified (closed; was Lien) | REQ-SYS-054 reads "... after 128 consecutive identical elements or 30 s (TBR) without min(7-dit, 500 ms) gaps (TBR)", 24 words. The shorter-of reading matches HZ-004 K4 item (ii), the rationale and TC-SYS-038 (500, 336 and 168 ms at 5, 25 and 50 WPM). `tbr.plan` also carries INSP-025 X8 (word spaces near 7 dits above about 17 WPM) |
+| finding-29 | Minor | Verified (closed; was Lien) | (i) Decision memo section 13 amendment A-2 keeps the REQ-SYS-180 to 182 `tbr` objects to PDR, so no requirement edit is needed. (ii) All 104 owner fields that named the SRR decision now read "Robin approves on Claude's proposal at PDR; Claude produces the closing evidence". All 110 `tbr` objects (109 plus REQ-SYS-194) carry that owner and `close_by` PDR, and `(TBR)` appears in a statement exactly when a `tbr` object exists. (iii) No rationale keeps the generic sentence. Each of REQ-SYS-009, 031, 059, 062, 086, 100, 102 and 103 states its estimate and the PDR evidence that closes it, consistent with its `tbr.plan` (read one by one) |
+| finding-30 | Minor | Verified (closed; was Lien) | As finding-12: no live rationale exceeds 120 words, the "Hazard controls implemented" item is in 0 rationales (23 at `baseline/srr`, and its content is the `control_req_ids` of `hazards.json`), and every rewritten rationale that cited an SRR decision still cites one ("SRR decision NN" or "SRR decisions NN and MM") |
+| finding-31 | Minor | Verified (closed; was Lien) | (i) The open-path and agreement levels are now in REQ-SYS-185 ("cut charge current below 1 mA") and REQ-SYS-186 ("within 20 mV"). The REQ-SYS-188 and 189 bounds are one-sided and applied inward, and TC-SYS-111, 112 and 113 take their values from the requirements. (ii) The REQ-SYS-185 note and TC-SYS-111 hold the other cell at 3.70 V: the pack reaches 7.95 to 8.10 V over the sweep, below the 8.40 V pack regulation, so the charger stays in constant current and current flows below the trip. Residual: a charger acting per cell (per-cell regulation, balancing or cell OVP) could cut the current without the layer opening. INSP-045 finding-2 (Minor, Open in that record) carries it |
+| finding-1 to 11, 13 to 24 | Major and Minor | Closed (unchanged) | The CR-008 changes reopen none of them. finding-4 and finding-7: every `Fault tolerance:` and `Analysis accepted per RSK-NNN` pointer of the changed entries resolves. finding-20: the leaf gaps REQ-SYS-125 and 148 are unchanged |
+
+No new finding. No finding is open, and no lien of this record remains.
+
+### Delta of the TC-SYS cases and the allocation (the rest of this product)
+
+- **TC-SYS cases (`a18824aa` to `117c08de`).** The script finds 64 cases modified and TC-SYS-116 added. That set equals the CR-008 section 4 Verification list, and 36 of the 64 change only `expected_artifacts`. No case changes `requirement_ids`, `status`, `verification_method` or `type`. Every live requirement (189) is cited. Each case's method equals that of every requirement it cites (TC-SYS-010 is SUPPORT). The closing case that each `verification_note` names cites its requirement. The case-side lien checks are the INSP-025 CR-008 delta (`docs/reviews/SRR/checklists/test-cases-sys.md`).
+- **Allocation (`442de2fd`, unchanged).** REQ-SYS-194 has no `allocations[]` record, so `SYS_UNALLOCATED` warns on it. V6: this is not a confirmed gap. CR-008 section 5 step 5 allocates it as REQ-SYS-083 is (PWR) before the merge, and that commit changes a blob this record names (X-CR8-1).
+
+### Tool runs (2026-09-29; `.venv/bin/python`; detached scratch work trees)
+
+| Tree | Command | Result |
+|---|---|---|
+| `main` at `44cda12` | `tools/validate_docs.py` | exit 1; 109 passed, 8 failed. The 8 failures are other records' drift already on `main`: SRR `adrs-001-to-025.md`, `process-02-requirements-and-traceability.md`, `tool-validation-tv-001-to-tv-010.md`, `trade-studies-ts-001-ts-002.md`, `trade-study-ts-002-software-assurance.md`; PDR `cm-plan-05-software-assurance.md`, `configuration-status.md`, `lessons-learned.md` |
+| Trial merge of `c629198` into `main` `44cda12` (no conflict) | `tools/validate_docs.py` | exit 1; 107 passed, 10 failed: the 8 above plus this record and INSP-025, which named the `baseline/srr` blobs |
+| The same trial merge | `tools/traceability.py --report-only` | 246 requirements, 174 test cases, 0 violations, 4 warnings (above) |
+| The same trial merge | `python -m unittest discover -s tools/tests` | 596 run, 17 skipped, 1 failure: `test_repository_exit_zero`, which runs `validate_docs.py` over the tree and fails on the drift above |
+| Branch with this re-issue, trial-merged again | `tools/validate_docs.py` | this record PASS; the result is given in CR-008 section 9 |
+
+### Cross items (outside this product; not findings against it)
+
+- X-CR8-1 (CR-008 steps 3 and 5; configuration manager; lead SE). Step 5 changes `docs/design/allocation.json`, which this record names at `442de2fd`, so a further delta of this record is due on that file before the merge. Step 3 changes `docs/safety/hazards.json`, which INSP-008 (`docs/reviews/SRR/checklists/hazard-analysis.md`, APPROVED) names at `81cacde4`. INSP-008 then drifts at the merge, and CR-008 section 5 does not name an INSP-008 re-issue. Both deltas need a reviewer that authored neither step.
+- X-CR8-2 (lead SE; PDR package section 15). The residuals are INSP-044 finding-1 and INSP-045 finding-1 to finding-3, all Minor and Open in those records. Rule C1 makes them liens due at the CDR readiness declaration unless CR-008 is revised. This record's liens are closed without them.
+- X-CR8-3 (software lead, at the merge). INSP-044 and INSP-045 hold `verdict: NEEDS CHANGES` until the merge. INSP-044 also names the CR file at `5e6ceb62`, and `main` has since changed that file (`a17af87` and later commits). So INSP-044 needs a delta on the CR file, or the CR file taken out of its `product_files`, before its verdict can be set to APPROVED without drift.
+
+**Answers changed at the delta.** CK-REQ-A3 is now Yes (finding-25 and finding-28 Verified), CK-REQ-A7 Yes (finding-12, 26, 29 and 30 Verified) and CK-REQ-E2 Yes (finding-27 Verified). CK-REQ-D4 stays No on the residual that INSP-044 finding-1 records. R1 Yes: the four product files PASS against their schemas, and this record PASS on the branch. R2 Yes: 0 violations. R3 Yes, R4 Yes (110 `tbr` objects, each with owner, plan and `close_by`, and no TBD), R5 N/A. `readiness_met: true`. With no Major finding open and readiness met, the verdict is **APPROVED**, with no lien of this record open.
+
+**Measurements (CR-008 delta).** Items re-checked: 144 changed and 1 added requirement, 64 changed and 1 added case, the allocation, R1 to R5, and CK-REQ-A3, A7, D4 and E2. Items answered No: 1 (CK-REQ-D4). New findings: 0. Findings closed: 8. Effort 30 turns, 50 minutes (added to the front matter totals).
+
+```
+CR-008 DELTA (2026-09-29, products at c629198 on cr/CR-008-srr-liens-l1-and-tc-sys, WP-PDR-55): VERDICT: APPROVED (readiness met; no lien of this record open)
+FINDINGS: open Major 0; Closed 31 (Major 9, Minor 22; finding-12, 25, 26, 27, 28, 29, 30, 31 Verified at this delta); Lien 0; new 0
+RESIDUALS (other records): INSP-044 finding-1 (REQ-SYS-089, 167 level); INSP-045 finding-2 (TC-SYS-111 per-cell charger)
+READINESS: R1 Yes, R2 Yes (0 violations; 4 warnings, REQ-SYS-194 pair awaiting CR-008 steps 3 and 5), R3 Yes, R4 Yes, R5 N/A; readiness_met true
+PRODUCTS: requirements.json@a7344937, requirements.md@4e110b16, test_cases.json@117c08de (c629198); allocation.json@442de2fd (unchanged)
+PRECONDITION: CR-008 step 5 changes allocation.json; a further delta of this record on it before the merge (X-CR8-1)
+```
+
+## CR-008 allocation delta (2026-09-29, WP-PDR-55; CR-008 section 5 step 5 at `a36a828` on branch `cr/CR-008-srr-liens-l1-and-tc-sys`)
+
+**Scope and independence.** Cross item X-CR8-1 and CR-008 section 9 ask for a further delta of this record on `docs/design/allocation.json` after step 5. This section is that delta. It was written by a new invocation of the `reviewer:requirements-sys` role, run as the WP-PDR-55 independent reviewer (plan rule C4; charter section 2). That invocation authored none of the following: CR-008, its branch commits `c629198` and `a36a828` (steps 3 and 5), the CR-008 section 8 record (`726cd44`), the earlier CR-008 deltas of this record and INSP-025 (`ebeb069`), and INSP-044 and INSP-045. It edited no product file. It changed only this record's front matter, the first verdict paragraph, the finding-32 row and this section. Plan rule C1 applies: this is a delta, and only the changed file is checked.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: CR-008 SRR liens, REQ-SYS-194 allocation, HZ-002, INSP-003 and INSP-008 delta). After that, the checks used only read-only Python over the JSON files and `git show` or `git diff` of the named commits, in a scratch worktree of the branch.
+
+**Product state.** `git diff --name-only c629198 a36a828` lists `docs/design/allocation.json` and `docs/safety/hazards.json`. `hazards.json` belongs to INSP-008, which has its own delta on this branch. Of this record's four files, only `allocation.json` changed: `442de2fd` became `028facf77f71fd6ab05f9e1015489f733c383735`. `requirements.json` (`a7344937`), `requirements.md` (`4e110b16`) and `test_cases.json` (`117c08de`) equal the `c629198` blobs that the CR-008 delta verified. On `main` (`a4cdc4c`), `allocation.json` is still `442de2fd`, and no commit on `main` since `ab2af2d` touches it or this record. No other `cr/` branch changes either of them.
+
+### Hunks of `git diff c629198 a36a828 -- docs/design/allocation.json` (six hunks, each verified)
+
+| Hunk (new lines) | Change | Check |
+|---|---|---|
+| 1 (232 to 233) | PWR (`modules[2]`) `primary_for`: REQ-SYS-194 appended after REQ-SYS-186 | REQ-SYS-083 is in this list. The list stays sorted with no duplicate (20 ids) |
+| 2 (278 to 279) | PWR `requirement_ids`: REQ-SYS-194 appended | REQ-SYS-083 is in this list. Sorted, unique (44 ids) |
+| 3 (1391 to 1392) | B18 (`elements[17]`, "Cell protector, dual N-FET, secondary over-voltage IC", module PWR) `requirement_ids`: REQ-SYS-194 appended | REQ-SYS-083 is in this list. Sorted, unique (10 ids) |
+| 4 (1846 to 1847) | F7 (`functions[6]`, "Store, protect, charge and distribute power") `requirement_ids`: REQ-SYS-194 appended | REQ-SYS-083 is in this list. Sorted, unique (29 ids) |
+| 5 (5691 to 5707) | New `allocations[]` record for REQ-SYS-194, appended after REQ-SYS-190 | Field by field against the REQ-SYS-083 record: `primary_module` PWR, `modules` [PWR], `sw_modules` [], `element_ids` [B18], `function_ids` [F7], `child_ids` [] are all equal. `title` equals the `requirements.json` title of REQ-SYS-194. The `note` is accurate: the split from REQ-SYS-083 answers INSP-025 finding-5 and cross item X1, and the control is HZ-002 K2, the 4.25 V S-8252-class protector of B18 over 0 C to 45 C. REQ-SYS-083 has no `note` |
+| 6 (5735 to 5737) | `summary`: `sys_requirements` 190 to 191, `non_retired` 188 to 189, `allocated` 186 to 187 | Recomputed: 191 REQ-SYS ids in `requirements.json`, 2 of them excluded as retired (REQ-SYS-016, 123), so 189 non-retired. Subtracting the 2 confirmed gaps (REQ-SYS-125, 148) leaves 187 allocated, which equals the 187 `allocations[]` records. `gaps` 2, `retired_excluded` 2, `with_child_ids` 32 (recounted) and `system_level_leaf_rows` 1 are unchanged and still correct |
+
+CR-008 section 8 describes this change as "seven hunks". `git diff` shows six, because the three summary counts sit in one hunk. The listed content is the same, so this is an editorial note for the CR record, not a finding.
+
+**Whole-file checks at `028facf7`.**
+- REQ-SYS-194 appears in exactly the five places where REQ-SYS-083 appears: PWR `primary_for` and `requirement_ids`, B18, F7, and its own `allocations[]` record.
+- The `allocations[]` records are 187, all unique. Every REQ-SYS id is in exactly one of `allocations[]`, `gaps` or `excluded`, and none of those lists names an id that is not in the file.
+- For all 18 modules, the derived `requirement_ids` and `primary_for` equal what `allocations[]` gives (`modules` plus `sw_modules`, the conventions rule "the three derived lists always agree with it"). So do the 22 elements and the 10 functions. 0 differences.
+- No other field changed. The `version`, `updated` and `author` fields did not change either (finding-32).
+
+**V6 for REQ-SYS-194.** Allocating the requirement to PWR alone is correct. The statement holds the independent protector's stop threshold over 0 C to 45 C. HZ-002 K2 is `independent_of_firmware: true`, so no `SW-<SUB>` module takes a share. B18 is the protector element and F7 the protection function, the same as for REQ-SYS-083, whose room-temperature half it was split from. It has no child, which matches a leaf that closes by Analysis at L1 (TC-SYS-116).
+
+### Findings at the CR-008 allocation delta
+
+| Finding | Severity | State | Basis |
+|---|---|---|---|
+| finding-32 | Minor | New, Lien: fix before PDR | The header does not identify the step 5 revision (findings table). This does not block the merge |
+| finding-1 to 31 | Major and Minor | Closed (unchanged) | Step 5 reopens none of them. finding-20: the leaf gaps REQ-SYS-125 and 148 are unchanged, and they are still the only `SYS_UNALLOCATED` warnings |
+
+### Tool runs (2026-09-29; `.venv/bin/python`; scratch worktree of the branch)
+
+| Tree | Command | Result |
+|---|---|---|
+| Branch at `a36a828`, before this update | `tools/validate_docs.py` | exit 1; 48 passed, 2 failed. The failures are this record (`allocation.json@442de2fd` against HEAD `028facf7`) and INSP-008 (`hazards.json@81cacde4` against `416b3e19`). `docs/design/allocation.json` PASSES its schema |
+| The same | `tools/traceability.py --report-only --render --output <scratchpad>` | 246 requirements, 174 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and 148). No tracked file changed (`git status` clean), so the rendering matches the JSON |
+| Branch with this update and the INSP-008 update | `tools/validate_docs.py` | this record PASSES; the full result is given under the INSP-008 CR-008 hazards delta |
+
+**Answers at this delta.** R1 Yes: the four product files pass their schemas, and this record passes on the branch. R2 Yes: 0 violations. V6 Yes for REQ-SYS-194. CK-REQ-D4 stays No on the INSP-044 finding-1 residual. The other answers stay as they were at the CR-008 delta. `readiness_met: true`. No Major finding is open, so the verdict is **APPROVED**, with the one lien finding-32.
+
+**Measurements (CR-008 allocation delta).** Items re-checked: 6 hunks, the derived-list and count recomputes over the whole file, V6 for 1 requirement, and R1 and R2. Items answered No: 0 new. New findings: 1 (Minor). Findings closed: 0. Effort: 22 turns, 35 minutes, added to the front matter totals.
+
+```
+CR-008 ALLOCATION DELTA (2026-09-29, allocation.json 028facf7 at a36a828 on cr/CR-008-srr-liens-l1-and-tc-sys, WP-PDR-55): VERDICT: APPROVED (readiness met; 1 Minor lien)
+FINDINGS: open Major 0; Closed 31 (Major 9, Minor 22); Lien 1 (finding-32, Minor, allocation.json header fields; fix at the next revision, before PDR); new 1
+READINESS: R1 Yes, R2 Yes (0 violations; 2 warnings, the confirmed gaps REQ-SYS-125 and 148), R3 Yes, R4 Yes, R5 N/A; readiness_met true
+PRODUCTS: requirements.json@a7344937, requirements.md@4e110b16, test_cases.json@117c08de (unchanged from c629198); allocation.json@028facf7 (a36a828)
+CLEARS: X-CR8-1 for this record (the allocation.json precondition of the CR-008 merge)
+```
+
+## CR-008 status delta (2026-09-29, WP-PDR-55; CR-008 section 5 step 10 at `c1955b3` on branch `cr/CR-008-srr-liens-l1-and-tc-sys`)
+
+**Scope and independence.** CR-008 section 5 step 10 (lead SE ruling 1 of 2026-09-29) asks for a delta of this record on the two new blobs after the REQ-SYS-194 status change. This section is that delta. It was written by a new invocation of the `reviewer:requirements-sys` role, run as the WP-PDR-55 independent reviewer (plan rule C4; charter section 2). That invocation authored none of the following: CR-008 or its record text on `main` (`1fe68cb` and earlier), its branch commits `c629198`, `a36a828` and `c1955b3`, the earlier CR-008 deltas of this record, INSP-025 and INSP-008 (`ebeb069`, `e26ce46`), and INSP-044 and INSP-045. It edited no product file. It changed only this record's front matter, the first verdict paragraph and this section. Plan rule C1 applies: this is a delta, and only the changed content is checked.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (queries: INSP-003 requirements-sys delta and `product_files`; the 02 section 8.3 status transitions; the T-12 transition check in `tools/traceability.py`). After that, the checks used only read-only Python over `git show <rev>:<path>`, `git diff` of the named commits and the tools, in a scratch worktree of the branch.
+
+**Product state.** `git diff --name-only e26ce46 c1955b3` lists `docs/requirements/sys/requirements.json` and `docs/requirements/sys/requirements.md` only. `requirements.json` changed from `a7344937` to `c68584cf62895a6b0a6d4a5d45e19fd190dd1af1`, and `requirements.md` from `4e110b16` to `47c2beaacc2037d08011b56b36efde90c4f334f0`. `allocation.json` (`028facf7`) and `test_cases.json` (`117c08de`) equal the blobs of the allocation delta. On `main` (`03e3aea`) the two L1 files are still the `baseline/srr` blobs (`f128235e`, `553f7f48`), and no commit on `main` since `ab2af2d` touches them or this record. No other `cr/` branch changes the two files or this record.
+
+### Delta of the L1 requirements (`e26ce46` to `c1955b3`)
+
+| Check | Result |
+|---|---|
+| `requirements.json`, record by record | 191 records at both commits, the same ids in the same order, top-level keys unchanged (`module` SYS). The only differing record is REQ-SYS-194, and its only differing field is `status`, `Draft` to `Active`. `git diff` is one line. Status counts are now 189 `Active` and 2 `Closed` (the retired REQ-SYS-016 and 123), with no `Draft` |
+| Transition (02 section 8.3; T-12, checked by reading, since `tools/traceability.py` does not yet implement T-12) | REQ-SYS-194 is not in `baseline/srr`. Row 2 allows `Draft` to `Active` when, after the level's baseline, an approved CR adds the requirement. CR-008 lists REQ-SYS-194 in `affected_ids`, its section 1.1 held it at `Draft` "until this CR is approved", and its front matter on `main` records `disposition: Approved`, `disposition_date: 2026-09-28` (section 7). 08 section 3.1 has Claude make the change once that record exists. The trigger is met, and no forbidden transition occurs |
+| T-13 (change control) | The Class I addition is covered by the approved CR-008, which lists the id |
+| Active-status rules | T-09: TC-SYS-116 cites REQ-SYS-194 with method Analysis and type Simulation, so the closing case exists. T-11: REQ-SYS-194 has no parent, so the "child ahead of parent" rule does not apply. T-14: a `tbr` object is admitted on `Active`; `close_by` is PDR, the L1 limit. T-08: the Analysis closing of a hazard requirement stays under the RSK-007 exception recorded at the CR-008 delta. T-18 (from PDR, a child or the tag `leaf`): REQ-SYS-194 has neither, the same as REQ-SYS-083 and 150 other `Active` L1 requirements. That is the general PDR allocation work of the L2 files, not a defect of this change |
+| TC-SYS-116 | Stays `Draft`, correctly. 02 section 8.4 makes the independent procedure-checklist review the trigger for `Draft` to `Active` of a test case, not the CR. `test_cases.json` is unchanged |
+| `requirements.md` | Three changed spots, each derived from the one status field: the summary table (`Status Active` 188 to 189, and the `Status Draft 1` row removed because the count is now 0), the index row of REQ-SYS-194 (`Draft (TBR)` to `Active (TBR)`) and its `Status` row in section 3. No `Draft` token remains in the file. `tools/traceability.py --render` in the worktree left every tracked file unchanged (`git status` clean), so the rendering equals the JSON |
+| Other text that names the status | No field of `allocation.json`, `test_cases.json`, `test_cases.md` or `hazards.json` quotes the status of REQ-SYS-194, so nothing else goes stale |
+| Commit `c1955b3` | Subject, `Refs: CR-008, REQ-SYS-194` and `CR: CR-008` trailers: `tools/check_commit_msg.py --range e26ce46..c1955b3` PASSES |
+
+### Findings at the CR-008 status delta
+
+| Finding | Severity | State | Basis |
+|---|---|---|---|
+| finding-32 | Minor | Lien: fix before PDR (unchanged) | `allocation.json` did not change at this step |
+| finding-1 to 31 | Major and Minor | Closed (unchanged) | The status change reopens none of them. finding-20: the leaf gaps REQ-SYS-125 and 148 are unchanged, and they are still the only `SYS_UNALLOCATED` warnings |
+
+No new finding.
+
+### Tool runs (2026-09-29; `.venv/bin/python`; scratch worktree of the branch)
+
+| Tree | Command | Result |
+|---|---|---|
+| Branch at `c1955b3`, before this update | `tools/validate_docs.py` | exit 1; 49 passed, 1 failed. The failure is this record: `requirements.json@a7344937` against HEAD `c68584cf` and `requirements.md@4e110b16` against HEAD `47c2beaa` |
+| The same | `tools/traceability.py --report-only --render --output <scratchpad>` | 246 requirements, 174 test cases, 0 violations, 2 warnings (`SYS_UNALLOCATED` REQ-SYS-125 and 148). REQ-SYS-194 is listed `Active (TBR)` in the verification matrix (report section 3) and `[Active]` in the parent coverage list (section 7). No tracked file changed |
+| Branch with this update | `tools/validate_docs.py` | exit 0; 50 passed, 0 failed |
+
+**Answers at this delta.** R1 Yes: the four product files pass their schemas, and this record passes on the branch. R2 Yes: 0 violations. R3 Yes, R4 Yes (110 `tbr` objects, each with owner, plan and `close_by`, and no TBD), R5 N/A. CK-REQ-D4 stays No on the INSP-044 finding-1 residual. The other answers stay as they were at the allocation delta. `readiness_met: true`. No Major finding is open, so the verdict is **APPROVED**, with the one lien finding-32.
+
+**Measurements (CR-008 status delta).** Items re-checked: 191 records field by field, 1 status transition, the Active-status rules for 1 requirement, the 3 rendered spots, and R1 and R2. Items answered No: 0 new. New findings: 0. Findings closed: 0. Effort: 20 turns, 30 minutes, added to the front matter totals.
+
+```
+CR-008 STATUS DELTA (2026-09-29, requirements.json c68584cf and requirements.md 47c2beaa at c1955b3 on cr/CR-008-srr-liens-l1-and-tc-sys, WP-PDR-55): VERDICT: APPROVED (readiness met; 1 Minor lien)
+FINDINGS: open Major 0; Closed 31 (Major 9, Minor 22); Lien 1 (finding-32, unchanged); new 0
+READINESS: R1 Yes, R2 Yes (0 violations; 2 warnings, the confirmed gaps REQ-SYS-125 and 148), R3 Yes, R4 Yes, R5 N/A; readiness_met true
+PRODUCTS: requirements.json@c68584cf, requirements.md@47c2beaa (c1955b3); allocation.json@028facf7, test_cases.json@117c08de (unchanged)
+CHANGE: REQ-SYS-194 status Draft to Active (02 section 8.3 row 2, CR-008 approved 2026-09-28); no other field changed
 ```
