@@ -1,0 +1,65 @@
+run,duty_cmd,node,last_hour_max
+"cap, inhibit not counted",0.3000,SINK,81.6879
+"cap, inhibit not counted",0.3000,J2,106.5806
+"cap, inhibit not counted",0.3000,J1,93.0851
+"cap, inhibit not counted",0.3000,CASE,86.4075
+"cap, inhibit not counted",0.3000,GUARD,54.5504
+"cap, inhibit not counted",0.3000,EW,59.7980
+"cap, inhibit not counted",0.3000,BAY,58.0016
+"cap, inhibit not counted",0.3000,BW,50.1188
+"cap, inhibit not counted",0.3000,BH1,54.0621
+"cap, inhibit not counted",0.3000,BH2,52.7217
+"cap, inhibit not counted",0.3000,MAIN,51.3438
+"cap, inhibit not counted",0.3000,MW,47.6905
+"cap, inhibit not counted",0.3000,CELL,51.2615
+"cap, inhibit not counted",0.3000,LM,82.8456
+"cap, inhibit not counted",0.3000,PETG hottest face,55.2433
+"cap, inhibit not counted",0.3000,key-down fraction after 1 h,0.2915
+"cap + one step, inhibit not counted",0.3500,SINK,85.1133
+"cap + one step, inhibit not counted",0.3500,J2,110.1334
+"cap + one step, inhibit not counted",0.3500,J1,96.6327
+"cap + one step, inhibit not counted",0.3500,CASE,89.9235
+"cap + one step, inhibit not counted",0.3500,GUARD,55.7317
+"cap + one step, inhibit not counted",0.3500,EW,61.3056
+"cap + one step, inhibit not counted",0.3500,BAY,58.9586
+"cap + one step, inhibit not counted",0.3500,BW,50.5694
+"cap + one step, inhibit not counted",0.3500,BH1,54.8647
+"cap + one step, inhibit not counted",0.3500,BH2,53.4169
+"cap + one step, inhibit not counted",0.3500,MAIN,51.8865
+"cap + one step, inhibit not counted",0.3500,MW,47.9530
+"cap + one step, inhibit not counted",0.3500,CELL,51.9707
+"cap + one step, inhibit not counted",0.3500,LM,86.2519
+"cap + one step, inhibit not counted",0.3500,PETG hottest face,56.5140
+"cap + one step, inhibit not counted",0.3500,key-down fraction after 1 h,0.3415
+"cap, inhibit at the proposal, nominal sensor",0.3000,SINK,69.2681
+"cap, inhibit at the proposal, nominal sensor",0.3000,J2,93.7027
+"cap, inhibit at the proposal, nominal sensor",0.3000,J1,80.2175
+"cap, inhibit at the proposal, nominal sensor",0.3000,CASE,73.5900
+"cap, inhibit at the proposal, nominal sensor",0.3000,GUARD,51.4192
+"cap, inhibit at the proposal, nominal sensor",0.3000,EW,55.8043
+"cap, inhibit at the proposal, nominal sensor",0.3000,BAY,54.6942
+"cap, inhibit at the proposal, nominal sensor",0.3000,BW,48.9152
+"cap, inhibit at the proposal, nominal sensor",0.3000,BH1,51.9451
+"cap, inhibit at the proposal, nominal sensor",0.3000,BH2,50.9129
+"cap, inhibit at the proposal, nominal sensor",0.3000,MAIN,49.6579
+"cap, inhibit at the proposal, nominal sensor",0.3000,MW,47.0180
+"cap, inhibit at the proposal, nominal sensor",0.3000,CELL,49.4740
+"cap, inhibit at the proposal, nominal sensor",0.3000,LM,70.3656
+"cap, inhibit at the proposal, nominal sensor",0.3000,PETG hottest face,51.9910
+"cap, inhibit at the proposal, nominal sensor",0.3000,key-down fraction after 1 h,0.1749
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,SINK,66.2287
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,J2,90.9592
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,J1,77.4599
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,CASE,70.7730
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,GUARD,50.6284
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,EW,54.7365
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,BAY,53.8728
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,BW,48.5972
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,BH1,51.3873
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,BH2,50.4383
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,MAIN,49.2523
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,MW,46.8455
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,CELL,49.0219
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,LM,67.3433
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,PETG hottest face,51.4293
+"cap, inhibit at the proposal, sensor at its -3 C edge",0.3000,key-down fraction after 1 h,0.1365

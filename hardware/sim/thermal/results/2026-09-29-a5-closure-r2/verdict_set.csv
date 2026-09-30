@@ -1,0 +1,50 @@
+id,tag,criterion,basis,layout,value,limit,margin,band_up,band_dn,verdict,drivers
+C01,tj_pk,"Junction peak at the duty, 13 s key-downs, 45 C",REQ-SYS-112 delta (proposed corner),A5-DC/DL,109.8198,110.0000,0.1802,0.8210,0.0883,OPEN,p_lm2940 [DD] 0.2 K; vent_area_dc [E] 0.2 K; a_guard_end [DD] 0.2 K
+C01,tj_pk,"Junction peak at the duty, 13 s key-downs, 45 C",REQ-SYS-112 delta (proposed corner),A5-DC/CAP,92.7888,110.0000,17.2112,9.2958,9.2179,PASS,k_orient [E] 8.1 K; a5_idd [DD] 6.7 K; r_feed [E] 3.6 K
+C01,tj_pk,"Junction peak at the duty, 13 s key-downs, 45 C",REQ-SYS-112 delta (proposed corner),A5-CL,97.1370,110.0000,12.8630,10.6964,9.2476,PASS,k_orient [E] 9.5 K; a5_idd [DD] 6.3 K; r_feed [E] 3.5 K
+C02,case_d,"Module case at the duty, steady",RA07M1317M p.8 long-term guidance,A5-DC/DL,87.3661,90.0000,2.6339,6.0676,3.0984,OPEN,a5_idd [DD] 4.6 K; r_feed [E] 2.6 K; a5_rjc2 [D] 2.3 K
+C02,case_d,"Module case at the duty, steady",RA07M1317M p.8 long-term guidance,A5-DC/CAP,68.7173,90.0000,21.2827,8.3834,5.3912,PASS,k_orient [E] 8.0 K; a5_idd [DD] 3.0 K; r_feed [E] 1.6 K
+C02,case_d,"Module case at the duty, steady",RA07M1317M p.8 long-term guidance,A5-CL,73.0658,90.0000,16.9342,9.9114,5.7257,PASS,k_orient [E] 9.4 K; a5_idd [DD] 2.6 K; p_lm2940 [DD] 1.8 K
+C03,petg_d,Hottest PETG face at the duty,TS-012 7.3 (c),A5-DC/DL,60.0871,60.0000,-0.0871,6.3179,3.1224,FAIL,vent_area_dc [E] 3.2 K; r_feed [E] 3.1 K; relay_hold [E] 2.4 K
+C03,petg_d,Hottest PETG face at the duty,TS-012 7.3 (c),A5-DC/CAP,55.8519,60.0000,4.1481,3.9060,1.6675,PASS,relay_hold [E] 2.6 K; vent_area_dc [E] 2.0 K; cd_vent [E] 1.4 K
+C03,petg_d,Hottest PETG face at the duty,TS-012 7.3 (c),A5-CL,53.9430,60.0000,6.0570,4.0722,1.1615,PASS,relay_hold [E] 1.9 K; vent_area_dc [E] 1.7 K; k_orient [E] 1.4 K
+C04,bay_d,PA-bay air (relay ambient) at the duty,G5V-2 ambient rating,A5-DC/DL,61.4275,65.0000,3.5725,7.4319,3.4683,OPEN,vent_area_dc [E] 4.7 K; relay_hold [E] 2.9 K; cd_vent [E] 2.9 K
+C04,bay_d,PA-bay air (relay ambient) at the duty,G5V-2 ambient rating,A5-DC/CAP,56.4003,65.0000,8.5997,4.9189,1.5621,PASS,relay_hold [E] 3.2 K; vent_area_dc [E] 3.0 K; cd_vent [E] 1.8 K
+C04,bay_d,PA-bay air (relay ambient) at the duty,G5V-2 ambient rating,A5-CL,55.6639,65.0000,9.3361,4.6477,1.5076,PASS,relay_hold [E] 3.1 K; vent_area_dc [E] 2.8 K; cd_vent [E] 1.7 K
+C05,cell_d,"Cells, long session at the duty, steady","TS-012 7.3 (a), extended",A5-DC/DL,58.9120,55.0000,-3.9120,6.5521,3.8593,FAIL,r_feed [E] 4.4 K; k_orient [E] 2.5 K; r_cellpath [E] 2.4 K
+C05,cell_d,"Cells, long session at the duty, steady","TS-012 7.3 (a), extended",A5-DC/CAP,54.7688,55.0000,0.2312,3.2152,2.2605,OPEN,p_lm2940 [DD] 1.5 K; r_feed [E] 1.4 K; a_mw [E] 1.4 K
+C05,cell_d,"Cells, long session at the duty, steady","TS-012 7.3 (a), extended",A5-CL,51.2413,55.0000,3.7587,2.5375,1.2486,PASS,r_feed [E] 1.5 K; r_cellpath [E] 1.2 K; g_cell_wall [E] 1.0 K
+C06,main_d,"Main-bay air, long session at the duty","TS-012 7.3 (a), extended",A5-DC/DL,57.8120,55.0000,-2.8120,6.0738,3.3096,FAIL,r_feed [E] 4.8 K; a_mw [E] 2.1 K; p_lm2940 [DD] 1.7 K
+C06,main_d,"Main-bay air, long session at the duty","TS-012 7.3 (a), extended",A5-DC/CAP,54.9323,55.0000,0.0677,3.2993,2.5032,OPEN,p_lm2940 [DD] 1.8 K; r_feed [E] 1.8 K; a_mw [E] 1.7 K
+C06,main_d,"Main-bay air, long session at the duty","TS-012 7.3 (a), extended",A5-CL,50.4537,55.0000,4.5463,2.4579,1.0747,PASS,r_feed [E] 1.9 K; a_mw [E] 1.0 K; p_pico [E] 0.6 K
+C07,fr4_d,FR4 end wall at the duty,design limit (E),A5-DC/DL,66.3712,105.0000,38.6288,6.0991,3.6391,PASS,vent_area_dc [E] 2.9 K; a5_idd [DD] 2.7 K; k_orient [E] 2.3 K
+C07,fr4_d,FR4 end wall at the duty,design limit (E),A5-DC/CAP,58.3073,105.0000,46.6927,3.9543,2.0604,PASS,k_orient [E] 2.1 K; relay_hold [E] 2.0 K; vent_area_dc [E] 1.9 K
+C07,fr4_d,FR4 end wall at the duty,design limit (E),A5-CL,59.0965,105.0000,45.9035,4.2628,2.2705,PASS,k_orient [E] 2.4 K; relay_hold [E] 2.2 K; vent_area_dc [E] 1.7 K
+C08,cell30,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC/DL,50.6750,55.0000,4.3250,1.9223,1.2198,PASS,r_cellpath [E] 1.1 K; r_feed [E] 1.1 K; p_lm2940 [DD] 0.6 K
+C08,cell30,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC/CAP,50.6750,55.0000,4.3250,1.9223,1.2198,PASS,r_cellpath [E] 1.1 K; r_feed [E] 1.1 K; p_lm2940 [DD] 0.6 K
+C08,cell30,Cells after 30 min at 50 % duty,TS-012 7.3 (a),A5-CL,49.1123,55.0000,5.8877,1.7064,0.7708,PASS,r_cellpath [E] 1.1 K; r_feed [E] 1.1 K; a5_idd [DD] 0.5 K
+C09,main30,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC/DL,54.9195,55.0000,0.0805,3.4945,2.2759,OPEN,r_feed [E] 2.6 K; p_lm2940 [DD] 1.6 K; a_mw [E] 1.4 K
+C09,main30,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A5-DC/CAP,54.9195,55.0000,0.0805,3.4945,2.2759,OPEN,r_feed [E] 2.6 K; p_lm2940 [DD] 1.6 K; a_mw [E] 1.4 K
+C09,main30,Main-bay air after 30 min at 50 % duty,TS-012 7.3 (a),A5-CL,50.9789,55.0000,4.0211,3.0405,1.1506,PASS,r_feed [E] 2.7 K; a_mw [E] 0.8 K; p_pico [E] 0.6 K
+C10,tj_300,Junction after 5 min continuous from a 45 C soak,HZ-003 K7,A5-DC/DL,107.0576,110.0000,2.9424,6.4423,10.8302,OPEN,a5_idd [DD] 8.6 K; r_feed [E] 4.7 K; k_orient [E] 4.2 K
+C10,tj_300,Junction after 5 min continuous from a 45 C soak,HZ-003 K7,A5-DC/CAP,107.0576,110.0000,2.9424,6.4423,10.8302,OPEN,a5_idd [DD] 8.6 K; r_feed [E] 4.7 K; k_orient [E] 4.2 K
+C10,tj_300,Junction after 5 min continuous from a 45 C soak,HZ-003 K7,A5-CL,108.7201,110.0000,1.2799,6.5463,10.7770,OPEN,a5_idd [DD] 8.4 K; r_feed [E] 4.6 K; k_orient [E] 4.3 K
+C11,tj_180,Junction after 180 s continuous from a 45 C soak,HZ-003 K10,A5-DC/DL,95.8368,110.0000,14.1632,4.9410,9.1394,PASS,a5_idd [DD] 7.3 K; r_feed [E] 4.0 K; r_spread_x [E] 2.7 K
+C11,tj_180,Junction after 180 s continuous from a 45 C soak,HZ-003 K10,A5-DC/CAP,95.8368,110.0000,14.1632,4.9410,9.1394,PASS,a5_idd [DD] 7.3 K; r_feed [E] 4.0 K; r_spread_x [E] 2.7 K
+C11,tj_180,Junction after 180 s continuous from a 45 C soak,HZ-003 K10,A5-CL,96.9138,110.0000,13.0862,4.9803,9.0742,PASS,a5_idd [DD] 7.2 K; r_feed [E] 4.0 K; r_spread_x [E] 2.7 K
+C12,surf5,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A5-DC/DL,32.2864,48.0000,15.7136,2.4407,2.8107,PASS,r_frac [E] 1.3 K; guard_solid [E] 1.1 K; v_g [E] 1.1 K
+C12,surf5,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A5-DC/CAP,32.2864,48.0000,15.7136,2.4407,2.8107,PASS,r_frac [E] 1.3 K; guard_solid [E] 1.1 K; v_g [E] 1.1 K
+C12,surf5,"Hottest accessible surface, 25 C, 5 min",REQ-SYS-113 (TBR),A5-CL,32.6410,48.0000,15.3590,2.5631,2.9293,PASS,r_frac [E] 1.3 K; guard_solid [E] 1.1 K; v_g [E] 1.1 K
+C13,inh:tj,"Junction, REQ-SYS-118 inhibit at the proposed 72.0 C, key held 60 min, governing state","REQ-SYS-112, HZ-003 K2",A5-CL,108.5798,110.0000,1.4202,0.4464,0.0000,PASS,governing state (stack) plus RSS of the other swept inputs
+C14,inh:case,"Module case, REQ-SYS-118 inhibit at the proposed 72.0 C, key held 60 min, governing state","RA07M1317M p.8 guidance, HZ-003 K2",A5-CL,82.9575,90.0000,7.0425,0.4394,0.0000,PASS,governing state (stack) plus RSS of the other swept inputs
+C15,inh:sink,"Sink, REQ-SYS-118 inhibit at the proposed 72.0 C, key held 60 min, governing state",REQ-SYS-181 lower edge at the proposed 92 C +/-3 C,A5-CL,71.2482,89.0000,17.7518,0.5942,0.0000,PASS,governing state (stack) plus RSS of the other swept inputs
+C16,"bs:tj_max:governing, proposed","Channel, only the REQ-SYS-181 cut-off acting (proposed 92 C +/-3 C, upper edge 95 C), key held 3 h, governing state",RA07M1317M p.8 rating,A5-CL,134.2509,175.0000,40.7491,0.7199,0.0000,PASS,governing state (stack) plus RSS of the other swept inputs
+C17,"bs:case_max:governing, proposed","Module case, only the REQ-SYS-181 cut-off acting (proposed 92 C +/-3 C, upper edge 95 C), key held 3 h, governing state",RA07M1317M p.2 Tcase(OP),A5-CL,108.5528,110.0000,1.4472,0.7443,0.0000,PASS,governing state (stack) plus RSS of the other swept inputs
+C18,"bs:lm_max:governing, proposed","LM2940 junction, only the REQ-SYS-181 cut-off acting (proposed 92 C +/-3 C, upper edge 95 C), key held 3 h, governing state",TI SNVS769J p.4,A5-CL,97.2190,125.0000,27.7810,1.1237,0.0000,PASS,governing state (stack) plus RSS of the other swept inputs
+C19,"bs:tj_max:governing, SRR 95 C","Channel, only the REQ-SYS-181 cut-off acting (SRR value 95 C +/-3 C, upper edge 98 C), key held 3 h, governing state",RA07M1317M p.8 rating,A5-CL,137.0332,175.0000,37.9668,0.7988,0.0000,PASS,governing state (stack) plus RSS of the other swept inputs
+C20,"bs:case_max:governing, SRR 95 C","Module case, only the REQ-SYS-181 cut-off acting (SRR value 95 C +/-3 C, upper edge 98 C), key held 3 h, governing state",RA07M1317M p.2 Tcase(OP),A5-CL,111.3277,110.0000,-1.3277,0.8257,0.0000,FAIL,governing state (stack) plus RSS of the other swept inputs
+C21,"bs:lm_max:governing, SRR 95 C","LM2940 junction, only the REQ-SYS-181 cut-off acting (SRR value 95 C +/-3 C, upper edge 98 C), key held 3 h, governing state",TI SNVS769J p.4,A5-CL,99.9426,125.0000,25.0574,1.1889,0.0000,PASS,governing state (stack) plus RSS of the other swept inputs
+C22,pat:CELL,"Cells, worst pattern the 30 % cap allows, inhibit not counted, last hour of 4 h","TS-012 7.3 (a), extended",A5-CL,51.2615,55.0000,3.7385,2.5375,0.0000,PASS,steady band at the cap
+C23,pat:MAIN,"Main-bay air, worst pattern the 30 % cap allows, inhibit not counted, last hour of 4 h","TS-012 7.3 (a), extended",A5-CL,51.3438,55.0000,3.6562,2.4579,0.0000,PASS,steady band at the cap
+C24,pat:PETG,"Hottest PETG face, worst pattern the 30 % cap allows, inhibit not counted, last hour of 4 h",TS-012 7.3 (c),A5-CL,55.2433,60.0000,4.7567,4.0722,0.0000,PASS,steady band at the cap
+C25,pat:BAY,"PA-bay air (relay ambient), worst pattern the 30 % cap allows, inhibit not counted, last hour of 4 h",G5V-2 ambient rating,A5-CL,58.0016,65.0000,6.9984,4.6477,0.0000,PASS,steady band at the cap
