@@ -1,0 +1,292 @@
+{
+ "run": "2026-09-29-r4-s2-sot-pad",
+ "revision": 4,
+ "drive_run": "2026-09-29-r3-d6-drive-a5-bpf",
+ "reading_run": "2026-09-29-r3-k1-probe-17mw",
+ "selection_frequency_hz": 146000000.0,
+ "n_units": 2700,
+ "in_unit_up_from_146_db": 0.3599171911739951,
+ "in_unit_down_from_146_db": 0.776762708911555,
+ "in_unit_span_db": 1.1308404903533305,
+ "unit_up_worst": [
+  "25.0",
+  "22.5",
+  "high",
+  "low",
+  "0.15",
+  "high, coupling low",
+  "100.0"
+ ],
+ "unit_down_worst": [
+  "25.0",
+  "22.9",
+  "high",
+  "low",
+  "0.15",
+  "high, coupling low",
+  "135.0"
+ ],
+ "step_half_db": 0.3849999999999998,
+ "drift_db": 0.3873170843673957,
+ "reading_db": 0.6401984411089389,
+ "target_centre_mw": 18.172007326809013,
+ "target_mw": 18.2,
+ "pad_as_built_db": 18.41601353605434,
+ "pad_needed_db": [
+  13.60104710655659,
+  21.646584356849576
+ ],
+ "pads": [
+  {
+   "shunt": 75.0,
+   "series": 110.0,
+   "loss_db": 13.48,
+   "rl_db": 38.6
+  },
+  {
+   "shunt": 68.0,
+   "series": 110.0,
+   "loss_db": 14.06,
+   "rl_db": 26.8
+  },
+  {
+   "shunt": 68.0,
+   "series": 120.0,
+   "loss_db": 14.57,
+   "rl_db": 29.3
+  },
+  {
+   "shunt": 75.0,
+   "series": 150.0,
+   "loss_db": 15.32,
+   "rl_db": 30.9
+  },
+  {
+   "shunt": 68.0,
+   "series": 150.0,
+   "loss_db": 15.92,
+   "rl_db": 42.6
+  },
+  {
+   "shunt": 62.0,
+   "series": 150.0,
+   "loss_db": 16.52,
+   "rl_db": 27.5
+  },
+  {
+   "shunt": 68.0,
+   "series": 180.0,
+   "loss_db": 17.09,
+   "rl_db": 37.9
+  },
+  {
+   "shunt": 68.0,
+   "series": 200.0,
+   "loss_db": 17.79,
+   "rl_db": 32.5
+  },
+  {
+   "shunt": 68.0,
+   "series": 220.0,
+   "loss_db": 18.44,
+   "rl_db": 29.6
+  },
+  {
+   "shunt": 56.0,
+   "series": 200.0,
+   "loss_db": 19.14,
+   "rl_db": 25.4
+  },
+  {
+   "shunt": 68.0,
+   "series": 270.0,
+   "loss_db": 19.88,
+   "rl_db": 25.8
+  },
+  {
+   "shunt": 62.0,
+   "series": 270.0,
+   "loss_db": 20.52,
+   "rl_db": 37.8
+  },
+  {
+   "shunt": 62.0,
+   "series": 300.0,
+   "loss_db": 21.29,
+   "rl_db": 33.6
+  },
+  {
+   "shunt": 56.0,
+   "series": 300.0,
+   "loss_db": 22.04,
+   "rl_db": 33.0
+  }
+ ],
+ "pad_set_max_gap_db": 0.7699999999999996,
+ "band": {
+  "meas_db": 0.6401984411089389,
+  "target_mw": 18.2,
+  "up_db": 1.7724327166503295,
+  "down_db": 2.1892782343878894,
+  "min_mw": 10.993691973900875,
+  "max_mw": 27.37251230357761,
+  "overdrive_margin_db": 0.39806595069554696,
+  "underdrive_margin_db": 0.4114356454628581,
+  "pass": true
+ },
+ "band_at_allocation": {
+  "meas_db": 1.0,
+  "target_mw": 18.2,
+  "up_db": 2.1322342755413906,
+  "down_db": 2.5490797932789504,
+  "min_mw": 10.119601451258468,
+  "max_mw": 29.736839960226035,
+  "overdrive_margin_db": 0.038264391804485404,
+  "underdrive_margin_db": 0.05163408657179797,
+  "pass": true
+ },
+ "r3_target_at_allocation": {
+  "meas_db": 1.0,
+  "target_mw": 17.3,
+  "up_db": 2.1322342755413906,
+  "down_db": 2.5490797932789504,
+  "min_mw": 9.61918159927316,
+  "max_mw": 28.266336885269805,
+  "overdrive_margin_db": 0.2585172403672796,
+  "underdrive_margin_db": -0.16861876199099574,
+  "pass": false
+ },
+ "r3_target_m2": {
+  "meas_db": 0.6401984411089389,
+  "target_mw": 17.3,
+  "up_db": 1.7724327166503295,
+  "down_db": 2.1892782343878894,
+  "min_mw": 10.450047865301382,
+  "max_mw": 26.018926530323778,
+  "overdrive_margin_db": 0.6183187992583405,
+  "underdrive_margin_db": 0.19118279690006482,
+  "pass": true
+ },
+ "r3_target_at_0p8": {
+  "meas_db": 0.8,
+  "target_mw": 17.3,
+  "up_db": 1.9322342755413906,
+  "down_db": 2.3490797932789507,
+  "min_mw": 10.072519661484833,
+  "max_mw": 26.994142159416914,
+  "overdrive_margin_db": 0.45851724036727914,
+  "underdrive_margin_db": 0.03138123800900411,
+  "pass": true
+ },
+ "reading_break_even_db": 1.038264391804486,
+ "reading_break_even_r3_target_db": 0.8313812380090035,
+ "sensitivity": [
+  {
+   "meas_db": 0.25,
+   "target_mw": 18.2,
+   "up_db": 1.3822342755413906,
+   "down_db": 1.7990797932789504,
+   "min_mw": 12.027168865595574,
+   "max_mw": 25.02043267041488,
+   "overdrive_margin_db": 0.788264391804486,
+   "underdrive_margin_db": 0.801634086571798,
+   "pass": true
+  },
+  {
+   "meas_db": 0.5,
+   "target_mw": 18.2,
+   "up_db": 1.6322342755413906,
+   "down_db": 2.0490797932789504,
+   "min_mw": 11.354379578492932,
+   "max_mw": 26.502986511684504,
+   "overdrive_margin_db": 0.5382643918044858,
+   "underdrive_margin_db": 0.5516340865717978,
+   "pass": true
+  },
+  {
+   "meas_db": 0.6401984411089389,
+   "target_mw": 18.2,
+   "up_db": 1.7724327166503295,
+   "down_db": 2.1892782343878894,
+   "min_mw": 10.993691973900875,
+   "max_mw": 27.37251230357761,
+   "overdrive_margin_db": 0.39806595069554696,
+   "underdrive_margin_db": 0.4114356454628581,
+   "pass": true
+  },
+  {
+   "meas_db": 0.8,
+   "target_mw": 18.2,
+   "up_db": 1.9322342755413906,
+   "down_db": 2.3490797932789507,
+   "min_mw": 10.596523574510055,
+   "max_mw": 28.39846169372184,
+   "overdrive_margin_db": 0.23826439180448547,
+   "underdrive_margin_db": 0.25163408657179753,
+   "pass": true
+  },
+  {
+   "meas_db": 1.0,
+   "target_mw": 18.2,
+   "up_db": 2.1322342755413906,
+   "down_db": 2.5490797932789504,
+   "min_mw": 10.119601451258468,
+   "max_mw": 29.736839960226035,
+   "overdrive_margin_db": 0.038264391804485404,
+   "underdrive_margin_db": 0.05163408657179797,
+   "pass": true
+  },
+  {
+   "meas_db": 1.5,
+   "target_mw": 18.2,
+   "up_db": 2.6322342755413906,
+   "down_db": 3.0490797932789504,
+   "min_mw": 9.019104286973722,
+   "max_mw": 33.36528320799768,
+   "overdrive_margin_db": -0.4617356081955145,
+   "underdrive_margin_db": -0.44836591342820276,
+   "pass": false
+  },
+  {
+   "meas_db": 2.0,
+   "target_mw": 18.2,
+   "up_db": 3.1322342755413906,
+   "down_db": 3.5490797932789504,
+   "min_mw": 8.038285156891416,
+   "max_mw": 37.4364634923848,
+   "overdrive_margin_db": -0.9617356081955137,
+   "underdrive_margin_db": -0.9483659134282024,
+   "pass": false
+  }
+ ],
+ "revision3": {
+  "target_mw": 17.3,
+  "band_mw": [
+   10.97115942764752,
+   27.27970566591019
+  ],
+  "half_span_db": 0.5654202451766652
+ },
+ "verdicts": {
+  "A5 select-on-test drive 10 to 30 mW in service with the k1 reading bound (one-sided terms from 146 MHz, 18.2 mW target)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "10.99 to 27.37 mW, margins +0.41 / +0.40 dB"
+  },
+  "A5 select-on-test drive 10 to 30 mW at the +/-1.0 dB reading allocation (one-sided terms, 18.2 mW target)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "10.12 to 29.74 mW"
+  },
+  "Revision 3 target 17.3 mW at the +/-1.0 dB allocation with the one-sided terms (the finding-1 case)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "9.62 to 28.27 mW"
+  },
+  "A5 select-on-test drive 10 to 30 mW with a tinySA Ultra reading alone (+/-2 dB published)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "margins -0.95 / -0.96 dB"
+  }
+ }
+}

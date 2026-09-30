@@ -2,14 +2,262 @@
 
 | Field | Value |
 |---|---|
-| Product | Analysis note (08 section 3.4), WP-PDR-21. Revision 3, 2026-09-29: the A5 items of the PDR work plan revision 6 section 3.0 row 21 (wave W-A). Revisions 0 to 2 (2026-09-28): the pre-order item of TS-012 revision 4 (sections 7.3 and 8.12; TS-012 at commit `7d0d450`) |
+| Product | Analysis note (08 section 3.4), WP-PDR-21. Revision 4, 2026-09-29: the two Major findings of the independent review of revision 3 (finding-1, the one-sided drive terms; finding-2, the clamp ceiling on the typical module), and only those (rule C1). Revision 3, 2026-09-29: the A5 items of the PDR work plan revision 6 section 3.0 row 21 (wave W-A). Revisions 0 to 2 (2026-09-28): the pre-order item of TS-012 revision 4 (sections 7.3 and 8.12; TS-012 at commit `7d0d450`) |
 | Author | Claude, analysis author. Revision 3: WP-PDR-21 in wave W-A, after the owner's decision A5 (TS-012 revision 7 section 10) and her direction of 2026-09-29 to start the PDR work at once (`docs/plan/status/status-2026-09-29.md` section 8). Revisions 0 to 2: the TS-012 discriminating analyses (owner approval of 2026-09-28, `docs/plan/status/status-2026-09-28.md` section 1 item 2) |
-| Status | Draft, revision 3, frozen at F0 for its independent review (rule C2) by the commit that adds it. Revision 2 was reviewer APPROVED at INSP-114 iteration 3 (`f5960d3`); revision 3 also closes that review's lien, Minor finding-11 (section 9.0). INSP-114 has used its three iterations under rule C1, so the lead SE names the record that reviews revision 3. Review record of revisions 0 to 2: `docs/reviews/PDR/checklists/analysis-pa-drive-ts012.md` |
+| Status | Draft, revision 4, frozen for the delta iteration of its review (rule C2) by the commit that adds it; the Minor findings of the revision 3 review are held as liens (rule C1). Revision 3 was frozen at F0 at `f1070cf`. Revision 2 was reviewer APPROVED at INSP-114 iteration 3 (`f5960d3`); revision 3 also closes that review's lien, Minor finding-11 (section 9.0). INSP-114 has used its three iterations under rule C1, so the lead SE names the record that reviews revision 3. Review record of revisions 0 to 2: `docs/reviews/PDR/checklists/analysis-pa-drive-ts012.md` |
 | Serves | Revision 3: CR-018 (the re-baseline CR, WP-PDR-53), rows REQ-SYS-012 and REQ-SYS-144 (plan section 3.0 row 21; rule C10, APPROVED before S1); TS-012 design items D-7, D-8, D-9, D-13, D-14 and follow-on decisions 2 and 6; inputs to WP-PDR-22 (the D-9 clamp), WP-PDR-20 (CLK1 swing at the tap), WP-PDR-24 (polyfuse) and WP-PDR-29 (TPM-015, TPM-004). Revisions 0 to 2: the TS-012 choice between A4 and A5; the TS-012 pre-order criterion "module input 10 to 30 mW at every corner"; REQ-SYS-012 (5 W +/-1 dB, TBR) supporting pre-build evidence, with REQ-SYS-114 (-10 to +45 C, TBR); TPM-015 and TPM-004; HZ-001 and HZ-003 (section 7.1) |
-| Decks, scripts, results | `hardware/sim/tx-pa/` (README there). Revision 3: `run_a5_r3.py` (it imports the helpers of `run_pa.py`), `results/2026-09-29-r3-d6`, `-d7`, `-k1`, `-s2`, `-p4`, `-p5`, `-s3`. Revisions 1 and 2: `run_pa.py` (deck writer, runner through `tools/ltspice-batch.sh`, checker, plots), `digitize_ra07.py` and `digitize_aft05.py`, `data/`, `decks/`, `results/2026-09-28-r2-p1`, `-p2`, `-p3`, `-s1`, `results/2026-09-28-r1-d2` to `-d5` and `results/2026-09-28-d1-gva-model`. The revision 0 and revision 1 power and summary folders stay in place, superseded |
+| Decks, scripts, results | `hardware/sim/tx-pa/` (README there). Revision 4: `run_a5_r4.py` (it imports `run_a5_r3.py` and `run_pa.py`), `results/2026-09-29-r4-s2`, `-p4`, `-p5`, `-s4`, `-s3`. Revision 3: `run_a5_r3.py` (it imports the helpers of `run_pa.py`), `results/2026-09-29-r3-d6`, `-d7`, `-k1`, `-s2`, `-p4`, `-p5`, `-s3`. Revisions 1 and 2: `run_pa.py` (deck writer, runner through `tools/ltspice-batch.sh`, checker, plots), `digitize_ra07.py` and `digitize_aft05.py`, `data/`, `decks/`, `results/2026-09-28-r2-p1`, `-p2`, `-p3`, `-s1`, `results/2026-09-28-r1-d2` to `-d5` and `results/2026-09-28-d1-gva-model`. The revision 0 and revision 1 power and summary folders stay in place, superseded |
 | Evidence status | Developer evidence. LTspice 26.0.2 through the accredited wrapper (ACC-LTSPICE-001, blob `88b71475`); Python 3.13 venv with numpy, scipy 1.18.1, spicelib 1.6.3 and matplotlib 3.11.2 (class B entries of `tools/toolchain.lock.md` section 2). Every PA and driver curve is a graph read of typical vendor data (estimate), unless a row says "datasheet minimum" or "datasheet maximum". Revision 3 adds datasheet reads of the DMP3099L, AO3400A, MF-R300 and Coilcraft 1812SMS (section R3.5). Every output figure is an estimate; sections 3 and R3.2 class each input. `.raw` files over 5,000,000 bytes stay in their run folders on the owner's Mac and are named in each folder's `raw.sha256` (CR-017) |
 
-## R3. Revision 3: A5 as adopted (governs for A5)
+## R4. Revision 4: the two Major findings of the revision 3 review (governs for A5 where it differs from R3)
+
+The independent review of revision 3 raised two Major findings. Revision 4 fixes them and only them (rule C1). The Minor findings are held as liens. Where this section gives a figure, it replaces the section R3 figure. The rest of section R3 stands.
+
+Runs: `hardware/sim/tx-pa/run_a5_r4.py` (it imports `run_a5_r3.py` and `run_pa.py`), with results in `results/2026-09-29-r4-s2`, `-p4`, `-p5`, `-s4` and `-s3`. The drive corners (d6), the coax bound (d7) and the 17 mW reading bound (k1) are the revision 3 runs, unchanged. `run_a5_r4.py all --expect` exits 0 against the verdict list of section R4.10. Every figure is an estimate unless a row says "datasheet".
+
+### R4.1 The findings and what revision 4 changes
+
+| Finding | What revision 3 did | Revision 4 | Where |
+|---|---|---|---|
+| finding-1 (Major; CK-ANA-B6, E3, F3, E5) | s2 took half the 144 to 148 MHz in-unit span (+/-0.57 dB) as symmetric, but the pad is chosen at 146 MHz. The true terms are +0.36 / -0.78 dB, so the band at the M2 reading was 10.45 to 26.0 mW, and 9.62 mW at the +/-1.0 dB allocation (FAIL) | One-sided terms from the 146 MHz value. The target is re-centred for them: **18.2 mW (TBR)**, which keeps the +/-1.0 dB (TBR) allocation. The selection frequency, 146 MHz, is stated in the REQ-SYS-144 text | R4.2, R4.7 |
+| finding-2 (Major; CK-ANA-A5, B6, E3, F3, H1) | The clamp tops (D-9 at 8 W, scenario B at 10 W) were set on the typical-module curve. The datasheet gives no maximum, and the margins (+0.04 and +0.03 dB) sat inside the +/-0.07 dB graph-read term | The ceiling becomes a **per-unit build step**: each unit's open-loop output is read at build and its clamp is trimmed. The step's own terms, the reading first, are carried as one-sided bounds. A unit whose clamp would fall outside the trim range is rejected. This bounds the upper spread. The REQ-SYS-012 delta and the HZ-001 figures are restated on that basis | R4.3 to R4.7 |
+
+### R4.2 The drive pad with one-sided terms (run r4-s2, finding-1)
+
+Per unit (the 2700 units of d6), the drive over 144 to 148 MHz moves from its 146 MHz value by at most +0.360 dB and -0.777 dB. The two worst cases are different units. The band is built from each side's worst case:
+
+| Term | Upward (dB) | Downward (dB) |
+|---|---|---|
+| Frequency, one-sided from the 146 MHz value | 0.36 | 0.78 |
+| Half the pad set's largest gap | 0.38 | 0.38 |
+| Level reading, k1 method M2 | 0.64 | 0.64 |
+| Drift in service (revision 3 terms and the bandpass coil's TCL) | 0.39 | 0.39 |
+| **Sum** | **1.77** | **2.19** |
+
+The target with equal margins to both edges is sqrt(10 x 30) x 10^((2.19 - 1.77)/20) = 18.17 mW. It is taken as **18.2 mW (TBR)**.
+
+| Target | Reading | In-service band | Margin above 10 mW / below 30 mW | Verdict |
+|---|---|---|---|---|
+| 18.2 mW | k1 method M2, +/-0.64 dB | 10.99 to 27.37 mW | +0.41 / +0.40 dB | **PASS** |
+| 18.2 mW | allocation +/-1.0 dB (TBR) | 10.12 to 29.74 mW | +0.05 / +0.04 dB | **PASS** (break-even +/-1.04 dB) |
+| 17.3 mW (revision 3) | +/-0.64 dB | 10.45 to 26.02 mW | +0.19 / +0.62 dB | PASS, informative |
+| 17.3 mW (revision 3) | +/-1.0 dB | 9.62 to 28.27 mW | -0.17 / +0.26 dB | **FAIL** (the finding-1 case) |
+| 17.3 mW (revision 3) | +/-0.8 dB | 10.07 to 26.99 mW | +0.03 / +0.46 dB | PASS (break-even +/-0.83 dB) |
+| 18.2 mW | tinySA Ultra alone, +/-2 dB | - | -0.95 / -0.96 dB | FAIL (a gross cross-check only, as in revision 3) |
+
+The reviewer named two fixes: +/-0.8 dB at 17.3 mW, or about 18.2 mW at +/-1.0 dB. Revision 4 takes the second. It keeps the allocation that REQ-SYS-144 already carries, and it leaves more room for the reading, whose bound rests on analysis only (section R3.4). At 18.2 mW the pad losses needed are 13.60 to 21.65 dB. These lie inside the same 14-pad set (13.48 to 22.04 dB, largest gap 0.77 dB). The in-service band of the power runs is 10.99 / 18.20 / 27.37 mW, against revision 3's 10.97 / 17.30 / 27.28 mW.
+
+![Select-on-test band with one-sided terms](../../../hardware/sim/tx-pa/results/2026-09-29-r4-s2-sot-pad/sot_band_r4.png)
+
+### R4.3 A fixed clamp does not hold the ceiling (run r4-s4 part a, finding-2)
+
+The RA07M1317M datasheet gives a minimum output (6.5 W at 7.2 V) and a typical curve, but no maximum. At 8.4 V (Python replica of the deck model, checked against the r4 decks within 0.05 %):
+
+| Ceiling | Module above the typical curve, u (dB) | Highest module with revision 3's clamp (W) | Fixed clamp set on u + 0.07 dB: typical unit's lowest at the SMA, LPF at most MC 99 % (W) | Same, with the unmodelled terms (dB to 3.97 W) |
+|---|---|---|---|---|
+| Scenario B (10 W) | 0 | 9.90 | 4.36 | +0.25 |
+| Scenario B | 0.3 | **10.51** | 4.07 | **-0.04** |
+| Scenario B | 0.5 | 10.94 | 3.91 | -0.22 |
+| Scenario B | 1.0 | 12.06 | 3.51 | -0.68 |
+| Scenario B | 1.5 | 13.26 | 3.13 | -1.18 |
+| D-9 (8 W) | 0 | 7.90 | 1.97 | -3.19 |
+| D-9 | 0.3 | 8.39 | 1.67 | -3.91 |
+| D-9 | 1.0 | 9.65 | 1.08 | -5.79 |
+
+This confirms the finding. With revision 3's clamp, a module 0.3 dB above typical exceeds 10 W open loop. A fixed clamp set so that a +0.3 dB module holds 10 W leaves the typical unit under the proposed delta at 8.4 V. At +1.0 dB the scenario B top is 2.867 V, about the D-9 top as specified (2.859 V). A fixed clamp needs a maximum for the module, and neither the datasheet nor any bench data gives one. Revision 4 therefore makes the ceiling a per-unit build step (the reviewer's second fix, option (c) of request R3-1).
+
+### R4.4 The per-unit clamp step (proposed for REQ-SYS-144 and D-9)
+
+**The step.**
+- Setup: the ALC is held at its top in a firmware test mode, so VGG sits at the clamp. The bench supply is at 8.4 V through the pack-resistance fixture. The unit feeds the dummy load at 18 to 28 C.
+- Reading: the open-loop power at the SMA is read with the TC-SYS-010 diode probe at 144.05, 146.00 and 147.95 MHz, 3 s key-down each. The unit's module output is that reading plus its own output loss (NanoVNA S21, TC-TX-009 to 011).
+- Projection: this record's model projects the reading to the unit's highest open-loop case in service. That case is the start of a key-down at -10 C or at 25 C, each frequency, with the unit's own feed, efficiency and drive.
+- Trim: the clamp is trimmed so that this projection makes the step target, ceiling_design x 10^(-g-/10). The ceiling_design values are 9.9 W for scenario B and 7.9 W for D-9. The reading is repeated after the trim.
+- Reject: a unit whose clamp would have to go below the trim range is rejected at build. The range is sized for modules up to +1.5 dB above the typical curve (est.; WP-PDR-22 sizes it). This rejection is what bounds the upper spread.
+
+**Terms of the step** (worst-case sum; e = read minus true):
+
+| Term | Unit read low, g- (dB) | Unit read high, g+ (dB) | Class |
+|---|---|---|---|
+| Open-loop power reading, diode probe at the TC-SYS-010 acceptance bound (combined uncertainty at most 15 %) | 0.71 | 0.61 | TC-SYS-010 criterion; the characterized value replaces it at build if smaller |
+| Unit output loss (LPF and relay), NanoVNA S21 at 144, 146, 148 MHz | 0.10 | 0.10 | est. |
+| Trim resolution, half of a 0.1 dB step | 0.05 | 0.05 | est.; WP-PDR-22 sets the step |
+| RA07M1317M curve graph read (VGG and VDD curves, bench point to service cases) | 0.07 | 0.07 | est. (revision 2 term) |
+| Bench temperature and self-heating in the 3 s reading, projected to the service case | 0.05 | 0.05 | est. |
+| Drive drift in service (0.39 dB) times the module Pout-Pin slope at 27.4 mW | 0.01 | 0.01 | digitized curve (est.) |
+| **Sum** | **0.99** | **0.89** | |
+
+The two bounds act on different units:
+- A unit read low by g- gets its clamp set too high. It makes ceiling_design at its highest case. This unit sets the ceiling, so the graph-read term is now inside the bound, not beside it.
+- A unit read high by g+ gets its clamp set too low. It makes ceiling_design x 10^(-(g- + g+)/10) at its highest case. This unit sets the reach.
+
+**How the decks model it.** r4-p4 and r4-p5 are the revision 3 power decks with the fixed clamp table replaced by the per-unit clamp. For each corner, the clamp top at each pack voltage is the VGG at which the unit the step believes makes the step target at its highest open-loop case. The believed unit is the true unit read with error e. The top is the minimum over the three frequencies and the two open-loop cases, capped at 3.50 V. It comes from the closed form in the deck (the drain voltage at the target solves vd^2 - (Vp - rf IBUS) vd + rf P / eta = 0), then the inverse of the digitized VGG curve.
+
+The unit cases are:
+- the typical module read exactly;
+- the typical module read high by g+ and low by g-;
+- the trim-range top (+1.5 dB) read high and low;
+- the datasheet-minimum module read high and low.
+
+Each deck has 13608 LTspice steps: feed 4, efficiency 2, drive 3, frequency 3, window offset 3, unit case 7, temperature case 9. The output loss (four values) scales the module output only. The checker applies it, as revision 3's `Bsma` did, which gives 54432 corners.
+
+The checks:
+- The deck clamp equals the checker's closed form within LTspice's reltol (0.1 % + 0.1 mV).
+- A unit read exactly makes the step target at its highest open-loop case within 0.1 %.
+- The PA case temperature matches the thermal law within 1.5e-5 K.
+- VGG stays at or below 3.50 V, and above the 2.30 V floor of the curve grid.
+- The replica equals the decks at 8.4 V within 0.05 %.
+
+All PASS.
+
+### R4.5 Power at the SMA with the step (runs r4-p4 and r4-p5)
+
+**Scenario B (10 W ceiling, 0.03 V window) with the step, at 6.4 V per temperature case (W; margin to 3.97 W in dB).** The step basis is the lowest over modules from typical to +1.5 dB, with the reading anywhere in its bound. At 6.4 V the lowest corners are typical units, whose clamp sits at 3.50 V whatever the reading, so the step does not lower the 6.4 V basis from revision 3 (2.82 W at the worst case, as before).
+
+| Case | Nominal | Step basis, LPF median | Step basis, LPF MC 99 % | Step basis, LPF worst | Datasheet-minimum module, LPF MC 99 % |
+|---|---|---|---|---|---|
+| 25 C, start of key-down (informative) | 4.57 | 3.91 (-0.06) | 3.75 (-0.25) | 3.09 (-1.08) | 3.09 (-1.10) |
+| 25 C key-down, -0.005 dB/K | 4.32 | 3.56 (-0.47) | 3.40 (-0.68) | 2.76 (-1.58) | 2.83 (-1.47) |
+| 25 C key-down, -0.015 dB/K | 4.15 | 3.39 (-0.69) | 3.23 (-0.89) | 2.63 (-1.79) | 2.71 (-1.67) |
+| -10 C key-down | 4.30 | 3.52 (-0.52) | 3.37 (-0.71) | 2.77 (-1.56) | 2.82 (-1.49) |
+| -10 C, start of key-down (high side) | 4.89 | 4.07 (+0.11) | 3.91 (-0.07) | 3.27 (-0.84) | 3.27 (-0.85) |
+| +45 C key-down, -0.005 dB/K | 4.16 | 3.42 (-0.65) | 3.25 (-0.87) | 2.62 (-1.80) | 2.72 (-1.65) |
+| +45 C key-down, -0.015 dB/K | 3.87 | 3.16 (-0.99) | 3.01 (-1.21) | 2.43 (-2.14) | 2.52 (-1.98) |
+| +45 C, case 100 C bound, -0.005 dB/K | 4.03 | 3.35 (-0.73) | 3.19 (-0.95) | 2.58 (-1.88) | 2.65 (-1.76) |
+| +45 C, case 100 C bound, -0.015 dB/K | 3.49 | 2.96 (-1.28) | 2.82 (-1.49) | 2.27 (-2.42) | 2.32 (-2.34) |
+
+**At 8.4 V the step costs reach.** The step basis (LPF at most MC 99 %) is 3.09 W in the worst key-down case, against revision 3's 4.42 W. The reach-setting unit is one read high by g+. Its clamp is set for 7.89 x 10^(-0.89/10) = 6.43 W at the ceiling case as the step believes it (about 6.8 W as it is, with the drain-voltage effect above), not for 9.9 W. The typical unit read exactly gives 4.09 W. The basis does not reach 3.97 W in every case at any pack voltage. Its highest point is 3.36 W, at 7.05 V.
+
+**D-9 as specified (8 W ceiling, 0.20 V window) with the step:**
+- The step basis is 1.06 W at 6.4 V and 0.58 W at 8.4 V in the worst key-down case.
+- The nominal corner is 4.27 W at 6.4 V at 25 C key-down and 3.45 W at the worst case.
+- The window then sits on the steep part of the VGG curve for the stronger units: a +1.5 dB unit read high has its top at 2.63 to 2.67 V at 8.4 V.
+- D-9's "VGG 3.30 to 3.50 V at 6.4 V" no longer holds for strong units. Their top at 6.4 V goes down to 2.76 V.
+- No REQ-SYS-012 delta of the section R4.7 form exists on this basis.
+
+![A5, clamp scenario B with the per-unit step: power at the SMA](../../../hardware/sim/tx-pa/results/2026-09-29-r4-p5-power-a5-clamp-b/power_a5_step_clampb_sma.png)
+
+![A5, clamp scenario B with the per-unit step: 6.4 V per temperature case](../../../hardware/sim/tx-pa/results/2026-09-29-r4-p5-power-a5-clamp-b/power_a5_step_clampb_temperature.png)
+
+![A5, D-9 8 W ceiling with the per-unit step: power at the SMA](../../../hardware/sim/tx-pa/results/2026-09-29-r4-p4-power-a5-design/power_a5_step_d9_sma.png)
+
+![A5, D-9 8 W ceiling with the per-unit step: 6.4 V per temperature case](../../../hardware/sim/tx-pa/results/2026-09-29-r4-p4-power-a5-design/power_a5_step_d9_temperature.png)
+
+**Open loop (the HZ-001 figures).** The highest module output over every corner, unit case, temperature case and pack voltage is:
+- scenario B: **9.65 W** (under the 10 W maximum rating);
+- D-9: **7.74 W** (under the 8 W stability guarantee).
+
+In both, the highest is set by a unit read low by the bound. These hold for every unit that passes the step with its reading inside the bound, up to +1.5 dB above typical. A stronger unit is rejected at build. The unit read low makes a little less than ceiling_design (9.65 against 9.9 W), because its larger drain current lowers its drain voltage below the one the step projects. Revision 3's 9.94 W and 7.91 W held only for the typical module.
+
+**Pack current (request R3-3).** With the ALC at its top, scenario B draws up to 3.29 A at 25 C key-down and 3.22 A at +45 C key-down. D-9 draws 3.00 and 2.93 A. Revision 3 gave 2.75 and 2.70 A for the typical module. The rise comes from the trim range: a +1.5 dB module at the 6.4 V end, efficiency 0.45.
+
+### R4.6 What the step's reading is worth (run r4-s4 parts c and d)
+
+The replica over the module spread shows that the reach is set by the reading error, not by the module's own spread. At 8.4 V (scenario B, LPF at most MC 99 %) the typical, +0.5, +1.0 and +1.5 dB units read high give 3.24, 3.16, 3.13 and 3.09 W. Read exactly they give 4.09 to 3.82 W.
+
+| Step reading uncertainty (+/-) | g- / g+ (dB) | Step target (W) | Step basis at 8.4 V, scenario B (W) | With the unmodelled terms (dB to 3.97 W) |
+|---|---|---|---|---|
+| 0 % (only the other step terms) | 0.28 / 0.28 | 9.28 | 4.39 | +0.28 |
+| 2 % | 0.37 / 0.37 | 9.09 | 4.16 | +0.05 |
+| 5 % | 0.50 / 0.49 | 8.81 | 3.88 | -0.25 |
+| 10 % | 0.74 / 0.70 | 8.35 | 3.47 | -0.73 |
+| 15 % (TC-SYS-010 bound, used) | 0.99 / 0.89 | 7.89 | 3.09 | -1.24 |
+
+REQ-SYS-012's -1 dB at 8.4 V on this basis needs the open-loop reading within about +/-2 % at 7 to 10 W. That is a Low-confidence target for a diode probe on the owner's bench. It is left as a lever (request R4-1), not taken as the basis. With D-9's 8 W ceiling, even a perfect reading gives 1.09 W at 8.4 V.
+
+![The clamp step: fixed clamp against spread, the step's terms, reading against reach](../../../hardware/sim/tx-pa/results/2026-09-29-r4-s4-clamp-step/clamp_step.png)
+
+### R4.7 REQ-SYS-144, REQ-SYS-012 and HZ-001: text restated for CR-018
+
+**REQ-SYS-144** (replaces the R3.7 after-text; the other alignment steps of TS-012 section 8.10 come from their own records):
+- **After:** "The transceiver shall meet its requirements after assembly with no adjustment other than stored firmware calibration (pitch centre, reference trim, the keying-loop feedforward table) and the one-time build alignment steps of the alignment procedure. For the PA drive, the alignment step is the selection of one pad from the drive-pad set, with the module replaced by a 50 ohm load, for a drive of 18.2 mW (TBR) at 146 MHz read with an uncertainty of at most +/-1.0 dB (TBR). For the PA gate-bias clamp, the alignment step is the trim of the clamp so that the unit's open-loop output, read at build with an uncertainty of at most 15 % (TBR) and projected to its highest open-loop case in service, is at most 10 W x 10^(-g-/10) (TBR) (g- per WP-PDR-21 section R4.4). A unit that the trim range cannot bring to that value is rejected."
+- **Rationale:** "The drive chain spreads by 8.5 dB over its part corners against the RA07M1317M's 10 to 30 mW input window (4.8 dB). The pad is chosen at 146 MHz, and a unit's drive moves by +0.36 / -0.78 dB from there over the band, so the target is 18.2 mW. The module's datasheet gives no maximum output, so a fixed clamp cannot hold the open-loop ceiling. The per-unit clamp trim holds it for every unit inside the trim range (WP-PDR-21 record sections R4.2 to R4.4)."
+- **Verification note:** "Pre-build: Analysis (WP-PDR-21, runs k1, r4-s2, r4-s4, r4-p5). Post-build: Inspection of the build record (pad chosen, M2 readings in both polarities, the two DC points; clamp trim chosen, the open-loop readings before and after the trim at the three frequencies), then TC-SYS-096."
+- The 10 W figure assumes scenario B. With D-9's 8 W it reads 8 W, and the delta below does not exist (section R4.5).
+
+**REQ-SYS-012** (replaces the R3.7 scenario B after-text; the D-9 line of R3.7 stands, now with the step as well):
+- With clamp scenario B and the per-unit step (recommended by this record, for WP-PDR-22 to decide): "The transceiver shall hold its 5 W step within +1/-2.7 dB (TBR) into 50 ohm at 6.4 V pack and within +1/-2.3 dB (TBR) at 6.7-8.4 V pack, the lower limit linear in dB between, over its transmit range." That is 2.69 W at 6.4 V and 2.94 W from 6.7 V. The r4-s3 check shows the limit line under the basis, with the unmodelled terms, at every pack voltage (**PASS**). The basis is as revision 3, except that the typical module is now any module from typical to +1.5 dB, with the step's reading anywhere in its bound.
+- The revision 3 text (-1 dB from 7.8 V) is withdrawn. It rested on the typical-module clamp of finding-2.
+- Outside the basis, carried as risk: the LPF at its searched worst case (2.27 W at 6.4 V, 2.49 W at 8.4 V) and the datasheet-minimum module (2.32 W at 6.4 V).
+- The owner's alternative of TS-012 follow-on decision 2 stands: keep +/-1 dB and decide on the TC-SYS-011 bench reading, with the delta as the fallback.
+- Rationale replacement: "the RA07M1317M with the select-on-test drive, the per-unit D-9 clamp and the D-14 LPF gives 4.32 W nominal (25 C key-down) and 2.82 W at the lowest corner (step basis, LPF MC 99 %, +45 C bound case) at 6.4 V, and 3.09 W at 8.4 V (WP-PDR-21 record section R4.5, estimate)."
+
+**HZ-001 (request R3-1 restated).** The hazard figures for the ALC-absent or failed state become:
+- Open-loop module at most 9.65 W in scenario B and 7.74 W with D-9, over every unit that passes the step.
+- The bound depends on the step: the reading within its bound and the trim range.
+
+Causes for the HZ-001 writer to add:
+- A clamp mistrimmed at build, detected by the repeat reading after the trim.
+- The step's reading beyond its bound, controlled by the TC-SYS-010 characterization being Passed before the step.
+- A module above the trim range fitted, detected because the trim cannot reach the step target.
+
+Without the step, a unit's open-loop output has no upper bound from the datasheet.
+
+### R4.8 Requests added or changed by revision 4 (this record changes none of these files)
+
+- **R3-1 (restated), WP-PDR-22 and the HZ-001 writer.** The options of R3-1 now read:
+  - (a) scenario B with the per-unit trim of section R4.4 (recommended; delta of R4.7);
+  - (b) D-9's 8 W with the trim, with the step basis 5.7 dB under 3.97 W at 6.4 V and 8.4 dB under at 8.4 V;
+  - (c) a fixed clamp is not an option, because the module's upper spread is not bounded (section R4.3).
+  WP-PDR-22 designs a trimmable clamp: its step, its range down to the top for a +1.5 dB module (2.68 V at 8.4 V for scenario B, section R4.5), and its drift window (0.03 V is kept as the estimate). D-9's "VGG 3.30 to 3.50 V at 6.4 V" becomes "at most 3.50 V, per unit".
+- **R3-3 (figures changed), WP-PDR-24.** Pack current with the ALC at its top up to 3.29 A at 25 C and 3.22 A at +45 C key-down (scenario B, trim range to +1.5 dB), against the MF-R300's 2.04 to 2.2 A hold at 55 to 60 C.
+- **R3-5 (figures changed), WP-PDR-29.** Nominal at 6.4 V: 4.32 W at 25 C key-down and 3.49 W at the worst bound case (scenario B).
+- **R4-1, the TC-SYS-010 writer.** The clamp step reads 7 to 10 W at the SMA (Vpk up to about 32 V; the 1N5711's 70 V reverse rating then sees about 64 V). TC-SYS-010 covers 0.4 to 6.3 W and a correction curve to 25 V. Two changes are requested:
+  - extend the characterization to 10 W;
+  - report the combined uncertainty at 7 to 10 W.
+  Each 5 % below the 15 % bound is worth about 0.5 dB of REQ-SYS-012 reach at 8.4 V (section R4.6).
+- **R4-2, the alignment-procedure writer (TS-012 section 8.10).** Two alignment steps:
+  - the drive pad at 146 MHz for 18.2 mW;
+  - the clamp trim of section R4.4, with its reject rule.
+
+### R4.9 Limitations added by revision 4
+
+1. **The step is modelled as a reading error on the unit as a whole.** The worst-case sum of section R4.4 is applied as one error on the unit's believed spread. The drive drift and the loss reading enter the same way, although they are not reading errors of the module.
+2. **The per-unit clamp is the most generous clamp at every pack voltage.** It is exact per unit. A real trimmable clamp tracks the pack voltage with a fixed shape, so the reach figures are upper bounds, as revision 3 limitation 3 says.
+3. **The +1.5 dB trim range is an estimate.** The reach at 8.4 V changes by less than 0.2 W over 0 to +1.5 dB (section R4.6). A wider range adds to the pack current (R3-3).
+4. **The 15 % reading is the TC-SYS-010 acceptance bound, not a characterization.** The probe at 7 to 10 W is not analysed here (request R4-1).
+5. **The graph-read term is counted twice.** It is in g- and g+ for the ceiling, and in the unmodelled terms of the basis (conservative).
+
+### R4.10 Verdicts of the checker (revision 4)
+
+`run_a5_r4.py all` exits 1: every check passes, and criteria fail as below. `run_a5_r4.py all --expect` compares every verdict with this list and exits 0 on 2026-09-29.
+
+| Run | Verdict | Result |
+|---|---|---|
+| s2 | A5 select-on-test drive 10 to 30 mW in service with the k1 reading bound (one-sided terms from 146 MHz, 18.2 mW target) | PASS (10.99 to 27.37 mW, margins +0.41 / +0.40 dB) |
+| s2 | A5 select-on-test drive 10 to 30 mW at the +/-1.0 dB reading allocation (one-sided terms, 18.2 mW target) | PASS (10.12 to 29.74 mW) |
+| s2 | Revision 3 target 17.3 mW at the +/-1.0 dB allocation with the one-sided terms (the finding-1 case) | FAIL (9.62 to 28.27 mW) |
+| s2 | A5 select-on-test drive 10 to 30 mW with a tinySA Ultra reading alone (+/-2 dB published) | FAIL (margins -0.95 / -0.96 dB) |
+| p4, p5 | check: one .raw step per corner | PASS (13608 steps each) |
+| p4, p5 | check: PA case temperature equals the thermal law within 0.01 K at every pack voltage | PASS (1.53e-05 K) |
+| p4, p5 | check: the deck clamp equals the checker's per-unit clamp within LTspice's reltol (0.1 % + 0.1 mV) at every pack voltage | PASS (0.97 of the tolerance) |
+| p4, p5 | check: VGG at most 3.50 V at every corner and pack voltage | PASS |
+| p4, p5 | check: a unit read exactly makes the step target at its highest open-loop case where its clamp is below 3.50 V (within 0.2 %) | PASS (0.098 %, 0.084 %) |
+| p4, p5 | check: every clamp VGG (top plus window offset) above the VGG grid floor (2.30 V) | PASS (2.430 V, 2.649 V) |
+| p4 | A5 open loop, every unit that passes the build step (reading within its bound), 6.4 to 8.4 V, every case: module output at most 8 W | PASS (7.74 W) |
+| p5 | A5 open loop, every unit that passes the build step (reading within its bound), 6.4 to 8.4 V, every case: module output at most 10 W | PASS (9.65 W) |
+| p4 | A5 nominal corner at least 3.97 W at 6.4 V in every key-down case | FAIL (3.45 W) |
+| p4 | A5 lowest corner (step basis: module typical to +1.5 dB, reading at its bound, LPF at most its MC 99th percentile) at least 3.97 W at 6.4 V, every key-down case | FAIL (1.06 W) |
+| p4 | A5 lowest corner (step basis, LPF at most its MC 99th percentile) at least 3.97 W at 8.4 V, every key-down case | FAIL (0.58 W) |
+| p5 | A5 nominal corner at least 3.97 W at 6.4 V in every key-down case | FAIL (3.49 W) |
+| p5 | A5 lowest corner (step basis: module typical to +1.5 dB, reading at its bound, LPF at most its MC 99th percentile) at least 3.97 W at 6.4 V, every key-down case | FAIL (2.82 W) |
+| p5 | A5 lowest corner (step basis, LPF at most its MC 99th percentile) at least 3.97 W at 8.4 V, every key-down case | FAIL (3.09 W) |
+| s4 | Revision 3 fixed clamp scenario B (typical-module top): module output at most 10 W for a module 0.3 dB above typical (finding-2) | FAIL (10.51 W) |
+| s4 | Fixed clamp scenario B set on a module 0.3 dB above typical (+0.07 dB graph read): typical unit at least 3.97 W at 8.4 V with the terms (finding-2) | FAIL (4.07 W, -0.04 dB) |
+| s4 | check: the replica equals the r4 decks at 8.4 V within 0.5 % (step basis lowest, highest module) | PASS (3.091 against 3.090 W; 9.609 against 9.609 W) |
+| s3 | A5 a REQ-SYS-012 delta of the stated form (lower limit rising from 6.4 V to a plateau) holds on the basis (D-9 ceiling with the step) | FAIL (basis lowest 0.58 W at 8.40 V) |
+| s3 | check: the proposed REQ-SYS-012 limit line lies under the basis with the unmodelled terms (clamp scenario B with the step) | PASS (-2.7 dB at 6.4 V, -2.3 dB from 6.70 V) |
+| s3 | A5 REQ-SYS-012 as baselined (5 W -1 dB) at 6.4 V on the step basis with the terms, clamp scenario B | FAIL (-1.64 dB) |
+| s3 | A5 REQ-SYS-012 lower bound at 8.4 V on the step basis with the terms, D-9 ceiling (8 W) | FAIL (0.58 W) |
+| s3 | A5 REQ-SYS-012 lower bound at 8.4 V on the step basis with the terms, clamp scenario B (10 W) | FAIL (3.09 W) |
+
+![REQ-SYS-012 basis with the per-unit clamp step and the proposed limit](../../../hardware/sim/tx-pa/results/2026-09-29-r4-s3-req012-basis/req012_basis_r4.png)
+
+---
+
+## R3. Revision 3: A5 as adopted (governs for A5 where section R4 does not replace it)
+
+*Section R4 replaces, from revision 4: the select-on-test band and target of R3.4 (s2), the clamp tops and power figures of R3.6 at 8.4 V and the clamp trade's conclusion, the REQ-SYS-144 and REQ-SYS-012 text of R3.7, the HZ-001 figures and requests R3-1, R3-3 and R3-5 of R3.8.*
 
 On 2026-09-29 the owner chose A5 (TS-012 revision 7 section 10) and directed the PDR work to start at once and run continuously (status note 2026-09-29 section 8). The PDR work plan revision 6 (section 3.0, row 21) leaves WP-PDR-21 these A5 items in wave W-A: the D-7 select-on-test pad and the 17 mW reading characterization; the drive-chain rerun with C7, C10 and the D-13 drive bandpass; p1 to p3 with the chosen LPF build (D-14) and the read feed resistance. CR-018 carries the REQ-SYS-012 and REQ-SYS-144 rows from this record, so the record must be APPROVED before S1 (rule C10).
 
@@ -783,6 +1031,7 @@ Under the PDR work plan section 5.3 file ownership, this note changes none of th
 | 1 | 2026-09-28 | Review of revision 0, Major findings 1 and 2 and Minor finding 3 (section 9.2). CLK1 interface modelled as designed (coax, tap on the pin); new runs d4 (coax-length bound, time-step check) and d5 (pin-pad option); CLK1 pin load reported against Table 7; overdrive margin with its uncertainty; "overdrive is designed out" withdrawn; select-on-test pad set 13 to 22 dB. Seven temperature cases in p1 to p3 with sourced or labelled inputs; closure margin set against its uncertainty; C2, C3 pass criteria carry temperature; new items C8, C9 and DR-PAD-1. All revision 1 runs are `results/2026-09-28-r1-*` |
 | 2 | 2026-09-28 | Review iteration 2 (INSP-114): Major finding-9, Minor findings 3 to 8 and 10, cross items X-4 to X-6 (section 9.1). One thermal state per question (PA case solved from the dissipation; feed parts and copper term at key-down temperatures); VGG at the revision-4 clamp and at 3.30 V for C3; output loss from the LPF analysis revision 2 (r13); select-on-test pad set from real E24 steps, reading as an allocation with its sensitivity; exit status and `--expect`; wording and plot fixes. New runs `results/2026-09-28-r2-p1`, `-p2`, `-p3`, `-s1`; d2 to d5 re-read from their revision 1 raws (d4 rerun). Verdicts changed: A5 REQ-SYS-012 at 6.4 V with C2 and C3 is not shown at 25 C either; C3 carries no REQ-SYS-012 figure; C4 and C8 widened; new C10 and section 7.1 |
 | 3 | 2026-09-29 | A5 only, after the owner's decision A5 (plan revision 6 section 3.0 row 21, wave W-A). New section R3: the D-13 drive bandpass run (d6, d7); the select-on-test level reading at 17 mW (k1: forward drop at two DC currents, reading equation with the conduction term, both polarities; bound +/-0.64 dB) and the pad band on the bandpass chain (s2: 11.0 to 27.3 mW); datasheet reads for C2 (FAIL, bound 0.452 ohm) and C7 (PASS); power at the SMA with the adopted design (p4) and with clamp scenario B (p5); the D-9 clamp conflict at 8.4 V; the REQ-SYS-012 basis and the REQ-SYS-144 drive-pad text for CR-018 (s3). Revision 2's reading method (forward drop at DC only) withdrawn: it reads 0.42 to 0.73 dB low. INSP-114 finding-11 fixed in sections 2 and 4.4. All revision 3 runs are `results/2026-09-29-r3-*`; A4 is not rerun |
+| 4 | 2026-09-29 | Review of revision 3, the two Major findings only (rule C1; section R4.1). finding-1: select-on-test band with one-sided in-unit terms from the 146 MHz value; target 18.2 mW (TBR) at the +/-1.0 dB allocation (r4-s2). finding-2: the clamp ceiling as a per-unit build step with its reading bound; fixed clamp against the upper spread (r4-s4); power runs with the per-unit clamp (r4-p4, r4-p5); REQ-SYS-012 delta, REQ-SYS-144 text and HZ-001 figures restated (r4-s3, section R4.7); requests R3-1, R3-3, R3-5 changed, R4-1 and R4-2 added |
 
 ### 8.1 Verdicts of the checker (revision 2)
 

@@ -1,0 +1,172 @@
+{
+ "s2": {
+  "A5 select-on-test drive 10 to 30 mW in service with the k1 reading bound (one-sided terms from 146 MHz, 18.2 mW target)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "10.99 to 27.37 mW, margins +0.41 / +0.40 dB"
+  },
+  "A5 select-on-test drive 10 to 30 mW at the +/-1.0 dB reading allocation (one-sided terms, 18.2 mW target)": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "10.12 to 29.74 mW"
+  },
+  "Revision 3 target 17.3 mW at the +/-1.0 dB allocation with the one-sided terms (the finding-1 case)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "9.62 to 28.27 mW"
+  },
+  "A5 select-on-test drive 10 to 30 mW with a tinySA Ultra reading alone (+/-2 dB published)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "margins -0.95 / -0.96 dB"
+  }
+ },
+ "p4": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": "13608 steps"
+  },
+  "check: PA case temperature equals the thermal law within 0.01 K at every pack voltage": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest difference 1.53e-05 K"
+  },
+  "check: the deck clamp equals the checker's per-unit clamp within LTspice's reltol (0.1 % + 0.1 mV) at every pack voltage": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest difference 0.97 of the tolerance"
+  },
+  "check: VGG at most 3.50 V at every corner and pack voltage": {
+   "pass": true,
+   "kind": "check",
+   "detail": "highest 3.5000 V"
+  },
+  "check: a unit read exactly makes the step target at its highest open-loop case where its clamp is below 3.50 V (within 0.2 %)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest deviation 0.098 %"
+  },
+  "check: every clamp VGG (top plus window offset) above the VGG grid floor (2.30 V)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "lowest 2.430 V"
+  },
+  "A5 open loop, every unit that passes the build step (reading within its bound), 6.4 to 8.4 V, every case: module output at most 8 W": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "7.74 W"
+  },
+  "A5 nominal corner at least 3.97 W at 6.4 V in every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "3.45 W"
+  },
+  "A5 lowest corner (step basis: module typical to +1.5 dB, reading at its bound, LPF at most its MC 99th percentile) at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "1.06 W"
+  },
+  "A5 lowest corner (step basis, LPF at most its MC 99th percentile) at least 3.97 W at 8.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "0.58 W"
+  }
+ },
+ "p5": {
+  "check: one .raw step per corner": {
+   "pass": true,
+   "kind": "check",
+   "detail": "13608 steps"
+  },
+  "check: PA case temperature equals the thermal law within 0.01 K at every pack voltage": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest difference 1.53e-05 K"
+  },
+  "check: the deck clamp equals the checker's per-unit clamp within LTspice's reltol (0.1 % + 0.1 mV) at every pack voltage": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest difference 0.97 of the tolerance"
+  },
+  "check: VGG at most 3.50 V at every corner and pack voltage": {
+   "pass": true,
+   "kind": "check",
+   "detail": "highest 3.5000 V"
+  },
+  "check: a unit read exactly makes the step target at its highest open-loop case where its clamp is below 3.50 V (within 0.2 %)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "largest deviation 0.084 %"
+  },
+  "check: every clamp VGG (top plus window offset) above the VGG grid floor (2.30 V)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "lowest 2.649 V"
+  },
+  "A5 open loop, every unit that passes the build step (reading within its bound), 6.4 to 8.4 V, every case: module output at most 10 W": {
+   "pass": true,
+   "kind": "criterion",
+   "detail": "9.65 W"
+  },
+  "A5 nominal corner at least 3.97 W at 6.4 V in every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "3.49 W"
+  },
+  "A5 lowest corner (step basis: module typical to +1.5 dB, reading at its bound, LPF at most its MC 99th percentile) at least 3.97 W at 6.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "2.82 W"
+  },
+  "A5 lowest corner (step basis, LPF at most its MC 99th percentile) at least 3.97 W at 8.4 V, every key-down case": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "3.09 W"
+  }
+ },
+ "s4": {
+  "Revision 3 fixed clamp scenario B (typical-module top): module output at most 10 W for a module 0.3 dB above typical (finding-2)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "10.51 W"
+  },
+  "Fixed clamp scenario B set on a module 0.3 dB above typical (+0.07 dB graph read): typical unit at least 3.97 W at 8.4 V with the terms (finding-2)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "4.07 W, -0.04 dB with the terms"
+  },
+  "check: the replica equals the r4 decks at 8.4 V within 0.5 % (step basis lowest, highest module)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "p4: 0.576 against 0.576 W, 7.716 against 7.716 W; p5: 3.091 against 3.090 W, 9.609 against 9.609 W"
+  }
+ },
+ "s3": {
+  "A5 a REQ-SYS-012 delta of the stated form (lower limit rising from 6.4 V to a plateau) holds on the basis (D-9 ceiling with the step)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "basis lowest 0.58 W at 8.40 V"
+  },
+  "check: the proposed REQ-SYS-012 limit line lies under the basis with the unmodelled terms (clamp scenario B with the step)": {
+   "pass": true,
+   "kind": "check",
+   "detail": "-2.7 dB at 6.4 V, -2.3 dB from 6.70 V"
+  },
+  "A5 REQ-SYS-012 as baselined (5 W -1 dB) at 6.4 V on the step basis with the terms, clamp scenario B": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "-1.64 dB"
+  },
+  "A5 REQ-SYS-012 lower bound at 8.4 V on the step basis with the terms, D-9 ceiling (8 W)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "0.58 W"
+  },
+  "A5 REQ-SYS-012 lower bound at 8.4 V on the step basis with the terms, clamp scenario B (10 W)": {
+   "pass": false,
+   "kind": "criterion",
+   "detail": "3.09 W"
+  }
+ }
+}

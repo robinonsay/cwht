@@ -5,12 +5,13 @@ Question: for each TS-012 finalist (A4: AFT05MS004N with a hand match, no TCXO; 
 what drive reaches the PA across tolerances and the CLK1-to-RF-board coax, what load the chain puts on the Si5351
 CLK1 pin, whether the RA07M1317M input window of 10 to 30 mW is kept (and with what margin to its 30 mW rating), and
 what power reaches the SMA from 6.4 to 8.4 V pack against REQ-SYS-012 (5 W +/-1 dB, 3.97 to 6.30 W) at 25 C and over
-REQ-SYS-114's -10 to +45 C. Current revision of the record: 3 (2026-09-29; A5 only, after the owner's decision A5).
+REQ-SYS-114's -10 to +45 C. Current revision of the record: 4 (2026-09-29; A5 only: the two Major findings of the revision 3 review).
 
 ## Files
 
 | File | What it is |
 |---|---|
+| `run_a5_r4.py` | Revision 4 (A5 only, the two Major findings of the revision 3 review): runs r4-s2, r4-p4, r4-p5, r4-s4, r4-s3 (below). Imports `run_a5_r3.py` and `run_pa.py`; LTspice only through `tools/ltspice-batch.sh`; `raw.sha256` for every `.raw` over 5,000,000 bytes (CR-017). `run_a5_r4.py all --expect` reproduces and checks every revision 4 verdict |
 | `run_a5_r3.py` | Revision 3 (A5 only): runs d6, d7, k1, s2, p4, p5, s3 (below). Imports the helpers, inputs and GVA-84+ model of `run_pa.py`; LTspice only through `tools/ltspice-batch.sh`; writes `raw.sha256` for every `.raw` over 5,000,000 bytes (CR-017). `run_a5_r3.py all --expect` reproduces and checks every revision 3 verdict |
 | `run_pa.py` | Deck writer, LTspice runner (only through `tools/ltspice-batch.sh`, ACC-LTSPICE-001), `.raw` reader (spicelib 1.6.3), checker and plotter. `run_pa.py all` reproduces every current run below; exit status in the section below |
 | `digitize_ra07.py`, `digitize_aft05.py` | Graph readers for the datasheet curves (render at 400 dpi with pdftoppm, locate the grid, track the curve); they write `data/*.csv` and an overlay PNG per curve (red or blue marks on the datasheet crop) for visual closure |
@@ -47,6 +48,26 @@ list in `EXPECTED` (the list of the analysis record section 8.1) and exits **3**
 `run_pa.py all` writes every verdict to `results/2026-09-28-r2-s1-summary/verdicts.json`. On 2026-09-28
 `run_pa.py all` exits 1 (checks pass; the fixed-pad drive window, REQ-SYS-012 at the 6.4 V end and the open-loop
 8 W limit fail, as the record reports) and `run_pa.py all --expect` exits 0.
+
+## Runs, revision 4 (2026-09-29, A5 only: review of revision 3, Major findings 1 and 2)
+
+LTspice 26.0.2 for MacOS through the wrapper; every run exit 0. All values are estimates. The d6, d7 and k1 runs of
+revision 3 are the inputs, unchanged. `run_a5_r4.py all` exits 1 (every check passes; criteria fail as the record
+section R4.10 lists) and `run_a5_r4.py all --expect` exits 0. The final outputs were written by
+`CWHT_PA_REPLOT=1 run_a5_r4.py all --expect`, which re-read each `.raw` of an unchanged deck; the copies of
+`run_a5_r4.py`, `run_a5_r3.py` and `run_pa.py` in every revision 4 folder equal the committed scripts. The power
+decks carry the per-unit clamp in closed form (record section R4.4); the output loss is applied by the checker to
+`V(pmod)`, so each deck has 13608 steps for 54432 corners.
+
+| Run id | Deck (SHA-256 prefix) | What it does | Result |
+|---|---|---|---|
+| `2026-09-29-r4-s2-sot-pad` | none (post-processing of r3-d6, -d7, -k1) | Select-on-test band with one-sided in-unit terms from the 146 MHz value (finding-1); target re-centred | +0.36 / -0.78 dB from 146 MHz; target 18.2 mW; 10.99 to 27.37 mW with the M2 reading, 10.12 to 29.74 mW at +/-1.0 dB: **PASS**; 17.3 mW at +/-1.0 dB 9.62 mW: **FAIL**. Plot `sot_band_r4.png` |
+| `2026-09-29-r4-p4-power-a5-design` | `power_a5_step.cir` (`ff6f622f66d4ce5a`) | Power path with the D-9 8 W ceiling as a per-unit build step (step target 6.29 W; 7 unit cases: typical, +1.5 dB, datasheet minimum, each read at the bound) | Open loop at most 7.74 W: **PASS**. Step basis (LPF MC 99 %) 1.06 W at 6.4 V and 0.58 W at 8.4 V. Plots `power_a5_step_d9_sma.png`, `power_a5_step_d9_temperature.png`; `.raw` kept (15.6 MB) |
+| `2026-09-29-r4-p5-power-a5-clamp-b` | `power_a5_step.cir` (`ff44551d88286654`) | The same with clamp scenario B (10 W ceiling, 0.03 V window; step target 7.89 W) | Open loop at most 9.65 W: **PASS**. Step basis 2.82 W at 6.4 V and 3.09 W at 8.4 V. Plots `power_a5_step_clampb_sma.png`, `power_a5_step_clampb_temperature.png`; `.raw` kept (15.6 MB) |
+| `2026-09-29-r4-s4-clamp-step` | none (Python replica of the deck model, checked against r4-p4 and r4-p5) | Fixed clamp against the module's upper spread; the step's terms; the step over the module spread; the reading break-even | Revision 3 clamp at +0.3 dB: 10.51 W (**FAIL**); step terms g- 0.99 dB, g+ 0.89 dB; reach at 8.4 V needs the reading within about 2 %. Plot `clamp_step.png` |
+| `2026-09-29-r4-s3-req012-basis` | none (post-processing of r4-p4 and r4-p5) | REQ-SYS-012 basis with the step; the delta; `verdicts.json` of every revision 4 run | Scenario B: 5 W +1/-2.7 dB at 6.4 V, -2.3 dB from 6.7 V; D-9 with the step: no delta of the form. Plot `req012_basis_r4.png` |
+
+Every revision 4 PNG was opened and inspected after rendering (visual closure, 2026-09-29).
 
 ## Runs, revision 3 (2026-09-29, A5 only: WP-PDR-21 in wave W-A of the PDR work plan revision 6)
 
