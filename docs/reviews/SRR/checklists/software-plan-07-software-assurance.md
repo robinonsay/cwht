@@ -27,7 +27,11 @@ product: docs/process/07-software-engineering-plan.md
 # CR-005, SRR close-out item 4); the post-SRR-ruling delta value was dd3372cc7ab9b488aff2947f3656ffb7f1e1fb62.
 # SRR close-out delta 2 (2026-09-27): review baseline HEAD 68a44ed after delta verification of 106bc3a (07 revision A.7,
 # CR-005 amendment 1, SRR close-out item A); the SRR close-out delta value was 3b45ed7936c2e08ca53feaf080a57271c8dd2261.
-product_commit: "68a44edf4f21fa69ead0ec0b67c9c04d497e2360"
+# CR-010 delta (2026-09-29, software assurance, CR-010 section 5 step 5): product_commit is 5cd87cf, the CR-010 change set on
+# branch cr/CR-010-apply-srr-decisions-9-and-40 (base ab2af2d), the commit INSP-010 names at its CR-010 delta; the 07 blob
+# equals git rev-parse <rev>:<path> at 5cd87cf and at the branch head e54ce91; main holds it only after the CR-010 merge.
+# The SRR close-out delta 2 value was 68a44edf4f21fa69ead0ec0b67c9c04d497e2360.
+product_commit: "5cd87cff741653c1f3746029d66c7d42c5a0b1d2"
 # re-issue 2026-09-26 (package item R8, no further product review): both blobs re-checked equal to git rev-parse HEAD:<path>
 # and git hash-object at HEAD 1af795c; git log adcfe09..HEAD on both paths is empty
 # post-SRR-ruling delta: 07 blob d0f8baf6 (iteration 3 and R8) replaced by 37d472b5 (4364ebb); measurements.json unchanged;
@@ -36,9 +40,11 @@ product_commit: "68a44edf4f21fa69ead0ec0b67c9c04d497e2360"
 # git rev-parse HEAD:<path> at 3b45ed7
 # SRR close-out delta 2: 07 blob a9f92d82 replaced by bfe05f43 (106bc3a); measurements.json unchanged; both equal
 # git rev-parse HEAD:<path> at 68a44ed
-product_files: ["docs/process/07-software-engineering-plan.md@bfe05f4327e79fa15c24d2cf8c14249804f946a8", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b"]
+# CR-010 delta: 07 blob bfe05f43 replaced by 3ae7d73b (5cd87cf, revision A.8); measurements.json unchanged (5e2d1755); both
+# equal git rev-parse <rev>:<path> at 5cd87cf and e54ce91 (2 of 2)
+product_files: ["docs/process/07-software-engineering-plan.md@3ae7d73b01810e47fd10251d798e0a047aaa72dd", "docs/plan/measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b"]
 # inputs read (not reviewed): hazards.json 0.4.0-pha, 03 third revision, rmm.json, hazard-analysis.md 0.4.0-pha
-input_files: ["docs/safety/hazards.json@89d0cbc323b2775d326cf7cd42bc637818ec96eb", "docs/process/03-software-classification-and-rmm.md@c87abe5a09985c3f0a3adb74e17386cc61d731b4", "docs/process/rmm.json@3645b4f682cba38373f0fca55beb190ded36c032", "docs/process/03-software-classification-and-rmm.md@fdc8d0764e7ee513a05215de7dfb580687b721d4 (iteration 2)", "docs/process/rmm.json@78c3b2364473e0676f8b5405ecd9f8536715bea1 (iteration 2)", "docs/safety/hazard-analysis.md (0.4.0-pha, working tree)", "docs/safety/hazard-analysis.md@b5ce99e93b96b6a2654f7cbe9ac5e23b8a2e1dbb (iteration 3)", "docs/risk/register.json@57f64995da80f0d20e6232039b6cba897d46c51b (iteration 3)", "tools/sw_gate.sh (iteration 3, HEAD)", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@0f4cca4cb1e2562af05a7c435f41e6ba82d17f26 (post-SRR-ruling delta)", "docs/reviews/SRR/decisions-for-owner.md@a8931d91253462b687aefd2de715e1adaf0fee45 (post-SRR-ruling delta)", "docs/reviews/SRR/decision-memo.md@f682d026250bb9fc64c48fd7c2774c1f817c561a (post-SRR-ruling delta)", "docs/reviews/SRR/checklists/software-plan-07.md (INSP-010, post-SRR-ruling delta, HEAD)", "docs/cm/cr/CR-005-complexity-counting-convention.md@b1b197ab9890cf97406f65a765d805a7a9a97c09 (SRR close-out delta)", "docs/reviews/SRR/minutes.md@643a09c400319a2ae05cf2aa3f89ba5d68898ea8 (SRR close-out delta)", "tools/complexity_gate.py@9cdc91959b06ca3f39142b0afcf85b9a64f719b1 (SRR close-out delta)", "docs/cm/tool-validation/TV-012-complexity-gate.md@e4e042cc1165092a5a81a55840f6349defca0f64 (SRR close-out delta)", "docs/vv/reports/TC-SW-TOOL-001-r5.md@ffe44ed250a5bc0925e738b9342431e5981cef02 (SRR close-out delta)", "firmware/cwht-app/src/main.rs@e32006a582bc49af6b2b12e8856015173210afd0 (SRR close-out delta)", "docs/cm/cr/CR-005-complexity-counting-convention.md@9b0129efd09e75170a4542d011ff6b1298ad2820 (SRR close-out delta 2)", "docs/reviews/SRR/minutes.md@5a5f4ed611f3aeb86d47a610a65ee6d4e9384518 (SRR close-out delta 2)", "tools/complexity_gate.py@ddf1079847046d52a268e48a6c82180bd84cca6f (SRR close-out delta 2)", "tools/tests/test_complexity_gate.py@8b221f53685ad9a508752c05ccc85983042a9713 (SRR close-out delta 2)", "docs/cm/tool-validation/TV-012-complexity-gate.md@bd99a11dbad66a7f731ead01f56561a8431bfdf8 (SRR close-out delta 2)", "tools/sw_gate.sh@29a37127312e242bce2aa8f41602e3bcd4360f2f (SRR close-out delta 2)"]
+input_files: ["docs/safety/hazards.json@89d0cbc323b2775d326cf7cd42bc637818ec96eb", "docs/process/03-software-classification-and-rmm.md@c87abe5a09985c3f0a3adb74e17386cc61d731b4", "docs/process/rmm.json@3645b4f682cba38373f0fca55beb190ded36c032", "docs/process/03-software-classification-and-rmm.md@fdc8d0764e7ee513a05215de7dfb580687b721d4 (iteration 2)", "docs/process/rmm.json@78c3b2364473e0676f8b5405ecd9f8536715bea1 (iteration 2)", "docs/safety/hazard-analysis.md (0.4.0-pha, working tree)", "docs/safety/hazard-analysis.md@b5ce99e93b96b6a2654f7cbe9ac5e23b8a2e1dbb (iteration 3)", "docs/risk/register.json@57f64995da80f0d20e6232039b6cba897d46c51b (iteration 3)", "tools/sw_gate.sh (iteration 3, HEAD)", "docs/cm/cr/CR-001-cs11-cs38-driver-construction-arms.md@0f4cca4cb1e2562af05a7c435f41e6ba82d17f26 (post-SRR-ruling delta)", "docs/reviews/SRR/decisions-for-owner.md@a8931d91253462b687aefd2de715e1adaf0fee45 (post-SRR-ruling delta)", "docs/reviews/SRR/decision-memo.md@f682d026250bb9fc64c48fd7c2774c1f817c561a (post-SRR-ruling delta)", "docs/reviews/SRR/checklists/software-plan-07.md (INSP-010, post-SRR-ruling delta, HEAD)", "docs/cm/cr/CR-005-complexity-counting-convention.md@b1b197ab9890cf97406f65a765d805a7a9a97c09 (SRR close-out delta)", "docs/reviews/SRR/minutes.md@643a09c400319a2ae05cf2aa3f89ba5d68898ea8 (SRR close-out delta)", "tools/complexity_gate.py@9cdc91959b06ca3f39142b0afcf85b9a64f719b1 (SRR close-out delta)", "docs/cm/tool-validation/TV-012-complexity-gate.md@e4e042cc1165092a5a81a55840f6349defca0f64 (SRR close-out delta)", "docs/vv/reports/TC-SW-TOOL-001-r5.md@ffe44ed250a5bc0925e738b9342431e5981cef02 (SRR close-out delta)", "firmware/cwht-app/src/main.rs@e32006a582bc49af6b2b12e8856015173210afd0 (SRR close-out delta)", "docs/cm/cr/CR-005-complexity-counting-convention.md@9b0129efd09e75170a4542d011ff6b1298ad2820 (SRR close-out delta 2)", "docs/reviews/SRR/minutes.md@5a5f4ed611f3aeb86d47a610a65ee6d4e9384518 (SRR close-out delta 2)", "tools/complexity_gate.py@ddf1079847046d52a268e48a6c82180bd84cca6f (SRR close-out delta 2)", "tools/tests/test_complexity_gate.py@8b221f53685ad9a508752c05ccc85983042a9713 (SRR close-out delta 2)", "docs/cm/tool-validation/TV-012-complexity-gate.md@bd99a11dbad66a7f731ead01f56561a8431bfdf8 (SRR close-out delta 2)", "tools/sw_gate.sh@29a37127312e242bce2aa8f41602e3bcd4360f2f (SRR close-out delta 2)", "docs/cm/cr/CR-010-apply-srr-decisions-9-and-40.md (main, CR-010 delta)", "docs/process/03-software-classification-and-rmm.md@1e03b873b404deeaa86ba2393806cda74996187d (CR-010 delta)", "docs/safety/hazards.json@81cacde47d4f2066ecac3947f3acf65e646b1ad0 (CR-010 delta)", "docs/safety/hazard-analysis.md at 5cd87cf (CR-010 delta)", "docs/reviews/SRR/decision-memo.md@110102bf003f1c4c28cc9365c9af7dee39e79abd (CR-010 delta)", "docs/reviews/SRR/checklists/software-plan-07.md@1420433b6f49b4b681e67817b89be90f7735e83e (INSP-010, CR-010 delta)"]
 product_size: 07 revision A.3, 23 sections and annexes A to D, 960 lines; measurements.json 47 records (MSR-01 to MSR-28; 32 Measured, 15 Not yet measured)
 sprint: SRR-prep
 author_agent: "author:software-plan (Claude software lead; 07 revision A.3 of 2026-09-25 and the SRR seed of measurements.json, SRR items H14 07 part and H16 SWE-089)"
@@ -77,6 +83,10 @@ assurance_verdict: APPROVED
 # SRR close-out delta 2: APPROVED (with liens finding-8, finding-9, finding-11). 106bc3a applies close-out item A
 # (CR-005 amendment 1) correctly and closes finding-10; paired INSP-010 reviewer_verdict APPROVED on the same blobs
 # (c8a5143). See "SRR close-out delta 2".
+# CR-010 delta (2026-09-29): APPROVED (with liens finding-8, finding-9, finding-11). 5cd87cf (07 A.8) states SRR decisions 9
+# and 40 in 20 changed line groups; no SWE-134 item, component set, criteria union or safety-critical classification changes;
+# no new finding. The record is committed on the CR branch, so the blob and the record reach main together in the merge
+# commit (CR-010 section 5 steps 5 and 6). Paired INSP-010 reviewer_verdict APPROVED on the same blob (e54ce91).
 verdict: APPROVED
 findings_major: 3
 # SRR close-out delta 2: + finding-11 (Minor, lien due PDR); finding-10 Verified (closed by 106bc3a)
@@ -92,11 +102,13 @@ assurance_tasks_applied: [swe-013 7.1 task 1, swe-013 7.1 task 2, swe-022 7.1 ta
 deferred_rids: []
 items_no: [R1, R3, CK-REQ-G1, CK-REQ-G3, CK-REQ-G4, CK-REQ-G6, CK-REQ-G7, SA-013-1, SA-013-2, SA-089-1, SA-134-1, SA-134-4, SA-134-6, SA-220-1]
 # effort: iteration 1 (44 turns, 65 min), iteration 2 (28, 35), iteration 3 (30, 35), re-issue (package item R8) (6, 15),
-# post-SRR-ruling delta (package item R16) (12, 25), SRR close-out delta (22, 40), SRR close-out delta 2 (24, 40)
-effort_turns: 166
-effort_minutes: 255
+# post-SRR-ruling delta (package item R16) (12, 25), SRR close-out delta (22, 40), SRR close-out delta 2 (24, 40),
+# CR-010 delta (14, 30)
+effort_turns: 180
+effort_minutes: 285
 record_status: Open
 date: 2026-09-25
+date_updated: 2026-09-29
 date_closed: null
 ---
 
@@ -621,4 +633,71 @@ NEW: finding-11 (Minor, lien due PDR): 07 s8.4 line 356 and Annex C line 972 sti
 PRODUCT: 07@bfe05f4327e79fa15c24d2cf8c14249804f946a8, measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b (equal to HEAD, 2/2)
 PAIRING: INSP-010 reviewer_verdict APPROVED on the same blobs (c8a5143); its verdict follows by copy (X-9)
 MEASUREMENTS (delta): turns=24; minutes=40; cumulative turns=166, minutes=255
+```
+
+## CR-010 delta (iteration 3 re-issue, software assurance, 2026-09-29, branch `cr/CR-010-apply-srr-decisions-9-and-40`)
+
+**Scope and independence.** Written by a new invocation in the software assurance reviewer role (`sa-reviewer:software-plan`), dispatched for CR-010 section 5 step 5 (WP-PDR-55 merge batch 1; plan rule C4; 07 sections 2.1.1 and 10.2). This invocation authored no part of CR-010, its change set `5cd87cf`, its impact reviews, INSP-037, INSP-050, or the step 5 record deltas at `e54ce91` (INSP-009, INSP-010, INSP-006), and it edited no product file. Earlier sections are history and are not rewritten. Convergence rule (charter section 4 item 3; plan rule C1): only open Major findings change products; a new Minor finding would be a lien.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` ran before any manual search (query: INSP-017 and INSP-018 record deltas, software assurance checklist verdict and product blob). `git diff`, `git show`, `grep` and read-only Python were used afterwards only to pin lines.
+
+**Configuration reviewed.** `git log ab2af2d..e54ce91 -- docs/process/07-software-engineering-plan.md docs/plan/measurements.json` lists one commit, `5cd87cf` (07 revision A.8; `measurements.json` unchanged). 07 blob `bfe05f43` becomes `3ae7d73b01810e47fd10251d798e0a047aaa72dd`; `measurements.json` stays `5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b`. Both equal `git rev-parse <rev>:<path>` at `5cd87cf` and at the branch head `e54ce91` (2 of 2). `main` has not changed 07 since `ab2af2d`.
+
+**Delta verification under the assurance lens, every changed line group read (`ab2af2d` against `5cd87cf`, 20 groups).**
+
+| Location (line at `3ae7d73b`) | Change | Assurance check | Result |
+|---|---|---|---|
+| Section 3.1 (150) | WP-SW-14 in the FW-B1 driver set, "required since SRR decision 40 adopted REQ-SYS-182" | Decision 40 memo line 213 "Adopt with the 10 kHz window and 100 ms" | Correct |
+| Section 5 item 5 (215) | The set frequency is safety-critical state owned by one module without the decision 9 condition | Decision 9 memo line 214 concurs with frequency control safety-critical; the partitioning rule (CS-39) is unchanged | Correct |
+| Section 12 S1 row (543) | The frequency-word path, frequency verification unit and menu override command path named without condition | Same three rows as section 14.1 | Correct |
+| Section 14.1 lead and owner-decision paragraphs (581, 583) | Record the owner's concurrence, quote decision 9 verbatim, state decision 40; the decline paths are removed; the partitioning alternative stays open to the PDR architecture with the owner's concurrence at the PDR re-run | Quote equals memo line 214; decision 40 wording equals memo line 213. The alternative changes the set only through an owner act as SMA TA, so no safety-critical element can leave the set by an engineering decision alone | Correct |
+| Section 14.1 rows (594, 597 to 601) | "Proposed" and the "exists only with REQ-SYS-182" and "conditional" qualifiers removed; drivers row names WP-SW-14 and the frequency counter | Table read column by column: the same 14 rows; the module, hazards and criteria columns (for example `SW-SAFE` a, b, c, e; frequency-word path and verification unit HZ-008, a, c, e; menu override command path a) are unchanged | Correct: no component enters or leaves the safety-critical set and no criteria union changes |
+| Section 14.1 mission-critical and Neither paragraphs (603, 605, 607) | Decline branch ("`SW-SYNTH` as a whole if package decision 9 does not concur") removed; "Proposed" dropped | The mission-critical and Neither lists keep their members | Correct |
+| Section 14.2 row d paragraph (618) | "whatever the PDR architecture decides for" the menu override command path | Row d and CS-39 still apply in both outcomes, which is what finding-1 required | Correct |
+| Section 14.2 rows h and i (622, 623) | REQ-SYS-182 without condition; "adopted by SRR decision(s) 38, 39, 40"; the decline branch of `hazard-analysis.md` section 8.3 "does not apply" | Memo lines 211 to 213 adopt decisions 38, 39 and 40. The requirements and provision columns keep their REQ-SW-SAFE-008 and 009 ids | Correct. The row i "181 is a 07 addition" label (finding-9) is still present and is fixed by CR-013 |
+| Section 14.2 module rows (642 to 646) | `SW-SYNTH` frequency-word path, menu override command path and frequency verification unit rows lose "Proposed" and the decline sentence | SWE-134 item sets read cell by cell: frequency-word path a, b, f, g, h, i, k, l; menu override command path a, d, e, g, i, k; verification unit a, b, f, g, h, i, k, l; `SW-SYNTH` outside the word path a, b, e, g, k: all unchanged | Correct: SWE-134 allocation unchanged |
+| Section 19 (787), section 21 RSK-013 (808) | WP-SW-14 required, needed by FW-B1 | Consistent with sections 3.1 and 14.1 | Correct |
+| Section 22 rows (855, 858, 863) | Menu override, frequency-control and tool-constant rows marked done for 07, 03 and `rmm.json` by CR-010; the remaining items named with owners and "PDR freeze F1" | The remaining items (charter decision 40 citation, SEMP section 7.1, `hazards.json` OQ-SAF-014) are real and owned | Correct |
+| Section 23 revision row A.8 (886) | New row | Accurate list of the changes; reads "pending CR-010 disposition" (observation O-2) | Correct |
+
+No hunk goes beyond decisions 9, 38, 39 and 40 and CR-010 section 1.2; no TBD and no em dash is added. The safety-critical classification of 07 (07 section 2.1.1 "Software plans" row; the safety-critical provisions of sections 9.5, 9.6 and 14) is unchanged. Two conditional phrases tied to decision 40 remain in section 14.2 row a (line 615) and the `SW-TXSEQ` module row (line 633); they are INSP-050 finding-2 (Minor lien), concurred, not raised again.
+
+**Software assurance tasks at this delta.** SA-134-1 Yes (items a to l allocated, allocation unchanged); SA-134-4 Yes (the menu override command path safety-critical by decision 9; CS-39 isolation rule unchanged); SA-134-6 Yes (section 14.1 hazards equal `hazards.json` 0.5.0-pha `firmware_role`, whose criteria and `swe134_items` equal 0.4.2-pha for all 15 hazards; HZ-008 components now cite decisions 9 and 40); SA-013-1, SA-013-2, SA-089-1, SA-219-1 and SA-220-1 Yes as at close-out delta 2 (the SWE-219 and SWE-220 scope now names the three decided components without condition). Readiness R1 to R4 Met, R5 N/A.
+
+**Disposition of every finding (supersedes the earlier tables; record state rule of `tools/validate_docs.py`).**
+
+| Finding | Severity | State | Evidence at `3ae7d73b` |
+|---|---|---|---|
+| finding-1 | Major | Verified | Closed since iteration 2; decision 9 concurred with the fix option (3) row, now determined |
+| finding-2 | Major | Verified | Closed since iteration 2; module rows unchanged in their item sets |
+| finding-3, finding-4, finding-5, finding-6, finding-7 | Minor | Verified | Closed; untouched by CR-010 |
+| finding-8 | Minor | Lien: fix before PDR | Section 22 row "Paired assurance record fields" untouched by CR-010 (fixed on the CR-013 branch) |
+| finding-9 | Minor | Lien: fix before PDR | Section 14.2 row i label untouched in its "07 addition" words (fixed on the CR-013 branch) |
+| finding-10 | Major | Verified | Closed at close-out delta 2 (`106bc3a`); CS-38 untouched by CR-010 |
+| finding-11 | Minor | Lien: fix before PDR | Section 8.1, 8.4 G5 and Annex C untouched by CR-010 (fixed on the CR-013 branch) |
+
+No Major finding is open, and no new finding is raised.
+
+**Pairing (07 section 10.2).** INSP-010 was read after these checks. At `e54ce91` it names 07 `3ae7d73b` with `product_commit` `5cd87cf` and reads `reviewer_verdict: APPROVED`, no new finding. Its `assurance_verdict` was copied from this record as filed on `main`; this delta returns APPROVED on the same blob, so INSP-010's copy and verdict stand with no touch.
+
+**Observations (not findings).**
+- **O-1 (CR-010 section 9 verifier).** After this commit, no record on the CR-010 branch names a pre-change CR-010 blob. INSP-009 and INSP-010 copy the assurance verdicts of INSP-017 and INSP-018, and both deltas return APPROVED on the blobs those records name, so neither needs a touch for the copy.
+- **O-2 (07 author).** Revision row A.8 reads "pending CR-010 disposition" and names CR-010 "Submitted"; CR-010 has been Approved since 2026-09-28. A product edit now would restart step 5; the next 07 revision states the merged state.
+
+**Commands run (2026-09-29, branch worktree at `e54ce91` plus the INSP-017 and INSP-018 edits, `/Users/robinonsay/rust/cwht/.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` | 0 | 50 passed, 0 failed, 50 checked; INSP-017 and INSP-018 now PASS (the two failures of the step 5 commit `e54ce91` are gone) |
+| `tools/traceability.py --report-only --output <scratchpad>` | 0 | 245 requirements, 173 test cases, 0 violations, 2 warnings (REQ-SYS-125, REQ-SYS-148); no repository report file written |
+| `tools/render_rmm.py --check` | 0 | 100 rows; FC 75, T 17, NA 8; In place 40; `rmm.md` current |
+| `-m unittest discover -s tools/tests` | 0 | 424 run, OK, 3 skipped (the branch base `ab2af2d` has no `test_ltspice_batch`, so the shared LTspice lock was not involved) |
+
+```
+CR-010 DELTA (2026-09-29, software assurance, iteration 3 re-issue): VERDICT: APPROVED (with liens finding-8, finding-9, finding-11)
+PRODUCT: 07@3ae7d73b01810e47fd10251d798e0a047aaa72dd, measurements.json@5e2d1755c6ad43d1c3cdf6fae0ff0edbfeb7346b (5cd87cf; equal at e54ce91, 2/2)
+DELTA: 5cd87cf (07 A.8) states SRR decisions 9, 38, 39 and 40; SWE-134 items, component sets, criteria unions and the safety-critical classification unchanged
+FINDINGS: none new; open Major 0; INSP-050 finding-2 concurred
+PAIRING: INSP-010 reviewer_verdict APPROVED on 3ae7d73b (e54ce91); its copied assurance_verdict stands
+MEASUREMENTS (delta): turns=14; minutes=30; cumulative turns=180, minutes=285
 ```
