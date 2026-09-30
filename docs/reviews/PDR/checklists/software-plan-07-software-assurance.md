@@ -62,7 +62,7 @@ assurance_verdict: APPROVED
 # CR-013 merge commit, or the commit right after it, when blob 0ad37a43 reaches main unchanged and INSP-059
 # is APPROVED. If CR-013 step 4 or 5 (rebase, lien fixes) changes the blob, both records first get a delta.
 # Iteration 2: unchanged; set in the CR-013 merge commit (lead SE ruling (3)), after INSP-059 is paired and APPROVED
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
 findings_minor: 1
 # findings_open: 1 at iteration 1, which contradicted the iteration 1 lien table (finding-1 "Lien (plan rule C1)", the

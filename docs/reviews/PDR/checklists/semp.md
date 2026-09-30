@@ -39,7 +39,7 @@ reviewer_verdict: APPROVED
 assurance_verdict: not-required
 # verdict: held at NEEDS CHANGES while the reviewed blob is on the CR branch only; set APPROVED in the CR-013 merge commit
 # (or the commit right after it) when the SEMP reaches main at blob 2076eb0a
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
 findings_minor: 1
 # re-pin: counts reconciled with the finding tables. The Lien table is the last row of finding-1 and reads "Lien"

@@ -49,7 +49,7 @@ assurance_verdict: APPROVED
 # verdict: held at NEEDS CHANGES (a) until the paired assurance record is APPROVED (07 section 10.2) and (b) while the
 # reviewed blob is on the CR branch only; set APPROVED at or right after the CR-013 merge with blob 0ad37a43 unchanged.
 # Re-pin: hold (a) is met (INSP-073 assurance_verdict APPROVED); hold (b) remains
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
 findings_minor: 3
 # re-pin: counts reconciled with the finding tables. The Lien table is the last row of each finding, and it reads

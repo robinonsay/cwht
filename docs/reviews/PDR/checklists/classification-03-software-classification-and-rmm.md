@@ -60,7 +60,7 @@ assurance_verdict: APPROVED
 # INSP-031 and INSP-033 hold). The SA pair condition of iteration 2 is met (INSP-050 assurance_verdict APPROVED).
 # Re-pin: the software lead sets APPROVED in the CR-013 merge commit, not the CR-010 one (lead SE ruling (3)), when the
 # four named blobs equal git rev-parse HEAD:<path>. main holds 07 3ae7d73b between the two merge commits
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 1
 findings_minor: 6
 findings_open: 0

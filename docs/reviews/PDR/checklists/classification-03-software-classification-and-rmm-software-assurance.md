@@ -66,7 +66,7 @@ assurance_verdict: APPROVED
 # record first gets a delta iteration.
 # Iteration 2 (lead SE ruling (3), 2026-09-29): the software lead sets APPROVED in the CR-013 merge commit, not the
 # CR-010 one; CR-010 and CR-013 merge back to back, and the four blobs above are on main only after the CR-013 merge
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
 findings_minor: 3
 # findings_open: 3 at iteration 1. Iteration 2: 0, because finding-1 to finding-3 are now liens (a lien is not Open;

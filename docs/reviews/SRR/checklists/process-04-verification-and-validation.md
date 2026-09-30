@@ -7,9 +7,11 @@ product: docs/process/04-verification-and-validation.md
 # product_commit: the review baseline HEAD (the product files were last changed at b301df2 (04) and 4e3f891 (docs/vv/README.md))
 # product_commit at the close-out delta (2026-09-26): HEAD 26011f1; the iteration 1 baseline was adcfe0946d2f1b5cd8f41a8f91eb4219a7fb99a1
 # product_commit at the close-out item C delta (2026-09-27): HEAD 08922d9 (was 26011f1)
-product_commit: "08922d986bf59dfc31e1f3c2202ab70bf0c9d0f3"
+# product_commit at the CR-013 delta (2026-09-29): branch cr/CR-013-process-04-07-semp-srr-liens head 41c588c (was 08922d9 on main)
+product_commit: "41c588cddc9a97cec536482dc2bd164e2bf81ea3"
 # product_files: HEAD blobs delta-verified at the post-SRR-ruling delta (2026-09-26, HEAD ebe5873): 04 changed at d992052 (CR-002 step 1, SRR decision 113), CR-002 added at d992052 and reviewed as the change record of that edit; iteration 2 verified 04 blob 76bb24c3f3f43c1f7d3eb1b1be156824488153a8 at 33ac1ce; iteration 1 reviewed 04 blob ecff54d70d1c3bb8c90be0803f4b9720596adfc0 at adcfe09
-product_files: ["docs/process/04-verification-and-validation.md@0b197bba692237ed9860ba49c4422f12fa8512dc", "docs/vv/README.md@878869d346d936e4ad38ef5a51ef18175a0774fa", "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@c007177f7c3a50bc9ad2f0e4fcdeb798f530c045"]
+product_files: ["docs/process/04-verification-and-validation.md@7617007ec517f76c286a15f469dfcd01c5d2cbde", "docs/vv/README.md@878869d346d936e4ad38ef5a51ef18175a0774fa", "docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@c007177f7c3a50bc9ad2f0e4fcdeb798f530c045"]
+# CR-013 delta (2026-09-29, branch head 41c588c): 04 changed at 41c588c (0b197bba, the baseline/srr blob, to 7617007e; CR-013 section 1.1, the liens finding-2, 3, 4 and 9); README and CR-002 unchanged
 # close-out item C delta (2026-09-27, HEAD 08922d9): CR-002 changed at 8b86c16 (36224b45 to c007177f, section 6 independent Class I impact review, SRR close-out item C, RFA-SRR-008); 04 and README unchanged
 # close-out delta (2026-09-26, HEAD 26011f1): CR-002 changed at bf654e6 (73070823 to 36224b45, SRR close-out items 5 and 7); 04 and README unchanged
 product_size: 18 sections (601 lines) plus docs/vv/README.md (35 lines) plus CR-002 (150 lines, delta only)
@@ -26,6 +28,7 @@ readiness_met: true
 # post-SRR-ruling delta (2026-09-26, HEAD ebe5873): CR-002 step 1 verified, no new Major; new Minor finding-6 and finding-7 (CR-002) are liens due PDR; verdict stays APPROVED
 # close-out item C delta (2026-09-27, HEAD 08922d9): 8b86c16 verified (CR-002 section 6 filled by the independent reviewer); new Minor finding-10 is a lien due PDR; no Major open; verdict stays APPROVED
 # close-out delta (2026-09-26, HEAD 26011f1): bf654e6 verified, finding-7 Verified (CR-002 step 5 landed before the tag at c774851); new Minor finding-8 and finding-9 are liens due PDR; no Major open; verdict stays APPROVED
+# CR-013 delta (2026-09-29, branch head 41c588c): finding-2, 3, 4 and 9 Verified on 04 blob 7617007e; no new finding in this record (the product findings of the same blob are INSP-058 finding-1 to 3, not repeated); no Major open; verdict stays APPROVED
 # reviewer_verdict: finding-1 Verified at iteration 2; every Minor finding is "Lien: fix before PDR" (convergence rule of 2026-09-26)
 # verdict: APPROVED (with liens finding-2 to finding-4, fix before PDR) at the re-issue of 2026-09-26 without a further product review;
 # iteration 2 held it at NEEDS CHANGES only on readiness R3 (finding-5), which the author self-check now meets (finding-5 Verified)
@@ -36,7 +39,8 @@ findings_major: 1
 findings_minor: 9
 findings_open: 0
 findings_fixed: 0
-findings_verified: 3
+# findings_verified: 3 (finding-1, 5, 7) before the CR-013 delta; 7 after it (finding-2, 3, 4, 9 added)
+findings_verified: 7
 # the four Minor findings are liens "fix before PDR" (convergence rule of 2026-09-26), listed in the lien table, not Deferred RIDs
 findings_deferred: 0
 assurance_findings_major: 0
@@ -45,8 +49,9 @@ assurance_tasks_applied: []
 deferred_rids: []
 # items_no: R3 answered Yes at the re-issue (finding-5 Verified)
 items_no: [CK-REQ-G1, CK-REQ-G7]
-effort_turns: 117
-effort_minutes: 150
+# effort: 117 turns, 150 minutes before the CR-013 delta, which adds 14 turns and 25 minutes
+effort_turns: 131
+effort_minutes: 175
 record_status: Open
 date: 2026-09-26
 date_closed: null
@@ -473,4 +478,58 @@ COMMITS: 8b86c16 (CR-002 section 6 independent Class I impact review): applies c
 FINDINGS: finding-1, 5, 7 Verified (unchanged); finding-2, 3, 4, 6, 8, 9 Lien (unchanged); new finding-10 Minor, Lien: fix before PDR; open Major 0
 PRODUCT: docs/process/04-verification-and-validation.md@0b197bba, docs/vv/README.md@878869d3, docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@c007177f
 MEASUREMENTS: commits=1; new major=0; new minor=1; verified=0; lien=7; open_major=0; turns=12; minutes=15; cumulative turns=117, minutes=150
+```
+
+## CR-013 delta (reviewer; CR-013 SRR record re-issue; 2026-09-29, branch head `41c588c`)
+
+Written by `reviewer:INSP-021`, a new invocation of this record's reviewer role (plan rule C4), acting also as the WP-PDR-55 configuration manager for the CR-013 merge. It authored no part of CR-013, of WP-PDR-13, of CR-010 or of either branch commit, and it edited no product. Trigger: CR-013 (`docs/cm/cr/CR-013-process-04-07-semp-srr-liens.md`, Class II, Approved 2026-09-28) changes 04 from blob `0b197bba` (`baseline/srr`) to `7617007e`, so this APPROVED record fails the record drift rule (SRR package section 2.3, R13) wherever the new blob is at HEAD. CR-013 section 6.1 IR-F1 asks for this update: the PDR delta record INSP-058 (`docs/reviews/PDR/checklists/process-04-verification-and-validation.md`) verified the same blob but does not change this record's `product_files`. The re-issue is committed on the CR branch, records only, as CR-010 section 5 step 5 does for its records, so that the merge brings the blob and the record that names it into `main` in one commit. Everything above this section stands as recorded.
+
+**Search first.** `mcp__claude-context__search_code` on `/Users/robinonsay/rust/cwht` (query: CR-013 merge batch 1 pre-merge checks section 9 SRR record re-issue) ran before any `grep`; `grep`, `git show`, `git diff` and `git ls-tree` were used afterwards only to pin lines, commits and blobs.
+
+**Commits in scope.** `git log --oneline ab2af2d..41c588c -- docs/process/04-verification-and-validation.md` prints one commit, `41c588c` (the CR-013 prototype, `CR: CR-013`); the CR-010 commit `5cd87cf` does not touch 04. `git log ab2af2d..main` over 04 is empty, so `main` still holds `0b197bba` and the merge brings `7617007e` unchanged. README `878869d3` and CR-002 `c007177f` are unchanged on the branch and on `main` (`git rev-parse` at both). Reviewed blobs at `41c588c`: 04 `7617007e` (603 lines), README `878869d3`, CR-002 `c007177f`.
+
+**Delta verification of `41c588c` against this record's liens (`git diff --word-diff 5cd87cf 41c588c -- docs/process/04-verification-and-validation.md`; line numbers of blob `7617007e`).**
+
+| Finding | Fix at | Checked against | Result |
+|---|---|---|---|
+| finding-2 (a) | Line 82 (section 4 Emulation row) cites `ACC-EMU-001` as "an `ACC-<TOOL>-NNN` identifier of charter section 6 held inside that TV record"; line 602 (C1) reads Resolved against charter `4e3f891` | Charter section 6 on `main` line 111: "`ACC-<TOOL>-NNN` accreditation scope statement, held inside its TV-NNN record (e.g. ACC-EMU-001)" | Verified |
+| finding-2 (b) | Line 82: "`firmware/emu/` (harness, vendoring form and file format fixed by the PDR emulator ADR, 07 sections 1.2 and 9.4)"; `cwht-emu` removed | `git show 41c588c:docs/process/04-verification-and-validation.md \| grep -c cwht-emu` is 0; 07 names no such crate | Verified |
+| finding-3 (a) | Line 150: `sigrok-cli` and the sigrok-pico capture firmware not installed, lock section 1 carries a row for each with its TV due TRR, A13 resolved | `tools/toolchain.lock.md` on `main` lines 47 and 48: both rows "Not installed", "TV pending (due TRR)" | Verified |
+| finding-3 (b) | Line 417 (section 10.6): `tpm.json` registers TPM-019 (`ncr-trend`), preliminary at SRR, owner decides at PDR (SE-40; SEMP F-14; A12 resolved) | `docs/plan/tpm.json` on `main` lines 969 and 970: `TPM-019`, key `ncr-trend` | Verified |
+| finding-3 (c) | Line 523 (section 14 row 4.2) cites RSK-059; line 597 (A10) reads Resolved | `docs/risk/register.json` on `main` line 5129: RSK-059 "No qualification testing at the environmental extremes" | Verified |
+| finding-3 (d) | Line 571 (section 17): 01 section 3.5 labels the rows "Customized (NA)", A14 resolved | 01 on `main` line 141: "**Customized (NA):** the item is omitted for an institutional or physical reason" | Verified |
+| finding-4 (a) | Lines 278 and 281 (rows 7.3.2 and 7.3.5): due PDR, re-dated in line with 02 T-19; row 7.3.2 states the SRR report gave the retired count (2) without the list | 02 section 8.5 row T-19 on `main` line 559, Due column "PDR"; `docs/reviews/SRR/traceability-report.md` "Requirements Retired: 2", no list; `tools/traceability.py` on `main` has no `VAL_PHASE_MISSING` (grep count 0), so the rows are correctly not marked implemented | Verified |
+| finding-4 (b) | Line 262 and the `unittest` row: re-observed 2026-09-27 at `main` `7bb994f` in a clean worktree, tool blob `12de3545` committed at `c774851` | `git rev-parse 7bb994f:tools/traceability.py` and `c774851:tools/traceability.py` both `12de3545`; `git log 7bb994f..main -- tools/traceability.py` is empty, so the observation still describes the tool on `main`. The file count "16" is wrong (15 modules at `7bb994f`): INSP-058 finding-1, not repeated | Verified (with INSP-058 finding-1 carried there) |
+| finding-4 (c) | Line 99 (section 4 tool accreditation): `tools/ltspice-batch.sh` (ADR-018; `41d150e`; `tools/tests/test_ltspice_batch.py`; TV-014, not accredited on 2026-09-27) | `git ls-tree main`: `tools/ltspice-batch.sh`, `tools/tests/test_ltspice_batch.py` and `docs/cm/tool-validation/TV-014-ltspice-batch.md` exist; `41d150e` is "tool(ltspice): add the headless LTspice batch wrapper" | Verified |
+| finding-9 | Line 282 (row 7.3.6): the Inspection route "Implemented, no longer open", accepted by `HAZARD_REQ_NOT_TESTED` since `c774851` (CR-002 step 5; `InspectionRouteTests`); line 7 header note records CR-002 step 5; the `HAZARD_INVERSE` promotion stays open and names CR-011 | `tools/tests/test_traceability.py` on `main` line 283 `class InspectionRouteTests`; CR-002 section 5 numbers the tool change step 5. The sentence sits in the "Open task" column, not the "Check codes today" column the finding named: INSP-058 finding-2 (placement, Minor), not repeated | Verified (placement remainder carried by INSP-058 finding-2) |
+
+**Rest of the diff.** The other hunks (header Status, the CR-013 change note, rows 7.3.4, 7.3.11, 7.3.12 and the option sentence naming CR-011, section 12 target-only entries, section 18 A3 and A4 re-dated) were read for new defects. The only one of weight is the 7.3.4 Due cell, which moves `CLOSED_NOT_INSTALLED` from CDR to PDR: INSP-058 finding-3 and CR-013 section 6.1 IR-F3, both open and not repeated here. The A3 and A4 statements hold on `main` (`rmm.json` `meta` has no NPR 8705.2 note; row SWE-071 still names the planned stale-test option). 0 em dashes in blob `7617007e`; no bare `TBD`, "as appropriate" or "should consider" added. No new Major.
+
+**Effect on earlier findings.** finding-2, finding-3, finding-4 and finding-9 move from Lien to Verified (the SRR liens this record carried against 04 are closed on blob `7617007e`). finding-6, finding-8 and finding-10 are defects of the CR-002 record, not of 04; CR-013 section 1.4 routes them to WP-PDR-47 (carried item C-096), and they stay liens. finding-1, finding-5 and finding-7 stay Verified.
+
+**Lien table (CR-013 delta).**
+
+| Finding | Severity | Disposition | Owner | Due |
+|---|---|---|---|---|
+| finding-6 | Minor | Lien: fix before PDR | CR-002 originator (Claude); WP-PDR-47 | PDR readiness declaration |
+| finding-8 | Minor | Lien: fix before PDR | CR-002 originator (Claude); WP-PDR-47 | PDR readiness declaration |
+| finding-10 | Minor | Lien: fix before PDR | CR-002 originator (Claude, configuration manager); WP-PDR-47 | PDR readiness declaration |
+
+**Validity of this re-issue.** The record names 04 blob `7617007e`. If the CR-013 author changes 04 before the merge (CR-013 section 6.1 IR-F2 re-observation of section 7.4, or IR-F3 on row 7.3.4), this record fails the drift rule again and needs a further delta by this role before the merge.
+
+**Tool runs (2026-09-29, CR-013 worktree at `41c588c` plus this edit, `.venv/bin/python`).**
+
+| Command | Exit | Result |
+|---|---|---|
+| `tools/validate_docs.py` (before this section) | 1 | 43 passed, 7 failed; this record fails the drift rule on 04 `0b197bba` |
+| `tools/validate_docs.py` (after this section) | 1 | this record PASS (APPROVED, the three named blobs at HEAD); the remaining failures are the other SRR records of CR-010 and CR-013 (see the CR-013 section 9 pre-merge check) |
+
+**Measurements (delta).** Commits verified: 1 (`41c588c`, 04 part); product hunks checked: 19 in 04 (`git diff -U0`); findings verified: 4 (finding-2, 3, 4, 9); new findings: 0; effort 14 turns, 25 minutes (added to the front matter totals).
+
+```
+CR-013 DELTA (2026-09-29, branch cr/CR-013-process-04-07-semp-srr-liens head 41c588c): VERDICT: APPROVED (with liens)
+COMMITS: 41c588c (CR-013 prototype, 04 part): closes finding-2, 3, 4 and 9; no new Major
+FINDINGS: finding-1, 2, 3, 4, 5, 7, 9 Verified; finding-6, 8, 10 Lien (CR-002 record, WP-PDR-47); new 0; open Major 0
+PRODUCT: docs/process/04-verification-and-validation.md@7617007e, docs/vv/README.md@878869d3, docs/cm/cr/CR-002-inspection-for-documentary-requirements.md@c007177f
+MEASUREMENTS: commits=1; new major=0; new minor=0; verified=4; lien=3; open_major=0; turns=14; minutes=25; cumulative turns=131, minutes=175
 ```
