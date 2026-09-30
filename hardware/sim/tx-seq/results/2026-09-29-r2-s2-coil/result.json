@@ -1,0 +1,186 @@
+{
+  "stage": "s2",
+  "run_id": "2026-09-29-r2-s2-coil",
+  "ltspice": {
+    "deck": "coil_tran.cir",
+    "deck_sha256": "fa2cf8cc9d954aa4b73efbfaa20993c5994e5cbe48ba15acd21b7a5e46d07d40",
+    "exit": 0,
+    "log_first_line": "LTspice 26.0.2 for MacOS",
+    "log_warnings": [],
+    "wrapper_provenance": [
+      "ltspice-batch: Wine session of the bottle ended (wineserver -k), no Wine process of it left",
+      "ltspice-batch: result: PASS deck=coil_tran.cir sha256=fa2cf8cc9d954aa4b73efbfaa20993c5994e5cbe48ba15acd21b7a5e46d07d40 version_line='LTspice 26.0.2 for MacOS' ltspice_exit=0 elapsed=5s outputs=[coil_tran.log coil_tran.op.raw coil_tran.raw] outdir=/Users/robinonsay/rust/cwht/hardware/sim/tx-seq/results/2026-09-29-r2-s2-coil"
+    ]
+  },
+  "cases": [
+    {
+      "case": "A_rise_hot",
+      "coil": "std",
+      "v_supply": 4.75,
+      "r_coil": 68.4013,
+      "l_h": 0.06599999999999999,
+      "hold_duty": 0.0,
+      "i_pu": 0.06818181818181818,
+      "t_pu_ms": 3.887039999999957,
+      "t_pu_cf_ms": 3.893442711653729,
+      "i_full_ma": 69.4158524274826,
+      "i_full_cf_ma": 69.40659552569917,
+      "mode": "rise"
+    },
+    {
+      "case": "B_hold_hot",
+      "coil": "std",
+      "v_supply": 4.75,
+      "r_coil": 68.4013,
+      "l_h": 0.19799999999999998,
+      "hold_duty": 0.63,
+      "i_pu": 0.06818181818181818,
+      "t_pu_ms": 11.665150000000002,
+      "t_pu_cf_ms": 11.680328134961188,
+      "i_full_ma": 69.40314150415361,
+      "i_full_cf_ma": 69.39390027191887,
+      "mode": "pwm",
+      "i_hold_ma": 39.61998472593325,
+      "ripple_pct": 2.257045380432122,
+      "i_hold_cf_ma": 39.55250532768908,
+      "t_half_ms": 1.4360499999992726,
+      "t_half_cf_ms": 1.430535519934717,
+      "t_5pct_ms": 3.3720499999978504,
+      "t_5pct_cf_ms": 3.365121890494183
+    },
+    {
+      "case": "D_rise_hot",
+      "coil": "h1",
+      "v_supply": 6.35,
+      "r_coil": 228.0499342,
+      "l_h": 0.220044,
+      "hold_duty": 0.0,
+      "i_pu": 0.020450455363472758,
+      "t_pu_ms": 1.279999999999999,
+      "t_pu_cf_ms": 1.2796039426802077,
+      "i_full_ma": 27.841489762067795,
+      "i_full_cf_ma": 27.84038402996255,
+      "mode": "rise"
+    },
+    {
+      "case": "D_hold_hot",
+      "coil": "h1",
+      "v_supply": 6.35,
+      "r_coil": 228.0499342,
+      "l_h": 0.660132,
+      "hold_duty": 0.9174311926605506,
+      "i_pu": 0.020450455363472758,
+      "t_pu_ms": 3.839097239999987,
+      "t_pu_cf_ms": 3.8388118280406243,
+      "i_full_ma": 27.836380433291197,
+      "i_full_cf_ma": 27.835275542841487,
+      "mode": "pwm",
+      "i_hold_ma": 25.337893898099328,
+      "ripple_pct": 1.5566950370359516,
+      "i_hold_cf_ma": 25.272257426720234,
+      "t_half_ms": 1.7000499999990786,
+      "t_half_cf_ms": 1.6970620309153701,
+      "t_5pct_ms": 5.348049999996399,
+      "t_5pct_cf_ms": 5.341400263719444
+    },
+    {
+      "case": "D_rise_cold",
+      "coil": "h1",
+      "v_supply": 8.4,
+      "r_coil": 130.5726093,
+      "l_h": 0.18003599999999997,
+      "hold_duty": 0.0,
+      "i_pu": 0.02499500099980004,
+      "t_pu_ms": 0.6799999999999992,
+      "t_pu_cf_ms": 0.6782838323862576,
+      "i_full_ma": 64.31858986616135,
+      "i_full_cf_ma": 64.31428927242,
+      "mode": "rise"
+    },
+    {
+      "case": "D_hold_cold",
+      "coil": "h1",
+      "v_supply": 8.4,
+      "r_coil": 130.5726093,
+      "l_h": 0.540108,
+      "hold_duty": 0.6666666666666666,
+      "i_pu": 0.02499500099980004,
+      "t_pu_ms": 2.036564572985767,
+      "t_pu_cf_ms": 2.0348514971587734,
+      "i_full_ma": 64.16246104054149,
+      "i_full_cf_ma": 64.15823132355754,
+      "mode": "pwm",
+      "i_hold_ma": 41.0575538798079,
+      "ripple_pct": 1.3586505816078964,
+      "i_hold_cf_ma": 40.899894208885726,
+      "t_half_ms": 2.3880499999985734,
+      "t_half_cf_ms": 2.3825691736078634,
+      "t_5pct_ms": 7.964049999994477,
+      "t_5pct_cf_ms": 7.959733899195437
+    },
+    {
+      "case": "E_rise_hot",
+      "coil": "h1",
+      "v_supply": 6.110356,
+      "r_coil": 228.0499342,
+      "l_h": 0.220044,
+      "hold_duty": 0.0,
+      "i_pu": 0.020450455363472758,
+      "t_pu_ms": 1.3980799999998637,
+      "t_pu_cf_ms": 1.3904403436836028,
+      "i_full_ma": 26.790792122483253,
+      "i_full_cf_ma": 26.789709858233994,
+      "mode": "rise"
+    },
+    {
+      "case": "E_dc_cold",
+      "coil": "h1",
+      "v_supply": 6.426,
+      "r_coil": 130.5726093,
+      "l_h": 0.540108,
+      "hold_duty": -1.0,
+      "i_pu": 0.02499500099980004,
+      "t_pu_ms": 2.9340799999999163,
+      "t_pu_cf_ms": 2.9332852669354574,
+      "i_full_ma": 49.08428199589243,
+      "i_full_cf_ma": 49.08104696252151,
+      "mode": "dc",
+      "i_hold_ma": 49.20370683511098,
+      "ripple_pct": 5.299810474975281e-05,
+      "i_hold_cf_ma": 49.200431996330884,
+      "t_half_ms": 2.454611207206345,
+      "t_half_cf_ms": 2.449709393044992,
+      "t_5pct_ms": 8.670611207201778,
+      "t_5pct_cf_ms": 8.666794759276817
+    }
+  ],
+  "checks": {
+    "steps": {
+      "expected": 8,
+      "found": 8,
+      "pass": true
+    },
+    "closed_form": {
+      "max_rel_dev": 0.005494415025402377,
+      "limit": 0.03,
+      "pass": true
+    },
+    "ripple": {
+      "max_pct": 2.257045380432122,
+      "limit": 5.0,
+      "pass": true
+    }
+  },
+  "raw": [
+    {
+      "file": "coil_tran.op.raw",
+      "bytes": 724,
+      "sha256": "071556bca000dd1e277e9587c349d0fb38175cc542b589207f217d12f8bc64e6"
+    },
+    {
+      "file": "coil_tran.raw",
+      "bytes": 8010152,
+      "sha256": "49905b7b8b29ae70740f310f9cae3478dbb7b5c018b2cae5f12ece7b88dd73ff"
+    }
+  ]
+}

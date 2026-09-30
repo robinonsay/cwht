@@ -1,6 +1,6 @@
 # hardware/sim/tx-seq: T/R and keying sequence timing, relay drive and hold (WP-PDR-23a)
 
-Block owner: Claude (analysis author). Analysis record: `docs/design/analysis/sequencer-timing.md` (revision 1).
+Block owner: Claude (analysis author). Analysis record: `docs/design/analysis/sequencer-timing.md` (revision 2).
 Question: does the A5 key-down and key-up sequence of TS-012 section 7.3 (revision 6) meet its pass criteria (ramp
 start at least 10 ms after the relay command, lead-in at most 12 ms, key-to-RF at most 15 ms, the frequency check
 finished before PA_EN, clamps held and integrator parked until the ramp start), does the Omron G5V-2 relay really
@@ -18,7 +18,19 @@ table goes into ICD-TX-SW.
 
 ## Runs (2026-09-29)
 
-Revision 1 runs (the record's revision 1; `seq_run.py` as committed reproduces these):
+Revision 2 runs (the record's revision 2; `seq_run.py` as committed reproduces these). Revision 2 fixes the two
+Major findings of the delta iteration: the option E rail floor restated (the REQ-SYS-097 floor of 6.30 V, the
+WP-PDR-21 revision 3 feed bound and its key-down current, a 0.10 V discharge allowance; limiter dropout tightened to
+0.10 V), and the stale-ratio case stated on the ratio's age at the closure:
+
+| Run id | Stage | What | Outputs |
+|---|---|---|---|
+| `2026-09-29-r2-s1-drive` | s1 | As r1-s1 with the 0.10 V limiter dropout and the revision 2 supply points (4.94, 5.09, 5.44, 6.21 V) | `drive_dc.cir`, `.log`, `.raw` (committed if at most 5,000,000 bytes, else `raw.sha256`); `s1-coil-current.png`; `s1-coil-voltage-vs-pack.png` |
+| `2026-09-29-r2-s2-coil` | s2 | As r1-s2; E_rise_hot at the revision 2 pull-in floor (6.11 V) | `coil_tran.cir`, `.log`; `coil_tran.raw` kept in the folder with `raw.sha256` (over the CR-017 C2 limit); `s2-coil-transient.png` |
+| `2026-09-29-r2-s3-operate` | s3 | As r1-s3; option E key-down holds at the restated floors (kd_hot0, kd_hot, kd_lever, kd_cold); check `hold_ratio_closed_form`; the coil's own temperature at the lowest pack | as r1-s3 plus `s3-keydown-hold.png` |
+| `2026-09-29-r2-s4-sequence` | s4 | As r1-s4; K15-E at the restated floor (OPEN), K22-E restated, K20-c and SR-01 on the ratio age; check `p4_feed_current` re-derives the key-down currents from the WP-PDR-21 p4 `.raw` (SHA-256 checked) | as r1-s4 |
+
+Revision 1 runs (kept as the record of revision 1; each folder holds its own script copy):
 
 | Run id | Stage | What | Outputs |
 |---|---|---|---|
@@ -46,15 +58,16 @@ cd /Users/robinonsay/rust/cwht
 
 `seq_run.py` prints every check and verdict. Exit **0** when every check passes and every criterion is PASS, INFO
 or CONDITION; **1** when every check passes and at least one criterion is FAIL or OPEN (the results are valid and
-report it; the revision 1 run exits 1: K1b-A, K1b-B, K9, K19-CD, K20-a, K20-c, K21-CD and K22-CD FAIL, K15-B OPEN, as the record states);
+report it; the revision 2 run exits 1: K1b-A, K1b-B, K9, K19-CD, K20-a, K20-c, K21-CD and K22-CD FAIL, K15-B and K15-E OPEN, as the record states);
 **2** when a check fails (the results must not be used); with `--expect`, **3** when a state differs from
 `expected_states.json`, else 0.
 
 Checks: s1 step count, MOSFET on-resistance and 2N3904 saturation ranges, drop-fit residuals, the limiter branch against its closed form (revision 1); s2 step count, LTspice
 against the closed forms (rise to the must-operate current, hold average, decay) within 3 %, hold ripple at most
 5 %; s3 calibration to 7 ms at the datasheet point, at least 10 accepted parameter sets per coil, the nominal set
-accepted, the model's no-motion limit against the s2 LTspice rise within 1 %, the slope law (revision 1); s4 schedule
-order and the upstream checks.
+accepted, the model's no-motion limit against the s2 LTspice rise within 1 %, the slope law (revision 1), the key-down
+hold ratio against its closed form (revision 2); s4 schedule order, the upstream checks and (revision 2) the key-down
+currents against the WP-PDR-21 p4 `.raw`.
 
 Tools: LTspice 26.0.2 for MacOS through the wrapper (every run exit 0); Python 3.13 repo venv with numpy, scipy,
 matplotlib and spicelib. Developer evidence (05 section 9.1): the scripts have no TV record.
