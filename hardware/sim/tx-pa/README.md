@@ -5,12 +5,13 @@ Question: for each TS-012 finalist (A4: AFT05MS004N with a hand match, no TCXO; 
 what drive reaches the PA across tolerances and the CLK1-to-RF-board coax, what load the chain puts on the Si5351
 CLK1 pin, whether the RA07M1317M input window of 10 to 30 mW is kept (and with what margin to its 30 mW rating), and
 what power reaches the SMA from 6.4 to 8.4 V pack against REQ-SYS-012 (5 W +/-1 dB, 3.97 to 6.30 W) at 25 C and over
-REQ-SYS-114's -10 to +45 C. Current revision of the record: 4 (2026-09-29; A5 only: the two Major findings of the revision 3 review).
+REQ-SYS-114's -10 to +45 C. Current revision of the record: 5 (2026-09-30; A5 only: the Major finding of the delta review of revision 4).
 
 ## Files
 
 | File | What it is |
 |---|---|
+| `run_a5_r5.py` | Revision 5 (A5 only, finding-31 of the delta review of revision 4): runs r5-p4, r5-p5, r5-s5 (below). Imports `run_a5_r4.py`; LTspice only through `tools/ltspice-batch.sh`; `raw.sha256` for every `.raw` over 5,000,000 bytes (CR-017). `run_a5_r5.py all --expect` reproduces and checks every revision 5 verdict |
 | `run_a5_r4.py` | Revision 4 (A5 only, the two Major findings of the revision 3 review): runs r4-s2, r4-p4, r4-p5, r4-s4, r4-s3 (below). Imports `run_a5_r3.py` and `run_pa.py`; LTspice only through `tools/ltspice-batch.sh`; `raw.sha256` for every `.raw` over 5,000,000 bytes (CR-017). `run_a5_r4.py all --expect` reproduces and checks every revision 4 verdict |
 | `run_a5_r3.py` | Revision 3 (A5 only): runs d6, d7, k1, s2, p4, p5, s3 (below). Imports the helpers, inputs and GVA-84+ model of `run_pa.py`; LTspice only through `tools/ltspice-batch.sh`; writes `raw.sha256` for every `.raw` over 5,000,000 bytes (CR-017). `run_a5_r3.py all --expect` reproduces and checks every revision 3 verdict |
 | `run_pa.py` | Deck writer, LTspice runner (only through `tools/ltspice-batch.sh`, ACC-LTSPICE-001), `.raw` reader (spicelib 1.6.3), checker and plotter. `run_pa.py all` reproduces every current run below; exit status in the section below |
@@ -48,6 +49,25 @@ list in `EXPECTED` (the list of the analysis record section 8.1) and exits **3**
 `run_pa.py all` writes every verdict to `results/2026-09-28-r2-s1-summary/verdicts.json`. On 2026-09-28
 `run_pa.py all` exits 1 (checks pass; the fixed-pad drive window, REQ-SYS-012 at the 6.4 V end and the open-loop
 8 W limit fail, as the record reports) and `run_pa.py all --expect` exits 0.
+
+## Runs, revision 5 (2026-09-30, A5 only: delta review of revision 4, Major finding-31)
+
+LTspice 26.0.2 for MacOS through the wrapper; every run exit 0. All values are estimates. The revision 4 runs are the
+inputs, unchanged: r5-s5 re-reads the r4-p4 and r4-p5 `.raw` files after checking them against the committed
+`raw.sha256`, and checks that `run_a5_r4.py` still writes the committed decks. `run_a5_r5.py all` exits 0 (every check
+passes, every criterion is met) and `run_a5_r5.py all --expect` exits 0 against the record section R5.6. The final
+outputs were written by `CWHT_PA_REPLOT=1 run_a5_r5.py all`, which re-read each `.raw` of an unchanged deck; the copies
+of `run_a5_r5.py`, `run_a5_r4.py`, `run_a5_r3.py` and `run_pa.py` in every revision 5 folder equal the committed
+scripts. The r5 decks are the r4 decks with one unit case, a module +1.5 + g- = +2.49 dB above typical read low by g-
+(believed exactly at the +1.5 dB reject threshold), 1944 steps each; their `.raw` files are 2.2 MB and committed.
+
+| Run id | Deck (SHA-256 prefix) | What it does | Result |
+|---|---|---|---|
+| `2026-09-30-r5-p4-power-a5-design` | `power_a5_step.cir` (`0f12e91657dd7c70`) | D-9 8 W ceiling with the per-unit step, the added unit case only | Open loop at most 7.74 W: **PASS**. Pack current with the ALC at its top 3.30 A (25 C key-down), 3.20 A (+45 C). Plot `power_a5_added_case_d9.png` |
+| `2026-09-30-r5-p5-power-a5-clamp-b` | `power_a5_step.cir` (`d60d0198f2099130`) | Clamp scenario B (10 W), the added unit case only | Open loop at most 9.65 W: **PASS**. Pack current 3.68 A (25 C key-down), 3.60 A (+45 C); dissipation 10.37 W. Plot `power_a5_added_case_clampb.png` |
+| `2026-09-30-r5-s5-pass-population` | none (post-processing of r4-p4, r4-p5, r5-p4, r5-p5; Python replica sweep) | The population that passes the reject rule: ceilings, pack current and dissipation per unit and temperature case; replica sweep over the passing region | Ceilings **PASS** (7.736 W, 9.648 W); the added case sets the pack current (replica argmax at +2.49 / -0.99 dB). Plots `pass_population.png`, `pack_current_dissipation.png` |
+
+Every revision 5 PNG was opened and inspected after rendering (visual closure, 2026-09-30).
 
 ## Runs, revision 4 (2026-09-29, A5 only: review of revision 3, Major findings 1 and 2)
 
