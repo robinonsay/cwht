@@ -50,7 +50,7 @@ assurance_verdict: not-required
 # commit of the PDR lien delta 2 reviewer. The reviewed blobs (732a088) exist only on cr/CR-009-l0-conops-srr-liens until the merge. The
 # record verdict is set APPROVED in the CR-009 merge commit, or the commit right after it, when git rev-parse HEAD:<path> equals each
 # product_files blob; a changed blob first needs a further delta.
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 6
 # finding-19 is new at iteration 2; finding-20 to finding-22 are new at iteration 3 (all Minor);
 # finding-18 is withdrawn (disputed accepted) and counted in neither open nor verified;
