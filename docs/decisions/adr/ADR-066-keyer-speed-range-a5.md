@@ -45,7 +45,7 @@ Element and space timing at the keyer test point is within the larger of plus or
 Consequences fixed by the top speed:
 - the envelope's configurable 10-to-90 time never exceeds 8 ms (full transition 13.6 ms, still under a 24 ms dit);
 - the semi break-in hang of 8 dits spans 192 ms at 50 WPM to 1920 ms at 5 WPM;
-- the first-element lead-in of at most 12 ms is hidden in the element pipeline for paddles. For A5 the lead-in is 10 ms, set by the G5V-2 operate time of 7 ms maximum plus bounce and margin (TS-012 section 8.10 row REQ-SYS-160, 161). That is within the 12 ms, so this consequence is unchanged.
+- the first-element lead-in of at most 12 ms is hidden in the element pipeline for paddles. **(Changed for A5.)** TS-012 proposes a lead-in of 10 ms for A5 (TBR, closing with the WP-PDR-23 sequence and timing table), set by the G5V-2 operate time of 7 ms maximum plus bounce and margin (TS-012 section 8.10 row REQ-SYS-160, 161). The WP-PDR-23a record (`sequencer-timing.md` revision 1, Draft) schedules the ramp at 10 ms and finds that the relay drive must change for the contact to close inside it (ADR-061 section 2). Any value within the 12 ms leaves this consequence unchanged.
 
 Any automatic identification memory sends at not more than 20 WPM regardless of the keyer speed (97.119(b)(1)). A5's Morse call-sign announcement at power-on and at headphone insertion (REQ-SYS-006, carried by CR-018) is sent on the PWM tone path to the headphones (TS-012 section 8.7: "Morse sender on the PWM tone path"). It is not a transmission and is not an identification memory.
 
@@ -84,7 +84,7 @@ When this ADR is Accepted, each requirement that cites ADR-024 adds ADR-066 to `
 
 - ICDs affected: none.
 - Design elements created or changed:
-  - The `SW-KEYER` timing engine is driven from TIMER0 alarms (the rustos work package for the timer and alarms, ADR-019; ADR-053), unchanged.
+  - The `SW-KEYER` timing engine is driven from TIMER0 alarms (the rustos work package for the timer and alarms, ADR-019, which ADR-067, Proposed in the same S1 set, restates and supersedes on the S1 disposition; ADR-053), unchanged.
   - **(Changed for A5.)** ADR-024's "UI speed control (press-and-turn or menu, PDR UX item)" becomes item S of the Morse menu (TS-012 section 8.7). It sits in the Morse-menu module that WP-PDR-32 and WP-PDR-35 name (ADR-056 section 4.2), with the speed read-back and the status read-out on the Morse sender. The display and encoder drivers are removed (TS-012 section 8.7, firmware scope).
 - New `SW-<SUB>` modules created by this ADR: none (`SW-KEYER` exists from SRR, ADR-009). `SW-DISPLAY` is removed by ADR-056 (section 4.2).
 - ICDs created by this ADR: none.
@@ -101,6 +101,7 @@ When this ADR is Accepted, each requirement that cites ADR-024 adds ADR-066 to `
   **(Changed for A5.)** TC-SW-KEYER-014 takes the A5 load of REQ-SW-KEYER-014 (the Morse menu sender, the pot scan and the FC0 counter, in place of display frames and encoder detents) with the requirement, carried by CR-018. The speed read-back in Morse, the R/N confirmation and the out-of-range rejection in the menu are allocated with the Morse-menu SW L2 requirements of WP-PDR-35 (HostUnit; no id yet).
 - Evidence class implications: HostUnit primary (simulated clock); Bench confirms on hardware; the paddle watchdog (128 identical elements or 30 s) is tested at both ends of the range.
 - Hazard analysis update required: yes, as ADR-024: HZ-008 control K4 sets the 26 dB bandwidth at 50 WPM, and the HZ-004 controls already reference element counts. The A5 change adds no hazard. Cross item to the WP-PDR-16 hazard author: HZ-004 K4 (the paddle watchdog, REQ-SYS-054 and REQ-SYS-184) stops keying "with the sidetone continuing and an alert shown". ADR-056 section 4.3 gives Morse and LED readings for K1 and K3 but does not list K4, so K4's alert also needs its Morse or LED reading.
+- **(Added for A5 review.)** The stored keyer speed bounds two controls: HZ-008 K4 (the 26 dB bandwidth at 50 WPM) and HZ-004 K4 item (ii) (a key-up interval of 7 dit times at the selected speed). It is not in the configuration guard's list of safety-relevant fields (07 section 14.1 lists "power step, tune level, guest lock, frequency calibration, thermal thresholds, keyer mode, debounce"; HZ-014 K2 gives a similar list, and neither names the keyer speed). The stored speed is range-checked against 5 to 50 WPM at load, as HZ-014 K2 does for its listed fields, and an out-of-range value is replaced by a safe default under that control. Cross item to the 07 author and WP-PDR-35 (the guard's field list and the `SW-CFG` load check) and to the WP-PDR-16 hazard author (HZ-014 K2).
 - Safety-critical software scope (SWE-134 provisions) changed: no, as ADR-024. The Morse-menu override path that the speed setting passes through stays safety-critical (SRR decision 9). That is ADR-056's (section 4.3), not this record's.
 
 ### 4.4 Cost, schedule, risk
@@ -132,7 +133,7 @@ Transcribed from chat into `stakeholder-inputs.md` (ADR-024 section 6). The defa
 - Superseded by: none.
 - Trade study: none for the range (Decision class row); TS-012 for the A5 change (ADR-056).
 - Review where presented: PDR session S1 (OD-10 part 1). ADR-024 was presented at SRR.
-- Related records: ADR-056; ADR-061 (restates ADR-026: the hang in dits of the set speed); ADR-062 (restates ADR-009: the key jack and the keyer); ADR-023, ADR-019, ADR-053; CR-018.
+- Related records: ADR-056; ADR-061 (restates ADR-026: the hang in dits of the set speed); ADR-062 (restates ADR-009: the key jack and the keyer); ADR-023, ADR-019 (restated by ADR-067, the rustos work packages), ADR-053; CR-018.
 - Revisit conditions:
   - The owner asks for 60 WPM: then the envelope maximum and relay lead-in are re-derived by a superseding ADR (as ADR-024).
   - The HITL session moves the default speed (as ADR-024).
@@ -141,3 +142,4 @@ Transcribed from chat into `stakeholder-inputs.md` (ADR-024 section 6). The defa
 ## 8. Change log
 
 - 2026-09-29: created by the technical data manager (WP-PDR-54), on the lead SE ruling of 2026-09-29 on the corrected reading of ruling 1 and on item 4, recorded in ADR-056 section 7. Ruling (c) routes ADR-024 by ruling 2: ADR-024 is contradicted in part (its clause "with the current speed visible on the display while adjusting"), README rule 2 has no partial supersession, so this ADR restates ADR-024 in full with the A5 change and supersedes it on the S1 disposition, as ADR-026 did for ADR-010. Ruling (c) also assigns the number: ADR-060 to ADR-066 are numbered in the order ADR-022, ADR-026, ADR-009, ADR-015, ADR-016, ADR-020, ADR-024. Ruling (d) says they are filed by the lead SE before CR-003 and CR-006 create theirs, each numbered max(existing) + 1 at filing (README rule 1). Ruling (d) also names the review: INSP-134 with its software assurance pair INSP-135. ADR-024's section 8 entries are carried: the SRR decision 106 class row, the SRR decision 111 identification reading, the erratum E-10 reading of the timing tolerance (in section 2), the independent reviewer reading replaced by this record's own review, the hazard stamp 0.5.0-pha, and the verification cases of its WP-PDR-14 reading. The open item on adjustment while sending (section 2) is raised by this record for the reviewer and the lead SE. Author: Claude (technical data manager invocation).
+- 2026-09-29 (fix round 1 of INSP-134 and INSP-135, iteration 1; plan WP-PDR-54, rule C1): the decision is unchanged. INSP-134 finding-4: the 10 ms lead-in is stated as TS-012's TBR proposal and marked. INSP-134 finding-9: the rustos work-package citations name ADR-067 beside ADR-019. INSP-135 finding-7: section 4.3 states that the stored keyer speed, which bounds HZ-008 K4 and HZ-004 K4 (ii), is range-checked at load, and routes the guard field list to the 07 author, WP-PDR-35 and WP-PDR-16. Author: Claude (technical data manager invocation, WP-PDR-54).
