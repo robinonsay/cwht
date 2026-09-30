@@ -42,7 +42,7 @@ readiness_met: true
 # it, once git rev-parse HEAD:<path> equals both product_files blobs; a merge that re-blobs 02 (CR-016, CR-011) needs a delta first.
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
 findings_minor: 8
 findings_open: 1

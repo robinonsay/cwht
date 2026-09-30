@@ -53,7 +53,7 @@ assurance_verdict: APPROVED
 # Iteration 3: (a) now reads: INSP-046 is APPROVED but still names 08 56c54011 and the CR file at 91c8c626; its re-pin delta
 # (software assurance role) must name the same four blobs as this record (07 section 10.2). (b) now reads: the 08 blob is the
 # CR-015 one, so the software lead sets APPROVED on both records in the CR-015 merge commit (or the commit right after it)
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 1
 findings_minor: 2
 # findings_open: 0 at iteration 2; finding-2 and finding-3 (Minor) are liens due the CDR readiness declaration

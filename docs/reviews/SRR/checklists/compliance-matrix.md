@@ -30,7 +30,7 @@ readiness_met: true
 # it, once git rev-parse HEAD:<path> equals both product_files blobs; a merge that re-blobs the matrix needs a delta first.
 reviewer_verdict: APPROVED
 assurance_verdict: not-required
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
 findings_minor: 7
 findings_open: 0

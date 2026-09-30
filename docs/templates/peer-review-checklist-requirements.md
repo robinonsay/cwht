@@ -15,7 +15,7 @@
 # id: next free INSP-NNN (never reused, charter section 6)
 id: INSP-NNN
 checklist: peer-review-checklist-requirements
-checklist_revision: C
+checklist_revision: D
 # checklist_file: this record's own path
 checklist_file: docs/reviews/<REVIEW>/checklists/<product-slug>.md
 # product: exact path, or CR-NNN
@@ -254,7 +254,7 @@ Author agent (not present); reviewer agent; software assurance reviewer where th
 
 ## Completion criteria (SWE-088 b, c)
 
-`verdict: APPROVED` when: readiness R1 to R5 were true; every applicable item answered and the others listed as N/A; for a requirement file or CR, the per-requirement validation table has a row for every requirement in scope with every WR and V1 to V6 cell filled, every `Fail` and every WR failure carried by a finding, and the V2 block names every stakeholder group of 02 section 3.0; zero open Major findings; every Minor finding fixed, or deferred with an owner decision reference and a gate; the front matter is complete with the measurements (SWE-089) filled; where plan section 2.1.1 says Yes the assurance reviewer has returned `APPROVED` (`assurance_verdict`); and `.venv/bin/python tools/validate_docs.py` passes on the record itself. Findings stay Open in the record until the software lead marks them Verified after re-reading the corrected file. On record closure each Deferred finding becomes `RID-<REVIEW>-NNN` in the `rfa-rid-log.json` of its named gate, citing this `INSP-NNN` and the finding id, and is listed in `deferred_rids` (plan section 10.2).
+`verdict: APPROVED` when: readiness R1 to R5 were true; every applicable item answered and the others listed as N/A; for a requirement file or CR, the per-requirement validation table has a row for every requirement in scope with every WR and V1 to V6 cell filled, every `Fail` and every WR failure carried by a finding, and the V2 block names every stakeholder group of 02 section 3.0; zero open Major findings; every Minor finding fixed, or recorded in the record's lien table as a lien with the owner of the fix and its due gate ("Lien: fix before <next gate>"; convergence rule of `docs/process/01-lifecycle-and-reviews.md` section 12.3, charter section 4 item 3), or deferred with an owner decision reference and a gate; the front matter is complete with the measurements (SWE-089) filled; where plan section 2.1.1 says Yes the assurance reviewer has returned `APPROVED` (`assurance_verdict`); and `.venv/bin/python tools/validate_docs.py` passes on the record itself. Findings stay Open in the record until the software lead marks them Verified after re-reading the corrected file. On record closure each Deferred finding becomes `RID-<REVIEW>-NNN` in the `rfa-rid-log.json` of its named gate, citing this `INSP-NNN` and the finding id, and is listed in `deferred_rids` (plan section 10.2).
 
 ## Verdict format (returned by the reviewer)
 

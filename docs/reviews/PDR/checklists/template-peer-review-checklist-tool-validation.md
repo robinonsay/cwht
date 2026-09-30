@@ -43,7 +43,7 @@ assurance_verdict: not-required
 # APPROVED when CR-012 merges with these blobs unchanged (section "Iteration 2", "Record verdict")
 # Iteration 3: the 08 blob is now the CR-015 one, so the verdict is set in the CR-015 merge commit (or the commit right
 # after it), once git rev-parse HEAD:<path> equals all four product_files blobs
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 2
 findings_minor: 1
 # findings_open: 0 at iteration 2; finding-3 (Minor) is a lien due the CDR readiness declaration (PDR work

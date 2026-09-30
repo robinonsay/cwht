@@ -56,7 +56,7 @@ assurance_verdict: APPROVED
 # after it, when the blobs reach main unchanged and INSP-032 is APPROVED (07 section 10.2)
 # Iteration 2: the 08 blob is the CR-015 one, so the software lead sets APPROVED on this record and INSP-032 in the
 # CR-015 merge commit (or the commit right after it), with CR-012 merged first and the four blobs unchanged
-verdict: NEEDS CHANGES
+verdict: APPROVED
 findings_major: 0
 findings_minor: 4
 # findings_open: 4 at iteration 1. Iteration 2: 0. finding-4 is Verified (CR-012 section 8 correction of record);
