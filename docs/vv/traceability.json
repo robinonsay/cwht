@@ -1,16 +1,16 @@
 {
-  "generated": "2026-09-26",
+  "generated": "2026-09-30",
   "tool": "tools/traceability.py",
   "result": "PASS",
   "violations": 0,
   "warnings": 2,
   "counts": {
-    "requirements": 235,
+    "requirements": 244,
     "requirements_retired": 2,
-    "requirements_covered": 235,
+    "requirements_covered": 244,
     "requirements_verified_or_closed": 0,
-    "test_cases": 170,
-    "reports": 2,
+    "test_cases": 174,
+    "reports": 6,
     "hazards": 15,
     "ncrs": 0,
     "expectations": 71,
@@ -18,20 +18,20 @@
   },
   "coverage_by_module": {
     "SYS": {
-      "requirements": 181,
-      "with_any_case": 181,
-      "with_closing_case": 181,
+      "requirements": 189,
+      "with_any_case": 189,
+      "with_closing_case": 189,
       "verified_or_closed": 0,
       "with_children": 32,
-      "open_tbr": 115
+      "open_tbr": 110
     },
     "SW-KEYER": {
-      "requirements": 38,
-      "with_any_case": 38,
-      "with_closing_case": 38,
+      "requirements": 39,
+      "with_any_case": 39,
+      "with_closing_case": 39,
       "verified_or_closed": 0,
       "with_children": 0,
-      "open_tbr": 10
+      "open_tbr": 11
     },
     "TX": {
       "requirements": 16,
@@ -42,12 +42,12 @@
       "open_tbr": 14
     },
     "All": {
-      "requirements": 235,
-      "with_any_case": 235,
-      "with_closing_case": 235,
+      "requirements": 244,
+      "with_any_case": 244,
+      "with_closing_case": 244,
       "verified_or_closed": 0,
       "with_children": 32,
-      "open_tbr": 139
+      "open_tbr": 135
     }
   },
   "measurements": {
@@ -55,15 +55,15 @@
       "name": "Software requirements count by level and status",
       "by_level": {
         "L1": {
-          "Closed": 2,
-          "Draft": 181
+          "Active": 189,
+          "Closed": 2
         },
         "L2": {
-          "Draft": 54
+          "Draft": 55
         }
       },
       "software_by_status": {
-        "Draft": 38
+        "Draft": 39
       }
     },
     "MSR-03": {
@@ -76,32 +76,32 @@
     },
     "MSR-04": {
       "name": "Open TBR count",
-      "software_requirements": 10,
-      "all_requirements": 139
+      "software_requirements": 11,
+      "all_requirements": 135
     },
     "MSR-23": {
       "name": "Test counts by status and class",
       "by_status": {
-        "Draft": 170
+        "Draft": 174
       },
       "by_class": {
-        "Bench": 96,
+        "Bench": 99,
         "HostUnit": 35,
-        "Inspection": 12,
-        "Simulation": 27
+        "Inspection": 15,
+        "Simulation": 25
       },
       "by_class_and_status": {
         "Bench": {
-          "Draft": 96
+          "Draft": 99
         },
         "HostUnit": {
           "Draft": 35
         },
         "Inspection": {
-          "Draft": 12
+          "Draft": 15
         },
         "Simulation": {
-          "Draft": 27
+          "Draft": 25
         }
       }
     }
@@ -266,13 +266,13 @@
       "severity": "WARNING",
       "code": "SYS_UNALLOCATED",
       "location": "docs/requirements/sys/requirements.json REQ-SYS-125",
-      "message": "Draft SYS requirement names no receiving L2 module: no child is a live L2 requirement (child_ids empty); docs/design/allocation.json lists it under no module; the reviewer confirms or corrects the gap in V6 (02 section 2.3, T-18)"
+      "message": "Active SYS requirement names no receiving L2 module: no child is a live L2 requirement (child_ids empty); docs/design/allocation.json lists it under no module; the reviewer confirms or corrects the gap in V6 (02 section 2.3, T-18)"
     },
     {
       "severity": "WARNING",
       "code": "SYS_UNALLOCATED",
       "location": "docs/requirements/sys/requirements.json REQ-SYS-148",
-      "message": "Draft SYS requirement names no receiving L2 module: no child is a live L2 requirement (child_ids empty); docs/design/allocation.json lists it under no module; the reviewer confirms or corrects the gap in V6 (02 section 2.3, T-18)"
+      "message": "Active SYS requirement names no receiving L2 module: no child is a live L2 requirement (child_ids empty); docs/design/allocation.json lists it under no module; the reviewer confirms or corrects the gap in V6 (02 section 2.3, T-18)"
     }
   ]
 }
